@@ -140,62 +140,62 @@ AppBarTheme _appBarTheme(Palette palette) {
 
 TextTheme _textTheme(Palette palette) {
   return TextTheme(
-    headline1: GoogleFonts.epilogue(
+    displayLarge: GoogleFonts.oswald(
       color: palette.black,
       fontWeight: FontWeight.w700,
       fontSize: 36,
       height: 44.27 / 34,
       letterSpacing: -0.7,
     ),
-    headline2: GoogleFonts.epilogue(
+    displayMedium: GoogleFonts.oswald(
       color: palette.black,
       fontWeight: FontWeight.w700,
       fontSize: 26,
       height: 34 / 30,
     ),
-    headline3: GoogleFonts.epilogue(
+    displaySmall: GoogleFonts.oswald(
       color: palette.black,
       fontWeight: FontWeight.bold,
       fontSize: 22,
       height: 22 / 20,
     ),
-    headline4: GoogleFonts.epilogue(
+    headlineMedium: GoogleFonts.oswald(
       color: palette.black,
-      fontWeight: FontWeight.bold,
+      // fontWeight: FontWeight.bold,
       fontSize: 20,
       height: 20 / 20,
     ),
-    headline5: GoogleFonts.epilogue(
+    headlineSmall: GoogleFonts.oswald(
       color: palette.black,
       fontWeight: FontWeight.bold,
       fontSize: 14,
       height: 20 / 20,
     ),
-    bodyText1: GoogleFonts.epilogue(
+    bodyLarge: GoogleFonts.oswald(
       color: palette.black,
       fontWeight: FontWeight.normal,
       fontSize: 17,
       height: 20 / 17,
     ),
-    bodyText2: GoogleFonts.epilogue(
+    bodyMedium: GoogleFonts.oswald(
       color: palette.black,
       fontWeight: FontWeight.normal,
       fontSize: 15,
       height: 21 / 15,
     ),
-    caption: GoogleFonts.epilogue(
+    bodySmall: GoogleFonts.oswald(
       color: palette.black,
       fontWeight: FontWeight.normal,
       fontSize: 15,
       height: 20 / 15,
     ),
-    button: GoogleFonts.epilogue(
+    labelLarge: GoogleFonts.oswald(
       color: Colors.white,
       fontWeight: FontWeight.bold,
       fontSize: 15,
       height: 20 / 15,
     ),
-    overline: GoogleFonts.epilogue(
+    labelSmall: GoogleFonts.oswald(
         color: palette.black,
         fontWeight: FontWeight.normal,
         fontSize: 13,

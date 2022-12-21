@@ -59,6 +59,36 @@ class S {
       args: [],
     );
   }
+
+  /// `EXPLORE AS GUEST`
+  String get explore_as_guest {
+    return Intl.message(
+      'EXPLORE AS GUEST',
+      name: 'explore_as_guest',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CREATE ACCOUNT`
+  String get create_account {
+    return Intl.message(
+      'CREATE ACCOUNT',
+      name: 'create_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SIGN IN`
+  String get sign_in {
+    return Intl.message(
+      'SIGN IN',
+      name: 'sign_in',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

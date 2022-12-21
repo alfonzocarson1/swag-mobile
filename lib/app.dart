@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:swagapp/modules/pages/login/explore_page.dart';
 import 'generated/l10n.dart';
 
 import 'modules/blocs/auth_bloc/auth_bloc.dart';
@@ -41,7 +42,7 @@ class App extends StatelessWidget {
           home: BlocConsumer<AuthBloc, AuthState>(
             builder: (context, state) => state.maybeMap(
                 initial: (_) => const HomePage(),
-                authenticated: (_) => const HomePage(),
+                authenticated: (_) => const ExplorePage(),
                 walkthrough: (_) => const HomePage(),
                 onboarding: (_) => const HomePage(),
                 orElse: () => const HomePage(),
