@@ -19,7 +19,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final FocusNode _codeNode = FocusNode();
   final _emailController = TextEditingController();
   final _codeController = TextEditingController();
-  late bool codeView = false;
+  late bool _codeView = false;
 
   @override
   void dispose() {
@@ -30,7 +30,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   @override
   void initState() {
     super.initState();
-    codeView = widget.codeView ?? false;
+    _codeView = widget.codeView ?? false;
     _emailNode.addListener(() {
       setState(() {
         // _userNameBorder =
@@ -78,7 +78,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       height: 30,
                     ),
                     Text(
-                        codeView
+                        _codeView
                             ? "Please check your email and enter your six digit code below."
                             : "Enter your email to reset your password.",
                         style: Theme.of(context)
@@ -92,10 +92,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     ),
                     CustomTextFormField(
                         autofocus: false,
-                        labelText: codeView ? "Code" : "Email",
-                        focusNode: codeView ? _codeNode : _emailNode,
+                        labelText: _codeView ? "Code" : "Email",
+                        focusNode: _codeView ? _codeNode : _emailNode,
                         accountController:
-                            codeView ? _codeController : _emailController,
+                            _codeView ? _codeController : _emailController,
                         onChanged: (value) {},
                         inputType: TextInputType.text),
                     const SizedBox(
@@ -105,7 +105,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       title: "RESET PASSWORD",
                       onPressed: () {
                         setState(() {
-                          codeView = true;
+                          _codeView = true;
                         });
                       },
                       type: PrimaryButtonType.green,
@@ -114,7 +114,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       height: 30,
                     ),
                     Visibility(
-                      visible: codeView,
+                      visible: _codeView,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -123,7 +123,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                             onTap: () {
                               //Test variable to see dynamic behavior
                               setState(() {
-                                codeView = false;
+                                _codeView = false;
                               });
                             },
                             child: Text("Didn’t get an email?",
@@ -141,7 +141,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                             onTap: () {
                               //Test variable to see dynamic behavior
                               setState(() {
-                                codeView = false;
+                                _codeView = false;
                               });
                             },
                             child: Text("Resend Email.",
