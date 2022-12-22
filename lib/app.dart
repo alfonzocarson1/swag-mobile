@@ -10,6 +10,7 @@ import 'modules/common/utils/palette.dart';
 import 'modules/common/utils/theme.dart';
 import 'modules/di/injector.dart';
 import 'modules/pages/home/home_page.dart';
+import 'modules/pages/splash/splash_page.dart';
 
 class App extends StatelessWidget {
   final GlobalKey<NavigatorState> _homeNavigatorKey = GlobalKey<NavigatorState>(
@@ -41,13 +42,13 @@ class App extends StatelessWidget {
           ],
           home: BlocConsumer<AuthBloc, AuthState>(
             builder: (context, state) => state.maybeMap(
-                initial: (_) => const HomePage(),
-                authenticated: (_) => const ExplorePage(),
+                initial: (_) => const SplashPage(),
+                authenticated: (_) => const HomePage(),
                 walkthrough: (_) => const HomePage(),
                 onboarding: (_) => const HomePage(),
                 orElse: () => const HomePage(),
                 unauthenticated: (_) {
-                  return const HomePage();
+                  return const ExplorePage();
                 }),
             listener: (context, state) => state.maybeMap(
                 // orElse: () => null,
