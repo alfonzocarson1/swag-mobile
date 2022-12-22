@@ -20,10 +20,10 @@ ThemeData appTheme(Palette palette) {
     fontFamily: GoogleFonts.dmSans().fontFamily,
     brightness: palette.brightness,
     primaryColor: palette.light4,
-    accentColor: palette.orange,
+    accentColor: palette.primaryNeonGreen,
     errorColor: palette.errorColor,
     cardColor: palette.light4,
-    buttonColor: palette.orange,
+    buttonColor: palette.primaryNeonGreen,
     dialogBackgroundColor: palette.light3,
     visualDensity: VisualDensity.adaptivePlatformDensity,
   );
@@ -43,11 +43,11 @@ BottomSheetThemeData _bottomSheetThemeData(Palette palette) {
 SliderThemeData _sliderThemeData(Palette palette) {
   return SliderThemeData(
     trackHeight: 3,
-    activeTrackColor: palette.orange,
-    overlayColor: palette.orange.withOpacity(0.3),
+    activeTrackColor: palette.primaryNeonGreen,
+    overlayColor: palette.primaryNeonGreen.withOpacity(0.3),
     inactiveTrackColor: const Color(0xFFD6D2D6),
-    thumbColor: palette.orange,
-    thumbShape: _SliderCircleThumbShape(color: palette.orange),
+    thumbColor: palette.primaryNeonGreen,
+    thumbShape: _SliderCircleThumbShape(color: palette.primaryNeonGreen),
     trackShape: const _SliderTrackShape(),
   );
 }
@@ -61,7 +61,7 @@ IconThemeData _iconThemeData(Palette palette) {
 ButtonThemeData _buttonThemeData(Palette palette) {
   return ButtonThemeData(
     padding: const EdgeInsets.symmetric(vertical: 17.0, horizontal: 24.0),
-    buttonColor: palette.orange,
+    buttonColor: palette.primaryNeonGreen,
     textTheme: ButtonTextTheme.primary,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
   );
@@ -74,7 +74,7 @@ ElevatedButtonThemeData _elevatedButtonTheme(Palette palette) {
         if (states.contains(MaterialState.disabled)) {
           return palette.light1;
         }
-        return palette.orange;
+        return palette.primaryNeonGreen;
       }),
       padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
           const EdgeInsets.symmetric(vertical: 17.0, horizontal: 24.0)),
@@ -98,7 +98,8 @@ TextButtonThemeData _textButtonTheme(Palette palette) {
       overlayColor:
           MaterialStateProperty.all<Color>(palette.light1.withOpacity(0.3)),
       minimumSize: MaterialStateProperty.all<Size>(const Size(88.0, 36.0)),
-      foregroundColor: MaterialStateProperty.all<Color>(palette.orange),
+      foregroundColor:
+          MaterialStateProperty.all<Color>(palette.primaryNeonGreen),
       textStyle: MaterialStateProperty.all<TextStyle>(GoogleFonts.dmSans(
         fontWeight: FontWeight.bold,
         fontSize: 15,

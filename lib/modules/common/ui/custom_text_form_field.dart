@@ -67,7 +67,7 @@ class CustomTextFormField extends StatelessWidget {
                     labelStyle: Theme.of(context)
                         .textTheme
                         .caption!
-                        .copyWith(color: Palette.current.gray6),
+                        .copyWith(color: Palette.current.primaryNero),
                     contentPadding: const EdgeInsets.only(top: 8),
                     border: InputBorder.none,
                     labelText: labelText,

@@ -15,7 +15,7 @@ abstract class Palette {
   final Color chromeYellow;
 
   /// Buttons color
-  final Color orange;
+  final Color primaryNero;
 
   final Color errorColor;
 
@@ -60,7 +60,7 @@ abstract class Palette {
     required this.primaryNeonPink,
     required this.primaryWhiteSmoke,
     required this.chromeYellow,
-    required this.orange,
+    required this.primaryNero,
     required this.errorColor,
     required this.light1,
     required this.light2,
@@ -91,7 +91,7 @@ class LightPalette extends Palette {
           primaryNeonPink: const Color(0xFFFF0096),
           primaryWhiteSmoke: const Color(0xFFF2F2F2),
           chromeYellow: const Color(0xFFFAA613),
-          orange: const Color(0xFFF44708),
+          primaryNero: const Color(0xFF202020),
           errorColor: const Color(0xFFFF3354),
           light1: const Color(0xFFCECACE),
           light2: const Color(0xFFE5E8EA),
