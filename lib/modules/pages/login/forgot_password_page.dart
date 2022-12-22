@@ -6,7 +6,9 @@ import 'package:swagapp/modules/common/utils/palette.dart';
 import '../../common/ui/custom_text_form_field.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
-  const ForgotPasswordPage({Key? key}) : super(key: key);
+  const ForgotPasswordPage({Key? key, this.codeView}) : super(key: key);
+
+  final bool? codeView;
 
   @override
   State<ForgotPasswordPage> createState() => _ForgotPasswordPageState();
@@ -17,7 +19,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final FocusNode _codeNode = FocusNode();
   final _emailController = TextEditingController();
   final _codeController = TextEditingController();
-  bool codeView = false;
+  late bool codeView = false;
 
   @override
   void dispose() {
@@ -28,6 +30,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   @override
   void initState() {
     super.initState();
+    codeView = widget.codeView ?? false;
     _emailNode.addListener(() {
       setState(() {
         // _userNameBorder =
