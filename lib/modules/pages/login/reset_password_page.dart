@@ -6,6 +6,7 @@ import 'package:swagapp/modules/common/utils/palette.dart';
 
 import '../../common/ui/custom_text_form_field.dart';
 import '../../common/utils/size_helper.dart';
+import 'sign_in_page.dart';
 
 class ResetPasswordPage extends StatefulWidget {
   const ResetPasswordPage({Key? key}) : super(key: key);
@@ -42,7 +43,16 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: true,
         backgroundColor: Colors.transparent,
-        appBar: CustomAppBar(),
+        appBar: CustomAppBar(
+          onRoute: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SignInPage(),
+              ),
+            );
+          },
+        ),
         body: GestureDetector(
             behavior: HitTestBehavior.translucent,
             onTap: () {

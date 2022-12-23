@@ -5,6 +5,7 @@ import 'package:swagapp/modules/common/utils/palette.dart';
 
 import '../../common/ui/custom_app_bar.dart';
 import '../../common/ui/custom_text_form_field.dart';
+import 'reset_password_page.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({Key? key, this.codeView}) : super(key: key);
@@ -113,9 +114,19 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         PrimaryButton(
                           title: "RESET PASSWORD",
                           onPressed: () {
-                            setState(() {
-                              _codeView = true;
-                            });
+                            if (!_codeView) {
+                              setState(() {
+                                _codeView = true;
+                              });
+                            } else {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const ResetPasswordPage(),
+                                ),
+                              );
+                            }
                           },
                           type: PrimaryButtonType.green,
                         ),
