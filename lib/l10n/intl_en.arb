@@ -2,5 +2,9 @@
     "app_name": "Swag Golf",
     "explore_as_guest": "EXPLORE AS GUEST",
     "create_account": "CREATE ACCOUNT",
-    "sign_in": "SIGN IN"
+    "sign_in": "SIGN IN",
+    "email": "Email",
+    "password": "Password",
+    "forgot_password": "Forgot Password?",
+    "dont_have_account": "Don’t have an account? *Create Account*"
 }

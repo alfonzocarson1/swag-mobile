@@ -25,8 +25,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "app_name": MessageLookupByLibrary.simpleMessage("Swag Golf"),
         "create_account":
             MessageLookupByLibrary.simpleMessage("CREATE ACCOUNT"),
+        "dont_have_account": MessageLookupByLibrary.simpleMessage(
+            "Don’t have an account? *Create Account*"),
+        "email": MessageLookupByLibrary.simpleMessage("Email"),
         "explore_as_guest":
             MessageLookupByLibrary.simpleMessage("EXPLORE AS GUEST"),
+        "forgot_password":
+            MessageLookupByLibrary.simpleMessage("Forgot Password?"),
+        "password": MessageLookupByLibrary.simpleMessage("Password"),
         "sign_in": MessageLookupByLibrary.simpleMessage("SIGN IN")
       };
 }

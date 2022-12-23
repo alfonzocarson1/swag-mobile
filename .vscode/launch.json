@@ -5,12 +5,30 @@
     "version": "1.0.0",
     "configurations": [
         {
-            "name": "Swag",
+            "name": "Swag Dev",
             "request": "launch",
             "type": "dart",
             "args": [
                 "--flavor",
                 "dev"
+            ]
+        },
+        {
+            "name": "Swag Qa",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--flavor",
+                "qa"
+            ]
+        },
+        {
+            "name": "Swag",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--flavor",
+                "prod"
             ]
         }
     ]

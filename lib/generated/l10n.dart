@@ -89,6 +89,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Email`
+  String get email {
+    return Intl.message(
+      'Email',
+      name: 'email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get password {
+    return Intl.message(
+      'Password',
+      name: 'password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Forgot Password?`
+  String get forgot_password {
+    return Intl.message(
+      'Forgot Password?',
+      name: 'forgot_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Don’t have an account? *Create Account*`
+  String get dont_have_account {
+    return Intl.message(
+      'Don’t have an account? *Create Account*',
+      name: 'dont_have_account',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
