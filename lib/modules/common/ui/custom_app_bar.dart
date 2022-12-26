@@ -4,9 +4,10 @@ import 'package:flutter/services.dart';
 import '../utils/palette.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  CustomAppBar({Key? key, this.height = 50}) : super(key: key);
+  CustomAppBar({Key? key, this.height = 50, this.onRoute}) : super(key: key);
 
   double? height;
+  final VoidCallback? onRoute;
 
   @override
   AppBar build(BuildContext context) {
@@ -18,15 +19,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       automaticallyImplyLeading: false,
       leading: IconButton(
-        icon: Icon(
-          Icons.arrow_back,
-          color: Palette.current.primaryNeonGreen,
-          size: 30,
-        ),
-        onPressed: () {
-          Navigator.maybePop(context);
-        },
-      ),
+          icon: Icon(
+            Icons.arrow_back,
+            color: Palette.current.primaryNeonGreen,
+            size: 30,
+          ),
+          onPressed: onRoute ?? () => Navigator.maybePop(context)),
     );
   }
 
