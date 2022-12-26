@@ -32,6 +32,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("EXPLORE AS GUEST"),
         "forgot_password":
             MessageLookupByLibrary.simpleMessage("Forgot Password?"),
+        "invalid_email":
+            MessageLookupByLibrary.simpleMessage("Invalid email address"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "sign_in": MessageLookupByLibrary.simpleMessage("SIGN IN")
       };

@@ -5,6 +5,7 @@ import 'package:swagapp/modules/common/ui/clickable_text.dart';
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
+import 'package:swagapp/modules/common/utils/utils.dart';
 import 'package:swagapp/modules/pages/login/forgot_password_page.dart';
 
 import '../../common/ui/custom_text_form_field.dart';
@@ -21,6 +22,7 @@ class _SignInPageState extends State<SignInPage> {
   final _emailController = TextEditingController();
   final FocusNode _passwordNode = FocusNode();
   final _passwordController = TextEditingController();
+  String? errorText;
 
   @override
   void dispose() {
@@ -82,21 +84,30 @@ class _SignInPageState extends State<SignInPage> {
                               height: 30,
                             ),
                             CustomTextFormField(
+                                errorText: errorText,
                                 autofocus: false,
                                 labelText: S.of(context).email,
                                 focusNode: _emailNode,
                                 accountController: _emailController,
-                                onChanged: (value) {},
+                                onChanged: (value) {
+                                  setState(() {
+                                    errorText = isValidEmail(value)
+                                        ? null
+                                        : S.of(context).invalid_email;
+                                  });
+                                },
                                 inputType: TextInputType.emailAddress),
                             const SizedBox(
-                              height: 20,
+                              height: 16,
                             ),
                             CustomTextFormField(
                                 autofocus: false,
                                 labelText: S.of(context).password,
                                 focusNode: _passwordNode,
                                 accountController: _passwordController,
-                                onChanged: (value) {},
+                                onChanged: (value) {
+                                  setState(() {});
+                                },
                                 secure: true,
                                 inputType: TextInputType.text),
                             const SizedBox(
@@ -128,7 +139,10 @@ class _SignInPageState extends State<SignInPage> {
                             ),
                             PrimaryButton(
                               title: S.of(context).sign_in,
-                              onPressed: () {},
+                              onPressed: errorText == null &&
+                                      _passwordController.text.isNotEmpty
+                                  ? () {}
+                                  : null,
                               type: PrimaryButtonType.green,
                             ),
                             const SizedBox(

@@ -6,5 +6,6 @@
     "email": "Email",
     "password": "Password",
     "forgot_password": "Forgot Password?",
-    "dont_have_account": "Don’t have an account? *Create Account*"
+    "dont_have_account": "Don’t have an account? *Create Account*",
+    "invalid_email": "Invalid email address"
 }
