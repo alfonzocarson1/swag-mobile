@@ -21,11 +21,14 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final FocusNode _codeNode = FocusNode();
   final _emailController = TextEditingController();
   final _codeController = TextEditingController();
+  Color _emailBorder = Palette.current.primaryWhiteSmoke;
+  Color _codeBorder = Palette.current.primaryWhiteSmoke;
   late bool _codeView = false;
 
   @override
   void dispose() {
     _emailNode.dispose();
+    _codeNode.dispose();
     super.dispose();
   }
 
@@ -35,8 +38,16 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     _codeView = widget.codeView ?? false;
     _emailNode.addListener(() {
       setState(() {
-        // _userNameBorder =
-        //     _emailNode.hasFocus ? Palette.current.orange : Colors.grey;
+        _emailBorder = _emailNode.hasFocus
+            ? Palette.current.primaryNeonGreen
+            : Palette.current.primaryWhiteSmoke;
+      });
+    });
+    _codeNode.addListener(() {
+      setState(() {
+        _codeBorder = _codeNode.hasFocus
+            ? Palette.current.primaryNeonGreen
+            : Palette.current.primaryWhiteSmoke;
       });
     });
   }
@@ -52,6 +63,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
           behavior: HitTestBehavior.translucent,
           onTap: () {
             _emailNode.unfocus();
+            _codeNode.unfocus();
           },
           child: Stack(children: [
             ColorFiltered(
@@ -93,17 +105,16 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                             _codeView
                                 ? "Please check your email and enter your six digit code below."
                                 : "Enter your email to reset your password.",
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineLarge!
-                                .copyWith(
-                                    color: Palette.current.primaryWhiteSmoke,
-                                    fontSize: 16)),
+                            style:
+                                Theme.of(context).textTheme.bodySmall!.copyWith(
+                                      color: Palette.current.primaryWhiteSmoke,
+                                    )),
                         const SizedBox(
-                          height: 30,
+                          height: 20,
                         ),
                         CustomTextFormField(
                             autofocus: false,
+                            borderColor: _codeView ? _codeBorder : _emailBorder,
                             labelText: _codeView ? "Code" : "Email",
                             focusNode: _codeView ? _codeNode : _emailNode,
                             accountController:
@@ -111,7 +122,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                             onChanged: (value) {},
                             inputType: TextInputType.text),
                         const SizedBox(
-                          height: 30,
+                          height: 20,
                         ),
                         PrimaryButton(
                           title: "RESET PASSWORD",
@@ -151,11 +162,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                 child: Text("Didn’t get an email?",
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headlineLarge!
+                                        .bodySmall!
                                         .copyWith(
-                                            color: Palette
-                                                .current.primaryNeonGreen,
-                                            fontSize: 16)),
+                                          color:
+                                              Palette.current.primaryNeonGreen,
+                                        )),
                               ),
                               const SizedBox(
                                 width: 5,
@@ -170,12 +181,12 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                 child: Text("Resend Email.",
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headlineLarge!
+                                        .bodySmall!
                                         .copyWith(
-                                            fontWeight: FontWeight.bold,
-                                            color: Palette
-                                                .current.primaryNeonGreen,
-                                            fontSize: 16)),
+                                          fontWeight: FontWeight.bold,
+                                          color:
+                                              Palette.current.primaryNeonGreen,
+                                        )),
                               ),
                             ],
                           ),

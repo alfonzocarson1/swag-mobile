@@ -44,14 +44,15 @@ class ExplorePage extends StatelessWidget {
                       onTap: () {},
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(S.of(context).explore_as_guest,
                               style: Theme.of(context)
                                   .textTheme
-                                  .headlineMedium!
+                                  .displayMedium!
                                   .copyWith(
-                                    fontWeight: FontWeight.w100,
+                                    fontFamily: "Knockout",
+                                    fontSize: 36,
+                                    fontWeight: FontWeight.w300,
                                     color: Palette.current.primaryWhiteSmoke,
                                   )),
                           const SizedBox(

@@ -141,62 +141,73 @@ AppBarTheme _appBarTheme(Palette palette) {
 
 TextTheme _textTheme(Palette palette) {
   return TextTheme(
-    displayLarge: GoogleFonts.oswald(
+    displayLarge: TextStyle(
+      fontFamily: 'Ringside',
       color: palette.black,
       fontWeight: FontWeight.w700,
       fontSize: 36,
       height: 44.27 / 34,
       letterSpacing: -0.7,
     ),
-    displayMedium: GoogleFonts.oswald(
+    displayMedium: TextStyle(
+      fontFamily: 'Ringside',
       color: palette.black,
       fontWeight: FontWeight.w700,
+      letterSpacing: 0.9,
       fontSize: 26,
       height: 34 / 30,
     ),
-    displaySmall: GoogleFonts.oswald(
+    displaySmall: TextStyle(
+      fontFamily: 'Ringside',
       color: palette.black,
       fontWeight: FontWeight.bold,
       fontSize: 22,
       height: 22 / 20,
     ),
-    headlineMedium: GoogleFonts.oswald(
+    headlineMedium: TextStyle(
+      fontFamily: 'Ringside',
       color: palette.black,
-      // fontWeight: FontWeight.bold,
+      fontWeight: FontWeight.bold,
       fontSize: 20,
       height: 20 / 20,
     ),
-    headlineSmall: GoogleFonts.oswald(
+    headlineSmall: TextStyle(
+      fontFamily: 'Ringside',
       color: palette.black,
       fontWeight: FontWeight.bold,
       fontSize: 14,
       height: 20 / 20,
     ),
-    bodyLarge: GoogleFonts.oswald(
+    bodyLarge: TextStyle(
+      fontFamily: 'Ringside',
       color: palette.black,
       fontWeight: FontWeight.normal,
       fontSize: 17,
       height: 20 / 17,
     ),
-    bodyMedium: GoogleFonts.oswald(
+    bodyMedium: TextStyle(
+      fontFamily: 'Ringside',
       color: palette.black,
       fontWeight: FontWeight.normal,
       fontSize: 15,
       height: 21 / 15,
     ),
-    bodySmall: GoogleFonts.oswald(
+    bodySmall: TextStyle(
+      fontFamily: 'Ringside',
       color: palette.black,
       fontWeight: FontWeight.normal,
-      fontSize: 15,
+      fontSize: 16,
       height: 20 / 15,
     ),
-    labelLarge: GoogleFonts.oswald(
+    labelLarge: const TextStyle(
+      fontFamily: 'Ringside',
       color: Colors.white,
       fontWeight: FontWeight.bold,
       fontSize: 15,
       height: 20 / 15,
     ),
-    labelSmall: GoogleFonts.oswald(
+    labelSmall: TextStyle(
+        fontFamily: 'Ringside',
         color: palette.black,
         fontWeight: FontWeight.normal,
         fontSize: 13,

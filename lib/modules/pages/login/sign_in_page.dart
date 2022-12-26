@@ -22,6 +22,8 @@ class _SignInPageState extends State<SignInPage> {
   final _emailController = TextEditingController();
   final FocusNode _passwordNode = FocusNode();
   final _passwordController = TextEditingController();
+  Color _emailBorder = Palette.current.primaryWhiteSmoke;
+  Color _passwordBorder = Palette.current.primaryWhiteSmoke;
   String? errorText;
 
   @override
@@ -34,6 +36,20 @@ class _SignInPageState extends State<SignInPage> {
   @override
   void initState() {
     super.initState();
+    _emailNode.addListener(() {
+      setState(() {
+        _emailBorder = _emailNode.hasFocus
+            ? Palette.current.primaryNeonGreen
+            : Palette.current.primaryWhiteSmoke;
+      });
+    });
+    _passwordNode.addListener(() {
+      setState(() {
+        _passwordBorder = _passwordNode.hasFocus
+            ? Palette.current.primaryNeonGreen
+            : Palette.current.primaryWhiteSmoke;
+      });
+    });
   }
 
   @override
@@ -83,7 +99,28 @@ class _SignInPageState extends State<SignInPage> {
                             const SizedBox(
                               height: 30,
                             ),
+                            Visibility(
+                              visible: false,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    S.of(context).invalid_email,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(
+                                            color: Palette
+                                                .current.primaryNeonPink),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  )
+                                ],
+                              ),
+                            ),
                             CustomTextFormField(
+                                borderColor: _emailBorder,
                                 errorText: errorText,
                                 autofocus: false,
                                 labelText: S.of(context).email,
@@ -101,6 +138,7 @@ class _SignInPageState extends State<SignInPage> {
                               height: 16,
                             ),
                             CustomTextFormField(
+                                borderColor: _passwordBorder,
                                 autofocus: false,
                                 labelText: S.of(context).password,
                                 focusNode: _passwordNode,
@@ -119,11 +157,11 @@ class _SignInPageState extends State<SignInPage> {
                                   textAlign: TextAlign.right,
                                   style: Theme.of(context)
                                       .textTheme
-                                      .bodyLarge!
+                                      .bodySmall!
                                       .copyWith(
                                           color:
                                               Palette.current.primaryNeonGreen,
-                                          fontWeight: FontWeight.w100),
+                                          fontWeight: FontWeight.w300),
                                 ),
                                 onPressed: () {
                                   Navigator.push(
@@ -154,11 +192,11 @@ class _SignInPageState extends State<SignInPage> {
                                   textAlign: TextAlign.center,
                                   style: Theme.of(context)
                                       .textTheme
-                                      .bodyLarge!
+                                      .bodySmall!
                                       .copyWith(
                                           color:
                                               Palette.current.primaryNeonGreen,
-                                          fontWeight: FontWeight.w100),
+                                          fontWeight: FontWeight.w300),
                                 ),
                                 onPressed: () {}),
                           ],
