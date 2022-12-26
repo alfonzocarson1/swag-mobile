@@ -6,6 +6,7 @@ import 'package:swagapp/modules/common/utils/palette.dart';
 
 import '../../common/ui/custom_text_form_field.dart';
 import '../../common/utils/size_helper.dart';
+import '../../common/utils/utils.dart';
 import 'sign_in_page.dart';
 
 class ResetPasswordPage extends StatefulWidget {
@@ -18,11 +19,14 @@ class ResetPasswordPage extends StatefulWidget {
 class _ResetPasswordPageState extends State<ResetPasswordPage> {
   final FocusNode _passwordNode = FocusNode();
   final _passwordController = TextEditingController();
+  String? errorFirstText;
 
   final FocusNode _confirmPasswordNode = FocusNode();
   final _confirmPasswordController = TextEditingController();
+  String? errorSecondText;
 
   late ResponsiveDesign _responsiveDesign;
+  String? matchPassword;
 
   @override
   void dispose() {
@@ -108,22 +112,37 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                               height: 30,
                             ),
                             CustomTextFormField(
+                                errorText: errorFirstText,
                                 autofocus: false,
                                 labelText: "New Password",
                                 focusNode: _passwordNode,
                                 accountController: _passwordController,
-                                onChanged: (value) {},
+                                onChanged: (value) {
+                                  setState(() {
+                                    matchPassword = value;
+                                    errorFirstText = isValidPassword(value)
+                                        ? null
+                                        : "Password doesn’t meet requirements. Min. 8 characters, 1 uppercase, 1 number & 1 symbol";
+                                  });
+                                },
                                 secure: true,
                                 inputType: TextInputType.text),
                             const SizedBox(
                               height: 20,
                             ),
                             CustomTextFormField(
+                                errorText: errorSecondText,
                                 autofocus: false,
                                 labelText: "Confirm Password",
                                 focusNode: _confirmPasswordNode,
                                 accountController: _confirmPasswordController,
-                                onChanged: (value) {},
+                                onChanged: (value) {
+                                  setState(() {
+                                    errorSecondText = matchPassword == value
+                                        ? null
+                                        : "Password doesn’t match";
+                                  });
+                                },
                                 inputType: TextInputType.emailAddress),
                             const SizedBox(
                               height: 20,
