@@ -75,9 +75,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: SafeArea(
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
+                        const SizedBox(
+                          height: 100,
+                        ),
                         Image.asset(
                           'assets/images/logo.png',
                           width: 125,
