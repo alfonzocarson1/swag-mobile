@@ -140,6 +140,158 @@ class S {
     );
   }
 
+
+  /// `Password doesn’t meet requirements. Min. 8 characters, 1 uppercase, 1 number & 1 symbol`
+  String get invalid_password {
+    return Intl.message(
+      'Password doesn’t meet requirements. Min. 8 characters, 1 uppercase, 1 number & 1 symbol',
+      name: 'invalid_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password doesn’t match`
+  String get no_match_password {
+    return Intl.message(
+      'Password doesn’t match',
+      name: 'no_match_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New Password`
+  String get new_password {
+    return Intl.message(
+      'New Password',
+      name: 'new_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm Password`
+  String get confirm_password {
+    return Intl.message(
+      'Confirm Password',
+      name: 'confirm_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter and confirm your new password below.`
+  String get reset_password_description {
+    return Intl.message(
+      'Please enter and confirm your new password below.',
+      name: 'reset_password_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `FINISH`
+  String get finish_btn {
+    return Intl.message(
+      'FINISH',
+      name: 'finish_btn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please check your email and enter your six digit code below.`
+  String get forgot_password_code_description {
+    return Intl.message(
+      'Please check your email and enter your six digit code below.',
+      name: 'forgot_password_code_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your email to reset your password.`
+  String get forgot_password_email_description {
+    return Intl.message(
+      'Enter your email to reset your password.',
+      name: 'forgot_password_email_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Code`
+  String get code {
+    return Intl.message(
+      'Code',
+      name: 'code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `RESET PASSWORD`
+  String get reset_password_btn {
+    return Intl.message(
+      'RESET PASSWORD',
+      name: 'reset_password_btn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Didn’t get an email? *Resend Email*`
+  String get resend_email {
+    return Intl.message(
+      'Didn’t get an email? *Resend Email*',
+      name: 'resend_email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `WELCOME @MRDOUG`
+  String get popup_title {
+    return Intl.message(
+      'WELCOME @MRDOUG',
+      name: 'popup_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `It looks like you have an account on swag.golf. Would you like to import your transaction history? You will be able to customize this later.`
+  String get popup_description {
+    return Intl.message(
+      'It looks like you have an account on swag.golf. Would you like to import your transaction history? You will be able to customize this later.',
+      name: 'popup_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `YES, IMPORT MY INFO`
+  String get popup_btn_yes {
+    return Intl.message(
+      'YES, IMPORT MY INFO',
+      name: 'popup_btn_yes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `NO, I'LL DO THIS LATER`
+  String get popup_btn_no {
+    return Intl.message(
+      'NO, I\'LL DO THIS LATER',
+      name: 'popup_btn_no',
+      desc: '',
+      args: [],
+    );
+  }
+
+
   /// `Incorrect email or password. Please try again`
   String get incorrect_email_or_password {
     return Intl.message(

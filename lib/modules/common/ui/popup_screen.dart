@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 
+import '../../../generated/l10n.dart';
+
 class PopUp extends StatelessWidget {
   const PopUp({super.key});
 
@@ -25,7 +27,7 @@ class PopUp extends StatelessWidget {
                         const SizedBox(
                           height: 50,
                         ),
-                        Text("WELCOME @MRDOUG",
+                        Text(S.of(context).popup_title,
                             textAlign: TextAlign.left,
                             style: Theme.of(context)
                                 .textTheme
@@ -34,8 +36,7 @@ class PopUp extends StatelessWidget {
                                     fontWeight: FontWeight.w100,
                                     color: Palette.current.primaryNeonGreen,
                                     fontSize: 35)),
-                        Text(
-                            "It looks like you have an account on swag.golf. Would you like to import your transaction history? You will be able to customize this later.",
+                        Text(S.of(context).popup_description,
                             style: Theme.of(context)
                                 .textTheme
                                 .headlineLarge!
@@ -48,7 +49,7 @@ class PopUp extends StatelessWidget {
                       height: 30,
                     ),
                     PrimaryButton(
-                      title: "YES, IMPORT MY INFO",
+                      title: S.of(context).popup_btn_yes,
                       onPressed: () {},
                       type: PrimaryButtonType.green,
                     ),
@@ -56,7 +57,7 @@ class PopUp extends StatelessWidget {
                       height: 20,
                     ),
                     PrimaryButton(
-                      title: "NO, I'LL DO THIS LATER",
+                      title: S.of(context).popup_btn_no,
                       onPressed: () {},
                       type: PrimaryButtonType.pink,
                     ),

@@ -8,5 +8,21 @@
     "forgot_password": "Forgot Password?",
     "dont_have_account": "Don’t have an account? *Create Account*",
     "invalid_email": "Invalid email address",
+
+    "invalid_password": "Password doesn’t meet requirements. Min. 8 characters, 1 uppercase, 1 number & 1 symbol",
+    "no_match_password": "Password doesn’t match",
+    "new_password": "New Password",
+    "confirm_password": "Confirm Password",
+    "reset_password_description": "Please enter and confirm your new password below.",
+    "finish_btn": "FINISH",
+    "forgot_password_code_description": "Please check your email and enter your six digit code below.",
+    "forgot_password_email_description": "Enter your email to reset your password.",
+    "code": "Code",
+    "reset_password_btn": "RESET PASSWORD",
+    "resend_email": "Didn’t get an email? *Resend Email*",
+    "popup_title": "WELCOME @MRDOUG",
+    "popup_description": "It looks like you have an account on swag.golf. Would you like to import your transaction history? You will be able to customize this later.",
+    "popup_btn_yes": "YES, IMPORT MY INFO",
+    "popup_btn_no": "NO, I'LL DO THIS LATER",
     "incorrect_email_or_password": "Incorrect email or password. Please try again"
 }

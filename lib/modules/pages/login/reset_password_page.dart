@@ -6,6 +6,7 @@ import 'package:swagapp/modules/common/utils/palette.dart';
 
 import '../../common/ui/custom_text_form_field.dart';
 import '../../common/utils/size_helper.dart';
+import '../../common/utils/utils.dart';
 import 'sign_in_page.dart';
 
 class ResetPasswordPage extends StatefulWidget {
@@ -18,14 +19,19 @@ class ResetPasswordPage extends StatefulWidget {
 class _ResetPasswordPageState extends State<ResetPasswordPage> {
   final FocusNode _passwordNode = FocusNode();
   final _passwordController = TextEditingController();
+  String? errorFirstText;
 
   final FocusNode _confirmPasswordNode = FocusNode();
   final _confirmPasswordController = TextEditingController();
+  String? errorSecondText;
 
   Color _passwordBorder = Palette.current.primaryWhiteSmoke;
   Color _confirmPasswordBorder = Palette.current.primaryWhiteSmoke;
 
   late ResponsiveDesign _responsiveDesign;
+  String? matchPassword;
+  bool enableButtonFirstPassword = false;
+  bool enableButtonSecondPassword = false;
 
   @override
   void dispose() {
@@ -112,8 +118,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                             const SizedBox(
                               height: 30,
                             ),
-                            Text(
-                                "Please enter and confirm your new password below.",
+                            Text(S.of(context).reset_password_description,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall!
@@ -125,31 +130,78 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                               height: 30,
                             ),
                             CustomTextFormField(
+                                errorText: errorFirstText,
                                 borderColor: _passwordBorder,
                                 autofocus: false,
-                                labelText: "New Password",
+                                labelText: S.of(context).new_password,
                                 focusNode: _passwordNode,
                                 accountController: _passwordController,
-                                onChanged: (value) {},
+                                onChanged: (value) {
+                                  setState(() {
+                                    matchPassword = value;
+                                    errorFirstText = isValidPassword(value)
+                                        ? null
+                                        : S.of(context).invalid_password;
+
+                                    if (_passwordController.text !=
+                                            _confirmPasswordController.text &&
+                                        _confirmPasswordController
+                                            .text.isNotEmpty) {
+                                      errorSecondText =
+                                          S.of(context).no_match_password;
+                                      enableButtonSecondPassword = false;
+                                    } else if (_passwordController.text ==
+                                            _confirmPasswordController.text &&
+                                        _confirmPasswordController
+                                            .text.isNotEmpty) {
+                                      enableButtonSecondPassword = true;
+                                      errorSecondText = null;
+                                    } else {
+                                      errorSecondText = null;
+                                    }
+
+                                    enableButtonFirstPassword =
+                                        isValidPassword(value) ? true : false;
+                                  });
+                                },
                                 secure: true,
                                 inputType: TextInputType.text),
                             const SizedBox(
                               height: 20,
                             ),
                             CustomTextFormField(
+                                errorText: errorSecondText,
                                 borderColor: _confirmPasswordBorder,
                                 autofocus: false,
-                                labelText: "Confirm Password",
+                                labelText: S.of(context).confirm_password,
                                 focusNode: _confirmPasswordNode,
                                 accountController: _confirmPasswordController,
-                                onChanged: (value) {},
-                                inputType: TextInputType.emailAddress),
+                                onChanged: (value) {
+                                  setState(() {
+                                    errorSecondText = matchPassword == value
+                                        ? null
+                                        : S.of(context).no_match_password;
+
+                                    enableButtonSecondPassword =
+                                        (errorFirstText == null &&
+                                                matchPassword == value &&
+                                                _confirmPasswordController
+                                                    .text.isNotEmpty)
+                                            ? true
+                                            : false;
+                                  });
+                                },
+                                secure: true,
+                                inputType: TextInputType.text),
                             const SizedBox(
                               height: 20,
                             ),
                             PrimaryButton(
-                              title: "FINISH",
-                              onPressed: () {},
+                              title: S.of(context).finish_btn,
+                              onPressed: enableButtonSecondPassword &&
+                                      enableButtonFirstPassword
+                                  ? () {}
+                                  : null,
                               type: PrimaryButtonType.green,
                             ),
                             const SizedBox(
