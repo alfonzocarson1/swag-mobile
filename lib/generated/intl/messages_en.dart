@@ -36,14 +36,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "finish_btn": MessageLookupByLibrary.simpleMessage("FINISH"),
         "forgot_password":
             MessageLookupByLibrary.simpleMessage("Forgot Password?"),
-
         "forgot_password_code_description":
             MessageLookupByLibrary.simpleMessage(
                 "Please check your email and enter your six digit code below."),
         "forgot_password_email_description":
             MessageLookupByLibrary.simpleMessage(
                 "Enter your email to reset your password."),
-
         "incorrect_email_or_password": MessageLookupByLibrary.simpleMessage(
             "Incorrect email or password. Please try again"),
         "invalid_email":
