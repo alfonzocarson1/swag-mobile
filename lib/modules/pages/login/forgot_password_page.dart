@@ -7,6 +7,7 @@ import 'package:swagapp/modules/common/utils/palette.dart';
 import '../../common/ui/clickable_text.dart';
 import '../../common/ui/custom_app_bar.dart';
 import '../../common/ui/custom_text_form_field.dart';
+import '../../common/utils/utils.dart';
 import 'reset_password_page.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
@@ -26,6 +27,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   Color _emailBorder = Palette.current.primaryWhiteSmoke;
   Color _codeBorder = Palette.current.primaryWhiteSmoke;
   late bool _codeView = false;
+  String? errorText;
 
   @override
   void dispose() {
@@ -118,6 +120,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         ),
                         CustomTextFormField(
                             autofocus: false,
+                            errorText: errorText,
                             borderColor: _codeView ? _codeBorder : _emailBorder,
                             labelText: _codeView
                                 ? S.of(context).code
@@ -125,29 +128,51 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                             focusNode: _codeView ? _codeNode : _emailNode,
                             accountController:
                                 _codeView ? _codeController : _emailController,
-                            onChanged: (value) {},
+                            onChanged: (value) {
+                              setState(() {
+                                if (!_codeView) {
+                                  errorText = isValidEmail(value)
+                                      ? null
+                                      : S.of(context).invalid_email;
+                                }
+                              });
+                            },
                             inputType: TextInputType.text),
                         const SizedBox(
                           height: 20,
                         ),
-                        PrimaryButton(
-                          title: S.of(context).reset_password_btn,
-                          onPressed: () {
-                            if (!_codeView) {
-                              setState(() {
-                                _codeView = true;
-                              });
-                            } else {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const ResetPasswordPage(),
-                                ),
-                              );
-                            }
-                          },
-                          type: PrimaryButtonType.green,
+                        Visibility(
+                          visible: !_codeView,
+                          child: PrimaryButton(
+                            title: S.of(context).reset_password_btn,
+                            onPressed: errorText == null &&
+                                    _emailController.text.isNotEmpty
+                                ? () {
+                                    setState(() {
+                                      _codeView = true;
+                                    });
+                                  }
+                                : null,
+                            type: PrimaryButtonType.green,
+                          ),
+                        ),
+                        Visibility(
+                          visible: _codeView,
+                          child: PrimaryButton(
+                            title: S.of(context).reset_password_btn,
+                            onPressed: _codeController.text.isNotEmpty
+                                ? () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const ResetPasswordPage(),
+                                      ),
+                                    );
+                                  }
+                                : null,
+                            type: PrimaryButtonType.green,
+                          ),
                         ),
                         const SizedBox(
                           height: 30,
