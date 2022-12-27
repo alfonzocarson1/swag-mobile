@@ -140,6 +140,7 @@ class S {
     );
   }
 
+
   /// `Password doesn’t meet requirements. Min. 8 characters, 1 uppercase, 1 number & 1 symbol`
   String get invalid_password {
     return Intl.message(
@@ -289,6 +290,7 @@ class S {
       args: [],
     );
   }
+
 
   /// `Incorrect email or password. Please try again`
   String get incorrect_email_or_password {
