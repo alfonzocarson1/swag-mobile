@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:simple_rich_text/simple_rich_text.dart';
 import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 
+import '../../common/ui/clickable_text.dart';
 import '../../common/ui/custom_app_bar.dart';
 import '../../common/ui/custom_text_form_field.dart';
 import 'reset_password_page.dart';
@@ -91,8 +93,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         ),
                         Text(
                             _codeView
-                                ? "Please check your email and enter your six digit code below."
-                                : "Enter your email to reset your password.",
+                                ? S.of(context).forgot_password_code_description
+                                : S
+                                    .of(context)
+                                    .forgot_password_email_description,
                             style: Theme.of(context)
                                 .textTheme
                                 .headlineLarge!
@@ -104,7 +108,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         ),
                         CustomTextFormField(
                             autofocus: false,
-                            labelText: _codeView ? "Code" : "Email",
+                            labelText: _codeView
+                                ? S.of(context).code
+                                : S.of(context).email,
                             focusNode: _codeView ? _codeNode : _emailNode,
                             accountController:
                                 _codeView ? _codeController : _emailController,
@@ -114,7 +120,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                           height: 30,
                         ),
                         PrimaryButton(
-                          title: "RESET PASSWORD",
+                          title: S.of(context).reset_password_btn,
                           onPressed: () {
                             if (!_codeView) {
                               setState(() {
@@ -137,48 +143,19 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         ),
                         Visibility(
                           visible: _codeView,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  //Test variable to see dynamic behavior
-                                  setState(() {
-                                    _codeView = false;
-                                  });
-                                },
-                                child: Text("Didn’t get an email?",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineLarge!
-                                        .copyWith(
-                                            color: Palette
-                                                .current.primaryNeonGreen,
-                                            fontSize: 16)),
+                          child: ClickableText(
+                              title: SimpleRichText(
+                                S.of(context).resend_email,
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineLarge!
+                                    .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: Palette.current.primaryNeonGreen,
+                                        fontSize: 16),
                               ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  //Test variable to see dynamic behavior
-                                  setState(() {
-                                    _codeView = false;
-                                  });
-                                },
-                                child: Text("Resend Email.",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineLarge!
-                                        .copyWith(
-                                            fontWeight: FontWeight.bold,
-                                            color: Palette
-                                                .current.primaryNeonGreen,
-                                            fontSize: 16)),
-                              ),
-                            ],
-                          ),
+                              onPressed: () {}),
                         )
                       ],
                     ),

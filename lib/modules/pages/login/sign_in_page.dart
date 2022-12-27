@@ -9,6 +9,7 @@ import 'package:swagapp/modules/common/utils/utils.dart';
 import 'package:swagapp/modules/pages/login/forgot_password_page.dart';
 
 import '../../common/ui/custom_text_form_field.dart';
+import 'explore_page.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -42,7 +43,16 @@ class _SignInPageState extends State<SignInPage> {
         extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: true,
         backgroundColor: Colors.transparent,
-        appBar: CustomAppBar(),
+        appBar: CustomAppBar(
+          onRoute: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ExplorePage(),
+              ),
+            );
+          },
+        ),
         body: GestureDetector(
             behavior: HitTestBehavior.translucent,
             onTap: () {
@@ -154,11 +164,12 @@ class _SignInPageState extends State<SignInPage> {
                                   textAlign: TextAlign.center,
                                   style: Theme.of(context)
                                       .textTheme
-                                      .bodyLarge!
+                                      .headlineLarge!
                                       .copyWith(
+                                          fontWeight: FontWeight.bold,
                                           color:
                                               Palette.current.primaryNeonGreen,
-                                          fontWeight: FontWeight.w100),
+                                          fontSize: 16),
                                 ),
                                 onPressed: () {}),
                           ],

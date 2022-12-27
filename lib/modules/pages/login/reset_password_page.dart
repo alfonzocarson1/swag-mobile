@@ -27,6 +27,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
 
   late ResponsiveDesign _responsiveDesign;
   String? matchPassword;
+  bool enableBTN = false;
 
   @override
   void dispose() {
@@ -99,8 +100,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                             const SizedBox(
                               height: 30,
                             ),
-                            Text(
-                                "Please enter and confirm your new password below.",
+                            Text(S.of(context).reset_password_description,
                                 style: Theme.of(context)
                                     .textTheme
                                     .headlineLarge!
@@ -114,7 +114,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                             CustomTextFormField(
                                 errorText: errorFirstText,
                                 autofocus: false,
-                                labelText: "New Password",
+                                labelText: S.of(context).new_password,
                                 focusNode: _passwordNode,
                                 accountController: _passwordController,
                                 onChanged: (value) {
@@ -122,7 +122,12 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                     matchPassword = value;
                                     errorFirstText = isValidPassword(value)
                                         ? null
-                                        : "Password doesn’t meet requirements. Min. 8 characters, 1 uppercase, 1 number & 1 symbol";
+                                        : S.of(context).invalid_password;
+                                    if (isValidPassword(value)) {
+                                      enableBTN = true;
+                                    } else {
+                                      enableBTN = false;
+                                    }
                                   });
                                 },
                                 secure: true,
@@ -133,23 +138,32 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                             CustomTextFormField(
                                 errorText: errorSecondText,
                                 autofocus: false,
-                                labelText: "Confirm Password",
+                                labelText: S.of(context).confirm_password,
                                 focusNode: _confirmPasswordNode,
                                 accountController: _confirmPasswordController,
                                 onChanged: (value) {
                                   setState(() {
                                     errorSecondText = matchPassword == value
                                         ? null
-                                        : "Password doesn’t match";
+                                        : S.of(context).no_match_password;
+                                    if (errorFirstText == null &&
+                                        matchPassword == value &&
+                                        _confirmPasswordController
+                                            .text.isNotEmpty) {
+                                      enableBTN = true;
+                                    } else {
+                                      enableBTN = false;
+                                    }
                                   });
                                 },
-                                inputType: TextInputType.emailAddress),
+                                secure: true,
+                                inputType: TextInputType.text),
                             const SizedBox(
                               height: 20,
                             ),
                             PrimaryButton(
-                              title: "FINISH",
-                              onPressed: () {},
+                              title: S.of(context).finish_btn,
+                              onPressed: enableBTN ? () {} : null,
                               type: PrimaryButtonType.green,
                             ),
                             const SizedBox(
