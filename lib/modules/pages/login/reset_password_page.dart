@@ -30,7 +30,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
 
   late ResponsiveDesign _responsiveDesign;
   String? matchPassword;
-  bool enableBTN = false;
+  bool enableButtonFirstPassword = false;
+  bool enableButtonSecondPassword = false;
 
   @override
   void dispose() {
@@ -141,11 +142,26 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                     errorFirstText = isValidPassword(value)
                                         ? null
                                         : S.of(context).invalid_password;
-                                    if (isValidPassword(value)) {
-                                      enableBTN = true;
+
+                                    if (_passwordController.text !=
+                                            _confirmPasswordController.text &&
+                                        _confirmPasswordController
+                                            .text.isNotEmpty) {
+                                      errorSecondText =
+                                          S.of(context).no_match_password;
+                                      enableButtonSecondPassword = false;
+                                    } else if (_passwordController.text ==
+                                            _confirmPasswordController.text &&
+                                        _confirmPasswordController
+                                            .text.isNotEmpty) {
+                                      enableButtonSecondPassword = true;
+                                      errorSecondText = null;
                                     } else {
-                                      enableBTN = false;
+                                      errorSecondText = null;
                                     }
+
+                                    enableButtonFirstPassword =
+                                        isValidPassword(value) ? true : false;
                                   });
                                 },
                                 secure: true,
@@ -165,14 +181,14 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                     errorSecondText = matchPassword == value
                                         ? null
                                         : S.of(context).no_match_password;
-                                    if (errorFirstText == null &&
-                                        matchPassword == value &&
-                                        _confirmPasswordController
-                                            .text.isNotEmpty) {
-                                      enableBTN = true;
-                                    } else {
-                                      enableBTN = false;
-                                    }
+
+                                    enableButtonSecondPassword =
+                                        (errorFirstText == null &&
+                                                matchPassword == value &&
+                                                _confirmPasswordController
+                                                    .text.isNotEmpty)
+                                            ? true
+                                            : false;
                                   });
                                 },
                                 secure: true,
@@ -182,7 +198,10 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                             ),
                             PrimaryButton(
                               title: S.of(context).finish_btn,
-                              onPressed: enableBTN ? () {} : null,
+                              onPressed: enableButtonSecondPassword &&
+                                      enableButtonFirstPassword
+                                  ? () {}
+                                  : null,
                               type: PrimaryButtonType.green,
                             ),
                             const SizedBox(
