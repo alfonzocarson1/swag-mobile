@@ -22,5 +22,6 @@
     "popup_title": "WELCOME @MRDOUG",
     "popup_description": "It looks like you have an account on swag.golf. Would you like to import your transaction history? You will be able to customize this later.",
     "popup_btn_yes": "YES, IMPORT MY INFO",
-    "popup_btn_no": "NO, I'LL DO THIS LATER"
+    "popup_btn_no": "NO, I'LL DO THIS LATER",
+    "incorrect_email_or_password": "Incorrect email or password. Please try again"
 }

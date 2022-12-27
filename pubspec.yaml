@@ -85,6 +85,15 @@ flutter:
     - assets/images/
     - assets/icons/
 
+  fonts:
+    - family: Knockout
+      fonts:
+        - asset: assets/fonts/Knockout-26.otf
+    - family: Ringside
+      fonts:
+        - asset: assets/fonts/RingsideRegular-Book.otf
+
+
 
 flutter_intl:
   enabled: true

@@ -7,6 +7,7 @@ class CustomTextFormField extends StatelessWidget {
       {Key? key,
       required this.labelText,
       required this.focusNode,
+      required this.borderColor,
       required this.accountController,
       required this.inputType,
       this.suffix,
@@ -21,6 +22,7 @@ class CustomTextFormField extends StatelessWidget {
       : super(key: key);
   final String labelText;
   final FocusNode focusNode;
+  final Color borderColor;
   final TextEditingController accountController;
   final TextInputType inputType;
   final Function(String)? onChanged;
@@ -45,7 +47,7 @@ class CustomTextFormField extends StatelessWidget {
               border: Border.all(
                 color: errorText != null
                     ? Palette.current.primaryNeonPink
-                    : Palette.current.primaryWhiteSmoke,
+                    : borderColor,
               ),
             ),
             child: Padding(
@@ -73,7 +75,7 @@ class CustomTextFormField extends StatelessWidget {
                         counterText: "",
                         labelStyle: Theme.of(context)
                             .textTheme
-                            .caption!
+                            .bodySmall!
                             .copyWith(color: Palette.current.primaryNero),
                         contentPadding: const EdgeInsets.only(top: 8),
                         border: InputBorder.none,
@@ -93,7 +95,7 @@ class CustomTextFormField extends StatelessWidget {
                 errorText!,
                 style: Theme.of(context)
                     .textTheme
-                    .bodyMedium!
+                    .bodySmall!
                     .copyWith(color: Palette.current.primaryNeonPink),
               )
             : Container(),

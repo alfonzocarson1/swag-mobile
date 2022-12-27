@@ -25,6 +25,9 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   final _confirmPasswordController = TextEditingController();
   String? errorSecondText;
 
+  Color _passwordBorder = Palette.current.primaryWhiteSmoke;
+  Color _confirmPasswordBorder = Palette.current.primaryWhiteSmoke;
+
   late ResponsiveDesign _responsiveDesign;
   String? matchPassword;
   bool enableBTN = false;
@@ -39,6 +42,20 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   @override
   void initState() {
     super.initState();
+    _passwordNode.addListener(() {
+      setState(() {
+        _passwordBorder = _passwordNode.hasFocus
+            ? Palette.current.primaryNeonGreen
+            : Palette.current.primaryWhiteSmoke;
+      });
+    });
+    _confirmPasswordNode.addListener(() {
+      setState(() {
+        _confirmPasswordBorder = _confirmPasswordNode.hasFocus
+            ? Palette.current.primaryNeonGreen
+            : Palette.current.primaryWhiteSmoke;
+      });
+    });
   }
 
   @override
@@ -103,16 +120,17 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                             Text(S.of(context).reset_password_description,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headlineLarge!
+                                    .bodySmall!
                                     .copyWith(
-                                        color:
-                                            Palette.current.primaryWhiteSmoke,
-                                        fontSize: 16)),
+                                      letterSpacing: 0.3,
+                                      color: Palette.current.primaryWhiteSmoke,
+                                    )),
                             const SizedBox(
                               height: 30,
                             ),
                             CustomTextFormField(
                                 errorText: errorFirstText,
+                                borderColor: _passwordBorder,
                                 autofocus: false,
                                 labelText: S.of(context).new_password,
                                 focusNode: _passwordNode,
@@ -137,6 +155,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                             ),
                             CustomTextFormField(
                                 errorText: errorSecondText,
+                                borderColor: _confirmPasswordBorder,
                                 autofocus: false,
                                 labelText: S.of(context).confirm_password,
                                 focusNode: _confirmPasswordNode,

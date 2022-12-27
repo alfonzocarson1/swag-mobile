@@ -42,6 +42,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "forgot_password_email_description":
             MessageLookupByLibrary.simpleMessage(
                 "Enter your email to reset your password."),
+        "incorrect_email_or_password": MessageLookupByLibrary.simpleMessage(
+            "Incorrect email or password. Please try again"),
         "invalid_email":
             MessageLookupByLibrary.simpleMessage("Invalid email address"),
         "invalid_password": MessageLookupByLibrary.simpleMessage(
