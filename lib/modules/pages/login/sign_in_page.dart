@@ -61,12 +61,8 @@ class _SignInPageState extends State<SignInPage> {
         backgroundColor: Colors.transparent,
         appBar: CustomAppBar(
           onRoute: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const ExplorePage(),
-              ),
-            );
+            Navigator.of(context, rootNavigator: true)
+                .popUntil(ModalRoute.withName('/'));
           },
         ),
         body: GestureDetector(

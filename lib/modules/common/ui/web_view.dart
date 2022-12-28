@@ -23,10 +23,6 @@ class _WebViewPageState extends State<WebViewPage> {
   @override
   void initState() {
     super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setBackgroundColor(const Color(0x00000000))
@@ -48,6 +44,10 @@ class _WebViewPageState extends State<WebViewPage> {
         ),
       )
       ..loadRequest(Uri.parse(widget.urlPage));
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return WillPopScope(
         onWillPop: () async {
           await SystemChrome.setPreferredOrientations(
@@ -57,6 +57,7 @@ class _WebViewPageState extends State<WebViewPage> {
         child: Scaffold(
           backgroundColor: Palette.current.blackSmoke,
           appBar: CustomAppBar(
+            title: widget.title ?? '',
             onRoute: () {
               Navigator.push(
                 context,
@@ -75,7 +76,7 @@ class _WebViewPageState extends State<WebViewPage> {
                     ),
                   )
                 : const SizedBox(),
-            Expanded(child: WebViewWidget(controller: controller)),
+            WebViewWidget(controller: controller),
           ]),
         ));
   }
