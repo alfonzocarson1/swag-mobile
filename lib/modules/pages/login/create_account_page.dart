@@ -7,6 +7,7 @@ import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/common/utils/utils.dart';
+import 'package:swagapp/modules/pages/login/sign_in_page.dart';
 
 import '../../common/ui/custom_text_form_field.dart';
 import '../../constants/constants.dart';
@@ -166,8 +167,8 @@ class _CreateAccountState extends State<CreateAccountPage> {
                               const SizedBox(
                                 height: 20,
                               ),
-                              _LoginWithPhoneSection(_phoneController,
-                                  _phoneNode, phoneErrorText, _phoneBorder),
+                              _PhoneSection(_phoneController, _phoneNode,
+                                  phoneErrorText, _phoneBorder),
                               const SizedBox(
                                 height: 20,
                               ),
@@ -309,7 +310,15 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                                 .current.primaryNeonGreen,
                                             fontWeight: FontWeight.w300),
                                   ),
-                                  onPressed: () {}),
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const SignInPage(),
+                                      ),
+                                    );
+                                  }),
                             ],
                           ),
                         ),
@@ -336,23 +345,20 @@ class _CreateAccountState extends State<CreateAccountPage> {
   }
 }
 
-class _LoginWithPhoneSection extends StatefulWidget {
+class _PhoneSection extends StatefulWidget {
   final TextEditingController phoneController;
   final FocusNode? focusPhone;
   final String? errorText;
   final Color? borderColor;
-  const _LoginWithPhoneSection(
+  const _PhoneSection(
       this.phoneController, this.focusPhone, this.errorText, this.borderColor);
 
   @override
-  State<_LoginWithPhoneSection> createState() => __LoginWithPhoneSectionState();
+  State<_PhoneSection> createState() => __PhoneSectionState();
 }
 
-class __LoginWithPhoneSectionState extends State<_LoginWithPhoneSection> {
-  late TextEditingController _phoneController;
-  late FocusNode? _focusPhone;
+class __PhoneSectionState extends State<_PhoneSection> {
   late String? _errorText;
-  late Color? _borderColor;
   String initialCountry = 'CO';
   PhoneNumber initialNumber = PhoneNumber(isoCode: 'CO');
   PhoneNumber choseNumber = PhoneNumber(isoCode: 'CO');
@@ -361,10 +367,7 @@ class __LoginWithPhoneSectionState extends State<_LoginWithPhoneSection> {
   @override
   void initState() {
     super.initState();
-    _phoneController = widget.phoneController;
-    _focusPhone = widget.focusPhone;
     _errorText = widget.errorText;
-    _borderColor = widget.borderColor;
   }
 
   @override
@@ -378,7 +381,7 @@ class __LoginWithPhoneSectionState extends State<_LoginWithPhoneSection> {
             border: Border.all(
               color: _errorText != null
                   ? Palette.current.primaryNeonPink
-                  : _borderColor!,
+                  : widget.borderColor!,
             ),
           ),
           child: Padding(
@@ -393,7 +396,7 @@ class __LoginWithPhoneSectionState extends State<_LoginWithPhoneSection> {
                 child: InternationalPhoneNumberInput(
                   autoFocus: false,
                   countries: countries,
-                  focusNode: _focusPhone,
+                  focusNode: widget.focusPhone,
                   cursorColor: Palette.current.blue,
                   inputDecoration: InputDecoration(
                       hintText: S.of(context).phone,
@@ -422,7 +425,7 @@ class __LoginWithPhoneSectionState extends State<_LoginWithPhoneSection> {
                   autoValidateMode: AutovalidateMode.disabled,
                   selectorTextStyle: const TextStyle(color: Colors.black),
                   initialValue: initialNumber,
-                  textFieldController: _phoneController,
+                  textFieldController: widget.phoneController,
                   formatInput: true,
                   keyboardType: TextInputType.phone,
                   onSaved: (PhoneNumber number) {
