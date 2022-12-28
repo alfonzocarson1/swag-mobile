@@ -183,10 +183,7 @@ class _SignInPageState extends State<SignInPage> {
                             ),
                             PrimaryButton(
                               title: S.of(context).sign_in,
-                              onPressed: errorText == null &&
-                                      _passwordController.text.isNotEmpty
-                                  ? () {}
-                                  : null,
+                              onPressed: areFieldsValid() ? () {} : null,
                               type: PrimaryButtonType.green,
                             ),
                             const SizedBox(
@@ -213,5 +210,11 @@ class _SignInPageState extends State<SignInPage> {
                 );
               }),
             ])));
+  }
+
+  bool areFieldsValid() {
+    return errorText == null &&
+        _emailController.text.isNotEmpty &&
+        _passwordController.text.isNotEmpty;
   }
 }

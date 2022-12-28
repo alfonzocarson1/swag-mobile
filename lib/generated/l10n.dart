@@ -299,6 +299,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Phone`
+  String get phone {
+    return Intl.message(
+      'Phone',
+      name: 'phone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `@username`
+  String get username {
+    return Intl.message(
+      '@username',
+      name: 'username',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I agree to Swag’s *Privacy Policy* \n& *Terms of Use*`
+  String get privacy_policy_text {
+    return Intl.message(
+      'I agree to Swag’s *Privacy Policy* \n& *Terms of Use*',
+      name: 'privacy_policy_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Already have an account? *Sign In*`
+  String get already_have_an_account {
+    return Intl.message(
+      'Already have an account? *Sign In*',
+      name: 'already_have_an_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `An account is already associated with this phone number`
+  String get phone_taken {
+    return Intl.message(
+      'An account is already associated with this phone number',
+      name: 'phone_taken',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This username is taken `
+  String get username_taken {
+    return Intl.message(
+      'This username is taken ',
+      name: 'username_taken',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `username must be between 4-20 characters`
+  String get invalid_username {
+    return Intl.message(
+      'username must be between 4-20 characters',
+      name: 'invalid_username',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
