@@ -64,7 +64,10 @@ class CustomTextFormField extends StatelessWidget {
                     maxLength: maxLength,
                     onChanged: onChanged,
                     onSubmitted: onSubmitted,
-                    inputFormatters: inputFormatters,
+                    inputFormatters: inputFormatters ??
+                        [
+                          FilteringTextInputFormatter.deny(RegExp(r'\s')),
+                        ],
                     controller: accountController,
                     focusNode: focusNode,
                     cursorColor: Colors.black,
