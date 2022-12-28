@@ -10,6 +10,7 @@ import 'package:swagapp/modules/common/utils/utils.dart';
 import 'package:swagapp/modules/pages/login/sign_in_page.dart';
 
 import '../../common/ui/custom_text_form_field.dart';
+import '../../common/ui/web_view.dart';
 import '../../constants/constants.dart';
 
 class CreateAccountPage extends StatefulWidget {
@@ -282,7 +283,20 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                                     fontWeight:
                                                         FontWeight.w300),
                                           ),
-                                          onPressed: () {}),
+                                          onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const WebViewPage(
+                                                  urlPage:
+                                                      termsAndConditionsUrl,
+                                                  title:
+                                                      termsAndConditionsBasePath,
+                                                ),
+                                              ),
+                                            );
+                                          }),
                                     ),
                                   ),
                                 ],
