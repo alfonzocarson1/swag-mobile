@@ -6,13 +6,20 @@ import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/common/utils/utils.dart';
+import 'package:swagapp/modules/pages/login/create_account_page.dart';
 import 'package:swagapp/modules/pages/login/forgot_password_page.dart';
 
 import '../../common/ui/custom_text_form_field.dart';
-import 'explore_page.dart';
+import '../../common/utils/custom_route_animations.dart';
 
 class SignInPage extends StatefulWidget {
+  static const name = '/SignIn';
   const SignInPage({Key? key}) : super(key: key);
+
+  static Route route() => PageRoutes.material(
+        settings: const RouteSettings(name: name),
+        builder: (context) => const SignInPage(),
+      );
 
   @override
   State<SignInPage> createState() => _SignInPageState();
@@ -170,13 +177,8 @@ class _SignInPageState extends State<SignInPage> {
                                           fontWeight: FontWeight.w300),
                                 ),
                                 onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const ForgotPasswordPage(),
-                                    ),
-                                  );
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(ForgotPasswordPage.route());
                                 }),
                             const SizedBox(
                               height: 20,
@@ -201,7 +203,10 @@ class _SignInPageState extends State<SignInPage> {
                                               Palette.current.primaryNeonGreen,
                                           fontWeight: FontWeight.w300),
                                 ),
-                                onPressed: () {}),
+                                onPressed: () {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(CreateAccountPage.route());
+                                }),
                           ],
                         ),
                       ),

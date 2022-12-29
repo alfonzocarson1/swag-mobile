@@ -7,11 +7,18 @@ import 'package:swagapp/modules/common/utils/palette.dart';
 
 import '../../common/ui/custom_text_form_field.dart';
 import '../../common/ui/account_info_head.dart';
+import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/size_helper.dart';
 import 'sign_in_page.dart';
 
 class AccountInfoPage extends StatefulWidget {
+  static const name = '/AccountInfo';
   const AccountInfoPage({Key? key}) : super(key: key);
+
+  static Route route() => PageRoutes.material(
+        settings: const RouteSettings(name: name),
+        builder: (context) => const AccountInfoPage(),
+      );
 
   @override
   State<AccountInfoPage> createState() => _AccountInfoPageState();
@@ -156,16 +163,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
         extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: true,
         backgroundColor: Colors.transparent,
-        appBar: CustomAppBar(
-          onRoute: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const SignInPage(),
-              ),
-            );
-          },
-        ),
+        appBar: CustomAppBar(),
         body: GestureDetector(
             behavior: HitTestBehavior.translucent,
             onTap: () {

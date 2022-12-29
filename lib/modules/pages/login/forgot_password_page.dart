@@ -7,11 +7,18 @@ import 'package:swagapp/modules/common/utils/palette.dart';
 import '../../common/ui/clickable_text.dart';
 import '../../common/ui/custom_app_bar.dart';
 import '../../common/ui/custom_text_form_field.dart';
+import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/utils.dart';
 import 'reset_password_page.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
+  static const name = '/ForgotPasword';
   const ForgotPasswordPage({Key? key, this.codeView}) : super(key: key);
+
+  static Route route() => PageRoutes.material(
+        settings: const RouteSettings(name: name),
+        builder: (context) => const ForgotPasswordPage(),
+      );
 
   final bool? codeView;
 
@@ -137,7 +144,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                 }
                               });
                             },
-                            inputType: TextInputType.text),
+                            inputType: _codeView
+                                ? TextInputType.text
+                                : TextInputType.emailAddress),
                         const SizedBox(
                           height: 20,
                         ),
@@ -162,13 +171,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                             title: S.of(context).reset_password_btn,
                             onPressed: _codeController.text.isNotEmpty
                                 ? () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const ResetPasswordPage(),
-                                      ),
-                                    );
+                                    Navigator.of(context, rootNavigator: true)
+                                        .push(ResetPasswordPage.route());
                                   }
                                 : null,
                             type: PrimaryButtonType.green,

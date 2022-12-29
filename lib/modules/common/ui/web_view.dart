@@ -3,11 +3,32 @@ import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../pages/login/sign_in_page.dart';
+import '../utils/custom_route_animations.dart';
 import '../utils/palette.dart';
 import 'custom_app_bar.dart';
+import 'handler.dart';
 
 class WebViewPage extends StatefulWidget {
+  static const name = '/WebView';
   const WebViewPage({super.key, this.title, required this.urlPage});
+
+  static Route route(
+          final BuildContext context, String? title, String urlPage) =>
+      PageRoutes.modalBottomSheet(
+        isScrollControlled: true,
+        isDismissible: true,
+        enableDrag: false,
+        height: 0.8,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(26),
+        ),
+        settings: const RouteSettings(name: name),
+        builder: (context) => WebViewPage(
+          title: title,
+          urlPage: urlPage,
+        ),
+        context: context,
+      );
 
   final String? title;
   final String urlPage;
@@ -48,36 +69,42 @@ class _WebViewPageState extends State<WebViewPage> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-        onWillPop: () async {
-          await SystemChrome.setPreferredOrientations(
-              [DeviceOrientation.portraitUp]);
-          return true;
-        },
-        child: Scaffold(
-          backgroundColor: Palette.current.blackSmoke,
-          appBar: CustomAppBar(
-            title: widget.title ?? '',
-            onRoute: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const SignInPage(),
-                ),
-              );
-            },
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+      child: Container(
+        decoration: BoxDecoration(
+          color: const Color(0xFF181818),
+          borderRadius: BorderRadius.circular(26),
+        ),
+        constraints: BoxConstraints(
+            minHeight: MediaQuery.of(context).size.height * 0.8,
+            maxHeight: MediaQuery.of(context).size.height * 0.8),
+        padding: const EdgeInsets.only(left: 16, right: 16),
+        child: Stack(clipBehavior: Clip.hardEdge, children: [
+          loadingBar == true
+              ? Center(
+                  child: CircularProgressIndicator(
+                    color: Palette.current.primaryNeonGreen,
+                    backgroundColor: Colors.white,
+                  ),
+                )
+              : const SizedBox(),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const SizedBox(
+                height: 15,
+              ),
+              const HandlerWidget(),
+              const SizedBox(
+                height: 20,
+              ),
+              Expanded(child: WebViewWidget(controller: controller)),
+            ],
           ),
-          body: Stack(clipBehavior: Clip.hardEdge, children: [
-            loadingBar == true
-                ? Center(
-                    child: CircularProgressIndicator(
-                      color: Palette.current.primaryNeonGreen,
-                      backgroundColor: Colors.white,
-                    ),
-                  )
-                : const SizedBox(),
-            WebViewWidget(controller: controller),
-          ]),
-        ));
+        ]),
+      ),
+    );
   }
 }

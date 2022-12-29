@@ -2,11 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
+import 'package:swagapp/modules/pages/home/home_page.dart';
 import 'package:swagapp/modules/pages/login/create_account_page.dart';
 import 'package:swagapp/modules/pages/login/sign_in_page.dart';
 
+import '../../common/utils/custom_route_animations.dart';
+
 class ExplorePage extends StatelessWidget {
+  static const name = '/Explore';
   const ExplorePage({Key? key}) : super(key: key);
+
+  static Route route() => PageRoutes.material(
+        settings: const RouteSettings(name: name),
+        builder: (context) => const ExplorePage(),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +51,10 @@ class ExplorePage extends StatelessWidget {
                   Align(
                     alignment: Alignment.center,
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context, rootNavigator: true)
+                            .push(HomePage.route());
+                      },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -74,12 +86,8 @@ class ExplorePage extends StatelessWidget {
                   PrimaryButton(
                     title: S.of(context).create_account,
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const CreateAccountPage(),
-                        ),
-                      );
+                      Navigator.of(context, rootNavigator: true)
+                          .push(CreateAccountPage.route());
                     },
                     type: PrimaryButtonType.green,
                   ),
@@ -89,12 +97,8 @@ class ExplorePage extends StatelessWidget {
                   PrimaryButton(
                     title: S.of(context).sign_in,
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const SignInPage(),
-                        ),
-                      );
+                      Navigator.of(context, rootNavigator: true)
+                          .push(SignInPage.route());
                     },
                     type: PrimaryButtonType.black,
                   ),

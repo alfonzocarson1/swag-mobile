@@ -5,12 +5,19 @@ import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 
 import '../../common/ui/custom_text_form_field.dart';
+import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/size_helper.dart';
 import '../../common/utils/utils.dart';
 import 'sign_in_page.dart';
 
 class ResetPasswordPage extends StatefulWidget {
+  static const name = '/ResetPassword';
   const ResetPasswordPage({Key? key}) : super(key: key);
+
+  static Route route() => PageRoutes.material(
+        settings: const RouteSettings(name: name),
+        builder: (context) => const ResetPasswordPage(),
+      );
 
   @override
   State<ResetPasswordPage> createState() => _ResetPasswordPageState();
@@ -68,12 +75,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         backgroundColor: Colors.transparent,
         appBar: CustomAppBar(
           onRoute: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const SignInPage(),
-              ),
-            );
+            Navigator.of(context, rootNavigator: true)
+                .popUntil(ModalRoute.withName('/SignIn'));
           },
         ),
         body: GestureDetector(

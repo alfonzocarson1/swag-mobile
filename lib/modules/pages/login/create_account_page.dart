@@ -11,10 +11,17 @@ import 'package:swagapp/modules/pages/login/sign_in_page.dart';
 
 import '../../common/ui/custom_text_form_field.dart';
 import '../../common/ui/web_view.dart';
+import '../../common/utils/custom_route_animations.dart';
 import '../../constants/constants.dart';
 
 class CreateAccountPage extends StatefulWidget {
+  static const name = '/CreateAccount';
   const CreateAccountPage({Key? key}) : super(key: key);
+
+  static Route route() => PageRoutes.material(
+        settings: const RouteSettings(name: name),
+        builder: (context) => const CreateAccountPage(),
+      );
 
   @override
   State<CreateAccountPage> createState() => _CreateAccountState();
@@ -284,18 +291,13 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                                         FontWeight.w300),
                                           ),
                                           onPressed: () {
-                                            Navigator.push(
+                                            Navigator.of(context,
+                                                    rootNavigator: true)
+                                                .push(WebViewPage.route(
                                               context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const WebViewPage(
-                                                  urlPage:
-                                                      termsAndConditionsUrl,
-                                                  title:
-                                                      termsAndConditionsBasePath,
-                                                ),
-                                              ),
-                                            );
+                                              termsAndConditionsBasePath,
+                                              termsAndConditionsUrl,
+                                            ));
                                           }),
                                     ),
                                   ),
@@ -325,13 +327,8 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                             fontWeight: FontWeight.w300),
                                   ),
                                   onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const SignInPage(),
-                                      ),
-                                    );
+                                    Navigator.of(context, rootNavigator: true)
+                                        .push(SignInPage.route());
                                   }),
                             ],
                           ),
