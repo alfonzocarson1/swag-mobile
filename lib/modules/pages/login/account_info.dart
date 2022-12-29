@@ -9,13 +9,12 @@ import '../../common/ui/custom_text_form_field.dart';
 import '../../common/ui/account_info_head.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/size_helper.dart';
-import 'sign_in_page.dart';
 
 class AccountInfoPage extends StatefulWidget {
   static const name = '/AccountInfo';
   const AccountInfoPage({Key? key}) : super(key: key);
 
-  static Route route() => PageRoutes.material(
+  static Route route() => PageRoutes.slideUp(
         settings: const RouteSettings(name: name),
         builder: (context) => const AccountInfoPage(),
       );
