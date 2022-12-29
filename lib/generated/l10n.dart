@@ -369,6 +369,126 @@ class S {
       args: [],
     );
   }
+
+  /// `WELCOME TO SWAG`
+  String get title_welcome {
+    return Intl.message(
+      'WELCOME TO SWAG',
+      name: 'title_welcome',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Let’s create your profile!`
+  String get subtitle_welcome {
+    return Intl.message(
+      'Let’s create your profile!',
+      name: 'subtitle_welcome',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `@MRDOUG`
+  String get verify_name {
+    return Intl.message(
+      '@MRDOUG',
+      name: 'verify_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `First Name`
+  String get first_name {
+    return Intl.message(
+      'First Name',
+      name: 'first_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Last Name`
+  String get last_name {
+    return Intl.message(
+      'Last Name',
+      name: 'last_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Country`
+  String get country {
+    return Intl.message(
+      'Country',
+      name: 'country',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Preferred Shipping Address 1`
+  String get first_address {
+    return Intl.message(
+      'Preferred Shipping Address 1',
+      name: 'first_address',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Address 2`
+  String get second_address {
+    return Intl.message(
+      'Address 2',
+      name: 'second_address',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `City`
+  String get city {
+    return Intl.message(
+      'City',
+      name: 'city',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `State`
+  String get state {
+    return Intl.message(
+      'State',
+      name: 'state',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Zip`
+  String get zip {
+    return Intl.message(
+      'Zip',
+      name: 'zip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `NEXT`
+  String get next_btn {
+    return Intl.message(
+      'NEXT',
+      name: 'next_btn',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
