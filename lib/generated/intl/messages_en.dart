@@ -25,9 +25,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "already_have_an_account": MessageLookupByLibrary.simpleMessage(
             "Already have an account? *Sign In*"),
         "app_name": MessageLookupByLibrary.simpleMessage("Swag Golf"),
+        "city": MessageLookupByLibrary.simpleMessage("City"),
         "code": MessageLookupByLibrary.simpleMessage("Code"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
+        "country": MessageLookupByLibrary.simpleMessage("Country"),
         "create_account":
             MessageLookupByLibrary.simpleMessage("CREATE ACCOUNT"),
         "dont_have_account": MessageLookupByLibrary.simpleMessage(
@@ -36,6 +38,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "explore_as_guest":
             MessageLookupByLibrary.simpleMessage("EXPLORE AS GUEST"),
         "finish_btn": MessageLookupByLibrary.simpleMessage("FINISH"),
+        "first_address": MessageLookupByLibrary.simpleMessage(
+            "Preferred Shipping Address 1"),
+        "first_name": MessageLookupByLibrary.simpleMessage("First Name"),
         "forgot_password":
             MessageLookupByLibrary.simpleMessage("Forgot Password?"),
         "forgot_password_code_description":
@@ -52,7 +57,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Password doesn’t meet requirements. Min. 8 characters, 1 uppercase, 1 number & 1 symbol"),
         "invalid_username": MessageLookupByLibrary.simpleMessage(
             "username must be between 4-20 characters"),
+        "last_name": MessageLookupByLibrary.simpleMessage("Last Name"),
         "new_password": MessageLookupByLibrary.simpleMessage("New Password"),
+        "next_btn": MessageLookupByLibrary.simpleMessage("NEXT"),
         "no_match_password":
             MessageLookupByLibrary.simpleMessage("Password doesn’t match"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
@@ -74,9 +81,17 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("RESET PASSWORD"),
         "reset_password_description": MessageLookupByLibrary.simpleMessage(
             "Please enter and confirm your new password below."),
+        "second_address": MessageLookupByLibrary.simpleMessage("Address 2"),
         "sign_in": MessageLookupByLibrary.simpleMessage("SIGN IN"),
+        "state": MessageLookupByLibrary.simpleMessage("State"),
+        "subtitle_welcome":
+            MessageLookupByLibrary.simpleMessage("Let’s create your profile!"),
+        "title_welcome":
+            MessageLookupByLibrary.simpleMessage("WELCOME TO SWAG"),
         "username": MessageLookupByLibrary.simpleMessage("@username"),
         "username_taken":
-            MessageLookupByLibrary.simpleMessage("This username is taken ")
+            MessageLookupByLibrary.simpleMessage("This username is taken "),
+        "verify_name": MessageLookupByLibrary.simpleMessage("@MRDOUG"),
+        "zip": MessageLookupByLibrary.simpleMessage("Zip")
       };
 }
