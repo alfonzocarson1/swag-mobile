@@ -17,20 +17,23 @@ class _AvatarPageState extends State<AvatarPage> {
         const CircleAvatar(
           backgroundColor: Colors.transparent,
           backgroundImage: AssetImage("assets/images/ProfilePhoto.png"),
-          radius: 80,
+          radius: 75,
         ),
         Positioned(
             right: 0,
             bottom: 0,
-            child: MaterialButton(
-              onPressed: () {},
-              color: Palette.current.primaryNeonPink,
-              textColor: Palette.current.black,
-              shape: const CircleBorder(),
-              child: const Icon(
-                Icons.add,
-                size: 20,
-              ),
+            child: GestureDetector(
+              onTap: () {},
+              child: Container(
+                  padding: const EdgeInsets.all(7.5),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(90.0),
+                      color: Palette.current.primaryNeonPink),
+                  child: Icon(
+                    Icons.add,
+                    size: 30,
+                    color: Palette.current.black,
+                  )),
             ))
       ]),
     );

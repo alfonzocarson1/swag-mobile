@@ -53,7 +53,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   late ResponsiveDesign _responsiveDesign;
 
   String _defaultCountry = 'Country';
-  String _defaultState = 'Sate';
+  String _defaultState = 'State';
   var countries = [
     'Country',
     'Country 1',
@@ -63,11 +63,11 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   ];
 
   var states = [
-    'Sate',
-    'Sate 1',
-    'Sate 2',
-    'Sate 3',
-    'Sate 4',
+    'State',
+    'State 1',
+    'State 2',
+    'State 3',
+    'State 4',
   ];
 
   @override
@@ -349,7 +349,15 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                             ),
                             PrimaryButton(
                               title: S.of(context).next_btn,
-                              onPressed: () {},
+                              onPressed: _firstNameController.text.isNotEmpty &&
+                                      _lastNameController.text.isNotEmpty &&
+                                      _defaultCountry != 'Country' &&
+                                      _firstAddressController.text.isNotEmpty &&
+                                      _cityController.text.isNotEmpty &&
+                                      _defaultState != 'State' &&
+                                      _zipController.text.isNotEmpty
+                                  ? () {}
+                                  : null,
                               type: PrimaryButtonType.green,
                             ),
                             const SizedBox(

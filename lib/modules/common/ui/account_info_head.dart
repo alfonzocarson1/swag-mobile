@@ -45,6 +45,7 @@ class _AccountInfoHeaderWidgetState extends State<AccountInfoHeaderWidget> {
                   style: Theme.of(context).textTheme.displayMedium!.copyWith(
                       fontFamily: "Knockout",
                       fontSize: 30,
+                      letterSpacing: 1.0,
                       fontWeight: FontWeight.w500,
                       color: Palette.current.light4)),
               const SizedBox(
@@ -52,8 +53,8 @@ class _AccountInfoHeaderWidgetState extends State<AccountInfoHeaderWidget> {
               ),
               Image.asset(
                 'assets/images/Verifyindicator.png',
-                width: 20,
-                height: 20,
+                width: 25,
+                height: 25,
               ),
             ],
           ),
