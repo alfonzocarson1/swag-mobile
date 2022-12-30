@@ -17,6 +17,7 @@ class CustomTextFormField extends StatefulWidget {
       this.maxLength,
       this.style,
       this.secure = false,
+      this.isEnabled = true,
       this.errorText,
       this.autofocus = true,
       this.dropdownForm = false,
@@ -37,6 +38,7 @@ class CustomTextFormField extends StatefulWidget {
   final TextStyle? style;
   final String? errorText;
   final bool secure;
+  final bool isEnabled;
   final bool autofocus;
   final bool dropdownForm;
   final List<String>? dropdownFormItems;
@@ -113,12 +115,16 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                     child: Container(
                       height: 55,
                       decoration: BoxDecoration(
-                        color: Palette.current.primaryWhiteSmoke,
+                        color: widget.isEnabled
+                            ? Palette.current.primaryWhiteSmoke
+                            : Palette.current.primaryWhiteSmoke
+                                .withOpacity(0.4),
                       ),
                       child: Padding(
                         padding:
                             const EdgeInsets.only(left: 16, top: 4, bottom: 8),
                         child: TextField(
+                          enabled: widget.isEnabled,
                           autofocus: widget.autofocus,
                           maxLength: widget.maxLength,
                           onChanged: widget.onChanged,

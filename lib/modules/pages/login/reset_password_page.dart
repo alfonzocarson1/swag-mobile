@@ -174,6 +174,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                             ),
                             CustomTextFormField(
                                 errorText: errorSecondText,
+                                isEnabled: errorFirstText == null &&
+                                    _passwordController.text.isNotEmpty,
                                 borderColor: _confirmPasswordBorder,
                                 autofocus: false,
                                 labelText: S.of(context).confirm_password,

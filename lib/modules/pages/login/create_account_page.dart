@@ -211,6 +211,8 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                   errorText: confirmPasswordErrorText,
                                   borderColor: _confirmPasswordBorder,
                                   autofocus: false,
+                                  isEnabled: passwordErrorText == null &&
+                                      _passwordController.text.isNotEmpty,
                                   labelText: S.of(context).confirm_password,
                                   focusNode: _confirmPasswordNode,
                                   accountController: _confirmPasswordController,
@@ -370,9 +372,9 @@ class _PhoneSection extends StatefulWidget {
 
 class __PhoneSectionState extends State<_PhoneSection> {
   late String? _errorText;
-  String initialCountry = 'CO';
-  PhoneNumber initialNumber = PhoneNumber(isoCode: 'CO');
-  PhoneNumber choseNumber = PhoneNumber(isoCode: 'CO');
+  String initialCountry = 'US';
+  PhoneNumber initialNumber = PhoneNumber(isoCode: 'US');
+  PhoneNumber choseNumber = PhoneNumber(isoCode: 'US');
   bool isLoginEnabled = false;
 
   @override
