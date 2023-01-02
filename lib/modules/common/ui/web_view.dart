@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-
-import '../../pages/login/sign_in_page.dart';
 import '../utils/custom_route_animations.dart';
 import '../utils/palette.dart';
-import 'custom_app_bar.dart';
 import 'handler.dart';
 
 class WebViewPage extends StatefulWidget {

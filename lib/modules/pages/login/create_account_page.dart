@@ -193,13 +193,20 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                           ? null
                                           : S.of(context).invalid_password;
 
-                                      confirmPasswordErrorText = value ==
-                                                  _confirmPasswordController
-                                                      .text &&
-                                              _confirmPasswordController
-                                                  .text.isNotEmpty
-                                          ? null
-                                          : S.of(context).no_match_password;
+                                      confirmPasswordErrorText =
+                                          passwordErrorText == null &&
+                                                  _passwordController
+                                                      .text.isNotEmpty
+                                              ? value ==
+                                                          _confirmPasswordController
+                                                              .text &&
+                                                      _confirmPasswordController
+                                                          .text.isNotEmpty
+                                                  ? null
+                                                  : S
+                                                      .of(context)
+                                                      .no_match_password
+                                              : null;
                                     });
                                   },
                                   secure: true,
@@ -219,9 +226,16 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                   onChanged: (value) {
                                     setState(() {
                                       confirmPasswordErrorText =
-                                          value == _passwordController.text
-                                              ? null
-                                              : S.of(context).no_match_password;
+                                          passwordErrorText == null &&
+                                                  _passwordController
+                                                      .text.isNotEmpty
+                                              ? value ==
+                                                      _passwordController.text
+                                                  ? null
+                                                  : S
+                                                      .of(context)
+                                                      .no_match_password
+                                              : null;
                                     });
                                   },
                                   secure: true,
