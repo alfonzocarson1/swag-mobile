@@ -2,10 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:swagapp/modules/api/api_service.dart';
 import 'package:swagapp/modules/common/utils/context_service.dart';
-import 'package:swagapp/modules/data/i_auth_service.dart';
+import 'package:swagapp/modules/data/auth/i_auth_service.dart';
 
 import '../blocs/auth_bloc/auth_bloc.dart';
-import '../data/auth_service.dart';
+import '../data/auth/auth_service.dart';
+import '../data/shared_preferences/shared_preferences_service.dart';
 
 final getIt = GetIt.instance;
 
@@ -17,6 +18,7 @@ Future<void> setupAppScope() {
   getIt.registerLazySingleton<IAuthService>(() => AuthService(APIService()));
   getIt.registerLazySingleton<AuthBloc>(() => AuthBloc(getIt<IAuthService>()));
 
+  getIt.registerLazySingleton(() => PreferenceRepositoryService());
   getIt.registerLazySingleton(() => ContextService());
   return getIt.allReady();
 }

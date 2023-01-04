@@ -1,4 +1,4 @@
-import '../api/api_service.dart';
+import '../../api/api_service.dart';
 import 'i_auth_service.dart';
 
 class AuthService extends IAuthService {

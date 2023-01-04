@@ -7,6 +7,8 @@ import 'package:swagapp/modules/pages/login/create_account_page.dart';
 import 'package:swagapp/modules/pages/login/sign_in_page.dart';
 
 import '../../common/utils/custom_route_animations.dart';
+import '../../data/shared_preferences/shared_preferences_service.dart';
+import '../../di/injector.dart';
 
 class ExplorePage extends StatelessWidget {
   static const name = '/Explore';
@@ -52,6 +54,8 @@ class ExplorePage extends StatelessWidget {
                     alignment: Alignment.center,
                     child: InkWell(
                       onTap: () {
+                        getIt<PreferenceRepositoryService>()
+                            .saveIsGuestLogged(true);
                         Navigator.of(context, rootNavigator: true)
                             .push(HomePage.route());
                       },
