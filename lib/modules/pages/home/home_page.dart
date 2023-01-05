@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _isLogged = getIt<PreferenceRepositoryService>().isLogged();
-    if (!_isLogged) {
+    if (_isLogged) {
       Future.delayed(const Duration(milliseconds: 2000), () {
         Navigator.of(context, rootNavigator: true)
             .push(AccountInfoPage.route());
@@ -37,15 +37,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF414141),
-      appBar: _isLogged
-          ? CustomAppBar(
-              onRoute: () {
-                Navigator.of(context, rootNavigator: true)
-                    .popUntil(ModalRoute.withName('/'));
-                getIt<PreferenceRepositoryService>().saveIsLogged(false);
-              },
-            )
-          : null,
+      appBar: !_isLogged ? CustomAppBar() : null,
       body: Center(
         child: Text(
           "Welcome to the Catalog page",
