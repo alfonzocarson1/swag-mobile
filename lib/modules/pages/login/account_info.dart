@@ -5,6 +5,7 @@ import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 
+import '../../common/ui/cupertino_custom_picker.dart';
 import '../../common/ui/custom_text_form_field.dart';
 import '../../common/ui/account_info_head.dart';
 import '../../common/utils/custom_route_animations.dart';
@@ -75,6 +76,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
     'State 3',
     'State 4',
   ];
+  int value = 0;
 
   @override
   void dispose() {
@@ -308,24 +310,13 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                   children: [
                                     Expanded(
                                       flex: 2,
-                                      child: CustomTextFormField(
-                                          borderColor: _stateBorder,
-                                          autofocus: false,
-                                          labelText: S.of(context).state,
-                                          dropdownForm: true,
-                                          dropdownFormItems: states,
-                                          dropdownvalue: _defaultState,
-                                          dropdownOnChanged:
-                                              (String? newValue) {
-                                            setState(() {
-                                              setState(() {
-                                                _defaultState = newValue!;
-                                              });
-                                            });
-                                          },
-                                          focusNode: _stateNode,
-                                          accountController: _stateController,
-                                          inputType: TextInputType.text),
+                                      child: CupertinoPickerView(
+                                          cupertinoPickerItems: states,
+                                          cupertinoPickervalue: _defaultState,
+                                          cupertinoPickerOnChanged: (index) {
+                                            setState(() => value = index);
+                                            _defaultState = states[index];
+                                          }),
                                     ),
                                     const SizedBox(
                                       width: 20,
