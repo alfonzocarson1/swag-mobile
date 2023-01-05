@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../common/utils/handling_errors.dart';
-import '../../data/i_auth_service.dart';
+import '../../data/auth/i_auth_service.dart';
 
 part 'auth_bloc.freezed.dart';
 part 'auth_event.dart';
