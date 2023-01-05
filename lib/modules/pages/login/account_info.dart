@@ -313,9 +313,10 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                       child: CupertinoPickerView(
                                           cupertinoPickerItems: states,
                                           cupertinoPickervalue: _defaultState,
-                                          cupertinoPickerOnChanged: (index) {
+                                          onDone: (index) {
                                             setState(() => value = index);
                                             _defaultState = states[index];
+                                            Navigator.pop(context);
                                           }),
                                     ),
                                     const SizedBox(
