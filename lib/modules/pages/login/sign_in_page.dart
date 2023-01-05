@@ -6,6 +6,7 @@ import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/common/utils/utils.dart';
+import 'package:swagapp/modules/pages/home/home_page.dart';
 import 'package:swagapp/modules/pages/login/create_account_page.dart';
 import 'package:swagapp/modules/pages/login/forgot_password_page.dart';
 
@@ -32,7 +33,8 @@ class _SignInPageState extends State<SignInPage> {
   final _passwordController = TextEditingController();
   Color _emailBorder = Palette.current.primaryWhiteSmoke;
   Color _passwordBorder = Palette.current.primaryWhiteSmoke;
-  String? errorText;
+  String? emailErrorText;
+  String? passwordlErrorText;
 
   @override
   void dispose() {
@@ -134,31 +136,22 @@ class _SignInPageState extends State<SignInPage> {
                             ),
                             CustomTextFormField(
                                 borderColor: _emailBorder,
-                                errorText: errorText,
+                                errorText: emailErrorText,
                                 autofocus: false,
                                 labelText: S.of(context).email,
                                 focusNode: _emailNode,
                                 accountController: _emailController,
-                                onChanged: (value) {
-                                  setState(() {
-                                    errorText = isValidEmail(value)
-                                        ? null
-                                        : S.of(context).invalid_email;
-                                  });
-                                },
                                 inputType: TextInputType.emailAddress),
                             const SizedBox(
                               height: 16,
                             ),
                             CustomTextFormField(
                                 borderColor: _passwordBorder,
+                                errorText: passwordlErrorText,
                                 autofocus: false,
                                 labelText: S.of(context).password,
                                 focusNode: _passwordNode,
                                 accountController: _passwordController,
-                                onChanged: (value) {
-                                  setState(() {});
-                                },
                                 secure: true,
                                 inputType: TextInputType.text),
                             const SizedBox(
@@ -185,7 +178,13 @@ class _SignInPageState extends State<SignInPage> {
                             ),
                             PrimaryButton(
                               title: S.of(context).sign_in,
-                              onPressed: areFieldsValid() ? () {} : null,
+                              onPressed: () {
+                                showErrors();
+                                if (areFieldsValid()) {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(HomePage.route());
+                                }
+                              },
                               type: PrimaryButtonType.green,
                             ),
                             const SizedBox(
@@ -217,8 +216,19 @@ class _SignInPageState extends State<SignInPage> {
             ])));
   }
 
+  void showErrors() {
+    setState(() {
+      emailErrorText = isValidEmail(_emailController.text)
+          ? null
+          : S.of(context).invalid_email;
+      passwordlErrorText = _passwordController.text.isNotEmpty
+          ? null
+          : S.of(context).empty_password;
+    });
+  }
+
   bool areFieldsValid() {
-    return errorText == null &&
+    return emailErrorText == null &&
         _emailController.text.isNotEmpty &&
         _passwordController.text.isNotEmpty;
   }

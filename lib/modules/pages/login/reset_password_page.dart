@@ -8,7 +8,6 @@ import '../../common/ui/custom_text_form_field.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/size_helper.dart';
 import '../../common/utils/utils.dart';
-import 'sign_in_page.dart';
 
 class ResetPasswordPage extends StatefulWidget {
   static const name = '/ResetPassword';
@@ -139,34 +138,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                 labelText: S.of(context).new_password,
                                 focusNode: _passwordNode,
                                 accountController: _passwordController,
-                                onChanged: (value) {
-                                  setState(() {
-                                    matchPassword = value;
-                                    errorFirstText = isValidPassword(value)
-                                        ? null
-                                        : S.of(context).invalid_password;
-
-                                    if (_passwordController.text !=
-                                            _confirmPasswordController.text &&
-                                        _confirmPasswordController
-                                            .text.isNotEmpty) {
-                                      errorSecondText =
-                                          S.of(context).no_match_password;
-                                      enableButtonSecondPassword = false;
-                                    } else if (_passwordController.text ==
-                                            _confirmPasswordController.text &&
-                                        _confirmPasswordController
-                                            .text.isNotEmpty) {
-                                      enableButtonSecondPassword = true;
-                                      errorSecondText = null;
-                                    } else {
-                                      errorSecondText = null;
-                                    }
-
-                                    enableButtonFirstPassword =
-                                        isValidPassword(value) ? true : false;
-                                  });
-                                },
                                 secure: true,
                                 inputType: TextInputType.text),
                             const SizedBox(
@@ -181,21 +152,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                 labelText: S.of(context).confirm_password,
                                 focusNode: _confirmPasswordNode,
                                 accountController: _confirmPasswordController,
-                                onChanged: (value) {
-                                  setState(() {
-                                    errorSecondText = matchPassword == value
-                                        ? null
-                                        : S.of(context).no_match_password;
-
-                                    enableButtonSecondPassword =
-                                        (errorFirstText == null &&
-                                                matchPassword == value &&
-                                                _confirmPasswordController
-                                                    .text.isNotEmpty)
-                                            ? true
-                                            : false;
-                                  });
-                                },
                                 secure: true,
                                 inputType: TextInputType.text),
                             const SizedBox(
@@ -203,10 +159,11 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                             ),
                             PrimaryButton(
                               title: S.of(context).finish_btn,
-                              onPressed: enableButtonSecondPassword &&
-                                      enableButtonFirstPassword
-                                  ? () {}
-                                  : null,
+                              onPressed: () {
+                                showErrors();
+                                if (enableButtonSecondPassword &&
+                                    enableButtonFirstPassword) {}
+                              },
                               type: PrimaryButtonType.green,
                             ),
                             const SizedBox(
@@ -220,5 +177,39 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 );
               }),
             ])));
+  }
+
+  void showErrors() {
+    setState(() {
+      matchPassword = _passwordController.text;
+      errorFirstText = isValidPassword(_passwordController.text)
+          ? null
+          : S.of(context).invalid_password;
+
+      if (_passwordController.text != _confirmPasswordController.text &&
+          _confirmPasswordController.text.isNotEmpty) {
+        errorSecondText = S.of(context).no_match_password;
+        enableButtonSecondPassword = false;
+      } else if (_passwordController.text == _confirmPasswordController.text &&
+          _confirmPasswordController.text.isNotEmpty) {
+        enableButtonSecondPassword = true;
+        errorSecondText = null;
+      } else {
+        errorSecondText = null;
+      }
+
+      enableButtonFirstPassword =
+          isValidPassword(_passwordController.text) ? true : false;
+
+      errorSecondText = matchPassword == _confirmPasswordController.text
+          ? null
+          : S.of(context).no_match_password;
+
+      enableButtonSecondPassword = (errorFirstText == null &&
+              matchPassword == _confirmPasswordController.text &&
+              _confirmPasswordController.text.isNotEmpty)
+          ? true
+          : false;
+    });
   }
 }

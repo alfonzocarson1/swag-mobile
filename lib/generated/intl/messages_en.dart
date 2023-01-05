@@ -35,8 +35,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "dont_have_account": MessageLookupByLibrary.simpleMessage(
             "Don’t have an account? *Create Account*"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
+        "empty_password":
+            MessageLookupByLibrary.simpleMessage("Invalid password"),
         "explore_as_guest":
             MessageLookupByLibrary.simpleMessage("EXPLORE AS GUEST"),
+        "field_empty":
+            MessageLookupByLibrary.simpleMessage("This field cannot be empty"),
         "finish_btn": MessageLookupByLibrary.simpleMessage("FINISH"),
         "first_address": MessageLookupByLibrary.simpleMessage(
             "Preferred Shipping Address 1"),

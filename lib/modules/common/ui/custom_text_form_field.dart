@@ -115,11 +115,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                     child: Container(
                       height: 55,
                       decoration: BoxDecoration(
-                        color: widget.isEnabled
-                            ? Palette.current.primaryWhiteSmoke
-                            : Palette.current.primaryWhiteSmoke
-                                .withOpacity(0.4),
-                      ),
+                          color: Palette.current.primaryWhiteSmoke),
                       child: Padding(
                         padding:
                             const EdgeInsets.only(left: 16, top: 4, bottom: 8),

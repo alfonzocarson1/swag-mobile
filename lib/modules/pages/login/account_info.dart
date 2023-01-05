@@ -188,185 +188,196 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                     ),
                     child: null),
               ),
-              LayoutBuilder(builder: (context, viewportConstraints) {
-                return SingleChildScrollView(
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(
-                      minHeight: viewportConstraints.maxHeight,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: SafeArea(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            const AccountInfoHeaderWidget(),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            CustomTextFormField(
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.allow(
-                                      RegExp('[a-zA-Z ]')),
-                                ],
-                                borderColor: _firstNameBorder,
-                                autofocus: false,
-                                labelText: S.of(context).first_name,
-                                focusNode: _firstNameNode,
-                                accountController: _firstNameController,
-                                onChanged: (value) {
-                                  setState(() {});
-                                },
-                                inputType: TextInputType.text),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            CustomTextFormField(
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.allow(
-                                      RegExp('[a-zA-Z ]')),
-                                ],
-                                borderColor: _lastNameBorder,
-                                autofocus: false,
-                                labelText: S.of(context).last_name,
-                                focusNode: _lastNameNode,
-                                accountController: _lastNameController,
-                                onChanged: (value) {
-                                  setState(() {});
-                                },
-                                inputType: TextInputType.text),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            CustomTextFormField(
-                                borderColor: _countryBorder,
-                                autofocus: false,
-                                labelText: S.of(context).country,
-                                dropdownForm: true,
-                                dropdownFormItems: countries,
-                                dropdownvalue: _defaultCountry,
-                                dropdownOnChanged: (String? newValue) {
-                                  setState(() {
-                                    setState(() {
-                                      _defaultCountry = newValue!;
-                                    });
-                                  });
-                                },
-                                focusNode: _countryNode,
-                                accountController: _countryController,
-                                inputType: TextInputType.text),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            CustomTextFormField(
-                                borderColor: _firstAddressBorder,
-                                autofocus: false,
-                                labelText: S.of(context).first_address,
-                                focusNode: _firstAddressNode,
-                                accountController: _firstAddressController,
-                                onChanged: (value) {
-                                  setState(() {});
-                                },
-                                inputType: TextInputType.text),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            CustomTextFormField(
-                                borderColor: _secondAddressBorder,
-                                autofocus: false,
-                                labelText: S.of(context).second_address,
-                                focusNode: _secondAddressNode,
-                                accountController: _secondAddressController,
-                                onChanged: (value) {
-                                  setState(() {});
-                                },
-                                inputType: TextInputType.text),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            CustomTextFormField(
-                                borderColor: _cityBorder,
-                                autofocus: false,
-                                labelText: S.of(context).city,
-                                focusNode: _cityNode,
-                                accountController: _cityController,
-                                onChanged: (value) {
-                                  setState(() {});
-                                },
-                                inputType: TextInputType.text),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Row(
+              Column(
+                children: [
+                  const SizedBox(
+                    height: 100,
+                  ),
+                  Text(S.of(context).title_welcome,
+                      style:
+                          Theme.of(context).textTheme.displayMedium!.copyWith(
+                                fontFamily: "Knockout",
+                                fontSize: 50,
+                                fontWeight: FontWeight.w300,
+                                color: Palette.current.primaryNeonGreen,
+                              )),
+                  Text(S.of(context).subtitle_welcome,
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            letterSpacing: 0.3,
+                            color: Palette.current.primaryWhiteSmoke,
+                          )),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Expanded(
+                    child:
+                        LayoutBuilder(builder: (context, viewportConstraints) {
+                      return SingleChildScrollView(
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(
+                            minHeight: viewportConstraints.maxHeight,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                Expanded(
-                                  flex: 2,
-                                  child: CustomTextFormField(
-                                      borderColor: _stateBorder,
-                                      autofocus: false,
-                                      labelText: S.of(context).state,
-                                      dropdownForm: true,
-                                      dropdownFormItems: states,
-                                      dropdownvalue: _defaultState,
-                                      dropdownOnChanged: (String? newValue) {
+                                const AccountInfoHeaderWidget(),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                CustomTextFormField(
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                          RegExp('[a-zA-Z ]')),
+                                    ],
+                                    borderColor: _firstNameBorder,
+                                    autofocus: false,
+                                    labelText: S.of(context).first_name,
+                                    focusNode: _firstNameNode,
+                                    accountController: _firstNameController,
+                                    inputType: TextInputType.text),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                CustomTextFormField(
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                          RegExp('[a-zA-Z ]')),
+                                    ],
+                                    borderColor: _lastNameBorder,
+                                    autofocus: false,
+                                    labelText: S.of(context).last_name,
+                                    focusNode: _lastNameNode,
+                                    accountController: _lastNameController,
+                                    inputType: TextInputType.text),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                CustomTextFormField(
+                                    borderColor: _countryBorder,
+                                    autofocus: false,
+                                    labelText: S.of(context).country,
+                                    dropdownForm: true,
+                                    dropdownFormItems: countries,
+                                    dropdownvalue: _defaultCountry,
+                                    dropdownOnChanged: (String? newValue) {
+                                      setState(() {
                                         setState(() {
-                                          setState(() {
-                                            _defaultState = newValue!;
-                                          });
+                                          _defaultCountry = newValue!;
                                         });
-                                      },
-                                      focusNode: _stateNode,
-                                      accountController: _stateController,
-                                      inputType: TextInputType.text),
+                                      });
+                                    },
+                                    focusNode: _countryNode,
+                                    accountController: _countryController,
+                                    inputType: TextInputType.text),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                CustomTextFormField(
+                                    borderColor: _firstAddressBorder,
+                                    autofocus: false,
+                                    labelText: S.of(context).first_address,
+                                    focusNode: _firstAddressNode,
+                                    accountController: _firstAddressController,
+                                    inputType: TextInputType.text),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                CustomTextFormField(
+                                    borderColor: _secondAddressBorder,
+                                    autofocus: false,
+                                    labelText: S.of(context).second_address,
+                                    focusNode: _secondAddressNode,
+                                    accountController: _secondAddressController,
+                                    inputType: TextInputType.text),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                CustomTextFormField(
+                                    borderColor: _cityBorder,
+                                    autofocus: false,
+                                    labelText: S.of(context).city,
+                                    focusNode: _cityNode,
+                                    accountController: _cityController,
+                                    inputType: TextInputType.text),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 2,
+                                      child: CustomTextFormField(
+                                          borderColor: _stateBorder,
+                                          autofocus: false,
+                                          labelText: S.of(context).state,
+                                          dropdownForm: true,
+                                          dropdownFormItems: states,
+                                          dropdownvalue: _defaultState,
+                                          dropdownOnChanged:
+                                              (String? newValue) {
+                                            setState(() {
+                                              setState(() {
+                                                _defaultState = newValue!;
+                                              });
+                                            });
+                                          },
+                                          focusNode: _stateNode,
+                                          accountController: _stateController,
+                                          inputType: TextInputType.text),
+                                    ),
+                                    const SizedBox(
+                                      width: 20,
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: CustomTextFormField(
+                                          inputFormatters: [
+                                            FilteringTextInputFormatter.allow(
+                                                RegExp("[0-9a-zA-Z ]")),
+                                          ],
+                                          borderColor: _zipBorder,
+                                          autofocus: false,
+                                          labelText: S.of(context).zip,
+                                          focusNode: _zipNode,
+                                          accountController: _zipController,
+                                          inputType: TextInputType.text),
+                                    )
+                                  ],
                                 ),
                                 const SizedBox(
-                                  width: 20,
+                                  height: 20,
                                 ),
-                                Expanded(
-                                  flex: 2,
-                                  child: CustomTextFormField(
-                                      inputFormatters: [
-                                        FilteringTextInputFormatter.allow(
-                                            RegExp("[0-9a-zA-Z ]")),
-                                      ],
-                                      borderColor: _zipBorder,
-                                      autofocus: false,
-                                      labelText: S.of(context).zip,
-                                      focusNode: _zipNode,
-                                      accountController: _zipController,
-                                      onChanged: (value) {
-                                        setState(() {});
-                                      },
-                                      inputType: TextInputType.text),
-                                )
+                                PrimaryButton(
+                                  title: S.of(context).next_btn,
+                                  onPressed: () {
+                                    if (areFieldsValid()) {}
+                                  },
+                                  type: PrimaryButtonType.green,
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
                               ],
                             ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            PrimaryButton(
-                              title: S.of(context).next_btn,
-                              onPressed: _firstNameController.text.isNotEmpty &&
-                                      _lastNameController.text.isNotEmpty &&
-                                      _defaultCountry != 'Country' &&
-                                      _firstAddressController.text.isNotEmpty &&
-                                      _cityController.text.isNotEmpty &&
-                                      _defaultState != 'State' &&
-                                      _zipController.text.isNotEmpty
-                                  ? () {}
-                                  : null,
-                              type: PrimaryButtonType.green,
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
+                      );
+                    }),
                   ),
-                );
-              }),
+                ],
+              ),
             ])));
+  }
+
+  bool areFieldsValid() {
+    return _firstNameController.text.isNotEmpty &&
+        _lastNameController.text.isNotEmpty &&
+        _defaultCountry != 'Country' &&
+        _firstAddressController.text.isNotEmpty &&
+        _cityController.text.isNotEmpty &&
+        _defaultState != 'State' &&
+        _zipController.text.isNotEmpty;
   }
 }

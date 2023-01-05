@@ -7,6 +7,14 @@ const termsAndConditionsBasePath = "https://swag.golf";
 
 const countries = [
   "US",
-  "CR",
-  "CO",
+  "CA",
+  "GB",
+  "AU",
+  "SG",
+  "SE",
+  "DE",
+  "JP",
+  "HK",
+  "CN",
+  "KR",
 ];

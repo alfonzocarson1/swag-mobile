@@ -8,6 +8,8 @@
     "forgot_password": "Forgot Password?",
     "dont_have_account": "Don’t have an account? *Create Account*",
     "invalid_email": "Invalid email address",
+    "empty_password": "Invalid password",
+    "field_empty": "This field cannot be empty",
 
     "invalid_password": "Password doesn’t meet requirements. Min. 8 characters, 1 uppercase, 1 number & 1 symbol",
     "no_match_password": "Password doesn’t match",

@@ -140,6 +140,26 @@ class S {
     );
   }
 
+  /// `Invalid password`
+  String get empty_password {
+    return Intl.message(
+      'Invalid password',
+      name: 'empty_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This field cannot be empty`
+  String get field_empty {
+    return Intl.message(
+      'This field cannot be empty',
+      name: 'field_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Password doesn’t meet requirements. Min. 8 characters, 1 uppercase, 1 number & 1 symbol`
   String get invalid_password {
     return Intl.message(

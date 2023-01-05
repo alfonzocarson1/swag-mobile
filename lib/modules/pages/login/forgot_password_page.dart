@@ -135,15 +135,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                             focusNode: _codeView ? _codeNode : _emailNode,
                             accountController:
                                 _codeView ? _codeController : _emailController,
-                            onChanged: (value) {
-                              setState(() {
-                                if (!_codeView) {
-                                  errorText = isValidEmail(value)
-                                      ? null
-                                      : S.of(context).invalid_email;
-                                }
-                              });
-                            },
                             inputType: _codeView
                                 ? TextInputType.text
                                 : TextInputType.emailAddress),
@@ -154,14 +145,15 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                           visible: !_codeView,
                           child: PrimaryButton(
                             title: S.of(context).reset_password_btn,
-                            onPressed: errorText == null &&
-                                    _emailController.text.isNotEmpty
-                                ? () {
-                                    setState(() {
-                                      _codeView = true;
-                                    });
-                                  }
-                                : null,
+                            onPressed: () {
+                              forgotPasswordShowErrors();
+                              if (errorText == null &&
+                                  _emailController.text.isNotEmpty) {
+                                setState(() {
+                                  _codeView = true;
+                                });
+                              }
+                            },
                             type: PrimaryButtonType.green,
                           ),
                         ),
@@ -169,12 +161,13 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                           visible: _codeView,
                           child: PrimaryButton(
                             title: S.of(context).reset_password_btn,
-                            onPressed: _codeController.text.isNotEmpty
-                                ? () {
-                                    Navigator.of(context, rootNavigator: true)
-                                        .push(ResetPasswordPage.route());
-                                  }
-                                : null,
+                            onPressed: () {
+                              codeFieldShowErrors();
+                              if (_codeController.text.isNotEmpty) {
+                                Navigator.of(context, rootNavigator: true)
+                                    .push(ResetPasswordPage.route());
+                              }
+                            },
                             type: PrimaryButtonType.green,
                           ),
                         ),
@@ -204,5 +197,20 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             })
           ])),
     );
+  }
+
+  void forgotPasswordShowErrors() {
+    setState(() {
+      errorText = isValidEmail(_emailController.text)
+          ? null
+          : S.of(context).invalid_email;
+    });
+  }
+
+  void codeFieldShowErrors() {
+    setState(() {
+      errorText =
+          _codeController.text.isNotEmpty ? null : S.of(context).field_empty;
+    });
   }
 }

@@ -43,16 +43,10 @@ class PrimaryButton extends StatelessWidget {
             maxHeight: maxHeight,
           ),
           fillColor: type == PrimaryButtonType.green
-              ? onPressed == null
-                  ? Palette.current.primaryNeonGreen.withOpacity(0.4)
-                  : Palette.current.primaryNeonGreen
+              ? Palette.current.primaryNeonGreen
               : type == PrimaryButtonType.pink
-                  ? onPressed == null
-                      ? Palette.current.primaryNeonPink.withOpacity(0.4)
-                      : Palette.current.primaryNeonPink
-                  : onPressed == null
-                      ? Palette.current.black.withOpacity(0.4)
-                      : Palette.current.black,
+                  ? Palette.current.primaryNeonPink
+                  : Palette.current.black,
           splashColor: Palette.current.primaryNeonPink.withOpacity(0.4),
           highlightColor: Palette.current.black.withOpacity(0.3),
           onPressed: onPressed,

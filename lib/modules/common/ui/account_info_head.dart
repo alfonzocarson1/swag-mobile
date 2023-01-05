@@ -18,21 +18,6 @@ class _AccountInfoHeaderWidgetState extends State<AccountInfoHeaderWidget> {
     return Center(
       child: Column(
         children: [
-          Text(S.of(context).title_welcome,
-              style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                    fontFamily: "Knockout",
-                    fontSize: 50,
-                    fontWeight: FontWeight.w300,
-                    color: Palette.current.primaryNeonGreen,
-                  )),
-          Text(S.of(context).subtitle_welcome,
-              style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                    letterSpacing: 0.3,
-                    color: Palette.current.primaryWhiteSmoke,
-                  )),
-          const SizedBox(
-            height: 20,
-          ),
           const AvatarPage(),
           const SizedBox(
             height: 20,

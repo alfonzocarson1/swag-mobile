@@ -42,6 +42,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
   final _confirmPasswordController = TextEditingController();
   Color _confirmPasswordBorder = Palette.current.primaryWhiteSmoke;
   String? confirmPasswordErrorText;
+  bool isPhoneValid = false;
 
   final FocusNode _phoneNode = FocusNode();
   final _phoneController = TextEditingController();
@@ -135,226 +136,236 @@ class _CreateAccountState extends State<CreateAccountPage> {
                     ),
                     child: null),
               ),
-              LayoutBuilder(builder: (context, viewportConstraints) {
-                return SingleChildScrollView(
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(
-                      minHeight: viewportConstraints.maxHeight,
-                    ),
-                    child: IntrinsicHeight(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: SafeArea(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Image.asset(
-                                'assets/images/logo.png',
-                                width: 125,
-                                height: 51,
-                              ),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                              CustomTextFormField(
-                                  borderColor: _emailBorder,
-                                  errorText: emailErrorText,
-                                  autofocus: false,
-                                  labelText: S.of(context).email,
-                                  focusNode: _emailNode,
-                                  accountController: _emailController,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      emailErrorText = isValidEmail(value)
-                                          ? null
-                                          : S.of(context).invalid_email;
-                                    });
-                                  },
-                                  inputType: TextInputType.emailAddress),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              _PhoneSection(_phoneController, _phoneNode,
-                                  phoneErrorText, _phoneBorder),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              CustomTextFormField(
-                                  errorText: passwordErrorText,
-                                  borderColor: _passwordBorder,
-                                  autofocus: false,
-                                  labelText: S.of(context).password,
-                                  focusNode: _passwordNode,
-                                  accountController: _passwordController,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      passwordErrorText = isValidPassword(value)
-                                          ? null
-                                          : S.of(context).invalid_password;
-
-                                      confirmPasswordErrorText =
-                                          passwordErrorText == null &&
-                                                  _passwordController
-                                                      .text.isNotEmpty
-                                              ? value ==
-                                                          _confirmPasswordController
-                                                              .text &&
-                                                      _confirmPasswordController
-                                                          .text.isNotEmpty
-                                                  ? null
-                                                  : S
-                                                      .of(context)
-                                                      .no_match_password
-                                              : null;
-                                    });
-                                  },
-                                  secure: true,
-                                  inputType: TextInputType.text),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              CustomTextFormField(
-                                  errorText: confirmPasswordErrorText,
-                                  borderColor: _confirmPasswordBorder,
-                                  autofocus: false,
-                                  isEnabled: passwordErrorText == null &&
-                                      _passwordController.text.isNotEmpty,
-                                  labelText: S.of(context).confirm_password,
-                                  focusNode: _confirmPasswordNode,
-                                  accountController: _confirmPasswordController,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      confirmPasswordErrorText =
-                                          passwordErrorText == null &&
-                                                  _passwordController
-                                                      .text.isNotEmpty
-                                              ? value ==
-                                                      _passwordController.text
-                                                  ? null
-                                                  : S
-                                                      .of(context)
-                                                      .no_match_password
-                                              : null;
-                                    });
-                                  },
-                                  secure: true,
-                                  inputType: TextInputType.text),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              CustomTextFormField(
-                                  borderColor: _usernameBorder,
-                                  errorText: usernameErrorText,
-                                  autofocus: false,
-                                  labelText: S.of(context).username,
-                                  focusNode: _usernameNode,
-                                  accountController: _usernameController,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      usernameErrorText = isValidUsername(value)
-                                          ? null
-                                          : S.of(context).invalid_username;
-                                    });
-                                  },
-                                  suffix: usernameErrorText == null
-                                      ? Icon(
-                                          Icons.check,
-                                          color:
-                                              _usernameController.text.isEmpty
-                                                  ? Colors.grey
-                                                  : Colors.green,
-                                        )
-                                      : Icon(
-                                          Icons.close,
-                                          color:
-                                              Palette.current.primaryNeonPink,
-                                        ),
-                                  inputType: TextInputType.emailAddress),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
+              Column(
+                children: [
+                  const SizedBox(
+                    height: 100,
+                  ),
+                  Image.asset(
+                    'assets/images/logo.png',
+                    width: 125,
+                    height: 51,
+                  ),
+                  Expanded(
+                    child:
+                        LayoutBuilder(builder: (context, viewportConstraints) {
+                      return SingleChildScrollView(
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(
+                            minHeight: viewportConstraints.maxHeight,
+                          ),
+                          child: IntrinsicHeight(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
-                                  SizedBox(
-                                    height: 24.0,
-                                    width: 24.0,
-                                    child: Checkbox(
-                                      checkColor: Palette.current.black,
-                                      value: checkBoxValue,
+                                  CustomTextFormField(
+                                      borderColor: _emailBorder,
+                                      errorText: emailErrorText,
+                                      autofocus: false,
+                                      labelText: S.of(context).email,
+                                      focusNode: _emailNode,
+                                      accountController: _emailController,
+                                      inputType: TextInputType.emailAddress),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  _PhoneSection(
+                                      _phoneController,
+                                      _phoneNode,
+                                      phoneErrorText,
+                                      _phoneBorder, (isPhoneValidParam) {
+                                    isPhoneValid = isPhoneValidParam;
+                                  }),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  CustomTextFormField(
+                                      errorText: passwordErrorText,
+                                      borderColor: _passwordBorder,
+                                      autofocus: false,
+                                      labelText: S.of(context).password,
+                                      focusNode: _passwordNode,
+                                      accountController: _passwordController,
+                                      secure: true,
+                                      inputType: TextInputType.text),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  CustomTextFormField(
+                                      errorText: confirmPasswordErrorText,
+                                      borderColor: _confirmPasswordBorder,
+                                      autofocus: false,
+                                      isEnabled: passwordErrorText == null &&
+                                          _passwordController.text.isNotEmpty,
+                                      labelText: S.of(context).confirm_password,
+                                      focusNode: _confirmPasswordNode,
+                                      accountController:
+                                          _confirmPasswordController,
+                                      secure: true,
+                                      inputType: TextInputType.text),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  CustomTextFormField(
+                                      borderColor: _usernameBorder,
+                                      errorText: usernameErrorText,
+                                      autofocus: false,
+                                      labelText: S.of(context).username,
+                                      focusNode: _usernameNode,
+                                      accountController: _usernameController,
                                       onChanged: (value) {
-                                        setState(() =>
-                                            checkBoxValue = value ?? false);
+                                        setState(() {
+                                          usernameErrorText =
+                                              isValidUsername(value)
+                                                  ? null
+                                                  : S
+                                                      .of(context)
+                                                      .invalid_username;
+                                        });
                                       },
-                                      side: BorderSide(
-                                          color:
-                                              Palette.current.primaryNeonGreen),
-                                    ),
+                                      suffix: _usernameController.text.isEmpty
+                                          ? null
+                                          : usernameErrorText == null
+                                              ? const Icon(
+                                                  Icons.check,
+                                                  color: Colors.green,
+                                                )
+                                              : Icon(
+                                                  Icons.close,
+                                                  color: Palette
+                                                      .current.primaryNeonPink,
+                                                ),
+                                      inputType: TextInputType.emailAddress),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        height: 24.0,
+                                        width: 24.0,
+                                        child: Checkbox(
+                                          checkColor: Palette.current.black,
+                                          value: checkBoxValue,
+                                          onChanged: (value) {
+                                            setState(() =>
+                                                checkBoxValue = value ?? false);
+                                          },
+                                          side: BorderSide(
+                                              color: Palette
+                                                  .current.primaryNeonGreen),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 10),
+                                      Flexible(
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 16.0),
+                                          child: ClickableText(
+                                              title: SimpleRichText(
+                                                S
+                                                    .of(context)
+                                                    .privacy_policy_text,
+                                                textAlign: TextAlign.start,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodySmall!
+                                                    .copyWith(
+                                                        color: Palette.current
+                                                            .primaryNeonGreen,
+                                                        fontWeight:
+                                                            FontWeight.w300),
+                                              ),
+                                              onPressed: () {
+                                                Navigator.of(context,
+                                                        rootNavigator: true)
+                                                    .push(WebViewPage.route(
+                                                  context,
+                                                  termsAndConditionsBasePath,
+                                                  termsAndConditionsUrl,
+                                                ));
+                                              }),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  const SizedBox(width: 10),
-                                  Flexible(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top: 16.0),
-                                      child: ClickableText(
-                                          title: SimpleRichText(
-                                            S.of(context).privacy_policy_text,
-                                            textAlign: TextAlign.start,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall!
-                                                .copyWith(
-                                                    color: Palette.current
-                                                        .primaryNeonGreen,
-                                                    fontWeight:
-                                                        FontWeight.w300),
-                                          ),
-                                          onPressed: () {
-                                            Navigator.of(context,
-                                                    rootNavigator: true)
-                                                .push(WebViewPage.route(
-                                              context,
-                                              termsAndConditionsBasePath,
-                                              termsAndConditionsUrl,
-                                            ));
-                                          }),
-                                    ),
+                                  const SizedBox(
+                                    height: 20,
                                   ),
+                                  PrimaryButton(
+                                    title: S.of(context).create_account,
+                                    onPressed: () {
+                                      showErrors();
+                                      if (areFieldsValid()) {}
+                                    },
+                                    type: PrimaryButtonType.green,
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  ClickableText(
+                                      title: SimpleRichText(
+                                        S.of(context).already_have_an_account,
+                                        textAlign: TextAlign.center,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(
+                                                color: Palette
+                                                    .current.primaryNeonGreen,
+                                                fontWeight: FontWeight.w300),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context,
+                                                rootNavigator: true)
+                                            .push(SignInPage.route());
+                                      }),
                                 ],
                               ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              PrimaryButton(
-                                title: S.of(context).create_account,
-                                onPressed: areFieldsValid() ? () {} : null,
-                                type: PrimaryButtonType.green,
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              ClickableText(
-                                  title: SimpleRichText(
-                                    S.of(context).already_have_an_account,
-                                    textAlign: TextAlign.center,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(
-                                            color: Palette
-                                                .current.primaryNeonGreen,
-                                            fontWeight: FontWeight.w300),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.of(context, rootNavigator: true)
-                                        .push(SignInPage.route());
-                                  }),
-                            ],
+                            ),
                           ),
                         ),
-                      ),
-                    ),
+                      );
+                    }),
                   ),
-                );
-              }),
+                ],
+              ),
             ])));
+  }
+
+  void showErrors() {
+    setState(() {
+      emailErrorText = isValidEmail(_emailController.text)
+          ? null
+          : S.of(context).invalid_email;
+
+      phoneErrorText = isPhoneValid ? null : S.of(context).phone_taken;
+
+      passwordErrorText = isValidPassword(_passwordController.text)
+          ? null
+          : S.of(context).invalid_password;
+
+      confirmPasswordErrorText =
+          passwordErrorText == null && _passwordController.text.isNotEmpty
+              ? _passwordController.text == _confirmPasswordController.text &&
+                      _confirmPasswordController.text.isNotEmpty
+                  ? null
+                  : S.of(context).no_match_password
+              : null;
+
+      confirmPasswordErrorText =
+          passwordErrorText == null && _passwordController.text.isNotEmpty
+              ? _confirmPasswordController.text == _passwordController.text
+                  ? null
+                  : S.of(context).no_match_password
+              : null;
+    });
+
+    usernameErrorText = _usernameController.text.isNotEmpty
+        ? null
+        : S.of(context).invalid_username;
   }
 
   bool areFieldsValid() {
@@ -375,17 +386,17 @@ class _CreateAccountState extends State<CreateAccountPage> {
 class _PhoneSection extends StatefulWidget {
   final TextEditingController phoneController;
   final FocusNode? focusPhone;
+  final Function(bool) notifyIsPhoneValid;
   final String? errorText;
   final Color? borderColor;
-  const _PhoneSection(
-      this.phoneController, this.focusPhone, this.errorText, this.borderColor);
+  const _PhoneSection(this.phoneController, this.focusPhone, this.errorText,
+      this.borderColor, this.notifyIsPhoneValid);
 
   @override
   State<_PhoneSection> createState() => __PhoneSectionState();
 }
 
 class __PhoneSectionState extends State<_PhoneSection> {
-  late String? _errorText;
   String initialCountry = 'US';
   PhoneNumber initialNumber = PhoneNumber(isoCode: 'US');
   PhoneNumber choseNumber = PhoneNumber(isoCode: 'US');
@@ -394,7 +405,6 @@ class __PhoneSectionState extends State<_PhoneSection> {
   @override
   void initState() {
     super.initState();
-    _errorText = widget.errorText;
   }
 
   @override
@@ -406,7 +416,7 @@ class __PhoneSectionState extends State<_PhoneSection> {
           decoration: BoxDecoration(
             color: Colors.transparent,
             border: Border.all(
-              color: _errorText != null
+              color: widget.errorText != null
                   ? Palette.current.primaryNeonPink
                   : widget.borderColor!,
             ),
@@ -419,12 +429,12 @@ class __PhoneSectionState extends State<_PhoneSection> {
                 color: Palette.current.primaryWhiteSmoke,
               ),
               child: Padding(
-                padding: const EdgeInsets.only(left: 8, right: 16),
+                padding: const EdgeInsets.only(left: 16, right: 16),
                 child: InternationalPhoneNumberInput(
                   autoFocus: false,
                   countries: countries,
                   focusNode: widget.focusPhone,
-                  cursorColor: Palette.current.blue,
+                  cursorColor: Palette.current.blackSmoke,
                   inputDecoration: InputDecoration(
                       hintText: S.of(context).phone,
                       focusedBorder: UnderlineInputBorder(
@@ -439,14 +449,17 @@ class __PhoneSectionState extends State<_PhoneSection> {
                   },
                   onInputValidated: (bool value) {
                     setState(() {
-                      _errorText = value ? null : S.of(context).phone_taken;
+                      widget.notifyIsPhoneValid(value);
                     });
                   },
                   selectorConfig: const SelectorConfig(
-                    selectorType: PhoneInputSelectorType.DROPDOWN,
-                    setSelectorButtonAsPrefixIcon: true,
-                    showFlags: false,
+                    selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                    setSelectorButtonAsPrefixIcon: false,
+                    showFlags: true,
                     trailingSpace: false,
+                  ),
+                  searchBoxDecoration: const InputDecoration(
+                    hintText: "Search",
                   ),
                   ignoreBlank: false,
                   autoValidateMode: AutovalidateMode.disabled,
@@ -466,9 +479,9 @@ class __PhoneSectionState extends State<_PhoneSection> {
         const SizedBox(
           height: 4,
         ),
-        _errorText != null
+        widget.errorText != null
             ? Text(
-                _errorText!,
+                widget.errorText!,
                 style: Theme.of(context)
                     .textTheme
                     .bodySmall!
