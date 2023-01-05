@@ -19,6 +19,7 @@ class CustomTextFormField extends StatefulWidget {
       this.secure = false,
       this.isEnabled = true,
       this.errorText,
+      this.helperText,
       this.autofocus = true,
       this.dropdownForm = false,
       this.dropdownFormItems,
@@ -37,6 +38,7 @@ class CustomTextFormField extends StatefulWidget {
   final int? maxLength;
   final TextStyle? style;
   final String? errorText;
+  final String? helperText;
   final bool secure;
   final bool isEnabled;
   final bool autofocus;
@@ -162,7 +164,15 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                     .bodySmall!
                     .copyWith(color: Palette.current.primaryNeonPink),
               )
-            : Container(),
+            : widget.helperText != null
+                ? Text(
+                    widget.helperText!,
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelSmall!
+                        .copyWith(color: Palette.current.primaryWhiteSmoke),
+                  )
+                : Container(),
       ],
     );
   }

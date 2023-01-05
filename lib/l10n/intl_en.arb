@@ -10,7 +10,7 @@
     "invalid_email": "Invalid email address",
     "empty_password": "Invalid password",
     "field_empty": "This field cannot be empty",
-
+    "password_helper": "At least 8 characters, 1 uppercase, 1 number & 1 symbol",
     "invalid_password": "Password doesn’t meet requirements. Min. 8 characters, 1 uppercase, 1 number & 1 symbol",
     "no_match_password": "Password doesn’t match",
     "new_password": "New Password",

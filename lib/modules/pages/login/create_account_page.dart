@@ -78,6 +78,12 @@ class _CreateAccountState extends State<CreateAccountPage> {
     });
     _passwordNode.addListener(() {
       setState(() {
+        //If the password field was focused and now its not we will show the error it has to
+        if (_passwordBorder == Palette.current.primaryNeonGreen) {
+          passwordErrorText = isValidPassword(_passwordController.text)
+              ? null
+              : S.of(context).invalid_password;
+        }
         _passwordBorder = _passwordNode.hasFocus
             ? Palette.current.primaryNeonGreen
             : Palette.current.primaryWhiteSmoke;
@@ -185,6 +191,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                   ),
                                   CustomTextFormField(
                                       errorText: passwordErrorText,
+                                      helperText: S.of(context).password_helper,
                                       borderColor: _passwordBorder,
                                       autofocus: false,
                                       labelText: S.of(context).password,
@@ -199,8 +206,6 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                       errorText: confirmPasswordErrorText,
                                       borderColor: _confirmPasswordBorder,
                                       autofocus: false,
-                                      isEnabled: passwordErrorText == null &&
-                                          _passwordController.text.isNotEmpty,
                                       labelText: S.of(context).confirm_password,
                                       focusNode: _confirmPasswordNode,
                                       accountController:

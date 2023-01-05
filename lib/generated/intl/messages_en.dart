@@ -67,6 +67,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "no_match_password":
             MessageLookupByLibrary.simpleMessage("Password doesn’t match"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
+        "password_helper": MessageLookupByLibrary.simpleMessage(
+            "At least 8 characters, 1 uppercase, 1 number & 1 symbol"),
         "phone": MessageLookupByLibrary.simpleMessage("Phone"),
         "phone_taken": MessageLookupByLibrary.simpleMessage(
             "An account is already associated with this phone number"),

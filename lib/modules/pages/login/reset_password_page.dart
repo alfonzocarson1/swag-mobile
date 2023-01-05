@@ -51,6 +51,12 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
     super.initState();
     _passwordNode.addListener(() {
       setState(() {
+        //If the password field was focused and now its not we will show the error it has to
+        if (_passwordBorder == Palette.current.primaryNeonGreen) {
+          errorFirstText = isValidPassword(_passwordController.text)
+              ? null
+              : S.of(context).invalid_password;
+        }
         _passwordBorder = _passwordNode.hasFocus
             ? Palette.current.primaryNeonGreen
             : Palette.current.primaryWhiteSmoke;
@@ -133,6 +139,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                             ),
                             CustomTextFormField(
                                 errorText: errorFirstText,
+                                helperText: S.of(context).password_helper,
                                 borderColor: _passwordBorder,
                                 autofocus: false,
                                 labelText: S.of(context).new_password,
@@ -145,8 +152,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                             ),
                             CustomTextFormField(
                                 errorText: errorSecondText,
-                                isEnabled: errorFirstText == null &&
-                                    _passwordController.text.isNotEmpty,
                                 borderColor: _confirmPasswordBorder,
                                 autofocus: false,
                                 labelText: S.of(context).confirm_password,

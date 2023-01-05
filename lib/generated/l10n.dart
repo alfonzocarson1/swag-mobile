@@ -160,6 +160,16 @@ class S {
     );
   }
 
+  /// `At least 8 characters, 1 uppercase, 1 number & 1 symbol`
+  String get password_helper {
+    return Intl.message(
+      'At least 8 characters, 1 uppercase, 1 number & 1 symbol',
+      name: 'password_helper',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Password doesn’t meet requirements. Min. 8 characters, 1 uppercase, 1 number & 1 symbol`
   String get invalid_password {
     return Intl.message(
