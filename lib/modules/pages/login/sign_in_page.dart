@@ -6,12 +6,15 @@ import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/common/utils/utils.dart';
-import 'package:swagapp/modules/pages/home/home_page.dart';
+
 import 'package:swagapp/modules/pages/login/create_account_page.dart';
 import 'package:swagapp/modules/pages/login/forgot_password_page.dart';
 
+import '../../common/ui/bottom_nav_bar.dart';
 import '../../common/ui/custom_text_form_field.dart';
 import '../../common/utils/custom_route_animations.dart';
+import '../../data/shared_preferences/shared_preferences_service.dart';
+import '../../di/injector.dart';
 
 class SignInPage extends StatefulWidget {
   static const name = '/SignIn';
@@ -181,8 +184,14 @@ class _SignInPageState extends State<SignInPage> {
                               onPressed: () {
                                 showErrors();
                                 if (areFieldsValid()) {
-                                  Navigator.of(context, rootNavigator: true)
-                                      .push(HomePage.route());
+                                  getIt<PreferenceRepositoryService>()
+                                      .saveIsLogged(true);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            BottomNavBarPage()),
+                                  );
                                 }
                               },
                               type: PrimaryButtonType.green,

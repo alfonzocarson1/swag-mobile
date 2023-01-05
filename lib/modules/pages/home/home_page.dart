@@ -25,12 +25,12 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _isLogged = getIt<PreferenceRepositoryService>().isLogged();
-    if (_isLogged) {
-      Future.delayed(const Duration(milliseconds: 2000), () {
-        Navigator.of(context, rootNavigator: true)
-            .push(AccountInfoPage.route());
-      });
-    }
+    // if (_isLogged) {
+    //   Future.delayed(const Duration(milliseconds: 2000), () {
+    //     Navigator.of(context, rootNavigator: true)
+    //         .push(AccountInfoPage.route());
+    //   });
+    // }
   }
 
   @override

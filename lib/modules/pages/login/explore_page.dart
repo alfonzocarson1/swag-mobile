@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
-import 'package:swagapp/modules/pages/home/home_page.dart';
+
 import 'package:swagapp/modules/pages/login/create_account_page.dart';
 import 'package:swagapp/modules/pages/login/sign_in_page.dart';
 
+import '../../common/ui/bottom_nav_bar.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
@@ -56,8 +57,11 @@ class ExplorePage extends StatelessWidget {
                       onTap: () {
                         getIt<PreferenceRepositoryService>()
                             .saveIsLogged(false);
-                        Navigator.of(context, rootNavigator: true)
-                            .push(HomePage.route());
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => BottomNavBarPage()),
+                        );
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,

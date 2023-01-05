@@ -8,6 +8,8 @@ abstract class Palette {
 
   final Color primaryNeonGreen;
 
+  final Color primaryEerieBlack;
+
   final Color primaryNeonPink;
 
   final Color primaryWhiteSmoke;
@@ -30,6 +32,8 @@ abstract class Palette {
 
   /// white color
   final Color light4;
+
+  final Color grey;
 
   final Color gray1;
 
@@ -57,6 +61,7 @@ abstract class Palette {
     required this.black,
     required this.blackSmoke,
     required this.primaryNeonGreen,
+    required this.primaryEerieBlack,
     required this.primaryNeonPink,
     required this.primaryWhiteSmoke,
     required this.chromeYellow,
@@ -66,6 +71,7 @@ abstract class Palette {
     required this.light2,
     required this.light3,
     required this.light4,
+    required this.grey,
     required this.gray1,
     required this.gray2,
     required this.gray3,
@@ -87,7 +93,9 @@ class LightPalette extends Palette {
       : super(
           blackSmoke: const Color(0xFF1E1E1E),
           black: const Color(0xFF080808),
+          grey: const Color(0xFF929292),
           primaryNeonGreen: const Color(0xFFB4FF00),
+          primaryEerieBlack: const Color(0xFF181818),
           primaryNeonPink: const Color(0xFFFF0096),
           primaryWhiteSmoke: const Color(0xFFF2F2F2),
           chromeYellow: const Color(0xFFFAA613),

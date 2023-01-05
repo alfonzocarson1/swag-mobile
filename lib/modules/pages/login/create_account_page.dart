@@ -9,10 +9,13 @@ import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/common/utils/utils.dart';
 import 'package:swagapp/modules/pages/login/sign_in_page.dart';
 
+import '../../common/ui/bottom_nav_bar.dart';
 import '../../common/ui/custom_text_form_field.dart';
 import '../../common/ui/web_view.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../constants/constants.dart';
+import '../../data/shared_preferences/shared_preferences_service.dart';
+import '../../di/injector.dart';
 
 class CreateAccountPage extends StatefulWidget {
   static const name = '/CreateAccount';
@@ -303,7 +306,16 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                     title: S.of(context).create_account,
                                     onPressed: () {
                                       showErrors();
-                                      if (areFieldsValid()) {}
+                                      if (areFieldsValid()) {
+                                        getIt<PreferenceRepositoryService>()
+                                            .saveIsLogged(true);
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  BottomNavBarPage()),
+                                        );
+                                      }
                                     },
                                     type: PrimaryButtonType.green,
                                   ),
