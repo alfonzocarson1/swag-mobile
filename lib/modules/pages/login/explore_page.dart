@@ -54,8 +54,7 @@ class ExplorePage extends StatelessWidget {
                     alignment: Alignment.center,
                     child: InkWell(
                       onTap: () {
-                        getIt<PreferenceRepositoryService>()
-                            .saveIsGuestLogged(true);
+                        getIt<PreferenceRepositoryService>().saveIsLogged(true);
                         Navigator.of(context, rootNavigator: true)
                             .push(HomePage.route());
                       },

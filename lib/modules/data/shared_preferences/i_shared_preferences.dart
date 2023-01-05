@@ -4,6 +4,6 @@ abstract class PreferenceRepositoryInt {
   SharedPreferences get prefs;
   void initialize();
 
-  bool isGuestLogged();
-  Future<void> saveIsGuestLogged(bool value);
+  bool isLogged();
+  Future<void> saveIsLogged(bool value);
 }
