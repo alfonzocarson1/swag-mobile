@@ -11,7 +11,7 @@ class AvatarPage extends StatefulWidget {
 }
 
 class _AvatarPageState extends State<AvatarPage> {
-  Image? image;
+  ImageProvider? image;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -19,7 +19,7 @@ class _AvatarPageState extends State<AvatarPage> {
         CircleAvatar(
           backgroundColor: Colors.transparent,
           backgroundImage: image != null
-              ? image!.image
+              ? image!
               : const AssetImage("assets/images/ProfilePhoto.png"),
           radius: 75,
         ),

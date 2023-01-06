@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
@@ -131,20 +132,28 @@ class _UpdateAvatarBottomSheetState extends State<UpdateAvatarBottomSheet> {
   }
 
   Widget _imageItem(String url) {
-    Image avatar = Image.network(
-      url,
-      height: 90,
-      width: 90,
-    );
     return Material(
       color: Palette.current.primaryEerieBlack,
       child: InkWell(
           splashColor: Palette.current.darkGray,
           highlightColor: Palette.current.primaryEerieBlack,
           onTap: () {
-            Navigator.of(context, rootNavigator: true).pop(avatar);
+            Navigator.of(context, rootNavigator: true)
+                .pop(CachedNetworkImageProvider(url));
           },
-          child: avatar),
+          child: CachedNetworkImage(
+            imageUrl: url,
+            height: 90,
+            width: 90,
+            placeholder: (context, url) => Center(
+              child: CircularProgressIndicator(
+                color: Palette.current.primaryNeonGreen,
+                backgroundColor: Colors.white,
+              ),
+            ),
+            errorWidget: (context, url, error) =>
+                Image.asset("assets/images/ProfilePhoto.png"),
+          )),
     );
   }
 
@@ -191,7 +200,7 @@ class _UpdateAvatarBottomSheetState extends State<UpdateAvatarBottomSheet> {
       final XFile? xFileImage = await picker.pickImage(source: source);
 
       Navigator.of(context, rootNavigator: true)
-          .pop(Image.file(File(xFileImage!.path)));
+          .pop(Image.file(File(xFileImage!.path)).image);
     } catch (e) {
       log("Image picker: $e");
     }
