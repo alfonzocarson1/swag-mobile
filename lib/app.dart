@@ -10,6 +10,7 @@ import 'modules/common/utils/palette.dart';
 import 'modules/common/utils/theme.dart';
 import 'modules/di/injector.dart';
 import 'modules/pages/home/home_page.dart';
+import 'modules/pages/login/account_info.dart';
 import 'modules/pages/splash/splash_page.dart';
 
 class App extends StatelessWidget {
@@ -48,7 +49,7 @@ class App extends StatelessWidget {
                 onboarding: (_) => const HomePage(),
                 orElse: () => const HomePage(),
                 unauthenticated: (_) {
-                  return const ExplorePage();
+                  return const AccountInfoPage();
                 }),
             listener: (context, state) => state.maybeMap(
                 // orElse: () => null,
