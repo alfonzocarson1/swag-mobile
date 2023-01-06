@@ -70,7 +70,7 @@ class _WebViewPageState extends State<WebViewPage> {
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Container(
         decoration: BoxDecoration(
-          color: const Color(0xFF181818),
+          color: Palette.current.primaryEerieBlack,
           borderRadius: BorderRadius.circular(26),
         ),
         constraints: BoxConstraints(

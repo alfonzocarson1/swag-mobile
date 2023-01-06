@@ -519,6 +519,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Select an avatar below or add one from your camera/photos.`
+  String get select_avatar_desc {
+    return Intl.message(
+      'Select an avatar below or add one from your camera/photos.',
+      name: 'select_avatar_desc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ACCESS PHOTOS`
+  String get access_photos {
+    return Intl.message(
+      'ACCESS PHOTOS',
+      name: 'access_photos',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CAMERA`
+  String get camera {
+    return Intl.message(
+      'CAMERA',
+      name: 'camera',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

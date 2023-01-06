@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 
-enum PrimaryButtonType { green, black, pink }
+enum PrimaryButtonType { green, black, pink, primaryEerieBlack }
 
 class PrimaryButton extends StatelessWidget {
   const PrimaryButton({
@@ -25,11 +25,15 @@ class PrimaryButton extends StatelessWidget {
       decoration: BoxDecoration(
         color: type == PrimaryButtonType.black
             ? Palette.current.primaryNeonGreen
-            : Colors.transparent,
+            : type == PrimaryButtonType.primaryEerieBlack
+                ? Palette.current.primaryWhiteSmoke
+                : Colors.transparent,
         border: Border.all(
           color: type == PrimaryButtonType.pink
               ? Palette.current.primaryNeonPink
-              : Palette.current.primaryNeonGreen,
+              : type == PrimaryButtonType.primaryEerieBlack
+                  ? Palette.current.primaryWhiteSmoke
+                  : Palette.current.primaryNeonGreen,
         ),
       ),
       child: Padding(
@@ -46,7 +50,9 @@ class PrimaryButton extends StatelessWidget {
               ? Palette.current.primaryNeonGreen
               : type == PrimaryButtonType.pink
                   ? Palette.current.primaryNeonPink
-                  : Palette.current.black,
+                  : type == PrimaryButtonType.primaryEerieBlack
+                      ? Palette.current.primaryEerieBlack.withOpacity(0.95)
+                      : Palette.current.black,
           splashColor: Palette.current.primaryNeonPink.withOpacity(0.4),
           highlightColor: Palette.current.black.withOpacity(0.3),
           onPressed: onPressed,
@@ -66,7 +72,9 @@ class PrimaryButton extends StatelessWidget {
                   fontWeight: FontWeight.w300,
                   color: type == PrimaryButtonType.black
                       ? Palette.current.primaryNeonGreen
-                      : Palette.current.black),
+                      : type == PrimaryButtonType.primaryEerieBlack
+                          ? Palette.current.primaryWhiteSmoke
+                          : Palette.current.black),
             ),
           ),
         ),

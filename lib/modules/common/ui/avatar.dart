@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:swagapp/modules/pages/home/update_avatar_bottom_sheet.dart';
 
 import '../utils/palette.dart';
 
@@ -10,20 +11,34 @@ class AvatarPage extends StatefulWidget {
 }
 
 class _AvatarPageState extends State<AvatarPage> {
+  Image? image;
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Stack(children: [
-        const CircleAvatar(
+        CircleAvatar(
           backgroundColor: Colors.transparent,
-          backgroundImage: AssetImage("assets/images/ProfilePhoto.png"),
+          backgroundImage: image != null
+              ? image!.image
+              : const AssetImage("assets/images/ProfilePhoto.png"),
           radius: 75,
         ),
         Positioned(
             right: 0,
             bottom: 0,
             child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context, rootNavigator: true)
+                    .push(UpdateAvatarBottomSheet.route(context, null))
+                    .then((imageParam) => {
+                          if (imageParam != null)
+                            {
+                              setState(() {
+                                image = imageParam;
+                              })
+                            }
+                        });
+              },
               child: Container(
                   padding: const EdgeInsets.all(7.5),
                   decoration: BoxDecoration(

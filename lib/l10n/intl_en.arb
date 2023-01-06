@@ -45,5 +45,9 @@
     "city": "City",
     "state": "State",
     "zip": "Zip",
-    "next_btn": "NEXT"
+    "next_btn": "NEXT",
+    "select_avatar_desc": "Select an avatar below or add one from your camera/photos.",
+    "access_photos": "ACCESS PHOTOS",
+    "camera": "CAMERA"
+
 }
