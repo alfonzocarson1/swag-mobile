@@ -17,7 +17,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc(this.authService) : super(const AuthState.initial()) {
     _userStreamSubscription =
         authService.subscribeToAuthChanges().distinct().listen((user) async => {
-              // await Future.delayed(const Duration(milliseconds: 2000), () {}),
               emit(const AuthState.unauthenticated()),
             });
   }
@@ -48,8 +47,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Stream<AuthState> _authenticate() async* {
+    yield const AuthState.logging();
     try {
-      await authService.authenticate();
+      await Future.delayed(const Duration(milliseconds: 2000), () {});
+      // await authService.authenticate();
       yield const AuthState.authenticated();
     } catch (e) {
       yield AuthState.error(HandlingErrors().getError(e));

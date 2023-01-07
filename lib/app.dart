@@ -5,11 +5,11 @@ import 'package:swagapp/modules/pages/login/explore_page.dart';
 import 'generated/l10n.dart';
 
 import 'modules/blocs/auth_bloc/auth_bloc.dart';
+import 'modules/pages/home/home_page.dart';
 import 'modules/common/utils/context_service.dart';
 import 'modules/common/utils/palette.dart';
 import 'modules/common/utils/theme.dart';
 import 'modules/di/injector.dart';
-import 'modules/pages/home/home_page.dart';
 import 'modules/pages/splash/splash_page.dart';
 
 class App extends StatelessWidget {
@@ -44,9 +44,9 @@ class App extends StatelessWidget {
             builder: (context, state) => state.maybeMap(
                 initial: (_) => const SplashPage(),
                 authenticated: (_) => const HomePage(),
-                walkthrough: (_) => const HomePage(),
-                onboarding: (_) => const HomePage(),
-                orElse: () => const HomePage(),
+                walkthrough: (_) => const ExplorePage(),
+                onboarding: (_) => const ExplorePage(),
+                orElse: () => const ExplorePage(),
                 unauthenticated: (_) {
                   return const ExplorePage();
                 }),
@@ -65,7 +65,7 @@ class App extends StatelessWidget {
           builder: (context, child) => MediaQuery(
             data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
             child: BlocBuilder<AuthBloc, AuthState>(
-              builder: (_context, _authState) => _authState.maybeMap(
+              builder: (context, authState) => authState.maybeMap(
                   orElse: () => child!,
                   unauthenticated: (_) => MultiBlocProvider(
                         providers: [
@@ -81,7 +81,7 @@ class App extends StatelessWidget {
                           providers: [
                             BlocProvider<AuthBloc>(
                               create: (context) => getIt<AuthBloc>(),
-                            )
+                            ),
                           ],
                           child: child!,
                         ),

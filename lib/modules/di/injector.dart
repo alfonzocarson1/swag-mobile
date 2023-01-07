@@ -15,11 +15,10 @@ const unauthorizedScope = 'unauthorizedScope';
 const authorizedScope = 'authorizedScope';
 
 Future<void> setupAppScope() {
-  getIt.registerLazySingleton<IAuthService>(() => AuthService(APIService()));
-  getIt.registerLazySingleton<AuthBloc>(() => AuthBloc(getIt<IAuthService>()));
-
   getIt.registerLazySingleton(() => PreferenceRepositoryService());
   getIt.registerLazySingleton(() => ContextService());
+  getIt.registerLazySingleton<IAuthService>(() => AuthService(APIService()));
+  getIt.registerLazySingleton<AuthBloc>(() => AuthBloc(getIt<IAuthService>()));
   return getIt.allReady();
 }
 
@@ -38,10 +37,6 @@ Future<void> setupUnauthorizedScope(
         () => rootNavigator,
         instanceName: 'root_navigator',
       );
-      getIt
-          .registerLazySingleton<IAuthService>(() => AuthService(APIService()));
-      getIt.registerLazySingleton<AuthBloc>(
-          () => AuthBloc(getIt<IAuthService>()));
     },
   );
 }
@@ -52,12 +47,5 @@ Future<void> setupAuthorizedScope(
 ) async {
   await setupUnauthorizedScope(rootNavigator);
   getIt.pushNewScope(
-      scopeName: authorizedScope,
-      init: (getIt) {
-        getIt.registerLazySingleton<IAuthService>(
-            () => AuthService(APIService()));
-        getIt.registerLazySingleton<AuthBloc>(
-            () => AuthBloc(getIt<IAuthService>()));
-      },
-      dispose: () {});
+      scopeName: authorizedScope, init: (getIt) {}, dispose: () {});
 }

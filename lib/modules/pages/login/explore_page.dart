@@ -6,7 +6,7 @@ import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/pages/login/create_account_page.dart';
 import 'package:swagapp/modules/pages/login/sign_in_page.dart';
 
-import '../../common/ui/bottom_nav_bar.dart';
+import '../home/home_page.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
@@ -60,7 +60,7 @@ class ExplorePage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => BottomNavBarPage()),
+                              builder: (context) => const HomePage()),
                         );
                       },
                       child: Row(
