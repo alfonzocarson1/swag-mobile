@@ -44,8 +44,8 @@ dependencies:
   get_it: ^7.2.0
 
 # State Management
-  bloc: ^8.1.0
-  flutter_bloc: ^8.1.1
+  bloc: ^7.0.0
+  flutter_bloc: ^7.0.1
   shared_preferences: ^2.0.13
 
 # Utils
@@ -85,7 +85,6 @@ flutter:
   assets:
     - assets/
     - assets/images/
-    - assets/icons/
 
   fonts:
     - family: Knockout
