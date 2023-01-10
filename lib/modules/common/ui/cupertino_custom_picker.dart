@@ -40,19 +40,16 @@ class _CupertinoPickerViewState extends State<CupertinoPickerView> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 3.0),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           InkWell(
             onTap: () {
-              showCupertinoModalPopup(
-                context: context,
-                builder: (context) => CupertinoActionSheet(
-                  actions: [
-                    _buildBottomPicker(
-                        context, _buildCupertinoPicker(), widget.onDone!),
-                  ],
-                ),
-              );
+              showCupertinoModalPopup<void>(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return _buildBottomPicker(
+                        context, _buildCupertinoPicker(), widget.onDone!);
+                  });
             },
             child: Column(
               children: [
@@ -144,30 +141,33 @@ class _CupertinoPickerViewState extends State<CupertinoPickerView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CupertinoButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0,
-                    vertical: 5.0,
+            Container(
+              color: Colors.grey.shade200,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CupertinoButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 5.0,
+                    ),
+                    child: const Text('Cancel'),
                   ),
-                  child: const Text('Cancel'),
-                ),
-                CupertinoButton(
-                  onPressed: () {
-                    onDone(selectedItemPos);
-                  },
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0,
-                    vertical: 5.0,
-                  ),
-                  child: const Text('Confirm'),
-                )
-              ],
+                  CupertinoButton(
+                    onPressed: () {
+                      onDone(selectedItemPos);
+                    },
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 5.0,
+                    ),
+                    child: const Text('Confirm'),
+                  )
+                ],
+              ),
             ),
             Container(
                 height: 300,
