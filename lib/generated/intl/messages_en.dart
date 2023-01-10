@@ -22,9 +22,11 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "access_photos": MessageLookupByLibrary.simpleMessage("Choose Photo"),
         "already_have_an_account": MessageLookupByLibrary.simpleMessage(
             "Already have an account? *Sign In*"),
         "app_name": MessageLookupByLibrary.simpleMessage("Swag Golf"),
+        "camera": MessageLookupByLibrary.simpleMessage("Take Photo"),
         "city": MessageLookupByLibrary.simpleMessage("City"),
         "code": MessageLookupByLibrary.simpleMessage("Code"),
         "confirm_password":
@@ -88,6 +90,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "reset_password_description": MessageLookupByLibrary.simpleMessage(
             "Please enter and confirm your new password below."),
         "second_address": MessageLookupByLibrary.simpleMessage("Address 2"),
+        "select_avatar_desc": MessageLookupByLibrary.simpleMessage(
+            "Select an avatar below or add one from your camera/photos."),
         "sign_in": MessageLookupByLibrary.simpleMessage("SIGN IN"),
         "state": MessageLookupByLibrary.simpleMessage("State"),
         "subtitle_welcome":

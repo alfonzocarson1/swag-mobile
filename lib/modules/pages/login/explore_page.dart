@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
+import 'package:swagapp/modules/pages/catalog/catalog_page.dart';
 
 import 'package:swagapp/modules/pages/login/create_account_page.dart';
 import 'package:swagapp/modules/pages/login/sign_in_page.dart';

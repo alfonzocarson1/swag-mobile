@@ -8,10 +8,10 @@ class HandlerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        constraints: BoxConstraints.loose(const Size(60, 3)),
+        constraints: BoxConstraints.loose(const Size(40, 6)),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: Palette.current.light1,
+          color: Palette.current.darkGray,
         ),
       ),
     );
