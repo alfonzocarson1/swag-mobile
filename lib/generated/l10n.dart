@@ -500,10 +500,10 @@ class S {
     );
   }
 
-  /// `Zip`
+  /// `ZIP/Postal Code`
   String get zip {
     return Intl.message(
-      'Zip',
+      'ZIP/Postal Code',
       name: 'zip',
       desc: '',
       args: [],

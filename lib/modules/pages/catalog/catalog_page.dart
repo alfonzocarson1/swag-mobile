@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swagapp/modules/pages/home/account_info.dart';
+import 'package:swagapp/modules/pages/catalog/account_info.dart';
 
 import '../../common/ui/custom_app_bar.dart';
 import '../../common/utils/custom_route_animations.dart';
@@ -24,7 +24,7 @@ class _CatalogPageState extends State<CatalogPage> {
   @override
   void initState() {
     super.initState();
-    _isLogged = getIt<PreferenceRepositoryService>().isLogged();
+    // _isLogged = getIt<PreferenceRepositoryService>().isLogged();
     // if (_isLogged) {
     //   Future.delayed(const Duration(milliseconds: 2000), () {
     //     Navigator.of(context, rootNavigator: true)

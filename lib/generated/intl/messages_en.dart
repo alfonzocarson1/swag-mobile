@@ -102,6 +102,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "username_taken":
             MessageLookupByLibrary.simpleMessage("This username is taken "),
         "verify_name": MessageLookupByLibrary.simpleMessage("@MRDOUG"),
-        "zip": MessageLookupByLibrary.simpleMessage("Zip")
+        "zip": MessageLookupByLibrary.simpleMessage("ZIP/Postal Code")
       };
 }
