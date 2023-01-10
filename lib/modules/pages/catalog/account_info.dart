@@ -57,6 +57,14 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   final _zipController = TextEditingController();
   Color _zipBorder = Palette.current.primaryWhiteSmoke;
 
+  String? nameErrorText;
+  String? lastNameErrorText;
+  String? countryErrorText;
+  String? addressErrorText;
+  String? cityErrorText;
+  String? stateErrorText;
+  String? zipErrorText;
+
   late ResponsiveDesign _responsiveDesign;
 
   String _defaultCountry = 'Country';
@@ -233,6 +241,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                       FilteringTextInputFormatter.allow(
                                           RegExp('[a-zA-Z ]')),
                                     ],
+                                    errorText: nameErrorText,
                                     borderColor: _firstNameBorder,
                                     autofocus: false,
                                     labelText: S.of(context).first_name,
@@ -247,6 +256,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                       FilteringTextInputFormatter.allow(
                                           RegExp('[a-zA-Z ]')),
                                     ],
+                                    errorText: lastNameErrorText,
                                     borderColor: _lastNameBorder,
                                     autofocus: false,
                                     labelText: S.of(context).last_name,
@@ -260,6 +270,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                     borderColor: _countryBorder,
                                     autofocus: false,
                                     labelText: S.of(context).country,
+                                    errorText: countryErrorText,
                                     dropdownForm: true,
                                     dropdownFormItems: countries,
                                     dropdownvalue: _defaultCountry,
@@ -280,6 +291,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                     borderColor: _firstAddressBorder,
                                     autofocus: false,
                                     labelText: S.of(context).first_address,
+                                    errorText: addressErrorText,
                                     focusNode: _firstAddressNode,
                                     accountController: _firstAddressController,
                                     inputType: TextInputType.text),
@@ -299,6 +311,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                 CustomTextFormField(
                                     borderColor: _cityBorder,
                                     autofocus: false,
+                                    errorText: cityErrorText,
                                     labelText: S.of(context).city,
                                     focusNode: _cityNode,
                                     accountController: _cityController,
@@ -310,14 +323,36 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                   children: [
                                     Expanded(
                                       flex: 2,
-                                      child: CupertinoPickerView(
-                                          cupertinoPickerItems: states,
-                                          cupertinoPickervalue: _defaultState,
-                                          onDone: (index) {
-                                            setState(() => value = index);
-                                            _defaultState = states[index];
-                                            Navigator.pop(context);
-                                          }),
+                                      child: Column(
+                                        children: [
+                                          CupertinoPickerView(
+                                              errorText: stateErrorText,
+                                              cupertinoPickerItems: states,
+                                              cupertinoPickervalue:
+                                                  _defaultState,
+                                              onDone: (index) {
+                                                setState(() => value = index);
+                                                _defaultState = states[index];
+                                                Navigator.pop(context);
+                                              }),
+                                          Visibility(
+                                              visible: stateErrorText != null,
+                                              child: Align(
+                                                alignment: Alignment.bottomLeft,
+                                                child: Text(
+                                                    S
+                                                        .of(context)
+                                                        .required_field,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .bodySmall!
+                                                        .copyWith(
+                                                            color: Palette
+                                                                .current
+                                                                .primaryNeonPink)),
+                                              ))
+                                        ],
+                                      ),
                                     ),
                                     const SizedBox(
                                       width: 20,
@@ -331,6 +366,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                           ],
                                           borderColor: _zipBorder,
                                           autofocus: false,
+                                          errorText: zipErrorText,
                                           labelText: S.of(context).zip,
                                           focusNode: _zipNode,
                                           accountController: _zipController,
@@ -344,6 +380,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                 PrimaryButton(
                                   title: S.of(context).next_btn,
                                   onPressed: () {
+                                    showErrors();
                                     if (areFieldsValid()) {}
                                   },
                                   type: PrimaryButtonType.green,
@@ -361,6 +398,34 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                 ],
               ),
             ])));
+  }
+
+  void showErrors() {
+    setState(() {
+      nameErrorText = _firstNameController.text.isNotEmpty
+          ? null
+          : S.of(context).required_field;
+
+      lastNameErrorText = _lastNameController.text.isNotEmpty
+          ? null
+          : S.of(context).required_field;
+
+      countryErrorText =
+          _defaultCountry != 'Country' ? null : S.of(context).required_field;
+
+      addressErrorText = _firstAddressController.text.isNotEmpty
+          ? null
+          : S.of(context).required_field;
+
+      cityErrorText =
+          _cityController.text.isNotEmpty ? null : S.of(context).required_field;
+
+      stateErrorText =
+          _defaultState != 'State' ? null : S.of(context).required_field;
+
+      zipErrorText =
+          _zipController.text.isNotEmpty ? null : S.of(context).required_field;
+    });
   }
 
   bool areFieldsValid() {

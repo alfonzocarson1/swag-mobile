@@ -10,12 +10,14 @@ class CupertinoPickerView extends StatefulWidget {
     this.cupertinoPickervalue,
     this.cupertinoPickerItems,
     this.onDone,
+    this.errorText,
   }) : super(key: key);
 
   void Function(int)? onDone;
   void Function(int)? cupertinoPickerOnChanged;
   final String? cupertinoPickervalue;
   final List<dynamic>? cupertinoPickerItems;
+  final String? errorText;
   @override
   _CupertinoPickerViewState createState() => _CupertinoPickerViewState();
 }
@@ -58,7 +60,11 @@ class _CupertinoPickerViewState extends State<CupertinoPickerView> {
                   height: 63,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
-                      border: Border.all(color: Colors.white),
+                      border: Border.all(
+                        color: widget.errorText != null
+                            ? Palette.current.primaryNeonPink
+                            : Colors.white,
+                      ),
                       color: Colors.transparent),
                   padding: const EdgeInsets.only(bottom: 6),
                   child: Container(

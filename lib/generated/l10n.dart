@@ -470,10 +470,10 @@ class S {
     );
   }
 
-  /// `Address 2`
+  /// `Address 2 (optional)`
   String get second_address {
     return Intl.message(
-      'Address 2',
+      'Address 2 (optional)',
       name: 'second_address',
       desc: '',
       args: [],
@@ -545,6 +545,16 @@ class S {
     return Intl.message(
       'Take Photo',
       name: 'camera',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Required field`
+  String get required_field {
+    return Intl.message(
+      'Required field',
+      name: 'required_field',
       desc: '',
       args: [],
     );
