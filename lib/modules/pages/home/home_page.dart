@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
+import 'package:swagapp/modules/di/injector.dart';
 import 'package:swagapp/modules/pages/catalog/catalog_page.dart';
 
+import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../pages/alert/alert_page.dart';
 import '../../pages/profile/profile_page.dart';
 
@@ -23,6 +25,11 @@ class _HomePage extends State<HomePage> {
   ];
 
   void onTapTapped(int index) {
+    bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
+    if (index == 2 && !isLogged) {
+      Navigator.popUntil(context, ModalRoute.withName('/'));
+    }
+
     setState(() {
       indexTap = index;
     });
