@@ -10,12 +10,14 @@ class CupertinoPickerView extends StatefulWidget {
     this.cupertinoPickervalue,
     this.cupertinoPickerItems,
     this.onDone,
+    this.errorText,
   }) : super(key: key);
 
   void Function(int)? onDone;
   void Function(int)? cupertinoPickerOnChanged;
   final String? cupertinoPickervalue;
   final List<dynamic>? cupertinoPickerItems;
+  final String? errorText;
   @override
   _CupertinoPickerViewState createState() => _CupertinoPickerViewState();
 }
@@ -38,19 +40,16 @@ class _CupertinoPickerViewState extends State<CupertinoPickerView> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 3.0),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           InkWell(
             onTap: () {
-              showCupertinoModalPopup(
-                context: context,
-                builder: (context) => CupertinoActionSheet(
-                  actions: [
-                    _buildBottomPicker(
-                        context, _buildCupertinoPicker(), widget.onDone!),
-                  ],
-                ),
-              );
+              showCupertinoModalPopup<void>(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return _buildBottomPicker(
+                        context, _buildCupertinoPicker(), widget.onDone!);
+                  });
             },
             child: Column(
               children: [
@@ -58,7 +57,11 @@ class _CupertinoPickerViewState extends State<CupertinoPickerView> {
                   height: 63,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
-                      border: Border.all(color: Colors.white),
+                      border: Border.all(
+                        color: widget.errorText != null
+                            ? Palette.current.primaryNeonPink
+                            : Colors.white,
+                      ),
                       color: Colors.transparent),
                   padding: const EdgeInsets.only(bottom: 6),
                   child: Container(
@@ -138,30 +141,33 @@ class _CupertinoPickerViewState extends State<CupertinoPickerView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CupertinoButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0,
-                    vertical: 5.0,
+            Container(
+              color: Colors.grey.shade200,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CupertinoButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 5.0,
+                    ),
+                    child: const Text('Cancel'),
                   ),
-                  child: const Text('Cancel'),
-                ),
-                CupertinoButton(
-                  onPressed: () {
-                    onDone(selectedItemPos);
-                  },
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0,
-                    vertical: 5.0,
-                  ),
-                  child: const Text('Confirm'),
-                )
-              ],
+                  CupertinoButton(
+                    onPressed: () {
+                      onDone(selectedItemPos);
+                    },
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 5.0,
+                    ),
+                    child: const Text('Confirm'),
+                  )
+                ],
+              ),
             ),
             Container(
                 height: 300,

@@ -83,13 +83,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "popup_title": MessageLookupByLibrary.simpleMessage("WELCOME @MRDOUG"),
         "privacy_policy_text": MessageLookupByLibrary.simpleMessage(
             "I agree to Swag’s *Privacy Policy* \n& *Terms of Use*"),
+        "required_field":
+            MessageLookupByLibrary.simpleMessage("Required field"),
         "resend_email": MessageLookupByLibrary.simpleMessage(
             "Didn’t get an email? *Resend Email*"),
         "reset_password_btn":
             MessageLookupByLibrary.simpleMessage("RESET PASSWORD"),
         "reset_password_description": MessageLookupByLibrary.simpleMessage(
             "Please enter and confirm your new password below."),
-        "second_address": MessageLookupByLibrary.simpleMessage("Address 2"),
+        "second_address":
+            MessageLookupByLibrary.simpleMessage("Address 2 (optional)"),
         "select_avatar_desc": MessageLookupByLibrary.simpleMessage(
             "Select an avatar below or add one from your camera/photos."),
         "sign_in": MessageLookupByLibrary.simpleMessage("SIGN IN"),
