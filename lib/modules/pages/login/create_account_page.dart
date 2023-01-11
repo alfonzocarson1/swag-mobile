@@ -199,7 +199,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                         autofocus: false,
                                         labelText: S.of(context).email,
                                         focusNode: _emailNode,
-                                        accountController: _emailController,
+                                        controller: _emailController,
                                         inputType: TextInputType.emailAddress),
                                     const SizedBox(
                                       height: 20,
@@ -222,7 +222,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                         autofocus: false,
                                         labelText: S.of(context).password,
                                         focusNode: _passwordNode,
-                                        accountController: _passwordController,
+                                        controller: _passwordController,
                                         secure: true,
                                         inputType: TextInputType.text),
                                     const SizedBox(
@@ -235,8 +235,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                         labelText:
                                             S.of(context).confirm_password,
                                         focusNode: _confirmPasswordNode,
-                                        accountController:
-                                            _confirmPasswordController,
+                                        controller: _confirmPasswordController,
                                         secure: true,
                                         inputType: TextInputType.text),
                                     const SizedBox(
@@ -248,7 +247,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                         autofocus: false,
                                         labelText: S.of(context).username,
                                         focusNode: _usernameNode,
-                                        accountController: _usernameController,
+                                        controller: _usernameController,
                                         onChanged: (value) {
                                           setState(() {
                                             usernameErrorText =

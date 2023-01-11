@@ -49,7 +49,14 @@
     "select_avatar_desc": "Select an avatar below or add one from your camera/photos.",
     "access_photos": "Choose Photo",
     "camera": "Take Photo",
-    "required_field": "Required field"
-
+    "required_field": "Required field",
+    "search_hint": "Search name, style, color etc",
+    "whats_hot": "WHAT'S HOT",
+    "headcovers": "HEADCOVERS",
+    "putters": "PUTTERS",
+    "accessories": "ACCESSORIES",
+    "last_sale": "LAST SALE",
+    "n_a": "N/A",
+    "for_sale": "FOR SALE"
 
 }
