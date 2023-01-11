@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:swagapp/modules/pages/login/explore_page.dart';
+import 'package:swagapp/modules/pages/login/landing_page.dart';
 import 'generated/l10n.dart';
 
 import 'modules/blocs/auth_bloc/auth_bloc.dart';
@@ -44,11 +44,11 @@ class App extends StatelessWidget {
             builder: (context, state) => state.maybeMap(
                 initial: (_) => const SplashPage(),
                 authenticated: (_) => const HomePage(),
-                walkthrough: (_) => const ExplorePage(),
-                onboarding: (_) => const ExplorePage(),
-                orElse: () => const ExplorePage(),
+                walkthrough: (_) => const LandingPage(),
+                onboarding: (_) => const LandingPage(),
+                orElse: () => const LandingPage(),
                 unauthenticated: (_) {
-                  return const ExplorePage();
+                  return const LandingPage();
                 }),
             listener: (context, state) => state.maybeMap(
                 // orElse: () => null,
