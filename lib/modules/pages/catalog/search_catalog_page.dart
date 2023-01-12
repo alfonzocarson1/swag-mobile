@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/common/ui/pushed_header.dart';
 import 'package:swagapp/modules/common/ui/search_input.dart';
-import 'package:swagapp/modules/common/ui/search_text_field.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/pages/catalog/accessories_page.dart';
 import 'package:swagapp/modules/pages/catalog/headcovers_page.dart';
@@ -72,7 +71,7 @@ class _SearchCatalogPageState extends State<SearchCatalogPage>
                 _getTabBar(context),
               ],
             ),
-            height: 125,
+            height: 120,
           ),
           backgroundColor: Palette.current.primaryNero,
           body: TabBarView(controller: _controller, children: const [
