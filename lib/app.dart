@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:swagapp/modules/pages/login/landing_page.dart';
+import 'package:swagapp/modules/blocs/search_bloc.dart/search_bloc.dart';
 import 'generated/l10n.dart';
 
 import 'modules/blocs/auth_bloc/auth_bloc.dart';
@@ -25,6 +26,9 @@ class App extends StatelessWidget {
         providers: [
           BlocProvider<AuthBloc>(create: (_) => getIt<AuthBloc>()),
           // BlocProvider<SignUpBloc>(create: (_) => getIt<SignUpBloc>()),
+          BlocProvider<SearchBloc>(
+            create: (context) => getIt<SearchBloc>(),
+          )
         ],
         child: MaterialApp(
           navigatorKey: getIt<ContextService>().rootNavigatorKey,

@@ -133,7 +133,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                 ? S.of(context).code
                                 : S.of(context).email,
                             focusNode: _codeView ? _codeNode : _emailNode,
-                            accountController:
+                            controller:
                                 _codeView ? _codeController : _emailController,
                             inputType: _codeView
                                 ? TextInputType.text

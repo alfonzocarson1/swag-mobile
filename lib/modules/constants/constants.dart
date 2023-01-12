@@ -5,6 +5,8 @@ const tokenPath = 'auth/realms/app/protocol/openid-connect/token';
 const termsAndConditionsUrl = "https://swag.golf/pages/termsandconditions";
 const termsAndConditionsBasePath = "https://swag.golf";
 
+const defaultString = "";
+
 const countries = [
   "US",
   "CA",

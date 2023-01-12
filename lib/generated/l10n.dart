@@ -559,6 +559,96 @@ class S {
       args: [],
     );
   }
+
+  /// `Search name, style, color etc`
+  String get search_hint {
+    return Intl.message(
+      'Search name, style, color etc',
+      name: 'search_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `WHAT'S HOT`
+  String get whats_hot {
+    return Intl.message(
+      'WHAT\'S HOT',
+      name: 'whats_hot',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `HEADCOVERS`
+  String get headcovers {
+    return Intl.message(
+      'HEADCOVERS',
+      name: 'headcovers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `PUTTERS`
+  String get putters {
+    return Intl.message(
+      'PUTTERS',
+      name: 'putters',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ACCESSORIES`
+  String get accessories {
+    return Intl.message(
+      'ACCESSORIES',
+      name: 'accessories',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `LAST SALE`
+  String get last_sale {
+    return Intl.message(
+      'LAST SALE',
+      name: 'last_sale',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `N/A`
+  String get n_a {
+    return Intl.message(
+      'N/A',
+      name: 'n_a',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `FOR SALE`
+  String get for_sale {
+    return Intl.message(
+      'FOR SALE',
+      name: 'for_sale',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No items yet`
+  String get empty_text {
+    return Intl.message(
+      'No items yet',
+      name: 'empty_text',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

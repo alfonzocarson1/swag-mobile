@@ -75,14 +75,14 @@ class _HomePage extends State<HomePage> {
                     AssetImage('assets/images/Alerts.png'),
                     size: 25,
                   ),
-                  label: "Alert",
+                  label: "Alerts",
                 ),
                 BottomNavigationBarItem(
                   icon: ImageIcon(
                     AssetImage('assets/images/You.png'),
                     size: 25,
                   ),
-                  label: "You",
+                  label: "Profile",
                 )
               ]),
         ),

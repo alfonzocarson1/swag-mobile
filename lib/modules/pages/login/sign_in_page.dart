@@ -166,7 +166,7 @@ class _SignInPageState extends State<SignInPage> {
                                     autofocus: false,
                                     labelText: S.of(context).email,
                                     focusNode: _emailNode,
-                                    accountController: _emailController,
+                                    controller: _emailController,
                                     inputType: TextInputType.emailAddress),
                                 const SizedBox(
                                   height: 16,
@@ -177,7 +177,7 @@ class _SignInPageState extends State<SignInPage> {
                                     autofocus: false,
                                     labelText: S.of(context).password,
                                     focusNode: _passwordNode,
-                                    accountController: _passwordController,
+                                    controller: _passwordController,
                                     secure: true,
                                     inputType: TextInputType.text),
                                 const SizedBox(
