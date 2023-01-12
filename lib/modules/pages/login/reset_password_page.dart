@@ -144,7 +144,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                 autofocus: false,
                                 labelText: S.of(context).new_password,
                                 focusNode: _passwordNode,
-                                accountController: _passwordController,
+                                controller: _passwordController,
                                 secure: true,
                                 inputType: TextInputType.text),
                             const SizedBox(
@@ -156,7 +156,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                 autofocus: false,
                                 labelText: S.of(context).confirm_password,
                                 focusNode: _confirmPasswordNode,
-                                accountController: _confirmPasswordController,
+                                controller: _confirmPasswordController,
                                 secure: true,
                                 inputType: TextInputType.text),
                             const SizedBox(

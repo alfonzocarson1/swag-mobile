@@ -246,7 +246,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                     autofocus: false,
                                     labelText: S.of(context).first_name,
                                     focusNode: _firstNameNode,
-                                    accountController: _firstNameController,
+                                    controller: _firstNameController,
                                     inputType: TextInputType.text),
                                 const SizedBox(
                                   height: 20,
@@ -261,7 +261,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                     autofocus: false,
                                     labelText: S.of(context).last_name,
                                     focusNode: _lastNameNode,
-                                    accountController: _lastNameController,
+                                    controller: _lastNameController,
                                     inputType: TextInputType.text),
                                 const SizedBox(
                                   height: 20,
@@ -282,7 +282,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                       });
                                     },
                                     focusNode: _countryNode,
-                                    accountController: _countryController,
+                                    controller: _countryController,
                                     inputType: TextInputType.text),
                                 const SizedBox(
                                   height: 20,
@@ -293,7 +293,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                     labelText: S.of(context).first_address,
                                     errorText: addressErrorText,
                                     focusNode: _firstAddressNode,
-                                    accountController: _firstAddressController,
+                                    controller: _firstAddressController,
                                     inputType: TextInputType.text),
                                 const SizedBox(
                                   height: 20,
@@ -303,7 +303,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                     autofocus: false,
                                     labelText: S.of(context).second_address,
                                     focusNode: _secondAddressNode,
-                                    accountController: _secondAddressController,
+                                    controller: _secondAddressController,
                                     inputType: TextInputType.text),
                                 const SizedBox(
                                   height: 20,
@@ -314,7 +314,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                     errorText: cityErrorText,
                                     labelText: S.of(context).city,
                                     focusNode: _cityNode,
-                                    accountController: _cityController,
+                                    controller: _cityController,
                                     inputType: TextInputType.text),
                                 const SizedBox(
                                   height: 20,
@@ -369,7 +369,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                           errorText: zipErrorText,
                                           labelText: S.of(context).zip,
                                           focusNode: _zipNode,
-                                          accountController: _zipController,
+                                          controller: _zipController,
                                           inputType: TextInputType.text),
                                     )
                                   ],

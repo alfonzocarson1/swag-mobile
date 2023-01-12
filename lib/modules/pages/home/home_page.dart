@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/di/injector.dart';
-import 'package:swagapp/modules/pages/catalog/catalog_page.dart';
 
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../pages/alert/alert_page.dart';
 import '../../pages/profile/profile_page.dart';
+import '../catalog/search_catalog_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,7 +19,7 @@ class HomePage extends StatefulWidget {
 class _HomePage extends State<HomePage> {
   int indexTap = 0;
   final List<Widget> widgetsChildren = [
-    const CatalogPage(),
+    const SearchCatalogPage(),
     const AlertPage(),
     const ProfilePage()
   ];

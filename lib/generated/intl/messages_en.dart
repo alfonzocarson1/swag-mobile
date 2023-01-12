@@ -23,6 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "access_photos": MessageLookupByLibrary.simpleMessage("Choose Photo"),
+        "accessories": MessageLookupByLibrary.simpleMessage("ACCESSORIES"),
         "already_have_an_account": MessageLookupByLibrary.simpleMessage(
             "Already have an account? *Sign In*"),
         "app_name": MessageLookupByLibrary.simpleMessage("Swag Golf"),
@@ -39,6 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "empty_password":
             MessageLookupByLibrary.simpleMessage("Invalid password"),
+        "empty_text": MessageLookupByLibrary.simpleMessage("No items yet"),
         "explore_as_guest":
             MessageLookupByLibrary.simpleMessage("EXPLORE AS GUEST"),
         "field_empty":
@@ -47,6 +49,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "first_address": MessageLookupByLibrary.simpleMessage(
             "Preferred Shipping Address 1"),
         "first_name": MessageLookupByLibrary.simpleMessage("First Name"),
+        "for_sale": MessageLookupByLibrary.simpleMessage("FOR SALE"),
         "forgot_password":
             MessageLookupByLibrary.simpleMessage("Forgot Password?"),
         "forgot_password_code_description":
@@ -55,6 +58,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "forgot_password_email_description":
             MessageLookupByLibrary.simpleMessage(
                 "Enter your email to reset your password."),
+        "headcovers": MessageLookupByLibrary.simpleMessage("HEADCOVERS"),
         "incorrect_email_or_password": MessageLookupByLibrary.simpleMessage(
             "Incorrect email or password. Please try again"),
         "invalid_email":
@@ -64,6 +68,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "invalid_username": MessageLookupByLibrary.simpleMessage(
             "username must be between 4-20 characters"),
         "last_name": MessageLookupByLibrary.simpleMessage("Last Name"),
+        "last_sale": MessageLookupByLibrary.simpleMessage("LAST SALE"),
+        "n_a": MessageLookupByLibrary.simpleMessage("N/A"),
         "new_password": MessageLookupByLibrary.simpleMessage("New Password"),
         "next_btn": MessageLookupByLibrary.simpleMessage("NEXT"),
         "no_match_password":
@@ -83,6 +89,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "popup_title": MessageLookupByLibrary.simpleMessage("WELCOME @MRDOUG"),
         "privacy_policy_text": MessageLookupByLibrary.simpleMessage(
             "I agree to Swag’s *Privacy Policy* \n& *Terms of Use*"),
+        "putters": MessageLookupByLibrary.simpleMessage("PUTTERS"),
         "required_field":
             MessageLookupByLibrary.simpleMessage("Required field"),
         "resend_email": MessageLookupByLibrary.simpleMessage(
@@ -91,6 +98,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("RESET PASSWORD"),
         "reset_password_description": MessageLookupByLibrary.simpleMessage(
             "Please enter and confirm your new password below."),
+        "search_hint": MessageLookupByLibrary.simpleMessage(
+            "Search name, style, color etc"),
         "second_address":
             MessageLookupByLibrary.simpleMessage("Address 2 (optional)"),
         "select_avatar_desc": MessageLookupByLibrary.simpleMessage(
@@ -105,6 +114,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "username_taken":
             MessageLookupByLibrary.simpleMessage("This username is taken "),
         "verify_name": MessageLookupByLibrary.simpleMessage("@MRDOUG"),
+        "whats_hot": MessageLookupByLibrary.simpleMessage("WHAT\'S HOT"),
         "zip": MessageLookupByLibrary.simpleMessage("ZIP/Postal Code")
       };
 }

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
+import 'package:swagapp/modules/constants/constants.dart';
 
 class CustomTextFormField extends StatefulWidget {
   CustomTextFormField(
       {Key? key,
-      required this.labelText,
       required this.focusNode,
-      required this.borderColor,
-      required this.accountController,
-      required this.inputType,
+      required this.controller,
+      this.labelText = defaultString,
+      this.inputType = TextInputType.text,
+      this.borderColor,
       this.suffix,
       this.onChanged,
       this.onSubmitted,
@@ -28,8 +29,8 @@ class CustomTextFormField extends StatefulWidget {
       : super(key: key);
   final String labelText;
   final FocusNode focusNode;
-  final Color borderColor;
-  final TextEditingController accountController;
+  final Color? borderColor;
+  final TextEditingController controller;
   final TextInputType inputType;
   final Function(String)? onChanged;
   final Function(String)? onSubmitted;
@@ -62,11 +63,13 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.transparent,
-                    border: Border.all(
-                      color: widget.errorText != null
-                          ? Palette.current.primaryNeonPink
-                          : widget.borderColor,
-                    ),
+                    border: widget.borderColor != null
+                        ? Border.all(
+                            color: widget.errorText != null
+                                ? Palette.current.primaryNeonPink
+                                : widget.borderColor!,
+                          )
+                        : null,
                   ),
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 6),
@@ -106,11 +109,13 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.transparent,
-                    border: Border.all(
-                      color: widget.errorText != null
-                          ? Palette.current.primaryNeonPink
-                          : widget.borderColor,
-                    ),
+                    border: widget.borderColor != null
+                        ? Border.all(
+                            color: widget.errorText != null
+                                ? Palette.current.primaryNeonPink
+                                : widget.borderColor!,
+                          )
+                        : null,
                   ),
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 6),
@@ -131,7 +136,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                               [
                                 FilteringTextInputFormatter.deny(RegExp(r'\s')),
                               ],
-                          controller: widget.accountController,
+                          controller: widget.controller,
                           focusNode: widget.focusNode,
                           cursorColor: Colors.black,
                           keyboardType: widget.inputType,
