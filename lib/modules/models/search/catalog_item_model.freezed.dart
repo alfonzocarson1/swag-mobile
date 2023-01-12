@@ -27,10 +27,10 @@ mixin _$CatalogItemModel {
   String get catalogItemCollections => throw _privateConstructorUsedError;
   String get catalogItemCategoryId => throw _privateConstructorUsedError;
   String get released => throw _privateConstructorUsedError;
-  String get totalMade => throw _privateConstructorUsedError;
+  int get totalMade => throw _privateConstructorUsedError;
   String get retail => throw _privateConstructorUsedError;
   String get lastSale => throw _privateConstructorUsedError;
-  String get numberAvailable => throw _privateConstructorUsedError;
+  int get numberAvailable => throw _privateConstructorUsedError;
   String get sku => throw _privateConstructorUsedError;
   String? get jobId => throw _privateConstructorUsedError;
 
@@ -54,10 +54,10 @@ abstract class $CatalogItemModelCopyWith<$Res> {
       String catalogItemCollections,
       String catalogItemCategoryId,
       String released,
-      String totalMade,
+      int totalMade,
       String retail,
       String lastSale,
-      String numberAvailable,
+      int numberAvailable,
       String sku,
       String? jobId});
 }
@@ -121,7 +121,7 @@ class _$CatalogItemModelCopyWithImpl<$Res, $Val extends CatalogItemModel>
       totalMade: null == totalMade
           ? _value.totalMade
           : totalMade // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       retail: null == retail
           ? _value.retail
           : retail // ignore: cast_nullable_to_non_nullable
@@ -133,7 +133,7 @@ class _$CatalogItemModelCopyWithImpl<$Res, $Val extends CatalogItemModel>
       numberAvailable: null == numberAvailable
           ? _value.numberAvailable
           : numberAvailable // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       sku: null == sku
           ? _value.sku
           : sku // ignore: cast_nullable_to_non_nullable
@@ -162,10 +162,10 @@ abstract class _$$_CatalogItemModelCopyWith<$Res>
       String catalogItemCollections,
       String catalogItemCategoryId,
       String released,
-      String totalMade,
+      int totalMade,
       String retail,
       String lastSale,
-      String numberAvailable,
+      int numberAvailable,
       String sku,
       String? jobId});
 }
@@ -227,7 +227,7 @@ class __$$_CatalogItemModelCopyWithImpl<$Res>
       totalMade: null == totalMade
           ? _value.totalMade
           : totalMade // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       retail: null == retail
           ? _value.retail
           : retail // ignore: cast_nullable_to_non_nullable
@@ -239,7 +239,7 @@ class __$$_CatalogItemModelCopyWithImpl<$Res>
       numberAvailable: null == numberAvailable
           ? _value.numberAvailable
           : numberAvailable // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       sku: null == sku
           ? _value.sku
           : sku // ignore: cast_nullable_to_non_nullable
@@ -289,13 +289,13 @@ class _$_CatalogItemModel implements _CatalogItemModel {
   @override
   final String released;
   @override
-  final String totalMade;
+  final int totalMade;
   @override
   final String retail;
   @override
   final String lastSale;
   @override
-  final String numberAvailable;
+  final int numberAvailable;
   @override
   final String sku;
   @override
@@ -376,10 +376,10 @@ abstract class _CatalogItemModel implements CatalogItemModel {
       required final String catalogItemCollections,
       required final String catalogItemCategoryId,
       required final String released,
-      required final String totalMade,
+      required final int totalMade,
       required final String retail,
       required final String lastSale,
-      required final String numberAvailable,
+      required final int numberAvailable,
       required final String sku,
       final String? jobId}) = _$_CatalogItemModel;
 
@@ -401,13 +401,13 @@ abstract class _CatalogItemModel implements CatalogItemModel {
   @override
   String get released;
   @override
-  String get totalMade;
+  int get totalMade;
   @override
   String get retail;
   @override
   String get lastSale;
   @override
-  String get numberAvailable;
+  int get numberAvailable;
   @override
   String get sku;
   @override

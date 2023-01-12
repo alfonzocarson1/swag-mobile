@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../common/utils/custom_route_animations.dart';
+import '../../common/utils/palette.dart';
 
 class AccessoriesPage extends StatefulWidget {
   static const name = '/Accessories';
@@ -21,7 +22,7 @@ class _AccessoriesPageState extends State<AccessoriesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF414141),
+      backgroundColor: Palette.current.primaryNero,
       body: Center(
         child: Text(
           "Welcome to the ACCESSORIES page",

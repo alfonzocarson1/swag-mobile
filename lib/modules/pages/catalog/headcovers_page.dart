@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../common/utils/custom_route_animations.dart';
+import '../../common/utils/palette.dart';
 
 class HeadcoversPage extends StatefulWidget {
   static const name = '/Headcovers';
@@ -21,7 +22,7 @@ class _HeadcoversPageState extends State<HeadcoversPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF414141),
+      backgroundColor: Palette.current.primaryNero,
       body: Center(
         child: Text(
           "Welcome to the HEADCOVERS page",

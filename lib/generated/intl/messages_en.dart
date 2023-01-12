@@ -40,6 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "empty_password":
             MessageLookupByLibrary.simpleMessage("Invalid password"),
+        "empty_text": MessageLookupByLibrary.simpleMessage("No items yet"),
         "explore_as_guest":
             MessageLookupByLibrary.simpleMessage("EXPLORE AS GUEST"),
         "field_empty":

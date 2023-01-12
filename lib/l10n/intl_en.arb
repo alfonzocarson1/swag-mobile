@@ -57,6 +57,7 @@
     "accessories": "ACCESSORIES",
     "last_sale": "LAST SALE",
     "n_a": "N/A",
-    "for_sale": "FOR SALE"
+    "for_sale": "FOR SALE",
+    "empty_text": "No items yet"
 
 }

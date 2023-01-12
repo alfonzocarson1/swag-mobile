@@ -639,6 +639,16 @@ class S {
       args: [],
     );
   }
+
+  /// `No items yet`
+  String get empty_text {
+    return Intl.message(
+      'No items yet',
+      name: 'empty_text',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

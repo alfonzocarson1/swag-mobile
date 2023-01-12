@@ -14,10 +14,10 @@ class CatalogItemModel with _$CatalogItemModel {
     required final String catalogItemCollections,
     required final String catalogItemCategoryId,
     required final String released,
-    required final String totalMade,
+    required final int totalMade,
     required final String retail,
     required final String lastSale,
-    required final String numberAvailable,
+    required final int numberAvailable,
     required final String sku,
     final String? jobId,
   }) = _CatalogItemModel;

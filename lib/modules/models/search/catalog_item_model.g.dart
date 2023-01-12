@@ -15,10 +15,10 @@ _$_CatalogItemModel _$$_CatalogItemModelFromJson(Map<String, dynamic> json) =>
       catalogItemCollections: json['catalogItemCollections'] as String,
       catalogItemCategoryId: json['catalogItemCategoryId'] as String,
       released: json['released'] as String,
-      totalMade: json['totalMade'] as String,
+      totalMade: json['totalMade'] as int,
       retail: json['retail'] as String,
       lastSale: json['lastSale'] as String,
-      numberAvailable: json['numberAvailable'] as String,
+      numberAvailable: json['numberAvailable'] as int,
       sku: json['sku'] as String,
       jobId: json['jobId'] as String?,
     );

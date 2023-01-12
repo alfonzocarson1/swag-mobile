@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:swagapp/modules/common/utils/palette.dart';
 import '../../common/utils/custom_route_animations.dart';
 
 class PuttersPage extends StatefulWidget {
@@ -21,7 +22,7 @@ class _PuttersPageState extends State<PuttersPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF414141),
+      backgroundColor: Palette.current.primaryNero,
       body: Center(
         child: Text(
           "Welcome to the PUTTERS page",

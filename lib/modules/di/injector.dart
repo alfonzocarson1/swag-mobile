@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:swagapp/modules/api/api_service.dart';
+import 'package:swagapp/modules/blocs/search_bloc.dart/search_bloc.dart';
 import 'package:swagapp/modules/common/utils/context_service.dart';
 import 'package:swagapp/modules/data/auth/i_auth_service.dart';
+import 'package:swagapp/modules/data/search/i_search_service.dart';
+import 'package:swagapp/modules/data/search/search_service.dart';
 
 import '../blocs/auth_bloc/auth_bloc.dart';
 import '../data/auth/auth_service.dart';
@@ -19,6 +22,10 @@ Future<void> setupAppScope() {
   getIt.registerLazySingleton(() => ContextService());
   getIt.registerLazySingleton<IAuthService>(() => AuthService(APIService()));
   getIt.registerLazySingleton<AuthBloc>(() => AuthBloc(getIt<IAuthService>()));
+  getIt
+      .registerLazySingleton<ISearchService>(() => SearchService(APIService()));
+  getIt.registerLazySingleton<SearchBloc>(
+      () => SearchBloc(getIt<ISearchService>()));
   return getIt.allReady();
 }
 
