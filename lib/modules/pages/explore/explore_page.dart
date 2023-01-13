@@ -1,31 +1,35 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swagapp/generated/l10n.dart';
 
+import 'package:swagapp/modules/common/ui/loading.dart';
+import 'package:swagapp/modules/common/utils/palette.dart';
+
+import '../../blocs/explore_bloc/explore_bloc.dart';
 import '../../common/ui/custom_app_bar.dart';
 import '../../common/utils/custom_route_animations.dart';
-import '../../common/utils/explore_utils.dart';
-import '../../common/utils/palette.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
-import '../../models/explore/explore.dart';
+import '../../models/explore/explore_item_model.dart';
 
-import '../login/create_account_page.dart';
+class ExplorePage extends StatefulWidget {
+  static const name = '/ExplorePage';
+  const ExplorePage({Key? key}) : super(key: key);
 
-class ExplorePageList extends StatefulWidget {
-  static const name = '/ExplorePageList';
-  const ExplorePageList({super.key});
-
-  static Route route() => PageRoutes.slideUp(
+  static Route route() => PageRoutes.material(
         settings: const RouteSettings(name: name),
-        builder: (context) => const ExplorePageList(),
+        builder: (context) => const ExplorePage(),
       );
 
   @override
-  State<ExplorePageList> createState() => _ExplorePageListState();
+  State<ExplorePage> createState() => _ExplorePageState();
 }
 
-class _ExplorePageListState extends State<ExplorePageList> {
+class _ExplorePageState extends State<ExplorePage> {
   bool _isLogged = false;
-  List<Explore> exploreList = ExploreUtils.getExploreList();
+  late final ScrollController? _scrollController =
+      PrimaryScrollController.of(context);
 
   @override
   void initState() {
@@ -38,87 +42,105 @@ class _ExplorePageListState extends State<ExplorePageList> {
     return Scaffold(
         extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.black,
         appBar: !_isLogged ? CustomAppBar() : null,
-        body: Container(
-          decoration: const BoxDecoration(
-            color: Colors.black,
+        body: BlocConsumer<ExploreBloc, ExploreState>(
+          listener: (context, state) => state.maybeWhen(
+            orElse: () => {Loading.hide(context)},
+            error: (message) => {
+              Loading.hide(context),
+              // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
+            },
+            initial: () {
+              return Loading.show(context);
+            },
           ),
-          child: Padding(
-            padding: const EdgeInsets.only(top: 50),
-            child: Column(
-              children: [
-                Expanded(
+          builder: (context, state) {
+            return state.maybeMap(
+              orElse: () => const Center(),
+              error: (_) {
+                return RefreshIndicator(
+                    onRefresh: () async {
+                      makeCall();
+                      return Future.delayed(const Duration(milliseconds: 1500));
+                    },
                     child: ListView.builder(
-                        padding: EdgeInsets.zero,
-                        itemCount: exploreList.length,
-                        itemBuilder: (BuildContext ctx, int index) {
-                          return GestureDetector(
-                            onTap: () {
-                              // switch (exploreList[index].route) {
-                              //   case '/CreateAccount':
-                              //     Navigator.of(context, rootNavigator: true)
-                              //         .push(CreateAccountPage.route());
-                              //     break;
-
-                              //   default:
-                              // }
-                            },
-                            child: Container(
-                              height: 400,
-                              child: Stack(children: [
-                                Positioned.fill(
-                                    child: Image.asset(
-                                  'assets/images/${exploreList[index].imgName}.png',
-                                  fit: BoxFit.cover,
-                                )),
-                                Positioned(
-                                    bottom: 0,
-                                    left: 0,
-                                    right: 0,
-                                    child: Container(
-                                      height: 400,
-                                      decoration: BoxDecoration(
-                                          gradient: LinearGradient(
-                                              begin: Alignment.bottomCenter,
-                                              end: Alignment.topCenter,
-                                              colors: [
-                                            Colors.black.withOpacity(0.7),
-                                            Colors.transparent
-                                          ])),
-                                    )),
-                                Positioned(
-                                  bottom: 0,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        bottom: 20, left: 20),
-                                    child: Row(
-                                      children: [
-                                        Text(exploreList[index].name,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .displayMedium!
-                                                .copyWith(
-                                                  fontFamily: "Knockout",
-                                                  fontSize:
-                                                      index.toDouble() == 0
-                                                          ? 44
-                                                          : 54,
-                                                  letterSpacing: 2.3,
-                                                  fontWeight: FontWeight.w300,
-                                                  color: Palette.current.white,
-                                                ))
-                                      ],
-                                    ),
-                                  ),
-                                )
-                              ]),
-                            ),
-                          );
-                        }))
-              ],
-            ),
-          ),
+                      itemBuilder: (_, index) => Container(),
+                      itemCount: 0,
+                    ));
+              },
+              loadedExploreItems: (state) {
+                return _getBody(state.exploreList);
+              },
+            );
+          },
         ));
+  }
+
+  Widget _getBody(List<ExploreItemModel> exploreList) {
+    return RefreshIndicator(
+      onRefresh: () async {
+        makeCall();
+        return Future.delayed(const Duration(milliseconds: 1500));
+      },
+      child: exploreList.isNotEmpty
+          ? _exploreList(exploreList, _scrollController!)
+          : ListView.builder(
+              itemBuilder: (_, index) => SizedBox(
+                height: MediaQuery.of(context).size.height * 0.7,
+                child: Center(
+                  child: Text(
+                    S.of(context).empty_text,
+                    style: TextStyle(
+                        fontSize: 24, color: Colors.black.withOpacity(0.50)),
+                  ),
+                ),
+              ),
+              itemCount: 1,
+            ),
+    );
+  }
+
+  Widget _exploreList(
+      List<ExploreItemModel> exploreList, ScrollController scrollController) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 50),
+      child: Column(
+        children: [
+          Expanded(
+              child: ListView.builder(
+                  padding: EdgeInsets.zero,
+                  itemCount: exploreList.length,
+                  itemBuilder: (BuildContext ctx, int index) {
+                    return SizedBox(
+                      height: 360,
+                      child: Stack(children: [
+                        Positioned.fill(
+                          child: CachedNetworkImage(
+                            fit: BoxFit.cover,
+                            imageUrl: exploreList[index].image,
+                            placeholder: (context, url) => SizedBox(
+                              height: 360,
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  color: Palette.current.primaryNeonGreen,
+                                  backgroundColor: Colors.white,
+                                ),
+                              ),
+                            ),
+                            errorWidget: (context, url, error) =>
+                                Image.asset("assets/images/ProfilePhoto.png"),
+                          ),
+                        ),
+                      ]),
+                    );
+                  }))
+        ],
+      ),
+    );
+  }
+
+  void makeCall() {
+    context.read<ExploreBloc>().add(const ExploreEvent.getExploreItems());
   }
 }

@@ -6,6 +6,7 @@ import 'package:swagapp/modules/blocs/search_bloc.dart/search_bloc.dart';
 import 'generated/l10n.dart';
 
 import 'modules/blocs/auth_bloc/auth_bloc.dart';
+import 'modules/blocs/explore_bloc/explore_bloc.dart';
 import 'modules/pages/home/home_page.dart';
 import 'modules/common/utils/context_service.dart';
 import 'modules/common/utils/palette.dart';
@@ -26,9 +27,8 @@ class App extends StatelessWidget {
         providers: [
           BlocProvider<AuthBloc>(create: (_) => getIt<AuthBloc>()),
           // BlocProvider<SignUpBloc>(create: (_) => getIt<SignUpBloc>()),
-          BlocProvider<SearchBloc>(
-            create: (context) => getIt<SearchBloc>(),
-          )
+          BlocProvider<SearchBloc>(create: (context) => getIt<SearchBloc>()),
+          BlocProvider<ExploreBloc>(create: (context) => getIt<ExploreBloc>()),
         ],
         child: MaterialApp(
           navigatorKey: getIt<ContextService>().rootNavigatorKey,

@@ -22,7 +22,7 @@ class WhatsHotPage extends StatefulWidget {
 }
 
 class _WhatsHotPageState extends State<WhatsHotPage> {
-  late final ScrollController _scrollController =
+  late final ScrollController? _scrollController =
       PrimaryScrollController.of(context);
 
   @override
@@ -69,7 +69,7 @@ class _WhatsHotPageState extends State<WhatsHotPage> {
         return Future.delayed(const Duration(milliseconds: 1500));
       },
       child: catalogList.isNotEmpty
-          ? _catalogList(catalogList, _scrollController)
+          ? _catalogList(catalogList, _scrollController!)
           : ListView.builder(
               itemBuilder: (_, index) => SizedBox(
                 height: MediaQuery.of(context).size.height * 0.7,
@@ -99,7 +99,7 @@ class _WhatsHotPageState extends State<WhatsHotPage> {
         itemCount: catalogList.length,
         itemBuilder: (context, index) {
           return SizedBox(
-            height: 453,
+            height: 500,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,

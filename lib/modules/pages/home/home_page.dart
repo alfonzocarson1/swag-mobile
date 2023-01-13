@@ -20,7 +20,7 @@ class HomePage extends StatefulWidget {
 class _HomePage extends State<HomePage> {
   int indexTap = 0;
   final List<Widget> widgetsChildren = [
-    const ExplorePageList(),
+    const ExplorePage(),
     const SearchPage(),
     const AlertPage(),
     const ProfilePage()
