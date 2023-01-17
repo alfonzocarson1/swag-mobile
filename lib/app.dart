@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:swagapp/modules/pages/login/landing_page.dart';
 import 'package:swagapp/modules/blocs/search_bloc.dart/search_bloc.dart';
-import 'package:swagapp/modules/pages/login/explore_page.dart';
 import 'generated/l10n.dart';
 
 import 'modules/blocs/auth_bloc/auth_bloc.dart';
+import 'modules/blocs/explore_bloc/explore_bloc.dart';
 import 'modules/pages/home/home_page.dart';
 import 'modules/common/utils/context_service.dart';
 import 'modules/common/utils/palette.dart';
@@ -26,9 +27,8 @@ class App extends StatelessWidget {
         providers: [
           BlocProvider<AuthBloc>(create: (_) => getIt<AuthBloc>()),
           // BlocProvider<SignUpBloc>(create: (_) => getIt<SignUpBloc>()),
-          BlocProvider<SearchBloc>(
-            create: (context) => getIt<SearchBloc>(),
-          )
+          BlocProvider<SearchBloc>(create: (context) => getIt<SearchBloc>()),
+          BlocProvider<ExploreBloc>(create: (context) => getIt<ExploreBloc>()),
         ],
         child: MaterialApp(
           navigatorKey: getIt<ContextService>().rootNavigatorKey,
@@ -48,11 +48,11 @@ class App extends StatelessWidget {
             builder: (context, state) => state.maybeMap(
                 initial: (_) => const SplashPage(),
                 authenticated: (_) => const HomePage(),
-                walkthrough: (_) => const ExplorePage(),
-                onboarding: (_) => const ExplorePage(),
-                orElse: () => const ExplorePage(),
+                walkthrough: (_) => const LandingPage(),
+                onboarding: (_) => const LandingPage(),
+                orElse: () => const LandingPage(),
                 unauthenticated: (_) {
-                  return const ExplorePage();
+                  return const LandingPage();
                 }),
             listener: (context, state) => state.maybeMap(
                 // orElse: () => null,

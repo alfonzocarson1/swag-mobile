@@ -3,31 +3,29 @@ import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/common/ui/pushed_header.dart';
 import 'package:swagapp/modules/common/ui/search_input.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
-import 'package:swagapp/modules/pages/catalog/accessories_page.dart';
-import 'package:swagapp/modules/pages/catalog/headcovers_page.dart';
-import 'package:swagapp/modules/pages/catalog/putters_page.dart';
-import 'package:swagapp/modules/pages/catalog/search_on_tap_page.dart';
-import 'package:swagapp/modules/pages/catalog/whats_hot_page.dart';
+import 'package:swagapp/modules/pages/search/accessories_page.dart';
+import 'package:swagapp/modules/pages/search/headcovers_page.dart';
+import 'package:swagapp/modules/pages/search/putters_page.dart';
+import 'package:swagapp/modules/pages/search/search_on_tap_page.dart';
+import 'package:swagapp/modules/pages/search/whats_hot_page.dart';
 
 import '../../common/utils/custom_route_animations.dart';
 
-class SearchCatalogPage extends StatefulWidget {
+class SearchPage extends StatefulWidget {
   static const name = '/SearchCatalog';
-  const SearchCatalogPage({Key? key}) : super(key: key);
+  const SearchPage({Key? key}) : super(key: key);
 
   static Route route() => PageRoutes.material(
         settings: const RouteSettings(name: name),
-        builder: (context) => const SearchCatalogPage(),
+        builder: (context) => const SearchPage(),
       );
 
   @override
-  State<SearchCatalogPage> createState() => _SearchCatalogPageState();
+  State<SearchPage> createState() => _SearchPageState();
 }
 
-class _SearchCatalogPageState extends State<SearchCatalogPage>
-    with
-        TickerProviderStateMixin,
-        AutomaticKeepAliveClientMixin<SearchCatalogPage> {
+class _SearchPageState extends State<SearchPage>
+    with TickerProviderStateMixin, AutomaticKeepAliveClientMixin<SearchPage> {
   @override
   bool get wantKeepAlive => true;
   late final TabController _controller;

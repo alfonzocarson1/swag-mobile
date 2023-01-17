@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swagapp/modules/pages/catalog/update_avatar_bottom_sheet.dart';
+import 'package:swagapp/modules/pages/search/update_avatar_bottom_sheet.dart';
 
 import '../utils/palette.dart';
 

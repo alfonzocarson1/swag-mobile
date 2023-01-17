@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
-import 'package:swagapp/modules/pages/catalog/catalog_page.dart';
+import 'package:swagapp/modules/pages/search/search_page.dart';
 
 import 'package:swagapp/modules/pages/login/create_account_page.dart';
 import 'package:swagapp/modules/pages/login/sign_in_page.dart';
@@ -12,13 +12,13 @@ import '../../common/utils/custom_route_animations.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 
-class ExplorePage extends StatelessWidget {
+class LandingPage extends StatelessWidget {
   static const name = '/Explore';
-  const ExplorePage({Key? key}) : super(key: key);
+  const LandingPage({Key? key}) : super(key: key);
 
   static Route route() => PageRoutes.material(
         settings: const RouteSettings(name: name),
-        builder: (context) => const ExplorePage(),
+        builder: (context) => const LandingPage(),
       );
 
   @override
