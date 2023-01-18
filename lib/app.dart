@@ -7,6 +7,7 @@ import 'generated/l10n.dart';
 
 import 'modules/blocs/auth_bloc/auth_bloc.dart';
 import 'modules/blocs/explore_bloc/explore_bloc.dart';
+import 'modules/blocs/favorite_bloc/favorite_bloc.dart';
 import 'modules/pages/home/home_page.dart';
 import 'modules/common/utils/context_service.dart';
 import 'modules/common/utils/palette.dart';
@@ -29,6 +30,8 @@ class App extends StatelessWidget {
           // BlocProvider<SignUpBloc>(create: (_) => getIt<SignUpBloc>()),
           BlocProvider<SearchBloc>(create: (context) => getIt<SearchBloc>()),
           BlocProvider<ExploreBloc>(create: (context) => getIt<ExploreBloc>()),
+          BlocProvider<FavoriteBloc>(
+              create: (context) => getIt<FavoriteBloc>()),
         ],
         child: MaterialApp(
           navigatorKey: getIt<ContextService>().rootNavigatorKey,
