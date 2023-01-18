@@ -197,8 +197,8 @@ class _UpdateAvatarBottomSheetState extends State<UpdateAvatarBottomSheet> {
     final ImagePicker picker = ImagePicker();
     // Pick an image
     try {
-      final XFile? xFileImage =
-          await picker.pickImage(source: source, maxHeight: 800, maxWidth: 600);
+      final XFile? xFileImage = await picker.pickImage(
+          imageQuality: 50, source: source, maxHeight: 800, maxWidth: 600);
       //TODO Do some testing about image size with image 800 x 600
       // var bytes = await xFileImage!.length();
 
