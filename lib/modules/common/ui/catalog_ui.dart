@@ -38,7 +38,7 @@ class _CatalogPageState extends State<CatalogPage> {
         itemCount: widget.catalogItems.length,
         itemBuilder: (context, index) {
           return SizedBox(
-            height: 500,
+            height: 480,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,

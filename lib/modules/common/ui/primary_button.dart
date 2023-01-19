@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 
-enum PrimaryButtonType { green, black, pink, primaryEerieBlack }
+enum PrimaryButtonType { green, black, pink, primaryEerieBlack, blueNeon }
 
 class PrimaryButton extends StatelessWidget {
   const PrimaryButton({
@@ -33,7 +33,9 @@ class PrimaryButton extends StatelessWidget {
               ? Palette.current.primaryNeonPink
               : type == PrimaryButtonType.primaryEerieBlack
                   ? Palette.current.primaryWhiteSmoke
-                  : Palette.current.primaryNeonGreen,
+                  : type == PrimaryButtonType.blueNeon
+                      ? Palette.current.blueNeon
+                      : Palette.current.primaryNeonGreen,
         ),
       ),
       child: Padding(
@@ -52,7 +54,9 @@ class PrimaryButton extends StatelessWidget {
                   ? Palette.current.primaryNeonPink
                   : type == PrimaryButtonType.primaryEerieBlack
                       ? Palette.current.primaryEerieBlack.withOpacity(0.95)
-                      : Palette.current.black,
+                      : type == PrimaryButtonType.blueNeon
+                          ? Palette.current.blueNeon
+                          : Palette.current.black,
           splashColor: Palette.current.primaryNeonPink.withOpacity(0.4),
           highlightColor: Palette.current.black.withOpacity(0.3),
           onPressed: onPressed,

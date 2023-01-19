@@ -58,6 +58,7 @@
     "last_sale": "LAST SALE",
     "n_a": "N/A",
     "for_sale": "FOR SALE",
-    "empty_text": "No items yet"
+    "empty_text": "No items yet",
+    "sales_history": "SALES HISTORY"
 
 }

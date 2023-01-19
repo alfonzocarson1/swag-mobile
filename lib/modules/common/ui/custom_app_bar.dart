@@ -4,12 +4,18 @@ import 'package:flutter/services.dart';
 import '../utils/palette.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  CustomAppBar({Key? key, this.height = 50, this.onRoute, this.title})
+  CustomAppBar(
+      {Key? key,
+      this.height = 50,
+      this.onRoute,
+      this.title,
+      this.actions = false})
       : super(key: key);
 
   double? height;
   final VoidCallback? onRoute;
   final String? title;
+  final bool actions;
 
   @override
   AppBar build(BuildContext context) {
@@ -20,6 +26,17 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         statusBarBrightness: Brightness.dark, // For iOS (dark icons)
       ),
       title: Text(title ?? ""),
+      actions: actions
+          ? <Widget>[
+              IconButton(
+                icon: const Icon(Icons.add),
+                tooltip: 'Open shopping cart',
+                onPressed: () {
+                  // handle the press
+                },
+              ),
+            ]
+          : null,
       automaticallyImplyLeading: false,
       leading: IconButton(
           icon: Icon(

@@ -98,6 +98,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("RESET PASSWORD"),
         "reset_password_description": MessageLookupByLibrary.simpleMessage(
             "Please enter and confirm your new password below."),
+        "sales_history": MessageLookupByLibrary.simpleMessage("SALES HISTORY"),
         "search_hint": MessageLookupByLibrary.simpleMessage(
             "Search name, style, color etc"),
         "second_address":
