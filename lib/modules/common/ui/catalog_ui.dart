@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../blocs/favorite_bloc/favorite_bloc.dart';
 import '../../di/injector.dart';
 import '../../models/search/catalog_item_model.dart';
+import '../../pages/detail/item_detail_page.dart';
 import '../utils/palette.dart';
 
 class CatalogPage extends StatefulWidget {
@@ -37,103 +38,110 @@ class _CatalogPageState extends State<CatalogPage> {
             ),
         itemCount: widget.catalogItems.length,
         itemBuilder: (context, index) {
-          return SizedBox(
-            height: 480,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CachedNetworkImage(
-                  imageUrl: widget.catalogItems[index].image,
-                  placeholder: (context, url) => SizedBox(
-                    height: 400,
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        color: Palette.current.primaryNeonGreen,
-                        backgroundColor: Colors.white,
+          return GestureDetector(
+            onTap: () {
+              Navigator.of(context, rootNavigator: true)
+                  .push(ItemDetailPage.route());
+            },
+            child: SizedBox(
+              height: 480,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CachedNetworkImage(
+                    imageUrl: widget.catalogItems[index].image,
+                    placeholder: (context, url) => SizedBox(
+                      height: 400,
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: Palette.current.primaryNeonGreen,
+                          backgroundColor: Colors.white,
+                        ),
                       ),
                     ),
+                    errorWidget: (context, url, error) =>
+                        Image.asset("assets/images/ProfilePhoto.png"),
                   ),
-                  errorWidget: (context, url, error) =>
-                      Image.asset("assets/images/ProfilePhoto.png"),
-                ),
-                const SizedBox(
-                  height: 12,
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                        flex: 5,
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20.0),
-                              child: Row(
-                                children: [
-                                  Text(
-                                      widget
-                                          .catalogItems[index].catalogItemName,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displayLarge!
-                                          .copyWith(
-                                              letterSpacing: 1,
-                                              fontWeight: FontWeight.w300,
-                                              fontFamily: "Knockout",
-                                              fontSize: 30,
-                                              color: Palette.current.white))
-                                ],
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                          flex: 5,
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20.0),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                        widget.catalogItems[index]
+                                            .catalogItemName,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displayLarge!
+                                            .copyWith(
+                                                letterSpacing: 1,
+                                                fontWeight: FontWeight.w300,
+                                                fontFamily: "Knockout",
+                                                fontSize: 30,
+                                                color: Palette.current.white))
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
-                        )),
-                    Expanded(
-                        flex: 2,
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20.0),
-                              child: Align(
-                                alignment: Alignment.centerRight,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      _favoriteBloc.toggleFavorite(widget
-                                          .catalogItems[index].catalogItemName);
-                                    });
-                                  },
-                                  child: Image.asset(
-                                    _favoriteBloc.isExist(widget
+                            ],
+                          )),
+                      Expanded(
+                          flex: 2,
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20.0),
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        _favoriteBloc.toggleFavorite(widget
                                             .catalogItems[index]
-                                            .catalogItemName)
-                                        ? "assets/images/Favorite.png"
-                                        : "assets/images/UnFavorite.png",
-                                    scale: 3,
+                                            .catalogItemName);
+                                      });
+                                    },
+                                    child: Image.asset(
+                                      _favoriteBloc.isExist(widget
+                                              .catalogItems[index]
+                                              .catalogItemName)
+                                          ? "assets/images/Favorite.png"
+                                          : "assets/images/UnFavorite.png",
+                                      scale: 3,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ))
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Row(
-                    children: [
-                      Text(widget.catalogItems[index].lastSale,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(
-                                  fontWeight: FontWeight.w300,
-                                  color: Palette.current.primaryNeonGreen))
+                            ],
+                          ))
                     ],
                   ),
-                ),
-              ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Row(
+                      children: [
+                        Text(widget.catalogItems[index].lastSale,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(
+                                    fontWeight: FontWeight.w300,
+                                    color: Palette.current.primaryNeonGreen))
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
         });

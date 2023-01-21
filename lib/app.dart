@@ -6,6 +6,7 @@ import 'package:swagapp/modules/blocs/search_bloc.dart/search_bloc.dart';
 import 'generated/l10n.dart';
 
 import 'modules/blocs/auth_bloc/auth_bloc.dart';
+import 'modules/blocs/detail_bloc/detail_bloc.dart';
 import 'modules/blocs/explore_bloc/explore_bloc.dart';
 import 'modules/blocs/favorite_bloc/favorite_bloc.dart';
 import 'modules/pages/home/home_page.dart';
@@ -30,6 +31,7 @@ class App extends StatelessWidget {
           // BlocProvider<SignUpBloc>(create: (_) => getIt<SignUpBloc>()),
           BlocProvider<SearchBloc>(create: (context) => getIt<SearchBloc>()),
           BlocProvider<ExploreBloc>(create: (context) => getIt<ExploreBloc>()),
+          BlocProvider<DetailBloc>(create: (context) => getIt<DetailBloc>()),
           BlocProvider<FavoriteBloc>(
               create: (context) => getIt<FavoriteBloc>()),
         ],

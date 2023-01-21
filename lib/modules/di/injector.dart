@@ -8,9 +8,12 @@ import 'package:swagapp/modules/data/search/i_search_service.dart';
 import 'package:swagapp/modules/data/search/search_service.dart';
 
 import '../blocs/auth_bloc/auth_bloc.dart';
+import '../blocs/detail_bloc/detail_bloc.dart';
 import '../blocs/explore_bloc/explore_bloc.dart';
 import '../blocs/favorite_bloc/favorite_bloc.dart';
 import '../data/auth/auth_service.dart';
+import '../data/detail/detail_service.dart';
+import '../data/detail/i_detail_service.dart';
 import '../data/explore/explore_service.dart';
 import '../data/explore/i_explore_service.dart';
 import '../data/shared_preferences/shared_preferences_service.dart';
@@ -37,6 +40,11 @@ Future<void> setupAppScope() {
       () => ExploreBloc(getIt<IExploreService>()));
 
   getIt.registerLazySingleton<FavoriteBloc>(() => FavoriteBloc());
+
+  getIt
+      .registerLazySingleton<IDetailService>(() => DetailService(APIService()));
+  getIt.registerLazySingleton<DetailBloc>(
+      () => DetailBloc(getIt<IDetailService>()));
 
   return getIt.allReady();
 }
