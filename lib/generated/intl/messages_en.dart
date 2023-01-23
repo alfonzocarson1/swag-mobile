@@ -24,9 +24,11 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "access_photos": MessageLookupByLibrary.simpleMessage("Choose Photo"),
         "accessories": MessageLookupByLibrary.simpleMessage("ACCESSORIES"),
+        "acquired": MessageLookupByLibrary.simpleMessage("Acquired:"),
         "already_have_an_account": MessageLookupByLibrary.simpleMessage(
             "Already have an account? *Sign In*"),
         "app_name": MessageLookupByLibrary.simpleMessage("Swag Golf"),
+        "buy_for": MessageLookupByLibrary.simpleMessage("BUY FOR"),
         "camera": MessageLookupByLibrary.simpleMessage("Take Photo"),
         "city": MessageLookupByLibrary.simpleMessage("City"),
         "code": MessageLookupByLibrary.simpleMessage("Code"),
@@ -69,11 +71,16 @@ class MessageLookup extends MessageLookupByLibrary {
             "username must be between 4-20 characters"),
         "last_name": MessageLookupByLibrary.simpleMessage("Last Name"),
         "last_sale": MessageLookupByLibrary.simpleMessage("LAST SALE"),
+        "make_an_offer": MessageLookupByLibrary.simpleMessage("MAKE AN OFFER"),
+        "my_collection": MessageLookupByLibrary.simpleMessage("MY COLLECTION:"),
         "n_a": MessageLookupByLibrary.simpleMessage("N/A"),
         "new_password": MessageLookupByLibrary.simpleMessage("New Password"),
         "next_btn": MessageLookupByLibrary.simpleMessage("NEXT"),
         "no_match_password":
             MessageLookupByLibrary.simpleMessage("Password doesn’t match"),
+        "notify_available":
+            MessageLookupByLibrary.simpleMessage("NOTIFY ME WHEN AVAILABLE"),
+        "paid": MessageLookupByLibrary.simpleMessage("Paid:"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "password_helper": MessageLookupByLibrary.simpleMessage(
             "At least 8 characters, 1 uppercase, 1 number & 1 symbol"),
@@ -105,6 +112,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Address 2 (optional)"),
         "select_avatar_desc": MessageLookupByLibrary.simpleMessage(
             "Select an avatar below or add one from your camera/photos."),
+        "sell_for": MessageLookupByLibrary.simpleMessage("SELL FOR"),
         "sign_in": MessageLookupByLibrary.simpleMessage("SIGN IN"),
         "state": MessageLookupByLibrary.simpleMessage("State"),
         "subtitle_welcome":

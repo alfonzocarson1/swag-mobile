@@ -12,12 +12,16 @@ class HeadWidget extends StatefulWidget {
       required this.urlImage,
       this.catalogItemName,
       this.lastSale,
-      this.catalogItemDescription});
+      this.catalogItemDescription,
+      required this.sale,
+      this.available});
 
   final String urlImage;
   final String? catalogItemName;
   final String? lastSale;
   final String? catalogItemDescription;
+  final bool sale;
+  final int? available;
 
   @override
   State<HeadWidget> createState() => _HeadWidgetState();
@@ -57,6 +61,27 @@ class _HeadWidgetState extends State<HeadWidget> {
             ),
           ]),
         ),
+        Visibility(
+            visible: widget.sale,
+            child: Container(
+              height: 40,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                color: Palette.current.primaryNeonPink,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                      '''${widget.available} ${S.of(context).for_sale}''',
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: Palette.current.white)),
+                ),
+              ),
+            )),
         const SizedBox(
           height: 10,
         ),
@@ -109,7 +134,10 @@ class _HeadWidgetState extends State<HeadWidget> {
               ),
               Align(
                 alignment: Alignment.centerLeft,
-                child: Text('''LAST SALE: ${widget.lastSale}''',
+                child: Text(
+                    widget.sale
+                        ? "${S.of(context).for_sale} \$360.00 - ${widget.lastSale}"
+                        : '${widget.lastSale}',
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                         fontWeight: FontWeight.w300,
                         color: Palette.current.primaryNeonGreen)),

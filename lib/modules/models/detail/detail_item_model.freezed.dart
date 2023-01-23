@@ -27,6 +27,7 @@ mixin _$DetailItemModel {
   String get catalogItemCategoryId => throw _privateConstructorUsedError;
   String get released => throw _privateConstructorUsedError;
   dynamic get rarityScore => throw _privateConstructorUsedError;
+  bool get sale => throw _privateConstructorUsedError;
   List<DetailAttributeModel>? get attributeItemList =>
       throw _privateConstructorUsedError;
   List<DetailCollectionModel>? get myCollection =>
@@ -59,6 +60,7 @@ abstract class $DetailItemModelCopyWith<$Res> {
       String catalogItemCategoryId,
       String released,
       dynamic rarityScore,
+      bool sale,
       List<DetailAttributeModel>? attributeItemList,
       List<DetailCollectionModel>? myCollection,
       int totalMade,
@@ -89,6 +91,7 @@ class _$DetailItemModelCopyWithImpl<$Res, $Val extends DetailItemModel>
     Object? catalogItemCategoryId = null,
     Object? released = null,
     Object? rarityScore = freezed,
+    Object? sale = null,
     Object? attributeItemList = freezed,
     Object? myCollection = freezed,
     Object? totalMade = null,
@@ -127,6 +130,10 @@ class _$DetailItemModelCopyWithImpl<$Res, $Val extends DetailItemModel>
           ? _value.rarityScore
           : rarityScore // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      sale: null == sale
+          ? _value.sale
+          : sale // ignore: cast_nullable_to_non_nullable
+              as bool,
       attributeItemList: freezed == attributeItemList
           ? _value.attributeItemList
           : attributeItemList // ignore: cast_nullable_to_non_nullable
@@ -179,6 +186,7 @@ abstract class _$$_DetailItemModelCopyWith<$Res>
       String catalogItemCategoryId,
       String released,
       dynamic rarityScore,
+      bool sale,
       List<DetailAttributeModel>? attributeItemList,
       List<DetailCollectionModel>? myCollection,
       int totalMade,
@@ -207,6 +215,7 @@ class __$$_DetailItemModelCopyWithImpl<$Res>
     Object? catalogItemCategoryId = null,
     Object? released = null,
     Object? rarityScore = freezed,
+    Object? sale = null,
     Object? attributeItemList = freezed,
     Object? myCollection = freezed,
     Object? totalMade = null,
@@ -245,6 +254,10 @@ class __$$_DetailItemModelCopyWithImpl<$Res>
           ? _value.rarityScore
           : rarityScore // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      sale: null == sale
+          ? _value.sale
+          : sale // ignore: cast_nullable_to_non_nullable
+              as bool,
       attributeItemList: freezed == attributeItemList
           ? _value._attributeItemList
           : attributeItemList // ignore: cast_nullable_to_non_nullable
@@ -293,6 +306,7 @@ class _$_DetailItemModel implements _DetailItemModel {
       required this.catalogItemCategoryId,
       required this.released,
       required this.rarityScore,
+      required this.sale,
       final List<DetailAttributeModel>? attributeItemList,
       final List<DetailCollectionModel>? myCollection,
       required this.totalMade,
@@ -322,6 +336,8 @@ class _$_DetailItemModel implements _DetailItemModel {
   final String released;
   @override
   final dynamic rarityScore;
+  @override
+  final bool sale;
   final List<DetailAttributeModel>? _attributeItemList;
   @override
   List<DetailAttributeModel>? get attributeItemList {
@@ -365,7 +381,7 @@ class _$_DetailItemModel implements _DetailItemModel {
 
   @override
   String toString() {
-    return 'DetailItemModel(catalogItemId: $catalogItemId, catalogItemImage: $catalogItemImage, catalogItemName: $catalogItemName, catalogItemDescription: $catalogItemDescription, catalogItemCategoryId: $catalogItemCategoryId, released: $released, rarityScore: $rarityScore, attributeItemList: $attributeItemList, myCollection: $myCollection, totalMade: $totalMade, retail: $retail, releasedType: $releasedType, lastSale: $lastSale, numberAvailable: $numberAvailable, similarItemList: $similarItemList)';
+    return 'DetailItemModel(catalogItemId: $catalogItemId, catalogItemImage: $catalogItemImage, catalogItemName: $catalogItemName, catalogItemDescription: $catalogItemDescription, catalogItemCategoryId: $catalogItemCategoryId, released: $released, rarityScore: $rarityScore, sale: $sale, attributeItemList: $attributeItemList, myCollection: $myCollection, totalMade: $totalMade, retail: $retail, releasedType: $releasedType, lastSale: $lastSale, numberAvailable: $numberAvailable, similarItemList: $similarItemList)';
   }
 
   @override
@@ -387,6 +403,7 @@ class _$_DetailItemModel implements _DetailItemModel {
                 other.released == released) &&
             const DeepCollectionEquality()
                 .equals(other.rarityScore, rarityScore) &&
+            (identical(other.sale, sale) || other.sale == sale) &&
             const DeepCollectionEquality()
                 .equals(other._attributeItemList, _attributeItemList) &&
             const DeepCollectionEquality()
@@ -415,6 +432,7 @@ class _$_DetailItemModel implements _DetailItemModel {
       catalogItemCategoryId,
       released,
       const DeepCollectionEquality().hash(rarityScore),
+      sale,
       const DeepCollectionEquality().hash(_attributeItemList),
       const DeepCollectionEquality().hash(_myCollection),
       totalMade,
@@ -447,6 +465,7 @@ abstract class _DetailItemModel implements DetailItemModel {
       required final String catalogItemCategoryId,
       required final String released,
       required final dynamic rarityScore,
+      required final bool sale,
       final List<DetailAttributeModel>? attributeItemList,
       final List<DetailCollectionModel>? myCollection,
       required final int totalMade,
@@ -473,6 +492,8 @@ abstract class _DetailItemModel implements DetailItemModel {
   String get released;
   @override
   dynamic get rarityScore;
+  @override
+  bool get sale;
   @override
   List<DetailAttributeModel>? get attributeItemList;
   @override

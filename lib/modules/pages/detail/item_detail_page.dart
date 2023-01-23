@@ -127,7 +127,9 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                         catalogItemName: dataDetail[index].catalogItemName,
                         lastSale: dataDetail[index].lastSale,
                         catalogItemDescription:
-                            dataDetail[index].catalogItemDescription),
+                            dataDetail[index].catalogItemDescription,
+                        sale: dataDetail[index].sale,
+                        available: dataDetail[index].numberAvailable),
                     RarityWidget(
                         rarity: dataDetail[index].rarityScore[index],
                         released: dataDetail[index].released,
@@ -136,7 +138,9 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                         retail: dataDetail[index].retail,
                         available: dataDetail[index].numberAvailable),
                     CollectionWidget(
-                        dataCollection: dataDetail[index].myCollection),
+                      dataCollection: dataDetail[index].myCollection,
+                      lastSale: dataDetail[index].lastSale,
+                    ),
                   ],
                 ),
               ),

@@ -659,6 +659,76 @@ class S {
       args: [],
     );
   }
+
+  /// `MY COLLECTION:`
+  String get my_collection {
+    return Intl.message(
+      'MY COLLECTION:',
+      name: 'my_collection',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Acquired:`
+  String get acquired {
+    return Intl.message(
+      'Acquired:',
+      name: 'acquired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Paid:`
+  String get paid {
+    return Intl.message(
+      'Paid:',
+      name: 'paid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `BUY FOR`
+  String get buy_for {
+    return Intl.message(
+      'BUY FOR',
+      name: 'buy_for',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SELL FOR`
+  String get sell_for {
+    return Intl.message(
+      'SELL FOR',
+      name: 'sell_for',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `MAKE AN OFFER`
+  String get make_an_offer {
+    return Intl.message(
+      'MAKE AN OFFER',
+      name: 'make_an_offer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `NOTIFY ME WHEN AVAILABLE`
+  String get notify_available {
+    return Intl.message(
+      'NOTIFY ME WHEN AVAILABLE',
+      name: 'notify_available',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

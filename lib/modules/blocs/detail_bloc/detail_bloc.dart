@@ -46,11 +46,12 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
           "catalogItemCategoryId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
           "released": "08/04/2022",
           "totalMade": 36,
-          "retail": "\$425.00",
+          "retail": "\$125.00",
           "releasedType": "Tour",
-          "lastSale": "\$455.00",
+          "lastSale": "\$380.00",
           "numberAvailable": 3,
           "rarityScore": ["RARE"],
+          "sale": true,
           "attributeItemList": [
             {
               "catalogItemColor": "String",
@@ -59,7 +60,11 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
             }
           ],
           "myCollection": [
-            {"acquired": "2023-01-11T16:36:21.092Z", "paid": "string"}
+            {
+              "acquired": "08/04/2022",
+              "paid": "\$165.00 +20.8%",
+              "salePrice": "\$400.00"
+            }
           ],
           "saleHistory": [],
           "similarItemList": [

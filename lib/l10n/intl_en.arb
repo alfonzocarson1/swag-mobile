@@ -59,6 +59,12 @@
     "n_a": "N/A",
     "for_sale": "FOR SALE",
     "empty_text": "No items yet",
-    "sales_history": "SALES HISTORY"
-
+    "sales_history": "SALES HISTORY",
+    "my_collection": "MY COLLECTION:",
+    "acquired": "Acquired:",
+    "paid": "Paid:",
+    "buy_for": "BUY FOR",
+    "sell_for": "SELL FOR",
+    "make_an_offer": "MAKE AN OFFER",
+    "notify_available": "NOTIFY ME WHEN AVAILABLE"
 }
