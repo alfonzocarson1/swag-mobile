@@ -6,6 +6,7 @@ import 'package:swagapp/modules/blocs/search_bloc.dart/search_bloc.dart';
 import 'package:swagapp/modules/common/ui/loading.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/models/search/catalog_item_model.dart';
+import '../../common/ui/catalog_ui.dart';
 import '../../common/utils/custom_route_animations.dart';
 
 class WhatsHotPage extends StatefulWidget {
@@ -22,7 +23,7 @@ class WhatsHotPage extends StatefulWidget {
 }
 
 class _WhatsHotPageState extends State<WhatsHotPage> {
-  late final ScrollController _scrollController =
+  late final ScrollController? _scrollController =
       PrimaryScrollController.of(context);
 
   @override
@@ -69,7 +70,8 @@ class _WhatsHotPageState extends State<WhatsHotPage> {
         return Future.delayed(const Duration(milliseconds: 1500));
       },
       child: catalogList.isNotEmpty
-          ? _catalogList(catalogList, _scrollController)
+          ? CatalogPage(
+              catalogItems: catalogList, scrollController: _scrollController!)
           : ListView.builder(
               itemBuilder: (_, index) => SizedBox(
                 height: MediaQuery.of(context).size.height * 0.7,
@@ -84,74 +86,6 @@ class _WhatsHotPageState extends State<WhatsHotPage> {
               itemCount: 1,
             ),
     );
-  }
-
-  Widget _catalogList(
-      List<CatalogItemModel> catalogList, ScrollController scrollController) {
-    return ListView.separated(
-        controller: scrollController,
-        separatorBuilder: (context, index) => const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Divider(
-                color: Colors.transparent,
-              ),
-            ),
-        itemCount: catalogList.length,
-        itemBuilder: (context, index) {
-          return SizedBox(
-            height: 453,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CachedNetworkImage(
-                  imageUrl: catalogList[index].image,
-                  placeholder: (context, url) => SizedBox(
-                    height: 360,
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        color: Palette.current.primaryNeonGreen,
-                        backgroundColor: Colors.white,
-                      ),
-                    ),
-                  ),
-                  errorWidget: (context, url, error) =>
-                      Image.asset("assets/images/ProfilePhoto.png"),
-                ),
-                const SizedBox(
-                  height: 12,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Row(
-                    children: [
-                      Text(catalogList[index].catalogItemName,
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayLarge!
-                              .copyWith(
-                                  letterSpacing: 1,
-                                  fontWeight: FontWeight.w300,
-                                  fontFamily: "Knockout",
-                                  fontSize: 30,
-                                  color: Palette.current.white))
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 12,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Text(catalogList[index].lastSale,
-                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontWeight: FontWeight.w300,
-                          color: Palette.current.primaryNeonGreen)),
-                )
-              ],
-            ),
-          );
-        });
   }
 
   void makeCall() {
