@@ -46,9 +46,9 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
           "catalogItemCategoryId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
           "released": "08/04/2022",
           "totalMade": 36,
-          "retail": "425.00",
+          "retail": "\$425.00",
           "releasedType": "Tour",
-          "lastSale": "455.00",
+          "lastSale": "\$455.00",
           "numberAvailable": 3,
           "rarityScore": ["RARE"],
           "attributeItemList": [
@@ -68,14 +68,14 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
                   "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Rectangle%2012%20(1).png?alt=media&token=00355e6f-7046-4f5f-9797-cc7610cab9fe",
               "catalogItemId": "3fa85f64-5717-4562-b3fc-2c963f66afa8",
               "catalogItemName": "EL GRANDE SHERBET BLADE",
-              "retail": "675.00"
+              "retail": "\$675.00"
             },
             {
               "catalogItemImage":
                   "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Rectangle%2012%20(2).png?alt=media&token=87cbb86a-1a34-4344-92a4-adf0648b7ecf",
               "catalogItemId": "3fa85f64-5717-4562-b3fc-2c963f66afa8",
               "catalogItemName": "WASTED SKULL BLADE COVER",
-              "retail": "675.00"
+              "retail": "\$675.00"
             },
           ],
         }
