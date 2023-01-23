@@ -115,22 +115,20 @@ class _ExplorePageState extends State<ExplorePage> {
                     return SizedBox(
                       height: 360,
                       child: Stack(children: [
-                        Positioned.fill(
-                          child: CachedNetworkImage(
-                            fit: BoxFit.cover,
-                            imageUrl: exploreList[index].image,
-                            placeholder: (context, url) => SizedBox(
-                              height: 360,
-                              child: Center(
-                                child: CircularProgressIndicator(
-                                  color: Palette.current.primaryNeonGreen,
-                                  backgroundColor: Colors.white,
-                                ),
+                        CachedNetworkImage(
+                          fit: BoxFit.cover,
+                          imageUrl: exploreList[index].image,
+                          placeholder: (context, url) => SizedBox(
+                            height: 360,
+                            child: Center(
+                              child: CircularProgressIndicator(
+                                color: Palette.current.primaryNeonGreen,
+                                backgroundColor: Colors.white,
                               ),
                             ),
-                            errorWidget: (context, url, error) =>
-                                Image.asset("assets/images/ProfilePhoto.png"),
                           ),
+                          errorWidget: (context, url, error) =>
+                              Image.asset("assets/images/ProfilePhoto.png"),
                         ),
                       ]),
                     );
