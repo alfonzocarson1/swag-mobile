@@ -28,7 +28,7 @@ class _HomePage extends State<HomePage> {
 
   void onTapTapped(int index) {
     bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
-    if (index == 2 && !isLogged) {
+    if ((index == 2 || index == 3) && !isLogged) {
       Navigator.popUntil(context, ModalRoute.withName('/'));
     }
 
