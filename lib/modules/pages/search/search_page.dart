@@ -4,6 +4,7 @@ import 'package:swagapp/modules/common/ui/pushed_header.dart';
 import 'package:swagapp/modules/common/ui/search_input.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/pages/search/accessories_page.dart';
+import 'package:swagapp/modules/pages/search/account_info.dart';
 import 'package:swagapp/modules/pages/search/headcovers_page.dart';
 import 'package:swagapp/modules/pages/search/putters_page.dart';
 import 'package:swagapp/modules/pages/search/search_on_tap_page.dart';
@@ -39,10 +40,9 @@ class _SearchPageState extends State<SearchPage>
     _controller = TabController(length: 4, vsync: this);
     // _isLogged = getIt<PreferenceRepositoryService>().isLogged();
     // if (_isLogged) {
-    //   Future.delayed(const Duration(milliseconds: 2000), () {
-    //     Navigator.of(context, rootNavigator: true)
-    //         .push(AccountInfoPage.route());
-    //   });
+    // Future.delayed(const Duration(milliseconds: 4000), () {
+    //   Navigator.of(context, rootNavigator: true).push(AccountInfoPage.route());
+    // });
     // }
   }
 
