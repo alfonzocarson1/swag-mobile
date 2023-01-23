@@ -28,6 +28,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "already_have_an_account": MessageLookupByLibrary.simpleMessage(
             "Already have an account? *Sign In*"),
         "app_name": MessageLookupByLibrary.simpleMessage("Swag Golf"),
+        "available": MessageLookupByLibrary.simpleMessage("Available:"),
         "buy_for": MessageLookupByLibrary.simpleMessage("BUY FOR"),
         "camera": MessageLookupByLibrary.simpleMessage("Take Photo"),
         "city": MessageLookupByLibrary.simpleMessage("City"),
@@ -72,7 +73,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "last_name": MessageLookupByLibrary.simpleMessage("Last Name"),
         "last_sale": MessageLookupByLibrary.simpleMessage("LAST SALE"),
         "make_an_offer": MessageLookupByLibrary.simpleMessage("MAKE AN OFFER"),
-        "my_collection": MessageLookupByLibrary.simpleMessage("MY COLLECTION:"),
+        "my_collection": MessageLookupByLibrary.simpleMessage("MY COLLECTION"),
         "n_a": MessageLookupByLibrary.simpleMessage("N/A"),
         "new_password": MessageLookupByLibrary.simpleMessage("New Password"),
         "next_btn": MessageLookupByLibrary.simpleMessage("NEXT"),
@@ -97,6 +98,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "privacy_policy_text": MessageLookupByLibrary.simpleMessage(
             "I agree to Swag’s *Privacy Policy* \n& *Terms of Use*"),
         "putters": MessageLookupByLibrary.simpleMessage("PUTTERS"),
+        "rarity_score": MessageLookupByLibrary.simpleMessage("RARITY SCORE: "),
+        "released": MessageLookupByLibrary.simpleMessage("Released:"),
+        "released_type": MessageLookupByLibrary.simpleMessage("Release Type:"),
         "required_field":
             MessageLookupByLibrary.simpleMessage("Required field"),
         "resend_email": MessageLookupByLibrary.simpleMessage(
@@ -105,6 +109,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("RESET PASSWORD"),
         "reset_password_description": MessageLookupByLibrary.simpleMessage(
             "Please enter and confirm your new password below."),
+        "retail": MessageLookupByLibrary.simpleMessage("Retail:"),
         "sales_history": MessageLookupByLibrary.simpleMessage("SALES HISTORY"),
         "search_hint": MessageLookupByLibrary.simpleMessage(
             "Search name, style, color etc"),
@@ -114,15 +119,19 @@ class MessageLookup extends MessageLookupByLibrary {
             "Select an avatar below or add one from your camera/photos."),
         "sell_for": MessageLookupByLibrary.simpleMessage("SELL FOR"),
         "sign_in": MessageLookupByLibrary.simpleMessage("SIGN IN"),
+        "similar_items": MessageLookupByLibrary.simpleMessage("SIMILAR ITEMS"),
         "state": MessageLookupByLibrary.simpleMessage("State"),
         "subtitle_welcome":
             MessageLookupByLibrary.simpleMessage("Let’s create your profile!"),
         "title_welcome":
             MessageLookupByLibrary.simpleMessage("WELCOME TO SWAG"),
+        "total_mode": MessageLookupByLibrary.simpleMessage("Total Made:"),
         "username": MessageLookupByLibrary.simpleMessage("@username"),
         "username_taken":
             MessageLookupByLibrary.simpleMessage("This username is taken "),
         "verify_name": MessageLookupByLibrary.simpleMessage("@MRDOUG"),
+        "view_less": MessageLookupByLibrary.simpleMessage("View less details"),
+        "view_more": MessageLookupByLibrary.simpleMessage("View more details"),
         "whats_hot": MessageLookupByLibrary.simpleMessage("WHAT\'S HOT"),
         "zip": MessageLookupByLibrary.simpleMessage("ZIP/Postal Code")
       };

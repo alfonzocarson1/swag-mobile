@@ -660,10 +660,10 @@ class S {
     );
   }
 
-  /// `MY COLLECTION:`
+  /// `MY COLLECTION`
   String get my_collection {
     return Intl.message(
-      'MY COLLECTION:',
+      'MY COLLECTION',
       name: 'my_collection',
       desc: '',
       args: [],
@@ -725,6 +725,96 @@ class S {
     return Intl.message(
       'NOTIFY ME WHEN AVAILABLE',
       name: 'notify_available',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View more details`
+  String get view_more {
+    return Intl.message(
+      'View more details',
+      name: 'view_more',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View less details`
+  String get view_less {
+    return Intl.message(
+      'View less details',
+      name: 'view_less',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `RARITY SCORE: `
+  String get rarity_score {
+    return Intl.message(
+      'RARITY SCORE: ',
+      name: 'rarity_score',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Released:`
+  String get released {
+    return Intl.message(
+      'Released:',
+      name: 'released',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Release Type:`
+  String get released_type {
+    return Intl.message(
+      'Release Type:',
+      name: 'released_type',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total Made:`
+  String get total_mode {
+    return Intl.message(
+      'Total Made:',
+      name: 'total_mode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Retail:`
+  String get retail {
+    return Intl.message(
+      'Retail:',
+      name: 'retail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Available:`
+  String get available {
+    return Intl.message(
+      'Available:',
+      name: 'available',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SIMILAR ITEMS`
+  String get similar_items {
+    return Intl.message(
+      'SIMILAR ITEMS',
+      name: 'similar_items',
       desc: '',
       args: [],
     );

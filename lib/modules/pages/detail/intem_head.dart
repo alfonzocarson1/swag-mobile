@@ -199,7 +199,9 @@ class _HeadWidgetState extends State<HeadWidget> {
                 alignment: Alignment.centerLeft,
                 child: ClickableText(
                     title: SimpleRichText(
-                      _viewMore ? "View less details" : "View more details",
+                      _viewMore
+                          ? S.of(context).view_less
+                          : S.of(context).view_more,
                       textAlign: TextAlign.start,
                       style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           fontSize: 14,
