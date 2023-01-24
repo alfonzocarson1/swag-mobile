@@ -117,7 +117,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           "released": "2023-01-11T15:08:07.018Z",
           "totalMade": 0,
           "retail": "string",
-          "lastSale": "For SALE: \$832.00",
+          "lastSale": "FOR SALE: \$832.00",
           "numberAvailable": 0,
           "sku": "string"
         },
@@ -132,7 +132,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           "released": "2023-01-11T15:08:07.018Z",
           "totalMade": 0,
           "retail": "string",
-          "lastSale": "For SALE: \$360.00 - \$380.00",
+          "lastSale": "FOR SALE: \$360.00 - \$380.00",
           "numberAvailable": 0,
           "sku": "string"
         },

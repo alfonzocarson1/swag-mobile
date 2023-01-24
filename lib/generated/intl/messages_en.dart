@@ -22,7 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "access_photos": MessageLookupByLibrary.simpleMessage("Choose Photo"),
+        "access_photos": MessageLookupByLibrary.simpleMessage("CHOOSE PHOTO"),
         "accessories": MessageLookupByLibrary.simpleMessage("ACCESSORIES"),
         "acquired": MessageLookupByLibrary.simpleMessage("Acquired:"),
         "already_have_an_account": MessageLookupByLibrary.simpleMessage(
@@ -30,9 +30,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "app_name": MessageLookupByLibrary.simpleMessage("Swag Golf"),
         "available": MessageLookupByLibrary.simpleMessage("Available:"),
         "buy_for": MessageLookupByLibrary.simpleMessage("BUY FOR"),
-        "camera": MessageLookupByLibrary.simpleMessage("Take Photo"),
+        "camera": MessageLookupByLibrary.simpleMessage("TAKE PHOTO"),
         "city": MessageLookupByLibrary.simpleMessage("City"),
         "code": MessageLookupByLibrary.simpleMessage("Code"),
+        "collection": MessageLookupByLibrary.simpleMessage(
+            "This cover is not in your collection, buy it now before it’s too late"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
         "country": MessageLookupByLibrary.simpleMessage("Country"),

@@ -40,7 +40,7 @@ class _HeadWidgetState extends State<HeadWidget> {
     return Column(
       children: [
         SizedBox(
-          height: 360,
+          height: 260,
           child: Stack(children: [
             Positioned.fill(
               child: CachedNetworkImage(
@@ -121,7 +121,7 @@ class _HeadWidgetState extends State<HeadWidget> {
                               onTap: () {},
                               child: Image.asset(
                                 "assets/images/UnFavorite.png",
-                                scale: 3,
+                                scale: 3.5,
                               ),
                             ),
                           ),
@@ -161,7 +161,8 @@ class _HeadWidgetState extends State<HeadWidget> {
                         children: [
                           Image.asset(
                             "assets/images/trending-up.png",
-                            scale: 2,
+                            height: 20,
+                            width: 20,
                           ),
                           const SizedBox(
                             width: 15,
@@ -172,8 +173,8 @@ class _HeadWidgetState extends State<HeadWidget> {
                                   .bodyLarge!
                                   .copyWith(
                                       fontFamily: "Knockout",
-                                      fontSize: 30,
-                                      letterSpacing: 2,
+                                      fontSize: 25,
+                                      letterSpacing: 1,
                                       fontWeight: FontWeight.w500,
                                       color: Palette.current.white)),
                         ],
@@ -188,7 +189,7 @@ class _HeadWidgetState extends State<HeadWidget> {
                   maxLines: _viewMore ? null : 3,
                   widget.catalogItemDescription ?? '',
                   style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        fontSize: 14,
+                        fontSize: 15,
                         letterSpacing: 0.3,
                         color: Palette.current.primaryWhiteSmoke,
                       )),
@@ -204,7 +205,7 @@ class _HeadWidgetState extends State<HeadWidget> {
                           : S.of(context).view_more,
                       textAlign: TextAlign.start,
                       style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 14,
+                          fontSize: 16,
                           color: Palette.current.white,
                           fontWeight: FontWeight.w600),
                     ),

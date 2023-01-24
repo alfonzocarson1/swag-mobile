@@ -530,20 +530,20 @@ class S {
     );
   }
 
-  /// `Choose Photo`
+  /// `CHOOSE PHOTO`
   String get access_photos {
     return Intl.message(
-      'Choose Photo',
+      'CHOOSE PHOTO',
       name: 'access_photos',
       desc: '',
       args: [],
     );
   }
 
-  /// `Take Photo`
+  /// `TAKE PHOTO`
   String get camera {
     return Intl.message(
-      'Take Photo',
+      'TAKE PHOTO',
       name: 'camera',
       desc: '',
       args: [],
@@ -865,6 +865,16 @@ class S {
     return Intl.message(
       '*You’ll be able to make updates later.',
       name: 'import_late',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This cover is not in your collection, buy it now before it’s too late`
+  String get collection {
+    return Intl.message(
+      'This cover is not in your collection, buy it now before it’s too late',
+      name: 'collection',
       desc: '',
       args: [],
     );

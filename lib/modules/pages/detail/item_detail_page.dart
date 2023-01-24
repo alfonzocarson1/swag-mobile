@@ -39,7 +39,6 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Palette.current.black,
-        extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: true,
         appBar: CustomAppBar(actions: true),
         body: BlocConsumer<DetailBloc, DetailState>(
@@ -138,6 +137,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                         retail: dataDetail[index].retail,
                         available: dataDetail[index].numberAvailable),
                     CollectionWidget(
+                      sale: dataDetail[index].sale,
                       dataCollection: dataDetail[index].myCollection,
                       lastSale: dataDetail[index].lastSale,
                     ),

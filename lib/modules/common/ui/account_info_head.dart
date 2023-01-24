@@ -26,13 +26,16 @@ class _AccountInfoHeaderWidgetState extends State<AccountInfoHeaderWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(S.of(context).verify_name,
-                  style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                      fontFamily: "Knockout",
-                      fontSize: 30,
-                      letterSpacing: 1.0,
-                      fontWeight: FontWeight.w500,
-                      color: Palette.current.light4)),
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0),
+                child: Text(S.of(context).verify_name,
+                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                        fontFamily: "Knockout",
+                        fontSize: 33,
+                        letterSpacing: 1.0,
+                        fontWeight: FontWeight.w500,
+                        color: Palette.current.light4)),
+              ),
               const SizedBox(
                 width: 5,
               ),

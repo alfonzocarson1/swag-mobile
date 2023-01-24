@@ -29,7 +29,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: actions
           ? <Widget>[
               IconButton(
-                icon: const Icon(Icons.add),
+                icon: Icon(
+                  Icons.add,
+                  color: Palette.current.gray4,
+                ),
                 tooltip: 'Open shopping cart',
                 onPressed: () {
                   // handle the press

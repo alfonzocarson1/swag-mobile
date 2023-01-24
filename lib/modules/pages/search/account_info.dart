@@ -208,14 +208,18 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                           Theme.of(context).textTheme.displayMedium!.copyWith(
                                 fontFamily: "Knockout",
                                 fontSize: 50,
+                                wordSpacing: 1,
                                 fontWeight: FontWeight.w300,
                                 color: Palette.current.primaryNeonGreen,
                               )),
-                  Text(S.of(context).subtitle_welcome,
-                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            letterSpacing: 0.3,
-                            color: Palette.current.primaryWhiteSmoke,
-                          )),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20.0),
+                    child: Text(S.of(context).subtitle_welcome,
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                              fontSize: 15,
+                              color: Palette.current.primaryWhiteSmoke,
+                            )),
+                  ),
                   const SizedBox(
                     height: 20,
                   ),
