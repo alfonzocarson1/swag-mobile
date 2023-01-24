@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 
+import '../../../generated/l10n.dart';
 import '../../common/utils/palette.dart';
 
 class RarityWidget extends StatefulWidget {
@@ -33,7 +34,7 @@ class _RarityWidgetState extends State<RarityWidget> {
         Padding(
           padding: const EdgeInsets.only(left: 20),
           child: Row(children: <Widget>[
-            Text("RARITY SCORE: ",
+            Text(S.of(context).rarity_score,
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
                     letterSpacing: 1,
                     fontWeight: FontWeight.w300,
@@ -66,7 +67,7 @@ class _RarityWidgetState extends State<RarityWidget> {
               ListTile(
                 visualDensity: const VisualDensity(vertical: -4),
                 dense: true,
-                leading: Text("Released:",
+                leading: Text(S.of(context).released,
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           fontSize: 16,
                           letterSpacing: 0.3,
@@ -82,7 +83,7 @@ class _RarityWidgetState extends State<RarityWidget> {
               ListTile(
                 visualDensity: const VisualDensity(vertical: -4),
                 dense: true,
-                leading: Text("Release Type:",
+                leading: Text(S.of(context).released_type,
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           fontSize: 16,
                           letterSpacing: 0.3,
@@ -98,7 +99,7 @@ class _RarityWidgetState extends State<RarityWidget> {
               ListTile(
                 dense: true,
                 visualDensity: const VisualDensity(vertical: -4),
-                leading: Text("Total Made:",
+                leading: Text(S.of(context).total_mode,
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           fontSize: 16,
                           letterSpacing: 0.3,
@@ -114,7 +115,7 @@ class _RarityWidgetState extends State<RarityWidget> {
               ListTile(
                 visualDensity: const VisualDensity(vertical: -4),
                 dense: true,
-                leading: Text("Retail:",
+                leading: Text(S.of(context).retail,
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           fontSize: 16,
                           letterSpacing: 0.3,
@@ -130,7 +131,7 @@ class _RarityWidgetState extends State<RarityWidget> {
               ListTile(
                 visualDensity: const VisualDensity(vertical: -4),
                 dense: true,
-                leading: Text("Available:",
+                leading: Text(S.of(context).available,
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           fontSize: 16,
                           letterSpacing: 0.3,
