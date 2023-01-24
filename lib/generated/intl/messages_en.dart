@@ -61,7 +61,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "forgot_password_email_description":
             MessageLookupByLibrary.simpleMessage(
                 "Enter your email to reset your password."),
+        "get_an_email":
+            MessageLookupByLibrary.simpleMessage("Didn’t get an email?"),
         "headcovers": MessageLookupByLibrary.simpleMessage("HEADCOVERS"),
+        "import_late": MessageLookupByLibrary.simpleMessage(
+            "*You’ll be able to make updates later."),
         "incorrect_email_or_password": MessageLookupByLibrary.simpleMessage(
             "Incorrect email or password. Please try again"),
         "invalid_email":
@@ -90,11 +94,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "An account is already associated with this phone number"),
         "popup_btn_no":
             MessageLookupByLibrary.simpleMessage("NO, I\'LL DO THIS LATER"),
-        "popup_btn_yes":
-            MessageLookupByLibrary.simpleMessage("YES, IMPORT MY INFO"),
+        "popup_btn_yes": MessageLookupByLibrary.simpleMessage("IMPORT MY INFO"),
         "popup_description": MessageLookupByLibrary.simpleMessage(
             "It looks like you have an account on swag.golf. Would you like to import your transaction history? You will be able to customize this later."),
-        "popup_title": MessageLookupByLibrary.simpleMessage("WELCOME @MRDOUG"),
+        "popup_title": MessageLookupByLibrary.simpleMessage("WELCOME @"),
         "privacy_policy_text": MessageLookupByLibrary.simpleMessage(
             "I agree to Swag’s *Privacy Policy* \n& *Terms of Use*"),
         "putters": MessageLookupByLibrary.simpleMessage("PUTTERS"),
@@ -105,6 +108,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Required field"),
         "resend_email": MessageLookupByLibrary.simpleMessage(
             "Didn’t get an email? *Resend Email*"),
+        "resend_verification_email":
+            MessageLookupByLibrary.simpleMessage("RESEND VERIFICATION EMAIL"),
         "reset_password_btn":
             MessageLookupByLibrary.simpleMessage("RESET PASSWORD"),
         "reset_password_description": MessageLookupByLibrary.simpleMessage(
@@ -129,6 +134,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "username": MessageLookupByLibrary.simpleMessage("@username"),
         "username_taken":
             MessageLookupByLibrary.simpleMessage("This username is taken "),
+        "verify_email": MessageLookupByLibrary.simpleMessage("VERIFY EMAIL"),
+        "verify_email_description": MessageLookupByLibrary.simpleMessage(
+            "You must verify your email before you can import your data. Check your inbox for the email."),
         "verify_name": MessageLookupByLibrary.simpleMessage("@MRDOUG"),
         "view_less": MessageLookupByLibrary.simpleMessage("View less details"),
         "view_more": MessageLookupByLibrary.simpleMessage("View more details"),
