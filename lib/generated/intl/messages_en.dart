@@ -33,6 +33,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "camera": MessageLookupByLibrary.simpleMessage("Take Photo"),
         "city": MessageLookupByLibrary.simpleMessage("City"),
         "code": MessageLookupByLibrary.simpleMessage("Code"),
+        "collection": MessageLookupByLibrary.simpleMessage(
+            "This cover is not in your collection, buy it now before it’s too late"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
         "country": MessageLookupByLibrary.simpleMessage("Country"),

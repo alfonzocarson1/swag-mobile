@@ -138,6 +138,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                         retail: dataDetail[index].retail,
                         available: dataDetail[index].numberAvailable),
                     CollectionWidget(
+                      sale: dataDetail[index].sale,
                       dataCollection: dataDetail[index].myCollection,
                       lastSale: dataDetail[index].lastSale,
                     ),

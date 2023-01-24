@@ -51,7 +51,7 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
           "lastSale": "\$380.00",
           "numberAvailable": 3,
           "rarityScore": ["RARE"],
-          "sale": true,
+          "sale": false,
           "attributeItemList": [
             {
               "catalogItemColor": "String",
