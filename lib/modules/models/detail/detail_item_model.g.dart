@@ -15,6 +15,7 @@ _$_DetailItemModel _$$_DetailItemModelFromJson(Map<String, dynamic> json) =>
       catalogItemCategoryId: json['catalogItemCategoryId'] as String,
       released: json['released'] as String,
       rarityScore: json['rarityScore'],
+      sale: json['sale'] as bool,
       attributeItemList: (json['attributeItemList'] as List<dynamic>?)
           ?.map((e) => DetailAttributeModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -41,6 +42,7 @@ Map<String, dynamic> _$$_DetailItemModelToJson(_$_DetailItemModel instance) =>
       'catalogItemCategoryId': instance.catalogItemCategoryId,
       'released': instance.released,
       'rarityScore': instance.rarityScore,
+      'sale': instance.sale,
       'attributeItemList': instance.attributeItemList,
       'myCollection': instance.myCollection,
       'totalMade': instance.totalMade,

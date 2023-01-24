@@ -18,6 +18,7 @@ class DetailItemModel with _$DetailItemModel {
     required final String catalogItemCategoryId,
     required final String released,
     required final dynamic rarityScore,
+    required final bool sale,
     @required List<DetailAttributeModel>? attributeItemList,
     @required List<DetailCollectionModel>? myCollection,
     required final int totalMade,

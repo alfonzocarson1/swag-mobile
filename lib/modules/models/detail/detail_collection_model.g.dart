@@ -11,6 +11,7 @@ _$_DetailCollectionModel _$$_DetailCollectionModelFromJson(
     _$_DetailCollectionModel(
       acquired: json['acquired'] as String,
       paid: json['paid'] as String,
+      salePrice: json['salePrice'] as String,
     );
 
 Map<String, dynamic> _$$_DetailCollectionModelToJson(
@@ -18,4 +19,5 @@ Map<String, dynamic> _$$_DetailCollectionModelToJson(
     <String, dynamic>{
       'acquired': instance.acquired,
       'paid': instance.paid,
+      'salePrice': instance.salePrice,
     };

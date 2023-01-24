@@ -42,15 +42,16 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
               "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Rectangle%2012%20(1).png?alt=media&token=00355e6f-7046-4f5f-9797-cc7610cab9fe",
           "catalogItemName": "FIFTEEN MILLION DOLLAR BLADE 3.0",
           "catalogItemDescription":
-              "The winner of this week's final playoff event will receive an insane 15 Million payday...you also have a chance for a payday if you are one of the 36 randomly chosen to have an opportunity to buy this year's 15M Bill Cover! View more details",
+              "The winner of this week's final playoff event will receive an insane 15 Million payday...you also have a chance for a payday if you are one of the 36 randomly chosen to have an opportunity to buy this year's 15M Bill Cover!",
           "catalogItemCategoryId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
           "released": "08/04/2022",
           "totalMade": 36,
-          "retail": "\$425.00",
+          "retail": "\$125.00",
           "releasedType": "Tour",
-          "lastSale": "\$455.00",
+          "lastSale": "\$380.00",
           "numberAvailable": 3,
           "rarityScore": ["RARE"],
+          "sale": true,
           "attributeItemList": [
             {
               "catalogItemColor": "String",
@@ -59,7 +60,11 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
             }
           ],
           "myCollection": [
-            {"acquired": "2023-01-11T16:36:21.092Z", "paid": "string"}
+            {
+              "acquired": "08/04/2022",
+              "paid": "\$165.00 +20.8%",
+              "salePrice": "\$400.00"
+            }
           ],
           "saleHistory": [],
           "similarItemList": [

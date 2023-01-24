@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import '../../../generated/l10n.dart';
 import '../../common/utils/palette.dart';
 import '../../models/detail/similar_item_model.dart';
 
@@ -27,7 +28,7 @@ class _RelatedItemsWidgetState extends State<RelatedItemsWidget> {
           children: [
             Align(
               alignment: Alignment.centerLeft,
-              child: Text("SIMILAR ITEMS",
+              child: Text(S.of(context).similar_items,
                   style: Theme.of(context).textTheme.displayLarge!.copyWith(
                       letterSpacing: 1,
                       fontWeight: FontWeight.w300,
@@ -76,7 +77,6 @@ class _RelatedItemsWidgetState extends State<RelatedItemsWidget> {
                                       right: 0,
                                       child: IconButton(
                                         icon: const Icon(Icons.add),
-                                        tooltip: 'Open shopping cart',
                                         onPressed: () {
                                           // handle the press
                                         },
@@ -95,7 +95,8 @@ class _RelatedItemsWidgetState extends State<RelatedItemsWidget> {
                                           fontFamily: "Knockout",
                                           fontSize: 30,
                                           color: Palette.current.white)),
-                              Text("FOR SALE: ${widget.dataRelated![0].retail}",
+                              Text(
+                                  "${S.of(context).for_sale}: ${widget.dataRelated![0].retail}",
                                   overflow: TextOverflow.fade,
                                   style: Theme.of(context)
                                       .textTheme
@@ -139,7 +140,6 @@ class _RelatedItemsWidgetState extends State<RelatedItemsWidget> {
                                       right: 0,
                                       child: IconButton(
                                         icon: const Icon(Icons.add),
-                                        tooltip: 'Open shopping cart',
                                         onPressed: () {
                                           // handle the press
                                         },
@@ -158,7 +158,8 @@ class _RelatedItemsWidgetState extends State<RelatedItemsWidget> {
                                           fontFamily: "Knockout",
                                           fontSize: 30,
                                           color: Palette.current.white)),
-                              Text("FOR SALE: ${widget.dataRelated![0].retail}",
+                              Text(
+                                  "${S.of(context).for_sale}: ${widget.dataRelated![0].retail}",
                                   overflow: TextOverflow.fade,
                                   style: Theme.of(context)
                                       .textTheme

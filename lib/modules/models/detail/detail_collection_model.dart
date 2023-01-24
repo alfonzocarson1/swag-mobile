@@ -8,7 +8,8 @@ class DetailCollectionModel with _$DetailCollectionModel {
   @JsonSerializable()
   const factory DetailCollectionModel(
       {required final String acquired,
-      required final String paid}) = _DetailCollectionModel;
+      required final String paid,
+      required final String salePrice}) = _DetailCollectionModel;
 
   factory DetailCollectionModel.fromJson(Map<String, dynamic> json) =>
       _$DetailCollectionModelFromJson(json);
