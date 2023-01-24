@@ -23,7 +23,6 @@ class _CatalogPageState extends State<CatalogPage> {
   @override
   void initState() {
     _favoriteBloc = getIt<FavoriteBloc>();
-    // TODO: implement initState
     super.initState();
   }
 
@@ -44,7 +43,7 @@ class _CatalogPageState extends State<CatalogPage> {
                   .push(ItemDetailPage.route());
             },
             child: SizedBox(
-              height: 480,
+              height: 440,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,7 +51,7 @@ class _CatalogPageState extends State<CatalogPage> {
                   CachedNetworkImage(
                     imageUrl: widget.catalogItems[index].image,
                     placeholder: (context, url) => SizedBox(
-                      height: 400,
+                      height: 340,
                       child: Center(
                         child: CircularProgressIndicator(
                           color: Palette.current.primaryNeonGreen,
@@ -99,29 +98,28 @@ class _CatalogPageState extends State<CatalogPage> {
                           child: Column(
                             children: [
                               Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20.0),
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        _favoriteBloc.toggleFavorite(widget
-                                            .catalogItems[index]
-                                            .catalogItemName);
-                                      });
-                                    },
-                                    child: Image.asset(
-                                      _favoriteBloc.isExist(widget
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 12.0),
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: IconButton(
+                                      icon: Image.asset(
+                                        _favoriteBloc.isExist(widget
+                                                .catalogItems[index]
+                                                .catalogItemName)
+                                            ? "assets/images/Favorite.png"
+                                            : "assets/images/UnFavorite.png",
+                                        scale: 3.5,
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          _favoriteBloc.toggleFavorite(widget
                                               .catalogItems[index]
-                                              .catalogItemName)
-                                          ? "assets/images/Favorite.png"
-                                          : "assets/images/UnFavorite.png",
-                                      scale: 3,
+                                              .catalogItemName);
+                                        });
+                                      },
                                     ),
-                                  ),
-                                ),
-                              ),
+                                  )),
                             ],
                           ))
                     ],

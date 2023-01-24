@@ -93,7 +93,7 @@ class _RelatedItemsWidgetState extends State<RelatedItemsWidget> {
                                           letterSpacing: 1,
                                           fontWeight: FontWeight.w300,
                                           fontFamily: "Knockout",
-                                          fontSize: 30,
+                                          fontSize: 24,
                                           color: Palette.current.white)),
                               Text(
                                   "${S.of(context).for_sale}: ${widget.dataRelated![0].retail}",
@@ -103,6 +103,7 @@ class _RelatedItemsWidgetState extends State<RelatedItemsWidget> {
                                       .bodySmall!
                                       .copyWith(
                                           fontWeight: FontWeight.w300,
+                                          fontSize: 13,
                                           color: Palette
                                               .current.primaryNeonGreen)),
                             ],
@@ -156,7 +157,7 @@ class _RelatedItemsWidgetState extends State<RelatedItemsWidget> {
                                           letterSpacing: 1,
                                           fontWeight: FontWeight.w300,
                                           fontFamily: "Knockout",
-                                          fontSize: 30,
+                                          fontSize: 24,
                                           color: Palette.current.white)),
                               Text(
                                   "${S.of(context).for_sale}: ${widget.dataRelated![0].retail}",
@@ -166,6 +167,7 @@ class _RelatedItemsWidgetState extends State<RelatedItemsWidget> {
                                       .bodySmall!
                                       .copyWith(
                                           fontWeight: FontWeight.w300,
+                                          fontSize: 13,
                                           color: Palette
                                               .current.primaryNeonGreen)),
                             ],

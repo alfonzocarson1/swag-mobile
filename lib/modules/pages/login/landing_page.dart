@@ -73,7 +73,7 @@ class LandingPage extends StatelessWidget {
                                   .displayMedium!
                                   .copyWith(
                                     fontFamily: "Knockout",
-                                    fontSize: 36,
+                                    fontSize: 30,
                                     fontWeight: FontWeight.w300,
                                     color: Palette.current.primaryWhiteSmoke,
                                   )),

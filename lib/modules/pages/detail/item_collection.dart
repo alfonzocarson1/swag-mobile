@@ -67,22 +67,19 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                         TextSpan(
                             text: 'This cover is not in your collection, ',
                             style: TextStyle(
-                              fontSize: 16,
-                              letterSpacing: 0.3,
+                              fontSize: 15,
                               color: Palette.current.primaryWhiteSmoke,
                             )),
                         TextSpan(
                             text: 'make an offer ',
                             style: TextStyle(
-                              fontSize: 16,
-                              letterSpacing: 0.3,
+                              fontSize: 15,
                               color: Palette.current.blueNeon,
                             )),
                         TextSpan(
                             text: 'to see if you can get one.',
                             style: TextStyle(
-                              fontSize: 16,
-                              letterSpacing: 0.3,
+                              fontSize: 15,
                               color: Palette.current.primaryWhiteSmoke,
                             ))
                       ]),
@@ -98,8 +95,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                         ),
                         Text(S.of(context).collection,
                             style: TextStyle(
-                              fontSize: 16,
-                              letterSpacing: 0.3,
+                              fontSize: 15,
                               color: Palette.current.primaryWhiteSmoke,
                             )),
                       ],
@@ -116,15 +112,13 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                       leading: Text(S.of(context).acquired,
                           style:
                               Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    fontSize: 16,
-                                    letterSpacing: 0.3,
+                                    fontSize: 15,
                                     color: Palette.current.primaryWhiteSmoke,
                                   )),
                       trailing: Text(widget.dataCollection![0].acquired,
                           style:
                               Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    fontSize: 16,
-                                    letterSpacing: 0.3,
+                                    fontSize: 15,
                                     color: Palette.current.primaryNeonGreen,
                                   )),
                     ),
@@ -134,15 +128,13 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                       leading: Text(S.of(context).paid,
                           style:
                               Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    fontSize: 16,
-                                    letterSpacing: 0.3,
+                                    fontSize: 15,
                                     color: Palette.current.primaryWhiteSmoke,
                                   )),
                       trailing: Text(widget.dataCollection![0].paid,
                           style:
                               Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    fontSize: 16,
-                                    letterSpacing: 0.3,
+                                    fontSize: 15,
                                     color: Palette.current.primaryNeonGreen,
                                   )),
                     ),

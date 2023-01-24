@@ -16,12 +16,16 @@ class _AvatarPageState extends State<AvatarPage> {
   Widget build(BuildContext context) {
     return Center(
       child: Stack(children: [
-        CircleAvatar(
-          backgroundColor: Colors.transparent,
-          backgroundImage: image != null
-              ? image!
-              : const AssetImage("assets/images/ProfilePhoto.png"),
-          radius: 75,
+        SizedBox(
+          height: 125,
+          width: 128,
+          child: CircleAvatar(
+            backgroundColor: Colors.transparent,
+            backgroundImage: image != null
+                ? image!
+                : const AssetImage("assets/images/ProfilePhoto.png"),
+            radius: 75,
+          ),
         ),
         Positioned(
             right: 0,
@@ -43,10 +47,10 @@ class _AvatarPageState extends State<AvatarPage> {
                   padding: const EdgeInsets.all(7.5),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(90.0),
-                      color: Palette.current.primaryNeonPink),
+                      color: Palette.current.primaryNeonGreen),
                   child: Icon(
                     Icons.add,
-                    size: 30,
+                    size: 24,
                     color: Palette.current.black,
                   )),
             ))

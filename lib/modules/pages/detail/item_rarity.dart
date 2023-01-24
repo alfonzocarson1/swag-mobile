@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
 import '../../../generated/l10n.dart';
@@ -39,7 +37,7 @@ class _RarityWidgetState extends State<RarityWidget> {
                     letterSpacing: 1,
                     fontWeight: FontWeight.w300,
                     fontFamily: "Knockout",
-                    fontSize: 30,
+                    fontSize: 33,
                     color: Palette.current.white)),
             Text(widget.rarity ?? '',
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
@@ -69,14 +67,12 @@ class _RarityWidgetState extends State<RarityWidget> {
                 dense: true,
                 leading: Text(S.of(context).released,
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 16,
-                          letterSpacing: 0.3,
+                          fontSize: 15,
                           color: Palette.current.primaryWhiteSmoke,
                         )),
                 trailing: Text(widget.released ?? '',
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 16,
-                          letterSpacing: 0.3,
+                          fontSize: 15,
                           color: Palette.current.primaryWhiteSmoke,
                         )),
               ),
@@ -85,14 +81,12 @@ class _RarityWidgetState extends State<RarityWidget> {
                 dense: true,
                 leading: Text(S.of(context).released_type,
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 16,
-                          letterSpacing: 0.3,
+                          fontSize: 15,
                           color: Palette.current.primaryWhiteSmoke,
                         )),
                 trailing: Text(widget.releaseType ?? '',
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 16,
-                          letterSpacing: 0.3,
+                          fontSize: 15,
                           color: Palette.current.primaryWhiteSmoke,
                         )),
               ),
@@ -101,14 +95,12 @@ class _RarityWidgetState extends State<RarityWidget> {
                 visualDensity: const VisualDensity(vertical: -4),
                 leading: Text(S.of(context).total_mode,
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 16,
-                          letterSpacing: 0.3,
+                          fontSize: 15,
                           color: Palette.current.primaryWhiteSmoke,
                         )),
                 trailing: Text("${widget.totalMade}",
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 16,
-                          letterSpacing: 0.3,
+                          fontSize: 15,
                           color: Palette.current.primaryWhiteSmoke,
                         )),
               ),
@@ -117,14 +109,12 @@ class _RarityWidgetState extends State<RarityWidget> {
                 dense: true,
                 leading: Text(S.of(context).retail,
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 16,
-                          letterSpacing: 0.3,
+                          fontSize: 15,
                           color: Palette.current.primaryWhiteSmoke,
                         )),
                 trailing: Text(widget.retail ?? '',
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 16,
-                          letterSpacing: 0.3,
+                          fontSize: 15,
                           color: Palette.current.primaryWhiteSmoke,
                         )),
               ),
@@ -133,14 +123,12 @@ class _RarityWidgetState extends State<RarityWidget> {
                 dense: true,
                 leading: Text(S.of(context).available,
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 16,
-                          letterSpacing: 0.3,
+                          fontSize: 15,
                           color: Palette.current.primaryWhiteSmoke,
                         )),
                 trailing: Text("${widget.available}",
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 16,
-                          letterSpacing: 0.3,
+                          fontSize: 15,
                           color: Palette.current.blueNeon,
                         )),
               )

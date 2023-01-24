@@ -59,28 +59,28 @@ class _HomePage extends State<HomePage> {
                 BottomNavigationBarItem(
                   icon: ImageIcon(
                     AssetImage('assets/images/server.png'),
-                    size: 25,
+                    size: 20,
                   ),
                   label: "Explore",
                 ),
                 BottomNavigationBarItem(
                   icon: ImageIcon(
                     AssetImage('assets/images/Browse.png'),
-                    size: 25,
+                    size: 20,
                   ),
                   label: "Search",
                 ),
                 BottomNavigationBarItem(
                   icon: ImageIcon(
                     AssetImage('assets/images/Alerts.png'),
-                    size: 25,
+                    size: 20,
                   ),
                   label: "Alerts",
                 ),
                 BottomNavigationBarItem(
                   icon: ImageIcon(
                     AssetImage('assets/images/You.png'),
-                    size: 25,
+                    size: 20,
                   ),
                   label: "Profile",
                 )

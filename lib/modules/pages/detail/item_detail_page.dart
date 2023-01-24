@@ -39,7 +39,6 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Palette.current.black,
-        extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: true,
         appBar: CustomAppBar(actions: true),
         body: BlocConsumer<DetailBloc, DetailState>(

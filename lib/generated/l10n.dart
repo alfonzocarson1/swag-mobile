@@ -530,20 +530,20 @@ class S {
     );
   }
 
-  /// `Choose Photo`
+  /// `CHOOSE PHOTO`
   String get access_photos {
     return Intl.message(
-      'Choose Photo',
+      'CHOOSE PHOTO',
       name: 'access_photos',
       desc: '',
       args: [],
     );
   }
 
-  /// `Take Photo`
+  /// `TAKE PHOTO`
   String get camera {
     return Intl.message(
-      'Take Photo',
+      'TAKE PHOTO',
       name: 'camera',
       desc: '',
       args: [],
