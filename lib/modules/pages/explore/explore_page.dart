@@ -12,6 +12,7 @@ import '../../common/utils/custom_route_animations.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/explore/explore_item_model.dart';
+import '../search/account_info.dart';
 
 class ExplorePage extends StatefulWidget {
   static const name = '/ExplorePage';
@@ -28,6 +29,7 @@ class ExplorePage extends StatefulWidget {
 
 class _ExplorePageState extends State<ExplorePage> {
   bool _isLogged = false;
+  bool _hasJustSignedUp = false;
   late final ScrollController? _scrollController =
       PrimaryScrollController.of(context);
 
@@ -35,6 +37,15 @@ class _ExplorePageState extends State<ExplorePage> {
   void initState() {
     super.initState();
     _isLogged = getIt<PreferenceRepositoryService>().isLogged();
+    _hasJustSignedUp = getIt<PreferenceRepositoryService>().hasJustSignedUp();
+
+    if (_isLogged && _hasJustSignedUp) {
+      getIt<PreferenceRepositoryService>().saveHasJustSignedUp(false);
+      Future.delayed(const Duration(milliseconds: 4000), () {
+        Navigator.of(context, rootNavigator: true)
+            .push(AccountInfoPage.route());
+      });
+    }
   }
 
   @override

@@ -4,21 +4,27 @@ import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 
 import '../../../generated/l10n.dart';
+import '../../blocs/auth_bloc/auth_bloc.dart';
+import '../../di/injector.dart';
 import 'clickable_text.dart';
 
-class PopUp extends StatelessWidget {
+class PopUp extends StatefulWidget {
   const PopUp({super.key, this.name});
   final String? name;
+
+  @override
+  State<PopUp> createState() => _PopUpState();
+}
+
+class _PopUpState extends State<PopUp> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    //TODO: To launch the PopUp it can be used in this way and to prove the cases you can also send the name parameter in null
-    // showDialog(
-    // context: context,
-    // builder: (BuildContext context) {
-    //   return const PopUp(
-    //     name: "NICO",
-    //   );
-    // });
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
       child: Stack(
@@ -32,7 +38,7 @@ class PopUp extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    name != null
+                    widget.name != null
                         ? Column(
                             children: [
                               const SizedBox(
@@ -41,7 +47,7 @@ class PopUp extends StatelessWidget {
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                    "${S.of(context).popup_title}$name"
+                                    "${S.of(context).popup_title}${widget.name}"
                                         .toUpperCase(),
                                     textAlign: TextAlign.left,
                                     style: Theme.of(context)
@@ -104,28 +110,36 @@ class PopUp extends StatelessWidget {
                     const SizedBox(
                       height: 30,
                     ),
-                    name != null
+                    widget.name != null
                         ? Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               PrimaryButton(
                                 title: S.of(context).popup_btn_yes,
-                                onPressed: () {},
+                                onPressed: () {
+                                  getIt<AuthBloc>()
+                                      .add(const AuthEvent.authenticate());
+                                },
                                 type: PrimaryButtonType.green,
                               ),
                               const SizedBox(
                                 height: 15,
                               ),
-                              Text(
-                                S.of(context).import_late,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                                    .copyWith(
-                                        fontSize: 12.5,
-                                        color: Palette.current.grey,
-                                        fontWeight: FontWeight.w300),
-                              )
+                              ClickableText(
+                                  title: SimpleRichText(
+                                    S.of(context).import_late,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(
+                                            fontSize: 12.5,
+                                            color: Palette.current.grey,
+                                            fontWeight: FontWeight.w300),
+                                  ),
+                                  onPressed: () {
+                                    getIt<AuthBloc>()
+                                        .add(const AuthEvent.authenticate());
+                                  })
                             ],
                           )
                         : Column(
