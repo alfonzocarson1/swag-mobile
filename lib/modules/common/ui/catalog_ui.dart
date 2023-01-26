@@ -48,19 +48,34 @@ class _CatalogPageState extends State<CatalogPage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CachedNetworkImage(
-                    imageUrl: widget.catalogItems[index].image,
-                    placeholder: (context, url) => SizedBox(
-                      height: 340,
-                      child: Center(
-                        child: CircularProgressIndicator(
-                          color: Palette.current.primaryNeonGreen,
-                          backgroundColor: Colors.white,
+                  Stack(
+                    children: [
+                      CachedNetworkImage(
+                        imageUrl: widget.catalogItems[index].image,
+                        placeholder: (context, url) => SizedBox(
+                          height: 340,
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              color: Palette.current.primaryNeonGreen,
+                              backgroundColor: Colors.white,
+                            ),
+                          ),
                         ),
+                        errorWidget: (context, url, error) =>
+                            Image.asset("assets/images/ProfilePhoto.png"),
                       ),
-                    ),
-                    errorWidget: (context, url, error) =>
-                        Image.asset("assets/images/ProfilePhoto.png"),
+                      Visibility(
+                          visible: _favoriteBloc.isExist(
+                              widget.catalogItems[index].catalogItemName),
+                          child: Positioned.fill(
+                            child: Align(
+                                alignment: Alignment.center,
+                                child: Image.asset(
+                                  "assets/images/IconsBig.png",
+                                  scale: 3,
+                                )),
+                          )),
+                    ],
                   ),
                   const SizedBox(
                     height: 12,
