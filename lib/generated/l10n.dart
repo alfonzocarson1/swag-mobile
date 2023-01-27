@@ -280,30 +280,30 @@ class S {
     );
   }
 
-  /// `WELCOME @MRDOUG`
+  /// `WELCOME @`
   String get popup_title {
     return Intl.message(
-      'WELCOME @MRDOUG',
+      'WELCOME @',
       name: 'popup_title',
       desc: '',
       args: [],
     );
   }
 
-  /// `It looks like you have an account on swag.golf. Would you like to import your transaction history? You will be able to customize this later.`
+  /// `It looks like you have an account on swag.golf. After you verify your email you will be able to  import your information into the Swag app.`
   String get popup_description {
     return Intl.message(
-      'It looks like you have an account on swag.golf. Would you like to import your transaction history? You will be able to customize this later.',
+      'It looks like you have an account on swag.golf. After you verify your email you will be able to  import your information into the Swag app.',
       name: 'popup_description',
       desc: '',
       args: [],
     );
   }
 
-  /// `YES, IMPORT MY INFO`
+  /// `IMPORT MY INFO`
   String get popup_btn_yes {
     return Intl.message(
-      'YES, IMPORT MY INFO',
+      'IMPORT MY INFO',
       name: 'popup_btn_yes',
       desc: '',
       args: [],
@@ -815,6 +815,56 @@ class S {
     return Intl.message(
       'SIMILAR ITEMS',
       name: 'similar_items',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `VERIFY EMAIL`
+  String get verify_email {
+    return Intl.message(
+      'VERIFY EMAIL',
+      name: 'verify_email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You must verify your email before you can import your data. Check your inbox for the email.`
+  String get verify_email_description {
+    return Intl.message(
+      'You must verify your email before you can import your data. Check your inbox for the email.',
+      name: 'verify_email_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `RESEND VERIFICATION EMAIL`
+  String get resend_verification_email {
+    return Intl.message(
+      'RESEND VERIFICATION EMAIL',
+      name: 'resend_verification_email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Didn’t get an email?`
+  String get get_an_email {
+    return Intl.message(
+      'Didn’t get an email?',
+      name: 'get_an_email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `*You’ll be able to make updates later.`
+  String get import_late {
+    return Intl.message(
+      '*You’ll be able to make updates later.',
+      name: 'import_late',
       desc: '',
       args: [],
     );

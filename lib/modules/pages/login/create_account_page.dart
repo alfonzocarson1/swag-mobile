@@ -13,6 +13,7 @@ import 'package:swagapp/modules/pages/login/sign_in_page.dart';
 import '../../blocs/auth_bloc/auth_bloc.dart';
 import '../../common/ui/custom_text_form_field.dart';
 import '../../common/ui/loading.dart';
+import '../../common/ui/popup_screen.dart';
 import '../../common/ui/web_view.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../constants/constants.dart';
@@ -131,6 +132,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
               return null;
             },
             authenticated: () {
+              getIt<PreferenceRepositoryService>().saveHasJustSignedUp(true);
               getIt<PreferenceRepositoryService>().saveIsLogged(true);
               Loading.hide(context);
               Navigator.popUntil(context, ModalRoute.withName('/'));
@@ -330,7 +332,6 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                       title: S.of(context).create_account,
                                       onPressed: () {
                                         showErrors();
-
                                         if (areFieldsValid()) {
                                           getIt<AuthBloc>().add(
                                               const AuthEvent.authenticate());
