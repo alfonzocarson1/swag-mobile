@@ -29,6 +29,7 @@ mixin _$CatalogItemModel {
   String get released => throw _privateConstructorUsedError;
   int get totalMade => throw _privateConstructorUsedError;
   String get retail => throw _privateConstructorUsedError;
+  bool get sale => throw _privateConstructorUsedError;
   String get lastSale => throw _privateConstructorUsedError;
   int get numberAvailable => throw _privateConstructorUsedError;
   String get sku => throw _privateConstructorUsedError;
@@ -56,6 +57,7 @@ abstract class $CatalogItemModelCopyWith<$Res> {
       String released,
       int totalMade,
       String retail,
+      bool sale,
       String lastSale,
       int numberAvailable,
       String sku,
@@ -84,6 +86,7 @@ class _$CatalogItemModelCopyWithImpl<$Res, $Val extends CatalogItemModel>
     Object? released = null,
     Object? totalMade = null,
     Object? retail = null,
+    Object? sale = null,
     Object? lastSale = null,
     Object? numberAvailable = null,
     Object? sku = null,
@@ -126,6 +129,10 @@ class _$CatalogItemModelCopyWithImpl<$Res, $Val extends CatalogItemModel>
           ? _value.retail
           : retail // ignore: cast_nullable_to_non_nullable
               as String,
+      sale: null == sale
+          ? _value.sale
+          : sale // ignore: cast_nullable_to_non_nullable
+              as bool,
       lastSale: null == lastSale
           ? _value.lastSale
           : lastSale // ignore: cast_nullable_to_non_nullable
@@ -164,6 +171,7 @@ abstract class _$$_CatalogItemModelCopyWith<$Res>
       String released,
       int totalMade,
       String retail,
+      bool sale,
       String lastSale,
       int numberAvailable,
       String sku,
@@ -190,6 +198,7 @@ class __$$_CatalogItemModelCopyWithImpl<$Res>
     Object? released = null,
     Object? totalMade = null,
     Object? retail = null,
+    Object? sale = null,
     Object? lastSale = null,
     Object? numberAvailable = null,
     Object? sku = null,
@@ -232,6 +241,10 @@ class __$$_CatalogItemModelCopyWithImpl<$Res>
           ? _value.retail
           : retail // ignore: cast_nullable_to_non_nullable
               as String,
+      sale: null == sale
+          ? _value.sale
+          : sale // ignore: cast_nullable_to_non_nullable
+              as bool,
       lastSale: null == lastSale
           ? _value.lastSale
           : lastSale // ignore: cast_nullable_to_non_nullable
@@ -266,6 +279,7 @@ class _$_CatalogItemModel implements _CatalogItemModel {
       required this.released,
       required this.totalMade,
       required this.retail,
+      required this.sale,
       required this.lastSale,
       required this.numberAvailable,
       required this.sku,
@@ -293,6 +307,8 @@ class _$_CatalogItemModel implements _CatalogItemModel {
   @override
   final String retail;
   @override
+  final bool sale;
+  @override
   final String lastSale;
   @override
   final int numberAvailable;
@@ -303,7 +319,7 @@ class _$_CatalogItemModel implements _CatalogItemModel {
 
   @override
   String toString() {
-    return 'CatalogItemModel(catalogItemId: $catalogItemId, image: $image, catalogItemName: $catalogItemName, catalogItemDescription: $catalogItemDescription, catalogItemCollections: $catalogItemCollections, catalogItemCategoryId: $catalogItemCategoryId, released: $released, totalMade: $totalMade, retail: $retail, lastSale: $lastSale, numberAvailable: $numberAvailable, sku: $sku, jobId: $jobId)';
+    return 'CatalogItemModel(catalogItemId: $catalogItemId, image: $image, catalogItemName: $catalogItemName, catalogItemDescription: $catalogItemDescription, catalogItemCollections: $catalogItemCollections, catalogItemCategoryId: $catalogItemCategoryId, released: $released, totalMade: $totalMade, retail: $retail, sale: $sale, lastSale: $lastSale, numberAvailable: $numberAvailable, sku: $sku, jobId: $jobId)';
   }
 
   @override
@@ -327,6 +343,7 @@ class _$_CatalogItemModel implements _CatalogItemModel {
             (identical(other.totalMade, totalMade) ||
                 other.totalMade == totalMade) &&
             (identical(other.retail, retail) || other.retail == retail) &&
+            (identical(other.sale, sale) || other.sale == sale) &&
             (identical(other.lastSale, lastSale) ||
                 other.lastSale == lastSale) &&
             (identical(other.numberAvailable, numberAvailable) ||
@@ -348,6 +365,7 @@ class _$_CatalogItemModel implements _CatalogItemModel {
       released,
       totalMade,
       retail,
+      sale,
       lastSale,
       numberAvailable,
       sku,
@@ -378,6 +396,7 @@ abstract class _CatalogItemModel implements CatalogItemModel {
       required final String released,
       required final int totalMade,
       required final String retail,
+      required final bool sale,
       required final String lastSale,
       required final int numberAvailable,
       required final String sku,
@@ -404,6 +423,8 @@ abstract class _CatalogItemModel implements CatalogItemModel {
   int get totalMade;
   @override
   String get retail;
+  @override
+  bool get sale;
   @override
   String get lastSale;
   @override
