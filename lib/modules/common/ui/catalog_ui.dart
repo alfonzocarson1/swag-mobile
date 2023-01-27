@@ -48,19 +48,38 @@ class _CatalogPageState extends State<CatalogPage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CachedNetworkImage(
-                    imageUrl: widget.catalogItems[index].image,
-                    placeholder: (context, url) => SizedBox(
-                      height: 340,
-                      child: Center(
-                        child: CircularProgressIndicator(
-                          color: Palette.current.primaryNeonGreen,
-                          backgroundColor: Colors.white,
+                  Stack(
+                    children: [
+                      CachedNetworkImage(
+                        imageUrl: widget.catalogItems[index].image,
+                        placeholder: (context, url) => SizedBox(
+                          height: 340,
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              color: Palette.current.primaryNeonGreen,
+                              backgroundColor: Colors.white,
+                            ),
+                          ),
+                        ),
+                        errorWidget: (context, url, error) =>
+                            Image.asset("assets/images/ProfilePhoto.png"),
+                      ),
+                      Positioned.fill(
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: AnimatedContainer(
+                              height: _favoriteBloc.isExist(widget
+                                      .catalogItems[index].catalogItemName)
+                                  ? 130.0
+                                  : 0.0,
+                              duration: const Duration(milliseconds: 200),
+                              child: Image.asset(
+                                "assets/images/IconsBig.png",
+                                scale: 3,
+                              )),
                         ),
                       ),
-                    ),
-                    errorWidget: (context, url, error) =>
-                        Image.asset("assets/images/ProfilePhoto.png"),
+                    ],
                   ),
                   const SizedBox(
                     height: 12,
