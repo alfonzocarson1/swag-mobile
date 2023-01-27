@@ -244,12 +244,17 @@ class _SignInPageState extends State<SignInPage> {
 
   void showErrors() {
     setState(() {
-      emailErrorText = isValidEmail(_emailController.text)
-          ? null
-          : S.of(context).invalid_email;
-      passwordlErrorText = _passwordController.text.isNotEmpty
-          ? null
-          : S.of(context).empty_password;
+      emailErrorText = _emailController.text.isEmpty
+          ? S.of(context).required_field
+          : isValidEmail(_emailController.text)
+              ? null
+              : S.of(context).invalid_email;
+
+      passwordlErrorText = _passwordController.text.isEmpty
+          ? S.of(context).required_field
+          : _passwordController.text.isNotEmpty
+              ? null
+              : S.of(context).empty_password;
     });
   }
 
