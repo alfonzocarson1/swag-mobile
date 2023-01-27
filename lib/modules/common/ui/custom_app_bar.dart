@@ -32,6 +32,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 icon: Icon(
                   Icons.add,
                   color: Palette.current.gray4,
+                  size: 20,
                 ),
                 tooltip: 'Open shopping cart',
                 onPressed: () {
@@ -45,7 +46,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           icon: Icon(
             Icons.arrow_back,
             color: Palette.current.primaryNeonGreen,
-            size: 30,
+            size: 25,
           ),
           onPressed: onRoute ?? () => Navigator.maybePop(context)),
     );

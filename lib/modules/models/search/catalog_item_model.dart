@@ -16,6 +16,7 @@ class CatalogItemModel with _$CatalogItemModel {
     required final String released,
     required final int totalMade,
     required final String retail,
+    required final bool sale,
     required final String lastSale,
     required final int numberAvailable,
     required final String sku,

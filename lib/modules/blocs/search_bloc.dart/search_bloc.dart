@@ -72,6 +72,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           "released": "2023-01-11T15:08:07.018Z",
           "totalMade": 0,
           "retail": "string",
+          "sale": false,
           "lastSale": "LAST SALE: N/A",
           "numberAvailable": 0,
           "sku": "string"
@@ -87,6 +88,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           "released": "2023-01-11T15:08:07.018Z",
           "totalMade": 0,
           "retail": "string",
+          "sale": false,
           "lastSale": "LAST SALE: \$305.00",
           "numberAvailable": 0,
           "sku": "string"
@@ -102,6 +104,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           "released": "2023-01-11T15:08:07.018Z",
           "totalMade": 0,
           "retail": "string",
+          "sale": false,
           "lastSale": "LAST SALE: \$1,170.00",
           "numberAvailable": 0,
           "sku": "string"
@@ -117,8 +120,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           "released": "2023-01-11T15:08:07.018Z",
           "totalMade": 0,
           "retail": "string",
+          "sale": true,
           "lastSale": "FOR SALE: \$832.00",
-          "numberAvailable": 0,
+          "numberAvailable": 3,
           "sku": "string"
         },
         {
@@ -132,8 +136,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           "released": "2023-01-11T15:08:07.018Z",
           "totalMade": 0,
           "retail": "string",
+          "sale": true,
           "lastSale": "FOR SALE: \$360.00 - \$380.00",
-          "numberAvailable": 0,
+          "numberAvailable": 1,
           "sku": "string"
         },
         {
@@ -147,6 +152,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           "released": "2023-01-11T15:08:07.018Z",
           "totalMade": 0,
           "retail": "string",
+          "sale": false,
           "lastSale": "LAST SALE: \$199.00",
           "numberAvailable": 0,
           "sku": "string"

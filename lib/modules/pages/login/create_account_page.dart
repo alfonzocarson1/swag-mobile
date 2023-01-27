@@ -13,6 +13,7 @@ import 'package:swagapp/modules/pages/login/sign_in_page.dart';
 import '../../blocs/auth_bloc/auth_bloc.dart';
 import '../../common/ui/custom_text_form_field.dart';
 import '../../common/ui/loading.dart';
+import '../../common/ui/popup_screen.dart';
 import '../../common/ui/web_view.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../constants/constants.dart';
@@ -131,6 +132,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
               return null;
             },
             authenticated: () {
+              getIt<PreferenceRepositoryService>().saveHasJustSignedUp(true);
               getIt<PreferenceRepositoryService>().saveIsLogged(true);
               Loading.hide(context);
               Navigator.popUntil(context, ModalRoute.withName('/'));
@@ -330,7 +332,6 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                       title: S.of(context).create_account,
                                       onPressed: () {
                                         showErrors();
-
                                         if (areFieldsValid()) {
                                           getIt<AuthBloc>().add(
                                               const AuthEvent.authenticate());
@@ -374,35 +375,40 @@ class _CreateAccountState extends State<CreateAccountPage> {
 
   void showErrors() {
     setState(() {
-      emailErrorText = isValidEmail(_emailController.text)
-          ? null
-          : S.of(context).invalid_email;
+      emailErrorText = _emailController.text.isEmpty
+          ? S.of(context).required_field
+          : isValidEmail(_emailController.text)
+              ? null
+              : S.of(context).invalid_email;
 
-      phoneErrorText = isPhoneValid ? null : S.of(context).phone_taken;
+      phoneErrorText = _phoneController.text.isEmpty
+          ? S.of(context).required_field
+          : isPhoneValid
+              ? null
+              : S.of(context).phone_taken;
 
-      passwordErrorText = isValidPassword(_passwordController.text)
-          ? null
-          : S.of(context).invalid_password;
+      passwordErrorText = _passwordController.text.isEmpty
+          ? S.of(context).required_field
+          : isValidPassword(_passwordController.text)
+              ? null
+              : S.of(context).invalid_password;
 
-      confirmPasswordErrorText =
-          passwordErrorText == null && _passwordController.text.isNotEmpty
+      confirmPasswordErrorText = _confirmPasswordController.text.isEmpty
+          ? S.of(context).required_field
+          : passwordErrorText == null && _passwordController.text.isNotEmpty
               ? _passwordController.text == _confirmPasswordController.text &&
                       _confirmPasswordController.text.isNotEmpty
                   ? null
                   : S.of(context).no_match_password
               : null;
-
-      confirmPasswordErrorText =
-          passwordErrorText == null && _passwordController.text.isNotEmpty
-              ? _confirmPasswordController.text == _passwordController.text
-                  ? null
-                  : S.of(context).no_match_password
-              : null;
     });
 
-    usernameErrorText = _usernameController.text.isNotEmpty
-        ? null
-        : S.of(context).invalid_username;
+    usernameErrorText = _usernameController.text.isEmpty
+        ? S.of(context).required_field
+        : (_usernameController.text.isNotEmpty &&
+                _usernameController.text.length > 4)
+            ? null
+            : S.of(context).invalid_username;
   }
 
   bool areFieldsValid() {
