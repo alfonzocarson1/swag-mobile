@@ -64,17 +64,21 @@ class _CatalogPageState extends State<CatalogPage> {
                         errorWidget: (context, url, error) =>
                             Image.asset("assets/images/ProfilePhoto.png"),
                       ),
-                      Visibility(
-                          visible: _favoriteBloc.isExist(
-                              widget.catalogItems[index].catalogItemName),
-                          child: Positioned.fill(
-                            child: Align(
-                                alignment: Alignment.center,
-                                child: Image.asset(
-                                  "assets/images/IconsBig.png",
-                                  scale: 3,
-                                )),
-                          )),
+                      Positioned.fill(
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: AnimatedContainer(
+                              height: _favoriteBloc.isExist(widget
+                                      .catalogItems[index].catalogItemName)
+                                  ? 130.0
+                                  : 0.0,
+                              duration: const Duration(milliseconds: 200),
+                              child: Image.asset(
+                                "assets/images/IconsBig.png",
+                                scale: 3,
+                              )),
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(
