@@ -829,6 +829,46 @@ class S {
       args: [],
     );
   }
+
+  /// `COLLECTION`
+  String get tab_collection {
+    return Intl.message(
+      'COLLECTION',
+      name: 'tab_collection',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `LISTINGS`
+  String get tab_listings {
+    return Intl.message(
+      'LISTINGS',
+      name: 'tab_listings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `FAVORITES`
+  String get tab_favorites {
+    return Intl.message(
+      'FAVORITES',
+      name: 'tab_favorites',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SOLD`
+  String get tab_sold {
+    return Intl.message(
+      'SOLD',
+      name: 'tab_sold',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

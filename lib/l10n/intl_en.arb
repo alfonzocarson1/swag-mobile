@@ -76,5 +76,9 @@
     "retail": "Retail:",
     "available": "Available:",
     "similar_items": "SIMILAR ITEMS",
-    "collection": "This cover is not in your collection, buy it now before it’s too late"
+    "collection": "This cover is not in your collection, buy it now before it’s too late",
+    "tab_collection": "COLLECTION",
+    "tab_listings": "LISTINGS",
+    "tab_favorites": "FAVORITES",
+    "tab_sold": "SOLD"
 }

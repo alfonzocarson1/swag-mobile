@@ -125,6 +125,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "state": MessageLookupByLibrary.simpleMessage("State"),
         "subtitle_welcome":
             MessageLookupByLibrary.simpleMessage("Let’s create your profile!"),
+        "tab_collection": MessageLookupByLibrary.simpleMessage("COLLECTION"),
+        "tab_favorites": MessageLookupByLibrary.simpleMessage("FAVORITES"),
+        "tab_listings": MessageLookupByLibrary.simpleMessage("LISTINGS"),
+        "tab_sold": MessageLookupByLibrary.simpleMessage("SOLD"),
         "title_welcome":
             MessageLookupByLibrary.simpleMessage("WELCOME TO SWAG"),
         "total_mode": MessageLookupByLibrary.simpleMessage("Total Made:"),
