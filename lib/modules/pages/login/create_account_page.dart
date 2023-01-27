@@ -132,6 +132,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
               return null;
             },
             authenticated: () {
+              getIt<PreferenceRepositoryService>().saveHasJustSignedUp(true);
               getIt<PreferenceRepositoryService>().saveIsLogged(true);
               Loading.hide(context);
               Navigator.popUntil(context, ModalRoute.withName('/'));
@@ -332,15 +333,8 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                       onPressed: () {
                                         showErrors();
                                         if (areFieldsValid()) {
-                                          getIt<PreferenceRepositoryService>()
-                                              .saveHasJustSignedUp(true);
-                                          showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return const PopUp(
-                                                  name: "NICO",
-                                                );
-                                              });
+                                          getIt<AuthBloc>().add(
+                                              const AuthEvent.authenticate());
                                         }
                                       },
                                       type: PrimaryButtonType.green,

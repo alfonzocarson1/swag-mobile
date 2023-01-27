@@ -290,10 +290,10 @@ class S {
     );
   }
 
-  /// `It looks like you have an account on swag.golf. Would you like to import your transaction history? You will be able to customize this later.`
+  /// `It looks like you have an account on swag.golf. After you verify your email you will be able to  import your information into the Swag app.`
   String get popup_description {
     return Intl.message(
-      'It looks like you have an account on swag.golf. Would you like to import your transaction history? You will be able to customize this later.',
+      'It looks like you have an account on swag.golf. After you verify your email you will be able to  import your information into the Swag app.',
       name: 'popup_description',
       desc: '',
       args: [],

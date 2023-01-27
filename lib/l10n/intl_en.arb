@@ -23,7 +23,7 @@
     "reset_password_btn": "RESET PASSWORD",
     "resend_email": "Didn’t get an email? *Resend Email*",
     "popup_title": "WELCOME @",
-    "popup_description": "It looks like you have an account on swag.golf. Would you like to import your transaction history? You will be able to customize this later.",
+    "popup_description": "It looks like you have an account on swag.golf. After you verify your email you will be able to  import your information into the Swag app.",
     "popup_btn_yes": "IMPORT MY INFO",
     "popup_btn_no": "NO, I'LL DO THIS LATER",
     "incorrect_email_or_password": "Incorrect email or password. Please try again",

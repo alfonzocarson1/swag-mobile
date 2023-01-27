@@ -8,6 +8,7 @@ import 'package:swagapp/modules/common/utils/palette.dart';
 
 import '../../blocs/explore_bloc/explore_bloc.dart';
 import '../../common/ui/custom_app_bar.dart';
+import '../../common/ui/popup_screen.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
@@ -44,6 +45,16 @@ class _ExplorePageState extends State<ExplorePage> {
       Future.delayed(const Duration(milliseconds: 4000), () {
         Navigator.of(context, rootNavigator: true)
             .push(AccountInfoPage.route());
+        Future.delayed(const Duration(milliseconds: 1000), () {
+          showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (BuildContext context) {
+                return const PopUp(
+                  name: "MRDOUG",
+                );
+              });
+        });
       });
     }
   }

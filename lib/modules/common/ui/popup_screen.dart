@@ -19,23 +19,22 @@ class PopUp extends StatefulWidget {
 class _PopUpState extends State<PopUp> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
-      child: Stack(
-        children: [
-          Container(
-            color: Palette.current.blackSmoke,
-            height: 350,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: SafeArea(
+    return Center(
+      child: Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+        child: Stack(
+          children: [
+            Container(
+              color: Palette.current.blackSmoke,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     widget.name != null
@@ -71,7 +70,7 @@ class _PopUpState extends State<PopUp> {
                                       .copyWith(
                                           color:
                                               Palette.current.primaryWhiteSmoke,
-                                          fontSize: 18))
+                                          fontSize: 16))
                             ],
                           )
                         : Column(
@@ -117,29 +116,23 @@ class _PopUpState extends State<PopUp> {
                               PrimaryButton(
                                 title: S.of(context).popup_btn_yes,
                                 onPressed: () {
-                                  getIt<AuthBloc>()
-                                      .add(const AuthEvent.authenticate());
+                                  Navigator.pop(context);
                                 },
                                 type: PrimaryButtonType.green,
                               ),
                               const SizedBox(
                                 height: 15,
                               ),
-                              ClickableText(
-                                  title: SimpleRichText(
-                                    S.of(context).import_late,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(
-                                            fontSize: 12.5,
-                                            color: Palette.current.grey,
-                                            fontWeight: FontWeight.w300),
-                                  ),
-                                  onPressed: () {
-                                    getIt<AuthBloc>()
-                                        .add(const AuthEvent.authenticate());
-                                  })
+                              Text(
+                                S.of(context).import_late,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(
+                                        fontSize: 12.5,
+                                        color: Palette.current.grey,
+                                        fontWeight: FontWeight.w300),
+                              ),
                             ],
                           )
                         : Column(
@@ -178,22 +171,23 @@ class _PopUpState extends State<PopUp> {
                 ),
               ),
             ),
-          ),
-          Positioned(
-            right: 0,
-            top: 3,
-            child: IconButton(
-              iconSize: 30,
-              color: Palette.current.primaryNeonGreen,
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              icon: const Icon(
-                Icons.clear_outlined,
+            Positioned(
+              right: 0,
+              top: 3,
+              child: IconButton(
+                iconSize: 30,
+                color: Palette.current.primaryNeonGreen,
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                icon: const Icon(
+                  Icons.clear_outlined,
+                  size: 20,
+                ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
