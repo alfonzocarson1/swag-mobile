@@ -919,6 +919,16 @@ class S {
       args: [],
     );
   }
+
+  /// `ADD NEW ITEM`
+  String get add_new_item {
+    return Intl.message(
+      'ADD NEW ITEM',
+      name: 'add_new_item',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

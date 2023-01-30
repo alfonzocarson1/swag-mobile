@@ -25,6 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "access_photos": MessageLookupByLibrary.simpleMessage("CHOOSE PHOTO"),
         "accessories": MessageLookupByLibrary.simpleMessage("ACCESSORIES"),
         "acquired": MessageLookupByLibrary.simpleMessage("Acquired:"),
+        "add_new_item": MessageLookupByLibrary.simpleMessage("ADD NEW ITEM"),
         "already_have_an_account": MessageLookupByLibrary.simpleMessage(
             "Already have an account? *Sign In*"),
         "app_name": MessageLookupByLibrary.simpleMessage("Swag Golf"),

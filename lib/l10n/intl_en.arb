@@ -85,6 +85,7 @@
     "verify_email_description": "You must verify your email before you can import your data. Check your inbox for the email.",
     "resend_verification_email": "RESEND VERIFICATION EMAIL",
     "get_an_email": "Didn’t get an email?",
-    "import_late": "*You’ll be able to make updates later."
+    "import_late": "*You’ll be able to make updates later.",
+    "add_new_item": "ADD NEW ITEM"
 
 }
