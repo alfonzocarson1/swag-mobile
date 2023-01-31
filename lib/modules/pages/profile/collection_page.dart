@@ -68,7 +68,6 @@ class _CollectionPageState extends State<CollectionPage> {
             );
           },
         ));
-    ;
   }
 
   Widget _getBody(List<CollectionItemModel> collectionList) {
