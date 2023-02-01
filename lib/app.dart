@@ -11,6 +11,7 @@ import 'modules/blocs/detail_bloc/detail_bloc.dart';
 import 'modules/blocs/explore_bloc/explore_bloc.dart';
 import 'modules/blocs/favorite_bloc/favorite_bloc.dart';
 import 'modules/blocs/listing_bloc/listing_bloc.dart';
+import 'modules/blocs/profile_favorite_bloc/profile_favorite_bloc.dart';
 import 'modules/pages/home/home_page.dart';
 import 'modules/common/utils/context_service.dart';
 import 'modules/common/utils/palette.dart';
@@ -39,6 +40,8 @@ class App extends StatelessWidget {
           BlocProvider<CollectionBloc>(
               create: (context) => getIt<CollectionBloc>()),
           BlocProvider<ListingBloc>(create: (context) => getIt<ListingBloc>()),
+          BlocProvider<ProfileFavoriteBloc>(
+              create: (context) => getIt<ProfileFavoriteBloc>()),
         ],
         child: MaterialApp(
           navigatorKey: getIt<ContextService>().rootNavigatorKey,
