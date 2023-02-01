@@ -19,38 +19,44 @@ mixin _$SearchEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getCategories,
-    required TResult Function() getCatalogItems,
+    required TResult Function(String term) search,
+    required TResult Function() reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getCategories,
-    TResult? Function()? getCatalogItems,
+    TResult? Function(String term)? search,
+    TResult? Function()? reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getCategories,
-    TResult Function()? getCatalogItems,
+    TResult Function(String term)? search,
+    TResult Function()? reset,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetCategories value) getCategories,
-    required TResult Function(_GetCatalogItems value) getCatalogItems,
+    required TResult Function(_SearchEventSearch value) search,
+    required TResult Function(_SearchEventReset value) reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetCategories value)? getCategories,
-    TResult? Function(_GetCatalogItems value)? getCatalogItems,
+    TResult? Function(_SearchEventSearch value)? search,
+    TResult? Function(_SearchEventReset value)? reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetCategories value)? getCategories,
-    TResult Function(_GetCatalogItems value)? getCatalogItems,
+    TResult Function(_SearchEventSearch value)? search,
+    TResult Function(_SearchEventReset value)? reset,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -113,7 +119,8 @@ class _$_GetCategories implements _GetCategories {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getCategories,
-    required TResult Function() getCatalogItems,
+    required TResult Function(String term) search,
+    required TResult Function() reset,
   }) {
     return getCategories();
   }
@@ -122,7 +129,8 @@ class _$_GetCategories implements _GetCategories {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getCategories,
-    TResult? Function()? getCatalogItems,
+    TResult? Function(String term)? search,
+    TResult? Function()? reset,
   }) {
     return getCategories?.call();
   }
@@ -131,7 +139,8 @@ class _$_GetCategories implements _GetCategories {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getCategories,
-    TResult Function()? getCatalogItems,
+    TResult Function(String term)? search,
+    TResult Function()? reset,
     required TResult orElse(),
   }) {
     if (getCategories != null) {
@@ -144,7 +153,8 @@ class _$_GetCategories implements _GetCategories {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetCategories value) getCategories,
-    required TResult Function(_GetCatalogItems value) getCatalogItems,
+    required TResult Function(_SearchEventSearch value) search,
+    required TResult Function(_SearchEventReset value) reset,
   }) {
     return getCategories(this);
   }
@@ -153,7 +163,8 @@ class _$_GetCategories implements _GetCategories {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetCategories value)? getCategories,
-    TResult? Function(_GetCatalogItems value)? getCatalogItems,
+    TResult? Function(_SearchEventSearch value)? search,
+    TResult? Function(_SearchEventReset value)? reset,
   }) {
     return getCategories?.call(this);
   }
@@ -162,7 +173,8 @@ class _$_GetCategories implements _GetCategories {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetCategories value)? getCategories,
-    TResult Function(_GetCatalogItems value)? getCatalogItems,
+    TResult Function(_SearchEventSearch value)? search,
+    TResult Function(_SearchEventReset value)? reset,
     required TResult orElse(),
   }) {
     if (getCategories != null) {
@@ -177,35 +189,175 @@ abstract class _GetCategories implements SearchEvent {
 }
 
 /// @nodoc
-abstract class _$$_GetCatalogItemsCopyWith<$Res> {
-  factory _$$_GetCatalogItemsCopyWith(
-          _$_GetCatalogItems value, $Res Function(_$_GetCatalogItems) then) =
-      __$$_GetCatalogItemsCopyWithImpl<$Res>;
+abstract class _$$_SearchEventSearchCopyWith<$Res> {
+  factory _$$_SearchEventSearchCopyWith(_$_SearchEventSearch value,
+          $Res Function(_$_SearchEventSearch) then) =
+      __$$_SearchEventSearchCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String term});
 }
 
 /// @nodoc
-class __$$_GetCatalogItemsCopyWithImpl<$Res>
-    extends _$SearchEventCopyWithImpl<$Res, _$_GetCatalogItems>
-    implements _$$_GetCatalogItemsCopyWith<$Res> {
-  __$$_GetCatalogItemsCopyWithImpl(
-      _$_GetCatalogItems _value, $Res Function(_$_GetCatalogItems) _then)
+class __$$_SearchEventSearchCopyWithImpl<$Res>
+    extends _$SearchEventCopyWithImpl<$Res, _$_SearchEventSearch>
+    implements _$$_SearchEventSearchCopyWith<$Res> {
+  __$$_SearchEventSearchCopyWithImpl(
+      _$_SearchEventSearch _value, $Res Function(_$_SearchEventSearch) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? term = null,
+  }) {
+    return _then(_$_SearchEventSearch(
+      null == term
+          ? _value.term
+          : term // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$_GetCatalogItems implements _GetCatalogItems {
-  const _$_GetCatalogItems();
+class _$_SearchEventSearch implements _SearchEventSearch {
+  const _$_SearchEventSearch(this.term);
+
+  @override
+  final String term;
 
   @override
   String toString() {
-    return 'SearchEvent.getCatalogItems()';
+    return 'SearchEvent.search(term: $term)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_GetCatalogItems);
+        (other.runtimeType == runtimeType &&
+            other is _$_SearchEventSearch &&
+            (identical(other.term, term) || other.term == term));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, term);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_SearchEventSearchCopyWith<_$_SearchEventSearch> get copyWith =>
+      __$$_SearchEventSearchCopyWithImpl<_$_SearchEventSearch>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getCategories,
+    required TResult Function(String term) search,
+    required TResult Function() reset,
+  }) {
+    return search(term);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getCategories,
+    TResult? Function(String term)? search,
+    TResult? Function()? reset,
+  }) {
+    return search?.call(term);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getCategories,
+    TResult Function(String term)? search,
+    TResult Function()? reset,
+    required TResult orElse(),
+  }) {
+    if (search != null) {
+      return search(term);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetCategories value) getCategories,
+    required TResult Function(_SearchEventSearch value) search,
+    required TResult Function(_SearchEventReset value) reset,
+  }) {
+    return search(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetCategories value)? getCategories,
+    TResult? Function(_SearchEventSearch value)? search,
+    TResult? Function(_SearchEventReset value)? reset,
+  }) {
+    return search?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetCategories value)? getCategories,
+    TResult Function(_SearchEventSearch value)? search,
+    TResult Function(_SearchEventReset value)? reset,
+    required TResult orElse(),
+  }) {
+    if (search != null) {
+      return search(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SearchEventSearch implements SearchEvent {
+  const factory _SearchEventSearch(final String term) = _$_SearchEventSearch;
+
+  String get term;
+  @JsonKey(ignore: true)
+  _$$_SearchEventSearchCopyWith<_$_SearchEventSearch> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_SearchEventResetCopyWith<$Res> {
+  factory _$$_SearchEventResetCopyWith(
+          _$_SearchEventReset value, $Res Function(_$_SearchEventReset) then) =
+      __$$_SearchEventResetCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_SearchEventResetCopyWithImpl<$Res>
+    extends _$SearchEventCopyWithImpl<$Res, _$_SearchEventReset>
+    implements _$$_SearchEventResetCopyWith<$Res> {
+  __$$_SearchEventResetCopyWithImpl(
+      _$_SearchEventReset _value, $Res Function(_$_SearchEventReset) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_SearchEventReset implements _SearchEventReset {
+  const _$_SearchEventReset();
+
+  @override
+  String toString() {
+    return 'SearchEvent.reset()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_SearchEventReset);
   }
 
   @override
@@ -215,29 +367,32 @@ class _$_GetCatalogItems implements _GetCatalogItems {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getCategories,
-    required TResult Function() getCatalogItems,
+    required TResult Function(String term) search,
+    required TResult Function() reset,
   }) {
-    return getCatalogItems();
+    return reset();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getCategories,
-    TResult? Function()? getCatalogItems,
+    TResult? Function(String term)? search,
+    TResult? Function()? reset,
   }) {
-    return getCatalogItems?.call();
+    return reset?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getCategories,
-    TResult Function()? getCatalogItems,
+    TResult Function(String term)? search,
+    TResult Function()? reset,
     required TResult orElse(),
   }) {
-    if (getCatalogItems != null) {
-      return getCatalogItems();
+    if (reset != null) {
+      return reset();
     }
     return orElse();
   }
@@ -246,36 +401,39 @@ class _$_GetCatalogItems implements _GetCatalogItems {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetCategories value) getCategories,
-    required TResult Function(_GetCatalogItems value) getCatalogItems,
+    required TResult Function(_SearchEventSearch value) search,
+    required TResult Function(_SearchEventReset value) reset,
   }) {
-    return getCatalogItems(this);
+    return reset(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetCategories value)? getCategories,
-    TResult? Function(_GetCatalogItems value)? getCatalogItems,
+    TResult? Function(_SearchEventSearch value)? search,
+    TResult? Function(_SearchEventReset value)? reset,
   }) {
-    return getCatalogItems?.call(this);
+    return reset?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetCategories value)? getCategories,
-    TResult Function(_GetCatalogItems value)? getCatalogItems,
+    TResult Function(_SearchEventSearch value)? search,
+    TResult Function(_SearchEventReset value)? reset,
     required TResult orElse(),
   }) {
-    if (getCatalogItems != null) {
-      return getCatalogItems(this);
+    if (reset != null) {
+      return reset(this);
     }
     return orElse();
   }
 }
 
-abstract class _GetCatalogItems implements SearchEvent {
-  const factory _GetCatalogItems() = _$_GetCatalogItems;
+abstract class _SearchEventReset implements SearchEvent {
+  const factory _SearchEventReset() = _$_SearchEventReset;
 }
 
 /// @nodoc
@@ -286,8 +444,12 @@ mixin _$SearchState {
     required TResult Function(String message) error,
     required TResult Function(List<CategoryModel> categoryList)
         loadedCategories,
-    required TResult Function(List<CatalogItemModel> catalogList)
-        loadedCatalogItems,
+    required TResult Function(List<String> queries) recentSearch,
+    required TResult Function(String query, SearchTab tab) searching,
+    required TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
+            String query, SearchTab tab)
+        result,
+    required TResult Function() empty,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -295,7 +457,12 @@ mixin _$SearchState {
     TResult? Function()? initial,
     TResult? Function(String message)? error,
     TResult? Function(List<CategoryModel> categoryList)? loadedCategories,
-    TResult? Function(List<CatalogItemModel> catalogList)? loadedCatalogItems,
+    TResult? Function(List<String> queries)? recentSearch,
+    TResult? Function(String query, SearchTab tab)? searching,
+    TResult? Function(Map<SearchTab, List<CatalogItemModel>> result,
+            String query, SearchTab tab)?
+        result,
+    TResult? Function()? empty,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -303,7 +470,12 @@ mixin _$SearchState {
     TResult Function()? initial,
     TResult Function(String message)? error,
     TResult Function(List<CategoryModel> categoryList)? loadedCategories,
-    TResult Function(List<CatalogItemModel> catalogList)? loadedCatalogItems,
+    TResult Function(List<String> queries)? recentSearch,
+    TResult Function(String query, SearchTab tab)? searching,
+    TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
+            String query, SearchTab tab)?
+        result,
+    TResult Function()? empty,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -312,7 +484,10 @@ mixin _$SearchState {
     required TResult Function(_InitialSearchState value) initial,
     required TResult Function(_ErrorSearchState value) error,
     required TResult Function(LoadedCategoriesState value) loadedCategories,
-    required TResult Function(LoadedCatalogItemsState value) loadedCatalogItems,
+    required TResult Function(_SearchStateRecentSearch value) recentSearch,
+    required TResult Function(_SearchStateSearching value) searching,
+    required TResult Function(_SearchStateResult value) result,
+    required TResult Function(_SearchStateEmpty value) empty,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -320,7 +495,10 @@ mixin _$SearchState {
     TResult? Function(_InitialSearchState value)? initial,
     TResult? Function(_ErrorSearchState value)? error,
     TResult? Function(LoadedCategoriesState value)? loadedCategories,
-    TResult? Function(LoadedCatalogItemsState value)? loadedCatalogItems,
+    TResult? Function(_SearchStateRecentSearch value)? recentSearch,
+    TResult? Function(_SearchStateSearching value)? searching,
+    TResult? Function(_SearchStateResult value)? result,
+    TResult? Function(_SearchStateEmpty value)? empty,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -328,7 +506,10 @@ mixin _$SearchState {
     TResult Function(_InitialSearchState value)? initial,
     TResult Function(_ErrorSearchState value)? error,
     TResult Function(LoadedCategoriesState value)? loadedCategories,
-    TResult Function(LoadedCatalogItemsState value)? loadedCatalogItems,
+    TResult Function(_SearchStateRecentSearch value)? recentSearch,
+    TResult Function(_SearchStateSearching value)? searching,
+    TResult Function(_SearchStateResult value)? result,
+    TResult Function(_SearchStateEmpty value)? empty,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -394,8 +575,12 @@ class _$_InitialSearchState extends _InitialSearchState {
     required TResult Function(String message) error,
     required TResult Function(List<CategoryModel> categoryList)
         loadedCategories,
-    required TResult Function(List<CatalogItemModel> catalogList)
-        loadedCatalogItems,
+    required TResult Function(List<String> queries) recentSearch,
+    required TResult Function(String query, SearchTab tab) searching,
+    required TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
+            String query, SearchTab tab)
+        result,
+    required TResult Function() empty,
   }) {
     return initial();
   }
@@ -406,7 +591,12 @@ class _$_InitialSearchState extends _InitialSearchState {
     TResult? Function()? initial,
     TResult? Function(String message)? error,
     TResult? Function(List<CategoryModel> categoryList)? loadedCategories,
-    TResult? Function(List<CatalogItemModel> catalogList)? loadedCatalogItems,
+    TResult? Function(List<String> queries)? recentSearch,
+    TResult? Function(String query, SearchTab tab)? searching,
+    TResult? Function(Map<SearchTab, List<CatalogItemModel>> result,
+            String query, SearchTab tab)?
+        result,
+    TResult? Function()? empty,
   }) {
     return initial?.call();
   }
@@ -417,7 +607,12 @@ class _$_InitialSearchState extends _InitialSearchState {
     TResult Function()? initial,
     TResult Function(String message)? error,
     TResult Function(List<CategoryModel> categoryList)? loadedCategories,
-    TResult Function(List<CatalogItemModel> catalogList)? loadedCatalogItems,
+    TResult Function(List<String> queries)? recentSearch,
+    TResult Function(String query, SearchTab tab)? searching,
+    TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
+            String query, SearchTab tab)?
+        result,
+    TResult Function()? empty,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -432,7 +627,10 @@ class _$_InitialSearchState extends _InitialSearchState {
     required TResult Function(_InitialSearchState value) initial,
     required TResult Function(_ErrorSearchState value) error,
     required TResult Function(LoadedCategoriesState value) loadedCategories,
-    required TResult Function(LoadedCatalogItemsState value) loadedCatalogItems,
+    required TResult Function(_SearchStateRecentSearch value) recentSearch,
+    required TResult Function(_SearchStateSearching value) searching,
+    required TResult Function(_SearchStateResult value) result,
+    required TResult Function(_SearchStateEmpty value) empty,
   }) {
     return initial(this);
   }
@@ -443,7 +641,10 @@ class _$_InitialSearchState extends _InitialSearchState {
     TResult? Function(_InitialSearchState value)? initial,
     TResult? Function(_ErrorSearchState value)? error,
     TResult? Function(LoadedCategoriesState value)? loadedCategories,
-    TResult? Function(LoadedCatalogItemsState value)? loadedCatalogItems,
+    TResult? Function(_SearchStateRecentSearch value)? recentSearch,
+    TResult? Function(_SearchStateSearching value)? searching,
+    TResult? Function(_SearchStateResult value)? result,
+    TResult? Function(_SearchStateEmpty value)? empty,
   }) {
     return initial?.call(this);
   }
@@ -454,7 +655,10 @@ class _$_InitialSearchState extends _InitialSearchState {
     TResult Function(_InitialSearchState value)? initial,
     TResult Function(_ErrorSearchState value)? error,
     TResult Function(LoadedCategoriesState value)? loadedCategories,
-    TResult Function(LoadedCatalogItemsState value)? loadedCatalogItems,
+    TResult Function(_SearchStateRecentSearch value)? recentSearch,
+    TResult Function(_SearchStateSearching value)? searching,
+    TResult Function(_SearchStateResult value)? result,
+    TResult Function(_SearchStateEmpty value)? empty,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -537,8 +741,12 @@ class _$_ErrorSearchState extends _ErrorSearchState {
     required TResult Function(String message) error,
     required TResult Function(List<CategoryModel> categoryList)
         loadedCategories,
-    required TResult Function(List<CatalogItemModel> catalogList)
-        loadedCatalogItems,
+    required TResult Function(List<String> queries) recentSearch,
+    required TResult Function(String query, SearchTab tab) searching,
+    required TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
+            String query, SearchTab tab)
+        result,
+    required TResult Function() empty,
   }) {
     return error(message);
   }
@@ -549,7 +757,12 @@ class _$_ErrorSearchState extends _ErrorSearchState {
     TResult? Function()? initial,
     TResult? Function(String message)? error,
     TResult? Function(List<CategoryModel> categoryList)? loadedCategories,
-    TResult? Function(List<CatalogItemModel> catalogList)? loadedCatalogItems,
+    TResult? Function(List<String> queries)? recentSearch,
+    TResult? Function(String query, SearchTab tab)? searching,
+    TResult? Function(Map<SearchTab, List<CatalogItemModel>> result,
+            String query, SearchTab tab)?
+        result,
+    TResult? Function()? empty,
   }) {
     return error?.call(message);
   }
@@ -560,7 +773,12 @@ class _$_ErrorSearchState extends _ErrorSearchState {
     TResult Function()? initial,
     TResult Function(String message)? error,
     TResult Function(List<CategoryModel> categoryList)? loadedCategories,
-    TResult Function(List<CatalogItemModel> catalogList)? loadedCatalogItems,
+    TResult Function(List<String> queries)? recentSearch,
+    TResult Function(String query, SearchTab tab)? searching,
+    TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
+            String query, SearchTab tab)?
+        result,
+    TResult Function()? empty,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -575,7 +793,10 @@ class _$_ErrorSearchState extends _ErrorSearchState {
     required TResult Function(_InitialSearchState value) initial,
     required TResult Function(_ErrorSearchState value) error,
     required TResult Function(LoadedCategoriesState value) loadedCategories,
-    required TResult Function(LoadedCatalogItemsState value) loadedCatalogItems,
+    required TResult Function(_SearchStateRecentSearch value) recentSearch,
+    required TResult Function(_SearchStateSearching value) searching,
+    required TResult Function(_SearchStateResult value) result,
+    required TResult Function(_SearchStateEmpty value) empty,
   }) {
     return error(this);
   }
@@ -586,7 +807,10 @@ class _$_ErrorSearchState extends _ErrorSearchState {
     TResult? Function(_InitialSearchState value)? initial,
     TResult? Function(_ErrorSearchState value)? error,
     TResult? Function(LoadedCategoriesState value)? loadedCategories,
-    TResult? Function(LoadedCatalogItemsState value)? loadedCatalogItems,
+    TResult? Function(_SearchStateRecentSearch value)? recentSearch,
+    TResult? Function(_SearchStateSearching value)? searching,
+    TResult? Function(_SearchStateResult value)? result,
+    TResult? Function(_SearchStateEmpty value)? empty,
   }) {
     return error?.call(this);
   }
@@ -597,7 +821,10 @@ class _$_ErrorSearchState extends _ErrorSearchState {
     TResult Function(_InitialSearchState value)? initial,
     TResult Function(_ErrorSearchState value)? error,
     TResult Function(LoadedCategoriesState value)? loadedCategories,
-    TResult Function(LoadedCatalogItemsState value)? loadedCatalogItems,
+    TResult Function(_SearchStateRecentSearch value)? recentSearch,
+    TResult Function(_SearchStateSearching value)? searching,
+    TResult Function(_SearchStateResult value)? result,
+    TResult Function(_SearchStateEmpty value)? empty,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -695,8 +922,12 @@ class _$LoadedCategoriesState extends LoadedCategoriesState {
     required TResult Function(String message) error,
     required TResult Function(List<CategoryModel> categoryList)
         loadedCategories,
-    required TResult Function(List<CatalogItemModel> catalogList)
-        loadedCatalogItems,
+    required TResult Function(List<String> queries) recentSearch,
+    required TResult Function(String query, SearchTab tab) searching,
+    required TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
+            String query, SearchTab tab)
+        result,
+    required TResult Function() empty,
   }) {
     return loadedCategories(categoryList);
   }
@@ -707,7 +938,12 @@ class _$LoadedCategoriesState extends LoadedCategoriesState {
     TResult? Function()? initial,
     TResult? Function(String message)? error,
     TResult? Function(List<CategoryModel> categoryList)? loadedCategories,
-    TResult? Function(List<CatalogItemModel> catalogList)? loadedCatalogItems,
+    TResult? Function(List<String> queries)? recentSearch,
+    TResult? Function(String query, SearchTab tab)? searching,
+    TResult? Function(Map<SearchTab, List<CatalogItemModel>> result,
+            String query, SearchTab tab)?
+        result,
+    TResult? Function()? empty,
   }) {
     return loadedCategories?.call(categoryList);
   }
@@ -718,7 +954,12 @@ class _$LoadedCategoriesState extends LoadedCategoriesState {
     TResult Function()? initial,
     TResult Function(String message)? error,
     TResult Function(List<CategoryModel> categoryList)? loadedCategories,
-    TResult Function(List<CatalogItemModel> catalogList)? loadedCatalogItems,
+    TResult Function(List<String> queries)? recentSearch,
+    TResult Function(String query, SearchTab tab)? searching,
+    TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
+            String query, SearchTab tab)?
+        result,
+    TResult Function()? empty,
     required TResult orElse(),
   }) {
     if (loadedCategories != null) {
@@ -733,7 +974,10 @@ class _$LoadedCategoriesState extends LoadedCategoriesState {
     required TResult Function(_InitialSearchState value) initial,
     required TResult Function(_ErrorSearchState value) error,
     required TResult Function(LoadedCategoriesState value) loadedCategories,
-    required TResult Function(LoadedCatalogItemsState value) loadedCatalogItems,
+    required TResult Function(_SearchStateRecentSearch value) recentSearch,
+    required TResult Function(_SearchStateSearching value) searching,
+    required TResult Function(_SearchStateResult value) result,
+    required TResult Function(_SearchStateEmpty value) empty,
   }) {
     return loadedCategories(this);
   }
@@ -744,7 +988,10 @@ class _$LoadedCategoriesState extends LoadedCategoriesState {
     TResult? Function(_InitialSearchState value)? initial,
     TResult? Function(_ErrorSearchState value)? error,
     TResult? Function(LoadedCategoriesState value)? loadedCategories,
-    TResult? Function(LoadedCatalogItemsState value)? loadedCatalogItems,
+    TResult? Function(_SearchStateRecentSearch value)? recentSearch,
+    TResult? Function(_SearchStateSearching value)? searching,
+    TResult? Function(_SearchStateResult value)? result,
+    TResult? Function(_SearchStateEmpty value)? empty,
   }) {
     return loadedCategories?.call(this);
   }
@@ -755,7 +1002,10 @@ class _$LoadedCategoriesState extends LoadedCategoriesState {
     TResult Function(_InitialSearchState value)? initial,
     TResult Function(_ErrorSearchState value)? error,
     TResult Function(LoadedCategoriesState value)? loadedCategories,
-    TResult Function(LoadedCatalogItemsState value)? loadedCatalogItems,
+    TResult Function(_SearchStateRecentSearch value)? recentSearch,
+    TResult Function(_SearchStateSearching value)? searching,
+    TResult Function(_SearchStateResult value)? result,
+    TResult Function(_SearchStateEmpty value)? empty,
     required TResult orElse(),
   }) {
     if (loadedCategories != null) {
@@ -778,75 +1028,75 @@ abstract class LoadedCategoriesState extends SearchState {
 }
 
 /// @nodoc
-abstract class _$$LoadedCatalogItemsStateCopyWith<$Res> {
-  factory _$$LoadedCatalogItemsStateCopyWith(_$LoadedCatalogItemsState value,
-          $Res Function(_$LoadedCatalogItemsState) then) =
-      __$$LoadedCatalogItemsStateCopyWithImpl<$Res>;
+abstract class _$$_SearchStateRecentSearchCopyWith<$Res> {
+  factory _$$_SearchStateRecentSearchCopyWith(_$_SearchStateRecentSearch value,
+          $Res Function(_$_SearchStateRecentSearch) then) =
+      __$$_SearchStateRecentSearchCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<CatalogItemModel> catalogList});
+  $Res call({List<String> queries});
 }
 
 /// @nodoc
-class __$$LoadedCatalogItemsStateCopyWithImpl<$Res>
-    extends _$SearchStateCopyWithImpl<$Res, _$LoadedCatalogItemsState>
-    implements _$$LoadedCatalogItemsStateCopyWith<$Res> {
-  __$$LoadedCatalogItemsStateCopyWithImpl(_$LoadedCatalogItemsState _value,
-      $Res Function(_$LoadedCatalogItemsState) _then)
+class __$$_SearchStateRecentSearchCopyWithImpl<$Res>
+    extends _$SearchStateCopyWithImpl<$Res, _$_SearchStateRecentSearch>
+    implements _$$_SearchStateRecentSearchCopyWith<$Res> {
+  __$$_SearchStateRecentSearchCopyWithImpl(_$_SearchStateRecentSearch _value,
+      $Res Function(_$_SearchStateRecentSearch) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? catalogList = null,
+    Object? queries = null,
   }) {
-    return _then(_$LoadedCatalogItemsState(
-      catalogList: null == catalogList
-          ? _value._catalogList
-          : catalogList // ignore: cast_nullable_to_non_nullable
-              as List<CatalogItemModel>,
+    return _then(_$_SearchStateRecentSearch(
+      queries: null == queries
+          ? _value._queries
+          : queries // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
 
 /// @nodoc
 
-class _$LoadedCatalogItemsState extends LoadedCatalogItemsState {
-  _$LoadedCatalogItemsState({required final List<CatalogItemModel> catalogList})
-      : _catalogList = catalogList,
+class _$_SearchStateRecentSearch extends _SearchStateRecentSearch {
+  _$_SearchStateRecentSearch({required final List<String> queries})
+      : _queries = queries,
         super._();
 
-  final List<CatalogItemModel> _catalogList;
+  final List<String> _queries;
   @override
-  List<CatalogItemModel> get catalogList {
-    if (_catalogList is EqualUnmodifiableListView) return _catalogList;
+  List<String> get queries {
+    if (_queries is EqualUnmodifiableListView) return _queries;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_catalogList);
+    return EqualUnmodifiableListView(_queries);
   }
 
   @override
   String toString() {
-    return 'SearchState.loadedCatalogItems(catalogList: $catalogList)';
+    return 'SearchState.recentSearch(queries: $queries)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LoadedCatalogItemsState &&
-            const DeepCollectionEquality()
-                .equals(other._catalogList, _catalogList));
+            other is _$_SearchStateRecentSearch &&
+            const DeepCollectionEquality().equals(other._queries, _queries));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_catalogList));
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_queries));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$LoadedCatalogItemsStateCopyWith<_$LoadedCatalogItemsState> get copyWith =>
-      __$$LoadedCatalogItemsStateCopyWithImpl<_$LoadedCatalogItemsState>(
-          this, _$identity);
+  _$$_SearchStateRecentSearchCopyWith<_$_SearchStateRecentSearch>
+      get copyWith =>
+          __$$_SearchStateRecentSearchCopyWithImpl<_$_SearchStateRecentSearch>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -855,10 +1105,14 @@ class _$LoadedCatalogItemsState extends LoadedCatalogItemsState {
     required TResult Function(String message) error,
     required TResult Function(List<CategoryModel> categoryList)
         loadedCategories,
-    required TResult Function(List<CatalogItemModel> catalogList)
-        loadedCatalogItems,
+    required TResult Function(List<String> queries) recentSearch,
+    required TResult Function(String query, SearchTab tab) searching,
+    required TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
+            String query, SearchTab tab)
+        result,
+    required TResult Function() empty,
   }) {
-    return loadedCatalogItems(catalogList);
+    return recentSearch(queries);
   }
 
   @override
@@ -867,9 +1121,14 @@ class _$LoadedCatalogItemsState extends LoadedCatalogItemsState {
     TResult? Function()? initial,
     TResult? Function(String message)? error,
     TResult? Function(List<CategoryModel> categoryList)? loadedCategories,
-    TResult? Function(List<CatalogItemModel> catalogList)? loadedCatalogItems,
+    TResult? Function(List<String> queries)? recentSearch,
+    TResult? Function(String query, SearchTab tab)? searching,
+    TResult? Function(Map<SearchTab, List<CatalogItemModel>> result,
+            String query, SearchTab tab)?
+        result,
+    TResult? Function()? empty,
   }) {
-    return loadedCatalogItems?.call(catalogList);
+    return recentSearch?.call(queries);
   }
 
   @override
@@ -878,11 +1137,16 @@ class _$LoadedCatalogItemsState extends LoadedCatalogItemsState {
     TResult Function()? initial,
     TResult Function(String message)? error,
     TResult Function(List<CategoryModel> categoryList)? loadedCategories,
-    TResult Function(List<CatalogItemModel> catalogList)? loadedCatalogItems,
+    TResult Function(List<String> queries)? recentSearch,
+    TResult Function(String query, SearchTab tab)? searching,
+    TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
+            String query, SearchTab tab)?
+        result,
+    TResult Function()? empty,
     required TResult orElse(),
   }) {
-    if (loadedCatalogItems != null) {
-      return loadedCatalogItems(catalogList);
+    if (recentSearch != null) {
+      return recentSearch(queries);
     }
     return orElse();
   }
@@ -893,9 +1157,12 @@ class _$LoadedCatalogItemsState extends LoadedCatalogItemsState {
     required TResult Function(_InitialSearchState value) initial,
     required TResult Function(_ErrorSearchState value) error,
     required TResult Function(LoadedCategoriesState value) loadedCategories,
-    required TResult Function(LoadedCatalogItemsState value) loadedCatalogItems,
+    required TResult Function(_SearchStateRecentSearch value) recentSearch,
+    required TResult Function(_SearchStateSearching value) searching,
+    required TResult Function(_SearchStateResult value) result,
+    required TResult Function(_SearchStateEmpty value) empty,
   }) {
-    return loadedCatalogItems(this);
+    return recentSearch(this);
   }
 
   @override
@@ -904,9 +1171,12 @@ class _$LoadedCatalogItemsState extends LoadedCatalogItemsState {
     TResult? Function(_InitialSearchState value)? initial,
     TResult? Function(_ErrorSearchState value)? error,
     TResult? Function(LoadedCategoriesState value)? loadedCategories,
-    TResult? Function(LoadedCatalogItemsState value)? loadedCatalogItems,
+    TResult? Function(_SearchStateRecentSearch value)? recentSearch,
+    TResult? Function(_SearchStateSearching value)? searching,
+    TResult? Function(_SearchStateResult value)? result,
+    TResult? Function(_SearchStateEmpty value)? empty,
   }) {
-    return loadedCatalogItems?.call(this);
+    return recentSearch?.call(this);
   }
 
   @override
@@ -915,24 +1185,561 @@ class _$LoadedCatalogItemsState extends LoadedCatalogItemsState {
     TResult Function(_InitialSearchState value)? initial,
     TResult Function(_ErrorSearchState value)? error,
     TResult Function(LoadedCategoriesState value)? loadedCategories,
-    TResult Function(LoadedCatalogItemsState value)? loadedCatalogItems,
+    TResult Function(_SearchStateRecentSearch value)? recentSearch,
+    TResult Function(_SearchStateSearching value)? searching,
+    TResult Function(_SearchStateResult value)? result,
+    TResult Function(_SearchStateEmpty value)? empty,
     required TResult orElse(),
   }) {
-    if (loadedCatalogItems != null) {
-      return loadedCatalogItems(this);
+    if (recentSearch != null) {
+      return recentSearch(this);
     }
     return orElse();
   }
 }
 
-abstract class LoadedCatalogItemsState extends SearchState {
-  factory LoadedCatalogItemsState(
-          {required final List<CatalogItemModel> catalogList}) =
-      _$LoadedCatalogItemsState;
-  LoadedCatalogItemsState._() : super._();
+abstract class _SearchStateRecentSearch extends SearchState {
+  factory _SearchStateRecentSearch({required final List<String> queries}) =
+      _$_SearchStateRecentSearch;
+  _SearchStateRecentSearch._() : super._();
 
-  List<CatalogItemModel> get catalogList;
+  List<String> get queries;
   @JsonKey(ignore: true)
-  _$$LoadedCatalogItemsStateCopyWith<_$LoadedCatalogItemsState> get copyWith =>
+  _$$_SearchStateRecentSearchCopyWith<_$_SearchStateRecentSearch>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_SearchStateSearchingCopyWith<$Res> {
+  factory _$$_SearchStateSearchingCopyWith(_$_SearchStateSearching value,
+          $Res Function(_$_SearchStateSearching) then) =
+      __$$_SearchStateSearchingCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String query, SearchTab tab});
+}
+
+/// @nodoc
+class __$$_SearchStateSearchingCopyWithImpl<$Res>
+    extends _$SearchStateCopyWithImpl<$Res, _$_SearchStateSearching>
+    implements _$$_SearchStateSearchingCopyWith<$Res> {
+  __$$_SearchStateSearchingCopyWithImpl(_$_SearchStateSearching _value,
+      $Res Function(_$_SearchStateSearching) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? query = null,
+    Object? tab = null,
+  }) {
+    return _then(_$_SearchStateSearching(
+      query: null == query
+          ? _value.query
+          : query // ignore: cast_nullable_to_non_nullable
+              as String,
+      tab: null == tab
+          ? _value.tab
+          : tab // ignore: cast_nullable_to_non_nullable
+              as SearchTab,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_SearchStateSearching extends _SearchStateSearching {
+  _$_SearchStateSearching({this.query = '', this.tab = SearchTab.all})
+      : super._();
+
+  @override
+  @JsonKey()
+  final String query;
+  @override
+  @JsonKey()
+  final SearchTab tab;
+
+  @override
+  String toString() {
+    return 'SearchState.searching(query: $query, tab: $tab)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_SearchStateSearching &&
+            (identical(other.query, query) || other.query == query) &&
+            (identical(other.tab, tab) || other.tab == tab));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, query, tab);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_SearchStateSearchingCopyWith<_$_SearchStateSearching> get copyWith =>
+      __$$_SearchStateSearchingCopyWithImpl<_$_SearchStateSearching>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(String message) error,
+    required TResult Function(List<CategoryModel> categoryList)
+        loadedCategories,
+    required TResult Function(List<String> queries) recentSearch,
+    required TResult Function(String query, SearchTab tab) searching,
+    required TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
+            String query, SearchTab tab)
+        result,
+    required TResult Function() empty,
+  }) {
+    return searching(query, tab);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(String message)? error,
+    TResult? Function(List<CategoryModel> categoryList)? loadedCategories,
+    TResult? Function(List<String> queries)? recentSearch,
+    TResult? Function(String query, SearchTab tab)? searching,
+    TResult? Function(Map<SearchTab, List<CatalogItemModel>> result,
+            String query, SearchTab tab)?
+        result,
+    TResult? Function()? empty,
+  }) {
+    return searching?.call(query, tab);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(String message)? error,
+    TResult Function(List<CategoryModel> categoryList)? loadedCategories,
+    TResult Function(List<String> queries)? recentSearch,
+    TResult Function(String query, SearchTab tab)? searching,
+    TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
+            String query, SearchTab tab)?
+        result,
+    TResult Function()? empty,
+    required TResult orElse(),
+  }) {
+    if (searching != null) {
+      return searching(query, tab);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_InitialSearchState value) initial,
+    required TResult Function(_ErrorSearchState value) error,
+    required TResult Function(LoadedCategoriesState value) loadedCategories,
+    required TResult Function(_SearchStateRecentSearch value) recentSearch,
+    required TResult Function(_SearchStateSearching value) searching,
+    required TResult Function(_SearchStateResult value) result,
+    required TResult Function(_SearchStateEmpty value) empty,
+  }) {
+    return searching(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_InitialSearchState value)? initial,
+    TResult? Function(_ErrorSearchState value)? error,
+    TResult? Function(LoadedCategoriesState value)? loadedCategories,
+    TResult? Function(_SearchStateRecentSearch value)? recentSearch,
+    TResult? Function(_SearchStateSearching value)? searching,
+    TResult? Function(_SearchStateResult value)? result,
+    TResult? Function(_SearchStateEmpty value)? empty,
+  }) {
+    return searching?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_InitialSearchState value)? initial,
+    TResult Function(_ErrorSearchState value)? error,
+    TResult Function(LoadedCategoriesState value)? loadedCategories,
+    TResult Function(_SearchStateRecentSearch value)? recentSearch,
+    TResult Function(_SearchStateSearching value)? searching,
+    TResult Function(_SearchStateResult value)? result,
+    TResult Function(_SearchStateEmpty value)? empty,
+    required TResult orElse(),
+  }) {
+    if (searching != null) {
+      return searching(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SearchStateSearching extends SearchState {
+  factory _SearchStateSearching({final String query, final SearchTab tab}) =
+      _$_SearchStateSearching;
+  _SearchStateSearching._() : super._();
+
+  String get query;
+  SearchTab get tab;
+  @JsonKey(ignore: true)
+  _$$_SearchStateSearchingCopyWith<_$_SearchStateSearching> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_SearchStateResultCopyWith<$Res> {
+  factory _$$_SearchStateResultCopyWith(_$_SearchStateResult value,
+          $Res Function(_$_SearchStateResult) then) =
+      __$$_SearchStateResultCopyWithImpl<$Res>;
+  @useResult
+  $Res call(
+      {Map<SearchTab, List<CatalogItemModel>> result,
+      String query,
+      SearchTab tab});
+}
+
+/// @nodoc
+class __$$_SearchStateResultCopyWithImpl<$Res>
+    extends _$SearchStateCopyWithImpl<$Res, _$_SearchStateResult>
+    implements _$$_SearchStateResultCopyWith<$Res> {
+  __$$_SearchStateResultCopyWithImpl(
+      _$_SearchStateResult _value, $Res Function(_$_SearchStateResult) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? result = null,
+    Object? query = null,
+    Object? tab = null,
+  }) {
+    return _then(_$_SearchStateResult(
+      result: null == result
+          ? _value._result
+          : result // ignore: cast_nullable_to_non_nullable
+              as Map<SearchTab, List<CatalogItemModel>>,
+      query: null == query
+          ? _value.query
+          : query // ignore: cast_nullable_to_non_nullable
+              as String,
+      tab: null == tab
+          ? _value.tab
+          : tab // ignore: cast_nullable_to_non_nullable
+              as SearchTab,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_SearchStateResult extends _SearchStateResult {
+  _$_SearchStateResult(
+      {required final Map<SearchTab, List<CatalogItemModel>> result,
+      this.query = '',
+      this.tab = SearchTab.all})
+      : _result = result,
+        super._();
+
+  final Map<SearchTab, List<CatalogItemModel>> _result;
+  @override
+  Map<SearchTab, List<CatalogItemModel>> get result {
+    if (_result is EqualUnmodifiableMapView) return _result;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_result);
+  }
+
+  @override
+  @JsonKey()
+  final String query;
+  @override
+  @JsonKey()
+  final SearchTab tab;
+
+  @override
+  String toString() {
+    return 'SearchState.result(result: $result, query: $query, tab: $tab)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_SearchStateResult &&
+            const DeepCollectionEquality().equals(other._result, _result) &&
+            (identical(other.query, query) || other.query == query) &&
+            (identical(other.tab, tab) || other.tab == tab));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_result), query, tab);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_SearchStateResultCopyWith<_$_SearchStateResult> get copyWith =>
+      __$$_SearchStateResultCopyWithImpl<_$_SearchStateResult>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(String message) error,
+    required TResult Function(List<CategoryModel> categoryList)
+        loadedCategories,
+    required TResult Function(List<String> queries) recentSearch,
+    required TResult Function(String query, SearchTab tab) searching,
+    required TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
+            String query, SearchTab tab)
+        result,
+    required TResult Function() empty,
+  }) {
+    return result(this.result, query, tab);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(String message)? error,
+    TResult? Function(List<CategoryModel> categoryList)? loadedCategories,
+    TResult? Function(List<String> queries)? recentSearch,
+    TResult? Function(String query, SearchTab tab)? searching,
+    TResult? Function(Map<SearchTab, List<CatalogItemModel>> result,
+            String query, SearchTab tab)?
+        result,
+    TResult? Function()? empty,
+  }) {
+    return result?.call(this.result, query, tab);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(String message)? error,
+    TResult Function(List<CategoryModel> categoryList)? loadedCategories,
+    TResult Function(List<String> queries)? recentSearch,
+    TResult Function(String query, SearchTab tab)? searching,
+    TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
+            String query, SearchTab tab)?
+        result,
+    TResult Function()? empty,
+    required TResult orElse(),
+  }) {
+    if (result != null) {
+      return result(this.result, query, tab);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_InitialSearchState value) initial,
+    required TResult Function(_ErrorSearchState value) error,
+    required TResult Function(LoadedCategoriesState value) loadedCategories,
+    required TResult Function(_SearchStateRecentSearch value) recentSearch,
+    required TResult Function(_SearchStateSearching value) searching,
+    required TResult Function(_SearchStateResult value) result,
+    required TResult Function(_SearchStateEmpty value) empty,
+  }) {
+    return result(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_InitialSearchState value)? initial,
+    TResult? Function(_ErrorSearchState value)? error,
+    TResult? Function(LoadedCategoriesState value)? loadedCategories,
+    TResult? Function(_SearchStateRecentSearch value)? recentSearch,
+    TResult? Function(_SearchStateSearching value)? searching,
+    TResult? Function(_SearchStateResult value)? result,
+    TResult? Function(_SearchStateEmpty value)? empty,
+  }) {
+    return result?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_InitialSearchState value)? initial,
+    TResult Function(_ErrorSearchState value)? error,
+    TResult Function(LoadedCategoriesState value)? loadedCategories,
+    TResult Function(_SearchStateRecentSearch value)? recentSearch,
+    TResult Function(_SearchStateSearching value)? searching,
+    TResult Function(_SearchStateResult value)? result,
+    TResult Function(_SearchStateEmpty value)? empty,
+    required TResult orElse(),
+  }) {
+    if (result != null) {
+      return result(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SearchStateResult extends SearchState {
+  factory _SearchStateResult(
+      {required final Map<SearchTab, List<CatalogItemModel>> result,
+      final String query,
+      final SearchTab tab}) = _$_SearchStateResult;
+  _SearchStateResult._() : super._();
+
+  Map<SearchTab, List<CatalogItemModel>> get result;
+  String get query;
+  SearchTab get tab;
+  @JsonKey(ignore: true)
+  _$$_SearchStateResultCopyWith<_$_SearchStateResult> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_SearchStateEmptyCopyWith<$Res> {
+  factory _$$_SearchStateEmptyCopyWith(
+          _$_SearchStateEmpty value, $Res Function(_$_SearchStateEmpty) then) =
+      __$$_SearchStateEmptyCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_SearchStateEmptyCopyWithImpl<$Res>
+    extends _$SearchStateCopyWithImpl<$Res, _$_SearchStateEmpty>
+    implements _$$_SearchStateEmptyCopyWith<$Res> {
+  __$$_SearchStateEmptyCopyWithImpl(
+      _$_SearchStateEmpty _value, $Res Function(_$_SearchStateEmpty) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_SearchStateEmpty extends _SearchStateEmpty {
+  _$_SearchStateEmpty() : super._();
+
+  @override
+  String toString() {
+    return 'SearchState.empty()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_SearchStateEmpty);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(String message) error,
+    required TResult Function(List<CategoryModel> categoryList)
+        loadedCategories,
+    required TResult Function(List<String> queries) recentSearch,
+    required TResult Function(String query, SearchTab tab) searching,
+    required TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
+            String query, SearchTab tab)
+        result,
+    required TResult Function() empty,
+  }) {
+    return empty();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(String message)? error,
+    TResult? Function(List<CategoryModel> categoryList)? loadedCategories,
+    TResult? Function(List<String> queries)? recentSearch,
+    TResult? Function(String query, SearchTab tab)? searching,
+    TResult? Function(Map<SearchTab, List<CatalogItemModel>> result,
+            String query, SearchTab tab)?
+        result,
+    TResult? Function()? empty,
+  }) {
+    return empty?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(String message)? error,
+    TResult Function(List<CategoryModel> categoryList)? loadedCategories,
+    TResult Function(List<String> queries)? recentSearch,
+    TResult Function(String query, SearchTab tab)? searching,
+    TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
+            String query, SearchTab tab)?
+        result,
+    TResult Function()? empty,
+    required TResult orElse(),
+  }) {
+    if (empty != null) {
+      return empty();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_InitialSearchState value) initial,
+    required TResult Function(_ErrorSearchState value) error,
+    required TResult Function(LoadedCategoriesState value) loadedCategories,
+    required TResult Function(_SearchStateRecentSearch value) recentSearch,
+    required TResult Function(_SearchStateSearching value) searching,
+    required TResult Function(_SearchStateResult value) result,
+    required TResult Function(_SearchStateEmpty value) empty,
+  }) {
+    return empty(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_InitialSearchState value)? initial,
+    TResult? Function(_ErrorSearchState value)? error,
+    TResult? Function(LoadedCategoriesState value)? loadedCategories,
+    TResult? Function(_SearchStateRecentSearch value)? recentSearch,
+    TResult? Function(_SearchStateSearching value)? searching,
+    TResult? Function(_SearchStateResult value)? result,
+    TResult? Function(_SearchStateEmpty value)? empty,
+  }) {
+    return empty?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_InitialSearchState value)? initial,
+    TResult Function(_ErrorSearchState value)? error,
+    TResult Function(LoadedCategoriesState value)? loadedCategories,
+    TResult Function(_SearchStateRecentSearch value)? recentSearch,
+    TResult Function(_SearchStateSearching value)? searching,
+    TResult Function(_SearchStateResult value)? result,
+    TResult Function(_SearchStateEmpty value)? empty,
+    required TResult orElse(),
+  }) {
+    if (empty != null) {
+      return empty(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SearchStateEmpty extends SearchState {
+  factory _SearchStateEmpty() = _$_SearchStateEmpty;
+  _SearchStateEmpty._() : super._();
 }

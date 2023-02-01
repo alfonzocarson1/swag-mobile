@@ -23,7 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "access_photos": MessageLookupByLibrary.simpleMessage("CHOOSE PHOTO"),
-        "accessories": MessageLookupByLibrary.simpleMessage("ACCESSORIES"),
+        "accessories": MessageLookupByLibrary.simpleMessage("Accesories"),
         "acquired": MessageLookupByLibrary.simpleMessage("Acquired:"),
         "already_have_an_account": MessageLookupByLibrary.simpleMessage(
             "Already have an account? *Sign In*"),
@@ -65,7 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Enter your email to reset your password."),
         "get_an_email":
             MessageLookupByLibrary.simpleMessage("Didn’t get an email?"),
-        "headcovers": MessageLookupByLibrary.simpleMessage("HEADCOVERS"),
+        "headcovers": MessageLookupByLibrary.simpleMessage("Headcovers"),
         "import_late": MessageLookupByLibrary.simpleMessage(
             "*You’ll be able to make updates later."),
         "incorrect_email_or_password": MessageLookupByLibrary.simpleMessage(
@@ -102,8 +102,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "popup_title": MessageLookupByLibrary.simpleMessage("WELCOME @"),
         "privacy_policy_text": MessageLookupByLibrary.simpleMessage(
             "I agree to Swag’s *Privacy Policy* \n& *Terms of Use*"),
-        "putters": MessageLookupByLibrary.simpleMessage("PUTTERS"),
+        "putters": MessageLookupByLibrary.simpleMessage("Putters"),
         "rarity_score": MessageLookupByLibrary.simpleMessage("RARITY SCORE: "),
+        "recent_searches":
+            MessageLookupByLibrary.simpleMessage("RECENT SEARCHES"),
         "released": MessageLookupByLibrary.simpleMessage("Released:"),
         "released_type": MessageLookupByLibrary.simpleMessage("Release Type:"),
         "required_field":
@@ -118,6 +120,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please enter and confirm your new password below."),
         "retail": MessageLookupByLibrary.simpleMessage("Retail:"),
         "sales_history": MessageLookupByLibrary.simpleMessage("SALES HISTORY"),
+        "save_search": MessageLookupByLibrary.simpleMessage("Save Search"),
+        "saved_searches":
+            MessageLookupByLibrary.simpleMessage("SAVED SEARCHES"),
         "search_hint": MessageLookupByLibrary.simpleMessage(
             "Search name, style, color etc"),
         "second_address":
@@ -127,6 +132,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sell_for": MessageLookupByLibrary.simpleMessage("SELL FOR"),
         "sign_in": MessageLookupByLibrary.simpleMessage("SIGN IN"),
         "similar_items": MessageLookupByLibrary.simpleMessage("SIMILAR ITEMS"),
+        "sort": MessageLookupByLibrary.simpleMessage("Sort:"),
         "state": MessageLookupByLibrary.simpleMessage("State"),
         "subtitle_welcome":
             MessageLookupByLibrary.simpleMessage("Let’s create your profile!"),
@@ -142,7 +148,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "verify_name": MessageLookupByLibrary.simpleMessage("@MRDOUG"),
         "view_less": MessageLookupByLibrary.simpleMessage("View less details"),
         "view_more": MessageLookupByLibrary.simpleMessage("View more details"),
-        "whats_hot": MessageLookupByLibrary.simpleMessage("WHAT\'S HOT"),
+        "whats_hot": MessageLookupByLibrary.simpleMessage("What\'s Hot"),
         "zip": MessageLookupByLibrary.simpleMessage("ZIP/Postal Code")
       };
 }

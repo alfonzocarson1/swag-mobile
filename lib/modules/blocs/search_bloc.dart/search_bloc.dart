@@ -16,9 +16,7 @@ part 'search_state.dart';
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   final ISearchService searchService;
 
-  SearchBloc(this.searchService) : super(SearchState.initial()) {
-    add(const SearchEvent.getCatalogItems());
-  }
+  SearchBloc(this.searchService) : super(SearchState.initial());
 
   Stream<SearchState> get authStateStream async* {
     yield state;
@@ -28,9 +26,12 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   @override
   Stream<SearchState> mapEventToState(SearchEvent event) async* {
     yield* event.when(
-      getCatalogItems: _getCatalogItems,
-      getCategories: _getCategories,
-    );
+        getCategories: _getCategories, reset: _reset, search: _search);
+  }
+
+  Stream<SearchState> _reset() async* {
+    // await _searchStreamSubscription?.cancel();
+    // yield SearchState.recentSearch(queries: _getSearchQuerySuggestion());
   }
 
   Stream<SearchState> _getCategories() async* {
@@ -55,8 +56,12 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
   }
 
-  Stream<SearchState> _getCatalogItems() async* {
+  Stream<SearchState> _search(final String term) async* {
+    // if (state.query == term) return;
     yield SearchState.initial();
+
+    // const tab = SearchTab.all;
+    // yield SearchState.searching(query: term, tab: tab);
     try {
       await Future.delayed(const Duration(milliseconds: 2000), () {});
       // await searchService.getCatatogItems();
@@ -160,7 +165,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       ];
       final response =
           responseBody.map((i) => CatalogItemModel.fromJson(i)).toList();
-      yield SearchState.loadedCatalogItems(catalogList: response);
+      yield SearchState.result(result: {SearchTab.all: response}, query: term);
     } catch (e) {
       yield SearchState.error(HandlingErrors().getError(e));
     }
