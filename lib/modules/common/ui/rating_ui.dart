@@ -22,19 +22,19 @@ class StarRating extends StatelessWidget {
     if (index >= rating) {
       icon = Icon(
         Icons.star,
-        size: 16,
+        size: 15,
         color: Palette.current.gray4,
       );
     } else if (index > rating - 1 && index < rating) {
       icon = Icon(
         Icons.star_half,
-        size: 16,
+        size: 15,
         color: color ?? Palette.current.primaryNeonGreen,
       );
     } else {
       icon = Icon(
         Icons.star,
-        size: 16,
+        size: 15,
         color: color ?? Palette.current.primaryNeonGreen,
       );
     }

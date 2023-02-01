@@ -113,6 +113,9 @@ class _CollectionPageState extends State<CollectionPage> {
                                   ],
                                 ),
                               ),
+                              const SizedBox(
+                                height: 5,
+                              ),
                               Text(S.of(context).add_new_item,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
@@ -131,8 +134,10 @@ class _CollectionPageState extends State<CollectionPage> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              GestureDetector(
-                                onTap: () {},
+                              Container(
+                                height: _responsiveDesign.responsiveProfileCard(
+                                    context, 620),
+                                color: Colors.black,
                                 child: Stack(
                                   children: [
                                     CachedNetworkImage(
@@ -188,9 +193,12 @@ class _CollectionPageState extends State<CollectionPage> {
                                               ),
                                             ),
                                           )),
-                                    ),
+                                    )
                                   ],
                                 ),
+                              ),
+                              const SizedBox(
+                                height: 5,
                               ),
                               Text(collectionList[index - 1].catalogItemName,
                                   maxLines: 1,

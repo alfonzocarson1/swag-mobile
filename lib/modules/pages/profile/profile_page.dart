@@ -89,6 +89,13 @@ class _ProfilePageState extends State<ProfilePage>
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TabBar(
                 controller: _tabController,
+                indicator: UnderlineTabIndicator(
+                    borderSide: BorderSide(
+                      width: 3,
+                      color: Palette.current.primaryNeonGreen,
+                    ),
+                    insets: const EdgeInsets.only(left: 0, right: 0)),
+                labelPadding: const EdgeInsets.only(left: 0, right: 0),
                 labelColor: Palette.current.primaryNeonGreen,
                 unselectedLabelColor: Palette.current.primaryWhiteSmoke,
                 unselectedLabelStyle: Theme.of(context)
@@ -96,7 +103,7 @@ class _ProfilePageState extends State<ProfilePage>
                     .headlineMedium!
                     .copyWith(
                         fontFamily: "Knockout",
-                        letterSpacing: 1.1,
+                        letterSpacing: 1.5,
                         fontSize: 21,
                         fontWeight: FontWeight.w300),
                 labelStyle: Theme.of(context)
@@ -104,15 +111,17 @@ class _ProfilePageState extends State<ProfilePage>
                     .headlineMedium!
                     .copyWith(
                         fontFamily: "Knockout",
-                        letterSpacing: 1.0,
+                        letterSpacing: 1.5,
                         fontSize: 21,
                         fontWeight: FontWeight.w300),
                 tabs: [
                   Tab(
-                    child: _buildTab(
-                      text: S.of(context).tab_collection,
+                      child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      S.of(context).tab_collection,
                     ),
-                  ),
+                  )),
                   Tab(
                     child: _buildTab(
                       text: S.of(context).tab_listings,
@@ -124,10 +133,12 @@ class _ProfilePageState extends State<ProfilePage>
                     ),
                   ),
                   Tab(
-                    child: _buildTab(
-                      text: S.of(context).tab_sold,
+                      child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      S.of(context).tab_sold,
                     ),
-                  ),
+                  )),
                 ],
               ),
             ),
