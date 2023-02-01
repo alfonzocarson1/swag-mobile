@@ -14,6 +14,7 @@ import '../blocs/explore_bloc/explore_bloc.dart';
 import '../blocs/favorite_bloc/favorite_bloc.dart';
 import '../blocs/listing_bloc/listing_bloc.dart';
 import '../blocs/profile_favorite_bloc/profile_favorite_bloc.dart';
+import '../blocs/sold_bloc/sold_bloc.dart';
 import '../data/auth/auth_service.dart';
 import '../data/collection/collection_service.dart';
 import '../data/collection/i_collection_service.dart';
@@ -26,6 +27,8 @@ import '../data/favorite/i_favorite_service.dart';
 import '../data/listing/i_listing_service.dart';
 import '../data/listing/listing_service.dart';
 import '../data/shared_preferences/shared_preferences_service.dart';
+import '../data/sold/i_sold_service.dart';
+import '../data/sold/sold_service.dart';
 
 final getIt = GetIt.instance;
 
@@ -69,6 +72,9 @@ Future<void> setupAppScope() {
       () => FavoriteService(APIService()));
   getIt.registerLazySingleton<ProfileFavoriteBloc>(
       () => ProfileFavoriteBloc(getIt<IFavoriteService>()));
+
+  getIt.registerLazySingleton<ISoldService>(() => SoldService(APIService()));
+  getIt.registerLazySingleton<SoldBloc>(() => SoldBloc(getIt<ISoldService>()));
 
   return getIt.allReady();
 }
