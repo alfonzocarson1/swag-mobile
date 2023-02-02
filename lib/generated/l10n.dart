@@ -570,40 +570,40 @@ class S {
     );
   }
 
-  /// `WHAT'S HOT`
+  /// `What's Hot`
   String get whats_hot {
     return Intl.message(
-      'WHAT\'S HOT',
+      'What\'s Hot',
       name: 'whats_hot',
       desc: '',
       args: [],
     );
   }
 
-  /// `HEADCOVERS`
+  /// `Headcovers`
   String get headcovers {
     return Intl.message(
-      'HEADCOVERS',
+      'Headcovers',
       name: 'headcovers',
       desc: '',
       args: [],
     );
   }
 
-  /// `PUTTERS`
+  /// `Putters`
   String get putters {
     return Intl.message(
-      'PUTTERS',
+      'Putters',
       name: 'putters',
       desc: '',
       args: [],
     );
   }
 
-  /// `ACCESSORIES`
+  /// `Accesories`
   String get accessories {
     return Intl.message(
-      'ACCESSORIES',
+      'Accesories',
       name: 'accessories',
       desc: '',
       args: [],
@@ -925,6 +925,46 @@ class S {
     return Intl.message(
       'ADD NEW ITEM',
       name: 'add_new_item',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `RECENT SEARCHES`
+  String get recent_searches {
+    return Intl.message(
+      'RECENT SEARCHES',
+      name: 'recent_searches',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SAVED SEARCHES`
+  String get saved_searches {
+    return Intl.message(
+      'SAVED SEARCHES',
+      name: 'saved_searches',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save Search`
+  String get save_search {
+    return Intl.message(
+      'Save Search',
+      name: 'save_search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sort:`
+  String get sort {
+    return Intl.message(
+      'Sort:',
+      name: 'sort',
       desc: '',
       args: [],
     );

@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/blocs/search_bloc.dart/search_bloc.dart';
-import 'package:swagapp/modules/common/ui/loading.dart';
+
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/models/search/catalog_item_model.dart';
 import '../../common/ui/catalog_ui.dart';
+import '../../common/ui/loading.dart';
 import '../../common/utils/custom_route_animations.dart';
 
 class WhatsHotPage extends StatefulWidget {
@@ -23,8 +24,14 @@ class WhatsHotPage extends StatefulWidget {
 }
 
 class _WhatsHotPageState extends State<WhatsHotPage> {
-  late final ScrollController? _scrollController =
+  late final ScrollController _scrollController =
       PrimaryScrollController.of(context);
+
+  @override
+  void initState() {
+    super.initState();
+    makeCall();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +62,8 @@ class _WhatsHotPageState extends State<WhatsHotPage> {
                       itemCount: 0,
                     ));
               },
-              loadedCatalogItems: (state) {
-                return _getBody(state.catalogList);
+              result: (state) {
+                return _getBody(state.result[SearchTab.all] ?? []);
               },
             );
           },
@@ -89,6 +96,6 @@ class _WhatsHotPageState extends State<WhatsHotPage> {
   }
 
   void makeCall() {
-    context.read<SearchBloc>().add(const SearchEvent.getCatalogItems());
+    context.read<SearchBloc>().add(const SearchEvent.search(''));
   }
 }

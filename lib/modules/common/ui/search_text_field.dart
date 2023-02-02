@@ -56,8 +56,9 @@ class _SearchTextFieldState extends State<SearchTextField> {
           height: 55,
           decoration: BoxDecoration(color: Palette.current.primaryNero),
           child: Padding(
-            padding: const EdgeInsets.only(left: 16, top: 10, bottom: 8),
+            padding: const EdgeInsets.only(left: 16, top: 7, bottom: 5),
             child: TextField(
+              maxLines: 1,
               enabled: widget.isEnabled,
               autofocus: widget.autofocus,
               maxLength: widget.maxLength,
@@ -72,10 +73,12 @@ class _SearchTextFieldState extends State<SearchTextField> {
               decoration: InputDecoration(
                   hintText: widget.helperText,
                   hintStyle: widget.style,
-                  icon: Padding(
-                    padding: const EdgeInsets.only(bottom: 6.0),
-                    child: widget.prefixIcon,
-                  ),
+                  icon: widget.prefixIcon != null
+                      ? Padding(
+                          padding: const EdgeInsets.only(bottom: 6.0),
+                          child: widget.prefixIcon,
+                        )
+                      : null,
                   border: InputBorder.none,
                   suffixIcon: widget.suffixIcon),
             ),

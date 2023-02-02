@@ -61,8 +61,8 @@ class _PuttersPageState extends State<PuttersPage> {
                       itemCount: 0,
                     ));
               },
-              loadedCatalogItems: (state) {
-                return _getBody(state.catalogList);
+              result: (state) {
+                return _getBody(state.result[SearchTab.all] ?? []);
               },
             );
           },
@@ -95,6 +95,6 @@ class _PuttersPageState extends State<PuttersPage> {
   }
 
   void makeCall() {
-    context.read<SearchBloc>().add(const SearchEvent.getCatalogItems());
+    context.read<SearchBloc>().add(const SearchEvent.search(''));
   }
 }

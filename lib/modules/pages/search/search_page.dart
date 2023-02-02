@@ -4,7 +4,6 @@ import 'package:swagapp/modules/common/ui/pushed_header.dart';
 import 'package:swagapp/modules/common/ui/search_input.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/pages/search/accessories_page.dart';
-import 'package:swagapp/modules/pages/search/account_info.dart';
 import 'package:swagapp/modules/pages/search/headcovers_page.dart';
 import 'package:swagapp/modules/pages/search/putters_page.dart';
 import 'package:swagapp/modules/pages/search/search_on_tap_page.dart';
@@ -33,7 +32,6 @@ class _SearchPageState extends State<SearchPage>
   int selectedIndex = 0;
   final TextEditingController _textEditingController = TextEditingController();
 
-  bool _isLogged = false;
   @override
   void initState() {
     super.initState();
@@ -64,46 +62,59 @@ class _SearchPageState extends State<SearchPage>
                 _searchField(context, S.of(context).search_hint),
                 Container(
                   color: Palette.current.darkGray,
-                  height: 0.5,
+                  height: 0.2,
                 ),
-                _getTabBar(context),
               ],
             ),
-            height: 120,
+            height: 62,
           ),
           backgroundColor: Palette.current.primaryNero,
-          body: TabBarView(controller: _controller, children: const [
+          body: getBody()),
+    );
+  }
+
+  Widget getBody() {
+    return Column(
+      children: [
+        _getTabBar(context),
+        Expanded(
+          child: TabBarView(controller: _controller, children: const [
             WhatsHotPage(),
             HeadcoversPage(),
             PuttersPage(),
             AccessoriesPage()
-          ])),
+          ]),
+        ),
+      ],
     );
   }
 
   Widget _searchField(BuildContext context, String title) {
     return Row(
       children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 16.0, top: 4),
+          child: Image.asset(
+            "assets/icons/Search.png",
+            height: 20,
+            width: 20,
+          ),
+        ),
         Expanded(
           child: InkWell(
             onTap: () {
               Navigator.of(context, rootNavigator: true)
-                  .push(SearchOnTapPage.route(_textEditingController));
+                  .push(SearchOnTapPage.route()); //_textEditingController
             },
             child: SearchInput(
-                showIconAlways: true,
-                prefixIcon: Image.asset(
-                  "assets/icons/Search.png",
-                  height: 24,
-                  width: 24,
-                ),
+                prefixIcon: null,
                 suffixIcon: null,
                 enabled: false,
                 controller: _textEditingController,
                 hint: title,
                 resultViewBuilder: (_, controller) => Container(),
                 onCancel: () {
-                  _textEditingController.text = '';
+                  // _textEditingController.text = '';
                   // context
                   //     .read<CategoryBloc>()
                   //     .add(const CategoryEvent.refresh());
@@ -111,20 +122,27 @@ class _SearchPageState extends State<SearchPage>
                 }),
           ),
         ),
-        IconButton(
-          onPressed: () {},
-          icon: Image.asset(
-            "assets/icons/ForSale.png",
-            height: 24,
-            width: 24,
-          ),
-        ),
-        IconButton(
-          onPressed: () {},
-          icon: Image.asset(
-            "assets/icons/Filter.png",
-            height: 24,
-            width: 24,
+        Padding(
+          padding: const EdgeInsets.only(top: 4.0),
+          child: Row(
+            children: [
+              IconButton(
+                onPressed: () {},
+                icon: Image.asset(
+                  "assets/icons/ForSale.png",
+                  height: 20,
+                  width: 20,
+                ),
+              ),
+              IconButton(
+                onPressed: () {},
+                icon: Image.asset(
+                  "assets/icons/Filter.png",
+                  height: 20,
+                  width: 20,
+                ),
+              ),
+            ],
           ),
         ),
       ],
@@ -155,22 +173,22 @@ class _SearchPageState extends State<SearchPage>
         tabs: [
           Tab(
             child: _buildTab(
-              text: S.of(context).whats_hot,
+              text: S.of(context).whats_hot.toUpperCase(),
             ),
           ),
           Tab(
             child: _buildTab(
-              text: S.of(context).headcovers,
+              text: S.of(context).headcovers.toUpperCase(),
             ),
           ),
           Tab(
             child: _buildTab(
-              text: S.of(context).putters,
+              text: S.of(context).putters.toUpperCase(),
             ),
           ),
           Tab(
             child: _buildTab(
-              text: S.of(context).accessories,
+              text: S.of(context).accessories.toUpperCase(),
             ),
           ),
         ],

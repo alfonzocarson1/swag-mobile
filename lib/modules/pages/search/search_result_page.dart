@@ -1,0 +1,241 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swagapp/generated/l10n.dart';
+import 'package:swagapp/modules/common/ui/pushed_header.dart';
+import 'package:swagapp/modules/common/ui/search_input.dart';
+import 'package:swagapp/modules/common/utils/palette.dart';
+import 'package:swagapp/modules/pages/search/search_on_tap_page.dart';
+
+import '../../blocs/search_bloc.dart/search_bloc.dart';
+import '../../common/ui/catalog_ui.dart';
+import '../../common/ui/loading.dart';
+import '../../common/utils/custom_route_animations.dart';
+import '../../models/search/catalog_item_model.dart';
+
+class SearchResultPage extends StatefulWidget {
+  static const name = '/SearchResult';
+  final TextEditingController _textEditingController;
+  const SearchResultPage(this._textEditingController, {Key? key})
+      : super(key: key);
+
+  static Route route(TextEditingController textEditingController) =>
+      PageRoutes.material(
+        settings: const RouteSettings(name: name),
+        builder: (context) => SearchResultPage(textEditingController),
+      );
+
+  @override
+  State<SearchResultPage> createState() => _SearchResultPageState();
+}
+
+class _SearchResultPageState extends State<SearchResultPage>
+    with
+        TickerProviderStateMixin,
+        AutomaticKeepAliveClientMixin<SearchResultPage> {
+  @override
+  bool get wantKeepAlive => true;
+  int selectedIndex = 0;
+  late final ScrollController _scrollController =
+      PrimaryScrollController.of(context);
+
+  @override
+  void initState() {
+    super.initState();
+    makeCall();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    return Scaffold(
+        appBar: PushedHeader(
+          customWidget: Column(
+            children: [
+              _searchField(context, S.of(context).search_hint),
+              Container(
+                color: Palette.current.darkGray,
+                height: 0.2,
+              ),
+            ],
+          ),
+          height: 62,
+        ),
+        backgroundColor: Palette.current.primaryNero,
+        body: BlocConsumer<SearchBloc, SearchState>(
+          listener: (context, state) => state.maybeWhen(
+            orElse: () => {Loading.hide(context)},
+            error: (message) => {
+              Loading.hide(context),
+              // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
+            },
+            initial: () {
+              return Loading.show(context);
+            },
+          ),
+          builder: (context, state) {
+            return state.maybeMap(
+              orElse: () => const Center(),
+              error: (_) {
+                return RefreshIndicator(
+                    onRefresh: () async {
+                      makeCall();
+                      return Future.delayed(const Duration(milliseconds: 1500));
+                    },
+                    child: ListView.builder(
+                      itemBuilder: (_, index) => Container(),
+                      itemCount: 0,
+                    ));
+              },
+              initial: (state) {
+                return getBody([]);
+              },
+              result: (state) {
+                return getBody(state.result[SearchTab.all] ?? []);
+              },
+            );
+          },
+        ));
+  }
+
+  Widget getBody(List<CatalogItemModel> catalogList) {
+    return Column(
+      children: [
+        _getActionHeader(),
+        Expanded(child: _getCatalogList(catalogList)),
+      ],
+    );
+  }
+
+  SizedBox _getActionHeader() {
+    return SizedBox(
+      height: 50,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            TextButton.icon(
+              icon: Image.asset(
+                "assets/icons/heart.png",
+                height: 22,
+                width: 22,
+              ),
+              label: Text(S.of(context).save_search),
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.transparent,
+                foregroundColor: Palette.current.primaryWhiteSmoke,
+                textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    // fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                    color: Palette.current.primaryWhiteSmoke),
+              ),
+              onPressed: () {},
+            ),
+            Text(
+              "Sort: Release Date",
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  // fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                  color: Palette.current.primaryWhiteSmoke),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _getCatalogList(List<CatalogItemModel> catalogList) {
+    return RefreshIndicator(
+      onRefresh: () async {
+        makeCall();
+        return Future.delayed(const Duration(milliseconds: 1500));
+      },
+      child: catalogList.isNotEmpty
+          ? CatalogPage(
+              catalogItems: catalogList, scrollController: _scrollController)
+          : ListView.builder(
+              itemBuilder: (_, index) => SizedBox(
+                height: MediaQuery.of(context).size.height * 0.7,
+                child: Center(
+                  child: Text(
+                    S.of(context).empty_text,
+                    style: TextStyle(
+                        fontSize: 24, color: Colors.black.withOpacity(0.50)),
+                  ),
+                ),
+              ),
+              itemCount: 1,
+            ),
+    );
+  }
+
+  void makeCall() {
+    context.read<SearchBloc>().add(const SearchEvent.search(''));
+  }
+
+  Widget _searchField(BuildContext context, String title) {
+    return Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 16.0, top: 4),
+          child: InkWell(
+            onTap: () {
+              widget._textEditingController.text = '';
+              Navigator.pop(context);
+            },
+            child: Icon(
+              Icons.arrow_back,
+              color: Palette.current.primaryWhiteSmoke,
+              size: 24,
+            ),
+          ),
+        ),
+        Expanded(
+          child: InkWell(
+            onTap: () {
+              Navigator.of(context, rootNavigator: true)
+                  .push(SearchOnTapPage.route());
+            },
+            child: SearchInput(
+                prefixIcon: null,
+                suffixIcon: null,
+                enabled: false,
+                controller: widget._textEditingController,
+                hint: title,
+                resultViewBuilder: (_, controller) => Container(),
+                onCancel: () {
+                  // _textEditingController.text = '';
+                  // context
+                  //     .read<CategoryBloc>()
+                  //     .add(const CategoryEvent.refresh());
+                  // context.read<SearchBloc>().add(const SearchEvent.reset());
+                }),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 4.0),
+          child: Row(
+            children: [
+              IconButton(
+                onPressed: () {},
+                icon: Image.asset(
+                  "assets/icons/ForSale.png",
+                  height: 20,
+                  width: 20,
+                ),
+              ),
+              IconButton(
+                onPressed: () {},
+                icon: Image.asset(
+                  "assets/icons/Filter.png",
+                  height: 20,
+                  width: 20,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}

@@ -42,8 +42,8 @@ class _SearchInputState extends State<SearchInput> {
   late FocusNode _focusNode;
   late TextEditingController _textEditingController;
 
-  bool get _shouldShowResult =>
-      _focusNode.hasFocus || _textEditingController.text.isNotEmpty;
+  bool get _shouldShowSuffixIcon =>
+      _focusNode.hasFocus; // || _textEditingController.text.isNotEmpty;
 
   void _onChangedField() {
     setState(() {});
@@ -139,20 +139,28 @@ class _SearchInputState extends State<SearchInput> {
             onChanged: widget.onChanged,
             onSubmitted: widget.onSubmitted,
             prefixIcon: widget.prefixIcon,
-            suffixIcon: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 150),
-              child: _shouldShowResult
-                  ? InkWell(
-                      onTap: () {
-                        _focusNode.unfocus();
-                        _textEditingController.clear();
-                        setState(() {});
-                        widget.onCancel?.call();
-                      },
-                      child: widget.suffixIcon,
-                    )
-                  : const SizedBox(),
-            ),
+            suffixIcon: _shouldShowSuffixIcon
+                ? AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 150),
+                    child: SizedBox.fromSize(
+                      size: const Size(56, 56),
+                      child: ClipOval(
+                        child: Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            onTap: () {
+                              _focusNode.unfocus();
+                              _textEditingController.clear();
+                              setState(() {});
+                              widget.onCancel?.call();
+                            },
+                            child: widget.suffixIcon,
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                : null,
           ),
         ),
       ],

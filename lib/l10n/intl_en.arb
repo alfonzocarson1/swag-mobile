@@ -51,10 +51,10 @@
     "camera": "TAKE PHOTO",
     "required_field": "Required field",
     "search_hint": "Search name, style, color etc",
-    "whats_hot": "WHAT'S HOT",
-    "headcovers": "HEADCOVERS",
-    "putters": "PUTTERS",
-    "accessories": "ACCESSORIES",
+    "whats_hot": "What's Hot",
+    "headcovers": "Headcovers",
+    "putters": "Putters",
+    "accessories": "Accesories",
     "last_sale": "LAST SALE",
     "n_a": "N/A",
     "for_sale": "FOR SALE",
@@ -86,6 +86,11 @@
     "resend_verification_email": "RESEND VERIFICATION EMAIL",
     "get_an_email": "Didn’t get an email?",
     "import_late": "*You’ll be able to make updates later.",
-    "add_new_item": "ADD NEW ITEM"
+    "add_new_item": "ADD NEW ITEM",
+    "recent_searches": "RECENT SEARCHES",
+    "saved_searches": "SAVED SEARCHES",
+    "save_search": "Save Search",
+    "sort": "Sort:"
+
 
 }
