@@ -187,28 +187,23 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   void showErrors() {
     setState(() {
       matchPassword = _passwordController.text;
-      errorFirstText = isValidPassword(_passwordController.text)
-          ? null
-          : S.of(context).invalid_password;
+      errorFirstText = _passwordController.text.isEmpty
+          ? S.of(context).required_field
+          : isValidPassword(_passwordController.text)
+              ? null
+              : S.of(context).invalid_password;
 
-      if (_passwordController.text != _confirmPasswordController.text &&
-          _confirmPasswordController.text.isNotEmpty) {
-        errorSecondText = S.of(context).no_match_password;
-        enableButtonSecondPassword = false;
-      } else if (_passwordController.text == _confirmPasswordController.text &&
-          _confirmPasswordController.text.isNotEmpty) {
-        enableButtonSecondPassword = true;
-        errorSecondText = null;
-      } else {
-        errorSecondText = null;
-      }
+      errorSecondText = _confirmPasswordController.text.isEmpty
+          ? S.of(context).required_field
+          : errorFirstText == null && _passwordController.text.isNotEmpty
+              ? _passwordController.text == _confirmPasswordController.text &&
+                      _confirmPasswordController.text.isNotEmpty
+                  ? null
+                  : S.of(context).no_match_password
+              : null;
 
       enableButtonFirstPassword =
           isValidPassword(_passwordController.text) ? true : false;
-
-      errorSecondText = matchPassword == _confirmPasswordController.text
-          ? null
-          : S.of(context).no_match_password;
 
       enableButtonSecondPassword = (errorFirstText == null &&
               matchPassword == _confirmPasswordController.text &&
