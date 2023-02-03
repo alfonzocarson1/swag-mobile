@@ -35,7 +35,7 @@ class _SearchResultPageState extends State<SearchResultPage>
   @override
   bool get wantKeepAlive => true;
   int selectedIndex = 0;
-  late final ScrollController _scrollController =
+  late final ScrollController? _scrollController =
       PrimaryScrollController.of(context);
 
   @override
@@ -152,7 +152,7 @@ class _SearchResultPageState extends State<SearchResultPage>
       },
       child: catalogList.isNotEmpty
           ? CatalogPage(
-              catalogItems: catalogList, scrollController: _scrollController)
+              catalogItems: catalogList, scrollController: _scrollController!)
           : ListView.builder(
               itemBuilder: (_, index) => SizedBox(
                 height: MediaQuery.of(context).size.height * 0.7,
