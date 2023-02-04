@@ -17,8 +17,8 @@ class _AvatarPageState extends State<AvatarPage> {
     return Center(
       child: Stack(children: [
         SizedBox(
-          height: 125,
-          width: 128,
+          height: 150,
+          width: 158,
           child: CircleAvatar(
             backgroundColor: Colors.transparent,
             backgroundImage: image != null
@@ -44,15 +44,17 @@ class _AvatarPageState extends State<AvatarPage> {
                         });
               },
               child: Container(
-                  padding: const EdgeInsets.all(7.5),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(90.0),
-                      color: Palette.current.primaryNeonGreen),
-                  child: Icon(
-                    Icons.add,
-                    size: 24,
-                    color: Palette.current.black,
-                  )),
+                padding: const EdgeInsets.all(7.5),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(90.0),
+                    color: Palette.current.primaryNeonGreen),
+                child: Image.asset(
+                  width: 24,
+                  height: 24,
+                  'assets/images/plus.png',
+                  color: Palette.current.black,
+                ),
+              ),
             ))
       ]),
     );

@@ -57,39 +57,38 @@ class _SoldPageState extends State<SoldPage> {
         ));
   }
 
-  Widget _getBody(List<SoldItemModel> favoriteList) {
+  Widget _getBody(List<SoldItemModel> soldList) {
     return RefreshIndicator(
       onRefresh: () async {
         makeCall();
         return Future.delayed(const Duration(milliseconds: 1500));
       },
-      child: favoriteList.isNotEmpty
-          ? GridView.count(
-              mainAxisSpacing: 0.0,
-              crossAxisSpacing: 0.0,
-              crossAxisCount: 2,
-              childAspectRatio:
-                  _responsiveDesign.responsiveProfileCard(context, 3),
-              shrinkWrap: true,
-              children: List.generate(favoriteList.length, (index) {
-                return Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Container(
-                    color: Colors.transparent,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: _responsiveDesign.responsiveProfileCard(
-                              context, 620),
-                          color: Colors.black,
-                          child: Stack(
-                            children: [
-                              CachedNetworkImage(
-                                imageUrl: favoriteList[index].image,
+      child: soldList.isNotEmpty
+          ? Padding(
+              padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+              child: GridView.builder(
+                shrinkWrap: true,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 12.0,
+                  mainAxisSpacing: 12.0,
+                  mainAxisExtent: 215,
+                ),
+                itemCount: soldList.length,
+                itemBuilder: (_, index) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Stack(
+                        children: [
+                          SizedBox(
+                            height: MediaQuery.of(context).size.width * 0.38,
+                            child: ClipRRect(
+                              child: CachedNetworkImage(
+                                fit: BoxFit.fitHeight,
+                                imageUrl: soldList[index].image,
                                 placeholder: (context, url) => SizedBox(
-                                  height: 360,
+                                  height: 200,
                                   child: Center(
                                     child: CircularProgressIndicator(
                                       color: Palette.current.primaryNeonGreen,
@@ -101,38 +100,38 @@ class _SoldPageState extends State<SoldPage> {
                                     Image.asset(
                                         "assets/images/ProfilePhoto.png"),
                               ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Text(favoriteList[index].catalogItemName,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayLarge!
-                                .copyWith(
-                                    letterSpacing: 1,
-                                    fontWeight: FontWeight.w300,
-                                    fontFamily: "Knockout",
-                                    fontSize: 24,
-                                    color: Palette.current.white)),
-                        Text(favoriteList[index].lastSale,
-                            overflow: TextOverflow.fade,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall!
-                                .copyWith(
-                                    fontWeight: FontWeight.w300,
-                                    fontSize: 13,
-                                    color: Palette.current.primaryNeonGreen)),
-                      ],
-                    ),
-                  ),
-                );
-              }),
+                            ),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Text(soldList[index].catalogItemName,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayLarge!
+                              .copyWith(
+                                  letterSpacing: 1,
+                                  fontWeight: FontWeight.w300,
+                                  fontFamily: "Knockout",
+                                  fontSize: 24,
+                                  color: Palette.current.white)),
+                      Text(soldList[index].lastSale,
+                          overflow: TextOverflow.fade,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 13,
+                                  color: Palette.current.primaryNeonGreen)),
+                    ],
+                  );
+                },
+              ),
             )
           : ListView.builder(
               itemBuilder: (_, index) => SizedBox(
