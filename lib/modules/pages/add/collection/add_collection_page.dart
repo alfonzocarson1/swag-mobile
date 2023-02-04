@@ -19,8 +19,9 @@ class AddCollection extends StatefulWidget {
         isDismissible: true,
         enableDrag: false,
         height: 0.8,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(26),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topRight: Radius.circular(26), topLeft: Radius.circular(26)),
         ),
         settings: const RouteSettings(name: name),
         builder: (context) => const AddCollection(),
@@ -117,7 +118,8 @@ class _AddCollectionState extends State<AddCollection> {
       child: Container(
         decoration: BoxDecoration(
           color: Palette.current.primaryEerieBlack,
-          borderRadius: BorderRadius.circular(26),
+          borderRadius: const BorderRadius.only(
+              topRight: Radius.circular(26), topLeft: Radius.circular(26)),
         ),
         constraints: BoxConstraints(
             minHeight: MediaQuery.of(context).size.height * 0.9,
