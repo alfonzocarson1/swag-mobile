@@ -66,7 +66,7 @@ class _CupertinoDatePickerViewState extends State<CupertinoDatePickerView> {
                           Expanded(
                             flex: 1,
                             child: Padding(
-                              padding: const EdgeInsets.only(right: 4),
+                              padding: const EdgeInsets.only(right: 10),
                               child: Align(
                                 alignment: Alignment.centerRight,
                                 child: Image.asset(

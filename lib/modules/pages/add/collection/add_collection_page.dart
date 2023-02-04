@@ -109,7 +109,6 @@ class _AddCollectionState extends State<AddCollection> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      behavior: HitTestBehavior.opaque,
       onTap: () {
         _purchaseNode.unfocus();
         _conditionNode.unfocus();
@@ -126,8 +125,8 @@ class _AddCollectionState extends State<AddCollection> {
         child: Stack(clipBehavior: Clip.hardEdge, children: [
           LayoutBuilder(builder: (context, viewportConstraints) {
             return SingleChildScrollView(
+                physics: ClampingScrollPhysics(),
                 reverse: false,
-                physics: const AlwaysScrollableScrollPhysics(),
                 child: ConstrainedBox(
                     constraints: BoxConstraints(
                       minHeight: viewportConstraints.maxHeight,
@@ -178,7 +177,7 @@ class _AddCollectionState extends State<AddCollection> {
                             ),
                             Positioned(
                               right: 5,
-                              top: 10,
+                              top: 7,
                               child: IconButton(
                                 iconSize: 30,
                                 color: Palette.current.primaryNeonGreen,
@@ -291,6 +290,9 @@ class _AddCollectionState extends State<AddCollection> {
                                   if (areFieldsValid()) {}
                                 },
                                 type: PrimaryButtonType.green,
+                              ),
+                              const SizedBox(
+                                height: 40,
                               ),
                             ],
                           ),
