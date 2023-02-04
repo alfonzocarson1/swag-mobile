@@ -28,10 +28,13 @@ class _ProfilePageState extends State<ProfilePage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   double rating = 3.5;
+  int _currentIndex = 0;
 
   @override
   void initState() {
     _tabController = TabController(length: 4, vsync: this);
+    _tabController.addListener(_handleTabSelection);
+
     super.initState();
   }
 
@@ -94,7 +97,16 @@ class _ProfilePageState extends State<ProfilePage>
                       width: 3,
                       color: Palette.current.primaryNeonGreen,
                     ),
-                    insets: const EdgeInsets.only(left: 0, right: 0)),
+                    insets: (_currentIndex == 0)
+                        ? const EdgeInsets.only(left: 0, right: 20)
+                        : _currentIndex == 1
+                            ? const EdgeInsets.only(left: 15, right: 15)
+                            : _currentIndex == 2
+                                ? const EdgeInsets.only(left: 29, right: 0)
+                                : _currentIndex == 3
+                                    ? const EdgeInsets.only(left: 55, right: 0)
+                                    : const EdgeInsets.only(left: 0, right: 0)),
+                indicatorSize: TabBarIndicatorSize.label,
                 labelPadding: const EdgeInsets.only(left: 0, right: 0),
                 labelColor: Palette.current.primaryNeonGreen,
                 unselectedLabelColor: Palette.current.primaryWhiteSmoke,
@@ -104,16 +116,16 @@ class _ProfilePageState extends State<ProfilePage>
                     .copyWith(
                         fontFamily: "Knockout",
                         letterSpacing: 1.5,
-                        fontSize: 21,
-                        fontWeight: FontWeight.w300),
+                        fontSize: 22,
+                        fontWeight: FontWeight.w500),
                 labelStyle: Theme.of(context)
                     .textTheme
                     .headlineMedium!
                     .copyWith(
                         fontFamily: "Knockout",
                         letterSpacing: 1.5,
-                        fontSize: 21,
-                        fontWeight: FontWeight.w300),
+                        fontSize: 22,
+                        fontWeight: FontWeight.w500),
                 tabs: [
                   Tab(
                       child: Align(
@@ -128,10 +140,12 @@ class _ProfilePageState extends State<ProfilePage>
                     ),
                   ),
                   Tab(
-                    child: _buildTab(
-                      text: S.of(context).tab_favorites,
+                      child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      S.of(context).tab_favorites,
                     ),
-                  ),
+                  )),
                   Tab(
                       child: Align(
                     alignment: Alignment.centerRight,
@@ -146,6 +160,7 @@ class _ProfilePageState extends State<ProfilePage>
             // tab bar view here
             Expanded(
               child: TabBarView(
+                physics: NeverScrollableScrollPhysics(),
                 controller: _tabController,
                 children: const [
                   CollectionPage(),
@@ -159,6 +174,14 @@ class _ProfilePageState extends State<ProfilePage>
         ),
       ),
     );
+  }
+
+  _handleTabSelection() {
+    if (_tabController.indexIsChanging) {
+      setState(() {
+        _currentIndex = _tabController.index;
+      });
+    }
   }
 }
 

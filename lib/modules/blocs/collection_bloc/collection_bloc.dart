@@ -109,7 +109,7 @@ class CollectionBloc extends Bloc<CollectionEvent, CollectionState> {
           "catalogItemCollections": "string",
           "catalogItemCategoryId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
           "released": "2023-01-11T15:08:07.018Z",
-          "totalMade": 0,
+          "totalMade": 3,
           "retail": "string",
           "sale": true,
           "lastSale": "FOR SALE: \$360.00",
