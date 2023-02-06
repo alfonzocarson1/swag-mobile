@@ -135,17 +135,22 @@ class _ProfilePageState extends State<ProfilePage>
                     ),
                   )),
                   Tab(
+                      child: Padding(
+                    padding: const EdgeInsets.only(left: 10),
                     child: _buildTab(
                       text: S.of(context).tab_listings,
                     ),
-                  ),
-                  Tab(
-                      child: Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      S.of(context).tab_favorites,
-                    ),
                   )),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Tab(
+                        child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        S.of(context).tab_favorites,
+                      ),
+                    )),
+                  ),
                   Tab(
                       child: Align(
                     alignment: Alignment.centerRight,
