@@ -122,13 +122,15 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                 child: Column(
                   children: [
                     HeadWidget(
-                        urlImage: dataDetail[index].catalogItemImage,
-                        catalogItemName: dataDetail[index].catalogItemName,
-                        lastSale: dataDetail[index].lastSale,
-                        catalogItemDescription:
-                            dataDetail[index].catalogItemDescription,
-                        sale: dataDetail[index].sale,
-                        available: dataDetail[index].numberAvailable),
+                      urlImage: dataDetail[index].catalogItemImage,
+                      catalogItemName: dataDetail[index].catalogItemName,
+                      lastSale: dataDetail[index].lastSale,
+                      catalogItemDescription:
+                          dataDetail[index].catalogItemDescription,
+                      sale: dataDetail[index].sale,
+                      available: dataDetail[index].numberAvailable,
+                      saleHistory: [],
+                    ),
                     RarityWidget(
                         rarity: dataDetail[index].rarityScore[index],
                         released: dataDetail[index].released,
