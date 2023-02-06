@@ -51,4 +51,14 @@ class ResponsiveDesign {
   double inchPercent(double percent) {
     return (_inch * percent) / 100;
   }
+
+  //Profile Card height
+  double responsiveProfileCard(BuildContext context, double pixel) {
+    final double itemHeight;
+    final double itemWidth;
+    var size = MediaQuery.of(context).size;
+    itemHeight = (size.height - kToolbarHeight - 100) / pixel;
+    itemWidth = size.width / 2;
+    return (itemWidth / itemHeight);
+  }
 }

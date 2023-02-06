@@ -76,19 +76,29 @@
     "retail": "Retail:",
     "available": "Available:",
     "similar_items": "SIMILAR ITEMS",
-
+    "collection": "This cover is not in your collection, buy it now before it’s too late",
+    "tab_collection": "COLLECTION",
+    "tab_listings": "LISTINGS",
+    "tab_favorites": "FAVORITES",
+    "tab_sold": "SOLD",
     "verify_email": "VERIFY EMAIL",
     "verify_email_description": "You must verify your email before you can import your data. Check your inbox for the email.",
     "resend_verification_email": "RESEND VERIFICATION EMAIL",
     "get_an_email": "Didn’t get an email?",
     "import_late": "*You’ll be able to make updates later.",
-    "collection": "This cover is not in your collection, buy it now before it’s too late",
+    "add_new_item": "ADD NEW ITEM",
     "recent_searches": "RECENT SEARCHES",
     "saved_searches": "SAVED SEARCHES",
     "save_search": "Save Search",
     "sort": "Sort:",
+
     "sale_data": "SALE DATE",
     "condition": "CONDITION",
-    "price": "PRICE"
+    "price": "PRICE",
+
+    "purchase_price": "Purchase Price",
+    "add_collection":"ADD TO COLLECTION",
+    "add_collection_title":"ADD TO YOUR COLLECTION"
+
 
 }

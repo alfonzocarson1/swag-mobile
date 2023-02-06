@@ -6,9 +6,13 @@ import 'package:swagapp/modules/blocs/search_bloc.dart/search_bloc.dart';
 import 'generated/l10n.dart';
 
 import 'modules/blocs/auth_bloc/auth_bloc.dart';
+import 'modules/blocs/collection_bloc/collection_bloc.dart';
 import 'modules/blocs/detail_bloc/detail_bloc.dart';
 import 'modules/blocs/explore_bloc/explore_bloc.dart';
 import 'modules/blocs/favorite_bloc/favorite_bloc.dart';
+import 'modules/blocs/listing_bloc/listing_bloc.dart';
+import 'modules/blocs/profile_favorite_bloc/profile_favorite_bloc.dart';
+import 'modules/blocs/sold_bloc/sold_bloc.dart';
 import 'modules/pages/home/home_page.dart';
 import 'modules/common/utils/context_service.dart';
 import 'modules/common/utils/palette.dart';
@@ -34,6 +38,12 @@ class App extends StatelessWidget {
           BlocProvider<DetailBloc>(create: (context) => getIt<DetailBloc>()),
           BlocProvider<FavoriteBloc>(
               create: (context) => getIt<FavoriteBloc>()),
+          BlocProvider<CollectionBloc>(
+              create: (context) => getIt<CollectionBloc>()),
+          BlocProvider<ListingBloc>(create: (context) => getIt<ListingBloc>()),
+          BlocProvider<ProfileFavoriteBloc>(
+              create: (context) => getIt<ProfileFavoriteBloc>()),
+          BlocProvider<SoldBloc>(create: (context) => getIt<SoldBloc>()),
         ],
         child: MaterialApp(
           navigatorKey: getIt<ContextService>().rootNavigatorKey,

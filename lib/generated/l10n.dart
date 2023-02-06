@@ -820,6 +820,56 @@ class S {
     );
   }
 
+  /// `This cover is not in your collection, buy it now before it’s too late`
+  String get collection {
+    return Intl.message(
+      'This cover is not in your collection, buy it now before it’s too late',
+      name: 'collection',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `COLLECTION`
+  String get tab_collection {
+    return Intl.message(
+      'COLLECTION',
+      name: 'tab_collection',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `LISTINGS`
+  String get tab_listings {
+    return Intl.message(
+      'LISTINGS',
+      name: 'tab_listings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `FAVORITES`
+  String get tab_favorites {
+    return Intl.message(
+      'FAVORITES',
+      name: 'tab_favorites',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SOLD`
+  String get tab_sold {
+    return Intl.message(
+      'SOLD',
+      name: 'tab_sold',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `VERIFY EMAIL`
   String get verify_email {
     return Intl.message(
@@ -870,11 +920,11 @@ class S {
     );
   }
 
-  /// `This cover is not in your collection, buy it now before it’s too late`
-  String get collection {
+  /// `ADD NEW ITEM`
+  String get add_new_item {
     return Intl.message(
-      'This cover is not in your collection, buy it now before it’s too late',
-      name: 'collection',
+      'ADD NEW ITEM',
+      name: 'add_new_item',
       desc: '',
       args: [],
     );
@@ -945,6 +995,36 @@ class S {
     return Intl.message(
       'PRICE',
       name: 'price',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Purchase Price`
+  String get purchase_price {
+    return Intl.message(
+      'Purchase Price',
+      name: 'purchase_price',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ADD TO COLLECTION`
+  String get add_collection {
+    return Intl.message(
+      'ADD TO COLLECTION',
+      name: 'add_collection',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ADD TO YOUR COLLECTION`
+  String get add_collection_title {
+    return Intl.message(
+      'ADD TO YOUR COLLECTION',
+      name: 'add_collection_title',
       desc: '',
       args: [],
     );
