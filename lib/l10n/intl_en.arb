@@ -86,6 +86,9 @@
     "recent_searches": "RECENT SEARCHES",
     "saved_searches": "SAVED SEARCHES",
     "save_search": "Save Search",
-    "sort": "Sort:"
+    "sort": "Sort:",
+    "sale_data": "SALE DATE",
+    "condition": "CONDITION",
+    "price": "PRICE"
 
 }

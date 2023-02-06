@@ -140,67 +140,74 @@ class _HeadWidgetState extends State<HeadWidget> {
                 child: Text(
                     widget.sale
                         ? "${S.of(context).for_sale} \$360.00 - ${widget.lastSale}"
-                        : 'LAST SALE ${widget.lastSale}',
+                        : '${S.of(context).last_sale} ${widget.lastSale}',
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                         fontWeight: FontWeight.w300,
                         color: Palette.current.primaryNeonGreen)),
               ),
               Visibility(
                   visible: widget.saleHistory != null,
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.of(context, rootNavigator: true).push(
-                          TransactionHistory.route(
-                              widget.urlImage,
-                              widget.catalogItemName!,
-                              widget.lastSale!,
-                              false,
-                              3));
-                    },
-                    child: Center(
-                      child: Container(
-                          height: 60,
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: Palette.current.primaryNeonGreen),
-                              color: Colors.transparent),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Image.asset(
-                                "assets/images/trending-up.png",
-                                height: 20,
-                                width: 20,
-                              ),
-                              const SizedBox(
-                                width: 15,
-                              ),
-                              Text(S.of(context).sales_history,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge!
-                                      .copyWith(
-                                          fontFamily: "Knockout",
-                                          fontSize: 25,
-                                          letterSpacing: 1,
-                                          fontWeight: FontWeight.w500,
-                                          color: Palette.current.white)),
-                            ],
-                          )),
-                    ),
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context, rootNavigator: true).push(
+                              TransactionHistory.route(
+                                  widget.urlImage,
+                                  widget.catalogItemName!,
+                                  widget.lastSale!,
+                                  false,
+                                  3));
+                        },
+                        child: Center(
+                          child: Container(
+                              height: 60,
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Palette.current.primaryNeonGreen),
+                                  color: Colors.transparent),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const SizedBox(
+                                    height: 50,
+                                  ),
+                                  Image.asset(
+                                    "assets/images/trending-up.png",
+                                    height: 20,
+                                    width: 20,
+                                  ),
+                                  const SizedBox(
+                                    width: 15,
+                                  ),
+                                  Text(S.of(context).sales_history,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge!
+                                          .copyWith(
+                                              fontFamily: "Knockout",
+                                              fontSize: 25,
+                                              letterSpacing: 1,
+                                              fontWeight: FontWeight.w500,
+                                              color: Palette.current.white)),
+                                ],
+                              )),
+                        ),
+                      ),
+                    ],
                   )),
-              const SizedBox(
-                height: 20,
-              ),
               Visibility(
                   visible: widget.catalogItemDescription != null,
                   child: Column(
                     children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
                       Text(
                           overflow: _viewMore ? null : TextOverflow.ellipsis,
                           maxLines: _viewMore ? null : 3,

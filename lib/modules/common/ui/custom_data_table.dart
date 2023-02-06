@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../generated/l10n.dart';
 import '../../models/detail/sale_history_model.dart';
 import '../utils/palette.dart';
 
@@ -15,47 +16,47 @@ class _CustomDataTableState extends State<CustomDataTable> {
     Sale(
       date: "12/19/2022",
       condition: "SALED",
-      price: 425,
+      price: "\$425.00",
     ),
     Sale(
       date: "12/19/2022",
       condition: "SALED",
-      price: 425,
+      price: "\$425.00",
     ),
     Sale(
       date: "12/19/2022",
       condition: "SALED",
-      price: 425,
+      price: "\$425.00",
     ),
     Sale(
       date: "12/19/2022",
       condition: "DISPLAYED",
-      price: 425,
+      price: "\$425.00",
     ),
     Sale(
       date: "12/19/2022",
       condition: "SALED",
-      price: 425,
+      price: "\$425.00",
     ),
     Sale(
       date: "12/19/2022",
       condition: "DISPLAYED",
-      price: 425,
+      price: "\$425.00",
     ),
     Sale(
       date: "12/19/2022",
       condition: "SALED",
-      price: 425,
+      price: "\$425.00",
     ),
     Sale(
       date: "12/19/2022",
       condition: "DISPLAYED",
-      price: 425,
+      price: "\$425.00",
     ),
     Sale(
       date: "12/19/2022",
       condition: "SALED",
-      price: 425,
+      price: "\$425.00",
     ),
   ];
 
@@ -66,99 +67,114 @@ class _CustomDataTableState extends State<CustomDataTable> {
         scrollDirection: Axis.vertical,
         child: Theme(
           data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-          child: DataTable(
-              sortColumnIndex: 1,
-              dividerThickness: 0,
-              columnSpacing: 35.0,
-              columns: [
-                DataColumn(
-                  label: Expanded(
-                    child: Row(
-                      children: [
-                        Text(
-                          'SALE DATE',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w300,
-                                  color: Palette.current.white),
-                        ),
-                        Icon(Icons.expand_more)
-                      ],
-                    ),
-                  ),
+          child: IntrinsicWidth(
+            child: Stack(
+              children: [
+                Container(
+                  height: 50,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                              color: Palette.current.grey, width: 0.5))),
                 ),
-                DataColumn(
-                  label: Expanded(
-                    child: Row(
-                      children: [
-                        Text(
-                          'CONDITION',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w300,
-                                  color: Palette.current.white),
+                DataTable(
+                    sortColumnIndex: 1,
+                    dividerThickness: 0,
+                    columnSpacing: 35,
+                    columns: [
+                      DataColumn(
+                        label: Container(
+                          width: 100,
+                          child: Row(
+                            children: [
+                              Text(
+                                S.of(context).sale_data,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w300,
+                                        color: Palette.current.white),
+                              ),
+                              Icon(Icons.expand_more)
+                            ],
+                          ),
                         ),
-                        Icon(Icons.expand_more)
-                      ],
-                    ),
-                  ),
-                ),
-                DataColumn(
-                  label: Expanded(
-                    child: Row(
-                      children: [
-                        Text(
-                          'PRICE',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w300,
-                                  color: Palette.current.white),
+                      ),
+                      DataColumn(
+                        label: Expanded(
+                          child: Row(
+                            children: [
+                              Text(
+                                S.of(context).condition,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w300,
+                                        color: Palette.current.white),
+                              ),
+                              Icon(Icons.expand_more)
+                            ],
+                          ),
                         ),
-                        Icon(Icons.expand_more),
-                      ],
-                    ),
-                  ),
-                ),
+                      ),
+                      DataColumn(
+                        label: Expanded(
+                          child: Row(
+                            children: [
+                              Text(
+                                S.of(context).price,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w300,
+                                        color: Palette.current.white),
+                              ),
+                              Icon(Icons.expand_more),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                    rows: histories
+                        .map((volunteer) => DataRow(cells: [
+                              DataCell(Center(
+                                  child: Text(volunteer.date,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall!
+                                          .copyWith(
+                                              fontWeight: FontWeight.w300,
+                                              color: Palette.current.grey)))),
+                              DataCell(Center(
+                                  child: Text(volunteer.condition,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall!
+                                          .copyWith(
+                                              fontWeight: FontWeight.w300,
+                                              color: Palette
+                                                  .current.primaryNeonPink)))),
+                              DataCell(Center(
+                                  child: Text(volunteer.price.toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall!
+                                          .copyWith(
+                                              fontWeight: FontWeight.w300,
+                                              color: Palette
+                                                  .current.primaryNeonGreen)))),
+                            ]))
+                        .toList()),
               ],
-              rows: histories
-                  .map((volunteer) => DataRow(cells: [
-                        DataCell(Center(
-                            child: Text(volunteer.date,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                                    .copyWith(
-                                        fontWeight: FontWeight.w300,
-                                        color: Palette.current.grey)))),
-                        DataCell(Center(
-                            child: Text(volunteer.condition,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                                    .copyWith(
-                                        fontWeight: FontWeight.w300,
-                                        color:
-                                            Palette.current.primaryNeonPink)))),
-                        DataCell(Center(
-                            child: Text(volunteer.price.toString(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                                    .copyWith(
-                                        fontWeight: FontWeight.w300,
-                                        color: Palette
-                                            .current.primaryNeonGreen)))),
-                      ]))
-                  .toList()),
+            ),
+          ),
         ),
       ),
     );
