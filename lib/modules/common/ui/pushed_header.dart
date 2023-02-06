@@ -61,6 +61,15 @@ class _PushedHeaderState extends State<PushedHeader>
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      widget.showBackButton
+                          ? IconButton(
+                              icon: Icon(
+                                Icons.arrow_back,
+                                color: Palette.current.primaryNeonGreen,
+                                size: 24,
+                              ),
+                              onPressed: () => Navigator.maybePop(context))
+                          : Container(),
                       widget.title ?? Container(),
                       widget.suffixIconButton != null
                           ? Expanded(

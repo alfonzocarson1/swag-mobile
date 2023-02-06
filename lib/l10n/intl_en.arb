@@ -93,7 +93,8 @@
     "sort": "Sort:",
     "purchase_price": "Purchase Price",
     "add_collection":"ADD TO COLLECTION",
-    "add_collection_title":"ADD TO YOUR COLLECTION"
+    "add_collection_title":"ADD TO YOUR COLLECTION",
+    "i_do_not_know": "I DON’T KNOW/ NOT LISTED"
 
 
 }

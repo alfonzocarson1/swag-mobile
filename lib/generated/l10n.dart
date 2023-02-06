@@ -999,6 +999,16 @@ class S {
       args: [],
     );
   }
+
+  /// `I DON’T KNOW/ NOT LISTED`
+  String get i_do_not_know {
+    return Intl.message(
+      'I DON’T KNOW/ NOT LISTED',
+      name: 'i_do_not_know',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

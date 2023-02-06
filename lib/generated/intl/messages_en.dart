@@ -71,6 +71,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "get_an_email":
             MessageLookupByLibrary.simpleMessage("Didn’t get an email?"),
         "headcovers": MessageLookupByLibrary.simpleMessage("Headcovers"),
+        "i_do_not_know":
+            MessageLookupByLibrary.simpleMessage("I DON’T KNOW/ NOT LISTED"),
         "import_late": MessageLookupByLibrary.simpleMessage(
             "*You’ll be able to make updates later."),
         "incorrect_email_or_password": MessageLookupByLibrary.simpleMessage(
