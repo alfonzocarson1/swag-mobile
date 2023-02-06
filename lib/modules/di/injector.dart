@@ -8,15 +8,27 @@ import 'package:swagapp/modules/data/search/i_search_service.dart';
 import 'package:swagapp/modules/data/search/search_service.dart';
 
 import '../blocs/auth_bloc/auth_bloc.dart';
+import '../blocs/collection_bloc/collection_bloc.dart';
 import '../blocs/detail_bloc/detail_bloc.dart';
 import '../blocs/explore_bloc/explore_bloc.dart';
 import '../blocs/favorite_bloc/favorite_bloc.dart';
+import '../blocs/listing_bloc/listing_bloc.dart';
+import '../blocs/profile_favorite_bloc/profile_favorite_bloc.dart';
+import '../blocs/sold_bloc/sold_bloc.dart';
 import '../data/auth/auth_service.dart';
+import '../data/collection/collection_service.dart';
+import '../data/collection/i_collection_service.dart';
 import '../data/detail/detail_service.dart';
 import '../data/detail/i_detail_service.dart';
 import '../data/explore/explore_service.dart';
 import '../data/explore/i_explore_service.dart';
+import '../data/favorite/favorite_service.dart';
+import '../data/favorite/i_favorite_service.dart';
+import '../data/listing/i_listing_service.dart';
+import '../data/listing/listing_service.dart';
 import '../data/shared_preferences/shared_preferences_service.dart';
+import '../data/sold/i_sold_service.dart';
+import '../data/sold/sold_service.dart';
 
 final getIt = GetIt.instance;
 
@@ -45,6 +57,24 @@ Future<void> setupAppScope() {
       .registerLazySingleton<IDetailService>(() => DetailService(APIService()));
   getIt.registerLazySingleton<DetailBloc>(
       () => DetailBloc(getIt<IDetailService>()));
+
+  getIt.registerLazySingleton<ICollectionService>(
+      () => CollectionService(APIService()));
+  getIt.registerLazySingleton<CollectionBloc>(
+      () => CollectionBloc(getIt<ICollectionService>()));
+
+  getIt.registerLazySingleton<IListingService>(
+      () => ListingService(APIService()));
+  getIt.registerLazySingleton<ListingBloc>(
+      () => ListingBloc(getIt<IListingService>()));
+
+  getIt.registerLazySingleton<IFavoriteService>(
+      () => FavoriteService(APIService()));
+  getIt.registerLazySingleton<ProfileFavoriteBloc>(
+      () => ProfileFavoriteBloc(getIt<IFavoriteService>()));
+
+  getIt.registerLazySingleton<ISoldService>(() => SoldService(APIService()));
+  getIt.registerLazySingleton<SoldBloc>(() => SoldBloc(getIt<ISoldService>()));
 
   return getIt.allReady();
 }

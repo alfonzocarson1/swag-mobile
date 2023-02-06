@@ -25,6 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "access_photos": MessageLookupByLibrary.simpleMessage("CHOOSE PHOTO"),
         "accessories": MessageLookupByLibrary.simpleMessage("Accesories"),
         "acquired": MessageLookupByLibrary.simpleMessage("Acquired:"),
+        "add_new_item": MessageLookupByLibrary.simpleMessage("ADD NEW ITEM"),
         "already_have_an_account": MessageLookupByLibrary.simpleMessage(
             "Already have an account? *Sign In*"),
         "app_name": MessageLookupByLibrary.simpleMessage("Swag Golf"),
@@ -136,6 +137,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "state": MessageLookupByLibrary.simpleMessage("State"),
         "subtitle_welcome":
             MessageLookupByLibrary.simpleMessage("Let’s create your profile!"),
+        "tab_collection": MessageLookupByLibrary.simpleMessage("COLLECTION"),
+        "tab_favorites": MessageLookupByLibrary.simpleMessage("FAVORITES"),
+        "tab_listings": MessageLookupByLibrary.simpleMessage("LISTINGS"),
+        "tab_sold": MessageLookupByLibrary.simpleMessage("SOLD"),
         "title_welcome":
             MessageLookupByLibrary.simpleMessage("WELCOME TO SWAG"),
         "total_mode": MessageLookupByLibrary.simpleMessage("Total Made:"),
