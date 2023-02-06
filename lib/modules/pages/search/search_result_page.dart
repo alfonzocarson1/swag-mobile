@@ -14,14 +14,13 @@ import '../../models/search/catalog_item_model.dart';
 
 class SearchResultPage extends StatefulWidget {
   static const name = '/SearchResult';
-  final TextEditingController _textEditingController;
-  const SearchResultPage(this._textEditingController, {Key? key})
-      : super(key: key);
+  final String searchParam;
 
-  static Route route(TextEditingController textEditingController) =>
-      PageRoutes.material(
+  const SearchResultPage(this.searchParam, {Key? key}) : super(key: key);
+
+  static Route route(String searchParam) => PageRoutes.material(
         settings: const RouteSettings(name: name),
-        builder: (context) => SearchResultPage(textEditingController),
+        builder: (context) => SearchResultPage(searchParam),
       );
 
   @override
@@ -35,12 +34,14 @@ class _SearchResultPageState extends State<SearchResultPage>
   @override
   bool get wantKeepAlive => true;
   int selectedIndex = 0;
-  late final ScrollController? _scrollController =
+  late final ScrollController _scrollController =
       PrimaryScrollController.of(context);
+  final TextEditingController _textEditingController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
+    _textEditingController.text = widget.searchParam;
     makeCall();
   }
 
@@ -180,7 +181,7 @@ class _SearchResultPageState extends State<SearchResultPage>
           padding: const EdgeInsets.only(left: 16.0, top: 4),
           child: InkWell(
             onTap: () {
-              widget._textEditingController.text = '';
+              _textEditingController.text = '';
               Navigator.pop(context);
             },
             child: Icon(
@@ -200,7 +201,7 @@ class _SearchResultPageState extends State<SearchResultPage>
                 prefixIcon: null,
                 suffixIcon: null,
                 enabled: false,
-                controller: widget._textEditingController,
+                controller: _textEditingController,
                 hint: title,
                 resultViewBuilder: (_, controller) => Container(),
                 onCancel: () {
