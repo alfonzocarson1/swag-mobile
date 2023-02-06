@@ -201,9 +201,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   void forgotPasswordShowErrors() {
     setState(() {
-      errorText = isValidEmail(_emailController.text)
-          ? null
-          : S.of(context).invalid_email;
+      errorText = _emailController.text.isEmpty
+          ? S.of(context).required_field
+          : isValidEmail(_emailController.text)
+              ? null
+              : S.of(context).invalid_email;
     });
   }
 

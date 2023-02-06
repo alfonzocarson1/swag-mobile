@@ -24,7 +24,7 @@ class WhatsHotPage extends StatefulWidget {
 }
 
 class _WhatsHotPageState extends State<WhatsHotPage> {
-  late final ScrollController _scrollController =
+  late final ScrollController? _scrollController =
       PrimaryScrollController.of(context);
 
   @override
