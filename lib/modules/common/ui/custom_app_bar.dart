@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../pages/add/collection/add_collection_page.dart';
 import '../utils/palette.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -37,6 +38,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 tooltip: 'Open shopping cart',
                 onPressed: () {
                   // handle the press
+                  Navigator.of(context, rootNavigator: true)
+                      .push(AddCollection.route(context));
                 },
               ),
             ]

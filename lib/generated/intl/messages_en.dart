@@ -25,6 +25,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "access_photos": MessageLookupByLibrary.simpleMessage("CHOOSE PHOTO"),
         "accessories": MessageLookupByLibrary.simpleMessage("Accesories"),
         "acquired": MessageLookupByLibrary.simpleMessage("Acquired:"),
+        "add_collection":
+            MessageLookupByLibrary.simpleMessage("ADD TO COLLECTION"),
+        "add_collection_title":
+            MessageLookupByLibrary.simpleMessage("ADD TO YOUR COLLECTION"),
         "add_new_item": MessageLookupByLibrary.simpleMessage("ADD NEW ITEM"),
         "already_have_an_account": MessageLookupByLibrary.simpleMessage(
             "Already have an account? *Sign In*"),
@@ -103,6 +107,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "popup_title": MessageLookupByLibrary.simpleMessage("WELCOME @"),
         "privacy_policy_text": MessageLookupByLibrary.simpleMessage(
             "I agree to Swag’s *Privacy Policy* \n& *Terms of Use*"),
+        "purchase_price":
+            MessageLookupByLibrary.simpleMessage("Purchase Price"),
         "putters": MessageLookupByLibrary.simpleMessage("Putters"),
         "rarity_score": MessageLookupByLibrary.simpleMessage("RARITY SCORE: "),
         "recent_searches":

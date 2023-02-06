@@ -90,7 +90,10 @@
     "recent_searches": "RECENT SEARCHES",
     "saved_searches": "SAVED SEARCHES",
     "save_search": "Save Search",
-    "sort": "Sort:"
+    "sort": "Sort:",
+    "purchase_price": "Purchase Price",
+    "add_collection":"ADD TO COLLECTION",
+    "add_collection_title":"ADD TO YOUR COLLECTION"
 
 
 }

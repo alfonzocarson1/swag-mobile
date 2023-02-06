@@ -82,8 +82,13 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                           ),
                           child: Padding(
                             padding: const EdgeInsets.only(
-                                left: 16, top: 0, bottom: 8),
+                                left: 16, top: 0, bottom: 8, right: 10),
                             child: DropdownButtonFormField(
+                              icon: Image.asset(
+                                'assets/images/IconDropdow.png',
+                                width: 20,
+                                height: 20,
+                              ),
                               decoration: InputDecoration(
                                   counterText: "",
                                   labelStyle: Theme.of(context)

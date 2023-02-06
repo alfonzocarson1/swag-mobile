@@ -5,6 +5,7 @@ import '../../../generated/l10n.dart';
 import '../../blocs/favorite_bloc/favorite_bloc.dart';
 import '../../di/injector.dart';
 import '../../models/search/catalog_item_model.dart';
+import '../../pages/add/collection/add_collection_page.dart';
 import '../../pages/detail/item_detail_page.dart';
 import '../utils/palette.dart';
 
@@ -64,6 +65,19 @@ class _CatalogPageState extends State<CatalogPage> {
                       errorWidget: (context, url, error) =>
                           Image.asset("assets/images/ProfilePhoto.png"),
                     ),
+                    Positioned(
+                        top: 0,
+                        right: 0,
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.add,
+                            color: Palette.current.grey,
+                          ),
+                          onPressed: () {
+                            Navigator.of(context, rootNavigator: true)
+                                .push(AddCollection.route(context));
+                          },
+                        )),
                     Positioned.fill(
                       child: Align(
                         alignment: Alignment.center,
