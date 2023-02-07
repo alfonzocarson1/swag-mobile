@@ -37,6 +37,7 @@ class _SelectItemPageState extends State<SelectItemPage> {
     _responsiveDesign = ResponsiveDesign(context);
     return Scaffold(
         appBar: PushedHeader(
+          showBackButton: true,
           title: Align(
             alignment: Alignment.centerRight,
             child: Text(S.of(context).select_item,

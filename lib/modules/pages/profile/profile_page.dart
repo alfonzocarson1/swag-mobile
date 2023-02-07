@@ -100,9 +100,9 @@ class _ProfilePageState extends State<ProfilePage>
                     insets: (_currentIndex == 0)
                         ? const EdgeInsets.only(left: 0, right: 20)
                         : _currentIndex == 1
-                            ? const EdgeInsets.only(left: 15, right: 15)
+                            ? const EdgeInsets.only(left: 20, right: 10)
                             : _currentIndex == 2
-                                ? const EdgeInsets.only(left: 29, right: 0)
+                                ? const EdgeInsets.only(left: 25, right: 2)
                                 : _currentIndex == 3
                                     ? const EdgeInsets.only(left: 55, right: 0)
                                     : const EdgeInsets.only(left: 0, right: 0)),

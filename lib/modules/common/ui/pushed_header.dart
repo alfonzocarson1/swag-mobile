@@ -15,7 +15,7 @@ class PushedHeader extends StatefulWidget implements PreferredSizeWidget {
   PushedHeader(
       {Key? key,
       this.actions = _defaultActions,
-      this.showBackButton = true,
+      this.showBackButton = false,
       this.customWidget,
       this.title,
       this.height = 55, //125, 180

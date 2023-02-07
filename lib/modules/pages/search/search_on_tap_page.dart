@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/common/ui/pushed_header.dart';
 import 'package:swagapp/modules/common/ui/search_input.dart';
@@ -75,9 +76,12 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
                             child: InkWell(
                               onTap: () {
                                 Navigator.pop(context);
-                                Navigator.of(context, rootNavigator: true).push(
-                                    SearchResultPage.route(
-                                        widget._textEditingController));
+                                PersistentNavBarNavigator.pushNewScreen(
+                                  context,
+                                  screen: SearchResultPage(
+                                      widget._textEditingController.text),
+                                  withNavBar: true,
+                                );
                               },
                               child: Image.asset(
                                 "assets/icons/Search.png",
@@ -89,7 +93,15 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
                         ),
                       ),
                     ),
-
+                    onSubmitted: (value) {
+                      Navigator.pop(context);
+                      PersistentNavBarNavigator.pushNewScreen(
+                        context,
+                        screen: SearchResultPage(
+                            widget._textEditingController.text),
+                        withNavBar: true,
+                      );
+                    },
                     suffixIcon: Icon(
                       Icons.close,
                       size: 22,
@@ -112,7 +124,7 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
                 ),
               ],
             ),
-            height: 120,
+            height: 70,
           ),
           backgroundColor: Palette.current.primaryNero,
           body: Stack(
@@ -206,45 +218,43 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
   Widget _getTabBar(BuildContext context) {
     return PreferredSize(
       preferredSize: const Size.fromHeight(kToolbarHeight),
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: TabBar(
-          // isScrollable: true,
-          controller: _tabController,
-          indicator: const UnderlineTabIndicator(
-            borderSide: BorderSide(
-              width: 4,
-              color: Color(0xFF646464),
-            ),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 5, right: 20, top: 10),
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: TabBar(
+            isScrollable: true,
+            controller: _tabController,
+            labelColor: Palette.current.primaryNeonGreen,
+            indicatorSize: TabBarIndicatorSize.label,
+            unselectedLabelColor: Palette.current.primaryWhiteSmoke,
+            unselectedLabelStyle: Theme.of(context)
+                .textTheme
+                .headlineMedium!
+                .copyWith(
+                    fontFamily: "Knockout",
+                    letterSpacing: 1.1,
+                    fontWeight: FontWeight.w300),
+            labelStyle: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                fontFamily: "Knockout",
+                letterSpacing: 1.0,
+                fontWeight: FontWeight.w300),
+            onTap: (index) {
+              setState(() {});
+            },
+            tabs: [
+              Tab(
+                child: _buildTab(
+                  text: S.of(context).recent_searches,
+                ),
+              ),
+              Tab(
+                child: _buildTab(
+                  text: S.of(context).saved_searches,
+                ),
+              ),
+            ],
           ),
-          labelColor: Palette.current.primaryNeonGreen,
-          unselectedLabelColor: Palette.current.primaryWhiteSmoke,
-          unselectedLabelStyle: Theme.of(context)
-              .textTheme
-              .headlineMedium!
-              .copyWith(
-                  fontFamily: "Knockout",
-                  letterSpacing: 1.1,
-                  fontWeight: FontWeight.w300),
-          labelStyle: Theme.of(context).textTheme.headlineMedium!.copyWith(
-              fontFamily: "Knockout",
-              letterSpacing: 1.0,
-              fontWeight: FontWeight.w300),
-          onTap: (index) {
-            setState(() {});
-          },
-          tabs: [
-            Tab(
-              child: _buildTab(
-                text: S.of(context).recent_searches,
-              ),
-            ),
-            Tab(
-              child: _buildTab(
-                text: S.of(context).saved_searches,
-              ),
-            ),
-          ],
         ),
       ),
     );
@@ -252,9 +262,5 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
 }
 
 _buildTab({required String text}) {
-  return Container(
-    alignment: Alignment.center,
-    width: double.infinity,
-    child: Text(text),
-  );
+  return Text(text);
 }

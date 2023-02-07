@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/di/injector.dart';
 import 'package:swagapp/modules/pages/search/search_page.dart';
@@ -18,6 +19,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePage extends State<HomePage> {
+  final PersistentTabController _controller =
+      PersistentTabController(initialIndex: 0);
   int indexTap = 0;
   final List<Widget> widgetsChildren = [
     const ExplorePage(),
@@ -33,59 +36,66 @@ class _HomePage extends State<HomePage> {
     }
 
     setState(() {
+      _controller.index = index;
       indexTap = index;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: widgetsChildren[indexTap],
-      bottomNavigationBar: Theme(
-        data: Theme.of(context).copyWith(
-          canvasColor: Palette.current.primaryEerieBlack,
-        ),
-        child: SizedBox(
-          height: 100,
-          child: BottomNavigationBar(
-              selectedItemColor: Palette.current.primaryNeonGreen,
-              unselectedItemColor: Palette.current.grey,
-              selectedFontSize: 14,
-              unselectedFontSize: 14,
-              onTap: onTapTapped,
-              currentIndex: indexTap,
-              type: BottomNavigationBarType.fixed,
-              items: const [
-                BottomNavigationBarItem(
-                  icon: ImageIcon(
-                    AssetImage('assets/images/server.png'),
-                    size: 20,
-                  ),
-                  label: "Explore",
+    return SizedBox(
+      height: 100,
+      child: PersistentTabView.custom(
+        context,
+        controller: _controller,
+        screens: widgetsChildren,
+        confineInSafeArea: true,
+        backgroundColor: Palette.current.primaryEerieBlack,
+        handleAndroidBackButtonPress: true,
+        resizeToAvoidBottomInset: true,
+        hideNavigationBarWhenKeyboardShows: true,
+        onWillPop: (p0) => Future.value(true),
+        customWidget: BottomNavigationBar(
+            elevation: 0,
+            backgroundColor: Palette.current.primaryEerieBlack,
+            selectedItemColor: Palette.current.primaryNeonGreen,
+            unselectedItemColor: Palette.current.grey,
+            selectedFontSize: 14,
+            unselectedFontSize: 14,
+            onTap: onTapTapped,
+            currentIndex: indexTap,
+            type: BottomNavigationBarType.fixed,
+            items: const [
+              BottomNavigationBarItem(
+                icon: ImageIcon(
+                  AssetImage('assets/images/server.png'),
+                  size: 20,
                 ),
-                BottomNavigationBarItem(
-                  icon: ImageIcon(
-                    AssetImage('assets/images/Browse.png'),
-                    size: 20,
-                  ),
-                  label: "Search",
+                label: "Explore",
+              ),
+              BottomNavigationBarItem(
+                icon: ImageIcon(
+                  AssetImage('assets/images/Browse.png'),
+                  size: 20,
                 ),
-                BottomNavigationBarItem(
-                  icon: ImageIcon(
-                    AssetImage('assets/images/Alerts.png'),
-                    size: 20,
-                  ),
-                  label: "Alerts",
+                label: "Search",
+              ),
+              BottomNavigationBarItem(
+                icon: ImageIcon(
+                  AssetImage('assets/images/Alerts.png'),
+                  size: 20,
                 ),
-                BottomNavigationBarItem(
-                  icon: ImageIcon(
-                    AssetImage('assets/images/You.png'),
-                    size: 20,
-                  ),
-                  label: "Profile",
-                )
-              ]),
-        ),
+                label: "Alerts",
+              ),
+              BottomNavigationBarItem(
+                icon: ImageIcon(
+                  AssetImage('assets/images/You.png'),
+                  size: 20,
+                ),
+                label: "Profile",
+              )
+            ]),
+        itemCount: 4,
       ),
     );
   }

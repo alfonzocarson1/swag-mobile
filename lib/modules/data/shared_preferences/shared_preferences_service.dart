@@ -5,6 +5,7 @@ import 'i_shared_preferences.dart';
 class PreferenceRepositoryService implements PreferenceRepositoryInt {
   static const String _logged = 'logged';
   static const String _register = 'register';
+  static const String _recentSearches = 'recentSearches';
   late SharedPreferences _prefs;
   @override
   SharedPreferences get prefs => _prefs;
@@ -34,5 +35,16 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   @override
   Future<void> saveHasJustSignedUp(bool value) async {
     await _prefs.setBool(_register, value);
+  }
+
+  @override
+  List<String> getRecentSearches() {
+    final list = _prefs.getStringList(_recentSearches);
+    return list ?? [];
+  }
+
+  @override
+  Future<void> saveRecentSearches(List<String> list) async {
+    await _prefs.setStringList(_recentSearches, list);
   }
 }
