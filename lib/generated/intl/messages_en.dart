@@ -41,6 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "code": MessageLookupByLibrary.simpleMessage("Code"),
         "collection": MessageLookupByLibrary.simpleMessage(
             "This cover is not in your collection, buy it now before it’s too late"),
+        "condition": MessageLookupByLibrary.simpleMessage("CONDITION"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
         "country": MessageLookupByLibrary.simpleMessage("Country"),
@@ -135,6 +136,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "popup_description": MessageLookupByLibrary.simpleMessage(
             "It looks like you have an account on swag.golf. After you verify your email you will be able to  import your information into the Swag app."),
         "popup_title": MessageLookupByLibrary.simpleMessage("WELCOME @"),
+        "price": MessageLookupByLibrary.simpleMessage("PRICE"),
         "privacy_policy_text": MessageLookupByLibrary.simpleMessage(
             "I agree to Swag’s *Privacy Policy* \n& *Terms of Use*"),
         "purchase_price":
@@ -156,6 +158,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "reset_password_description": MessageLookupByLibrary.simpleMessage(
             "Please enter and confirm your new password below."),
         "retail": MessageLookupByLibrary.simpleMessage("Retail:"),
+        "sale_data": MessageLookupByLibrary.simpleMessage("SALE DATE"),
         "sales_history": MessageLookupByLibrary.simpleMessage("SALES HISTORY"),
         "save_search": MessageLookupByLibrary.simpleMessage("Save Search"),
         "saved_searches":

@@ -970,6 +970,36 @@ class S {
     );
   }
 
+  /// `SALE DATE`
+  String get sale_data {
+    return Intl.message(
+      'SALE DATE',
+      name: 'sale_data',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CONDITION`
+  String get condition {
+    return Intl.message(
+      'CONDITION',
+      name: 'condition',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `PRICE`
+  String get price {
+    return Intl.message(
+      'PRICE',
+      name: 'price',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Purchase Price`
   String get purchase_price {
     return Intl.message(

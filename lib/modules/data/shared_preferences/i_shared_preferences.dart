@@ -8,4 +8,6 @@ abstract class PreferenceRepositoryInt {
   Future<void> saveIsLogged(bool value);
   bool hasJustSignedUp();
   Future<void> saveHasJustSignedUp(bool value);
+  List<String> getRecentSearches();
+  Future<void> saveRecentSearches(List<String> list);
 }

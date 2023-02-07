@@ -68,6 +68,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
               focusNode: widget.focusNode,
               cursorColor: Palette.current.darkGray,
               keyboardType: widget.inputType,
+              textInputAction: TextInputAction.search,
               obscureText: widget.secure,
               style: widget.style,
               decoration: InputDecoration(

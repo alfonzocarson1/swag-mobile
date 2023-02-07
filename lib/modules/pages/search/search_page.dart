@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/common/ui/pushed_header.dart';
 import 'package:swagapp/modules/common/ui/search_input.dart';
@@ -103,8 +104,14 @@ class _SearchPageState extends State<SearchPage>
         Expanded(
           child: InkWell(
             onTap: () {
-              Navigator.of(context, rootNavigator: true)
-                  .push(SearchOnTapPage.route()); //_textEditingController
+              PersistentNavBarNavigator.pushNewScreen(
+                context,
+                screen: SearchOnTapPage(),
+                withNavBar: true,
+                pageTransitionAnimation: PageTransitionAnimation.cupertino,
+              );
+              // Navigator.of(context, rootNavigator: true)
+              //     .push(SearchOnTapPage.route()); //_textEditingController
             },
             child: SearchInput(
                 prefixIcon: null,
@@ -155,6 +162,7 @@ class _SearchPageState extends State<SearchPage>
       child: TabBar(
         controller: _controller,
         labelColor: Palette.current.primaryNeonGreen,
+        indicatorSize: TabBarIndicatorSize.label,
         unselectedLabelColor: Palette.current.primaryWhiteSmoke,
         unselectedLabelStyle: Theme.of(context)
             .textTheme
