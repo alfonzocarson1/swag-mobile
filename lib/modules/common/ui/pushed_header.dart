@@ -15,7 +15,7 @@ class PushedHeader extends StatefulWidget implements PreferredSizeWidget {
   PushedHeader(
       {Key? key,
       this.actions = _defaultActions,
-      this.showBackButton = true,
+      this.showBackButton = false,
       this.customWidget,
       this.title,
       this.height = 55, //125, 180
@@ -61,6 +61,15 @@ class _PushedHeaderState extends State<PushedHeader>
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      widget.showBackButton
+                          ? IconButton(
+                              icon: Icon(
+                                Icons.arrow_back,
+                                color: Palette.current.primaryNeonGreen,
+                                size: 24,
+                              ),
+                              onPressed: () => Navigator.maybePop(context))
+                          : Container(),
                       widget.title ?? Container(),
                       widget.suffixIconButton != null
                           ? Expanded(

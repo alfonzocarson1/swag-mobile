@@ -33,7 +33,7 @@ class AddCollection extends StatefulWidget {
 }
 
 class _AddCollectionState extends State<AddCollection> {
-  DateTime _defaultDateTime = DateTime.now();
+  DateTime? _defaultDateTime;
 
   final FocusNode _purchaseNode = FocusNode();
   final _purchaseController = TextEditingController();

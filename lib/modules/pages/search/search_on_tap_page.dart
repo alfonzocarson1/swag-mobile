@@ -124,7 +124,7 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
                 ),
               ],
             ),
-            height: 62,
+            height: 70,
           ),
           backgroundColor: Palette.current.primaryNero,
           body: Stack(
