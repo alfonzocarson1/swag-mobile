@@ -30,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "add_collection_title":
             MessageLookupByLibrary.simpleMessage("ADD TO YOUR COLLECTION"),
         "add_new_item": MessageLookupByLibrary.simpleMessage("ADD NEW ITEM"),
+        "add_photos": MessageLookupByLibrary.simpleMessage("ADD PHOTOS"),
         "already_have_an_account": MessageLookupByLibrary.simpleMessage(
             "Already have an account? *Sign In*"),
         "app_name": MessageLookupByLibrary.simpleMessage("Swag Golf"),
@@ -45,12 +46,21 @@ class MessageLookup extends MessageLookupByLibrary {
         "country": MessageLookupByLibrary.simpleMessage("Country"),
         "create_account":
             MessageLookupByLibrary.simpleMessage("CREATE ACCOUNT"),
+        "date_purchased":
+            MessageLookupByLibrary.simpleMessage("Date Purchased"),
         "dont_have_account": MessageLookupByLibrary.simpleMessage(
             "Don’t have an account? *Create Account*"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "empty_password":
             MessageLookupByLibrary.simpleMessage("Invalid password"),
         "empty_text": MessageLookupByLibrary.simpleMessage("No items yet"),
+        "existing_item_to_collection_error_btn":
+            MessageLookupByLibrary.simpleMessage("YES, ADD ANOTHER"),
+        "existing_item_to_collection_error_sub_desc":
+            MessageLookupByLibrary.simpleMessage(
+                "It looks like you already have this item in your collection. Are you sure you want to add another one?"),
+        "existing_item_to_collection_error_title":
+            MessageLookupByLibrary.simpleMessage("Are you sure"),
         "explore_as_guest":
             MessageLookupByLibrary.simpleMessage("EXPLORE AS GUEST"),
         "field_empty":
@@ -77,6 +87,16 @@ class MessageLookup extends MessageLookupByLibrary {
             "*You’ll be able to make updates later."),
         "incorrect_email_or_password": MessageLookupByLibrary.simpleMessage(
             "Incorrect email or password. Please try again"),
+        "info_guideline_popup_badg_one": MessageLookupByLibrary.simpleMessage(
+            "• Detailed product description"),
+        "info_guideline_popup_badg_three": MessageLookupByLibrary.simpleMessage(
+            "• Any relation to someone at Swag?"),
+        "info_guideline_popup_badg_two": MessageLookupByLibrary.simpleMessage(
+            "• Who you acquired item from"),
+        "info_guideline_popup_sub_title": MessageLookupByLibrary.simpleMessage(
+            "Please provide as much information as you can about the product and how you acquired it. Be sure to include the following:"),
+        "info_guideline_popup_title":
+            MessageLookupByLibrary.simpleMessage("INFO GUIDELINES"),
         "invalid_email":
             MessageLookupByLibrary.simpleMessage("Invalid email address"),
         "invalid_password": MessageLookupByLibrary.simpleMessage(
@@ -101,6 +121,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "phone": MessageLookupByLibrary.simpleMessage("Phone"),
         "phone_taken": MessageLookupByLibrary.simpleMessage(
             "An account is already associated with this phone number"),
+        "photo_condition_four": MessageLookupByLibrary.simpleMessage(
+            "• Minimum of 4 photos maximum of 6"),
+        "photo_condition_one": MessageLookupByLibrary.simpleMessage(
+            "• The tag on the inside of the headcover"),
+        "photo_condition_three":
+            MessageLookupByLibrary.simpleMessage("• All sides of the product"),
+        "photo_condition_two": MessageLookupByLibrary.simpleMessage(
+            "• Hologram in upper corner of packaging"),
         "popup_btn_no":
             MessageLookupByLibrary.simpleMessage("NO, I\'LL DO THIS LATER"),
         "popup_btn_yes": MessageLookupByLibrary.simpleMessage("IMPORT MY INFO"),
@@ -136,9 +164,13 @@ class MessageLookup extends MessageLookupByLibrary {
             "Search name, style, color etc"),
         "second_address":
             MessageLookupByLibrary.simpleMessage("Address 2 (optional)"),
+        "see_info":
+            MessageLookupByLibrary.simpleMessage("ⓘ  See info guidelines"),
         "select_avatar_desc": MessageLookupByLibrary.simpleMessage(
             "Select an avatar below or add one from your camera/photos."),
+        "select_item": MessageLookupByLibrary.simpleMessage("SELECT ITEM"),
         "sell_for": MessageLookupByLibrary.simpleMessage("SELL FOR"),
+        "send_info": MessageLookupByLibrary.simpleMessage("SEND INFO"),
         "sign_in": MessageLookupByLibrary.simpleMessage("SIGN IN"),
         "similar_items": MessageLookupByLibrary.simpleMessage("SIMILAR ITEMS"),
         "sort": MessageLookupByLibrary.simpleMessage("Sort:"),
@@ -161,6 +193,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "verify_name": MessageLookupByLibrary.simpleMessage("@MRDOUG"),
         "view_less": MessageLookupByLibrary.simpleMessage("View less details"),
         "view_more": MessageLookupByLibrary.simpleMessage("View more details"),
+        "we_can_help": MessageLookupByLibrary.simpleMessage("WE CAN HELP!"),
+        "we_can_help_description": MessageLookupByLibrary.simpleMessage(
+            "Let us help you find what you have! Please complete the information below and a team member will review. We will be in touch  with you soon.."),
+        "we_can_help_sub_title": MessageLookupByLibrary.simpleMessage(
+            "ADD PHOTOS OF THE FOLLOWING IF POSSIBLE:"),
         "whats_hot": MessageLookupByLibrary.simpleMessage("What\'s Hot"),
         "zip": MessageLookupByLibrary.simpleMessage("ZIP/Postal Code")
       };

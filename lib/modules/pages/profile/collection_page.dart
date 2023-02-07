@@ -9,6 +9,7 @@ import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
 import '../../common/utils/size_helper.dart';
 import '../../models/profile/profile_collection_model.dart';
+import '../add/collection/select_item_page.dart';
 
 class CollectionPage extends StatefulWidget {
   static const name = '/Collection';
@@ -107,7 +108,11 @@ class _CollectionPageState extends State<CollectionPage> {
                                         icon: Image.asset(
                                           'assets/images/plus.png',
                                         ),
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          Navigator.of(context,
+                                                  rootNavigator: true)
+                                              .push(SelectItemPage.route());
+                                        },
                                       ),
                                     ),
                                   ),

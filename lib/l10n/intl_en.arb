@@ -94,7 +94,28 @@
     "purchase_price": "Purchase Price",
     "add_collection":"ADD TO COLLECTION",
     "add_collection_title":"ADD TO YOUR COLLECTION",
-    "i_do_not_know": "I DON’T KNOW/ NOT LISTED"
+    "i_do_not_know": "I DON’T KNOW/ NOT LISTED",
+    "see_info": "ⓘ  See info guidelines",
+    "send_info": "SEND INFO",
+    "we_can_help": "WE CAN HELP!",
+    "we_can_help_sub_title": "ADD PHOTOS OF THE FOLLOWING IF POSSIBLE:",
+    "we_can_help_description": "Let us help you find what you have! Please complete the information below and a team member will review. We will be in touch  with you soon..",
+    "add_photos": "ADD PHOTOS",
+    "photo_condition_one": "• The tag on the inside of the headcover",
+    "photo_condition_two": "• Hologram in upper corner of packaging",
+    "photo_condition_three": "• All sides of the product",
+    "photo_condition_four": "• Minimum of 4 photos maximum of 6",
+    "date_purchased": "Date Purchased",
+    "select_item": "SELECT ITEM",
+    "info_guideline_popup_title": "INFO GUIDELINES",
+    "info_guideline_popup_sub_title": "Please provide as much information as you can about the product and how you acquired it. Be sure to include the following:",
+    "info_guideline_popup_badg_one": "• Detailed product description",
+    "info_guideline_popup_badg_two": "• Who you acquired item from",
+    "info_guideline_popup_badg_three": "• Any relation to someone at Swag?",
+    "existing_item_to_collection_error_title": "Are you sure",
+    "existing_item_to_collection_error_sub_desc": "It looks like you already have this item in your collection. Are you sure you want to add another one?",
+    "existing_item_to_collection_error_btn": "YES, ADD ANOTHER"
+    
 
 
 }

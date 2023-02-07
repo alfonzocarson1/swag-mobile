@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../generated/l10n.dart';
 import '../utils/palette.dart';
 import '../utils/utils.dart';
 
@@ -9,7 +10,7 @@ class CupertinoDatePickerView extends StatefulWidget {
       {Key? key, required this.cupertinoDatePickervalue, required this.onDone})
       : super(key: key);
 
-  final DateTime cupertinoDatePickervalue;
+  final DateTime? cupertinoDatePickervalue;
   Function(DateTime) onDone;
 
   @override
@@ -57,8 +58,10 @@ class _CupertinoDatePickerViewState extends State<CupertinoDatePickerView> {
                           Expanded(
                               flex: 1,
                               child: Text(
-                                formatDate(
-                                    widget.cupertinoDatePickervalue.toString()),
+                                widget.cupertinoDatePickervalue == null
+                                    ? S.of(context).date_purchased
+                                    : formatDate(widget.cupertinoDatePickervalue
+                                        .toString()),
                                 style: const TextStyle(
                                   color: Colors.black,
                                 ),

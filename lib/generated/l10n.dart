@@ -1009,6 +1009,206 @@ class S {
       args: [],
     );
   }
+
+  /// `ⓘ  See info guidelines`
+  String get see_info {
+    return Intl.message(
+      'ⓘ  See info guidelines',
+      name: 'see_info',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SEND INFO`
+  String get send_info {
+    return Intl.message(
+      'SEND INFO',
+      name: 'send_info',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `WE CAN HELP!`
+  String get we_can_help {
+    return Intl.message(
+      'WE CAN HELP!',
+      name: 'we_can_help',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ADD PHOTOS OF THE FOLLOWING IF POSSIBLE:`
+  String get we_can_help_sub_title {
+    return Intl.message(
+      'ADD PHOTOS OF THE FOLLOWING IF POSSIBLE:',
+      name: 'we_can_help_sub_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Let us help you find what you have! Please complete the information below and a team member will review. We will be in touch  with you soon..`
+  String get we_can_help_description {
+    return Intl.message(
+      'Let us help you find what you have! Please complete the information below and a team member will review. We will be in touch  with you soon..',
+      name: 'we_can_help_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ADD PHOTOS`
+  String get add_photos {
+    return Intl.message(
+      'ADD PHOTOS',
+      name: 'add_photos',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• The tag on the inside of the headcover`
+  String get photo_condition_one {
+    return Intl.message(
+      '• The tag on the inside of the headcover',
+      name: 'photo_condition_one',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Hologram in upper corner of packaging`
+  String get photo_condition_two {
+    return Intl.message(
+      '• Hologram in upper corner of packaging',
+      name: 'photo_condition_two',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• All sides of the product`
+  String get photo_condition_three {
+    return Intl.message(
+      '• All sides of the product',
+      name: 'photo_condition_three',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Minimum of 4 photos maximum of 6`
+  String get photo_condition_four {
+    return Intl.message(
+      '• Minimum of 4 photos maximum of 6',
+      name: 'photo_condition_four',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date Purchased`
+  String get date_purchased {
+    return Intl.message(
+      'Date Purchased',
+      name: 'date_purchased',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SELECT ITEM`
+  String get select_item {
+    return Intl.message(
+      'SELECT ITEM',
+      name: 'select_item',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `INFO GUIDELINES`
+  String get info_guideline_popup_title {
+    return Intl.message(
+      'INFO GUIDELINES',
+      name: 'info_guideline_popup_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please provide as much information as you can about the product and how you acquired it. Be sure to include the following:`
+  String get info_guideline_popup_sub_title {
+    return Intl.message(
+      'Please provide as much information as you can about the product and how you acquired it. Be sure to include the following:',
+      name: 'info_guideline_popup_sub_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Detailed product description`
+  String get info_guideline_popup_badg_one {
+    return Intl.message(
+      '• Detailed product description',
+      name: 'info_guideline_popup_badg_one',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Who you acquired item from`
+  String get info_guideline_popup_badg_two {
+    return Intl.message(
+      '• Who you acquired item from',
+      name: 'info_guideline_popup_badg_two',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Any relation to someone at Swag?`
+  String get info_guideline_popup_badg_three {
+    return Intl.message(
+      '• Any relation to someone at Swag?',
+      name: 'info_guideline_popup_badg_three',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure`
+  String get existing_item_to_collection_error_title {
+    return Intl.message(
+      'Are you sure',
+      name: 'existing_item_to_collection_error_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `It looks like you already have this item in your collection. Are you sure you want to add another one?`
+  String get existing_item_to_collection_error_sub_desc {
+    return Intl.message(
+      'It looks like you already have this item in your collection. Are you sure you want to add another one?',
+      name: 'existing_item_to_collection_error_sub_desc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `YES, ADD ANOTHER`
+  String get existing_item_to_collection_error_btn {
+    return Intl.message(
+      'YES, ADD ANOTHER',
+      name: 'existing_item_to_collection_error_btn',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

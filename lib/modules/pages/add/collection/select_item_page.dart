@@ -7,13 +7,22 @@ import '../../../blocs/collection_bloc/collection_bloc.dart';
 import '../../../common/ui/loading.dart';
 import '../../../common/ui/pushed_header.dart';
 import '../../../common/ui/search_input.dart';
+import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
 import '../../../common/utils/size_helper.dart';
 import '../../../models/profile/profile_collection_model.dart';
 import '../../search/search_on_tap_page.dart';
+import 'add_collection_page.dart';
+import 'collection_unknown_product.dart';
 
 class SelectItemPage extends StatefulWidget {
+  static const name = '/SelectItemPage';
   const SelectItemPage({super.key});
+
+  static Route route() => PageRoutes.material(
+        settings: const RouteSettings(name: name),
+        builder: (context) => const SelectItemPage(),
+      );
 
   @override
   State<SelectItemPage> createState() => _SelectItemPageState();
@@ -30,7 +39,7 @@ class _SelectItemPageState extends State<SelectItemPage> {
         appBar: PushedHeader(
           title: Align(
             alignment: Alignment.centerRight,
-            child: Text("SELECT ITEM",
+            child: Text(S.of(context).select_item,
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
                     letterSpacing: 1,
                     fontWeight: FontWeight.w300,
@@ -106,61 +115,68 @@ class _SelectItemPageState extends State<SelectItemPage> {
                     ),
                     itemCount: soldList.length,
                     itemBuilder: (_, index) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Stack(
-                            children: [
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.width * 0.38,
-                                child: ClipRRect(
-                                  child: CachedNetworkImage(
-                                    fit: BoxFit.fitHeight,
-                                    imageUrl: soldList[index].image,
-                                    placeholder: (context, url) => SizedBox(
-                                      height: 200,
-                                      child: Center(
-                                        child: CircularProgressIndicator(
-                                          color:
-                                              Palette.current.primaryNeonGreen,
-                                          backgroundColor: Colors.white,
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.of(context, rootNavigator: true)
+                              .push(AddCollection.route(context));
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Stack(
+                              children: [
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.width * 0.40,
+                                  child: ClipRRect(
+                                    child: CachedNetworkImage(
+                                      fit: BoxFit.fitHeight,
+                                      imageUrl: soldList[index].image,
+                                      placeholder: (context, url) => SizedBox(
+                                        height: 200,
+                                        child: Center(
+                                          child: CircularProgressIndicator(
+                                            color: Palette
+                                                .current.primaryNeonGreen,
+                                            backgroundColor: Colors.white,
+                                          ),
                                         ),
                                       ),
+                                      errorWidget: (context, url, error) =>
+                                          Image.asset(
+                                              "assets/images/ProfilePhoto.png"),
                                     ),
-                                    errorWidget: (context, url, error) =>
-                                        Image.asset(
-                                            "assets/images/ProfilePhoto.png"),
                                   ),
-                                ),
-                              )
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Text(soldList[index].catalogItemName,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayLarge!
-                                  .copyWith(
-                                      letterSpacing: 1,
-                                      fontWeight: FontWeight.w300,
-                                      fontFamily: "Knockout",
-                                      fontSize: 24,
-                                      color: Palette.current.white)),
-                          Text(soldList[index].lastSale,
-                              overflow: TextOverflow.fade,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                      fontWeight: FontWeight.w300,
-                                      fontSize: 13,
-                                      color: Palette.current.primaryNeonGreen)),
-                        ],
+                                )
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(soldList[index].catalogItemName,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayLarge!
+                                    .copyWith(
+                                        letterSpacing: 1,
+                                        fontWeight: FontWeight.w300,
+                                        fontFamily: "Knockout",
+                                        fontSize: 24,
+                                        color: Palette.current.white)),
+                            Text(soldList[index].lastSale,
+                                overflow: TextOverflow.fade,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(
+                                        fontWeight: FontWeight.w300,
+                                        fontSize: 13,
+                                        color:
+                                            Palette.current.primaryNeonGreen)),
+                          ],
+                        ),
                       );
                     },
                   ),
@@ -179,7 +195,10 @@ class _SelectItemPageState extends State<SelectItemPage> {
                         child: Align(
                           alignment: Alignment.center,
                           child: GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.of(context, rootNavigator: true).push(
+                                  CollectionUnknownProductPage.route(context));
+                            },
                             child: Center(
                               child: Container(
                                   height: 50,
