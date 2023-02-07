@@ -91,6 +91,11 @@
     "saved_searches": "SAVED SEARCHES",
     "save_search": "Save Search",
     "sort": "Sort:",
+
+    "sale_data": "SALE DATE",
+    "condition": "CONDITION",
+    "price": "PRICE",
+
     "purchase_price": "Purchase Price",
     "add_collection":"ADD TO COLLECTION",
     "add_collection_title":"ADD TO YOUR COLLECTION"
