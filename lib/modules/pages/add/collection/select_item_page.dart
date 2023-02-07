@@ -296,29 +296,6 @@ class _SelectItemPageState extends State<SelectItemPage> {
                 }),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: 4.0),
-          child: Row(
-            children: [
-              IconButton(
-                onPressed: () {},
-                icon: Image.asset(
-                  "assets/icons/ForSale.png",
-                  height: 20,
-                  width: 20,
-                ),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: Image.asset(
-                  "assets/icons/Filter.png",
-                  height: 20,
-                  width: 20,
-                ),
-              ),
-            ],
-          ),
-        ),
       ],
     );
   }
