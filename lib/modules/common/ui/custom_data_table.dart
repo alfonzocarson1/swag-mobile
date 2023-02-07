@@ -144,7 +144,8 @@ class _CustomDataTableState extends State<CustomDataTable> {
                     ],
                     rows: histories
                         .map((volunteer) => DataRow(cells: [
-                              DataCell(Center(
+                              DataCell(Align(
+                                  alignment: Alignment.centerLeft,
                                   child: Text(volunteer.date,
                                       style: Theme.of(context)
                                           .textTheme
