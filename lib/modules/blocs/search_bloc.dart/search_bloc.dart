@@ -144,7 +144,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
             "retail": "string",
             "sale": true,
             "lastSale": "FOR SALE: \$832.00",
-            "numberAvailable": 3,
+            "numberAvailable": 1,
             "sku": "string"
           },
           {
@@ -160,7 +160,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
             "retail": "string",
             "sale": true,
             "lastSale": "FOR SALE: \$360.00 - \$380.00",
-            "numberAvailable": 1,
+            "numberAvailable": 3,
             "sku": "string"
           },
           {

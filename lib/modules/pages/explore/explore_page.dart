@@ -13,7 +13,7 @@ import '../../common/utils/custom_route_animations.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/explore/explore_item_model.dart';
-import '../search/account_info.dart';
+import 'account_info.dart';
 
 class ExplorePage extends StatefulWidget {
   static const name = '/ExplorePage';

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
-import '../../common/utils/custom_route_animations.dart';
+import '../../../common/utils/custom_route_animations.dart';
 
-import '../../../generated/l10n.dart';
-import '../../common/ui/catalog_ui.dart';
+import '../../../../generated/l10n.dart';
+import '../../../common/ui/catalog_ui.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:swagapp/modules/blocs/search_bloc.dart/search_bloc.dart';
 import 'package:swagapp/modules/common/ui/loading.dart';
 
-import '../../models/search/catalog_item_model.dart';
+import '../../../models/search/catalog_item_model.dart';
 
 class PuttersPage extends StatefulWidget {
   static const name = '/Putters';

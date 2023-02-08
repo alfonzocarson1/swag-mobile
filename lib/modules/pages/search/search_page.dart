@@ -4,11 +4,12 @@ import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/common/ui/pushed_header.dart';
 import 'package:swagapp/modules/common/ui/search_input.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
-import 'package:swagapp/modules/pages/search/accessories_page.dart';
-import 'package:swagapp/modules/pages/search/headcovers_page.dart';
-import 'package:swagapp/modules/pages/search/putters_page.dart';
+import 'package:swagapp/modules/pages/search/filters_bottom_sheet.dart';
+import 'package:swagapp/modules/pages/search/tabs/accessories_page.dart';
+import 'package:swagapp/modules/pages/search/tabs/headcovers_page.dart';
+import 'package:swagapp/modules/pages/search/tabs/putters_page.dart';
 import 'package:swagapp/modules/pages/search/search_on_tap_page.dart';
-import 'package:swagapp/modules/pages/search/whats_hot_page.dart';
+import 'package:swagapp/modules/pages/search/tabs/whats_hot_page.dart';
 
 import '../../common/utils/custom_route_animations.dart';
 
@@ -142,7 +143,10 @@ class _SearchPageState extends State<SearchPage>
                 ),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context, rootNavigator: true)
+                      .push(FiltersBottomSheet.route(context));
+                },
                 icon: Image.asset(
                   "assets/icons/Filter.png",
                   height: 20,
