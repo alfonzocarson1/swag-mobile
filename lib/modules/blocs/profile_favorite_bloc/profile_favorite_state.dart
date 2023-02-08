@@ -7,6 +7,6 @@ class FavoriteState with _$FavoriteState {
   factory FavoriteState.initial() = _InitialFavoriteState;
   factory FavoriteState.error(final String message) = _ErrorFavoriteState;
   factory FavoriteState.loadedFavoriteItems({
-    required final List<FavoriteItemModel> dataFavoriteList,
+    required final List<CatalogItemModel> dataFavoriteList,
   }) = LoadedFavoriteItemState;
 }

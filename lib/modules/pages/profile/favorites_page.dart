@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swagapp/modules/models/search/catalog_item_model.dart';
 
 import '../../../generated/l10n.dart';
 import '../../blocs/profile_favorite_bloc/profile_favorite_bloc.dart';
@@ -8,7 +9,6 @@ import '../../common/ui/loading.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
 import '../../common/utils/size_helper.dart';
-import '../../models/profile/profile_favorite_model.dart';
 
 class FavoritesPage extends StatefulWidget {
   static const name = '/Favorite';
@@ -64,7 +64,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
         ));
   }
 
-  Widget _getBody(List<FavoriteItemModel> favoriteList) {
+  Widget _getBody(List<CatalogItemModel> favoriteList) {
     return RefreshIndicator(
       onRefresh: () async {
         makeCall();

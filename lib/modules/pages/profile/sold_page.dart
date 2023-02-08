@@ -1,13 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swagapp/modules/models/search/catalog_item_model.dart';
 
 import '../../../generated/l10n.dart';
 import '../../blocs/sold_bloc/sold_bloc.dart';
 import '../../common/ui/loading.dart';
 import '../../common/utils/palette.dart';
 import '../../common/utils/size_helper.dart';
-import '../../models/profile/profile_sold_model.dart';
 
 class SoldPage extends StatefulWidget {
   const SoldPage({super.key});
@@ -57,7 +57,7 @@ class _SoldPageState extends State<SoldPage> {
         ));
   }
 
-  Widget _getBody(List<SoldItemModel> soldList) {
+  Widget _getBody(List<CatalogItemModel> soldList) {
     return RefreshIndicator(
       onRefresh: () async {
         makeCall();

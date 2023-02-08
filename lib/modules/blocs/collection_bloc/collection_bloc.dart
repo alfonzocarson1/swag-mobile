@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:swagapp/modules/models/search/catalog_item_model.dart';
 
 import '../../common/utils/handling_errors.dart';
 import '../../data/collection/i_collection_service.dart';
-import '../../models/profile/profile_collection_model.dart';
 
 part 'collection_bloc.freezed.dart';
 part 'collection_event.dart';
@@ -134,7 +134,7 @@ class CollectionBloc extends Bloc<CollectionEvent, CollectionState> {
         }
       ];
       final response =
-          responseBody.map((i) => CollectionItemModel.fromJson(i)).toList();
+          responseBody.map((i) => CatalogItemModel.fromJson(i)).toList();
       yield CollectionState.loadedCollectionItems(
           dataCollectionlList: response);
     } catch (e) {
