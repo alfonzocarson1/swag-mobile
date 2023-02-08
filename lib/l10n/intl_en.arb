@@ -63,6 +63,7 @@
     "my_collection": "MY COLLECTION",
     "acquired": "Acquired:",
     "paid": "Paid:",
+    "Condition": "Condition:",
     "buy_for": "BUY FOR",
     "sell_for": "SELL FOR",
     "make_an_offer": "MAKE AN OFFER",
@@ -119,7 +120,9 @@
     "info_guideline_popup_badg_three": "• Any relation to someone at Swag?",
     "existing_item_to_collection_error_title": "Are you sure",
     "existing_item_to_collection_error_sub_desc": "It looks like you already have this item in your collection. Are you sure you want to add another one?",
-    "existing_item_to_collection_error_btn": "YES, ADD ANOTHER"
+    "existing_item_to_collection_error_btn": "YES, ADD ANOTHER",
+    "remove_collection_btn": "REMOVE FROM COLLECTION",
+    "list_for_sale_btn": "LIST FOR SALE"
     
 
 

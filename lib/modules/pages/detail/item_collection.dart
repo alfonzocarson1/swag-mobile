@@ -10,11 +10,13 @@ class CollectionWidget extends StatefulWidget {
       {super.key,
       required this.dataCollection,
       this.lastSale,
-      required this.sale});
+      required this.sale,
+      this.available});
 
   final List<DetailCollectionModel>? dataCollection;
   final String? lastSale;
   final bool sale;
+  final int? available;
 
   @override
   State<CollectionWidget> createState() => _CollectionWidgetState();
@@ -45,6 +47,20 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                     fontFamily: "Knockout",
                     fontSize: 27,
                     color: Palette.current.white)),
+            const SizedBox(
+              width: 10,
+            ),
+            (widget.sale &&
+                    widget.dataCollection!.isNotEmpty &&
+                    widget.available != 0)
+                ? Text("(${widget.available}X)",
+                    style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                        letterSpacing: 1,
+                        fontWeight: FontWeight.w300,
+                        fontFamily: "Knockout",
+                        fontSize: 27,
+                        color: Palette.current.white))
+                : Container(),
             const SizedBox(
               width: 10,
             ),
@@ -105,43 +121,94 @@ class _CollectionWidgetState extends State<CollectionWidget> {
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: (widget.sale && widget.dataCollection!.isNotEmpty)
               ? Column(
-                  children: [
-                    ListTile(
-                      visualDensity: const VisualDensity(vertical: -4),
-                      dense: true,
-                      leading: Text(S.of(context).acquired,
-                          style:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    fontSize: 15,
-                                    color: Palette.current.primaryWhiteSmoke,
-                                  )),
-                      trailing: Text(widget.dataCollection![0].acquired,
-                          style:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    fontSize: 15,
-                                    color: Palette.current.primaryNeonGreen,
-                                  )),
-                    ),
-                    ListTile(
-                      visualDensity: const VisualDensity(vertical: -4),
-                      dense: true,
-                      leading: Text(S.of(context).paid,
-                          style:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    fontSize: 15,
-                                    color: Palette.current.primaryWhiteSmoke,
-                                  )),
-                      trailing: Text(widget.dataCollection![0].paid,
-                          style:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    fontSize: 15,
-                                    color: Palette.current.primaryNeonGreen,
-                                  )),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                  ],
+                  children: List.generate(
+                      widget.dataCollection!.length,
+                      (index) => Column(
+                            children: [
+                              ListTile(
+                                visualDensity:
+                                    const VisualDensity(vertical: -4),
+                                dense: true,
+                                leading: Text(S.of(context).acquired,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(
+                                          fontSize: 15,
+                                          color:
+                                              Palette.current.primaryWhiteSmoke,
+                                        )),
+                                trailing: Text(
+                                    widget.dataCollection![index].acquired,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(
+                                          fontSize: 15,
+                                          color:
+                                              Palette.current.primaryWhiteSmoke,
+                                        )),
+                              ),
+                              ListTile(
+                                visualDensity:
+                                    const VisualDensity(vertical: -4),
+                                dense: true,
+                                leading: Text(S.of(context).paid,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(
+                                          fontSize: 15,
+                                          color:
+                                              Palette.current.primaryWhiteSmoke,
+                                        )),
+                                trailing: Text(
+                                    widget.dataCollection![index].paid,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(
+                                          fontSize: 15,
+                                          color:
+                                              Palette.current.primaryNeonGreen,
+                                        )),
+                              ),
+                              ListTile(
+                                visualDensity:
+                                    const VisualDensity(vertical: -4),
+                                dense: true,
+                                leading: Text(S.of(context).Condition,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(
+                                          fontSize: 15,
+                                          color:
+                                              Palette.current.primaryWhiteSmoke,
+                                        )),
+                                trailing: Text(
+                                    widget.dataCollection![index].condition,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(
+                                          fontSize: 15,
+                                          color:
+                                              Palette.current.primaryNeonPink,
+                                        )),
+                              ),
+                              Visibility(
+                                visible:
+                                    index != widget.dataCollection!.length - 1,
+                                child: Divider(
+                                  color: Palette.current.grey,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                            ],
+                          )),
                 )
               : const Text(""),
         ),
@@ -195,8 +262,18 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                           SizedBox(
                             width: MediaQuery.of(context).size.width,
                             child: PrimaryButton(
-                              title:
-                                  "${S.of(context).sell_for}  ${widget.dataCollection![0].salePrice}",
+                              title: "${S.of(context).list_for_sale_btn}",
+                              onPressed: () {},
+                              type: PrimaryButtonType.black,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            child: PrimaryButton(
+                              title: "${S.of(context).remove_collection_btn}",
                               onPressed: () {},
                               type: PrimaryButtonType.pink,
                             ),

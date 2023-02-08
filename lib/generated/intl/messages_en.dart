@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "Condition": MessageLookupByLibrary.simpleMessage("Condition:"),
         "access_photos": MessageLookupByLibrary.simpleMessage("CHOOSE PHOTO"),
         "accessories": MessageLookupByLibrary.simpleMessage("Accesories"),
         "acquired": MessageLookupByLibrary.simpleMessage("Acquired:"),
@@ -106,6 +107,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "username must be between 4-20 characters"),
         "last_name": MessageLookupByLibrary.simpleMessage("Last Name"),
         "last_sale": MessageLookupByLibrary.simpleMessage("LAST SALE"),
+        "list_for_sale_btn":
+            MessageLookupByLibrary.simpleMessage("LIST FOR SALE"),
         "make_an_offer": MessageLookupByLibrary.simpleMessage("MAKE AN OFFER"),
         "my_collection": MessageLookupByLibrary.simpleMessage("MY COLLECTION"),
         "n_a": MessageLookupByLibrary.simpleMessage("N/A"),
@@ -147,6 +150,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("RECENT SEARCHES"),
         "released": MessageLookupByLibrary.simpleMessage("Released:"),
         "released_type": MessageLookupByLibrary.simpleMessage("Release Type:"),
+        "remove_collection_btn":
+            MessageLookupByLibrary.simpleMessage("REMOVE FROM COLLECTION"),
         "required_field":
             MessageLookupByLibrary.simpleMessage("Required field"),
         "resend_email": MessageLookupByLibrary.simpleMessage(

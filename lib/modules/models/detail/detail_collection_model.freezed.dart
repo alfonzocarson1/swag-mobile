@@ -24,6 +24,7 @@ mixin _$DetailCollectionModel {
   String get acquired => throw _privateConstructorUsedError;
   String get paid => throw _privateConstructorUsedError;
   String get salePrice => throw _privateConstructorUsedError;
+  String get condition => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,7 +38,7 @@ abstract class $DetailCollectionModelCopyWith<$Res> {
           $Res Function(DetailCollectionModel) then) =
       _$DetailCollectionModelCopyWithImpl<$Res, DetailCollectionModel>;
   @useResult
-  $Res call({String acquired, String paid, String salePrice});
+  $Res call({String acquired, String paid, String salePrice, String condition});
 }
 
 /// @nodoc
@@ -57,6 +58,7 @@ class _$DetailCollectionModelCopyWithImpl<$Res,
     Object? acquired = null,
     Object? paid = null,
     Object? salePrice = null,
+    Object? condition = null,
   }) {
     return _then(_value.copyWith(
       acquired: null == acquired
@@ -71,6 +73,10 @@ class _$DetailCollectionModelCopyWithImpl<$Res,
           ? _value.salePrice
           : salePrice // ignore: cast_nullable_to_non_nullable
               as String,
+      condition: null == condition
+          ? _value.condition
+          : condition // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -83,7 +89,7 @@ abstract class _$$_DetailCollectionModelCopyWith<$Res>
       __$$_DetailCollectionModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String acquired, String paid, String salePrice});
+  $Res call({String acquired, String paid, String salePrice, String condition});
 }
 
 /// @nodoc
@@ -100,6 +106,7 @@ class __$$_DetailCollectionModelCopyWithImpl<$Res>
     Object? acquired = null,
     Object? paid = null,
     Object? salePrice = null,
+    Object? condition = null,
   }) {
     return _then(_$_DetailCollectionModel(
       acquired: null == acquired
@@ -114,6 +121,10 @@ class __$$_DetailCollectionModelCopyWithImpl<$Res>
           ? _value.salePrice
           : salePrice // ignore: cast_nullable_to_non_nullable
               as String,
+      condition: null == condition
+          ? _value.condition
+          : condition // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -123,7 +134,10 @@ class __$$_DetailCollectionModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_DetailCollectionModel implements _DetailCollectionModel {
   const _$_DetailCollectionModel(
-      {required this.acquired, required this.paid, required this.salePrice});
+      {required this.acquired,
+      required this.paid,
+      required this.salePrice,
+      required this.condition});
 
   factory _$_DetailCollectionModel.fromJson(Map<String, dynamic> json) =>
       _$$_DetailCollectionModelFromJson(json);
@@ -134,10 +148,12 @@ class _$_DetailCollectionModel implements _DetailCollectionModel {
   final String paid;
   @override
   final String salePrice;
+  @override
+  final String condition;
 
   @override
   String toString() {
-    return 'DetailCollectionModel(acquired: $acquired, paid: $paid, salePrice: $salePrice)';
+    return 'DetailCollectionModel(acquired: $acquired, paid: $paid, salePrice: $salePrice, condition: $condition)';
   }
 
   @override
@@ -149,12 +165,15 @@ class _$_DetailCollectionModel implements _DetailCollectionModel {
                 other.acquired == acquired) &&
             (identical(other.paid, paid) || other.paid == paid) &&
             (identical(other.salePrice, salePrice) ||
-                other.salePrice == salePrice));
+                other.salePrice == salePrice) &&
+            (identical(other.condition, condition) ||
+                other.condition == condition));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, acquired, paid, salePrice);
+  int get hashCode =>
+      Object.hash(runtimeType, acquired, paid, salePrice, condition);
 
   @JsonKey(ignore: true)
   @override
@@ -175,7 +194,8 @@ abstract class _DetailCollectionModel implements DetailCollectionModel {
   const factory _DetailCollectionModel(
       {required final String acquired,
       required final String paid,
-      required final String salePrice}) = _$_DetailCollectionModel;
+      required final String salePrice,
+      required final String condition}) = _$_DetailCollectionModel;
 
   factory _DetailCollectionModel.fromJson(Map<String, dynamic> json) =
       _$_DetailCollectionModel.fromJson;
@@ -186,6 +206,8 @@ abstract class _DetailCollectionModel implements DetailCollectionModel {
   String get paid;
   @override
   String get salePrice;
+  @override
+  String get condition;
   @override
   @JsonKey(ignore: true)
   _$$_DetailCollectionModelCopyWith<_$_DetailCollectionModel> get copyWith =>

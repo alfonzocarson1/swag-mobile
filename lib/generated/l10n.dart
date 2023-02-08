@@ -690,6 +690,16 @@ class S {
     );
   }
 
+  /// `Condition:`
+  String get Condition {
+    return Intl.message(
+      'Condition:',
+      name: 'Condition',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `BUY FOR`
   String get buy_for {
     return Intl.message(
@@ -1235,6 +1245,26 @@ class S {
     return Intl.message(
       'YES, ADD ANOTHER',
       name: 'existing_item_to_collection_error_btn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `REMOVE FROM COLLECTION`
+  String get remove_collection_btn {
+    return Intl.message(
+      'REMOVE FROM COLLECTION',
+      name: 'remove_collection_btn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `LIST FOR SALE`
+  String get list_for_sale_btn {
+    return Intl.message(
+      'LIST FOR SALE',
+      name: 'list_for_sale_btn',
       desc: '',
       args: [],
     );
