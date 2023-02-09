@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:swagapp/modules/blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
 import 'package:swagapp/modules/pages/login/landing_page.dart';
 import 'package:swagapp/modules/blocs/search_bloc.dart/search_bloc.dart';
 import 'generated/l10n.dart';
@@ -44,6 +45,8 @@ class App extends StatelessWidget {
           BlocProvider<ProfileFavoriteBloc>(
               create: (context) => getIt<ProfileFavoriteBloc>()),
           BlocProvider<SoldBloc>(create: (context) => getIt<SoldBloc>()),
+          BlocProvider<SharedPreferencesBloc>(
+              create: (_) => getIt<SharedPreferencesBloc>()),
         ],
         child: MaterialApp(
           navigatorKey: getIt<ContextService>().rootNavigatorKey,

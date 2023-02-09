@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/generated/l10n.dart';
+import 'package:swagapp/modules/common/ui/body_widget_with_view.dart';
 import 'package:swagapp/modules/common/ui/pushed_header.dart';
 import 'package:swagapp/modules/common/ui/search_input.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
@@ -88,11 +89,15 @@ class _SearchResultPageState extends State<SearchResultPage>
                       itemCount: 0,
                     ));
               },
-              initial: (state) {
-                return getBody([]);
-              },
               result: (state) {
-                return getBody(state.result[SearchTab.all] ?? []);
+                return Column(
+                  children: [
+                    _getActionHeader(),
+                    Expanded(
+                        child: BodyWidgetWithView(
+                            state.result[SearchTab.all] ?? [])),
+                  ],
+                );
               },
             );
           },
@@ -154,7 +159,7 @@ class _SearchResultPageState extends State<SearchResultPage>
       },
       child: catalogList.isNotEmpty
           ? CatalogPage(
-              catalogItems: catalogList, scrollController: _scrollController!)
+              catalogItems: catalogList, scrollController: _scrollController)
           : ListView.builder(
               itemBuilder: (_, index) => SizedBox(
                 height: MediaQuery.of(context).size.height * 0.7,

@@ -6,6 +6,8 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   static const String _logged = 'logged';
   static const String _register = 'register';
   static const String _recentSearches = 'recentSearches';
+  static const String _isListView = 'isListView';
+  static const String _isForSale = 'isForSale';
   late SharedPreferences _prefs;
   @override
   SharedPreferences get prefs => _prefs;
@@ -46,5 +48,27 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   @override
   Future<void> saveRecentSearches(List<String> list) async {
     await _prefs.setStringList(_recentSearches, list);
+  }
+
+  @override
+  bool isListView() {
+    final isListView = _prefs.getBool(_isListView);
+    return isListView ?? true;
+  }
+
+  @override
+  Future<void> saveIsListView(bool value) async {
+    await _prefs.setBool(_isListView, value);
+  }
+
+  @override
+  bool isForSale() {
+    final isForSale = _prefs.getBool(_isForSale);
+    return isForSale ?? false;
+  }
+
+  @override
+  Future<void> saveIsForSale(bool value) async {
+    await _prefs.setBool(_isForSale, value);
   }
 }

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/constants/constants.dart';
 
 import '../../../generated/l10n.dart';
+import '../../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
+import '../../data/shared_preferences/shared_preferences_service.dart';
+import '../../di/injector.dart';
 
 class FiltersBottomSheet extends StatefulWidget {
   const FiltersBottomSheet({Key? key}) : super(key: key);
@@ -24,6 +28,14 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
   final FocusNode _focusNode = FocusNode();
   bool isListView = true;
   bool isForSale = false;
+
+  @override
+  void initState() {
+    isListView = getIt<PreferenceRepositoryService>().isListView();
+    isForSale = getIt<PreferenceRepositoryService>().isForSale();
+    super.initState();
+  }
+
   @override
   void dispose() {
     _focusNode.dispose();
@@ -52,14 +64,17 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Icon(
-                        Icons.arrow_back,
-                        color: Palette.current.primaryNeonGreen,
-                      )),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 0.0),
+                    child: IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(
+                          Icons.arrow_back,
+                          color: Palette.current.primaryNeonGreen,
+                        )),
+                  ),
                   Text(
                     S.of(context).filters_title.toUpperCase(),
                     style: Theme.of(context).textTheme.headlineMedium!.copyWith(
@@ -69,10 +84,11 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                         letterSpacing: 1.0,
                         color: Palette.current.primaryWhiteSmoke),
                   ),
+                  // const Spacer(),
                   Padding(
                     padding: const EdgeInsets.all(0.0),
                     child: Text(
-                      S.of(context).clear_all,
+                      "${S.of(context).clear_all}    ",
                       style: Theme.of(context)
                           .textTheme
                           .bodySmall!
@@ -103,6 +119,9 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                                           isListView = !isListView;
                                         }
                                       });
+                                      context.read<SharedPreferencesBloc>().add(
+                                          SharedPreferencesEvent.setIsListView(
+                                              isListView));
                                     },
                                     child: Image.asset(
                                       'assets/images/server.png',
@@ -123,6 +142,9 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                                           isListView = !isListView;
                                         }
                                       });
+                                      context.read<SharedPreferencesBloc>().add(
+                                          SharedPreferencesEvent.setIsListView(
+                                              isListView));
                                     },
                                     child: Icon(
                                       Icons.grid_view,
@@ -174,7 +196,8 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                           _filterItem(
                               context, S.of(context).price_range.toUpperCase()),
                           _filterItem(
-                              context, S.of(context).theme.toUpperCase()),
+                              context, S.of(context).theme.toUpperCase(),
+                              isSeparatorNeeded: false),
                           _actionButtonSection(context),
                           const SizedBox(
                             height: 40,
@@ -210,7 +233,9 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
   }
 
   Widget _filterItem(BuildContext context, String title,
-      {Widget? buttons, String selection = defaultString}) {
+      {Widget? buttons,
+      String selection = defaultString,
+      bool isSeparatorNeeded = true}) {
     return Material(
       color: Palette.current.primaryEerieBlack,
       child: InkWell(
@@ -270,10 +295,12 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                 ),
               ),
             ),
-            Container(
-              color: Palette.current.darkGray,
-              height: 0.35,
-            ),
+            isSeparatorNeeded
+                ? Container(
+                    color: Palette.current.darkGray,
+                    height: 0.35,
+                  )
+                : Container(),
           ],
         ),
       ),

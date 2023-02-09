@@ -13,6 +13,7 @@ Future<void> main() async {
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   setupAppScope();
   await getIt<PreferenceRepositoryService>().initialize();
+  getIt<PreferenceRepositoryService>().saveIsListView(true);
   // getIt<StorageRepositoryService>().initialize();
   try {
     // await PushNotificationProvider.instance.initNotifications();
