@@ -1,36 +1,35 @@
 import 'package:flutter/material.dart';
+import '../../../common/utils/custom_route_animations.dart';
+import '../../../common/utils/palette.dart';
+
+import '../../../../generated/l10n.dart';
+import '../../../common/ui/catalog_ui.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:swagapp/generated/l10n.dart';
+
 import 'package:swagapp/modules/blocs/search_bloc.dart/search_bloc.dart';
+import 'package:swagapp/modules/common/ui/loading.dart';
 
-import 'package:swagapp/modules/common/utils/palette.dart';
-import 'package:swagapp/modules/models/search/catalog_item_model.dart';
-import '../../common/ui/catalog_ui.dart';
-import '../../common/ui/loading.dart';
-import '../../common/utils/custom_route_animations.dart';
+import '../../../models/search/catalog_item_model.dart';
 
-class WhatsHotPage extends StatefulWidget {
-  static const name = '/WhatsHot';
-  const WhatsHotPage({Key? key}) : super(key: key);
+class HeadcoversPage extends StatefulWidget {
+  static const name = '/Headcovers';
+  const HeadcoversPage({Key? key}) : super(key: key);
 
   static Route route() => PageRoutes.material(
         settings: const RouteSettings(name: name),
-        builder: (context) => const WhatsHotPage(),
+        builder: (context) => const HeadcoversPage(),
       );
 
   @override
-  State<WhatsHotPage> createState() => _WhatsHotPageState();
+  State<HeadcoversPage> createState() => _HeadcoversPageState();
 }
 
-class _WhatsHotPageState extends State<WhatsHotPage> {
+class _HeadcoversPageState extends State<HeadcoversPage> {
   late final ScrollController? _scrollController =
       PrimaryScrollController.of(context);
-
   @override
-  void initState() {
-    super.initState();
-    makeCall();
-  }
+  void initState() {}
 
   @override
   Widget build(BuildContext context) {

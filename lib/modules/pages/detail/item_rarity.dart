@@ -32,7 +32,7 @@ class _RarityWidgetState extends State<RarityWidget> {
         Padding(
           padding: const EdgeInsets.only(left: 20),
           child: Row(children: <Widget>[
-            Text(S.of(context).rarity_score,
+            Text("${S.of(context).rarity_score}: ",
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
                     letterSpacing: 1,
                     fontWeight: FontWeight.w300,

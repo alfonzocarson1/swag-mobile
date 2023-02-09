@@ -760,10 +760,10 @@ class S {
     );
   }
 
-  /// `RARITY SCORE: `
+  /// `RARITY SCORE`
   String get rarity_score {
     return Intl.message(
-      'RARITY SCORE: ',
+      'RARITY SCORE',
       name: 'rarity_score',
       desc: '',
       args: [],
@@ -1090,10 +1090,10 @@ class S {
     );
   }
 
-  /// `Let us help you find what you have! Please complete the information below and a team member will review. We will be in touch  with you soon..`
+  /// `Let us help you find what you have! Please complete the information below and a team member will review. We will be in touch with you soon..`
   String get we_can_help_description {
     return Intl.message(
-      'Let us help you find what you have! Please complete the information below and a team member will review. We will be in touch  with you soon..',
+      'Let us help you find what you have! Please complete the information below and a team member will review. We will be in touch with you soon..',
       name: 'we_can_help_description',
       desc: '',
       args: [],
@@ -1275,6 +1275,212 @@ class S {
     return Intl.message(
       'RECEIVE OFFERS ON THIS ITEM',
       name: 'receive_offer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `filters`
+  String get filters_title {
+    return Intl.message(
+      'filters',
+      name: 'filters_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Clear All`
+  String get clear_all {
+    return Intl.message(
+      'Clear All',
+      name: 'clear_all',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `view`
+  String get view {
+    return Intl.message(
+      'view',
+      name: 'view',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `product`
+  String get product {
+    return Intl.message(
+      'product',
+      name: 'product',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `sort by`
+  String get sort_by {
+    return Intl.message(
+      'sort by',
+      name: 'sort_by',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `type`
+  String get type {
+    return Intl.message(
+      'type',
+      name: 'type',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `collections`
+  String get collections {
+    return Intl.message(
+      'collections',
+      name: 'collections',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `release date`
+  String get release_date {
+    return Intl.message(
+      'release date',
+      name: 'release_date',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `price range`
+  String get price_range {
+    return Intl.message(
+      'price range',
+      name: 'price_range',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `theme`
+  String get theme {
+    return Intl.message(
+      'theme',
+      name: 'theme',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Release Date - Newest`
+  String get release_date_newest {
+    return Intl.message(
+      'Release Date - Newest',
+      name: 'release_date_newest',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Release Date - Oldest`
+  String get release_date_oldest {
+    return Intl.message(
+      'Release Date - Oldest',
+      name: 'release_date_oldest',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Price: High to Low`
+  String get price_high_to_low {
+    return Intl.message(
+      'Price: High to Low',
+      name: 'price_high_to_low',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Price: Low to High`
+  String get price_low_to_high {
+    return Intl.message(
+      'Price: Low to High',
+      name: 'price_low_to_high',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `A to Z`
+  String get a_to_z {
+    return Intl.message(
+      'A to Z',
+      name: 'a_to_z',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Z to A`
+  String get z_to_a {
+    return Intl.message(
+      'Z to A',
+      name: 'z_to_a',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sealed`
+  String get sealed {
+    return Intl.message(
+      'Sealed',
+      name: 'sealed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Displayed`
+  String get displayed {
+    return Intl.message(
+      'Displayed',
+      name: 'displayed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Less than $111`
+  String get less_than {
+    return Intl.message(
+      'Less than \$111',
+      name: 'less_than',
+      desc: '',
+      args: [],
+    );
+  }
+
+  // skipped getter for the '\$111_\$222' key
+
+  // skipped getter for the '\$222_\$555' key
+
+  // skipped getter for the '\$555_above' key
+
+  /// `SEE RESULTS`
+  String get see_results {
+    return Intl.message(
+      'SEE RESULTS',
+      name: 'see_results',
       desc: '',
       args: [],
     );

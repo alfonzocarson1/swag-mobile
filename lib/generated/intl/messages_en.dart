@@ -23,6 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "Condition": MessageLookupByLibrary.simpleMessage("Condition:"),
+        "a_to_z": MessageLookupByLibrary.simpleMessage("A to Z"),
         "access_photos": MessageLookupByLibrary.simpleMessage("CHOOSE PHOTO"),
         "accessories": MessageLookupByLibrary.simpleMessage("Accesories"),
         "acquired": MessageLookupByLibrary.simpleMessage("Acquired:"),
@@ -39,9 +40,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "buy_for": MessageLookupByLibrary.simpleMessage("BUY FOR"),
         "camera": MessageLookupByLibrary.simpleMessage("TAKE PHOTO"),
         "city": MessageLookupByLibrary.simpleMessage("City"),
+        "clear_all": MessageLookupByLibrary.simpleMessage("Clear All"),
         "code": MessageLookupByLibrary.simpleMessage("Code"),
         "collection": MessageLookupByLibrary.simpleMessage(
             "This cover is not in your collection, buy it now before it’s too late"),
+        "collections": MessageLookupByLibrary.simpleMessage("collections"),
         "condition": MessageLookupByLibrary.simpleMessage("CONDITION"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
@@ -50,6 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("CREATE ACCOUNT"),
         "date_purchased":
             MessageLookupByLibrary.simpleMessage("Date Purchased"),
+        "displayed": MessageLookupByLibrary.simpleMessage("Displayed"),
         "dont_have_account": MessageLookupByLibrary.simpleMessage(
             "Don’t have an account? *Create Account*"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
@@ -67,6 +71,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("EXPLORE AS GUEST"),
         "field_empty":
             MessageLookupByLibrary.simpleMessage("This field cannot be empty"),
+        "filters_title": MessageLookupByLibrary.simpleMessage("filters"),
         "finish_btn": MessageLookupByLibrary.simpleMessage("FINISH"),
         "first_address": MessageLookupByLibrary.simpleMessage(
             "Preferred Shipping Address 1"),
@@ -107,6 +112,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "username must be between 4-20 characters"),
         "last_name": MessageLookupByLibrary.simpleMessage("Last Name"),
         "last_sale": MessageLookupByLibrary.simpleMessage("LAST SALE"),
+        "less_than": MessageLookupByLibrary.simpleMessage("Less than \$111"),
         "list_for_sale_btn":
             MessageLookupByLibrary.simpleMessage("LIST FOR SALE"),
         "make_an_offer": MessageLookupByLibrary.simpleMessage("MAKE AN OFFER"),
@@ -140,16 +146,27 @@ class MessageLookup extends MessageLookupByLibrary {
             "It looks like you have an account on swag.golf. After you verify your email you will be able to  import your information into the Swag app."),
         "popup_title": MessageLookupByLibrary.simpleMessage("WELCOME @"),
         "price": MessageLookupByLibrary.simpleMessage("PRICE"),
+        "price_high_to_low":
+            MessageLookupByLibrary.simpleMessage("Price: High to Low"),
+        "price_low_to_high":
+            MessageLookupByLibrary.simpleMessage("Price: Low to High"),
+        "price_range": MessageLookupByLibrary.simpleMessage("price range"),
         "privacy_policy_text": MessageLookupByLibrary.simpleMessage(
             "I agree to Swag’s *Privacy Policy* \n& *Terms of Use*"),
+        "product": MessageLookupByLibrary.simpleMessage("product"),
         "purchase_price":
             MessageLookupByLibrary.simpleMessage("Purchase Price"),
         "putters": MessageLookupByLibrary.simpleMessage("Putters"),
-        "rarity_score": MessageLookupByLibrary.simpleMessage("RARITY SCORE: "),
+        "rarity_score": MessageLookupByLibrary.simpleMessage("RARITY SCORE"),
         "receive_offer":
             MessageLookupByLibrary.simpleMessage("RECEIVE OFFERS ON THIS ITEM"),
         "recent_searches":
             MessageLookupByLibrary.simpleMessage("RECENT SEARCHES"),
+        "release_date": MessageLookupByLibrary.simpleMessage("release date"),
+        "release_date_newest":
+            MessageLookupByLibrary.simpleMessage("Release Date - Newest"),
+        "release_date_oldest":
+            MessageLookupByLibrary.simpleMessage("Release Date - Oldest"),
         "released": MessageLookupByLibrary.simpleMessage("Released:"),
         "released_type": MessageLookupByLibrary.simpleMessage("Release Type:"),
         "remove_collection_btn":
@@ -170,12 +187,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "save_search": MessageLookupByLibrary.simpleMessage("Save Search"),
         "saved_searches":
             MessageLookupByLibrary.simpleMessage("SAVED SEARCHES"),
+        "sealed": MessageLookupByLibrary.simpleMessage("Sealed"),
         "search_hint": MessageLookupByLibrary.simpleMessage(
             "Search name, style, color etc"),
         "second_address":
             MessageLookupByLibrary.simpleMessage("Address 2 (optional)"),
         "see_info":
             MessageLookupByLibrary.simpleMessage("ⓘ  See info guidelines"),
+        "see_results": MessageLookupByLibrary.simpleMessage("SEE RESULTS"),
         "select_avatar_desc": MessageLookupByLibrary.simpleMessage(
             "Select an avatar below or add one from your camera/photos."),
         "select_item": MessageLookupByLibrary.simpleMessage("SELECT ITEM"),
@@ -184,6 +203,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sign_in": MessageLookupByLibrary.simpleMessage("SIGN IN"),
         "similar_items": MessageLookupByLibrary.simpleMessage("SIMILAR ITEMS"),
         "sort": MessageLookupByLibrary.simpleMessage("Sort:"),
+        "sort_by": MessageLookupByLibrary.simpleMessage("sort by"),
         "state": MessageLookupByLibrary.simpleMessage("State"),
         "subtitle_welcome":
             MessageLookupByLibrary.simpleMessage("Let’s create your profile!"),
@@ -191,9 +211,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "tab_favorites": MessageLookupByLibrary.simpleMessage("FAVORITES"),
         "tab_listings": MessageLookupByLibrary.simpleMessage("LISTINGS"),
         "tab_sold": MessageLookupByLibrary.simpleMessage("SOLD"),
+        "theme": MessageLookupByLibrary.simpleMessage("theme"),
         "title_welcome":
             MessageLookupByLibrary.simpleMessage("WELCOME TO SWAG"),
         "total_mode": MessageLookupByLibrary.simpleMessage("Total Made:"),
+        "type": MessageLookupByLibrary.simpleMessage("type"),
         "username": MessageLookupByLibrary.simpleMessage("@username"),
         "username_taken":
             MessageLookupByLibrary.simpleMessage("This username is taken "),
@@ -201,14 +223,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "verify_email_description": MessageLookupByLibrary.simpleMessage(
             "You must verify your email before you can import your data. Check your inbox for the email."),
         "verify_name": MessageLookupByLibrary.simpleMessage("@MRDOUG"),
+        "view": MessageLookupByLibrary.simpleMessage("view"),
         "view_less": MessageLookupByLibrary.simpleMessage("View less details"),
         "view_more": MessageLookupByLibrary.simpleMessage("View more details"),
         "we_can_help": MessageLookupByLibrary.simpleMessage("WE CAN HELP!"),
         "we_can_help_description": MessageLookupByLibrary.simpleMessage(
-            "Let us help you find what you have! Please complete the information below and a team member will review. We will be in touch  with you soon.."),
+            "Let us help you find what you have! Please complete the information below and a team member will review. We will be in touch with you soon.."),
         "we_can_help_sub_title": MessageLookupByLibrary.simpleMessage(
             "ADD PHOTOS OF THE FOLLOWING IF POSSIBLE:"),
         "whats_hot": MessageLookupByLibrary.simpleMessage("What\'s Hot"),
+        "z_to_a": MessageLookupByLibrary.simpleMessage("Z to A"),
         "zip": MessageLookupByLibrary.simpleMessage("ZIP/Postal Code")
       };
 }
