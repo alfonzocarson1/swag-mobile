@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swagapp/modules/models/search/catalog_item_model.dart';
 
 import '../../../generated/l10n.dart';
 import '../../blocs/collection_bloc/collection_bloc.dart';
@@ -8,7 +9,6 @@ import '../../common/ui/loading.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
 import '../../common/utils/size_helper.dart';
-import '../../models/profile/profile_collection_model.dart';
 import '../add/collection/select_item_page.dart';
 
 class CollectionPage extends StatefulWidget {
@@ -71,7 +71,7 @@ class _CollectionPageState extends State<CollectionPage> {
         ));
   }
 
-  Widget _getBody(List<CollectionItemModel> collectionList) {
+  Widget _getBody(List<CatalogItemModel> collectionList) {
     return RefreshIndicator(
       onRefresh: () async {
         makeCall();
