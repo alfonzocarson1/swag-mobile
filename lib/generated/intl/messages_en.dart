@@ -53,6 +53,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "date_purchased":
             MessageLookupByLibrary.simpleMessage("Date Purchased"),
         "displayed": MessageLookupByLibrary.simpleMessage("Displayed"),
+        "displayed_gamed":
+            MessageLookupByLibrary.simpleMessage("DISPLAYED/GAMED:"),
+        "displayed_gamed_item_four": MessageLookupByLibrary.simpleMessage(
+            "•  Minimum of 4 photos Max of 6"),
+        "displayed_gamed_item_three":
+            MessageLookupByLibrary.simpleMessage("•  Bottom of item"),
         "dont_have_account": MessageLookupByLibrary.simpleMessage(
             "Don’t have an account? *Create Account*"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
@@ -89,6 +95,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "headcovers": MessageLookupByLibrary.simpleMessage("Headcovers"),
         "i_do_not_know":
             MessageLookupByLibrary.simpleMessage("I DON’T KNOW/ NOT LISTED"),
+        "image_guidelines":
+            MessageLookupByLibrary.simpleMessage("IMAGE GUIDELINES"),
+        "image_guidelines_description": MessageLookupByLibrary.simpleMessage(
+            "Please include the following images based on item condition. All photos must include a post-it with username and date."),
         "import_late": MessageLookupByLibrary.simpleMessage(
             "*You’ll be able to make updates later."),
         "incorrect_email_or_password": MessageLookupByLibrary.simpleMessage(
@@ -181,6 +191,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "saved_searches":
             MessageLookupByLibrary.simpleMessage("SAVED SEARCHES"),
         "sealed": MessageLookupByLibrary.simpleMessage("Sealed"),
+        "sealed_item_one":
+            MessageLookupByLibrary.simpleMessage("•  Front of item"),
+        "sealed_item_three": MessageLookupByLibrary.simpleMessage(
+            "•  Minimum of 4 photos Max of 6"),
+        "sealed_item_two":
+            MessageLookupByLibrary.simpleMessage("•  Back of item"),
         "search_hint": MessageLookupByLibrary.simpleMessage(
             "Search name, style, color etc"),
         "second_address":

@@ -142,8 +142,14 @@
     "$111_$222": "$111 - $222",
     "$222_$555": "$222 - $555",
     "$555_above": "$555 - Above",
-    "see_results": "SEE RESULTS"
-    
-
+    "see_results": "SEE RESULTS",
+    "image_guidelines": "IMAGE GUIDELINES",
+    "image_guidelines_description": "Please include the following images based on item condition. All photos must include a post-it with username and date.",
+    "displayed_gamed": "DISPLAYED/GAMED:",
+    "sealed_item_one": "•  Front of item",
+    "sealed_item_two": "•  Back of item",
+    "sealed_item_three": "•  Minimum of 4 photos Max of 6",
+    "displayed_gamed_item_three": "•  Bottom of item",
+    "displayed_gamed_item_four": "•  Minimum of 4 photos Max of 6"
 
 }
