@@ -61,13 +61,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                                 .push(AddCollection.route(context));
                           },
                         )
-                  : Transform.scale(
-                      scale: 0.2,
-                      child: CircularProgressIndicator(
-                        color: Palette.current.primaryNeonGreen,
-                        backgroundColor: Colors.white,
-                      ),
-                    )
+                  : Container()
             ]
           : null,
       automaticallyImplyLeading: false,
