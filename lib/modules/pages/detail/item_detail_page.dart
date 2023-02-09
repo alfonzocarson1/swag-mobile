@@ -11,6 +11,7 @@ import '../../models/detail/detail_item_model.dart';
 import 'intem_head.dart';
 import 'item_collection.dart';
 import 'item_rarity.dart';
+import 'item_switched.dart';
 
 class ItemDetailPage extends StatefulWidget {
   static const name = '/ItemDetail';
@@ -146,8 +147,10 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                   ],
                 ),
               ),
-              RelatedItemsWidget(
-                  dataRelated: dataDetail[index].similarItemList),
+              dataDetail[index].myCollection!.isEmpty
+                  ? RelatedItemsWidget(
+                      dataRelated: dataDetail[index].similarItemList)
+                  : const ItemSwitched()
             ],
           );
         });

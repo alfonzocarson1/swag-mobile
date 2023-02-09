@@ -146,6 +146,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Purchase Price"),
         "putters": MessageLookupByLibrary.simpleMessage("Putters"),
         "rarity_score": MessageLookupByLibrary.simpleMessage("RARITY SCORE: "),
+        "receive_offer":
+            MessageLookupByLibrary.simpleMessage("RECEIVE OFFERS ON THIS ITEM"),
         "recent_searches":
             MessageLookupByLibrary.simpleMessage("RECENT SEARCHES"),
         "released": MessageLookupByLibrary.simpleMessage("Released:"),

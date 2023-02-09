@@ -122,7 +122,8 @@
     "existing_item_to_collection_error_sub_desc": "It looks like you already have this item in your collection. Are you sure you want to add another one?",
     "existing_item_to_collection_error_btn": "YES, ADD ANOTHER",
     "remove_collection_btn": "REMOVE FROM COLLECTION",
-    "list_for_sale_btn": "LIST FOR SALE"
+    "list_for_sale_btn": "LIST FOR SALE",
+    "receive_offer": "RECEIVE OFFERS ON THIS ITEM"
     
 
 

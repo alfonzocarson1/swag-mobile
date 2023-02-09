@@ -1269,6 +1269,16 @@ class S {
       args: [],
     );
   }
+
+  /// `RECEIVE OFFERS ON THIS ITEM`
+  String get receive_offer {
+    return Intl.message(
+      'RECEIVE OFFERS ON THIS ITEM',
+      name: 'receive_offer',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

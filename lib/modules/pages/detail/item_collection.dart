@@ -53,7 +53,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
             (widget.sale &&
                     widget.dataCollection!.isNotEmpty &&
                     widget.available != 0)
-                ? Text("(${widget.available}X)",
+                ? Text("(${widget.dataCollection!.length}X)",
                     style: Theme.of(context).textTheme.displayLarge!.copyWith(
                         letterSpacing: 1,
                         fontWeight: FontWeight.w300,
@@ -211,6 +211,9 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                           )),
                 )
               : const Text(""),
+        ),
+        const SizedBox(
+          height: 20,
         ),
         Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
