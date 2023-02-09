@@ -21,11 +21,25 @@ class CatalogPage extends StatefulWidget {
 
 class _CatalogPageState extends State<CatalogPage> {
   late FavoriteBloc _favoriteBloc;
+  double animateFavorite = 0.0;
+  int? indexFavorite;
 
   @override
   void initState() {
     _favoriteBloc = getIt<FavoriteBloc>();
     super.initState();
+  }
+
+  onChangeFavoriteAnimation(int index) {
+    setState(() {
+      animateFavorite = 130.0;
+      indexFavorite = index;
+    });
+    Future.delayed(const Duration(milliseconds: 700), () {
+      setState(() {
+        animateFavorite = 0.0;
+      });
+    });
   }
 
   @override
@@ -78,21 +92,20 @@ class _CatalogPageState extends State<CatalogPage> {
                                 .push(AddCollection.route(context));
                           },
                         )),
-                    Positioned.fill(
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: AnimatedContainer(
-                            height: _favoriteBloc.isExist(
-                                    widget.catalogItems[index].catalogItemName)
-                                ? 130.0
-                                : 0.0,
-                            duration: const Duration(milliseconds: 200),
-                            child: Image.asset(
-                              "assets/images/IconsBig.png",
-                              scale: 3,
-                            )),
-                      ),
-                    ),
+                    (index == indexFavorite)
+                        ? Positioned.fill(
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: AnimatedContainer(
+                                  height: animateFavorite,
+                                  duration: const Duration(milliseconds: 200),
+                                  child: Image.asset(
+                                    "assets/images/IconsBig.png",
+                                    scale: 3,
+                                  )),
+                            ),
+                          )
+                        : Container(),
                     widget.catalogItems[index].sale
                         ? Positioned(
                             bottom: 0,
@@ -184,6 +197,11 @@ class _CatalogPageState extends State<CatalogPage> {
                                         _favoriteBloc.toggleFavorite(widget
                                             .catalogItems[index]
                                             .catalogItemName);
+                                        if (_favoriteBloc.isExist(widget
+                                            .catalogItems[index]
+                                            .catalogItemName)) {
+                                          onChangeFavoriteAnimation(index);
+                                        }
                                       });
                                     },
                                   ),
