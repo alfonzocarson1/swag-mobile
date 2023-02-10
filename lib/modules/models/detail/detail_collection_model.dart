@@ -7,7 +7,8 @@ part 'detail_collection_model.g.dart';
 class DetailCollectionModel with _$DetailCollectionModel {
   @JsonSerializable()
   const factory DetailCollectionModel(
-      {required final String acquired,
+      {required final String collectionItemId,
+      required final String acquired,
       required final String paid,
       required final String salePrice,
       required final String condition}) = _DetailCollectionModel;

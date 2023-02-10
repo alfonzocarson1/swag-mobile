@@ -272,7 +272,9 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                     context: context,
                                     barrierDismissible: false,
                                     builder: (BuildContext context) {
-                                      return const PopUpListItemSale();
+                                      return PopUpListItemSale(
+                                          dataCollection:
+                                              widget.dataCollection!);
                                     });
                               },
                               type: PrimaryButtonType.black,
@@ -284,7 +286,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                           SizedBox(
                             width: MediaQuery.of(context).size.width,
                             child: PrimaryButton(
-                              title: "${S.of(context).remove_collection_btn}",
+                              title: S.of(context).remove_collection_btn,
                               onPressed: () {},
                               type: PrimaryButtonType.pink,
                             ),

@@ -61,18 +61,21 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
           ],
           "myCollection": [
             {
+              "collectionItemId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
               "acquired": "08/04/2022",
               "paid": "\$165.00 +20.8%",
               "salePrice": "\$400.00",
               "condition": "Gamed"
             },
             {
+              "collectionItemId": "3fa85f64-5717-4562-b3fc-2c963f66afa7",
               "acquired": "08/04/2022",
               "paid": "\$165.00 +20.8%",
               "salePrice": "\$400.00",
               "condition": "Sealed"
             },
             {
+              "collectionItemId": "3fa85f64-5717-4562-b3fc-2c963f66afa8",
               "acquired": "08/04/2022",
               "paid": "\$165.00 +20.8%",
               "salePrice": "\$400.00",
