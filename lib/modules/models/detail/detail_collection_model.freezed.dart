@@ -21,6 +21,7 @@ DetailCollectionModel _$DetailCollectionModelFromJson(
 
 /// @nodoc
 mixin _$DetailCollectionModel {
+  String get collectionItemId => throw _privateConstructorUsedError;
   String get acquired => throw _privateConstructorUsedError;
   String get paid => throw _privateConstructorUsedError;
   String get salePrice => throw _privateConstructorUsedError;
@@ -38,7 +39,12 @@ abstract class $DetailCollectionModelCopyWith<$Res> {
           $Res Function(DetailCollectionModel) then) =
       _$DetailCollectionModelCopyWithImpl<$Res, DetailCollectionModel>;
   @useResult
-  $Res call({String acquired, String paid, String salePrice, String condition});
+  $Res call(
+      {String collectionItemId,
+      String acquired,
+      String paid,
+      String salePrice,
+      String condition});
 }
 
 /// @nodoc
@@ -55,12 +61,17 @@ class _$DetailCollectionModelCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? collectionItemId = null,
     Object? acquired = null,
     Object? paid = null,
     Object? salePrice = null,
     Object? condition = null,
   }) {
     return _then(_value.copyWith(
+      collectionItemId: null == collectionItemId
+          ? _value.collectionItemId
+          : collectionItemId // ignore: cast_nullable_to_non_nullable
+              as String,
       acquired: null == acquired
           ? _value.acquired
           : acquired // ignore: cast_nullable_to_non_nullable
@@ -89,7 +100,12 @@ abstract class _$$_DetailCollectionModelCopyWith<$Res>
       __$$_DetailCollectionModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String acquired, String paid, String salePrice, String condition});
+  $Res call(
+      {String collectionItemId,
+      String acquired,
+      String paid,
+      String salePrice,
+      String condition});
 }
 
 /// @nodoc
@@ -103,12 +119,17 @@ class __$$_DetailCollectionModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? collectionItemId = null,
     Object? acquired = null,
     Object? paid = null,
     Object? salePrice = null,
     Object? condition = null,
   }) {
     return _then(_$_DetailCollectionModel(
+      collectionItemId: null == collectionItemId
+          ? _value.collectionItemId
+          : collectionItemId // ignore: cast_nullable_to_non_nullable
+              as String,
       acquired: null == acquired
           ? _value.acquired
           : acquired // ignore: cast_nullable_to_non_nullable
@@ -134,7 +155,8 @@ class __$$_DetailCollectionModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_DetailCollectionModel implements _DetailCollectionModel {
   const _$_DetailCollectionModel(
-      {required this.acquired,
+      {required this.collectionItemId,
+      required this.acquired,
       required this.paid,
       required this.salePrice,
       required this.condition});
@@ -142,6 +164,8 @@ class _$_DetailCollectionModel implements _DetailCollectionModel {
   factory _$_DetailCollectionModel.fromJson(Map<String, dynamic> json) =>
       _$$_DetailCollectionModelFromJson(json);
 
+  @override
+  final String collectionItemId;
   @override
   final String acquired;
   @override
@@ -153,7 +177,7 @@ class _$_DetailCollectionModel implements _DetailCollectionModel {
 
   @override
   String toString() {
-    return 'DetailCollectionModel(acquired: $acquired, paid: $paid, salePrice: $salePrice, condition: $condition)';
+    return 'DetailCollectionModel(collectionItemId: $collectionItemId, acquired: $acquired, paid: $paid, salePrice: $salePrice, condition: $condition)';
   }
 
   @override
@@ -161,6 +185,8 @@ class _$_DetailCollectionModel implements _DetailCollectionModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_DetailCollectionModel &&
+            (identical(other.collectionItemId, collectionItemId) ||
+                other.collectionItemId == collectionItemId) &&
             (identical(other.acquired, acquired) ||
                 other.acquired == acquired) &&
             (identical(other.paid, paid) || other.paid == paid) &&
@@ -172,8 +198,8 @@ class _$_DetailCollectionModel implements _DetailCollectionModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, acquired, paid, salePrice, condition);
+  int get hashCode => Object.hash(
+      runtimeType, collectionItemId, acquired, paid, salePrice, condition);
 
   @JsonKey(ignore: true)
   @override
@@ -192,7 +218,8 @@ class _$_DetailCollectionModel implements _DetailCollectionModel {
 
 abstract class _DetailCollectionModel implements DetailCollectionModel {
   const factory _DetailCollectionModel(
-      {required final String acquired,
+      {required final String collectionItemId,
+      required final String acquired,
       required final String paid,
       required final String salePrice,
       required final String condition}) = _$_DetailCollectionModel;
@@ -200,6 +227,8 @@ abstract class _DetailCollectionModel implements DetailCollectionModel {
   factory _DetailCollectionModel.fromJson(Map<String, dynamic> json) =
       _$_DetailCollectionModel.fromJson;
 
+  @override
+  String get collectionItemId;
   @override
   String get acquired;
   @override

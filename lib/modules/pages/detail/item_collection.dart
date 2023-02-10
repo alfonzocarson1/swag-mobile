@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../../../generated/l10n.dart';
+import '../../common/ui/popup_list_item_sale.dart';
 import '../../common/ui/primary_button.dart';
 import '../../common/utils/palette.dart';
 import '../../models/detail/detail_collection_model.dart';
+import '../add/collection/list_for_Sale_page.dart';
 
 class CollectionWidget extends StatefulWidget {
   const CollectionWidget(
@@ -265,8 +267,20 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                           SizedBox(
                             width: MediaQuery.of(context).size.width,
                             child: PrimaryButton(
-                              title: "${S.of(context).list_for_sale_btn}",
-                              onPressed: () {},
+                              title: S.of(context).list_for_sale_btn,
+                              onPressed: () {
+                                widget.dataCollection!.length > 1
+                                    ? showDialog(
+                                        context: context,
+                                        barrierDismissible: false,
+                                        builder: (BuildContext context) {
+                                          return PopUpListItemSale(
+                                              dataCollection:
+                                                  widget.dataCollection!);
+                                        })
+                                    : Navigator.of(context, rootNavigator: true)
+                                        .push(ListForSalePage.route(context));
+                              },
                               type: PrimaryButtonType.black,
                             ),
                           ),
@@ -276,7 +290,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                           SizedBox(
                             width: MediaQuery.of(context).size.width,
                             child: PrimaryButton(
-                              title: "${S.of(context).remove_collection_btn}",
+                              title: S.of(context).remove_collection_btn,
                               onPressed: () {},
                               type: PrimaryButtonType.pink,
                             ),

@@ -1565,6 +1565,96 @@ class S {
       args: [],
     );
   }
+
+  /// `LIST ITEM FOR SALE`
+  String get list_item_for_sale {
+    return Intl.message(
+      'LIST ITEM FOR SALE',
+      name: 'list_item_for_sale',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ⓘ  See photo guidelines`
+  String get see_photo_guidelines {
+    return Intl.message(
+      'ⓘ  See photo guidelines',
+      name: 'see_photo_guidelines',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `GOLDEN KING COVER`
+  String get title_list_for_Sale {
+    return Intl.message(
+      'GOLDEN KING COVER',
+      name: 'title_list_for_Sale',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `List Price`
+  String get list_price_input {
+    return Intl.message(
+      'List Price',
+      name: 'list_price_input',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `PREVIEW LISTING`
+  String get preview_listing {
+    return Intl.message(
+      'PREVIEW LISTING',
+      name: 'preview_listing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Additional listing details...`
+  String get aditional_listing_detail {
+    return Intl.message(
+      'Additional listing details...',
+      name: 'aditional_listing_detail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `LIST ITEM`
+  String get list_item_popup_title {
+    return Intl.message(
+      'LIST ITEM',
+      name: 'list_item_popup_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select the item you would like to list for sale.`
+  String get list_item_popup_desc {
+    return Intl.message(
+      'Please select the item you would like to list for sale.',
+      name: 'list_item_popup_desc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CREATE LISTING`
+  String get ist_item_popup_btn {
+    return Intl.message(
+      'CREATE LISTING',
+      name: 'ist_item_popup_btn',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
