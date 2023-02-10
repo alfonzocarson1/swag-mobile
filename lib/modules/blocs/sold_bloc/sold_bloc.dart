@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:swagapp/modules/models/search/catalog_item_model.dart';
 
 import '../../common/utils/handling_errors.dart';
 import '../../data/sold/i_sold_service.dart';
-import '../../models/profile/profile_sold_model.dart';
 
 part 'sold_bloc.freezed.dart';
 part 'sold_event.dart';
@@ -134,7 +134,7 @@ class SoldBloc extends Bloc<SoldEvent, SoldState> {
         }
       ];
       final response =
-          responseBody.map((i) => SoldItemModel.fromJson(i)).toList();
+          responseBody.map((i) => CatalogItemModel.fromJson(i)).toList();
       yield SoldState.loadedSoldItems(dataSoldList: response);
     } catch (e) {
       yield SoldState.error(HandlingErrors().getError(e));

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../common/ui/body_widget_with_view.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
 
@@ -61,7 +62,7 @@ class _HeadcoversPageState extends State<HeadcoversPage> {
                     ));
               },
               result: (state) {
-                return _getBody(state.result[SearchTab.all] ?? []);
+                return BodyWidgetWithView(state.result[SearchTab.all] ?? []);
               },
             );
           },

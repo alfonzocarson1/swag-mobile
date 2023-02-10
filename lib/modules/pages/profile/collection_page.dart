@@ -1,6 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swagapp/modules/models/search/catalog_item_model.dart';
+import 'package:swagapp/modules/common/ui/shrunken_item_widget.dart';
 
 import '../../../generated/l10n.dart';
 import '../../blocs/collection_bloc/collection_bloc.dart';
@@ -8,7 +9,6 @@ import '../../common/ui/loading.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
 import '../../common/utils/size_helper.dart';
-import '../../models/profile/profile_collection_model.dart';
 import '../add/collection/select_item_page.dart';
 
 class CollectionPage extends StatefulWidget {
@@ -71,7 +71,7 @@ class _CollectionPageState extends State<CollectionPage> {
         ));
   }
 
-  Widget _getBody(List<CollectionItemModel> collectionList) {
+  Widget _getBody(List<CatalogItemModel> collectionList) {
     return RefreshIndicator(
       onRefresh: () async {
         makeCall();
@@ -81,7 +81,7 @@ class _CollectionPageState extends State<CollectionPage> {
           ? Padding(
               padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
               child: GridView.builder(
-                physics: ScrollPhysics(),
+                physics: const ScrollPhysics(),
                 shrinkWrap: true,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
@@ -136,122 +136,8 @@ class _CollectionPageState extends State<CollectionPage> {
                                         color: Palette.current.white)),
                           ],
                         )
-                      : Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Stack(
-                              children: [
-                                SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.width * 0.38,
-                                  child: ClipRRect(
-                                    child: CachedNetworkImage(
-                                      fit: BoxFit.fitHeight,
-                                      imageUrl: collectionList[index - 1].image,
-                                      placeholder: (context, url) => SizedBox(
-                                        height: 200,
-                                        child: Center(
-                                          child: CircularProgressIndicator(
-                                            color: Palette
-                                                .current.primaryNeonGreen,
-                                            backgroundColor: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                      errorWidget: (context, url, error) =>
-                                          Image.asset(
-                                              "assets/images/ProfilePhoto.png"),
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  top: 7,
-                                  right: 0,
-                                  child: Visibility(
-                                    visible:
-                                        collectionList[index - 1].totalMade !=
-                                            0,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 20),
-                                      child: Align(
-                                        alignment: Alignment.centerRight,
-                                        child: Text(
-                                            "${collectionList[index - 1].totalMade} X",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall!
-                                                .copyWith(
-                                                    fontFamily: "Knockout",
-                                                    fontSize: 30,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Palette.current
-                                                        .primaryNeonGreen)),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  bottom: 0,
-                                  right: 0,
-                                  child: Visibility(
-                                      visible: collectionList[index - 1].sale,
-                                      child: Container(
-                                        height: 30,
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        decoration: BoxDecoration(
-                                          color:
-                                              Palette.current.primaryNeonPink,
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 20),
-                                          child: Align(
-                                            alignment: Alignment.centerRight,
-                                            child: Text(
-                                                "${collectionList[index - 1].numberAvailable} ${S.of(context).for_sale}",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodySmall!
-                                                    .copyWith(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color: Palette
-                                                            .current.white)),
-                                          ),
-                                        ),
-                                      )),
-                                )
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Text(collectionList[index - 1].catalogItemName,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displayLarge!
-                                    .copyWith(
-                                        letterSpacing: 1,
-                                        fontWeight: FontWeight.w300,
-                                        fontFamily: "Knockout",
-                                        fontSize: 24,
-                                        color: Palette.current.white)),
-                            Text(collectionList[index - 1].lastSale,
-                                overflow: TextOverflow.fade,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                                    .copyWith(
-                                        fontWeight: FontWeight.w300,
-                                        fontSize: 13,
-                                        color:
-                                            Palette.current.primaryNeonGreen)),
-                          ],
+                      : ShrunkenItemWidget(
+                          model: collectionList[index - 1],
                         );
                 },
               ),

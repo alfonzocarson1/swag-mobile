@@ -7,6 +7,6 @@ class SoldState with _$SoldState {
   factory SoldState.initial() = _InitialSoldState;
   factory SoldState.error(final String message) = _ErrorSoldState;
   factory SoldState.loadedSoldItems({
-    required final List<SoldItemModel> dataSoldList,
+    required final List<CatalogItemModel> dataSoldList,
   }) = LoadedSoldItemState;
 }

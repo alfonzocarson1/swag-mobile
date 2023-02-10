@@ -170,7 +170,7 @@ mixin _$FavoriteState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String message) error,
-    required TResult Function(List<FavoriteItemModel> dataFavoriteList)
+    required TResult Function(List<CatalogItemModel> dataFavoriteList)
         loadedFavoriteItems,
   }) =>
       throw _privateConstructorUsedError;
@@ -178,7 +178,7 @@ mixin _$FavoriteState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String message)? error,
-    TResult? Function(List<FavoriteItemModel> dataFavoriteList)?
+    TResult? Function(List<CatalogItemModel> dataFavoriteList)?
         loadedFavoriteItems,
   }) =>
       throw _privateConstructorUsedError;
@@ -186,7 +186,7 @@ mixin _$FavoriteState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String message)? error,
-    TResult Function(List<FavoriteItemModel> dataFavoriteList)?
+    TResult Function(List<CatalogItemModel> dataFavoriteList)?
         loadedFavoriteItems,
     required TResult orElse(),
   }) =>
@@ -274,7 +274,7 @@ class _$_InitialFavoriteState extends _InitialFavoriteState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String message) error,
-    required TResult Function(List<FavoriteItemModel> dataFavoriteList)
+    required TResult Function(List<CatalogItemModel> dataFavoriteList)
         loadedFavoriteItems,
   }) {
     return initial();
@@ -285,7 +285,7 @@ class _$_InitialFavoriteState extends _InitialFavoriteState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String message)? error,
-    TResult? Function(List<FavoriteItemModel> dataFavoriteList)?
+    TResult? Function(List<CatalogItemModel> dataFavoriteList)?
         loadedFavoriteItems,
   }) {
     return initial?.call();
@@ -296,7 +296,7 @@ class _$_InitialFavoriteState extends _InitialFavoriteState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String message)? error,
-    TResult Function(List<FavoriteItemModel> dataFavoriteList)?
+    TResult Function(List<CatalogItemModel> dataFavoriteList)?
         loadedFavoriteItems,
     required TResult orElse(),
   }) {
@@ -414,7 +414,7 @@ class _$_ErrorFavoriteState extends _ErrorFavoriteState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String message) error,
-    required TResult Function(List<FavoriteItemModel> dataFavoriteList)
+    required TResult Function(List<CatalogItemModel> dataFavoriteList)
         loadedFavoriteItems,
   }) {
     return error(message);
@@ -425,7 +425,7 @@ class _$_ErrorFavoriteState extends _ErrorFavoriteState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String message)? error,
-    TResult? Function(List<FavoriteItemModel> dataFavoriteList)?
+    TResult? Function(List<CatalogItemModel> dataFavoriteList)?
         loadedFavoriteItems,
   }) {
     return error?.call(message);
@@ -436,7 +436,7 @@ class _$_ErrorFavoriteState extends _ErrorFavoriteState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String message)? error,
-    TResult Function(List<FavoriteItemModel> dataFavoriteList)?
+    TResult Function(List<CatalogItemModel> dataFavoriteList)?
         loadedFavoriteItems,
     required TResult orElse(),
   }) {
@@ -498,7 +498,7 @@ abstract class _$$LoadedFavoriteItemStateCopyWith<$Res> {
           $Res Function(_$LoadedFavoriteItemState) then) =
       __$$LoadedFavoriteItemStateCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<FavoriteItemModel> dataFavoriteList});
+  $Res call({List<CatalogItemModel> dataFavoriteList});
 }
 
 /// @nodoc
@@ -518,7 +518,7 @@ class __$$LoadedFavoriteItemStateCopyWithImpl<$Res>
       dataFavoriteList: null == dataFavoriteList
           ? _value._dataFavoriteList
           : dataFavoriteList // ignore: cast_nullable_to_non_nullable
-              as List<FavoriteItemModel>,
+              as List<CatalogItemModel>,
     ));
   }
 }
@@ -527,13 +527,13 @@ class __$$LoadedFavoriteItemStateCopyWithImpl<$Res>
 
 class _$LoadedFavoriteItemState extends LoadedFavoriteItemState {
   _$LoadedFavoriteItemState(
-      {required final List<FavoriteItemModel> dataFavoriteList})
+      {required final List<CatalogItemModel> dataFavoriteList})
       : _dataFavoriteList = dataFavoriteList,
         super._();
 
-  final List<FavoriteItemModel> _dataFavoriteList;
+  final List<CatalogItemModel> _dataFavoriteList;
   @override
-  List<FavoriteItemModel> get dataFavoriteList {
+  List<CatalogItemModel> get dataFavoriteList {
     if (_dataFavoriteList is EqualUnmodifiableListView)
       return _dataFavoriteList;
     // ignore: implicit_dynamic_type
@@ -570,7 +570,7 @@ class _$LoadedFavoriteItemState extends LoadedFavoriteItemState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String message) error,
-    required TResult Function(List<FavoriteItemModel> dataFavoriteList)
+    required TResult Function(List<CatalogItemModel> dataFavoriteList)
         loadedFavoriteItems,
   }) {
     return loadedFavoriteItems(dataFavoriteList);
@@ -581,7 +581,7 @@ class _$LoadedFavoriteItemState extends LoadedFavoriteItemState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String message)? error,
-    TResult? Function(List<FavoriteItemModel> dataFavoriteList)?
+    TResult? Function(List<CatalogItemModel> dataFavoriteList)?
         loadedFavoriteItems,
   }) {
     return loadedFavoriteItems?.call(dataFavoriteList);
@@ -592,7 +592,7 @@ class _$LoadedFavoriteItemState extends LoadedFavoriteItemState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String message)? error,
-    TResult Function(List<FavoriteItemModel> dataFavoriteList)?
+    TResult Function(List<CatalogItemModel> dataFavoriteList)?
         loadedFavoriteItems,
     required TResult orElse(),
   }) {
@@ -640,11 +640,11 @@ class _$LoadedFavoriteItemState extends LoadedFavoriteItemState {
 
 abstract class LoadedFavoriteItemState extends FavoriteState {
   factory LoadedFavoriteItemState(
-          {required final List<FavoriteItemModel> dataFavoriteList}) =
+          {required final List<CatalogItemModel> dataFavoriteList}) =
       _$LoadedFavoriteItemState;
   LoadedFavoriteItemState._() : super._();
 
-  List<FavoriteItemModel> get dataFavoriteList;
+  List<CatalogItemModel> get dataFavoriteList;
   @JsonKey(ignore: true)
   _$$LoadedFavoriteItemStateCopyWith<_$LoadedFavoriteItemState> get copyWith =>
       throw _privateConstructorUsedError;

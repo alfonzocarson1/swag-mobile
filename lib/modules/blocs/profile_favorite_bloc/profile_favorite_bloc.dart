@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:swagapp/modules/models/search/catalog_item_model.dart';
 
 import '../../common/utils/handling_errors.dart';
 import '../../data/favorite/i_favorite_service.dart';
-import '../../models/profile/profile_favorite_model.dart';
 
 part 'profile_favorite_bloc.freezed.dart';
 part 'profile_favorite_event.dart';
@@ -134,7 +134,7 @@ class ProfileFavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
         }
       ];
       final response =
-          responseBody.map((i) => FavoriteItemModel.fromJson(i)).toList();
+          responseBody.map((i) => CatalogItemModel.fromJson(i)).toList();
       yield FavoriteState.loadedFavoriteItems(dataFavoriteList: response);
     } catch (e) {
       yield FavoriteState.error(HandlingErrors().getError(e));

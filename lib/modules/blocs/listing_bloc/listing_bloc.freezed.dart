@@ -170,7 +170,7 @@ mixin _$ListingState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String message) error,
-    required TResult Function(List<ListingItemModel> dataListingList)
+    required TResult Function(List<CatalogItemModel> dataListingList)
         loadedListingItems,
   }) =>
       throw _privateConstructorUsedError;
@@ -178,7 +178,7 @@ mixin _$ListingState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String message)? error,
-    TResult? Function(List<ListingItemModel> dataListingList)?
+    TResult? Function(List<CatalogItemModel> dataListingList)?
         loadedListingItems,
   }) =>
       throw _privateConstructorUsedError;
@@ -186,7 +186,7 @@ mixin _$ListingState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String message)? error,
-    TResult Function(List<ListingItemModel> dataListingList)?
+    TResult Function(List<CatalogItemModel> dataListingList)?
         loadedListingItems,
     required TResult orElse(),
   }) =>
@@ -273,7 +273,7 @@ class _$_InitialListingState extends _InitialListingState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String message) error,
-    required TResult Function(List<ListingItemModel> dataListingList)
+    required TResult Function(List<CatalogItemModel> dataListingList)
         loadedListingItems,
   }) {
     return initial();
@@ -284,7 +284,7 @@ class _$_InitialListingState extends _InitialListingState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String message)? error,
-    TResult? Function(List<ListingItemModel> dataListingList)?
+    TResult? Function(List<CatalogItemModel> dataListingList)?
         loadedListingItems,
   }) {
     return initial?.call();
@@ -295,7 +295,7 @@ class _$_InitialListingState extends _InitialListingState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String message)? error,
-    TResult Function(List<ListingItemModel> dataListingList)?
+    TResult Function(List<CatalogItemModel> dataListingList)?
         loadedListingItems,
     required TResult orElse(),
   }) {
@@ -412,7 +412,7 @@ class _$_ErrorListingState extends _ErrorListingState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String message) error,
-    required TResult Function(List<ListingItemModel> dataListingList)
+    required TResult Function(List<CatalogItemModel> dataListingList)
         loadedListingItems,
   }) {
     return error(message);
@@ -423,7 +423,7 @@ class _$_ErrorListingState extends _ErrorListingState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String message)? error,
-    TResult? Function(List<ListingItemModel> dataListingList)?
+    TResult? Function(List<CatalogItemModel> dataListingList)?
         loadedListingItems,
   }) {
     return error?.call(message);
@@ -434,7 +434,7 @@ class _$_ErrorListingState extends _ErrorListingState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String message)? error,
-    TResult Function(List<ListingItemModel> dataListingList)?
+    TResult Function(List<CatalogItemModel> dataListingList)?
         loadedListingItems,
     required TResult orElse(),
   }) {
@@ -495,7 +495,7 @@ abstract class _$$LoadedListingItemStateCopyWith<$Res> {
           $Res Function(_$LoadedListingItemState) then) =
       __$$LoadedListingItemStateCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<ListingItemModel> dataListingList});
+  $Res call({List<CatalogItemModel> dataListingList});
 }
 
 /// @nodoc
@@ -515,7 +515,7 @@ class __$$LoadedListingItemStateCopyWithImpl<$Res>
       dataListingList: null == dataListingList
           ? _value._dataListingList
           : dataListingList // ignore: cast_nullable_to_non_nullable
-              as List<ListingItemModel>,
+              as List<CatalogItemModel>,
     ));
   }
 }
@@ -524,13 +524,13 @@ class __$$LoadedListingItemStateCopyWithImpl<$Res>
 
 class _$LoadedListingItemState extends LoadedListingItemState {
   _$LoadedListingItemState(
-      {required final List<ListingItemModel> dataListingList})
+      {required final List<CatalogItemModel> dataListingList})
       : _dataListingList = dataListingList,
         super._();
 
-  final List<ListingItemModel> _dataListingList;
+  final List<CatalogItemModel> _dataListingList;
   @override
-  List<ListingItemModel> get dataListingList {
+  List<CatalogItemModel> get dataListingList {
     if (_dataListingList is EqualUnmodifiableListView) return _dataListingList;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_dataListingList);
@@ -566,7 +566,7 @@ class _$LoadedListingItemState extends LoadedListingItemState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String message) error,
-    required TResult Function(List<ListingItemModel> dataListingList)
+    required TResult Function(List<CatalogItemModel> dataListingList)
         loadedListingItems,
   }) {
     return loadedListingItems(dataListingList);
@@ -577,7 +577,7 @@ class _$LoadedListingItemState extends LoadedListingItemState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String message)? error,
-    TResult? Function(List<ListingItemModel> dataListingList)?
+    TResult? Function(List<CatalogItemModel> dataListingList)?
         loadedListingItems,
   }) {
     return loadedListingItems?.call(dataListingList);
@@ -588,7 +588,7 @@ class _$LoadedListingItemState extends LoadedListingItemState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String message)? error,
-    TResult Function(List<ListingItemModel> dataListingList)?
+    TResult Function(List<CatalogItemModel> dataListingList)?
         loadedListingItems,
     required TResult orElse(),
   }) {
@@ -635,11 +635,11 @@ class _$LoadedListingItemState extends LoadedListingItemState {
 
 abstract class LoadedListingItemState extends ListingState {
   factory LoadedListingItemState(
-          {required final List<ListingItemModel> dataListingList}) =
+          {required final List<CatalogItemModel> dataListingList}) =
       _$LoadedListingItemState;
   LoadedListingItemState._() : super._();
 
-  List<ListingItemModel> get dataListingList;
+  List<CatalogItemModel> get dataListingList;
   @JsonKey(ignore: true)
   _$$LoadedListingItemStateCopyWith<_$LoadedListingItemState> get copyWith =>
       throw _privateConstructorUsedError;

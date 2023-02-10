@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/blocs/search_bloc.dart/search_bloc.dart';
 
 import 'package:swagapp/modules/common/utils/palette.dart';
-import 'package:swagapp/modules/models/search/catalog_item_model.dart';
-import '../../../common/ui/catalog_ui.dart';
+import '../../../common/ui/body_widget_with_view.dart';
 import '../../../common/ui/loading.dart';
 import '../../../common/utils/custom_route_animations.dart';
 
@@ -23,9 +21,6 @@ class WhatsHotPage extends StatefulWidget {
 }
 
 class _WhatsHotPageState extends State<WhatsHotPage> {
-  late final ScrollController? _scrollController =
-      PrimaryScrollController.of(context);
-
   @override
   void initState() {
     super.initState();
@@ -62,36 +57,11 @@ class _WhatsHotPageState extends State<WhatsHotPage> {
                     ));
               },
               result: (state) {
-                return _getBody(state.result[SearchTab.all] ?? []);
+                return BodyWidgetWithView(state.result[SearchTab.all] ?? []);
               },
             );
           },
         ));
-  }
-
-  Widget _getBody(List<CatalogItemModel> catalogList) {
-    return RefreshIndicator(
-      onRefresh: () async {
-        makeCall();
-        return Future.delayed(const Duration(milliseconds: 1500));
-      },
-      child: catalogList.isNotEmpty
-          ? CatalogPage(
-              catalogItems: catalogList, scrollController: _scrollController!)
-          : ListView.builder(
-              itemBuilder: (_, index) => SizedBox(
-                height: MediaQuery.of(context).size.height * 0.7,
-                child: Center(
-                  child: Text(
-                    S.of(context).empty_text,
-                    style: TextStyle(
-                        fontSize: 24, color: Colors.black.withOpacity(0.50)),
-                  ),
-                ),
-              ),
-              itemCount: 1,
-            ),
-    );
   }
 
   void makeCall() {

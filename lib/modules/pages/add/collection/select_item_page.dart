@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swagapp/modules/models/search/catalog_item_model.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../blocs/collection_bloc/collection_bloc.dart';
@@ -10,7 +11,6 @@ import '../../../common/ui/search_input.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
 import '../../../common/utils/size_helper.dart';
-import '../../../models/profile/profile_collection_model.dart';
 import '../../search/search_on_tap_page.dart';
 import 'add_collection_page.dart';
 import 'collection_unknown_product.dart';
@@ -93,7 +93,7 @@ class _SelectItemPageState extends State<SelectItemPage> {
         ));
   }
 
-  Widget _getBody(List<CollectionItemModel> soldList) {
+  Widget _getBody(List<CatalogItemModel> soldList) {
     return RefreshIndicator(
       onRefresh: () async {
         makeCall();

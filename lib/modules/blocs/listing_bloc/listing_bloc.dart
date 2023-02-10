@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:swagapp/modules/models/search/catalog_item_model.dart';
 
 import '../../common/utils/handling_errors.dart';
 import '../../data/listing/i_listing_service.dart';
-import '../../models/profile/profile_listing_model.dart';
 
 part 'listing_bloc.freezed.dart';
 part 'listing_event.dart';
@@ -134,7 +134,7 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
         }
       ];
       final response =
-          responseBody.map((i) => ListingItemModel.fromJson(i)).toList();
+          responseBody.map((i) => CatalogItemModel.fromJson(i)).toList();
       yield ListingState.loadedListingItems(dataListingList: response);
     } catch (e) {
       yield ListingState.error(HandlingErrors().getError(e));

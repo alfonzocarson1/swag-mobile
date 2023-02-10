@@ -7,6 +7,6 @@ class CollectionState with _$CollectionState {
   factory CollectionState.initial() = _InitialCollectionState;
   factory CollectionState.error(final String message) = _ErrorCollectionState;
   factory CollectionState.loadedCollectionItems({
-    required final List<CollectionItemModel> dataCollectionlList,
+    required final List<CatalogItemModel> dataCollectionlList,
   }) = LoadedCollectionItemState;
 }

@@ -7,6 +7,6 @@ class ListingState with _$ListingState {
   factory ListingState.initial() = _InitialListingState;
   factory ListingState.error(final String message) = _ErrorListingState;
   factory ListingState.loadedListingItems({
-    required final List<ListingItemModel> dataListingList,
+    required final List<CatalogItemModel> dataListingList,
   }) = LoadedListingItemState;
 }

@@ -30,7 +30,7 @@ class _CatalogPageState extends State<CatalogPage> {
     super.initState();
   }
 
-  onChangeFavoriteAnimation(int index) {
+  onChangeFavoriteAnimation(int index) async {
     setState(() {
       animateFavorite = 130.0;
       indexFavorite = index;
@@ -92,20 +92,20 @@ class _CatalogPageState extends State<CatalogPage> {
                                 .push(AddCollection.route(context));
                           },
                         )),
-                    (index == indexFavorite)
-                        ? Positioned.fill(
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: AnimatedContainer(
-                                  height: animateFavorite,
-                                  duration: const Duration(milliseconds: 200),
-                                  child: Image.asset(
-                                    "assets/images/IconsBig.png",
-                                    scale: 3,
-                                  )),
-                            ),
-                          )
-                        : Container(),
+                    Positioned.fill(
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: AnimatedContainer(
+                            height:
+                                (index == indexFavorite) ? animateFavorite : 0,
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.easeInOut,
+                            child: Image.asset(
+                              "assets/images/IconsBig.png",
+                              scale: 3,
+                            )),
+                      ),
+                    ),
                     widget.catalogItems[index].sale
                         ? Positioned(
                             bottom: 0,
@@ -192,7 +192,7 @@ class _CatalogPageState extends State<CatalogPage> {
                                           : "assets/images/UnFavorite.png",
                                       scale: 3.5,
                                     ),
-                                    onPressed: () {
+                                    onPressed: () async {
                                       setState(() {
                                         _favoriteBloc.toggleFavorite(widget
                                             .catalogItems[index]

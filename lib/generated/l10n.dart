@@ -1485,6 +1485,86 @@ class S {
       args: [],
     );
   }
+
+  /// `IMAGE GUIDELINES`
+  String get image_guidelines {
+    return Intl.message(
+      'IMAGE GUIDELINES',
+      name: 'image_guidelines',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please include the following images based on item condition. All photos must include a post-it with username and date.`
+  String get image_guidelines_description {
+    return Intl.message(
+      'Please include the following images based on item condition. All photos must include a post-it with username and date.',
+      name: 'image_guidelines_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `DISPLAYED/GAMED:`
+  String get displayed_gamed {
+    return Intl.message(
+      'DISPLAYED/GAMED:',
+      name: 'displayed_gamed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `•  Front of item`
+  String get sealed_item_one {
+    return Intl.message(
+      '•  Front of item',
+      name: 'sealed_item_one',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `•  Back of item`
+  String get sealed_item_two {
+    return Intl.message(
+      '•  Back of item',
+      name: 'sealed_item_two',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `•  Minimum of 4 photos Max of 6`
+  String get sealed_item_three {
+    return Intl.message(
+      '•  Minimum of 4 photos Max of 6',
+      name: 'sealed_item_three',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `•  Bottom of item`
+  String get displayed_gamed_item_three {
+    return Intl.message(
+      '•  Bottom of item',
+      name: 'displayed_gamed_item_three',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `•  Minimum of 4 photos Max of 6`
+  String get displayed_gamed_item_four {
+    return Intl.message(
+      '•  Minimum of 4 photos Max of 6',
+      name: 'displayed_gamed_item_four',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
