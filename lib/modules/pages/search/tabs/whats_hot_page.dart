@@ -24,7 +24,6 @@ class _WhatsHotPageState extends State<WhatsHotPage> {
   @override
   void initState() {
     super.initState();
-    makeCall();
   }
 
   @override

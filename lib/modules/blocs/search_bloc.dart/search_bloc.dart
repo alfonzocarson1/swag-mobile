@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:swagapp/modules/constants/constants.dart';
 import 'package:swagapp/modules/data/search/i_search_service.dart';
 import 'package:swagapp/modules/models/search/catalog_item_model.dart';
 import 'package:swagapp/modules/models/search/category_model.dart';
@@ -19,7 +20,9 @@ part 'search_state.dart';
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   final ISearchService searchService;
 
-  SearchBloc(this.searchService) : super(SearchState.initial());
+  SearchBloc(this.searchService) : super(SearchState.initial()) {
+    add(const SearchEvent.search(defaultString));
+  }
 
   Stream<SearchState> get authStateStream async* {
     yield state;

@@ -53,6 +53,7 @@ class _HomePage extends State<HomePage> {
         backgroundColor: Palette.current.primaryEerieBlack,
         handleAndroidBackButtonPress: true,
         resizeToAvoidBottomInset: true,
+        stateManagement: true,
         hideNavigationBarWhenKeyboardShows: true,
         onWillPop: (p0) => Future.value(true),
         customWidget: BottomNavigationBar(
