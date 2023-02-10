@@ -122,6 +122,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Password doesn’t meet requirements. Min. 8 characters, 1 uppercase, 1 number & 1 symbol"),
         "invalid_username": MessageLookupByLibrary.simpleMessage(
             "username must be between 4-20 characters"),
+        "ist_item_popup_btn":
+            MessageLookupByLibrary.simpleMessage("CREATE LISTING"),
         "last_name": MessageLookupByLibrary.simpleMessage("Last Name"),
         "last_sale": MessageLookupByLibrary.simpleMessage("LAST SALE"),
         "less_than": MessageLookupByLibrary.simpleMessage("Less than \$111"),
@@ -129,6 +131,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("LIST FOR SALE"),
         "list_item_for_sale":
             MessageLookupByLibrary.simpleMessage("LIST ITEM FOR SALE"),
+        "list_item_popup_desc": MessageLookupByLibrary.simpleMessage(
+            "Please select the item you would like to list for sale."),
+        "list_item_popup_title":
+            MessageLookupByLibrary.simpleMessage("LIST ITEM"),
         "list_price_input": MessageLookupByLibrary.simpleMessage("List Price"),
         "make_an_offer": MessageLookupByLibrary.simpleMessage("MAKE AN OFFER"),
         "my_collection": MessageLookupByLibrary.simpleMessage("MY COLLECTION"),

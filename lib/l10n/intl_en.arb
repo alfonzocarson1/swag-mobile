@@ -162,7 +162,10 @@
     "title_list_for_Sale": "GOLDEN KING COVER",
     "list_price_input": "List Price",
     "preview_listing": "PREVIEW LISTING",
-    "aditional_listing_detail": "Additional listing details..."
+    "aditional_listing_detail": "Additional listing details...",
+    "list_item_popup_title": "LIST ITEM",
+    "list_item_popup_desc": "Please select the item you would like to list for sale.",
+    "ist_item_popup_btn": "CREATE LISTING"
 
 
 }

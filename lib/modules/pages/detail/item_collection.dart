@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../../../generated/l10n.dart';
+import '../../common/ui/popup_list_item_sale.dart';
 import '../../common/ui/primary_button.dart';
 import '../../common/utils/palette.dart';
 import '../../models/detail/detail_collection_model.dart';
-import '../add/collection/list_for_Sale_page.dart';
 
 class CollectionWidget extends StatefulWidget {
   const CollectionWidget(
@@ -268,8 +268,12 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                             child: PrimaryButton(
                               title: S.of(context).list_for_sale_btn,
                               onPressed: () {
-                                Navigator.of(context, rootNavigator: true)
-                                    .push(ListForSalePage.route(context));
+                                showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (BuildContext context) {
+                                      return const PopUpListItemSale();
+                                    });
                               },
                               type: PrimaryButtonType.black,
                             ),

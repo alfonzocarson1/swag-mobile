@@ -1625,6 +1625,36 @@ class S {
       args: [],
     );
   }
+
+  /// `LIST ITEM`
+  String get list_item_popup_title {
+    return Intl.message(
+      'LIST ITEM',
+      name: 'list_item_popup_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select the item you would like to list for sale.`
+  String get list_item_popup_desc {
+    return Intl.message(
+      'Please select the item you would like to list for sale.',
+      name: 'list_item_popup_desc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CREATE LISTING`
+  String get ist_item_popup_btn {
+    return Intl.message(
+      'CREATE LISTING',
+      name: 'ist_item_popup_btn',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

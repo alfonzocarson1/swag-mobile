@@ -36,7 +36,7 @@ class _SearchResultPageState extends State<SearchResultPage>
   @override
   bool get wantKeepAlive => true;
   int selectedIndex = 0;
-  late final ScrollController _scrollController =
+  late final ScrollController? _scrollController =
       PrimaryScrollController.of(context);
   final TextEditingController _textEditingController = TextEditingController();
 
