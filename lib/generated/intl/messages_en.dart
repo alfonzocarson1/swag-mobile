@@ -33,6 +33,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ADD TO YOUR COLLECTION"),
         "add_new_item": MessageLookupByLibrary.simpleMessage("ADD NEW ITEM"),
         "add_photos": MessageLookupByLibrary.simpleMessage("ADD PHOTOS"),
+        "aditional_listing_detail": MessageLookupByLibrary.simpleMessage(
+            "Additional listing details..."),
         "already_have_an_account": MessageLookupByLibrary.simpleMessage(
             "Already have an account? *Sign In*"),
         "app_name": MessageLookupByLibrary.simpleMessage("Swag Golf"),
@@ -125,6 +127,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "less_than": MessageLookupByLibrary.simpleMessage("Less than \$111"),
         "list_for_sale_btn":
             MessageLookupByLibrary.simpleMessage("LIST FOR SALE"),
+        "list_item_for_sale":
+            MessageLookupByLibrary.simpleMessage("LIST ITEM FOR SALE"),
+        "list_price_input": MessageLookupByLibrary.simpleMessage("List Price"),
         "make_an_offer": MessageLookupByLibrary.simpleMessage("MAKE AN OFFER"),
         "my_collection": MessageLookupByLibrary.simpleMessage("MY COLLECTION"),
         "n_a": MessageLookupByLibrary.simpleMessage("N/A"),
@@ -155,6 +160,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "popup_description": MessageLookupByLibrary.simpleMessage(
             "It looks like you have an account on swag.golf. After you verify your email you will be able to  import your information into the Swag app."),
         "popup_title": MessageLookupByLibrary.simpleMessage("WELCOME @"),
+        "preview_listing":
+            MessageLookupByLibrary.simpleMessage("PREVIEW LISTING"),
         "price": MessageLookupByLibrary.simpleMessage("PRICE"),
         "price_high_to_low":
             MessageLookupByLibrary.simpleMessage("Price: High to Low"),
@@ -210,6 +217,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Address 2 (optional)"),
         "see_info":
             MessageLookupByLibrary.simpleMessage("ⓘ  See info guidelines"),
+        "see_photo_guidelines":
+            MessageLookupByLibrary.simpleMessage("ⓘ  See photo guidelines"),
         "see_results": MessageLookupByLibrary.simpleMessage("SEE RESULTS"),
         "select_avatar_desc": MessageLookupByLibrary.simpleMessage(
             "Select an avatar below or add one from your camera/photos."),
@@ -228,6 +237,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "tab_listings": MessageLookupByLibrary.simpleMessage("LISTINGS"),
         "tab_sold": MessageLookupByLibrary.simpleMessage("SOLD"),
         "theme": MessageLookupByLibrary.simpleMessage("theme"),
+        "title_list_for_Sale":
+            MessageLookupByLibrary.simpleMessage("GOLDEN KING COVER"),
         "title_welcome":
             MessageLookupByLibrary.simpleMessage("WELCOME TO SWAG"),
         "total_mode": MessageLookupByLibrary.simpleMessage("Total Made:"),

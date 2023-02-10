@@ -159,7 +159,7 @@ class _SearchResultPageState extends State<SearchResultPage>
       },
       child: catalogList.isNotEmpty
           ? CatalogPage(
-              catalogItems: catalogList, scrollController: _scrollController)
+              catalogItems: catalogList, scrollController: _scrollController!)
           : ListView.builder(
               itemBuilder: (_, index) => SizedBox(
                 height: MediaQuery.of(context).size.height * 0.7,

@@ -18,7 +18,7 @@ class BodyWidgetWithView extends StatefulWidget {
 }
 
 class _BodyWidgetWithViewState extends State<BodyWidgetWithView> {
-  late final ScrollController _scrollController =
+  late final ScrollController? _scrollController =
       PrimaryScrollController.of(context);
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class _BodyWidgetWithViewState extends State<BodyWidgetWithView> {
     return catalogList.isNotEmpty
         ? isListView
             ? CatalogPage(
-                catalogItems: catalogList, scrollController: _scrollController)
+                catalogItems: catalogList, scrollController: _scrollController!)
             : Padding(
                 padding: const EdgeInsets.only(
                     top: 0, bottom: 0, left: 16, right: 0),
