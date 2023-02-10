@@ -63,7 +63,20 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
             {
               "acquired": "08/04/2022",
               "paid": "\$165.00 +20.8%",
-              "salePrice": "\$400.00"
+              "salePrice": "\$400.00",
+              "condition": "Gamed"
+            },
+            {
+              "acquired": "08/04/2022",
+              "paid": "\$165.00 +20.8%",
+              "salePrice": "\$400.00",
+              "condition": "Sealed"
+            },
+            {
+              "acquired": "08/04/2022",
+              "paid": "\$165.00 +20.8%",
+              "salePrice": "\$400.00",
+              "condition": "Gamed"
             }
           ],
           "saleHistory": [],

@@ -11,6 +11,7 @@ import '../../models/detail/detail_item_model.dart';
 import 'intem_head.dart';
 import 'item_collection.dart';
 import 'item_rarity.dart';
+import 'item_switched.dart';
 
 class ItemDetailPage extends StatefulWidget {
   static const name = '/ItemDetail';
@@ -29,10 +30,22 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
   late final ScrollController? _scrollController =
       PrimaryScrollController.of(context);
 
+  ValueNotifier<bool> _myActionsFlag = ValueNotifier<bool>(false);
+  ValueNotifier<int?> _collectionNum = ValueNotifier<int?>(null);
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    _myActionsFlag.addListener(() => {
+          if (_myActionsFlag.value)
+            {
+              Future.delayed(const Duration(milliseconds: 100), () {
+                setState(() {});
+              })
+            }
+        });
   }
 
   @override
@@ -40,7 +53,10 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
     return Scaffold(
         backgroundColor: Palette.current.black,
         resizeToAvoidBottomInset: true,
-        appBar: CustomAppBar(actions: true),
+        appBar: CustomAppBar(
+          actions: true,
+          collections: _collectionNum.value,
+        ),
         body: BlocConsumer<DetailBloc, DetailState>(
           listener: (context, state) => state.maybeWhen(
             orElse: () => {Loading.hide(context)},
@@ -67,6 +83,9 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                     ));
               },
               loadedDetailItems: (state) {
+                _myActionsFlag.value = true;
+                _collectionNum.value =
+                    state.detaItemlList[0].myCollection!.length;
                 return _getBody(state.detaItemlList);
               },
             );
@@ -139,15 +158,17 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                         retail: dataDetail[index].retail,
                         available: dataDetail[index].numberAvailable),
                     CollectionWidget(
-                      sale: dataDetail[index].sale,
-                      dataCollection: dataDetail[index].myCollection,
-                      lastSale: dataDetail[index].lastSale,
-                    ),
+                        sale: dataDetail[index].sale,
+                        dataCollection: dataDetail[index].myCollection,
+                        lastSale: dataDetail[index].lastSale,
+                        available: dataDetail[index].numberAvailable),
                   ],
                 ),
               ),
-              RelatedItemsWidget(
-                  dataRelated: dataDetail[index].similarItemList),
+              dataDetail[index].myCollection!.isEmpty
+                  ? RelatedItemsWidget(
+                      dataRelated: dataDetail[index].similarItemList)
+                  : const ItemSwitched()
             ],
           );
         });

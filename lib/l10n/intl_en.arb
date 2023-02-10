@@ -63,6 +63,7 @@
     "my_collection": "MY COLLECTION",
     "acquired": "Acquired:",
     "paid": "Paid:",
+    "Condition": "Condition:",
     "buy_for": "BUY FOR",
     "sell_for": "SELL FOR",
     "make_an_offer": "MAKE AN OFFER",
@@ -120,6 +121,11 @@
     "existing_item_to_collection_error_title": "Are you sure",
     "existing_item_to_collection_error_sub_desc": "It looks like you already have this item in your collection. Are you sure you want to add another one?",
     "existing_item_to_collection_error_btn": "YES, ADD ANOTHER",
+
+    "remove_collection_btn": "REMOVE FROM COLLECTION",
+    "list_for_sale_btn": "LIST FOR SALE",
+    "receive_offer": "RECEIVE OFFERS ON THIS ITEM",
+
     "filters_title": "filters",
     "clear_all": "Clear All",
     "view": "view",
@@ -142,7 +148,11 @@
     "$111_$222": "$111 - $222",
     "$222_$555": "$222 - $555",
     "$555_above": "$555 - Above",
+
     "see_results": "SEE RESULTS",
+
+    
+
     "image_guidelines": "IMAGE GUIDELINES",
     "image_guidelines_description": "Please include the following images based on item condition. All photos must include a post-it with username and date.",
     "displayed_gamed": "DISPLAYED/GAMED:",
@@ -151,5 +161,6 @@
     "sealed_item_three": "•  Minimum of 4 photos Max of 6",
     "displayed_gamed_item_three": "•  Bottom of item",
     "displayed_gamed_item_four": "•  Minimum of 4 photos Max of 6"
+
 
 }

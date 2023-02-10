@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "Condition": MessageLookupByLibrary.simpleMessage("Condition:"),
         "a_to_z": MessageLookupByLibrary.simpleMessage("A to Z"),
         "access_photos": MessageLookupByLibrary.simpleMessage("CHOOSE PHOTO"),
         "accessories": MessageLookupByLibrary.simpleMessage("Accesories"),
@@ -122,6 +123,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "last_name": MessageLookupByLibrary.simpleMessage("Last Name"),
         "last_sale": MessageLookupByLibrary.simpleMessage("LAST SALE"),
         "less_than": MessageLookupByLibrary.simpleMessage("Less than \$111"),
+        "list_for_sale_btn":
+            MessageLookupByLibrary.simpleMessage("LIST FOR SALE"),
         "make_an_offer": MessageLookupByLibrary.simpleMessage("MAKE AN OFFER"),
         "my_collection": MessageLookupByLibrary.simpleMessage("MY COLLECTION"),
         "n_a": MessageLookupByLibrary.simpleMessage("N/A"),
@@ -165,6 +168,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Purchase Price"),
         "putters": MessageLookupByLibrary.simpleMessage("Putters"),
         "rarity_score": MessageLookupByLibrary.simpleMessage("RARITY SCORE"),
+        "receive_offer":
+            MessageLookupByLibrary.simpleMessage("RECEIVE OFFERS ON THIS ITEM"),
         "recent_searches":
             MessageLookupByLibrary.simpleMessage("RECENT SEARCHES"),
         "release_date": MessageLookupByLibrary.simpleMessage("release date"),
@@ -174,6 +179,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Release Date - Oldest"),
         "released": MessageLookupByLibrary.simpleMessage("Released:"),
         "released_type": MessageLookupByLibrary.simpleMessage("Release Type:"),
+        "remove_collection_btn":
+            MessageLookupByLibrary.simpleMessage("REMOVE FROM COLLECTION"),
         "required_field":
             MessageLookupByLibrary.simpleMessage("Required field"),
         "resend_email": MessageLookupByLibrary.simpleMessage(
