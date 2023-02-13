@@ -1,19 +1,21 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:simple_rich_text/simple_rich_text.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../common/ui/clickable_text.dart';
 import '../../../common/ui/custom_text_form_field.dart';
 
+import '../../../common/ui/multi_image_slide.dart';
 import '../../../common/ui/popup_image_guidelines.dart';
 
 import '../../../common/ui/popup_item_to_collection_error.dart';
 import '../../../common/ui/primary_button.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
-import 'product_image_slide.dart';
 
 class ListForSalePage extends StatefulWidget {
   static const name = '/ListForSalePage';
@@ -38,6 +40,9 @@ class ListForSalePage extends StatefulWidget {
 }
 
 class _ListForSalePageState extends State<ListForSalePage> {
+  final ImagePicker imagePicker = ImagePicker();
+  List<XFile> imageFileList = [];
+
   DateTime? _defaultDateTime;
 
   final FocusNode _listPriceItemNode = FocusNode();
@@ -68,14 +73,6 @@ class _ListForSalePageState extends State<ListForSalePage> {
 
     super.dispose();
   }
-
-  final List<String> imgList = [
-    'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Rectangle%2012%20(4).png?alt=media&token=8e099a54-c286-48d5-8519-45e9a2284a24',
-    'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Rectangle%2012%20(5).png?alt=media&token=d0b79d55-5b70-499c-84f7-28019337d84a',
-    'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Rectangle%2012.png?alt=media&token=47e348c2-35a6-488d-b715-300752b0f52b',
-    'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Rectangle%2012%20(3).png?alt=media&token=9b1f35c7-41a9-48dd-8a08-52f58b1751bf',
-    'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Rectangle%2012%20(1).png?alt=media&token=00355e6f-7046-4f5f-9797-cc7610cab9fe',
-  ];
 
   @override
   void initState() {
@@ -126,123 +123,143 @@ class _ListForSalePageState extends State<ListForSalePage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        Stack(
-                          children: [
-                            ClipRRect(
-                                borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(26),
-                                    topRight: Radius.circular(26)),
-                                child: Image.asset(
-                                  "assets/images/bagAddList.png",
-                                  fit: BoxFit.cover,
-                                )),
-                            Positioned.fill(
-                              top: 50,
-                              child: Align(
-                                alignment: Alignment.topCenter,
-                                child: Text(S.of(context).list_item_for_sale,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displayLarge!
-                                        .copyWith(
-                                            letterSpacing: 1,
-                                            fontWeight: FontWeight.w300,
-                                            fontFamily: "Knockout",
-                                            fontSize: 30,
-                                            color: Palette
-                                                .current.primaryNeonGreen)),
-                              ),
-                            ),
-                            Positioned(
-                              right: 5,
-                              top: 7,
-                              child: IconButton(
-                                iconSize: 30,
-                                color: Palette.current.primaryNeonGreen,
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                icon: const Icon(
-                                  Icons.clear_outlined,
-                                  size: 20,
-                                ),
-                              ),
-                            ),
-                            Positioned.fill(
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: GestureDetector(
-                                  onTap: () {},
-                                  child: Center(
-                                    child: Container(
-                                        height: 60,
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                2,
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: Palette
-                                                    .current.primaryNeonGreen),
-                                            color: Palette.current.blackSmoke),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Image.asset(
-                                              "assets/icons/camera.png",
-                                              height: 20,
-                                              width: 20,
-                                            ),
-                                            const SizedBox(
-                                              width: 15,
-                                            ),
-                                            Text(S.of(context).add_photos,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyLarge!
-                                                    .copyWith(
-                                                        fontFamily: "Knockout",
-                                                        fontSize: 25,
-                                                        letterSpacing: 1,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        color: Palette
-                                                            .current.white)),
-                                          ],
-                                        )),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Positioned.fill(
-                              bottom: 50,
-                              child: Align(
-                                alignment: Alignment.bottomCenter,
-                                child: ClickableText(
-                                    title: SimpleRichText(
-                                      S.of(context).see_photo_guidelines,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                              fontSize: 14,
-                                              color: Palette.current.grey,
-                                              fontWeight: FontWeight.w300),
+                        imageFileList.isEmpty
+                            ? Stack(
+                                children: [
+                                  ClipRRect(
+                                      borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(26),
+                                          topRight: Radius.circular(26)),
+                                      child: Image.asset(
+                                        "assets/images/bagAddList.png",
+                                        fit: BoxFit.cover,
+                                      )),
+                                  Positioned.fill(
+                                    top: 50,
+                                    child: Align(
+                                      alignment: Alignment.topCenter,
+                                      child: Text(
+                                          S.of(context).list_item_for_sale,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .displayLarge!
+                                              .copyWith(
+                                                  letterSpacing: 1,
+                                                  fontWeight: FontWeight.w300,
+                                                  fontFamily: "Knockout",
+                                                  fontSize: 30,
+                                                  color: Palette.current
+                                                      .primaryNeonGreen)),
                                     ),
-                                    onPressed: () {
-                                      showDialog(
-                                          context: context,
-                                          barrierDismissible: false,
-                                          builder: (BuildContext context) {
-                                            return const PopUpImageGuideline();
-                                          });
-                                    }),
+                                  ),
+                                  Positioned(
+                                    right: 5,
+                                    top: 7,
+                                    child: IconButton(
+                                      iconSize: 30,
+                                      color: Palette.current.primaryNeonGreen,
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      icon: const Icon(
+                                        Icons.clear_outlined,
+                                        size: 20,
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned.fill(
+                                    child: Align(
+                                      alignment: Alignment.center,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          selectImages();
+                                        },
+                                        child: Center(
+                                          child: Container(
+                                              height: 60,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  2,
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color: Palette.current
+                                                          .primaryNeonGreen),
+                                                  color: Palette
+                                                      .current.blackSmoke),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Image.asset(
+                                                    "assets/icons/camera.png",
+                                                    height: 20,
+                                                    width: 20,
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 15,
+                                                  ),
+                                                  Text(S.of(context).add_photos,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodyLarge!
+                                                          .copyWith(
+                                                              fontFamily:
+                                                                  "Knockout",
+                                                              fontSize: 25,
+                                                              letterSpacing: 1,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              color: Palette
+                                                                  .current
+                                                                  .white)),
+                                                ],
+                                              )),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned.fill(
+                                    bottom: 50,
+                                    child: Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child: ClickableText(
+                                          title: SimpleRichText(
+                                            S.of(context).see_photo_guidelines,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall!
+                                                .copyWith(
+                                                    fontSize: 14,
+                                                    color: Palette.current.grey,
+                                                    fontWeight:
+                                                        FontWeight.w300),
+                                          ),
+                                          onPressed: () {
+                                            showDialog(
+                                                context: context,
+                                                barrierDismissible: false,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return const PopUpImageGuideline();
+                                                });
+                                          }),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : MultiImageSlide(
+                                imgList: imageFileList,
+                                addPhoto: () => selectImages(),
+                                onRemove: (index) {
+                                  setState(() {
+                                    imageFileList.removeAt(index);
+                                  });
+                                },
                               ),
-                            ),
-                          ],
-                        ),
                         Stack(
                           children: [
                             Padding(
@@ -269,7 +286,8 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                   ),
                                   Align(
                                     alignment: Alignment.centerLeft,
-                                    child: Text("${S.of(context).for_sale}: \$",
+                                    child: Text(
+                                        "${S.of(context).for_sale}: \$ ${_listPriceItemController.text.toString()}",
                                         textAlign: TextAlign.left,
                                         overflow: TextOverflow.fade,
                                         style: Theme.of(context)
@@ -304,7 +322,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                   ),
                                   inputFormatters: [
                                     FilteringTextInputFormatter.allow(
-                                        RegExp(r'[0-9 ]'))
+                                        RegExp('[0-9.,]')),
                                   ],
                                   borderColor: _listPriceItemBorder,
                                   autofocus: false,
@@ -312,7 +330,9 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                   labelText: S.of(context).list_price_input,
                                   focusNode: _listPriceItemNode,
                                   controller: _listPriceItemController,
-                                  inputType: TextInputType.text),
+                                  inputType:
+                                      const TextInputType.numberWithOptions(
+                                          decimal: true, signed: true)),
                               const SizedBox(
                                 height: 20,
                               ),
@@ -342,6 +362,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                         width: 0.5,
                                         color: Palette.current.grey)),
                                 child: TextField(
+                                  keyboardType: TextInputType.text,
                                   maxLength: 140,
                                   maxLines: 6,
                                   style: TextStyle(
@@ -413,5 +434,27 @@ class _ListForSalePageState extends State<ListForSalePage> {
   bool areFieldsValid() {
     return _listPriceItemController.text.isNotEmpty &&
         _defaultCondition != 'Condition';
+  }
+
+  Future<void> selectImages() async {
+    // Pick an image
+    try {
+      final List<XFile> selectedImages = await imagePicker.pickMultiImage();
+
+      if ((selectedImages.length + imageFileList.length) <= 6) {
+        imageFileList.addAll(selectedImages);
+      } else {
+        showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return const PopUpImageGuideline();
+            });
+      }
+
+      setState(() {});
+    } catch (e) {
+      log("Image picker: $e");
+    }
   }
 }
