@@ -6,6 +6,8 @@ import 'package:swagapp/modules/models/search/catalog_item_model.dart';
 
 import '../../common/utils/handling_errors.dart';
 import '../../data/collection/i_collection_service.dart';
+import '../../data/shared_preferences/shared_preferences_service.dart';
+import '../../di/injector.dart';
 
 part 'collection_bloc.freezed.dart';
 part 'collection_event.dart';
@@ -15,7 +17,10 @@ class CollectionBloc extends Bloc<CollectionEvent, CollectionState> {
   final ICollectionService collectionService;
 
   CollectionBloc(this.collectionService) : super(CollectionState.initial()) {
-    add(const CollectionEvent.getCollectionItem());
+    bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
+    if (isLogged) {
+      add(const CollectionEvent.getCollectionItem());
+    }
   }
 
   Stream<CollectionState> get authStateStream async* {

@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/constants/constants.dart';
+import 'package:swagapp/modules/pages/search/filter/sort_by_page.dart';
 
-import '../../../generated/l10n.dart';
-import '../../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
-import '../../common/utils/custom_route_animations.dart';
-import '../../common/utils/palette.dart';
-import '../../data/shared_preferences/shared_preferences_service.dart';
-import '../../di/injector.dart';
+import '../../../../generated/l10n.dart';
+import '../../../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
+import '../../../common/utils/custom_route_animations.dart';
+import '../../../common/utils/palette.dart';
+import '../../../data/shared_preferences/shared_preferences_service.dart';
+import '../../../di/injector.dart';
 
 class FiltersBottomSheet extends StatefulWidget {
   const FiltersBottomSheet({Key? key}) : super(key: key);
@@ -109,7 +110,8 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                       ),
                       child: Column(
                         children: [
-                          _filterItem(context, S.of(context).view.toUpperCase(),
+                          _filterItem(
+                              context, S.of(context).view.toUpperCase(), () {},
                               buttons: Row(
                                 children: [
                                   InkWell(
@@ -159,6 +161,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                           _filterItem(
                             context,
                             S.of(context).for_sale.toUpperCase(),
+                            () {},
                             buttons: IconButton(
                               onPressed: () {
                                 setState(() {
@@ -177,26 +180,28 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                               ),
                             ),
                           ),
+                          _filterItem(context,
+                              S.of(context).product.toUpperCase(), () {}),
                           _filterItem(
-                              context, S.of(context).product.toUpperCase()),
+                              context, S.of(context).sort_by.toUpperCase(), () {
+                            Navigator.of(context, rootNavigator: true)
+                                .push(SortByPage.route(context));
+                          }, selection: S.of(context).release_date_newest),
                           _filterItem(
-                              context, S.of(context).sort_by.toUpperCase(),
-                              selection: S.of(context).release_date_newest),
-                          _filterItem(
-                              context, S.of(context).type.toUpperCase()),
-                          _filterItem(
-                              context, S.of(context).collections.toUpperCase()),
-                          _filterItem(
-                              context, S.of(context).condition.toUpperCase(),
+                              context, S.of(context).type.toUpperCase(), () {}),
+                          _filterItem(context,
+                              S.of(context).collections.toUpperCase(), () {}),
+                          _filterItem(context,
+                              S.of(context).condition.toUpperCase(), () {},
                               selection: S.of(context).sealed),
                           _filterItem(context,
-                              S.of(context).release_date.toUpperCase()),
+                              S.of(context).release_date.toUpperCase(), () {}),
                           _filterItem(context,
-                              S.of(context).rarity_score.toUpperCase()),
+                              S.of(context).rarity_score.toUpperCase(), () {}),
+                          _filterItem(context,
+                              S.of(context).price_range.toUpperCase(), () {}),
                           _filterItem(
-                              context, S.of(context).price_range.toUpperCase()),
-                          _filterItem(
-                              context, S.of(context).theme.toUpperCase(),
+                              context, S.of(context).theme.toUpperCase(), () {},
                               isSeparatorNeeded: false),
                           _actionButtonSection(context),
                           const SizedBox(
@@ -232,14 +237,14 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
     );
   }
 
-  Widget _filterItem(BuildContext context, String title,
+  Widget _filterItem(BuildContext context, String title, Function() onTap,
       {Widget? buttons,
       String selection = defaultString,
       bool isSeparatorNeeded = true}) {
     return Material(
       color: Palette.current.primaryEerieBlack,
       child: InkWell(
-        onTap: () {},
+        onTap: onTap,
         splashColor: Palette.current.primaryNero,
         child: Column(
           children: [

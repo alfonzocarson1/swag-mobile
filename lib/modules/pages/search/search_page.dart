@@ -4,7 +4,7 @@ import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/common/ui/pushed_header.dart';
 import 'package:swagapp/modules/common/ui/search_input.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
-import 'package:swagapp/modules/pages/search/filters_bottom_sheet.dart';
+import 'package:swagapp/modules/pages/search/filter/filters_bottom_sheet.dart';
 import 'package:swagapp/modules/pages/search/tabs/accessories_page.dart';
 import 'package:swagapp/modules/pages/search/tabs/headcovers_page.dart';
 import 'package:swagapp/modules/pages/search/tabs/putters_page.dart';

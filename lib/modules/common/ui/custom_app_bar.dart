@@ -71,7 +71,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             color: Palette.current.primaryNeonGreen,
             size: 24,
           ),
-          onPressed: onRoute ?? () => Navigator.maybePop(context)),
+          onPressed: onRoute ??
+              () => Navigator.of(context, rootNavigator: true).pop()),
     );
   }
 
