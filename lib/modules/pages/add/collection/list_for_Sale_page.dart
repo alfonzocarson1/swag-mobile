@@ -16,6 +16,7 @@ import '../../../common/ui/popup_item_to_collection_error.dart';
 import '../../../common/ui/primary_button.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
+import 'list_item_preview_page.dart';
 
 class ListForSalePage extends StatefulWidget {
   static const name = '/ListForSalePage';
@@ -52,6 +53,8 @@ class _ListForSalePageState extends State<ListForSalePage> {
   final FocusNode _conditionNode = FocusNode();
   final _conditionController = TextEditingController();
   Color _conditionBorder = Palette.current.primaryWhiteSmoke;
+
+  final _listDescriptionItemController = TextEditingController();
 
   String? listPriceItemErrorText;
   String? conditionErrorText;
@@ -362,6 +365,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                         width: 0.5,
                                         color: Palette.current.grey)),
                                 child: TextField(
+                                  controller: _listDescriptionItemController,
                                   keyboardType: TextInputType.text,
                                   maxLength: 140,
                                   maxLines: 6,
@@ -395,12 +399,15 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                 onPressed: () {
                                   showErrors();
                                   if (areFieldsValid()) {
-                                    showDialog(
-                                        context: context,
-                                        barrierDismissible: false,
-                                        builder: (BuildContext context) {
-                                          return const PopUpExistingItemErro();
-                                        });
+                                    Navigator.of(context, rootNavigator: true)
+                                        .push(ListItemPreviewPage.route(
+                                            imageFileList,
+                                            "GOLDEN KING COVER",
+                                            _listPriceItemController.text
+                                                .toString(),
+                                            _defaultCondition,
+                                            _listDescriptionItemController.text
+                                                .toString()));
                                   }
                                 },
                                 type: PrimaryButtonType.green,

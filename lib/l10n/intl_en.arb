@@ -165,7 +165,8 @@
     "aditional_listing_detail": "Additional listing details...",
     "list_item_popup_title": "LIST ITEM",
     "list_item_popup_desc": "Please select the item you would like to list for sale.",
-    "ist_item_popup_btn": "CREATE LISTING"
+    "ist_item_popup_btn": "CREATE LISTING",
+    "post_listing_btn": "POST LISTING"
 
 
 }

@@ -1655,6 +1655,16 @@ class S {
       args: [],
     );
   }
+
+  /// `POST LISTING`
+  String get post_listing_btn {
+    return Intl.message(
+      'POST LISTING',
+      name: 'post_listing_btn',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

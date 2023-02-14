@@ -166,6 +166,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "popup_description": MessageLookupByLibrary.simpleMessage(
             "It looks like you have an account on swag.golf. After you verify your email you will be able to  import your information into the Swag app."),
         "popup_title": MessageLookupByLibrary.simpleMessage("WELCOME @"),
+        "post_listing_btn":
+            MessageLookupByLibrary.simpleMessage("POST LISTING"),
         "preview_listing":
             MessageLookupByLibrary.simpleMessage("PREVIEW LISTING"),
         "price": MessageLookupByLibrary.simpleMessage("PRICE"),

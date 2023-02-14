@@ -89,22 +89,25 @@ class _MultiImageSlideState extends State<MultiImageSlide>
             ),
           ),
         ),
-        Positioned(
-          right: 5,
-          top: 7,
-          child: IconButton(
-            iconSize: 30,
-            color: Palette.current.primaryNeonGreen,
-            onPressed: () {
-              setState(() {
-                widget.onRemove!(widget.imgList.indexOf(item));
-                _current = 0;
-                end = Matrix4.identity();
-              });
-            },
-            icon: const Icon(
-              Icons.clear_outlined,
-              size: 20,
+        Visibility(
+          visible: widget.onRemove != null,
+          child: Positioned(
+            right: 5,
+            top: 7,
+            child: IconButton(
+              iconSize: 30,
+              color: Palette.current.primaryNeonGreen,
+              onPressed: () {
+                setState(() {
+                  widget.onRemove!(widget.imgList.indexOf(item));
+                  _current = 0;
+                  end = Matrix4.identity();
+                });
+              },
+              icon: const Icon(
+                Icons.clear_outlined,
+                size: 20,
+              ),
             ),
           ),
         ),
@@ -166,17 +169,60 @@ class _MultiImageSlideState extends State<MultiImageSlide>
                             ),
                             child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: List.generate(
-                                    widget.imgList.length + 1, (index) {
-                                  end = Matrix4.identity();
-                                  animation = Matrix4Tween(
-                                          begin: _controller.value, end: end)
-                                      .animate(CurveTween(curve: Curves.easeIn)
-                                          .animate(animationController));
-                                  animationController.forward(from: 0);
-                                  return (index + 1 !=
-                                          widget.imgList.length + 1)
-                                      ? Container(
+                                children: widget.addPhoto != null
+                                    ? List.generate(widget.imgList.length + 1,
+                                        (index) {
+                                        end = Matrix4.identity();
+                                        animation = Matrix4Tween(
+                                                begin: _controller.value,
+                                                end: end)
+                                            .animate(CurveTween(
+                                                    curve: Curves.easeIn)
+                                                .animate(animationController));
+                                        animationController.forward(from: 0);
+                                        return (index + 1 !=
+                                                widget.imgList.length + 1)
+                                            ? Container(
+                                                width: 15,
+                                                height: 8,
+                                                margin:
+                                                    const EdgeInsets.symmetric(
+                                                  vertical: 0,
+                                                  horizontal: 0,
+                                                ),
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: _current == index
+                                                      ? Palette.current
+                                                          .primaryNeonGreen
+                                                      : Palette.current.grey,
+                                                ),
+                                              )
+                                            : GestureDetector(
+                                                onTap: () {
+                                                  widget.addPhoto!();
+                                                },
+                                                child: Container(
+                                                  width: 18,
+                                                  height: 13,
+                                                  color: Colors.transparent,
+                                                  margin: const EdgeInsets
+                                                      .symmetric(
+                                                    vertical: 0,
+                                                    horizontal: 0,
+                                                  ),
+                                                  child: const ImageIcon(
+                                                    AssetImage(
+                                                        'assets/icons/camera.png'),
+                                                    size: 20,
+                                                  ),
+                                                ),
+                                              );
+                                      })
+                                    : widget.imgList.map((item) {
+                                        int index =
+                                            widget.imgList.indexOf(item);
+                                        return Container(
                                           width: 15,
                                           height: 8,
                                           margin: const EdgeInsets.symmetric(
@@ -190,27 +236,8 @@ class _MultiImageSlideState extends State<MultiImageSlide>
                                                     .current.primaryNeonGreen
                                                 : Palette.current.grey,
                                           ),
-                                        )
-                                      : GestureDetector(
-                                          onTap: () {
-                                            widget.addPhoto!();
-                                          },
-                                          child: Container(
-                                            width: 18,
-                                            height: 13,
-                                            color: Colors.transparent,
-                                            margin: const EdgeInsets.symmetric(
-                                              vertical: 0,
-                                              horizontal: 0,
-                                            ),
-                                            child: const ImageIcon(
-                                              AssetImage(
-                                                  'assets/icons/camera.png'),
-                                              size: 20,
-                                            ),
-                                          ),
                                         );
-                                })))
+                                      }).toList()))
                       ],
                     ),
                   ),
