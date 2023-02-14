@@ -1,5 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../constants/constants.dart';
 import 'i_shared_preferences.dart';
 
 class PreferenceRepositoryService implements PreferenceRepositoryInt {
@@ -8,6 +9,7 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   static const String _recentSearches = 'recentSearches';
   static const String _isListView = 'isListView';
   static const String _isForSale = 'isForSale';
+  static const String _sortBy = 'sortBy';
   late SharedPreferences _prefs;
   @override
   SharedPreferences get prefs => _prefs;
@@ -70,5 +72,16 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   @override
   Future<void> saveIsForSale(bool value) async {
     await _prefs.setBool(_isForSale, value);
+  }
+
+  @override
+  int getSortBy() {
+    final sortBy = _prefs.getInt(_sortBy);
+    return sortBy ?? defaultInt;
+  }
+
+  @override
+  Future<void> setSortBy(int value) async {
+    await _prefs.setInt(_sortBy, value);
   }
 }

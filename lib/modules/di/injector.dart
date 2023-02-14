@@ -77,10 +77,10 @@ Future<void> setupAppScope() {
   getIt.registerLazySingleton<ISoldService>(() => SoldService(APIService()));
   getIt.registerLazySingleton<SoldBloc>(() => SoldBloc(getIt<ISoldService>()));
 
-  getIt.registerLazySingleton<SharedPreferencesBloc>(() =>
-      SharedPreferencesBloc(
-          preferenceRepository: getIt<PreferenceRepositoryService>(),
-          initIsListView: true));
+  getIt
+      .registerLazySingleton<SharedPreferencesBloc>(() => SharedPreferencesBloc(
+            preferenceRepository: getIt<PreferenceRepositoryService>(),
+          ));
 
   return getIt.allReady();
 }

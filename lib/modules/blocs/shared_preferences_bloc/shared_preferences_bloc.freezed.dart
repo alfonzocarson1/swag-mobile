@@ -16,48 +16,43 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$SharedPreferencesEvent {
-  bool get isListView => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isListView) init,
     required TResult Function(bool isListView) setIsListView,
+    required TResult Function(int sortBy) setSortBy,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isListView)? init,
     TResult? Function(bool isListView)? setIsListView,
+    TResult? Function(int sortBy)? setSortBy,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isListView)? init,
     TResult Function(bool isListView)? setIsListView,
+    TResult Function(int sortBy)? setSortBy,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Init value) init,
     required TResult Function(SetIsListView value) setIsListView,
+    required TResult Function(SetSortBy value) setSortBy,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Init value)? init,
     TResult? Function(SetIsListView value)? setIsListView,
+    TResult? Function(SetSortBy value)? setSortBy,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Init value)? init,
     TResult Function(SetIsListView value)? setIsListView,
+    TResult Function(SetSortBy value)? setSortBy,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $SharedPreferencesEventCopyWith<SharedPreferencesEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -66,8 +61,6 @@ abstract class $SharedPreferencesEventCopyWith<$Res> {
   factory $SharedPreferencesEventCopyWith(SharedPreferencesEvent value,
           $Res Function(SharedPreferencesEvent) then) =
       _$SharedPreferencesEventCopyWithImpl<$Res, SharedPreferencesEvent>;
-  @useResult
-  $Res call({bool isListView});
 }
 
 /// @nodoc
@@ -80,163 +73,13 @@ class _$SharedPreferencesEventCopyWithImpl<$Res,
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? isListView = null,
-  }) {
-    return _then(_value.copyWith(
-      isListView: null == isListView
-          ? _value.isListView
-          : isListView // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$InitCopyWith<$Res>
-    implements $SharedPreferencesEventCopyWith<$Res> {
-  factory _$$InitCopyWith(_$Init value, $Res Function(_$Init) then) =
-      __$$InitCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({bool isListView});
-}
-
-/// @nodoc
-class __$$InitCopyWithImpl<$Res>
-    extends _$SharedPreferencesEventCopyWithImpl<$Res, _$Init>
-    implements _$$InitCopyWith<$Res> {
-  __$$InitCopyWithImpl(_$Init _value, $Res Function(_$Init) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? isListView = null,
-  }) {
-    return _then(_$Init(
-      null == isListView
-          ? _value.isListView
-          : isListView // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$Init implements Init {
-  const _$Init(this.isListView);
-
-  @override
-  final bool isListView;
-
-  @override
-  String toString() {
-    return 'SharedPreferencesEvent.init(isListView: $isListView)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$Init &&
-            (identical(other.isListView, isListView) ||
-                other.isListView == isListView));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, isListView);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$InitCopyWith<_$Init> get copyWith =>
-      __$$InitCopyWithImpl<_$Init>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(bool isListView) init,
-    required TResult Function(bool isListView) setIsListView,
-  }) {
-    return init(isListView);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isListView)? init,
-    TResult? Function(bool isListView)? setIsListView,
-  }) {
-    return init?.call(isListView);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isListView)? init,
-    TResult Function(bool isListView)? setIsListView,
-    required TResult orElse(),
-  }) {
-    if (init != null) {
-      return init(isListView);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Init value) init,
-    required TResult Function(SetIsListView value) setIsListView,
-  }) {
-    return init(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Init value)? init,
-    TResult? Function(SetIsListView value)? setIsListView,
-  }) {
-    return init?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Init value)? init,
-    TResult Function(SetIsListView value)? setIsListView,
-    required TResult orElse(),
-  }) {
-    if (init != null) {
-      return init(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class Init implements SharedPreferencesEvent {
-  const factory Init(final bool isListView) = _$Init;
-
-  @override
-  bool get isListView;
-  @override
-  @JsonKey(ignore: true)
-  _$$InitCopyWith<_$Init> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$SetIsListViewCopyWith<$Res>
-    implements $SharedPreferencesEventCopyWith<$Res> {
+abstract class _$$SetIsListViewCopyWith<$Res> {
   factory _$$SetIsListViewCopyWith(
           _$SetIsListView value, $Res Function(_$SetIsListView) then) =
       __$$SetIsListViewCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({bool isListView});
 }
@@ -297,8 +140,8 @@ class _$SetIsListView implements SetIsListView {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isListView) init,
     required TResult Function(bool isListView) setIsListView,
+    required TResult Function(int sortBy) setSortBy,
   }) {
     return setIsListView(isListView);
   }
@@ -306,8 +149,8 @@ class _$SetIsListView implements SetIsListView {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isListView)? init,
     TResult? Function(bool isListView)? setIsListView,
+    TResult? Function(int sortBy)? setSortBy,
   }) {
     return setIsListView?.call(isListView);
   }
@@ -315,8 +158,8 @@ class _$SetIsListView implements SetIsListView {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isListView)? init,
     TResult Function(bool isListView)? setIsListView,
+    TResult Function(int sortBy)? setSortBy,
     required TResult orElse(),
   }) {
     if (setIsListView != null) {
@@ -328,8 +171,8 @@ class _$SetIsListView implements SetIsListView {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Init value) init,
     required TResult Function(SetIsListView value) setIsListView,
+    required TResult Function(SetSortBy value) setSortBy,
   }) {
     return setIsListView(this);
   }
@@ -337,8 +180,8 @@ class _$SetIsListView implements SetIsListView {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Init value)? init,
     TResult? Function(SetIsListView value)? setIsListView,
+    TResult? Function(SetSortBy value)? setSortBy,
   }) {
     return setIsListView?.call(this);
   }
@@ -346,8 +189,8 @@ class _$SetIsListView implements SetIsListView {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Init value)? init,
     TResult Function(SetIsListView value)? setIsListView,
+    TResult Function(SetSortBy value)? setSortBy,
     required TResult orElse(),
   }) {
     if (setIsListView != null) {
@@ -360,33 +203,169 @@ class _$SetIsListView implements SetIsListView {
 abstract class SetIsListView implements SharedPreferencesEvent {
   const factory SetIsListView(final bool isListView) = _$SetIsListView;
 
-  @override
   bool get isListView;
-  @override
   @JsonKey(ignore: true)
   _$$SetIsListViewCopyWith<_$SetIsListView> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-mixin _$SharedPreferencesState {
-  bool get isListView => throw _privateConstructorUsedError;
+abstract class _$$SetSortByCopyWith<$Res> {
+  factory _$$SetSortByCopyWith(
+          _$SetSortBy value, $Res Function(_$SetSortBy) then) =
+      __$$SetSortByCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int sortBy});
+}
+
+/// @nodoc
+class __$$SetSortByCopyWithImpl<$Res>
+    extends _$SharedPreferencesEventCopyWithImpl<$Res, _$SetSortBy>
+    implements _$$SetSortByCopyWith<$Res> {
+  __$$SetSortByCopyWithImpl(
+      _$SetSortBy _value, $Res Function(_$SetSortBy) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? sortBy = null,
+  }) {
+    return _then(_$SetSortBy(
+      null == sortBy
+          ? _value.sortBy
+          : sortBy // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SetSortBy implements SetSortBy {
+  const _$SetSortBy(this.sortBy);
+
+  @override
+  final int sortBy;
+
+  @override
+  String toString() {
+    return 'SharedPreferencesEvent.setSortBy(sortBy: $sortBy)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SetSortBy &&
+            (identical(other.sortBy, sortBy) || other.sortBy == sortBy));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, sortBy);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SetSortByCopyWith<_$SetSortBy> get copyWith =>
+      __$$SetSortByCopyWithImpl<_$SetSortBy>(this, _$identity);
+
+  @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isListView) initial,
     required TResult Function(bool isListView) setIsListView,
+    required TResult Function(int sortBy) setSortBy,
+  }) {
+    return setSortBy(sortBy);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(bool isListView)? setIsListView,
+    TResult? Function(int sortBy)? setSortBy,
+  }) {
+    return setSortBy?.call(sortBy);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool isListView)? setIsListView,
+    TResult Function(int sortBy)? setSortBy,
+    required TResult orElse(),
+  }) {
+    if (setSortBy != null) {
+      return setSortBy(sortBy);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SetIsListView value) setIsListView,
+    required TResult Function(SetSortBy value) setSortBy,
+  }) {
+    return setSortBy(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SetIsListView value)? setIsListView,
+    TResult? Function(SetSortBy value)? setSortBy,
+  }) {
+    return setSortBy?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SetIsListView value)? setIsListView,
+    TResult Function(SetSortBy value)? setSortBy,
+    required TResult orElse(),
+  }) {
+    if (setSortBy != null) {
+      return setSortBy(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SetSortBy implements SharedPreferencesEvent {
+  const factory SetSortBy(final int sortBy) = _$SetSortBy;
+
+  int get sortBy;
+  @JsonKey(ignore: true)
+  _$$SetSortByCopyWith<_$SetSortBy> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$SharedPreferencesState {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool value) initial,
+    required TResult Function(bool isListView) setIsListView,
+    required TResult Function(int sortBy) initialSortBy,
+    required TResult Function(int sortBy) setSortBy,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isListView)? initial,
+    TResult? Function(bool value)? initial,
     TResult? Function(bool isListView)? setIsListView,
+    TResult? Function(int sortBy)? initialSortBy,
+    TResult? Function(int sortBy)? setSortBy,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isListView)? initial,
+    TResult Function(bool value)? initial,
     TResult Function(bool isListView)? setIsListView,
+    TResult Function(int sortBy)? initialSortBy,
+    TResult Function(int sortBy)? setSortBy,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -394,24 +373,26 @@ mixin _$SharedPreferencesState {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_SetIsListView value) setIsListView,
+    required TResult Function(_InitialSortBy value) initialSortBy,
+    required TResult Function(_SetSortBy value) setSortBy,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_SetIsListView value)? setIsListView,
+    TResult? Function(_InitialSortBy value)? initialSortBy,
+    TResult? Function(_SetSortBy value)? setSortBy,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_SetIsListView value)? setIsListView,
+    TResult Function(_InitialSortBy value)? initialSortBy,
+    TResult Function(_SetSortBy value)? setSortBy,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $SharedPreferencesStateCopyWith<SharedPreferencesState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -420,8 +401,6 @@ abstract class $SharedPreferencesStateCopyWith<$Res> {
   factory $SharedPreferencesStateCopyWith(SharedPreferencesState value,
           $Res Function(SharedPreferencesState) then) =
       _$SharedPreferencesStateCopyWithImpl<$Res, SharedPreferencesState>;
-  @useResult
-  $Res call({bool isListView});
 }
 
 /// @nodoc
@@ -434,30 +413,15 @@ class _$SharedPreferencesStateCopyWithImpl<$Res,
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? isListView = null,
-  }) {
-    return _then(_value.copyWith(
-      isListView: null == isListView
-          ? _value.isListView
-          : isListView // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$_InitialCopyWith<$Res>
-    implements $SharedPreferencesStateCopyWith<$Res> {
+abstract class _$$_InitialCopyWith<$Res> {
   factory _$$_InitialCopyWith(
           _$_Initial value, $Res Function(_$_Initial) then) =
       __$$_InitialCopyWithImpl<$Res>;
-  @override
   @useResult
-  $Res call({bool isListView});
+  $Res call({bool value});
 }
 
 /// @nodoc
@@ -470,12 +434,12 @@ class __$$_InitialCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isListView = null,
+    Object? value = null,
   }) {
     return _then(_$_Initial(
-      null == isListView
-          ? _value.isListView
-          : isListView // ignore: cast_nullable_to_non_nullable
+      null == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -484,14 +448,14 @@ class __$$_InitialCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Initial implements _Initial {
-  const _$_Initial(this.isListView);
+  const _$_Initial(this.value);
 
   @override
-  final bool isListView;
+  final bool value;
 
   @override
   String toString() {
-    return 'SharedPreferencesState.initial(isListView: $isListView)';
+    return 'SharedPreferencesState.initial(value: $value)';
   }
 
   @override
@@ -499,12 +463,11 @@ class _$_Initial implements _Initial {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Initial &&
-            (identical(other.isListView, isListView) ||
-                other.isListView == isListView));
+            (identical(other.value, value) || other.value == value));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isListView);
+  int get hashCode => Object.hash(runtimeType, value);
 
   @JsonKey(ignore: true)
   @override
@@ -515,30 +478,36 @@ class _$_Initial implements _Initial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isListView) initial,
+    required TResult Function(bool value) initial,
     required TResult Function(bool isListView) setIsListView,
+    required TResult Function(int sortBy) initialSortBy,
+    required TResult Function(int sortBy) setSortBy,
   }) {
-    return initial(isListView);
+    return initial(value);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isListView)? initial,
+    TResult? Function(bool value)? initial,
     TResult? Function(bool isListView)? setIsListView,
+    TResult? Function(int sortBy)? initialSortBy,
+    TResult? Function(int sortBy)? setSortBy,
   }) {
-    return initial?.call(isListView);
+    return initial?.call(value);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isListView)? initial,
+    TResult Function(bool value)? initial,
     TResult Function(bool isListView)? setIsListView,
+    TResult Function(int sortBy)? initialSortBy,
+    TResult Function(int sortBy)? setSortBy,
     required TResult orElse(),
   }) {
     if (initial != null) {
-      return initial(isListView);
+      return initial(value);
     }
     return orElse();
   }
@@ -548,6 +517,8 @@ class _$_Initial implements _Initial {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_SetIsListView value) setIsListView,
+    required TResult Function(_InitialSortBy value) initialSortBy,
+    required TResult Function(_SetSortBy value) setSortBy,
   }) {
     return initial(this);
   }
@@ -557,6 +528,8 @@ class _$_Initial implements _Initial {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_SetIsListView value)? setIsListView,
+    TResult? Function(_InitialSortBy value)? initialSortBy,
+    TResult? Function(_SetSortBy value)? setSortBy,
   }) {
     return initial?.call(this);
   }
@@ -566,6 +539,8 @@ class _$_Initial implements _Initial {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_SetIsListView value)? setIsListView,
+    TResult Function(_InitialSortBy value)? initialSortBy,
+    TResult Function(_SetSortBy value)? setSortBy,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -576,23 +551,19 @@ class _$_Initial implements _Initial {
 }
 
 abstract class _Initial implements SharedPreferencesState {
-  const factory _Initial(final bool isListView) = _$_Initial;
+  const factory _Initial(final bool value) = _$_Initial;
 
-  @override
-  bool get isListView;
-  @override
+  bool get value;
   @JsonKey(ignore: true)
   _$$_InitialCopyWith<_$_Initial> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_SetIsListViewCopyWith<$Res>
-    implements $SharedPreferencesStateCopyWith<$Res> {
+abstract class _$$_SetIsListViewCopyWith<$Res> {
   factory _$$_SetIsListViewCopyWith(
           _$_SetIsListView value, $Res Function(_$_SetIsListView) then) =
       __$$_SetIsListViewCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({bool isListView});
 }
@@ -653,8 +624,10 @@ class _$_SetIsListView implements _SetIsListView {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isListView) initial,
+    required TResult Function(bool value) initial,
     required TResult Function(bool isListView) setIsListView,
+    required TResult Function(int sortBy) initialSortBy,
+    required TResult Function(int sortBy) setSortBy,
   }) {
     return setIsListView(isListView);
   }
@@ -662,8 +635,10 @@ class _$_SetIsListView implements _SetIsListView {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isListView)? initial,
+    TResult? Function(bool value)? initial,
     TResult? Function(bool isListView)? setIsListView,
+    TResult? Function(int sortBy)? initialSortBy,
+    TResult? Function(int sortBy)? setSortBy,
   }) {
     return setIsListView?.call(isListView);
   }
@@ -671,8 +646,10 @@ class _$_SetIsListView implements _SetIsListView {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isListView)? initial,
+    TResult Function(bool value)? initial,
     TResult Function(bool isListView)? setIsListView,
+    TResult Function(int sortBy)? initialSortBy,
+    TResult Function(int sortBy)? setSortBy,
     required TResult orElse(),
   }) {
     if (setIsListView != null) {
@@ -686,6 +663,8 @@ class _$_SetIsListView implements _SetIsListView {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_SetIsListView value) setIsListView,
+    required TResult Function(_InitialSortBy value) initialSortBy,
+    required TResult Function(_SetSortBy value) setSortBy,
   }) {
     return setIsListView(this);
   }
@@ -695,6 +674,8 @@ class _$_SetIsListView implements _SetIsListView {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_SetIsListView value)? setIsListView,
+    TResult? Function(_InitialSortBy value)? initialSortBy,
+    TResult? Function(_SetSortBy value)? setSortBy,
   }) {
     return setIsListView?.call(this);
   }
@@ -704,6 +685,8 @@ class _$_SetIsListView implements _SetIsListView {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_SetIsListView value)? setIsListView,
+    TResult Function(_InitialSortBy value)? initialSortBy,
+    TResult Function(_SetSortBy value)? setSortBy,
     required TResult orElse(),
   }) {
     if (setIsListView != null) {
@@ -716,10 +699,298 @@ class _$_SetIsListView implements _SetIsListView {
 abstract class _SetIsListView implements SharedPreferencesState {
   const factory _SetIsListView(final bool isListView) = _$_SetIsListView;
 
-  @override
   bool get isListView;
-  @override
   @JsonKey(ignore: true)
   _$$_SetIsListViewCopyWith<_$_SetIsListView> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_InitialSortByCopyWith<$Res> {
+  factory _$$_InitialSortByCopyWith(
+          _$_InitialSortBy value, $Res Function(_$_InitialSortBy) then) =
+      __$$_InitialSortByCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int sortBy});
+}
+
+/// @nodoc
+class __$$_InitialSortByCopyWithImpl<$Res>
+    extends _$SharedPreferencesStateCopyWithImpl<$Res, _$_InitialSortBy>
+    implements _$$_InitialSortByCopyWith<$Res> {
+  __$$_InitialSortByCopyWithImpl(
+      _$_InitialSortBy _value, $Res Function(_$_InitialSortBy) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? sortBy = null,
+  }) {
+    return _then(_$_InitialSortBy(
+      null == sortBy
+          ? _value.sortBy
+          : sortBy // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_InitialSortBy implements _InitialSortBy {
+  const _$_InitialSortBy(this.sortBy);
+
+  @override
+  final int sortBy;
+
+  @override
+  String toString() {
+    return 'SharedPreferencesState.initialSortBy(sortBy: $sortBy)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_InitialSortBy &&
+            (identical(other.sortBy, sortBy) || other.sortBy == sortBy));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, sortBy);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_InitialSortByCopyWith<_$_InitialSortBy> get copyWith =>
+      __$$_InitialSortByCopyWithImpl<_$_InitialSortBy>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool value) initial,
+    required TResult Function(bool isListView) setIsListView,
+    required TResult Function(int sortBy) initialSortBy,
+    required TResult Function(int sortBy) setSortBy,
+  }) {
+    return initialSortBy(sortBy);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(bool value)? initial,
+    TResult? Function(bool isListView)? setIsListView,
+    TResult? Function(int sortBy)? initialSortBy,
+    TResult? Function(int sortBy)? setSortBy,
+  }) {
+    return initialSortBy?.call(sortBy);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool value)? initial,
+    TResult Function(bool isListView)? setIsListView,
+    TResult Function(int sortBy)? initialSortBy,
+    TResult Function(int sortBy)? setSortBy,
+    required TResult orElse(),
+  }) {
+    if (initialSortBy != null) {
+      return initialSortBy(sortBy);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_SetIsListView value) setIsListView,
+    required TResult Function(_InitialSortBy value) initialSortBy,
+    required TResult Function(_SetSortBy value) setSortBy,
+  }) {
+    return initialSortBy(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_SetIsListView value)? setIsListView,
+    TResult? Function(_InitialSortBy value)? initialSortBy,
+    TResult? Function(_SetSortBy value)? setSortBy,
+  }) {
+    return initialSortBy?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_SetIsListView value)? setIsListView,
+    TResult Function(_InitialSortBy value)? initialSortBy,
+    TResult Function(_SetSortBy value)? setSortBy,
+    required TResult orElse(),
+  }) {
+    if (initialSortBy != null) {
+      return initialSortBy(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _InitialSortBy implements SharedPreferencesState {
+  const factory _InitialSortBy(final int sortBy) = _$_InitialSortBy;
+
+  int get sortBy;
+  @JsonKey(ignore: true)
+  _$$_InitialSortByCopyWith<_$_InitialSortBy> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_SetSortByCopyWith<$Res> {
+  factory _$$_SetSortByCopyWith(
+          _$_SetSortBy value, $Res Function(_$_SetSortBy) then) =
+      __$$_SetSortByCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int sortBy});
+}
+
+/// @nodoc
+class __$$_SetSortByCopyWithImpl<$Res>
+    extends _$SharedPreferencesStateCopyWithImpl<$Res, _$_SetSortBy>
+    implements _$$_SetSortByCopyWith<$Res> {
+  __$$_SetSortByCopyWithImpl(
+      _$_SetSortBy _value, $Res Function(_$_SetSortBy) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? sortBy = null,
+  }) {
+    return _then(_$_SetSortBy(
+      null == sortBy
+          ? _value.sortBy
+          : sortBy // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_SetSortBy implements _SetSortBy {
+  const _$_SetSortBy(this.sortBy);
+
+  @override
+  final int sortBy;
+
+  @override
+  String toString() {
+    return 'SharedPreferencesState.setSortBy(sortBy: $sortBy)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_SetSortBy &&
+            (identical(other.sortBy, sortBy) || other.sortBy == sortBy));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, sortBy);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_SetSortByCopyWith<_$_SetSortBy> get copyWith =>
+      __$$_SetSortByCopyWithImpl<_$_SetSortBy>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool value) initial,
+    required TResult Function(bool isListView) setIsListView,
+    required TResult Function(int sortBy) initialSortBy,
+    required TResult Function(int sortBy) setSortBy,
+  }) {
+    return setSortBy(sortBy);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(bool value)? initial,
+    TResult? Function(bool isListView)? setIsListView,
+    TResult? Function(int sortBy)? initialSortBy,
+    TResult? Function(int sortBy)? setSortBy,
+  }) {
+    return setSortBy?.call(sortBy);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool value)? initial,
+    TResult Function(bool isListView)? setIsListView,
+    TResult Function(int sortBy)? initialSortBy,
+    TResult Function(int sortBy)? setSortBy,
+    required TResult orElse(),
+  }) {
+    if (setSortBy != null) {
+      return setSortBy(sortBy);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_SetIsListView value) setIsListView,
+    required TResult Function(_InitialSortBy value) initialSortBy,
+    required TResult Function(_SetSortBy value) setSortBy,
+  }) {
+    return setSortBy(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_SetIsListView value)? setIsListView,
+    TResult? Function(_InitialSortBy value)? initialSortBy,
+    TResult? Function(_SetSortBy value)? setSortBy,
+  }) {
+    return setSortBy?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_SetIsListView value)? setIsListView,
+    TResult Function(_InitialSortBy value)? initialSortBy,
+    TResult Function(_SetSortBy value)? setSortBy,
+    required TResult orElse(),
+  }) {
+    if (setSortBy != null) {
+      return setSortBy(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SetSortBy implements SharedPreferencesState {
+  const factory _SetSortBy(final int sortBy) = _$_SetSortBy;
+
+  int get sortBy;
+  @JsonKey(ignore: true)
+  _$$_SetSortByCopyWith<_$_SetSortBy> get copyWith =>
       throw _privateConstructorUsedError;
 }

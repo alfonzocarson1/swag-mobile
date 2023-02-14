@@ -6,6 +6,10 @@ const termsAndConditionsUrl = "https://swag.golf/pages/termsandconditions";
 const termsAndConditionsBasePath = "https://swag.golf";
 
 const defaultString = "";
+const defaultInt = 0;
+const maxCharactersForGridViewTitle = 25;
+const maxCharactersForGridViewDesc = 22;
+const defaultPageSize = 20;
 
 const countries = [
   "US",
@@ -20,3 +24,36 @@ const countries = [
   "CN",
   "KR",
 ];
+
+enum SortBy {
+  releaseDateNewest,
+  releaseDateOldest,
+  priceHighToLow,
+  priceLowToHigh,
+  atoZ,
+  ztoA
+}
+
+class SortByWrapper {
+  final SortBy type;
+
+  SortByWrapper(this.type);
+
+  @override
+  String toString() {
+    switch (type) {
+      case SortBy.releaseDateNewest:
+        return 'Release Date - Newest';
+      case SortBy.releaseDateOldest:
+        return 'Release Date - Oldest';
+      case SortBy.priceHighToLow:
+        return 'Price: High to low';
+      case SortBy.priceLowToHigh:
+        return 'Price: Low to High';
+      case SortBy.atoZ:
+        return 'A to Z';
+      case SortBy.ztoA:
+        return 'Z to A';
+    }
+  }
+}

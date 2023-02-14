@@ -19,21 +19,21 @@ mixin _$SearchEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getCategories,
-    required TResult Function(String term) search,
+    required TResult Function(SearchRequestPayloadModel payload) search,
     required TResult Function() reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getCategories,
-    TResult? Function(String term)? search,
+    TResult? Function(SearchRequestPayloadModel payload)? search,
     TResult? Function()? reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getCategories,
-    TResult Function(String term)? search,
+    TResult Function(SearchRequestPayloadModel payload)? search,
     TResult Function()? reset,
     required TResult orElse(),
   }) =>
@@ -119,7 +119,7 @@ class _$_GetCategories implements _GetCategories {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getCategories,
-    required TResult Function(String term) search,
+    required TResult Function(SearchRequestPayloadModel payload) search,
     required TResult Function() reset,
   }) {
     return getCategories();
@@ -129,7 +129,7 @@ class _$_GetCategories implements _GetCategories {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getCategories,
-    TResult? Function(String term)? search,
+    TResult? Function(SearchRequestPayloadModel payload)? search,
     TResult? Function()? reset,
   }) {
     return getCategories?.call();
@@ -139,7 +139,7 @@ class _$_GetCategories implements _GetCategories {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getCategories,
-    TResult Function(String term)? search,
+    TResult Function(SearchRequestPayloadModel payload)? search,
     TResult Function()? reset,
     required TResult orElse(),
   }) {
@@ -194,7 +194,9 @@ abstract class _$$_SearchEventSearchCopyWith<$Res> {
           $Res Function(_$_SearchEventSearch) then) =
       __$$_SearchEventSearchCopyWithImpl<$Res>;
   @useResult
-  $Res call({String term});
+  $Res call({SearchRequestPayloadModel payload});
+
+  $SearchRequestPayloadModelCopyWith<$Res> get payload;
 }
 
 /// @nodoc
@@ -208,28 +210,36 @@ class __$$_SearchEventSearchCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? term = null,
+    Object? payload = null,
   }) {
     return _then(_$_SearchEventSearch(
-      null == term
-          ? _value.term
-          : term // ignore: cast_nullable_to_non_nullable
-              as String,
+      null == payload
+          ? _value.payload
+          : payload // ignore: cast_nullable_to_non_nullable
+              as SearchRequestPayloadModel,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $SearchRequestPayloadModelCopyWith<$Res> get payload {
+    return $SearchRequestPayloadModelCopyWith<$Res>(_value.payload, (value) {
+      return _then(_value.copyWith(payload: value));
+    });
   }
 }
 
 /// @nodoc
 
 class _$_SearchEventSearch implements _SearchEventSearch {
-  const _$_SearchEventSearch(this.term);
+  const _$_SearchEventSearch(this.payload);
 
   @override
-  final String term;
+  final SearchRequestPayloadModel payload;
 
   @override
   String toString() {
-    return 'SearchEvent.search(term: $term)';
+    return 'SearchEvent.search(payload: $payload)';
   }
 
   @override
@@ -237,11 +247,11 @@ class _$_SearchEventSearch implements _SearchEventSearch {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SearchEventSearch &&
-            (identical(other.term, term) || other.term == term));
+            (identical(other.payload, payload) || other.payload == payload));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, term);
+  int get hashCode => Object.hash(runtimeType, payload);
 
   @JsonKey(ignore: true)
   @override
@@ -254,32 +264,32 @@ class _$_SearchEventSearch implements _SearchEventSearch {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getCategories,
-    required TResult Function(String term) search,
+    required TResult Function(SearchRequestPayloadModel payload) search,
     required TResult Function() reset,
   }) {
-    return search(term);
+    return search(payload);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getCategories,
-    TResult? Function(String term)? search,
+    TResult? Function(SearchRequestPayloadModel payload)? search,
     TResult? Function()? reset,
   }) {
-    return search?.call(term);
+    return search?.call(payload);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getCategories,
-    TResult Function(String term)? search,
+    TResult Function(SearchRequestPayloadModel payload)? search,
     TResult Function()? reset,
     required TResult orElse(),
   }) {
     if (search != null) {
-      return search(term);
+      return search(payload);
     }
     return orElse();
   }
@@ -320,9 +330,10 @@ class _$_SearchEventSearch implements _SearchEventSearch {
 }
 
 abstract class _SearchEventSearch implements SearchEvent {
-  const factory _SearchEventSearch(final String term) = _$_SearchEventSearch;
+  const factory _SearchEventSearch(final SearchRequestPayloadModel payload) =
+      _$_SearchEventSearch;
 
-  String get term;
+  SearchRequestPayloadModel get payload;
   @JsonKey(ignore: true)
   _$$_SearchEventSearchCopyWith<_$_SearchEventSearch> get copyWith =>
       throw _privateConstructorUsedError;
@@ -367,7 +378,7 @@ class _$_SearchEventReset implements _SearchEventReset {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getCategories,
-    required TResult Function(String term) search,
+    required TResult Function(SearchRequestPayloadModel payload) search,
     required TResult Function() reset,
   }) {
     return reset();
@@ -377,7 +388,7 @@ class _$_SearchEventReset implements _SearchEventReset {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getCategories,
-    TResult? Function(String term)? search,
+    TResult? Function(SearchRequestPayloadModel payload)? search,
     TResult? Function()? reset,
   }) {
     return reset?.call();
@@ -387,7 +398,7 @@ class _$_SearchEventReset implements _SearchEventReset {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getCategories,
-    TResult Function(String term)? search,
+    TResult Function(SearchRequestPayloadModel payload)? search,
     TResult Function()? reset,
     required TResult orElse(),
   }) {

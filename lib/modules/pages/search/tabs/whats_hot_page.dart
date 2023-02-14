@@ -6,6 +6,8 @@ import 'package:swagapp/modules/common/utils/palette.dart';
 import '../../../common/ui/body_widget_with_view.dart';
 import '../../../common/ui/loading.dart';
 import '../../../common/utils/custom_route_animations.dart';
+import '../../../constants/constants.dart';
+import '../../../models/search/search_request_payload_model.dart';
 
 class WhatsHotPage extends StatefulWidget {
   static const name = '/WhatsHot';
@@ -64,6 +66,7 @@ class _WhatsHotPageState extends State<WhatsHotPage> {
   }
 
   void makeCall() {
-    context.read<SearchBloc>().add(const SearchEvent.search(''));
+    context.read<SearchBloc>().add(const SearchEvent.search(
+        SearchRequestPayloadModel(categoryId: defaultString)));
   }
 }

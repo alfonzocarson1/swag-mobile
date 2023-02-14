@@ -12,6 +12,7 @@ import 'package:swagapp/modules/models/search/search_response_model.dart';
 import '../../common/utils/handling_errors.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
+import '../../models/search/search_request_payload_model.dart';
 
 part 'search_bloc.freezed.dart';
 part 'search_event.dart';
@@ -21,7 +22,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   final ISearchService searchService;
 
   SearchBloc(this.searchService) : super(SearchState.initial()) {
-    add(const SearchEvent.search(defaultString));
+    add(const SearchEvent.search(
+        SearchRequestPayloadModel(categoryId: defaultString)));
   }
 
   Stream<SearchState> get authStateStream async* {
@@ -62,7 +64,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
   }
 
-  Stream<SearchState> _search(final String term) async* {
+  Stream<SearchState> _search(final SearchRequestPayloadModel payload) async* {
     // if (state.query == term) return;
     yield SearchState.initial();
 
@@ -188,7 +190,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       getIt<PreferenceRepositoryService>()
           .saveRecentSearches(response.recentList);
       yield SearchState.result(
-          result: {SearchTab.all: response.catalogList}, query: term);
+          result: {SearchTab.all: response.catalogList},
+          query: payload.searchParams);
     } catch (e) {
       yield SearchState.error(HandlingErrors().getError(e));
     }

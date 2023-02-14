@@ -12,21 +12,19 @@ part 'shared_preferences_bloc.freezed.dart';
 class SharedPreferencesBloc
     extends Bloc<SharedPreferencesEvent, SharedPreferencesState> {
   final PreferenceRepositoryService _preferenceRepository;
-  final SharedPreferencesState _initialState;
   SharedPreferencesBloc(
-      {required PreferenceRepositoryService preferenceRepository,
-      required bool initIsListView})
+      {required PreferenceRepositoryService preferenceRepository})
       : _preferenceRepository = preferenceRepository,
-        _initialState = SharedPreferencesState.initial(initIsListView),
-        super(SharedPreferencesState.initial(initIsListView));
-
-  SharedPreferencesState get initialState => _initialState;
+        super(const SharedPreferencesState.initial(true));
 
   @override
   Stream<SharedPreferencesState> mapEventToState(
     SharedPreferencesEvent event,
   ) async* {
-    yield* event.when(setIsListView: _setIsListView, init: _initial);
+    yield* event.when(
+      setIsListView: _setIsListView,
+      setSortBy: _setSortBy,
+    );
   }
 
   Stream<SharedPreferencesState> _setIsListView(bool isListView) async* {
@@ -34,8 +32,8 @@ class SharedPreferencesBloc
     yield SharedPreferencesState.setIsListView(isListView);
   }
 
-  Stream<SharedPreferencesState> _initial(bool isListView) async* {
-    await _preferenceRepository.saveIsListView(isListView);
-    yield SharedPreferencesState.initial(isListView);
+  Stream<SharedPreferencesState> _setSortBy(int value) async* {
+    await _preferenceRepository.setSortBy(value);
+    yield SharedPreferencesState.setSortBy(value);
   }
 }

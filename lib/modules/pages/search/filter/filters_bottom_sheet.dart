@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/constants/constants.dart';
-import 'package:swagapp/modules/pages/search/filter/sort_by_page.dart';
+import 'package:swagapp/modules/pages/search/filter/filter_category_page.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
@@ -185,7 +185,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                           _filterItem(
                               context, S.of(context).sort_by.toUpperCase(), () {
                             Navigator.of(context, rootNavigator: true)
-                                .push(SortByPage.route(context));
+                                .push(FilterCategoryPage.route(context));
                           }, selection: S.of(context).release_date_newest),
                           _filterItem(
                               context, S.of(context).type.toUpperCase(), () {}),
@@ -274,19 +274,19 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                       ),
                     ),
                     const Spacer(),
-                    selection != defaultString
-                        ? Padding(
-                            padding: const EdgeInsets.only(bottom: 4.0),
-                            child: Text(
-                              selection,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                      color: Palette.current.primaryNeonGreen),
-                            ),
-                          )
-                        : Container(),
+                    BlocBuilder<SharedPreferencesBloc, SharedPreferencesState>(
+                        builder: (context, stateSharedPreferences) {
+                      return stateSharedPreferences.maybeMap(
+                        orElse: () =>
+                            title == S.of(context).sort_by.toUpperCase()
+                                ? getSortByText(context)
+                                : Container(),
+                        setSortBy: (state) =>
+                            title == S.of(context).sort_by.toUpperCase()
+                                ? getSortByText(context, index: state.sortBy)
+                                : Container(),
+                      );
+                    }),
                     const SizedBox(
                       width: 6,
                     ),
@@ -308,6 +308,21 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                 : Container(),
           ],
         ),
+      ),
+    );
+  }
+
+  Padding getSortByText(BuildContext context, {int? index}) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 4.0),
+      child: Text(
+        SortByWrapper(SortBy.values.elementAt(
+                index ?? getIt<PreferenceRepositoryService>().getSortBy()))
+            .toString(),
+        style: Theme.of(context)
+            .textTheme
+            .bodySmall!
+            .copyWith(color: Palette.current.primaryNeonGreen),
       ),
     );
   }

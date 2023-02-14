@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/ui/catalog_ui.dart';
 import 'package:swagapp/modules/common/ui/shrunken_item_widget.dart';
+import 'package:swagapp/modules/constants/constants.dart';
 
 import '../../../generated/l10n.dart';
 import '../../blocs/search_bloc.dart/search_bloc.dart';
 import '../../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
+import '../../data/shared_preferences/shared_preferences_service.dart';
+import '../../di/injector.dart';
 import '../../models/search/catalog_item_model.dart';
+import '../../models/search/search_request_payload_model.dart';
 
 class BodyWidgetWithView extends StatefulWidget {
   BodyWidgetWithView(this.catalogList, {Key? key}) : super(key: key);
@@ -18,7 +22,7 @@ class BodyWidgetWithView extends StatefulWidget {
 }
 
 class _BodyWidgetWithViewState extends State<BodyWidgetWithView> {
-  late final ScrollController? _scrollController =
+  late final ScrollController _scrollController =
       PrimaryScrollController.of(context);
   @override
   Widget build(BuildContext context) {
@@ -31,8 +35,9 @@ class _BodyWidgetWithViewState extends State<BodyWidgetWithView> {
       return Future.delayed(const Duration(milliseconds: 1500));
     }, child: BlocBuilder<SharedPreferencesBloc, SharedPreferencesState>(
         builder: (context, stateSharedPreferences) {
-      return stateSharedPreferences.map(
-        initial: (state) => getWidgetWithView(catalogList, state.isListView),
+      return stateSharedPreferences.maybeMap(
+        orElse: () => getWidgetWithView(
+            catalogList, getIt<PreferenceRepositoryService>().isListView()),
         setIsListView: (state) =>
             getWidgetWithView(catalogList, state.isListView),
       );
@@ -44,7 +49,7 @@ class _BodyWidgetWithViewState extends State<BodyWidgetWithView> {
     return catalogList.isNotEmpty
         ? isListView
             ? CatalogPage(
-                catalogItems: catalogList, scrollController: _scrollController!)
+                catalogItems: catalogList, scrollController: _scrollController)
             : Padding(
                 padding: const EdgeInsets.only(
                     top: 0, bottom: 0, left: 16, right: 0),
@@ -81,6 +86,7 @@ class _BodyWidgetWithViewState extends State<BodyWidgetWithView> {
   }
 
   void makeCall() {
-    context.read<SearchBloc>().add(const SearchEvent.search(''));
+    context.read<SearchBloc>().add(const SearchEvent.search(
+        SearchRequestPayloadModel(categoryId: defaultString)));
   }
 }

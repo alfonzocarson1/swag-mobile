@@ -11,7 +11,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/blocs/search_bloc.dart/search_bloc.dart';
 import 'package:swagapp/modules/common/ui/loading.dart';
 
+import '../../../constants/constants.dart';
 import '../../../models/search/catalog_item_model.dart';
+import '../../../models/search/search_request_payload_model.dart';
 
 class AccessoriesPage extends StatefulWidget {
   static const name = '/Accessories';
@@ -95,6 +97,7 @@ class _AccessoriesPageState extends State<AccessoriesPage> {
   }
 
   void makeCall() {
-    context.read<SearchBloc>().add(const SearchEvent.search(''));
+    context.read<SearchBloc>().add(const SearchEvent.search(
+        SearchRequestPayloadModel(categoryId: defaultString)));
   }
 }

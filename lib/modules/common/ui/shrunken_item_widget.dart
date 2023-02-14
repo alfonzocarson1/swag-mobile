@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
+import 'package:swagapp/modules/constants/constants.dart';
 import 'package:swagapp/modules/models/search/catalog_item_model.dart';
 
 class ShrunkenItemWidget extends StatelessWidget {
@@ -88,7 +89,10 @@ class ShrunkenItemWidget extends StatelessWidget {
         const SizedBox(
           height: 5,
         ),
-        Text(model.catalogItemName,
+        Text(
+            model.catalogItemName.length >= maxCharactersForGridViewTitle
+                ? '${model.catalogItemName.substring(0, maxCharactersForGridViewTitle)}...'
+                : model.catalogItemName,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.displayLarge!.copyWith(
@@ -97,7 +101,10 @@ class ShrunkenItemWidget extends StatelessWidget {
                 fontFamily: "Knockout",
                 fontSize: 24,
                 color: Palette.current.white)),
-        Text(model.lastSale,
+        Text(
+            model.lastSale.length >= maxCharactersForGridViewDesc
+                ? '${model.lastSale.substring(0, maxCharactersForGridViewDesc)}...'
+                : model.lastSale,
             overflow: TextOverflow.fade,
             maxLines: 1,
             style: Theme.of(context).textTheme.bodySmall!.copyWith(

@@ -5,6 +5,7 @@ import 'package:swagapp/modules/common/ui/body_widget_with_view.dart';
 import 'package:swagapp/modules/common/ui/pushed_header.dart';
 import 'package:swagapp/modules/common/ui/search_input.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
+import 'package:swagapp/modules/constants/constants.dart';
 import 'package:swagapp/modules/pages/search/filter/filters_bottom_sheet.dart';
 import 'package:swagapp/modules/pages/search/search_on_tap_page.dart';
 
@@ -13,6 +14,7 @@ import '../../common/ui/catalog_ui.dart';
 import '../../common/ui/loading.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../models/search/catalog_item_model.dart';
+import '../../models/search/search_request_payload_model.dart';
 
 class SearchResultPage extends StatefulWidget {
   static const name = '/SearchResult';
@@ -177,7 +179,8 @@ class _SearchResultPageState extends State<SearchResultPage>
   }
 
   void makeCall() {
-    context.read<SearchBloc>().add(const SearchEvent.search(''));
+    context.read<SearchBloc>().add(const SearchEvent.search(
+        SearchRequestPayloadModel(categoryId: defaultString)));
   }
 
   Widget _searchField(BuildContext context, String title) {

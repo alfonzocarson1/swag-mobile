@@ -14,4 +14,6 @@ abstract class PreferenceRepositoryInt {
   Future<void> saveIsListView(bool value);
   bool isForSale();
   Future<void> saveIsForSale(bool value);
+  int getSortBy();
+  Future<void> setSortBy(int value);
 }

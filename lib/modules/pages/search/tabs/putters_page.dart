@@ -8,6 +8,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/blocs/search_bloc.dart/search_bloc.dart';
 import 'package:swagapp/modules/common/ui/loading.dart';
 
+import '../../../constants/constants.dart';
+import '../../../models/search/search_request_payload_model.dart';
+
 class PuttersPage extends StatefulWidget {
   static const name = '/Putters';
   const PuttersPage({Key? key}) : super(key: key);
@@ -66,6 +69,7 @@ class _PuttersPageState extends State<PuttersPage> {
   }
 
   void makeCall() {
-    context.read<SearchBloc>().add(const SearchEvent.search(''));
+    context.read<SearchBloc>().add(const SearchEvent.search(
+        SearchRequestPayloadModel(categoryId: defaultString)));
   }
 }

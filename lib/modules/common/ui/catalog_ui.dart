@@ -22,6 +22,7 @@ class CatalogPage extends StatefulWidget {
 class _CatalogPageState extends State<CatalogPage> {
   late FavoriteBloc _favoriteBloc;
   double animateFavorite = 0.0;
+  bool isSkullVisible = true;
   int? indexFavorite;
 
   @override
@@ -32,12 +33,20 @@ class _CatalogPageState extends State<CatalogPage> {
 
   onChangeFavoriteAnimation(int index) async {
     setState(() {
+      isSkullVisible = true;
       animateFavorite = 130.0;
       indexFavorite = index;
     });
     Future.delayed(const Duration(milliseconds: 700), () {
       setState(() {
+        isSkullVisible = false;
         animateFavorite = 0.0;
+      });
+
+      Future.delayed(const Duration(milliseconds: 200), () {
+        setState(() {
+          isSkullVisible = true;
+        });
       });
     });
   }
@@ -92,18 +101,22 @@ class _CatalogPageState extends State<CatalogPage> {
                                 .push(AddCollection.route(context));
                           },
                         )),
-                    Positioned.fill(
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: AnimatedContainer(
-                            height:
-                                (index == indexFavorite) ? animateFavorite : 0,
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.easeInOut,
-                            child: Image.asset(
-                              "assets/images/IconsBig.png",
-                              scale: 3,
-                            )),
+                    Visibility(
+                      visible: isSkullVisible,
+                      child: Positioned.fill(
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: AnimatedContainer(
+                              height: (index == indexFavorite)
+                                  ? animateFavorite
+                                  : 0,
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.easeInOut,
+                              child: Image.asset(
+                                "assets/images/IconsBig.png",
+                                scale: 3,
+                              )),
+                        ),
                       ),
                     ),
                     widget.catalogItems[index].sale
