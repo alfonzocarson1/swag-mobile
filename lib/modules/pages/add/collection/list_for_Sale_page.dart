@@ -463,6 +463,14 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                           builder: (BuildContext context) {
                                             return const PopUpImageGuideline();
                                           });
+                                    } else if (_defaultCondition != "Sealed" &&
+                                        imageFileList.length < 4) {
+                                      showDialog(
+                                          context: context,
+                                          barrierDismissible: false,
+                                          builder: (BuildContext context) {
+                                            return const PopUpImageGuideline();
+                                          });
                                     } else {
                                       Navigator.of(context, rootNavigator: true)
                                           .push(ListItemPreviewPage.route(
