@@ -18,10 +18,13 @@ class MultiImageSlide extends StatefulWidget {
   _MultiImageSlideState createState() => _MultiImageSlideState();
 }
 
-class _MultiImageSlideState extends State<MultiImageSlide> {
+class _MultiImageSlideState extends State<MultiImageSlide>
+    with SingleTickerProviderStateMixin {
   int _current = 0;
   int lastLen = 0;
   int currentLen = 0;
+
+  final CarouselController _controller = CarouselController();
 
   @override
   void initState() {
@@ -68,7 +71,7 @@ class _MultiImageSlideState extends State<MultiImageSlide> {
               onPressed: () {
                 setState(() {
                   widget.onRemove!(widget.imgList.indexOf(item));
-                  _current = 0;
+                  _controller.animateToPage(0);
                 });
               },
               icon: const Icon(
@@ -110,6 +113,7 @@ class _MultiImageSlideState extends State<MultiImageSlide> {
             ? Stack(
                 children: [
                   CarouselSlider(
+                    carouselController: _controller,
                     items: imageSliders,
                     options: CarouselOptions(
                         enableInfiniteScroll:
@@ -119,8 +123,11 @@ class _MultiImageSlideState extends State<MultiImageSlide> {
                         enlargeCenterPage: false,
                         aspectRatio: 1,
                         onPageChanged: (index, reason) {
-                          _current = index;
-                        }),
+                          setState(() {
+                            _current = index;
+                          });
+                        },
+                        initialPage: 3),
                   ),
                   Positioned(
                     bottom: 15,
@@ -139,12 +146,16 @@ class _MultiImageSlideState extends State<MultiImageSlide> {
                                 children: widget.addPhoto != null
                                     ? List.generate(widget.imgList.length + 1,
                                         (index) {
-                                        currentLen = widget.imgList.length;
+                                        setState(() {
+                                          currentLen = widget.imgList.length;
+                                        });
                                         if (currentLen > lastLen) {
-                                          lastLen = currentLen;
-                                          _current = lastLen - 1;
+                                          setState(() {
+                                            lastLen = currentLen;
+                                            _controller
+                                                .animateToPage(currentLen - 1);
+                                          });
                                         }
-
                                         return (index + 1 !=
                                                 widget.imgList.length + 1)
                                             ? Container(
