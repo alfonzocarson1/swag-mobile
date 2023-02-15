@@ -5,7 +5,7 @@ import '../../common/ui/popup_list_item_sale.dart';
 import '../../common/ui/primary_button.dart';
 import '../../common/utils/palette.dart';
 import '../../models/detail/detail_collection_model.dart';
-import '../add/collection/list_for_Sale_page.dart';
+import '../add/collection/list_for_sale_page.dart';
 
 class CollectionWidget extends StatefulWidget {
   const CollectionWidget(

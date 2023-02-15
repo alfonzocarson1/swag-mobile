@@ -216,7 +216,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sealed_item_one":
             MessageLookupByLibrary.simpleMessage("•  Front of item"),
         "sealed_item_three": MessageLookupByLibrary.simpleMessage(
-            "•  Minimum of 4 photos Max of 6"),
+            "•  Minimum of 3 photos Max of 6"),
         "sealed_item_two":
             MessageLookupByLibrary.simpleMessage("•  Back of item"),
         "search_hint": MessageLookupByLibrary.simpleMessage(

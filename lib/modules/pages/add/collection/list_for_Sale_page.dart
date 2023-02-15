@@ -67,10 +67,9 @@ class _ListForSalePageState extends State<ListForSalePage> {
 
   var Conditions = [
     'Condition',
-    'Condition 1',
-    'Condition 2',
-    'Condition 3',
-    'Condition 4',
+    'Sealed',
+    'Displayed',
+    'Gamed',
   ];
 
   @override
@@ -456,15 +455,26 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                 onPressed: () {
                                   showErrors();
                                   if (areFieldsValid()) {
-                                    Navigator.of(context, rootNavigator: true)
-                                        .push(ListItemPreviewPage.route(
-                                            imageFileList,
-                                            "GOLDEN KING COVER",
-                                            _listPriceItemController.text
-                                                .toString(),
-                                            _defaultCondition,
-                                            _listDescriptionItemController.text
-                                                .toString()));
+                                    if (_defaultCondition == "Sealed" &&
+                                        imageFileList.length < 3) {
+                                      showDialog(
+                                          context: context,
+                                          barrierDismissible: false,
+                                          builder: (BuildContext context) {
+                                            return const PopUpImageGuideline();
+                                          });
+                                    } else {
+                                      Navigator.of(context, rootNavigator: true)
+                                          .push(ListItemPreviewPage.route(
+                                              imageFileList,
+                                              "GOLDEN KING COVER",
+                                              _listPriceItemController.text
+                                                  .toString(),
+                                              _defaultCondition,
+                                              _listDescriptionItemController
+                                                  .text
+                                                  .toString()));
+                                    }
                                   }
                                 },
                                 type: PrimaryButtonType.green,

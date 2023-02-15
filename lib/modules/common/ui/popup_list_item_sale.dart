@@ -5,7 +5,7 @@ import 'package:swagapp/modules/common/utils/palette.dart';
 
 import '../../../generated/l10n.dart';
 import '../../models/detail/detail_collection_model.dart';
-import '../../pages/add/collection/list_for_Sale_page.dart';
+import '../../pages/add/collection/list_for_sale_page.dart';
 
 class PopUpListItemSale extends StatefulWidget {
   const PopUpListItemSale({super.key, required this.dataCollection});

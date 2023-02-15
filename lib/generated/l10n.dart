@@ -1536,10 +1536,10 @@ class S {
     );
   }
 
-  /// `•  Minimum of 4 photos Max of 6`
+  /// `•  Minimum of 3 photos Max of 6`
   String get sealed_item_three {
     return Intl.message(
-      '•  Minimum of 4 photos Max of 6',
+      '•  Minimum of 3 photos Max of 6',
       name: 'sealed_item_three',
       desc: '',
       args: [],
