@@ -126,8 +126,7 @@ class _MultiImageSlideState extends State<MultiImageSlide>
                           setState(() {
                             _current = index;
                           });
-                        },
-                        initialPage: 3),
+                        }),
                   ),
                   Positioned(
                     bottom: 15,
