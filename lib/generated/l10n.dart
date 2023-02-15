@@ -1665,6 +1665,16 @@ class S {
       args: [],
     );
   }
+
+  /// `cannot enter more than 2 decimal places`
+  String get price_validations_msj {
+    return Intl.message(
+      'cannot enter more than 2 decimal places',
+      name: 'price_validations_msj',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

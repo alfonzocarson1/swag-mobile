@@ -18,63 +18,31 @@ class MultiImageSlide extends StatefulWidget {
   _MultiImageSlideState createState() => _MultiImageSlideState();
 }
 
-class _MultiImageSlideState extends State<MultiImageSlide>
-    with SingleTickerProviderStateMixin {
+class _MultiImageSlideState extends State<MultiImageSlide> {
   int _current = 0;
-  late TransformationController _controller;
-  TapDownDetails? tapDownDetails;
-  var end;
-
-  late AnimationController animationController;
-  Animation<Matrix4>? animation;
-
-  bool resetZoom = false;
+  int lastLen = 0;
+  int currentLen = 0;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
-    _controller = TransformationController();
-    animationController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 300))
-      ..addListener(() => _controller.value = animation!.value);
+    lastLen = widget.imgList.length;
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-
-    _controller.dispose();
-    animationController.dispose();
   }
 
   Widget buildImage(item) {
     return Stack(
       children: [
         GestureDetector(
-          onDoubleTapDown: (details) => tapDownDetails = details,
-          onDoubleTap: () {
-            final position = tapDownDetails!.localPosition;
-
-            const double scale = 5;
-            final x = -position.dx * (scale - 1);
-            final y = -position.dy * (scale - 1);
-            final zoomed = Matrix4.identity()
-              ..translate(x, y)
-              ..scale(scale);
-
-            end = _controller.value.isIdentity() ? zoomed : Matrix4.identity();
-
-            animation = Matrix4Tween(begin: _controller.value, end: end)
-                .animate(CurveTween(curve: Curves.easeIn)
-                    .animate(animationController));
-            animationController.forward(from: 0);
-          },
           child: InteractiveViewer(
             clipBehavior: Clip.none,
-            transformationController: _controller,
             panEnabled: false,
             child: AspectRatio(
               aspectRatio: 1,
@@ -101,7 +69,6 @@ class _MultiImageSlideState extends State<MultiImageSlide>
                 setState(() {
                   widget.onRemove!(widget.imgList.indexOf(item));
                   _current = 0;
-                  end = Matrix4.identity();
                 });
               },
               icon: const Icon(
@@ -145,14 +112,14 @@ class _MultiImageSlideState extends State<MultiImageSlide>
                   CarouselSlider(
                     items: imageSliders,
                     options: CarouselOptions(
+                        enableInfiniteScroll:
+                            widget.imgList.length > 1 ? true : false,
                         viewportFraction: 1,
                         autoPlay: false,
                         enlargeCenterPage: false,
                         aspectRatio: 1,
                         onPageChanged: (index, reason) {
-                          setState(() {
-                            _current = index;
-                          });
+                          _current = index;
                         }),
                   ),
                   Positioned(
@@ -172,14 +139,12 @@ class _MultiImageSlideState extends State<MultiImageSlide>
                                 children: widget.addPhoto != null
                                     ? List.generate(widget.imgList.length + 1,
                                         (index) {
-                                        end = Matrix4.identity();
-                                        animation = Matrix4Tween(
-                                                begin: _controller.value,
-                                                end: end)
-                                            .animate(CurveTween(
-                                                    curve: Curves.easeIn)
-                                                .animate(animationController));
-                                        animationController.forward(from: 0);
+                                        currentLen = widget.imgList.length;
+                                        if (currentLen > lastLen) {
+                                          lastLen = currentLen;
+                                          _current = lastLen - 1;
+                                        }
+
                                         return (index + 1 !=
                                                 widget.imgList.length + 1)
                                             ? Container(
@@ -239,6 +204,24 @@ class _MultiImageSlideState extends State<MultiImageSlide>
                                         );
                                       }).toList()))
                       ],
+                    ),
+                  ),
+                  Visibility(
+                    visible: widget.onRemove != null,
+                    child: Positioned(
+                      left: 5,
+                      top: 7,
+                      child: IconButton(
+                        iconSize: 30,
+                        color: Palette.current.primaryNeonGreen,
+                        onPressed: () {
+                          Navigator.of(context, rootNavigator: true).pop();
+                        },
+                        icon: const Icon(
+                          Icons.arrow_back,
+                          size: 24,
+                        ),
+                      ),
                     ),
                   ),
                 ],

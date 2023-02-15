@@ -15,6 +15,14 @@ bool isValidUsername(String username) {
   return RegExp(r"^.{4,20}$").hasMatch(username);
 }
 
+bool isValidNumberDot(String number) {
+  return RegExp(r"^[0-9]+\.[0-9][0-9]$").hasMatch(number);
+}
+
+bool isValidNumberComa(String number) {
+  return RegExp(r"^[0-9]+\,[0-9][0-9]$").hasMatch(number);
+}
+
 String formatDate(String dateTime) {
   final DateFormat displayFormater = DateFormat('yyyy-MM-dd HH:mm:ss.SSS');
   final DateFormat serverFormater = DateFormat('MM/dd/yyyy');

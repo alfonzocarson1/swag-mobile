@@ -166,7 +166,8 @@
     "list_item_popup_title": "LIST ITEM",
     "list_item_popup_desc": "Please select the item you would like to list for sale.",
     "ist_item_popup_btn": "CREATE LISTING",
-    "post_listing_btn": "POST LISTING"
+    "post_listing_btn": "POST LISTING",
+    "price_validations_msj": "cannot enter more than 2 decimal places"
 
 
 }

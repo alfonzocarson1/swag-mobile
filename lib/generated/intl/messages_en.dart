@@ -176,6 +176,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "price_low_to_high":
             MessageLookupByLibrary.simpleMessage("Price: Low to High"),
         "price_range": MessageLookupByLibrary.simpleMessage("price range"),
+        "price_validations_msj": MessageLookupByLibrary.simpleMessage(
+            "cannot enter more than 2 decimal places"),
         "privacy_policy_text": MessageLookupByLibrary.simpleMessage(
             "I agree to Swag’s *Privacy Policy* \n& *Terms of Use*"),
         "product": MessageLookupByLibrary.simpleMessage("product"),

@@ -15,6 +15,8 @@ class PopUpListItemSale extends StatefulWidget {
 }
 
 class _PopUpListItemSaleState extends State<PopUpListItemSale> {
+  String? _condition;
+
   @override
   void initState() {
     super.initState();
@@ -22,14 +24,16 @@ class _PopUpListItemSaleState extends State<PopUpListItemSale> {
 
   List _selecteCategorys = [];
 
-  void _onCollectionSelected(bool selected, collectionId) {
+  void _onCollectionSelected(bool selected, collectionId, itemCondition) {
     if (selected == true) {
       setState(() {
+        _condition = itemCondition;
         _selecteCategorys = [];
         _selecteCategorys.add(collectionId);
       });
     } else {
       setState(() {
+        _condition = null;
         _selecteCategorys.remove(collectionId);
       });
     }
@@ -112,7 +116,10 @@ class _PopUpListItemSaleState extends State<PopUpListItemSale> {
                                                     newValue!,
                                                     widget
                                                         .dataCollection![index]
-                                                        .collectionItemId);
+                                                        .collectionItemId,
+                                                    widget
+                                                        .dataCollection![index]
+                                                        .condition);
                                                 setState(() {});
                                               },
                                             ),
@@ -148,7 +155,7 @@ class _PopUpListItemSaleState extends State<PopUpListItemSale> {
                       title: S.of(context).ist_item_popup_btn,
                       onPressed: () {
                         Navigator.of(context, rootNavigator: true)
-                            .push(ListForSalePage.route(context));
+                            .push(ListForSalePage.route(_condition));
                       },
                       type: PrimaryButtonType.green,
                     ),
