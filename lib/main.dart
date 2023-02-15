@@ -13,7 +13,7 @@ Future<void> main() async {
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   setupAppScope();
   await getIt<PreferenceRepositoryService>().initialize();
-  getIt<PreferenceRepositoryService>().saveIsListView(true);
+  initUserPreferences();
   // getIt<StorageRepositoryService>().initialize();
   try {
     // await PushNotificationProvider.instance.initNotifications();
@@ -45,6 +45,11 @@ Future<void> _handleFlavorConfig() async {
     debugPrint('FAILED TO LOAD FLAVOR');
     debugPrint(error.toString());
   });
+}
+
+void initUserPreferences() {
+  getIt<PreferenceRepositoryService>().saveIsListView(true);
+  getIt<PreferenceRepositoryService>().setSortBy(0);
 }
 
 void _runApp() {
