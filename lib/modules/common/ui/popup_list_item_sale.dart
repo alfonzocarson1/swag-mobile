@@ -5,7 +5,7 @@ import 'package:swagapp/modules/common/utils/palette.dart';
 
 import '../../../generated/l10n.dart';
 import '../../models/detail/detail_collection_model.dart';
-import '../../pages/add/collection/list_for_Sale_page.dart';
+import '../../pages/add/collection/list_for_sale_page.dart';
 
 class PopUpListItemSale extends StatefulWidget {
   const PopUpListItemSale({super.key, required this.dataCollection});
@@ -15,6 +15,8 @@ class PopUpListItemSale extends StatefulWidget {
 }
 
 class _PopUpListItemSaleState extends State<PopUpListItemSale> {
+  String? _condition;
+
   @override
   void initState() {
     super.initState();
@@ -22,14 +24,16 @@ class _PopUpListItemSaleState extends State<PopUpListItemSale> {
 
   List _selecteCategorys = [];
 
-  void _onCollectionSelected(bool selected, collectionId) {
+  void _onCollectionSelected(bool selected, collectionId, itemCondition) {
     if (selected == true) {
       setState(() {
+        _condition = itemCondition;
         _selecteCategorys = [];
         _selecteCategorys.add(collectionId);
       });
     } else {
       setState(() {
+        _condition = null;
         _selecteCategorys.remove(collectionId);
       });
     }
@@ -112,7 +116,10 @@ class _PopUpListItemSaleState extends State<PopUpListItemSale> {
                                                     newValue!,
                                                     widget
                                                         .dataCollection![index]
-                                                        .collectionItemId);
+                                                        .collectionItemId,
+                                                    widget
+                                                        .dataCollection![index]
+                                                        .condition);
                                                 setState(() {});
                                               },
                                             ),
@@ -148,7 +155,7 @@ class _PopUpListItemSaleState extends State<PopUpListItemSale> {
                       title: S.of(context).ist_item_popup_btn,
                       onPressed: () {
                         Navigator.of(context, rootNavigator: true)
-                            .push(ListForSalePage.route(context));
+                            .push(ListForSalePage.route(_condition));
                       },
                       type: PrimaryButtonType.green,
                     ),
