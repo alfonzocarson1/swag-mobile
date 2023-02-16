@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:simple_rich_text/simple_rich_text.dart';
-import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../common/ui/clickable_text.dart';
@@ -27,7 +26,7 @@ class ListForSalePage extends StatefulWidget {
 
   String? itemCondition;
 
-  static Route route(itemCondition) => PageRoutes.material(
+  static Route route(itemCondition) => PageRoutes.slideUp(
         settings: const RouteSettings(name: name),
         builder: (context) => ListForSalePage(itemCondition: itemCondition),
       );
@@ -130,7 +129,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
                         children: [
                           imageFileList.isEmpty
                               ? Padding(
-                                  padding: const EdgeInsets.only(top: 50),
+                                  padding: const EdgeInsets.only(top: 0),
                                   child: Stack(
                                     children: [
                                       ClipRRect(
@@ -249,22 +248,28 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                               }),
                                         ),
                                       ),
-                                      Positioned(
-                                        left: 5,
-                                        top: 7,
-                                        child: IconButton(
-                                          iconSize: 30,
-                                          color:
-                                              Palette.current.primaryNeonGreen,
-                                          onPressed: () {
-                                            Navigator.of(context,
-                                                    rootNavigator: true)
-                                                .pop();
-                                          },
-                                          icon: const Icon(
-                                            Icons.arrow_back,
-                                            size: 24,
-                                          ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 40.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            IconButton(
+                                              iconSize: 30,
+                                              color: Palette
+                                                  .current.primaryNeonGreen,
+                                              onPressed: () {
+                                                Navigator.of(context,
+                                                        rootNavigator: true)
+                                                    .pop();
+                                              },
+                                              icon: const Icon(
+                                                Icons.close,
+                                                size: 24,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ],

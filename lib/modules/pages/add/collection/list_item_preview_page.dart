@@ -8,7 +8,6 @@ import '../../../common/ui/primary_button.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
 import 'footer_list_item_page.dart';
-import 'product_image_slide.dart';
 
 class ListItemPreviewPage extends StatefulWidget {
   static const name = '/ListItemPreviewPage';
@@ -68,12 +67,12 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                   child: Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(top: 50),
+                        padding: const EdgeInsets.only(top: 0),
                         child: MultiImageSlide(
                           imgList: widget.imgList,
                         ),
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 4),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Column(
@@ -146,15 +145,19 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                                               Palette.current.primaryNeonPink)),
                             ),
                             const SizedBox(height: 10),
-                            Text(widget.itemDescription ?? '',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                                    .copyWith(
-                                      fontSize: 15,
-                                      letterSpacing: 0.3,
-                                      color: Palette.current.primaryWhiteSmoke,
-                                    )),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 50.0),
+                              child: Text(widget.itemDescription ?? '',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(
+                                        fontSize: 15,
+                                        letterSpacing: 0.3,
+                                        color:
+                                            Palette.current.primaryWhiteSmoke,
+                                      )),
+                            ),
                             const SizedBox(height: 30),
                             const FooterListItemPage(),
                             const SizedBox(height: 30),
