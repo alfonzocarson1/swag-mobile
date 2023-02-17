@@ -49,7 +49,8 @@ Future<void> _handleFlavorConfig() async {
 
 void initUserPreferences() {
   getIt<PreferenceRepositoryService>().saveIsListView(true);
-  getIt<PreferenceRepositoryService>().setSortBy(0);
+  getIt<PreferenceRepositoryService>().setSortBy(defaultInt);
+  getIt<PreferenceRepositoryService>().setCondition(defaultInt);
 }
 
 void _runApp() {

@@ -22,7 +22,6 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "Condition": MessageLookupByLibrary.simpleMessage("Condition:"),
         "a_to_z": MessageLookupByLibrary.simpleMessage("A to Z"),
         "access_photos": MessageLookupByLibrary.simpleMessage("CHOOSE PHOTO"),
         "accessories": MessageLookupByLibrary.simpleMessage("Accesories"),
@@ -47,7 +46,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "collection": MessageLookupByLibrary.simpleMessage(
             "This cover is not in your collection, buy it now before it’s too late"),
         "collections": MessageLookupByLibrary.simpleMessage("collections"),
-        "condition": MessageLookupByLibrary.simpleMessage("CONDITION"),
+        "condition": MessageLookupByLibrary.simpleMessage("Condition"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
         "country": MessageLookupByLibrary.simpleMessage("Country"),
@@ -93,6 +92,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "forgot_password_email_description":
             MessageLookupByLibrary.simpleMessage(
                 "Enter your email to reset your password."),
+        "gamed": MessageLookupByLibrary.simpleMessage("Gamed"),
         "get_an_email":
             MessageLookupByLibrary.simpleMessage("Didn’t get an email?"),
         "headcovers": MessageLookupByLibrary.simpleMessage("Headcovers"),

@@ -179,7 +179,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                 visualDensity:
                                     const VisualDensity(vertical: -4),
                                 dense: true,
-                                leading: Text(S.of(context).Condition,
+                                leading: Text("${S.of(context).condition}:",
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodySmall!

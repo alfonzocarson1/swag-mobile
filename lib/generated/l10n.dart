@@ -690,11 +690,11 @@ class S {
     );
   }
 
-  /// `Condition:`
-  String get Condition {
+  /// `Condition`
+  String get condition {
     return Intl.message(
-      'Condition:',
-      name: 'Condition',
+      'Condition',
+      name: 'condition',
       desc: '',
       args: [],
     );
@@ -985,16 +985,6 @@ class S {
     return Intl.message(
       'SALE DATE',
       name: 'sale_data',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `CONDITION`
-  String get condition {
-    return Intl.message(
-      'CONDITION',
-      name: 'condition',
       desc: '',
       args: [],
     );
@@ -1460,6 +1450,16 @@ class S {
     );
   }
 
+  /// `Gamed`
+  String get gamed {
+    return Intl.message(
+      'Gamed',
+      name: 'gamed',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Less than $111`
   String get less_than {
     return Intl.message(
@@ -1470,11 +1470,11 @@ class S {
     );
   }
 
-  // skipped getter for the '\$111_\$222' key
+  // skipped getter for the 'b\$111_\$222' key
 
-  // skipped getter for the '\$222_\$555' key
+  // skipped getter for the 'b\$222_\$555' key
 
-  // skipped getter for the '\$555_above' key
+  // skipped getter for the 'b\$555_above' key
 
   /// `SEE RESULTS`
   String get see_results {

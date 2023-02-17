@@ -10,6 +10,7 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   static const String _isListView = 'isListView';
   static const String _isForSale = 'isForSale';
   static const String _sortBy = 'sortBy';
+  static const String _condition = 'condition';
   late SharedPreferences _prefs;
   @override
   SharedPreferences get prefs => _prefs;
@@ -83,5 +84,16 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   @override
   Future<void> setSortBy(int value) async {
     await _prefs.setInt(_sortBy, value);
+  }
+
+  @override
+  int getCondition() {
+    final condition = _prefs.getInt(_condition);
+    return condition ?? defaultInt;
+  }
+
+  @override
+  Future<void> setCondition(int value) async {
+    await _prefs.setInt(_condition, value);
   }
 }

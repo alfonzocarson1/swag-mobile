@@ -108,7 +108,7 @@ class _CustomDataTableState extends State<CustomDataTable> {
                           child: Row(
                             children: [
                               Text(
-                                S.of(context).condition,
+                                S.of(context).condition.toUpperCase(),
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall!

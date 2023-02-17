@@ -14,13 +14,18 @@ import '../../../di/injector.dart';
 import '../../../models/search/search_request_payload_model.dart';
 
 class FilterCategoryPage extends StatefulWidget {
-  const FilterCategoryPage({Key? key}) : super(key: key);
+  const FilterCategoryPage({Key? key, required this.filterType})
+      : super(key: key);
   static const name = '/filterCategory';
+  final FilterType filterType;
 
-  static Route route(final BuildContext context) => PageRoutes.modalBottomSheet(
+  static Route route(final BuildContext context, FilterType filterType) =>
+      PageRoutes.modalBottomSheet(
         isScrollControlled: true,
         settings: const RouteSettings(name: name),
-        builder: (context) => const FilterCategoryPage(),
+        builder: (context) => FilterCategoryPage(
+          filterType: filterType,
+        ),
         context: context,
       );
 
@@ -30,16 +35,12 @@ class FilterCategoryPage extends StatefulWidget {
 
 class _FilterCategoryPageState extends State<FilterCategoryPage> {
   final FocusNode _focusNode = FocusNode();
-  bool isListView = true;
-  bool isForSale = false;
   int checkBoxIndex = 0;
 
   @override
   void initState() {
-    isListView = getIt<PreferenceRepositoryService>().isListView();
-    isForSale = getIt<PreferenceRepositoryService>().isForSale();
-    checkBoxIndex = getIt<PreferenceRepositoryService>().getSortBy();
     super.initState();
+    initFor(widget.filterType);
   }
 
   @override
@@ -52,7 +53,7 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
-        getIt<PreferenceRepositoryService>().setSortBy(checkBoxIndex);
+        setValueFor(widget.filterType);
         return Future.value(true);
       },
       child: GestureDetector(
@@ -77,8 +78,8 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
                     padding: const EdgeInsets.only(right: 0.0),
                     child: IconButton(
                         onPressed: () {
-                          context.read<SharedPreferencesBloc>().add(
-                              SharedPreferencesEvent.setSortBy(checkBoxIndex));
+                          setValueFor(widget.filterType);
+
                           Navigator.pop(context);
                         },
                         icon: Icon(
@@ -92,7 +93,7 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Text(
-                          S.of(context).sort_by.toUpperCase(),
+                          getPageTitle(widget.filterType),
                           style: Theme.of(context)
                               .textTheme
                               .headlineMedium!
@@ -117,30 +118,7 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
                         constraints: BoxConstraints(
                           minHeight: viewportConstraints.maxHeight,
                         ),
-                        child: Column(
-                          children: [
-                            _filterItem(
-                                context,
-                                S.of(context).release_date_newest,
-                                SortBy.releaseDateNewest.index),
-                            _filterItem(
-                                context,
-                                S.of(context).release_date_oldest,
-                                SortBy.releaseDateOldest.index),
-                            _filterItem(
-                                context,
-                                S.of(context).price_high_to_low,
-                                SortBy.priceHighToLow.index),
-                            _filterItem(
-                                context,
-                                S.of(context).price_low_to_high,
-                                SortBy.priceLowToHigh.index),
-                            _filterItem(context, S.of(context).a_to_z,
-                                SortBy.atoZ.index),
-                            _filterItem(context, S.of(context).z_to_a,
-                                SortBy.ztoA.index),
-                          ],
-                        ),
+                        child: getItemListFor(widget.filterType),
                       ),
                     );
                   }),
@@ -167,10 +145,8 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
           child: PrimaryButton(
             title: S.of(context).see_results.toUpperCase(),
             onPressed: () {
-              context
-                  .read<SharedPreferencesBloc>()
-                  .add(SharedPreferencesEvent.setSortBy(checkBoxIndex));
-              // getIt<PreferenceRepositoryService>().setSortBy(checkBoxIndex);
+              setValueFor(widget.filterType);
+
               context.read<SearchBloc>().add(SearchEvent.search(
                   SearchRequestPayloadModel(
                       categoryId: defaultString,
@@ -231,5 +207,90 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
         ),
       ),
     );
+  }
+
+  void initFor(FilterType type) {
+    switch (type) {
+      case FilterType.condition:
+        checkBoxIndex = getIt<PreferenceRepositoryService>().getCondition();
+        break;
+      case FilterType.price:
+        checkBoxIndex = getIt<PreferenceRepositoryService>().getSortBy();
+        break;
+      case FilterType.sortBy:
+        checkBoxIndex = getIt<PreferenceRepositoryService>().getSortBy();
+    }
+  }
+
+  String getPageTitle(FilterType type) {
+    switch (type) {
+      case FilterType.condition:
+        return S.of(context).condition.toUpperCase();
+      case FilterType.price:
+        return S.of(context).price.toUpperCase();
+      case FilterType.sortBy:
+        return S.of(context).sort_by.toUpperCase();
+    }
+  }
+
+  void setValueFor(FilterType type) {
+    final preference = context.read<SharedPreferencesBloc>().state.model;
+    switch (type) {
+      case FilterType.condition:
+        context.read<SharedPreferencesBloc>().add(
+            SharedPreferencesEvent.setPreference(
+                preference.copyWith(condition: checkBoxIndex)));
+        break;
+      case FilterType.price:
+        context.read<SharedPreferencesBloc>().add(
+            SharedPreferencesEvent.setPreference(
+                preference.copyWith(sortBy: checkBoxIndex)));
+        break;
+      case FilterType.sortBy:
+        context.read<SharedPreferencesBloc>().add(
+            SharedPreferencesEvent.setPreference(
+                preference.copyWith(sortBy: checkBoxIndex)));
+    }
+  }
+
+  Widget getItemListFor(FilterType type) {
+    switch (type) {
+      case FilterType.condition:
+        return Column(
+          children: [
+            _filterItem(context, S.of(context).sealed, Condition.sealed.index),
+            _filterItem(
+                context, S.of(context).displayed, Condition.displayed.index),
+            _filterItem(context, S.of(context).gamed, Condition.gamed.index),
+          ],
+        );
+      case FilterType.price:
+        return Column(
+          children: [
+            _filterItem(
+                context, S.of(context).less_than, Price.lessThan$111.index),
+            _filterItem(context, S.of(context).a_to_z, Price.$111$222.index),
+            _filterItem(
+                context, S.of(context).price_high_to_low, Price.$222$555.index),
+            _filterItem(context, S.of(context).price_low_to_high,
+                Price.$555AndAbove.index),
+          ],
+        );
+      case FilterType.sortBy:
+        return Column(
+          children: [
+            _filterItem(context, S.of(context).release_date_newest,
+                SortBy.releaseDateNewest.index),
+            _filterItem(context, S.of(context).release_date_oldest,
+                SortBy.releaseDateOldest.index),
+            _filterItem(context, S.of(context).price_high_to_low,
+                SortBy.priceHighToLow.index),
+            _filterItem(context, S.of(context).price_low_to_high,
+                SortBy.priceLowToHigh.index),
+            _filterItem(context, S.of(context).a_to_z, SortBy.atoZ.index),
+            _filterItem(context, S.of(context).z_to_a, SortBy.ztoA.index),
+          ],
+        );
+    }
   }
 }

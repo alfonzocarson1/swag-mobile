@@ -135,7 +135,7 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                             Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                  "${S.of(context).Condition} ${widget.itemCondition}",
+                                  "${S.of(context).condition}: ${widget.itemCondition}",
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodySmall!

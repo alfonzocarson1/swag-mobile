@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../data/shared_preferences/shared_preferences_service.dart';
+import '../../models/shared_preferences/shared_preference_model.dart';
 
 part 'shared_preferences_event.dart';
 part 'shared_preferences_state.dart';
@@ -15,25 +16,23 @@ class SharedPreferencesBloc
   SharedPreferencesBloc(
       {required PreferenceRepositoryService preferenceRepository})
       : _preferenceRepository = preferenceRepository,
-        super(const SharedPreferencesState.initial(true));
+        super(const SharedPreferencesState.setPreference(
+            SharedPreferenceModel()));
 
   @override
   Stream<SharedPreferencesState> mapEventToState(
     SharedPreferencesEvent event,
   ) async* {
     yield* event.when(
-      setIsListView: _setIsListView,
-      setSortBy: _setSortBy,
+      setPreference: _setPreference,
     );
   }
 
-  Stream<SharedPreferencesState> _setIsListView(bool isListView) async* {
-    await _preferenceRepository.saveIsListView(isListView);
-    yield SharedPreferencesState.setIsListView(isListView);
-  }
-
-  Stream<SharedPreferencesState> _setSortBy(int value) async* {
-    await _preferenceRepository.setSortBy(value);
-    yield SharedPreferencesState.setSortBy(value);
+  Stream<SharedPreferencesState> _setPreference(
+      SharedPreferenceModel model) async* {
+    await _preferenceRepository.saveIsListView(model.isListView);
+    await _preferenceRepository.setSortBy(model.sortBy);
+    await _preferenceRepository.setCondition(model.condition);
+    yield SharedPreferencesState.setPreference(model);
   }
 }

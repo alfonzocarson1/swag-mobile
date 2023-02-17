@@ -35,11 +35,9 @@ class _BodyWidgetWithViewState extends State<BodyWidgetWithView> {
       return Future.delayed(const Duration(milliseconds: 1500));
     }, child: BlocBuilder<SharedPreferencesBloc, SharedPreferencesState>(
         builder: (context, stateSharedPreferences) {
-      return stateSharedPreferences.maybeMap(
-        orElse: () => getWidgetWithView(
-            catalogList, getIt<PreferenceRepositoryService>().isListView()),
-        setIsListView: (state) =>
-            getWidgetWithView(catalogList, state.isListView),
+      return stateSharedPreferences.map(
+        setPreference: (state) =>
+            getWidgetWithView(catalogList, state.model.isListView),
       );
     }));
   }

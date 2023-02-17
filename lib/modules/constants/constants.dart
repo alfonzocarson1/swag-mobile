@@ -25,6 +25,59 @@ const countries = [
   "KR",
 ];
 
+enum FilterType { sortBy, condition, price }
+
+enum Price {
+  lessThan$111,
+  $111$222,
+  $222$555,
+  $555AndAbove,
+}
+
+class PriceWrapper {
+  final Price type;
+
+  PriceWrapper(this.type);
+
+  @override
+  String toString() {
+    switch (type) {
+      case Price.lessThan$111:
+        return 'Less than \$111';
+      case Price.$111$222:
+        return '\$111 - \$222';
+      case Price.$222$555:
+        return '\$222 - \$555';
+      case Price.$555AndAbove:
+        return '\$555 - Above';
+    }
+  }
+}
+
+enum Condition {
+  sealed,
+  displayed,
+  gamed,
+}
+
+class ConditionWrapper {
+  final Condition type;
+
+  ConditionWrapper(this.type);
+
+  @override
+  String toString() {
+    switch (type) {
+      case Condition.sealed:
+        return 'Sealed';
+      case Condition.displayed:
+        return 'Displayed';
+      case Condition.gamed:
+        return 'Gamed';
+    }
+  }
+}
+
 enum SortBy {
   releaseDateNewest,
   releaseDateOldest,

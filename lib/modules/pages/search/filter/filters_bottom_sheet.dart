@@ -10,6 +10,7 @@ import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
+import '../../../models/shared_preferences/shared_preference_model.dart';
 
 class FiltersBottomSheet extends StatefulWidget {
   const FiltersBottomSheet({Key? key}) : super(key: key);
@@ -85,7 +86,6 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                         letterSpacing: 1.0,
                         color: Palette.current.primaryWhiteSmoke),
                   ),
-                  // const Spacer(),
                   Padding(
                     padding: const EdgeInsets.all(0.0),
                     child: Text(
@@ -121,9 +121,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                                           isListView = !isListView;
                                         }
                                       });
-                                      context.read<SharedPreferencesBloc>().add(
-                                          SharedPreferencesEvent.setIsListView(
-                                              isListView));
+                                      setIsListView();
                                     },
                                     child: Image.asset(
                                       'assets/images/server.png',
@@ -144,9 +142,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                                           isListView = !isListView;
                                         }
                                       });
-                                      context.read<SharedPreferencesBloc>().add(
-                                          SharedPreferencesEvent.setIsListView(
-                                              isListView));
+                                      setIsListView();
                                     },
                                     child: Icon(
                                       Icons.grid_view,
@@ -184,16 +180,21 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                               S.of(context).product.toUpperCase(), () {}),
                           _filterItem(
                               context, S.of(context).sort_by.toUpperCase(), () {
-                            Navigator.of(context, rootNavigator: true)
-                                .push(FilterCategoryPage.route(context));
+                            Navigator.of(context, rootNavigator: true).push(
+                                FilterCategoryPage.route(
+                                    context, FilterType.sortBy));
                           }, selection: S.of(context).release_date_newest),
                           _filterItem(
                               context, S.of(context).type.toUpperCase(), () {}),
                           _filterItem(context,
                               S.of(context).collections.toUpperCase(), () {}),
-                          _filterItem(context,
-                              S.of(context).condition.toUpperCase(), () {},
-                              selection: S.of(context).sealed),
+                          _filterItem(
+                              context, S.of(context).condition.toUpperCase(),
+                              () {
+                            Navigator.of(context, rootNavigator: true).push(
+                                FilterCategoryPage.route(
+                                    context, FilterType.condition));
+                          }, selection: S.of(context).sealed),
                           _filterItem(context,
                               S.of(context).release_date.toUpperCase(), () {}),
                           _filterItem(context,
@@ -216,6 +217,13 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
             ],
           ),
         ));
+  }
+
+  void setIsListView() {
+    final preference = context.read<SharedPreferencesBloc>().state.model;
+    context.read<SharedPreferencesBloc>().add(
+        SharedPreferencesEvent.setPreference(
+            preference.copyWith(isListView: isListView)));
   }
 
   Widget _actionButtonSection(BuildContext context) {
@@ -276,15 +284,9 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                     const Spacer(),
                     BlocBuilder<SharedPreferencesBloc, SharedPreferencesState>(
                         builder: (context, stateSharedPreferences) {
-                      return stateSharedPreferences.maybeMap(
-                        orElse: () =>
-                            title == S.of(context).sort_by.toUpperCase()
-                                ? getSortByText(context)
-                                : Container(),
-                        setSortBy: (state) =>
-                            title == S.of(context).sort_by.toUpperCase()
-                                ? getSortByText(context, index: state.sortBy)
-                                : Container(),
+                      return stateSharedPreferences.map(
+                        setPreference: (state) =>
+                            getSelectedWidget(title, state.model),
                       );
                     }),
                     const SizedBox(
@@ -312,18 +314,44 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
     );
   }
 
-  Padding getSortByText(BuildContext context, {int? index}) {
+  Widget getSelectedWidget(String title, SharedPreferenceModel model) {
+    if (title == S.of(context).sort_by.toUpperCase()) {
+      return getSelectedText(context, FilterType.sortBy, index: model.sortBy);
+    } else if (title == S.of(context).condition.toUpperCase()) {
+      return getSelectedText(context, FilterType.condition,
+          index: model.condition);
+    } else {
+      return Container();
+    }
+  }
+
+  Widget getSelectedText(BuildContext context, FilterType type, {int? index}) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 4.0),
       child: Text(
-        SortByWrapper(SortBy.values.elementAt(
-                index ?? getIt<PreferenceRepositoryService>().getSortBy()))
-            .toString(),
+        getText(type, index: index),
         style: Theme.of(context)
             .textTheme
             .bodySmall!
             .copyWith(color: Palette.current.primaryNeonGreen),
       ),
     );
+  }
+
+  String getText(FilterType type, {int? index}) {
+    switch (type) {
+      case FilterType.condition:
+        return ConditionWrapper(Condition.values.elementAt(
+                index ?? getIt<PreferenceRepositoryService>().getCondition()))
+            .toString();
+      case FilterType.price:
+        return PriceWrapper(Price.values.elementAt(
+                index ?? getIt<PreferenceRepositoryService>().getSortBy()))
+            .toString();
+      case FilterType.sortBy:
+        return SortByWrapper(SortBy.values.elementAt(
+                index ?? getIt<PreferenceRepositoryService>().getSortBy()))
+            .toString();
+    }
   }
 }
