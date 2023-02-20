@@ -5,11 +5,14 @@ import 'package:swagapp/modules/constants/constants.dart';
 import 'package:swagapp/modules/pages/search/filter/filter_category_page.dart';
 
 import '../../../../generated/l10n.dart';
+import '../../../blocs/search_bloc.dart/search_bloc.dart';
 import '../../../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
+import '../../../models/search/filter_model.dart';
+import '../../../models/search/search_request_payload_model.dart';
 import '../../../models/shared_preferences/shared_preference_model.dart';
 
 class FiltersBottomSheet extends StatefulWidget {
@@ -199,8 +202,13 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                               S.of(context).release_date.toUpperCase(), () {}),
                           _filterItem(context,
                               S.of(context).rarity_score.toUpperCase(), () {}),
-                          _filterItem(context,
-                              S.of(context).price_range.toUpperCase(), () {}),
+                          _filterItem(
+                              context, S.of(context).price_range.toUpperCase(),
+                              () {
+                            Navigator.of(context, rootNavigator: true).push(
+                                FilterCategoryPage.route(
+                                    context, FilterType.price));
+                          }),
                           _filterItem(
                               context, S.of(context).theme.toUpperCase(), () {},
                               isSeparatorNeeded: false),
@@ -237,7 +245,12 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
           padding: const EdgeInsets.only(left: 20, right: 20),
           child: PrimaryButton(
             title: S.of(context).see_results.toUpperCase(),
-            onPressed: () {},
+            onPressed: () {
+              context.read<SearchBloc>().add(const SearchEvent.search(
+                  SearchRequestPayloadModel(
+                      categoryId: defaultString, filters: [FilterModel()])));
+              Navigator.pop(context);
+            },
             type: PrimaryButtonType.primaryEerieBlack,
           ),
         ),
@@ -320,6 +333,8 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
     } else if (title == S.of(context).condition.toUpperCase()) {
       return getSelectedText(context, FilterType.condition,
           index: model.condition);
+    } else if (title == S.of(context).price_range.toUpperCase()) {
+      return getSelectedText(context, FilterType.price, index: model.price);
     } else {
       return Container();
     }
@@ -350,7 +365,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
             .toString();
       case FilterType.sortBy:
         return SortByWrapper(SortBy.values.elementAt(
-                index ?? getIt<PreferenceRepositoryService>().getSortBy()))
+                index ?? getIt<PreferenceRepositoryService>().getPrice()))
             .toString();
     }
   }

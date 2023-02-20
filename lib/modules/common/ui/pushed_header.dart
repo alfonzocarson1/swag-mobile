@@ -56,7 +56,8 @@ class _PushedHeaderState extends State<PushedHeader>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(right: 12, top: 6),
+                  padding: EdgeInsets.only(
+                      right: 12, top: widget.suffixIconButton != null ? 0 : 6),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,

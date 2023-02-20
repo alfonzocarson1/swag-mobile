@@ -1470,11 +1470,35 @@ class S {
     );
   }
 
-  // skipped getter for the 'b\$111_\$222' key
+  /// `$111 - $222`
+  String get b111_222 {
+    return Intl.message(
+      '\$111 - \$222',
+      name: 'b111_222',
+      desc: '',
+      args: [],
+    );
+  }
 
-  // skipped getter for the 'b\$222_\$555' key
+  /// `$222 - $555`
+  String get b222_555 {
+    return Intl.message(
+      '\$222 - \$555',
+      name: 'b222_555',
+      desc: '',
+      args: [],
+    );
+  }
 
-  // skipped getter for the 'b\$555_above' key
+  /// `$555 - Above`
+  String get b555_above {
+    return Intl.message(
+      '\$555 - Above',
+      name: 'b555_above',
+      desc: '',
+      args: [],
+    );
+  }
 
   /// `SEE RESULTS`
   String get see_results {

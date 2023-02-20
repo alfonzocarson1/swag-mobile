@@ -60,27 +60,27 @@ class _MultiImageSlideState extends State<MultiImageSlide>
             ),
           ),
         ),
-        Visibility(
-          visible: widget.onRemove != null,
-          child: Positioned(
-            right: 5,
-            top: 7,
-            child: IconButton(
-              iconSize: 30,
-              color: Palette.current.primaryNeonGreen,
-              onPressed: () {
-                setState(() {
-                  widget.onRemove!(widget.imgList.indexOf(item));
-                  _controller.animateToPage(0);
-                });
-              },
-              icon: const Icon(
-                Icons.clear_outlined,
-                size: 20,
-              ),
-            ),
-          ),
-        ),
+        // Visibility(
+        //   visible: widget.onRemove != null,
+        //   child: Positioned(
+        //     right: 5,
+        //     top: 50,
+        //     child: IconButton(
+        //       iconSize: 30,
+        //       color: Palette.current.primaryNeonGreen,
+        //       onPressed: () {
+        //         setState(() {
+        //           widget.onRemove!(widget.imgList.indexOf(item));
+        //           _controller.animateToPage(0);
+        //         });
+        //       },
+        //       icon: const Icon(
+        //         Icons.clear_outlined,
+        //         size: 20,
+        //       ),
+        //     ),
+        //   ),
+        // ),
         Positioned(
           bottom: 0.0,
           left: 0.0,
@@ -216,24 +216,24 @@ class _MultiImageSlideState extends State<MultiImageSlide>
                       ],
                     ),
                   ),
-                  Visibility(
-                    visible: widget.onRemove != null,
-                    child: Positioned(
-                      left: 5,
-                      top: 7,
-                      child: IconButton(
-                        iconSize: 30,
-                        color: Palette.current.primaryNeonGreen,
-                        onPressed: () {
-                          Navigator.of(context, rootNavigator: true).pop();
-                        },
-                        icon: const Icon(
-                          Icons.arrow_back,
-                          size: 24,
-                        ),
-                      ),
-                    ),
-                  ),
+                  // Visibility(
+                  //   visible: widget.onRemove != null,
+                  //   child: Positioned(
+                  //     left: 5,
+                  //     top: 7,
+                  //     child: IconButton(
+                  //       iconSize: 30,
+                  //       color: Palette.current.primaryNeonGreen,
+                  //       onPressed: () {
+                  //         Navigator.of(context, rootNavigator: true).pop();
+                  //       },
+                  //       icon: const Icon(
+                  //         Icons.arrow_back,
+                  //         size: 24,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               )
             : Container()

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:simple_rich_text/simple_rich_text.dart';
+import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../common/ui/clickable_text.dart';
@@ -14,6 +15,7 @@ import '../../../common/ui/multi_image_slide.dart';
 import '../../../common/ui/popup_image_guidelines.dart';
 
 import '../../../common/ui/primary_button.dart';
+import '../../../common/ui/pushed_header.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
 import '../../../common/utils/utils.dart';
@@ -106,6 +108,21 @@ class _ListForSalePageState extends State<ListForSalePage> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: Palette.current.primaryEerieBlack,
+      appBar: PushedHeader(
+        showBackButton: false,
+        suffixIconButton: IconButton(
+          iconSize: 30,
+          color: Palette.current.primaryNeonGreen,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(
+            Icons.clear_outlined,
+            size: 25,
+          ),
+        ),
+        height: 55,
+      ),
       body: GestureDetector(
         onTap: () {
           _listPriceItemNode.unfocus();
@@ -138,7 +155,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                         fit: BoxFit.cover,
                                       )),
                                       Positioned.fill(
-                                        top: 50,
+                                        top: 60,
                                         child: Align(
                                           alignment: Alignment.topCenter,
                                           child: Text(
@@ -248,35 +265,35 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                               }),
                                         ),
                                       ),
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(top: 40.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            IconButton(
-                                              iconSize: 30,
-                                              color: Palette
-                                                  .current.primaryNeonGreen,
-                                              onPressed: () {
-                                                Navigator.of(context,
-                                                        rootNavigator: true)
-                                                    .pop();
-                                              },
-                                              icon: const Icon(
-                                                Icons.close,
-                                                size: 24,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+                                      // Padding(
+                                      //   padding:
+                                      //       const EdgeInsets.only(top: 40.0),
+                                      //   child: Row(
+                                      //     mainAxisAlignment:
+                                      //         MainAxisAlignment.end,
+                                      //     children: [
+                                      //       IconButton(
+                                      //         iconSize: 30,
+                                      //         color: Palette
+                                      //             .current.primaryNeonGreen,
+                                      //         onPressed: () {
+                                      //           Navigator.of(context,
+                                      //                   rootNavigator: true)
+                                      //               .pop();
+                                      //         },
+                                      //         icon: const Icon(
+                                      //           Icons.close,
+                                      //           size: 24,
+                                      //         ),
+                                      //       ),
+                                      //     ],
+                                      //   ),
+                                      // ),
                                     ],
                                   ),
                                 )
                               : Padding(
-                                  padding: const EdgeInsets.only(top: 50),
+                                  padding: const EdgeInsets.only(top: 0),
                                   child: MultiImageSlide(
                                     imgList: imageFileList,
                                     addPhoto: () => selectImages(),

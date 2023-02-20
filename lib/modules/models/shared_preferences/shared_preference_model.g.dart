@@ -13,6 +13,7 @@ _$_SharedPreferenceModel _$$_SharedPreferenceModelFromJson(
       isForSale: json['isForSale'] as bool? ?? false,
       sortBy: json['sortBy'] as int? ?? defaultInt,
       condition: json['condition'] as int? ?? defaultInt,
+      price: json['price'] as int? ?? defaultInt,
     );
 
 Map<String, dynamic> _$$_SharedPreferenceModelToJson(
@@ -22,4 +23,5 @@ Map<String, dynamic> _$$_SharedPreferenceModelToJson(
       'isForSale': instance.isForSale,
       'sortBy': instance.sortBy,
       'condition': instance.condition,
+      'price': instance.price,
     };

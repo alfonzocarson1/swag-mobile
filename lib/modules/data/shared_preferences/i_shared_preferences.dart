@@ -18,4 +18,6 @@ abstract class PreferenceRepositoryInt {
   Future<void> setSortBy(int value);
   int getCondition();
   Future<void> setCondition(int value);
+  int getPrice();
+  Future<void> setPrice(int value);
 }

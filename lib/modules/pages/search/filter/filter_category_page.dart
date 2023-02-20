@@ -215,7 +215,7 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
         checkBoxIndex = getIt<PreferenceRepositoryService>().getCondition();
         break;
       case FilterType.price:
-        checkBoxIndex = getIt<PreferenceRepositoryService>().getSortBy();
+        checkBoxIndex = getIt<PreferenceRepositoryService>().getPrice();
         break;
       case FilterType.sortBy:
         checkBoxIndex = getIt<PreferenceRepositoryService>().getSortBy();
@@ -244,7 +244,7 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
       case FilterType.price:
         context.read<SharedPreferencesBloc>().add(
             SharedPreferencesEvent.setPreference(
-                preference.copyWith(sortBy: checkBoxIndex)));
+                preference.copyWith(price: checkBoxIndex)));
         break;
       case FilterType.sortBy:
         context.read<SharedPreferencesBloc>().add(
@@ -269,11 +269,10 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
           children: [
             _filterItem(
                 context, S.of(context).less_than, Price.lessThan$111.index),
-            _filterItem(context, S.of(context).a_to_z, Price.$111$222.index),
+            _filterItem(context, S.of(context).b111_222, Price.$111$222.index),
+            _filterItem(context, S.of(context).b222_555, Price.$222$555.index),
             _filterItem(
-                context, S.of(context).price_high_to_low, Price.$222$555.index),
-            _filterItem(context, S.of(context).price_low_to_high,
-                Price.$555AndAbove.index),
+                context, S.of(context).b555_above, Price.$555AndAbove.index),
           ],
         );
       case FilterType.sortBy:
