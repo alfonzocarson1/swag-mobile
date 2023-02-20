@@ -20,4 +20,6 @@ abstract class PreferenceRepositoryInt {
   Future<void> setCondition(int value);
   int getPrice();
   Future<void> setPrice(int value);
+  int getReleaseDate();
+  Future<void> setReleaseDate(int value);
 }

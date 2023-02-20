@@ -272,6 +272,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "we_can_help_sub_title": MessageLookupByLibrary.simpleMessage(
             "ADD PHOTOS OF THE FOLLOWING IF POSSIBLE:"),
         "whats_hot": MessageLookupByLibrary.simpleMessage("What\'s Hot"),
+        "y2018": MessageLookupByLibrary.simpleMessage("2018"),
+        "y2019": MessageLookupByLibrary.simpleMessage("2019"),
+        "y2020": MessageLookupByLibrary.simpleMessage("2020"),
+        "y2021": MessageLookupByLibrary.simpleMessage("2021"),
+        "y2022": MessageLookupByLibrary.simpleMessage("2022"),
+        "y2023": MessageLookupByLibrary.simpleMessage("2023"),
         "z_to_a": MessageLookupByLibrary.simpleMessage("Z to A"),
         "zip": MessageLookupByLibrary.simpleMessage("ZIP/Postal Code")
       };

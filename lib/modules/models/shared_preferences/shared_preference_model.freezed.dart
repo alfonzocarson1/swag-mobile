@@ -26,6 +26,7 @@ mixin _$SharedPreferenceModel {
   int get sortBy => throw _privateConstructorUsedError;
   int get condition => throw _privateConstructorUsedError;
   int get price => throw _privateConstructorUsedError;
+  int get releaseDate => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -40,7 +41,12 @@ abstract class $SharedPreferenceModelCopyWith<$Res> {
       _$SharedPreferenceModelCopyWithImpl<$Res, SharedPreferenceModel>;
   @useResult
   $Res call(
-      {bool isListView, bool isForSale, int sortBy, int condition, int price});
+      {bool isListView,
+      bool isForSale,
+      int sortBy,
+      int condition,
+      int price,
+      int releaseDate});
 }
 
 /// @nodoc
@@ -62,6 +68,7 @@ class _$SharedPreferenceModelCopyWithImpl<$Res,
     Object? sortBy = null,
     Object? condition = null,
     Object? price = null,
+    Object? releaseDate = null,
   }) {
     return _then(_value.copyWith(
       isListView: null == isListView
@@ -84,6 +91,10 @@ class _$SharedPreferenceModelCopyWithImpl<$Res,
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as int,
+      releaseDate: null == releaseDate
+          ? _value.releaseDate
+          : releaseDate // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -97,7 +108,12 @@ abstract class _$$_SharedPreferenceModelCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {bool isListView, bool isForSale, int sortBy, int condition, int price});
+      {bool isListView,
+      bool isForSale,
+      int sortBy,
+      int condition,
+      int price,
+      int releaseDate});
 }
 
 /// @nodoc
@@ -116,6 +132,7 @@ class __$$_SharedPreferenceModelCopyWithImpl<$Res>
     Object? sortBy = null,
     Object? condition = null,
     Object? price = null,
+    Object? releaseDate = null,
   }) {
     return _then(_$_SharedPreferenceModel(
       isListView: null == isListView
@@ -138,6 +155,10 @@ class __$$_SharedPreferenceModelCopyWithImpl<$Res>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as int,
+      releaseDate: null == releaseDate
+          ? _value.releaseDate
+          : releaseDate // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -151,7 +172,8 @@ class _$_SharedPreferenceModel implements _SharedPreferenceModel {
       this.isForSale = false,
       this.sortBy = defaultInt,
       this.condition = defaultInt,
-      this.price = defaultInt});
+      this.price = filterNotApplied,
+      this.releaseDate = filterNotApplied});
 
   factory _$_SharedPreferenceModel.fromJson(Map<String, dynamic> json) =>
       _$$_SharedPreferenceModelFromJson(json);
@@ -171,10 +193,13 @@ class _$_SharedPreferenceModel implements _SharedPreferenceModel {
   @override
   @JsonKey()
   final int price;
+  @override
+  @JsonKey()
+  final int releaseDate;
 
   @override
   String toString() {
-    return 'SharedPreferenceModel(isListView: $isListView, isForSale: $isForSale, sortBy: $sortBy, condition: $condition, price: $price)';
+    return 'SharedPreferenceModel(isListView: $isListView, isForSale: $isForSale, sortBy: $sortBy, condition: $condition, price: $price, releaseDate: $releaseDate)';
   }
 
   @override
@@ -189,13 +214,15 @@ class _$_SharedPreferenceModel implements _SharedPreferenceModel {
             (identical(other.sortBy, sortBy) || other.sortBy == sortBy) &&
             (identical(other.condition, condition) ||
                 other.condition == condition) &&
-            (identical(other.price, price) || other.price == price));
+            (identical(other.price, price) || other.price == price) &&
+            (identical(other.releaseDate, releaseDate) ||
+                other.releaseDate == releaseDate));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, isListView, isForSale, sortBy, condition, price);
+  int get hashCode => Object.hash(runtimeType, isListView, isForSale, sortBy,
+      condition, price, releaseDate);
 
   @JsonKey(ignore: true)
   @override
@@ -218,7 +245,8 @@ abstract class _SharedPreferenceModel implements SharedPreferenceModel {
       final bool isForSale,
       final int sortBy,
       final int condition,
-      final int price}) = _$_SharedPreferenceModel;
+      final int price,
+      final int releaseDate}) = _$_SharedPreferenceModel;
 
   factory _SharedPreferenceModel.fromJson(Map<String, dynamic> json) =
       _$_SharedPreferenceModel.fromJson;
@@ -233,6 +261,8 @@ abstract class _SharedPreferenceModel implements SharedPreferenceModel {
   int get condition;
   @override
   int get price;
+  @override
+  int get releaseDate;
   @override
   @JsonKey(ignore: true)
   _$$_SharedPreferenceModelCopyWith<_$_SharedPreferenceModel> get copyWith =>
