@@ -154,6 +154,7 @@ class _PopUpListItemSaleState extends State<PopUpListItemSale> {
                     PrimaryButton(
                       title: S.of(context).ist_item_popup_btn,
                       onPressed: () {
+                        Navigator.pop(context);
                         Navigator.of(context, rootNavigator: true)
                             .push(ListForSalePage.route(_condition));
                       },
