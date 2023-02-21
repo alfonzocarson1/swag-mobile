@@ -181,7 +181,9 @@ class _MultiImageSlideState extends State<MultiImageSlide> {
               );
             },
             itemCount: widget.onRemove != null
-                ? widget.imgList.length + 1
+                ? (widget.imgList.length == 6)
+                    ? 6
+                    : widget.imgList.length + 1
                 : widget.imgList.length,
           ),
         ),
