@@ -34,6 +34,7 @@ class SharedPreferencesBloc
     await _preferenceRepository.setSortBy(model.sortBy);
     await _preferenceRepository.setCondition(model.condition);
     await _preferenceRepository.setPrice(model.price);
+    await _preferenceRepository.setReleaseDate(model.releaseDate);
     yield SharedPreferencesState.setPreference(model);
   }
 }

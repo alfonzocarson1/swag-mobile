@@ -1500,6 +1500,66 @@ class S {
     );
   }
 
+  /// `2018`
+  String get y2018 {
+    return Intl.message(
+      '2018',
+      name: 'y2018',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `2019`
+  String get y2019 {
+    return Intl.message(
+      '2019',
+      name: 'y2019',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `2020`
+  String get y2020 {
+    return Intl.message(
+      '2020',
+      name: 'y2020',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `2021`
+  String get y2021 {
+    return Intl.message(
+      '2021',
+      name: 'y2021',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `2022`
+  String get y2022 {
+    return Intl.message(
+      '2022',
+      name: 'y2022',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `2023`
+  String get y2023 {
+    return Intl.message(
+      '2023',
+      name: 'y2023',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `SEE RESULTS`
   String get see_results {
     return Intl.message(

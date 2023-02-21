@@ -198,8 +198,13 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                                 FilterCategoryPage.route(
                                     context, FilterType.condition));
                           }, selection: S.of(context).sealed),
-                          _filterItem(context,
-                              S.of(context).release_date.toUpperCase(), () {}),
+                          _filterItem(
+                              context, S.of(context).release_date.toUpperCase(),
+                              () {
+                            Navigator.of(context, rootNavigator: true).push(
+                                FilterCategoryPage.route(
+                                    context, FilterType.releaseDate));
+                          }),
                           _filterItem(context,
                               S.of(context).rarity_score.toUpperCase(), () {}),
                           _filterItem(
@@ -333,8 +338,13 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
     } else if (title == S.of(context).condition.toUpperCase()) {
       return getSelectedText(context, FilterType.condition,
           index: model.condition);
-    } else if (title == S.of(context).price_range.toUpperCase()) {
+    } else if (title == S.of(context).price_range.toUpperCase() &&
+        model.price != filterNotApplied) {
       return getSelectedText(context, FilterType.price, index: model.price);
+    } else if (title == S.of(context).release_date.toUpperCase() &&
+        model.releaseDate != filterNotApplied) {
+      return getSelectedText(context, FilterType.releaseDate,
+          index: model.releaseDate);
     } else {
       return Container();
     }
@@ -366,6 +376,10 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
       case FilterType.sortBy:
         return SortByWrapper(SortBy.values.elementAt(
                 index ?? getIt<PreferenceRepositoryService>().getPrice()))
+            .toString();
+      case FilterType.releaseDate:
+        return ReleaseDateWrapper(ReleaseDate.values.elementAt(
+                index ?? getIt<PreferenceRepositoryService>().getReleaseDate()))
             .toString();
     }
   }

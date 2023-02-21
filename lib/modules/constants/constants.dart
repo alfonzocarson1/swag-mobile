@@ -7,6 +7,7 @@ const termsAndConditionsBasePath = "https://swag.golf";
 
 const defaultString = "";
 const defaultInt = 0;
+const filterNotApplied = -1;
 const maxCharactersForGridViewTitle = 25;
 const maxCharactersForGridViewDesc = 22;
 const defaultPageSize = 20;
@@ -25,7 +26,40 @@ const countries = [
   "KR",
 ];
 
-enum FilterType { sortBy, condition, price }
+enum FilterType { sortBy, condition, price, releaseDate }
+
+enum ReleaseDate {
+  y2018,
+  y2019,
+  y2020,
+  y2021,
+  y2022,
+  y2023,
+}
+
+class ReleaseDateWrapper {
+  final ReleaseDate type;
+
+  ReleaseDateWrapper(this.type);
+
+  @override
+  String toString() {
+    switch (type) {
+      case ReleaseDate.y2018:
+        return '2018';
+      case ReleaseDate.y2019:
+        return '2019';
+      case ReleaseDate.y2020:
+        return '2020';
+      case ReleaseDate.y2021:
+        return '2021';
+      case ReleaseDate.y2022:
+        return '2022';
+      case ReleaseDate.y2023:
+        return '2023';
+    }
+  }
+}
 
 enum Price {
   lessThan$111,

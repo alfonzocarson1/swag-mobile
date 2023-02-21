@@ -184,15 +184,15 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
                           setState(() => checkBoxIndex = index);
                         }
                       },
-                      side: BorderSide(color: Palette.current.primaryNeonGreen),
+                      side: BorderSide(color: Palette.current.darkGray),
                     ),
                     Expanded(
                       child: Text(
                         title,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall!
-                            .copyWith(color: Palette.current.primaryNeonGreen),
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            color: checkBoxIndex == index
+                                ? Palette.current.primaryNeonGreen
+                                : Palette.current.darkGray),
                       ),
                     ),
                   ],
@@ -219,6 +219,9 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
         break;
       case FilterType.sortBy:
         checkBoxIndex = getIt<PreferenceRepositoryService>().getSortBy();
+        break;
+      case FilterType.releaseDate:
+        checkBoxIndex = getIt<PreferenceRepositoryService>().getReleaseDate();
     }
   }
 
@@ -230,6 +233,8 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
         return S.of(context).price.toUpperCase();
       case FilterType.sortBy:
         return S.of(context).sort_by.toUpperCase();
+      case FilterType.releaseDate:
+        return S.of(context).release_date.toUpperCase();
     }
   }
 
@@ -250,6 +255,11 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
         context.read<SharedPreferencesBloc>().add(
             SharedPreferencesEvent.setPreference(
                 preference.copyWith(sortBy: checkBoxIndex)));
+        break;
+      case FilterType.releaseDate:
+        context.read<SharedPreferencesBloc>().add(
+            SharedPreferencesEvent.setPreference(
+                preference.copyWith(releaseDate: checkBoxIndex)));
     }
   }
 
@@ -288,6 +298,17 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
                 SortBy.priceLowToHigh.index),
             _filterItem(context, S.of(context).a_to_z, SortBy.atoZ.index),
             _filterItem(context, S.of(context).z_to_a, SortBy.ztoA.index),
+          ],
+        );
+      case FilterType.releaseDate:
+        return Column(
+          children: [
+            _filterItem(context, S.of(context).y2018, ReleaseDate.y2018.index),
+            _filterItem(context, S.of(context).y2019, ReleaseDate.y2019.index),
+            _filterItem(context, S.of(context).y2020, ReleaseDate.y2020.index),
+            _filterItem(context, S.of(context).y2021, ReleaseDate.y2021.index),
+            _filterItem(context, S.of(context).y2022, ReleaseDate.y2022.index),
+            _filterItem(context, S.of(context).y2023, ReleaseDate.y2023.index),
           ],
         );
     }

@@ -51,7 +51,8 @@ void initUserPreferences() {
   getIt<PreferenceRepositoryService>().saveIsListView(true);
   getIt<PreferenceRepositoryService>().setSortBy(defaultInt);
   getIt<PreferenceRepositoryService>().setCondition(defaultInt);
-  getIt<PreferenceRepositoryService>().setPrice(defaultInt);
+  getIt<PreferenceRepositoryService>().setPrice(filterNotApplied);
+  getIt<PreferenceRepositoryService>().setReleaseDate(filterNotApplied);
 }
 
 void _runApp() {
