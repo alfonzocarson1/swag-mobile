@@ -4,11 +4,9 @@ import 'package:flutter/material.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:simple_rich_text/simple_rich_text.dart';
-import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 
 import '../../../../generated/l10n.dart';
-import '../../../common/ui/clickable_text.dart';
+import '../../../common/ui/add_photo_list_item.dart';
 import '../../../common/ui/custom_text_form_field.dart';
 
 import '../../../common/ui/multi_image_slide.dart';
@@ -145,164 +143,17 @@ class _ListForSalePageState extends State<ListForSalePage> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           imageFileList.isEmpty
-                              ? Padding(
-                                  padding: const EdgeInsets.only(top: 0),
-                                  child: Stack(
-                                    children: [
-                                      ClipRRect(
-                                          child: Image.asset(
-                                        "assets/images/bagAddList.png",
-                                        fit: BoxFit.cover,
-                                      )),
-                                      Positioned.fill(
-                                        top: 60,
-                                        child: Align(
-                                          alignment: Alignment.topCenter,
-                                          child: Text(
-                                              S.of(context).list_item_for_sale,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .displayLarge!
-                                                  .copyWith(
-                                                      letterSpacing: 1,
-                                                      fontWeight:
-                                                          FontWeight.w300,
-                                                      fontFamily: "Knockout",
-                                                      fontSize: 30,
-                                                      color: Palette.current
-                                                          .primaryNeonGreen)),
-                                        ),
-                                      ),
-                                      Positioned.fill(
-                                        child: Align(
-                                          alignment: Alignment.center,
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              selectImages();
-                                            },
-                                            child: Center(
-                                              child: Container(
-                                                  height: 60,
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width /
-                                                      2,
-                                                  decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                          color: Palette.current
-                                                              .primaryNeonGreen),
-                                                      color: Palette
-                                                          .current.blackSmoke),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Image.asset(
-                                                        "assets/icons/camera.png",
-                                                        height: 20,
-                                                        width: 20,
-                                                      ),
-                                                      const SizedBox(
-                                                        width: 15,
-                                                      ),
-                                                      Text(
-                                                          S
-                                                              .of(context)
-                                                              .add_photos,
-                                                          style: Theme.of(
-                                                                  context)
-                                                              .textTheme
-                                                              .bodyLarge!
-                                                              .copyWith(
-                                                                  fontFamily:
-                                                                      "Knockout",
-                                                                  fontSize: 25,
-                                                                  letterSpacing:
-                                                                      1,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  color: Palette
-                                                                      .current
-                                                                      .white)),
-                                                    ],
-                                                  )),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Positioned.fill(
-                                        bottom: 50,
-                                        child: Align(
-                                          alignment: Alignment.bottomCenter,
-                                          child: ClickableText(
-                                              title: SimpleRichText(
-                                                S
-                                                    .of(context)
-                                                    .see_photo_guidelines,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodySmall!
-                                                    .copyWith(
-                                                        fontSize: 14,
-                                                        color: Palette
-                                                            .current.grey,
-                                                        fontWeight:
-                                                            FontWeight.w300),
-                                              ),
-                                              onPressed: () {
-                                                showDialog(
-                                                    context: context,
-                                                    barrierDismissible: false,
-                                                    builder:
-                                                        (BuildContext context) {
-                                                      return const PopUpImageGuideline();
-                                                    });
-                                              }),
-                                        ),
-                                      ),
-                                      // Padding(
-                                      //   padding:
-                                      //       const EdgeInsets.only(top: 40.0),
-                                      //   child: Row(
-                                      //     mainAxisAlignment:
-                                      //         MainAxisAlignment.end,
-                                      //     children: [
-                                      //       IconButton(
-                                      //         iconSize: 30,
-                                      //         color: Palette
-                                      //             .current.primaryNeonGreen,
-                                      //         onPressed: () {
-                                      //           Navigator.of(context,
-                                      //                   rootNavigator: true)
-                                      //               .pop();
-                                      //         },
-                                      //         icon: const Icon(
-                                      //           Icons.close,
-                                      //           size: 24,
-                                      //         ),
-                                      //       ),
-                                      //     ],
-                                      //   ),
-                                      // ),
-                                    ],
-                                  ),
+                              ? AddPhotoWidget(
+                                  addPhoto: () => selectImages(),
                                 )
-                              : Padding(
-                                  padding: const EdgeInsets.only(top: 0),
-                                  child: MultiImageSlide(
-                                    imgList: imageFileList,
-                                    addPhoto: () => selectImages(),
-                                    onRemove: (index) {
-                                      setState(() {
-                                        imageFileList.removeAt(index);
-                                      });
-                                    },
-                                  ),
+                              : MultiImageSlide(
+                                  imgList: imageFileList,
+                                  addPhoto: () => selectImages(),
+                                  onRemove: (index) {
+                                    setState(() {
+                                      imageFileList.removeAt(index);
+                                    });
+                                  },
                                 ),
                           Stack(
                             children: [
@@ -412,6 +263,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                         }
                                       } else {
                                         setState(() {
+                                          validPrice = true;
                                           _decimalFlag = false;
                                           _price = "$priceInput.00";
                                           listPriceItemErrorText = null;

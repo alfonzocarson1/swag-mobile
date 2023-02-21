@@ -66,11 +66,8 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                   ),
                   child: Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 0),
-                        child: MultiImageSlide(
-                          imgList: widget.imgList,
-                        ),
+                      MultiImageSlide(
+                        imgList: widget.imgList,
                       ),
                       const SizedBox(height: 4),
                       Padding(
