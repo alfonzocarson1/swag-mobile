@@ -1,6 +1,8 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:swagapp/modules/common/ui/popup_delete_photo_verify.dart';
 
 import '../../../generated/l10n.dart';
 import '../utils/palette.dart';
@@ -82,15 +84,25 @@ class _MultiImageSlideState extends State<MultiImageSlide> {
                                   iconSize: 30,
                                   color: Palette.current.primaryNeonGreen,
                                   onPressed: () {
-                                    setState(() {
-                                      widget.onRemove!(index);
-                                      pageController.animateToPage(
-                                        0,
-                                        duration:
-                                            const Duration(milliseconds: 500),
-                                        curve: Curves.easeInOutCirc,
-                                      );
-                                    });
+                                    showDialog(
+                                        context: context,
+                                        barrierDismissible: false,
+                                        builder: (BuildContext context) {
+                                          return PopUpDeletePhotoVerify(
+                                              removePhoto: (bool delete) {
+                                            if (delete) {
+                                              setState(() {
+                                                widget.onRemove!(index);
+                                                pageController.animateToPage(
+                                                  0,
+                                                  duration: const Duration(
+                                                      milliseconds: 500),
+                                                  curve: Curves.easeInOutCirc,
+                                                );
+                                              });
+                                            }
+                                          });
+                                        });
                                   },
                                   icon: Image.asset(
                                     "assets/icons/x.png",
@@ -261,5 +273,16 @@ class _MultiImageSlideState extends State<MultiImageSlide> {
         ),
       ],
     );
+  }
+
+  Future<void> removeImage() async {
+    // Pick an image
+    try {
+      print("assadsa");
+
+      setState(() {});
+    } catch (e) {
+      log("Image picker: $e");
+    }
   }
 }

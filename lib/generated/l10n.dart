@@ -1759,6 +1759,46 @@ class S {
       args: [],
     );
   }
+
+  /// `DELETE PHOTO`
+  String get delete_photo {
+    return Intl.message(
+      'DELETE PHOTO',
+      name: 'delete_photo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to delete this photo?`
+  String get delete_photo_descrption {
+    return Intl.message(
+      'Are you sure you want to delete this photo?',
+      name: 'delete_photo_descrption',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `DELETE`
+  String get delete {
+    return Intl.message(
+      'DELETE',
+      name: 'delete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CANCEL`
+  String get cancel {
+    return Intl.message(
+      'CANCEL',
+      name: 'cancel',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

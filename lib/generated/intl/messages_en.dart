@@ -43,6 +43,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "b555_above": MessageLookupByLibrary.simpleMessage("\$555 - Above"),
         "buy_for": MessageLookupByLibrary.simpleMessage("BUY FOR"),
         "camera": MessageLookupByLibrary.simpleMessage("TAKE PHOTO"),
+        "cancel": MessageLookupByLibrary.simpleMessage("CANCEL"),
         "city": MessageLookupByLibrary.simpleMessage("City"),
         "clear_all": MessageLookupByLibrary.simpleMessage("Clear All"),
         "code": MessageLookupByLibrary.simpleMessage("Code"),
@@ -57,6 +58,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("CREATE ACCOUNT"),
         "date_purchased":
             MessageLookupByLibrary.simpleMessage("Date Purchased"),
+        "delete": MessageLookupByLibrary.simpleMessage("DELETE"),
+        "delete_photo": MessageLookupByLibrary.simpleMessage("DELETE PHOTO"),
+        "delete_photo_descrption": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to delete this photo?"),
         "displayed": MessageLookupByLibrary.simpleMessage("Displayed"),
         "displayed_gamed":
             MessageLookupByLibrary.simpleMessage("DISPLAYED/GAMED:"),
