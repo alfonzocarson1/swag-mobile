@@ -39,7 +39,8 @@ class APIService {
 
     final api = API();
     http.Response? response;
-    var uri = api.endpointUri(endpoint);
+    var uri = api.endpointUri(endpoint, dynamicParam: dynamicParam);
+
     var baseHeaders = needBearer
         ? {
             "Content-Type": "application/json",
@@ -56,7 +57,6 @@ class APIService {
     if (headers != null) {
       baseHeaders.addAll(headers);
     }
-
     try {
       switch (method) {
         case RequestMethod.get:

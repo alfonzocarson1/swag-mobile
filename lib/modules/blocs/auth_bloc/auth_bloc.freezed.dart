@@ -40,23 +40,23 @@ mixin _$AuthEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Init value) init,
-    required TResult Function(_Authenticate value) authenticate,
-    required TResult Function(_LogoutAuth value) logout,
+    required TResult Function(Init value) init,
+    required TResult Function(Authenticate value) authenticate,
+    required TResult Function(LogoutAuth value) logout,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Init value)? init,
-    TResult? Function(_Authenticate value)? authenticate,
-    TResult? Function(_LogoutAuth value)? logout,
+    TResult? Function(Init value)? init,
+    TResult? Function(Authenticate value)? authenticate,
+    TResult? Function(LogoutAuth value)? logout,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Init value)? init,
-    TResult Function(_Authenticate value)? authenticate,
-    TResult Function(_LogoutAuth value)? logout,
+    TResult Function(Init value)? init,
+    TResult Function(Authenticate value)? authenticate,
+    TResult Function(LogoutAuth value)? logout,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -80,22 +80,22 @@ class _$AuthEventCopyWithImpl<$Res, $Val extends AuthEvent>
 }
 
 /// @nodoc
-abstract class _$$_InitCopyWith<$Res> {
-  factory _$$_InitCopyWith(_$_Init value, $Res Function(_$_Init) then) =
-      __$$_InitCopyWithImpl<$Res>;
+abstract class _$$InitCopyWith<$Res> {
+  factory _$$InitCopyWith(_$Init value, $Res Function(_$Init) then) =
+      __$$InitCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_InitCopyWithImpl<$Res> extends _$AuthEventCopyWithImpl<$Res, _$_Init>
-    implements _$$_InitCopyWith<$Res> {
-  __$$_InitCopyWithImpl(_$_Init _value, $Res Function(_$_Init) _then)
+class __$$InitCopyWithImpl<$Res> extends _$AuthEventCopyWithImpl<$Res, _$Init>
+    implements _$$InitCopyWith<$Res> {
+  __$$InitCopyWithImpl(_$Init _value, $Res Function(_$Init) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_Init implements _Init {
-  const _$_Init();
+class _$Init implements Init {
+  const _$Init();
 
   @override
   String toString() {
@@ -105,7 +105,7 @@ class _$_Init implements _Init {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Init);
+        (other.runtimeType == runtimeType && other is _$Init);
   }
 
   @override
@@ -148,9 +148,9 @@ class _$_Init implements _Init {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Init value) init,
-    required TResult Function(_Authenticate value) authenticate,
-    required TResult Function(_LogoutAuth value) logout,
+    required TResult Function(Init value) init,
+    required TResult Function(Authenticate value) authenticate,
+    required TResult Function(LogoutAuth value) logout,
   }) {
     return init(this);
   }
@@ -158,9 +158,9 @@ class _$_Init implements _Init {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Init value)? init,
-    TResult? Function(_Authenticate value)? authenticate,
-    TResult? Function(_LogoutAuth value)? logout,
+    TResult? Function(Init value)? init,
+    TResult? Function(Authenticate value)? authenticate,
+    TResult? Function(LogoutAuth value)? logout,
   }) {
     return init?.call(this);
   }
@@ -168,9 +168,9 @@ class _$_Init implements _Init {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Init value)? init,
-    TResult Function(_Authenticate value)? authenticate,
-    TResult Function(_LogoutAuth value)? logout,
+    TResult Function(Init value)? init,
+    TResult Function(Authenticate value)? authenticate,
+    TResult Function(LogoutAuth value)? logout,
     required TResult orElse(),
   }) {
     if (init != null) {
@@ -180,30 +180,30 @@ class _$_Init implements _Init {
   }
 }
 
-abstract class _Init implements AuthEvent {
-  const factory _Init() = _$_Init;
+abstract class Init implements AuthEvent {
+  const factory Init() = _$Init;
 }
 
 /// @nodoc
-abstract class _$$_AuthenticateCopyWith<$Res> {
-  factory _$$_AuthenticateCopyWith(
-          _$_Authenticate value, $Res Function(_$_Authenticate) then) =
-      __$$_AuthenticateCopyWithImpl<$Res>;
+abstract class _$$AuthenticateCopyWith<$Res> {
+  factory _$$AuthenticateCopyWith(
+          _$Authenticate value, $Res Function(_$Authenticate) then) =
+      __$$AuthenticateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_AuthenticateCopyWithImpl<$Res>
-    extends _$AuthEventCopyWithImpl<$Res, _$_Authenticate>
-    implements _$$_AuthenticateCopyWith<$Res> {
-  __$$_AuthenticateCopyWithImpl(
-      _$_Authenticate _value, $Res Function(_$_Authenticate) _then)
+class __$$AuthenticateCopyWithImpl<$Res>
+    extends _$AuthEventCopyWithImpl<$Res, _$Authenticate>
+    implements _$$AuthenticateCopyWith<$Res> {
+  __$$AuthenticateCopyWithImpl(
+      _$Authenticate _value, $Res Function(_$Authenticate) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_Authenticate implements _Authenticate {
-  const _$_Authenticate();
+class _$Authenticate implements Authenticate {
+  const _$Authenticate();
 
   @override
   String toString() {
@@ -213,7 +213,7 @@ class _$_Authenticate implements _Authenticate {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Authenticate);
+        (other.runtimeType == runtimeType && other is _$Authenticate);
   }
 
   @override
@@ -256,9 +256,9 @@ class _$_Authenticate implements _Authenticate {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Init value) init,
-    required TResult Function(_Authenticate value) authenticate,
-    required TResult Function(_LogoutAuth value) logout,
+    required TResult Function(Init value) init,
+    required TResult Function(Authenticate value) authenticate,
+    required TResult Function(LogoutAuth value) logout,
   }) {
     return authenticate(this);
   }
@@ -266,9 +266,9 @@ class _$_Authenticate implements _Authenticate {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Init value)? init,
-    TResult? Function(_Authenticate value)? authenticate,
-    TResult? Function(_LogoutAuth value)? logout,
+    TResult? Function(Init value)? init,
+    TResult? Function(Authenticate value)? authenticate,
+    TResult? Function(LogoutAuth value)? logout,
   }) {
     return authenticate?.call(this);
   }
@@ -276,9 +276,9 @@ class _$_Authenticate implements _Authenticate {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Init value)? init,
-    TResult Function(_Authenticate value)? authenticate,
-    TResult Function(_LogoutAuth value)? logout,
+    TResult Function(Init value)? init,
+    TResult Function(Authenticate value)? authenticate,
+    TResult Function(LogoutAuth value)? logout,
     required TResult orElse(),
   }) {
     if (authenticate != null) {
@@ -288,30 +288,30 @@ class _$_Authenticate implements _Authenticate {
   }
 }
 
-abstract class _Authenticate implements AuthEvent {
-  const factory _Authenticate() = _$_Authenticate;
+abstract class Authenticate implements AuthEvent {
+  const factory Authenticate() = _$Authenticate;
 }
 
 /// @nodoc
-abstract class _$$_LogoutAuthCopyWith<$Res> {
-  factory _$$_LogoutAuthCopyWith(
-          _$_LogoutAuth value, $Res Function(_$_LogoutAuth) then) =
-      __$$_LogoutAuthCopyWithImpl<$Res>;
+abstract class _$$LogoutAuthCopyWith<$Res> {
+  factory _$$LogoutAuthCopyWith(
+          _$LogoutAuth value, $Res Function(_$LogoutAuth) then) =
+      __$$LogoutAuthCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_LogoutAuthCopyWithImpl<$Res>
-    extends _$AuthEventCopyWithImpl<$Res, _$_LogoutAuth>
-    implements _$$_LogoutAuthCopyWith<$Res> {
-  __$$_LogoutAuthCopyWithImpl(
-      _$_LogoutAuth _value, $Res Function(_$_LogoutAuth) _then)
+class __$$LogoutAuthCopyWithImpl<$Res>
+    extends _$AuthEventCopyWithImpl<$Res, _$LogoutAuth>
+    implements _$$LogoutAuthCopyWith<$Res> {
+  __$$LogoutAuthCopyWithImpl(
+      _$LogoutAuth _value, $Res Function(_$LogoutAuth) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_LogoutAuth implements _LogoutAuth {
-  const _$_LogoutAuth();
+class _$LogoutAuth implements LogoutAuth {
+  const _$LogoutAuth();
 
   @override
   String toString() {
@@ -321,7 +321,7 @@ class _$_LogoutAuth implements _LogoutAuth {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_LogoutAuth);
+        (other.runtimeType == runtimeType && other is _$LogoutAuth);
   }
 
   @override
@@ -364,9 +364,9 @@ class _$_LogoutAuth implements _LogoutAuth {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Init value) init,
-    required TResult Function(_Authenticate value) authenticate,
-    required TResult Function(_LogoutAuth value) logout,
+    required TResult Function(Init value) init,
+    required TResult Function(Authenticate value) authenticate,
+    required TResult Function(LogoutAuth value) logout,
   }) {
     return logout(this);
   }
@@ -374,9 +374,9 @@ class _$_LogoutAuth implements _LogoutAuth {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Init value)? init,
-    TResult? Function(_Authenticate value)? authenticate,
-    TResult? Function(_LogoutAuth value)? logout,
+    TResult? Function(Init value)? init,
+    TResult? Function(Authenticate value)? authenticate,
+    TResult? Function(LogoutAuth value)? logout,
   }) {
     return logout?.call(this);
   }
@@ -384,9 +384,9 @@ class _$_LogoutAuth implements _LogoutAuth {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Init value)? init,
-    TResult Function(_Authenticate value)? authenticate,
-    TResult Function(_LogoutAuth value)? logout,
+    TResult Function(Init value)? init,
+    TResult Function(Authenticate value)? authenticate,
+    TResult Function(LogoutAuth value)? logout,
     required TResult orElse(),
   }) {
     if (logout != null) {
@@ -396,8 +396,8 @@ class _$_LogoutAuth implements _LogoutAuth {
   }
 }
 
-abstract class _LogoutAuth implements AuthEvent {
-  const factory _LogoutAuth() = _$_LogoutAuth;
+abstract class LogoutAuth implements AuthEvent {
+  const factory LogoutAuth() = _$LogoutAuth;
 }
 
 /// @nodoc

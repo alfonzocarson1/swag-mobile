@@ -1,8 +1,9 @@
+import 'package:sprintf/sprintf.dart';
 import 'package:swagapp/modules/api/app_config.dart';
 import 'package:swagapp/modules/constants/constants.dart';
 
 enum Endpoint {
-  someEndpoint,
+  isUsernameAvailable,
 }
 
 class API {
@@ -11,12 +12,16 @@ class API {
 
   Uri tokenUri() => Uri(scheme: 'https', host: host, path: tokenPath);
 
-  Uri endpointUri(
-    Endpoint endpoint,
-  ) =>
-      Uri.https(host ?? hostProd, _paths[endpoint]!);
+  Uri endpointUri(Endpoint endpoint, {String? dynamicParam = defaultString}) =>
+      Uri.http(
+          //TODO: Update to https when possible
+          host ?? hostProd,
+          dynamicParam != null
+              ? sprintf(_paths[endpoint]!, [dynamicParam])
+              : _paths[endpoint]!);
 
   static final Map<Endpoint, String> _paths = {
-    Endpoint.someEndpoint: 'someEndpoint',
+    Endpoint.isUsernameAvailable:
+        'api/public/v1/account/isUsernameAvailable/%s',
   };
 }

@@ -8,6 +8,7 @@ import 'package:swagapp/modules/data/search/i_search_service.dart';
 import 'package:swagapp/modules/data/search/search_service.dart';
 
 import '../blocs/auth_bloc/auth_bloc.dart';
+import '../blocs/auth_bloc/username_bloc.dart';
 import '../blocs/collection_bloc/collection_bloc.dart';
 import '../blocs/detail_bloc/detail_bloc.dart';
 import '../blocs/explore_bloc/explore_bloc.dart';
@@ -42,6 +43,9 @@ Future<void> setupAppScope() {
   getIt.registerLazySingleton(() => ContextService());
   getIt.registerLazySingleton<IAuthService>(() => AuthService(APIService()));
   getIt.registerLazySingleton<AuthBloc>(() => AuthBloc(getIt<IAuthService>()));
+  getIt.registerLazySingleton<UsernameBloc>(
+      () => UsernameBloc(getIt<IAuthService>()));
+
   getIt
       .registerLazySingleton<ISearchService>(() => SearchService(APIService()));
   getIt.registerLazySingleton<SearchBloc>(
