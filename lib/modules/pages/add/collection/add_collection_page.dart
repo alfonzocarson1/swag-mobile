@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../common/ui/cupertino_custom_date_picker.dart';
@@ -9,6 +10,7 @@ import '../../../common/ui/custom_text_form_field.dart';
 import '../../../common/ui/primary_button.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
+import '../../../common/utils/utils.dart';
 
 class AddCollection extends StatefulWidget {
   static const name = '/AddCollection';
@@ -50,6 +52,17 @@ class _AddCollectionState extends State<AddCollection> {
   String? purchaseErrorText;
   String? conditionErrorText;
   String? sourceErrorText;
+
+  String _price = '';
+
+  bool _decimalFlag = false;
+  int _dynamicLen = 0;
+
+  bool _dynamicLenFlag = false;
+
+  bool validPrice = false;
+
+  final formater = NumberFormat("###0.00");
 
   String _defaultCondition = 'Condition';
   String _defaultSource = 'Source';
@@ -233,13 +246,110 @@ class _AddCollectionState extends State<AddCollection> {
                                 height: 20,
                               ),
                               CustomTextFormField(
-                                  borderColor: _purchaseBorder,
-                                  autofocus: false,
-                                  errorText: purchaseErrorText,
-                                  labelText: S.of(context).purchase_price,
-                                  focusNode: _purchaseNode,
-                                  controller: _purchaseController,
-                                  inputType: TextInputType.text),
+                                borderColor: _purchaseBorder,
+                                autofocus: false,
+                                errorText: purchaseErrorText,
+                                labelText: S.of(context).purchase_price,
+                                focusNode: _purchaseNode,
+                                controller: _purchaseController,
+                                inputType:
+                                    const TextInputType.numberWithOptions(
+                                  decimal: true,
+                                  signed: false,
+                                ),
+                                maxLength: _decimalFlag ? _dynamicLen : 6,
+                                onChanged: (priceInput) {
+                                  if (priceInput.isNotEmpty) {
+                                    //TODO Start Format validations for prices
+                                    if (_purchaseController.text
+                                        .toString()
+                                        .contains('.')) {
+                                      setState(() {
+                                        _decimalFlag = true;
+                                        if (_dynamicLenFlag) {
+                                          _dynamicLenFlag = false;
+                                          _dynamicLen =
+                                              _purchaseController.text.length +
+                                                  2;
+                                        }
+                                      });
+                                      if (isValidNumberDot(priceInput)) {
+                                        setState(() {
+                                          validPrice = true;
+                                          _price = priceInput;
+                                        });
+                                      } else {
+                                        setState(() {
+                                          validPrice = false;
+                                          _price = priceInput;
+                                        });
+                                      }
+                                    } else if (_purchaseController.text
+                                        .toString()
+                                        .contains(',')) {
+                                      setState(() {
+                                        _decimalFlag = true;
+
+                                        if (_dynamicLenFlag) {
+                                          _dynamicLenFlag = false;
+                                          _dynamicLen =
+                                              _purchaseController.text.length +
+                                                  2;
+                                        }
+                                      });
+                                      if (isValidNumberComa(priceInput)) {
+                                        setState(() {
+                                          validPrice = true;
+                                          _price = priceInput;
+                                        });
+                                      } else {
+                                        setState(() {
+                                          validPrice = false;
+                                          _price = priceInput;
+                                        });
+                                      }
+                                    } else {
+                                      setState(() {
+                                        _dynamicLenFlag = true;
+                                        validPrice = true;
+                                        _decimalFlag = false;
+                                        _price = "$priceInput.00";
+                                      });
+                                    }
+                                    if (!_purchaseController.text
+                                            .toString()
+                                            .contains('.') &&
+                                        !_purchaseController.text
+                                            .toString()
+                                            .contains(',')) {
+                                      if (_purchaseController.text
+                                                  .toString()
+                                                  .length >
+                                              5 &&
+                                          _purchaseController.text
+                                                  .toString()[5] !=
+                                              ',') {
+                                        setState(() {
+                                          _purchaseController.text =
+                                              _purchaseController.text
+                                                  .toString()
+                                                  .substring(0, 5);
+                                          _price =
+                                              "${_purchaseController.text.toString()}.00";
+                                        });
+                                      }
+                                    } else {
+                                      setState(() {
+                                        _decimalFlag = true;
+                                      });
+                                    }
+                                    //TODO End Format validations for prices
+                                  } else {
+                                    _price =
+                                        _purchaseController.text.toString();
+                                  }
+                                },
+                              ),
                               const SizedBox(
                                 height: 20,
                               ),
