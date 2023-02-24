@@ -21,24 +21,27 @@ DetailItemModel _$DetailItemModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$DetailItemModel {
   String get catalogItemId => throw _privateConstructorUsedError;
-  String get catalogItemImage => throw _privateConstructorUsedError;
   String get catalogItemName => throw _privateConstructorUsedError;
   String get catalogItemDescription => throw _privateConstructorUsedError;
+  String get catalogItemDescriptionShort => throw _privateConstructorUsedError;
+  String get catalogItemImage => throw _privateConstructorUsedError;
+  String get catalogItemCollection => throw _privateConstructorUsedError;
   String get catalogItemCategoryId => throw _privateConstructorUsedError;
   String get released => throw _privateConstructorUsedError;
-  dynamic get rarityScore => throw _privateConstructorUsedError;
-  bool get sale => throw _privateConstructorUsedError;
+  String get releasedType => throw _privateConstructorUsedError;
   List<DetailAttributeModel>? get attributeItemList =>
       throw _privateConstructorUsedError;
   List<DetailCollectionModel>? get myCollection =>
       throw _privateConstructorUsedError;
   int get totalMade => throw _privateConstructorUsedError;
   String get retail => throw _privateConstructorUsedError;
-  String get releasedType => throw _privateConstructorUsedError;
-  String get lastSale => throw _privateConstructorUsedError;
   int get numberAvailable => throw _privateConstructorUsedError;
-  List<SimilarItemModel>? get similarItemList =>
-      throw _privateConstructorUsedError;
+  String get rarityScore => throw _privateConstructorUsedError;
+  String get saleInfo => throw _privateConstructorUsedError;
+  bool get forSale => throw _privateConstructorUsedError;
+  bool get inFavorites => throw _privateConstructorUsedError;
+  bool get inCollection => throw _privateConstructorUsedError;
+  String get condition => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -54,21 +57,25 @@ abstract class $DetailItemModelCopyWith<$Res> {
   @useResult
   $Res call(
       {String catalogItemId,
-      String catalogItemImage,
       String catalogItemName,
       String catalogItemDescription,
+      String catalogItemDescriptionShort,
+      String catalogItemImage,
+      String catalogItemCollection,
       String catalogItemCategoryId,
       String released,
-      dynamic rarityScore,
-      bool sale,
+      String releasedType,
       List<DetailAttributeModel>? attributeItemList,
       List<DetailCollectionModel>? myCollection,
       int totalMade,
       String retail,
-      String releasedType,
-      String lastSale,
       int numberAvailable,
-      List<SimilarItemModel>? similarItemList});
+      String rarityScore,
+      String saleInfo,
+      bool forSale,
+      bool inFavorites,
+      bool inCollection,
+      String condition});
 }
 
 /// @nodoc
@@ -85,30 +92,30 @@ class _$DetailItemModelCopyWithImpl<$Res, $Val extends DetailItemModel>
   @override
   $Res call({
     Object? catalogItemId = null,
-    Object? catalogItemImage = null,
     Object? catalogItemName = null,
     Object? catalogItemDescription = null,
+    Object? catalogItemDescriptionShort = null,
+    Object? catalogItemImage = null,
+    Object? catalogItemCollection = null,
     Object? catalogItemCategoryId = null,
     Object? released = null,
-    Object? rarityScore = freezed,
-    Object? sale = null,
+    Object? releasedType = null,
     Object? attributeItemList = freezed,
     Object? myCollection = freezed,
     Object? totalMade = null,
     Object? retail = null,
-    Object? releasedType = null,
-    Object? lastSale = null,
     Object? numberAvailable = null,
-    Object? similarItemList = freezed,
+    Object? rarityScore = null,
+    Object? saleInfo = null,
+    Object? forSale = null,
+    Object? inFavorites = null,
+    Object? inCollection = null,
+    Object? condition = null,
   }) {
     return _then(_value.copyWith(
       catalogItemId: null == catalogItemId
           ? _value.catalogItemId
           : catalogItemId // ignore: cast_nullable_to_non_nullable
-              as String,
-      catalogItemImage: null == catalogItemImage
-          ? _value.catalogItemImage
-          : catalogItemImage // ignore: cast_nullable_to_non_nullable
               as String,
       catalogItemName: null == catalogItemName
           ? _value.catalogItemName
@@ -118,6 +125,18 @@ class _$DetailItemModelCopyWithImpl<$Res, $Val extends DetailItemModel>
           ? _value.catalogItemDescription
           : catalogItemDescription // ignore: cast_nullable_to_non_nullable
               as String,
+      catalogItemDescriptionShort: null == catalogItemDescriptionShort
+          ? _value.catalogItemDescriptionShort
+          : catalogItemDescriptionShort // ignore: cast_nullable_to_non_nullable
+              as String,
+      catalogItemImage: null == catalogItemImage
+          ? _value.catalogItemImage
+          : catalogItemImage // ignore: cast_nullable_to_non_nullable
+              as String,
+      catalogItemCollection: null == catalogItemCollection
+          ? _value.catalogItemCollection
+          : catalogItemCollection // ignore: cast_nullable_to_non_nullable
+              as String,
       catalogItemCategoryId: null == catalogItemCategoryId
           ? _value.catalogItemCategoryId
           : catalogItemCategoryId // ignore: cast_nullable_to_non_nullable
@@ -126,14 +145,10 @@ class _$DetailItemModelCopyWithImpl<$Res, $Val extends DetailItemModel>
           ? _value.released
           : released // ignore: cast_nullable_to_non_nullable
               as String,
-      rarityScore: freezed == rarityScore
-          ? _value.rarityScore
-          : rarityScore // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      sale: null == sale
-          ? _value.sale
-          : sale // ignore: cast_nullable_to_non_nullable
-              as bool,
+      releasedType: null == releasedType
+          ? _value.releasedType
+          : releasedType // ignore: cast_nullable_to_non_nullable
+              as String,
       attributeItemList: freezed == attributeItemList
           ? _value.attributeItemList
           : attributeItemList // ignore: cast_nullable_to_non_nullable
@@ -150,22 +165,34 @@ class _$DetailItemModelCopyWithImpl<$Res, $Val extends DetailItemModel>
           ? _value.retail
           : retail // ignore: cast_nullable_to_non_nullable
               as String,
-      releasedType: null == releasedType
-          ? _value.releasedType
-          : releasedType // ignore: cast_nullable_to_non_nullable
-              as String,
-      lastSale: null == lastSale
-          ? _value.lastSale
-          : lastSale // ignore: cast_nullable_to_non_nullable
-              as String,
       numberAvailable: null == numberAvailable
           ? _value.numberAvailable
           : numberAvailable // ignore: cast_nullable_to_non_nullable
               as int,
-      similarItemList: freezed == similarItemList
-          ? _value.similarItemList
-          : similarItemList // ignore: cast_nullable_to_non_nullable
-              as List<SimilarItemModel>?,
+      rarityScore: null == rarityScore
+          ? _value.rarityScore
+          : rarityScore // ignore: cast_nullable_to_non_nullable
+              as String,
+      saleInfo: null == saleInfo
+          ? _value.saleInfo
+          : saleInfo // ignore: cast_nullable_to_non_nullable
+              as String,
+      forSale: null == forSale
+          ? _value.forSale
+          : forSale // ignore: cast_nullable_to_non_nullable
+              as bool,
+      inFavorites: null == inFavorites
+          ? _value.inFavorites
+          : inFavorites // ignore: cast_nullable_to_non_nullable
+              as bool,
+      inCollection: null == inCollection
+          ? _value.inCollection
+          : inCollection // ignore: cast_nullable_to_non_nullable
+              as bool,
+      condition: null == condition
+          ? _value.condition
+          : condition // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -180,21 +207,25 @@ abstract class _$$_DetailItemModelCopyWith<$Res>
   @useResult
   $Res call(
       {String catalogItemId,
-      String catalogItemImage,
       String catalogItemName,
       String catalogItemDescription,
+      String catalogItemDescriptionShort,
+      String catalogItemImage,
+      String catalogItemCollection,
       String catalogItemCategoryId,
       String released,
-      dynamic rarityScore,
-      bool sale,
+      String releasedType,
       List<DetailAttributeModel>? attributeItemList,
       List<DetailCollectionModel>? myCollection,
       int totalMade,
       String retail,
-      String releasedType,
-      String lastSale,
       int numberAvailable,
-      List<SimilarItemModel>? similarItemList});
+      String rarityScore,
+      String saleInfo,
+      bool forSale,
+      bool inFavorites,
+      bool inCollection,
+      String condition});
 }
 
 /// @nodoc
@@ -209,30 +240,30 @@ class __$$_DetailItemModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? catalogItemId = null,
-    Object? catalogItemImage = null,
     Object? catalogItemName = null,
     Object? catalogItemDescription = null,
+    Object? catalogItemDescriptionShort = null,
+    Object? catalogItemImage = null,
+    Object? catalogItemCollection = null,
     Object? catalogItemCategoryId = null,
     Object? released = null,
-    Object? rarityScore = freezed,
-    Object? sale = null,
+    Object? releasedType = null,
     Object? attributeItemList = freezed,
     Object? myCollection = freezed,
     Object? totalMade = null,
     Object? retail = null,
-    Object? releasedType = null,
-    Object? lastSale = null,
     Object? numberAvailable = null,
-    Object? similarItemList = freezed,
+    Object? rarityScore = null,
+    Object? saleInfo = null,
+    Object? forSale = null,
+    Object? inFavorites = null,
+    Object? inCollection = null,
+    Object? condition = null,
   }) {
     return _then(_$_DetailItemModel(
       catalogItemId: null == catalogItemId
           ? _value.catalogItemId
           : catalogItemId // ignore: cast_nullable_to_non_nullable
-              as String,
-      catalogItemImage: null == catalogItemImage
-          ? _value.catalogItemImage
-          : catalogItemImage // ignore: cast_nullable_to_non_nullable
               as String,
       catalogItemName: null == catalogItemName
           ? _value.catalogItemName
@@ -242,6 +273,18 @@ class __$$_DetailItemModelCopyWithImpl<$Res>
           ? _value.catalogItemDescription
           : catalogItemDescription // ignore: cast_nullable_to_non_nullable
               as String,
+      catalogItemDescriptionShort: null == catalogItemDescriptionShort
+          ? _value.catalogItemDescriptionShort
+          : catalogItemDescriptionShort // ignore: cast_nullable_to_non_nullable
+              as String,
+      catalogItemImage: null == catalogItemImage
+          ? _value.catalogItemImage
+          : catalogItemImage // ignore: cast_nullable_to_non_nullable
+              as String,
+      catalogItemCollection: null == catalogItemCollection
+          ? _value.catalogItemCollection
+          : catalogItemCollection // ignore: cast_nullable_to_non_nullable
+              as String,
       catalogItemCategoryId: null == catalogItemCategoryId
           ? _value.catalogItemCategoryId
           : catalogItemCategoryId // ignore: cast_nullable_to_non_nullable
@@ -250,14 +293,10 @@ class __$$_DetailItemModelCopyWithImpl<$Res>
           ? _value.released
           : released // ignore: cast_nullable_to_non_nullable
               as String,
-      rarityScore: freezed == rarityScore
-          ? _value.rarityScore
-          : rarityScore // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      sale: null == sale
-          ? _value.sale
-          : sale // ignore: cast_nullable_to_non_nullable
-              as bool,
+      releasedType: null == releasedType
+          ? _value.releasedType
+          : releasedType // ignore: cast_nullable_to_non_nullable
+              as String,
       attributeItemList: freezed == attributeItemList
           ? _value._attributeItemList
           : attributeItemList // ignore: cast_nullable_to_non_nullable
@@ -274,22 +313,34 @@ class __$$_DetailItemModelCopyWithImpl<$Res>
           ? _value.retail
           : retail // ignore: cast_nullable_to_non_nullable
               as String,
-      releasedType: null == releasedType
-          ? _value.releasedType
-          : releasedType // ignore: cast_nullable_to_non_nullable
-              as String,
-      lastSale: null == lastSale
-          ? _value.lastSale
-          : lastSale // ignore: cast_nullable_to_non_nullable
-              as String,
       numberAvailable: null == numberAvailable
           ? _value.numberAvailable
           : numberAvailable // ignore: cast_nullable_to_non_nullable
               as int,
-      similarItemList: freezed == similarItemList
-          ? _value._similarItemList
-          : similarItemList // ignore: cast_nullable_to_non_nullable
-              as List<SimilarItemModel>?,
+      rarityScore: null == rarityScore
+          ? _value.rarityScore
+          : rarityScore // ignore: cast_nullable_to_non_nullable
+              as String,
+      saleInfo: null == saleInfo
+          ? _value.saleInfo
+          : saleInfo // ignore: cast_nullable_to_non_nullable
+              as String,
+      forSale: null == forSale
+          ? _value.forSale
+          : forSale // ignore: cast_nullable_to_non_nullable
+              as bool,
+      inFavorites: null == inFavorites
+          ? _value.inFavorites
+          : inFavorites // ignore: cast_nullable_to_non_nullable
+              as bool,
+      inCollection: null == inCollection
+          ? _value.inCollection
+          : inCollection // ignore: cast_nullable_to_non_nullable
+              as bool,
+      condition: null == condition
+          ? _value.condition
+          : condition // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -300,24 +351,27 @@ class __$$_DetailItemModelCopyWithImpl<$Res>
 class _$_DetailItemModel implements _DetailItemModel {
   const _$_DetailItemModel(
       {required this.catalogItemId,
-      required this.catalogItemImage,
       required this.catalogItemName,
       required this.catalogItemDescription,
+      required this.catalogItemDescriptionShort,
+      required this.catalogItemImage,
+      required this.catalogItemCollection,
       required this.catalogItemCategoryId,
       required this.released,
-      required this.rarityScore,
-      required this.sale,
+      required this.releasedType,
       final List<DetailAttributeModel>? attributeItemList,
       final List<DetailCollectionModel>? myCollection,
       required this.totalMade,
       required this.retail,
-      required this.releasedType,
-      required this.lastSale,
       required this.numberAvailable,
-      final List<SimilarItemModel>? similarItemList})
+      required this.rarityScore,
+      required this.saleInfo,
+      required this.forSale,
+      required this.inFavorites,
+      required this.inCollection,
+      required this.condition})
       : _attributeItemList = attributeItemList,
-        _myCollection = myCollection,
-        _similarItemList = similarItemList;
+        _myCollection = myCollection;
 
   factory _$_DetailItemModel.fromJson(Map<String, dynamic> json) =>
       _$$_DetailItemModelFromJson(json);
@@ -325,19 +379,21 @@ class _$_DetailItemModel implements _DetailItemModel {
   @override
   final String catalogItemId;
   @override
-  final String catalogItemImage;
-  @override
   final String catalogItemName;
   @override
   final String catalogItemDescription;
+  @override
+  final String catalogItemDescriptionShort;
+  @override
+  final String catalogItemImage;
+  @override
+  final String catalogItemCollection;
   @override
   final String catalogItemCategoryId;
   @override
   final String released;
   @override
-  final dynamic rarityScore;
-  @override
-  final bool sale;
+  final String releasedType;
   final List<DetailAttributeModel>? _attributeItemList;
   @override
   List<DetailAttributeModel>? get attributeItemList {
@@ -364,24 +420,23 @@ class _$_DetailItemModel implements _DetailItemModel {
   @override
   final String retail;
   @override
-  final String releasedType;
-  @override
-  final String lastSale;
-  @override
   final int numberAvailable;
-  final List<SimilarItemModel>? _similarItemList;
   @override
-  List<SimilarItemModel>? get similarItemList {
-    final value = _similarItemList;
-    if (value == null) return null;
-    if (_similarItemList is EqualUnmodifiableListView) return _similarItemList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
+  final String rarityScore;
+  @override
+  final String saleInfo;
+  @override
+  final bool forSale;
+  @override
+  final bool inFavorites;
+  @override
+  final bool inCollection;
+  @override
+  final String condition;
 
   @override
   String toString() {
-    return 'DetailItemModel(catalogItemId: $catalogItemId, catalogItemImage: $catalogItemImage, catalogItemName: $catalogItemName, catalogItemDescription: $catalogItemDescription, catalogItemCategoryId: $catalogItemCategoryId, released: $released, rarityScore: $rarityScore, sale: $sale, attributeItemList: $attributeItemList, myCollection: $myCollection, totalMade: $totalMade, retail: $retail, releasedType: $releasedType, lastSale: $lastSale, numberAvailable: $numberAvailable, similarItemList: $similarItemList)';
+    return 'DetailItemModel(catalogItemId: $catalogItemId, catalogItemName: $catalogItemName, catalogItemDescription: $catalogItemDescription, catalogItemDescriptionShort: $catalogItemDescriptionShort, catalogItemImage: $catalogItemImage, catalogItemCollection: $catalogItemCollection, catalogItemCategoryId: $catalogItemCategoryId, released: $released, releasedType: $releasedType, attributeItemList: $attributeItemList, myCollection: $myCollection, totalMade: $totalMade, retail: $retail, numberAvailable: $numberAvailable, rarityScore: $rarityScore, saleInfo: $saleInfo, forSale: $forSale, inFavorites: $inFavorites, inCollection: $inCollection, condition: $condition)';
   }
 
   @override
@@ -391,19 +446,24 @@ class _$_DetailItemModel implements _DetailItemModel {
             other is _$_DetailItemModel &&
             (identical(other.catalogItemId, catalogItemId) ||
                 other.catalogItemId == catalogItemId) &&
-            (identical(other.catalogItemImage, catalogItemImage) ||
-                other.catalogItemImage == catalogItemImage) &&
             (identical(other.catalogItemName, catalogItemName) ||
                 other.catalogItemName == catalogItemName) &&
             (identical(other.catalogItemDescription, catalogItemDescription) ||
                 other.catalogItemDescription == catalogItemDescription) &&
+            (identical(other.catalogItemDescriptionShort,
+                    catalogItemDescriptionShort) ||
+                other.catalogItemDescriptionShort ==
+                    catalogItemDescriptionShort) &&
+            (identical(other.catalogItemImage, catalogItemImage) ||
+                other.catalogItemImage == catalogItemImage) &&
+            (identical(other.catalogItemCollection, catalogItemCollection) ||
+                other.catalogItemCollection == catalogItemCollection) &&
             (identical(other.catalogItemCategoryId, catalogItemCategoryId) ||
                 other.catalogItemCategoryId == catalogItemCategoryId) &&
             (identical(other.released, released) ||
                 other.released == released) &&
-            const DeepCollectionEquality()
-                .equals(other.rarityScore, rarityScore) &&
-            (identical(other.sale, sale) || other.sale == sale) &&
+            (identical(other.releasedType, releasedType) ||
+                other.releasedType == releasedType) &&
             const DeepCollectionEquality()
                 .equals(other._attributeItemList, _attributeItemList) &&
             const DeepCollectionEquality()
@@ -411,36 +471,46 @@ class _$_DetailItemModel implements _DetailItemModel {
             (identical(other.totalMade, totalMade) ||
                 other.totalMade == totalMade) &&
             (identical(other.retail, retail) || other.retail == retail) &&
-            (identical(other.releasedType, releasedType) ||
-                other.releasedType == releasedType) &&
-            (identical(other.lastSale, lastSale) ||
-                other.lastSale == lastSale) &&
             (identical(other.numberAvailable, numberAvailable) ||
                 other.numberAvailable == numberAvailable) &&
-            const DeepCollectionEquality()
-                .equals(other._similarItemList, _similarItemList));
+            (identical(other.rarityScore, rarityScore) ||
+                other.rarityScore == rarityScore) &&
+            (identical(other.saleInfo, saleInfo) ||
+                other.saleInfo == saleInfo) &&
+            (identical(other.forSale, forSale) || other.forSale == forSale) &&
+            (identical(other.inFavorites, inFavorites) ||
+                other.inFavorites == inFavorites) &&
+            (identical(other.inCollection, inCollection) ||
+                other.inCollection == inCollection) &&
+            (identical(other.condition, condition) ||
+                other.condition == condition));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      catalogItemId,
-      catalogItemImage,
-      catalogItemName,
-      catalogItemDescription,
-      catalogItemCategoryId,
-      released,
-      const DeepCollectionEquality().hash(rarityScore),
-      sale,
-      const DeepCollectionEquality().hash(_attributeItemList),
-      const DeepCollectionEquality().hash(_myCollection),
-      totalMade,
-      retail,
-      releasedType,
-      lastSale,
-      numberAvailable,
-      const DeepCollectionEquality().hash(_similarItemList));
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        catalogItemId,
+        catalogItemName,
+        catalogItemDescription,
+        catalogItemDescriptionShort,
+        catalogItemImage,
+        catalogItemCollection,
+        catalogItemCategoryId,
+        released,
+        releasedType,
+        const DeepCollectionEquality().hash(_attributeItemList),
+        const DeepCollectionEquality().hash(_myCollection),
+        totalMade,
+        retail,
+        numberAvailable,
+        rarityScore,
+        saleInfo,
+        forSale,
+        inFavorites,
+        inCollection,
+        condition
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -459,21 +529,25 @@ class _$_DetailItemModel implements _DetailItemModel {
 abstract class _DetailItemModel implements DetailItemModel {
   const factory _DetailItemModel(
       {required final String catalogItemId,
-      required final String catalogItemImage,
       required final String catalogItemName,
       required final String catalogItemDescription,
+      required final String catalogItemDescriptionShort,
+      required final String catalogItemImage,
+      required final String catalogItemCollection,
       required final String catalogItemCategoryId,
       required final String released,
-      required final dynamic rarityScore,
-      required final bool sale,
+      required final String releasedType,
       final List<DetailAttributeModel>? attributeItemList,
       final List<DetailCollectionModel>? myCollection,
       required final int totalMade,
       required final String retail,
-      required final String releasedType,
-      required final String lastSale,
       required final int numberAvailable,
-      final List<SimilarItemModel>? similarItemList}) = _$_DetailItemModel;
+      required final String rarityScore,
+      required final String saleInfo,
+      required final bool forSale,
+      required final bool inFavorites,
+      required final bool inCollection,
+      required final String condition}) = _$_DetailItemModel;
 
   factory _DetailItemModel.fromJson(Map<String, dynamic> json) =
       _$_DetailItemModel.fromJson;
@@ -481,19 +555,21 @@ abstract class _DetailItemModel implements DetailItemModel {
   @override
   String get catalogItemId;
   @override
-  String get catalogItemImage;
-  @override
   String get catalogItemName;
   @override
   String get catalogItemDescription;
+  @override
+  String get catalogItemDescriptionShort;
+  @override
+  String get catalogItemImage;
+  @override
+  String get catalogItemCollection;
   @override
   String get catalogItemCategoryId;
   @override
   String get released;
   @override
-  dynamic get rarityScore;
-  @override
-  bool get sale;
+  String get releasedType;
   @override
   List<DetailAttributeModel>? get attributeItemList;
   @override
@@ -503,13 +579,19 @@ abstract class _DetailItemModel implements DetailItemModel {
   @override
   String get retail;
   @override
-  String get releasedType;
-  @override
-  String get lastSale;
-  @override
   int get numberAvailable;
   @override
-  List<SimilarItemModel>? get similarItemList;
+  String get rarityScore;
+  @override
+  String get saleInfo;
+  @override
+  bool get forSale;
+  @override
+  bool get inFavorites;
+  @override
+  bool get inCollection;
+  @override
+  String get condition;
   @override
   @JsonKey(ignore: true)
   _$$_DetailItemModelCopyWith<_$_DetailItemModel> get copyWith =>
