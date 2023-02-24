@@ -58,6 +58,9 @@ class _ListForSalePageState extends State<ListForSalePage> {
   String _price = '';
 
   bool _decimalFlag = false;
+  int _dynamicLen = 0;
+
+  bool _dynamicLenFlag = false;
 
   bool validPrice = false;
 
@@ -215,7 +218,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                     scale: 3,
                                     color: Palette.current.blackSmoke,
                                   ),
-                                  maxLength: _decimalFlag ? 8 : 6,
+                                  maxLength: _decimalFlag ? _dynamicLen : 6,
                                   onChanged: (priceInput) {
                                     if (priceInput.isNotEmpty) {
                                       //TODO Start Format validations for prices
@@ -224,6 +227,13 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                           .contains('.')) {
                                         setState(() {
                                           _decimalFlag = true;
+                                          if (_dynamicLenFlag) {
+                                            _dynamicLenFlag = false;
+                                            _dynamicLen =
+                                                _listPriceItemController
+                                                        .text.length +
+                                                    2;
+                                          }
                                         });
                                         if (isValidNumberDot(priceInput)) {
                                           setState(() {
@@ -235,9 +245,6 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                           setState(() {
                                             validPrice = false;
                                             _price = priceInput;
-                                            listPriceItemErrorText = S
-                                                .of(context)
-                                                .price_validations_msj;
                                           });
                                         }
                                       } else if (_listPriceItemController.text
@@ -245,6 +252,14 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                           .contains(',')) {
                                         setState(() {
                                           _decimalFlag = true;
+
+                                          if (_dynamicLenFlag) {
+                                            _dynamicLenFlag = false;
+                                            _dynamicLen =
+                                                _listPriceItemController
+                                                        .text.length +
+                                                    2;
+                                          }
                                         });
                                         if (isValidNumberComa(priceInput)) {
                                           setState(() {
@@ -256,17 +271,14 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                           setState(() {
                                             validPrice = false;
                                             _price = priceInput;
-                                            listPriceItemErrorText = S
-                                                .of(context)
-                                                .price_validations_msj;
                                           });
                                         }
                                       } else {
                                         setState(() {
+                                          _dynamicLenFlag = true;
                                           validPrice = true;
                                           _decimalFlag = false;
                                           _price = "$priceInput.00";
-                                          listPriceItemErrorText = null;
                                         });
                                       }
                                       if (!_listPriceItemController.text
@@ -418,8 +430,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                             .push(ListItemPreviewPage.route(
                                                 imageFileList,
                                                 "GOLDEN KING COVER",
-                                                _listPriceItemController.text
-                                                    .toString(),
+                                                _price,
                                                 _defaultCondition,
                                                 _listDescriptionItemController
                                                     .text
@@ -447,9 +458,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
   void showErrors() {
     setState(() {
       listPriceItemErrorText = _listPriceItemController.text.isNotEmpty
-          ? validPrice
-              ? null
-              : S.of(context).price_validations_msj
+          ? null
           : S.of(context).required_field;
 
       conditionErrorText = _defaultCondition != 'Condition'
