@@ -78,7 +78,8 @@ class ShrunkenItemWidget extends StatelessWidget {
                                 .bodySmall!
                                 .copyWith(
                                     fontSize: 14,
-                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Ringside',
+                                    fontWeight: FontWeight.bold,
                                     color: Palette.current.white)),
                       ),
                     ),

@@ -192,7 +192,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                               .textTheme
                                               .bodySmall!
                                               .copyWith(
-                                                  fontWeight: FontWeight.w500,
+                                                  fontWeight: FontWeight.w300,
                                                   fontSize: 15,
                                                   color: Palette.current
                                                       .primaryNeonGreen)),

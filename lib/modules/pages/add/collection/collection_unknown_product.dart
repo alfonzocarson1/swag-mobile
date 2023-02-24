@@ -332,7 +332,7 @@ class _CollectionUnknownProductPageState
                                                           fontSize: 25,
                                                           letterSpacing: 1,
                                                           fontWeight:
-                                                              FontWeight.w500,
+                                                              FontWeight.w300,
                                                           color: Palette
                                                               .current.white)),
                                             ],

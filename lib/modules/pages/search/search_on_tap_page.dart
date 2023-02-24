@@ -219,7 +219,7 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
     return PreferredSize(
       preferredSize: const Size.fromHeight(kToolbarHeight),
       child: Padding(
-        padding: const EdgeInsets.only(left: 5, right: 20, top: 10),
+        padding: const EdgeInsets.only(left: 5, right: 20, top: 0),
         child: Align(
           alignment: Alignment.centerLeft,
           child: TabBar(
@@ -232,11 +232,13 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
                 .textTheme
                 .headlineMedium!
                 .copyWith(
-                    fontFamily: "Knockout",
+                    fontFamily: "KnockoutCustom",
+                    fontSize: 21,
                     letterSpacing: 1.1,
                     fontWeight: FontWeight.w300),
             labelStyle: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                fontFamily: "Knockout",
+                fontFamily: "KnockoutCustom",
+                fontSize: 21,
                 letterSpacing: 1.0,
                 fontWeight: FontWeight.w300),
             onTap: (index) {

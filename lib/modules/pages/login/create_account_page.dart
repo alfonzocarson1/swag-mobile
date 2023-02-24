@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:simple_rich_text/simple_rich_text.dart';
 import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/blocs/auth_bloc/username_bloc.dart';
 import 'package:swagapp/modules/common/ui/clickable_text.dart';
@@ -278,17 +277,60 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                     child: Padding(
                                       padding: const EdgeInsets.only(top: 16.0),
                                       child: ClickableText(
-                                          title: SimpleRichText(
-                                            S.of(context).privacy_policy_text,
-                                            textAlign: TextAlign.start,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall!
-                                                .copyWith(
-                                                    color: Palette.current
-                                                        .primaryNeonGreen,
-                                                    fontWeight:
-                                                        FontWeight.w300),
+                                          title: RichText(
+                                            maxLines: 2,
+                                            softWrap: false,
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.left,
+                                            text: TextSpan(children: [
+                                              TextSpan(
+                                                text: S.of(context).agree_to,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodySmall!
+                                                    .copyWith(
+                                                      color: Palette.current
+                                                          .primaryNeonGreen,
+                                                    ),
+                                              ),
+                                              TextSpan(
+                                                text: S
+                                                    .of(context)
+                                                    .privacy_policy_text,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodySmall!
+                                                    .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color: Palette.current
+                                                          .primaryNeonGreen,
+                                                    ),
+                                              ),
+                                              TextSpan(
+                                                text: S.of(context).and,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodySmall!
+                                                    .copyWith(
+                                                      color: Palette.current
+                                                          .primaryNeonGreen,
+                                                    ),
+                                              ),
+                                              TextSpan(
+                                                text:
+                                                    S.of(context).terms_of_use,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodySmall!
+                                                    .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color: Palette.current
+                                                          .primaryNeonGreen,
+                                                    ),
+                                              ),
+                                            ]),
                                           ),
                                           onPressed: () {
                                             Navigator.of(context,
@@ -307,7 +349,8 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                 height: 20,
                               ),
                               PrimaryButton(
-                                title: S.of(context).create_account,
+                                title:
+                                    S.of(context).create_account.toUpperCase(),
                                 onPressed: () {
                                   showErrors();
                                   if (areFieldsValid()) {
@@ -321,16 +364,36 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                 height: 20,
                               ),
                               ClickableText(
-                                  title: SimpleRichText(
-                                    S.of(context).already_have_an_account,
+                                  title: RichText(
+                                    maxLines: 1,
+                                    softWrap: false,
+                                    overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.center,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(
-                                            color: Palette
-                                                .current.primaryNeonGreen,
-                                            fontWeight: FontWeight.w300),
+                                    text: TextSpan(children: [
+                                      TextSpan(
+                                        text: S
+                                            .of(context)
+                                            .already_have_an_account,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(
+                                              color: Palette
+                                                  .current.primaryNeonGreen,
+                                            ),
+                                      ),
+                                      TextSpan(
+                                        text: S.of(context).sign_in,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(
+                                              fontWeight: FontWeight.w400,
+                                              color: Palette
+                                                  .current.primaryNeonGreen,
+                                            ),
+                                      ),
+                                    ]),
                                   ),
                                   onPressed: () {
                                     Navigator.of(context, rootNavigator: true)

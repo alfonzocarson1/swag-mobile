@@ -172,11 +172,13 @@ class _SearchPageState extends State<SearchPage>
             .textTheme
             .headlineMedium!
             .copyWith(
-                fontFamily: "Knockout",
+                fontFamily: "KnockoutCustom",
+                fontSize: 21,
                 letterSpacing: 1.1,
                 fontWeight: FontWeight.w300),
         labelStyle: Theme.of(context).textTheme.headlineMedium!.copyWith(
-            fontFamily: "Knockout",
+            fontFamily: "KnockoutCustom",
+            fontSize: 21,
             letterSpacing: 1.0,
             fontWeight: FontWeight.w300),
         onTap: (index) {

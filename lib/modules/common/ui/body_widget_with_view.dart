@@ -7,8 +7,7 @@ import 'package:swagapp/modules/constants/constants.dart';
 import '../../../generated/l10n.dart';
 import '../../blocs/search_bloc.dart/search_bloc.dart';
 import '../../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
-import '../../data/shared_preferences/shared_preferences_service.dart';
-import '../../di/injector.dart';
+
 import '../../models/search/catalog_item_model.dart';
 import '../../models/search/search_request_payload_model.dart';
 

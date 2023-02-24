@@ -70,20 +70,20 @@ class S {
     );
   }
 
-  /// `CREATE ACCOUNT`
+  /// `Create Account`
   String get create_account {
     return Intl.message(
-      'CREATE ACCOUNT',
+      'Create Account',
       name: 'create_account',
       desc: '',
       args: [],
     );
   }
 
-  /// `SIGN IN`
+  /// `Sign In`
   String get sign_in {
     return Intl.message(
-      'SIGN IN',
+      'Sign In',
       name: 'sign_in',
       desc: '',
       args: [],
@@ -120,10 +120,10 @@ class S {
     );
   }
 
-  /// `Don’t have an account? *Create Account*`
+  /// `Don’t have an account? `
   String get dont_have_account {
     return Intl.message(
-      'Don’t have an account? *Create Account*',
+      'Don’t have an account? ',
       name: 'dont_have_account',
       desc: '',
       args: [],
@@ -350,20 +350,50 @@ class S {
     );
   }
 
-  /// `I agree to Swag’s *Privacy Policy* \n& *Terms of Use*`
+  /// `I agree to Swag’s `
+  String get agree_to {
+    return Intl.message(
+      'I agree to Swag’s ',
+      name: 'agree_to',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Privacy Policy`
   String get privacy_policy_text {
     return Intl.message(
-      'I agree to Swag’s *Privacy Policy* \n& *Terms of Use*',
+      'Privacy Policy',
       name: 'privacy_policy_text',
       desc: '',
       args: [],
     );
   }
 
-  /// `Already have an account? *Sign In*`
+  /// ` \n& `
+  String get and {
+    return Intl.message(
+      ' \n& ',
+      name: 'and',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Terms of Use`
+  String get terms_of_use {
+    return Intl.message(
+      'Terms of Use',
+      name: 'terms_of_use',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Already have an account? `
   String get already_have_an_account {
     return Intl.message(
-      'Already have an account? *Sign In*',
+      'Already have an account? ',
       name: 'already_have_an_account',
       desc: '',
       args: [],

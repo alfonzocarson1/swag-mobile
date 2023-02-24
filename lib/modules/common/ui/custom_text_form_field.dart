@@ -95,6 +95,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                                       .textTheme
                                       .bodySmall!
                                       .copyWith(
+                                          fontWeight: FontWeight.w100,
                                           color: Palette.current.primaryNero),
                                   contentPadding: const EdgeInsets.only(top: 0),
                                   border: InputBorder.none,

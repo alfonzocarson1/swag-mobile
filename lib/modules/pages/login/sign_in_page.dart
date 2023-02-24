@@ -203,7 +203,7 @@ class _SignInPageState extends State<SignInPage> {
                                   height: 20,
                                 ),
                                 PrimaryButton(
-                                  title: S.of(context).sign_in,
+                                  title: S.of(context).sign_in.toUpperCase(),
                                   onPressed: () {
                                     showErrors();
                                     if (areFieldsValid()) {
@@ -217,16 +217,34 @@ class _SignInPageState extends State<SignInPage> {
                                   height: 20,
                                 ),
                                 ClickableText(
-                                    title: SimpleRichText(
-                                      S.of(context).dont_have_account,
+                                    title: RichText(
+                                      maxLines: 1,
+                                      softWrap: false,
+                                      overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.center,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                              color: Palette
-                                                  .current.primaryNeonGreen,
-                                              fontWeight: FontWeight.w300),
+                                      text: TextSpan(children: [
+                                        TextSpan(
+                                          text: S.of(context).dont_have_account,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                                color: Palette
+                                                    .current.primaryNeonGreen,
+                                              ),
+                                        ),
+                                        TextSpan(
+                                          text: S.of(context).create_account,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                                fontWeight: FontWeight.w400,
+                                                color: Palette
+                                                    .current.primaryNeonGreen,
+                                              ),
+                                        ),
+                                      ]),
                                     ),
                                     onPressed: () {
                                       Navigator.of(context, rootNavigator: true)

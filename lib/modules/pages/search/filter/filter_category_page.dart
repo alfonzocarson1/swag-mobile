@@ -100,7 +100,7 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
                               .copyWith(
                                   fontFamily: "Knockout",
                                   fontSize: 30,
-                                  fontWeight: FontWeight.normal,
+                                  fontWeight: FontWeight.w300,
                                   letterSpacing: 1.0,
                                   color: Palette.current.primaryWhiteSmoke),
                         ),

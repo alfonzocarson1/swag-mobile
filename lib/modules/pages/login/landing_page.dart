@@ -93,7 +93,7 @@ class LandingPage extends StatelessWidget {
                     height: 30,
                   ),
                   PrimaryButton(
-                    title: S.of(context).create_account,
+                    title: S.of(context).create_account.toUpperCase(),
                     onPressed: () {
                       Navigator.of(context, rootNavigator: true)
                           .push(CreateAccountPage.route());
@@ -104,7 +104,7 @@ class LandingPage extends StatelessWidget {
                     height: 30,
                   ),
                   PrimaryButton(
-                    title: S.of(context).sign_in,
+                    title: S.of(context).sign_in.toUpperCase(),
                     onPressed: () {
                       Navigator.of(context, rootNavigator: true)
                           .push(SignInPage.route());

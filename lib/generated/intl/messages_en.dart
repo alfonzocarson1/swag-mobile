@@ -34,8 +34,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "add_photos": MessageLookupByLibrary.simpleMessage("ADD PHOTOS"),
         "aditional_listing_detail": MessageLookupByLibrary.simpleMessage(
             "Additional listing details..."),
-        "already_have_an_account": MessageLookupByLibrary.simpleMessage(
-            "Already have an account? *Sign In*"),
+        "agree_to": MessageLookupByLibrary.simpleMessage("I agree to Swag’s "),
+        "already_have_an_account":
+            MessageLookupByLibrary.simpleMessage("Already have an account? "),
+        "and": MessageLookupByLibrary.simpleMessage(" \n& "),
         "app_name": MessageLookupByLibrary.simpleMessage("Swag Golf"),
         "available": MessageLookupByLibrary.simpleMessage("Available:"),
         "b111_222": MessageLookupByLibrary.simpleMessage("\$111 - \$222"),
@@ -55,7 +57,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
         "country": MessageLookupByLibrary.simpleMessage("Country"),
         "create_account":
-            MessageLookupByLibrary.simpleMessage("CREATE ACCOUNT"),
+            MessageLookupByLibrary.simpleMessage("Create Account"),
         "date_purchased":
             MessageLookupByLibrary.simpleMessage("Date Purchased"),
         "delete": MessageLookupByLibrary.simpleMessage("DELETE"),
@@ -69,8 +71,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "•  Minimum of 4 photos Max of 6"),
         "displayed_gamed_item_three":
             MessageLookupByLibrary.simpleMessage("•  Bottom of item"),
-        "dont_have_account": MessageLookupByLibrary.simpleMessage(
-            "Don’t have an account? *Create Account*"),
+        "dont_have_account":
+            MessageLookupByLibrary.simpleMessage("Don’t have an account? "),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "empty_password":
             MessageLookupByLibrary.simpleMessage("Invalid password"),
@@ -186,8 +188,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "price_range": MessageLookupByLibrary.simpleMessage("price range"),
         "price_validations_msj": MessageLookupByLibrary.simpleMessage(
             "cannot enter more than 2 decimal places"),
-        "privacy_policy_text": MessageLookupByLibrary.simpleMessage(
-            "I agree to Swag’s *Privacy Policy* \n& *Terms of Use*"),
+        "privacy_policy_text":
+            MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "product": MessageLookupByLibrary.simpleMessage("product"),
         "purchase_price":
             MessageLookupByLibrary.simpleMessage("Purchase Price"),
@@ -243,7 +245,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "select_item": MessageLookupByLibrary.simpleMessage("SELECT ITEM"),
         "sell_for": MessageLookupByLibrary.simpleMessage("SELL FOR"),
         "send_info": MessageLookupByLibrary.simpleMessage("SEND INFO"),
-        "sign_in": MessageLookupByLibrary.simpleMessage("SIGN IN"),
+        "sign_in": MessageLookupByLibrary.simpleMessage("Sign In"),
         "similar_items": MessageLookupByLibrary.simpleMessage("SIMILAR ITEMS"),
         "sort": MessageLookupByLibrary.simpleMessage("Sort:"),
         "sort_by": MessageLookupByLibrary.simpleMessage("sort by"),
@@ -254,6 +256,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "tab_favorites": MessageLookupByLibrary.simpleMessage("FAVORITES"),
         "tab_listings": MessageLookupByLibrary.simpleMessage("LISTINGS"),
         "tab_sold": MessageLookupByLibrary.simpleMessage("SOLD"),
+        "terms_of_use": MessageLookupByLibrary.simpleMessage("Terms of Use"),
         "theme": MessageLookupByLibrary.simpleMessage("theme"),
         "title_list_for_Sale":
             MessageLookupByLibrary.simpleMessage("GOLDEN KING COVER"),

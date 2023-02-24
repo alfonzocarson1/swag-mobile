@@ -80,7 +80,8 @@ class _HeadWidgetState extends State<HeadWidget> {
                       '''${widget.available} ${S.of(context).for_sale}''',
                       style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           fontSize: 14,
-                          fontWeight: FontWeight.w600,
+                          fontFamily: 'Ringside',
+                          fontWeight: FontWeight.bold,
                           color: Palette.current.white)),
                 ),
               ),
@@ -193,7 +194,7 @@ class _HeadWidgetState extends State<HeadWidget> {
                                               fontFamily: "Knockout",
                                               fontSize: 25,
                                               letterSpacing: 1,
-                                              fontWeight: FontWeight.w500,
+                                              fontWeight: FontWeight.w300,
                                               color: Palette.current.white)),
                                 ],
                               )),
@@ -235,7 +236,7 @@ class _HeadWidgetState extends State<HeadWidget> {
                                   .copyWith(
                                       fontSize: 16,
                                       color: Palette.current.white,
-                                      fontWeight: FontWeight.w600),
+                                      fontWeight: FontWeight.normal),
                             ),
                             onPressed: () {
                               setState(() {

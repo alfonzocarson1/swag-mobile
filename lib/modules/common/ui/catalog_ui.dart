@@ -142,6 +142,7 @@ class _CatalogPageState extends State<CatalogPage> {
                                               .bodySmall!
                                               .copyWith(
                                                   fontWeight: FontWeight.bold,
+                                                  fontFamily: 'Ringside',
                                                   fontSize: 14,
                                                   color: Palette.current
                                                       .primaryWhiteSmoke),

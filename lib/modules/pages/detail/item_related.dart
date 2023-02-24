@@ -102,7 +102,8 @@ class _RelatedItemsWidgetState extends State<RelatedItemsWidget> {
                                       .textTheme
                                       .bodySmall!
                                       .copyWith(
-                                          fontWeight: FontWeight.w300,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Ringside',
                                           fontSize: 13,
                                           color: Palette
                                               .current.primaryNeonGreen)),
@@ -166,7 +167,8 @@ class _RelatedItemsWidgetState extends State<RelatedItemsWidget> {
                                       .textTheme
                                       .bodySmall!
                                       .copyWith(
-                                          fontWeight: FontWeight.w300,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Ringside',
                                           fontSize: 13,
                                           color: Palette
                                               .current.primaryNeonGreen)),

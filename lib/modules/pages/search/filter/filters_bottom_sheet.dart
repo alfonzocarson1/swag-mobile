@@ -77,6 +77,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                         },
                         icon: Icon(
                           Icons.arrow_back,
+                          size: 24,
                           color: Palette.current.primaryNeonGreen,
                         )),
                   ),
@@ -85,7 +86,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                     style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                         fontFamily: "Knockout",
                         fontSize: 30,
-                        fontWeight: FontWeight.normal,
+                        fontWeight: FontWeight.w300,
                         letterSpacing: 1.0,
                         color: Palette.current.primaryWhiteSmoke),
                   ),
@@ -292,7 +293,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                               text: title,
                               style: Theme.of(context)
                                   .textTheme
-                                  .headlineLarge!
+                                  .bodySmall!
                                   .copyWith(
                                       color: Palette.current.primaryWhiteSmoke,
                                       fontSize: 16)),

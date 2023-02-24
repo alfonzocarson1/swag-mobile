@@ -179,7 +179,7 @@ class _MultiImageSlideState extends State<MultiImageSlide> {
                                                       fontSize: 25,
                                                       letterSpacing: 1,
                                                       fontWeight:
-                                                          FontWeight.w500,
+                                                          FontWeight.w300,
                                                       color: Palette
                                                           .current.white)),
                                         ],
