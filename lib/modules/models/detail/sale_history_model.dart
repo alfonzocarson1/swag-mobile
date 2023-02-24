@@ -1,9 +1,14 @@
-import 'dart:ffi';
-
 class Sale {
   String date;
   String condition;
-  String price;
+  double price;
+  Priority? priority;
 
-  Sale({required this.date, required this.condition, required this.price});
+  Sale(
+      {required this.date,
+      required this.condition,
+      required this.price,
+      this.priority});
 }
+
+enum Priority { first, second, third }
