@@ -12,6 +12,8 @@ import 'package:swagapp/modules/pages/search/search_on_tap_page.dart';
 import 'package:swagapp/modules/pages/search/tabs/whats_hot_page.dart';
 
 import '../../common/utils/custom_route_animations.dart';
+import '../../data/shared_preferences/shared_preferences_service.dart';
+import '../../di/injector.dart';
 
 class SearchPage extends StatefulWidget {
   static const name = '/SearchCatalog';
@@ -37,6 +39,7 @@ class _SearchPageState extends State<SearchPage>
   @override
   void initState() {
     super.initState();
+    getLastCategories();
     _controller = TabController(length: 4, vsync: this);
     // _isLogged = getIt<PreferenceRepositoryService>().isLogged();
     // if (_isLogged) {
@@ -50,6 +53,14 @@ class _SearchPageState extends State<SearchPage>
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  @override
+  Future<void> getLastCategories() async {
+    List<dynamic> jsonData =
+        await getIt<PreferenceRepositoryService>().getLastCategories();
+
+    print(jsonData);
   }
 
   @override

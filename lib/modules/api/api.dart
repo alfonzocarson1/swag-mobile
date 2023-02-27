@@ -4,6 +4,7 @@ import 'package:swagapp/modules/constants/constants.dart';
 
 enum Endpoint {
   isUsernameAvailable,
+  catalogCategories,
 }
 
 class API {
@@ -23,5 +24,6 @@ class API {
   static final Map<Endpoint, String> _paths = {
     Endpoint.isUsernameAvailable:
         'api/public/v1/account/isUsernameAvailable/%s',
+    Endpoint.catalogCategories: 'api/public/v1/catalog/categories/',
   };
 }

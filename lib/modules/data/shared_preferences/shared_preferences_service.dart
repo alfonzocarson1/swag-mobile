@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../constants/constants.dart';
+import '../../models/search/category_list_model.dart';
+import '../../models/search/category_model.dart';
 import 'i_shared_preferences.dart';
 
 class PreferenceRepositoryService implements PreferenceRepositoryInt {
@@ -13,6 +17,7 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   static const String _condition = 'condition';
   static const String _price = 'price';
   static const String _releaseDate = 'releaseDate';
+  static const String _lastCategories = 'lastCategories';
   late SharedPreferences _prefs;
   @override
   SharedPreferences get prefs => _prefs;
@@ -119,5 +124,18 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   @override
   Future<void> setReleaseDate(int value) async {
     await _prefs.setInt(_releaseDate, value);
+  }
+
+  @override
+  Future<void> saveLastCategories(dynamic cList) async {
+    await _prefs.setString(_lastCategories, jsonEncode(cList));
+  }
+
+  @override
+  getLastCategories() async {
+    Map<String, dynamic> map =
+        json.decode(_prefs.getString(_lastCategories) ?? '[]');
+    List<dynamic> jsonData = map["categoryList"];
+    return jsonData.map((e) => CategoryModel.fromJson(e)).toList();
   }
 }

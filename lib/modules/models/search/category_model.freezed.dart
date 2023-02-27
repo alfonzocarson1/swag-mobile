@@ -22,7 +22,6 @@ CategoryModel _$CategoryModelFromJson(Map<String, dynamic> json) {
 mixin _$CategoryModel {
   String get catalogCategoryId => throw _privateConstructorUsedError;
   String get categoryName => throw _privateConstructorUsedError;
-  String? get jobId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +35,7 @@ abstract class $CategoryModelCopyWith<$Res> {
           CategoryModel value, $Res Function(CategoryModel) then) =
       _$CategoryModelCopyWithImpl<$Res, CategoryModel>;
   @useResult
-  $Res call({String catalogCategoryId, String categoryName, String? jobId});
+  $Res call({String catalogCategoryId, String categoryName});
 }
 
 /// @nodoc
@@ -54,7 +53,6 @@ class _$CategoryModelCopyWithImpl<$Res, $Val extends CategoryModel>
   $Res call({
     Object? catalogCategoryId = null,
     Object? categoryName = null,
-    Object? jobId = freezed,
   }) {
     return _then(_value.copyWith(
       catalogCategoryId: null == catalogCategoryId
@@ -65,10 +63,6 @@ class _$CategoryModelCopyWithImpl<$Res, $Val extends CategoryModel>
           ? _value.categoryName
           : categoryName // ignore: cast_nullable_to_non_nullable
               as String,
-      jobId: freezed == jobId
-          ? _value.jobId
-          : jobId // ignore: cast_nullable_to_non_nullable
-              as String?,
     ) as $Val);
   }
 }
@@ -81,7 +75,7 @@ abstract class _$$_CategoryModelCopyWith<$Res>
       __$$_CategoryModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String catalogCategoryId, String categoryName, String? jobId});
+  $Res call({String catalogCategoryId, String categoryName});
 }
 
 /// @nodoc
@@ -97,7 +91,6 @@ class __$$_CategoryModelCopyWithImpl<$Res>
   $Res call({
     Object? catalogCategoryId = null,
     Object? categoryName = null,
-    Object? jobId = freezed,
   }) {
     return _then(_$_CategoryModel(
       catalogCategoryId: null == catalogCategoryId
@@ -108,10 +101,6 @@ class __$$_CategoryModelCopyWithImpl<$Res>
           ? _value.categoryName
           : categoryName // ignore: cast_nullable_to_non_nullable
               as String,
-      jobId: freezed == jobId
-          ? _value.jobId
-          : jobId // ignore: cast_nullable_to_non_nullable
-              as String?,
     ));
   }
 }
@@ -121,9 +110,7 @@ class __$$_CategoryModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_CategoryModel implements _CategoryModel {
   const _$_CategoryModel(
-      {required this.catalogCategoryId,
-      required this.categoryName,
-      this.jobId});
+      {required this.catalogCategoryId, required this.categoryName});
 
   factory _$_CategoryModel.fromJson(Map<String, dynamic> json) =>
       _$$_CategoryModelFromJson(json);
@@ -132,12 +119,10 @@ class _$_CategoryModel implements _CategoryModel {
   final String catalogCategoryId;
   @override
   final String categoryName;
-  @override
-  final String? jobId;
 
   @override
   String toString() {
-    return 'CategoryModel(catalogCategoryId: $catalogCategoryId, categoryName: $categoryName, jobId: $jobId)';
+    return 'CategoryModel(catalogCategoryId: $catalogCategoryId, categoryName: $categoryName)';
   }
 
   @override
@@ -148,14 +133,12 @@ class _$_CategoryModel implements _CategoryModel {
             (identical(other.catalogCategoryId, catalogCategoryId) ||
                 other.catalogCategoryId == catalogCategoryId) &&
             (identical(other.categoryName, categoryName) ||
-                other.categoryName == categoryName) &&
-            (identical(other.jobId, jobId) || other.jobId == jobId));
+                other.categoryName == categoryName));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, catalogCategoryId, categoryName, jobId);
+  int get hashCode => Object.hash(runtimeType, catalogCategoryId, categoryName);
 
   @JsonKey(ignore: true)
   @override
@@ -174,8 +157,7 @@ class _$_CategoryModel implements _CategoryModel {
 abstract class _CategoryModel implements CategoryModel {
   const factory _CategoryModel(
       {required final String catalogCategoryId,
-      required final String categoryName,
-      final String? jobId}) = _$_CategoryModel;
+      required final String categoryName}) = _$_CategoryModel;
 
   factory _CategoryModel.fromJson(Map<String, dynamic> json) =
       _$_CategoryModel.fromJson;
@@ -184,8 +166,6 @@ abstract class _CategoryModel implements CategoryModel {
   String get catalogCategoryId;
   @override
   String get categoryName;
-  @override
-  String? get jobId;
   @override
   @JsonKey(ignore: true)
   _$$_CategoryModelCopyWith<_$_CategoryModel> get copyWith =>

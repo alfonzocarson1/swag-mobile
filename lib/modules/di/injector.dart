@@ -9,6 +9,7 @@ import 'package:swagapp/modules/data/search/search_service.dart';
 
 import '../blocs/auth_bloc/auth_bloc.dart';
 import '../blocs/auth_bloc/username_bloc.dart';
+import '../blocs/category_bloc/category_bloc.dart';
 import '../blocs/collection_bloc/collection_bloc.dart';
 import '../blocs/detail_bloc/detail_bloc.dart';
 import '../blocs/explore_bloc/explore_bloc.dart';
@@ -18,6 +19,8 @@ import '../blocs/profile_favorite_bloc/profile_favorite_bloc.dart';
 import '../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
 import '../blocs/sold_bloc/sold_bloc.dart';
 import '../data/auth/auth_service.dart';
+import '../data/category/category_service.dart';
+import '../data/category/i_category_service.dart';
 import '../data/collection/collection_service.dart';
 import '../data/collection/i_collection_service.dart';
 import '../data/detail/detail_service.dart';
@@ -85,6 +88,11 @@ Future<void> setupAppScope() {
       .registerLazySingleton<SharedPreferencesBloc>(() => SharedPreferencesBloc(
             preferenceRepository: getIt<PreferenceRepositoryService>(),
           ));
+
+  getIt.registerLazySingleton<ICategoryService>(
+      () => CategoryService(APIService()));
+  getIt.registerLazySingleton<CategoryBloc>(
+      () => CategoryBloc(getIt<ICategoryService>()));
 
   return getIt.allReady();
 }
