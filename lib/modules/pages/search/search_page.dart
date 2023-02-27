@@ -36,6 +36,8 @@ class _SearchPageState extends State<SearchPage>
   int selectedIndex = 0;
   final TextEditingController _textEditingController = TextEditingController();
 
+  List<dynamic> categoriesData = [];
+
   @override
   void initState() {
     super.initState();
@@ -57,10 +59,9 @@ class _SearchPageState extends State<SearchPage>
 
   @override
   Future<void> getLastCategories() async {
-    List<dynamic> jsonData =
+    categoriesData =
         await getIt<PreferenceRepositoryService>().getLastCategories();
-
-    print(jsonData);
+    setState(() {});
   }
 
   @override
@@ -87,9 +88,11 @@ class _SearchPageState extends State<SearchPage>
   }
 
   Widget getBody() {
+    var tabLen = categoriesData.length;
+
     return Column(
       children: [
-        _getTabBar(context),
+        tabLen == 0 ? Container() : _getTabBar(context),
         Expanded(
           child: TabBarView(controller: _controller, children: const [
             WhatsHotPage(),
@@ -175,49 +178,33 @@ class _SearchPageState extends State<SearchPage>
     return Padding(
       padding: const EdgeInsets.only(top: 10, left: 0, right: 0),
       child: TabBar(
-        controller: _controller,
-        labelColor: Palette.current.primaryNeonGreen,
-        indicatorSize: TabBarIndicatorSize.label,
-        unselectedLabelColor: Palette.current.primaryWhiteSmoke,
-        unselectedLabelStyle: Theme.of(context)
-            .textTheme
-            .headlineMedium!
-            .copyWith(
-                fontFamily: "KnockoutCustom",
-                fontSize: 21,
-                letterSpacing: 1.1,
-                fontWeight: FontWeight.w300),
-        labelStyle: Theme.of(context).textTheme.headlineMedium!.copyWith(
-            fontFamily: "KnockoutCustom",
-            fontSize: 21,
-            letterSpacing: 1.0,
-            fontWeight: FontWeight.w300),
-        onTap: (index) {
-          setState(() {});
-        },
-        tabs: [
-          Tab(
-            child: _buildTab(
-              text: S.of(context).whats_hot.toUpperCase(),
-            ),
-          ),
-          Tab(
-            child: _buildTab(
-              text: S.of(context).headcovers.toUpperCase(),
-            ),
-          ),
-          Tab(
-            child: _buildTab(
-              text: S.of(context).putters.toUpperCase(),
-            ),
-          ),
-          Tab(
-            child: _buildTab(
-              text: S.of(context).accessories.toUpperCase(),
-            ),
-          ),
-        ],
-      ),
+          controller: _controller,
+          labelColor: Palette.current.primaryNeonGreen,
+          indicatorSize: TabBarIndicatorSize.label,
+          unselectedLabelColor: Palette.current.primaryWhiteSmoke,
+          unselectedLabelStyle: Theme.of(context)
+              .textTheme
+              .headlineMedium!
+              .copyWith(
+                  fontFamily: "KnockoutCustom",
+                  fontSize: 21,
+                  letterSpacing: 1.1,
+                  fontWeight: FontWeight.w300),
+          labelStyle: Theme.of(context).textTheme.headlineMedium!.copyWith(
+              fontFamily: "KnockoutCustom",
+              fontSize: 21,
+              letterSpacing: 1.0,
+              fontWeight: FontWeight.w300),
+          onTap: (index) {
+            setState(() {});
+          },
+          tabs: List<Widget>.generate(categoriesData.length, (index) {
+            return Tab(
+              child: _buildTab(
+                text: categoriesData[index].categoryName.toUpperCase(),
+              ),
+            );
+          })),
     );
   }
 }

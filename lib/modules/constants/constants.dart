@@ -1,5 +1,5 @@
 const String hostProd = "dev.core-api.app.net";
-const String hostDev = "orchestrationservice.dev.swag.kuldisak.net:8080";
+const String hostDev = "orchestration.dev.swag.kuldisak.net:8080";
 const String hostQa = "dev.core-api.app.net";
 const tokenPath = 'auth/realms/app/protocol/openid-connect/token';
 const termsAndConditionsUrl = "https://swag.golf/pages/termsandconditions";

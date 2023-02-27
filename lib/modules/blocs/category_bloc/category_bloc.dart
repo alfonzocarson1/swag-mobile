@@ -32,9 +32,13 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     try {
       CategoryListModel responseBody =
           await categoryService.catalogCategories();
-      print(responseBody.categoryList);
 
-      getIt<PreferenceRepositoryService>().saveLastCategories(responseBody);
+      List<dynamic> sharedCategoriesData =
+          await getIt<PreferenceRepositoryService>().getLastCategories();
+
+      if ('${responseBody.categoryList}' != "$sharedCategoriesData") {
+        getIt<PreferenceRepositoryService>().saveLastCategories(responseBody);
+      }
 
       yield CategoryState.loadedCategories(categoryList: [responseBody]);
     } catch (e) {
