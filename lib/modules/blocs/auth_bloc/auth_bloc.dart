@@ -53,6 +53,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     yield const AuthState.logging();
     try {
       var response = await authService.createAccount(model);
+      //TODO SAVE TOKEN HERE
       if (response.errorCode == successResponse) {
         yield const AuthState.authenticated();
       } else {
@@ -63,12 +64,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  Stream<AuthState> _authenticate() async* {
+  Stream<AuthState> _authenticate(String email, String password) async* {
     yield const AuthState.logging();
     try {
-      await Future.delayed(const Duration(milliseconds: 2000), () {});
-      // await authService.authenticate();
-      yield const AuthState.authenticated();
+      var response = await authService.authenticate(email, password);
+      //TODO SAVE TOKEN HERE
+      if (response.errorCode == successResponse ||
+          response.errorCode == defaultString) {
+        yield const AuthState.authenticated();
+      } else {
+        yield AuthState.error(HandlingErrors().getError(response.errorCode));
+      }
     } catch (e) {
       yield AuthState.error(HandlingErrors().getError(e));
     }

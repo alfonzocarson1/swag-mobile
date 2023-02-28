@@ -9,7 +9,7 @@ part of 'generic_response_model.dart';
 _$_GenericResponseModel _$$_GenericResponseModelFromJson(
         Map<String, dynamic> json) =>
     _$_GenericResponseModel(
-      errorCode: json['errorCode'] as String,
+      errorCode: json['errorCode'] as String? ?? defaultString,
       errorMessage: json['errorMessage'] as String? ?? defaultString,
       token: json['token'] as String? ?? defaultString,
       hasImportableData: json['hasImportableData'] as bool? ?? false,
