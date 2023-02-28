@@ -1,10 +1,9 @@
-import 'dart:convert';
-import 'dart:ffi';
-
+import 'package:swagapp/modules/models/auth/generic_response_model.dart';
 import 'package:swagapp/modules/pages/login/create_account_page.dart';
 
 import '../../api/api.dart';
 import '../../api/api_service.dart';
+import '../../models/auth/create_account_payload_model.dart';
 import 'i_auth_service.dart';
 
 class AuthService extends IAuthService {
@@ -17,6 +16,18 @@ class AuthService extends IAuthService {
 
   @override
   Future<void> authenticate() async {}
+
+  @override
+  Future<GenericResponseModel> createAccount(
+      CreateAccountPayloadModel model) async {
+    final response = await apiService.getEndpointData(
+      endpoint: Endpoint.createNewAccount,
+      method: RequestMethod.post,
+      body: model.toJson(),
+      fromJson: (json) => GenericResponseModel.fromJson(json),
+    );
+    return response;
+  }
 
   @override
   Future<void> logOut() async {}

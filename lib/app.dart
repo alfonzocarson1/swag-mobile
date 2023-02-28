@@ -93,9 +93,8 @@ class App extends StatelessWidget {
                   orElse: () => child!,
                   unauthenticated: (_) => MultiBlocProvider(
                         providers: [
-                          BlocProvider<AuthBloc>(
-                            create: (context) => getIt<AuthBloc>(),
-                          ),
+                          BlocProvider<SoldBloc>(
+                              create: (context) => getIt<SoldBloc>()),
                         ],
                         child: child!,
                       ),
@@ -103,9 +102,8 @@ class App extends StatelessWidget {
                         value: _homeNavigatorKey,
                         child: MultiBlocProvider(
                           providers: [
-                            BlocProvider<AuthBloc>(
-                              create: (context) => getIt<AuthBloc>(),
-                            ),
+                            BlocProvider<SoldBloc>(
+                                create: (context) => getIt<SoldBloc>()),
                           ],
                           child: child!,
                         ),

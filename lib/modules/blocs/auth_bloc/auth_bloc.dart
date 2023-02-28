@@ -4,7 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../common/utils/handling_errors.dart';
+import '../../constants/constants.dart';
 import '../../data/auth/i_auth_service.dart';
+import '../../models/auth/create_account_payload_model.dart';
 
 part 'auth_bloc.freezed.dart';
 part 'auth_event.dart';
@@ -33,6 +35,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     yield* event.when(
       logout: _logout,
       authenticate: _authenticate,
+      createAccount: _createAccount,
       init: _init,
     );
   }
@@ -44,6 +47,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Stream<AuthState> _init() async* {
     yield const AuthState.initial();
+  }
+
+  Stream<AuthState> _createAccount(CreateAccountPayloadModel model) async* {
+    yield const AuthState.logging();
+    try {
+      var response = await authService.createAccount(model);
+      if (response.errorCode == successResponse) {
+        yield const AuthState.authenticated();
+      } else {
+        yield AuthState.error(HandlingErrors().getError(response.errorCode));
+      }
+    } catch (e) {
+      yield AuthState.error(HandlingErrors().getError(e));
+    }
   }
 
   Stream<AuthState> _authenticate() async* {

@@ -2,7 +2,7 @@ import 'package:sprintf/sprintf.dart';
 import 'package:swagapp/modules/api/app_config.dart';
 import 'package:swagapp/modules/constants/constants.dart';
 
-enum Endpoint { isUsernameAvailable, catalogItemDetail }
+enum Endpoint { isUsernameAvailable, createNewAccount, catalogItemDetail }
 
 class API {
   static final String? host = AppConfig().baseUrl;
@@ -21,6 +21,7 @@ class API {
   static final Map<Endpoint, String> _paths = {
     Endpoint.isUsernameAvailable:
         'api/public/v1/account/isUsernameAvailable/%s',
+    Endpoint.createNewAccount: 'api/public/v1/account/createNewAccount',
     Endpoint.catalogItemDetail: 'api/public/v1/catalog/catalogItemDetail/%s',
   };
 }

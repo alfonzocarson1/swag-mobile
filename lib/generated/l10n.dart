@@ -130,11 +130,21 @@ class S {
     );
   }
 
-  /// `Invalid email address`
+  /// `Invalid email address format`
   String get invalid_email {
     return Intl.message(
-      'Invalid email address',
+      'Invalid email address format',
       name: 'invalid_email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `An account is already associated with this email`
+  String get email_taken {
+    return Intl.message(
+      'An account is already associated with this email',
+      name: 'email_taken',
       desc: '',
       args: [],
     );
