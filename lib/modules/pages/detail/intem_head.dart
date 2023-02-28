@@ -14,7 +14,9 @@ class HeadWidget extends StatefulWidget {
       this.catalogItemName,
       this.lastSale,
       this.catalogItemDescription,
+      this.catalogItemDescriptionShort,
       required this.sale,
+      required this.favorite,
       this.available,
       this.saleHistory});
 
@@ -22,7 +24,9 @@ class HeadWidget extends StatefulWidget {
   final String? catalogItemName;
   final String? lastSale;
   final String? catalogItemDescription;
+  final String? catalogItemDescriptionShort;
   final bool sale;
+  final bool favorite;
   final int? available;
   final List<dynamic>? saleHistory;
 
@@ -43,7 +47,7 @@ class _HeadWidgetState extends State<HeadWidget> {
     return Column(
       children: [
         SizedBox(
-          height: 260,
+          height: 360,
           child: Stack(children: [
             Positioned.fill(
               child: CachedNetworkImage(
@@ -123,10 +127,15 @@ class _HeadWidgetState extends State<HeadWidget> {
                             alignment: Alignment.centerRight,
                             child: GestureDetector(
                               onTap: () {},
-                              child: Image.asset(
-                                "assets/images/UnFavorite.png",
-                                scale: 3.5,
-                              ),
+                              child: widget.favorite
+                                  ? Image.asset(
+                                      "assets/images/Favorite.png",
+                                      scale: 3.5,
+                                    )
+                                  : Image.asset(
+                                      "assets/images/UnFavorite.png",
+                                      scale: 3.5,
+                                    ),
                             ),
                           ),
                         ],
@@ -141,7 +150,7 @@ class _HeadWidgetState extends State<HeadWidget> {
                 child: Text(
                     widget.sale
                         ? "${S.of(context).for_sale} \$360.00 - ${widget.lastSale}"
-                        : '${S.of(context).last_sale} ${widget.lastSale}',
+                        : '${widget.lastSale}',
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                         fontWeight: FontWeight.w300,
                         color: Palette.current.primaryNeonGreen)),
@@ -155,13 +164,15 @@ class _HeadWidgetState extends State<HeadWidget> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.of(context, rootNavigator: true).push(
-                              TransactionHistory.route(
-                                  widget.urlImage,
-                                  widget.catalogItemName!,
-                                  widget.lastSale!,
-                                  false,
-                                  3));
+                          Navigator.of(context, rootNavigator: true)
+                              .push(TransactionHistory.route(
+                            widget.urlImage,
+                            widget.catalogItemName!,
+                            widget.lastSale!,
+                            false,
+                            3,
+                            widget.favorite,
+                          ));
                         },
                         child: Center(
                           child: Container(
@@ -209,16 +220,26 @@ class _HeadWidgetState extends State<HeadWidget> {
                       const SizedBox(
                         height: 20,
                       ),
-                      Text(
-                          overflow: _viewMore ? null : TextOverflow.ellipsis,
-                          maxLines: _viewMore ? null : 3,
-                          widget.catalogItemDescription ?? '',
-                          style:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    fontSize: 15,
-                                    letterSpacing: 0.3,
-                                    color: Palette.current.primaryWhiteSmoke,
-                                  )),
+                      Visibility(
+                        visible: _viewMore,
+                        child: Text(widget.catalogItemDescription ?? '',
+                            style:
+                                Theme.of(context).textTheme.bodySmall!.copyWith(
+                                      fontSize: 15,
+                                      letterSpacing: 0.3,
+                                      color: Palette.current.primaryWhiteSmoke,
+                                    )),
+                      ),
+                      Visibility(
+                        visible: !_viewMore,
+                        child: Text(widget.catalogItemDescriptionShort ?? '',
+                            style:
+                                Theme.of(context).textTheme.bodySmall!.copyWith(
+                                      fontSize: 15,
+                                      letterSpacing: 0.3,
+                                      color: Palette.current.primaryWhiteSmoke,
+                                    )),
+                      ),
                       const SizedBox(
                         height: 20,
                       ),

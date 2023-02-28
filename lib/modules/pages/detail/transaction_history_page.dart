@@ -16,6 +16,7 @@ class TransactionHistory extends StatefulWidget {
     this.lastSale,
     this.sale = false,
     this.available,
+    required this.favorite,
   });
 
   final String urlImage;
@@ -23,17 +24,20 @@ class TransactionHistory extends StatefulWidget {
   final String? lastSale;
   final bool sale;
   final int? available;
+  final bool favorite;
 
   static Route route(String urlImage, String catalogItemName, String lastSale,
-          bool sale, int available) =>
+          bool sale, int available, bool favorite) =>
       PageRoutes.material(
         settings: const RouteSettings(name: name),
         builder: (context) => TransactionHistory(
-            urlImage: urlImage,
-            catalogItemName: catalogItemName,
-            lastSale: lastSale,
-            sale: sale,
-            available: available),
+          urlImage: urlImage,
+          catalogItemName: catalogItemName,
+          lastSale: lastSale,
+          sale: sale,
+          available: available,
+          favorite: favorite,
+        ),
       );
 
   @override
@@ -61,12 +65,13 @@ class _TransactionHistoryState extends State<TransactionHistory> {
           child: Column(
             children: [
               HeadWidget(
+                  favorite: widget.favorite,
                   urlImage: widget.urlImage,
                   catalogItemName: widget.catalogItemName,
                   lastSale: widget.lastSale,
                   sale: widget.sale,
                   available: widget.available),
-              CustomDataTable()
+              const CustomDataTable()
             ],
           ),
         ));

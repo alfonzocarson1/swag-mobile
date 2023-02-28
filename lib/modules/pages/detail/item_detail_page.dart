@@ -84,8 +84,8 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
               },
               loadedDetailItems: (state) {
                 _myActionsFlag.value = true;
-                _collectionNum.value =
-                    state.detaItemlList[0].myCollection!.length;
+                //TODO: este valor valida
+                _collectionNum.value = 0;
                 return _getBody(state.detaItemlList);
               },
             );
@@ -143,38 +143,39 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                     HeadWidget(
                       urlImage: dataDetail[index].catalogItemImage,
                       catalogItemName: dataDetail[index].catalogItemName,
-                      lastSale: dataDetail[index].lastSale,
+                      lastSale: dataDetail[index].saleInfo,
                       catalogItemDescription:
                           dataDetail[index].catalogItemDescription,
-                      sale: dataDetail[index].sale,
+                      catalogItemDescriptionShort:
+                          dataDetail[index].catalogItemDescriptionShort,
+                      sale: dataDetail[index].forSale,
+                      favorite: dataDetail[index].inFavorites,
                       available: dataDetail[index].numberAvailable,
                       saleHistory: [],
                     ),
                     RarityWidget(
-                        rarity: dataDetail[index].rarityScore[index],
+                        rarity: dataDetail[index].rarityScore,
                         released: dataDetail[index].released,
                         releaseType: dataDetail[index].releasedType,
                         totalMade: dataDetail[index].totalMade,
                         retail: dataDetail[index].retail,
                         available: dataDetail[index].numberAvailable),
                     CollectionWidget(
-                        sale: dataDetail[index].sale,
+                        sale: dataDetail[index].forSale,
                         dataCollection: dataDetail[index].myCollection,
-                        lastSale: dataDetail[index].lastSale,
+                        lastSale: dataDetail[index].saleInfo,
                         available: dataDetail[index].numberAvailable),
                   ],
                 ),
               ),
-              dataDetail[index].myCollection!.isEmpty
-                  ? RelatedItemsWidget(
-                      dataRelated: dataDetail[index].similarItemList)
-                  : const ItemSwitched()
+              const ItemSwitched()
             ],
           );
         });
   }
 
   void makeCall() {
-    context.read<DetailBloc>().add(const DetailEvent.getDetailItem());
+    context.read<DetailBloc>().add(const DetailEvent.getDetailItem(
+        '525fc291-cc22-4adb-a9b3-53cb6c621881'));
   }
 }
