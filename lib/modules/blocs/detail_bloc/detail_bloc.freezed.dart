@@ -16,19 +16,20 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$DetailEvent {
+  String get itemId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getDetailItem,
+    required TResult Function(String itemId) getDetailItem,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getDetailItem,
+    TResult? Function(String itemId)? getDetailItem,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getDetailItem,
+    TResult Function(String itemId)? getDetailItem,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -48,6 +49,10 @@ mixin _$DetailEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $DetailEventCopyWith<DetailEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -55,6 +60,8 @@ abstract class $DetailEventCopyWith<$Res> {
   factory $DetailEventCopyWith(
           DetailEvent value, $Res Function(DetailEvent) then) =
       _$DetailEventCopyWithImpl<$Res, DetailEvent>;
+  @useResult
+  $Res call({String itemId});
 }
 
 /// @nodoc
@@ -66,13 +73,30 @@ class _$DetailEventCopyWithImpl<$Res, $Val extends DetailEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? itemId = null,
+  }) {
+    return _then(_value.copyWith(
+      itemId: null == itemId
+          ? _value.itemId
+          : itemId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$_GetDetailItemCopyWith<$Res> {
+abstract class _$$_GetDetailItemCopyWith<$Res>
+    implements $DetailEventCopyWith<$Res> {
   factory _$$_GetDetailItemCopyWith(
           _$_GetDetailItem value, $Res Function(_$_GetDetailItem) then) =
       __$$_GetDetailItemCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String itemId});
 }
 
 /// @nodoc
@@ -82,51 +106,75 @@ class __$$_GetDetailItemCopyWithImpl<$Res>
   __$$_GetDetailItemCopyWithImpl(
       _$_GetDetailItem _value, $Res Function(_$_GetDetailItem) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? itemId = null,
+  }) {
+    return _then(_$_GetDetailItem(
+      null == itemId
+          ? _value.itemId
+          : itemId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_GetDetailItem implements _GetDetailItem {
-  const _$_GetDetailItem();
+  const _$_GetDetailItem(this.itemId);
+
+  @override
+  final String itemId;
 
   @override
   String toString() {
-    return 'DetailEvent.getDetailItem()';
+    return 'DetailEvent.getDetailItem(itemId: $itemId)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_GetDetailItem);
+        (other.runtimeType == runtimeType &&
+            other is _$_GetDetailItem &&
+            (identical(other.itemId, itemId) || other.itemId == itemId));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, itemId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_GetDetailItemCopyWith<_$_GetDetailItem> get copyWith =>
+      __$$_GetDetailItemCopyWithImpl<_$_GetDetailItem>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getDetailItem,
+    required TResult Function(String itemId) getDetailItem,
   }) {
-    return getDetailItem();
+    return getDetailItem(itemId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getDetailItem,
+    TResult? Function(String itemId)? getDetailItem,
   }) {
-    return getDetailItem?.call();
+    return getDetailItem?.call(itemId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getDetailItem,
+    TResult Function(String itemId)? getDetailItem,
     required TResult orElse(),
   }) {
     if (getDetailItem != null) {
-      return getDetailItem();
+      return getDetailItem(itemId);
     }
     return orElse();
   }
@@ -161,7 +209,14 @@ class _$_GetDetailItem implements _GetDetailItem {
 }
 
 abstract class _GetDetailItem implements DetailEvent {
-  const factory _GetDetailItem() = _$_GetDetailItem;
+  const factory _GetDetailItem(final String itemId) = _$_GetDetailItem;
+
+  @override
+  String get itemId;
+  @override
+  @JsonKey(ignore: true)
+  _$$_GetDetailItemCopyWith<_$_GetDetailItem> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

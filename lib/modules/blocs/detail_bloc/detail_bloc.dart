@@ -15,7 +15,8 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
   final IDetailService detailService;
 
   DetailBloc(this.detailService) : super(DetailState.initial()) {
-    add(const DetailEvent.getDetailItem());
+    add(const DetailEvent.getDetailItem(
+        '525fc291-cc22-4adb-a9b3-53cb6c621881'));
   }
 
   Stream<DetailState> get authStateStream async* {
@@ -30,80 +31,12 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
     );
   }
 
-  Stream<DetailState> _getDetailItem() async* {
+  Stream<DetailState> _getDetailItem(String itemId) async* {
     yield DetailState.initial();
     try {
-      await Future.delayed(const Duration(milliseconds: 2000), () {});
-      // await searchService.getCatatogItems();
-      final responseBody = [
-        {
-          "catalogItemId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-          "catalogItemImage":
-              "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Rectangle%2012%20(1).png?alt=media&token=00355e6f-7046-4f5f-9797-cc7610cab9fe",
-          "catalogItemName": "FIFTEEN MILLION DOLLAR BLADE 3.0",
-          "catalogItemDescription":
-              "The winner of this week's final playoff event will receive an insane 15 Million payday...you also have a chance for a payday if you are one of the 36 randomly chosen to have an opportunity to buy this year's 15M Bill Cover!",
-          "catalogItemCategoryId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-          "released": "08/04/2022",
-          "totalMade": 36,
-          "retail": "\$125.00",
-          "releasedType": "Tour",
-          "lastSale": "\$380.00",
-          "numberAvailable": 3,
-          "rarityScore": ["RARE"],
-          "sale": true,
-          "attributeItemList": [
-            {
-              "catalogItemColor": "String",
-              "catalogItemLimit": "String",
-              "catalogItemIncludes": "String"
-            }
-          ],
-          "myCollection": [
-            {
-              "collectionItemId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-              "acquired": "08/04/2022",
-              "paid": "\$165.00 +20.8%",
-              "salePrice": "\$400.00",
-              "condition": "Gamed"
-            },
-            {
-              "collectionItemId": "3fa85f64-5717-4562-b3fc-2c963f66afa7",
-              "acquired": "08/04/2022",
-              "paid": "\$165.00 +20.8%",
-              "salePrice": "\$400.00",
-              "condition": "Sealed"
-            },
-            {
-              "collectionItemId": "3fa85f64-5717-4562-b3fc-2c963f66afa8",
-              "acquired": "08/04/2022",
-              "paid": "\$165.00 +20.8%",
-              "salePrice": "\$400.00",
-              "condition": "Gamed"
-            }
-          ],
-          "saleHistory": [],
-          "similarItemList": [
-            {
-              "catalogItemImage":
-                  "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Rectangle%2012%20(1).png?alt=media&token=00355e6f-7046-4f5f-9797-cc7610cab9fe",
-              "catalogItemId": "3fa85f64-5717-4562-b3fc-2c963f66afa8",
-              "catalogItemName": "EL GRANDE SHERBET BLADE",
-              "retail": "\$675.00"
-            },
-            {
-              "catalogItemImage":
-                  "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Rectangle%2012%20(2).png?alt=media&token=87cbb86a-1a34-4344-92a4-adf0648b7ecf",
-              "catalogItemId": "3fa85f64-5717-4562-b3fc-2c963f66afa8",
-              "catalogItemName": "WASTED SKULL BLADE COVER",
-              "retail": "\$675.00"
-            },
-          ],
-        }
-      ];
-      final response =
-          responseBody.map((i) => DetailItemModel.fromJson(i)).toList();
-      yield DetailState.loadedDetailItems(detaItemlList: response);
+      DetailItemModel responseBody = await detailService.itemDetail(itemId);
+
+      yield DetailState.loadedDetailItems(detaItemlList: [responseBody]);
     } catch (e) {
       yield DetailState.error(HandlingErrors().getError(e));
     }

@@ -12,21 +12,25 @@ class DetailItemModel with _$DetailItemModel {
   @JsonSerializable()
   const factory DetailItemModel({
     required final String catalogItemId,
-    required final String catalogItemImage,
     required final String catalogItemName,
     required final String catalogItemDescription,
+    required final String catalogItemDescriptionShort,
+    required final String catalogItemImage,
+    required final String catalogItemCollection,
     required final String catalogItemCategoryId,
     required final String released,
-    required final dynamic rarityScore,
-    required final bool sale,
+    required final String releasedType,
     @required List<DetailAttributeModel>? attributeItemList,
     @required List<DetailCollectionModel>? myCollection,
     required final int totalMade,
     required final String retail,
-    required final String releasedType,
-    required final String lastSale,
     required final int numberAvailable,
-    @required List<SimilarItemModel>? similarItemList,
+    required final String rarityScore,
+    required final String saleInfo,
+    required final bool forSale,
+    required final bool inFavorites,
+    required final bool inCollection,
+    required final String condition,
   }) = _DetailItemModel;
 
   factory DetailItemModel.fromJson(Map<String, dynamic> json) =>

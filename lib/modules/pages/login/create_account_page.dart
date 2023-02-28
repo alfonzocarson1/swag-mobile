@@ -8,6 +8,7 @@ import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/common/utils/utils.dart';
+import 'package:swagapp/modules/models/auth/create_account_payload_model.dart';
 import 'package:swagapp/modules/pages/login/sign_in_page.dart';
 
 import '../../blocs/auth_bloc/auth_bloc.dart';
@@ -197,14 +198,14 @@ class _CreateAccountState extends State<CreateAccountPage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              CustomTextFormField(
-                                  borderColor: _emailBorder,
-                                  errorText: emailErrorText,
-                                  autofocus: false,
-                                  labelText: S.of(context).email,
-                                  focusNode: _emailNode,
-                                  controller: _emailController,
-                                  inputType: TextInputType.emailAddress),
+                              BlocBuilder<AuthBloc, AuthState>(
+                                  builder: (context, authState) {
+                                return authState.maybeMap(orElse: () {
+                                  return _getEmailField(context, true);
+                                }, error: (state) {
+                                  return _getEmailField(context, false);
+                                });
+                              }),
                               const SizedBox(
                                 height: 20,
                               ),
@@ -354,8 +355,15 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                 onPressed: () {
                                   showErrors();
                                   if (areFieldsValid()) {
-                                    getIt<AuthBloc>()
-                                        .add(const AuthEvent.authenticate());
+                                    context.read<AuthBloc>().add(AuthEvent
+                                        .createAccount(CreateAccountPayloadModel(
+                                            email: _emailController.text,
+                                            phoneNumber:
+                                                "+1${_phoneController.text}",
+                                            password: _passwordController.text,
+                                            userName: _usernameController.text,
+                                            termsOfServiceAccepted:
+                                                checkBoxValue)));
                                   }
                                 },
                                 type: PrimaryButtonType.green,
@@ -412,6 +420,23 @@ class _CreateAccountState extends State<CreateAccountPage> {
         ]));
   }
 
+  CustomTextFormField _getEmailField(
+      BuildContext context, bool isEmailAvailable) {
+    setEmailErrorText(
+      isValidEmail(_emailController.text),
+      isEmailAvailable,
+    );
+
+    return CustomTextFormField(
+        borderColor: _emailBorder,
+        errorText: emailErrorText,
+        autofocus: false,
+        labelText: S.of(context).email,
+        focusNode: _emailNode,
+        controller: _emailController,
+        inputType: TextInputType.emailAddress);
+  }
+
   CustomTextFormField _getUsernameField(BuildContext context,
       {bool isUsernameAvailable = false}) {
     setUsernameErrorText(
@@ -457,6 +482,18 @@ class _CreateAccountState extends State<CreateAccountPage> {
         ? null
         : isCorrectSize
             ? S.of(context).username_taken
+            : S.of(context).invalid_username;
+  }
+
+  void setEmailErrorText(
+    bool isValid,
+    bool isEmailAvailable,
+  ) {
+    bool isEmailOk = isValid && isEmailAvailable;
+    emailErrorText = isEmailOk || _usernameController.text.isEmpty
+        ? null
+        : isValid
+            ? S.of(context).email_taken
             : S.of(context).invalid_username;
   }
 

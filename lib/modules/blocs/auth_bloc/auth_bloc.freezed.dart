@@ -19,6 +19,7 @@ mixin _$AuthEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
+    required TResult Function(CreateAccountPayloadModel model) createAccount,
     required TResult Function() authenticate,
     required TResult Function() logout,
   }) =>
@@ -26,6 +27,7 @@ mixin _$AuthEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
+    TResult? Function(CreateAccountPayloadModel model)? createAccount,
     TResult? Function()? authenticate,
     TResult? Function()? logout,
   }) =>
@@ -33,6 +35,7 @@ mixin _$AuthEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
+    TResult Function(CreateAccountPayloadModel model)? createAccount,
     TResult Function()? authenticate,
     TResult Function()? logout,
     required TResult orElse(),
@@ -41,6 +44,7 @@ mixin _$AuthEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Init value) init,
+    required TResult Function(CreateAccount value) createAccount,
     required TResult Function(Authenticate value) authenticate,
     required TResult Function(LogoutAuth value) logout,
   }) =>
@@ -48,6 +52,7 @@ mixin _$AuthEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Init value)? init,
+    TResult? Function(CreateAccount value)? createAccount,
     TResult? Function(Authenticate value)? authenticate,
     TResult? Function(LogoutAuth value)? logout,
   }) =>
@@ -55,6 +60,7 @@ mixin _$AuthEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Init value)? init,
+    TResult Function(CreateAccount value)? createAccount,
     TResult Function(Authenticate value)? authenticate,
     TResult Function(LogoutAuth value)? logout,
     required TResult orElse(),
@@ -115,6 +121,7 @@ class _$Init implements Init {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
+    required TResult Function(CreateAccountPayloadModel model) createAccount,
     required TResult Function() authenticate,
     required TResult Function() logout,
   }) {
@@ -125,6 +132,7 @@ class _$Init implements Init {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
+    TResult? Function(CreateAccountPayloadModel model)? createAccount,
     TResult? Function()? authenticate,
     TResult? Function()? logout,
   }) {
@@ -135,6 +143,7 @@ class _$Init implements Init {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
+    TResult Function(CreateAccountPayloadModel model)? createAccount,
     TResult Function()? authenticate,
     TResult Function()? logout,
     required TResult orElse(),
@@ -149,6 +158,7 @@ class _$Init implements Init {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Init value) init,
+    required TResult Function(CreateAccount value) createAccount,
     required TResult Function(Authenticate value) authenticate,
     required TResult Function(LogoutAuth value) logout,
   }) {
@@ -159,6 +169,7 @@ class _$Init implements Init {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Init value)? init,
+    TResult? Function(CreateAccount value)? createAccount,
     TResult? Function(Authenticate value)? authenticate,
     TResult? Function(LogoutAuth value)? logout,
   }) {
@@ -169,6 +180,7 @@ class _$Init implements Init {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Init value)? init,
+    TResult Function(CreateAccount value)? createAccount,
     TResult Function(Authenticate value)? authenticate,
     TResult Function(LogoutAuth value)? logout,
     required TResult orElse(),
@@ -182,6 +194,162 @@ class _$Init implements Init {
 
 abstract class Init implements AuthEvent {
   const factory Init() = _$Init;
+}
+
+/// @nodoc
+abstract class _$$CreateAccountCopyWith<$Res> {
+  factory _$$CreateAccountCopyWith(
+          _$CreateAccount value, $Res Function(_$CreateAccount) then) =
+      __$$CreateAccountCopyWithImpl<$Res>;
+  @useResult
+  $Res call({CreateAccountPayloadModel model});
+
+  $CreateAccountPayloadModelCopyWith<$Res> get model;
+}
+
+/// @nodoc
+class __$$CreateAccountCopyWithImpl<$Res>
+    extends _$AuthEventCopyWithImpl<$Res, _$CreateAccount>
+    implements _$$CreateAccountCopyWith<$Res> {
+  __$$CreateAccountCopyWithImpl(
+      _$CreateAccount _value, $Res Function(_$CreateAccount) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? model = null,
+  }) {
+    return _then(_$CreateAccount(
+      null == model
+          ? _value.model
+          : model // ignore: cast_nullable_to_non_nullable
+              as CreateAccountPayloadModel,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CreateAccountPayloadModelCopyWith<$Res> get model {
+    return $CreateAccountPayloadModelCopyWith<$Res>(_value.model, (value) {
+      return _then(_value.copyWith(model: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$CreateAccount implements CreateAccount {
+  const _$CreateAccount(this.model);
+
+  @override
+  final CreateAccountPayloadModel model;
+
+  @override
+  String toString() {
+    return 'AuthEvent.createAccount(model: $model)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CreateAccount &&
+            (identical(other.model, model) || other.model == model));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, model);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CreateAccountCopyWith<_$CreateAccount> get copyWith =>
+      __$$CreateAccountCopyWithImpl<_$CreateAccount>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() init,
+    required TResult Function(CreateAccountPayloadModel model) createAccount,
+    required TResult Function() authenticate,
+    required TResult Function() logout,
+  }) {
+    return createAccount(model);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? init,
+    TResult? Function(CreateAccountPayloadModel model)? createAccount,
+    TResult? Function()? authenticate,
+    TResult? Function()? logout,
+  }) {
+    return createAccount?.call(model);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? init,
+    TResult Function(CreateAccountPayloadModel model)? createAccount,
+    TResult Function()? authenticate,
+    TResult Function()? logout,
+    required TResult orElse(),
+  }) {
+    if (createAccount != null) {
+      return createAccount(model);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Init value) init,
+    required TResult Function(CreateAccount value) createAccount,
+    required TResult Function(Authenticate value) authenticate,
+    required TResult Function(LogoutAuth value) logout,
+  }) {
+    return createAccount(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Init value)? init,
+    TResult? Function(CreateAccount value)? createAccount,
+    TResult? Function(Authenticate value)? authenticate,
+    TResult? Function(LogoutAuth value)? logout,
+  }) {
+    return createAccount?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Init value)? init,
+    TResult Function(CreateAccount value)? createAccount,
+    TResult Function(Authenticate value)? authenticate,
+    TResult Function(LogoutAuth value)? logout,
+    required TResult orElse(),
+  }) {
+    if (createAccount != null) {
+      return createAccount(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class CreateAccount implements AuthEvent {
+  const factory CreateAccount(final CreateAccountPayloadModel model) =
+      _$CreateAccount;
+
+  CreateAccountPayloadModel get model;
+  @JsonKey(ignore: true)
+  _$$CreateAccountCopyWith<_$CreateAccount> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -223,6 +391,7 @@ class _$Authenticate implements Authenticate {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
+    required TResult Function(CreateAccountPayloadModel model) createAccount,
     required TResult Function() authenticate,
     required TResult Function() logout,
   }) {
@@ -233,6 +402,7 @@ class _$Authenticate implements Authenticate {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
+    TResult? Function(CreateAccountPayloadModel model)? createAccount,
     TResult? Function()? authenticate,
     TResult? Function()? logout,
   }) {
@@ -243,6 +413,7 @@ class _$Authenticate implements Authenticate {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
+    TResult Function(CreateAccountPayloadModel model)? createAccount,
     TResult Function()? authenticate,
     TResult Function()? logout,
     required TResult orElse(),
@@ -257,6 +428,7 @@ class _$Authenticate implements Authenticate {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Init value) init,
+    required TResult Function(CreateAccount value) createAccount,
     required TResult Function(Authenticate value) authenticate,
     required TResult Function(LogoutAuth value) logout,
   }) {
@@ -267,6 +439,7 @@ class _$Authenticate implements Authenticate {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Init value)? init,
+    TResult? Function(CreateAccount value)? createAccount,
     TResult? Function(Authenticate value)? authenticate,
     TResult? Function(LogoutAuth value)? logout,
   }) {
@@ -277,6 +450,7 @@ class _$Authenticate implements Authenticate {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Init value)? init,
+    TResult Function(CreateAccount value)? createAccount,
     TResult Function(Authenticate value)? authenticate,
     TResult Function(LogoutAuth value)? logout,
     required TResult orElse(),
@@ -331,6 +505,7 @@ class _$LogoutAuth implements LogoutAuth {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
+    required TResult Function(CreateAccountPayloadModel model) createAccount,
     required TResult Function() authenticate,
     required TResult Function() logout,
   }) {
@@ -341,6 +516,7 @@ class _$LogoutAuth implements LogoutAuth {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
+    TResult? Function(CreateAccountPayloadModel model)? createAccount,
     TResult? Function()? authenticate,
     TResult? Function()? logout,
   }) {
@@ -351,6 +527,7 @@ class _$LogoutAuth implements LogoutAuth {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
+    TResult Function(CreateAccountPayloadModel model)? createAccount,
     TResult Function()? authenticate,
     TResult Function()? logout,
     required TResult orElse(),
@@ -365,6 +542,7 @@ class _$LogoutAuth implements LogoutAuth {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Init value) init,
+    required TResult Function(CreateAccount value) createAccount,
     required TResult Function(Authenticate value) authenticate,
     required TResult Function(LogoutAuth value) logout,
   }) {
@@ -375,6 +553,7 @@ class _$LogoutAuth implements LogoutAuth {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Init value)? init,
+    TResult? Function(CreateAccount value)? createAccount,
     TResult? Function(Authenticate value)? authenticate,
     TResult? Function(LogoutAuth value)? logout,
   }) {
@@ -385,6 +564,7 @@ class _$LogoutAuth implements LogoutAuth {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Init value)? init,
+    TResult Function(CreateAccount value)? createAccount,
     TResult Function(Authenticate value)? authenticate,
     TResult Function(LogoutAuth value)? logout,
     required TResult orElse(),

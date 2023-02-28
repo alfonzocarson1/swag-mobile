@@ -74,6 +74,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "dont_have_account":
             MessageLookupByLibrary.simpleMessage("Don’t have an account? "),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
+        "email_taken": MessageLookupByLibrary.simpleMessage(
+            "An account is already associated with this email"),
         "empty_password":
             MessageLookupByLibrary.simpleMessage("Invalid password"),
         "empty_text": MessageLookupByLibrary.simpleMessage("No items yet"),
@@ -126,8 +128,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please provide as much information as you can about the product and how you acquired it. Be sure to include the following:"),
         "info_guideline_popup_title":
             MessageLookupByLibrary.simpleMessage("INFO GUIDELINES"),
-        "invalid_email":
-            MessageLookupByLibrary.simpleMessage("Invalid email address"),
+        "invalid_email": MessageLookupByLibrary.simpleMessage(
+            "Invalid email address format"),
         "invalid_password": MessageLookupByLibrary.simpleMessage(
             "Password doesn’t meet requirements. Min. 8 characters, 1 uppercase, 1 number & 1 symbol"),
         "invalid_username": MessageLookupByLibrary.simpleMessage(

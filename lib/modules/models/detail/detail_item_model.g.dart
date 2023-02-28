@@ -9,13 +9,15 @@ part of 'detail_item_model.dart';
 _$_DetailItemModel _$$_DetailItemModelFromJson(Map<String, dynamic> json) =>
     _$_DetailItemModel(
       catalogItemId: json['catalogItemId'] as String,
-      catalogItemImage: json['catalogItemImage'] as String,
       catalogItemName: json['catalogItemName'] as String,
       catalogItemDescription: json['catalogItemDescription'] as String,
+      catalogItemDescriptionShort:
+          json['catalogItemDescriptionShort'] as String,
+      catalogItemImage: json['catalogItemImage'] as String,
+      catalogItemCollection: json['catalogItemCollection'] as String,
       catalogItemCategoryId: json['catalogItemCategoryId'] as String,
       released: json['released'] as String,
-      rarityScore: json['rarityScore'],
-      sale: json['sale'] as bool,
+      releasedType: json['releasedType'] as String,
       attributeItemList: (json['attributeItemList'] as List<dynamic>?)
           ?.map((e) => DetailAttributeModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -25,30 +27,35 @@ _$_DetailItemModel _$$_DetailItemModelFromJson(Map<String, dynamic> json) =>
           .toList(),
       totalMade: json['totalMade'] as int,
       retail: json['retail'] as String,
-      releasedType: json['releasedType'] as String,
-      lastSale: json['lastSale'] as String,
       numberAvailable: json['numberAvailable'] as int,
-      similarItemList: (json['similarItemList'] as List<dynamic>?)
-          ?.map((e) => SimilarItemModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      rarityScore: json['rarityScore'] as String,
+      saleInfo: json['saleInfo'] as String,
+      forSale: json['forSale'] as bool,
+      inFavorites: json['inFavorites'] as bool,
+      inCollection: json['inCollection'] as bool,
+      condition: json['condition'] as String,
     );
 
 Map<String, dynamic> _$$_DetailItemModelToJson(_$_DetailItemModel instance) =>
     <String, dynamic>{
       'catalogItemId': instance.catalogItemId,
-      'catalogItemImage': instance.catalogItemImage,
       'catalogItemName': instance.catalogItemName,
       'catalogItemDescription': instance.catalogItemDescription,
+      'catalogItemDescriptionShort': instance.catalogItemDescriptionShort,
+      'catalogItemImage': instance.catalogItemImage,
+      'catalogItemCollection': instance.catalogItemCollection,
       'catalogItemCategoryId': instance.catalogItemCategoryId,
       'released': instance.released,
-      'rarityScore': instance.rarityScore,
-      'sale': instance.sale,
+      'releasedType': instance.releasedType,
       'attributeItemList': instance.attributeItemList,
       'myCollection': instance.myCollection,
       'totalMade': instance.totalMade,
       'retail': instance.retail,
-      'releasedType': instance.releasedType,
-      'lastSale': instance.lastSale,
       'numberAvailable': instance.numberAvailable,
-      'similarItemList': instance.similarItemList,
+      'rarityScore': instance.rarityScore,
+      'saleInfo': instance.saleInfo,
+      'forSale': instance.forSale,
+      'inFavorites': instance.inFavorites,
+      'inCollection': instance.inCollection,
+      'condition': instance.condition,
     };
