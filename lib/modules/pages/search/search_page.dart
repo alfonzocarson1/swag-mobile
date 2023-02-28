@@ -37,6 +37,7 @@ class _SearchPageState extends State<SearchPage>
   final TextEditingController _textEditingController = TextEditingController();
 
   List<dynamic> categoriesData = [];
+  var tabLen;
 
   @override
   void initState() {
@@ -66,6 +67,13 @@ class _SearchPageState extends State<SearchPage>
 
   @override
   Widget build(BuildContext context) {
+    if (categoriesData == null || categoriesData == []) {
+      Future.delayed(const Duration(milliseconds: 100), () {
+        setState(() {
+          tabLen = categoriesData.length;
+        });
+      });
+    }
     super.build(context);
     return DefaultTabController(
       length: 4,
@@ -88,17 +96,17 @@ class _SearchPageState extends State<SearchPage>
   }
 
   Widget getBody() {
-    var tabLen = categoriesData.length;
+    tabLen = categoriesData != null ? categoriesData.length : 0;
 
     return Column(
       children: [
         tabLen == 0 ? Container() : _getTabBar(context),
         Expanded(
           child: TabBarView(controller: _controller, children: const [
+            AccessoriesPage(),
             WhatsHotPage(),
             HeadcoversPage(),
             PuttersPage(),
-            AccessoriesPage()
           ]),
         ),
       ],
