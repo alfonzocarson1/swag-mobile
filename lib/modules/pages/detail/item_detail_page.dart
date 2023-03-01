@@ -181,7 +181,8 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
   }
 
   void makeCall() {
-    context.read<DetailBloc>().add(const DetailEvent.getDetailItem(
-        '525fc291-cc22-4adb-a9b3-53cb6c621881'));
+    context
+        .read<DetailBloc>()
+        .add(DetailEvent.getDetailItem(widget.catalogItemId));
   }
 }
