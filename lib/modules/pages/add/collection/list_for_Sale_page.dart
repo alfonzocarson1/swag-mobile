@@ -66,6 +66,8 @@ class _ListForSalePageState extends State<ListForSalePage> {
 
   final formater = NumberFormat("###0.00");
 
+  final formaterFour = NumberFormat("#,##0.00");
+
   var Conditions = [
     'Condition',
     'Sealed',
@@ -84,6 +86,8 @@ class _ListForSalePageState extends State<ListForSalePage> {
   @override
   void initState() {
     super.initState();
+
+    print(formaterFour.format(3456));
 
     _defaultCondition = widget.itemCondition ?? 'Condition';
 
@@ -220,7 +224,8 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                   ),
                                   maxLength: _decimalFlag ? _dynamicLen : 6,
                                   onChanged: (priceInput) {
-                                    if (priceInput.isNotEmpty) {
+                                    if (_listPriceItemController
+                                        .value.text.isNotEmpty) {
                                       //TODO Start Format validations for prices
                                       if (_listPriceItemController.text
                                           .toString()
@@ -278,7 +283,12 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                           _dynamicLenFlag = true;
                                           validPrice = true;
                                           _decimalFlag = false;
-                                          _price = "$priceInput.00";
+                                          if (priceInput.length == 4) {
+                                            _price = formaterFour
+                                                .format(int.parse(priceInput));
+                                          } else {
+                                            _price = "$priceInput.00";
+                                          }
                                         });
                                       }
                                       if (!_listPriceItemController.text
@@ -310,8 +320,9 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                       }
                                       //TODO End Format validations for prices
                                     } else {
-                                      _price = _listPriceItemController.text
-                                          .toString();
+                                      setState(() {
+                                        _price = '0.00';
+                                      });
                                     }
                                   },
                                   borderColor: _listPriceItemBorder,

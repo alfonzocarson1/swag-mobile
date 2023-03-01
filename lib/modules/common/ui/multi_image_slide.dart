@@ -75,42 +75,6 @@ class _MultiImageSlideState extends State<MultiImageSlide> {
                                 ),
                               ),
                             ),
-                            Visibility(
-                              visible: widget.onRemove != null,
-                              child: Positioned(
-                                right: 5,
-                                bottom: 5,
-                                child: IconButton(
-                                  iconSize: 30,
-                                  color: Palette.current.primaryNeonGreen,
-                                  onPressed: () {
-                                    showDialog(
-                                        context: context,
-                                        barrierDismissible: false,
-                                        builder: (BuildContext context) {
-                                          return PopUpDeletePhotoVerify(
-                                              removePhoto: (bool delete) {
-                                            if (delete) {
-                                              setState(() {
-                                                widget.onRemove!(index);
-                                                pageController.animateToPage(
-                                                  0,
-                                                  duration: const Duration(
-                                                      milliseconds: 500),
-                                                  curve: Curves.easeInOutCirc,
-                                                );
-                                              });
-                                            }
-                                          });
-                                        });
-                                  },
-                                  icon: Image.asset(
-                                    "assets/icons/x.png",
-                                    scale: 3,
-                                  ),
-                                ),
-                              ),
-                            ),
                           ]),
                         ),
                       )
@@ -201,6 +165,41 @@ class _MultiImageSlideState extends State<MultiImageSlide> {
         ),
         const SizedBox(
           height: 12.0,
+        ),
+        Visibility(
+          visible: widget.onRemove != null &&
+              pageNo + 1 != widget.imgList.length + 1,
+          child: Positioned(
+            right: 5,
+            bottom: 5,
+            child: IconButton(
+              iconSize: 30,
+              color: Palette.current.primaryNeonGreen,
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (BuildContext context) {
+                      return PopUpDeletePhotoVerify(removePhoto: (bool delete) {
+                        if (delete) {
+                          setState(() {
+                            widget.onRemove!(pageNo);
+                            pageController.animateToPage(
+                              0,
+                              duration: const Duration(milliseconds: 500),
+                              curve: Curves.easeInOutCirc,
+                            );
+                          });
+                        }
+                      });
+                    });
+              },
+              icon: Image.asset(
+                "assets/icons/x.png",
+                scale: 3,
+              ),
+            ),
+          ),
         ),
         Positioned(
           bottom: 15,
