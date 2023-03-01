@@ -33,7 +33,7 @@ class _AccountInfoHeaderWidgetState extends State<AccountInfoHeaderWidget> {
                         fontFamily: "Knockout",
                         fontSize: 33,
                         letterSpacing: 1.0,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w300,
                         color: Palette.current.light4)),
               ),
               const SizedBox(

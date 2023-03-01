@@ -430,10 +430,10 @@ class S {
     );
   }
 
-  /// `username must be between 4-20 characters`
+  /// `Username must be between 4-20 characters`
   String get invalid_username {
     return Intl.message(
-      'username must be between 4-20 characters',
+      'Username must be between 4-20 characters',
       name: 'invalid_username',
       desc: '',
       args: [],

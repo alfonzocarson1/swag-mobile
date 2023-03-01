@@ -20,7 +20,7 @@ mixin _$AuthEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() init,
     required TResult Function(CreateAccountPayloadModel model) createAccount,
-    required TResult Function() authenticate,
+    required TResult Function(String email, String password) authenticate,
     required TResult Function() logout,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ mixin _$AuthEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
     TResult? Function(CreateAccountPayloadModel model)? createAccount,
-    TResult? Function()? authenticate,
+    TResult? Function(String email, String password)? authenticate,
     TResult? Function()? logout,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ mixin _$AuthEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
     TResult Function(CreateAccountPayloadModel model)? createAccount,
-    TResult Function()? authenticate,
+    TResult Function(String email, String password)? authenticate,
     TResult Function()? logout,
     required TResult orElse(),
   }) =>
@@ -122,7 +122,7 @@ class _$Init implements Init {
   TResult when<TResult extends Object?>({
     required TResult Function() init,
     required TResult Function(CreateAccountPayloadModel model) createAccount,
-    required TResult Function() authenticate,
+    required TResult Function(String email, String password) authenticate,
     required TResult Function() logout,
   }) {
     return init();
@@ -133,7 +133,7 @@ class _$Init implements Init {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
     TResult? Function(CreateAccountPayloadModel model)? createAccount,
-    TResult? Function()? authenticate,
+    TResult? Function(String email, String password)? authenticate,
     TResult? Function()? logout,
   }) {
     return init?.call();
@@ -144,7 +144,7 @@ class _$Init implements Init {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
     TResult Function(CreateAccountPayloadModel model)? createAccount,
-    TResult Function()? authenticate,
+    TResult Function(String email, String password)? authenticate,
     TResult Function()? logout,
     required TResult orElse(),
   }) {
@@ -272,7 +272,7 @@ class _$CreateAccount implements CreateAccount {
   TResult when<TResult extends Object?>({
     required TResult Function() init,
     required TResult Function(CreateAccountPayloadModel model) createAccount,
-    required TResult Function() authenticate,
+    required TResult Function(String email, String password) authenticate,
     required TResult Function() logout,
   }) {
     return createAccount(model);
@@ -283,7 +283,7 @@ class _$CreateAccount implements CreateAccount {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
     TResult? Function(CreateAccountPayloadModel model)? createAccount,
-    TResult? Function()? authenticate,
+    TResult? Function(String email, String password)? authenticate,
     TResult? Function()? logout,
   }) {
     return createAccount?.call(model);
@@ -294,7 +294,7 @@ class _$CreateAccount implements CreateAccount {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
     TResult Function(CreateAccountPayloadModel model)? createAccount,
-    TResult Function()? authenticate,
+    TResult Function(String email, String password)? authenticate,
     TResult Function()? logout,
     required TResult orElse(),
   }) {
@@ -357,6 +357,8 @@ abstract class _$$AuthenticateCopyWith<$Res> {
   factory _$$AuthenticateCopyWith(
           _$Authenticate value, $Res Function(_$Authenticate) then) =
       __$$AuthenticateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String email, String password});
 }
 
 /// @nodoc
@@ -366,36 +368,69 @@ class __$$AuthenticateCopyWithImpl<$Res>
   __$$AuthenticateCopyWithImpl(
       _$Authenticate _value, $Res Function(_$Authenticate) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? email = null,
+    Object? password = null,
+  }) {
+    return _then(_$Authenticate(
+      null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$Authenticate implements Authenticate {
-  const _$Authenticate();
+  const _$Authenticate(this.email, this.password);
+
+  @override
+  final String email;
+  @override
+  final String password;
 
   @override
   String toString() {
-    return 'AuthEvent.authenticate()';
+    return 'AuthEvent.authenticate(email: $email, password: $password)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$Authenticate);
+        (other.runtimeType == runtimeType &&
+            other is _$Authenticate &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.password, password) ||
+                other.password == password));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, email, password);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AuthenticateCopyWith<_$Authenticate> get copyWith =>
+      __$$AuthenticateCopyWithImpl<_$Authenticate>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
     required TResult Function(CreateAccountPayloadModel model) createAccount,
-    required TResult Function() authenticate,
+    required TResult Function(String email, String password) authenticate,
     required TResult Function() logout,
   }) {
-    return authenticate();
+    return authenticate(email, password);
   }
 
   @override
@@ -403,10 +438,10 @@ class _$Authenticate implements Authenticate {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
     TResult? Function(CreateAccountPayloadModel model)? createAccount,
-    TResult? Function()? authenticate,
+    TResult? Function(String email, String password)? authenticate,
     TResult? Function()? logout,
   }) {
-    return authenticate?.call();
+    return authenticate?.call(email, password);
   }
 
   @override
@@ -414,12 +449,12 @@ class _$Authenticate implements Authenticate {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
     TResult Function(CreateAccountPayloadModel model)? createAccount,
-    TResult Function()? authenticate,
+    TResult Function(String email, String password)? authenticate,
     TResult Function()? logout,
     required TResult orElse(),
   }) {
     if (authenticate != null) {
-      return authenticate();
+      return authenticate(email, password);
     }
     return orElse();
   }
@@ -463,7 +498,14 @@ class _$Authenticate implements Authenticate {
 }
 
 abstract class Authenticate implements AuthEvent {
-  const factory Authenticate() = _$Authenticate;
+  const factory Authenticate(final String email, final String password) =
+      _$Authenticate;
+
+  String get email;
+  String get password;
+  @JsonKey(ignore: true)
+  _$$AuthenticateCopyWith<_$Authenticate> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -506,7 +548,7 @@ class _$LogoutAuth implements LogoutAuth {
   TResult when<TResult extends Object?>({
     required TResult Function() init,
     required TResult Function(CreateAccountPayloadModel model) createAccount,
-    required TResult Function() authenticate,
+    required TResult Function(String email, String password) authenticate,
     required TResult Function() logout,
   }) {
     return logout();
@@ -517,7 +559,7 @@ class _$LogoutAuth implements LogoutAuth {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
     TResult? Function(CreateAccountPayloadModel model)? createAccount,
-    TResult? Function()? authenticate,
+    TResult? Function(String email, String password)? authenticate,
     TResult? Function()? logout,
   }) {
     return logout?.call();
@@ -528,7 +570,7 @@ class _$LogoutAuth implements LogoutAuth {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
     TResult Function(CreateAccountPayloadModel model)? createAccount,
-    TResult Function()? authenticate,
+    TResult Function(String email, String password)? authenticate,
     TResult Function()? logout,
     required TResult orElse(),
   }) {

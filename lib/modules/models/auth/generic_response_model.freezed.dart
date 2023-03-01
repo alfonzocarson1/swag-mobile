@@ -141,7 +141,7 @@ class __$$_GenericResponseModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_GenericResponseModel implements _GenericResponseModel {
   const _$_GenericResponseModel(
-      {required this.errorCode,
+      {this.errorCode = defaultString,
       this.errorMessage = defaultString,
       this.token = defaultString,
       this.hasImportableData = false});
@@ -150,6 +150,7 @@ class _$_GenericResponseModel implements _GenericResponseModel {
       _$$_GenericResponseModelFromJson(json);
 
   @override
+  @JsonKey()
   final String errorCode;
   @override
   @JsonKey()
@@ -202,7 +203,7 @@ class _$_GenericResponseModel implements _GenericResponseModel {
 
 abstract class _GenericResponseModel implements GenericResponseModel {
   const factory _GenericResponseModel(
-      {required final String errorCode,
+      {final String errorCode,
       final String errorMessage,
       final String token,
       final bool hasImportableData}) = _$_GenericResponseModel;

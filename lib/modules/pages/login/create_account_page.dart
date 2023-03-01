@@ -49,6 +49,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
   Color _confirmPasswordBorder = Palette.current.primaryWhiteSmoke;
   String? confirmPasswordErrorText;
   bool isPhoneValid = false;
+  PhoneNumber? currentPhoneNumber;
 
   final FocusNode _phoneNode = FocusNode();
   final _phoneController = TextEditingController();
@@ -59,6 +60,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
   final _usernameController = TextEditingController();
   Color _usernameBorder = Palette.current.primaryWhiteSmoke;
   String? usernameErrorText;
+  bool isUsernameTaken = false;
 
   bool checkBoxValue = false;
   String usernameVal = defaultString;
@@ -209,12 +211,11 @@ class _CreateAccountState extends State<CreateAccountPage> {
                               const SizedBox(
                                 height: 20,
                               ),
-                              _PhoneSection(
-                                  _phoneController,
-                                  _phoneNode,
-                                  phoneErrorText,
-                                  _phoneBorder, (isPhoneValidParam) {
+                              _PhoneSection(_phoneController, _phoneNode,
+                                  phoneErrorText, _phoneBorder,
+                                  (isPhoneValidParam, phoneNumber) {
                                 isPhoneValid = isPhoneValidParam;
+                                currentPhoneNumber = phoneNumber;
                               }),
                               const SizedBox(
                                 height: 20,
@@ -359,7 +360,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                         .createAccount(CreateAccountPayloadModel(
                                             email: _emailController.text,
                                             phoneNumber:
-                                                "+1${_phoneController.text}",
+                                                "${currentPhoneNumber!.dialCode}${_phoneController.text}",
                                             password: _passwordController.text,
                                             userName: _usernameController.text,
                                             termsOfServiceAccepted:
@@ -477,6 +478,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
     bool isCorrectSize,
     bool isUsernameAvailable,
   ) {
+    isUsernameTaken = !isUsernameAvailable;
     bool isUsernameOk = isCorrectSize && isUsernameAvailable;
     usernameErrorText = isUsernameOk || _usernameController.text.isEmpty
         ? null
@@ -490,11 +492,11 @@ class _CreateAccountState extends State<CreateAccountPage> {
     bool isEmailAvailable,
   ) {
     bool isEmailOk = isValid && isEmailAvailable;
-    emailErrorText = isEmailOk || _usernameController.text.isEmpty
+    emailErrorText = isEmailOk || _emailController.text.isEmpty
         ? null
         : isValid
             ? S.of(context).email_taken
-            : S.of(context).invalid_username;
+            : S.of(context).invalid_email;
   }
 
   void showErrors() {
@@ -530,8 +532,10 @@ class _CreateAccountState extends State<CreateAccountPage> {
     usernameErrorText = _usernameController.text.isEmpty
         ? S.of(context).required_field
         : (_usernameController.text.isNotEmpty &&
-                _usernameController.text.length > 4)
-            ? null
+                _usernameController.text.length >= 4)
+            ? isUsernameTaken
+                ? S.of(context).username_taken
+                : null
             : S.of(context).invalid_username;
   }
 
@@ -553,7 +557,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
 class _PhoneSection extends StatefulWidget {
   final TextEditingController phoneController;
   final FocusNode? focusPhone;
-  final Function(bool) notifyIsPhoneValid;
+  final Function(bool, PhoneNumber) notifyIsPhoneValid;
   final String? errorText;
   final Color? borderColor;
   const _PhoneSection(this.phoneController, this.focusPhone, this.errorText,
@@ -616,7 +620,7 @@ class __PhoneSectionState extends State<_PhoneSection> {
                   },
                   onInputValidated: (bool value) {
                     setState(() {
-                      widget.notifyIsPhoneValid(value);
+                      widget.notifyIsPhoneValid(value, choseNumber);
                     });
                   },
                   selectorConfig: const SelectorConfig(

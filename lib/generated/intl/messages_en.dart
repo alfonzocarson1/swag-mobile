@@ -133,7 +133,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "invalid_password": MessageLookupByLibrary.simpleMessage(
             "Password doesn’t meet requirements. Min. 8 characters, 1 uppercase, 1 number & 1 symbol"),
         "invalid_username": MessageLookupByLibrary.simpleMessage(
-            "username must be between 4-20 characters"),
+            "Username must be between 4-20 characters"),
         "ist_item_popup_btn":
             MessageLookupByLibrary.simpleMessage("CREATE LISTING"),
         "last_name": MessageLookupByLibrary.simpleMessage("Last Name"),

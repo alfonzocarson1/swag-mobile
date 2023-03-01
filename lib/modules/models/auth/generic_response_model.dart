@@ -8,7 +8,7 @@ part 'generic_response_model.g.dart';
 class GenericResponseModel with _$GenericResponseModel {
   @JsonSerializable()
   const factory GenericResponseModel({
-    required final String errorCode,
+    @Default(defaultString) final String errorCode,
     @Default(defaultString) final String errorMessage,
     @Default(defaultString) final String token,
     @Default(false) final bool hasImportableData,

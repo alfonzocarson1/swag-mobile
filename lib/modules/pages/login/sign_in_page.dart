@@ -139,27 +139,32 @@ class _SignInPageState extends State<SignInPage> {
                                 const SizedBox(
                                   height: 30,
                                 ),
-                                Visibility(
-                                  visible: false,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        S.of(context).invalid_email,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall!
-                                            .copyWith(
-                                                color: Palette
-                                                    .current.primaryNeonPink),
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      )
-                                    ],
-                                  ),
-                                ),
+                                BlocBuilder<AuthBloc, AuthState>(
+                                    builder: (context, usernameState) {
+                                  return usernameState.maybeMap(
+                                    orElse: () => Container(),
+                                    error: (error) => Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          S
+                                              .of(context)
+                                              .incorrect_email_or_password,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                                  color: Palette
+                                                      .current.primaryNeonPink),
+                                        ),
+                                        const SizedBox(
+                                          height: 15,
+                                        )
+                                      ],
+                                    ),
+                                  );
+                                }),
                                 CustomTextFormField(
                                     borderColor: _emailBorder,
                                     errorText: emailErrorText,
@@ -207,8 +212,10 @@ class _SignInPageState extends State<SignInPage> {
                                   onPressed: () {
                                     showErrors();
                                     if (areFieldsValid()) {
-                                      getIt<AuthBloc>()
-                                          .add(const AuthEvent.authenticate());
+                                      getIt<AuthBloc>().add(
+                                          AuthEvent.authenticate(
+                                              _emailController.text,
+                                              _passwordController.text));
                                     }
                                   },
                                   type: PrimaryButtonType.green,
