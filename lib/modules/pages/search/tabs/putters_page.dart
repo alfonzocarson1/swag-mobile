@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
+import '../../../blocs/search_tabs_bloc/putters_bloc/putters_bloc.dart';
 import '../../../common/ui/body_widget_with_view.dart';
 import '../../../common/utils/custom_route_animations.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:swagapp/modules/blocs/search_bloc.dart/search_bloc.dart';
 import 'package:swagapp/modules/common/ui/loading.dart';
 
 import '../../../constants/constants.dart';
 import '../../../models/search/search_request_payload_model.dart';
+import '../../../models/search_tabs/payload_search_model.dart';
 
 class PuttersPage extends StatefulWidget {
   static const name = '/Putters';
@@ -35,7 +36,7 @@ class _PuttersPageState extends State<PuttersPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Palette.current.primaryNero,
-        body: BlocConsumer<SearchBloc, SearchState>(
+        body: BlocConsumer<PuttersBloc, SearchPuttersState>(
           listener: (context, state) => state.maybeWhen(
             orElse: () => {Loading.hide(context)},
             error: (message) => {
@@ -69,7 +70,8 @@ class _PuttersPageState extends State<PuttersPage> {
   }
 
   void makeCall() {
-    context.read<SearchBloc>().add(const SearchEvent.search(
-        SearchRequestPayloadModel(categoryId: defaultString)));
+    context.read<PuttersBloc>().add(SearchPuttersEvent.search(
+        const SearchRequestPayloadModel(categoryId: defaultString),
+        FiltersPayload(currentPage: '2')));
   }
 }

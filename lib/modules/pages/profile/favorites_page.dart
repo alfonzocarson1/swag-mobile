@@ -93,7 +93,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                             child: ClipRRect(
                               child: CachedNetworkImage(
                                 fit: BoxFit.fitHeight,
-                                imageUrl: favoriteList[index].image,
+                                imageUrl: favoriteList[index].catalogItemImage,
                                 placeholder: (context, url) => SizedBox(
                                   height: 200,
                                   child: Center(
@@ -139,7 +139,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                   fontFamily: "Knockout",
                                   fontSize: 24,
                                   color: Palette.current.white)),
-                      Text(favoriteList[index].lastSale,
+                      Text(favoriteList[index].saleInfo,
                           overflow: TextOverflow.fade,
                           style: Theme.of(context)
                               .textTheme
@@ -174,42 +174,4 @@ class _FavoritesPageState extends State<FavoritesPage> {
         .read<ProfileFavoriteBloc>()
         .add(const FavoriteEvent.getFavoriteItem());
   }
-
-  List _data = [
-    {
-      "Title": "Batman",
-      "Poster":
-          "https://images-na.ssl-images-amazon.com/images/M/MV5BMTYwNjAyODIyMF5BMl5BanBnXkFtZTYwNDMwMDk2._V1_.jpg"
-    },
-    {
-      "Title": "The Dark Knight",
-      "Poster":
-          "https://ia.media-imdb.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_UX182_CR0,0,182,268_AL_.jpg"
-    },
-    {
-      "Title": "Dawn of Justice",
-      "Poster":
-          "https://ia.media-imdb.com/images/M/MV5BYThjYzcyYzItNTVjNy00NDk0LTgwMWQtYjMwNmNlNWJhMzMyXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_UX182_CR0,0,182,268_AL_.jpg"
-    },
-    {
-      "Title": "The Dark Knight Rises",
-      "Poster":
-          "https://ia.media-imdb.com/images/M/MV5BMTk4ODQzNDY3Ml5BMl5BanBnXkFtZTcwODA0NTM4Nw@@._V1_UX182_CR0,0,182,268_AL_.jpg"
-    },
-    {
-      "Title": "The LEGO Batman Movie",
-      "Poster":
-          "https://ia.media-imdb.com/images/M/MV5BMTcyNTEyOTY0M15BMl5BanBnXkFtZTgwOTAyNzU3MDI@._V1_UX182_CR0,0,182,268_AL_.jpg"
-    },
-    {
-      "Title": "Batman & Robin",
-      "Poster":
-          "https://ia.media-imdb.com/images/M/MV5BMGQ5YTM1NmMtYmIxYy00N2VmLWJhZTYtN2EwYTY3MWFhOTczXkEyXkFqcGdeQXVyNTA2NTI0MTY@._V1_UX182_CR0,0,182,268_AL_.jpg"
-    },
-    {
-      "Title": "Batman Returns",
-      "Poster":
-          "https://ia.media-imdb.com/images/M/MV5BOGZmYzVkMmItM2NiOS00MDI3LWI4ZWQtMTg0YWZkODRkMmViXkEyXkFqcGdeQXVyODY0NzcxNw@@._V1_UX182_CR0,0,182,268_AL_.jpg"
-    }
-  ];
 }

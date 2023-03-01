@@ -93,7 +93,7 @@ class _ListingsPageState extends State<ListingsPage> {
                             child: ClipRRect(
                               child: CachedNetworkImage(
                                 fit: BoxFit.fitHeight,
-                                imageUrl: listingList[index].image,
+                                imageUrl: listingList[index].catalogItemImage,
                                 placeholder: (context, url) => SizedBox(
                                   height: 200,
                                   child: Center(
@@ -126,7 +126,7 @@ class _ListingsPageState extends State<ListingsPage> {
                                   fontFamily: "Knockout",
                                   fontSize: 24,
                                   color: Palette.current.white)),
-                      Text(listingList[index].lastSale,
+                      Text(listingList[index].saleInfo,
                           overflow: TextOverflow.fade,
                           style: Theme.of(context)
                               .textTheme

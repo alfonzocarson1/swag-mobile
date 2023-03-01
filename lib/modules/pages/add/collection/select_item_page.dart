@@ -132,7 +132,8 @@ class _SelectItemPageState extends State<SelectItemPage> {
                                   child: ClipRRect(
                                     child: CachedNetworkImage(
                                       fit: BoxFit.fitHeight,
-                                      imageUrl: soldList[index].image,
+                                      imageUrl:
+                                          soldList[index].catalogItemImage,
                                       placeholder: (context, url) => SizedBox(
                                         height: 200,
                                         child: Center(
@@ -166,7 +167,7 @@ class _SelectItemPageState extends State<SelectItemPage> {
                                         fontFamily: "Knockout",
                                         fontSize: 24,
                                         color: Palette.current.white)),
-                            Text(soldList[index].lastSale,
+                            Text(soldList[index].saleInfo,
                                 overflow: TextOverflow.fade,
                                 style: Theme.of(context)
                                     .textTheme

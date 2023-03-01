@@ -74,19 +74,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       await Future.delayed(const Duration(milliseconds: 2000), () {});
       // await searchService.getCatatogItems();
       final responseBody = {
-        "recentList": [
-          "Skulls",
-          "Royals 8-bit",
-          "Royals 8-bit",
-          "Royals 8-bit",
-          "Royals 8-bit",
-          "Royals 8-bit",
-          "Royals 8-bit",
-          "Royals 8-bit",
-          "Royals 8-bit",
-          "Royals 8-bit"
-        ],
-        "savedList": ["Skulls", "Royals 8-bit"],
         "catalogList": [
           {
             "catalogItemId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
@@ -187,8 +174,18 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         ]
       };
       final response = SearchResponseModel.fromJson(responseBody);
-      getIt<PreferenceRepositoryService>()
-          .saveRecentSearches(response.recentList);
+      getIt<PreferenceRepositoryService>().saveRecentSearches([
+        "Skulls",
+        "Royals 8-bit",
+        "Royals 8-bit",
+        "Royals 8-bit",
+        "Royals 8-bit",
+        "Royals 8-bit",
+        "Royals 8-bit",
+        "Royals 8-bit",
+        "Royals 8-bit",
+        "Royals 8-bit"
+      ]);
       yield SearchState.result(
           result: {SearchTab.all: response.catalogList},
           query: payload.searchParams);

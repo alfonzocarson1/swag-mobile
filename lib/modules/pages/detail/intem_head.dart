@@ -101,23 +101,19 @@ class _HeadWidgetState extends State<HeadWidget> {
                 children: [
                   Expanded(
                       flex: 5,
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Text(widget.catalogItemName ?? '',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displayLarge!
-                                      .copyWith(
-                                          letterSpacing: 1,
-                                          fontWeight: FontWeight.w300,
-                                          fontFamily: "Knockout",
-                                          fontSize: 30,
-                                          color: Palette.current.white))
-                            ],
-                          ),
-                        ],
+                      child: Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Text(widget.catalogItemName ?? '',
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayLarge!
+                                .copyWith(
+                                    letterSpacing: 1,
+                                    fontWeight: FontWeight.w300,
+                                    fontFamily: "Knockout",
+                                    fontSize: 30,
+                                    color: Palette.current.white)),
                       )),
                   Expanded(
                       flex: 2,

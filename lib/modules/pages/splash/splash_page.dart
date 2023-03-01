@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../blocs/category_bloc/category_bloc.dart';
 import '../../common/utils/palette.dart';
 
-class SplashPage extends StatelessWidget {
+class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
   static const String name = '/splash';
@@ -12,6 +14,18 @@ class SplashPage extends StatelessWidget {
       settings: const RouteSettings(name: name),
       builder: (context) => const SplashPage(),
     );
+  }
+
+  @override
+  State<SplashPage> createState() => _SplashPageState();
+}
+
+class _SplashPageState extends State<SplashPage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    context.read<CategoryBloc>().add(const CategoryEvent.getCategories());
   }
 
   @override
