@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../blocs/search_tabs_bloc/head_covers_bloc/head_covers_bloc.dart';
 import '../../../common/ui/body_widget_with_view.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
@@ -8,12 +9,12 @@ import '../../../common/ui/catalog_ui.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:swagapp/modules/blocs/search_bloc.dart/search_bloc.dart';
 import 'package:swagapp/modules/common/ui/loading.dart';
 
 import '../../../constants/constants.dart';
 import '../../../models/search/catalog_item_model.dart';
 import '../../../models/search/search_request_payload_model.dart';
+import '../../../models/search_tabs/payload_search_model.dart';
 
 class HeadcoversPage extends StatefulWidget {
   static const name = '/Headcovers';
@@ -38,7 +39,7 @@ class _HeadcoversPageState extends State<HeadcoversPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Palette.current.primaryNero,
-        body: BlocConsumer<SearchBloc, SearchState>(
+        body: BlocConsumer<HeadcoversBloc, SearchHeadcoversState>(
           listener: (context, state) => state.maybeWhen(
             orElse: () => {Loading.hide(context)},
             error: (message) => {
@@ -97,7 +98,8 @@ class _HeadcoversPageState extends State<HeadcoversPage> {
   }
 
   void makeCall() {
-    context.read<SearchBloc>().add(const SearchEvent.search(
-        SearchRequestPayloadModel(categoryId: defaultString)));
+    context.read<HeadcoversBloc>().add(SearchHeadcoversEvent.search(
+        const SearchRequestPayloadModel(categoryId: defaultString),
+        FiltersPayload(currentPage: '1')));
   }
 }

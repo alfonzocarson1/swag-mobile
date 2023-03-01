@@ -132,14 +132,14 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   }
 
   @override
-  getLastCategories() async {
+  Future<List<CategoryModel>> getLastCategories() async {
     try {
       Map<String, dynamic> map =
           json.decode(_prefs.getString(_lastCategories) ?? '[]');
       List<dynamic> jsonData = map["categoryList"];
       return jsonData.map((e) => CategoryModel.fromJson(e)).toList();
     } catch (e) {
-      return null;
+      return [];
     }
   }
 }

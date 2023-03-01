@@ -15,11 +15,13 @@ import 'item_switched.dart';
 
 class ItemDetailPage extends StatefulWidget {
   static const name = '/ItemDetail';
-  const ItemDetailPage({Key? key}) : super(key: key);
-
-  static Route route() => PageRoutes.material(
+  ItemDetailPage({Key? key, required this.catalogItemId}) : super(key: key);
+  String catalogItemId;
+  static Route route(String catalogItemId) => PageRoutes.material(
         settings: const RouteSettings(name: name),
-        builder: (context) => const ItemDetailPage(),
+        builder: (context) => ItemDetailPage(
+          catalogItemId: catalogItemId,
+        ),
       );
 
   @override
@@ -37,6 +39,10 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    context
+        .read<DetailBloc>()
+        .add(DetailEvent.getDetailItem(widget.catalogItemId));
 
     _myActionsFlag.addListener(() => {
           if (_myActionsFlag.value)

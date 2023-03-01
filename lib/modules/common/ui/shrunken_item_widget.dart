@@ -22,7 +22,7 @@ class ShrunkenItemWidget extends StatelessWidget {
               child: ClipRRect(
                 child: CachedNetworkImage(
                   fit: BoxFit.fitHeight,
-                  imageUrl: model.image,
+                  imageUrl: model.catalogItemImage,
                   placeholder: (context, url) => SizedBox(
                     height: 170,
                     child: Center(
@@ -41,12 +41,12 @@ class ShrunkenItemWidget extends StatelessWidget {
               top: 7,
               right: 0,
               child: Visibility(
-                visible: model.totalMade != 0,
+                visible: true,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Align(
                     alignment: Alignment.centerRight,
-                    child: Text("${model.totalMade} X",
+                    child: Text("3 X",
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
                             fontFamily: "Knockout",
                             fontSize: 30,
@@ -60,7 +60,7 @@ class ShrunkenItemWidget extends StatelessWidget {
               bottom: 0,
               right: 0,
               child: Visibility(
-                  visible: model.sale,
+                  visible: model.forSale,
                   child: Container(
                     height: 30,
                     width: MediaQuery.of(context).size.width,
@@ -103,9 +103,9 @@ class ShrunkenItemWidget extends StatelessWidget {
                 fontSize: 24,
                 color: Palette.current.white)),
         Text(
-            model.lastSale.length >= maxCharactersForGridViewDesc
-                ? '${model.lastSale.substring(0, maxCharactersForGridViewDesc)}...'
-                : model.lastSale,
+            model.saleInfo.length >= maxCharactersForGridViewDesc
+                ? '${model.saleInfo.substring(0, maxCharactersForGridViewDesc)}...'
+                : model.saleInfo,
             overflow: TextOverflow.fade,
             maxLines: 1,
             style: Theme.of(context).textTheme.bodySmall!.copyWith(

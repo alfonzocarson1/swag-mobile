@@ -1,6 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../models/search/category_list_model.dart';
+import '../../models/search/category_model.dart';
 
 abstract class PreferenceRepositoryInt {
   SharedPreferences get prefs;
@@ -26,5 +27,5 @@ abstract class PreferenceRepositoryInt {
   Future<void> setReleaseDate(int value);
 
   Future<void> saveLastCategories(dynamic cList);
-  List<String> getLastCategories();
+  Future<List<CategoryModel>> getLastCategories();
 }

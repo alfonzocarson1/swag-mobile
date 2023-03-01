@@ -16,6 +16,10 @@ import '../blocs/explore_bloc/explore_bloc.dart';
 import '../blocs/favorite_bloc/favorite_bloc.dart';
 import '../blocs/listing_bloc/listing_bloc.dart';
 import '../blocs/profile_favorite_bloc/profile_favorite_bloc.dart';
+import '../blocs/search_tabs_bloc/accessories_bloc/accessories_bloc.dart';
+import '../blocs/search_tabs_bloc/head_covers_bloc/head_covers_bloc.dart';
+import '../blocs/search_tabs_bloc/putters_bloc/putters_bloc.dart';
+import '../blocs/search_tabs_bloc/whats_hot_bloc/whats_hot_bloc.dart';
 import '../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
 import '../blocs/sold_bloc/sold_bloc.dart';
 import '../data/auth/auth_service.dart';
@@ -31,6 +35,8 @@ import '../data/favorite/favorite_service.dart';
 import '../data/favorite/i_favorite_service.dart';
 import '../data/listing/i_listing_service.dart';
 import '../data/listing/listing_service.dart';
+import '../data/search_tabs/i_search_tabs_service.dart';
+import '../data/search_tabs/search_tabs_service.dart';
 import '../data/shared_preferences/shared_preferences_service.dart';
 import '../data/sold/i_sold_service.dart';
 import '../data/sold/sold_service.dart';
@@ -53,6 +59,20 @@ Future<void> setupAppScope() {
       .registerLazySingleton<ISearchService>(() => SearchService(APIService()));
   getIt.registerLazySingleton<SearchBloc>(
       () => SearchBloc(getIt<ISearchService>()));
+
+  getIt.registerLazySingleton<ISearchTabsService>(
+      () => SearchTabsService(APIService()));
+  getIt.registerLazySingleton<WhatsHotBloc>(
+      () => WhatsHotBloc(getIt<ISearchTabsService>()));
+
+  getIt.registerLazySingleton<HeadcoversBloc>(
+      () => HeadcoversBloc(getIt<ISearchTabsService>()));
+
+  getIt.registerLazySingleton<PuttersBloc>(
+      () => PuttersBloc(getIt<ISearchTabsService>()));
+
+  getIt.registerLazySingleton<AccessoriesBloc>(
+      () => AccessoriesBloc(getIt<ISearchTabsService>()));
 
   getIt.registerLazySingleton<IExploreService>(
       () => ExploreService(APIService()));
