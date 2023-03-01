@@ -37,6 +37,7 @@ import '../data/listing/i_listing_service.dart';
 import '../data/listing/listing_service.dart';
 import '../data/search_tabs/i_search_tabs_service.dart';
 import '../data/search_tabs/search_tabs_service.dart';
+import '../data/secure_storage/storage_repository_service.dart';
 import '../data/shared_preferences/shared_preferences_service.dart';
 import '../data/sold/i_sold_service.dart';
 import '../data/sold/sold_service.dart';
@@ -49,6 +50,7 @@ const authorizedScope = 'authorizedScope';
 
 Future<void> setupAppScope() {
   getIt.registerLazySingleton(() => PreferenceRepositoryService());
+  getIt.registerLazySingleton(() => StorageRepositoryService());
   getIt.registerLazySingleton(() => ContextService());
   getIt.registerLazySingleton<IAuthService>(() => AuthService(APIService()));
   getIt.registerLazySingleton<AuthBloc>(() => AuthBloc(getIt<IAuthService>()));

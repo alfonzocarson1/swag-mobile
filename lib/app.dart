@@ -84,7 +84,7 @@ class App extends StatelessWidget {
                 authenticated: (_) => const HomePage(),
                 walkthrough: (_) => const LandingPage(),
                 onboarding: (_) => const LandingPage(),
-                orElse: () => const LandingPage(),
+                orElse: () => const SplashPage(),
                 unauthenticated: (_) {
                   return const LandingPage();
                 }),

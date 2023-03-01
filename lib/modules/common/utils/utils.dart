@@ -1,5 +1,7 @@
 import 'package:intl/intl.dart';
 
+import '../../constants/constants.dart';
+
 bool isValidEmail(String email) {
   return RegExp(
           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
@@ -29,4 +31,8 @@ String formatDate(String dateTime) {
   final DateTime displayDate = displayFormater.parse(dateTime);
   final String formatted = serverFormater.format(displayDate);
   return formatted;
+}
+
+bool isTokenValid(String? token) {
+  return token != null && token != defaultString;
 }

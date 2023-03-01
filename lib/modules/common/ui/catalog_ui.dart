@@ -174,8 +174,8 @@ class _CatalogPageState extends State<CatalogPage> {
                                   alignment: Alignment.bottomLeft,
                                   child: Text(
                                       overflow: TextOverflow.ellipsis,
-                                      widget
-                                          .catalogItems[index].catalogItemName,
+                                      widget.catalogItems[index].catalogItemName
+                                          .toUpperCase(),
                                       style: Theme.of(context)
                                           .textTheme
                                           .displayLarge!

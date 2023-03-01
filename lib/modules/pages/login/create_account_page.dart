@@ -17,6 +17,7 @@ import '../../common/ui/loading.dart';
 import '../../common/ui/web_view.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../constants/constants.dart';
+import '../../data/secure_storage/storage_repository_service.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 
@@ -138,6 +139,10 @@ class _CreateAccountState extends State<CreateAccountPage> {
                     getIt<PreferenceRepositoryService>()
                         .saveHasJustSignedUp(true);
                     getIt<PreferenceRepositoryService>().saveIsLogged(true);
+                    getIt<StorageRepositoryService>()
+                        .saveEmail(_emailController.text);
+                    getIt<StorageRepositoryService>()
+                        .savePassword(_passwordController.text);
                     Loading.hide(context);
                     Navigator.popUntil(context, ModalRoute.withName('/'));
                     return null;

@@ -103,7 +103,7 @@ class _HeadWidgetState extends State<HeadWidget> {
                       flex: 5,
                       child: Align(
                         alignment: Alignment.bottomLeft,
-                        child: Text(widget.catalogItemName ?? '',
+                        child: Text(widget.catalogItemName?.toUpperCase() ?? '',
                             overflow: TextOverflow.ellipsis,
                             style: Theme.of(context)
                                 .textTheme

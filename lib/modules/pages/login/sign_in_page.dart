@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:simple_rich_text/simple_rich_text.dart';
 import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/common/ui/clickable_text.dart';
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
@@ -12,10 +11,10 @@ import 'package:swagapp/modules/pages/login/create_account_page.dart';
 import 'package:swagapp/modules/pages/login/forgot_password_page.dart';
 
 import '../../blocs/auth_bloc/auth_bloc.dart';
-import '../home/home_page.dart';
 import '../../common/ui/custom_text_form_field.dart';
 import '../../common/ui/loading.dart';
 import '../../common/utils/custom_route_animations.dart';
+import '../../data/secure_storage/storage_repository_service.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 
@@ -88,6 +87,10 @@ class _SignInPageState extends State<SignInPage> {
                   authenticated: () {
                     Navigator.pop(context);
                     getIt<PreferenceRepositoryService>().saveIsLogged(true);
+                    getIt<StorageRepositoryService>()
+                        .saveEmail(_emailController.text);
+                    getIt<StorageRepositoryService>()
+                        .savePassword(_passwordController.text);
                     Loading.hide(context);
                     return null;
                   },
