@@ -409,8 +409,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
   bool areFieldsValid() {
     return _listPriceItemController.text.isNotEmpty &&
         _defaultCondition != 'Condition' &&
-        _listDescriptionItemController.text.isNotEmpty &&
-        validPrice;
+        _listDescriptionItemController.text.isNotEmpty;
   }
 
   Future<void> selectImages() async {
