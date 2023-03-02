@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -16,7 +17,6 @@ import '../../../common/ui/primary_button.dart';
 import '../../../common/ui/pushed_header.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
-import '../../../common/utils/utils.dart';
 import 'list_item_preview_page.dart';
 
 class ListForSalePage extends StatefulWidget {
@@ -40,7 +40,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
   List<XFile> imageFileList = [];
 
   final FocusNode _listPriceItemNode = FocusNode();
-  final _listPriceItemController = TextEditingController();
+  var _listPriceItemController = TextEditingController();
   Color _listPriceItemBorder = Palette.current.primaryWhiteSmoke;
 
   final FocusNode _conditionNode = FocusNode();
@@ -55,18 +55,11 @@ class _ListForSalePageState extends State<ListForSalePage> {
 
   String? _defaultCondition;
 
-  String _price = '';
+  bool isFirst = true;
 
-  bool _decimalFlag = false;
-  int _dynamicLen = 0;
-
-  bool _dynamicLenFlag = false;
+  String _price = '0';
 
   bool validPrice = false;
-
-  final formater = NumberFormat("###0.00");
-
-  final formaterFour = NumberFormat("#,##0.00");
 
   var Conditions = [
     'Condition',
@@ -86,8 +79,6 @@ class _ListForSalePageState extends State<ListForSalePage> {
   @override
   void initState() {
     super.initState();
-
-    print(formaterFour.format(3456));
 
     _defaultCondition = widget.itemCondition ?? 'Condition';
 
@@ -222,108 +213,41 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                     scale: 3,
                                     color: Palette.current.blackSmoke,
                                   ),
-                                  maxLength: _decimalFlag ? _dynamicLen : 6,
-                                  onChanged: (priceInput) {
-                                    if (_listPriceItemController
-                                        .value.text.isNotEmpty) {
-                                      //TODO Start Format validations for prices
-                                      if (_listPriceItemController.text
-                                          .toString()
-                                          .contains('.')) {
-                                        setState(() {
-                                          _decimalFlag = true;
-                                          if (_dynamicLenFlag) {
-                                            _dynamicLenFlag = false;
-                                            _dynamicLen =
-                                                _listPriceItemController
-                                                        .text.length +
-                                                    2;
-                                          }
-                                        });
-                                        if (isValidNumberDot(priceInput)) {
-                                          setState(() {
-                                            validPrice = true;
-                                            _price = priceInput;
-                                            listPriceItemErrorText = null;
-                                          });
-                                        } else {
-                                          setState(() {
-                                            validPrice = false;
-                                            _price = priceInput;
-                                          });
-                                        }
-                                      } else if (_listPriceItemController.text
-                                          .toString()
-                                          .contains(',')) {
-                                        setState(() {
-                                          _decimalFlag = true;
-
-                                          if (_dynamicLenFlag) {
-                                            _dynamicLenFlag = false;
-                                            _dynamicLen =
-                                                _listPriceItemController
-                                                        .text.length +
-                                                    2;
-                                          }
-                                        });
-                                        if (isValidNumberComa(priceInput)) {
-                                          setState(() {
-                                            validPrice = true;
-                                            _price = priceInput;
-                                            listPriceItemErrorText = null;
-                                          });
-                                        } else {
-                                          setState(() {
-                                            validPrice = false;
-                                            _price = priceInput;
-                                          });
-                                        }
-                                      } else {
-                                        setState(() {
-                                          _dynamicLenFlag = true;
-                                          validPrice = true;
-                                          _decimalFlag = false;
-                                          if (priceInput.length == 4) {
-                                            _price = formaterFour
-                                                .format(int.parse(priceInput));
-                                          } else {
-                                            _price = "$priceInput.00";
-                                          }
-                                        });
-                                      }
-                                      if (!_listPriceItemController.text
-                                              .toString()
-                                              .contains('.') &&
-                                          !_listPriceItemController.text
-                                              .toString()
-                                              .contains(',')) {
-                                        if (_listPriceItemController.text
-                                                    .toString()
-                                                    .length >
-                                                5 &&
-                                            _listPriceItemController.text
-                                                    .toString()[5] !=
-                                                ',') {
-                                          setState(() {
-                                            _listPriceItemController.text =
-                                                _listPriceItemController.text
-                                                    .toString()
-                                                    .substring(0, 5);
-                                            _price =
-                                                "${_listPriceItemController.text.toString()}.00";
-                                          });
-                                        }
-                                      } else {
-                                        setState(() {
-                                          _decimalFlag = true;
-                                        });
-                                      }
-                                      //TODO End Format validations for prices
-                                    } else {
+                                  inputFormatters: <TextInputFormatter>[
+                                    FilteringTextInputFormatter.digitsOnly
+                                  ],
+                                  maxLength: 7,
+                                  onChanged: (value) {
+                                    if (value == '00') {
                                       setState(() {
-                                        _price = '0.00';
+                                        _price = "0";
                                       });
                                     }
+
+                                    String newValue = value
+                                        .replaceAll(',', '')
+                                        .replaceAll('.', '');
+                                    if (value.isEmpty || newValue == '00') {
+                                      _listPriceItemController.clear();
+                                      isFirst = true;
+                                      return;
+                                    }
+                                    double value1 = double.parse(newValue);
+                                    if (!isFirst) value1 = value1 * 100;
+                                    value = NumberFormat.currency(
+                                            customPattern: '###,###.##')
+                                        .format(value1 / 100);
+                                    _listPriceItemController.value =
+                                        TextEditingValue(
+                                      text: value,
+                                      selection: TextSelection.collapsed(
+                                          offset: value.length),
+                                    );
+
+                                    setState(() {
+                                      _price =
+                                          _listPriceItemController.value.text;
+                                    });
                                   },
                                   borderColor: _listPriceItemBorder,
                                   autofocus: false,
