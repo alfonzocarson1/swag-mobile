@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../generated/l10n.dart';
+import '../../blocs/sale_history/sale_history_bloc.dart';
 import '../../common/ui/custom_app_bar.dart';
 import '../../common/ui/custom_data_table.dart';
+import '../../common/ui/loading.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
 import '../../models/detail/sale_history_model.dart';
@@ -57,23 +61,84 @@ class _TransactionHistoryState extends State<TransactionHistory> {
         backgroundColor: Palette.current.black,
         resizeToAvoidBottomInset: true,
         appBar: CustomAppBar(actions: true),
-        body: Container(
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            color: Palette.current.blackSmoke,
+        body: BlocConsumer<SalesHistoryBloc, SalesHistoryState>(
+          listener: (context, state) => state.maybeWhen(
+            orElse: () => {Loading.hide(context)},
+            error: (message) => {
+              Loading.hide(context),
+              // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
+            },
+            initial: () {
+              return Loading.show(context);
+            },
           ),
-          child: Column(
-            children: [
-              HeadWidget(
-                  favorite: widget.favorite,
-                  urlImage: widget.urlImage,
-                  catalogItemName: widget.catalogItemName,
-                  lastSale: widget.lastSale,
-                  sale: widget.sale,
-                  available: widget.available),
-              const CustomDataTable()
-            ],
-          ),
+          builder: (context, state) {
+            return state.maybeMap(
+              orElse: () => const Center(),
+              error: (_) {
+                return RefreshIndicator(
+                    onRefresh: () async {
+                      makeCall();
+                      return Future.delayed(const Duration(milliseconds: 1500));
+                    },
+                    child: ListView.builder(
+                      itemBuilder: (_, index) => Container(),
+                      itemCount: 0,
+                    ));
+              },
+              loadedSalesHistory: (state) {
+                print(state.detaSalesHistoryList);
+                return _getBody(state.detaSalesHistoryList);
+              },
+            );
+          },
         ));
+  }
+
+  Widget _getBody(List<SalesHistoryModel> historyList) {
+    return RefreshIndicator(
+      onRefresh: () async {
+        makeCall();
+        return Future.delayed(const Duration(milliseconds: 1500));
+      },
+      child: historyList.isNotEmpty
+          ? Container(
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                color: Palette.current.blackSmoke,
+              ),
+              child: Column(
+                children: [
+                  HeadWidget(
+                      favorite: widget.favorite,
+                      urlImage: widget.urlImage,
+                      catalogItemName: widget.catalogItemName,
+                      lastSale: widget.lastSale,
+                      sale: widget.sale,
+                      available: widget.available),
+                  CustomDataTable(histories: historyList)
+                ],
+              ),
+            )
+          : ListView.builder(
+              itemBuilder: (_, index) => SizedBox(
+                height: MediaQuery.of(context).size.height * 0.7,
+                child: Center(
+                  child: Text(
+                    S.of(context).empty_text,
+                    style: TextStyle(
+                        fontSize: 24, color: Colors.black.withOpacity(0.50)),
+                  ),
+                ),
+              ),
+              itemCount: 1,
+            ),
+    );
+  }
+
+  void makeCall() {
+    context
+        .read<SalesHistoryBloc>()
+        .add(const SalesHistoryEvent.getSalesHistory());
   }
 }

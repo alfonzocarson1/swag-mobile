@@ -14,6 +14,7 @@ import 'modules/blocs/explore_bloc/explore_bloc.dart';
 import 'modules/blocs/favorite_bloc/favorite_bloc.dart';
 import 'modules/blocs/listing_bloc/listing_bloc.dart';
 import 'modules/blocs/profile_favorite_bloc/profile_favorite_bloc.dart';
+import 'modules/blocs/sale_history/sale_history_bloc.dart';
 import 'modules/blocs/sold_bloc/sold_bloc.dart';
 import 'modules/pages/home/home_page.dart';
 import 'modules/common/utils/context_service.dart';
@@ -38,6 +39,9 @@ class App extends StatelessWidget {
           // BlocProvider<SignUpBloc>(create: (_) => getIt<SignUpBloc>()),
           BlocProvider<SearchBloc>(create: (context) => getIt<SearchBloc>()),
           BlocProvider<ExploreBloc>(create: (context) => getIt<ExploreBloc>()),
+          BlocProvider<SalesHistoryBloc>(
+              create: (context) => getIt<SalesHistoryBloc>()),
+
           BlocProvider<DetailBloc>(create: (context) => getIt<DetailBloc>()),
           BlocProvider<FavoriteBloc>(
               create: (context) => getIt<FavoriteBloc>()),

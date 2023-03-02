@@ -9,7 +9,9 @@ extension on Priority {
 }
 
 class CustomDataTable extends StatefulWidget {
-  const CustomDataTable({super.key});
+  CustomDataTable({super.key, required this.histories});
+
+  final List<SalesHistoryModel> histories;
 
   @override
   State<CustomDataTable> createState() => _CustomDataTableState();
@@ -20,38 +22,33 @@ class _CustomDataTableState extends State<CustomDataTable> {
   late bool _ascendingCondition;
   late bool _ascendingPrice;
 
-  var histories = <Sale>[
-    Sale(date: "12/12/2022", condition: "SEALED", price: 425.04),
-    Sale(date: "12/15/2022", condition: "SEALED", price: 425.02),
-    Sale(date: "12/19/2022", condition: "GAMED", price: 425.07),
-    Sale(date: "12/13/2022", condition: "DISPLAYED", price: 425.07),
-    Sale(date: "12/19/2022", condition: "GAMED", price: 425.03),
-    Sale(date: "12/14/2022", condition: "DISPLAYED", price: 425.25),
-    Sale(date: "12/19/2022", condition: "SEALED", price: 425.04),
-    Sale(date: "12/14/2022", condition: "GAMED", price: 425.09),
-    Sale(date: "12/19/2022", condition: "SEALED", price: 425.01),
-  ];
+  var histories = <SalesHistoryModel>[];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _ascendingDate = true;
-    _ascendingCondition = false;
-    _ascendingPrice = false;
 
-    histories.map((obj) {
-      if (obj.condition == "SEALED") {
-        obj.priority = Priority.first;
-      }
-      if (obj.condition == "DISPLAYED") {
-        obj.priority = Priority.second;
-      }
-      if (obj.condition == "GAMED") {
-        obj.priority = Priority.third;
-      }
-    }).toList();
-    histories.sort((a, b) => b.date.compareTo(a.date));
+    setState(() {
+      _ascendingDate = true;
+      _ascendingCondition = false;
+      _ascendingPrice = false;
+
+      widget.histories.map((obj) {
+        if (obj.condition == "Sealed") {
+          obj = obj.copyWith(priority: Priority.first);
+        }
+        if (obj.condition == "Displayed") {
+          obj = obj.copyWith(priority: Priority.second);
+        }
+        if (obj.condition == "Gamed") {
+          obj = obj.copyWith(priority: Priority.third);
+        }
+        histories.add(obj);
+      }).toList();
+
+      histories.sort((a, b) => b.updatedDate.compareTo(a.updatedDate));
+    });
   }
 
   @override
@@ -97,11 +94,11 @@ class _CustomDataTableState extends State<CustomDataTable> {
                                     _ascendingCondition = false;
                                     _ascendingPrice = false;
                                     if (_ascendingDate) {
-                                      histories.sort(
-                                          (a, b) => a.date.compareTo(b.date));
+                                      histories.sort((a, b) => a.updatedDate
+                                          .compareTo(b.updatedDate));
                                     } else {
-                                      histories.sort(
-                                          (a, b) => b.date.compareTo(a.date));
+                                      histories.sort((a, b) => b.updatedDate
+                                          .compareTo(a.updatedDate));
                                     }
                                     if (!_ascendingDate) {
                                       _ascendingDate = true;
@@ -141,10 +138,10 @@ class _CustomDataTableState extends State<CustomDataTable> {
                                       _ascendingPrice = false;
                                       if (_ascendingCondition) {
                                         histories.sort((a, b) =>
-                                            b.priority!.compareTo(a.priority!));
+                                            b.priority.compareTo(a.priority));
                                       } else {
                                         histories.sort((a, b) =>
-                                            a.priority!.compareTo(b.priority!));
+                                            a.priority.compareTo(b.priority));
                                       }
                                       if (!_ascendingCondition) {
                                         _ascendingCondition = true;
@@ -181,13 +178,14 @@ class _CustomDataTableState extends State<CustomDataTable> {
                                     setState(() {
                                       _ascendingDate = false;
                                       _ascendingCondition = false;
-
                                       if (_ascendingPrice) {
-                                        histories.sort((a, b) =>
-                                            a.price.compareTo(b.price));
+                                        histories.sort((a, b) => a
+                                            .productItemPrice
+                                            .compareTo(b.productItemPrice));
                                       } else {
-                                        histories.sort((a, b) =>
-                                            b.price.compareTo(a.price));
+                                        histories.sort((a, b) => b
+                                            .productItemPrice
+                                            .compareTo(a.productItemPrice));
                                       }
                                       if (!_ascendingPrice) {
                                         _ascendingPrice = true;
@@ -210,7 +208,7 @@ class _CustomDataTableState extends State<CustomDataTable> {
                         .map((history) => DataRow(cells: [
                               DataCell(Align(
                                   alignment: Alignment.centerLeft,
-                                  child: Text(history.date,
+                                  child: Text(history.updatedDate,
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodySmall!
@@ -228,7 +226,7 @@ class _CustomDataTableState extends State<CustomDataTable> {
                                                 .current.primaryNeonPink)),
                               )),
                               DataCell(Center(
-                                  child: Text("\$${history.price}",
+                                  child: Text("\$${history.productItemPrice}",
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodySmall!
