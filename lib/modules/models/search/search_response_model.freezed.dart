@@ -21,7 +21,6 @@ SearchResponseModel _$SearchResponseModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$SearchResponseModel {
   List<CatalogItemModel> get catalogList => throw _privateConstructorUsedError;
-  List<String> get savedList => throw _privateConstructorUsedError;
   List<String> get recentList => throw _privateConstructorUsedError;
   String? get jobId => throw _privateConstructorUsedError;
 
@@ -39,7 +38,6 @@ abstract class $SearchResponseModelCopyWith<$Res> {
   @useResult
   $Res call(
       {List<CatalogItemModel> catalogList,
-      List<String> savedList,
       List<String> recentList,
       String? jobId});
 }
@@ -58,7 +56,6 @@ class _$SearchResponseModelCopyWithImpl<$Res, $Val extends SearchResponseModel>
   @override
   $Res call({
     Object? catalogList = null,
-    Object? savedList = null,
     Object? recentList = null,
     Object? jobId = freezed,
   }) {
@@ -67,10 +64,6 @@ class _$SearchResponseModelCopyWithImpl<$Res, $Val extends SearchResponseModel>
           ? _value.catalogList
           : catalogList // ignore: cast_nullable_to_non_nullable
               as List<CatalogItemModel>,
-      savedList: null == savedList
-          ? _value.savedList
-          : savedList // ignore: cast_nullable_to_non_nullable
-              as List<String>,
       recentList: null == recentList
           ? _value.recentList
           : recentList // ignore: cast_nullable_to_non_nullable
@@ -93,7 +86,6 @@ abstract class _$$_SearchResponseModelCopyWith<$Res>
   @useResult
   $Res call(
       {List<CatalogItemModel> catalogList,
-      List<String> savedList,
       List<String> recentList,
       String? jobId});
 }
@@ -110,7 +102,6 @@ class __$$_SearchResponseModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? catalogList = null,
-    Object? savedList = null,
     Object? recentList = null,
     Object? jobId = freezed,
   }) {
@@ -119,10 +110,6 @@ class __$$_SearchResponseModelCopyWithImpl<$Res>
           ? _value._catalogList
           : catalogList // ignore: cast_nullable_to_non_nullable
               as List<CatalogItemModel>,
-      savedList: null == savedList
-          ? _value._savedList
-          : savedList // ignore: cast_nullable_to_non_nullable
-              as List<String>,
       recentList: null == recentList
           ? _value._recentList
           : recentList // ignore: cast_nullable_to_non_nullable
@@ -141,11 +128,9 @@ class __$$_SearchResponseModelCopyWithImpl<$Res>
 class _$_SearchResponseModel implements _SearchResponseModel {
   const _$_SearchResponseModel(
       {required final List<CatalogItemModel> catalogList,
-      required final List<String> savedList,
-      required final List<String> recentList,
+      final List<String> recentList = const [],
       this.jobId})
       : _catalogList = catalogList,
-        _savedList = savedList,
         _recentList = recentList;
 
   factory _$_SearchResponseModel.fromJson(Map<String, dynamic> json) =>
@@ -159,16 +144,9 @@ class _$_SearchResponseModel implements _SearchResponseModel {
     return EqualUnmodifiableListView(_catalogList);
   }
 
-  final List<String> _savedList;
-  @override
-  List<String> get savedList {
-    if (_savedList is EqualUnmodifiableListView) return _savedList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_savedList);
-  }
-
   final List<String> _recentList;
   @override
+  @JsonKey()
   List<String> get recentList {
     if (_recentList is EqualUnmodifiableListView) return _recentList;
     // ignore: implicit_dynamic_type
@@ -180,7 +158,7 @@ class _$_SearchResponseModel implements _SearchResponseModel {
 
   @override
   String toString() {
-    return 'SearchResponseModel(catalogList: $catalogList, savedList: $savedList, recentList: $recentList, jobId: $jobId)';
+    return 'SearchResponseModel(catalogList: $catalogList, recentList: $recentList, jobId: $jobId)';
   }
 
   @override
@@ -191,8 +169,6 @@ class _$_SearchResponseModel implements _SearchResponseModel {
             const DeepCollectionEquality()
                 .equals(other._catalogList, _catalogList) &&
             const DeepCollectionEquality()
-                .equals(other._savedList, _savedList) &&
-            const DeepCollectionEquality()
                 .equals(other._recentList, _recentList) &&
             (identical(other.jobId, jobId) || other.jobId == jobId));
   }
@@ -202,7 +178,6 @@ class _$_SearchResponseModel implements _SearchResponseModel {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_catalogList),
-      const DeepCollectionEquality().hash(_savedList),
       const DeepCollectionEquality().hash(_recentList),
       jobId);
 
@@ -224,8 +199,7 @@ class _$_SearchResponseModel implements _SearchResponseModel {
 abstract class _SearchResponseModel implements SearchResponseModel {
   const factory _SearchResponseModel(
       {required final List<CatalogItemModel> catalogList,
-      required final List<String> savedList,
-      required final List<String> recentList,
+      final List<String> recentList,
       final String? jobId}) = _$_SearchResponseModel;
 
   factory _SearchResponseModel.fromJson(Map<String, dynamic> json) =
@@ -233,8 +207,6 @@ abstract class _SearchResponseModel implements SearchResponseModel {
 
   @override
   List<CatalogItemModel> get catalogList;
-  @override
-  List<String> get savedList;
   @override
   List<String> get recentList;
   @override

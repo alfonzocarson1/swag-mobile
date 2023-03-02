@@ -8,19 +8,13 @@ class CatalogItemModel with _$CatalogItemModel {
   @JsonSerializable()
   const factory CatalogItemModel({
     required final String catalogItemId,
-    required final String image,
     required final String catalogItemName,
-    required final String catalogItemDescription,
-    required final String catalogItemCollections,
-    required final String catalogItemCategoryId,
-    required final String released,
-    required final int totalMade,
-    required final String retail,
-    required final bool sale,
-    required final String lastSale,
+    required final String catalogItemImage,
     required final int numberAvailable,
-    required final String sku,
-    final String? jobId,
+    required final String saleInfo,
+    required final bool forSale,
+    required final bool inFavorites,
+    required final bool inCollection,
   }) = _CatalogItemModel;
 
   factory CatalogItemModel.fromJson(Map<String, dynamic> json) =>

@@ -64,8 +64,9 @@ class _CatalogPageState extends State<CatalogPage> {
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
-              Navigator.of(context, rootNavigator: true)
-                  .push(ItemDetailPage.route());
+              Navigator.of(context, rootNavigator: true).push(
+                  ItemDetailPage.route(
+                      widget.catalogItems[index].catalogItemId));
             },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -75,7 +76,7 @@ class _CatalogPageState extends State<CatalogPage> {
                 Stack(
                   children: [
                     CachedNetworkImage(
-                      imageUrl: widget.catalogItems[index].image,
+                      imageUrl: widget.catalogItems[index].catalogItemImage,
                       placeholder: (context, url) => SizedBox(
                         height: 340,
                         child: Center(
@@ -119,7 +120,7 @@ class _CatalogPageState extends State<CatalogPage> {
                         ),
                       ),
                     ),
-                    widget.catalogItems[index].sale
+                    widget.catalogItems[index].forSale
                         ? Positioned(
                             bottom: 0,
                             width: MediaQuery.of(context).size.width,
@@ -167,13 +168,14 @@ class _CatalogPageState extends State<CatalogPage> {
                         child: Column(
                           children: [
                             Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20.0),
-                              child: Row(
-                                children: [
-                                  Text(
-                                      widget
-                                          .catalogItems[index].catalogItemName,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20.0),
+                                child: Align(
+                                  alignment: Alignment.bottomLeft,
+                                  child: Text(
+                                      overflow: TextOverflow.ellipsis,
+                                      widget.catalogItems[index].catalogItemName
+                                          .toUpperCase(),
                                       style: Theme.of(context)
                                           .textTheme
                                           .displayLarge!
@@ -182,10 +184,8 @@ class _CatalogPageState extends State<CatalogPage> {
                                               fontWeight: FontWeight.w300,
                                               fontFamily: "Knockout",
                                               fontSize: 30,
-                                              color: Palette.current.white))
-                                ],
-                              ),
-                            ),
+                                              color: Palette.current.white)),
+                                )),
                           ],
                         )),
                     Expanded(
@@ -228,7 +228,7 @@ class _CatalogPageState extends State<CatalogPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Row(
                     children: [
-                      Text(widget.catalogItems[index].lastSale,
+                      Text(widget.catalogItems[index].saleInfo,
                           style: Theme.of(context)
                               .textTheme
                               .bodySmall!

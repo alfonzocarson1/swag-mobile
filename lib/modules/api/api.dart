@@ -7,7 +7,9 @@ enum Endpoint {
   createNewAccount,
   catalogItemDetail,
   login,
-  salesHistory
+  salesHistory,
+  catalogCategories,
+  catalogSearchList,
 }
 
 class API {
@@ -30,6 +32,8 @@ class API {
     Endpoint.createNewAccount: 'api/public/v1/account/createNewAccount',
     Endpoint.catalogItemDetail: 'api/public/v1/catalog/catalogItemDetail/%s',
     Endpoint.login: "api/public/v1/account/login",
-    Endpoint.salesHistory: "api/public/v1/listing/salesHistory/%s"
+    Endpoint.salesHistory: "api/public/v1/listing/salesHistory/%s",
+    Endpoint.catalogCategories: 'api/public/v1/catalog/categories/',
+    Endpoint.catalogSearchList: 'api/public/v1/catalog/search/%s',
   };
 }

@@ -14,10 +14,7 @@ part 'detail_state.dart';
 class DetailBloc extends Bloc<DetailEvent, DetailState> {
   final IDetailService detailService;
 
-  DetailBloc(this.detailService) : super(DetailState.initial()) {
-    add(const DetailEvent.getDetailItem(
-        '525fc291-cc22-4adb-a9b3-53cb6c621881'));
-  }
+  DetailBloc(this.detailService) : super(DetailState.initial());
 
   Stream<DetailState> get authStateStream async* {
     yield state;
