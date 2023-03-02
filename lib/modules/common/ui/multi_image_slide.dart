@@ -273,15 +273,4 @@ class _MultiImageSlideState extends State<MultiImageSlide> {
       ],
     );
   }
-
-  Future<void> removeImage() async {
-    // Pick an image
-    try {
-      print("assadsa");
-
-      setState(() {});
-    } catch (e) {
-      log("Image picker: $e");
-    }
-  }
 }

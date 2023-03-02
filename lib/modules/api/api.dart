@@ -6,6 +6,10 @@ enum Endpoint {
   isUsernameAvailable,
   createNewAccount,
   catalogItemDetail,
+
+  catalogCategories,
+  catalogSearchList,
+
   login
 }
 
@@ -28,6 +32,8 @@ class API {
         'api/public/v1/account/isUsernameAvailable/%s',
     Endpoint.createNewAccount: 'api/public/v1/account/createNewAccount',
     Endpoint.catalogItemDetail: 'api/public/v1/catalog/catalogItemDetail/%s',
+    Endpoint.catalogCategories: 'api/public/v1/catalog/categories/',
+    Endpoint.catalogSearchList: 'api/public/v1/catalog/search/%s',
     Endpoint.login: "api/public/v1/account/login"
   };
 }

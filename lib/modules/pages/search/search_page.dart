@@ -12,6 +12,8 @@ import 'package:swagapp/modules/pages/search/search_on_tap_page.dart';
 import 'package:swagapp/modules/pages/search/tabs/whats_hot_page.dart';
 
 import '../../common/utils/custom_route_animations.dart';
+import '../../data/shared_preferences/shared_preferences_service.dart';
+import '../../di/injector.dart';
 
 class SearchPage extends StatefulWidget {
   static const name = '/SearchCatalog';
@@ -34,9 +36,13 @@ class _SearchPageState extends State<SearchPage>
   int selectedIndex = 0;
   final TextEditingController _textEditingController = TextEditingController();
 
+  List<dynamic> categoriesData = [];
+  var tabLen = 0;
+
   @override
   void initState() {
     super.initState();
+    getLastCategories();
     _controller = TabController(length: 4, vsync: this);
     // _isLogged = getIt<PreferenceRepositoryService>().isLogged();
     // if (_isLogged) {
@@ -50,6 +56,18 @@ class _SearchPageState extends State<SearchPage>
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  Future<void> getLastCategories() async {
+    categoriesData =
+        await getIt<PreferenceRepositoryService>().getLastCategories();
+    Future.delayed(const Duration(milliseconds: 150), () {
+      setState(() {
+        setState(() {
+          tabLen = categoriesData.length;
+        });
+      });
+    });
   }
 
   @override
@@ -78,13 +96,13 @@ class _SearchPageState extends State<SearchPage>
   Widget getBody() {
     return Column(
       children: [
-        _getTabBar(context),
+        tabLen == 0 ? Container() : _getTabBar(context),
         Expanded(
           child: TabBarView(controller: _controller, children: const [
             WhatsHotPage(),
             HeadcoversPage(),
             PuttersPage(),
-            AccessoriesPage()
+            AccessoriesPage(),
           ]),
         ),
       ],
@@ -164,49 +182,33 @@ class _SearchPageState extends State<SearchPage>
     return Padding(
       padding: const EdgeInsets.only(top: 10, left: 0, right: 0),
       child: TabBar(
-        controller: _controller,
-        labelColor: Palette.current.primaryNeonGreen,
-        indicatorSize: TabBarIndicatorSize.label,
-        unselectedLabelColor: Palette.current.primaryWhiteSmoke,
-        unselectedLabelStyle: Theme.of(context)
-            .textTheme
-            .headlineMedium!
-            .copyWith(
-                fontFamily: "KnockoutCustom",
-                fontSize: 21,
-                letterSpacing: 1.1,
-                fontWeight: FontWeight.w300),
-        labelStyle: Theme.of(context).textTheme.headlineMedium!.copyWith(
-            fontFamily: "KnockoutCustom",
-            fontSize: 21,
-            letterSpacing: 1.0,
-            fontWeight: FontWeight.w300),
-        onTap: (index) {
-          setState(() {});
-        },
-        tabs: [
-          Tab(
-            child: _buildTab(
-              text: S.of(context).whats_hot.toUpperCase(),
-            ),
-          ),
-          Tab(
-            child: _buildTab(
-              text: S.of(context).headcovers.toUpperCase(),
-            ),
-          ),
-          Tab(
-            child: _buildTab(
-              text: S.of(context).putters.toUpperCase(),
-            ),
-          ),
-          Tab(
-            child: _buildTab(
-              text: S.of(context).accessories.toUpperCase(),
-            ),
-          ),
-        ],
-      ),
+          controller: _controller,
+          labelColor: Palette.current.primaryNeonGreen,
+          indicatorSize: TabBarIndicatorSize.label,
+          unselectedLabelColor: Palette.current.primaryWhiteSmoke,
+          unselectedLabelStyle: Theme.of(context)
+              .textTheme
+              .headlineMedium!
+              .copyWith(
+                  fontFamily: "KnockoutCustom",
+                  fontSize: 20,
+                  letterSpacing: 1.1,
+                  fontWeight: FontWeight.w300),
+          labelStyle: Theme.of(context).textTheme.headlineMedium!.copyWith(
+              fontFamily: "KnockoutCustom",
+              fontSize: 21,
+              letterSpacing: 1.0,
+              fontWeight: FontWeight.w300),
+          onTap: (index) {
+            setState(() {});
+          },
+          tabs: List<Widget>.generate(categoriesData.length, (index) {
+            return Tab(
+              child: _buildTab(
+                text: categoriesData[index].categoryName.toUpperCase(),
+              ),
+            );
+          })),
     );
   }
 }
