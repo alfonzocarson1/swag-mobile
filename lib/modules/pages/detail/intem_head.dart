@@ -8,17 +8,19 @@ import '../../common/utils/palette.dart';
 import 'transaction_history_page.dart';
 
 class HeadWidget extends StatefulWidget {
-  const HeadWidget(
-      {super.key,
-      required this.urlImage,
-      this.catalogItemName,
-      this.lastSale,
-      this.catalogItemDescription,
-      this.catalogItemDescriptionShort,
-      required this.sale,
-      required this.favorite,
-      this.available,
-      this.saleHistory});
+  const HeadWidget({
+    super.key,
+    required this.urlImage,
+    this.catalogItemName,
+    this.lastSale,
+    this.catalogItemDescription,
+    this.catalogItemDescriptionShort,
+    required this.sale,
+    required this.favorite,
+    this.available,
+    this.saleHistory,
+    required this.itemId,
+  });
 
   final String urlImage;
   final String? catalogItemName;
@@ -29,6 +31,7 @@ class HeadWidget extends StatefulWidget {
   final bool favorite;
   final int? available;
   final List<dynamic>? saleHistory;
+  final String itemId;
 
   @override
   State<HeadWidget> createState() => _HeadWidgetState();
@@ -160,15 +163,15 @@ class _HeadWidgetState extends State<HeadWidget> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.of(context, rootNavigator: true)
-                              .push(TransactionHistory.route(
-                            widget.urlImage,
-                            widget.catalogItemName!,
-                            widget.lastSale!,
-                            false,
-                            3,
-                            widget.favorite,
-                          ));
+                          Navigator.of(context, rootNavigator: true).push(
+                              TransactionHistory.route(
+                                  widget.urlImage,
+                                  widget.catalogItemName!,
+                                  widget.lastSale!,
+                                  false,
+                                  3,
+                                  widget.favorite,
+                                  widget.itemId));
                         },
                         child: Center(
                           child: Container(

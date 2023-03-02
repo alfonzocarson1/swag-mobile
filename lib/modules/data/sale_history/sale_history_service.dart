@@ -14,7 +14,7 @@ class SalesHistoryService extends ISalesHistoryService {
   @override
   Future<SalesHistoryListModel> salesHistory(String itemId) async {
     SalesHistoryListModel response = await apiService.getEndpointData(
-        endpoint: Endpoint.catalogItemDetail,
+        endpoint: Endpoint.salesHistory,
         method: RequestMethod.get,
         dynamicParam: itemId,
         jsonKey: 'saleHistoryList',

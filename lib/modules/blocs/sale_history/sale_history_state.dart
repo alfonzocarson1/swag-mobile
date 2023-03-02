@@ -8,6 +8,6 @@ class SalesHistoryState with _$SalesHistoryState {
   factory SalesHistoryState.error(final String message) =
       _ErrorSalesHistoryState;
   factory SalesHistoryState.loadedSalesHistory({
-    required final List<SalesHistoryModel> detaSalesHistoryList,
+    required final List<SalesHistoryListModel> detaSalesHistoryList,
   }) = LoadedSalesHistoryState;
 }

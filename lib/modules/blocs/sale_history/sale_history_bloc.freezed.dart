@@ -16,19 +16,20 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$SalesHistoryEvent {
+  String get itemId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getSalesHistory,
+    required TResult Function(String itemId) getSalesHistory,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getSalesHistory,
+    TResult? Function(String itemId)? getSalesHistory,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getSalesHistory,
+    TResult Function(String itemId)? getSalesHistory,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -48,6 +49,10 @@ mixin _$SalesHistoryEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $SalesHistoryEventCopyWith<SalesHistoryEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -55,6 +60,8 @@ abstract class $SalesHistoryEventCopyWith<$Res> {
   factory $SalesHistoryEventCopyWith(
           SalesHistoryEvent value, $Res Function(SalesHistoryEvent) then) =
       _$SalesHistoryEventCopyWithImpl<$Res, SalesHistoryEvent>;
+  @useResult
+  $Res call({String itemId});
 }
 
 /// @nodoc
@@ -66,13 +73,30 @@ class _$SalesHistoryEventCopyWithImpl<$Res, $Val extends SalesHistoryEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? itemId = null,
+  }) {
+    return _then(_value.copyWith(
+      itemId: null == itemId
+          ? _value.itemId
+          : itemId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$_GetSalesHistoryItemCopyWith<$Res> {
+abstract class _$$_GetSalesHistoryItemCopyWith<$Res>
+    implements $SalesHistoryEventCopyWith<$Res> {
   factory _$$_GetSalesHistoryItemCopyWith(_$_GetSalesHistoryItem value,
           $Res Function(_$_GetSalesHistoryItem) then) =
       __$$_GetSalesHistoryItemCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String itemId});
 }
 
 /// @nodoc
@@ -82,51 +106,76 @@ class __$$_GetSalesHistoryItemCopyWithImpl<$Res>
   __$$_GetSalesHistoryItemCopyWithImpl(_$_GetSalesHistoryItem _value,
       $Res Function(_$_GetSalesHistoryItem) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? itemId = null,
+  }) {
+    return _then(_$_GetSalesHistoryItem(
+      null == itemId
+          ? _value.itemId
+          : itemId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_GetSalesHistoryItem implements _GetSalesHistoryItem {
-  const _$_GetSalesHistoryItem();
+  const _$_GetSalesHistoryItem(this.itemId);
+
+  @override
+  final String itemId;
 
   @override
   String toString() {
-    return 'SalesHistoryEvent.getSalesHistory()';
+    return 'SalesHistoryEvent.getSalesHistory(itemId: $itemId)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_GetSalesHistoryItem);
+        (other.runtimeType == runtimeType &&
+            other is _$_GetSalesHistoryItem &&
+            (identical(other.itemId, itemId) || other.itemId == itemId));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, itemId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_GetSalesHistoryItemCopyWith<_$_GetSalesHistoryItem> get copyWith =>
+      __$$_GetSalesHistoryItemCopyWithImpl<_$_GetSalesHistoryItem>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getSalesHistory,
+    required TResult Function(String itemId) getSalesHistory,
   }) {
-    return getSalesHistory();
+    return getSalesHistory(itemId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getSalesHistory,
+    TResult? Function(String itemId)? getSalesHistory,
   }) {
-    return getSalesHistory?.call();
+    return getSalesHistory?.call(itemId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getSalesHistory,
+    TResult Function(String itemId)? getSalesHistory,
     required TResult orElse(),
   }) {
     if (getSalesHistory != null) {
-      return getSalesHistory();
+      return getSalesHistory(itemId);
     }
     return orElse();
   }
@@ -161,7 +210,15 @@ class _$_GetSalesHistoryItem implements _GetSalesHistoryItem {
 }
 
 abstract class _GetSalesHistoryItem implements SalesHistoryEvent {
-  const factory _GetSalesHistoryItem() = _$_GetSalesHistoryItem;
+  const factory _GetSalesHistoryItem(final String itemId) =
+      _$_GetSalesHistoryItem;
+
+  @override
+  String get itemId;
+  @override
+  @JsonKey(ignore: true)
+  _$$_GetSalesHistoryItemCopyWith<_$_GetSalesHistoryItem> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -170,7 +227,7 @@ mixin _$SalesHistoryState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String message) error,
-    required TResult Function(List<SalesHistoryModel> detaSalesHistoryList)
+    required TResult Function(List<SalesHistoryListModel> detaSalesHistoryList)
         loadedSalesHistory,
   }) =>
       throw _privateConstructorUsedError;
@@ -178,7 +235,7 @@ mixin _$SalesHistoryState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String message)? error,
-    TResult? Function(List<SalesHistoryModel> detaSalesHistoryList)?
+    TResult? Function(List<SalesHistoryListModel> detaSalesHistoryList)?
         loadedSalesHistory,
   }) =>
       throw _privateConstructorUsedError;
@@ -186,7 +243,7 @@ mixin _$SalesHistoryState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String message)? error,
-    TResult Function(List<SalesHistoryModel> detaSalesHistoryList)?
+    TResult Function(List<SalesHistoryListModel> detaSalesHistoryList)?
         loadedSalesHistory,
     required TResult orElse(),
   }) =>
@@ -275,7 +332,7 @@ class _$_InitialSalesHistoryState extends _InitialSalesHistoryState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String message) error,
-    required TResult Function(List<SalesHistoryModel> detaSalesHistoryList)
+    required TResult Function(List<SalesHistoryListModel> detaSalesHistoryList)
         loadedSalesHistory,
   }) {
     return initial();
@@ -286,7 +343,7 @@ class _$_InitialSalesHistoryState extends _InitialSalesHistoryState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String message)? error,
-    TResult? Function(List<SalesHistoryModel> detaSalesHistoryList)?
+    TResult? Function(List<SalesHistoryListModel> detaSalesHistoryList)?
         loadedSalesHistory,
   }) {
     return initial?.call();
@@ -297,7 +354,7 @@ class _$_InitialSalesHistoryState extends _InitialSalesHistoryState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String message)? error,
-    TResult Function(List<SalesHistoryModel> detaSalesHistoryList)?
+    TResult Function(List<SalesHistoryListModel> detaSalesHistoryList)?
         loadedSalesHistory,
     required TResult orElse(),
   }) {
@@ -414,7 +471,7 @@ class _$_ErrorSalesHistoryState extends _ErrorSalesHistoryState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String message) error,
-    required TResult Function(List<SalesHistoryModel> detaSalesHistoryList)
+    required TResult Function(List<SalesHistoryListModel> detaSalesHistoryList)
         loadedSalesHistory,
   }) {
     return error(message);
@@ -425,7 +482,7 @@ class _$_ErrorSalesHistoryState extends _ErrorSalesHistoryState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String message)? error,
-    TResult? Function(List<SalesHistoryModel> detaSalesHistoryList)?
+    TResult? Function(List<SalesHistoryListModel> detaSalesHistoryList)?
         loadedSalesHistory,
   }) {
     return error?.call(message);
@@ -436,7 +493,7 @@ class _$_ErrorSalesHistoryState extends _ErrorSalesHistoryState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String message)? error,
-    TResult Function(List<SalesHistoryModel> detaSalesHistoryList)?
+    TResult Function(List<SalesHistoryListModel> detaSalesHistoryList)?
         loadedSalesHistory,
     required TResult orElse(),
   }) {
@@ -498,7 +555,7 @@ abstract class _$$LoadedSalesHistoryStateCopyWith<$Res> {
           $Res Function(_$LoadedSalesHistoryState) then) =
       __$$LoadedSalesHistoryStateCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<SalesHistoryModel> detaSalesHistoryList});
+  $Res call({List<SalesHistoryListModel> detaSalesHistoryList});
 }
 
 /// @nodoc
@@ -518,7 +575,7 @@ class __$$LoadedSalesHistoryStateCopyWithImpl<$Res>
       detaSalesHistoryList: null == detaSalesHistoryList
           ? _value._detaSalesHistoryList
           : detaSalesHistoryList // ignore: cast_nullable_to_non_nullable
-              as List<SalesHistoryModel>,
+              as List<SalesHistoryListModel>,
     ));
   }
 }
@@ -527,13 +584,13 @@ class __$$LoadedSalesHistoryStateCopyWithImpl<$Res>
 
 class _$LoadedSalesHistoryState extends LoadedSalesHistoryState {
   _$LoadedSalesHistoryState(
-      {required final List<SalesHistoryModel> detaSalesHistoryList})
+      {required final List<SalesHistoryListModel> detaSalesHistoryList})
       : _detaSalesHistoryList = detaSalesHistoryList,
         super._();
 
-  final List<SalesHistoryModel> _detaSalesHistoryList;
+  final List<SalesHistoryListModel> _detaSalesHistoryList;
   @override
-  List<SalesHistoryModel> get detaSalesHistoryList {
+  List<SalesHistoryListModel> get detaSalesHistoryList {
     if (_detaSalesHistoryList is EqualUnmodifiableListView)
       return _detaSalesHistoryList;
     // ignore: implicit_dynamic_type
@@ -570,7 +627,7 @@ class _$LoadedSalesHistoryState extends LoadedSalesHistoryState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String message) error,
-    required TResult Function(List<SalesHistoryModel> detaSalesHistoryList)
+    required TResult Function(List<SalesHistoryListModel> detaSalesHistoryList)
         loadedSalesHistory,
   }) {
     return loadedSalesHistory(detaSalesHistoryList);
@@ -581,7 +638,7 @@ class _$LoadedSalesHistoryState extends LoadedSalesHistoryState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String message)? error,
-    TResult? Function(List<SalesHistoryModel> detaSalesHistoryList)?
+    TResult? Function(List<SalesHistoryListModel> detaSalesHistoryList)?
         loadedSalesHistory,
   }) {
     return loadedSalesHistory?.call(detaSalesHistoryList);
@@ -592,7 +649,7 @@ class _$LoadedSalesHistoryState extends LoadedSalesHistoryState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String message)? error,
-    TResult Function(List<SalesHistoryModel> detaSalesHistoryList)?
+    TResult Function(List<SalesHistoryListModel> detaSalesHistoryList)?
         loadedSalesHistory,
     required TResult orElse(),
   }) {
@@ -639,11 +696,11 @@ class _$LoadedSalesHistoryState extends LoadedSalesHistoryState {
 
 abstract class LoadedSalesHistoryState extends SalesHistoryState {
   factory LoadedSalesHistoryState(
-          {required final List<SalesHistoryModel> detaSalesHistoryList}) =
+          {required final List<SalesHistoryListModel> detaSalesHistoryList}) =
       _$LoadedSalesHistoryState;
   LoadedSalesHistoryState._() : super._();
 
-  List<SalesHistoryModel> get detaSalesHistoryList;
+  List<SalesHistoryListModel> get detaSalesHistoryList;
   @JsonKey(ignore: true)
   _$$LoadedSalesHistoryStateCopyWith<_$LoadedSalesHistoryState> get copyWith =>
       throw _privateConstructorUsedError;
