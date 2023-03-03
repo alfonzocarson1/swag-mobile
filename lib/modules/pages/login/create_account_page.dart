@@ -369,7 +369,8 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                             password: _passwordController.text,
                                             userName: _usernameController.text,
                                             termsOfServiceAccepted:
-                                                checkBoxValue)));
+                                                checkBoxValue,
+                                            deviceId: defaultString)));
                                   }
                                 },
                                 type: PrimaryButtonType.green,

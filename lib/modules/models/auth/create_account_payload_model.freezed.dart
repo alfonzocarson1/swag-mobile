@@ -26,6 +26,7 @@ mixin _$CreateAccountPayloadModel {
   String get password => throw _privateConstructorUsedError;
   String get userName => throw _privateConstructorUsedError;
   bool get termsOfServiceAccepted => throw _privateConstructorUsedError;
+  String get deviceId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -44,7 +45,8 @@ abstract class $CreateAccountPayloadModelCopyWith<$Res> {
       String phoneNumber,
       String password,
       String userName,
-      bool termsOfServiceAccepted});
+      bool termsOfServiceAccepted,
+      String deviceId});
 }
 
 /// @nodoc
@@ -66,6 +68,7 @@ class _$CreateAccountPayloadModelCopyWithImpl<$Res,
     Object? password = null,
     Object? userName = null,
     Object? termsOfServiceAccepted = null,
+    Object? deviceId = null,
   }) {
     return _then(_value.copyWith(
       email: null == email
@@ -88,6 +91,10 @@ class _$CreateAccountPayloadModelCopyWithImpl<$Res,
           ? _value.termsOfServiceAccepted
           : termsOfServiceAccepted // ignore: cast_nullable_to_non_nullable
               as bool,
+      deviceId: null == deviceId
+          ? _value.deviceId
+          : deviceId // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -106,7 +113,8 @@ abstract class _$$_CreateAccountPayloadModelCopyWith<$Res>
       String phoneNumber,
       String password,
       String userName,
-      bool termsOfServiceAccepted});
+      bool termsOfServiceAccepted,
+      String deviceId});
 }
 
 /// @nodoc
@@ -127,6 +135,7 @@ class __$$_CreateAccountPayloadModelCopyWithImpl<$Res>
     Object? password = null,
     Object? userName = null,
     Object? termsOfServiceAccepted = null,
+    Object? deviceId = null,
   }) {
     return _then(_$_CreateAccountPayloadModel(
       email: null == email
@@ -149,6 +158,10 @@ class __$$_CreateAccountPayloadModelCopyWithImpl<$Res>
           ? _value.termsOfServiceAccepted
           : termsOfServiceAccepted // ignore: cast_nullable_to_non_nullable
               as bool,
+      deviceId: null == deviceId
+          ? _value.deviceId
+          : deviceId // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -162,7 +175,8 @@ class _$_CreateAccountPayloadModel implements _CreateAccountPayloadModel {
       required this.phoneNumber,
       required this.password,
       required this.userName,
-      required this.termsOfServiceAccepted});
+      required this.termsOfServiceAccepted,
+      required this.deviceId});
 
   factory _$_CreateAccountPayloadModel.fromJson(Map<String, dynamic> json) =>
       _$$_CreateAccountPayloadModelFromJson(json);
@@ -177,10 +191,12 @@ class _$_CreateAccountPayloadModel implements _CreateAccountPayloadModel {
   final String userName;
   @override
   final bool termsOfServiceAccepted;
+  @override
+  final String deviceId;
 
   @override
   String toString() {
-    return 'CreateAccountPayloadModel(email: $email, phoneNumber: $phoneNumber, password: $password, userName: $userName, termsOfServiceAccepted: $termsOfServiceAccepted)';
+    return 'CreateAccountPayloadModel(email: $email, phoneNumber: $phoneNumber, password: $password, userName: $userName, termsOfServiceAccepted: $termsOfServiceAccepted, deviceId: $deviceId)';
   }
 
   @override
@@ -196,13 +212,15 @@ class _$_CreateAccountPayloadModel implements _CreateAccountPayloadModel {
             (identical(other.userName, userName) ||
                 other.userName == userName) &&
             (identical(other.termsOfServiceAccepted, termsOfServiceAccepted) ||
-                other.termsOfServiceAccepted == termsOfServiceAccepted));
+                other.termsOfServiceAccepted == termsOfServiceAccepted) &&
+            (identical(other.deviceId, deviceId) ||
+                other.deviceId == deviceId));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, email, phoneNumber, password,
-      userName, termsOfServiceAccepted);
+      userName, termsOfServiceAccepted, deviceId);
 
   @JsonKey(ignore: true)
   @override
@@ -221,12 +239,12 @@ class _$_CreateAccountPayloadModel implements _CreateAccountPayloadModel {
 
 abstract class _CreateAccountPayloadModel implements CreateAccountPayloadModel {
   const factory _CreateAccountPayloadModel(
-          {required final String email,
-          required final String phoneNumber,
-          required final String password,
-          required final String userName,
-          required final bool termsOfServiceAccepted}) =
-      _$_CreateAccountPayloadModel;
+      {required final String email,
+      required final String phoneNumber,
+      required final String password,
+      required final String userName,
+      required final bool termsOfServiceAccepted,
+      required final String deviceId}) = _$_CreateAccountPayloadModel;
 
   factory _CreateAccountPayloadModel.fromJson(Map<String, dynamic> json) =
       _$_CreateAccountPayloadModel.fromJson;
@@ -241,6 +259,8 @@ abstract class _CreateAccountPayloadModel implements CreateAccountPayloadModel {
   String get userName;
   @override
   bool get termsOfServiceAccepted;
+  @override
+  String get deviceId;
   @override
   @JsonKey(ignore: true)
   _$$_CreateAccountPayloadModelCopyWith<_$_CreateAccountPayloadModel>

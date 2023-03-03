@@ -4,8 +4,6 @@ import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 
 import '../../../generated/l10n.dart';
-import '../../blocs/auth_bloc/auth_bloc.dart';
-import '../../di/injector.dart';
 import 'clickable_text.dart';
 
 class PopUp extends StatefulWidget {
