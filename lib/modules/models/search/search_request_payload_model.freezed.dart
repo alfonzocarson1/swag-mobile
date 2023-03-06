@@ -21,8 +21,8 @@ SearchRequestPayloadModel _$SearchRequestPayloadModelFromJson(
 
 /// @nodoc
 mixin _$SearchRequestPayloadModel {
-  List<FilterModel> get filters => throw _privateConstructorUsedError;
-  String get searchParams => throw _privateConstructorUsedError;
+  FilterModel get filters => throw _privateConstructorUsedError;
+  List<String>? get searchParams => throw _privateConstructorUsedError;
   int get pageSize => throw _privateConstructorUsedError;
   String get categoryId => throw _privateConstructorUsedError;
 
@@ -39,10 +39,12 @@ abstract class $SearchRequestPayloadModelCopyWith<$Res> {
       _$SearchRequestPayloadModelCopyWithImpl<$Res, SearchRequestPayloadModel>;
   @useResult
   $Res call(
-      {List<FilterModel> filters,
-      String searchParams,
+      {FilterModel filters,
+      List<String>? searchParams,
       int pageSize,
       String categoryId});
+
+  $FilterModelCopyWith<$Res> get filters;
 }
 
 /// @nodoc
@@ -60,7 +62,7 @@ class _$SearchRequestPayloadModelCopyWithImpl<$Res,
   @override
   $Res call({
     Object? filters = null,
-    Object? searchParams = null,
+    Object? searchParams = freezed,
     Object? pageSize = null,
     Object? categoryId = null,
   }) {
@@ -68,11 +70,11 @@ class _$SearchRequestPayloadModelCopyWithImpl<$Res,
       filters: null == filters
           ? _value.filters
           : filters // ignore: cast_nullable_to_non_nullable
-              as List<FilterModel>,
-      searchParams: null == searchParams
+              as FilterModel,
+      searchParams: freezed == searchParams
           ? _value.searchParams
           : searchParams // ignore: cast_nullable_to_non_nullable
-              as String,
+              as List<String>?,
       pageSize: null == pageSize
           ? _value.pageSize
           : pageSize // ignore: cast_nullable_to_non_nullable
@@ -82,6 +84,14 @@ class _$SearchRequestPayloadModelCopyWithImpl<$Res,
           : categoryId // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $FilterModelCopyWith<$Res> get filters {
+    return $FilterModelCopyWith<$Res>(_value.filters, (value) {
+      return _then(_value.copyWith(filters: value) as $Val);
+    });
   }
 }
 
@@ -95,10 +105,13 @@ abstract class _$$_SearchRequestPayloadModelCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<FilterModel> filters,
-      String searchParams,
+      {FilterModel filters,
+      List<String>? searchParams,
       int pageSize,
       String categoryId});
+
+  @override
+  $FilterModelCopyWith<$Res> get filters;
 }
 
 /// @nodoc
@@ -115,19 +128,19 @@ class __$$_SearchRequestPayloadModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? filters = null,
-    Object? searchParams = null,
+    Object? searchParams = freezed,
     Object? pageSize = null,
     Object? categoryId = null,
   }) {
     return _then(_$_SearchRequestPayloadModel(
       filters: null == filters
-          ? _value._filters
+          ? _value.filters
           : filters // ignore: cast_nullable_to_non_nullable
-              as List<FilterModel>,
-      searchParams: null == searchParams
-          ? _value.searchParams
+              as FilterModel,
+      searchParams: freezed == searchParams
+          ? _value._searchParams
           : searchParams // ignore: cast_nullable_to_non_nullable
-              as String,
+              as List<String>?,
       pageSize: null == pageSize
           ? _value.pageSize
           : pageSize // ignore: cast_nullable_to_non_nullable
@@ -145,27 +158,28 @@ class __$$_SearchRequestPayloadModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_SearchRequestPayloadModel implements _SearchRequestPayloadModel {
   const _$_SearchRequestPayloadModel(
-      {final List<FilterModel> filters = const [],
-      this.searchParams = defaultString,
+      {required this.filters,
+      final List<String>? searchParams = null,
       this.pageSize = defaultPageSize,
       required this.categoryId})
-      : _filters = filters;
+      : _searchParams = searchParams;
 
   factory _$_SearchRequestPayloadModel.fromJson(Map<String, dynamic> json) =>
       _$$_SearchRequestPayloadModelFromJson(json);
 
-  final List<FilterModel> _filters;
+  @override
+  final FilterModel filters;
+  final List<String>? _searchParams;
   @override
   @JsonKey()
-  List<FilterModel> get filters {
-    if (_filters is EqualUnmodifiableListView) return _filters;
+  List<String>? get searchParams {
+    final value = _searchParams;
+    if (value == null) return null;
+    if (_searchParams is EqualUnmodifiableListView) return _searchParams;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_filters);
+    return EqualUnmodifiableListView(value);
   }
 
-  @override
-  @JsonKey()
-  final String searchParams;
   @override
   @JsonKey()
   final int pageSize;
@@ -182,9 +196,9 @@ class _$_SearchRequestPayloadModel implements _SearchRequestPayloadModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SearchRequestPayloadModel &&
-            const DeepCollectionEquality().equals(other._filters, _filters) &&
-            (identical(other.searchParams, searchParams) ||
-                other.searchParams == searchParams) &&
+            (identical(other.filters, filters) || other.filters == filters) &&
+            const DeepCollectionEquality()
+                .equals(other._searchParams, _searchParams) &&
             (identical(other.pageSize, pageSize) ||
                 other.pageSize == pageSize) &&
             (identical(other.categoryId, categoryId) ||
@@ -193,12 +207,8 @@ class _$_SearchRequestPayloadModel implements _SearchRequestPayloadModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_filters),
-      searchParams,
-      pageSize,
-      categoryId);
+  int get hashCode => Object.hash(runtimeType, filters,
+      const DeepCollectionEquality().hash(_searchParams), pageSize, categoryId);
 
   @JsonKey(ignore: true)
   @override
@@ -217,8 +227,8 @@ class _$_SearchRequestPayloadModel implements _SearchRequestPayloadModel {
 
 abstract class _SearchRequestPayloadModel implements SearchRequestPayloadModel {
   const factory _SearchRequestPayloadModel(
-      {final List<FilterModel> filters,
-      final String searchParams,
+      {required final FilterModel filters,
+      final List<String>? searchParams,
       final int pageSize,
       required final String categoryId}) = _$_SearchRequestPayloadModel;
 
@@ -226,9 +236,9 @@ abstract class _SearchRequestPayloadModel implements SearchRequestPayloadModel {
       _$_SearchRequestPayloadModel.fromJson;
 
   @override
-  List<FilterModel> get filters;
+  FilterModel get filters;
   @override
-  String get searchParams;
+  List<String>? get searchParams;
   @override
   int get pageSize;
   @override

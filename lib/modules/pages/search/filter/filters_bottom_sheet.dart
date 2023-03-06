@@ -252,9 +252,10 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
           child: PrimaryButton(
             title: S.of(context).see_results.toUpperCase(),
             onPressed: () {
-              context.read<SearchBloc>().add(const SearchEvent.search(
+              context.read<SearchBloc>().add(SearchEvent.performSearch(
                   SearchRequestPayloadModel(
-                      categoryId: defaultString, filters: [FilterModel()])));
+                      categoryId: defaultString, filters: FilterModel()),
+                  SearchTab.whatsHot));
               Navigator.pop(context);
             },
             type: PrimaryButtonType.primaryEerieBlack,

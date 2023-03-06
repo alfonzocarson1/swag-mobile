@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swagapp/modules/blocs/search_bloc.dart/search_bloc.dart';
 
 import 'package:swagapp/modules/common/utils/palette.dart';
-import '../../../blocs/search_tabs_bloc/whats_hot_bloc/whats_hot_bloc.dart';
 import '../../../common/ui/body_widget_with_view.dart';
 import '../../../common/ui/loading.dart';
 import '../../../common/utils/custom_route_animations.dart';
-import '../../../constants/constants.dart';
+import '../../../models/search/filter_model.dart';
 import '../../../models/search/search_request_payload_model.dart';
-import '../../../models/search_tabs/payload_search_model.dart';
 
 class WhatsHotPage extends StatefulWidget {
   static const name = '/WhatsHot';
@@ -33,9 +32,11 @@ class _WhatsHotPageState extends State<WhatsHotPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Palette.current.primaryNero,
-        body: BlocConsumer<WhatsHotBloc, SearchWhatsHotState>(
+        body: BlocConsumer<SearchBloc, SearchState>(
           listener: (context, state) => state.maybeWhen(
-            orElse: () => {Loading.hide(context)},
+            orElse: () => {
+              if (Loading.isVisible()) {Loading.hide(context)}
+            },
             error: (message) => {
               Loading.hide(context),
               // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
@@ -59,16 +60,25 @@ class _WhatsHotPageState extends State<WhatsHotPage> {
                     ));
               },
               result: (state) {
-                return BodyWidgetWithView(state.result[SearchTab.all] ?? []);
+                if (state.tab == SearchTab.whatsHot) {
+                  return BodyWidgetWithView(
+                      state.result[SearchTab.whatsHot] ?? [],
+                      SearchTab.whatsHot);
+                } else {
+                  return const Center();
+                }
               },
             );
           },
         ));
   }
 
-  void makeCall() {
-    context.read<WhatsHotBloc>().add(SearchWhatsHotEvent.search(
-        const SearchRequestPayloadModel(categoryId: defaultString),
-        FiltersPayload(currentPage: '0')));
+  Future<void> makeCall() async {
+    context.read<SearchBloc>().add(SearchEvent.performSearch(
+        SearchRequestPayloadModel(
+            categoryId:
+                await SearchTabWrapper(SearchTab.whatsHot).toStringCustom(),
+            filters: const FilterModel()),
+        SearchTab.whatsHot));
   }
 }

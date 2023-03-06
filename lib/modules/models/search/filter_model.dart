@@ -8,11 +8,16 @@ part 'filter_model.g.dart';
 class FilterModel with _$FilterModel {
   @JsonSerializable()
   const factory FilterModel({
+    @Default(false) final bool forSale,
     @Default(0) final int sortBy,
-    @Default(defaultString) final String collections,
-    @Default(defaultString) final String conditions,
-    @Default([]) final List<String> releaseYears,
-    @Default(defaultString) String rarityScore,
+    @Default(null) final String? collection,
+    @Default(null) final String? productType,
+    @Default(null) final String? type,
+    @Default(null) final List<String>? theme,
+    @Default(null) final List<String>? conditions,
+    @Default(null) final List<int>? releaseYears,
+    @Default(null) final List<int>? priceRanges,
+    @Default(null) String? rarityScore,
   }) = _FilterModel;
 
   factory FilterModel.fromJson(Map<String, dynamic> json) =>

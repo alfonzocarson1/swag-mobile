@@ -16,7 +16,6 @@ _$_SearchTabsResponseModel _$$_SearchTabsResponseModelFromJson(
               ?.map((e) => e as String)
               .toList() ??
           const [],
-      jobId: json['jobId'] as String?,
     );
 
 Map<String, dynamic> _$$_SearchTabsResponseModelToJson(
@@ -24,5 +23,4 @@ Map<String, dynamic> _$$_SearchTabsResponseModelToJson(
     <String, dynamic>{
       'catalogList': instance.catalogList,
       'recentList': instance.recentList,
-      'jobId': instance.jobId,
     };

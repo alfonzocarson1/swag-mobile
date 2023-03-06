@@ -9,7 +9,6 @@ class SearchTabsResponseModel with _$SearchTabsResponseModel {
   const factory SearchTabsResponseModel({
     required final List<CatalogItemModel> catalogList,
     @Default([]) final List<String> recentList,
-    final String? jobId,
   }) = _SearchTabsResponseModel;
   factory SearchTabsResponseModel.fromJson(Map<String, dynamic> json) =>
       _$SearchTabsResponseModelFromJson(json);
