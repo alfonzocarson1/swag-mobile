@@ -22,6 +22,7 @@ import '../blocs/search_tabs_bloc/putters_bloc/putters_bloc.dart';
 import '../blocs/search_tabs_bloc/whats_hot_bloc/whats_hot_bloc.dart';
 import '../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
 import '../blocs/sold_bloc/sold_bloc.dart';
+import '../blocs/update_profile_bloc/update_profile_bloc.dart';
 import '../data/auth/auth_service.dart';
 import '../data/category/category_service.dart';
 import '../data/category/i_category_service.dart';
@@ -41,6 +42,8 @@ import '../data/secure_storage/storage_repository_service.dart';
 import '../data/shared_preferences/shared_preferences_service.dart';
 import '../data/sold/i_sold_service.dart';
 import '../data/sold/sold_service.dart';
+import '../data/update_profile/i_update_profile_service.dart';
+import '../data/update_profile/update_profile_service.dart';
 
 final getIt = GetIt.instance;
 
@@ -80,6 +83,11 @@ Future<void> setupAppScope() {
       () => ExploreService(APIService()));
   getIt.registerLazySingleton<ExploreBloc>(
       () => ExploreBloc(getIt<IExploreService>()));
+
+  getIt.registerLazySingleton<IUpdateProfileService>(
+      () => UpdateProfileService(APIService()));
+  getIt.registerLazySingleton<UpdateProfileBloc>(
+      () => UpdateProfileBloc(getIt<IUpdateProfileService>()));
 
   getIt.registerLazySingleton<FavoriteBloc>(() => FavoriteBloc());
 

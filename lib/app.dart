@@ -20,6 +20,7 @@ import 'modules/blocs/search_tabs_bloc/head_covers_bloc/head_covers_bloc.dart';
 import 'modules/blocs/search_tabs_bloc/putters_bloc/putters_bloc.dart';
 import 'modules/blocs/search_tabs_bloc/whats_hot_bloc/whats_hot_bloc.dart';
 import 'modules/blocs/sold_bloc/sold_bloc.dart';
+import 'modules/blocs/update_profile_bloc/update_profile_bloc.dart';
 import 'modules/pages/home/home_page.dart';
 import 'modules/common/utils/context_service.dart';
 import 'modules/common/utils/palette.dart';
@@ -60,6 +61,8 @@ class App extends StatelessWidget {
           BlocProvider<ListingBloc>(create: (context) => getIt<ListingBloc>()),
           BlocProvider<ProfileFavoriteBloc>(
               create: (context) => getIt<ProfileFavoriteBloc>()),
+          BlocProvider<UpdateProfileBloc>(
+              create: (context) => getIt<UpdateProfileBloc>()),
           BlocProvider<SoldBloc>(create: (context) => getIt<SoldBloc>()),
           BlocProvider<SharedPreferencesBloc>(
               create: (_) => getIt<SharedPreferencesBloc>()),

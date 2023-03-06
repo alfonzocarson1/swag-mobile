@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../constants/constants.dart';
-import '../../models/search/category_list_model.dart';
 import '../../models/search/category_model.dart';
 import 'i_shared_preferences.dart';
 
@@ -18,6 +17,7 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   static const String _price = 'price';
   static const String _releaseDate = 'releaseDate';
   static const String _lastCategories = 'lastCategories';
+  static const String _hasImportableData = 'hasImportableData';
   late SharedPreferences _prefs;
   @override
   SharedPreferences get prefs => _prefs;
@@ -80,6 +80,17 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   @override
   Future<void> saveIsForSale(bool value) async {
     await _prefs.setBool(_isForSale, value);
+  }
+
+  @override
+  bool hasImportableData() {
+    final hasImportableData = _prefs.getBool(_hasImportableData);
+    return hasImportableData ?? false;
+  }
+
+  @override
+  Future<void> savehasImportableData(bool value) async {
+    await _prefs.setBool(_hasImportableData, value);
   }
 
   @override

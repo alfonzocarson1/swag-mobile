@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 
+import '../../blocs/update_profile_bloc/update_profile_bloc.dart';
 import '../../common/ui/cupertino_custom_picker.dart';
 import '../../common/ui/custom_text_form_field.dart';
 import '../../common/ui/account_info_head.dart';
+import '../../common/ui/loading.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/size_helper.dart';
+import '../../models/update_profile/addresses_payload_model.dart';
+import '../../models/update_profile/update_profile_payload_model.dart';
 
 class AccountInfoPage extends StatefulWidget {
   static const name = '/AccountInfo';
@@ -173,235 +178,279 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
         resizeToAvoidBottomInset: true,
         backgroundColor: Colors.transparent,
         appBar: CustomAppBar(),
-        body: GestureDetector(
-            behavior: HitTestBehavior.translucent,
-            onTap: () {
-              _firstNameNode.unfocus();
-              _lastNameNode.unfocus();
-              _countryNode.unfocus();
-              _firstAddressNode.unfocus();
-              _secondAddressNode.unfocus();
-              _cityNode.unfocus();
-              _stateNode.unfocus();
-              _zipNode.unfocus();
-            },
-            child: Stack(children: [
-              ColorFiltered(
-                colorFilter:
-                    const ColorFilter.mode(Colors.black38, BlendMode.darken),
-                child: Container(
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("assets/images/background.png"),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    child: null),
+        body: BlocListener<UpdateProfileBloc, UpdateProfileState>(
+            listener: (context, state) => state.maybeWhen(
+                  orElse: () {
+                    return null;
+                  },
+                  updated: () {
+                    setState(() {
+                      _firstNameController.text = '';
+                      _lastNameController.text = '';
+                      _defaultCountry = 'Country';
+                      _firstAddressController.text = '';
+                      _secondAddressController.text = '';
+                      _cityController.text = '';
+                      _defaultState = 'State';
+                      _zipController.text = '';
+                    });
+                    Loading.hide(context);
+                    return null;
+                  },
+                  initial: () {
+                    return Loading.show(context);
+                  },
+                  error: (message) => {
+                    Loading.hide(context),
+                    // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
+                  },
+                ),
+            child: _getBody()));
+  }
+
+  GestureDetector _getBody() {
+    return GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: () {
+          _firstNameNode.unfocus();
+          _lastNameNode.unfocus();
+          _countryNode.unfocus();
+          _firstAddressNode.unfocus();
+          _secondAddressNode.unfocus();
+          _cityNode.unfocus();
+          _stateNode.unfocus();
+          _zipNode.unfocus();
+        },
+        child: Stack(children: [
+          ColorFiltered(
+            colorFilter:
+                const ColorFilter.mode(Colors.black38, BlendMode.darken),
+            child: Container(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("assets/images/background.png"),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                child: null),
+          ),
+          Column(
+            children: [
+              const SizedBox(
+                height: 100,
               ),
-              Column(
-                children: [
-                  const SizedBox(
-                    height: 100,
-                  ),
-                  Text(S.of(context).title_welcome,
-                      style:
-                          Theme.of(context).textTheme.displayMedium!.copyWith(
-                                fontFamily: "Knockout",
-                                fontSize: 50,
-                                wordSpacing: 1,
-                                fontWeight: FontWeight.w300,
-                                color: Palette.current.primaryNeonGreen,
-                              )),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 20.0),
-                    child: Text(S.of(context).subtitle_welcome,
-                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                              fontSize: 15,
-                              color: Palette.current.primaryWhiteSmoke,
-                            )),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Expanded(
-                    child:
-                        LayoutBuilder(builder: (context, viewportConstraints) {
-                      return SingleChildScrollView(
-                        child: ConstrainedBox(
-                          constraints: BoxConstraints(
-                            minHeight: viewportConstraints.maxHeight,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
+              Text(S.of(context).title_welcome,
+                  style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                        fontFamily: "Knockout",
+                        fontSize: 50,
+                        wordSpacing: 1,
+                        fontWeight: FontWeight.w300,
+                        color: Palette.current.primaryNeonGreen,
+                      )),
+              Padding(
+                padding: const EdgeInsets.only(right: 20.0),
+                child: Text(S.of(context).subtitle_welcome,
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          fontSize: 15,
+                          color: Palette.current.primaryWhiteSmoke,
+                        )),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Expanded(
+                child: LayoutBuilder(builder: (context, viewportConstraints) {
+                  return SingleChildScrollView(
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minHeight: viewportConstraints.maxHeight,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            const AccountInfoHeaderWidget(),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            CustomTextFormField(
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.allow(
+                                      RegExp('[a-zA-Z ]')),
+                                ],
+                                errorText: nameErrorText,
+                                borderColor: _firstNameBorder,
+                                autofocus: false,
+                                labelText: S.of(context).first_name,
+                                focusNode: _firstNameNode,
+                                controller: _firstNameController,
+                                inputType: TextInputType.text),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            CustomTextFormField(
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.allow(
+                                      RegExp('[a-zA-Z ]')),
+                                ],
+                                errorText: lastNameErrorText,
+                                borderColor: _lastNameBorder,
+                                autofocus: false,
+                                labelText: S.of(context).last_name,
+                                focusNode: _lastNameNode,
+                                controller: _lastNameController,
+                                inputType: TextInputType.text),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            CustomTextFormField(
+                                borderColor: _countryBorder,
+                                autofocus: false,
+                                labelText: S.of(context).country,
+                                errorText: countryErrorText,
+                                dropdownForm: true,
+                                dropdownFormItems: countries,
+                                dropdownvalue: _defaultCountry,
+                                dropdownOnChanged: (String? newValue) {
+                                  setState(() {
+                                    setState(() {
+                                      _defaultCountry = newValue!;
+                                    });
+                                  });
+                                },
+                                focusNode: _countryNode,
+                                controller: _countryController,
+                                inputType: TextInputType.text),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            CustomTextFormField(
+                                borderColor: _firstAddressBorder,
+                                autofocus: false,
+                                labelText: S.of(context).first_address,
+                                errorText: addressErrorText,
+                                focusNode: _firstAddressNode,
+                                controller: _firstAddressController,
+                                inputType: TextInputType.text),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            CustomTextFormField(
+                                borderColor: _secondAddressBorder,
+                                autofocus: false,
+                                labelText: S.of(context).second_address,
+                                focusNode: _secondAddressNode,
+                                controller: _secondAddressController,
+                                inputType: TextInputType.text),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            CustomTextFormField(
+                                borderColor: _cityBorder,
+                                autofocus: false,
+                                errorText: cityErrorText,
+                                labelText: S.of(context).city,
+                                focusNode: _cityNode,
+                                controller: _cityController,
+                                inputType: TextInputType.text),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Row(
                               children: [
-                                const AccountInfoHeaderWidget(),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                CustomTextFormField(
-                                    inputFormatters: [
-                                      FilteringTextInputFormatter.allow(
-                                          RegExp('[a-zA-Z ]')),
+                                Expanded(
+                                  flex: 2,
+                                  child: Column(
+                                    children: [
+                                      CupertinoPickerView(
+                                          errorText: stateErrorText,
+                                          cupertinoPickerItems: states,
+                                          cupertinoPickervalue: _defaultState,
+                                          onDone: (index) {
+                                            setState(() => value = index);
+                                            _defaultState = states[index];
+                                            Navigator.pop(context);
+                                          }),
+                                      Visibility(
+                                          visible: stateErrorText != null,
+                                          child: Align(
+                                            alignment: Alignment.bottomLeft,
+                                            child: Text(
+                                                S.of(context).required_field,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodySmall!
+                                                    .copyWith(
+                                                        color: Palette.current
+                                                            .primaryNeonPink)),
+                                          ))
                                     ],
-                                    errorText: nameErrorText,
-                                    borderColor: _firstNameBorder,
-                                    autofocus: false,
-                                    labelText: S.of(context).first_name,
-                                    focusNode: _firstNameNode,
-                                    controller: _firstNameController,
-                                    inputType: TextInputType.text),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                CustomTextFormField(
-                                    inputFormatters: [
-                                      FilteringTextInputFormatter.allow(
-                                          RegExp('[a-zA-Z ]')),
-                                    ],
-                                    errorText: lastNameErrorText,
-                                    borderColor: _lastNameBorder,
-                                    autofocus: false,
-                                    labelText: S.of(context).last_name,
-                                    focusNode: _lastNameNode,
-                                    controller: _lastNameController,
-                                    inputType: TextInputType.text),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                CustomTextFormField(
-                                    borderColor: _countryBorder,
-                                    autofocus: false,
-                                    labelText: S.of(context).country,
-                                    errorText: countryErrorText,
-                                    dropdownForm: true,
-                                    dropdownFormItems: countries,
-                                    dropdownvalue: _defaultCountry,
-                                    dropdownOnChanged: (String? newValue) {
-                                      setState(() {
-                                        setState(() {
-                                          _defaultCountry = newValue!;
-                                        });
-                                      });
-                                    },
-                                    focusNode: _countryNode,
-                                    controller: _countryController,
-                                    inputType: TextInputType.text),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                CustomTextFormField(
-                                    borderColor: _firstAddressBorder,
-                                    autofocus: false,
-                                    labelText: S.of(context).first_address,
-                                    errorText: addressErrorText,
-                                    focusNode: _firstAddressNode,
-                                    controller: _firstAddressController,
-                                    inputType: TextInputType.text),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                CustomTextFormField(
-                                    borderColor: _secondAddressBorder,
-                                    autofocus: false,
-                                    labelText: S.of(context).second_address,
-                                    focusNode: _secondAddressNode,
-                                    controller: _secondAddressController,
-                                    inputType: TextInputType.text),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                CustomTextFormField(
-                                    borderColor: _cityBorder,
-                                    autofocus: false,
-                                    errorText: cityErrorText,
-                                    labelText: S.of(context).city,
-                                    focusNode: _cityNode,
-                                    controller: _cityController,
-                                    inputType: TextInputType.text),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      flex: 2,
-                                      child: Column(
-                                        children: [
-                                          CupertinoPickerView(
-                                              errorText: stateErrorText,
-                                              cupertinoPickerItems: states,
-                                              cupertinoPickervalue:
-                                                  _defaultState,
-                                              onDone: (index) {
-                                                setState(() => value = index);
-                                                _defaultState = states[index];
-                                                Navigator.pop(context);
-                                              }),
-                                          Visibility(
-                                              visible: stateErrorText != null,
-                                              child: Align(
-                                                alignment: Alignment.bottomLeft,
-                                                child: Text(
-                                                    S
-                                                        .of(context)
-                                                        .required_field,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodySmall!
-                                                        .copyWith(
-                                                            color: Palette
-                                                                .current
-                                                                .primaryNeonPink)),
-                                              ))
-                                        ],
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 20,
-                                    ),
-                                    Expanded(
-                                      flex: 2,
-                                      child: CustomTextFormField(
-                                          inputFormatters: [
-                                            FilteringTextInputFormatter.allow(
-                                                RegExp("[0-9a-zA-Z ]")),
-                                          ],
-                                          borderColor: _zipBorder,
-                                          autofocus: false,
-                                          errorText: zipErrorText,
-                                          labelText: S.of(context).zip,
-                                          focusNode: _zipNode,
-                                          controller: _zipController,
-                                          inputType: TextInputType.text),
-                                    )
-                                  ],
+                                  ),
                                 ),
                                 const SizedBox(
-                                  height: 20,
+                                  width: 20,
                                 ),
-                                PrimaryButton(
-                                  title: S.of(context).next_btn,
-                                  onPressed: () {
-                                    showErrors();
-                                    if (areFieldsValid()) {}
-                                  },
-                                  type: PrimaryButtonType.green,
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
+                                Expanded(
+                                  flex: 2,
+                                  child: CustomTextFormField(
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.allow(
+                                            RegExp("[0-9a-zA-Z ]")),
+                                      ],
+                                      borderColor: _zipBorder,
+                                      autofocus: false,
+                                      errorText: zipErrorText,
+                                      labelText: S.of(context).zip,
+                                      focusNode: _zipNode,
+                                      controller: _zipController,
+                                      inputType: TextInputType.text),
+                                )
                               ],
                             ),
-                          ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            PrimaryButton(
+                              title: S.of(context).next_btn,
+                              onPressed: () {
+                                showErrors();
+                                if (areFieldsValid()) {
+                                  context
+                                      .read<UpdateProfileBloc>()
+                                      .add(UpdateProfileEvent.update(
+                                          UpdateProfilePayloadModel(addresses: [
+                                        AddressesPayloadModel(
+                                            addressType: "SHIPPING",
+                                            firstName:
+                                                _firstNameController.text,
+                                            lastName: _lastNameController.text,
+                                            country: _defaultCountry,
+                                            address1:
+                                                _firstAddressController.text,
+                                            address2:
+                                                _secondAddressController.text,
+                                            city: _cityController.text,
+                                            state: _defaultState,
+                                            postalCode: _zipController.text),
+                                      ])));
+                                }
+                              },
+                              type: PrimaryButtonType.green,
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                          ],
                         ),
-                      );
-                    }),
-                  ),
-                ],
+                      ),
+                    ),
+                  );
+                }),
               ),
-            ])));
+            ],
+          ),
+        ]));
   }
 
   void showErrors() {
