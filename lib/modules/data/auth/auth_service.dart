@@ -1,3 +1,4 @@
+import 'package:swagapp/modules/constants/constants.dart';
 import 'package:swagapp/modules/models/auth/generic_response_model.dart';
 import 'package:swagapp/modules/pages/login/create_account_page.dart';
 
@@ -20,10 +21,7 @@ class AuthService extends IAuthService {
     final response = await apiService.getEndpointData(
       endpoint: Endpoint.login,
       method: RequestMethod.post,
-      body: {
-        "password": password,
-        "email": email,
-      },
+      body: {"password": password, "email": email, "deviceId": defaultString},
       fromJson: (json) => GenericResponseModel.fromJson(json),
     );
     return response;

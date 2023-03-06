@@ -14,6 +14,7 @@ _$_CreateAccountPayloadModel _$$_CreateAccountPayloadModelFromJson(
       password: json['password'] as String,
       userName: json['userName'] as String,
       termsOfServiceAccepted: json['termsOfServiceAccepted'] as bool,
+      deviceId: json['deviceId'] as String,
     );
 
 Map<String, dynamic> _$$_CreateAccountPayloadModelToJson(
@@ -24,4 +25,5 @@ Map<String, dynamic> _$$_CreateAccountPayloadModelToJson(
       'password': instance.password,
       'userName': instance.userName,
       'termsOfServiceAccepted': instance.termsOfServiceAccepted,
+      'deviceId': instance.deviceId,
     };

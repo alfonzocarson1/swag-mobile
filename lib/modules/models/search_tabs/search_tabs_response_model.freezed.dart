@@ -23,7 +23,6 @@ SearchTabsResponseModel _$SearchTabsResponseModelFromJson(
 mixin _$SearchTabsResponseModel {
   List<CatalogItemModel> get catalogList => throw _privateConstructorUsedError;
   List<String> get recentList => throw _privateConstructorUsedError;
-  String? get jobId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,10 +36,7 @@ abstract class $SearchTabsResponseModelCopyWith<$Res> {
           $Res Function(SearchTabsResponseModel) then) =
       _$SearchTabsResponseModelCopyWithImpl<$Res, SearchTabsResponseModel>;
   @useResult
-  $Res call(
-      {List<CatalogItemModel> catalogList,
-      List<String> recentList,
-      String? jobId});
+  $Res call({List<CatalogItemModel> catalogList, List<String> recentList});
 }
 
 /// @nodoc
@@ -59,7 +55,6 @@ class _$SearchTabsResponseModelCopyWithImpl<$Res,
   $Res call({
     Object? catalogList = null,
     Object? recentList = null,
-    Object? jobId = freezed,
   }) {
     return _then(_value.copyWith(
       catalogList: null == catalogList
@@ -70,10 +65,6 @@ class _$SearchTabsResponseModelCopyWithImpl<$Res,
           ? _value.recentList
           : recentList // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      jobId: freezed == jobId
-          ? _value.jobId
-          : jobId // ignore: cast_nullable_to_non_nullable
-              as String?,
     ) as $Val);
   }
 }
@@ -86,10 +77,7 @@ abstract class _$$_SearchTabsResponseModelCopyWith<$Res>
       __$$_SearchTabsResponseModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {List<CatalogItemModel> catalogList,
-      List<String> recentList,
-      String? jobId});
+  $Res call({List<CatalogItemModel> catalogList, List<String> recentList});
 }
 
 /// @nodoc
@@ -106,7 +94,6 @@ class __$$_SearchTabsResponseModelCopyWithImpl<$Res>
   $Res call({
     Object? catalogList = null,
     Object? recentList = null,
-    Object? jobId = freezed,
   }) {
     return _then(_$_SearchTabsResponseModel(
       catalogList: null == catalogList
@@ -117,10 +104,6 @@ class __$$_SearchTabsResponseModelCopyWithImpl<$Res>
           ? _value._recentList
           : recentList // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      jobId: freezed == jobId
-          ? _value.jobId
-          : jobId // ignore: cast_nullable_to_non_nullable
-              as String?,
     ));
   }
 }
@@ -131,8 +114,7 @@ class __$$_SearchTabsResponseModelCopyWithImpl<$Res>
 class _$_SearchTabsResponseModel implements _SearchTabsResponseModel {
   const _$_SearchTabsResponseModel(
       {required final List<CatalogItemModel> catalogList,
-      final List<String> recentList = const [],
-      this.jobId})
+      final List<String> recentList = const []})
       : _catalogList = catalogList,
         _recentList = recentList;
 
@@ -157,11 +139,8 @@ class _$_SearchTabsResponseModel implements _SearchTabsResponseModel {
   }
 
   @override
-  final String? jobId;
-
-  @override
   String toString() {
-    return 'SearchTabsResponseModel(catalogList: $catalogList, recentList: $recentList, jobId: $jobId)';
+    return 'SearchTabsResponseModel(catalogList: $catalogList, recentList: $recentList)';
   }
 
   @override
@@ -172,8 +151,7 @@ class _$_SearchTabsResponseModel implements _SearchTabsResponseModel {
             const DeepCollectionEquality()
                 .equals(other._catalogList, _catalogList) &&
             const DeepCollectionEquality()
-                .equals(other._recentList, _recentList) &&
-            (identical(other.jobId, jobId) || other.jobId == jobId));
+                .equals(other._recentList, _recentList));
   }
 
   @JsonKey(ignore: true)
@@ -181,8 +159,7 @@ class _$_SearchTabsResponseModel implements _SearchTabsResponseModel {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_catalogList),
-      const DeepCollectionEquality().hash(_recentList),
-      jobId);
+      const DeepCollectionEquality().hash(_recentList));
 
   @JsonKey(ignore: true)
   @override
@@ -203,8 +180,7 @@ class _$_SearchTabsResponseModel implements _SearchTabsResponseModel {
 abstract class _SearchTabsResponseModel implements SearchTabsResponseModel {
   const factory _SearchTabsResponseModel(
       {required final List<CatalogItemModel> catalogList,
-      final List<String> recentList,
-      final String? jobId}) = _$_SearchTabsResponseModel;
+      final List<String> recentList}) = _$_SearchTabsResponseModel;
 
   factory _SearchTabsResponseModel.fromJson(Map<String, dynamic> json) =
       _$_SearchTabsResponseModel.fromJson;
@@ -213,8 +189,6 @@ abstract class _SearchTabsResponseModel implements SearchTabsResponseModel {
   List<CatalogItemModel> get catalogList;
   @override
   List<String> get recentList;
-  @override
-  String? get jobId;
   @override
   @JsonKey(ignore: true)
   _$$_SearchTabsResponseModelCopyWith<_$_SearchTabsResponseModel>

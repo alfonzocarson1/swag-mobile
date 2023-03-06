@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/common/ui/pushed_header.dart';
@@ -11,6 +12,7 @@ import 'package:swagapp/modules/pages/search/tabs/putters_page.dart';
 import 'package:swagapp/modules/pages/search/search_on_tap_page.dart';
 import 'package:swagapp/modules/pages/search/tabs/whats_hot_page.dart';
 
+import '../../blocs/search_bloc.dart/search_bloc.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
@@ -32,7 +34,7 @@ class _SearchPageState extends State<SearchPage>
     with TickerProviderStateMixin, AutomaticKeepAliveClientMixin<SearchPage> {
   @override
   bool get wantKeepAlive => true;
-  late final TabController _controller;
+  late final TabController _tabController;
   int selectedIndex = 0;
   final TextEditingController _textEditingController = TextEditingController();
 
@@ -43,7 +45,13 @@ class _SearchPageState extends State<SearchPage>
   void initState() {
     super.initState();
     getLastCategories();
-    _controller = TabController(length: 4, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
+    _tabController.addListener(() {
+      final index = _tabController.index;
+      context
+          .read<SearchBloc>()
+          .add(SearchEvent.selectTab(SearchTab.values[index]));
+    });
     // _isLogged = getIt<PreferenceRepositoryService>().isLogged();
     // if (_isLogged) {
     // Future.delayed(const Duration(milliseconds: 4000), () {
@@ -54,7 +62,7 @@ class _SearchPageState extends State<SearchPage>
 
   @override
   void dispose() {
-    _controller.dispose();
+    _tabController.dispose();
     super.dispose();
   }
 
@@ -98,7 +106,7 @@ class _SearchPageState extends State<SearchPage>
       children: [
         tabLen == 0 ? Container() : _getTabBar(context),
         Expanded(
-          child: TabBarView(controller: _controller, children: const [
+          child: TabBarView(controller: _tabController, children: const [
             WhatsHotPage(),
             HeadcoversPage(),
             PuttersPage(),
@@ -182,7 +190,7 @@ class _SearchPageState extends State<SearchPage>
     return Padding(
       padding: const EdgeInsets.only(top: 10, left: 0, right: 0),
       child: TabBar(
-          controller: _controller,
+          controller: _tabController,
           labelColor: Palette.current.primaryNeonGreen,
           indicatorSize: TabBarIndicatorSize.label,
           unselectedLabelColor: Palette.current.primaryWhiteSmoke,

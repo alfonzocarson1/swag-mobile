@@ -6,6 +6,7 @@ import 'package:swagapp/modules/common/ui/pushed_header.dart';
 import 'package:swagapp/modules/common/ui/search_input.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/constants/constants.dart';
+import 'package:swagapp/modules/models/search/filter_model.dart';
 import 'package:swagapp/modules/pages/search/filter/filters_bottom_sheet.dart';
 import 'package:swagapp/modules/pages/search/search_on_tap_page.dart';
 
@@ -97,7 +98,7 @@ class _SearchResultPageState extends State<SearchResultPage>
                     _getActionHeader(),
                     Expanded(
                         child: BodyWidgetWithView(
-                            state.result[SearchTab.all] ?? [])),
+                            state.result[SearchTab.all] ?? [], SearchTab.all)),
                   ],
                 );
               },
@@ -179,8 +180,10 @@ class _SearchResultPageState extends State<SearchResultPage>
   }
 
   void makeCall() {
-    context.read<SearchBloc>().add(const SearchEvent.search(
-        SearchRequestPayloadModel(categoryId: defaultString)));
+    context.read<SearchBloc>().add(SearchEvent.performSearch(
+        SearchRequestPayloadModel(
+            categoryId: defaultString, filters: FilterModel()),
+        SearchTab.all));
   }
 
   Widget _searchField(BuildContext context, String title) {

@@ -1,6 +1,29 @@
 part of 'search_bloc.dart';
 
-enum SearchTab { all }
+enum SearchTab { whatsHot, headcovers, putters, accessories, all }
+
+class SearchTabWrapper {
+  final SearchTab type;
+
+  SearchTabWrapper(this.type);
+
+  Future<String> toStringCustom() async {
+    List<CategoryModel> categories =
+        await getIt<PreferenceRepositoryService>().getLastCategories();
+    switch (type) {
+      case SearchTab.whatsHot:
+        return categories[0].catalogCategoryId;
+      case SearchTab.headcovers:
+        return categories[1].catalogCategoryId;
+      case SearchTab.putters:
+        return categories[2].catalogCategoryId;
+      case SearchTab.accessories:
+        return categories[3].catalogCategoryId;
+      case SearchTab.all:
+        return categories[0].catalogCategoryId;
+    }
+  }
+}
 
 @freezed
 class SearchState with _$SearchState {
@@ -8,9 +31,6 @@ class SearchState with _$SearchState {
 
   factory SearchState.initial() = _InitialSearchState;
   factory SearchState.error(final String message) = _ErrorSearchState;
-  factory SearchState.loadedCategories({
-    required final List<CategoryModel> categoryList,
-  }) = LoadedCategoriesState;
 
   factory SearchState.recentSearch({
     required final List<String> queries,
@@ -18,19 +38,18 @@ class SearchState with _$SearchState {
 
   factory SearchState.searching({
     @Default('') final String query,
-    @Default(SearchTab.all) final SearchTab tab,
+    @Default(SearchTab.whatsHot) final SearchTab tab,
   }) = _SearchStateSearching;
 
   factory SearchState.result({
     required final Map<SearchTab, List<CatalogItemModel>> result,
     @Default('') final String query,
-    @Default(SearchTab.all) final SearchTab tab,
+    @Default(SearchTab.whatsHot) final SearchTab tab,
   }) = _SearchStateResult;
 
   factory SearchState.empty() = _SearchStateEmpty;
 
   String get query => when(
-        loadedCategories: (_) => '',
         error: (_) => '',
         initial: () => '',
         recentSearch: (_) => '',
@@ -40,7 +59,6 @@ class SearchState with _$SearchState {
       );
 
   SearchTab? get tab => when(
-        loadedCategories: (_) => null,
         error: (_) => null,
         initial: () => null,
         recentSearch: (_) => null,

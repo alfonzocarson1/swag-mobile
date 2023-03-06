@@ -10,8 +10,8 @@ part 'search_request_payload_model.g.dart';
 class SearchRequestPayloadModel with _$SearchRequestPayloadModel {
   @JsonSerializable()
   const factory SearchRequestPayloadModel({
-    @Default([]) final List<FilterModel> filters,
-    @Default(defaultString) final String searchParams,
+    required final FilterModel filters,
+    @Default(null) final List<String>? searchParams,
     @Default(defaultPageSize) final int pageSize,
     required final String categoryId,
   }) = _SearchRequestPayloadModel;

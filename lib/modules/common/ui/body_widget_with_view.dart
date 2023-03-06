@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/ui/catalog_ui.dart';
 import 'package:swagapp/modules/common/ui/shrunken_item_widget.dart';
 import 'package:swagapp/modules/constants/constants.dart';
+import 'package:swagapp/modules/models/search/filter_model.dart';
 
 import '../../../generated/l10n.dart';
 import '../../blocs/search_bloc.dart/search_bloc.dart';
@@ -12,9 +13,10 @@ import '../../models/search/catalog_item_model.dart';
 import '../../models/search/search_request_payload_model.dart';
 
 class BodyWidgetWithView extends StatefulWidget {
-  BodyWidgetWithView(this.catalogList, {Key? key}) : super(key: key);
+  BodyWidgetWithView(this.catalogList, this.tab, {Key? key}) : super(key: key);
 
   List<CatalogItemModel> catalogList;
+  SearchTab tab;
 
   @override
   State<BodyWidgetWithView> createState() => _BodyWidgetWithViewState();
@@ -82,8 +84,11 @@ class _BodyWidgetWithViewState extends State<BodyWidgetWithView> {
           );
   }
 
-  void makeCall() {
-    context.read<SearchBloc>().add(const SearchEvent.search(
-        SearchRequestPayloadModel(categoryId: defaultString)));
+  Future<void> makeCall() async {
+    context.read<SearchBloc>().add(SearchEvent.performSearch(
+        SearchRequestPayloadModel(
+            categoryId: await SearchTabWrapper(widget.tab).toStringCustom(),
+            filters: const FilterModel()),
+        widget.tab));
   }
 }

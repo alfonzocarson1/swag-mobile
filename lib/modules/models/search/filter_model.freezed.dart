@@ -20,11 +20,16 @@ FilterModel _$FilterModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$FilterModel {
+  bool get forSale => throw _privateConstructorUsedError;
   int get sortBy => throw _privateConstructorUsedError;
-  String get collections => throw _privateConstructorUsedError;
-  String get conditions => throw _privateConstructorUsedError;
-  List<String> get releaseYears => throw _privateConstructorUsedError;
-  String get rarityScore => throw _privateConstructorUsedError;
+  String? get collection => throw _privateConstructorUsedError;
+  String? get productType => throw _privateConstructorUsedError;
+  String? get type => throw _privateConstructorUsedError;
+  List<String>? get theme => throw _privateConstructorUsedError;
+  List<String>? get conditions => throw _privateConstructorUsedError;
+  List<int>? get releaseYears => throw _privateConstructorUsedError;
+  List<int>? get priceRanges => throw _privateConstructorUsedError;
+  String? get rarityScore => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -39,11 +44,16 @@ abstract class $FilterModelCopyWith<$Res> {
       _$FilterModelCopyWithImpl<$Res, FilterModel>;
   @useResult
   $Res call(
-      {int sortBy,
-      String collections,
-      String conditions,
-      List<String> releaseYears,
-      String rarityScore});
+      {bool forSale,
+      int sortBy,
+      String? collection,
+      String? productType,
+      String? type,
+      List<String>? theme,
+      List<String>? conditions,
+      List<int>? releaseYears,
+      List<int>? priceRanges,
+      String? rarityScore});
 }
 
 /// @nodoc
@@ -59,33 +69,58 @@ class _$FilterModelCopyWithImpl<$Res, $Val extends FilterModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? forSale = null,
     Object? sortBy = null,
-    Object? collections = null,
-    Object? conditions = null,
-    Object? releaseYears = null,
-    Object? rarityScore = null,
+    Object? collection = freezed,
+    Object? productType = freezed,
+    Object? type = freezed,
+    Object? theme = freezed,
+    Object? conditions = freezed,
+    Object? releaseYears = freezed,
+    Object? priceRanges = freezed,
+    Object? rarityScore = freezed,
   }) {
     return _then(_value.copyWith(
+      forSale: null == forSale
+          ? _value.forSale
+          : forSale // ignore: cast_nullable_to_non_nullable
+              as bool,
       sortBy: null == sortBy
           ? _value.sortBy
           : sortBy // ignore: cast_nullable_to_non_nullable
               as int,
-      collections: null == collections
-          ? _value.collections
-          : collections // ignore: cast_nullable_to_non_nullable
-              as String,
-      conditions: null == conditions
+      collection: freezed == collection
+          ? _value.collection
+          : collection // ignore: cast_nullable_to_non_nullable
+              as String?,
+      productType: freezed == productType
+          ? _value.productType
+          : productType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      type: freezed == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String?,
+      theme: freezed == theme
+          ? _value.theme
+          : theme // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      conditions: freezed == conditions
           ? _value.conditions
           : conditions // ignore: cast_nullable_to_non_nullable
-              as String,
-      releaseYears: null == releaseYears
+              as List<String>?,
+      releaseYears: freezed == releaseYears
           ? _value.releaseYears
           : releaseYears // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      rarityScore: null == rarityScore
+              as List<int>?,
+      priceRanges: freezed == priceRanges
+          ? _value.priceRanges
+          : priceRanges // ignore: cast_nullable_to_non_nullable
+              as List<int>?,
+      rarityScore: freezed == rarityScore
           ? _value.rarityScore
           : rarityScore // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 }
@@ -99,11 +134,16 @@ abstract class _$$_FilterModelCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int sortBy,
-      String collections,
-      String conditions,
-      List<String> releaseYears,
-      String rarityScore});
+      {bool forSale,
+      int sortBy,
+      String? collection,
+      String? productType,
+      String? type,
+      List<String>? theme,
+      List<String>? conditions,
+      List<int>? releaseYears,
+      List<int>? priceRanges,
+      String? rarityScore});
 }
 
 /// @nodoc
@@ -117,33 +157,58 @@ class __$$_FilterModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? forSale = null,
     Object? sortBy = null,
-    Object? collections = null,
-    Object? conditions = null,
-    Object? releaseYears = null,
-    Object? rarityScore = null,
+    Object? collection = freezed,
+    Object? productType = freezed,
+    Object? type = freezed,
+    Object? theme = freezed,
+    Object? conditions = freezed,
+    Object? releaseYears = freezed,
+    Object? priceRanges = freezed,
+    Object? rarityScore = freezed,
   }) {
     return _then(_$_FilterModel(
+      forSale: null == forSale
+          ? _value.forSale
+          : forSale // ignore: cast_nullable_to_non_nullable
+              as bool,
       sortBy: null == sortBy
           ? _value.sortBy
           : sortBy // ignore: cast_nullable_to_non_nullable
               as int,
-      collections: null == collections
-          ? _value.collections
-          : collections // ignore: cast_nullable_to_non_nullable
-              as String,
-      conditions: null == conditions
-          ? _value.conditions
+      collection: freezed == collection
+          ? _value.collection
+          : collection // ignore: cast_nullable_to_non_nullable
+              as String?,
+      productType: freezed == productType
+          ? _value.productType
+          : productType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      type: freezed == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String?,
+      theme: freezed == theme
+          ? _value._theme
+          : theme // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      conditions: freezed == conditions
+          ? _value._conditions
           : conditions // ignore: cast_nullable_to_non_nullable
-              as String,
-      releaseYears: null == releaseYears
+              as List<String>?,
+      releaseYears: freezed == releaseYears
           ? _value._releaseYears
           : releaseYears // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      rarityScore: null == rarityScore
+              as List<int>?,
+      priceRanges: freezed == priceRanges
+          ? _value._priceRanges
+          : priceRanges // ignore: cast_nullable_to_non_nullable
+              as List<int>?,
+      rarityScore: freezed == rarityScore
           ? _value.rarityScore
           : rarityScore // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -153,41 +218,90 @@ class __$$_FilterModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_FilterModel implements _FilterModel {
   const _$_FilterModel(
-      {this.sortBy = 0,
-      this.collections = defaultString,
-      this.conditions = defaultString,
-      final List<String> releaseYears = const [],
-      this.rarityScore = defaultString})
-      : _releaseYears = releaseYears;
+      {this.forSale = false,
+      this.sortBy = 0,
+      this.collection = null,
+      this.productType = null,
+      this.type = null,
+      final List<String>? theme = null,
+      final List<String>? conditions = null,
+      final List<int>? releaseYears = null,
+      final List<int>? priceRanges = null,
+      this.rarityScore = null})
+      : _theme = theme,
+        _conditions = conditions,
+        _releaseYears = releaseYears,
+        _priceRanges = priceRanges;
 
   factory _$_FilterModel.fromJson(Map<String, dynamic> json) =>
       _$$_FilterModelFromJson(json);
 
   @override
   @JsonKey()
+  final bool forSale;
+  @override
+  @JsonKey()
   final int sortBy;
   @override
   @JsonKey()
-  final String collections;
+  final String? collection;
   @override
   @JsonKey()
-  final String conditions;
-  final List<String> _releaseYears;
+  final String? productType;
   @override
   @JsonKey()
-  List<String> get releaseYears {
+  final String? type;
+  final List<String>? _theme;
+  @override
+  @JsonKey()
+  List<String>? get theme {
+    final value = _theme;
+    if (value == null) return null;
+    if (_theme is EqualUnmodifiableListView) return _theme;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<String>? _conditions;
+  @override
+  @JsonKey()
+  List<String>? get conditions {
+    final value = _conditions;
+    if (value == null) return null;
+    if (_conditions is EqualUnmodifiableListView) return _conditions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<int>? _releaseYears;
+  @override
+  @JsonKey()
+  List<int>? get releaseYears {
+    final value = _releaseYears;
+    if (value == null) return null;
     if (_releaseYears is EqualUnmodifiableListView) return _releaseYears;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_releaseYears);
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<int>? _priceRanges;
+  @override
+  @JsonKey()
+  List<int>? get priceRanges {
+    final value = _priceRanges;
+    if (value == null) return null;
+    if (_priceRanges is EqualUnmodifiableListView) return _priceRanges;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
   }
 
   @override
   @JsonKey()
-  final String rarityScore;
+  final String? rarityScore;
 
   @override
   String toString() {
-    return 'FilterModel(sortBy: $sortBy, collections: $collections, conditions: $conditions, releaseYears: $releaseYears, rarityScore: $rarityScore)';
+    return 'FilterModel(forSale: $forSale, sortBy: $sortBy, collection: $collection, productType: $productType, type: $type, theme: $theme, conditions: $conditions, releaseYears: $releaseYears, priceRanges: $priceRanges, rarityScore: $rarityScore)';
   }
 
   @override
@@ -195,21 +309,38 @@ class _$_FilterModel implements _FilterModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_FilterModel &&
+            (identical(other.forSale, forSale) || other.forSale == forSale) &&
             (identical(other.sortBy, sortBy) || other.sortBy == sortBy) &&
-            (identical(other.collections, collections) ||
-                other.collections == collections) &&
-            (identical(other.conditions, conditions) ||
-                other.conditions == conditions) &&
+            (identical(other.collection, collection) ||
+                other.collection == collection) &&
+            (identical(other.productType, productType) ||
+                other.productType == productType) &&
+            (identical(other.type, type) || other.type == type) &&
+            const DeepCollectionEquality().equals(other._theme, _theme) &&
+            const DeepCollectionEquality()
+                .equals(other._conditions, _conditions) &&
             const DeepCollectionEquality()
                 .equals(other._releaseYears, _releaseYears) &&
+            const DeepCollectionEquality()
+                .equals(other._priceRanges, _priceRanges) &&
             (identical(other.rarityScore, rarityScore) ||
                 other.rarityScore == rarityScore));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, sortBy, collections, conditions,
-      const DeepCollectionEquality().hash(_releaseYears), rarityScore);
+  int get hashCode => Object.hash(
+      runtimeType,
+      forSale,
+      sortBy,
+      collection,
+      productType,
+      type,
+      const DeepCollectionEquality().hash(_theme),
+      const DeepCollectionEquality().hash(_conditions),
+      const DeepCollectionEquality().hash(_releaseYears),
+      const DeepCollectionEquality().hash(_priceRanges),
+      rarityScore);
 
   @JsonKey(ignore: true)
   @override
@@ -227,25 +358,40 @@ class _$_FilterModel implements _FilterModel {
 
 abstract class _FilterModel implements FilterModel {
   const factory _FilterModel(
-      {final int sortBy,
-      final String collections,
-      final String conditions,
-      final List<String> releaseYears,
-      final String rarityScore}) = _$_FilterModel;
+      {final bool forSale,
+      final int sortBy,
+      final String? collection,
+      final String? productType,
+      final String? type,
+      final List<String>? theme,
+      final List<String>? conditions,
+      final List<int>? releaseYears,
+      final List<int>? priceRanges,
+      final String? rarityScore}) = _$_FilterModel;
 
   factory _FilterModel.fromJson(Map<String, dynamic> json) =
       _$_FilterModel.fromJson;
 
   @override
+  bool get forSale;
+  @override
   int get sortBy;
   @override
-  String get collections;
+  String? get collection;
   @override
-  String get conditions;
+  String? get productType;
   @override
-  List<String> get releaseYears;
+  String? get type;
   @override
-  String get rarityScore;
+  List<String>? get theme;
+  @override
+  List<String>? get conditions;
+  @override
+  List<int>? get releaseYears;
+  @override
+  List<int>? get priceRanges;
+  @override
+  String? get rarityScore;
   @override
   @JsonKey(ignore: true)
   _$$_FilterModelCopyWith<_$_FilterModel> get copyWith =>
