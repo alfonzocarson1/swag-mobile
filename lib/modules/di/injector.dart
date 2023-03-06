@@ -16,6 +16,7 @@ import '../blocs/explore_bloc/explore_bloc.dart';
 import '../blocs/favorite_bloc/favorite_bloc.dart';
 import '../blocs/listing_bloc/listing_bloc.dart';
 import '../blocs/profile_favorite_bloc/profile_favorite_bloc.dart';
+import '../blocs/sale_history/sale_history_bloc.dart';
 import '../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
 import '../blocs/sold_bloc/sold_bloc.dart';
 import '../data/auth/auth_service.dart';
@@ -31,6 +32,8 @@ import '../data/favorite/favorite_service.dart';
 import '../data/favorite/i_favorite_service.dart';
 import '../data/listing/i_listing_service.dart';
 import '../data/listing/listing_service.dart';
+import '../data/sale_history/i_sale_history_service.dart';
+import '../data/sale_history/sale_history_service.dart';
 import '../data/secure_storage/storage_repository_service.dart';
 import '../data/shared_preferences/shared_preferences_service.dart';
 import '../data/sold/i_sold_service.dart';
@@ -72,6 +75,11 @@ Future<void> setupAppScope() {
       () => CollectionService(APIService()));
   getIt.registerLazySingleton<CollectionBloc>(
       () => CollectionBloc(getIt<ICollectionService>()));
+
+  getIt.registerLazySingleton<ISalesHistoryService>(
+      () => SalesHistoryService(APIService()));
+  getIt.registerLazySingleton<SalesHistoryBloc>(
+      () => SalesHistoryBloc(getIt<ISalesHistoryService>()));
 
   getIt.registerLazySingleton<IListingService>(
       () => ListingService(APIService()));
