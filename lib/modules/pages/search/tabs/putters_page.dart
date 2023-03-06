@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
-import '../../../blocs/search_tabs_bloc/putters_bloc/putters_bloc.dart';
+import '../../../blocs/search_bloc.dart/search_bloc.dart';
 import '../../../common/ui/body_widget_with_view.dart';
 import '../../../common/utils/custom_route_animations.dart';
 
@@ -8,9 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:swagapp/modules/common/ui/loading.dart';
 
-import '../../../constants/constants.dart';
+import '../../../models/search/filter_model.dart';
 import '../../../models/search/search_request_payload_model.dart';
-import '../../../models/search_tabs/payload_search_model.dart';
 
 class PuttersPage extends StatefulWidget {
   static const name = '/Putters';
@@ -30,15 +29,14 @@ class _PuttersPageState extends State<PuttersPage> {
       PrimaryScrollController.of(context);
 
   @override
-  void initState() {}
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Palette.current.primaryNero,
-        body: BlocConsumer<PuttersBloc, SearchPuttersState>(
+        body: BlocConsumer<SearchBloc, SearchState>(
           listener: (context, state) => state.maybeWhen(
-            orElse: () => {Loading.hide(context)},
+            orElse: () => {
+              if (Loading.isVisible()) {Loading.hide(context)}
+            },
             error: (message) => {
               Loading.hide(context),
               // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
@@ -62,16 +60,24 @@ class _PuttersPageState extends State<PuttersPage> {
                     ));
               },
               result: (state) {
-                return BodyWidgetWithView(state.result[SearchTab.all] ?? []);
+                if (state.tab == SearchTab.putters) {
+                  return BodyWidgetWithView(
+                      state.result[SearchTab.putters] ?? [], SearchTab.putters);
+                } else {
+                  return const Center();
+                }
               },
             );
           },
         ));
   }
 
-  void makeCall() {
-    context.read<PuttersBloc>().add(SearchPuttersEvent.search(
-        const SearchRequestPayloadModel(categoryId: defaultString),
-        FiltersPayload(currentPage: '2')));
+  Future<void> makeCall() async {
+    context.read<SearchBloc>().add(SearchEvent.performSearch(
+        SearchRequestPayloadModel(
+            categoryId:
+                await SearchTabWrapper(SearchTab.putters).toStringCustom(),
+            filters: const FilterModel()),
+        SearchTab.putters));
   }
 }

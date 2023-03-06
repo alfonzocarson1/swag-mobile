@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../blocs/search_tabs_bloc/accessories_bloc/accessories_bloc.dart';
+import '../../../blocs/search_bloc.dart/search_bloc.dart';
 import '../../../common/ui/body_widget_with_view.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
@@ -11,10 +11,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:swagapp/modules/common/ui/loading.dart';
 
-import '../../../constants/constants.dart';
 import '../../../models/search/catalog_item_model.dart';
+import '../../../models/search/filter_model.dart';
 import '../../../models/search/search_request_payload_model.dart';
-import '../../../models/search_tabs/payload_search_model.dart';
 
 class AccessoriesPage extends StatefulWidget {
   static const name = '/Accessories';
@@ -39,9 +38,11 @@ class _AccessoriesPageState extends State<AccessoriesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Palette.current.primaryNero,
-        body: BlocConsumer<AccessoriesBloc, SearchAccessoriesState>(
+        body: BlocConsumer<SearchBloc, SearchState>(
           listener: (context, state) => state.maybeWhen(
-            orElse: () => {Loading.hide(context)},
+            orElse: () => {
+              if (Loading.isVisible()) {Loading.hide(context)}
+            },
             error: (message) => {
               Loading.hide(context),
               // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
@@ -65,7 +66,13 @@ class _AccessoriesPageState extends State<AccessoriesPage> {
                     ));
               },
               result: (state) {
-                return BodyWidgetWithView(state.result[SearchTab.all] ?? []);
+                if (state.tab == SearchTab.accessories) {
+                  return BodyWidgetWithView(
+                      state.result[SearchTab.accessories] ?? [],
+                      SearchTab.accessories);
+                } else {
+                  return const Center();
+                }
               },
             );
           },
@@ -97,9 +104,12 @@ class _AccessoriesPageState extends State<AccessoriesPage> {
     );
   }
 
-  void makeCall() {
-    context.read<AccessoriesBloc>().add(SearchAccessoriesEvent.search(
-        const SearchRequestPayloadModel(categoryId: defaultString),
-        FiltersPayload(currentPage: '3')));
+  Future<void> makeCall() async {
+    context.read<SearchBloc>().add(SearchEvent.performSearch(
+        SearchRequestPayloadModel(
+            categoryId:
+                await SearchTabWrapper(SearchTab.accessories).toStringCustom(),
+            filters: const FilterModel()),
+        SearchTab.accessories));
   }
 }

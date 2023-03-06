@@ -18,45 +18,48 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$SearchEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getCategories,
-    required TResult Function(SearchRequestPayloadModel payload) search,
+    required TResult Function(SearchRequestPayloadModel payload, SearchTab tab)
+        performSearch,
     required TResult Function() reset,
+    required TResult Function(SearchTab tab) selectTab,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getCategories,
-    TResult? Function(SearchRequestPayloadModel payload)? search,
+    TResult? Function(SearchRequestPayloadModel payload, SearchTab tab)?
+        performSearch,
     TResult? Function()? reset,
+    TResult? Function(SearchTab tab)? selectTab,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getCategories,
-    TResult Function(SearchRequestPayloadModel payload)? search,
+    TResult Function(SearchRequestPayloadModel payload, SearchTab tab)?
+        performSearch,
     TResult Function()? reset,
+    TResult Function(SearchTab tab)? selectTab,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_GetCategories value) getCategories,
-    required TResult Function(_SearchEventSearch value) search,
+    required TResult Function(_PerformSearch value) performSearch,
     required TResult Function(_SearchEventReset value) reset,
+    required TResult Function(_SearchEventSelectTab value) selectTab,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_GetCategories value)? getCategories,
-    TResult? Function(_SearchEventSearch value)? search,
+    TResult? Function(_PerformSearch value)? performSearch,
     TResult? Function(_SearchEventReset value)? reset,
+    TResult? Function(_SearchEventSelectTab value)? selectTab,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_GetCategories value)? getCategories,
-    TResult Function(_SearchEventSearch value)? search,
+    TResult Function(_PerformSearch value)? performSearch,
     TResult Function(_SearchEventReset value)? reset,
+    TResult Function(_SearchEventSelectTab value)? selectTab,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -81,142 +84,39 @@ class _$SearchEventCopyWithImpl<$Res, $Val extends SearchEvent>
 }
 
 /// @nodoc
-abstract class _$$_GetCategoriesCopyWith<$Res> {
-  factory _$$_GetCategoriesCopyWith(
-          _$_GetCategories value, $Res Function(_$_GetCategories) then) =
-      __$$_GetCategoriesCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$_GetCategoriesCopyWithImpl<$Res>
-    extends _$SearchEventCopyWithImpl<$Res, _$_GetCategories>
-    implements _$$_GetCategoriesCopyWith<$Res> {
-  __$$_GetCategoriesCopyWithImpl(
-      _$_GetCategories _value, $Res Function(_$_GetCategories) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$_GetCategories implements _GetCategories {
-  const _$_GetCategories();
-
-  @override
-  String toString() {
-    return 'SearchEvent.getCategories()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_GetCategories);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() getCategories,
-    required TResult Function(SearchRequestPayloadModel payload) search,
-    required TResult Function() reset,
-  }) {
-    return getCategories();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getCategories,
-    TResult? Function(SearchRequestPayloadModel payload)? search,
-    TResult? Function()? reset,
-  }) {
-    return getCategories?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getCategories,
-    TResult Function(SearchRequestPayloadModel payload)? search,
-    TResult Function()? reset,
-    required TResult orElse(),
-  }) {
-    if (getCategories != null) {
-      return getCategories();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_GetCategories value) getCategories,
-    required TResult Function(_SearchEventSearch value) search,
-    required TResult Function(_SearchEventReset value) reset,
-  }) {
-    return getCategories(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_GetCategories value)? getCategories,
-    TResult? Function(_SearchEventSearch value)? search,
-    TResult? Function(_SearchEventReset value)? reset,
-  }) {
-    return getCategories?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_GetCategories value)? getCategories,
-    TResult Function(_SearchEventSearch value)? search,
-    TResult Function(_SearchEventReset value)? reset,
-    required TResult orElse(),
-  }) {
-    if (getCategories != null) {
-      return getCategories(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _GetCategories implements SearchEvent {
-  const factory _GetCategories() = _$_GetCategories;
-}
-
-/// @nodoc
-abstract class _$$_SearchEventSearchCopyWith<$Res> {
-  factory _$$_SearchEventSearchCopyWith(_$_SearchEventSearch value,
-          $Res Function(_$_SearchEventSearch) then) =
-      __$$_SearchEventSearchCopyWithImpl<$Res>;
+abstract class _$$_PerformSearchCopyWith<$Res> {
+  factory _$$_PerformSearchCopyWith(
+          _$_PerformSearch value, $Res Function(_$_PerformSearch) then) =
+      __$$_PerformSearchCopyWithImpl<$Res>;
   @useResult
-  $Res call({SearchRequestPayloadModel payload});
+  $Res call({SearchRequestPayloadModel payload, SearchTab tab});
 
   $SearchRequestPayloadModelCopyWith<$Res> get payload;
 }
 
 /// @nodoc
-class __$$_SearchEventSearchCopyWithImpl<$Res>
-    extends _$SearchEventCopyWithImpl<$Res, _$_SearchEventSearch>
-    implements _$$_SearchEventSearchCopyWith<$Res> {
-  __$$_SearchEventSearchCopyWithImpl(
-      _$_SearchEventSearch _value, $Res Function(_$_SearchEventSearch) _then)
+class __$$_PerformSearchCopyWithImpl<$Res>
+    extends _$SearchEventCopyWithImpl<$Res, _$_PerformSearch>
+    implements _$$_PerformSearchCopyWith<$Res> {
+  __$$_PerformSearchCopyWithImpl(
+      _$_PerformSearch _value, $Res Function(_$_PerformSearch) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? payload = null,
+    Object? tab = null,
   }) {
-    return _then(_$_SearchEventSearch(
+    return _then(_$_PerformSearch(
       null == payload
           ? _value.payload
           : payload // ignore: cast_nullable_to_non_nullable
               as SearchRequestPayloadModel,
+      null == tab
+          ? _value.tab
+          : tab // ignore: cast_nullable_to_non_nullable
+              as SearchTab,
     ));
   }
 
@@ -231,65 +131,70 @@ class __$$_SearchEventSearchCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SearchEventSearch implements _SearchEventSearch {
-  const _$_SearchEventSearch(this.payload);
+class _$_PerformSearch implements _PerformSearch {
+  const _$_PerformSearch(this.payload, this.tab);
 
   @override
   final SearchRequestPayloadModel payload;
+  @override
+  final SearchTab tab;
 
   @override
   String toString() {
-    return 'SearchEvent.search(payload: $payload)';
+    return 'SearchEvent.performSearch(payload: $payload, tab: $tab)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SearchEventSearch &&
-            (identical(other.payload, payload) || other.payload == payload));
+            other is _$_PerformSearch &&
+            (identical(other.payload, payload) || other.payload == payload) &&
+            (identical(other.tab, tab) || other.tab == tab));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, payload);
+  int get hashCode => Object.hash(runtimeType, payload, tab);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SearchEventSearchCopyWith<_$_SearchEventSearch> get copyWith =>
-      __$$_SearchEventSearchCopyWithImpl<_$_SearchEventSearch>(
-          this, _$identity);
+  _$$_PerformSearchCopyWith<_$_PerformSearch> get copyWith =>
+      __$$_PerformSearchCopyWithImpl<_$_PerformSearch>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getCategories,
-    required TResult Function(SearchRequestPayloadModel payload) search,
+    required TResult Function(SearchRequestPayloadModel payload, SearchTab tab)
+        performSearch,
     required TResult Function() reset,
+    required TResult Function(SearchTab tab) selectTab,
   }) {
-    return search(payload);
+    return performSearch(payload, tab);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getCategories,
-    TResult? Function(SearchRequestPayloadModel payload)? search,
+    TResult? Function(SearchRequestPayloadModel payload, SearchTab tab)?
+        performSearch,
     TResult? Function()? reset,
+    TResult? Function(SearchTab tab)? selectTab,
   }) {
-    return search?.call(payload);
+    return performSearch?.call(payload, tab);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getCategories,
-    TResult Function(SearchRequestPayloadModel payload)? search,
+    TResult Function(SearchRequestPayloadModel payload, SearchTab tab)?
+        performSearch,
     TResult Function()? reset,
+    TResult Function(SearchTab tab)? selectTab,
     required TResult orElse(),
   }) {
-    if (search != null) {
-      return search(payload);
+    if (performSearch != null) {
+      return performSearch(payload, tab);
     }
     return orElse();
   }
@@ -297,45 +202,47 @@ class _$_SearchEventSearch implements _SearchEventSearch {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_GetCategories value) getCategories,
-    required TResult Function(_SearchEventSearch value) search,
+    required TResult Function(_PerformSearch value) performSearch,
     required TResult Function(_SearchEventReset value) reset,
+    required TResult Function(_SearchEventSelectTab value) selectTab,
   }) {
-    return search(this);
+    return performSearch(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_GetCategories value)? getCategories,
-    TResult? Function(_SearchEventSearch value)? search,
+    TResult? Function(_PerformSearch value)? performSearch,
     TResult? Function(_SearchEventReset value)? reset,
+    TResult? Function(_SearchEventSelectTab value)? selectTab,
   }) {
-    return search?.call(this);
+    return performSearch?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_GetCategories value)? getCategories,
-    TResult Function(_SearchEventSearch value)? search,
+    TResult Function(_PerformSearch value)? performSearch,
     TResult Function(_SearchEventReset value)? reset,
+    TResult Function(_SearchEventSelectTab value)? selectTab,
     required TResult orElse(),
   }) {
-    if (search != null) {
-      return search(this);
+    if (performSearch != null) {
+      return performSearch(this);
     }
     return orElse();
   }
 }
 
-abstract class _SearchEventSearch implements SearchEvent {
-  const factory _SearchEventSearch(final SearchRequestPayloadModel payload) =
-      _$_SearchEventSearch;
+abstract class _PerformSearch implements SearchEvent {
+  const factory _PerformSearch(
+          final SearchRequestPayloadModel payload, final SearchTab tab) =
+      _$_PerformSearch;
 
   SearchRequestPayloadModel get payload;
+  SearchTab get tab;
   @JsonKey(ignore: true)
-  _$$_SearchEventSearchCopyWith<_$_SearchEventSearch> get copyWith =>
+  _$$_PerformSearchCopyWith<_$_PerformSearch> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -377,9 +284,10 @@ class _$_SearchEventReset implements _SearchEventReset {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getCategories,
-    required TResult Function(SearchRequestPayloadModel payload) search,
+    required TResult Function(SearchRequestPayloadModel payload, SearchTab tab)
+        performSearch,
     required TResult Function() reset,
+    required TResult Function(SearchTab tab) selectTab,
   }) {
     return reset();
   }
@@ -387,9 +295,10 @@ class _$_SearchEventReset implements _SearchEventReset {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getCategories,
-    TResult? Function(SearchRequestPayloadModel payload)? search,
+    TResult? Function(SearchRequestPayloadModel payload, SearchTab tab)?
+        performSearch,
     TResult? Function()? reset,
+    TResult? Function(SearchTab tab)? selectTab,
   }) {
     return reset?.call();
   }
@@ -397,9 +306,10 @@ class _$_SearchEventReset implements _SearchEventReset {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getCategories,
-    TResult Function(SearchRequestPayloadModel payload)? search,
+    TResult Function(SearchRequestPayloadModel payload, SearchTab tab)?
+        performSearch,
     TResult Function()? reset,
+    TResult Function(SearchTab tab)? selectTab,
     required TResult orElse(),
   }) {
     if (reset != null) {
@@ -411,9 +321,9 @@ class _$_SearchEventReset implements _SearchEventReset {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_GetCategories value) getCategories,
-    required TResult Function(_SearchEventSearch value) search,
+    required TResult Function(_PerformSearch value) performSearch,
     required TResult Function(_SearchEventReset value) reset,
+    required TResult Function(_SearchEventSelectTab value) selectTab,
   }) {
     return reset(this);
   }
@@ -421,9 +331,9 @@ class _$_SearchEventReset implements _SearchEventReset {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_GetCategories value)? getCategories,
-    TResult? Function(_SearchEventSearch value)? search,
+    TResult? Function(_PerformSearch value)? performSearch,
     TResult? Function(_SearchEventReset value)? reset,
+    TResult? Function(_SearchEventSelectTab value)? selectTab,
   }) {
     return reset?.call(this);
   }
@@ -431,9 +341,9 @@ class _$_SearchEventReset implements _SearchEventReset {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_GetCategories value)? getCategories,
-    TResult Function(_SearchEventSearch value)? search,
+    TResult Function(_PerformSearch value)? performSearch,
     TResult Function(_SearchEventReset value)? reset,
+    TResult Function(_SearchEventSelectTab value)? selectTab,
     required TResult orElse(),
   }) {
     if (reset != null) {
@@ -448,13 +358,155 @@ abstract class _SearchEventReset implements SearchEvent {
 }
 
 /// @nodoc
+abstract class _$$_SearchEventSelectTabCopyWith<$Res> {
+  factory _$$_SearchEventSelectTabCopyWith(_$_SearchEventSelectTab value,
+          $Res Function(_$_SearchEventSelectTab) then) =
+      __$$_SearchEventSelectTabCopyWithImpl<$Res>;
+  @useResult
+  $Res call({SearchTab tab});
+}
+
+/// @nodoc
+class __$$_SearchEventSelectTabCopyWithImpl<$Res>
+    extends _$SearchEventCopyWithImpl<$Res, _$_SearchEventSelectTab>
+    implements _$$_SearchEventSelectTabCopyWith<$Res> {
+  __$$_SearchEventSelectTabCopyWithImpl(_$_SearchEventSelectTab _value,
+      $Res Function(_$_SearchEventSelectTab) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? tab = null,
+  }) {
+    return _then(_$_SearchEventSelectTab(
+      null == tab
+          ? _value.tab
+          : tab // ignore: cast_nullable_to_non_nullable
+              as SearchTab,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_SearchEventSelectTab implements _SearchEventSelectTab {
+  const _$_SearchEventSelectTab(this.tab);
+
+  @override
+  final SearchTab tab;
+
+  @override
+  String toString() {
+    return 'SearchEvent.selectTab(tab: $tab)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_SearchEventSelectTab &&
+            (identical(other.tab, tab) || other.tab == tab));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, tab);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_SearchEventSelectTabCopyWith<_$_SearchEventSelectTab> get copyWith =>
+      __$$_SearchEventSelectTabCopyWithImpl<_$_SearchEventSelectTab>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(SearchRequestPayloadModel payload, SearchTab tab)
+        performSearch,
+    required TResult Function() reset,
+    required TResult Function(SearchTab tab) selectTab,
+  }) {
+    return selectTab(tab);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(SearchRequestPayloadModel payload, SearchTab tab)?
+        performSearch,
+    TResult? Function()? reset,
+    TResult? Function(SearchTab tab)? selectTab,
+  }) {
+    return selectTab?.call(tab);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(SearchRequestPayloadModel payload, SearchTab tab)?
+        performSearch,
+    TResult Function()? reset,
+    TResult Function(SearchTab tab)? selectTab,
+    required TResult orElse(),
+  }) {
+    if (selectTab != null) {
+      return selectTab(tab);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_PerformSearch value) performSearch,
+    required TResult Function(_SearchEventReset value) reset,
+    required TResult Function(_SearchEventSelectTab value) selectTab,
+  }) {
+    return selectTab(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_PerformSearch value)? performSearch,
+    TResult? Function(_SearchEventReset value)? reset,
+    TResult? Function(_SearchEventSelectTab value)? selectTab,
+  }) {
+    return selectTab?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_PerformSearch value)? performSearch,
+    TResult Function(_SearchEventReset value)? reset,
+    TResult Function(_SearchEventSelectTab value)? selectTab,
+    required TResult orElse(),
+  }) {
+    if (selectTab != null) {
+      return selectTab(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SearchEventSelectTab implements SearchEvent {
+  const factory _SearchEventSelectTab(final SearchTab tab) =
+      _$_SearchEventSelectTab;
+
+  SearchTab get tab;
+  @JsonKey(ignore: true)
+  _$$_SearchEventSelectTabCopyWith<_$_SearchEventSelectTab> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$SearchState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String message) error,
-    required TResult Function(List<CategoryModel> categoryList)
-        loadedCategories,
     required TResult Function(List<String> queries) recentSearch,
     required TResult Function(String query, SearchTab tab) searching,
     required TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
@@ -467,7 +519,6 @@ mixin _$SearchState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String message)? error,
-    TResult? Function(List<CategoryModel> categoryList)? loadedCategories,
     TResult? Function(List<String> queries)? recentSearch,
     TResult? Function(String query, SearchTab tab)? searching,
     TResult? Function(Map<SearchTab, List<CatalogItemModel>> result,
@@ -480,7 +531,6 @@ mixin _$SearchState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String message)? error,
-    TResult Function(List<CategoryModel> categoryList)? loadedCategories,
     TResult Function(List<String> queries)? recentSearch,
     TResult Function(String query, SearchTab tab)? searching,
     TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
@@ -494,7 +544,6 @@ mixin _$SearchState {
   TResult map<TResult extends Object?>({
     required TResult Function(_InitialSearchState value) initial,
     required TResult Function(_ErrorSearchState value) error,
-    required TResult Function(LoadedCategoriesState value) loadedCategories,
     required TResult Function(_SearchStateRecentSearch value) recentSearch,
     required TResult Function(_SearchStateSearching value) searching,
     required TResult Function(_SearchStateResult value) result,
@@ -505,7 +554,6 @@ mixin _$SearchState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_InitialSearchState value)? initial,
     TResult? Function(_ErrorSearchState value)? error,
-    TResult? Function(LoadedCategoriesState value)? loadedCategories,
     TResult? Function(_SearchStateRecentSearch value)? recentSearch,
     TResult? Function(_SearchStateSearching value)? searching,
     TResult? Function(_SearchStateResult value)? result,
@@ -516,7 +564,6 @@ mixin _$SearchState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitialSearchState value)? initial,
     TResult Function(_ErrorSearchState value)? error,
-    TResult Function(LoadedCategoriesState value)? loadedCategories,
     TResult Function(_SearchStateRecentSearch value)? recentSearch,
     TResult Function(_SearchStateSearching value)? searching,
     TResult Function(_SearchStateResult value)? result,
@@ -584,8 +631,6 @@ class _$_InitialSearchState extends _InitialSearchState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String message) error,
-    required TResult Function(List<CategoryModel> categoryList)
-        loadedCategories,
     required TResult Function(List<String> queries) recentSearch,
     required TResult Function(String query, SearchTab tab) searching,
     required TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
@@ -601,7 +646,6 @@ class _$_InitialSearchState extends _InitialSearchState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String message)? error,
-    TResult? Function(List<CategoryModel> categoryList)? loadedCategories,
     TResult? Function(List<String> queries)? recentSearch,
     TResult? Function(String query, SearchTab tab)? searching,
     TResult? Function(Map<SearchTab, List<CatalogItemModel>> result,
@@ -617,7 +661,6 @@ class _$_InitialSearchState extends _InitialSearchState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String message)? error,
-    TResult Function(List<CategoryModel> categoryList)? loadedCategories,
     TResult Function(List<String> queries)? recentSearch,
     TResult Function(String query, SearchTab tab)? searching,
     TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
@@ -637,7 +680,6 @@ class _$_InitialSearchState extends _InitialSearchState {
   TResult map<TResult extends Object?>({
     required TResult Function(_InitialSearchState value) initial,
     required TResult Function(_ErrorSearchState value) error,
-    required TResult Function(LoadedCategoriesState value) loadedCategories,
     required TResult Function(_SearchStateRecentSearch value) recentSearch,
     required TResult Function(_SearchStateSearching value) searching,
     required TResult Function(_SearchStateResult value) result,
@@ -651,7 +693,6 @@ class _$_InitialSearchState extends _InitialSearchState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_InitialSearchState value)? initial,
     TResult? Function(_ErrorSearchState value)? error,
-    TResult? Function(LoadedCategoriesState value)? loadedCategories,
     TResult? Function(_SearchStateRecentSearch value)? recentSearch,
     TResult? Function(_SearchStateSearching value)? searching,
     TResult? Function(_SearchStateResult value)? result,
@@ -665,7 +706,6 @@ class _$_InitialSearchState extends _InitialSearchState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitialSearchState value)? initial,
     TResult Function(_ErrorSearchState value)? error,
-    TResult Function(LoadedCategoriesState value)? loadedCategories,
     TResult Function(_SearchStateRecentSearch value)? recentSearch,
     TResult Function(_SearchStateSearching value)? searching,
     TResult Function(_SearchStateResult value)? result,
@@ -750,8 +790,6 @@ class _$_ErrorSearchState extends _ErrorSearchState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String message) error,
-    required TResult Function(List<CategoryModel> categoryList)
-        loadedCategories,
     required TResult Function(List<String> queries) recentSearch,
     required TResult Function(String query, SearchTab tab) searching,
     required TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
@@ -767,7 +805,6 @@ class _$_ErrorSearchState extends _ErrorSearchState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String message)? error,
-    TResult? Function(List<CategoryModel> categoryList)? loadedCategories,
     TResult? Function(List<String> queries)? recentSearch,
     TResult? Function(String query, SearchTab tab)? searching,
     TResult? Function(Map<SearchTab, List<CatalogItemModel>> result,
@@ -783,7 +820,6 @@ class _$_ErrorSearchState extends _ErrorSearchState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String message)? error,
-    TResult Function(List<CategoryModel> categoryList)? loadedCategories,
     TResult Function(List<String> queries)? recentSearch,
     TResult Function(String query, SearchTab tab)? searching,
     TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
@@ -803,7 +839,6 @@ class _$_ErrorSearchState extends _ErrorSearchState {
   TResult map<TResult extends Object?>({
     required TResult Function(_InitialSearchState value) initial,
     required TResult Function(_ErrorSearchState value) error,
-    required TResult Function(LoadedCategoriesState value) loadedCategories,
     required TResult Function(_SearchStateRecentSearch value) recentSearch,
     required TResult Function(_SearchStateSearching value) searching,
     required TResult Function(_SearchStateResult value) result,
@@ -817,7 +852,6 @@ class _$_ErrorSearchState extends _ErrorSearchState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_InitialSearchState value)? initial,
     TResult? Function(_ErrorSearchState value)? error,
-    TResult? Function(LoadedCategoriesState value)? loadedCategories,
     TResult? Function(_SearchStateRecentSearch value)? recentSearch,
     TResult? Function(_SearchStateSearching value)? searching,
     TResult? Function(_SearchStateResult value)? result,
@@ -831,7 +865,6 @@ class _$_ErrorSearchState extends _ErrorSearchState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitialSearchState value)? initial,
     TResult Function(_ErrorSearchState value)? error,
-    TResult Function(LoadedCategoriesState value)? loadedCategories,
     TResult Function(_SearchStateRecentSearch value)? recentSearch,
     TResult Function(_SearchStateSearching value)? searching,
     TResult Function(_SearchStateResult value)? result,
@@ -852,189 +885,6 @@ abstract class _ErrorSearchState extends SearchState {
   String get message;
   @JsonKey(ignore: true)
   _$$_ErrorSearchStateCopyWith<_$_ErrorSearchState> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$LoadedCategoriesStateCopyWith<$Res> {
-  factory _$$LoadedCategoriesStateCopyWith(_$LoadedCategoriesState value,
-          $Res Function(_$LoadedCategoriesState) then) =
-      __$$LoadedCategoriesStateCopyWithImpl<$Res>;
-  @useResult
-  $Res call({List<CategoryModel> categoryList});
-}
-
-/// @nodoc
-class __$$LoadedCategoriesStateCopyWithImpl<$Res>
-    extends _$SearchStateCopyWithImpl<$Res, _$LoadedCategoriesState>
-    implements _$$LoadedCategoriesStateCopyWith<$Res> {
-  __$$LoadedCategoriesStateCopyWithImpl(_$LoadedCategoriesState _value,
-      $Res Function(_$LoadedCategoriesState) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? categoryList = null,
-  }) {
-    return _then(_$LoadedCategoriesState(
-      categoryList: null == categoryList
-          ? _value._categoryList
-          : categoryList // ignore: cast_nullable_to_non_nullable
-              as List<CategoryModel>,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$LoadedCategoriesState extends LoadedCategoriesState {
-  _$LoadedCategoriesState({required final List<CategoryModel> categoryList})
-      : _categoryList = categoryList,
-        super._();
-
-  final List<CategoryModel> _categoryList;
-  @override
-  List<CategoryModel> get categoryList {
-    if (_categoryList is EqualUnmodifiableListView) return _categoryList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_categoryList);
-  }
-
-  @override
-  String toString() {
-    return 'SearchState.loadedCategories(categoryList: $categoryList)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LoadedCategoriesState &&
-            const DeepCollectionEquality()
-                .equals(other._categoryList, _categoryList));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_categoryList));
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$LoadedCategoriesStateCopyWith<_$LoadedCategoriesState> get copyWith =>
-      __$$LoadedCategoriesStateCopyWithImpl<_$LoadedCategoriesState>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function(String message) error,
-    required TResult Function(List<CategoryModel> categoryList)
-        loadedCategories,
-    required TResult Function(List<String> queries) recentSearch,
-    required TResult Function(String query, SearchTab tab) searching,
-    required TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
-            String query, SearchTab tab)
-        result,
-    required TResult Function() empty,
-  }) {
-    return loadedCategories(categoryList);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function(String message)? error,
-    TResult? Function(List<CategoryModel> categoryList)? loadedCategories,
-    TResult? Function(List<String> queries)? recentSearch,
-    TResult? Function(String query, SearchTab tab)? searching,
-    TResult? Function(Map<SearchTab, List<CatalogItemModel>> result,
-            String query, SearchTab tab)?
-        result,
-    TResult? Function()? empty,
-  }) {
-    return loadedCategories?.call(categoryList);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(String message)? error,
-    TResult Function(List<CategoryModel> categoryList)? loadedCategories,
-    TResult Function(List<String> queries)? recentSearch,
-    TResult Function(String query, SearchTab tab)? searching,
-    TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
-            String query, SearchTab tab)?
-        result,
-    TResult Function()? empty,
-    required TResult orElse(),
-  }) {
-    if (loadedCategories != null) {
-      return loadedCategories(categoryList);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_InitialSearchState value) initial,
-    required TResult Function(_ErrorSearchState value) error,
-    required TResult Function(LoadedCategoriesState value) loadedCategories,
-    required TResult Function(_SearchStateRecentSearch value) recentSearch,
-    required TResult Function(_SearchStateSearching value) searching,
-    required TResult Function(_SearchStateResult value) result,
-    required TResult Function(_SearchStateEmpty value) empty,
-  }) {
-    return loadedCategories(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_InitialSearchState value)? initial,
-    TResult? Function(_ErrorSearchState value)? error,
-    TResult? Function(LoadedCategoriesState value)? loadedCategories,
-    TResult? Function(_SearchStateRecentSearch value)? recentSearch,
-    TResult? Function(_SearchStateSearching value)? searching,
-    TResult? Function(_SearchStateResult value)? result,
-    TResult? Function(_SearchStateEmpty value)? empty,
-  }) {
-    return loadedCategories?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_InitialSearchState value)? initial,
-    TResult Function(_ErrorSearchState value)? error,
-    TResult Function(LoadedCategoriesState value)? loadedCategories,
-    TResult Function(_SearchStateRecentSearch value)? recentSearch,
-    TResult Function(_SearchStateSearching value)? searching,
-    TResult Function(_SearchStateResult value)? result,
-    TResult Function(_SearchStateEmpty value)? empty,
-    required TResult orElse(),
-  }) {
-    if (loadedCategories != null) {
-      return loadedCategories(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class LoadedCategoriesState extends SearchState {
-  factory LoadedCategoriesState(
-          {required final List<CategoryModel> categoryList}) =
-      _$LoadedCategoriesState;
-  LoadedCategoriesState._() : super._();
-
-  List<CategoryModel> get categoryList;
-  @JsonKey(ignore: true)
-  _$$LoadedCategoriesStateCopyWith<_$LoadedCategoriesState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1114,8 +964,6 @@ class _$_SearchStateRecentSearch extends _SearchStateRecentSearch {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String message) error,
-    required TResult Function(List<CategoryModel> categoryList)
-        loadedCategories,
     required TResult Function(List<String> queries) recentSearch,
     required TResult Function(String query, SearchTab tab) searching,
     required TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
@@ -1131,7 +979,6 @@ class _$_SearchStateRecentSearch extends _SearchStateRecentSearch {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String message)? error,
-    TResult? Function(List<CategoryModel> categoryList)? loadedCategories,
     TResult? Function(List<String> queries)? recentSearch,
     TResult? Function(String query, SearchTab tab)? searching,
     TResult? Function(Map<SearchTab, List<CatalogItemModel>> result,
@@ -1147,7 +994,6 @@ class _$_SearchStateRecentSearch extends _SearchStateRecentSearch {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String message)? error,
-    TResult Function(List<CategoryModel> categoryList)? loadedCategories,
     TResult Function(List<String> queries)? recentSearch,
     TResult Function(String query, SearchTab tab)? searching,
     TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
@@ -1167,7 +1013,6 @@ class _$_SearchStateRecentSearch extends _SearchStateRecentSearch {
   TResult map<TResult extends Object?>({
     required TResult Function(_InitialSearchState value) initial,
     required TResult Function(_ErrorSearchState value) error,
-    required TResult Function(LoadedCategoriesState value) loadedCategories,
     required TResult Function(_SearchStateRecentSearch value) recentSearch,
     required TResult Function(_SearchStateSearching value) searching,
     required TResult Function(_SearchStateResult value) result,
@@ -1181,7 +1026,6 @@ class _$_SearchStateRecentSearch extends _SearchStateRecentSearch {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_InitialSearchState value)? initial,
     TResult? Function(_ErrorSearchState value)? error,
-    TResult? Function(LoadedCategoriesState value)? loadedCategories,
     TResult? Function(_SearchStateRecentSearch value)? recentSearch,
     TResult? Function(_SearchStateSearching value)? searching,
     TResult? Function(_SearchStateResult value)? result,
@@ -1195,7 +1039,6 @@ class _$_SearchStateRecentSearch extends _SearchStateRecentSearch {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitialSearchState value)? initial,
     TResult Function(_ErrorSearchState value)? error,
-    TResult Function(LoadedCategoriesState value)? loadedCategories,
     TResult Function(_SearchStateRecentSearch value)? recentSearch,
     TResult Function(_SearchStateSearching value)? searching,
     TResult Function(_SearchStateResult value)? result,
@@ -1259,7 +1102,7 @@ class __$$_SearchStateSearchingCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_SearchStateSearching extends _SearchStateSearching {
-  _$_SearchStateSearching({this.query = '', this.tab = SearchTab.all})
+  _$_SearchStateSearching({this.query = '', this.tab = SearchTab.whatsHot})
       : super._();
 
   @override
@@ -1298,8 +1141,6 @@ class _$_SearchStateSearching extends _SearchStateSearching {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String message) error,
-    required TResult Function(List<CategoryModel> categoryList)
-        loadedCategories,
     required TResult Function(List<String> queries) recentSearch,
     required TResult Function(String query, SearchTab tab) searching,
     required TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
@@ -1315,7 +1156,6 @@ class _$_SearchStateSearching extends _SearchStateSearching {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String message)? error,
-    TResult? Function(List<CategoryModel> categoryList)? loadedCategories,
     TResult? Function(List<String> queries)? recentSearch,
     TResult? Function(String query, SearchTab tab)? searching,
     TResult? Function(Map<SearchTab, List<CatalogItemModel>> result,
@@ -1331,7 +1171,6 @@ class _$_SearchStateSearching extends _SearchStateSearching {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String message)? error,
-    TResult Function(List<CategoryModel> categoryList)? loadedCategories,
     TResult Function(List<String> queries)? recentSearch,
     TResult Function(String query, SearchTab tab)? searching,
     TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
@@ -1351,7 +1190,6 @@ class _$_SearchStateSearching extends _SearchStateSearching {
   TResult map<TResult extends Object?>({
     required TResult Function(_InitialSearchState value) initial,
     required TResult Function(_ErrorSearchState value) error,
-    required TResult Function(LoadedCategoriesState value) loadedCategories,
     required TResult Function(_SearchStateRecentSearch value) recentSearch,
     required TResult Function(_SearchStateSearching value) searching,
     required TResult Function(_SearchStateResult value) result,
@@ -1365,7 +1203,6 @@ class _$_SearchStateSearching extends _SearchStateSearching {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_InitialSearchState value)? initial,
     TResult? Function(_ErrorSearchState value)? error,
-    TResult? Function(LoadedCategoriesState value)? loadedCategories,
     TResult? Function(_SearchStateRecentSearch value)? recentSearch,
     TResult? Function(_SearchStateSearching value)? searching,
     TResult? Function(_SearchStateResult value)? result,
@@ -1379,7 +1216,6 @@ class _$_SearchStateSearching extends _SearchStateSearching {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitialSearchState value)? initial,
     TResult Function(_ErrorSearchState value)? error,
-    TResult Function(LoadedCategoriesState value)? loadedCategories,
     TResult Function(_SearchStateRecentSearch value)? recentSearch,
     TResult Function(_SearchStateSearching value)? searching,
     TResult Function(_SearchStateResult value)? result,
@@ -1455,7 +1291,7 @@ class _$_SearchStateResult extends _SearchStateResult {
   _$_SearchStateResult(
       {required final Map<SearchTab, List<CatalogItemModel>> result,
       this.query = '',
-      this.tab = SearchTab.all})
+      this.tab = SearchTab.whatsHot})
       : _result = result,
         super._();
 
@@ -1505,8 +1341,6 @@ class _$_SearchStateResult extends _SearchStateResult {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String message) error,
-    required TResult Function(List<CategoryModel> categoryList)
-        loadedCategories,
     required TResult Function(List<String> queries) recentSearch,
     required TResult Function(String query, SearchTab tab) searching,
     required TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
@@ -1522,7 +1356,6 @@ class _$_SearchStateResult extends _SearchStateResult {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String message)? error,
-    TResult? Function(List<CategoryModel> categoryList)? loadedCategories,
     TResult? Function(List<String> queries)? recentSearch,
     TResult? Function(String query, SearchTab tab)? searching,
     TResult? Function(Map<SearchTab, List<CatalogItemModel>> result,
@@ -1538,7 +1371,6 @@ class _$_SearchStateResult extends _SearchStateResult {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String message)? error,
-    TResult Function(List<CategoryModel> categoryList)? loadedCategories,
     TResult Function(List<String> queries)? recentSearch,
     TResult Function(String query, SearchTab tab)? searching,
     TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
@@ -1558,7 +1390,6 @@ class _$_SearchStateResult extends _SearchStateResult {
   TResult map<TResult extends Object?>({
     required TResult Function(_InitialSearchState value) initial,
     required TResult Function(_ErrorSearchState value) error,
-    required TResult Function(LoadedCategoriesState value) loadedCategories,
     required TResult Function(_SearchStateRecentSearch value) recentSearch,
     required TResult Function(_SearchStateSearching value) searching,
     required TResult Function(_SearchStateResult value) result,
@@ -1572,7 +1403,6 @@ class _$_SearchStateResult extends _SearchStateResult {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_InitialSearchState value)? initial,
     TResult? Function(_ErrorSearchState value)? error,
-    TResult? Function(LoadedCategoriesState value)? loadedCategories,
     TResult? Function(_SearchStateRecentSearch value)? recentSearch,
     TResult? Function(_SearchStateSearching value)? searching,
     TResult? Function(_SearchStateResult value)? result,
@@ -1586,7 +1416,6 @@ class _$_SearchStateResult extends _SearchStateResult {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitialSearchState value)? initial,
     TResult Function(_ErrorSearchState value)? error,
-    TResult Function(LoadedCategoriesState value)? loadedCategories,
     TResult Function(_SearchStateRecentSearch value)? recentSearch,
     TResult Function(_SearchStateSearching value)? searching,
     TResult Function(_SearchStateResult value)? result,
@@ -1655,8 +1484,6 @@ class _$_SearchStateEmpty extends _SearchStateEmpty {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String message) error,
-    required TResult Function(List<CategoryModel> categoryList)
-        loadedCategories,
     required TResult Function(List<String> queries) recentSearch,
     required TResult Function(String query, SearchTab tab) searching,
     required TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
@@ -1672,7 +1499,6 @@ class _$_SearchStateEmpty extends _SearchStateEmpty {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String message)? error,
-    TResult? Function(List<CategoryModel> categoryList)? loadedCategories,
     TResult? Function(List<String> queries)? recentSearch,
     TResult? Function(String query, SearchTab tab)? searching,
     TResult? Function(Map<SearchTab, List<CatalogItemModel>> result,
@@ -1688,7 +1514,6 @@ class _$_SearchStateEmpty extends _SearchStateEmpty {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String message)? error,
-    TResult Function(List<CategoryModel> categoryList)? loadedCategories,
     TResult Function(List<String> queries)? recentSearch,
     TResult Function(String query, SearchTab tab)? searching,
     TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
@@ -1708,7 +1533,6 @@ class _$_SearchStateEmpty extends _SearchStateEmpty {
   TResult map<TResult extends Object?>({
     required TResult Function(_InitialSearchState value) initial,
     required TResult Function(_ErrorSearchState value) error,
-    required TResult Function(LoadedCategoriesState value) loadedCategories,
     required TResult Function(_SearchStateRecentSearch value) recentSearch,
     required TResult Function(_SearchStateSearching value) searching,
     required TResult Function(_SearchStateResult value) result,
@@ -1722,7 +1546,6 @@ class _$_SearchStateEmpty extends _SearchStateEmpty {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_InitialSearchState value)? initial,
     TResult? Function(_ErrorSearchState value)? error,
-    TResult? Function(LoadedCategoriesState value)? loadedCategories,
     TResult? Function(_SearchStateRecentSearch value)? recentSearch,
     TResult? Function(_SearchStateSearching value)? searching,
     TResult? Function(_SearchStateResult value)? result,
@@ -1736,7 +1559,6 @@ class _$_SearchStateEmpty extends _SearchStateEmpty {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitialSearchState value)? initial,
     TResult Function(_ErrorSearchState value)? error,
-    TResult Function(LoadedCategoriesState value)? loadedCategories,
     TResult Function(_SearchStateRecentSearch value)? recentSearch,
     TResult Function(_SearchStateSearching value)? searching,
     TResult Function(_SearchStateResult value)? result,

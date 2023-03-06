@@ -147,10 +147,11 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
             onPressed: () {
               setValueFor(widget.filterType);
 
-              context.read<SearchBloc>().add(SearchEvent.search(
+              context.read<SearchBloc>().add(SearchEvent.performSearch(
                   SearchRequestPayloadModel(
                       categoryId: defaultString,
-                      filters: [FilterModel(sortBy: checkBoxIndex)])));
+                      filters: FilterModel(sortBy: checkBoxIndex)),
+                  SearchTab.all));
               Navigator.pop(context);
               Navigator.pop(context);
             },

@@ -9,11 +9,11 @@ part of 'search_request_payload_model.dart';
 _$_SearchRequestPayloadModel _$$_SearchRequestPayloadModelFromJson(
         Map<String, dynamic> json) =>
     _$_SearchRequestPayloadModel(
-      filters: (json['filters'] as List<dynamic>?)
-              ?.map((e) => FilterModel.fromJson(e as Map<String, dynamic>))
+      filters: FilterModel.fromJson(json['filters'] as Map<String, dynamic>),
+      searchParams: (json['searchParams'] as List<dynamic>?)
+              ?.map((e) => e as String)
               .toList() ??
-          const [],
-      searchParams: json['searchParams'] as String? ?? defaultString,
+          null,
       pageSize: json['pageSize'] as int? ?? defaultPageSize,
       categoryId: json['categoryId'] as String,
     );

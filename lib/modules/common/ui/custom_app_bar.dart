@@ -11,7 +11,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       this.onRoute,
       this.title,
       this.actions = false,
-      this.collections})
+      this.collections,
+      this.color})
       : super(key: key);
 
   double? height;
@@ -19,10 +20,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
   final bool actions;
   final int? collections;
+  final Color? color;
 
   @override
   AppBar build(BuildContext context) {
     return AppBar(
+      backgroundColor: color, //<-- SEE HERE
       systemOverlayStyle: SystemUiOverlayStyle(
         statusBarColor: Palette.current.black,
         statusBarIconBrightness: Brightness.light, // For Android (dark icons)

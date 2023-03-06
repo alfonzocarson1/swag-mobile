@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/common/ui/loading.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
-import 'package:swagapp/modules/pages/detail/item_related.dart';
 import '../../blocs/detail_bloc/detail_bloc.dart';
 import '../../common/ui/custom_app_bar.dart';
 import '../../common/utils/custom_route_animations.dart';
@@ -147,18 +146,18 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                 child: Column(
                   children: [
                     HeadWidget(
-                      urlImage: dataDetail[index].catalogItemImage,
-                      catalogItemName: dataDetail[index].catalogItemName,
-                      lastSale: dataDetail[index].saleInfo,
-                      catalogItemDescription:
-                          dataDetail[index].catalogItemDescription,
-                      catalogItemDescriptionShort:
-                          dataDetail[index].catalogItemDescriptionShort,
-                      sale: dataDetail[index].forSale,
-                      favorite: dataDetail[index].inFavorites,
-                      available: dataDetail[index].numberAvailable,
-                      saleHistory: [],
-                    ),
+                        urlImage: dataDetail[index].catalogItemImage,
+                        catalogItemName: dataDetail[index].catalogItemName,
+                        lastSale: dataDetail[index].saleInfo,
+                        catalogItemDescription:
+                            dataDetail[index].catalogItemDescription,
+                        catalogItemDescriptionShort:
+                            dataDetail[index].catalogItemDescriptionShort,
+                        sale: dataDetail[index].forSale,
+                        favorite: dataDetail[index].inFavorites,
+                        available: dataDetail[index].numberAvailable,
+                        saleHistory: [],
+                        itemId: dataDetail[index].catalogItemId),
                     RarityWidget(
                         rarity: dataDetail[index].rarityScore,
                         released: dataDetail[index].released,

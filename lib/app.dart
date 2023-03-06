@@ -15,10 +15,7 @@ import 'modules/blocs/explore_bloc/explore_bloc.dart';
 import 'modules/blocs/favorite_bloc/favorite_bloc.dart';
 import 'modules/blocs/listing_bloc/listing_bloc.dart';
 import 'modules/blocs/profile_favorite_bloc/profile_favorite_bloc.dart';
-import 'modules/blocs/search_tabs_bloc/accessories_bloc/accessories_bloc.dart';
-import 'modules/blocs/search_tabs_bloc/head_covers_bloc/head_covers_bloc.dart';
-import 'modules/blocs/search_tabs_bloc/putters_bloc/putters_bloc.dart';
-import 'modules/blocs/search_tabs_bloc/whats_hot_bloc/whats_hot_bloc.dart';
+import 'modules/blocs/sale_history/sale_history_bloc.dart';
 import 'modules/blocs/sold_bloc/sold_bloc.dart';
 import 'modules/blocs/update_profile_bloc/update_profile_bloc.dart';
 import 'modules/pages/home/home_page.dart';
@@ -43,16 +40,12 @@ class App extends StatelessWidget {
           BlocProvider<UsernameBloc>(create: (_) => getIt<UsernameBloc>()),
           // BlocProvider<SignUpBloc>(create: (_) => getIt<SignUpBloc>()),
           BlocProvider<SearchBloc>(create: (context) => getIt<SearchBloc>()),
-          BlocProvider<WhatsHotBloc>(
-              create: (context) => getIt<WhatsHotBloc>()),
-          BlocProvider<HeadcoversBloc>(
-              create: (context) => getIt<HeadcoversBloc>()),
-          BlocProvider<PuttersBloc>(create: (context) => getIt<PuttersBloc>()),
-          BlocProvider<AccessoriesBloc>(
-              create: (context) => getIt<AccessoriesBloc>()),
           BlocProvider<CategoryBloc>(
               create: (context) => getIt<CategoryBloc>()),
           BlocProvider<ExploreBloc>(create: (context) => getIt<ExploreBloc>()),
+          BlocProvider<SalesHistoryBloc>(
+              create: (context) => getIt<SalesHistoryBloc>()),
+
           BlocProvider<DetailBloc>(create: (context) => getIt<DetailBloc>()),
           BlocProvider<FavoriteBloc>(
               create: (context) => getIt<FavoriteBloc>()),
