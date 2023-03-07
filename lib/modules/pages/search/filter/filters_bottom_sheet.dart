@@ -9,19 +9,26 @@ import '../../../blocs/search_bloc.dart/search_bloc.dart';
 import '../../../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
+import '../../../common/utils/utils.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
-import '../../../models/search/filter_model.dart';
-import '../../../models/search/search_request_payload_model.dart';
 import '../../../models/shared_preferences/shared_preference_model.dart';
 
 class FiltersBottomSheet extends StatefulWidget {
-  const FiltersBottomSheet({Key? key}) : super(key: key);
+  const FiltersBottomSheet({Key? key, this.searchParam, this.tab})
+      : super(key: key);
+  final String? searchParam;
+  final SearchTab? tab;
 
-  static Route route(final BuildContext context) => PageRoutes.modalBottomSheet(
+  static Route route(final BuildContext context,
+          {String? searchParam, SearchTab? tab}) =>
+      PageRoutes.modalBottomSheet(
         isScrollControlled: true,
         settings: const RouteSettings(name: '/update-avatar-bottom-sheet'),
-        builder: (context) => const FiltersBottomSheet(),
+        builder: (context) => FiltersBottomSheet(
+          searchParam: searchParam,
+          tab: tab,
+        ),
         context: context,
       );
 
@@ -186,7 +193,9 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                               context, S.of(context).sort_by.toUpperCase(), () {
                             Navigator.of(context, rootNavigator: true).push(
                                 FilterCategoryPage.route(
-                                    context, FilterType.sortBy));
+                                    context, FilterType.sortBy,
+                                    searchParam: widget.searchParam,
+                                    tab: widget.tab));
                           }, selection: S.of(context).release_date_newest),
                           _filterItem(
                               context, S.of(context).type.toUpperCase(), () {}),
@@ -197,14 +206,18 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                               () {
                             Navigator.of(context, rootNavigator: true).push(
                                 FilterCategoryPage.route(
-                                    context, FilterType.condition));
+                                    context, FilterType.condition,
+                                    searchParam: widget.searchParam,
+                                    tab: widget.tab));
                           }, selection: S.of(context).sealed),
                           _filterItem(
                               context, S.of(context).release_date.toUpperCase(),
                               () {
                             Navigator.of(context, rootNavigator: true).push(
                                 FilterCategoryPage.route(
-                                    context, FilterType.releaseDate));
+                                    context, FilterType.releaseDate,
+                                    searchParam: widget.searchParam,
+                                    tab: widget.tab));
                           }),
                           _filterItem(context,
                               S.of(context).rarity_score.toUpperCase(), () {}),
@@ -213,7 +226,9 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                               () {
                             Navigator.of(context, rootNavigator: true).push(
                                 FilterCategoryPage.route(
-                                    context, FilterType.price));
+                                    context, FilterType.price,
+                                    searchParam: widget.searchParam,
+                                    tab: widget.tab));
                           }),
                           _filterItem(
                               context, S.of(context).theme.toUpperCase(), () {},
@@ -252,10 +267,8 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
           child: PrimaryButton(
             title: S.of(context).see_results.toUpperCase(),
             onPressed: () {
-              context.read<SearchBloc>().add(SearchEvent.performSearch(
-                  SearchRequestPayloadModel(
-                      categoryId: defaultString, filters: FilterModel()),
-                  SearchTab.whatsHot));
+              performSearch(context,
+                  searchParam: widget.searchParam, tab: widget.tab);
               Navigator.pop(context);
             },
             type: PrimaryButtonType.primaryEerieBlack,

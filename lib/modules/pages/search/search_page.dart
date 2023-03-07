@@ -171,7 +171,10 @@ class _SearchPageState extends State<SearchPage>
               IconButton(
                 onPressed: () {
                   Navigator.of(context, rootNavigator: true)
-                      .push(FiltersBottomSheet.route(context));
+                      .push(FiltersBottomSheet.route(
+                    tab: SearchTab.values[_tabController.index],
+                    context,
+                  ));
                 },
                 icon: Image.asset(
                   "assets/icons/Filter.png",

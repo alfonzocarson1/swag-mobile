@@ -60,7 +60,7 @@ class _WhatsHotPageState extends State<WhatsHotPage> {
                     ));
               },
               result: (state) {
-                if (state.tab == SearchTab.whatsHot) {
+                if (state.result[SearchTab.whatsHot] != null) {
                   return BodyWidgetWithView(
                       state.result[SearchTab.whatsHot] ?? [],
                       SearchTab.whatsHot);

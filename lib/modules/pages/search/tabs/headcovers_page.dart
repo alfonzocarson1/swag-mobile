@@ -67,7 +67,7 @@ class _HeadcoversPageState extends State<HeadcoversPage> {
                     ));
               },
               result: (state) {
-                if (state.tab == SearchTab.headcovers) {
+                if (state.result[SearchTab.headcovers] != null) {
                   return BodyWidgetWithView(
                       state.result[SearchTab.headcovers] ?? [],
                       SearchTab.headcovers);

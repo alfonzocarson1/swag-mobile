@@ -1,6 +1,13 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
+import '../../blocs/search_bloc.dart/search_bloc.dart';
 import '../../constants/constants.dart';
+import '../../data/shared_preferences/shared_preferences_service.dart';
+import '../../di/injector.dart';
+import '../../models/search/filter_model.dart';
+import '../../models/search/search_request_payload_model.dart';
 
 bool isValidEmail(String email) {
   return RegExp(
@@ -35,4 +42,21 @@ String formatDate(String dateTime) {
 
 bool isTokenValid(String? token) {
   return token != null && token != defaultString;
+}
+
+Future<void> performSearch(BuildContext context,
+    {String? searchParam, SearchTab? tab}) async {
+  final sharedPref = getIt<PreferenceRepositoryService>();
+
+  context.read<SearchBloc>().add(SearchEvent.performSearch(
+      SearchRequestPayloadModel(
+          searchParams: searchParam != null ? [searchParam] : null,
+          categoryId:
+              tab != null ? await SearchTabWrapper(tab).toStringCustom() : null,
+          filters: FilterModel(sortBy: sharedPref.getSortBy(), conditions: [
+            ConditionWrapper(
+                    Condition.values.elementAt(sharedPref.getCondition()))
+                .toString()
+          ])),
+      tab ?? SearchTab.all));
 }

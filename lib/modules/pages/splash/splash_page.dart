@@ -23,7 +23,6 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     context.read<CategoryBloc>().add(const CategoryEvent.getCategories());
   }

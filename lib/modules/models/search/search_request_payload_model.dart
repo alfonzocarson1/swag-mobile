@@ -13,7 +13,7 @@ class SearchRequestPayloadModel with _$SearchRequestPayloadModel {
     required final FilterModel filters,
     @Default(null) final List<String>? searchParams,
     @Default(defaultPageSize) final int pageSize,
-    required final String categoryId,
+    @Default(null) final String? categoryId,
   }) = _SearchRequestPayloadModel;
 
   factory SearchRequestPayloadModel.fromJson(Map<String, dynamic> json) =>

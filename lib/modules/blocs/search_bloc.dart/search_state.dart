@@ -7,7 +7,7 @@ class SearchTabWrapper {
 
   SearchTabWrapper(this.type);
 
-  Future<String> toStringCustom() async {
+  Future<String?> toStringCustom() async {
     List<CategoryModel> categories =
         await getIt<PreferenceRepositoryService>().getLastCategories();
     switch (type) {
@@ -20,7 +20,7 @@ class SearchTabWrapper {
       case SearchTab.accessories:
         return categories[3].catalogCategoryId;
       case SearchTab.all:
-        return categories[0].catalogCategoryId;
+        return null;
     }
   }
 }

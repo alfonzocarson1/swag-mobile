@@ -1,30 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
-import 'package:swagapp/modules/models/search/filter_model.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../blocs/search_bloc.dart/search_bloc.dart';
 import '../../../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
+import '../../../common/utils/utils.dart';
 import '../../../constants/constants.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
-import '../../../models/search/search_request_payload_model.dart';
 
 class FilterCategoryPage extends StatefulWidget {
-  const FilterCategoryPage({Key? key, required this.filterType})
+  const FilterCategoryPage(
+      {Key? key, required this.filterType, this.searchParam, this.tab})
       : super(key: key);
   static const name = '/filterCategory';
   final FilterType filterType;
+  final String? searchParam;
+  final SearchTab? tab;
 
-  static Route route(final BuildContext context, FilterType filterType) =>
+  static Route route(final BuildContext context, FilterType filterType,
+          {String? searchParam, SearchTab? tab}) =>
       PageRoutes.modalBottomSheet(
         isScrollControlled: true,
         settings: const RouteSettings(name: name),
         builder: (context) => FilterCategoryPage(
           filterType: filterType,
+          searchParam: searchParam,
+          tab: tab,
         ),
         context: context,
       );
@@ -53,7 +58,8 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
-        setValueFor(widget.filterType);
+        performSearch(context,
+            searchParam: widget.searchParam, tab: widget.tab);
         return Future.value(true);
       },
       child: GestureDetector(
@@ -78,8 +84,8 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
                     padding: const EdgeInsets.only(right: 0.0),
                     child: IconButton(
                         onPressed: () {
-                          setValueFor(widget.filterType);
-
+                          performSearch(context,
+                              searchParam: widget.searchParam, tab: widget.tab);
                           Navigator.pop(context);
                         },
                         icon: Icon(
@@ -145,13 +151,8 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
           child: PrimaryButton(
             title: S.of(context).see_results.toUpperCase(),
             onPressed: () {
-              setValueFor(widget.filterType);
-
-              context.read<SearchBloc>().add(SearchEvent.performSearch(
-                  SearchRequestPayloadModel(
-                      categoryId: defaultString,
-                      filters: FilterModel(sortBy: checkBoxIndex)),
-                  SearchTab.all));
+              performSearch(context,
+                  searchParam: widget.searchParam, tab: widget.tab);
               Navigator.pop(context);
               Navigator.pop(context);
             },
@@ -183,6 +184,7 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
                       onChanged: (value) {
                         if (value ?? false) {
                           setState(() => checkBoxIndex = index);
+                          setValueFor(widget.filterType);
                         }
                       },
                       side: BorderSide(color: Palette.current.darkGray),
