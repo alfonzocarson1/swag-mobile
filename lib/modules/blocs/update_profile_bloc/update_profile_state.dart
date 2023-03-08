@@ -10,5 +10,8 @@ class UpdateProfileState with _$UpdateProfileState {
   factory UpdateProfileState.loadedSuccess(UpdateProfileModel successList) =
       LoadedSuccess;
 
+  factory UpdateProfileState.loadedAvatarSuccess(
+      UpdateAvatarModel successAvatarList) = LoadedAvatarSuccess;
+
   factory UpdateProfileState.updated() = Updated;
 }

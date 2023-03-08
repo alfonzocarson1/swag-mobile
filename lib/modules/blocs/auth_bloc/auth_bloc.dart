@@ -74,6 +74,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       getIt<StorageRepositoryService>().saveToken(response.token);
       getIt<PreferenceRepositoryService>()
           .savehasImportableData(response.hasImportableData);
+      getIt<PreferenceRepositoryService>().saveAccountId(response.accountId);
 
       if (response.errorCode == successResponse) {
         yield const AuthState.authenticated();

@@ -12,6 +12,7 @@ _$_GenericResponseModel _$$_GenericResponseModelFromJson(
       errorCode: json['errorCode'] as String? ?? defaultString,
       errorMessage: json['errorMessage'] as String? ?? defaultString,
       token: json['token'] as String? ?? defaultString,
+      accountId: json['accountId'] as String? ?? defaultString,
       hasImportableData: json['hasImportableData'] as bool? ?? false,
     );
 
@@ -21,5 +22,6 @@ Map<String, dynamic> _$$_GenericResponseModelToJson(
       'errorCode': instance.errorCode,
       'errorMessage': instance.errorMessage,
       'token': instance.token,
+      'accountId': instance.accountId,
       'hasImportableData': instance.hasImportableData,
     };

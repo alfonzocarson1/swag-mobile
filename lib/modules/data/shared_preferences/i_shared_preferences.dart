@@ -30,4 +30,7 @@ abstract class PreferenceRepositoryInt {
 
   bool hasImportableData();
   Future<void> savehasImportableData(bool value);
+
+  String accountId();
+  Future<void> saveAccountId(String value);
 }

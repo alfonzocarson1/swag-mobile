@@ -1,15 +1,20 @@
 import 'dart:developer';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 
 import '../../../generated/l10n.dart';
+import '../../blocs/update_profile_bloc/update_profile_bloc.dart';
 import '../../common/ui/handler.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
+import '../../data/shared_preferences/shared_preferences_service.dart';
+import '../../di/injector.dart';
 
 class UpdateAvatarBottomSheet extends StatefulWidget {
   const UpdateAvatarBottomSheet(this.image, {Key? key}) : super(key: key);
@@ -42,6 +47,16 @@ class _UpdateAvatarBottomSheetState extends State<UpdateAvatarBottomSheet> {
     "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/skull.png?alt=media&token=330fc6b3-9839-42f2-bcd4-39ec67967620",
     "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/skull.png?alt=media&token=330fc6b3-9839-42f2-bcd4-39ec67967620",
   ];
+
+  String _accountId = '';
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _accountId = getIt<PreferenceRepositoryService>().accountId();
+  }
+
   @override
   void dispose() {
     _focusNode.dispose();
@@ -207,8 +222,14 @@ class _UpdateAvatarBottomSheetState extends State<UpdateAvatarBottomSheet> {
       // final kb = bytes / 1024;
       // final mb = kb / 1024;
 
+      Uint8List bytes = await File(xFileImage!.path).readAsBytes();
+
+      context
+          .read<UpdateProfileBloc>()
+          .add(UpdateProfileEvent.updateAvatar(bytes, 'avatar', _accountId));
+
       Navigator.of(context, rootNavigator: true)
-          .pop(Image.file(File(xFileImage!.path)).image);
+          .pop(Image.file(File(xFileImage.path)).image);
     } catch (e) {
       log("Image picker: $e");
     }

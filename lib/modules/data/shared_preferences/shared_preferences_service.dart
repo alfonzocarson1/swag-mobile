@@ -18,6 +18,7 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   static const String _releaseDate = 'releaseDate';
   static const String _lastCategories = 'lastCategories';
   static const String _hasImportableData = 'hasImportableData';
+  static const String _accountId = 'accountId';
   late SharedPreferences _prefs;
   @override
   SharedPreferences get prefs => _prefs;
@@ -36,6 +37,17 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   @override
   Future<void> saveIsLogged(bool value) async {
     await _prefs.setBool(_logged, value);
+  }
+
+  @override
+  String accountId() {
+    final accountId = _prefs.getString(_accountId);
+    return accountId ?? '';
+  }
+
+  @override
+  Future<void> saveAccountId(String value) async {
+    await _prefs.setString(_accountId, value);
   }
 
   @override

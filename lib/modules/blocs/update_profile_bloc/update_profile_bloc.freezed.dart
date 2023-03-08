@@ -16,42 +16,47 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$UpdateProfileEvent {
-  UpdateProfilePayloadModel get model => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(UpdateProfilePayloadModel model) update,
+    required TResult Function(
+            Uint8List bytes, String imageTopic, String topicId)
+        updateAvatar,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(UpdateProfilePayloadModel model)? update,
+    TResult? Function(Uint8List bytes, String imageTopic, String topicId)?
+        updateAvatar,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(UpdateProfilePayloadModel model)? update,
+    TResult Function(Uint8List bytes, String imageTopic, String topicId)?
+        updateAvatar,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_UpdateProfileEvent value) update,
+    required TResult Function(_UpdateAvatarEvent value) updateAvatar,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_UpdateProfileEvent value)? update,
+    TResult? Function(_UpdateAvatarEvent value)? updateAvatar,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_UpdateProfileEvent value)? update,
+    TResult Function(_UpdateAvatarEvent value)? updateAvatar,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $UpdateProfileEventCopyWith<UpdateProfileEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -60,10 +65,6 @@ abstract class $UpdateProfileEventCopyWith<$Res> {
   factory $UpdateProfileEventCopyWith(
           UpdateProfileEvent value, $Res Function(UpdateProfileEvent) then) =
       _$UpdateProfileEventCopyWithImpl<$Res, UpdateProfileEvent>;
-  @useResult
-  $Res call({UpdateProfilePayloadModel model});
-
-  $UpdateProfilePayloadModelCopyWith<$Res> get model;
 }
 
 /// @nodoc
@@ -75,40 +76,16 @@ class _$UpdateProfileEventCopyWithImpl<$Res, $Val extends UpdateProfileEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? model = null,
-  }) {
-    return _then(_value.copyWith(
-      model: null == model
-          ? _value.model
-          : model // ignore: cast_nullable_to_non_nullable
-              as UpdateProfilePayloadModel,
-    ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $UpdateProfilePayloadModelCopyWith<$Res> get model {
-    return $UpdateProfilePayloadModelCopyWith<$Res>(_value.model, (value) {
-      return _then(_value.copyWith(model: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
-abstract class _$$_UpdateProfileEventCopyWith<$Res>
-    implements $UpdateProfileEventCopyWith<$Res> {
+abstract class _$$_UpdateProfileEventCopyWith<$Res> {
   factory _$$_UpdateProfileEventCopyWith(_$_UpdateProfileEvent value,
           $Res Function(_$_UpdateProfileEvent) then) =
       __$$_UpdateProfileEventCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({UpdateProfilePayloadModel model});
 
-  @override
   $UpdateProfilePayloadModelCopyWith<$Res> get model;
 }
 
@@ -131,6 +108,14 @@ class __$$_UpdateProfileEventCopyWithImpl<$Res>
           : model // ignore: cast_nullable_to_non_nullable
               as UpdateProfilePayloadModel,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UpdateProfilePayloadModelCopyWith<$Res> get model {
+    return $UpdateProfilePayloadModelCopyWith<$Res>(_value.model, (value) {
+      return _then(_value.copyWith(model: value));
+    });
   }
 }
 
@@ -169,6 +154,9 @@ class _$_UpdateProfileEvent implements _UpdateProfileEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(UpdateProfilePayloadModel model) update,
+    required TResult Function(
+            Uint8List bytes, String imageTopic, String topicId)
+        updateAvatar,
   }) {
     return update(model);
   }
@@ -177,6 +165,8 @@ class _$_UpdateProfileEvent implements _UpdateProfileEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(UpdateProfilePayloadModel model)? update,
+    TResult? Function(Uint8List bytes, String imageTopic, String topicId)?
+        updateAvatar,
   }) {
     return update?.call(model);
   }
@@ -185,6 +175,8 @@ class _$_UpdateProfileEvent implements _UpdateProfileEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(UpdateProfilePayloadModel model)? update,
+    TResult Function(Uint8List bytes, String imageTopic, String topicId)?
+        updateAvatar,
     required TResult orElse(),
   }) {
     if (update != null) {
@@ -197,6 +189,7 @@ class _$_UpdateProfileEvent implements _UpdateProfileEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_UpdateProfileEvent value) update,
+    required TResult Function(_UpdateAvatarEvent value) updateAvatar,
   }) {
     return update(this);
   }
@@ -205,6 +198,7 @@ class _$_UpdateProfileEvent implements _UpdateProfileEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_UpdateProfileEvent value)? update,
+    TResult? Function(_UpdateAvatarEvent value)? updateAvatar,
   }) {
     return update?.call(this);
   }
@@ -213,6 +207,7 @@ class _$_UpdateProfileEvent implements _UpdateProfileEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_UpdateProfileEvent value)? update,
+    TResult Function(_UpdateAvatarEvent value)? updateAvatar,
     required TResult orElse(),
   }) {
     if (update != null) {
@@ -226,11 +221,168 @@ abstract class _UpdateProfileEvent implements UpdateProfileEvent {
   const factory _UpdateProfileEvent(final UpdateProfilePayloadModel model) =
       _$_UpdateProfileEvent;
 
-  @override
   UpdateProfilePayloadModel get model;
-  @override
   @JsonKey(ignore: true)
   _$$_UpdateProfileEventCopyWith<_$_UpdateProfileEvent> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_UpdateAvatarEventCopyWith<$Res> {
+  factory _$$_UpdateAvatarEventCopyWith(_$_UpdateAvatarEvent value,
+          $Res Function(_$_UpdateAvatarEvent) then) =
+      __$$_UpdateAvatarEventCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Uint8List bytes, String imageTopic, String topicId});
+}
+
+/// @nodoc
+class __$$_UpdateAvatarEventCopyWithImpl<$Res>
+    extends _$UpdateProfileEventCopyWithImpl<$Res, _$_UpdateAvatarEvent>
+    implements _$$_UpdateAvatarEventCopyWith<$Res> {
+  __$$_UpdateAvatarEventCopyWithImpl(
+      _$_UpdateAvatarEvent _value, $Res Function(_$_UpdateAvatarEvent) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? bytes = null,
+    Object? imageTopic = null,
+    Object? topicId = null,
+  }) {
+    return _then(_$_UpdateAvatarEvent(
+      null == bytes
+          ? _value.bytes
+          : bytes // ignore: cast_nullable_to_non_nullable
+              as Uint8List,
+      null == imageTopic
+          ? _value.imageTopic
+          : imageTopic // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == topicId
+          ? _value.topicId
+          : topicId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_UpdateAvatarEvent implements _UpdateAvatarEvent {
+  const _$_UpdateAvatarEvent(this.bytes, this.imageTopic, this.topicId);
+
+  @override
+  final Uint8List bytes;
+  @override
+  final String imageTopic;
+  @override
+  final String topicId;
+
+  @override
+  String toString() {
+    return 'UpdateProfileEvent.updateAvatar(bytes: $bytes, imageTopic: $imageTopic, topicId: $topicId)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_UpdateAvatarEvent &&
+            const DeepCollectionEquality().equals(other.bytes, bytes) &&
+            (identical(other.imageTopic, imageTopic) ||
+                other.imageTopic == imageTopic) &&
+            (identical(other.topicId, topicId) || other.topicId == topicId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(bytes), imageTopic, topicId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_UpdateAvatarEventCopyWith<_$_UpdateAvatarEvent> get copyWith =>
+      __$$_UpdateAvatarEventCopyWithImpl<_$_UpdateAvatarEvent>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(UpdateProfilePayloadModel model) update,
+    required TResult Function(
+            Uint8List bytes, String imageTopic, String topicId)
+        updateAvatar,
+  }) {
+    return updateAvatar(bytes, imageTopic, topicId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(UpdateProfilePayloadModel model)? update,
+    TResult? Function(Uint8List bytes, String imageTopic, String topicId)?
+        updateAvatar,
+  }) {
+    return updateAvatar?.call(bytes, imageTopic, topicId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(UpdateProfilePayloadModel model)? update,
+    TResult Function(Uint8List bytes, String imageTopic, String topicId)?
+        updateAvatar,
+    required TResult orElse(),
+  }) {
+    if (updateAvatar != null) {
+      return updateAvatar(bytes, imageTopic, topicId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_UpdateProfileEvent value) update,
+    required TResult Function(_UpdateAvatarEvent value) updateAvatar,
+  }) {
+    return updateAvatar(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_UpdateProfileEvent value)? update,
+    TResult? Function(_UpdateAvatarEvent value)? updateAvatar,
+  }) {
+    return updateAvatar?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_UpdateProfileEvent value)? update,
+    TResult Function(_UpdateAvatarEvent value)? updateAvatar,
+    required TResult orElse(),
+  }) {
+    if (updateAvatar != null) {
+      return updateAvatar(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UpdateAvatarEvent implements UpdateProfileEvent {
+  const factory _UpdateAvatarEvent(final Uint8List bytes,
+      final String imageTopic, final String topicId) = _$_UpdateAvatarEvent;
+
+  Uint8List get bytes;
+  String get imageTopic;
+  String get topicId;
+  @JsonKey(ignore: true)
+  _$$_UpdateAvatarEventCopyWith<_$_UpdateAvatarEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -241,6 +393,8 @@ mixin _$UpdateProfileState {
     required TResult Function() initial,
     required TResult Function(String message) error,
     required TResult Function(UpdateProfileModel successList) loadedSuccess,
+    required TResult Function(UpdateAvatarModel successAvatarList)
+        loadedAvatarSuccess,
     required TResult Function() updated,
   }) =>
       throw _privateConstructorUsedError;
@@ -249,6 +403,7 @@ mixin _$UpdateProfileState {
     TResult? Function()? initial,
     TResult? Function(String message)? error,
     TResult? Function(UpdateProfileModel successList)? loadedSuccess,
+    TResult? Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
     TResult? Function()? updated,
   }) =>
       throw _privateConstructorUsedError;
@@ -257,6 +412,7 @@ mixin _$UpdateProfileState {
     TResult Function()? initial,
     TResult Function(String message)? error,
     TResult Function(UpdateProfileModel successList)? loadedSuccess,
+    TResult Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
     TResult Function()? updated,
     required TResult orElse(),
   }) =>
@@ -266,6 +422,7 @@ mixin _$UpdateProfileState {
     required TResult Function(_InitialUpdateProfileState value) initial,
     required TResult Function(_ErrorUpdateProfileState value) error,
     required TResult Function(LoadedSuccess value) loadedSuccess,
+    required TResult Function(LoadedAvatarSuccess value) loadedAvatarSuccess,
     required TResult Function(Updated value) updated,
   }) =>
       throw _privateConstructorUsedError;
@@ -274,6 +431,7 @@ mixin _$UpdateProfileState {
     TResult? Function(_InitialUpdateProfileState value)? initial,
     TResult? Function(_ErrorUpdateProfileState value)? error,
     TResult? Function(LoadedSuccess value)? loadedSuccess,
+    TResult? Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
     TResult? Function(Updated value)? updated,
   }) =>
       throw _privateConstructorUsedError;
@@ -282,6 +440,7 @@ mixin _$UpdateProfileState {
     TResult Function(_InitialUpdateProfileState value)? initial,
     TResult Function(_ErrorUpdateProfileState value)? error,
     TResult Function(LoadedSuccess value)? loadedSuccess,
+    TResult Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
     TResult Function(Updated value)? updated,
     required TResult orElse(),
   }) =>
@@ -350,6 +509,8 @@ class _$_InitialUpdateProfileState extends _InitialUpdateProfileState {
     required TResult Function() initial,
     required TResult Function(String message) error,
     required TResult Function(UpdateProfileModel successList) loadedSuccess,
+    required TResult Function(UpdateAvatarModel successAvatarList)
+        loadedAvatarSuccess,
     required TResult Function() updated,
   }) {
     return initial();
@@ -361,6 +522,7 @@ class _$_InitialUpdateProfileState extends _InitialUpdateProfileState {
     TResult? Function()? initial,
     TResult? Function(String message)? error,
     TResult? Function(UpdateProfileModel successList)? loadedSuccess,
+    TResult? Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
     TResult? Function()? updated,
   }) {
     return initial?.call();
@@ -372,6 +534,7 @@ class _$_InitialUpdateProfileState extends _InitialUpdateProfileState {
     TResult Function()? initial,
     TResult Function(String message)? error,
     TResult Function(UpdateProfileModel successList)? loadedSuccess,
+    TResult Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
     TResult Function()? updated,
     required TResult orElse(),
   }) {
@@ -387,6 +550,7 @@ class _$_InitialUpdateProfileState extends _InitialUpdateProfileState {
     required TResult Function(_InitialUpdateProfileState value) initial,
     required TResult Function(_ErrorUpdateProfileState value) error,
     required TResult Function(LoadedSuccess value) loadedSuccess,
+    required TResult Function(LoadedAvatarSuccess value) loadedAvatarSuccess,
     required TResult Function(Updated value) updated,
   }) {
     return initial(this);
@@ -398,6 +562,7 @@ class _$_InitialUpdateProfileState extends _InitialUpdateProfileState {
     TResult? Function(_InitialUpdateProfileState value)? initial,
     TResult? Function(_ErrorUpdateProfileState value)? error,
     TResult? Function(LoadedSuccess value)? loadedSuccess,
+    TResult? Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
     TResult? Function(Updated value)? updated,
   }) {
     return initial?.call(this);
@@ -409,6 +574,7 @@ class _$_InitialUpdateProfileState extends _InitialUpdateProfileState {
     TResult Function(_InitialUpdateProfileState value)? initial,
     TResult Function(_ErrorUpdateProfileState value)? error,
     TResult Function(LoadedSuccess value)? loadedSuccess,
+    TResult Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
     TResult Function(Updated value)? updated,
     required TResult orElse(),
   }) {
@@ -493,6 +659,8 @@ class _$_ErrorUpdateProfileState extends _ErrorUpdateProfileState {
     required TResult Function() initial,
     required TResult Function(String message) error,
     required TResult Function(UpdateProfileModel successList) loadedSuccess,
+    required TResult Function(UpdateAvatarModel successAvatarList)
+        loadedAvatarSuccess,
     required TResult Function() updated,
   }) {
     return error(message);
@@ -504,6 +672,7 @@ class _$_ErrorUpdateProfileState extends _ErrorUpdateProfileState {
     TResult? Function()? initial,
     TResult? Function(String message)? error,
     TResult? Function(UpdateProfileModel successList)? loadedSuccess,
+    TResult? Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
     TResult? Function()? updated,
   }) {
     return error?.call(message);
@@ -515,6 +684,7 @@ class _$_ErrorUpdateProfileState extends _ErrorUpdateProfileState {
     TResult Function()? initial,
     TResult Function(String message)? error,
     TResult Function(UpdateProfileModel successList)? loadedSuccess,
+    TResult Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
     TResult Function()? updated,
     required TResult orElse(),
   }) {
@@ -530,6 +700,7 @@ class _$_ErrorUpdateProfileState extends _ErrorUpdateProfileState {
     required TResult Function(_InitialUpdateProfileState value) initial,
     required TResult Function(_ErrorUpdateProfileState value) error,
     required TResult Function(LoadedSuccess value) loadedSuccess,
+    required TResult Function(LoadedAvatarSuccess value) loadedAvatarSuccess,
     required TResult Function(Updated value) updated,
   }) {
     return error(this);
@@ -541,6 +712,7 @@ class _$_ErrorUpdateProfileState extends _ErrorUpdateProfileState {
     TResult? Function(_InitialUpdateProfileState value)? initial,
     TResult? Function(_ErrorUpdateProfileState value)? error,
     TResult? Function(LoadedSuccess value)? loadedSuccess,
+    TResult? Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
     TResult? Function(Updated value)? updated,
   }) {
     return error?.call(this);
@@ -552,6 +724,7 @@ class _$_ErrorUpdateProfileState extends _ErrorUpdateProfileState {
     TResult Function(_InitialUpdateProfileState value)? initial,
     TResult Function(_ErrorUpdateProfileState value)? error,
     TResult Function(LoadedSuccess value)? loadedSuccess,
+    TResult Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
     TResult Function(Updated value)? updated,
     required TResult orElse(),
   }) {
@@ -651,6 +824,8 @@ class _$LoadedSuccess extends LoadedSuccess {
     required TResult Function() initial,
     required TResult Function(String message) error,
     required TResult Function(UpdateProfileModel successList) loadedSuccess,
+    required TResult Function(UpdateAvatarModel successAvatarList)
+        loadedAvatarSuccess,
     required TResult Function() updated,
   }) {
     return loadedSuccess(successList);
@@ -662,6 +837,7 @@ class _$LoadedSuccess extends LoadedSuccess {
     TResult? Function()? initial,
     TResult? Function(String message)? error,
     TResult? Function(UpdateProfileModel successList)? loadedSuccess,
+    TResult? Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
     TResult? Function()? updated,
   }) {
     return loadedSuccess?.call(successList);
@@ -673,6 +849,7 @@ class _$LoadedSuccess extends LoadedSuccess {
     TResult Function()? initial,
     TResult Function(String message)? error,
     TResult Function(UpdateProfileModel successList)? loadedSuccess,
+    TResult Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
     TResult Function()? updated,
     required TResult orElse(),
   }) {
@@ -688,6 +865,7 @@ class _$LoadedSuccess extends LoadedSuccess {
     required TResult Function(_InitialUpdateProfileState value) initial,
     required TResult Function(_ErrorUpdateProfileState value) error,
     required TResult Function(LoadedSuccess value) loadedSuccess,
+    required TResult Function(LoadedAvatarSuccess value) loadedAvatarSuccess,
     required TResult Function(Updated value) updated,
   }) {
     return loadedSuccess(this);
@@ -699,6 +877,7 @@ class _$LoadedSuccess extends LoadedSuccess {
     TResult? Function(_InitialUpdateProfileState value)? initial,
     TResult? Function(_ErrorUpdateProfileState value)? error,
     TResult? Function(LoadedSuccess value)? loadedSuccess,
+    TResult? Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
     TResult? Function(Updated value)? updated,
   }) {
     return loadedSuccess?.call(this);
@@ -710,6 +889,7 @@ class _$LoadedSuccess extends LoadedSuccess {
     TResult Function(_InitialUpdateProfileState value)? initial,
     TResult Function(_ErrorUpdateProfileState value)? error,
     TResult Function(LoadedSuccess value)? loadedSuccess,
+    TResult Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
     TResult Function(Updated value)? updated,
     required TResult orElse(),
   }) {
@@ -727,6 +907,172 @@ abstract class LoadedSuccess extends UpdateProfileState {
   UpdateProfileModel get successList;
   @JsonKey(ignore: true)
   _$$LoadedSuccessCopyWith<_$LoadedSuccess> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$LoadedAvatarSuccessCopyWith<$Res> {
+  factory _$$LoadedAvatarSuccessCopyWith(_$LoadedAvatarSuccess value,
+          $Res Function(_$LoadedAvatarSuccess) then) =
+      __$$LoadedAvatarSuccessCopyWithImpl<$Res>;
+  @useResult
+  $Res call({UpdateAvatarModel successAvatarList});
+
+  $UpdateAvatarModelCopyWith<$Res> get successAvatarList;
+}
+
+/// @nodoc
+class __$$LoadedAvatarSuccessCopyWithImpl<$Res>
+    extends _$UpdateProfileStateCopyWithImpl<$Res, _$LoadedAvatarSuccess>
+    implements _$$LoadedAvatarSuccessCopyWith<$Res> {
+  __$$LoadedAvatarSuccessCopyWithImpl(
+      _$LoadedAvatarSuccess _value, $Res Function(_$LoadedAvatarSuccess) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? successAvatarList = null,
+  }) {
+    return _then(_$LoadedAvatarSuccess(
+      null == successAvatarList
+          ? _value.successAvatarList
+          : successAvatarList // ignore: cast_nullable_to_non_nullable
+              as UpdateAvatarModel,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UpdateAvatarModelCopyWith<$Res> get successAvatarList {
+    return $UpdateAvatarModelCopyWith<$Res>(_value.successAvatarList, (value) {
+      return _then(_value.copyWith(successAvatarList: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$LoadedAvatarSuccess extends LoadedAvatarSuccess {
+  _$LoadedAvatarSuccess(this.successAvatarList) : super._();
+
+  @override
+  final UpdateAvatarModel successAvatarList;
+
+  @override
+  String toString() {
+    return 'UpdateProfileState.loadedAvatarSuccess(successAvatarList: $successAvatarList)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LoadedAvatarSuccess &&
+            (identical(other.successAvatarList, successAvatarList) ||
+                other.successAvatarList == successAvatarList));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, successAvatarList);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LoadedAvatarSuccessCopyWith<_$LoadedAvatarSuccess> get copyWith =>
+      __$$LoadedAvatarSuccessCopyWithImpl<_$LoadedAvatarSuccess>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(String message) error,
+    required TResult Function(UpdateProfileModel successList) loadedSuccess,
+    required TResult Function(UpdateAvatarModel successAvatarList)
+        loadedAvatarSuccess,
+    required TResult Function() updated,
+  }) {
+    return loadedAvatarSuccess(successAvatarList);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(String message)? error,
+    TResult? Function(UpdateProfileModel successList)? loadedSuccess,
+    TResult? Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
+    TResult? Function()? updated,
+  }) {
+    return loadedAvatarSuccess?.call(successAvatarList);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(String message)? error,
+    TResult Function(UpdateProfileModel successList)? loadedSuccess,
+    TResult Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
+    TResult Function()? updated,
+    required TResult orElse(),
+  }) {
+    if (loadedAvatarSuccess != null) {
+      return loadedAvatarSuccess(successAvatarList);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_InitialUpdateProfileState value) initial,
+    required TResult Function(_ErrorUpdateProfileState value) error,
+    required TResult Function(LoadedSuccess value) loadedSuccess,
+    required TResult Function(LoadedAvatarSuccess value) loadedAvatarSuccess,
+    required TResult Function(Updated value) updated,
+  }) {
+    return loadedAvatarSuccess(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_InitialUpdateProfileState value)? initial,
+    TResult? Function(_ErrorUpdateProfileState value)? error,
+    TResult? Function(LoadedSuccess value)? loadedSuccess,
+    TResult? Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
+    TResult? Function(Updated value)? updated,
+  }) {
+    return loadedAvatarSuccess?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_InitialUpdateProfileState value)? initial,
+    TResult Function(_ErrorUpdateProfileState value)? error,
+    TResult Function(LoadedSuccess value)? loadedSuccess,
+    TResult Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
+    TResult Function(Updated value)? updated,
+    required TResult orElse(),
+  }) {
+    if (loadedAvatarSuccess != null) {
+      return loadedAvatarSuccess(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class LoadedAvatarSuccess extends UpdateProfileState {
+  factory LoadedAvatarSuccess(final UpdateAvatarModel successAvatarList) =
+      _$LoadedAvatarSuccess;
+  LoadedAvatarSuccess._() : super._();
+
+  UpdateAvatarModel get successAvatarList;
+  @JsonKey(ignore: true)
+  _$$LoadedAvatarSuccessCopyWith<_$LoadedAvatarSuccess> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -769,6 +1115,8 @@ class _$Updated extends Updated {
     required TResult Function() initial,
     required TResult Function(String message) error,
     required TResult Function(UpdateProfileModel successList) loadedSuccess,
+    required TResult Function(UpdateAvatarModel successAvatarList)
+        loadedAvatarSuccess,
     required TResult Function() updated,
   }) {
     return updated();
@@ -780,6 +1128,7 @@ class _$Updated extends Updated {
     TResult? Function()? initial,
     TResult? Function(String message)? error,
     TResult? Function(UpdateProfileModel successList)? loadedSuccess,
+    TResult? Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
     TResult? Function()? updated,
   }) {
     return updated?.call();
@@ -791,6 +1140,7 @@ class _$Updated extends Updated {
     TResult Function()? initial,
     TResult Function(String message)? error,
     TResult Function(UpdateProfileModel successList)? loadedSuccess,
+    TResult Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
     TResult Function()? updated,
     required TResult orElse(),
   }) {
@@ -806,6 +1156,7 @@ class _$Updated extends Updated {
     required TResult Function(_InitialUpdateProfileState value) initial,
     required TResult Function(_ErrorUpdateProfileState value) error,
     required TResult Function(LoadedSuccess value) loadedSuccess,
+    required TResult Function(LoadedAvatarSuccess value) loadedAvatarSuccess,
     required TResult Function(Updated value) updated,
   }) {
     return updated(this);
@@ -817,6 +1168,7 @@ class _$Updated extends Updated {
     TResult? Function(_InitialUpdateProfileState value)? initial,
     TResult? Function(_ErrorUpdateProfileState value)? error,
     TResult? Function(LoadedSuccess value)? loadedSuccess,
+    TResult? Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
     TResult? Function(Updated value)? updated,
   }) {
     return updated?.call(this);
@@ -828,6 +1180,7 @@ class _$Updated extends Updated {
     TResult Function(_InitialUpdateProfileState value)? initial,
     TResult Function(_ErrorUpdateProfileState value)? error,
     TResult Function(LoadedSuccess value)? loadedSuccess,
+    TResult Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
     TResult Function(Updated value)? updated,
     required TResult orElse(),
   }) {
