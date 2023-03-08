@@ -30,7 +30,6 @@ class SalesHistoryBloc extends Bloc<SalesHistoryEvent, SalesHistoryState> {
   }
 
   Stream<SalesHistoryState> _getSalesHistory(String itemId) async* {
-    yield SalesHistoryState.initial();
     try {
       SalesHistoryListModel responseBody =
           await salesHistoryService.salesHistory(itemId);

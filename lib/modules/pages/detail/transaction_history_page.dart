@@ -61,13 +61,6 @@ class _TransactionHistoryState extends State<TransactionHistory> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    //TODO: For test the ticket remove comment
-    // context.read<SalesHistoryBloc>().add(SalesHistoryEvent.getSalesHistory(
-    //     'a434e065-6bc6-490e-9e26-ea1b348b0003'));
-
-    context
-        .read<SalesHistoryBloc>()
-        .add(SalesHistoryEvent.getSalesHistory(widget.itemId));
   }
 
   @override
