@@ -10,6 +10,7 @@ import 'package:swagapp/modules/pages/search/filter/filters_bottom_sheet.dart';
 import 'package:swagapp/modules/pages/search/search_on_tap_page.dart';
 
 import '../../blocs/search_bloc.dart/search_bloc.dart';
+import '../../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
 import '../../common/ui/catalog_ui.dart';
 import '../../common/ui/loading.dart';
 import '../../common/utils/custom_route_animations.dart';
@@ -225,14 +226,27 @@ class _SearchResultPageState extends State<SearchResultPage>
           padding: const EdgeInsets.only(top: 4.0),
           child: Row(
             children: [
-              IconButton(
-                onPressed: () {},
-                icon: Image.asset(
-                  "assets/icons/ForSale.png",
-                  height: 20,
-                  width: 20,
-                ),
-              ),
+              BlocBuilder<SharedPreferencesBloc, SharedPreferencesState>(
+                  builder: (context, stateSharedPreferences) {
+                return stateSharedPreferences.map(
+                  setPreference: (state) => IconButton(
+                    onPressed: () {
+                      setIsForSale(!state.model.isForSale);
+                      performSearch(context,
+                          isForsale: !state.model.isForSale,
+                          tab: SearchTab.all);
+                    },
+                    icon: Image.asset(
+                      "assets/icons/ForSale.png",
+                      color: state.model.isForSale
+                          ? Palette.current.primaryNeonGreen
+                          : Palette.current.primaryWhiteSmoke,
+                      height: 20,
+                      width: 20,
+                    ),
+                  ),
+                );
+              }),
               IconButton(
                 onPressed: () {
                   Navigator.of(context, rootNavigator: true).push(
@@ -250,5 +264,12 @@ class _SearchResultPageState extends State<SearchResultPage>
         ),
       ],
     );
+  }
+
+  void setIsForSale(bool isForSale) {
+    final preference = context.read<SharedPreferencesBloc>().state.model;
+    context.read<SharedPreferencesBloc>().add(
+        SharedPreferencesEvent.setPreference(
+            preference.copyWith(isForSale: isForSale)));
   }
 }

@@ -1,6 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../models/search/category_list_model.dart';
 import '../../models/search/category_model.dart';
 
 abstract class PreferenceRepositoryInt {
@@ -19,12 +18,12 @@ abstract class PreferenceRepositoryInt {
   Future<void> saveIsForSale(bool value);
   int getSortBy();
   Future<void> setSortBy(int value);
-  int getCondition();
-  Future<void> setCondition(int value);
+  List<String> getCondition();
+  Future<void> setCondition(List<String> list);
   int getPrice();
   Future<void> setPrice(int value);
-  int getReleaseDate();
-  Future<void> setReleaseDate(int value);
+  List<String> getReleaseDate();
+  Future<void> setReleaseDate(List<String> list);
 
   Future<void> saveLastCategories(dynamic cList);
   Future<List<CategoryModel>> getLastCategories();

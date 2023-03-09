@@ -45,18 +45,48 @@ bool isTokenValid(String? token) {
 }
 
 Future<void> performSearch(BuildContext context,
-    {String? searchParam, SearchTab? tab}) async {
+    {String? searchParam, SearchTab? tab, bool? isForsale = false}) async {
   final sharedPref = getIt<PreferenceRepositoryService>();
+  final conditionList = sharedPref.getCondition().map(int.parse).toList();
+  final releaseList = sharedPref.getReleaseDate().map(int.parse).toList();
 
   context.read<SearchBloc>().add(SearchEvent.performSearch(
       SearchRequestPayloadModel(
           searchParams: searchParam != null ? [searchParam] : null,
           categoryId:
               tab != null ? await SearchTabWrapper(tab).toStringCustom() : null,
-          filters: FilterModel(sortBy: sharedPref.getSortBy(), conditions: [
-            ConditionWrapper(
-                    Condition.values.elementAt(sharedPref.getCondition()))
-                .toString()
-          ])),
+          filters: FilterModel(
+              forSale: isForsale!,
+              sortBy: sharedPref.getSortBy(),
+              releaseYears: sharedPref.getReleaseDate().isEmpty
+                  ? null
+                  : getReleaseYearsList(releaseList),
+              conditions: sharedPref.getCondition().isEmpty
+                  ? null
+                  : getConditionStringList(conditionList))),
       tab ?? SearchTab.all));
+}
+
+List<int> getReleaseYearsList(List<int> releaseList) {
+  List<int> list = [];
+  for (var element in releaseList) {
+    list.add(int.parse(
+        ReleaseDateWrapper(ReleaseDate.values.elementAt(element)).toString()));
+  }
+  return list;
+}
+
+List<String> getConditionStringList(List<int> conditionList) {
+  List<String> list = [];
+  for (var element in conditionList) {
+    if (list.isEmpty) {
+      list.add(ConditionWrapper(Condition.values.elementAt(element))
+          .toString()
+          .toUpperCase());
+    } else {
+      list[0] =
+          "${list[0]},${ConditionWrapper(Condition.values.elementAt(element)).toString().toUpperCase()}";
+    }
+  }
+  return list;
 }

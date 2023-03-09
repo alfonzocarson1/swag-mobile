@@ -12,9 +12,15 @@ _$_SharedPreferenceModel _$$_SharedPreferenceModelFromJson(
       isListView: json['isListView'] as bool? ?? true,
       isForSale: json['isForSale'] as bool? ?? false,
       sortBy: json['sortBy'] as int? ?? defaultInt,
-      condition: json['condition'] as int? ?? defaultInt,
+      condition: (json['condition'] as List<dynamic>?)
+              ?.map((e) => e as int)
+              .toList() ??
+          const [],
       price: json['price'] as int? ?? filterNotApplied,
-      releaseDate: json['releaseDate'] as int? ?? filterNotApplied,
+      releaseDate: (json['releaseDate'] as List<dynamic>?)
+              ?.map((e) => e as int)
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$$_SharedPreferenceModelToJson(
