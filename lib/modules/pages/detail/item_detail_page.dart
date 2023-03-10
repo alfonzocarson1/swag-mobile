@@ -4,6 +4,7 @@ import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/common/ui/loading.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import '../../blocs/detail_bloc/detail_bloc.dart';
+import '../../blocs/sale_history/sale_history_bloc.dart';
 import '../../common/ui/custom_app_bar.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../models/detail/detail_item_model.dart';
@@ -180,6 +181,10 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
   }
 
   void makeCall() {
+    context
+        .read<SalesHistoryBloc>()
+        .add(SalesHistoryEvent.getSalesHistory(widget.catalogItemId));
+
     context
         .read<DetailBloc>()
         .add(DetailEvent.getDetailItem(widget.catalogItemId));

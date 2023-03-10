@@ -61,20 +61,12 @@ class _TransactionHistoryState extends State<TransactionHistory> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    //TODO: For test the ticket remove comment
-    // context.read<SalesHistoryBloc>().add(SalesHistoryEvent.getSalesHistory(
-    //     'a434e065-6bc6-490e-9e26-ea1b348b0003'));
-
-    context
-        .read<SalesHistoryBloc>()
-        .add(SalesHistoryEvent.getSalesHistory(widget.itemId));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor:
-            changeColor ? Palette.current.black : Palette.current.blackSmoke,
+        backgroundColor: Palette.current.blackSmoke,
         resizeToAvoidBottomInset: true,
         appBar: CustomAppBar(color: Palette.current.black, actions: true),
         body: BlocConsumer<SalesHistoryBloc, SalesHistoryState>(
@@ -103,84 +95,45 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                     ));
               },
               loadedSalesHistory: (state) {
-                return _getBody(state.detaSalesHistoryList);
+                return Container(
+                    width: MediaQuery.of(context).size.width,
+                    decoration:
+                        BoxDecoration(color: Palette.current.blackSmoke),
+                    child: _getBody(
+                        state.detaSalesHistoryList[0].saleHistoryList));
               },
             );
           },
         ));
   }
 
-  Widget _getBody(List<SalesHistoryListModel> historyList) {
-    return NotificationListener<ScrollUpdateNotification>(
-      onNotification: (notification) {
-        if (notification.metrics.pixels < 0) {
-          setState(() {
-            changeColor = true;
-          });
-        } else {
-          setState(() {
-            changeColor = false;
-          });
-        }
-        return true;
-      },
-      child: RefreshIndicator(
-          onRefresh: () async {
-            makeCall();
-            return Future.delayed(const Duration(milliseconds: 1500));
-          },
-          child:
-              Container(child: _dataDetail(historyList, _scrollController!))),
-    );
+  Widget _getBody(List<SalesHistoryModel>? historyList) {
+    return _dataDetail(historyList, _scrollController!);
   }
 
-  Widget _dataDetail(List<SalesHistoryListModel> historyList,
-      ScrollController scrollController) {
-    return ListView.separated(
-        padding: EdgeInsets.zero,
-        controller: scrollController,
-        separatorBuilder: (context, index) => const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Divider(
-                color: Colors.transparent,
-              ),
-            ),
-        itemCount: historyList.length,
-        itemBuilder: (context, index) {
-          return Column(
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  color: Palette.current.blackSmoke,
-                ),
-                child: Column(
-                  children: [
-                    HeadWidget(
-                        favorite: widget.favorite,
-                        urlImage: widget.urlImage,
-                        catalogItemName: widget.catalogItemName,
-                        lastSale: widget.lastSale,
-                        sale: widget.sale,
-                        available: widget.available,
-                        itemId: widget.itemId),
-                    historyList[index].saleHistoryList!.isNotEmpty
-                        ? CustomDataTable(
-                            histories: historyList[index].saleHistoryList)
-                        : Center(
-                            child: Text(
-                              S.of(context).empty_text,
-                              style: TextStyle(
-                                  fontSize: 24,
-                                  color: Colors.black.withOpacity(0.50)),
-                            ),
-                          ),
-                  ],
+  Widget _dataDetail(
+      List<SalesHistoryModel>? historyList, ScrollController scrollController) {
+    return Column(
+      children: [
+        HeadWidget(
+            favorite: widget.favorite,
+            urlImage: widget.urlImage,
+            catalogItemName: widget.catalogItemName,
+            lastSale: widget.lastSale,
+            sale: widget.sale,
+            available: widget.available,
+            itemId: widget.itemId),
+        historyList!.isNotEmpty
+            ? CustomDataTable(histories: historyList)
+            : Center(
+                child: Text(
+                  S.of(context).empty_text,
+                  style: TextStyle(
+                      fontSize: 24, color: Colors.black.withOpacity(0.50)),
                 ),
               ),
-            ],
-          );
-        });
+      ],
+    );
   }
 
   void makeCall() {
