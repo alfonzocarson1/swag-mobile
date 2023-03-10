@@ -91,6 +91,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   ];
   int value = 0;
 
+  bool updateAllFlow = false;
+
   @override
   void dispose() {
     _firstNameNode.dispose();
@@ -184,24 +186,29 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                     return null;
                   },
                   updated: () {
-                    setState(() {
-                      _firstNameController.text = '';
-                      _lastNameController.text = '';
-                      _defaultCountry = 'Country';
-                      _firstAddressController.text = '';
-                      _secondAddressController.text = '';
-                      _cityController.text = '';
-                      _defaultState = 'State';
-                      _zipController.text = '';
-                    });
+                    if (updateAllFlow) {
+                      setState(() {
+                        _firstNameController.text = '';
+                        _lastNameController.text = '';
+                        _defaultCountry = 'Country';
+                        _firstAddressController.text = '';
+                        _secondAddressController.text = '';
+                        _cityController.text = '';
+                        _defaultState = 'State';
+                        _zipController.text = '';
+                      });
+                      Navigator.of(context, rootNavigator: true).pop();
+                    }
+
                     Loading.hide(context);
-                    Navigator.of(context, rootNavigator: true).pop();
+
                     return null;
                   },
                   initial: () {
                     return Loading.show(context);
                   },
                   error: (message) => {
+                    updateAllFlow = false,
                     Loading.hide(context),
                     // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
                   },
@@ -446,6 +453,9 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                               onPressed: () {
                                 showErrors();
                                 if (areFieldsValid()) {
+                                  setState(() {
+                                    updateAllFlow = true;
+                                  });
                                   context
                                       .read<UpdateProfileBloc>()
                                       .add(UpdateProfileEvent.update(
