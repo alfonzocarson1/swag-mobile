@@ -53,6 +53,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
               width: 10,
             ),
             (widget.sale &&
+                    widget.dataCollection != null &&
                     widget.dataCollection!.isNotEmpty &&
                     widget.available != 0)
                 ? Text("(${widget.dataCollection!.length}X)",
@@ -104,7 +105,9 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                     ),
                   ],
                 )
-              : (widget.sale && widget.dataCollection!.isNotEmpty)
+              : (widget.sale &&
+                      widget.dataCollection != null &&
+                      widget.dataCollection!.isNotEmpty)
                   ? const Text('')
                   : Column(
                       children: [
@@ -121,7 +124,9 @@ class _CollectionWidgetState extends State<CollectionWidget> {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: (widget.sale && widget.dataCollection!.isNotEmpty)
+          child: (widget.sale &&
+                  widget.dataCollection != null &&
+                  widget.dataCollection!.isNotEmpty)
               ? Column(
                   children: List.generate(
                       widget.dataCollection!.length,
@@ -249,7 +254,9 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                       )
                     ],
                   )
-                : (widget.sale && widget.dataCollection!.isNotEmpty)
+                : (widget.sale &&
+                        widget.dataCollection != null &&
+                        widget.dataCollection!.isNotEmpty)
                     ? Column(
                         children: [
                           SizedBox(

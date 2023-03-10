@@ -245,6 +245,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "select_avatar_desc": MessageLookupByLibrary.simpleMessage(
             "Select an avatar below or add one from your camera/photos."),
         "select_item": MessageLookupByLibrary.simpleMessage("SELECT ITEM"),
+        "selected": MessageLookupByLibrary.simpleMessage("Selected"),
         "sell_for": MessageLookupByLibrary.simpleMessage("SELL FOR"),
         "send_info": MessageLookupByLibrary.simpleMessage("SEND INFO"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Sign In"),

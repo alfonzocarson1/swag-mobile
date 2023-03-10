@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:swagapp/modules/models/shared_preferences/shared_preference_model.dart';
 
 import '../../blocs/search_bloc.dart/search_bloc.dart';
+import '../../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
 import '../../constants/constants.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
@@ -61,7 +63,9 @@ Future<void> performSearch(BuildContext context,
               releaseYears: sharedPref.getReleaseDate().isEmpty
                   ? null
                   : getReleaseYearsList(releaseList),
-              conditions: sharedPref.getCondition().isEmpty
+              conditions: sharedPref.getCondition().isEmpty ||
+                      sharedPref.getCondition().length ==
+                          Condition.values.length
                   ? null
                   : getConditionStringList(conditionList))),
       tab ?? SearchTab.all));
@@ -89,4 +93,24 @@ List<String> getConditionStringList(List<int> conditionList) {
     }
   }
   return list;
+}
+
+void initFiltersAndSorts() {
+  getIt<PreferenceRepositoryService>().saveIsListView(true);
+  getIt<PreferenceRepositoryService>().saveIsForSale(false);
+  getIt<PreferenceRepositoryService>().setSortBy(defaultInt);
+  getIt<PreferenceRepositoryService>().setCondition([]);
+  getIt<PreferenceRepositoryService>().setPrice(filterNotApplied);
+  getIt<PreferenceRepositoryService>().setReleaseDate([]);
+}
+
+void initFilterAndSortsWithBloc(BuildContext context) {
+  context.read<SharedPreferencesBloc>().add(
+      const SharedPreferencesEvent.setPreference(SharedPreferenceModel(
+          isListView: true,
+          isForSale: false,
+          sortBy: defaultInt,
+          condition: [],
+          price: filterNotApplied,
+          releaseDate: [])));
 }

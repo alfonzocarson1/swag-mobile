@@ -181,6 +181,7 @@
     "delete_photo": "DELETE PHOTO",
     "delete_photo_descrption": "Are you sure you want to delete this photo?",
     "delete": "DELETE",
-    "cancel":"CANCEL"
+    "cancel":"CANCEL",
+    "selected":"Selected"
 
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'app.dart';
 import 'modules/api/app_config.dart';
+import 'modules/common/utils/utils.dart';
 import 'modules/constants/constants.dart';
 import 'modules/data/secure_storage/storage_repository_service.dart';
 import 'modules/data/shared_preferences/shared_preferences_service.dart';
@@ -15,7 +16,7 @@ Future<void> main() async {
   setupAppScope();
   await getIt<PreferenceRepositoryService>().initialize();
   getIt<StorageRepositoryService>().initialize();
-  initUserPreferences();
+  initFiltersAndSorts();
   try {
     // await PushNotificationProvider.instance.initNotifications();
   } catch (e) {
@@ -46,14 +47,6 @@ Future<void> _handleFlavorConfig() async {
     debugPrint('FAILED TO LOAD FLAVOR');
     debugPrint(error.toString());
   });
-}
-
-void initUserPreferences() {
-  getIt<PreferenceRepositoryService>().saveIsListView(true);
-  getIt<PreferenceRepositoryService>().setSortBy(defaultInt);
-  getIt<PreferenceRepositoryService>().setCondition([]);
-  getIt<PreferenceRepositoryService>().setPrice(filterNotApplied);
-  getIt<PreferenceRepositoryService>().setReleaseDate([]);
 }
 
 void _runApp() {

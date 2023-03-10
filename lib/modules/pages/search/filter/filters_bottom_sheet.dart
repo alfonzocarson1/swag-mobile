@@ -365,7 +365,8 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
       return getSelectedText(context, FilterType.sortBy, index: model.sortBy);
     } else if (title == S.of(context).condition.toUpperCase()) {
       return getSelectedText(context, FilterType.condition,
-          index: model.condition.isEmpty ? null : model.condition[0]);
+          index: model.condition.isEmpty ? null : model.condition[0],
+          length: model.condition.length);
     } else if (title == S.of(context).price_range.toUpperCase() &&
         model.price != filterNotApplied) {
       return getSelectedText(context, FilterType.price, index: model.price);
@@ -377,11 +378,12 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
     }
   }
 
-  Widget getSelectedText(BuildContext context, FilterType type, {int? index}) {
+  Widget getSelectedText(BuildContext context, FilterType type,
+      {int? index, int? length}) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 4.0),
       child: Text(
-        getText(type, index: index),
+        getText(type, index: index, length: length),
         style: Theme.of(context)
             .textTheme
             .bodySmall!
@@ -390,12 +392,14 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
     );
   }
 
-  String getText(FilterType type, {int? index}) {
+  String getText(FilterType type, {int? index, int? length}) {
     switch (type) {
       case FilterType.condition:
-        return index == null
+        return index == null || Condition.values.length == length
             ? defaultString
-            : ConditionWrapper(Condition.values.elementAt(index)).toString();
+            : length == 1
+                ? ConditionWrapper(Condition.values.elementAt(index)).toString()
+                : "$length ${S.of(context).selected}";
       case FilterType.price:
         return PriceWrapper(Price.values.elementAt(
                 index ?? getIt<PreferenceRepositoryService>().getSortBy()))

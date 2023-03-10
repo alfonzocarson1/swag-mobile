@@ -50,7 +50,7 @@ class ShrunkenItemWidget extends StatelessWidget {
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
                             fontFamily: "Knockout",
                             fontSize: 30,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w300,
                             color: Palette.current.primaryNeonGreen)),
                   ),
                 ),
