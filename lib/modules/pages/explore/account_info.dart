@@ -196,6 +196,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                         _cityController.text = '';
                         _defaultState = 'State';
                         _zipController.text = '';
+                        updateAllFlow = false;
                       });
                       Navigator.of(context, rootNavigator: true).pop();
                     }
