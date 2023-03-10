@@ -18,7 +18,7 @@ class SearchService extends ISearchService {
   Stream<String?> subscribeToAuthChanges() => Stream.value(null);
 
   @override
-  Future<SearchTabsResponseModel> search(
+  Future<Map<SearchTab, List<CatalogItemModel>>> search(
       SearchRequestPayloadModel model, SearchTab tab) async {
     final response = await apiService.getEndpointData(
         endpoint: Endpoint.catalogSearchList,
@@ -30,7 +30,7 @@ class SearchService extends ISearchService {
 
     _cachedSearch[tab] = response.catalogList;
 
-    return response;
+    return _cachedSearch;
   }
 
   Future getCashedOrNew(bool refresh, String terms, SearchTab tab) async {
@@ -42,7 +42,7 @@ class SearchService extends ISearchService {
               filters: const FilterModel(),
               categoryId: await SearchTabWrapper(tab).toStringCustom()),
           tab);
-      _cachedSearch[tab] = response.catalogList;
+      _cachedSearch[tab] = response[tab] ?? [];
     }
   }
 

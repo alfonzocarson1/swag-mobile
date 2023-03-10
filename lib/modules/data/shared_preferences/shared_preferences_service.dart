@@ -117,14 +117,14 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   }
 
   @override
-  int getCondition() {
-    final condition = _prefs.getInt(_condition);
-    return condition ?? defaultInt;
+  List<String> getCondition() {
+    final list = _prefs.getStringList(_condition);
+    return list ?? [];
   }
 
   @override
-  Future<void> setCondition(int value) async {
-    await _prefs.setInt(_condition, value);
+  Future<void> setCondition(List<String> list) async {
+    await _prefs.setStringList(_condition, list);
   }
 
   @override
@@ -139,14 +139,14 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   }
 
   @override
-  int getReleaseDate() {
-    final releaseDate = _prefs.getInt(_releaseDate);
-    return releaseDate ?? filterNotApplied;
+  List<String> getReleaseDate() {
+    final list = _prefs.getStringList(_releaseDate);
+    return list ?? [];
   }
 
   @override
-  Future<void> setReleaseDate(int value) async {
-    await _prefs.setInt(_releaseDate, value);
+  Future<void> setReleaseDate(List<String> list) async {
+    await _prefs.setStringList(_releaseDate, list);
   }
 
   @override

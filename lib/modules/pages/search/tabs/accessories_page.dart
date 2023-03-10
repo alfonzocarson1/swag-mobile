@@ -66,7 +66,7 @@ class _AccessoriesPageState extends State<AccessoriesPage> {
                     ));
               },
               result: (state) {
-                if (state.tab == SearchTab.accessories) {
+                if (state.result[SearchTab.accessories] != null) {
                   return BodyWidgetWithView(
                       state.result[SearchTab.accessories] ?? [],
                       SearchTab.accessories);

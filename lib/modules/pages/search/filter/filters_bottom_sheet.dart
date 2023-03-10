@@ -9,19 +9,26 @@ import '../../../blocs/search_bloc.dart/search_bloc.dart';
 import '../../../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
+import '../../../common/utils/utils.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
-import '../../../models/search/filter_model.dart';
-import '../../../models/search/search_request_payload_model.dart';
 import '../../../models/shared_preferences/shared_preference_model.dart';
 
 class FiltersBottomSheet extends StatefulWidget {
-  const FiltersBottomSheet({Key? key}) : super(key: key);
+  const FiltersBottomSheet({Key? key, this.searchParam, this.tab})
+      : super(key: key);
+  final String? searchParam;
+  final SearchTab? tab;
 
-  static Route route(final BuildContext context) => PageRoutes.modalBottomSheet(
+  static Route route(final BuildContext context,
+          {String? searchParam, SearchTab? tab}) =>
+      PageRoutes.modalBottomSheet(
         isScrollControlled: true,
         settings: const RouteSettings(name: '/update-avatar-bottom-sheet'),
-        builder: (context) => const FiltersBottomSheet(),
+        builder: (context) => FiltersBottomSheet(
+          searchParam: searchParam,
+          tab: tab,
+        ),
         context: context,
       );
 
@@ -167,6 +174,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                                 setState(() {
                                   isForSale = !isForSale;
                                 });
+                                setIsForSale();
                               },
                               padding: EdgeInsets.zero,
                               constraints: const BoxConstraints(),
@@ -186,7 +194,9 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                               context, S.of(context).sort_by.toUpperCase(), () {
                             Navigator.of(context, rootNavigator: true).push(
                                 FilterCategoryPage.route(
-                                    context, FilterType.sortBy));
+                                    context, FilterType.sortBy,
+                                    searchParam: widget.searchParam,
+                                    tab: widget.tab));
                           }, selection: S.of(context).release_date_newest),
                           _filterItem(
                               context, S.of(context).type.toUpperCase(), () {}),
@@ -197,14 +207,20 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                               () {
                             Navigator.of(context, rootNavigator: true).push(
                                 FilterCategoryPage.route(
-                                    context, FilterType.condition));
+                                    context, FilterType.condition,
+                                    searchParam: widget.searchParam,
+                                    tab: widget.tab,
+                                    isMultipleSelection: true));
                           }, selection: S.of(context).sealed),
                           _filterItem(
                               context, S.of(context).release_date.toUpperCase(),
                               () {
                             Navigator.of(context, rootNavigator: true).push(
                                 FilterCategoryPage.route(
-                                    context, FilterType.releaseDate));
+                                    context, FilterType.releaseDate,
+                                    searchParam: widget.searchParam,
+                                    isMultipleSelection: true,
+                                    tab: widget.tab));
                           }),
                           _filterItem(context,
                               S.of(context).rarity_score.toUpperCase(), () {}),
@@ -213,7 +229,10 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                               () {
                             Navigator.of(context, rootNavigator: true).push(
                                 FilterCategoryPage.route(
-                                    context, FilterType.price));
+                                    context, FilterType.price,
+                                    isMultipleSelection: true,
+                                    searchParam: widget.searchParam,
+                                    tab: widget.tab));
                           }),
                           _filterItem(
                               context, S.of(context).theme.toUpperCase(), () {},
@@ -240,6 +259,13 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
             preference.copyWith(isListView: isListView)));
   }
 
+  void setIsForSale() {
+    final preference = context.read<SharedPreferencesBloc>().state.model;
+    context.read<SharedPreferencesBloc>().add(
+        SharedPreferencesEvent.setPreference(
+            preference.copyWith(isForSale: isForSale)));
+  }
+
   Widget _actionButtonSection(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -252,10 +278,10 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
           child: PrimaryButton(
             title: S.of(context).see_results.toUpperCase(),
             onPressed: () {
-              context.read<SearchBloc>().add(SearchEvent.performSearch(
-                  SearchRequestPayloadModel(
-                      categoryId: defaultString, filters: FilterModel()),
-                  SearchTab.whatsHot));
+              performSearch(context,
+                  isForsale: isForSale,
+                  searchParam: widget.searchParam,
+                  tab: widget.tab);
               Navigator.pop(context);
             },
             type: PrimaryButtonType.primaryEerieBlack,
@@ -339,14 +365,13 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
       return getSelectedText(context, FilterType.sortBy, index: model.sortBy);
     } else if (title == S.of(context).condition.toUpperCase()) {
       return getSelectedText(context, FilterType.condition,
-          index: model.condition);
+          index: model.condition.isEmpty ? null : model.condition[0]);
     } else if (title == S.of(context).price_range.toUpperCase() &&
         model.price != filterNotApplied) {
       return getSelectedText(context, FilterType.price, index: model.price);
-    } else if (title == S.of(context).release_date.toUpperCase() &&
-        model.releaseDate != filterNotApplied) {
+    } else if (title == S.of(context).release_date.toUpperCase()) {
       return getSelectedText(context, FilterType.releaseDate,
-          index: model.releaseDate);
+          index: model.releaseDate.isEmpty ? null : model.releaseDate[0]);
     } else {
       return Container();
     }
@@ -368,9 +393,9 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
   String getText(FilterType type, {int? index}) {
     switch (type) {
       case FilterType.condition:
-        return ConditionWrapper(Condition.values.elementAt(
-                index ?? getIt<PreferenceRepositoryService>().getCondition()))
-            .toString();
+        return index == null
+            ? defaultString
+            : ConditionWrapper(Condition.values.elementAt(index)).toString();
       case FilterType.price:
         return PriceWrapper(Price.values.elementAt(
                 index ?? getIt<PreferenceRepositoryService>().getSortBy()))
@@ -380,9 +405,10 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                 index ?? getIt<PreferenceRepositoryService>().getPrice()))
             .toString();
       case FilterType.releaseDate:
-        return ReleaseDateWrapper(ReleaseDate.values.elementAt(
-                index ?? getIt<PreferenceRepositoryService>().getReleaseDate()))
-            .toString();
+        return index == null
+            ? defaultString
+            : ReleaseDateWrapper(ReleaseDate.values.elementAt(index))
+                .toString();
     }
   }
 }

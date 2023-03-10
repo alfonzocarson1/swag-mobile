@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_rich_text/simple_rich_text.dart';
 
 import '../../../generated/l10n.dart';
+import '../../blocs/sale_history/sale_history_bloc.dart';
 import '../../common/ui/clickable_text.dart';
 import '../../common/utils/palette.dart';
 import 'transaction_history_page.dart';
@@ -43,6 +45,14 @@ class _HeadWidgetState extends State<HeadWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    //TODO: For test the ticket remove comment
+    // context.read<SalesHistoryBloc>().add(SalesHistoryEvent.getSalesHistory(
+    //     'a434e065-6bc6-490e-9e26-ea1b348b0003'));
+
+    context
+        .read<SalesHistoryBloc>()
+        .add(SalesHistoryEvent.getSalesHistory(widget.itemId));
   }
 
   @override
@@ -154,64 +164,79 @@ class _HeadWidgetState extends State<HeadWidget> {
                         fontWeight: FontWeight.w300,
                         color: Palette.current.primaryNeonGreen)),
               ),
-              Visibility(
-                  visible: widget.saleHistory != null,
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context, rootNavigator: true).push(
-                              TransactionHistory.route(
-                                  widget.urlImage,
-                                  widget.catalogItemName!,
-                                  widget.lastSale!,
-                                  false,
-                                  3,
-                                  widget.favorite,
-                                  widget.itemId));
-                        },
-                        child: Center(
-                          child: Container(
-                              height: 60,
-                              width: MediaQuery.of(context).size.width,
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Palette.current.primaryNeonGreen),
-                                  color: Colors.transparent),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  const SizedBox(
-                                    height: 50,
-                                  ),
-                                  Image.asset(
-                                    "assets/images/trending-up.png",
-                                    height: 20,
-                                    width: 20,
-                                  ),
-                                  const SizedBox(
-                                    width: 15,
-                                  ),
-                                  Text(S.of(context).sales_history,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge!
-                                          .copyWith(
-                                              fontFamily: "Knockout",
-                                              fontSize: 25,
-                                              letterSpacing: 1,
-                                              fontWeight: FontWeight.w300,
-                                              color: Palette.current.white)),
-                                ],
-                              )),
-                        ),
-                      ),
-                    ],
-                  )),
+              BlocBuilder<SalesHistoryBloc, SalesHistoryState>(
+                  builder: (context, usernameState) {
+                return usernameState.maybeMap(
+                    orElse: () => Container(),
+                    loadedSalesHistory: (state) {
+                      if (state.detaSalesHistoryList[0].saleHistoryList!
+                              .isNotEmpty &&
+                          widget.saleHistory != null) {
+                        return Column(
+                          children: [
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context, rootNavigator: true).push(
+                                    TransactionHistory.route(
+                                        widget.urlImage,
+                                        widget.catalogItemName!,
+                                        widget.lastSale!,
+                                        false,
+                                        3,
+                                        widget.favorite,
+                                        widget.itemId));
+                              },
+                              child: Center(
+                                child: Container(
+                                    height: 60,
+                                    width: MediaQuery.of(context).size.width,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: Palette
+                                                .current.primaryNeonGreen),
+                                        color: Colors.transparent),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        const SizedBox(
+                                          height: 50,
+                                        ),
+                                        Image.asset(
+                                          "assets/images/trending-up.png",
+                                          height: 20,
+                                          width: 20,
+                                        ),
+                                        const SizedBox(
+                                          width: 15,
+                                        ),
+                                        Text(S.of(context).sales_history,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyLarge!
+                                                .copyWith(
+                                                    fontFamily: "Knockout",
+                                                    fontSize: 25,
+                                                    letterSpacing: 1,
+                                                    fontWeight: FontWeight.w300,
+                                                    color:
+                                                        Palette.current.white)),
+                                      ],
+                                    )),
+                              ),
+                            ),
+                          ],
+                        );
+                      } else {
+                        return Container();
+                      }
+                    });
+              }),
               Visibility(
                   visible: widget.catalogItemDescription != null,
                   child: Column(

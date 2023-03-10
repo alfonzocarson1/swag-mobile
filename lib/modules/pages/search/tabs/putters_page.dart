@@ -60,7 +60,7 @@ class _PuttersPageState extends State<PuttersPage> {
                     ));
               },
               result: (state) {
-                if (state.tab == SearchTab.putters) {
+                if (state.result[SearchTab.putters] != null) {
                   return BodyWidgetWithView(
                       state.result[SearchTab.putters] ?? [], SearchTab.putters);
                 } else {

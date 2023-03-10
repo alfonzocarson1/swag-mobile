@@ -31,10 +31,13 @@ class SharedPreferencesBloc
   Stream<SharedPreferencesState> _setPreference(
       SharedPreferenceModel model) async* {
     await _preferenceRepository.saveIsListView(model.isListView);
+    await _preferenceRepository.saveIsForSale(model.isForSale);
     await _preferenceRepository.setSortBy(model.sortBy);
-    await _preferenceRepository.setCondition(model.condition);
+    await _preferenceRepository
+        .setCondition(model.condition.map((el) => el.toString()).toList());
     await _preferenceRepository.setPrice(model.price);
-    await _preferenceRepository.setReleaseDate(model.releaseDate);
+    await _preferenceRepository
+        .setReleaseDate(model.releaseDate.map((el) => el.toString()).toList());
     yield SharedPreferencesState.setPreference(model);
   }
 }

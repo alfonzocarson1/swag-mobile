@@ -1,30 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
-import 'package:swagapp/modules/models/search/filter_model.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../blocs/search_bloc.dart/search_bloc.dart';
 import '../../../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
+import '../../../common/utils/utils.dart';
 import '../../../constants/constants.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
-import '../../../models/search/search_request_payload_model.dart';
 
 class FilterCategoryPage extends StatefulWidget {
-  const FilterCategoryPage({Key? key, required this.filterType})
+  const FilterCategoryPage(
+      {Key? key,
+      required this.filterType,
+      this.searchParam,
+      this.tab,
+      this.isMultipleSelection = false})
       : super(key: key);
   static const name = '/filterCategory';
   final FilterType filterType;
+  final String? searchParam;
+  final SearchTab? tab;
+  final bool isMultipleSelection;
 
-  static Route route(final BuildContext context, FilterType filterType) =>
+  static Route route(final BuildContext context, FilterType filterType,
+          {String? searchParam,
+          SearchTab? tab,
+          bool isMultipleSelection = false}) =>
       PageRoutes.modalBottomSheet(
         isScrollControlled: true,
         settings: const RouteSettings(name: name),
         builder: (context) => FilterCategoryPage(
           filterType: filterType,
+          searchParam: searchParam,
+          tab: tab,
+          isMultipleSelection: isMultipleSelection,
         ),
         context: context,
       );
@@ -35,7 +48,7 @@ class FilterCategoryPage extends StatefulWidget {
 
 class _FilterCategoryPageState extends State<FilterCategoryPage> {
   final FocusNode _focusNode = FocusNode();
-  int checkBoxIndex = 0;
+  List<int> checkBoxIndexes = [];
 
   @override
   void initState() {
@@ -53,7 +66,8 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
-        setValueFor(widget.filterType);
+        performSearch(context,
+            searchParam: widget.searchParam, tab: widget.tab);
         return Future.value(true);
       },
       child: GestureDetector(
@@ -78,8 +92,8 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
                     padding: const EdgeInsets.only(right: 0.0),
                     child: IconButton(
                         onPressed: () {
-                          setValueFor(widget.filterType);
-
+                          performSearch(context,
+                              searchParam: widget.searchParam, tab: widget.tab);
                           Navigator.pop(context);
                         },
                         icon: Icon(
@@ -145,13 +159,8 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
           child: PrimaryButton(
             title: S.of(context).see_results.toUpperCase(),
             onPressed: () {
-              setValueFor(widget.filterType);
-
-              context.read<SearchBloc>().add(SearchEvent.performSearch(
-                  SearchRequestPayloadModel(
-                      categoryId: defaultString,
-                      filters: FilterModel(sortBy: checkBoxIndex)),
-                  SearchTab.all));
+              performSearch(context,
+                  searchParam: widget.searchParam, tab: widget.tab);
               Navigator.pop(context);
               Navigator.pop(context);
             },
@@ -179,11 +188,28 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
                   children: [
                     Checkbox(
                       checkColor: Palette.current.black,
-                      value: index == checkBoxIndex,
+                      value: checkBoxIndexes.contains(index),
                       onChanged: (value) {
-                        if (value ?? false) {
-                          setState(() => checkBoxIndex = index);
-                        }
+                        setState(() {
+                          if (value ?? false) {
+                            if (value!) {
+                              if ((!widget.isMultipleSelection)) {
+                                if (checkBoxIndexes.isEmpty) {
+                                  checkBoxIndexes.add(index);
+                                } else {
+                                  checkBoxIndexes.removeAt(0);
+                                  checkBoxIndexes.add(index);
+                                }
+                              } else if (!checkBoxIndexes.contains(index)) {
+                                checkBoxIndexes.add(index);
+                              }
+                            }
+                            //we don't let to delete unique item in case it is single selection
+                          } else if (widget.isMultipleSelection) {
+                            checkBoxIndexes.remove(index);
+                          }
+                          setValueFor(widget.filterType);
+                        });
                       },
                       side: BorderSide(color: Palette.current.darkGray),
                     ),
@@ -191,7 +217,7 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
                       child: Text(
                         title,
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            color: checkBoxIndex == index
+                            color: checkBoxIndexes.contains(index)
                                 ? Palette.current.primaryNeonGreen
                                 : Palette.current.darkGray),
                       ),
@@ -213,16 +239,22 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
   void initFor(FilterType type) {
     switch (type) {
       case FilterType.condition:
-        checkBoxIndex = getIt<PreferenceRepositoryService>().getCondition();
+        checkBoxIndexes = getIt<PreferenceRepositoryService>()
+            .getCondition()
+            .map(int.parse)
+            .toList();
         break;
       case FilterType.price:
-        checkBoxIndex = getIt<PreferenceRepositoryService>().getPrice();
+        checkBoxIndexes.add(getIt<PreferenceRepositoryService>().getPrice());
         break;
       case FilterType.sortBy:
-        checkBoxIndex = getIt<PreferenceRepositoryService>().getSortBy();
+        checkBoxIndexes.add(getIt<PreferenceRepositoryService>().getSortBy());
         break;
       case FilterType.releaseDate:
-        checkBoxIndex = getIt<PreferenceRepositoryService>().getReleaseDate();
+        checkBoxIndexes = getIt<PreferenceRepositoryService>()
+            .getReleaseDate()
+            .map(int.parse)
+            .toList();
     }
   }
 
@@ -241,26 +273,27 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
 
   void setValueFor(FilterType type) {
     final preference = context.read<SharedPreferencesBloc>().state.model;
+    List<int> newList = List.from(checkBoxIndexes);
     switch (type) {
       case FilterType.condition:
         context.read<SharedPreferencesBloc>().add(
             SharedPreferencesEvent.setPreference(
-                preference.copyWith(condition: checkBoxIndex)));
+                preference.copyWith(condition: newList)));
         break;
       case FilterType.price:
         context.read<SharedPreferencesBloc>().add(
             SharedPreferencesEvent.setPreference(
-                preference.copyWith(price: checkBoxIndex)));
+                preference.copyWith(price: checkBoxIndexes[0])));
         break;
       case FilterType.sortBy:
         context.read<SharedPreferencesBloc>().add(
             SharedPreferencesEvent.setPreference(
-                preference.copyWith(sortBy: checkBoxIndex)));
+                preference.copyWith(sortBy: checkBoxIndexes[0])));
         break;
       case FilterType.releaseDate:
         context.read<SharedPreferencesBloc>().add(
             SharedPreferencesEvent.setPreference(
-                preference.copyWith(releaseDate: checkBoxIndex)));
+                preference.copyWith(releaseDate: newList)));
     }
   }
 

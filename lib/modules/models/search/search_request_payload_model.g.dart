@@ -15,7 +15,7 @@ _$_SearchRequestPayloadModel _$$_SearchRequestPayloadModelFromJson(
               .toList() ??
           null,
       pageSize: json['pageSize'] as int? ?? defaultPageSize,
-      categoryId: json['categoryId'] as String,
+      categoryId: json['categoryId'] as String? ?? null,
     );
 
 Map<String, dynamic> _$$_SearchRequestPayloadModelToJson(

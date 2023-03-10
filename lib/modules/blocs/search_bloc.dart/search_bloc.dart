@@ -34,7 +34,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         SearchRequestPayloadModel(
             categoryId:
                 await SearchTabWrapper(SearchTab.whatsHot).toStringCustom(),
-            filters: FilterModel()),
+            filters: const FilterModel()),
         SearchTab.whatsHot));
   }
 
@@ -86,7 +86,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         "Royals 8-bit"
       ]);
       yield SearchState.result(
-          result: {tab: response.catalogList},
+          result: response,
           query: payload.searchParams?[0] ?? defaultString,
           tab: tab);
     } catch (e) {

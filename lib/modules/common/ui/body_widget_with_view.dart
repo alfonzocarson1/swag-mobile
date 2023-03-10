@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/ui/catalog_ui.dart';
 import 'package:swagapp/modules/common/ui/shrunken_item_widget.dart';
-import 'package:swagapp/modules/constants/constants.dart';
-import 'package:swagapp/modules/models/search/filter_model.dart';
 
 import '../../../generated/l10n.dart';
 import '../../blocs/search_bloc.dart/search_bloc.dart';
 import '../../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
 
 import '../../models/search/catalog_item_model.dart';
-import '../../models/search/search_request_payload_model.dart';
+import '../utils/utils.dart';
 
 class BodyWidgetWithView extends StatefulWidget {
-  BodyWidgetWithView(this.catalogList, this.tab, {Key? key}) : super(key: key);
+  BodyWidgetWithView(this.catalogList, this.tab, {Key? key, this.searchParams})
+      : super(key: key);
 
   List<CatalogItemModel> catalogList;
   SearchTab tab;
+  final String? searchParams;
 
   @override
   State<BodyWidgetWithView> createState() => _BodyWidgetWithViewState();
@@ -32,7 +32,7 @@ class _BodyWidgetWithViewState extends State<BodyWidgetWithView> {
 
   Widget _getBody(List<CatalogItemModel> catalogList) {
     return RefreshIndicator(onRefresh: () async {
-      makeCall();
+      performSearch(context, searchParam: widget.searchParams, tab: widget.tab);
       return Future.delayed(const Duration(milliseconds: 1500));
     }, child: BlocBuilder<SharedPreferencesBloc, SharedPreferencesState>(
         builder: (context, stateSharedPreferences) {
@@ -82,13 +82,5 @@ class _BodyWidgetWithViewState extends State<BodyWidgetWithView> {
             ),
             itemCount: 1,
           );
-  }
-
-  Future<void> makeCall() async {
-    context.read<SearchBloc>().add(SearchEvent.performSearch(
-        SearchRequestPayloadModel(
-            categoryId: await SearchTabWrapper(widget.tab).toStringCustom(),
-            filters: const FilterModel()),
-        widget.tab));
   }
 }

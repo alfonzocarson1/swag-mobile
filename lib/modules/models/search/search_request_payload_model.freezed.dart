@@ -24,7 +24,7 @@ mixin _$SearchRequestPayloadModel {
   FilterModel get filters => throw _privateConstructorUsedError;
   List<String>? get searchParams => throw _privateConstructorUsedError;
   int get pageSize => throw _privateConstructorUsedError;
-  String get categoryId => throw _privateConstructorUsedError;
+  String? get categoryId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,7 +42,7 @@ abstract class $SearchRequestPayloadModelCopyWith<$Res> {
       {FilterModel filters,
       List<String>? searchParams,
       int pageSize,
-      String categoryId});
+      String? categoryId});
 
   $FilterModelCopyWith<$Res> get filters;
 }
@@ -64,7 +64,7 @@ class _$SearchRequestPayloadModelCopyWithImpl<$Res,
     Object? filters = null,
     Object? searchParams = freezed,
     Object? pageSize = null,
-    Object? categoryId = null,
+    Object? categoryId = freezed,
   }) {
     return _then(_value.copyWith(
       filters: null == filters
@@ -79,10 +79,10 @@ class _$SearchRequestPayloadModelCopyWithImpl<$Res,
           ? _value.pageSize
           : pageSize // ignore: cast_nullable_to_non_nullable
               as int,
-      categoryId: null == categoryId
+      categoryId: freezed == categoryId
           ? _value.categoryId
           : categoryId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 
@@ -108,7 +108,7 @@ abstract class _$$_SearchRequestPayloadModelCopyWith<$Res>
       {FilterModel filters,
       List<String>? searchParams,
       int pageSize,
-      String categoryId});
+      String? categoryId});
 
   @override
   $FilterModelCopyWith<$Res> get filters;
@@ -130,7 +130,7 @@ class __$$_SearchRequestPayloadModelCopyWithImpl<$Res>
     Object? filters = null,
     Object? searchParams = freezed,
     Object? pageSize = null,
-    Object? categoryId = null,
+    Object? categoryId = freezed,
   }) {
     return _then(_$_SearchRequestPayloadModel(
       filters: null == filters
@@ -145,10 +145,10 @@ class __$$_SearchRequestPayloadModelCopyWithImpl<$Res>
           ? _value.pageSize
           : pageSize // ignore: cast_nullable_to_non_nullable
               as int,
-      categoryId: null == categoryId
+      categoryId: freezed == categoryId
           ? _value.categoryId
           : categoryId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -161,7 +161,7 @@ class _$_SearchRequestPayloadModel implements _SearchRequestPayloadModel {
       {required this.filters,
       final List<String>? searchParams = null,
       this.pageSize = defaultPageSize,
-      required this.categoryId})
+      this.categoryId = null})
       : _searchParams = searchParams;
 
   factory _$_SearchRequestPayloadModel.fromJson(Map<String, dynamic> json) =>
@@ -184,7 +184,8 @@ class _$_SearchRequestPayloadModel implements _SearchRequestPayloadModel {
   @JsonKey()
   final int pageSize;
   @override
-  final String categoryId;
+  @JsonKey()
+  final String? categoryId;
 
   @override
   String toString() {
@@ -230,7 +231,7 @@ abstract class _SearchRequestPayloadModel implements SearchRequestPayloadModel {
       {required final FilterModel filters,
       final List<String>? searchParams,
       final int pageSize,
-      required final String categoryId}) = _$_SearchRequestPayloadModel;
+      final String? categoryId}) = _$_SearchRequestPayloadModel;
 
   factory _SearchRequestPayloadModel.fromJson(Map<String, dynamic> json) =
       _$_SearchRequestPayloadModel.fromJson;
@@ -242,7 +243,7 @@ abstract class _SearchRequestPayloadModel implements SearchRequestPayloadModel {
   @override
   int get pageSize;
   @override
-  String get categoryId;
+  String? get categoryId;
   @override
   @JsonKey(ignore: true)
   _$$_SearchRequestPayloadModelCopyWith<_$_SearchRequestPayloadModel>

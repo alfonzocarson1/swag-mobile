@@ -5,17 +5,17 @@ import 'package:swagapp/modules/common/ui/body_widget_with_view.dart';
 import 'package:swagapp/modules/common/ui/pushed_header.dart';
 import 'package:swagapp/modules/common/ui/search_input.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
-import 'package:swagapp/modules/constants/constants.dart';
-import 'package:swagapp/modules/models/search/filter_model.dart';
+
 import 'package:swagapp/modules/pages/search/filter/filters_bottom_sheet.dart';
 import 'package:swagapp/modules/pages/search/search_on_tap_page.dart';
 
 import '../../blocs/search_bloc.dart/search_bloc.dart';
+import '../../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
 import '../../common/ui/catalog_ui.dart';
 import '../../common/ui/loading.dart';
 import '../../common/utils/custom_route_animations.dart';
+import '../../common/utils/utils.dart';
 import '../../models/search/catalog_item_model.dart';
-import '../../models/search/search_request_payload_model.dart';
 
 class SearchResultPage extends StatefulWidget {
   static const name = '/SearchResult';
@@ -47,7 +47,7 @@ class _SearchResultPageState extends State<SearchResultPage>
   void initState() {
     super.initState();
     _textEditingController.text = widget.searchParam;
-    makeCall();
+    performSearch(context, searchParam: widget.searchParam, tab: null);
   }
 
   @override
@@ -84,7 +84,8 @@ class _SearchResultPageState extends State<SearchResultPage>
               error: (_) {
                 return RefreshIndicator(
                     onRefresh: () async {
-                      makeCall();
+                      performSearch(context,
+                          searchParam: widget.searchParam, tab: null);
                       return Future.delayed(const Duration(milliseconds: 1500));
                     },
                     child: ListView.builder(
@@ -98,7 +99,10 @@ class _SearchResultPageState extends State<SearchResultPage>
                     _getActionHeader(),
                     Expanded(
                         child: BodyWidgetWithView(
-                            state.result[SearchTab.all] ?? [], SearchTab.all)),
+                      state.result[SearchTab.all] ?? [],
+                      SearchTab.all,
+                      searchParams: widget.searchParam,
+                    )),
                   ],
                 );
               },
@@ -157,7 +161,7 @@ class _SearchResultPageState extends State<SearchResultPage>
   Widget _getCatalogList(List<CatalogItemModel> catalogList) {
     return RefreshIndicator(
       onRefresh: () async {
-        makeCall();
+        performSearch(context, searchParam: widget.searchParam, tab: null);
         return Future.delayed(const Duration(milliseconds: 1500));
       },
       child: catalogList.isNotEmpty
@@ -177,13 +181,6 @@ class _SearchResultPageState extends State<SearchResultPage>
               itemCount: 1,
             ),
     );
-  }
-
-  void makeCall() {
-    context.read<SearchBloc>().add(SearchEvent.performSearch(
-        SearchRequestPayloadModel(
-            categoryId: defaultString, filters: FilterModel()),
-        SearchTab.all));
   }
 
   Widget _searchField(BuildContext context, String title) {
@@ -229,18 +226,32 @@ class _SearchResultPageState extends State<SearchResultPage>
           padding: const EdgeInsets.only(top: 4.0),
           child: Row(
             children: [
-              IconButton(
-                onPressed: () {},
-                icon: Image.asset(
-                  "assets/icons/ForSale.png",
-                  height: 20,
-                  width: 20,
-                ),
-              ),
+              BlocBuilder<SharedPreferencesBloc, SharedPreferencesState>(
+                  builder: (context, stateSharedPreferences) {
+                return stateSharedPreferences.map(
+                  setPreference: (state) => IconButton(
+                    onPressed: () {
+                      setIsForSale(!state.model.isForSale);
+                      performSearch(context,
+                          isForsale: !state.model.isForSale,
+                          tab: SearchTab.all);
+                    },
+                    icon: Image.asset(
+                      "assets/icons/ForSale.png",
+                      color: state.model.isForSale
+                          ? Palette.current.primaryNeonGreen
+                          : Palette.current.primaryWhiteSmoke,
+                      height: 20,
+                      width: 20,
+                    ),
+                  ),
+                );
+              }),
               IconButton(
                 onPressed: () {
-                  Navigator.of(context, rootNavigator: true)
-                      .push(FiltersBottomSheet.route(context));
+                  Navigator.of(context, rootNavigator: true).push(
+                      FiltersBottomSheet.route(context,
+                          searchParam: widget.searchParam));
                 },
                 icon: Image.asset(
                   "assets/icons/Filter.png",
@@ -253,5 +264,12 @@ class _SearchResultPageState extends State<SearchResultPage>
         ),
       ],
     );
+  }
+
+  void setIsForSale(bool isForSale) {
+    final preference = context.read<SharedPreferencesBloc>().state.model;
+    context.read<SharedPreferencesBloc>().add(
+        SharedPreferencesEvent.setPreference(
+            preference.copyWith(isForSale: isForSale)));
   }
 }
