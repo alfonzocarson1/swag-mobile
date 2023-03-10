@@ -195,6 +195,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                       _zipController.text = '';
                     });
                     Loading.hide(context);
+                    Navigator.of(context, rootNavigator: true).pop();
                     return null;
                   },
                   initial: () {
@@ -326,6 +327,10 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                               height: 20,
                             ),
                             CustomTextFormField(
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.allow(
+                                      RegExp("^.{0,50}\$")),
+                                ],
                                 borderColor: _firstAddressBorder,
                                 autofocus: false,
                                 labelText: S.of(context).first_address,
@@ -337,6 +342,10 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                               height: 20,
                             ),
                             CustomTextFormField(
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.allow(
+                                      RegExp("^.{0,50}\$")),
+                                ],
                                 borderColor: _secondAddressBorder,
                                 autofocus: false,
                                 labelText: S.of(context).second_address,
@@ -347,6 +356,10 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                               height: 20,
                             ),
                             CustomTextFormField(
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.allow(
+                                      RegExp("^.{0,50}\$")),
+                                ],
                                 borderColor: _cityBorder,
                                 autofocus: false,
                                 errorText: cityErrorText,
@@ -384,6 +397,12 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                                     .copyWith(
                                                         color: Palette.current
                                                             .primaryNeonPink)),
+                                          )),
+                                      Visibility(
+                                          visible: stateErrorText == null &&
+                                              zipErrorText != null,
+                                          child: const SizedBox(
+                                            height: 20,
                                           ))
                                     ],
                                   ),
@@ -393,18 +412,29 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                 ),
                                 Expanded(
                                   flex: 2,
-                                  child: CustomTextFormField(
-                                      inputFormatters: [
-                                        FilteringTextInputFormatter.allow(
-                                            RegExp("[0-9a-zA-Z ]")),
-                                      ],
-                                      borderColor: _zipBorder,
-                                      autofocus: false,
-                                      errorText: zipErrorText,
-                                      labelText: S.of(context).zip,
-                                      focusNode: _zipNode,
-                                      controller: _zipController,
-                                      inputType: TextInputType.text),
+                                  child: Column(
+                                    children: [
+                                      CustomTextFormField(
+                                        inputType: const TextInputType
+                                            .numberWithOptions(
+                                          decimal: true,
+                                          signed: false,
+                                        ),
+                                        borderColor: _zipBorder,
+                                        autofocus: false,
+                                        errorText: zipErrorText,
+                                        labelText: S.of(context).zip,
+                                        focusNode: _zipNode,
+                                        controller: _zipController,
+                                      ),
+                                      Visibility(
+                                          visible: stateErrorText != null &&
+                                              zipErrorText == null,
+                                          child: const SizedBox(
+                                            height: 20,
+                                          ))
+                                    ],
+                                  ),
                                 )
                               ],
                             ),
