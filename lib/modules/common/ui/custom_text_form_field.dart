@@ -167,7 +167,9 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                                       .textTheme
                                       .bodySmall!
                                       .copyWith(
-                                          color: Palette.current.primaryNero),
+                                        fontFamily: "Ringside",
+                                        color: Palette.current.primaryNero,
+                                      ),
                                   contentPadding: const EdgeInsets.only(top: 8),
                                   border: InputBorder.none,
                                   labelText: widget.labelText,

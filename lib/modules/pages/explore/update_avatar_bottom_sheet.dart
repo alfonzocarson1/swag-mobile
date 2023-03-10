@@ -37,15 +37,15 @@ class UpdateAvatarBottomSheet extends StatefulWidget {
 class _UpdateAvatarBottomSheetState extends State<UpdateAvatarBottomSheet> {
   final FocusNode _focusNode = FocusNode();
   List<String> imagesList = [
-    "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/skull.png?alt=media&token=330fc6b3-9839-42f2-bcd4-39ec67967620",
-    "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/skull.png?alt=media&token=330fc6b3-9839-42f2-bcd4-39ec67967620",
-    "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/skull.png?alt=media&token=330fc6b3-9839-42f2-bcd4-39ec67967620",
-    "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/skull.png?alt=media&token=330fc6b3-9839-42f2-bcd4-39ec67967620",
-    "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/skull.png?alt=media&token=330fc6b3-9839-42f2-bcd4-39ec67967620",
-    "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/skull.png?alt=media&token=330fc6b3-9839-42f2-bcd4-39ec67967620",
-    "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/skull.png?alt=media&token=330fc6b3-9839-42f2-bcd4-39ec67967620",
-    "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/skull.png?alt=media&token=330fc6b3-9839-42f2-bcd4-39ec67967620",
-    "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/skull.png?alt=media&token=330fc6b3-9839-42f2-bcd4-39ec67967620",
+    "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Franklin.png?alt=media&token=c1073f88-74c2-44c8-a287-fbe0caebf878",
+    "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Lincoln.png?alt=media&token=8cc89dc2-6910-451c-bf2e-32578215d5ca",
+    "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Hamilton.png?alt=media&token=2cc6fe55-598d-4e6c-b260-cd837d1a5424",
+    "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/queen.png?alt=media&token=fd838f3d-8b30-4785-974c-a5bbfaff113b",
+    "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/King.png?alt=media&token=2ff68eab-1ad6-4eb2-8c6f-78bf731d3248",
+    "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Flipper.png?alt=media&token=fa4b02fb-992e-4bc2-8532-80fdfd7071de",
+    "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Dripskull.png?alt=media&token=3e50bd26-fe59-4008-ae3d-049d8a35ff17",
+    "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Skull1.png?alt=media&token=a5efe842-e17b-409a-985a-b7f4a7967a7f",
+    "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/HotDog.png?alt=media&token=ca2732fc-e230-4e85-b892-1bcc018ccc6d",
   ];
 
   String _accountId = '';
@@ -74,8 +74,8 @@ class _UpdateAvatarBottomSheetState extends State<UpdateAvatarBottomSheet> {
             borderRadius: BorderRadius.circular(15),
           ),
           constraints: BoxConstraints(
-              minHeight: MediaQuery.of(context).size.height * 0.73,
-              maxHeight: MediaQuery.of(context).size.height * 0.73),
+              minHeight: MediaQuery.of(context).size.height * 0.80,
+              maxHeight: MediaQuery.of(context).size.height * 0.80),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -121,7 +121,13 @@ class _UpdateAvatarBottomSheetState extends State<UpdateAvatarBottomSheet> {
     return Column(
       children: [
         _rowList(chunks[0]),
+        const SizedBox(
+          height: 20,
+        ),
         _rowList(chunks[1]),
+        const SizedBox(
+          height: 20,
+        ),
         _rowList(chunks[2]),
       ],
     );
@@ -129,16 +135,17 @@ class _UpdateAvatarBottomSheetState extends State<UpdateAvatarBottomSheet> {
 
   Padding _rowList(List<String> imagesSubList) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 40),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           _imageItem(imagesSubList[0]),
           const SizedBox(
-            width: 12.5,
+            width: 20,
           ),
           _imageItem(imagesSubList[1]),
           const SizedBox(
-            width: 12.5,
+            width: 20,
           ),
           _imageItem(imagesSubList[2]),
         ],
