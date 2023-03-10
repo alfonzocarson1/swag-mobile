@@ -27,4 +27,10 @@ abstract class PreferenceRepositoryInt {
 
   Future<void> saveLastCategories(dynamic cList);
   Future<List<CategoryModel>> getLastCategories();
+
+  bool hasImportableData();
+  Future<void> savehasImportableData(bool value);
+
+  String accountId();
+  Future<void> saveAccountId(String value);
 }

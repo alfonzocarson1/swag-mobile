@@ -31,6 +31,7 @@ class ExplorePage extends StatefulWidget {
 class _ExplorePageState extends State<ExplorePage> {
   bool _isLogged = false;
   bool _hasJustSignedUp = false;
+  bool _hasImportableData = false;
   late final ScrollController? _scrollController =
       PrimaryScrollController.of(context);
 
@@ -39,6 +40,8 @@ class _ExplorePageState extends State<ExplorePage> {
     super.initState();
     _isLogged = getIt<PreferenceRepositoryService>().isLogged();
     _hasJustSignedUp = getIt<PreferenceRepositoryService>().hasJustSignedUp();
+    _hasImportableData =
+        getIt<PreferenceRepositoryService>().hasImportableData();
 
     if (_isLogged && _hasJustSignedUp) {
       getIt<PreferenceRepositoryService>().saveHasJustSignedUp(false);
@@ -46,14 +49,16 @@ class _ExplorePageState extends State<ExplorePage> {
         Navigator.of(context, rootNavigator: true)
             .push(AccountInfoPage.route());
         Future.delayed(const Duration(milliseconds: 1000), () {
-          showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (BuildContext context) {
-                return const PopUp(
-                  name: "MRDOUG",
-                );
-              });
+          if (_hasImportableData) {
+            showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (BuildContext context) {
+                  return const PopUp(
+                    name: "MRDOUG",
+                  );
+                });
+          }
         });
       });
     }

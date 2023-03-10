@@ -10,6 +10,8 @@ enum Endpoint {
   salesHistory,
   catalogCategories,
   catalogSearchList,
+  updateProfile,
+  updateAvatar
 }
 
 class API {
@@ -35,5 +37,7 @@ class API {
     Endpoint.salesHistory: "api/public/v1/listing/salesHistory/%s",
     Endpoint.catalogCategories: 'api/public/v1/catalog/categories/',
     Endpoint.catalogSearchList: 'api/public/v1/catalog/search/%s',
+    Endpoint.updateProfile: "api/v1/profile",
+    Endpoint.updateAvatar: 'api/v1/image/%s'
   };
 }

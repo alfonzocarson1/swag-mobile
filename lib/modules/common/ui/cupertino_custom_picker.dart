@@ -77,9 +77,13 @@ class _CupertinoPickerViewState extends State<CupertinoPickerView> {
                               flex: 1,
                               child: Text(
                                 widget.cupertinoPickervalue ?? 'Item 1',
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                ),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(
+                                      fontFamily: "Ringside",
+                                      color: Palette.current.primaryNero,
+                                    ),
                               )),
                           const Expanded(
                             flex: 1,

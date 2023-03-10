@@ -23,6 +23,7 @@ mixin _$GenericResponseModel {
   String get errorCode => throw _privateConstructorUsedError;
   String get errorMessage => throw _privateConstructorUsedError;
   String get token => throw _privateConstructorUsedError;
+  String get accountId => throw _privateConstructorUsedError;
   bool get hasImportableData => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -41,6 +42,7 @@ abstract class $GenericResponseModelCopyWith<$Res> {
       {String errorCode,
       String errorMessage,
       String token,
+      String accountId,
       bool hasImportableData});
 }
 
@@ -61,6 +63,7 @@ class _$GenericResponseModelCopyWithImpl<$Res,
     Object? errorCode = null,
     Object? errorMessage = null,
     Object? token = null,
+    Object? accountId = null,
     Object? hasImportableData = null,
   }) {
     return _then(_value.copyWith(
@@ -75,6 +78,10 @@ class _$GenericResponseModelCopyWithImpl<$Res,
       token: null == token
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
+              as String,
+      accountId: null == accountId
+          ? _value.accountId
+          : accountId // ignore: cast_nullable_to_non_nullable
               as String,
       hasImportableData: null == hasImportableData
           ? _value.hasImportableData
@@ -96,6 +103,7 @@ abstract class _$$_GenericResponseModelCopyWith<$Res>
       {String errorCode,
       String errorMessage,
       String token,
+      String accountId,
       bool hasImportableData});
 }
 
@@ -113,6 +121,7 @@ class __$$_GenericResponseModelCopyWithImpl<$Res>
     Object? errorCode = null,
     Object? errorMessage = null,
     Object? token = null,
+    Object? accountId = null,
     Object? hasImportableData = null,
   }) {
     return _then(_$_GenericResponseModel(
@@ -127,6 +136,10 @@ class __$$_GenericResponseModelCopyWithImpl<$Res>
       token: null == token
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
+              as String,
+      accountId: null == accountId
+          ? _value.accountId
+          : accountId // ignore: cast_nullable_to_non_nullable
               as String,
       hasImportableData: null == hasImportableData
           ? _value.hasImportableData
@@ -144,6 +157,7 @@ class _$_GenericResponseModel implements _GenericResponseModel {
       {this.errorCode = defaultString,
       this.errorMessage = defaultString,
       this.token = defaultString,
+      this.accountId = defaultString,
       this.hasImportableData = false});
 
   factory _$_GenericResponseModel.fromJson(Map<String, dynamic> json) =>
@@ -160,11 +174,14 @@ class _$_GenericResponseModel implements _GenericResponseModel {
   final String token;
   @override
   @JsonKey()
+  final String accountId;
+  @override
+  @JsonKey()
   final bool hasImportableData;
 
   @override
   String toString() {
-    return 'GenericResponseModel(errorCode: $errorCode, errorMessage: $errorMessage, token: $token, hasImportableData: $hasImportableData)';
+    return 'GenericResponseModel(errorCode: $errorCode, errorMessage: $errorMessage, token: $token, accountId: $accountId, hasImportableData: $hasImportableData)';
   }
 
   @override
@@ -177,14 +194,16 @@ class _$_GenericResponseModel implements _GenericResponseModel {
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
             (identical(other.token, token) || other.token == token) &&
+            (identical(other.accountId, accountId) ||
+                other.accountId == accountId) &&
             (identical(other.hasImportableData, hasImportableData) ||
                 other.hasImportableData == hasImportableData));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, errorCode, errorMessage, token, hasImportableData);
+  int get hashCode => Object.hash(runtimeType, errorCode, errorMessage, token,
+      accountId, hasImportableData);
 
   @JsonKey(ignore: true)
   @override
@@ -206,6 +225,7 @@ abstract class _GenericResponseModel implements GenericResponseModel {
       {final String errorCode,
       final String errorMessage,
       final String token,
+      final String accountId,
       final bool hasImportableData}) = _$_GenericResponseModel;
 
   factory _GenericResponseModel.fromJson(Map<String, dynamic> json) =
@@ -217,6 +237,8 @@ abstract class _GenericResponseModel implements GenericResponseModel {
   String get errorMessage;
   @override
   String get token;
+  @override
+  String get accountId;
   @override
   bool get hasImportableData;
   @override

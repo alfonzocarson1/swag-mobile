@@ -1,17 +1,16 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'package:http_interceptor/http/intercepted_client.dart';
 
 import '../common/utils/token_retry_policy.dart';
+import '../data/secure_storage/storage_repository_service.dart';
+import '../di/injector.dart';
 import 'api.dart';
 
-enum RequestMethod {
-  get,
-  post,
-  put,
-}
+enum RequestMethod { get, post, put, multipart }
 
 class APIService {
   APIService();
@@ -25,7 +24,8 @@ class APIService {
       Map<String, Object>? params,
       Map<String, dynamic>? body,
       Map<String, String>? headers,
-      bool needBearer = true,
+      Uint8List? bytes,
+      bool needBearer = false,
       String? dynamicParam}) async {
     InterceptedClient client = InterceptedClient.build(
       retryPolicy: TokenRetryPolicy(),
@@ -33,8 +33,7 @@ class APIService {
     );
     String? token = '';
     if (needBearer) {
-      token = "";
-      // TODO await getIt<StorageRepositoryService>().getAccessToken();
+      token = await getIt<StorageRepositoryService>().getToken();
     }
 
     final api = API();
@@ -76,6 +75,16 @@ class APIService {
             headers: baseHeaders,
             body: jsonEncode(body),
           );
+          break;
+        case RequestMethod.multipart:
+          var request =
+              http.MultipartRequest('POST', Uri.parse(uri.toString()));
+          final file = http.MultipartFile.fromBytes('file', bytes!,
+              filename: 'myAvatar.png');
+          request.headers.addAll(baseHeaders);
+          request.files.add(file);
+          final streamResponse = await request.send();
+          response = await http.Response.fromStream(streamResponse);
           break;
       }
       if (response.statusCode == 200 || response.statusCode == 201) {

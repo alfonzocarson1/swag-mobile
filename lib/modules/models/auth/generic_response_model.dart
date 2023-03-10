@@ -11,6 +11,7 @@ class GenericResponseModel with _$GenericResponseModel {
     @Default(defaultString) final String errorCode,
     @Default(defaultString) final String errorMessage,
     @Default(defaultString) final String token,
+    @Default(defaultString) final String accountId,
     @Default(false) final bool hasImportableData,
   }) = _GenericResponseModel;
 
