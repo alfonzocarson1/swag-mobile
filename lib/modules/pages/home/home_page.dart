@@ -8,6 +8,7 @@ import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../pages/alert/alert_page.dart';
 import '../../pages/profile/profile_page.dart';
 import '../explore/explore_page.dart';
+import '../login/create_account_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -32,7 +33,9 @@ class _HomePage extends State<HomePage> {
   void onTapTapped(int index) {
     bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
     if ((index == 2 || index == 3) && !isLogged) {
-      Navigator.popUntil(context, ModalRoute.withName('/'));
+      Navigator.of(context, rootNavigator: true)
+          .push(CreateAccountPage.route());
+      getIt<PreferenceRepositoryService>().saveReturLastPageAfterLogged(true);
     }
 
     setState(() {
@@ -43,6 +46,17 @@ class _HomePage extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isReturn =
+        getIt<PreferenceRepositoryService>().returLastPageAfterLogged();
+
+    if (isReturn) {
+      setState(() {
+        _controller.index = 0;
+        indexTap = 0;
+        getIt<PreferenceRepositoryService>()
+            .saveReturLastPageAfterLogged(false);
+      });
+    }
     return SizedBox(
       height: 100,
       child: PersistentTabView.custom(

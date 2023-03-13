@@ -4,8 +4,11 @@ import '../../../generated/l10n.dart';
 import '../../common/ui/popup_list_item_sale.dart';
 import '../../common/ui/primary_button.dart';
 import '../../common/utils/palette.dart';
+import '../../data/shared_preferences/shared_preferences_service.dart';
+import '../../di/injector.dart';
 import '../../models/detail/detail_collection_model.dart';
 import '../add/collection/list_for_Sale_page.dart';
+import '../login/create_account_page.dart';
 
 class CollectionWidget extends StatefulWidget {
   const CollectionWidget(
@@ -25,6 +28,14 @@ class CollectionWidget extends StatefulWidget {
 }
 
 class _CollectionWidgetState extends State<CollectionWidget> {
+  bool isLogged = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    isLogged = getIt<PreferenceRepositoryService>().isLogged();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -234,7 +245,13 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                         width: MediaQuery.of(context).size.width,
                         child: PrimaryButton(
                           title: S.of(context).make_an_offer,
-                          onPressed: () {},
+                          onPressed: () {
+                            if (isLogged) {
+                            } else {
+                              Navigator.of(context, rootNavigator: true)
+                                  .push(CreateAccountPage.route());
+                            }
+                          },
                           type: PrimaryButtonType.blueNeon,
                         ),
                       ),
@@ -245,7 +262,13 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                         width: MediaQuery.of(context).size.width,
                         child: PrimaryButton(
                           title: S.of(context).notify_available,
-                          onPressed: () {},
+                          onPressed: () {
+                            if (isLogged) {
+                            } else {
+                              Navigator.of(context, rootNavigator: true)
+                                  .push(CreateAccountPage.route());
+                            }
+                          },
                           type: PrimaryButtonType.primaryEerieBlack,
                         ),
                       ),
@@ -264,7 +287,13 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                             child: PrimaryButton(
                               title:
                                   "${S.of(context).buy_for} ${widget.lastSale}",
-                              onPressed: () {},
+                              onPressed: () {
+                                if (isLogged) {
+                                } else {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(CreateAccountPage.route());
+                                }
+                              },
                               type: PrimaryButtonType.green,
                             ),
                           ),
@@ -276,17 +305,23 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                             child: PrimaryButton(
                               title: S.of(context).list_for_sale_btn,
                               onPressed: () {
-                                widget.dataCollection!.length > 1
-                                    ? showDialog(
-                                        context: context,
-                                        barrierDismissible: false,
-                                        builder: (BuildContext context) {
-                                          return PopUpListItemSale(
-                                              dataCollection:
-                                                  widget.dataCollection!);
-                                        })
-                                    : Navigator.of(context, rootNavigator: true)
-                                        .push(ListForSalePage.route(context));
+                                if (isLogged) {
+                                  widget.dataCollection!.length > 1
+                                      ? showDialog(
+                                          context: context,
+                                          barrierDismissible: false,
+                                          builder: (BuildContext context) {
+                                            return PopUpListItemSale(
+                                                dataCollection:
+                                                    widget.dataCollection!);
+                                          })
+                                      : Navigator.of(context,
+                                              rootNavigator: true)
+                                          .push(ListForSalePage.route(context));
+                                } else {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(CreateAccountPage.route());
+                                }
                               },
                               type: PrimaryButtonType.black,
                             ),
@@ -298,7 +333,13 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                             width: MediaQuery.of(context).size.width,
                             child: PrimaryButton(
                               title: S.of(context).remove_collection_btn,
-                              onPressed: () {},
+                              onPressed: () {
+                                if (isLogged) {
+                                } else {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(CreateAccountPage.route());
+                                }
+                              },
                               type: PrimaryButtonType.pink,
                             ),
                           )
@@ -311,7 +352,13 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                             child: PrimaryButton(
                               title:
                                   "${S.of(context).buy_for} ${widget.lastSale}",
-                              onPressed: () {},
+                              onPressed: () {
+                                if (isLogged) {
+                                } else {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(CreateAccountPage.route());
+                                }
+                              },
                               type: PrimaryButtonType.green,
                             ),
                           )

@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 
 import '../../../generated/l10n.dart';
 import '../../blocs/favorite_bloc/favorite_bloc.dart';
+import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/search/catalog_item_model.dart';
 import '../../pages/add/collection/add_collection_page.dart';
 import '../../pages/detail/item_detail_page.dart';
+import '../../pages/login/create_account_page.dart';
 import '../utils/palette.dart';
 
 class CatalogPage extends StatefulWidget {
@@ -24,11 +26,13 @@ class _CatalogPageState extends State<CatalogPage> {
   double animateFavorite = 0.0;
   bool isSkullVisible = true;
   int? indexFavorite;
+  bool isLogged = false;
 
   @override
   void initState() {
     _favoriteBloc = getIt<FavoriteBloc>();
     super.initState();
+    isLogged = getIt<PreferenceRepositoryService>().isLogged();
   }
 
   onChangeFavoriteAnimation(int index) async {
@@ -98,8 +102,13 @@ class _CatalogPageState extends State<CatalogPage> {
                             color: Palette.current.grey,
                           ),
                           onPressed: () {
-                            Navigator.of(context, rootNavigator: true)
-                                .push(AddCollection.route(context));
+                            if (isLogged) {
+                              Navigator.of(context, rootNavigator: true)
+                                  .push(AddCollection.route(context));
+                            } else {
+                              Navigator.of(context, rootNavigator: true)
+                                  .push(CreateAccountPage.route());
+                            }
                           },
                         )),
                     Visibility(
@@ -208,13 +217,19 @@ class _CatalogPageState extends State<CatalogPage> {
                                     ),
                                     onPressed: () async {
                                       setState(() {
-                                        _favoriteBloc.toggleFavorite(widget
-                                            .catalogItems[index]
-                                            .catalogItemName);
-                                        if (_favoriteBloc.isExist(widget
-                                            .catalogItems[index]
-                                            .catalogItemName)) {
-                                          onChangeFavoriteAnimation(index);
+                                        if (isLogged) {
+                                          _favoriteBloc.toggleFavorite(widget
+                                              .catalogItems[index]
+                                              .catalogItemName);
+                                          if (_favoriteBloc.isExist(widget
+                                              .catalogItems[index]
+                                              .catalogItemName)) {
+                                            onChangeFavoriteAnimation(index);
+                                          }
+                                        } else {
+                                          Navigator.of(context,
+                                                  rootNavigator: true)
+                                              .push(CreateAccountPage.route());
                                         }
                                       });
                                     },

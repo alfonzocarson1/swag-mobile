@@ -34,4 +34,7 @@ abstract class PreferenceRepositoryInt {
 
   String accountId();
   Future<void> saveAccountId(String value);
+
+  bool returLastPageAfterLogged();
+  Future<void> saveReturLastPageAfterLogged(bool value);
 }

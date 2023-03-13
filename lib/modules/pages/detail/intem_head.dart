@@ -4,9 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_rich_text/simple_rich_text.dart';
 
 import '../../../generated/l10n.dart';
+import '../../blocs/favorite_bloc/favorite_bloc.dart';
 import '../../blocs/sale_history/sale_history_bloc.dart';
 import '../../common/ui/clickable_text.dart';
 import '../../common/utils/palette.dart';
+import '../../data/shared_preferences/shared_preferences_service.dart';
+import '../../di/injector.dart';
+import '../login/create_account_page.dart';
 import 'transaction_history_page.dart';
 
 class HeadWidget extends StatefulWidget {
@@ -41,46 +45,89 @@ class HeadWidget extends StatefulWidget {
 
 class _HeadWidgetState extends State<HeadWidget> {
   bool _viewMore = false;
+  late FavoriteBloc _favoriteBloc;
+  double animateFavorite = 0.0;
+  bool isSkullVisible = true;
+  int? indexFavorite;
+  bool isLogged = false;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
+    _favoriteBloc = getIt<FavoriteBloc>();
+
     //TODO: For test the ticket remove comment
     // context.read<SalesHistoryBloc>().add(SalesHistoryEvent.getSalesHistory(
     //     'a434e065-6bc6-490e-9e26-ea1b348b0003'));
+
+    isLogged = getIt<PreferenceRepositoryService>().isLogged();
 
     context
         .read<SalesHistoryBloc>()
         .add(SalesHistoryEvent.getSalesHistory(widget.itemId));
   }
 
+  onChangeFavoriteAnimation(int index) async {
+    setState(() {
+      isSkullVisible = true;
+      animateFavorite = 130.0;
+      indexFavorite = index;
+    });
+    Future.delayed(const Duration(milliseconds: 700), () {
+      setState(() {
+        isSkullVisible = false;
+        animateFavorite = 0.0;
+      });
+
+      Future.delayed(const Duration(milliseconds: 200), () {
+        setState(() {
+          isSkullVisible = true;
+        });
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: [
-        SizedBox(
-          height: 360,
-          child: Stack(children: [
-            Positioned.fill(
-              child: CachedNetworkImage(
-                fit: BoxFit.cover,
-                imageUrl: widget.urlImage,
-                placeholder: (context, url) => SizedBox(
-                  height: 360,
-                  child: Center(
-                    child: CircularProgressIndicator(
-                      color: Palette.current.primaryNeonGreen,
-                      backgroundColor: Colors.white,
-                    ),
-                  ),
+        Stack(children: [
+          CachedNetworkImage(
+            fit: BoxFit.cover,
+            imageUrl: widget.urlImage,
+            placeholder: (context, url) => SizedBox(
+              height: 360,
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: Palette.current.primaryNeonGreen,
+                  backgroundColor: Colors.white,
                 ),
-                errorWidget: (context, url, error) =>
-                    Image.asset("assets/images/ProfilePhoto.png"),
               ),
             ),
-          ]),
-        ),
+            errorWidget: (context, url, error) =>
+                Image.asset("assets/images/ProfilePhoto.png"),
+          ),
+          Visibility(
+            visible: isSkullVisible,
+            child: Positioned.fill(
+              child: Align(
+                alignment: Alignment.center,
+                child: AnimatedContainer(
+                    height: (0 == indexFavorite) ? animateFavorite : 0,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeInOut,
+                    child: Image.asset(
+                      "assets/images/IconsBig.png",
+                      scale: 3,
+                    )),
+              ),
+            ),
+          ),
+        ]),
         Visibility(
             visible: widget.sale,
             child: Container(
@@ -132,21 +179,41 @@ class _HeadWidgetState extends State<HeadWidget> {
                       flex: 2,
                       child: Column(
                         children: [
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: GestureDetector(
-                              onTap: () {},
-                              child: widget.favorite
-                                  ? Image.asset(
-                                      "assets/images/Favorite.png",
-                                      scale: 3.5,
-                                    )
-                                  : Image.asset(
-                                      "assets/images/UnFavorite.png",
-                                      scale: 3.5,
-                                    ),
-                            ),
-                          ),
+                          Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 12.0),
+                              child: Align(
+                                alignment: Alignment.centerRight,
+                                child: IconButton(
+                                  icon: Image.asset(
+                                    _favoriteBloc.isExist(widget.catalogItemName
+                                                ?.toUpperCase() ??
+                                            '')
+                                        ? "assets/images/Favorite.png"
+                                        : "assets/images/UnFavorite.png",
+                                    scale: 3.5,
+                                  ),
+                                  onPressed: () async {
+                                    if (isLogged) {
+                                      setState(() {
+                                        _favoriteBloc.toggleFavorite(widget
+                                                .catalogItemName
+                                                ?.toUpperCase() ??
+                                            '');
+                                        if (_favoriteBloc.isExist(widget
+                                                .catalogItemName
+                                                ?.toUpperCase() ??
+                                            '')) {
+                                          onChangeFavoriteAnimation(0);
+                                        }
+                                      });
+                                    } else {
+                                      Navigator.of(context, rootNavigator: true)
+                                          .push(CreateAccountPage.route());
+                                    }
+                                  },
+                                ),
+                              )),
                         ],
                       ))
                 ],
@@ -179,15 +246,20 @@ class _HeadWidgetState extends State<HeadWidget> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                Navigator.of(context, rootNavigator: true).push(
-                                    TransactionHistory.route(
-                                        widget.urlImage,
-                                        widget.catalogItemName!,
-                                        widget.lastSale!,
-                                        false,
-                                        3,
-                                        widget.favorite,
-                                        widget.itemId));
+                                if (isLogged) {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(TransactionHistory.route(
+                                          widget.urlImage,
+                                          widget.catalogItemName!,
+                                          widget.lastSale!,
+                                          false,
+                                          3,
+                                          widget.favorite,
+                                          widget.itemId));
+                                } else {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(CreateAccountPage.route());
+                                }
                               },
                               child: Center(
                                 child: Container(

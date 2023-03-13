@@ -20,6 +20,8 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   static const String _lastCategories = 'lastCategories';
   static const String _hasImportableData = 'hasImportableData';
   static const String _accountId = 'accountId';
+  static const String _returnPage = 'returnPage';
+
   late SharedPreferences _prefs;
   @override
   SharedPreferences get prefs => _prefs;
@@ -176,5 +178,16 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
     } catch (e) {
       return [];
     }
+  }
+
+  @override
+  bool returLastPageAfterLogged() {
+    final returnPage = _prefs.getBool(_returnPage);
+    return returnPage ?? false;
+  }
+
+  @override
+  Future<void> saveReturLastPageAfterLogged(bool value) async {
+    await _prefs.setBool(_returnPage, value);
   }
 }
