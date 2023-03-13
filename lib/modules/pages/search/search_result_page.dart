@@ -15,7 +15,10 @@ import '../../common/ui/catalog_ui.dart';
 import '../../common/ui/loading.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/utils.dart';
+import '../../data/shared_preferences/shared_preferences_service.dart';
+import '../../di/injector.dart';
 import '../../models/search/catalog_item_model.dart';
+import 'package:badges/badges.dart' as badges;
 
 class SearchResultPage extends StatefulWidget {
   static const name = '/SearchResult';
@@ -46,7 +49,7 @@ class _SearchResultPageState extends State<SearchResultPage>
   @override
   void initState() {
     super.initState();
-    initFilterAndSortsWithBloc(context);
+    // initFilterAndSortsWithBloc(context);
     _textEditingController.text = widget.searchParam;
     performSearch(context, searchParam: widget.searchParam, tab: null);
   }
@@ -190,10 +193,11 @@ class _SearchResultPageState extends State<SearchResultPage>
         Padding(
           padding: const EdgeInsets.only(left: 16.0, top: 4),
           child: InkWell(
-            onTap: () {
+            onTap: () async {
               _textEditingController.text = '';
-              initFilterAndSortsWithBloc(context);
               Navigator.pop(context);
+              initFilterAndSortsWithBloc(context);
+              await initFiltersAndSorts();
             },
             child: Icon(
               Icons.arrow_back,
@@ -232,10 +236,11 @@ class _SearchResultPageState extends State<SearchResultPage>
                   builder: (context, stateSharedPreferences) {
                 return stateSharedPreferences.map(
                   setPreference: (state) => IconButton(
-                    onPressed: () {
-                      setIsForSale(!state.model.isForSale);
+                    onPressed: () async {
+                      await setIsForSale(!state.model.isForSale);
+                      if (!mounted) return;
                       performSearch(context,
-                          isForsale: !state.model.isForSale,
+                          // isForsale: !state.model.isForSale,
                           tab: SearchTab.all);
                     },
                     icon: Image.asset(
@@ -249,18 +254,48 @@ class _SearchResultPageState extends State<SearchResultPage>
                   ),
                 );
               }),
-              IconButton(
-                onPressed: () {
-                  Navigator.of(context, rootNavigator: true).push(
-                      FiltersBottomSheet.route(context,
-                          searchParam: widget.searchParam));
-                },
-                icon: Image.asset(
-                  "assets/icons/Filter.png",
-                  height: 20,
-                  width: 20,
-                ),
-              ),
+              BlocBuilder<SharedPreferencesBloc, SharedPreferencesState>(
+                  builder: (context, stateSharedPreferences) {
+                return stateSharedPreferences.map(
+                  setPreference: (state) => IconButton(
+                    onPressed: () {
+                      Navigator.of(context, rootNavigator: true).push(
+                          FiltersBottomSheet.route(context,
+                              searchParam: widget.searchParam));
+                    },
+                    icon: badges.Badge(
+                      showBadge: state.model.filtersAndSortsSelected > 0,
+                      badgeContent: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          const Icon(Icons.check, color: Colors.white, size: 6),
+                          Text(
+                            '${state.model.filtersAndSortsSelected}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(
+                                    fontFamily: "Ringside",
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                      position: badges.BadgePosition.topEnd(top: -16, end: -8),
+                      badgeStyle: badges.BadgeStyle(
+                          badgeColor: Palette.current.primaryNeonGreen),
+                      child: Image.asset(
+                        "assets/icons/Filter.png",
+                        color: state.model.filtersAndSortsSelected > 0
+                            ? Palette.current.primaryNeonGreen
+                            : Palette.current.primaryWhiteSmoke,
+                        height: 20,
+                        width: 20,
+                      ),
+                    ),
+                  ),
+                );
+              })
             ],
           ),
         ),
@@ -268,10 +303,11 @@ class _SearchResultPageState extends State<SearchResultPage>
     );
   }
 
-  void setIsForSale(bool isForSale) {
+  Future<void> setIsForSale(bool isForSale) async {
     final preference = context.read<SharedPreferencesBloc>().state.model;
     context.read<SharedPreferencesBloc>().add(
         SharedPreferencesEvent.setPreference(
             preference.copyWith(isForSale: isForSale)));
+    await getIt<PreferenceRepositoryService>().saveIsForSale(isForSale);
   }
 }

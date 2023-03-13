@@ -4,6 +4,7 @@ import 'package:swagapp/modules/models/search/filter_model.dart';
 import '../../api/api.dart';
 import '../../api/api_service.dart';
 import '../../blocs/search_bloc.dart/search_bloc.dart';
+import '../../common/utils/utils.dart';
 import '../../models/search/catalog_item_model.dart';
 import '../../models/search/search_request_payload_model.dart';
 import '../../models/search_tabs/search_tabs_response_model.dart';
@@ -39,7 +40,7 @@ class SearchService extends ISearchService {
     } else {
       final response = await search(
           SearchRequestPayloadModel(
-              filters: const FilterModel(),
+              filters: getCurrentFilterModel(),
               categoryId: await SearchTabWrapper(tab).toStringCustom()),
           tab);
       _cachedSearch[tab] = response[tab] ?? [];
@@ -49,7 +50,7 @@ class SearchService extends ISearchService {
   @override
   Future<Map<SearchTab, List<CatalogItemModel>>> find(
       String term, SearchTab tab,
-      [bool refresh = false]) async {
+      {bool refresh = false}) async {
     await getCashedOrNew(refresh, term, tab);
     return _cachedSearch;
   }

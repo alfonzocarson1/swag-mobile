@@ -21,7 +21,7 @@ mixin _$SearchEvent {
     required TResult Function(SearchRequestPayloadModel payload, SearchTab tab)
         performSearch,
     required TResult Function() reset,
-    required TResult Function(SearchTab tab) selectTab,
+    required TResult Function(SearchTab tab, bool refresh) selectTab,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -29,7 +29,7 @@ mixin _$SearchEvent {
     TResult? Function(SearchRequestPayloadModel payload, SearchTab tab)?
         performSearch,
     TResult? Function()? reset,
-    TResult? Function(SearchTab tab)? selectTab,
+    TResult? Function(SearchTab tab, bool refresh)? selectTab,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -37,7 +37,7 @@ mixin _$SearchEvent {
     TResult Function(SearchRequestPayloadModel payload, SearchTab tab)?
         performSearch,
     TResult Function()? reset,
-    TResult Function(SearchTab tab)? selectTab,
+    TResult Function(SearchTab tab, bool refresh)? selectTab,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -168,7 +168,7 @@ class _$_PerformSearch implements _PerformSearch {
     required TResult Function(SearchRequestPayloadModel payload, SearchTab tab)
         performSearch,
     required TResult Function() reset,
-    required TResult Function(SearchTab tab) selectTab,
+    required TResult Function(SearchTab tab, bool refresh) selectTab,
   }) {
     return performSearch(payload, tab);
   }
@@ -179,7 +179,7 @@ class _$_PerformSearch implements _PerformSearch {
     TResult? Function(SearchRequestPayloadModel payload, SearchTab tab)?
         performSearch,
     TResult? Function()? reset,
-    TResult? Function(SearchTab tab)? selectTab,
+    TResult? Function(SearchTab tab, bool refresh)? selectTab,
   }) {
     return performSearch?.call(payload, tab);
   }
@@ -190,7 +190,7 @@ class _$_PerformSearch implements _PerformSearch {
     TResult Function(SearchRequestPayloadModel payload, SearchTab tab)?
         performSearch,
     TResult Function()? reset,
-    TResult Function(SearchTab tab)? selectTab,
+    TResult Function(SearchTab tab, bool refresh)? selectTab,
     required TResult orElse(),
   }) {
     if (performSearch != null) {
@@ -287,7 +287,7 @@ class _$_SearchEventReset implements _SearchEventReset {
     required TResult Function(SearchRequestPayloadModel payload, SearchTab tab)
         performSearch,
     required TResult Function() reset,
-    required TResult Function(SearchTab tab) selectTab,
+    required TResult Function(SearchTab tab, bool refresh) selectTab,
   }) {
     return reset();
   }
@@ -298,7 +298,7 @@ class _$_SearchEventReset implements _SearchEventReset {
     TResult? Function(SearchRequestPayloadModel payload, SearchTab tab)?
         performSearch,
     TResult? Function()? reset,
-    TResult? Function(SearchTab tab)? selectTab,
+    TResult? Function(SearchTab tab, bool refresh)? selectTab,
   }) {
     return reset?.call();
   }
@@ -309,7 +309,7 @@ class _$_SearchEventReset implements _SearchEventReset {
     TResult Function(SearchRequestPayloadModel payload, SearchTab tab)?
         performSearch,
     TResult Function()? reset,
-    TResult Function(SearchTab tab)? selectTab,
+    TResult Function(SearchTab tab, bool refresh)? selectTab,
     required TResult orElse(),
   }) {
     if (reset != null) {
@@ -363,7 +363,7 @@ abstract class _$$_SearchEventSelectTabCopyWith<$Res> {
           $Res Function(_$_SearchEventSelectTab) then) =
       __$$_SearchEventSelectTabCopyWithImpl<$Res>;
   @useResult
-  $Res call({SearchTab tab});
+  $Res call({SearchTab tab, bool refresh});
 }
 
 /// @nodoc
@@ -378,12 +378,17 @@ class __$$_SearchEventSelectTabCopyWithImpl<$Res>
   @override
   $Res call({
     Object? tab = null,
+    Object? refresh = null,
   }) {
     return _then(_$_SearchEventSelectTab(
       null == tab
           ? _value.tab
           : tab // ignore: cast_nullable_to_non_nullable
               as SearchTab,
+      null == refresh
+          ? _value.refresh
+          : refresh // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -391,14 +396,16 @@ class __$$_SearchEventSelectTabCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_SearchEventSelectTab implements _SearchEventSelectTab {
-  const _$_SearchEventSelectTab(this.tab);
+  const _$_SearchEventSelectTab(this.tab, this.refresh);
 
   @override
   final SearchTab tab;
+  @override
+  final bool refresh;
 
   @override
   String toString() {
-    return 'SearchEvent.selectTab(tab: $tab)';
+    return 'SearchEvent.selectTab(tab: $tab, refresh: $refresh)';
   }
 
   @override
@@ -406,11 +413,12 @@ class _$_SearchEventSelectTab implements _SearchEventSelectTab {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SearchEventSelectTab &&
-            (identical(other.tab, tab) || other.tab == tab));
+            (identical(other.tab, tab) || other.tab == tab) &&
+            (identical(other.refresh, refresh) || other.refresh == refresh));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, tab);
+  int get hashCode => Object.hash(runtimeType, tab, refresh);
 
   @JsonKey(ignore: true)
   @override
@@ -425,9 +433,9 @@ class _$_SearchEventSelectTab implements _SearchEventSelectTab {
     required TResult Function(SearchRequestPayloadModel payload, SearchTab tab)
         performSearch,
     required TResult Function() reset,
-    required TResult Function(SearchTab tab) selectTab,
+    required TResult Function(SearchTab tab, bool refresh) selectTab,
   }) {
-    return selectTab(tab);
+    return selectTab(tab, refresh);
   }
 
   @override
@@ -436,9 +444,9 @@ class _$_SearchEventSelectTab implements _SearchEventSelectTab {
     TResult? Function(SearchRequestPayloadModel payload, SearchTab tab)?
         performSearch,
     TResult? Function()? reset,
-    TResult? Function(SearchTab tab)? selectTab,
+    TResult? Function(SearchTab tab, bool refresh)? selectTab,
   }) {
-    return selectTab?.call(tab);
+    return selectTab?.call(tab, refresh);
   }
 
   @override
@@ -447,11 +455,11 @@ class _$_SearchEventSelectTab implements _SearchEventSelectTab {
     TResult Function(SearchRequestPayloadModel payload, SearchTab tab)?
         performSearch,
     TResult Function()? reset,
-    TResult Function(SearchTab tab)? selectTab,
+    TResult Function(SearchTab tab, bool refresh)? selectTab,
     required TResult orElse(),
   }) {
     if (selectTab != null) {
-      return selectTab(tab);
+      return selectTab(tab, refresh);
     }
     return orElse();
   }
@@ -492,10 +500,11 @@ class _$_SearchEventSelectTab implements _SearchEventSelectTab {
 }
 
 abstract class _SearchEventSelectTab implements SearchEvent {
-  const factory _SearchEventSelectTab(final SearchTab tab) =
+  const factory _SearchEventSelectTab(final SearchTab tab, final bool refresh) =
       _$_SearchEventSelectTab;
 
   SearchTab get tab;
+  bool get refresh;
   @JsonKey(ignore: true)
   _$$_SearchEventSelectTabCopyWith<_$_SearchEventSelectTab> get copyWith =>
       throw _privateConstructorUsedError;

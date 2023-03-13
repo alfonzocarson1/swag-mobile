@@ -12,6 +12,7 @@ import 'package:swagapp/modules/pages/search/tabs/headcovers_page.dart';
 import 'package:swagapp/modules/pages/search/tabs/putters_page.dart';
 import 'package:swagapp/modules/pages/search/search_on_tap_page.dart';
 import 'package:swagapp/modules/pages/search/tabs/whats_hot_page.dart';
+import 'package:badges/badges.dart' as badges;
 
 import '../../blocs/search_bloc.dart/search_bloc.dart';
 import '../../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
@@ -39,6 +40,7 @@ class _SearchPageState extends State<SearchPage>
   late final TabController _tabController;
   int selectedIndex = 0;
   final TextEditingController _textEditingController = TextEditingController();
+  int filterIndicatorCounter = 0;
 
   List<dynamic> categoriesData = [];
   var tabLen = 0;
@@ -50,9 +52,20 @@ class _SearchPageState extends State<SearchPage>
     _tabController = TabController(length: 4, vsync: this);
     _tabController.addListener(() {
       final index = _tabController.index;
-      context
-          .read<SearchBloc>()
-          .add(SearchEvent.selectTab(SearchTab.values[index]));
+      final preference = context.read<SharedPreferencesBloc>().state.model;
+      context.read<SearchBloc>().add(SearchEvent.selectTab(
+          SearchTab.values[index],
+          true)); //preference.filtersAndSortsSelected > 0 //TODO logic to update only if there was a change in filters and sorts between tabs
+      //Sets the Product in the Filters everytime the user changes between Headers, Putters or Accessories tabs
+
+      context.read<SharedPreferencesBloc>().add(
+          SharedPreferencesEvent.setPreference(
+              preference.copyWith(product: index != 0 ? [index - 1] : [])));
+      if (index > 0) {
+        filterIndicatorCounter = 1;
+      } else {
+        filterIndicatorCounter = 0;
+      }
     });
     // _isLogged = getIt<PreferenceRepositoryService>().isLogged();
     // if (_isLogged) {
@@ -166,10 +179,11 @@ class _SearchPageState extends State<SearchPage>
                   builder: (context, stateSharedPreferences) {
                 return stateSharedPreferences.map(
                   setPreference: (state) => IconButton(
-                    onPressed: () {
-                      setIsForSale(!state.model.isForSale);
+                    onPressed: () async {
+                      await setIsForSale(!state.model.isForSale);
+                      if (!mounted) return;
                       performSearch(context,
-                          isForsale: !state.model.isForSale,
+                          // isForsale: !state.model.isForSale,
                           tab:
                               SearchTab.values.elementAt(_tabController.index));
                     },
@@ -184,20 +198,54 @@ class _SearchPageState extends State<SearchPage>
                   ),
                 );
               }),
-              IconButton(
-                onPressed: () {
-                  Navigator.of(context, rootNavigator: true)
-                      .push(FiltersBottomSheet.route(
-                    tab: SearchTab.values[_tabController.index],
-                    context,
-                  ));
-                },
-                icon: Image.asset(
-                  "assets/icons/Filter.png",
-                  height: 20,
-                  width: 20,
-                ),
-              ),
+              BlocBuilder<SharedPreferencesBloc, SharedPreferencesState>(
+                  builder: (context, stateSharedPreferences) {
+                return stateSharedPreferences.map(
+                  setPreference: (state) => IconButton(
+                    onPressed: () {
+                      Navigator.of(context, rootNavigator: true)
+                          .push(FiltersBottomSheet.route(
+                        tab: SearchTab.values[_tabController.index],
+                        context,
+                      ));
+                    },
+                    icon: badges.Badge(
+                      showBadge: (state.model.filtersAndSortsSelected +
+                              filterIndicatorCounter) >
+                          0,
+                      badgeContent: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          const Icon(Icons.check, color: Colors.white, size: 6),
+                          Text(
+                            '${(state.model.filtersAndSortsSelected + filterIndicatorCounter)}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(
+                                    fontFamily: "Ringside",
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                      position: badges.BadgePosition.topEnd(top: -16, end: -8),
+                      badgeStyle: badges.BadgeStyle(
+                          badgeColor: Palette.current.primaryNeonGreen),
+                      child: Image.asset(
+                        "assets/icons/Filter.png",
+                        color: (state.model.filtersAndSortsSelected +
+                                    filterIndicatorCounter) >
+                                0
+                            ? Palette.current.primaryNeonGreen
+                            : Palette.current.primaryWhiteSmoke,
+                        height: 20,
+                        width: 20,
+                      ),
+                    ),
+                  ),
+                );
+              })
             ],
           ),
         ),
@@ -205,11 +253,12 @@ class _SearchPageState extends State<SearchPage>
     );
   }
 
-  void setIsForSale(bool isForSale) {
+  Future<void> setIsForSale(bool isForSale) async {
     final preference = context.read<SharedPreferencesBloc>().state.model;
     context.read<SharedPreferencesBloc>().add(
         SharedPreferencesEvent.setPreference(
             preference.copyWith(isForSale: isForSale)));
+    await getIt<PreferenceRepositoryService>().saveIsForSale(isForSale);
   }
 
   Widget _getTabBar(BuildContext context) {

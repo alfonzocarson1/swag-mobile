@@ -32,6 +32,8 @@ class FilterCategoryPage extends StatefulWidget {
           bool isMultipleSelection = false}) =>
       PageRoutes.modalBottomSheet(
         isScrollControlled: true,
+        enableDrag: false,
+        isDismissible: false,
         settings: const RouteSettings(name: name),
         builder: (context) => FilterCategoryPage(
           filterType: filterType,
@@ -238,6 +240,12 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
 
   void initFor(FilterType type) {
     switch (type) {
+      case FilterType.product:
+        checkBoxIndexes = getIt<PreferenceRepositoryService>()
+            .getProduct()
+            .map(int.parse)
+            .toList();
+        break;
       case FilterType.condition:
         checkBoxIndexes = getIt<PreferenceRepositoryService>()
             .getCondition()
@@ -245,7 +253,10 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
             .toList();
         break;
       case FilterType.price:
-        checkBoxIndexes.add(getIt<PreferenceRepositoryService>().getPrice());
+        checkBoxIndexes = getIt<PreferenceRepositoryService>()
+            .getPrice()
+            .map(int.parse)
+            .toList();
         break;
       case FilterType.sortBy:
         checkBoxIndexes.add(getIt<PreferenceRepositoryService>().getSortBy());
@@ -260,6 +271,8 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
 
   String getPageTitle(FilterType type) {
     switch (type) {
+      case FilterType.product:
+        return S.of(context).product.toUpperCase();
       case FilterType.condition:
         return S.of(context).condition.toUpperCase();
       case FilterType.price:
@@ -275,6 +288,11 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
     final preference = context.read<SharedPreferencesBloc>().state.model;
     List<int> newList = List.from(checkBoxIndexes);
     switch (type) {
+      case FilterType.product:
+        context.read<SharedPreferencesBloc>().add(
+            SharedPreferencesEvent.setPreference(
+                preference.copyWith(product: newList)));
+        break;
       case FilterType.condition:
         context.read<SharedPreferencesBloc>().add(
             SharedPreferencesEvent.setPreference(
@@ -283,7 +301,7 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
       case FilterType.price:
         context.read<SharedPreferencesBloc>().add(
             SharedPreferencesEvent.setPreference(
-                preference.copyWith(price: checkBoxIndexes[0])));
+                preference.copyWith(price: newList)));
         break;
       case FilterType.sortBy:
         context.read<SharedPreferencesBloc>().add(
@@ -299,6 +317,16 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
 
   Widget getItemListFor(FilterType type) {
     switch (type) {
+      case FilterType.product:
+        return Column(
+          children: [
+            _filterItem(
+                context, S.of(context).headcovers, Product.headcovers.index),
+            _filterItem(context, S.of(context).putters, Product.putters.index),
+            _filterItem(
+                context, S.of(context).accessories, Product.accessories.index),
+          ],
+        );
       case FilterType.condition:
         return Column(
           children: [

@@ -20,11 +20,12 @@ abstract class PreferenceRepositoryInt {
   Future<void> setSortBy(int value);
   List<String> getCondition();
   Future<void> setCondition(List<String> list);
-  int getPrice();
-  Future<void> setPrice(int value);
+  List<String> getPrice();
+  Future<void> setPrice(List<String> list);
   List<String> getReleaseDate();
   Future<void> setReleaseDate(List<String> list);
-
+  List<String> getProduct();
+  Future<void> setProduct(List<String> list);
   Future<void> saveLastCategories(dynamic cList);
   Future<List<CategoryModel>> getLastCategories();
 

@@ -23,7 +23,7 @@ mixin _$FilterModel {
   bool get forSale => throw _privateConstructorUsedError;
   int get sortBy => throw _privateConstructorUsedError;
   String? get collection => throw _privateConstructorUsedError;
-  String? get productType => throw _privateConstructorUsedError;
+  List<String>? get productType => throw _privateConstructorUsedError;
   String? get type => throw _privateConstructorUsedError;
   List<String>? get theme => throw _privateConstructorUsedError;
   List<String>? get conditions => throw _privateConstructorUsedError;
@@ -47,7 +47,7 @@ abstract class $FilterModelCopyWith<$Res> {
       {bool forSale,
       int sortBy,
       String? collection,
-      String? productType,
+      List<String>? productType,
       String? type,
       List<String>? theme,
       List<String>? conditions,
@@ -96,7 +96,7 @@ class _$FilterModelCopyWithImpl<$Res, $Val extends FilterModel>
       productType: freezed == productType
           ? _value.productType
           : productType // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as List<String>?,
       type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -137,7 +137,7 @@ abstract class _$$_FilterModelCopyWith<$Res>
       {bool forSale,
       int sortBy,
       String? collection,
-      String? productType,
+      List<String>? productType,
       String? type,
       List<String>? theme,
       List<String>? conditions,
@@ -182,9 +182,9 @@ class __$$_FilterModelCopyWithImpl<$Res>
           : collection // ignore: cast_nullable_to_non_nullable
               as String?,
       productType: freezed == productType
-          ? _value.productType
+          ? _value._productType
           : productType // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as List<String>?,
       type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -221,14 +221,15 @@ class _$_FilterModel implements _FilterModel {
       {this.forSale = false,
       this.sortBy = 0,
       this.collection = null,
-      this.productType = null,
+      final List<String>? productType = null,
       this.type = null,
       final List<String>? theme = null,
       final List<String>? conditions = null,
       final List<int>? releaseYears = null,
       final List<int>? priceRanges = null,
       this.rarityScore = null})
-      : _theme = theme,
+      : _productType = productType,
+        _theme = theme,
         _conditions = conditions,
         _releaseYears = releaseYears,
         _priceRanges = priceRanges;
@@ -245,9 +246,17 @@ class _$_FilterModel implements _FilterModel {
   @override
   @JsonKey()
   final String? collection;
+  final List<String>? _productType;
   @override
   @JsonKey()
-  final String? productType;
+  List<String>? get productType {
+    final value = _productType;
+    if (value == null) return null;
+    if (_productType is EqualUnmodifiableListView) return _productType;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   @JsonKey()
   final String? type;
@@ -313,8 +322,8 @@ class _$_FilterModel implements _FilterModel {
             (identical(other.sortBy, sortBy) || other.sortBy == sortBy) &&
             (identical(other.collection, collection) ||
                 other.collection == collection) &&
-            (identical(other.productType, productType) ||
-                other.productType == productType) &&
+            const DeepCollectionEquality()
+                .equals(other._productType, _productType) &&
             (identical(other.type, type) || other.type == type) &&
             const DeepCollectionEquality().equals(other._theme, _theme) &&
             const DeepCollectionEquality()
@@ -334,7 +343,7 @@ class _$_FilterModel implements _FilterModel {
       forSale,
       sortBy,
       collection,
-      productType,
+      const DeepCollectionEquality().hash(_productType),
       type,
       const DeepCollectionEquality().hash(_theme),
       const DeepCollectionEquality().hash(_conditions),
@@ -361,7 +370,7 @@ abstract class _FilterModel implements FilterModel {
       {final bool forSale,
       final int sortBy,
       final String? collection,
-      final String? productType,
+      final List<String>? productType,
       final String? type,
       final List<String>? theme,
       final List<String>? conditions,
@@ -379,7 +388,7 @@ abstract class _FilterModel implements FilterModel {
   @override
   String? get collection;
   @override
-  String? get productType;
+  List<String>? get productType;
   @override
   String? get type;
   @override

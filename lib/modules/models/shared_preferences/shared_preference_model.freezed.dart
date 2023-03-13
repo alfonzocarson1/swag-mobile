@@ -25,8 +25,10 @@ mixin _$SharedPreferenceModel {
   bool get isForSale => throw _privateConstructorUsedError;
   int get sortBy => throw _privateConstructorUsedError;
   List<int> get condition => throw _privateConstructorUsedError;
-  int get price => throw _privateConstructorUsedError;
+  List<int> get price => throw _privateConstructorUsedError;
   List<int> get releaseDate => throw _privateConstructorUsedError;
+  List<int> get product => throw _privateConstructorUsedError;
+  int get filtersAndSortsSelected => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,8 +47,10 @@ abstract class $SharedPreferenceModelCopyWith<$Res> {
       bool isForSale,
       int sortBy,
       List<int> condition,
-      int price,
-      List<int> releaseDate});
+      List<int> price,
+      List<int> releaseDate,
+      List<int> product,
+      int filtersAndSortsSelected});
 }
 
 /// @nodoc
@@ -69,6 +73,8 @@ class _$SharedPreferenceModelCopyWithImpl<$Res,
     Object? condition = null,
     Object? price = null,
     Object? releaseDate = null,
+    Object? product = null,
+    Object? filtersAndSortsSelected = null,
   }) {
     return _then(_value.copyWith(
       isListView: null == isListView
@@ -90,11 +96,19 @@ class _$SharedPreferenceModelCopyWithImpl<$Res,
       price: null == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as int,
+              as List<int>,
       releaseDate: null == releaseDate
           ? _value.releaseDate
           : releaseDate // ignore: cast_nullable_to_non_nullable
               as List<int>,
+      product: null == product
+          ? _value.product
+          : product // ignore: cast_nullable_to_non_nullable
+              as List<int>,
+      filtersAndSortsSelected: null == filtersAndSortsSelected
+          ? _value.filtersAndSortsSelected
+          : filtersAndSortsSelected // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -112,8 +126,10 @@ abstract class _$$_SharedPreferenceModelCopyWith<$Res>
       bool isForSale,
       int sortBy,
       List<int> condition,
-      int price,
-      List<int> releaseDate});
+      List<int> price,
+      List<int> releaseDate,
+      List<int> product,
+      int filtersAndSortsSelected});
 }
 
 /// @nodoc
@@ -133,6 +149,8 @@ class __$$_SharedPreferenceModelCopyWithImpl<$Res>
     Object? condition = null,
     Object? price = null,
     Object? releaseDate = null,
+    Object? product = null,
+    Object? filtersAndSortsSelected = null,
   }) {
     return _then(_$_SharedPreferenceModel(
       isListView: null == isListView
@@ -152,13 +170,21 @@ class __$$_SharedPreferenceModelCopyWithImpl<$Res>
           : condition // ignore: cast_nullable_to_non_nullable
               as List<int>,
       price: null == price
-          ? _value.price
+          ? _value._price
           : price // ignore: cast_nullable_to_non_nullable
-              as int,
+              as List<int>,
       releaseDate: null == releaseDate
           ? _value._releaseDate
           : releaseDate // ignore: cast_nullable_to_non_nullable
               as List<int>,
+      product: null == product
+          ? _value._product
+          : product // ignore: cast_nullable_to_non_nullable
+              as List<int>,
+      filtersAndSortsSelected: null == filtersAndSortsSelected
+          ? _value.filtersAndSortsSelected
+          : filtersAndSortsSelected // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -172,10 +198,14 @@ class _$_SharedPreferenceModel implements _SharedPreferenceModel {
       this.isForSale = false,
       this.sortBy = defaultInt,
       final List<int> condition = const [],
-      this.price = filterNotApplied,
-      final List<int> releaseDate = const []})
+      final List<int> price = const [],
+      final List<int> releaseDate = const [],
+      final List<int> product = const [],
+      this.filtersAndSortsSelected = defaultInt})
       : _condition = condition,
-        _releaseDate = releaseDate;
+        _price = price,
+        _releaseDate = releaseDate,
+        _product = product;
 
   factory _$_SharedPreferenceModel.fromJson(Map<String, dynamic> json) =>
       _$$_SharedPreferenceModelFromJson(json);
@@ -198,9 +228,15 @@ class _$_SharedPreferenceModel implements _SharedPreferenceModel {
     return EqualUnmodifiableListView(_condition);
   }
 
+  final List<int> _price;
   @override
   @JsonKey()
-  final int price;
+  List<int> get price {
+    if (_price is EqualUnmodifiableListView) return _price;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_price);
+  }
+
   final List<int> _releaseDate;
   @override
   @JsonKey()
@@ -210,9 +246,22 @@ class _$_SharedPreferenceModel implements _SharedPreferenceModel {
     return EqualUnmodifiableListView(_releaseDate);
   }
 
+  final List<int> _product;
+  @override
+  @JsonKey()
+  List<int> get product {
+    if (_product is EqualUnmodifiableListView) return _product;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_product);
+  }
+
+  @override
+  @JsonKey()
+  final int filtersAndSortsSelected;
+
   @override
   String toString() {
-    return 'SharedPreferenceModel(isListView: $isListView, isForSale: $isForSale, sortBy: $sortBy, condition: $condition, price: $price, releaseDate: $releaseDate)';
+    return 'SharedPreferenceModel(isListView: $isListView, isForSale: $isForSale, sortBy: $sortBy, condition: $condition, price: $price, releaseDate: $releaseDate, product: $product, filtersAndSortsSelected: $filtersAndSortsSelected)';
   }
 
   @override
@@ -227,9 +276,13 @@ class _$_SharedPreferenceModel implements _SharedPreferenceModel {
             (identical(other.sortBy, sortBy) || other.sortBy == sortBy) &&
             const DeepCollectionEquality()
                 .equals(other._condition, _condition) &&
-            (identical(other.price, price) || other.price == price) &&
+            const DeepCollectionEquality().equals(other._price, _price) &&
             const DeepCollectionEquality()
-                .equals(other._releaseDate, _releaseDate));
+                .equals(other._releaseDate, _releaseDate) &&
+            const DeepCollectionEquality().equals(other._product, _product) &&
+            (identical(
+                    other.filtersAndSortsSelected, filtersAndSortsSelected) ||
+                other.filtersAndSortsSelected == filtersAndSortsSelected));
   }
 
   @JsonKey(ignore: true)
@@ -240,8 +293,10 @@ class _$_SharedPreferenceModel implements _SharedPreferenceModel {
       isForSale,
       sortBy,
       const DeepCollectionEquality().hash(_condition),
-      price,
-      const DeepCollectionEquality().hash(_releaseDate));
+      const DeepCollectionEquality().hash(_price),
+      const DeepCollectionEquality().hash(_releaseDate),
+      const DeepCollectionEquality().hash(_product),
+      filtersAndSortsSelected);
 
   @JsonKey(ignore: true)
   @override
@@ -264,8 +319,10 @@ abstract class _SharedPreferenceModel implements SharedPreferenceModel {
       final bool isForSale,
       final int sortBy,
       final List<int> condition,
-      final int price,
-      final List<int> releaseDate}) = _$_SharedPreferenceModel;
+      final List<int> price,
+      final List<int> releaseDate,
+      final List<int> product,
+      final int filtersAndSortsSelected}) = _$_SharedPreferenceModel;
 
   factory _SharedPreferenceModel.fromJson(Map<String, dynamic> json) =
       _$_SharedPreferenceModel.fromJson;
@@ -279,9 +336,13 @@ abstract class _SharedPreferenceModel implements SharedPreferenceModel {
   @override
   List<int> get condition;
   @override
-  int get price;
+  List<int> get price;
   @override
   List<int> get releaseDate;
+  @override
+  List<int> get product;
+  @override
+  int get filtersAndSortsSelected;
   @override
   @JsonKey(ignore: true)
   _$$_SharedPreferenceModelCopyWith<_$_SharedPreferenceModel> get copyWith =>

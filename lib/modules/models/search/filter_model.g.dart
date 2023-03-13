@@ -11,7 +11,10 @@ _$_FilterModel _$$_FilterModelFromJson(Map<String, dynamic> json) =>
       forSale: json['forSale'] as bool? ?? false,
       sortBy: json['sortBy'] as int? ?? 0,
       collection: json['collection'] as String? ?? null,
-      productType: json['productType'] as String? ?? null,
+      productType: (json['productType'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          null,
       type: json['type'] as String? ?? null,
       theme:
           (json['theme'] as List<dynamic>?)?.map((e) => e as String).toList() ??

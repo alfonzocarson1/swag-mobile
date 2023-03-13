@@ -5,5 +5,6 @@ class SearchEvent with _$SearchEvent {
   const factory SearchEvent.performSearch(
       SearchRequestPayloadModel payload, SearchTab tab) = _PerformSearch;
   const factory SearchEvent.reset() = _SearchEventReset;
-  const factory SearchEvent.selectTab(SearchTab tab) = _SearchEventSelectTab;
+  const factory SearchEvent.selectTab(SearchTab tab, bool refresh) =
+      _SearchEventSelectTab;
 }

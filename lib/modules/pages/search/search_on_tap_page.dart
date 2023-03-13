@@ -9,6 +9,8 @@ import 'package:swagapp/modules/pages/search/recent_searches_page.dart';
 import 'package:swagapp/modules/pages/search/saved_searches_page.dart';
 import 'package:swagapp/modules/pages/search/search_result_page.dart';
 
+import '../../common/utils/utils.dart';
+
 class SearchOnTapPage extends StatefulWidget {
   static const name = '/searchOnTap';
   final TextEditingController _textEditingController = TextEditingController();
@@ -74,7 +76,11 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
                           child: Material(
                             color: Colors.transparent,
                             child: InkWell(
-                              onTap: () {
+                              onTap: () async {
+                                initFilterAndSortsWithBloc(context);
+                                await initFiltersAndSorts();
+
+                                if (!mounted) return;
                                 Navigator.pop(context);
                                 PersistentNavBarNavigator.pushNewScreen(
                                   context,
@@ -93,7 +99,10 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
                         ),
                       ),
                     ),
-                    onSubmitted: (value) {
+                    onSubmitted: (value) async {
+                      initFilterAndSortsWithBloc(context);
+                      await initFiltersAndSorts();
+                      if (!mounted) return;
                       Navigator.pop(context);
                       PersistentNavBarNavigator.pushNewScreen(
                         context,

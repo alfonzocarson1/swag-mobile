@@ -15,6 +15,7 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   static const String _sortBy = 'sortBy';
   static const String _condition = 'condition';
   static const String _price = 'price';
+  static const String _product = 'product';
   static const String _releaseDate = 'releaseDate';
   static const String _lastCategories = 'lastCategories';
   static const String _hasImportableData = 'hasImportableData';
@@ -128,14 +129,14 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   }
 
   @override
-  int getPrice() {
-    final price = _prefs.getInt(_price);
-    return price ?? defaultInt;
+  List<String> getPrice() {
+    final price = _prefs.getStringList(_price);
+    return price ?? [];
   }
 
   @override
-  Future<void> setPrice(int value) async {
-    await _prefs.setInt(_price, value);
+  Future<void> setPrice(List<String> list) async {
+    await _prefs.setStringList(_price, list);
   }
 
   @override
@@ -147,6 +148,17 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   @override
   Future<void> setReleaseDate(List<String> list) async {
     await _prefs.setStringList(_releaseDate, list);
+  }
+
+  @override
+  List<String> getProduct() {
+    final list = _prefs.getStringList(_product);
+    return list ?? [];
+  }
+
+  @override
+  Future<void> setProduct(List<String> list) async {
+    await _prefs.setStringList(_product, list);
   }
 
   @override

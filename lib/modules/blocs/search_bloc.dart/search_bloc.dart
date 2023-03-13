@@ -52,10 +52,12 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     // yield SearchState.recentSearch(queries: _getSearchQuerySuggestion());
   }
 
-  Stream<SearchState> _selectTab(final SearchTab tab) async* {
+  Stream<SearchState> _selectTab(final SearchTab tab, bool refresh) async* {
     if (tab == state.tab) return;
     yield SearchState.initial();
-    final results = await searchService.find(state.query, tab);
+
+    final results =
+        await searchService.find(state.query, tab, refresh: refresh);
     yield SearchState.result(result: results, tab: tab);
     // yield state.maybeMap(
     //   orElse: () => state,

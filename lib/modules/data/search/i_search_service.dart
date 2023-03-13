@@ -8,5 +8,5 @@ abstract class ISearchService {
       SearchRequestPayloadModel model, SearchTab tab);
   Future<Map<SearchTab, List<CatalogItemModel>>> find(
       String term, SearchTab tab,
-      [final bool refresh = false]);
+      {final bool refresh = false});
 }

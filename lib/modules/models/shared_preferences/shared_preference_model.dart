@@ -12,8 +12,10 @@ class SharedPreferenceModel with _$SharedPreferenceModel {
     @Default(false) final bool isForSale,
     @Default(defaultInt) final int sortBy,
     @Default([]) final List<int> condition,
-    @Default(filterNotApplied) final int price,
+    @Default([]) final List<int> price,
     @Default([]) final List<int> releaseDate,
+    @Default([]) final List<int> product,
+    @Default(defaultInt) final int filtersAndSortsSelected,
   }) = _SharedPreferenceModel;
 
   factory SharedPreferenceModel.fromJson(Map<String, dynamic> json) =>

@@ -28,7 +28,7 @@ const countries = [
   "KR",
 ];
 
-enum FilterType { sortBy, condition, price, releaseDate }
+enum FilterType { sortBy, condition, price, releaseDate, product }
 
 enum ReleaseDate {
   y2018,
@@ -143,6 +143,26 @@ class SortByWrapper {
         return 'A to Z';
       case SortBy.ztoA:
         return 'Z to A';
+    }
+  }
+}
+
+enum Product { headcovers, putters, accessories }
+
+class ProductWrapper {
+  final Product type;
+
+  ProductWrapper(this.type);
+
+  @override
+  String toString() {
+    switch (type) {
+      case Product.headcovers:
+        return 'Headcovers';
+      case Product.putters:
+        return 'Putters';
+      case Product.accessories:
+        return 'Accessories';
     }
   }
 }

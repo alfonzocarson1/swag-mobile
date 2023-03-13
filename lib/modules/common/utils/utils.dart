@@ -47,28 +47,88 @@ bool isTokenValid(String? token) {
 }
 
 Future<void> performSearch(BuildContext context,
-    {String? searchParam, SearchTab? tab, bool? isForsale = false}) async {
+    {String? searchParam, SearchTab? tab}) async {
   final sharedPref = getIt<PreferenceRepositoryService>();
   final conditionList = sharedPref.getCondition().map(int.parse).toList();
   final releaseList = sharedPref.getReleaseDate().map(int.parse).toList();
+  final priceList = sharedPref.getPrice().map(int.parse).toList();
+  final productList = sharedPref.getProduct().map(int.parse).toList();
+
+  updateSelectedFiltersAndSortsNumber(context, [
+    sharedPref.isForSale(),
+    conditionList.isNotEmpty,
+    releaseList.isNotEmpty,
+    priceList.isNotEmpty
+  ]);
 
   context.read<SearchBloc>().add(SearchEvent.performSearch(
       SearchRequestPayloadModel(
           searchParams: searchParam != null ? [searchParam] : null,
           categoryId:
               tab != null ? await SearchTabWrapper(tab).toStringCustom() : null,
-          filters: FilterModel(
-              forSale: isForsale!,
-              sortBy: sharedPref.getSortBy(),
-              releaseYears: sharedPref.getReleaseDate().isEmpty
-                  ? null
-                  : getReleaseYearsList(releaseList),
-              conditions: sharedPref.getCondition().isEmpty ||
-                      sharedPref.getCondition().length ==
-                          Condition.values.length
-                  ? null
-                  : getConditionStringList(conditionList))),
+          filters: getCurrentFilterModel()),
       tab ?? SearchTab.all));
+}
+
+FilterModel getCurrentFilterModel() {
+  final sharedPref = getIt<PreferenceRepositoryService>();
+  final conditionList = sharedPref.getCondition().map(int.parse).toList();
+  final releaseList = sharedPref.getReleaseDate().map(int.parse).toList();
+  final priceList = sharedPref.getPrice().map(int.parse).toList();
+  final productList = sharedPref.getProduct().map(int.parse).toList();
+  final isForSale = sharedPref.isForSale();
+  return FilterModel(
+    forSale: isForSale,
+    sortBy: sharedPref.getSortBy(),
+    priceRanges: sharedPref.getPrice().isEmpty ||
+            sharedPref.getPrice().length == Price.values.length
+        ? null
+        : getPriceRangeList(priceList),
+    releaseYears: sharedPref.getReleaseDate().isEmpty ||
+            sharedPref.getReleaseDate().length == ReleaseDate.values.length
+        ? null
+        : getReleaseYearsList(releaseList),
+    conditions: sharedPref.getCondition().isEmpty ||
+            sharedPref.getCondition().length == Condition.values.length
+        ? null
+        : getConditionStringList(conditionList),
+    // productType: sharedPref.getProduct().isEmpty ||
+    //         sharedPref.getProduct().length == Product.values.length
+    //     ? null
+    //     : getProductStringList(productList)
+  );
+}
+
+void updateSelectedFiltersAndSortsNumber(
+    BuildContext context, List<bool> list) {
+  final preference = context.read<SharedPreferencesBloc>().state.model;
+
+  context.read<SharedPreferencesBloc>().add(
+      SharedPreferencesEvent.setPreference(preference.copyWith(
+          isForSale: list[0],
+          filtersAndSortsSelected: list.where((c) => c).length)));
+}
+
+List<int> getPriceRangeList(List<int> priceList) {
+  List<int> list = [];
+  for (var element in priceList) {
+    List<String> range = PriceWrapper(Price.values.elementAt(element))
+        .toString()
+        .replaceAll('\$', '')
+        .split('-');
+    range.removeWhere((element) => element.contains('Above'));
+    if (range.contains("Less than 111")) {
+      range.removeWhere((element) => element.contains("Less than 111"));
+      range.addAll(['0', '111']);
+    }
+    list.addAll(range.map(int.parse).toList());
+  }
+
+  var maximumNumber =
+      list.reduce((value, element) => value > element ? value : element);
+  var minimumNumber =
+      list.reduce((value, element) => value < element ? value : element);
+  return [minimumNumber, maximumNumber];
 }
 
 List<int> getReleaseYearsList(List<int> releaseList) {
@@ -76,6 +136,21 @@ List<int> getReleaseYearsList(List<int> releaseList) {
   for (var element in releaseList) {
     list.add(int.parse(
         ReleaseDateWrapper(ReleaseDate.values.elementAt(element)).toString()));
+  }
+  return list;
+}
+
+List<String> getProductStringList(List<int> productList) {
+  List<String> list = [];
+  for (var element in productList) {
+    if (list.isEmpty) {
+      list.add(ProductWrapper(Product.values.elementAt(element))
+          .toString()
+          .toUpperCase());
+    } else {
+      list[0] =
+          "${list[0]},${ProductWrapper(Product.values.elementAt(element)).toString().toUpperCase()}";
+    }
   }
   return list;
 }
@@ -95,13 +170,14 @@ List<String> getConditionStringList(List<int> conditionList) {
   return list;
 }
 
-void initFiltersAndSorts() {
-  getIt<PreferenceRepositoryService>().saveIsListView(true);
-  getIt<PreferenceRepositoryService>().saveIsForSale(false);
-  getIt<PreferenceRepositoryService>().setSortBy(defaultInt);
-  getIt<PreferenceRepositoryService>().setCondition([]);
-  getIt<PreferenceRepositoryService>().setPrice(filterNotApplied);
-  getIt<PreferenceRepositoryService>().setReleaseDate([]);
+Future<void> initFiltersAndSorts() async {
+  await getIt<PreferenceRepositoryService>().saveIsListView(true);
+  await getIt<PreferenceRepositoryService>().saveIsForSale(false);
+  await getIt<PreferenceRepositoryService>().setSortBy(defaultInt);
+  await getIt<PreferenceRepositoryService>().setCondition([]);
+  await getIt<PreferenceRepositoryService>().setPrice([]);
+  await getIt<PreferenceRepositoryService>().setReleaseDate([]);
+  await getIt<PreferenceRepositoryService>().setProduct([]);
 }
 
 void initFilterAndSortsWithBloc(BuildContext context) {
@@ -111,6 +187,9 @@ void initFilterAndSortsWithBloc(BuildContext context) {
           isForSale: false,
           sortBy: defaultInt,
           condition: [],
-          price: filterNotApplied,
+          price: [],
+          product: [],
           releaseDate: [])));
+  // await getIt<PreferenceRepositoryService>().setCondition([]);
+  // await getIt<PreferenceRepositoryService>().saveIsForSale(false);
 }

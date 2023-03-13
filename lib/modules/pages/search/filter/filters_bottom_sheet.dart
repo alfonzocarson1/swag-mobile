@@ -24,6 +24,8 @@ class FiltersBottomSheet extends StatefulWidget {
           {String? searchParam, SearchTab? tab}) =>
       PageRoutes.modalBottomSheet(
         isScrollControlled: true,
+        enableDrag: false,
+        isDismissible: false,
         settings: const RouteSettings(name: '/update-avatar-bottom-sheet'),
         builder: (context) => FiltersBottomSheet(
           searchParam: searchParam,
@@ -188,8 +190,21 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                               ),
                             ),
                           ),
-                          _filterItem(context,
-                              S.of(context).product.toUpperCase(), () {}),
+                          _filterItem(
+                              context,
+                              S.of(context).product.toUpperCase(),
+                              widget.tab == SearchTab.whatsHot ||
+                                      widget.tab == SearchTab.all ||
+                                      widget.tab == null
+                                  ? () {
+                                      Navigator.of(context, rootNavigator: true)
+                                          .push(FilterCategoryPage.route(
+                                              context, FilterType.product,
+                                              searchParam: widget.searchParam,
+                                              isMultipleSelection: true,
+                                              tab: widget.tab));
+                                    }
+                                  : null),
                           _filterItem(
                               context, S.of(context).sort_by.toUpperCase(), () {
                             Navigator.of(context, rootNavigator: true).push(
@@ -279,7 +294,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
             title: S.of(context).see_results.toUpperCase(),
             onPressed: () {
               performSearch(context,
-                  isForsale: isForSale,
+                  // isForsale: isForSale,
                   searchParam: widget.searchParam,
                   tab: widget.tab);
               Navigator.pop(context);
@@ -291,7 +306,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
     );
   }
 
-  Widget _filterItem(BuildContext context, String title, Function() onTap,
+  Widget _filterItem(BuildContext context, String title, Function()? onTap,
       {Widget? buttons,
       String selection = defaultString,
       bool isSeparatorNeeded = true}) {
@@ -363,16 +378,22 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
   Widget getSelectedWidget(String title, SharedPreferenceModel model) {
     if (title == S.of(context).sort_by.toUpperCase()) {
       return getSelectedText(context, FilterType.sortBy, index: model.sortBy);
+    } else if (title == S.of(context).product.toUpperCase()) {
+      return getSelectedText(context, FilterType.product,
+          index: model.product.isEmpty ? null : model.product[0],
+          length: model.product.length);
     } else if (title == S.of(context).condition.toUpperCase()) {
       return getSelectedText(context, FilterType.condition,
           index: model.condition.isEmpty ? null : model.condition[0],
           length: model.condition.length);
-    } else if (title == S.of(context).price_range.toUpperCase() &&
-        model.price != filterNotApplied) {
-      return getSelectedText(context, FilterType.price, index: model.price);
+    } else if (title == S.of(context).price_range.toUpperCase()) {
+      return getSelectedText(context, FilterType.price,
+          index: model.price.isEmpty ? null : model.price[0],
+          length: model.price.length);
     } else if (title == S.of(context).release_date.toUpperCase()) {
       return getSelectedText(context, FilterType.releaseDate,
-          index: model.releaseDate.isEmpty ? null : model.releaseDate[0]);
+          index: model.releaseDate.isEmpty ? null : model.releaseDate[0],
+          length: model.releaseDate.length);
     } else {
       return Container();
     }
@@ -394,6 +415,12 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
 
   String getText(FilterType type, {int? index, int? length}) {
     switch (type) {
+      case FilterType.product:
+        return index == null || Product.values.length == length
+            ? defaultString
+            : length == 1
+                ? ProductWrapper(Product.values.elementAt(index)).toString()
+                : "$length ${S.of(context).selected}";
       case FilterType.condition:
         return index == null || Condition.values.length == length
             ? defaultString
@@ -401,18 +428,22 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                 ? ConditionWrapper(Condition.values.elementAt(index)).toString()
                 : "$length ${S.of(context).selected}";
       case FilterType.price:
-        return PriceWrapper(Price.values.elementAt(
-                index ?? getIt<PreferenceRepositoryService>().getSortBy()))
-            .toString();
+        return index == null || Price.values.length == length
+            ? defaultString
+            : length == 1
+                ? PriceWrapper(Price.values.elementAt(index)).toString()
+                : "$length ${S.of(context).selected}";
       case FilterType.sortBy:
         return SortByWrapper(SortBy.values.elementAt(
-                index ?? getIt<PreferenceRepositoryService>().getPrice()))
+                index ?? getIt<PreferenceRepositoryService>().getSortBy()))
             .toString();
       case FilterType.releaseDate:
-        return index == null
+        return index == null || ReleaseDate.values.length == length
             ? defaultString
-            : ReleaseDateWrapper(ReleaseDate.values.elementAt(index))
-                .toString();
+            : length == 1
+                ? ReleaseDateWrapper(ReleaseDate.values.elementAt(index))
+                    .toString()
+                : "$length ${S.of(context).selected}";
     }
   }
 }
