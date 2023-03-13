@@ -1,21 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 
+import '../../blocs/auth_bloc/auth_bloc.dart';
 import '../../common/ui/custom_text_form_field.dart';
+import '../../common/ui/loading.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/size_helper.dart';
 import '../../common/utils/utils.dart';
+import '../../data/secure_storage/storage_repository_service.dart';
+import '../../data/shared_preferences/shared_preferences_service.dart';
+import '../../di/injector.dart';
 
 class ResetPasswordPage extends StatefulWidget {
   static const name = '/ResetPassword';
-  const ResetPasswordPage({Key? key}) : super(key: key);
+  ResetPasswordPage({
+    Key? key,
+    required this.email,
+  }) : super(key: key);
 
-  static Route route() => PageRoutes.material(
+  String email;
+
+  static Route route(email) => PageRoutes.material(
         settings: const RouteSettings(name: name),
-        builder: (context) => const ResetPasswordPage(),
+        builder: (context) => ResetPasswordPage(
+          email: email,
+        ),
       );
 
   @override
@@ -84,104 +97,132 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 .popUntil(ModalRoute.withName('/SignIn'));
           },
         ),
-        body: GestureDetector(
-            behavior: HitTestBehavior.translucent,
-            onTap: () {
-              _passwordNode.unfocus();
-              _confirmPasswordNode.unfocus();
-            },
-            child: Stack(children: [
-              ColorFiltered(
-                colorFilter:
-                    const ColorFilter.mode(Colors.black38, BlendMode.darken),
-                child: Container(
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("assets/images/background.png"),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    child: null),
-              ),
-              LayoutBuilder(builder: (context, viewportConstraints) {
-                return SingleChildScrollView(
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(
-                      minHeight: viewportConstraints.maxHeight,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: SafeArea(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            SizedBox(
-                              height: _responsiveDesign.heightMultiplier(80),
-                            ),
-                            Image.asset(
-                              'assets/images/logo.png',
-                              width: 125,
-                              height: 51,
-                            ),
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            Text(S.of(context).reset_password_description,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                                    .copyWith(
+        body: BlocListener<AuthBloc, AuthState>(
+            listener: (context, state) => state.maybeWhen(
+                  orElse: () {
+                    return null;
+                  },
+                  authenticated: () {
+                    getIt<PreferenceRepositoryService>().saveIsLogged(true);
+                    getIt<StorageRepositoryService>().saveEmail(widget.email);
+                    getIt<StorageRepositoryService>()
+                        .savePassword(_confirmPasswordController.text);
+                    Loading.hide(context);
+                    Navigator.popUntil(context, ModalRoute.withName('/'));
+                    return null;
+                  },
+                  logging: () {
+                    return Loading.show(context);
+                  },
+                  error: (message) => {
+                    Loading.hide(context),
+                    // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
+                  },
+                ),
+            child: _getBody()));
+  }
+
+  GestureDetector _getBody() {
+    return GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: () {
+          _passwordNode.unfocus();
+          _confirmPasswordNode.unfocus();
+        },
+        child: Stack(children: [
+          ColorFiltered(
+            colorFilter:
+                const ColorFilter.mode(Colors.black38, BlendMode.darken),
+            child: Container(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("assets/images/background.png"),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                child: null),
+          ),
+          LayoutBuilder(builder: (context, viewportConstraints) {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: viewportConstraints.maxHeight,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: SafeArea(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        SizedBox(
+                          height: _responsiveDesign.heightMultiplier(80),
+                        ),
+                        Image.asset(
+                          'assets/images/logo.png',
+                          width: 125,
+                          height: 51,
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        Text(S.of(context).reset_password_description,
+                            style:
+                                Theme.of(context).textTheme.bodySmall!.copyWith(
                                       letterSpacing: 0.3,
                                       color: Palette.current.primaryWhiteSmoke,
                                     )),
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            CustomTextFormField(
-                                errorText: errorFirstText,
-                                helperText: S.of(context).password_helper,
-                                borderColor: _passwordBorder,
-                                autofocus: false,
-                                labelText: S.of(context).new_password,
-                                focusNode: _passwordNode,
-                                controller: _passwordController,
-                                secure: true,
-                                inputType: TextInputType.text),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            CustomTextFormField(
-                                errorText: errorSecondText,
-                                borderColor: _confirmPasswordBorder,
-                                autofocus: false,
-                                labelText: S.of(context).confirm_password,
-                                focusNode: _confirmPasswordNode,
-                                controller: _confirmPasswordController,
-                                secure: true,
-                                inputType: TextInputType.text),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            PrimaryButton(
-                              title: S.of(context).finish_btn,
-                              onPressed: () {
-                                showErrors();
-                                if (enableButtonSecondPassword &&
-                                    enableButtonFirstPassword) {}
-                              },
-                              type: PrimaryButtonType.green,
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                          ],
+                        const SizedBox(
+                          height: 30,
                         ),
-                      ),
+                        CustomTextFormField(
+                            errorText: errorFirstText,
+                            helperText: S.of(context).password_helper,
+                            borderColor: _passwordBorder,
+                            autofocus: false,
+                            labelText: S.of(context).new_password,
+                            focusNode: _passwordNode,
+                            controller: _passwordController,
+                            secure: true,
+                            inputType: TextInputType.text),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        CustomTextFormField(
+                            errorText: errorSecondText,
+                            borderColor: _confirmPasswordBorder,
+                            autofocus: false,
+                            labelText: S.of(context).confirm_password,
+                            focusNode: _confirmPasswordNode,
+                            controller: _confirmPasswordController,
+                            secure: true,
+                            inputType: TextInputType.text),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        PrimaryButton(
+                          title: S.of(context).finish_btn,
+                          onPressed: () {
+                            showErrors();
+                            if (enableButtonSecondPassword &&
+                                enableButtonFirstPassword) {
+                              context.read<AuthBloc>().add(
+                                  AuthEvent.changePassword(
+                                      '', _confirmPasswordController.text, ''));
+                            }
+                          },
+                          type: PrimaryButtonType.green,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                      ],
                     ),
                   ),
-                );
-              }),
-            ])));
+                ),
+              ),
+            );
+          }),
+        ]));
   }
 
   void showErrors() {

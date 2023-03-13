@@ -19,6 +19,8 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   static const String _lastCategories = 'lastCategories';
   static const String _hasImportableData = 'hasImportableData';
   static const String _accountId = 'accountId';
+  static const String _validCode = 'validCode';
+
   late SharedPreferences _prefs;
   @override
   SharedPreferences get prefs => _prefs;
@@ -164,5 +166,16 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
     } catch (e) {
       return [];
     }
+  }
+
+  @override
+  Future<String> validCode() async {
+    final statusCode = _prefs.getString(_validCode);
+    return statusCode ?? '';
+  }
+
+  @override
+  Future<void> saveValidCode(String value) async {
+    await _prefs.setString(_validCode, value);
   }
 }

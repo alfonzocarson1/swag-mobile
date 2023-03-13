@@ -182,6 +182,9 @@
     "delete_photo_descrption": "Are you sure you want to delete this photo?",
     "delete": "DELETE",
     "cancel":"CANCEL",
-    "selected":"Selected"
+    "selected":"Selected",
+    "incorrect_code": "Incorrect code. Please check and try again.",
+    "code_expired": "Code expired. Please select resend to receive new code."
+
 
 }

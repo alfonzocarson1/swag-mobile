@@ -4,7 +4,9 @@ import 'package:swagapp/modules/pages/login/create_account_page.dart';
 
 import '../../api/api.dart';
 import '../../api/api_service.dart';
+import '../../models/auth/change_password_response_model.dart';
 import '../../models/auth/create_account_payload_model.dart';
+import '../../models/auth/forgot_password_code_model.dart';
 import 'i_auth_service.dart';
 
 class AuthService extends IAuthService {
@@ -51,5 +53,45 @@ class AuthService extends IAuthService {
       fromJson: (json) => json,
     );
     return response.parseBool();
+  }
+
+  @override
+  Future<void> requestPasswordResetCode(
+    String email,
+  ) async {
+    final response = await apiService.getEndpointData(
+      endpoint: Endpoint.requestPasswordResetCode,
+      method: RequestMethod.post,
+      dynamicParam: email,
+      fromJson: (json) => json,
+    );
+    return response;
+  }
+
+  @override
+  Future<ForgotPasswordCodeModel> sendCode(String code) async {
+    final response = await apiService.getEndpointData(
+      endpoint: Endpoint.requestIsvalidCode,
+      method: RequestMethod.get,
+      dynamicParam: code,
+      fromJson: (json) => ForgotPasswordCodeModel.fromJson(json),
+    );
+    return response;
+  }
+
+  @override
+  Future<ChangePasswordResponseModel> changePassword(
+      String changeCode, String newPassword, String deviceId) async {
+    Map<String, String> params = {
+      "changeCode": changeCode,
+      "newPassword": newPassword,
+      "deviceId": deviceId
+    };
+    final response = await apiService.getEndpointData(
+        endpoint: Endpoint.changePassword,
+        method: RequestMethod.post,
+        fromJson: (json) => ChangePasswordResponseModel.fromJson(json),
+        body: params);
+    return response;
   }
 }

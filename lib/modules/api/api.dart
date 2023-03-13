@@ -11,7 +11,10 @@ enum Endpoint {
   catalogCategories,
   catalogSearchList,
   updateProfile,
-  updateAvatar
+  updateAvatar,
+  requestPasswordResetCode,
+  requestIsvalidCode,
+  changePassword
 }
 
 class API {
@@ -38,6 +41,11 @@ class API {
     Endpoint.catalogCategories: 'api/public/v1/catalog/categories/',
     Endpoint.catalogSearchList: 'api/public/v1/catalog/search/%s',
     Endpoint.updateProfile: "api/v1/profile",
-    Endpoint.updateAvatar: 'api/v1/image/%s'
+    Endpoint.updateAvatar: 'api/v1/image/%s',
+    Endpoint.requestPasswordResetCode:
+        'api/public/v1/account/requestPasswordResetCode/%s',
+    Endpoint.requestIsvalidCode:
+        'api/public/v1/account/requestPasswordResetCode/isvalid/%s',
+    Endpoint.changePassword: 'api/public/v1/account/passwordChangeRequest'
   };
 }
