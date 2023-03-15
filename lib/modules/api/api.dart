@@ -11,7 +11,8 @@ enum Endpoint {
   catalogCategories,
   catalogSearchList,
   updateProfile,
-  updateAvatar
+  updateAvatar,
+  addCollection
 }
 
 class API {
@@ -38,6 +39,7 @@ class API {
     Endpoint.catalogCategories: 'api/public/v1/catalog/categories/',
     Endpoint.catalogSearchList: 'api/public/v1/catalog/search/%s',
     Endpoint.updateProfile: "api/v1/profile",
-    Endpoint.updateAvatar: 'api/v1/image/%s'
+    Endpoint.updateAvatar: 'api/v1/image/%s',
+    Endpoint.addCollection: "api/v1/profile/collectionItems",
   };
 }

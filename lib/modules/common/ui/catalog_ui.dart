@@ -98,8 +98,9 @@ class _CatalogPageState extends State<CatalogPage> {
                             color: Palette.current.grey,
                           ),
                           onPressed: () {
-                            Navigator.of(context, rootNavigator: true)
-                                .push(AddCollection.route(context));
+                            Navigator.of(context, rootNavigator: true).push(
+                                AddCollection.route(context,
+                                    widget.catalogItems[index].catalogItemId));
                           },
                         )),
                     Visibility(

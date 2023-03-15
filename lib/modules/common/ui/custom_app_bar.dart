@@ -60,8 +60,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                           tooltip: 'Open shopping cart',
                           onPressed: () {
                             // handle the press
-                            Navigator.of(context, rootNavigator: true)
-                                .push(AddCollection.route(context));
+                            Navigator.of(context, rootNavigator: true).push(
+                                AddCollection.route(context,
+                                    '4351dbf4-f762-407f-b3ff-2e074acc724e'));
                           },
                         )
                   : Container()
