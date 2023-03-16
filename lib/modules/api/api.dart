@@ -6,10 +6,12 @@ enum Endpoint {
   isUsernameAvailable,
   createNewAccount,
   catalogItemDetail,
+  publicCatalogItemDetail,
   login,
   salesHistory,
   catalogCategories,
   catalogSearchList,
+  publicCatalogSearchList,
   updateProfile,
   updateAvatar
 }
@@ -32,11 +34,14 @@ class API {
     Endpoint.isUsernameAvailable:
         'api/public/v1/account/isUsernameAvailable/%s',
     Endpoint.createNewAccount: 'api/public/v1/account/createNewAccount',
-    Endpoint.catalogItemDetail: 'api/public/v1/catalog/catalogItemDetail/%s',
+    Endpoint.catalogItemDetail: 'api/v1/catalog/catalogItemDetail/%s',
+    Endpoint.publicCatalogItemDetail:
+        'api/public/v1/catalog/catalogItemDetail/%s',
     Endpoint.login: "api/public/v1/account/login",
     Endpoint.salesHistory: "api/public/v1/listing/salesHistory/%s",
     Endpoint.catalogCategories: 'api/public/v1/catalog/categories/',
-    Endpoint.catalogSearchList: 'api/public/v1/catalog/search/%s',
+    Endpoint.catalogSearchList: 'api/v1/catalog/search/%s',
+    Endpoint.publicCatalogSearchList: 'api/public/v1/catalog/search/%s',
     Endpoint.updateProfile: "api/v1/profile",
     Endpoint.updateAvatar: 'api/v1/image/%s'
   };

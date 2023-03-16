@@ -29,10 +29,6 @@ mixin _$DetailItemModel {
   String get catalogItemCategoryId => throw _privateConstructorUsedError;
   String get released => throw _privateConstructorUsedError;
   String get releasedType => throw _privateConstructorUsedError;
-  List<DetailAttributeModel>? get attributeItemList =>
-      throw _privateConstructorUsedError;
-  List<DetailCollectionModel>? get myCollection =>
-      throw _privateConstructorUsedError;
   int get totalMade => throw _privateConstructorUsedError;
   String get retail => throw _privateConstructorUsedError;
   int get numberAvailable => throw _privateConstructorUsedError;
@@ -41,7 +37,8 @@ mixin _$DetailItemModel {
   bool get forSale => throw _privateConstructorUsedError;
   bool get inFavorites => throw _privateConstructorUsedError;
   bool get inCollection => throw _privateConstructorUsedError;
-  String get condition => throw _privateConstructorUsedError;
+  List<DetailCollectionModel>? get collectionItems =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -65,8 +62,6 @@ abstract class $DetailItemModelCopyWith<$Res> {
       String catalogItemCategoryId,
       String released,
       String releasedType,
-      List<DetailAttributeModel>? attributeItemList,
-      List<DetailCollectionModel>? myCollection,
       int totalMade,
       String retail,
       int numberAvailable,
@@ -75,7 +70,7 @@ abstract class $DetailItemModelCopyWith<$Res> {
       bool forSale,
       bool inFavorites,
       bool inCollection,
-      String condition});
+      List<DetailCollectionModel>? collectionItems});
 }
 
 /// @nodoc
@@ -100,8 +95,6 @@ class _$DetailItemModelCopyWithImpl<$Res, $Val extends DetailItemModel>
     Object? catalogItemCategoryId = null,
     Object? released = null,
     Object? releasedType = null,
-    Object? attributeItemList = freezed,
-    Object? myCollection = freezed,
     Object? totalMade = null,
     Object? retail = null,
     Object? numberAvailable = null,
@@ -110,7 +103,7 @@ class _$DetailItemModelCopyWithImpl<$Res, $Val extends DetailItemModel>
     Object? forSale = null,
     Object? inFavorites = null,
     Object? inCollection = null,
-    Object? condition = null,
+    Object? collectionItems = freezed,
   }) {
     return _then(_value.copyWith(
       catalogItemId: null == catalogItemId
@@ -149,14 +142,6 @@ class _$DetailItemModelCopyWithImpl<$Res, $Val extends DetailItemModel>
           ? _value.releasedType
           : releasedType // ignore: cast_nullable_to_non_nullable
               as String,
-      attributeItemList: freezed == attributeItemList
-          ? _value.attributeItemList
-          : attributeItemList // ignore: cast_nullable_to_non_nullable
-              as List<DetailAttributeModel>?,
-      myCollection: freezed == myCollection
-          ? _value.myCollection
-          : myCollection // ignore: cast_nullable_to_non_nullable
-              as List<DetailCollectionModel>?,
       totalMade: null == totalMade
           ? _value.totalMade
           : totalMade // ignore: cast_nullable_to_non_nullable
@@ -189,10 +174,10 @@ class _$DetailItemModelCopyWithImpl<$Res, $Val extends DetailItemModel>
           ? _value.inCollection
           : inCollection // ignore: cast_nullable_to_non_nullable
               as bool,
-      condition: null == condition
-          ? _value.condition
-          : condition // ignore: cast_nullable_to_non_nullable
-              as String,
+      collectionItems: freezed == collectionItems
+          ? _value.collectionItems
+          : collectionItems // ignore: cast_nullable_to_non_nullable
+              as List<DetailCollectionModel>?,
     ) as $Val);
   }
 }
@@ -215,8 +200,6 @@ abstract class _$$_DetailItemModelCopyWith<$Res>
       String catalogItemCategoryId,
       String released,
       String releasedType,
-      List<DetailAttributeModel>? attributeItemList,
-      List<DetailCollectionModel>? myCollection,
       int totalMade,
       String retail,
       int numberAvailable,
@@ -225,7 +208,7 @@ abstract class _$$_DetailItemModelCopyWith<$Res>
       bool forSale,
       bool inFavorites,
       bool inCollection,
-      String condition});
+      List<DetailCollectionModel>? collectionItems});
 }
 
 /// @nodoc
@@ -248,8 +231,6 @@ class __$$_DetailItemModelCopyWithImpl<$Res>
     Object? catalogItemCategoryId = null,
     Object? released = null,
     Object? releasedType = null,
-    Object? attributeItemList = freezed,
-    Object? myCollection = freezed,
     Object? totalMade = null,
     Object? retail = null,
     Object? numberAvailable = null,
@@ -258,7 +239,7 @@ class __$$_DetailItemModelCopyWithImpl<$Res>
     Object? forSale = null,
     Object? inFavorites = null,
     Object? inCollection = null,
-    Object? condition = null,
+    Object? collectionItems = freezed,
   }) {
     return _then(_$_DetailItemModel(
       catalogItemId: null == catalogItemId
@@ -297,14 +278,6 @@ class __$$_DetailItemModelCopyWithImpl<$Res>
           ? _value.releasedType
           : releasedType // ignore: cast_nullable_to_non_nullable
               as String,
-      attributeItemList: freezed == attributeItemList
-          ? _value._attributeItemList
-          : attributeItemList // ignore: cast_nullable_to_non_nullable
-              as List<DetailAttributeModel>?,
-      myCollection: freezed == myCollection
-          ? _value._myCollection
-          : myCollection // ignore: cast_nullable_to_non_nullable
-              as List<DetailCollectionModel>?,
       totalMade: null == totalMade
           ? _value.totalMade
           : totalMade // ignore: cast_nullable_to_non_nullable
@@ -337,10 +310,10 @@ class __$$_DetailItemModelCopyWithImpl<$Res>
           ? _value.inCollection
           : inCollection // ignore: cast_nullable_to_non_nullable
               as bool,
-      condition: null == condition
-          ? _value.condition
-          : condition // ignore: cast_nullable_to_non_nullable
-              as String,
+      collectionItems: freezed == collectionItems
+          ? _value._collectionItems
+          : collectionItems // ignore: cast_nullable_to_non_nullable
+              as List<DetailCollectionModel>?,
     ));
   }
 }
@@ -359,8 +332,6 @@ class _$_DetailItemModel implements _DetailItemModel {
       required this.catalogItemCategoryId,
       required this.released,
       required this.releasedType,
-      final List<DetailAttributeModel>? attributeItemList,
-      final List<DetailCollectionModel>? myCollection,
       required this.totalMade,
       required this.retail,
       required this.numberAvailable,
@@ -369,9 +340,8 @@ class _$_DetailItemModel implements _DetailItemModel {
       required this.forSale,
       required this.inFavorites,
       required this.inCollection,
-      required this.condition})
-      : _attributeItemList = attributeItemList,
-        _myCollection = myCollection;
+      final List<DetailCollectionModel>? collectionItems})
+      : _collectionItems = collectionItems;
 
   factory _$_DetailItemModel.fromJson(Map<String, dynamic> json) =>
       _$$_DetailItemModelFromJson(json);
@@ -394,27 +364,6 @@ class _$_DetailItemModel implements _DetailItemModel {
   final String released;
   @override
   final String releasedType;
-  final List<DetailAttributeModel>? _attributeItemList;
-  @override
-  List<DetailAttributeModel>? get attributeItemList {
-    final value = _attributeItemList;
-    if (value == null) return null;
-    if (_attributeItemList is EqualUnmodifiableListView)
-      return _attributeItemList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  final List<DetailCollectionModel>? _myCollection;
-  @override
-  List<DetailCollectionModel>? get myCollection {
-    final value = _myCollection;
-    if (value == null) return null;
-    if (_myCollection is EqualUnmodifiableListView) return _myCollection;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
   @override
   final int totalMade;
   @override
@@ -431,12 +380,19 @@ class _$_DetailItemModel implements _DetailItemModel {
   final bool inFavorites;
   @override
   final bool inCollection;
+  final List<DetailCollectionModel>? _collectionItems;
   @override
-  final String condition;
+  List<DetailCollectionModel>? get collectionItems {
+    final value = _collectionItems;
+    if (value == null) return null;
+    if (_collectionItems is EqualUnmodifiableListView) return _collectionItems;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'DetailItemModel(catalogItemId: $catalogItemId, catalogItemName: $catalogItemName, catalogItemDescription: $catalogItemDescription, catalogItemDescriptionShort: $catalogItemDescriptionShort, catalogItemImage: $catalogItemImage, catalogItemCollection: $catalogItemCollection, catalogItemCategoryId: $catalogItemCategoryId, released: $released, releasedType: $releasedType, attributeItemList: $attributeItemList, myCollection: $myCollection, totalMade: $totalMade, retail: $retail, numberAvailable: $numberAvailable, rarityScore: $rarityScore, saleInfo: $saleInfo, forSale: $forSale, inFavorites: $inFavorites, inCollection: $inCollection, condition: $condition)';
+    return 'DetailItemModel(catalogItemId: $catalogItemId, catalogItemName: $catalogItemName, catalogItemDescription: $catalogItemDescription, catalogItemDescriptionShort: $catalogItemDescriptionShort, catalogItemImage: $catalogItemImage, catalogItemCollection: $catalogItemCollection, catalogItemCategoryId: $catalogItemCategoryId, released: $released, releasedType: $releasedType, totalMade: $totalMade, retail: $retail, numberAvailable: $numberAvailable, rarityScore: $rarityScore, saleInfo: $saleInfo, forSale: $forSale, inFavorites: $inFavorites, inCollection: $inCollection, collectionItems: $collectionItems)';
   }
 
   @override
@@ -464,10 +420,6 @@ class _$_DetailItemModel implements _DetailItemModel {
                 other.released == released) &&
             (identical(other.releasedType, releasedType) ||
                 other.releasedType == releasedType) &&
-            const DeepCollectionEquality()
-                .equals(other._attributeItemList, _attributeItemList) &&
-            const DeepCollectionEquality()
-                .equals(other._myCollection, _myCollection) &&
             (identical(other.totalMade, totalMade) ||
                 other.totalMade == totalMade) &&
             (identical(other.retail, retail) || other.retail == retail) &&
@@ -482,35 +434,32 @@ class _$_DetailItemModel implements _DetailItemModel {
                 other.inFavorites == inFavorites) &&
             (identical(other.inCollection, inCollection) ||
                 other.inCollection == inCollection) &&
-            (identical(other.condition, condition) ||
-                other.condition == condition));
+            const DeepCollectionEquality()
+                .equals(other._collectionItems, _collectionItems));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hashAll([
-        runtimeType,
-        catalogItemId,
-        catalogItemName,
-        catalogItemDescription,
-        catalogItemDescriptionShort,
-        catalogItemImage,
-        catalogItemCollection,
-        catalogItemCategoryId,
-        released,
-        releasedType,
-        const DeepCollectionEquality().hash(_attributeItemList),
-        const DeepCollectionEquality().hash(_myCollection),
-        totalMade,
-        retail,
-        numberAvailable,
-        rarityScore,
-        saleInfo,
-        forSale,
-        inFavorites,
-        inCollection,
-        condition
-      ]);
+  int get hashCode => Object.hash(
+      runtimeType,
+      catalogItemId,
+      catalogItemName,
+      catalogItemDescription,
+      catalogItemDescriptionShort,
+      catalogItemImage,
+      catalogItemCollection,
+      catalogItemCategoryId,
+      released,
+      releasedType,
+      totalMade,
+      retail,
+      numberAvailable,
+      rarityScore,
+      saleInfo,
+      forSale,
+      inFavorites,
+      inCollection,
+      const DeepCollectionEquality().hash(_collectionItems));
 
   @JsonKey(ignore: true)
   @override
@@ -537,8 +486,6 @@ abstract class _DetailItemModel implements DetailItemModel {
       required final String catalogItemCategoryId,
       required final String released,
       required final String releasedType,
-      final List<DetailAttributeModel>? attributeItemList,
-      final List<DetailCollectionModel>? myCollection,
       required final int totalMade,
       required final String retail,
       required final int numberAvailable,
@@ -547,7 +494,7 @@ abstract class _DetailItemModel implements DetailItemModel {
       required final bool forSale,
       required final bool inFavorites,
       required final bool inCollection,
-      required final String condition}) = _$_DetailItemModel;
+      final List<DetailCollectionModel>? collectionItems}) = _$_DetailItemModel;
 
   factory _DetailItemModel.fromJson(Map<String, dynamic> json) =
       _$_DetailItemModel.fromJson;
@@ -571,10 +518,6 @@ abstract class _DetailItemModel implements DetailItemModel {
   @override
   String get releasedType;
   @override
-  List<DetailAttributeModel>? get attributeItemList;
-  @override
-  List<DetailCollectionModel>? get myCollection;
-  @override
   int get totalMade;
   @override
   String get retail;
@@ -591,7 +534,7 @@ abstract class _DetailItemModel implements DetailItemModel {
   @override
   bool get inCollection;
   @override
-  String get condition;
+  List<DetailCollectionModel>? get collectionItems;
   @override
   @JsonKey(ignore: true)
   _$$_DetailItemModelCopyWith<_$_DetailItemModel> get copyWith =>

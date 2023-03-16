@@ -20,6 +20,8 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   static const String _lastCategories = 'lastCategories';
   static const String _hasImportableData = 'hasImportableData';
   static const String _accountId = 'accountId';
+  static const String _detailCollectionLen = 'collectionLen';
+
   late SharedPreferences _prefs;
   @override
   SharedPreferences get prefs => _prefs;
@@ -164,6 +166,17 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   @override
   Future<void> saveLastCategories(dynamic cList) async {
     await _prefs.setString(_lastCategories, jsonEncode(cList));
+  }
+
+  @override
+  int collectionLen() {
+    final collectios = _prefs.getInt(_detailCollectionLen);
+    return collectios ?? 0;
+  }
+
+  @override
+  Future<void> saveCollectionLen(int value) async {
+    await _prefs.setInt(_detailCollectionLen, value);
   }
 
   @override

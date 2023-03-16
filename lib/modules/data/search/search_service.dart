@@ -5,9 +5,11 @@ import '../../api/api.dart';
 import '../../api/api_service.dart';
 import '../../blocs/search_bloc.dart/search_bloc.dart';
 import '../../common/utils/utils.dart';
+import '../../di/injector.dart';
 import '../../models/search/catalog_item_model.dart';
 import '../../models/search/search_request_payload_model.dart';
 import '../../models/search_tabs/search_tabs_response_model.dart';
+import '../shared_preferences/shared_preferences_service.dart';
 
 class SearchService extends ISearchService {
   SearchService(this.apiService);
@@ -21,9 +23,14 @@ class SearchService extends ISearchService {
   @override
   Future<Map<SearchTab, List<CatalogItemModel>>> search(
       SearchRequestPayloadModel model, SearchTab tab) async {
+    bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
+
     final response = await apiService.getEndpointData(
-        endpoint: Endpoint.catalogSearchList,
+        endpoint: isLogged
+            ? Endpoint.catalogSearchList
+            : Endpoint.publicCatalogSearchList,
         method: RequestMethod.post,
+        needBearer: isLogged,
         jsonKey: "catalogList",
         dynamicParam: "0",
         fromJson: (json) => SearchTabsResponseModel.fromJson(json),

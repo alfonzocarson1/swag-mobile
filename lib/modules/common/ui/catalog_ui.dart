@@ -92,16 +92,42 @@ class _CatalogPageState extends State<CatalogPage> {
                     Positioned(
                         top: 0,
                         right: 0,
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.add,
-                            color: Palette.current.grey,
-                          ),
-                          onPressed: () {
-                            Navigator.of(context, rootNavigator: true)
-                                .push(AddCollection.route(context));
-                          },
-                        )),
+                        child: (widget.catalogItems[index].collectionItems!
+                                .isNotEmpty)
+                            ? GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(AddCollection.route(context));
+                                },
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      "${widget.catalogItems[index].collectionItems?.length}X",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayLarge!
+                                          .copyWith(
+                                              letterSpacing: 1,
+                                              fontWeight: FontWeight.w300,
+                                              fontFamily: "Knockout",
+                                              fontSize: 30,
+                                              color: Palette
+                                                  .current.primaryNeonGreen),
+                                    ),
+                                    const SizedBox(width: 40)
+                                  ],
+                                ),
+                              )
+                            : IconButton(
+                                icon: Icon(
+                                  Icons.add,
+                                  color: Palette.current.grey,
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(AddCollection.route(context));
+                                },
+                              )),
                     Visibility(
                       visible: isSkullVisible,
                       child: Positioned.fill(

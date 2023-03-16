@@ -28,6 +28,8 @@ mixin _$CatalogItemModel {
   bool get forSale => throw _privateConstructorUsedError;
   bool get inFavorites => throw _privateConstructorUsedError;
   bool get inCollection => throw _privateConstructorUsedError;
+  List<DetailCollectionModel>? get collectionItems =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -49,7 +51,8 @@ abstract class $CatalogItemModelCopyWith<$Res> {
       String saleInfo,
       bool forSale,
       bool inFavorites,
-      bool inCollection});
+      bool inCollection,
+      List<DetailCollectionModel>? collectionItems});
 }
 
 /// @nodoc
@@ -73,6 +76,7 @@ class _$CatalogItemModelCopyWithImpl<$Res, $Val extends CatalogItemModel>
     Object? forSale = null,
     Object? inFavorites = null,
     Object? inCollection = null,
+    Object? collectionItems = freezed,
   }) {
     return _then(_value.copyWith(
       catalogItemId: null == catalogItemId
@@ -107,6 +111,10 @@ class _$CatalogItemModelCopyWithImpl<$Res, $Val extends CatalogItemModel>
           ? _value.inCollection
           : inCollection // ignore: cast_nullable_to_non_nullable
               as bool,
+      collectionItems: freezed == collectionItems
+          ? _value.collectionItems
+          : collectionItems // ignore: cast_nullable_to_non_nullable
+              as List<DetailCollectionModel>?,
     ) as $Val);
   }
 }
@@ -127,7 +135,8 @@ abstract class _$$_CatalogItemModelCopyWith<$Res>
       String saleInfo,
       bool forSale,
       bool inFavorites,
-      bool inCollection});
+      bool inCollection,
+      List<DetailCollectionModel>? collectionItems});
 }
 
 /// @nodoc
@@ -149,6 +158,7 @@ class __$$_CatalogItemModelCopyWithImpl<$Res>
     Object? forSale = null,
     Object? inFavorites = null,
     Object? inCollection = null,
+    Object? collectionItems = freezed,
   }) {
     return _then(_$_CatalogItemModel(
       catalogItemId: null == catalogItemId
@@ -183,6 +193,10 @@ class __$$_CatalogItemModelCopyWithImpl<$Res>
           ? _value.inCollection
           : inCollection // ignore: cast_nullable_to_non_nullable
               as bool,
+      collectionItems: freezed == collectionItems
+          ? _value._collectionItems
+          : collectionItems // ignore: cast_nullable_to_non_nullable
+              as List<DetailCollectionModel>?,
     ));
   }
 }
@@ -199,7 +213,9 @@ class _$_CatalogItemModel implements _CatalogItemModel {
       required this.saleInfo,
       required this.forSale,
       required this.inFavorites,
-      required this.inCollection});
+      required this.inCollection,
+      final List<DetailCollectionModel>? collectionItems})
+      : _collectionItems = collectionItems;
 
   factory _$_CatalogItemModel.fromJson(Map<String, dynamic> json) =>
       _$$_CatalogItemModelFromJson(json);
@@ -220,10 +236,19 @@ class _$_CatalogItemModel implements _CatalogItemModel {
   final bool inFavorites;
   @override
   final bool inCollection;
+  final List<DetailCollectionModel>? _collectionItems;
+  @override
+  List<DetailCollectionModel>? get collectionItems {
+    final value = _collectionItems;
+    if (value == null) return null;
+    if (_collectionItems is EqualUnmodifiableListView) return _collectionItems;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'CatalogItemModel(catalogItemId: $catalogItemId, catalogItemName: $catalogItemName, catalogItemImage: $catalogItemImage, numberAvailable: $numberAvailable, saleInfo: $saleInfo, forSale: $forSale, inFavorites: $inFavorites, inCollection: $inCollection)';
+    return 'CatalogItemModel(catalogItemId: $catalogItemId, catalogItemName: $catalogItemName, catalogItemImage: $catalogItemImage, numberAvailable: $numberAvailable, saleInfo: $saleInfo, forSale: $forSale, inFavorites: $inFavorites, inCollection: $inCollection, collectionItems: $collectionItems)';
   }
 
   @override
@@ -245,7 +270,9 @@ class _$_CatalogItemModel implements _CatalogItemModel {
             (identical(other.inFavorites, inFavorites) ||
                 other.inFavorites == inFavorites) &&
             (identical(other.inCollection, inCollection) ||
-                other.inCollection == inCollection));
+                other.inCollection == inCollection) &&
+            const DeepCollectionEquality()
+                .equals(other._collectionItems, _collectionItems));
   }
 
   @JsonKey(ignore: true)
@@ -259,7 +286,8 @@ class _$_CatalogItemModel implements _CatalogItemModel {
       saleInfo,
       forSale,
       inFavorites,
-      inCollection);
+      inCollection,
+      const DeepCollectionEquality().hash(_collectionItems));
 
   @JsonKey(ignore: true)
   @override
@@ -277,14 +305,16 @@ class _$_CatalogItemModel implements _CatalogItemModel {
 
 abstract class _CatalogItemModel implements CatalogItemModel {
   const factory _CatalogItemModel(
-      {required final String catalogItemId,
-      required final String catalogItemName,
-      required final String catalogItemImage,
-      required final int numberAvailable,
-      required final String saleInfo,
-      required final bool forSale,
-      required final bool inFavorites,
-      required final bool inCollection}) = _$_CatalogItemModel;
+          {required final String catalogItemId,
+          required final String catalogItemName,
+          required final String catalogItemImage,
+          required final int numberAvailable,
+          required final String saleInfo,
+          required final bool forSale,
+          required final bool inFavorites,
+          required final bool inCollection,
+          final List<DetailCollectionModel>? collectionItems}) =
+      _$_CatalogItemModel;
 
   factory _CatalogItemModel.fromJson(Map<String, dynamic> json) =
       _$_CatalogItemModel.fromJson;
@@ -305,6 +335,8 @@ abstract class _CatalogItemModel implements CatalogItemModel {
   bool get inFavorites;
   @override
   bool get inCollection;
+  @override
+  List<DetailCollectionModel>? get collectionItems;
   @override
   @JsonKey(ignore: true)
   _$$_CatalogItemModelCopyWith<_$_CatalogItemModel> get copyWith =>

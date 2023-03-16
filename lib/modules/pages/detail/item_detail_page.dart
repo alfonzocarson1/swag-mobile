@@ -7,7 +7,11 @@ import '../../blocs/detail_bloc/detail_bloc.dart';
 import '../../blocs/sale_history/sale_history_bloc.dart';
 import '../../common/ui/custom_app_bar.dart';
 import '../../common/utils/custom_route_animations.dart';
+
+import '../../data/shared_preferences/shared_preferences_service.dart';
+import '../../di/injector.dart';
 import '../../models/detail/detail_item_model.dart';
+
 import 'intem_head.dart';
 import 'item_collection.dart';
 import 'item_rarity.dart';
@@ -32,8 +36,8 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
   late final ScrollController? _scrollController =
       PrimaryScrollController.of(context);
 
-  ValueNotifier<bool> _myActionsFlag = ValueNotifier<bool>(false);
-  ValueNotifier<int?> _collectionNum = ValueNotifier<int?>(null);
+  bool firstState = true;
+  int? _collectionLen;
 
   @override
   void initState() {
@@ -43,15 +47,6 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
     context
         .read<DetailBloc>()
         .add(DetailEvent.getDetailItem(widget.catalogItemId));
-
-    _myActionsFlag.addListener(() => {
-          if (_myActionsFlag.value)
-            {
-              Future.delayed(const Duration(milliseconds: 100), () {
-                setState(() {});
-              })
-            }
-        });
   }
 
   @override
@@ -61,7 +56,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
         resizeToAvoidBottomInset: true,
         appBar: CustomAppBar(
           actions: true,
-          collections: _collectionNum.value,
+          collections: _collectionLen,
         ),
         body: BlocConsumer<DetailBloc, DetailState>(
           listener: (context, state) => state.maybeWhen(
@@ -89,9 +84,6 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                     ));
               },
               loadedDetailItems: (state) {
-                _myActionsFlag.value = true;
-                //TODO: este valor valida
-                _collectionNum.value = 0;
                 return _getBody(state.detaItemlList);
               },
             );
@@ -100,6 +92,15 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
   }
 
   Widget _getBody(List<DetailItemModel> dataDetail) {
+    if (firstState) {
+      Future.delayed(const Duration(milliseconds: 500), () {
+        setState(() {
+          firstState = false;
+          _collectionLen = getIt<PreferenceRepositoryService>().collectionLen();
+        });
+      });
+    }
+
     return RefreshIndicator(
       onRefresh: () async {
         makeCall();
@@ -157,7 +158,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                         sale: dataDetail[index].forSale,
                         favorite: dataDetail[index].inFavorites,
                         available: dataDetail[index].numberAvailable,
-                        saleHistory: [],
+                        saleHistory: const [],
                         itemId: dataDetail[index].catalogItemId),
                     RarityWidget(
                         rarity: dataDetail[index].rarityScore,
@@ -168,7 +169,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                         available: dataDetail[index].numberAvailable),
                     CollectionWidget(
                         sale: dataDetail[index].forSale,
-                        dataCollection: dataDetail[index].myCollection,
+                        dataCollection: dataDetail[index].collectionItems,
                         lastSale: dataDetail[index].saleInfo,
                         available: dataDetail[index].numberAvailable),
                   ],
@@ -188,5 +189,9 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
     context
         .read<DetailBloc>()
         .add(DetailEvent.getDetailItem(widget.catalogItemId));
+
+    setState(() {
+      firstState = true;
+    });
   }
 }

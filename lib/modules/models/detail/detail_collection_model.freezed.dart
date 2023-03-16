@@ -21,11 +21,12 @@ DetailCollectionModel _$DetailCollectionModelFromJson(
 
 /// @nodoc
 mixin _$DetailCollectionModel {
-  String get collectionItemId => throw _privateConstructorUsedError;
-  String get acquired => throw _privateConstructorUsedError;
-  String get paid => throw _privateConstructorUsedError;
-  String get salePrice => throw _privateConstructorUsedError;
-  String get condition => throw _privateConstructorUsedError;
+  String get profileCollectionItemId => throw _privateConstructorUsedError;
+  String get catalogItemId => throw _privateConstructorUsedError;
+  String get purchaseDate => throw _privateConstructorUsedError;
+  double get purchasePrice => throw _privateConstructorUsedError;
+  String get itemCondition => throw _privateConstructorUsedError;
+  String get itemSource => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -40,11 +41,12 @@ abstract class $DetailCollectionModelCopyWith<$Res> {
       _$DetailCollectionModelCopyWithImpl<$Res, DetailCollectionModel>;
   @useResult
   $Res call(
-      {String collectionItemId,
-      String acquired,
-      String paid,
-      String salePrice,
-      String condition});
+      {String profileCollectionItemId,
+      String catalogItemId,
+      String purchaseDate,
+      double purchasePrice,
+      String itemCondition,
+      String itemSource});
 }
 
 /// @nodoc
@@ -61,32 +63,37 @@ class _$DetailCollectionModelCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? collectionItemId = null,
-    Object? acquired = null,
-    Object? paid = null,
-    Object? salePrice = null,
-    Object? condition = null,
+    Object? profileCollectionItemId = null,
+    Object? catalogItemId = null,
+    Object? purchaseDate = null,
+    Object? purchasePrice = null,
+    Object? itemCondition = null,
+    Object? itemSource = null,
   }) {
     return _then(_value.copyWith(
-      collectionItemId: null == collectionItemId
-          ? _value.collectionItemId
-          : collectionItemId // ignore: cast_nullable_to_non_nullable
+      profileCollectionItemId: null == profileCollectionItemId
+          ? _value.profileCollectionItemId
+          : profileCollectionItemId // ignore: cast_nullable_to_non_nullable
               as String,
-      acquired: null == acquired
-          ? _value.acquired
-          : acquired // ignore: cast_nullable_to_non_nullable
+      catalogItemId: null == catalogItemId
+          ? _value.catalogItemId
+          : catalogItemId // ignore: cast_nullable_to_non_nullable
               as String,
-      paid: null == paid
-          ? _value.paid
-          : paid // ignore: cast_nullable_to_non_nullable
+      purchaseDate: null == purchaseDate
+          ? _value.purchaseDate
+          : purchaseDate // ignore: cast_nullable_to_non_nullable
               as String,
-      salePrice: null == salePrice
-          ? _value.salePrice
-          : salePrice // ignore: cast_nullable_to_non_nullable
+      purchasePrice: null == purchasePrice
+          ? _value.purchasePrice
+          : purchasePrice // ignore: cast_nullable_to_non_nullable
+              as double,
+      itemCondition: null == itemCondition
+          ? _value.itemCondition
+          : itemCondition // ignore: cast_nullable_to_non_nullable
               as String,
-      condition: null == condition
-          ? _value.condition
-          : condition // ignore: cast_nullable_to_non_nullable
+      itemSource: null == itemSource
+          ? _value.itemSource
+          : itemSource // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -101,11 +108,12 @@ abstract class _$$_DetailCollectionModelCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String collectionItemId,
-      String acquired,
-      String paid,
-      String salePrice,
-      String condition});
+      {String profileCollectionItemId,
+      String catalogItemId,
+      String purchaseDate,
+      double purchasePrice,
+      String itemCondition,
+      String itemSource});
 }
 
 /// @nodoc
@@ -119,32 +127,37 @@ class __$$_DetailCollectionModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? collectionItemId = null,
-    Object? acquired = null,
-    Object? paid = null,
-    Object? salePrice = null,
-    Object? condition = null,
+    Object? profileCollectionItemId = null,
+    Object? catalogItemId = null,
+    Object? purchaseDate = null,
+    Object? purchasePrice = null,
+    Object? itemCondition = null,
+    Object? itemSource = null,
   }) {
     return _then(_$_DetailCollectionModel(
-      collectionItemId: null == collectionItemId
-          ? _value.collectionItemId
-          : collectionItemId // ignore: cast_nullable_to_non_nullable
+      profileCollectionItemId: null == profileCollectionItemId
+          ? _value.profileCollectionItemId
+          : profileCollectionItemId // ignore: cast_nullable_to_non_nullable
               as String,
-      acquired: null == acquired
-          ? _value.acquired
-          : acquired // ignore: cast_nullable_to_non_nullable
+      catalogItemId: null == catalogItemId
+          ? _value.catalogItemId
+          : catalogItemId // ignore: cast_nullable_to_non_nullable
               as String,
-      paid: null == paid
-          ? _value.paid
-          : paid // ignore: cast_nullable_to_non_nullable
+      purchaseDate: null == purchaseDate
+          ? _value.purchaseDate
+          : purchaseDate // ignore: cast_nullable_to_non_nullable
               as String,
-      salePrice: null == salePrice
-          ? _value.salePrice
-          : salePrice // ignore: cast_nullable_to_non_nullable
+      purchasePrice: null == purchasePrice
+          ? _value.purchasePrice
+          : purchasePrice // ignore: cast_nullable_to_non_nullable
+              as double,
+      itemCondition: null == itemCondition
+          ? _value.itemCondition
+          : itemCondition // ignore: cast_nullable_to_non_nullable
               as String,
-      condition: null == condition
-          ? _value.condition
-          : condition // ignore: cast_nullable_to_non_nullable
+      itemSource: null == itemSource
+          ? _value.itemSource
+          : itemSource // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -155,29 +168,32 @@ class __$$_DetailCollectionModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_DetailCollectionModel implements _DetailCollectionModel {
   const _$_DetailCollectionModel(
-      {required this.collectionItemId,
-      required this.acquired,
-      required this.paid,
-      required this.salePrice,
-      required this.condition});
+      {required this.profileCollectionItemId,
+      required this.catalogItemId,
+      required this.purchaseDate,
+      required this.purchasePrice,
+      required this.itemCondition,
+      required this.itemSource});
 
   factory _$_DetailCollectionModel.fromJson(Map<String, dynamic> json) =>
       _$$_DetailCollectionModelFromJson(json);
 
   @override
-  final String collectionItemId;
+  final String profileCollectionItemId;
   @override
-  final String acquired;
+  final String catalogItemId;
   @override
-  final String paid;
+  final String purchaseDate;
   @override
-  final String salePrice;
+  final double purchasePrice;
   @override
-  final String condition;
+  final String itemCondition;
+  @override
+  final String itemSource;
 
   @override
   String toString() {
-    return 'DetailCollectionModel(collectionItemId: $collectionItemId, acquired: $acquired, paid: $paid, salePrice: $salePrice, condition: $condition)';
+    return 'DetailCollectionModel(profileCollectionItemId: $profileCollectionItemId, catalogItemId: $catalogItemId, purchaseDate: $purchaseDate, purchasePrice: $purchasePrice, itemCondition: $itemCondition, itemSource: $itemSource)';
   }
 
   @override
@@ -185,21 +201,25 @@ class _$_DetailCollectionModel implements _DetailCollectionModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_DetailCollectionModel &&
-            (identical(other.collectionItemId, collectionItemId) ||
-                other.collectionItemId == collectionItemId) &&
-            (identical(other.acquired, acquired) ||
-                other.acquired == acquired) &&
-            (identical(other.paid, paid) || other.paid == paid) &&
-            (identical(other.salePrice, salePrice) ||
-                other.salePrice == salePrice) &&
-            (identical(other.condition, condition) ||
-                other.condition == condition));
+            (identical(
+                    other.profileCollectionItemId, profileCollectionItemId) ||
+                other.profileCollectionItemId == profileCollectionItemId) &&
+            (identical(other.catalogItemId, catalogItemId) ||
+                other.catalogItemId == catalogItemId) &&
+            (identical(other.purchaseDate, purchaseDate) ||
+                other.purchaseDate == purchaseDate) &&
+            (identical(other.purchasePrice, purchasePrice) ||
+                other.purchasePrice == purchasePrice) &&
+            (identical(other.itemCondition, itemCondition) ||
+                other.itemCondition == itemCondition) &&
+            (identical(other.itemSource, itemSource) ||
+                other.itemSource == itemSource));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, collectionItemId, acquired, paid, salePrice, condition);
+  int get hashCode => Object.hash(runtimeType, profileCollectionItemId,
+      catalogItemId, purchaseDate, purchasePrice, itemCondition, itemSource);
 
   @JsonKey(ignore: true)
   @override
@@ -218,25 +238,28 @@ class _$_DetailCollectionModel implements _DetailCollectionModel {
 
 abstract class _DetailCollectionModel implements DetailCollectionModel {
   const factory _DetailCollectionModel(
-      {required final String collectionItemId,
-      required final String acquired,
-      required final String paid,
-      required final String salePrice,
-      required final String condition}) = _$_DetailCollectionModel;
+      {required final String profileCollectionItemId,
+      required final String catalogItemId,
+      required final String purchaseDate,
+      required final double purchasePrice,
+      required final String itemCondition,
+      required final String itemSource}) = _$_DetailCollectionModel;
 
   factory _DetailCollectionModel.fromJson(Map<String, dynamic> json) =
       _$_DetailCollectionModel.fromJson;
 
   @override
-  String get collectionItemId;
+  String get profileCollectionItemId;
   @override
-  String get acquired;
+  String get catalogItemId;
   @override
-  String get paid;
+  String get purchaseDate;
   @override
-  String get salePrice;
+  double get purchasePrice;
   @override
-  String get condition;
+  String get itemCondition;
+  @override
+  String get itemSource;
   @override
   @JsonKey(ignore: true)
   _$$_DetailCollectionModelCopyWith<_$_DetailCollectionModel> get copyWith =>

@@ -34,4 +34,7 @@ abstract class PreferenceRepositoryInt {
 
   String accountId();
   Future<void> saveAccountId(String value);
+
+  int collectionLen();
+  Future<void> saveCollectionLen(int value);
 }

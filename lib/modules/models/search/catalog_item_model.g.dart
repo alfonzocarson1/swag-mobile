@@ -16,6 +16,10 @@ _$_CatalogItemModel _$$_CatalogItemModelFromJson(Map<String, dynamic> json) =>
       forSale: json['forSale'] as bool,
       inFavorites: json['inFavorites'] as bool,
       inCollection: json['inCollection'] as bool,
+      collectionItems: (json['collectionItems'] as List<dynamic>?)
+          ?.map(
+              (e) => DetailCollectionModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$_CatalogItemModelToJson(_$_CatalogItemModel instance) =>
@@ -28,4 +32,5 @@ Map<String, dynamic> _$$_CatalogItemModelToJson(_$_CatalogItemModel instance) =>
       'forSale': instance.forSale,
       'inFavorites': instance.inFavorites,
       'inCollection': instance.inCollection,
+      'collectionItems': instance.collectionItems,
     };

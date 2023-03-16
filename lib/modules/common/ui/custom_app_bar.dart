@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import '../../pages/add/collection/add_collection_page.dart';
 import '../utils/palette.dart';
 
@@ -38,17 +37,23 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   ? collections != 0
                       ? Padding(
                           padding: const EdgeInsets.only(right: 15, top: 10),
-                          child: Text(
-                            "${collections}X",
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayLarge!
-                                .copyWith(
-                                    letterSpacing: 1,
-                                    fontWeight: FontWeight.w300,
-                                    fontFamily: "Knockout",
-                                    fontSize: 30,
-                                    color: Palette.current.primaryNeonGreen),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.of(context, rootNavigator: true)
+                                  .push(AddCollection.route(context));
+                            },
+                            child: Text(
+                              "${collections}X",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayLarge!
+                                  .copyWith(
+                                      letterSpacing: 1,
+                                      fontWeight: FontWeight.w300,
+                                      fontFamily: "Knockout",
+                                      fontSize: 30,
+                                      color: Palette.current.primaryNeonGreen),
+                            ),
                           ),
                         )
                       : IconButton(
