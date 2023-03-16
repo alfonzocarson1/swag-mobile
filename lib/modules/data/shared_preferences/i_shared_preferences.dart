@@ -37,4 +37,10 @@ abstract class PreferenceRepositoryInt {
 
   int collectionLen();
   Future<void> saveCollectionLen(int value);
+
+  bool returExploreIsNotLogged();
+  Future<void> saveReturExploreIsNotLogged(bool value);
+
+  bool loginAfterGuest();
+  Future<void> saveloginAfterGuest(bool value);
 }

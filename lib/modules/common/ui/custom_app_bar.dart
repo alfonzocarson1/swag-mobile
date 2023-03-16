@@ -4,15 +4,16 @@ import '../../pages/add/collection/add_collection_page.dart';
 import '../utils/palette.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  CustomAppBar(
-      {Key? key,
-      this.height = 50,
-      this.onRoute,
-      this.title,
-      this.actions = false,
-      this.collections,
-      this.color})
-      : super(key: key);
+  CustomAppBar({
+    Key? key,
+    this.height = 50,
+    this.onRoute,
+    this.title,
+    this.actions = false,
+    this.collections,
+    this.color,
+    this.onAction,
+  }) : super(key: key);
 
   double? height;
   final VoidCallback? onRoute;
@@ -20,6 +21,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool actions;
   final int? collections;
   final Color? color;
+  final VoidCallback? onAction;
 
   @override
   AppBar build(BuildContext context) {
@@ -38,10 +40,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       ? Padding(
                           padding: const EdgeInsets.only(right: 15, top: 10),
                           child: GestureDetector(
-                            onTap: () {
-                              Navigator.of(context, rootNavigator: true)
-                                  .push(AddCollection.route(context));
-                            },
+                            onTap: onAction,
                             child: Text(
                               "${collections}X",
                               style: Theme.of(context)
@@ -62,12 +61,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                             color: Palette.current.gray4,
                             size: 20,
                           ),
-                          tooltip: 'Open shopping cart',
-                          onPressed: () {
-                            // handle the press
-                            Navigator.of(context, rootNavigator: true)
-                                .push(AddCollection.route(context));
-                          },
+                          onPressed: onAction,
                         )
                   : Container()
             ]

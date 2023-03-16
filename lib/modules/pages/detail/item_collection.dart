@@ -5,8 +5,11 @@ import '../../../generated/l10n.dart';
 import '../../common/ui/popup_list_item_sale.dart';
 import '../../common/ui/primary_button.dart';
 import '../../common/utils/palette.dart';
+import '../../data/shared_preferences/shared_preferences_service.dart';
+import '../../di/injector.dart';
 import '../../models/detail/detail_collection_model.dart';
 import '../add/collection/list_for_Sale_page.dart';
+import '../login/create_account_page.dart';
 
 class CollectionWidget extends StatefulWidget {
   const CollectionWidget(
@@ -26,6 +29,14 @@ class CollectionWidget extends StatefulWidget {
 }
 
 class _CollectionWidgetState extends State<CollectionWidget> {
+  bool isLogged = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    isLogged = getIt<PreferenceRepositoryService>().isLogged();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -228,7 +239,13 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                       width: MediaQuery.of(context).size.width,
                       child: PrimaryButton(
                         title: "${S.of(context).buy_for} ${widget.lastSale}",
-                        onPressed: () {},
+                        onPressed: () {
+                          if (isLogged) {
+                          } else {
+                            Navigator.of(context, rootNavigator: true)
+                                .push(CreateAccountPage.route());
+                          }
+                        },
                         type: PrimaryButtonType.green,
                       ),
                     )
@@ -244,7 +261,13 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                           width: MediaQuery.of(context).size.width,
                           child: PrimaryButton(
                             title: S.of(context).notify_available,
-                            onPressed: () {},
+                            onPressed: () {
+                              if (isLogged) {
+                              } else {
+                                Navigator.of(context, rootNavigator: true)
+                                    .push(CreateAccountPage.route());
+                              }
+                            },
                             type: PrimaryButtonType.primaryEerieBlack,
                           ),
                         ),

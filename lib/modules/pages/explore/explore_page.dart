@@ -42,7 +42,9 @@ class _ExplorePageState extends State<ExplorePage> {
     _hasJustSignedUp = getIt<PreferenceRepositoryService>().hasJustSignedUp();
     _hasImportableData =
         getIt<PreferenceRepositoryService>().hasImportableData();
-
+    if (!_isLogged) {
+      getIt<PreferenceRepositoryService>().saveloginAfterGuest(true);
+    }
     if (_isLogged && _hasJustSignedUp) {
       getIt<PreferenceRepositoryService>().saveHasJustSignedUp(false);
       Future.delayed(const Duration(milliseconds: 4000), () {

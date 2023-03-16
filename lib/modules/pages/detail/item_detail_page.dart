@@ -12,6 +12,8 @@ import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/detail/detail_item_model.dart';
 
+import '../add/collection/add_collection_page.dart';
+import '../login/create_account_page.dart';
 import 'intem_head.dart';
 import 'item_collection.dart';
 import 'item_rarity.dart';
@@ -39,10 +41,14 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
   bool firstState = true;
   int? _collectionLen;
 
+  bool isLogged = false;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    isLogged = getIt<PreferenceRepositoryService>().isLogged();
 
     context
         .read<DetailBloc>()
@@ -55,6 +61,15 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
         backgroundColor: Palette.current.black,
         resizeToAvoidBottomInset: true,
         appBar: CustomAppBar(
+          onAction: () {
+            if (isLogged) {
+              Navigator.of(context, rootNavigator: true)
+                  .push(AddCollection.route(context));
+            } else {
+              Navigator.of(context, rootNavigator: true)
+                  .push(CreateAccountPage.route());
+            }
+          },
           actions: true,
           collections: _collectionLen,
         ),
