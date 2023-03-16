@@ -66,6 +66,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete_photo": MessageLookupByLibrary.simpleMessage("DELETE PHOTO"),
         "delete_photo_descrption": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to delete this photo?"),
+        "didnt_get_email":
+            MessageLookupByLibrary.simpleMessage("Didn’t get an email? "),
         "displayed": MessageLookupByLibrary.simpleMessage("Displayed"),
         "displayed_gamed":
             MessageLookupByLibrary.simpleMessage("DISPLAYED/GAMED:"),
@@ -216,8 +218,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("REMOVE FROM COLLECTION"),
         "required_field":
             MessageLookupByLibrary.simpleMessage("Required field"),
-        "resend_email": MessageLookupByLibrary.simpleMessage(
-            "Didn’t get an email? *Resend Email*"),
+        "resend_email": MessageLookupByLibrary.simpleMessage("Resend Email"),
         "resend_verification_email":
             MessageLookupByLibrary.simpleMessage("RESEND VERIFICATION EMAIL"),
         "reset_password_btn":

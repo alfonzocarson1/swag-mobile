@@ -280,11 +280,21 @@ class S {
     );
   }
 
-  /// `Didn’t get an email? *Resend Email*`
+  /// `Resend Email`
   String get resend_email {
     return Intl.message(
-      'Didn’t get an email? *Resend Email*',
+      'Resend Email',
       name: 'resend_email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Didn’t get an email? `
+  String get didnt_get_email {
+    return Intl.message(
+      'Didn’t get an email? ',
+      name: 'didnt_get_email',
       desc: '',
       args: [],
     );

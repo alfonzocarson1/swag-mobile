@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:simple_rich_text/simple_rich_text.dart';
 import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/blocs/auth_bloc/auth_bloc.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
@@ -12,7 +11,6 @@ import '../../common/ui/custom_text_form_field.dart';
 import '../../common/ui/loading.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/utils.dart';
-import '../../data/secure_storage/storage_repository_service.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import 'reset_password_page.dart';
@@ -230,14 +228,32 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       Visibility(
                         visible: _codeView,
                         child: ClickableText(
-                            title: SimpleRichText(
-                              S.of(context).resend_email,
+                            title: RichText(
+                              maxLines: 1,
+                              softWrap: false,
+                              overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.center,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                      color: Palette.current.primaryNeonGreen),
+                              text: TextSpan(children: [
+                                TextSpan(
+                                  text: S.of(context).didnt_get_email,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(
+                                        color: Palette.current.primaryNeonGreen,
+                                      ),
+                                ),
+                                TextSpan(
+                                  text: S.of(context).resend_email,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(
+                                        fontWeight: FontWeight.w400,
+                                        color: Palette.current.primaryNeonGreen,
+                                      ),
+                                ),
+                              ]),
                             ),
                             onPressed: () {
                               context.read<AuthBloc>().add(

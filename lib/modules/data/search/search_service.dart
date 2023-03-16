@@ -1,13 +1,15 @@
 import 'package:swagapp/modules/data/search/i_search_service.dart';
-import 'package:swagapp/modules/models/search/filter_model.dart';
 
 import '../../api/api.dart';
 import '../../api/api_service.dart';
 import '../../blocs/search_bloc.dart/search_bloc.dart';
 import '../../common/utils/utils.dart';
+import '../../di/injector.dart';
 import '../../models/search/catalog_item_model.dart';
 import '../../models/search/search_request_payload_model.dart';
 import '../../models/search_tabs/search_tabs_response_model.dart';
+import '../secure_storage/storage_repository_service.dart';
+import '../shared_preferences/shared_preferences_service.dart';
 
 class SearchService extends ISearchService {
   SearchService(this.apiService);
@@ -21,11 +23,18 @@ class SearchService extends ISearchService {
   @override
   Future<Map<SearchTab, List<CatalogItemModel>>> search(
       SearchRequestPayloadModel model, SearchTab tab) async {
+    final isAuthenticatedUser =
+        getIt<PreferenceRepositoryService>().isLogged() &&
+            isTokenValid(await getIt<StorageRepositoryService>().getToken());
+
     final response = await apiService.getEndpointData(
-        endpoint: Endpoint.catalogSearchList,
+        endpoint: isAuthenticatedUser
+            ? Endpoint.catalogSearchListAuthenticated
+            : Endpoint.catalogSearchListGuest,
         method: RequestMethod.post,
         jsonKey: "catalogList",
         dynamicParam: "0",
+        needBearer: isAuthenticatedUser,
         fromJson: (json) => SearchTabsResponseModel.fromJson(json),
         body: model.toJson());
 

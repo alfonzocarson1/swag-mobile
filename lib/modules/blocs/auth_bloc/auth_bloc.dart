@@ -39,8 +39,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
                           defaultString))
                 }
             });
-
-    // getIt<StorageRepositoryService>().saveToken("");
   }
 
   Stream<AuthState> get authStateStream async* {
