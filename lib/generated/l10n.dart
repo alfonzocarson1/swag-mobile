@@ -1849,6 +1849,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Incorrect code. Please check and try again.`
+  String get incorrect_code {
+    return Intl.message(
+      'Incorrect code. Please check and try again.',
+      name: 'incorrect_code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Code expired. Please select resend to receive new code.`
+  String get code_expired {
+    return Intl.message(
+      'Code expired. Please select resend to receive new code.',
+      name: 'code_expired',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
