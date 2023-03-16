@@ -64,7 +64,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
           onAction: () {
             if (isLogged) {
               Navigator.of(context, rootNavigator: true)
-                  .push(AddCollection.route(context));
+                  .push(AddCollection.route(context, widget.catalogItemId));
             } else {
               Navigator.of(context, rootNavigator: true)
                   .push(CreateAccountPage.route());

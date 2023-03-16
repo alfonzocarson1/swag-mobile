@@ -2,21 +2,28 @@ import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../generated/l10n.dart';
+import '../../../blocs/collection_bloc/collection_bloc.dart';
 import '../../../common/ui/cupertino_custom_date_picker.dart';
 import '../../../common/ui/custom_text_form_field.dart';
 
+import '../../../common/ui/loading.dart';
 import '../../../common/ui/primary_button.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
+import '../../../models/collection/add_collection_items_payload_model.dart';
+import '../../../models/collection/add_collection_model.dart';
 
 class AddCollection extends StatefulWidget {
   static const name = '/AddCollection';
-  const AddCollection({super.key});
+  AddCollection({super.key, required this.catalogItemId});
+  String catalogItemId;
 
-  static Route route(final BuildContext context) => PageRoutes.modalBottomSheet(
+  static Route route(final BuildContext context, String catalogItemId) =>
+      PageRoutes.modalBottomSheet(
         isScrollControlled: true,
         isDismissible: true,
         enableDrag: false,
@@ -26,7 +33,9 @@ class AddCollection extends StatefulWidget {
               topRight: Radius.circular(26), topLeft: Radius.circular(26)),
         ),
         settings: const RouteSettings(name: name),
-        builder: (context) => const AddCollection(),
+        builder: (context) => AddCollection(
+          catalogItemId: catalogItemId,
+        ),
         context: context,
       );
 
@@ -36,6 +45,8 @@ class AddCollection extends StatefulWidget {
 
 class _AddCollectionState extends State<AddCollection> {
   DateTime? _defaultDateTime;
+
+  var formattedDate = "";
 
   final FocusNode _purchaseNode = FocusNode();
   final _purchaseController = TextEditingController();
@@ -56,6 +67,7 @@ class _AddCollectionState extends State<AddCollection> {
   bool isFirst = true;
 
   bool validPrice = false;
+  double _price = 0.0;
 
   final formater = NumberFormat("###0.00");
 
@@ -64,18 +76,17 @@ class _AddCollectionState extends State<AddCollection> {
 
   var Conditions = [
     'Condition',
-    'Condition 1',
-    'Condition 2',
-    'Condition 3',
-    'Condition 4',
+    'Sealed',
+    'Displayed',
+    'Gamed',
   ];
 
   var Sources = [
     'Source',
-    'Source 1',
-    'Source 2',
-    'Source 3',
-    'Source 4',
+    'Swag',
+    'Ebay',
+    'Facebook',
+    'Friend/ Gift or Other',
   ];
 
   @override
@@ -117,6 +128,28 @@ class _AddCollectionState extends State<AddCollection> {
 
   @override
   Widget build(BuildContext context) {
+    return BlocListener<CollectionBloc, CollectionState>(
+        listener: (context, state) => state.maybeWhen(
+              orElse: () {
+                return null;
+              },
+              loadedCollectionSuccess: (state) {
+                Navigator.of(context, rootNavigator: true).pop();
+                Loading.hide(context);
+                return null;
+              },
+              initial: () {
+                return Loading.show(context);
+              },
+              error: (message) => {
+                Loading.hide(context),
+                // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
+              },
+            ),
+        child: _getBody());
+  }
+
+  GestureDetector _getBody() {
     return GestureDetector(
       onTap: () {
         _purchaseNode.unfocus();
@@ -232,6 +265,9 @@ class _AddCollectionState extends State<AddCollection> {
                                   setState(() {
                                     setState(() {
                                       _defaultDateTime = newValue;
+                                      String str = _defaultDateTime.toString();
+                                      String result = str.replaceAll(' ', 'T');
+                                      formattedDate = result;
                                       Navigator.pop(context);
                                     });
                                   });
@@ -257,6 +293,11 @@ class _AddCollectionState extends State<AddCollection> {
                                 ],
                                 maxLength: 7,
                                 onChanged: (value) {
+                                  if (value == '00') {
+                                    setState(() {
+                                      _price = 0.0;
+                                    });
+                                  }
                                   String newValue = value
                                       .replaceAll(',', '')
                                       .replaceAll('.', '');
@@ -275,6 +316,12 @@ class _AddCollectionState extends State<AddCollection> {
                                     selection: TextSelection.collapsed(
                                         offset: value.length),
                                   );
+
+                                  setState(() {
+                                    String str = _purchaseController.value.text;
+                                    String result = str.replaceAll(',', '');
+                                    _price = double.parse(result);
+                                  });
                                 },
                               ),
                               const SizedBox(
@@ -326,7 +373,21 @@ class _AddCollectionState extends State<AddCollection> {
                                 title: S.of(context).add_collection,
                                 onPressed: () {
                                   showErrors();
-                                  if (areFieldsValid()) {}
+                                  if (areFieldsValid()) {
+                                    context.read<CollectionBloc>().add(
+                                            CollectionEvent.addCollection(
+                                                AddCollectionModel(
+                                                    profileCollectionItems: [
+                                              AddCollectionItemPayloadModel(
+                                                  catalogItemId:
+                                                      widget.catalogItemId,
+                                                  purchaseDate: formattedDate,
+                                                  purchasePrice: _price,
+                                                  itemCondition:
+                                                      _defaultCondition,
+                                                  itemSource: _defaultSource),
+                                            ])));
+                                  }
                                 },
                                 type: PrimaryButtonType.green,
                               ),

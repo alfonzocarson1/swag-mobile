@@ -102,7 +102,10 @@ class _CatalogPageState extends State<CatalogPage> {
                                 onTap: () {
                                   if (isLogged) {
                                     Navigator.of(context, rootNavigator: true)
-                                        .push(AddCollection.route(context));
+                                        .push(AddCollection.route(
+                                            context,
+                                            widget.catalogItems[index]
+                                                .catalogItemId));
                                   } else {
                                     Navigator.of(context, rootNavigator: true)
                                         .push(CreateAccountPage.route());
@@ -135,7 +138,10 @@ class _CatalogPageState extends State<CatalogPage> {
                                 onPressed: () {
                                   if (isLogged) {
                                     Navigator.of(context, rootNavigator: true)
-                                        .push(AddCollection.route(context));
+                                        .push(AddCollection.route(
+                                            context,
+                                            widget.catalogItems[index]
+                                                .catalogItemId));
                                   } else {
                                     Navigator.of(context, rootNavigator: true)
                                         .push(CreateAccountPage.route());
