@@ -280,11 +280,21 @@ class S {
     );
   }
 
-  /// `Didn’t get an email? *Resend Email*`
+  /// `Resend Email`
   String get resend_email {
     return Intl.message(
-      'Didn’t get an email? *Resend Email*',
+      'Resend Email',
       name: 'resend_email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Didn’t get an email? `
+  String get didnt_get_email {
+    return Intl.message(
+      'Didn’t get an email? ',
+      name: 'didnt_get_email',
       desc: '',
       args: [],
     );
@@ -1845,6 +1855,26 @@ class S {
     return Intl.message(
       'Selected',
       name: 'selected',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Incorrect code. Please check and try again.`
+  String get incorrect_code {
+    return Intl.message(
+      'Incorrect code. Please check and try again.',
+      name: 'incorrect_code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Code expired. Please select resend to receive new code.`
+  String get code_expired {
+    return Intl.message(
+      'Code expired. Please select resend to receive new code.',
+      name: 'code_expired',
       desc: '',
       args: [],
     );

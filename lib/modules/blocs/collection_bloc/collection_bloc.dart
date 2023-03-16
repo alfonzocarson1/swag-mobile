@@ -6,9 +6,6 @@ import 'package:swagapp/modules/models/search/catalog_item_model.dart';
 
 import '../../common/utils/handling_errors.dart';
 import '../../data/collection/i_collection_service.dart';
-import '../../data/shared_preferences/shared_preferences_service.dart';
-import '../../di/injector.dart';
-import '../../models/collection/add_collection_items_payload_model.dart';
 import '../../models/collection/add_collection_model.dart';
 
 part 'collection_bloc.freezed.dart';

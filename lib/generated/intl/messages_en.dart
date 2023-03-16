@@ -49,6 +49,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "city": MessageLookupByLibrary.simpleMessage("City"),
         "clear_all": MessageLookupByLibrary.simpleMessage("Clear All"),
         "code": MessageLookupByLibrary.simpleMessage("Code"),
+        "code_expired": MessageLookupByLibrary.simpleMessage(
+            "Code expired. Please select resend to receive new code."),
         "collection": MessageLookupByLibrary.simpleMessage(
             "This cover is not in your collection, buy it now before it’s too late"),
         "collections": MessageLookupByLibrary.simpleMessage("collections"),
@@ -64,6 +66,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete_photo": MessageLookupByLibrary.simpleMessage("DELETE PHOTO"),
         "delete_photo_descrption": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to delete this photo?"),
+        "didnt_get_email":
+            MessageLookupByLibrary.simpleMessage("Didn’t get an email? "),
         "displayed": MessageLookupByLibrary.simpleMessage("Displayed"),
         "displayed_gamed":
             MessageLookupByLibrary.simpleMessage("DISPLAYED/GAMED:"),
@@ -116,6 +120,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please include the following images based on item condition. All photos must include a post-it with username and date."),
         "import_late": MessageLookupByLibrary.simpleMessage(
             "*You’ll be able to make updates later."),
+        "incorrect_code": MessageLookupByLibrary.simpleMessage(
+            "Incorrect code. Please check and try again."),
         "incorrect_email_or_password": MessageLookupByLibrary.simpleMessage(
             "Incorrect email or password. Please try again"),
         "info_guideline_popup_badg_one": MessageLookupByLibrary.simpleMessage(
@@ -212,8 +218,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("REMOVE FROM COLLECTION"),
         "required_field":
             MessageLookupByLibrary.simpleMessage("Required field"),
-        "resend_email": MessageLookupByLibrary.simpleMessage(
-            "Didn’t get an email? *Resend Email*"),
+        "resend_email": MessageLookupByLibrary.simpleMessage("Resend Email"),
         "resend_verification_email":
             MessageLookupByLibrary.simpleMessage("RESEND VERIFICATION EMAIL"),
         "reset_password_btn":

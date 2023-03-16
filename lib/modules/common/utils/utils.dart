@@ -180,6 +180,10 @@ Future<void> initFiltersAndSorts() async {
   await getIt<PreferenceRepositoryService>().setProduct([]);
 }
 
+void initUtilsPreference() {
+  getIt<PreferenceRepositoryService>().saveValidCode('');
+}
+
 void initFilterAndSortsWithBloc(BuildContext context) {
   context.read<SharedPreferencesBloc>().add(
       const SharedPreferencesEvent.setPreference(SharedPreferenceModel(

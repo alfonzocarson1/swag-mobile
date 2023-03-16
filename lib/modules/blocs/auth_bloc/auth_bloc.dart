@@ -10,7 +10,9 @@ import '../../data/auth/i_auth_service.dart';
 import '../../data/secure_storage/storage_repository_service.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
+import '../../models/auth/change_password_response_model.dart';
 import '../../models/auth/create_account_payload_model.dart';
+import '../../models/auth/forgot_password_code_model.dart';
 
 part 'auth_bloc.freezed.dart';
 part 'auth_event.dart';
@@ -37,8 +39,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
                           defaultString))
                 }
             });
-
-    // getIt<StorageRepositoryService>().saveToken("");
   }
 
   Stream<AuthState> get authStateStream async* {
@@ -54,6 +54,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       logout: _logout,
       authenticate: _authenticate,
       createAccount: _createAccount,
+      sendEmail: _sendEmail,
+      validCode: _validCode,
+      changePassword: _changePassword,
       init: _init,
     );
   }
@@ -97,6 +100,45 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       } else {
         yield AuthState.error(HandlingErrors().getError(response.errorCode));
       }
+    } catch (e) {
+      yield AuthState.error(HandlingErrors().getError(e));
+    }
+  }
+
+  Stream<AuthState> _sendEmail(String email) async* {
+    yield const AuthState.initial();
+
+    try {
+      await authService.requestPasswordResetCode(email);
+      yield AuthState.codeSent();
+    } catch (e) {
+      yield AuthState.error(HandlingErrors().getError(e));
+    }
+  }
+
+  Stream<AuthState> _validCode(String code) async* {
+    yield const AuthState.initial();
+
+    try {
+      ForgotPasswordCodeModel responseBody = await authService.sendCode(code);
+
+      yield AuthState.validCodeSuccess(responseBody);
+    } catch (e) {
+      yield AuthState.error(HandlingErrors().getError(e));
+    }
+  }
+
+  Stream<AuthState> _changePassword(
+      String changeCode, String newPassword, String deviceId) async* {
+    yield const AuthState.logging();
+    try {
+      changeCode = await getIt<PreferenceRepositoryService>().validCode();
+      ChangePasswordResponseModel response =
+          await authService.changePassword(changeCode, newPassword, deviceId);
+
+      getIt<StorageRepositoryService>().saveToken(response.token);
+
+      yield const AuthState.authenticated();
     } catch (e) {
       yield AuthState.error(HandlingErrors().getError(e));
     }

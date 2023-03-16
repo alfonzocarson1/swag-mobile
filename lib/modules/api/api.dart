@@ -10,10 +10,13 @@ enum Endpoint {
   login,
   salesHistory,
   catalogCategories,
-  catalogSearchList,
-  publicCatalogSearchList,
+  catalogSearchListGuest,
+  catalogSearchListAuthenticated,
   updateProfile,
   updateAvatar,
+  requestPasswordResetCode,
+  requestIsvalidCode,
+  changePassword,
   addCollection
 }
 
@@ -41,10 +44,15 @@ class API {
     Endpoint.login: "api/public/v1/account/login",
     Endpoint.salesHistory: "api/public/v1/listing/salesHistory/%s",
     Endpoint.catalogCategories: 'api/public/v1/catalog/categories/',
-    Endpoint.catalogSearchList: 'api/v1/catalog/search/%s',
-    Endpoint.publicCatalogSearchList: 'api/public/v1/catalog/search/%s',
+    Endpoint.catalogSearchListGuest: 'api/public/v1/catalog/search/%s',
+    Endpoint.catalogSearchListAuthenticated: 'api/v1/catalog/search/%s',
     Endpoint.updateProfile: "api/v1/profile",
     Endpoint.updateAvatar: 'api/v1/image/%s',
+    Endpoint.requestPasswordResetCode:
+        'api/public/v1/account/requestPasswordResetCode/%s',
+    Endpoint.requestIsvalidCode:
+        'api/public/v1/account/requestPasswordResetCode/isvalid/%s',
+    Endpoint.changePassword: 'api/public/v1/account/passwordChangeRequest',
     Endpoint.addCollection: "api/v1/profile/collectionItems",
   };
 }

@@ -17,6 +17,7 @@ Future<void> main() async {
   await getIt<PreferenceRepositoryService>().initialize();
   getIt<StorageRepositoryService>().initialize();
   initFiltersAndSorts();
+  initUtilsPreference();
   try {
     // await PushNotificationProvider.instance.initNotifications();
   } catch (e) {
