@@ -47,8 +47,8 @@ class _AccessoriesPageState extends State<AccessoriesPage> {
               Loading.hide(context),
               // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
             },
-            initial: () {
-              return Loading.show(context);
+            initial: () => {
+              if (!Loading.isVisible()) {Loading.show(context)}
             },
           ),
           builder: (context, state) {

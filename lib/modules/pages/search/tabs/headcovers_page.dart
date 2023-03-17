@@ -45,11 +45,8 @@ class _HeadcoversPageState extends State<HeadcoversPage> {
               Loading.hide(context),
               // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
             },
-            initial: () {
-              if (!Loading.isVisible()) {
-                return Loading.show(context);
-              }
-              return null;
+            initial: () => {
+              if (!Loading.isVisible()) {Loading.show(context)}
             },
           ),
           builder: (context, state) {

@@ -90,25 +90,38 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                           color: Palette.current.primaryNeonGreen,
                         )),
                   ),
-                  Text(
-                    S.of(context).filters_title.toUpperCase(),
-                    style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                        fontFamily: "Knockout",
-                        fontSize: 30,
-                        fontWeight: FontWeight.w300,
-                        letterSpacing: 1.0,
-                        color: Palette.current.primaryWhiteSmoke),
-                  ),
                   Padding(
-                    padding: const EdgeInsets.all(0.0),
+                    padding: const EdgeInsets.only(left: 20.0),
                     child: Text(
-                      "${S.of(context).clear_all}    ",
+                      S.of(context).filters_title.toUpperCase(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium!
+                          .copyWith(
+                              fontFamily: "Knockout",
+                              fontSize: 30,
+                              fontWeight: FontWeight.w300,
+                              letterSpacing: 1.0,
+                              color: Palette.current.primaryWhiteSmoke),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      initFilterAndSortsWithBloc(context,
+                          selectedProductNumber:
+                              widget.tab?.index ?? defaultInt);
+                    },
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.transparent)),
+                    child: Text(
+                      S.of(context).clear_all,
                       style: Theme.of(context)
                           .textTheme
                           .bodySmall!
                           .copyWith(color: Palette.current.primaryNeonGreen),
                     ),
-                  ),
+                  )
                 ],
               ),
               const SizedBox(
@@ -416,19 +429,19 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
   String getText(FilterType type, {int? index, int? length}) {
     switch (type) {
       case FilterType.product:
-        return index == null || Product.values.length == length
+        return index == null
             ? defaultString
             : length == 1
                 ? ProductWrapper(Product.values.elementAt(index)).toString()
                 : "$length ${S.of(context).selected}";
       case FilterType.condition:
-        return index == null || Condition.values.length == length
+        return index == null
             ? defaultString
             : length == 1
                 ? ConditionWrapper(Condition.values.elementAt(index)).toString()
                 : "$length ${S.of(context).selected}";
       case FilterType.price:
-        return index == null || Price.values.length == length
+        return index == null
             ? defaultString
             : length == 1
                 ? PriceWrapper(Price.values.elementAt(index)).toString()
@@ -438,7 +451,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                 index ?? getIt<PreferenceRepositoryService>().getSortBy()))
             .toString();
       case FilterType.releaseDate:
-        return index == null || ReleaseDate.values.length == length
+        return index == null
             ? defaultString
             : length == 1
                 ? ReleaseDateWrapper(ReleaseDate.values.elementAt(index))

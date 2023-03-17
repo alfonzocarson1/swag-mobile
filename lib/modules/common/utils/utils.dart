@@ -170,30 +170,33 @@ List<String> getConditionStringList(List<int> conditionList) {
   return list;
 }
 
-Future<void> initFiltersAndSorts() async {
+Future<void> initFiltersAndSorts({int? selectedProductNumber = 0}) async {
   await getIt<PreferenceRepositoryService>().saveIsListView(true);
   await getIt<PreferenceRepositoryService>().saveIsForSale(false);
   await getIt<PreferenceRepositoryService>().setSortBy(defaultInt);
   await getIt<PreferenceRepositoryService>().setCondition([]);
   await getIt<PreferenceRepositoryService>().setPrice([]);
   await getIt<PreferenceRepositoryService>().setReleaseDate([]);
-  await getIt<PreferenceRepositoryService>().setProduct([]);
+  await getIt<PreferenceRepositoryService>().setProduct(
+      selectedProductNumber != 0
+          ? [(selectedProductNumber! - 1).toString()]
+          : []);
 }
 
 void initUtilsPreference() {
   getIt<PreferenceRepositoryService>().saveValidCode('');
 }
 
-void initFilterAndSortsWithBloc(BuildContext context) {
+void initFilterAndSortsWithBloc(BuildContext context,
+    {int? selectedProductNumber = 0}) {
   context.read<SharedPreferencesBloc>().add(
-      const SharedPreferencesEvent.setPreference(SharedPreferenceModel(
+      SharedPreferencesEvent.setPreference(SharedPreferenceModel(
           isListView: true,
           isForSale: false,
           sortBy: defaultInt,
           condition: [],
           price: [],
-          product: [],
+          product:
+              selectedProductNumber != 0 ? [selectedProductNumber! - 1] : [],
           releaseDate: [])));
-  // await getIt<PreferenceRepositoryService>().setCondition([]);
-  // await getIt<PreferenceRepositoryService>().saveIsForSale(false);
 }

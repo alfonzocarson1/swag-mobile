@@ -41,11 +41,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             });
   }
 
-  Stream<AuthState> get authStateStream async* {
-    yield state;
-    yield* stream;
-  }
-
   void logout() => add(const AuthEvent.logout());
 
   @override

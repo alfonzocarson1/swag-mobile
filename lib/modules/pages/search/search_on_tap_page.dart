@@ -81,7 +81,6 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
                                 await initFiltersAndSorts();
 
                                 if (!mounted) return;
-                                Navigator.pop(context);
                                 PersistentNavBarNavigator.pushNewScreen(
                                   context,
                                   screen: SearchResultPage(
@@ -103,7 +102,6 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
                       initFilterAndSortsWithBloc(context);
                       await initFiltersAndSorts();
                       if (!mounted) return;
-                      Navigator.pop(context);
                       PersistentNavBarNavigator.pushNewScreen(
                         context,
                         screen: SearchResultPage(

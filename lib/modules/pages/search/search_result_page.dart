@@ -73,13 +73,18 @@ class _SearchResultPageState extends State<SearchResultPage>
         backgroundColor: Palette.current.primaryNero,
         body: BlocConsumer<SearchBloc, SearchState>(
           listener: (context, state) => state.maybeWhen(
-            orElse: () => {Loading.hide(context)},
+            orElse: () => {
+              if (Loading.isVisible()) {Loading.hide(context)}
+            },
             error: (message) => {
-              Loading.hide(context),
+              if (Loading.isVisible()) {Loading.hide(context)}
               // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
             },
             initial: () {
-              return Loading.show(context);
+              if (!Loading.isVisible()) {
+                return Loading.show(context);
+              }
+              return null;
             },
           ),
           builder: (context, state) {
@@ -196,8 +201,7 @@ class _SearchResultPageState extends State<SearchResultPage>
             onTap: () async {
               _textEditingController.text = '';
               Navigator.pop(context);
-              initFilterAndSortsWithBloc(context);
-              await initFiltersAndSorts();
+              Navigator.pop(context);
             },
             child: Icon(
               Icons.arrow_back,

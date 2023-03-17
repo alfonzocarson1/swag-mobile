@@ -94,13 +94,18 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
         ),
         body: BlocConsumer<DetailBloc, DetailState>(
           listener: (context, state) => state.maybeWhen(
-            orElse: () => {Loading.hide(context)},
+            orElse: () => {
+              if (Loading.isVisible()) {Loading.hide(context)}
+            },
             error: (message) => {
-              Loading.hide(context),
+              if (Loading.isVisible()) {Loading.hide(context)}
               // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
             },
             initial: () {
-              return Loading.show(context);
+              if (!Loading.isVisible()) {
+                Loading.show(context);
+              }
+              return null;
             },
           ),
           builder: (context, state) {

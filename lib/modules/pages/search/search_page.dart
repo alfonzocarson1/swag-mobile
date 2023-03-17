@@ -52,27 +52,18 @@ class _SearchPageState extends State<SearchPage>
     _tabController = TabController(length: 4, vsync: this);
     _tabController.addListener(() {
       final index = _tabController.index;
-      final preference = context.read<SharedPreferencesBloc>().state.model;
+      initFilterAndSortsWithBloc(context, selectedProductNumber: index);
+
       context.read<SearchBloc>().add(SearchEvent.selectTab(
           SearchTab.values[index],
           true)); //preference.filtersAndSortsSelected > 0 //TODO logic to update only if there was a change in filters and sorts between tabs
-      //Sets the Product in the Filters everytime the user changes between Headers, Putters or Accessories tabs
 
-      context.read<SharedPreferencesBloc>().add(
-          SharedPreferencesEvent.setPreference(
-              preference.copyWith(product: index != 0 ? [index - 1] : [])));
       if (index > 0) {
         filterIndicatorCounter = 1;
       } else {
         filterIndicatorCounter = 0;
       }
     });
-    // _isLogged = getIt<PreferenceRepositoryService>().isLogged();
-    // if (_isLogged) {
-    // Future.delayed(const Duration(milliseconds: 4000), () {
-    //   Navigator.of(context, rootNavigator: true).push(AccountInfoPage.route());
-    // });
-    // }
   }
 
   @override
@@ -145,15 +136,21 @@ class _SearchPageState extends State<SearchPage>
         ),
         Expanded(
           child: InkWell(
-            onTap: () {
+            onTap: () async {
               PersistentNavBarNavigator.pushNewScreen(
                 context,
                 screen: SearchOnTapPage(),
                 withNavBar: true,
                 pageTransitionAnimation: PageTransitionAnimation.cupertino,
-              );
-              // Navigator.of(context, rootNavigator: true)
-              //     .push(SearchOnTapPage.route()); //_textEditingController
+              ).then((completion) async {
+                initFilterAndSortsWithBloc(context,
+                    selectedProductNumber: _tabController.index);
+                await initFiltersAndSorts(
+                    selectedProductNumber: _tabController.index);
+                if (!mounted) return;
+                performSearch(context,
+                    tab: SearchTab.values.elementAt(_tabController.index));
+              });
             },
             child: SearchInput(
                 prefixIcon: null,

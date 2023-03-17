@@ -6,6 +6,7 @@ import '../../blocs/search_bloc.dart/search_bloc.dart';
 import '../../common/utils/utils.dart';
 import '../../di/injector.dart';
 import '../../models/search/catalog_item_model.dart';
+import '../../models/search/filter_model.dart';
 import '../../models/search/search_request_payload_model.dart';
 import '../../models/search_tabs/search_tabs_response_model.dart';
 import '../secure_storage/storage_repository_service.dart';
@@ -49,7 +50,7 @@ class SearchService extends ISearchService {
     } else {
       final response = await search(
           SearchRequestPayloadModel(
-              filters: getCurrentFilterModel(),
+              filters: const FilterModel(),
               categoryId: await SearchTabWrapper(tab).toStringCustom()),
           tab);
       _cachedSearch[tab] = response[tab] ?? [];
