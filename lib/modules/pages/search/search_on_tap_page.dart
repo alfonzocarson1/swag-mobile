@@ -77,16 +77,7 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
                             color: Colors.transparent,
                             child: InkWell(
                               onTap: () async {
-                                initFilterAndSortsWithBloc(context);
-                                await initFiltersAndSorts();
-
-                                if (!mounted) return;
-                                PersistentNavBarNavigator.pushNewScreen(
-                                  context,
-                                  screen: SearchResultPage(
-                                      widget._textEditingController.text),
-                                  withNavBar: true,
-                                );
+                                await goToResultPage();
                               },
                               child: Image.asset(
                                 "assets/icons/Search.png",
@@ -99,15 +90,7 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
                       ),
                     ),
                     onSubmitted: (value) async {
-                      initFilterAndSortsWithBloc(context);
-                      await initFiltersAndSorts();
-                      if (!mounted) return;
-                      PersistentNavBarNavigator.pushNewScreen(
-                        context,
-                        screen: SearchResultPage(
-                            widget._textEditingController.text),
-                        withNavBar: true,
-                      );
+                      await goToResultPage();
                     },
                     suffixIcon: Icon(
                       Icons.close,
@@ -131,7 +114,7 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
                 ),
               ],
             ),
-            height: 70,
+            height: 62,
           ),
           backgroundColor: Palette.current.primaryNero,
           body: Stack(
@@ -169,48 +152,68 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
     );
   }
 
+  Future<void> goToResultPage() async {
+    initFilterAndSortsWithBloc(context);
+    await initFiltersAndSorts();
+    if (!mounted) return;
+    PersistentNavBarNavigator.pushNewScreen(
+      context,
+      screen: SearchResultPage(widget._textEditingController.text),
+      withNavBar: true,
+    );
+  }
+
   Widget _categoryItem(BuildContext context, String category) {
     return Column(
       children: [
-        Container(
+        Material(
           color: Palette.current.blackSmoke,
-          height: 50,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 36.0, right: 20),
-            child: Row(
-              children: [
-                Expanded(
-                  child: RichText(
-                    maxLines: 1,
-                    softWrap: false,
-                    overflow: TextOverflow.ellipsis,
-                    text: TextSpan(children: [
-                      TextSpan(
-                          text: '${widget._textEditingController.text} ',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineLarge!
-                              .copyWith(
-                                  color: Palette.current.primaryWhiteSmoke,
-                                  fontSize: 16)),
-                      TextSpan(
-                        text: "in $category",
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineLarge!
-                            .copyWith(
-                                color: Palette.current.darkGray, fontSize: 16),
+          child: InkWell(
+            splashColor: Palette.current.gray2,
+            onTap: () async {
+              await goToResultPage();
+            },
+            child: SizedBox(
+              height: 50,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 36.0, right: 20),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: RichText(
+                        maxLines: 1,
+                        softWrap: false,
+                        overflow: TextOverflow.ellipsis,
+                        text: TextSpan(children: [
+                          TextSpan(
+                              text: '${widget._textEditingController.text} ',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineLarge!
+                                  .copyWith(
+                                      color: Palette.current.primaryWhiteSmoke,
+                                      fontSize: 16)),
+                          TextSpan(
+                            text: "in $category",
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineLarge!
+                                .copyWith(
+                                    color: Palette.current.darkGray,
+                                    fontSize: 16),
+                          ),
+                        ]),
                       ),
-                    ]),
-                  ),
+                    ),
+                    const Spacer(),
+                    Icon(
+                      Icons.arrow_forward_ios_sharp,
+                      size: 10,
+                      color: Palette.current.darkGray,
+                    )
+                  ],
                 ),
-                const Spacer(),
-                Icon(
-                  Icons.arrow_forward_ios_sharp,
-                  size: 10,
-                  color: Palette.current.darkGray,
-                )
-              ],
+              ),
             ),
           ),
         ),

@@ -155,7 +155,7 @@ class _SearchResultPageState extends State<SearchResultPage>
               onPressed: () {},
             ),
             Text(
-              "Sort: Release Date",
+              "${S.of(context).sort} Release Date",
               style: Theme.of(context).textTheme.bodySmall!.copyWith(
                   // fontWeight: FontWeight.bold,
                   fontSize: 14,
