@@ -120,7 +120,10 @@ class _SelectItemPageState extends State<SelectItemPage> {
                         onTap: () {
                           Navigator.of(context, rootNavigator: true).push(
                               AddCollection.route(
-                                  context, soldList[index].catalogItemId));
+                                  context,
+                                  soldList[index].catalogItemId,
+                                  soldList[index].catalogItemImage,
+                                  soldList[index].catalogItemName));
                         },
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

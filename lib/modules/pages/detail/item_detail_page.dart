@@ -38,8 +38,9 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
   late final ScrollController? _scrollController =
       PrimaryScrollController.of(context);
 
-  bool firstState = true;
   int? _collectionLen;
+  String _pathImage = '';
+  String _itemName = '';
 
   bool isLogged = false;
 
@@ -63,8 +64,9 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
         appBar: CustomAppBar(
           onAction: () {
             if (isLogged) {
-              Navigator.of(context, rootNavigator: true)
-                  .push(AddCollection.route(context, widget.catalogItemId));
+              Navigator.of(context, rootNavigator: true).push(
+                  AddCollection.route(
+                      context, widget.catalogItemId, _pathImage, _itemName));
             } else {
               Navigator.of(context, rootNavigator: true)
                   .push(CreateAccountPage.route());
@@ -107,14 +109,19 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
   }
 
   Widget _getBody(List<DetailItemModel> dataDetail) {
-    if (firstState) {
-      Future.delayed(const Duration(milliseconds: 500), () {
-        setState(() {
-          firstState = false;
-          _collectionLen = getIt<PreferenceRepositoryService>().collectionLen();
-        });
+    Future.delayed(Duration.zero, () {
+      setState(() {
+        _pathImage = dataDetail[0].catalogItemImage;
+        _itemName = dataDetail[0].catalogItemName;
+
+        if (dataDetail[0].collectionItems != null ||
+            dataDetail[0].collectionItems != []) {
+          _collectionLen = dataDetail[0].collectionItems?.length ?? 0;
+        } else {
+          _collectionLen = 0;
+        }
       });
-    }
+    });
 
     return RefreshIndicator(
       onRefresh: () async {
@@ -204,9 +211,5 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
     context
         .read<DetailBloc>()
         .add(DetailEvent.getDetailItem(widget.catalogItemId));
-
-    setState(() {
-      firstState = true;
-    });
   }
 }

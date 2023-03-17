@@ -172,17 +172,6 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   }
 
   @override
-  int collectionLen() {
-    final collectios = _prefs.getInt(_detailCollectionLen);
-    return collectios ?? 0;
-  }
-
-  @override
-  Future<void> saveCollectionLen(int value) async {
-    await _prefs.setInt(_detailCollectionLen, value);
-  }
-
-  @override
   Future<List<CategoryModel>> getLastCategories() async {
     try {
       Map<String, dynamic> map =

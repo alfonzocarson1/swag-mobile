@@ -35,14 +35,12 @@ abstract class PreferenceRepositoryInt {
   String accountId();
   Future<void> saveAccountId(String value);
 
-  int collectionLen();
-  Future<void> saveCollectionLen(int value);
-
   bool returExploreIsNotLogged();
   Future<void> saveReturExploreIsNotLogged(bool value);
 
   bool loginAfterGuest();
   Future<void> saveloginAfterGuest(bool value);
+
   Future<String> validCode();
   Future<void> saveValidCode(String value);
 }

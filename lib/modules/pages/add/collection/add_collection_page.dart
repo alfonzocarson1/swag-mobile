@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../blocs/collection_bloc/collection_bloc.dart';
+import '../../../blocs/detail_bloc/detail_bloc.dart';
 import '../../../common/ui/cupertino_custom_date_picker.dart';
 import '../../../common/ui/custom_text_form_field.dart';
 
@@ -19,10 +20,17 @@ import '../../../models/collection/add_collection_model.dart';
 
 class AddCollection extends StatefulWidget {
   static const name = '/AddCollection';
-  AddCollection({super.key, required this.catalogItemId});
+  AddCollection(
+      {super.key,
+      required this.catalogItemId,
+      required this.pathImage,
+      required this.itemName});
   String catalogItemId;
+  String pathImage;
+  String itemName;
 
-  static Route route(final BuildContext context, String catalogItemId) =>
+  static Route route(final BuildContext context, String catalogItemId,
+          String pathImage, String itemName) =>
       PageRoutes.modalBottomSheet(
         isScrollControlled: true,
         isDismissible: true,
@@ -34,8 +42,9 @@ class AddCollection extends StatefulWidget {
         ),
         settings: const RouteSettings(name: name),
         builder: (context) => AddCollection(
-          catalogItemId: catalogItemId,
-        ),
+            catalogItemId: catalogItemId,
+            pathImage: pathImage,
+            itemName: itemName),
         context: context,
       );
 
@@ -134,6 +143,8 @@ class _AddCollectionState extends State<AddCollection> {
                 return null;
               },
               loadedCollectionSuccess: (state) {
+                BlocProvider.of<DetailBloc>(context)
+                    .add(DetailEvent.getDetailItem(widget.catalogItemId));
                 Navigator.of(context, rootNavigator: true).pop();
                 Loading.hide(context);
                 return null;
@@ -185,8 +196,7 @@ class _AddCollectionState extends State<AddCollection> {
                                   topRight: Radius.circular(26)),
                               child: CachedNetworkImage(
                                 fit: BoxFit.cover,
-                                imageUrl:
-                                    "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Rectangle%2012%20(1).png?alt=media&token=00355e6f-7046-4f5f-9797-cc7610cab9fe",
+                                imageUrl: widget.pathImage,
                                 placeholder: (context, url) => SizedBox(
                                   height: 360,
                                   child: Center(
@@ -245,7 +255,7 @@ class _AddCollectionState extends State<AddCollection> {
                             children: [
                               Align(
                                 alignment: Alignment.centerLeft,
-                                child: Text("SUNDAY SKULL BLADE 015",
+                                child: Text(widget.itemName,
                                     style: Theme.of(context)
                                         .textTheme
                                         .displayLarge!

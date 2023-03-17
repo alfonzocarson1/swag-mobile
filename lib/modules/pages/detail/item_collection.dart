@@ -93,19 +93,19 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                     RichText(
                       text: TextSpan(children: [
                         TextSpan(
-                            text: 'This cover is not in your collection, ',
+                            text: 'This item is not in your collection. ',
                             style: TextStyle(
                               fontSize: 15,
                               color: Palette.current.primaryWhiteSmoke,
                             )),
                         TextSpan(
-                            text: 'make an offer ',
+                            text: 'Select to be notified ',
                             style: TextStyle(
                               fontSize: 15,
                               color: Palette.current.blueNeon,
                             )),
                         TextSpan(
-                            text: 'to see if you can get one.',
+                            text: 'when one becomes available.',
                             style: TextStyle(
                               fontSize: 15,
                               color: Palette.current.primaryWhiteSmoke,

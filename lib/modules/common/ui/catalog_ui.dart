@@ -96,58 +96,27 @@ class _CatalogPageState extends State<CatalogPage> {
                     Positioned(
                         top: 0,
                         right: 0,
-                        child: (widget.catalogItems[index].collectionItems!
-                                .isNotEmpty)
-                            ? GestureDetector(
-                                onTap: () {
-                                  if (isLogged) {
-                                    Navigator.of(context, rootNavigator: true)
-                                        .push(AddCollection.route(
-                                            context,
-                                            widget.catalogItems[index]
-                                                .catalogItemId));
-                                  } else {
-                                    Navigator.of(context, rootNavigator: true)
-                                        .push(CreateAccountPage.route());
-                                  }
-                                },
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      "${widget.catalogItems[index].collectionItems?.length}X",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displayLarge!
-                                          .copyWith(
-                                              letterSpacing: 1,
-                                              fontWeight: FontWeight.w300,
-                                              fontFamily: "Knockout",
-                                              fontSize: 30,
-                                              color: Palette
-                                                  .current.primaryNeonGreen),
-                                    ),
-                                    const SizedBox(width: 40)
-                                  ],
-                                ),
-                              )
-                            : IconButton(
-                                icon: Icon(
-                                  Icons.add,
-                                  color: Palette.current.grey,
-                                ),
-                                onPressed: () {
-                                  if (isLogged) {
-                                    Navigator.of(context, rootNavigator: true)
-                                        .push(AddCollection.route(
-                                            context,
-                                            widget.catalogItems[index]
-                                                .catalogItemId));
-                                  } else {
-                                    Navigator.of(context, rootNavigator: true)
-                                        .push(CreateAccountPage.route());
-                                  }
-                                },
-                              )),
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.add,
+                            color: Palette.current.grey,
+                          ),
+                          onPressed: () {
+                            if (isLogged) {
+                              Navigator.of(context, rootNavigator: true).push(
+                                  AddCollection.route(
+                                      context,
+                                      widget.catalogItems[index].catalogItemId,
+                                      widget
+                                          .catalogItems[index].catalogItemImage,
+                                      widget.catalogItems[index]
+                                          .catalogItemName));
+                            } else {
+                              Navigator.of(context, rootNavigator: true)
+                                  .push(CreateAccountPage.route());
+                            }
+                          },
+                        )),
                     Visibility(
                       visible: isSkullVisible,
                       child: Positioned.fill(
