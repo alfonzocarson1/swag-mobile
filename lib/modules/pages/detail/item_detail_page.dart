@@ -6,6 +6,7 @@ import 'package:swagapp/modules/common/utils/palette.dart';
 import '../../blocs/detail_bloc/detail_bloc.dart';
 import '../../blocs/sale_history/sale_history_bloc.dart';
 import '../../common/ui/custom_app_bar.dart';
+import '../../common/ui/popup_add_exisiting_item_collection.dart';
 import '../../common/utils/custom_route_animations.dart';
 
 import '../../data/shared_preferences/shared_preferences_service.dart';
@@ -64,9 +65,25 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
         appBar: CustomAppBar(
           onAction: () {
             if (isLogged) {
-              Navigator.of(context, rootNavigator: true).push(
-                  AddCollection.route(
-                      context, widget.catalogItemId, _pathImage, _itemName));
+              if (_collectionLen == 0) {
+                Navigator.of(context, rootNavigator: true).push(
+                    AddCollection.route(
+                        context, widget.catalogItemId, _pathImage, _itemName));
+              } else {
+                showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (BuildContext context) {
+                      return PopUpAddExisitingItemCollection(
+                          onAdd: () =>
+                              Navigator.of(context, rootNavigator: true).push(
+                                  AddCollection.route(
+                                      context,
+                                      widget.catalogItemId,
+                                      _pathImage,
+                                      _itemName)));
+                    });
+              }
             } else {
               Navigator.of(context, rootNavigator: true)
                   .push(CreateAccountPage.route());

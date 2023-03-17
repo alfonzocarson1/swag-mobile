@@ -30,6 +30,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ADD TO COLLECTION"),
         "add_collection_title":
             MessageLookupByLibrary.simpleMessage("ADD TO YOUR COLLECTION"),
+        "add_multi_collection_btn":
+            MessageLookupByLibrary.simpleMessage("ADD ANOTHER"),
         "add_new_item": MessageLookupByLibrary.simpleMessage("ADD NEW ITEM"),
         "add_photos": MessageLookupByLibrary.simpleMessage("ADD PHOTOS"),
         "aditional_listing_detail": MessageLookupByLibrary.simpleMessage(
@@ -155,6 +157,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("LIST ITEM"),
         "list_price_input": MessageLookupByLibrary.simpleMessage("List Price"),
         "make_an_offer": MessageLookupByLibrary.simpleMessage("MAKE AN OFFER"),
+        "multi_collection_subtitle": MessageLookupByLibrary.simpleMessage(
+            "It looks like you already have this item in your collection. Are you sure you want to add another?"),
+        "multi_collection_title":
+            MessageLookupByLibrary.simpleMessage("WHALE ALERT"),
         "my_collection": MessageLookupByLibrary.simpleMessage("MY COLLECTION"),
         "n_a": MessageLookupByLibrary.simpleMessage("N/A"),
         "new_password": MessageLookupByLibrary.simpleMessage("New Password"),

@@ -10,6 +10,7 @@ import '../../pages/add/collection/add_collection_page.dart';
 import '../../pages/detail/item_detail_page.dart';
 import '../../pages/login/create_account_page.dart';
 import '../utils/palette.dart';
+import 'popup_add_exisiting_item_collection.dart';
 
 class CatalogPage extends StatefulWidget {
   const CatalogPage(
@@ -103,14 +104,35 @@ class _CatalogPageState extends State<CatalogPage> {
                           ),
                           onPressed: () {
                             if (isLogged) {
-                              Navigator.of(context, rootNavigator: true).push(
-                                  AddCollection.route(
-                                      context,
-                                      widget.catalogItems[index].catalogItemId,
-                                      widget
-                                          .catalogItems[index].catalogItemImage,
-                                      widget.catalogItems[index]
-                                          .catalogItemName));
+                              if (widget.catalogItems[index].collectionItems!
+                                  .isNotEmpty) {
+                                showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (BuildContext context) {
+                                      return PopUpAddExisitingItemCollection(
+                                          onAdd: () => Navigator.of(context,
+                                                  rootNavigator: true)
+                                              .push(AddCollection.route(
+                                                  context,
+                                                  widget.catalogItems[index]
+                                                      .catalogItemId,
+                                                  widget.catalogItems[index]
+                                                      .catalogItemImage,
+                                                  widget.catalogItems[index]
+                                                      .catalogItemName)));
+                                    });
+                              } else {
+                                Navigator.of(context, rootNavigator: true).push(
+                                    AddCollection.route(
+                                        context,
+                                        widget
+                                            .catalogItems[index].catalogItemId,
+                                        widget.catalogItems[index]
+                                            .catalogItemImage,
+                                        widget.catalogItems[index]
+                                            .catalogItemName));
+                              }
                             } else {
                               Navigator.of(context, rootNavigator: true)
                                   .push(CreateAccountPage.route());
