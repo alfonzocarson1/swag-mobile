@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 
 import '../../../generated/l10n.dart';
 import '../../common/utils/palette.dart';
+import '../../data/shared_preferences/shared_preferences_service.dart';
+import '../../di/injector.dart';
+import '../login/create_account_page.dart';
 
 class ItemSwitched extends StatefulWidget {
   const ItemSwitched({super.key});
@@ -13,6 +16,8 @@ class ItemSwitched extends StatefulWidget {
 
 class _ItemSwitchedState extends State<ItemSwitched> {
   bool isSwitched = false;
+  bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -67,9 +72,14 @@ class _ItemSwitchedState extends State<ItemSwitched> {
                       trackColor: Color.fromARGB(153, 255, 255, 255),
                       value: isSwitched,
                       onChanged: (bool value) {
-                        setState(() {
-                          isSwitched = value;
-                        });
+                        if (isLogged) {
+                          setState(() {
+                            isSwitched = value;
+                          });
+                        } else {
+                          Navigator.of(context, rootNavigator: true)
+                              .push(CreateAccountPage.route());
+                        }
                       },
                     ),
                   )),

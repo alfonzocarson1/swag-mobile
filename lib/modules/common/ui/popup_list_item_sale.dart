@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 
 import 'package:swagapp/modules/common/utils/palette.dart';
@@ -93,59 +94,74 @@ class _PopUpListItemSaleState extends State<PopUpListItemSale> {
                         const SizedBox(
                           height: 30,
                         ),
-                        Column(
-                          children: List.generate(
-                              widget.dataCollection!.length,
-                              (index) => Column(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          SizedBox(
-                                            height: 24.0,
-                                            width: 20.0,
-                                            child: Checkbox(
-                                              checkColor: Colors.black,
-                                              side: const BorderSide(
-                                                  color: Color(0xff585858),
-                                                  width: 1.5),
-                                              value: _selecteCategorys.contains(
-                                                  widget.dataCollection![index]
-                                                      .collectionItemId),
-                                              onChanged: (bool? newValue) {
-                                                _onCollectionSelected(
-                                                    newValue!,
-                                                    widget
-                                                        .dataCollection![index]
-                                                        .collectionItemId,
-                                                    widget
-                                                        .dataCollection![index]
-                                                        .condition);
-                                                setState(() {});
-                                              },
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                          Text(
-                                              "${widget.dataCollection![index].acquired} - ${widget.dataCollection![index].condition}",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodySmall!
-                                                  .copyWith(
-                                                    fontSize: 15,
-                                                    letterSpacing: 0.3,
-                                                    color: Palette.current
-                                                        .primaryWhiteSmoke,
-                                                  ))
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 30,
-                                      ),
-                                    ],
-                                  )),
-                        ),
+                        SizedBox(
+                          height: 200.0,
+                          child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  children: List.generate(
+                                      widget.dataCollection!.length,
+                                      (index) => Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  SizedBox(
+                                                    height: 24.0,
+                                                    width: 20.0,
+                                                    child: Checkbox(
+                                                      checkColor: Colors.black,
+                                                      side: const BorderSide(
+                                                          color:
+                                                              Color(0xff585858),
+                                                          width: 1.5),
+                                                      value: _selecteCategorys
+                                                          .contains(widget
+                                                              .dataCollection![
+                                                                  index]
+                                                              .profileCollectionItemId),
+                                                      onChanged:
+                                                          (bool? newValue) {
+                                                        _onCollectionSelected(
+                                                            newValue!,
+                                                            widget
+                                                                .dataCollection![
+                                                                    index]
+                                                                .profileCollectionItemId,
+                                                            widget
+                                                                .dataCollection![
+                                                                    index]
+                                                                .itemCondition);
+                                                        setState(() {});
+                                                      },
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Text(
+                                                      "${DateFormat.yMd().format(DateTime.parse(widget.dataCollection![index].purchaseDate))} - ${widget.dataCollection![index].itemCondition}",
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodySmall!
+                                                          .copyWith(
+                                                            fontSize: 15,
+                                                            letterSpacing: 0.3,
+                                                            color: Palette
+                                                                .current
+                                                                .primaryWhiteSmoke,
+                                                          ))
+                                                ],
+                                              ),
+                                              const SizedBox(
+                                                height: 30,
+                                              ),
+                                            ],
+                                          )),
+                                );
+                              },
+                              scrollDirection: Axis.vertical),
+                        )
                       ],
                     ),
                     const SizedBox(

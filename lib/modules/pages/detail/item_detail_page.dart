@@ -6,8 +6,15 @@ import 'package:swagapp/modules/common/utils/palette.dart';
 import '../../blocs/detail_bloc/detail_bloc.dart';
 import '../../blocs/sale_history/sale_history_bloc.dart';
 import '../../common/ui/custom_app_bar.dart';
+import '../../common/ui/popup_add_exisiting_item_collection.dart';
 import '../../common/utils/custom_route_animations.dart';
+
+import '../../data/shared_preferences/shared_preferences_service.dart';
+import '../../di/injector.dart';
 import '../../models/detail/detail_item_model.dart';
+
+import '../add/collection/add_collection_page.dart';
+import '../login/create_account_page.dart';
 import 'intem_head.dart';
 import 'item_collection.dart';
 import 'item_rarity.dart';
@@ -32,26 +39,22 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
   late final ScrollController? _scrollController =
       PrimaryScrollController.of(context);
 
-  ValueNotifier<bool> _myActionsFlag = ValueNotifier<bool>(false);
-  ValueNotifier<int?> _collectionNum = ValueNotifier<int?>(null);
+  int? _collectionLen;
+  String _pathImage = '';
+  String _itemName = '';
+
+  bool isLogged = false;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
+    isLogged = getIt<PreferenceRepositoryService>().isLogged();
+
     context
         .read<DetailBloc>()
         .add(DetailEvent.getDetailItem(widget.catalogItemId));
-
-    _myActionsFlag.addListener(() => {
-          if (_myActionsFlag.value)
-            {
-              Future.delayed(const Duration(milliseconds: 100), () {
-                setState(() {});
-              })
-            }
-        });
   }
 
   @override
@@ -60,8 +63,34 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
         backgroundColor: Palette.current.black,
         resizeToAvoidBottomInset: true,
         appBar: CustomAppBar(
+          onAction: () {
+            if (isLogged) {
+              if (_collectionLen == 0) {
+                Navigator.of(context, rootNavigator: true).push(
+                    AddCollection.route(
+                        context, widget.catalogItemId, _pathImage, _itemName));
+              } else {
+                showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (BuildContext context) {
+                      return PopUpAddExisitingItemCollection(
+                          onAdd: () =>
+                              Navigator.of(context, rootNavigator: true).push(
+                                  AddCollection.route(
+                                      context,
+                                      widget.catalogItemId,
+                                      _pathImage,
+                                      _itemName)));
+                    });
+              }
+            } else {
+              Navigator.of(context, rootNavigator: true)
+                  .push(CreateAccountPage.route());
+            }
+          },
           actions: true,
-          collections: _collectionNum.value,
+          collections: _collectionLen,
         ),
         body: BlocConsumer<DetailBloc, DetailState>(
           listener: (context, state) => state.maybeWhen(
@@ -89,9 +118,6 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                     ));
               },
               loadedDetailItems: (state) {
-                _myActionsFlag.value = true;
-                //TODO: este valor valida
-                _collectionNum.value = 0;
                 return _getBody(state.detaItemlList);
               },
             );
@@ -100,6 +126,20 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
   }
 
   Widget _getBody(List<DetailItemModel> dataDetail) {
+    Future.delayed(Duration.zero, () {
+      setState(() {
+        _pathImage = dataDetail[0].catalogItemImage;
+        _itemName = dataDetail[0].catalogItemName;
+
+        if (dataDetail[0].collectionItems != null ||
+            dataDetail[0].collectionItems != []) {
+          _collectionLen = dataDetail[0].collectionItems?.length ?? 0;
+        } else {
+          _collectionLen = 0;
+        }
+      });
+    });
+
     return RefreshIndicator(
       onRefresh: () async {
         makeCall();
@@ -157,7 +197,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                         sale: dataDetail[index].forSale,
                         favorite: dataDetail[index].inFavorites,
                         available: dataDetail[index].numberAvailable,
-                        saleHistory: [],
+                        saleHistory: const [],
                         itemId: dataDetail[index].catalogItemId),
                     RarityWidget(
                         rarity: dataDetail[index].rarityScore,
@@ -168,7 +208,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                         available: dataDetail[index].numberAvailable),
                     CollectionWidget(
                         sale: dataDetail[index].forSale,
-                        dataCollection: dataDetail[index].myCollection,
+                        dataCollection: dataDetail[index].collectionItems,
                         lastSale: dataDetail[index].saleInfo,
                         available: dataDetail[index].numberAvailable),
                   ],

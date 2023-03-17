@@ -20,8 +20,6 @@ class DetailItemModel with _$DetailItemModel {
     required final String catalogItemCategoryId,
     required final String released,
     required final String releasedType,
-    @required List<DetailAttributeModel>? attributeItemList,
-    @required List<DetailCollectionModel>? myCollection,
     required final int totalMade,
     required final String retail,
     required final int numberAvailable,
@@ -30,7 +28,7 @@ class DetailItemModel with _$DetailItemModel {
     required final bool forSale,
     required final bool inFavorites,
     required final bool inCollection,
-    required final String condition,
+    List<DetailCollectionModel>? collectionItems,
   }) = _DetailItemModel;
 
   factory DetailItemModel.fromJson(Map<String, dynamic> json) =>

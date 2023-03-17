@@ -6,6 +6,8 @@ import 'package:swagapp/modules/common/utils/palette.dart';
 import '../../../common/ui/body_widget_with_view.dart';
 import '../../../common/ui/loading.dart';
 import '../../../common/utils/custom_route_animations.dart';
+import '../../../data/shared_preferences/shared_preferences_service.dart';
+import '../../../di/injector.dart';
 import '../../../models/search/filter_model.dart';
 import '../../../models/search/search_request_payload_model.dart';
 
@@ -26,6 +28,14 @@ class _WhatsHotPageState extends State<WhatsHotPage> {
   @override
   void initState() {
     super.initState();
+    bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
+    bool isLoggedAfterGuest =
+        getIt<PreferenceRepositoryService>().loginAfterGuest();
+
+    if (isLogged && isLoggedAfterGuest) {
+      makeCall();
+      getIt<PreferenceRepositoryService>().saveloginAfterGuest(false);
+    }
   }
 
   @override

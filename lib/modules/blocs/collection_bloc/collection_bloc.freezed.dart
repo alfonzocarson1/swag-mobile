@@ -19,32 +19,38 @@ mixin _$CollectionEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getCollectionItem,
+    required TResult Function(AddCollectionModel model) addCollection,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getCollectionItem,
+    TResult? Function(AddCollectionModel model)? addCollection,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getCollectionItem,
+    TResult Function(AddCollectionModel model)? addCollection,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetCollectionItem value) getCollectionItem,
+    required TResult Function(_CollectionEvent value) addCollection,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetCollectionItem value)? getCollectionItem,
+    TResult? Function(_CollectionEvent value)? addCollection,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetCollectionItem value)? getCollectionItem,
+    TResult Function(_CollectionEvent value)? addCollection,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -107,6 +113,7 @@ class _$_GetCollectionItem implements _GetCollectionItem {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getCollectionItem,
+    required TResult Function(AddCollectionModel model) addCollection,
   }) {
     return getCollectionItem();
   }
@@ -115,6 +122,7 @@ class _$_GetCollectionItem implements _GetCollectionItem {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getCollectionItem,
+    TResult? Function(AddCollectionModel model)? addCollection,
   }) {
     return getCollectionItem?.call();
   }
@@ -123,6 +131,7 @@ class _$_GetCollectionItem implements _GetCollectionItem {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getCollectionItem,
+    TResult Function(AddCollectionModel model)? addCollection,
     required TResult orElse(),
   }) {
     if (getCollectionItem != null) {
@@ -135,6 +144,7 @@ class _$_GetCollectionItem implements _GetCollectionItem {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetCollectionItem value) getCollectionItem,
+    required TResult Function(_CollectionEvent value) addCollection,
   }) {
     return getCollectionItem(this);
   }
@@ -143,6 +153,7 @@ class _$_GetCollectionItem implements _GetCollectionItem {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetCollectionItem value)? getCollectionItem,
+    TResult? Function(_CollectionEvent value)? addCollection,
   }) {
     return getCollectionItem?.call(this);
   }
@@ -151,6 +162,7 @@ class _$_GetCollectionItem implements _GetCollectionItem {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetCollectionItem value)? getCollectionItem,
+    TResult Function(_CollectionEvent value)? addCollection,
     required TResult orElse(),
   }) {
     if (getCollectionItem != null) {
@@ -165,11 +177,157 @@ abstract class _GetCollectionItem implements CollectionEvent {
 }
 
 /// @nodoc
+abstract class _$$_CollectionEventCopyWith<$Res> {
+  factory _$$_CollectionEventCopyWith(
+          _$_CollectionEvent value, $Res Function(_$_CollectionEvent) then) =
+      __$$_CollectionEventCopyWithImpl<$Res>;
+  @useResult
+  $Res call({AddCollectionModel model});
+
+  $AddCollectionModelCopyWith<$Res> get model;
+}
+
+/// @nodoc
+class __$$_CollectionEventCopyWithImpl<$Res>
+    extends _$CollectionEventCopyWithImpl<$Res, _$_CollectionEvent>
+    implements _$$_CollectionEventCopyWith<$Res> {
+  __$$_CollectionEventCopyWithImpl(
+      _$_CollectionEvent _value, $Res Function(_$_CollectionEvent) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? model = null,
+  }) {
+    return _then(_$_CollectionEvent(
+      null == model
+          ? _value.model
+          : model // ignore: cast_nullable_to_non_nullable
+              as AddCollectionModel,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AddCollectionModelCopyWith<$Res> get model {
+    return $AddCollectionModelCopyWith<$Res>(_value.model, (value) {
+      return _then(_value.copyWith(model: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$_CollectionEvent implements _CollectionEvent {
+  const _$_CollectionEvent(this.model);
+
+  @override
+  final AddCollectionModel model;
+
+  @override
+  String toString() {
+    return 'CollectionEvent.addCollection(model: $model)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_CollectionEvent &&
+            (identical(other.model, model) || other.model == model));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, model);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_CollectionEventCopyWith<_$_CollectionEvent> get copyWith =>
+      __$$_CollectionEventCopyWithImpl<_$_CollectionEvent>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getCollectionItem,
+    required TResult Function(AddCollectionModel model) addCollection,
+  }) {
+    return addCollection(model);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getCollectionItem,
+    TResult? Function(AddCollectionModel model)? addCollection,
+  }) {
+    return addCollection?.call(model);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getCollectionItem,
+    TResult Function(AddCollectionModel model)? addCollection,
+    required TResult orElse(),
+  }) {
+    if (addCollection != null) {
+      return addCollection(model);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetCollectionItem value) getCollectionItem,
+    required TResult Function(_CollectionEvent value) addCollection,
+  }) {
+    return addCollection(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetCollectionItem value)? getCollectionItem,
+    TResult? Function(_CollectionEvent value)? addCollection,
+  }) {
+    return addCollection?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetCollectionItem value)? getCollectionItem,
+    TResult Function(_CollectionEvent value)? addCollection,
+    required TResult orElse(),
+  }) {
+    if (addCollection != null) {
+      return addCollection(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CollectionEvent implements CollectionEvent {
+  const factory _CollectionEvent(final AddCollectionModel model) =
+      _$_CollectionEvent;
+
+  AddCollectionModel get model;
+  @JsonKey(ignore: true)
+  _$$_CollectionEventCopyWith<_$_CollectionEvent> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$CollectionState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String message) error,
+    required TResult Function(AddCollectionModel successCollection)
+        loadedCollectionSuccess,
     required TResult Function(List<CatalogItemModel> dataCollectionlList)
         loadedCollectionItems,
   }) =>
@@ -178,6 +336,8 @@ mixin _$CollectionState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String message)? error,
+    TResult? Function(AddCollectionModel successCollection)?
+        loadedCollectionSuccess,
     TResult? Function(List<CatalogItemModel> dataCollectionlList)?
         loadedCollectionItems,
   }) =>
@@ -186,6 +346,8 @@ mixin _$CollectionState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String message)? error,
+    TResult Function(AddCollectionModel successCollection)?
+        loadedCollectionSuccess,
     TResult Function(List<CatalogItemModel> dataCollectionlList)?
         loadedCollectionItems,
     required TResult orElse(),
@@ -195,6 +357,8 @@ mixin _$CollectionState {
   TResult map<TResult extends Object?>({
     required TResult Function(_InitialCollectionState value) initial,
     required TResult Function(_ErrorCollectionState value) error,
+    required TResult Function(LoadedSuccessCollection value)
+        loadedCollectionSuccess,
     required TResult Function(LoadedCollectionItemState value)
         loadedCollectionItems,
   }) =>
@@ -203,6 +367,7 @@ mixin _$CollectionState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_InitialCollectionState value)? initial,
     TResult? Function(_ErrorCollectionState value)? error,
+    TResult? Function(LoadedSuccessCollection value)? loadedCollectionSuccess,
     TResult? Function(LoadedCollectionItemState value)? loadedCollectionItems,
   }) =>
       throw _privateConstructorUsedError;
@@ -210,6 +375,7 @@ mixin _$CollectionState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitialCollectionState value)? initial,
     TResult Function(_ErrorCollectionState value)? error,
+    TResult Function(LoadedSuccessCollection value)? loadedCollectionSuccess,
     TResult Function(LoadedCollectionItemState value)? loadedCollectionItems,
     required TResult orElse(),
   }) =>
@@ -275,6 +441,8 @@ class _$_InitialCollectionState extends _InitialCollectionState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String message) error,
+    required TResult Function(AddCollectionModel successCollection)
+        loadedCollectionSuccess,
     required TResult Function(List<CatalogItemModel> dataCollectionlList)
         loadedCollectionItems,
   }) {
@@ -286,6 +454,8 @@ class _$_InitialCollectionState extends _InitialCollectionState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String message)? error,
+    TResult? Function(AddCollectionModel successCollection)?
+        loadedCollectionSuccess,
     TResult? Function(List<CatalogItemModel> dataCollectionlList)?
         loadedCollectionItems,
   }) {
@@ -297,6 +467,8 @@ class _$_InitialCollectionState extends _InitialCollectionState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String message)? error,
+    TResult Function(AddCollectionModel successCollection)?
+        loadedCollectionSuccess,
     TResult Function(List<CatalogItemModel> dataCollectionlList)?
         loadedCollectionItems,
     required TResult orElse(),
@@ -312,6 +484,8 @@ class _$_InitialCollectionState extends _InitialCollectionState {
   TResult map<TResult extends Object?>({
     required TResult Function(_InitialCollectionState value) initial,
     required TResult Function(_ErrorCollectionState value) error,
+    required TResult Function(LoadedSuccessCollection value)
+        loadedCollectionSuccess,
     required TResult Function(LoadedCollectionItemState value)
         loadedCollectionItems,
   }) {
@@ -323,6 +497,7 @@ class _$_InitialCollectionState extends _InitialCollectionState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_InitialCollectionState value)? initial,
     TResult? Function(_ErrorCollectionState value)? error,
+    TResult? Function(LoadedSuccessCollection value)? loadedCollectionSuccess,
     TResult? Function(LoadedCollectionItemState value)? loadedCollectionItems,
   }) {
     return initial?.call(this);
@@ -333,6 +508,7 @@ class _$_InitialCollectionState extends _InitialCollectionState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitialCollectionState value)? initial,
     TResult Function(_ErrorCollectionState value)? error,
+    TResult Function(LoadedSuccessCollection value)? loadedCollectionSuccess,
     TResult Function(LoadedCollectionItemState value)? loadedCollectionItems,
     required TResult orElse(),
   }) {
@@ -415,6 +591,8 @@ class _$_ErrorCollectionState extends _ErrorCollectionState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String message) error,
+    required TResult Function(AddCollectionModel successCollection)
+        loadedCollectionSuccess,
     required TResult Function(List<CatalogItemModel> dataCollectionlList)
         loadedCollectionItems,
   }) {
@@ -426,6 +604,8 @@ class _$_ErrorCollectionState extends _ErrorCollectionState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String message)? error,
+    TResult? Function(AddCollectionModel successCollection)?
+        loadedCollectionSuccess,
     TResult? Function(List<CatalogItemModel> dataCollectionlList)?
         loadedCollectionItems,
   }) {
@@ -437,6 +617,8 @@ class _$_ErrorCollectionState extends _ErrorCollectionState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String message)? error,
+    TResult Function(AddCollectionModel successCollection)?
+        loadedCollectionSuccess,
     TResult Function(List<CatalogItemModel> dataCollectionlList)?
         loadedCollectionItems,
     required TResult orElse(),
@@ -452,6 +634,8 @@ class _$_ErrorCollectionState extends _ErrorCollectionState {
   TResult map<TResult extends Object?>({
     required TResult Function(_InitialCollectionState value) initial,
     required TResult Function(_ErrorCollectionState value) error,
+    required TResult Function(LoadedSuccessCollection value)
+        loadedCollectionSuccess,
     required TResult Function(LoadedCollectionItemState value)
         loadedCollectionItems,
   }) {
@@ -463,6 +647,7 @@ class _$_ErrorCollectionState extends _ErrorCollectionState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_InitialCollectionState value)? initial,
     TResult? Function(_ErrorCollectionState value)? error,
+    TResult? Function(LoadedSuccessCollection value)? loadedCollectionSuccess,
     TResult? Function(LoadedCollectionItemState value)? loadedCollectionItems,
   }) {
     return error?.call(this);
@@ -473,6 +658,7 @@ class _$_ErrorCollectionState extends _ErrorCollectionState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitialCollectionState value)? initial,
     TResult Function(_ErrorCollectionState value)? error,
+    TResult Function(LoadedSuccessCollection value)? loadedCollectionSuccess,
     TResult Function(LoadedCollectionItemState value)? loadedCollectionItems,
     required TResult orElse(),
   }) {
@@ -490,6 +676,173 @@ abstract class _ErrorCollectionState extends CollectionState {
   String get message;
   @JsonKey(ignore: true)
   _$$_ErrorCollectionStateCopyWith<_$_ErrorCollectionState> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$LoadedSuccessCollectionCopyWith<$Res> {
+  factory _$$LoadedSuccessCollectionCopyWith(_$LoadedSuccessCollection value,
+          $Res Function(_$LoadedSuccessCollection) then) =
+      __$$LoadedSuccessCollectionCopyWithImpl<$Res>;
+  @useResult
+  $Res call({AddCollectionModel successCollection});
+
+  $AddCollectionModelCopyWith<$Res> get successCollection;
+}
+
+/// @nodoc
+class __$$LoadedSuccessCollectionCopyWithImpl<$Res>
+    extends _$CollectionStateCopyWithImpl<$Res, _$LoadedSuccessCollection>
+    implements _$$LoadedSuccessCollectionCopyWith<$Res> {
+  __$$LoadedSuccessCollectionCopyWithImpl(_$LoadedSuccessCollection _value,
+      $Res Function(_$LoadedSuccessCollection) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? successCollection = null,
+  }) {
+    return _then(_$LoadedSuccessCollection(
+      null == successCollection
+          ? _value.successCollection
+          : successCollection // ignore: cast_nullable_to_non_nullable
+              as AddCollectionModel,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AddCollectionModelCopyWith<$Res> get successCollection {
+    return $AddCollectionModelCopyWith<$Res>(_value.successCollection, (value) {
+      return _then(_value.copyWith(successCollection: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$LoadedSuccessCollection extends LoadedSuccessCollection {
+  _$LoadedSuccessCollection(this.successCollection) : super._();
+
+  @override
+  final AddCollectionModel successCollection;
+
+  @override
+  String toString() {
+    return 'CollectionState.loadedCollectionSuccess(successCollection: $successCollection)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LoadedSuccessCollection &&
+            (identical(other.successCollection, successCollection) ||
+                other.successCollection == successCollection));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, successCollection);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LoadedSuccessCollectionCopyWith<_$LoadedSuccessCollection> get copyWith =>
+      __$$LoadedSuccessCollectionCopyWithImpl<_$LoadedSuccessCollection>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(String message) error,
+    required TResult Function(AddCollectionModel successCollection)
+        loadedCollectionSuccess,
+    required TResult Function(List<CatalogItemModel> dataCollectionlList)
+        loadedCollectionItems,
+  }) {
+    return loadedCollectionSuccess(successCollection);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(String message)? error,
+    TResult? Function(AddCollectionModel successCollection)?
+        loadedCollectionSuccess,
+    TResult? Function(List<CatalogItemModel> dataCollectionlList)?
+        loadedCollectionItems,
+  }) {
+    return loadedCollectionSuccess?.call(successCollection);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(String message)? error,
+    TResult Function(AddCollectionModel successCollection)?
+        loadedCollectionSuccess,
+    TResult Function(List<CatalogItemModel> dataCollectionlList)?
+        loadedCollectionItems,
+    required TResult orElse(),
+  }) {
+    if (loadedCollectionSuccess != null) {
+      return loadedCollectionSuccess(successCollection);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_InitialCollectionState value) initial,
+    required TResult Function(_ErrorCollectionState value) error,
+    required TResult Function(LoadedSuccessCollection value)
+        loadedCollectionSuccess,
+    required TResult Function(LoadedCollectionItemState value)
+        loadedCollectionItems,
+  }) {
+    return loadedCollectionSuccess(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_InitialCollectionState value)? initial,
+    TResult? Function(_ErrorCollectionState value)? error,
+    TResult? Function(LoadedSuccessCollection value)? loadedCollectionSuccess,
+    TResult? Function(LoadedCollectionItemState value)? loadedCollectionItems,
+  }) {
+    return loadedCollectionSuccess?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_InitialCollectionState value)? initial,
+    TResult Function(_ErrorCollectionState value)? error,
+    TResult Function(LoadedSuccessCollection value)? loadedCollectionSuccess,
+    TResult Function(LoadedCollectionItemState value)? loadedCollectionItems,
+    required TResult orElse(),
+  }) {
+    if (loadedCollectionSuccess != null) {
+      return loadedCollectionSuccess(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class LoadedSuccessCollection extends CollectionState {
+  factory LoadedSuccessCollection(final AddCollectionModel successCollection) =
+      _$LoadedSuccessCollection;
+  LoadedSuccessCollection._() : super._();
+
+  AddCollectionModel get successCollection;
+  @JsonKey(ignore: true)
+  _$$LoadedSuccessCollectionCopyWith<_$LoadedSuccessCollection> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -572,6 +925,8 @@ class _$LoadedCollectionItemState extends LoadedCollectionItemState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String message) error,
+    required TResult Function(AddCollectionModel successCollection)
+        loadedCollectionSuccess,
     required TResult Function(List<CatalogItemModel> dataCollectionlList)
         loadedCollectionItems,
   }) {
@@ -583,6 +938,8 @@ class _$LoadedCollectionItemState extends LoadedCollectionItemState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String message)? error,
+    TResult? Function(AddCollectionModel successCollection)?
+        loadedCollectionSuccess,
     TResult? Function(List<CatalogItemModel> dataCollectionlList)?
         loadedCollectionItems,
   }) {
@@ -594,6 +951,8 @@ class _$LoadedCollectionItemState extends LoadedCollectionItemState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String message)? error,
+    TResult Function(AddCollectionModel successCollection)?
+        loadedCollectionSuccess,
     TResult Function(List<CatalogItemModel> dataCollectionlList)?
         loadedCollectionItems,
     required TResult orElse(),
@@ -609,6 +968,8 @@ class _$LoadedCollectionItemState extends LoadedCollectionItemState {
   TResult map<TResult extends Object?>({
     required TResult Function(_InitialCollectionState value) initial,
     required TResult Function(_ErrorCollectionState value) error,
+    required TResult Function(LoadedSuccessCollection value)
+        loadedCollectionSuccess,
     required TResult Function(LoadedCollectionItemState value)
         loadedCollectionItems,
   }) {
@@ -620,6 +981,7 @@ class _$LoadedCollectionItemState extends LoadedCollectionItemState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_InitialCollectionState value)? initial,
     TResult? Function(_ErrorCollectionState value)? error,
+    TResult? Function(LoadedSuccessCollection value)? loadedCollectionSuccess,
     TResult? Function(LoadedCollectionItemState value)? loadedCollectionItems,
   }) {
     return loadedCollectionItems?.call(this);
@@ -630,6 +992,7 @@ class _$LoadedCollectionItemState extends LoadedCollectionItemState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitialCollectionState value)? initial,
     TResult Function(_ErrorCollectionState value)? error,
+    TResult Function(LoadedSuccessCollection value)? loadedCollectionSuccess,
     TResult Function(LoadedCollectionItemState value)? loadedCollectionItems,
     required TResult orElse(),
   }) {

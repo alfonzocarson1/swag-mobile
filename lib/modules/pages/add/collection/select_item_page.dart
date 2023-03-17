@@ -118,8 +118,12 @@ class _SelectItemPageState extends State<SelectItemPage> {
                     itemBuilder: (_, index) {
                       return GestureDetector(
                         onTap: () {
-                          Navigator.of(context, rootNavigator: true)
-                              .push(AddCollection.route(context));
+                          Navigator.of(context, rootNavigator: true).push(
+                              AddCollection.route(
+                                  context,
+                                  soldList[index].catalogItemId,
+                                  soldList[index].catalogItemImage,
+                                  soldList[index].catalogItemName));
                         },
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

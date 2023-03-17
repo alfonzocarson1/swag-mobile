@@ -20,6 +20,9 @@ class CupertinoDatePickerView extends StatefulWidget {
 
 class _CupertinoDatePickerViewState extends State<CupertinoDatePickerView> {
   DateTime selectDate = DateTime.now();
+
+  DateTime minimumDate = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return _buildBody();
@@ -131,6 +134,7 @@ class _CupertinoDatePickerViewState extends State<CupertinoDatePickerView> {
                   SizedBox(
                     height: 400,
                     child: CupertinoDatePicker(
+                        minimumDate: minimumDate,
                         mode: CupertinoDatePickerMode.date,
                         initialDateTime: widget.cupertinoDatePickervalue,
                         onDateTimeChanged: (val) {

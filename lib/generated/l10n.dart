@@ -1879,6 +1879,36 @@ class S {
       args: [],
     );
   }
+
+  /// `WHALE ALERT`
+  String get multi_collection_title {
+    return Intl.message(
+      'WHALE ALERT',
+      name: 'multi_collection_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `It looks like you already have this item in your collection. Are you sure you want to add another?`
+  String get multi_collection_subtitle {
+    return Intl.message(
+      'It looks like you already have this item in your collection. Are you sure you want to add another?',
+      name: 'multi_collection_subtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ADD ANOTHER`
+  String get add_multi_collection_btn {
+    return Intl.message(
+      'ADD ANOTHER',
+      name: 'add_multi_collection_btn',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

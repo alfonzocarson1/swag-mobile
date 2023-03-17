@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../../generated/l10n.dart';
 import '../../common/ui/popup_list_item_sale.dart';
 import '../../common/ui/primary_button.dart';
 import '../../common/utils/palette.dart';
+import '../../data/shared_preferences/shared_preferences_service.dart';
+import '../../di/injector.dart';
 import '../../models/detail/detail_collection_model.dart';
 import '../add/collection/list_for_Sale_page.dart';
+import '../login/create_account_page.dart';
 
 class CollectionWidget extends StatefulWidget {
   const CollectionWidget(
@@ -25,6 +29,14 @@ class CollectionWidget extends StatefulWidget {
 }
 
 class _CollectionWidgetState extends State<CollectionWidget> {
+  bool isLogged = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    isLogged = getIt<PreferenceRepositoryService>().isLogged();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -52,10 +64,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
             const SizedBox(
               width: 10,
             ),
-            (widget.sale &&
-                    widget.dataCollection != null &&
-                    widget.dataCollection!.isNotEmpty &&
-                    widget.available != 0)
+            widget.dataCollection != null
                 ? Text("(${widget.dataCollection!.length}X)",
                     style: Theme.of(context).textTheme.displayLarge!.copyWith(
                         letterSpacing: 1,
@@ -75,7 +84,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: !widget.sale
+          child: (!widget.sale && widget.dataCollection == null)
               ? Column(
                   children: [
                     const SizedBox(
@@ -84,19 +93,19 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                     RichText(
                       text: TextSpan(children: [
                         TextSpan(
-                            text: 'This cover is not in your collection, ',
+                            text: 'This item is not in your collection. ',
                             style: TextStyle(
                               fontSize: 15,
                               color: Palette.current.primaryWhiteSmoke,
                             )),
                         TextSpan(
-                            text: 'make an offer ',
+                            text: 'Select to be notified ',
                             style: TextStyle(
                               fontSize: 15,
                               color: Palette.current.blueNeon,
                             )),
                         TextSpan(
-                            text: 'to see if you can get one.',
+                            text: 'when one becomes available.',
                             style: TextStyle(
                               fontSize: 15,
                               color: Palette.current.primaryWhiteSmoke,
@@ -105,11 +114,8 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                     ),
                   ],
                 )
-              : (widget.sale &&
-                      widget.dataCollection != null &&
-                      widget.dataCollection!.isNotEmpty)
-                  ? const Text('')
-                  : Column(
+              : (widget.sale && widget.dataCollection == null)
+                  ? Column(
                       children: [
                         const SizedBox(
                           height: 20,
@@ -120,12 +126,12 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                               color: Palette.current.primaryWhiteSmoke,
                             )),
                       ],
-                    ),
+                    )
+                  : const Text(''),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: (widget.sale &&
-                  widget.dataCollection != null &&
+          child: (widget.dataCollection != null &&
                   widget.dataCollection!.isNotEmpty)
               ? Column(
                   children: List.generate(
@@ -146,7 +152,9 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                               Palette.current.primaryWhiteSmoke,
                                         )),
                                 trailing: Text(
-                                    widget.dataCollection![index].acquired,
+                                    DateFormat.yMd().format(DateTime.parse(
+                                        widget.dataCollection![index]
+                                            .purchaseDate)),
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodySmall!
@@ -170,7 +178,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                               Palette.current.primaryWhiteSmoke,
                                         )),
                                 trailing: Text(
-                                    widget.dataCollection![index].paid,
+                                    '${widget.dataCollection![index].purchasePrice}',
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodySmall!
@@ -194,7 +202,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                               Palette.current.primaryWhiteSmoke,
                                         )),
                                 trailing: Text(
-                                    widget.dataCollection![index].condition,
+                                    widget.dataCollection![index].itemCondition,
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodySmall!
@@ -223,100 +231,116 @@ class _CollectionWidgetState extends State<CollectionWidget> {
           height: 20,
         ),
         Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: !widget.sale
-                ? Column(
-                    children: [
-                      const SizedBox(
-                        height: 20,
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: (widget.sale && widget.dataCollection == null)
+              ? Column(
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: PrimaryButton(
+                        title: "${S.of(context).buy_for} ${widget.lastSale}",
+                        onPressed: () {
+                          if (isLogged) {
+                          } else {
+                            Navigator.of(context, rootNavigator: true)
+                                .push(CreateAccountPage.route());
+                          }
+                        },
+                        type: PrimaryButtonType.green,
                       ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        child: PrimaryButton(
-                          title: S.of(context).make_an_offer,
-                          onPressed: () {},
-                          type: PrimaryButtonType.blueNeon,
+                    )
+                  ],
+                )
+              : (!widget.sale && widget.dataCollection == null)
+                  ? Column(
+                      children: [
+                        const SizedBox(
+                          height: 30,
                         ),
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        child: PrimaryButton(
-                          title: S.of(context).notify_available,
-                          onPressed: () {},
-                          type: PrimaryButtonType.primaryEerieBlack,
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: PrimaryButton(
+                            title: S.of(context).notify_available,
+                            onPressed: () {
+                              if (isLogged) {
+                              } else {
+                                Navigator.of(context, rootNavigator: true)
+                                    .push(CreateAccountPage.route());
+                              }
+                            },
+                            type: PrimaryButtonType.primaryEerieBlack,
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      )
-                    ],
-                  )
-                : (widget.sale &&
-                        widget.dataCollection != null &&
-                        widget.dataCollection!.isNotEmpty)
-                    ? Column(
-                        children: [
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            child: PrimaryButton(
-                              title:
-                                  "${S.of(context).buy_for} ${widget.lastSale}",
-                              onPressed: () {},
-                              type: PrimaryButtonType.green,
+                        const SizedBox(
+                          height: 20,
+                        )
+                      ],
+                    )
+                  : (widget.sale && widget.dataCollection != null)
+                      ? Column(
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width,
+                              child: PrimaryButton(
+                                title:
+                                    "${S.of(context).buy_for} ${widget.lastSale}",
+                                onPressed: () {},
+                                type: PrimaryButtonType.green,
+                              ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            child: PrimaryButton(
-                              title: S.of(context).list_for_sale_btn,
-                              onPressed: () {
-                                widget.dataCollection!.length > 1
-                                    ? showDialog(
-                                        context: context,
-                                        barrierDismissible: false,
-                                        builder: (BuildContext context) {
-                                          return PopUpListItemSale(
-                                              dataCollection:
-                                                  widget.dataCollection!);
-                                        })
-                                    : Navigator.of(context, rootNavigator: true)
-                                        .push(ListForSalePage.route(context));
-                              },
-                              type: PrimaryButtonType.black,
+                            const SizedBox(
+                              height: 30,
                             ),
-                          ),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            child: PrimaryButton(
-                              title: S.of(context).remove_collection_btn,
-                              onPressed: () {},
-                              type: PrimaryButtonType.pink,
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width,
+                              child: PrimaryButton(
+                                title: S.of(context).list_for_sale_btn,
+                                onPressed: () {
+                                  widget.dataCollection!.length > 1
+                                      ? showDialog(
+                                          context: context,
+                                          barrierDismissible: false,
+                                          builder: (BuildContext context) {
+                                            return PopUpListItemSale(
+                                                dataCollection:
+                                                    widget.dataCollection!);
+                                          })
+                                      : Navigator.of(context,
+                                              rootNavigator: true)
+                                          .push(ListForSalePage.route(context));
+                                },
+                                type: PrimaryButtonType.black,
+                              ),
                             ),
-                          )
-                        ],
-                      )
-                    : Column(
-                        children: [
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            child: PrimaryButton(
-                              title:
-                                  "${S.of(context).buy_for} ${widget.lastSale}",
-                              onPressed: () {},
-                              type: PrimaryButtonType.green,
+                            const SizedBox(
+                              height: 30,
                             ),
-                          )
-                        ],
-                      ))
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width,
+                              child: PrimaryButton(
+                                title: S.of(context).remove_collection_btn,
+                                onPressed: () {},
+                                type: PrimaryButtonType.pink,
+                              ),
+                            )
+                          ],
+                        )
+                      : Column(
+                          children: [
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width,
+                              child: PrimaryButton(
+                                title: S.of(context).remove_collection_btn,
+                                onPressed: () {},
+                                type: PrimaryButtonType.pink,
+                              ),
+                            )
+                          ],
+                        ),
+        )
       ],
     );
   }

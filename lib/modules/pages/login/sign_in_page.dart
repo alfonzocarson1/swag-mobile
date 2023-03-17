@@ -51,6 +51,7 @@ class _SignInPageState extends State<SignInPage> {
   @override
   void initState() {
     super.initState();
+
     _emailNode.addListener(() {
       setState(() {
         _emailBorder = _emailNode.hasFocus

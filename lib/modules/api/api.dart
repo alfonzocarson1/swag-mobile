@@ -6,6 +6,7 @@ enum Endpoint {
   isUsernameAvailable,
   createNewAccount,
   catalogItemDetail,
+  publicCatalogItemDetail,
   login,
   salesHistory,
   catalogCategories,
@@ -15,7 +16,8 @@ enum Endpoint {
   updateAvatar,
   requestPasswordResetCode,
   requestIsvalidCode,
-  changePassword
+  changePassword,
+  addCollection
 }
 
 class API {
@@ -36,7 +38,9 @@ class API {
     Endpoint.isUsernameAvailable:
         'api/public/v1/account/isUsernameAvailable/%s',
     Endpoint.createNewAccount: 'api/public/v1/account/createNewAccount',
-    Endpoint.catalogItemDetail: 'api/public/v1/catalog/catalogItemDetail/%s',
+    Endpoint.catalogItemDetail: 'api/v1/catalog/catalogItemDetail/%s',
+    Endpoint.publicCatalogItemDetail:
+        'api/public/v1/catalog/catalogItemDetail/%s',
     Endpoint.login: "api/public/v1/account/login",
     Endpoint.salesHistory: "api/public/v1/listing/salesHistory/%s",
     Endpoint.catalogCategories: 'api/public/v1/catalog/categories/',
@@ -48,6 +52,7 @@ class API {
         'api/public/v1/account/requestPasswordResetCode/%s',
     Endpoint.requestIsvalidCode:
         'api/public/v1/account/requestPasswordResetCode/isvalid/%s',
-    Endpoint.changePassword: 'api/public/v1/account/passwordChangeRequest'
+    Endpoint.changePassword: 'api/public/v1/account/passwordChangeRequest',
+    Endpoint.addCollection: "api/v1/profile/collectionItems",
   };
 }

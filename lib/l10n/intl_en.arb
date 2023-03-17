@@ -185,7 +185,11 @@
     "cancel":"CANCEL",
     "selected":"Selected",
     "incorrect_code": "Incorrect code. Please check and try again.",
-    "code_expired": "Code expired. Please select resend to receive new code."
+    "code_expired": "Code expired. Please select resend to receive new code.",
+
+    "multi_collection_title": "WHALE ALERT", 
+    "multi_collection_subtitle": "It looks like you already have this item in your collection. Are you sure you want to add another?",
+    "add_multi_collection_btn": "ADD ANOTHER"
 
 
 }
