@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../generated/l10n.dart';
+import '../../common/ui/popup_delete_item_collection.dart';
 import '../../common/ui/popup_list_item_sale.dart';
 import '../../common/ui/primary_button.dart';
 import '../../common/utils/palette.dart';
@@ -319,7 +320,16 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                               width: MediaQuery.of(context).size.width,
                               child: PrimaryButton(
                                 title: S.of(context).remove_collection_btn,
-                                onPressed: () {},
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (BuildContext context) {
+                                        return PopUpDeleteItemCollection(
+                                            dataCollection:
+                                                widget.dataCollection!);
+                                      });
+                                },
                                 type: PrimaryButtonType.pink,
                               ),
                             )
@@ -334,7 +344,16 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                               width: MediaQuery.of(context).size.width,
                               child: PrimaryButton(
                                 title: S.of(context).remove_collection_btn,
-                                onPressed: () {},
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (BuildContext context) {
+                                        return PopUpDeleteItemCollection(
+                                            dataCollection:
+                                                widget.dataCollection!);
+                                      });
+                                },
                                 type: PrimaryButtonType.pink,
                               ),
                             )

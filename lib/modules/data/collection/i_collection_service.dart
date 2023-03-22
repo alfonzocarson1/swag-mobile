@@ -5,4 +5,5 @@ abstract class ICollectionService {
   Stream<String?> subscribeToAuthChanges();
 
   Future<AddCollectionModel> addCollection(AddCollectionModel model);
+  Future<AddCollectionModel> removeCollection(AddCollectionModel model);
 }
