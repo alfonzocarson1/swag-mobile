@@ -24,9 +24,10 @@ class _RecentSearchesPageState extends State<RecentSearchesPage> {
   Widget build(BuildContext context) {
     List<String> list =
         getIt<PreferenceRepositoryService>().getRecentSearches();
-    return Scaffold(
-      backgroundColor: Palette.current.primaryNero,
-      body: ListView.builder(
+    return Container(
+      color: Palette.current.primaryNero,
+      child: ListView.builder(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         padding: const EdgeInsets.only(top: 10),
         itemBuilder: (_, index) => _recentItem(context, list[index]),
         itemCount: list.length,
@@ -48,9 +49,7 @@ class _RecentSearchesPageState extends State<RecentSearchesPage> {
         children: [
           Ink(
             height: 50,
-            decoration: BoxDecoration(
-              color: Palette.current.primaryNero,
-            ),
+            decoration: BoxDecoration(color: Palette.current.primaryNero),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

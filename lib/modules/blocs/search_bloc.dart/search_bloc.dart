@@ -65,8 +65,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     // );
   }
 
-  Stream<SearchState> _performSearch(
-      final SearchRequestPayloadModel payload, SearchTab tab) async* {
+  Stream<SearchState> _performSearch(SearchRequestPayloadModel payload, SearchTab tab) async* {
     // if (state.query == term) return;
     yield SearchState.initial();
 

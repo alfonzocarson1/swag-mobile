@@ -68,10 +68,7 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   }
 
   @override
-  List<String> getRecentSearches() {
-    final list = _prefs.getStringList(_recentSearches);
-    return list ?? [];
-  }
+  List<String> getRecentSearches()=> _prefs.getStringList(_recentSearches) ?? [];
 
   @override
   Future<void> saveRecentSearches(List<String> list) async {
