@@ -73,19 +73,9 @@ class _SearchResultPageState extends State<SearchResultPage>
         backgroundColor: Palette.current.primaryNero,
         body: BlocConsumer<SearchBloc, SearchState>(
           listener: (context, state) => state.maybeWhen(
-            orElse: () => {
-              if (Loading.isVisible()) {Loading.hide(context)}
-            },
-            error: (message) => {
-              if (Loading.isVisible()) {Loading.hide(context)}
-              // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
-            },
-            initial: () {
-              if (!Loading.isVisible()) {
-                return Loading.show(context);
-              }
-              return null;
-            },
+            orElse: () => Loading.isVisible() ? Loading.hide(context) : (){},
+            error: (String message) => Loading.isVisible() ? Loading.hide(context) : (){},
+            initial: ()=> !Loading.isVisible() ? Loading.show(context) : null,
           ),
           builder: (context, state) {
             return state.maybeMap(
@@ -107,11 +97,12 @@ class _SearchResultPageState extends State<SearchResultPage>
                   children: [
                     _getActionHeader(),
                     Expanded(
-                        child: BodyWidgetWithView(
-                      state.result[SearchTab.all] ?? [],
-                      SearchTab.all,
-                      searchParams: widget.searchParam,
-                    )),
+                      child: BodyWidgetWithView(
+                        state.result[SearchTab.all] ?? [], 
+                        SearchTab.all,
+                        searchParams: widget.searchParam,
+                      ),
+                    ),
                   ],
                 );
               },

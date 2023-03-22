@@ -130,7 +130,8 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
   Future<void> goToResultPage() async {
     initFilterAndSortsWithBloc(context);
     await initFiltersAndSorts();
-    if (!mounted) return;
+    if (!mounted || widget._textEditingController.text.isEmpty) return;
+
     PersistentNavBarNavigator.pushNewScreen(
       context,
       screen: SearchResultPage(widget._textEditingController.text),

@@ -22,11 +22,11 @@ class SearchService extends ISearchService {
   Stream<String?> subscribeToAuthChanges() => Stream.value(null);
 
   @override
-  Future<Map<SearchTab, List<CatalogItemModel>>> search(
-      SearchRequestPayloadModel model, SearchTab tab) async {
-    final isAuthenticatedUser =
-        getIt<PreferenceRepositoryService>().isLogged() &&
-            isTokenValid(await getIt<StorageRepositoryService>().getToken());
+  Future<Map<SearchTab, List<CatalogItemModel>>> search(SearchRequestPayloadModel model, SearchTab tab) async {
+
+    bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
+    String? token = await getIt<StorageRepositoryService>().getToken();
+    bool isAuthenticatedUser = isLogged && isTokenValid(token!);
 
     final response = await apiService.getEndpointData(
         endpoint: isAuthenticatedUser

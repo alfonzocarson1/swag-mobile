@@ -71,25 +71,20 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
     // const tab = SearchTab.whatsHot;
     // yield SearchState.searching(query: term, tab: tab);
+
     try {
       final response = await searchService.search(payload, tab);
-      final recentSearches =
-          getIt<PreferenceRepositoryService>().saveRecentSearches([
-        "Skulls",
-        "Royals 8-bit",
-        "Royals 8-bit",
-        "Royals 8-bit",
-        "Royals 8-bit",
-        "Royals 8-bit",
-        "Royals 8-bit",
-        "Royals 8-bit",
-        "Royals 8-bit",
-        "Royals 8-bit"
-      ]);
+
+      List<String> recentSearches = getIt<PreferenceRepositoryService>().getRecentSearches();
+      recentSearches.removeWhere((search) => payload.searchParams!.first == search);
+      recentSearches.add(payload.searchParams!.first);
+      await getIt<PreferenceRepositoryService>().saveRecentSearches(recentSearches);
+
       yield SearchState.result(
-          result: response,
-          query: payload.searchParams?[0] ?? defaultString,
-          tab: tab);
+        result: response,
+        query: payload.searchParams?[0] ?? defaultString,
+        tab: tab,
+      );
     } catch (e) {
       yield SearchState.error(HandlingErrors().getError(e));
     }

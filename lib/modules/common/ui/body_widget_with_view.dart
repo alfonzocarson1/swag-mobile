@@ -11,6 +11,7 @@ import '../../models/search/catalog_item_model.dart';
 import '../utils/utils.dart';
 
 class BodyWidgetWithView extends StatefulWidget {
+  
   BodyWidgetWithView(this.catalogList, this.tab, {Key? key, this.searchParams})
       : super(key: key);
 
@@ -23,12 +24,11 @@ class BodyWidgetWithView extends StatefulWidget {
 }
 
 class _BodyWidgetWithViewState extends State<BodyWidgetWithView> {
-  late final ScrollController? _scrollController =
-      PrimaryScrollController.of(context);
+
+  late final ScrollController _scrollController = PrimaryScrollController.of(context);
+  
   @override
-  Widget build(BuildContext context) {
-    return _getBody(widget.catalogList);
-  }
+  Widget build(BuildContext context) => _getBody(widget.catalogList);
 
   Widget _getBody(List<CatalogItemModel> catalogList) {
     return RefreshIndicator(onRefresh: () async {

@@ -22,15 +22,17 @@ class RecentSearchesPage extends StatefulWidget {
 class _RecentSearchesPageState extends State<RecentSearchesPage> {
   @override
   Widget build(BuildContext context) {
-    List<String> list =
-        getIt<PreferenceRepositoryService>().getRecentSearches();
+
+    List<String> recentSearches = getIt<PreferenceRepositoryService>().getRecentSearches();
+    List<String> reversedRecentSearches = recentSearches.reversed.toList();
+
     return Container(
       color: Palette.current.primaryNero,
       child: ListView.builder(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+        itemCount: reversedRecentSearches.length,
         padding: const EdgeInsets.only(top: 10),
-        itemBuilder: (_, index) => _recentItem(context, list[index]),
-        itemCount: list.length,
+        itemBuilder: (_, index) => this._recentItem(context, reversedRecentSearches[index]),
       ),
     );
   }
