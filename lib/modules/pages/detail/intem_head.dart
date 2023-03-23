@@ -223,10 +223,7 @@ class _HeadWidgetState extends State<HeadWidget> {
               ),
               Align(
                 alignment: Alignment.centerLeft,
-                child: Text(
-                    widget.sale
-                        ? "${S.of(context).for_sale} \$360.00 - ${widget.lastSale}"
-                        : '${widget.lastSale}',
+                child: Text('${widget.lastSale}',
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                         fontWeight: FontWeight.w300,
                         color: Palette.current.primaryNeonGreen)),

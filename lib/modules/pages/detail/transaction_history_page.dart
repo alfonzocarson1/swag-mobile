@@ -9,7 +9,6 @@ import '../../common/ui/loading.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
 import '../../models/detail/sale_history_model.dart';
-import '../../models/detail/sale_list_history_model.dart';
 import 'intem_head.dart';
 
 class TransactionHistory extends StatefulWidget {

@@ -8,22 +8,31 @@ import '../../common/utils/palette.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/detail/detail_collection_model.dart';
+import '../add/buy/buy_for_sale.dart';
 import '../add/collection/list_for_Sale_page.dart';
 import '../login/create_account_page.dart';
 
 class CollectionWidget extends StatefulWidget {
-  const CollectionWidget(
-      {super.key,
-      required this.dataCollection,
-      this.lastSale,
-      required this.sale,
-      this.available});
+  const CollectionWidget({
+    super.key,
+    required this.dataCollection,
+    required this.lastSale,
+    required this.sale,
+    this.available,
+    required this.catalogId,
+    required this.catalogItemName,
+    required this.favorite,
+    required this.urlImage,
+  });
 
   final List<DetailCollectionModel>? dataCollection;
-  final String? lastSale;
+  final String lastSale;
   final bool sale;
   final int? available;
-
+  final String catalogId;
+  final String catalogItemName;
+  final bool favorite;
+  final String urlImage;
   @override
   State<CollectionWidget> createState() => _CollectionWidgetState();
 }
@@ -241,6 +250,15 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                         title: "${S.of(context).buy_for} ${widget.lastSale}",
                         onPressed: () {
                           if (isLogged) {
+                            Navigator.of(context, rootNavigator: true).push(
+                                BuyForSale.route(
+                                    widget.catalogId,
+                                    widget.catalogItemName,
+                                    widget.lastSale,
+                                    widget.urlImage,
+                                    widget.favorite,
+                                    widget.sale,
+                                    widget.available ?? 0));
                           } else {
                             Navigator.of(context, rootNavigator: true)
                                 .push(CreateAccountPage.route());
@@ -284,7 +302,17 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                               child: PrimaryButton(
                                 title:
                                     "${S.of(context).buy_for} ${widget.lastSale}",
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(BuyForSale.route(
+                                          widget.catalogId,
+                                          widget.catalogItemName,
+                                          widget.lastSale,
+                                          widget.urlImage,
+                                          widget.favorite,
+                                          widget.sale,
+                                          widget.available ?? 0));
+                                },
                                 type: PrimaryButtonType.green,
                               ),
                             ),
