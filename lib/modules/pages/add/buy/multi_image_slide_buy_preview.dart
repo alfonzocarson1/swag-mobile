@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import '../../../common/ui/image_dialog.dart';
 import '../../../common/utils/palette.dart';
 
 class MultiImageSlideBuyPreview extends StatefulWidget {
@@ -17,12 +18,10 @@ class MultiImageSlideBuyPreview extends StatefulWidget {
 class _MultiImageSlideBuyPreviewState extends State<MultiImageSlideBuyPreview> {
   late final PageController pageController;
   int pageNo = 0;
-  int lastLen = 0;
-  int currentLen = 0;
+
   @override
   void initState() {
     pageController = PageController(initialPage: 0, viewportFraction: 1);
-    lastLen = widget.imgList.length;
 
     super.initState();
   }
@@ -60,21 +59,34 @@ class _MultiImageSlideBuyPreviewState extends State<MultiImageSlideBuyPreview> {
                       height: 400,
                       child: Stack(children: [
                         Positioned.fill(
-                          child: ClipRRect(
-                            child: CachedNetworkImage(
-                              fit: BoxFit.fitHeight,
-                              imageUrl: widget.imgList[index],
-                              placeholder: (context, url) => SizedBox(
-                                height: 200,
-                                child: Center(
-                                  child: CircularProgressIndicator(
-                                    color: Palette.current.primaryNeonGreen,
-                                    backgroundColor: Colors.white,
+                          child: GestureDetector(
+                            onTap: () {
+                              showDialog(
+                                  useSafeArea: true,
+                                  barrierColor: Palette.current.blackSmoke,
+                                  context: context,
+                                  builder: (_) => ImageDialog(
+                                        imgList: widget.imgList,
+                                        page: pageNo,
+                                      ));
+                            },
+                            child: ClipRRect(
+                              child: CachedNetworkImage(
+                                fit: BoxFit.fitHeight,
+                                imageUrl: widget.imgList[index],
+                                placeholder: (context, url) => SizedBox(
+                                  height: 200,
+                                  child: Center(
+                                    child: CircularProgressIndicator(
+                                      color: Palette.current.primaryNeonGreen,
+                                      backgroundColor: Colors.white,
+                                    ),
                                   ),
                                 ),
+                                errorWidget: (context, url, error) =>
+                                    Image.asset(
+                                        "assets/images/ProfilePhoto.png"),
                               ),
-                              errorWidget: (context, url, error) =>
-                                  Image.asset("assets/images/ProfilePhoto.png"),
                             ),
                           ),
                         ),
@@ -103,19 +115,6 @@ class _MultiImageSlideBuyPreviewState extends State<MultiImageSlideBuyPreview> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(widget.imgList.length, (index) {
-                    setState(() {
-                      currentLen = widget.imgList.length - 1;
-                    });
-                    if (currentLen > lastLen) {
-                      setState(() {
-                        lastLen = currentLen;
-                        pageController.animateToPage(
-                          currentLen,
-                          duration: const Duration(milliseconds: 500),
-                          curve: Curves.easeInOutCirc,
-                        );
-                      });
-                    }
                     return GestureDetector(
                       child: Container(
                         margin: const EdgeInsets.all(2.0),

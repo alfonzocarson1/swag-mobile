@@ -26,18 +26,11 @@ class BuyPreviewPage extends StatefulWidget {
 }
 
 class _BuyPreviewPageState extends State<BuyPreviewPage> {
-  List<dynamic> imgList = [
-    "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Rectangle%2012.png?alt=media&token=47e348c2-35a6-488d-b715-300752b0f52b",
-    "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Rectangle%2012.png?alt=media&token=47e348c2-35a6-488d-b715-300752b0f52b",
-    "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Rectangle%2012.png?alt=media&token=47e348c2-35a6-488d-b715-300752b0f52b",
-    "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Rectangle%2012.png?alt=media&token=47e348c2-35a6-488d-b715-300752b0f52b"
-  ];
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    print(widget.dataItem.catalogItemId);
+    // print(widget.dataItem.catalogItemId);
   }
 
   @override
@@ -64,7 +57,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                   child: Column(
                     children: [
                       MultiImageSlideBuyPreview(
-                        imgList: imgList,
+                        imgList: widget.dataItem.productItemImageUrls,
                       ),
                       const SizedBox(height: 4),
                       Padding(

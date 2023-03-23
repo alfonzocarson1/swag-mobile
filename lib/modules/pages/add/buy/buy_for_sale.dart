@@ -343,8 +343,8 @@ class _BuyForSaleState extends State<BuyForSale> {
                                   child: ClipRRect(
                                     child: CachedNetworkImage(
                                       fit: BoxFit.fitHeight,
-                                      imageUrl:
-                                          "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Rectangle%2012.png?alt=media&token=47e348c2-35a6-488d-b715-300752b0f52b",
+                                      imageUrl: dataListingSale[index]
+                                          .productItemImageUrls[0],
                                       placeholder: (context, url) => SizedBox(
                                         height: 200,
                                         child: Center(
@@ -405,6 +405,8 @@ class _BuyForSaleState extends State<BuyForSale> {
                                             dataListingSale[index]
                                                     .productItemDescription ??
                                                 '',
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodySmall!

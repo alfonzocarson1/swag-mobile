@@ -24,7 +24,7 @@ mixin _$BuyForSaleListingModel {
   String? get productItemId => throw _privateConstructorUsedError;
   String? get productItemName => throw _privateConstructorUsedError;
   double? get productItemPrice => throw _privateConstructorUsedError;
-  String? get productItemImage => throw _privateConstructorUsedError;
+  List<dynamic> get productItemImageUrls => throw _privateConstructorUsedError;
   String? get productItemDescription => throw _privateConstructorUsedError;
   String? get condition => throw _privateConstructorUsedError;
   String? get profileId => throw _privateConstructorUsedError;
@@ -50,7 +50,7 @@ abstract class $BuyForSaleListingModelCopyWith<$Res> {
       {String? productItemId,
       String? productItemName,
       double? productItemPrice,
-      String? productItemImage,
+      List<dynamic> productItemImageUrls,
       String? productItemDescription,
       String? condition,
       String? profileId,
@@ -78,7 +78,7 @@ class _$BuyForSaleListingModelCopyWithImpl<$Res,
     Object? productItemId = freezed,
     Object? productItemName = freezed,
     Object? productItemPrice = freezed,
-    Object? productItemImage = freezed,
+    Object? productItemImageUrls = null,
     Object? productItemDescription = freezed,
     Object? condition = freezed,
     Object? profileId = freezed,
@@ -101,10 +101,10 @@ class _$BuyForSaleListingModelCopyWithImpl<$Res,
           ? _value.productItemPrice
           : productItemPrice // ignore: cast_nullable_to_non_nullable
               as double?,
-      productItemImage: freezed == productItemImage
-          ? _value.productItemImage
-          : productItemImage // ignore: cast_nullable_to_non_nullable
-              as String?,
+      productItemImageUrls: null == productItemImageUrls
+          ? _value.productItemImageUrls
+          : productItemImageUrls // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
       productItemDescription: freezed == productItemDescription
           ? _value.productItemDescription
           : productItemDescription // ignore: cast_nullable_to_non_nullable
@@ -153,7 +153,7 @@ abstract class _$$_BuyForSaleListingModelCopyWith<$Res>
       {String? productItemId,
       String? productItemName,
       double? productItemPrice,
-      String? productItemImage,
+      List<dynamic> productItemImageUrls,
       String? productItemDescription,
       String? condition,
       String? profileId,
@@ -179,7 +179,7 @@ class __$$_BuyForSaleListingModelCopyWithImpl<$Res>
     Object? productItemId = freezed,
     Object? productItemName = freezed,
     Object? productItemPrice = freezed,
-    Object? productItemImage = freezed,
+    Object? productItemImageUrls = null,
     Object? productItemDescription = freezed,
     Object? condition = freezed,
     Object? profileId = freezed,
@@ -202,10 +202,10 @@ class __$$_BuyForSaleListingModelCopyWithImpl<$Res>
           ? _value.productItemPrice
           : productItemPrice // ignore: cast_nullable_to_non_nullable
               as double?,
-      productItemImage: freezed == productItemImage
-          ? _value.productItemImage
-          : productItemImage // ignore: cast_nullable_to_non_nullable
-              as String?,
+      productItemImageUrls: null == productItemImageUrls
+          ? _value._productItemImageUrls
+          : productItemImageUrls // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
       productItemDescription: freezed == productItemDescription
           ? _value.productItemDescription
           : productItemDescription // ignore: cast_nullable_to_non_nullable
@@ -250,7 +250,7 @@ class _$_BuyForSaleListingModel implements _BuyForSaleListingModel {
       {this.productItemId,
       this.productItemName,
       this.productItemPrice,
-      this.productItemImage,
+      required final List<dynamic> productItemImageUrls,
       this.productItemDescription,
       this.condition,
       this.profileId,
@@ -258,7 +258,8 @@ class _$_BuyForSaleListingModel implements _BuyForSaleListingModel {
       this.lastSale,
       this.forSale,
       this.sold,
-      this.isDeleted});
+      this.isDeleted})
+      : _productItemImageUrls = productItemImageUrls;
 
   factory _$_BuyForSaleListingModel.fromJson(Map<String, dynamic> json) =>
       _$$_BuyForSaleListingModelFromJson(json);
@@ -269,8 +270,15 @@ class _$_BuyForSaleListingModel implements _BuyForSaleListingModel {
   final String? productItemName;
   @override
   final double? productItemPrice;
+  final List<dynamic> _productItemImageUrls;
   @override
-  final String? productItemImage;
+  List<dynamic> get productItemImageUrls {
+    if (_productItemImageUrls is EqualUnmodifiableListView)
+      return _productItemImageUrls;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_productItemImageUrls);
+  }
+
   @override
   final String? productItemDescription;
   @override
@@ -290,7 +298,7 @@ class _$_BuyForSaleListingModel implements _BuyForSaleListingModel {
 
   @override
   String toString() {
-    return 'BuyForSaleListingModel(productItemId: $productItemId, productItemName: $productItemName, productItemPrice: $productItemPrice, productItemImage: $productItemImage, productItemDescription: $productItemDescription, condition: $condition, profileId: $profileId, catalogItemId: $catalogItemId, lastSale: $lastSale, forSale: $forSale, sold: $sold, isDeleted: $isDeleted)';
+    return 'BuyForSaleListingModel(productItemId: $productItemId, productItemName: $productItemName, productItemPrice: $productItemPrice, productItemImageUrls: $productItemImageUrls, productItemDescription: $productItemDescription, condition: $condition, profileId: $profileId, catalogItemId: $catalogItemId, lastSale: $lastSale, forSale: $forSale, sold: $sold, isDeleted: $isDeleted)';
   }
 
   @override
@@ -304,8 +312,8 @@ class _$_BuyForSaleListingModel implements _BuyForSaleListingModel {
                 other.productItemName == productItemName) &&
             (identical(other.productItemPrice, productItemPrice) ||
                 other.productItemPrice == productItemPrice) &&
-            (identical(other.productItemImage, productItemImage) ||
-                other.productItemImage == productItemImage) &&
+            const DeepCollectionEquality()
+                .equals(other._productItemImageUrls, _productItemImageUrls) &&
             (identical(other.productItemDescription, productItemDescription) ||
                 other.productItemDescription == productItemDescription) &&
             (identical(other.condition, condition) ||
@@ -329,7 +337,7 @@ class _$_BuyForSaleListingModel implements _BuyForSaleListingModel {
       productItemId,
       productItemName,
       productItemPrice,
-      productItemImage,
+      const DeepCollectionEquality().hash(_productItemImageUrls),
       productItemDescription,
       condition,
       profileId,
@@ -359,7 +367,7 @@ abstract class _BuyForSaleListingModel implements BuyForSaleListingModel {
       {final String? productItemId,
       final String? productItemName,
       final double? productItemPrice,
-      final String? productItemImage,
+      required final List<dynamic> productItemImageUrls,
       final String? productItemDescription,
       final String? condition,
       final String? profileId,
@@ -379,7 +387,7 @@ abstract class _BuyForSaleListingModel implements BuyForSaleListingModel {
   @override
   double? get productItemPrice;
   @override
-  String? get productItemImage;
+  List<dynamic> get productItemImageUrls;
   @override
   String? get productItemDescription;
   @override
