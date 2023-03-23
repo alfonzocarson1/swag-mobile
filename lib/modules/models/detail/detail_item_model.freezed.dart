@@ -33,7 +33,7 @@ mixin _$DetailItemModel {
   String get retail => throw _privateConstructorUsedError;
   int get numberAvailable => throw _privateConstructorUsedError;
   String get rarityScore => throw _privateConstructorUsedError;
-  DetailSaleInfoModel get saleInfo => throw _privateConstructorUsedError;
+  String get saleInfo => throw _privateConstructorUsedError;
   bool get forSale => throw _privateConstructorUsedError;
   bool get inFavorites => throw _privateConstructorUsedError;
   bool get inCollection => throw _privateConstructorUsedError;
@@ -66,13 +66,11 @@ abstract class $DetailItemModelCopyWith<$Res> {
       String retail,
       int numberAvailable,
       String rarityScore,
-      DetailSaleInfoModel saleInfo,
+      String saleInfo,
       bool forSale,
       bool inFavorites,
       bool inCollection,
       List<DetailCollectionModel>? collectionItems});
-
-  $DetailSaleInfoModelCopyWith<$Res> get saleInfo;
 }
 
 /// @nodoc
@@ -163,7 +161,7 @@ class _$DetailItemModelCopyWithImpl<$Res, $Val extends DetailItemModel>
       saleInfo: null == saleInfo
           ? _value.saleInfo
           : saleInfo // ignore: cast_nullable_to_non_nullable
-              as DetailSaleInfoModel,
+              as String,
       forSale: null == forSale
           ? _value.forSale
           : forSale // ignore: cast_nullable_to_non_nullable
@@ -181,14 +179,6 @@ class _$DetailItemModelCopyWithImpl<$Res, $Val extends DetailItemModel>
           : collectionItems // ignore: cast_nullable_to_non_nullable
               as List<DetailCollectionModel>?,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $DetailSaleInfoModelCopyWith<$Res> get saleInfo {
-    return $DetailSaleInfoModelCopyWith<$Res>(_value.saleInfo, (value) {
-      return _then(_value.copyWith(saleInfo: value) as $Val);
-    });
   }
 }
 
@@ -214,14 +204,11 @@ abstract class _$$_DetailItemModelCopyWith<$Res>
       String retail,
       int numberAvailable,
       String rarityScore,
-      DetailSaleInfoModel saleInfo,
+      String saleInfo,
       bool forSale,
       bool inFavorites,
       bool inCollection,
       List<DetailCollectionModel>? collectionItems});
-
-  @override
-  $DetailSaleInfoModelCopyWith<$Res> get saleInfo;
 }
 
 /// @nodoc
@@ -310,7 +297,7 @@ class __$$_DetailItemModelCopyWithImpl<$Res>
       saleInfo: null == saleInfo
           ? _value.saleInfo
           : saleInfo // ignore: cast_nullable_to_non_nullable
-              as DetailSaleInfoModel,
+              as String,
       forSale: null == forSale
           ? _value.forSale
           : forSale // ignore: cast_nullable_to_non_nullable
@@ -386,7 +373,7 @@ class _$_DetailItemModel implements _DetailItemModel {
   @override
   final String rarityScore;
   @override
-  final DetailSaleInfoModel saleInfo;
+  final String saleInfo;
   @override
   final bool forSale;
   @override
@@ -503,7 +490,7 @@ abstract class _DetailItemModel implements DetailItemModel {
       required final String retail,
       required final int numberAvailable,
       required final String rarityScore,
-      required final DetailSaleInfoModel saleInfo,
+      required final String saleInfo,
       required final bool forSale,
       required final bool inFavorites,
       required final bool inCollection,
@@ -539,7 +526,7 @@ abstract class _DetailItemModel implements DetailItemModel {
   @override
   String get rarityScore;
   @override
-  DetailSaleInfoModel get saleInfo;
+  String get saleInfo;
   @override
   bool get forSale;
   @override
