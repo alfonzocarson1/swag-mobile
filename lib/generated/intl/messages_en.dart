@@ -37,6 +37,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "aditional_listing_detail": MessageLookupByLibrary.simpleMessage(
             "Additional listing details..."),
         "agree_to": MessageLookupByLibrary.simpleMessage("I agree to Swag’s "),
+        "alert_remove_btn": MessageLookupByLibrary.simpleMessage("REMOVE ITEM"),
+        "alert_remove_subtitle": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to remove this item from you collection? This item is also listed for sale. Removing the item from your collection will also remove the listing."),
         "already_have_an_account":
             MessageLookupByLibrary.simpleMessage("Already have an account? "),
         "and": MessageLookupByLibrary.simpleMessage(" \n& "),
@@ -65,6 +68,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "date_purchased":
             MessageLookupByLibrary.simpleMessage("Date Purchased"),
         "delete": MessageLookupByLibrary.simpleMessage("DELETE"),
+        "delete_collection_razon_1":
+            MessageLookupByLibrary.simpleMessage("Item was sold elsewhere"),
+        "delete_collection_razon_2":
+            MessageLookupByLibrary.simpleMessage("Item was gifted"),
+        "delete_collection_razon_3":
+            MessageLookupByLibrary.simpleMessage("Other"),
         "delete_photo": MessageLookupByLibrary.simpleMessage("DELETE PHOTO"),
         "delete_photo_descrption": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to delete this photo?"),
@@ -209,6 +218,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Purchase Price"),
         "putters": MessageLookupByLibrary.simpleMessage("Putters"),
         "rarity_score": MessageLookupByLibrary.simpleMessage("RARITY SCORE"),
+        "razon_remove_btn": MessageLookupByLibrary.simpleMessage("SUBMIT"),
+        "razon_remove_subtitle": MessageLookupByLibrary.simpleMessage(
+            "Please select the reason you are removing this item."),
         "receive_offer":
             MessageLookupByLibrary.simpleMessage("RECEIVE OFFERS ON THIS ITEM"),
         "recent_searches":
@@ -222,6 +234,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "released_type": MessageLookupByLibrary.simpleMessage("Release Type:"),
         "remove_collection_btn":
             MessageLookupByLibrary.simpleMessage("REMOVE FROM COLLECTION"),
+        "remove_item": MessageLookupByLibrary.simpleMessage("REMOVE ITEM"),
+        "remove_item_btn": MessageLookupByLibrary.simpleMessage("REMOVE"),
+        "remove_item_subtitle": MessageLookupByLibrary.simpleMessage(
+            "Please select the item you would like to remove from your collection."),
         "required_field":
             MessageLookupByLibrary.simpleMessage("Required field"),
         "resend_email": MessageLookupByLibrary.simpleMessage("Resend Email"),

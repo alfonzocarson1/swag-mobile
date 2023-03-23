@@ -22,4 +22,16 @@ class CollectionService extends ICollectionService {
     );
     return response;
   }
+
+  @override
+  Future<AddCollectionModel> removeCollection(AddCollectionModel model) async {
+    AddCollectionModel response = await apiService.getEndpointData(
+      endpoint: Endpoint.addCollection,
+      method: RequestMethod.delete,
+      body: model.toJson(),
+      needBearer: true,
+      fromJson: (json) => AddCollectionModel.fromJson(json),
+    );
+    return response;
+  }
 }
