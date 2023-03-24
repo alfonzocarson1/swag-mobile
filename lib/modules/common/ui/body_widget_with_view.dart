@@ -12,12 +12,20 @@ import '../utils/utils.dart';
 
 class BodyWidgetWithView extends StatefulWidget {
   
-  BodyWidgetWithView(this.catalogList, this.tab, {Key? key, this.searchParams})
-      : super(key: key);
+  BodyWidgetWithView(
+    this.catalogList, 
+    this.tab, {
+      Key? key, 
+      this.searchParams,
+      this.scrollListener,
+      this.scrollTrgiggerOffset = 0,
+    }) : super(key: key);
 
   List<CatalogItemModel> catalogList;
   SearchTab tab;
   final String? searchParams;
+  final Function()? scrollListener;
+  final double scrollTrgiggerOffset;
 
   @override
   State<BodyWidgetWithView> createState() => _BodyWidgetWithViewState();
@@ -25,62 +33,83 @@ class BodyWidgetWithView extends StatefulWidget {
 
 class _BodyWidgetWithViewState extends State<BodyWidgetWithView> {
 
-  late final ScrollController _scrollController = PrimaryScrollController.of(context);
+  late final ScrollController _scrollController;
+
+  @override
+  void initState() {
+    
+    this._scrollController = PrimaryScrollController.of(context);
+    this._scrollController.addListener(this.widget.scrollListener ??  (){});
+    super.initState();
+  }
   
   @override
   Widget build(BuildContext context) => _getBody(widget.catalogList);
 
   Widget _getBody(List<CatalogItemModel> catalogList) {
-    return RefreshIndicator(onRefresh: () async {
-      performSearch(context, searchParam: widget.searchParams, tab: widget.tab);
-      return Future.delayed(const Duration(milliseconds: 1500));
-    }, child: BlocBuilder<SharedPreferencesBloc, SharedPreferencesState>(
+
+    return RefreshIndicator(
+      onRefresh: () async {
+        performSearch(context, searchParam: widget.searchParams, tab: widget.tab);
+        return Future.delayed(const Duration(milliseconds: 1500));
+      }, 
+      child: BlocBuilder<SharedPreferencesBloc, SharedPreferencesState>(
         builder: (context, stateSharedPreferences) {
-      return stateSharedPreferences.map(
-        setPreference: (state) =>
-            getWidgetWithView(catalogList, state.model.isListView),
-      );
-    }));
+          return stateSharedPreferences.map(
+            setPreference: (state) => getWidgetWithView(catalogList, state.model.isListView),
+          );
+        },
+      ),
+    );
   }
 
-  Widget getWidgetWithView(
-      List<CatalogItemModel> catalogList, bool isListView) {
+  Widget getWidgetWithView(List<CatalogItemModel> catalogList, bool isListView) {
+
     return catalogList.isNotEmpty
-        ? isListView
-            ? CatalogPage(
-                catalogItems: catalogList, scrollController: _scrollController!)
-            : Padding(
-                padding: const EdgeInsets.only(
-                    top: 0, bottom: 0, left: 16, right: 0),
-                child: GridView.builder(
-                  physics: const ScrollPhysics(),
-                  shrinkWrap: true,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 0.0,
-                    mainAxisSpacing: 0.0,
-                    mainAxisExtent: 215,
-                  ),
-                  itemCount: catalogList.length,
-                  itemBuilder: (_, index) {
-                    return ShrunkenItemWidget(
-                      model: catalogList[index],
-                    );
-                  },
-                ),
-              )
-        : ListView.builder(
-            itemBuilder: (_, index) => SizedBox(
-              height: MediaQuery.of(context).size.height * 0.7,
-              child: Center(
-                child: Text(
-                  S.of(context).empty_text,
-                  style: TextStyle(
-                      fontSize: 24, color: Colors.black.withOpacity(0.50)),
+      ? isListView
+        ? CatalogPage(catalogItems: catalogList, scrollController: this._scrollController)
+        : Padding(
+            padding: const EdgeInsets.only(
+              top: 0, 
+              bottom: 0, 
+              left: 16, 
+              right: 0,
+            ),
+            child: GridView.builder(
+              physics: const ScrollPhysics(),
+              shrinkWrap: true,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 0.0,
+                mainAxisSpacing: 0.0,
+                mainAxisExtent: 215,
+              ),
+              itemCount: catalogList.length,
+              itemBuilder: (_, index) => ShrunkenItemWidget(model: catalogList[index]),
+            ),
+          )
+      : ListView.builder(
+          itemBuilder: (_, index) => SizedBox(
+            height: MediaQuery.of(context).size.height * 0.7,
+            child: Center(
+              child: Text(
+                S.of(context).empty_text,
+                style: TextStyle(
+                  fontSize: 24, 
+                  color: Colors.black.withOpacity(0.50),
                 ),
               ),
             ),
-            itemCount: 1,
-          );
+          ),
+          itemCount: 1,
+        );
+  }
+
+
+  Future<void> scrollListener() async {
+
+    if(this._scrollController.offset >= this._scrollController.position.maxScrollExtent) {
+      print('object');
+    }
   }
 }

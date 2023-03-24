@@ -40,6 +40,7 @@ class SearchState with _$SearchState {
   factory SearchState.result({
     required final Map<SearchTab, List<CatalogItemModel>> result,
     @Default('') final String query,
+    @Default(0) final int page,
     @Default(SearchTab.whatsHot) final SearchTab tab,
   }) = _SearchStateResult;
 
@@ -50,7 +51,7 @@ class SearchState with _$SearchState {
         initial: () => '',
         recentSearch: (_) => '',
         searching: (query, _) => query,
-        result: (list, query, tab) => query,
+        result: (list, query, page, tab) => query,
         empty: () => '',
       );
 
@@ -59,7 +60,7 @@ class SearchState with _$SearchState {
         initial: () => null,
         recentSearch: (_) => null,
         searching: (_, tab) => tab,
-        result: (_, __, tab) => tab,
+        result: (_, __, ___ , tab) => tab,
         empty: () => null,
       );
 }

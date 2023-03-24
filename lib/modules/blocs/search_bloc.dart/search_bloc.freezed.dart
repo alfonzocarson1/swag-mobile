@@ -519,7 +519,7 @@ mixin _$SearchState {
     required TResult Function(List<String> queries) recentSearch,
     required TResult Function(String query, SearchTab tab) searching,
     required TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
-            String query, SearchTab tab)
+            String query, int page, SearchTab tab)
         result,
     required TResult Function() empty,
   }) =>
@@ -531,7 +531,7 @@ mixin _$SearchState {
     TResult? Function(List<String> queries)? recentSearch,
     TResult? Function(String query, SearchTab tab)? searching,
     TResult? Function(Map<SearchTab, List<CatalogItemModel>> result,
-            String query, SearchTab tab)?
+            String query, int page, SearchTab tab)?
         result,
     TResult? Function()? empty,
   }) =>
@@ -543,7 +543,7 @@ mixin _$SearchState {
     TResult Function(List<String> queries)? recentSearch,
     TResult Function(String query, SearchTab tab)? searching,
     TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
-            String query, SearchTab tab)?
+            String query, int page, SearchTab tab)?
         result,
     TResult Function()? empty,
     required TResult orElse(),
@@ -643,7 +643,7 @@ class _$_InitialSearchState extends _InitialSearchState {
     required TResult Function(List<String> queries) recentSearch,
     required TResult Function(String query, SearchTab tab) searching,
     required TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
-            String query, SearchTab tab)
+            String query, int page, SearchTab tab)
         result,
     required TResult Function() empty,
   }) {
@@ -658,7 +658,7 @@ class _$_InitialSearchState extends _InitialSearchState {
     TResult? Function(List<String> queries)? recentSearch,
     TResult? Function(String query, SearchTab tab)? searching,
     TResult? Function(Map<SearchTab, List<CatalogItemModel>> result,
-            String query, SearchTab tab)?
+            String query, int page, SearchTab tab)?
         result,
     TResult? Function()? empty,
   }) {
@@ -673,7 +673,7 @@ class _$_InitialSearchState extends _InitialSearchState {
     TResult Function(List<String> queries)? recentSearch,
     TResult Function(String query, SearchTab tab)? searching,
     TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
-            String query, SearchTab tab)?
+            String query, int page, SearchTab tab)?
         result,
     TResult Function()? empty,
     required TResult orElse(),
@@ -802,7 +802,7 @@ class _$_ErrorSearchState extends _ErrorSearchState {
     required TResult Function(List<String> queries) recentSearch,
     required TResult Function(String query, SearchTab tab) searching,
     required TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
-            String query, SearchTab tab)
+            String query, int page, SearchTab tab)
         result,
     required TResult Function() empty,
   }) {
@@ -817,7 +817,7 @@ class _$_ErrorSearchState extends _ErrorSearchState {
     TResult? Function(List<String> queries)? recentSearch,
     TResult? Function(String query, SearchTab tab)? searching,
     TResult? Function(Map<SearchTab, List<CatalogItemModel>> result,
-            String query, SearchTab tab)?
+            String query, int page, SearchTab tab)?
         result,
     TResult? Function()? empty,
   }) {
@@ -832,7 +832,7 @@ class _$_ErrorSearchState extends _ErrorSearchState {
     TResult Function(List<String> queries)? recentSearch,
     TResult Function(String query, SearchTab tab)? searching,
     TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
-            String query, SearchTab tab)?
+            String query, int page, SearchTab tab)?
         result,
     TResult Function()? empty,
     required TResult orElse(),
@@ -976,7 +976,7 @@ class _$_SearchStateRecentSearch extends _SearchStateRecentSearch {
     required TResult Function(List<String> queries) recentSearch,
     required TResult Function(String query, SearchTab tab) searching,
     required TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
-            String query, SearchTab tab)
+            String query, int page, SearchTab tab)
         result,
     required TResult Function() empty,
   }) {
@@ -991,7 +991,7 @@ class _$_SearchStateRecentSearch extends _SearchStateRecentSearch {
     TResult? Function(List<String> queries)? recentSearch,
     TResult? Function(String query, SearchTab tab)? searching,
     TResult? Function(Map<SearchTab, List<CatalogItemModel>> result,
-            String query, SearchTab tab)?
+            String query, int page, SearchTab tab)?
         result,
     TResult? Function()? empty,
   }) {
@@ -1006,7 +1006,7 @@ class _$_SearchStateRecentSearch extends _SearchStateRecentSearch {
     TResult Function(List<String> queries)? recentSearch,
     TResult Function(String query, SearchTab tab)? searching,
     TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
-            String query, SearchTab tab)?
+            String query, int page, SearchTab tab)?
         result,
     TResult Function()? empty,
     required TResult orElse(),
@@ -1153,7 +1153,7 @@ class _$_SearchStateSearching extends _SearchStateSearching {
     required TResult Function(List<String> queries) recentSearch,
     required TResult Function(String query, SearchTab tab) searching,
     required TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
-            String query, SearchTab tab)
+            String query, int page, SearchTab tab)
         result,
     required TResult Function() empty,
   }) {
@@ -1168,7 +1168,7 @@ class _$_SearchStateSearching extends _SearchStateSearching {
     TResult? Function(List<String> queries)? recentSearch,
     TResult? Function(String query, SearchTab tab)? searching,
     TResult? Function(Map<SearchTab, List<CatalogItemModel>> result,
-            String query, SearchTab tab)?
+            String query, int page, SearchTab tab)?
         result,
     TResult? Function()? empty,
   }) {
@@ -1183,7 +1183,7 @@ class _$_SearchStateSearching extends _SearchStateSearching {
     TResult Function(List<String> queries)? recentSearch,
     TResult Function(String query, SearchTab tab)? searching,
     TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
-            String query, SearchTab tab)?
+            String query, int page, SearchTab tab)?
         result,
     TResult Function()? empty,
     required TResult orElse(),
@@ -1259,6 +1259,7 @@ abstract class _$$_SearchStateResultCopyWith<$Res> {
   $Res call(
       {Map<SearchTab, List<CatalogItemModel>> result,
       String query,
+      int page,
       SearchTab tab});
 }
 
@@ -1275,6 +1276,7 @@ class __$$_SearchStateResultCopyWithImpl<$Res>
   $Res call({
     Object? result = null,
     Object? query = null,
+    Object? page = null,
     Object? tab = null,
   }) {
     return _then(_$_SearchStateResult(
@@ -1286,6 +1288,10 @@ class __$$_SearchStateResultCopyWithImpl<$Res>
           ? _value.query
           : query // ignore: cast_nullable_to_non_nullable
               as String,
+      page: null == page
+          ? _value.page
+          : page // ignore: cast_nullable_to_non_nullable
+              as int,
       tab: null == tab
           ? _value.tab
           : tab // ignore: cast_nullable_to_non_nullable
@@ -1300,6 +1306,7 @@ class _$_SearchStateResult extends _SearchStateResult {
   _$_SearchStateResult(
       {required final Map<SearchTab, List<CatalogItemModel>> result,
       this.query = '',
+      this.page = 0,
       this.tab = SearchTab.whatsHot})
       : _result = result,
         super._();
@@ -1317,11 +1324,14 @@ class _$_SearchStateResult extends _SearchStateResult {
   final String query;
   @override
   @JsonKey()
+  final int page;
+  @override
+  @JsonKey()
   final SearchTab tab;
 
   @override
   String toString() {
-    return 'SearchState.result(result: $result, query: $query, tab: $tab)';
+    return 'SearchState.result(result: $result, query: $query, page: $page, tab: $tab)';
   }
 
   @override
@@ -1331,12 +1341,13 @@ class _$_SearchStateResult extends _SearchStateResult {
             other is _$_SearchStateResult &&
             const DeepCollectionEquality().equals(other._result, _result) &&
             (identical(other.query, query) || other.query == query) &&
+            (identical(other.page, page) || other.page == page) &&
             (identical(other.tab, tab) || other.tab == tab));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_result), query, tab);
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_result), query, page, tab);
 
   @JsonKey(ignore: true)
   @override
@@ -1353,11 +1364,11 @@ class _$_SearchStateResult extends _SearchStateResult {
     required TResult Function(List<String> queries) recentSearch,
     required TResult Function(String query, SearchTab tab) searching,
     required TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
-            String query, SearchTab tab)
+            String query, int page, SearchTab tab)
         result,
     required TResult Function() empty,
   }) {
-    return result(this.result, query, tab);
+    return result(this.result, query, page, tab);
   }
 
   @override
@@ -1368,11 +1379,11 @@ class _$_SearchStateResult extends _SearchStateResult {
     TResult? Function(List<String> queries)? recentSearch,
     TResult? Function(String query, SearchTab tab)? searching,
     TResult? Function(Map<SearchTab, List<CatalogItemModel>> result,
-            String query, SearchTab tab)?
+            String query, int page, SearchTab tab)?
         result,
     TResult? Function()? empty,
   }) {
-    return result?.call(this.result, query, tab);
+    return result?.call(this.result, query, page, tab);
   }
 
   @override
@@ -1383,13 +1394,13 @@ class _$_SearchStateResult extends _SearchStateResult {
     TResult Function(List<String> queries)? recentSearch,
     TResult Function(String query, SearchTab tab)? searching,
     TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
-            String query, SearchTab tab)?
+            String query, int page, SearchTab tab)?
         result,
     TResult Function()? empty,
     required TResult orElse(),
   }) {
     if (result != null) {
-      return result(this.result, query, tab);
+      return result(this.result, query, page, tab);
     }
     return orElse();
   }
@@ -1442,11 +1453,13 @@ abstract class _SearchStateResult extends SearchState {
   factory _SearchStateResult(
       {required final Map<SearchTab, List<CatalogItemModel>> result,
       final String query,
+      final int page,
       final SearchTab tab}) = _$_SearchStateResult;
   _SearchStateResult._() : super._();
 
   Map<SearchTab, List<CatalogItemModel>> get result;
   String get query;
+  int get page;
   SearchTab get tab;
   @JsonKey(ignore: true)
   _$$_SearchStateResultCopyWith<_$_SearchStateResult> get copyWith =>
@@ -1496,7 +1509,7 @@ class _$_SearchStateEmpty extends _SearchStateEmpty {
     required TResult Function(List<String> queries) recentSearch,
     required TResult Function(String query, SearchTab tab) searching,
     required TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
-            String query, SearchTab tab)
+            String query, int page, SearchTab tab)
         result,
     required TResult Function() empty,
   }) {
@@ -1511,7 +1524,7 @@ class _$_SearchStateEmpty extends _SearchStateEmpty {
     TResult? Function(List<String> queries)? recentSearch,
     TResult? Function(String query, SearchTab tab)? searching,
     TResult? Function(Map<SearchTab, List<CatalogItemModel>> result,
-            String query, SearchTab tab)?
+            String query, int page, SearchTab tab)?
         result,
     TResult? Function()? empty,
   }) {
@@ -1526,7 +1539,7 @@ class _$_SearchStateEmpty extends _SearchStateEmpty {
     TResult Function(List<String> queries)? recentSearch,
     TResult Function(String query, SearchTab tab)? searching,
     TResult Function(Map<SearchTab, List<CatalogItemModel>> result,
-            String query, SearchTab tab)?
+            String query, int page, SearchTab tab)?
         result,
     TResult Function()? empty,
     required TResult orElse(),

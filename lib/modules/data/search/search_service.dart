@@ -22,22 +22,27 @@ class SearchService extends ISearchService {
   Stream<String?> subscribeToAuthChanges() => Stream.value(null);
 
   @override
-  Future<Map<SearchTab, List<CatalogItemModel>>> search(SearchRequestPayloadModel model, SearchTab tab) async {
+  Future<Map<SearchTab, List<CatalogItemModel>>> search({
+    required SearchRequestPayloadModel model, 
+    required SearchTab tab,
+    int page = 0,    
+  }) async {
 
     bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
     String? token = await getIt<StorageRepositoryService>().getToken();
     bool isAuthenticatedUser = isLogged && isTokenValid(token!);
 
     final response = await apiService.getEndpointData(
-        endpoint: isAuthenticatedUser
-            ? Endpoint.catalogSearchListAuthenticated
-            : Endpoint.catalogSearchListGuest,
-        method: RequestMethod.post,
-        jsonKey: "catalogList",
-        dynamicParam: "0",
-        needBearer: isAuthenticatedUser,
-        fromJson: (json) => SearchTabsResponseModel.fromJson(json),
-        body: model.toJson());
+      endpoint: isAuthenticatedUser
+        ? Endpoint.catalogSearchListAuthenticated
+        : Endpoint.catalogSearchListGuest,
+      method: RequestMethod.post,
+      jsonKey: "catalogList",
+      dynamicParam: page.toString(),
+      needBearer: isAuthenticatedUser,
+      fromJson: (json) => SearchTabsResponseModel.fromJson(json),
+      body: model.toJson(),
+    );
 
     _cachedSearch[tab] = response.catalogList;
 
@@ -45,14 +50,18 @@ class SearchService extends ISearchService {
   }
 
   Future getCashedOrNew(bool refresh, String terms, SearchTab tab) async {
+
     final cat = _cachedSearch[tab] ?? [];
-    if (cat.isNotEmpty && !refresh) {
-    } else {
+
+    if (cat.isNotEmpty && !refresh) {} 
+    else {
       final response = await search(
-          SearchRequestPayloadModel(
-              filters: const FilterModel(),
-              categoryId: await SearchTabWrapper(tab).toStringCustom()),
-          tab);
+        model: SearchRequestPayloadModel(
+          filters: const FilterModel(),
+          categoryId: await SearchTabWrapper(tab).toStringCustom(),
+        ),
+        tab: tab,
+      );
       _cachedSearch[tab] = response[tab] ?? [];
     }
   }
