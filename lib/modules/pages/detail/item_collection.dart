@@ -2,28 +2,39 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../generated/l10n.dart';
+import '../../common/ui/popup_delete_item_collection.dart';
 import '../../common/ui/popup_list_item_sale.dart';
 import '../../common/ui/primary_button.dart';
 import '../../common/utils/palette.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/detail/detail_collection_model.dart';
+import '../../models/detail/detail_sale_info_model.dart';
+import '../add/buy/buy_for_sale.dart';
 import '../add/collection/list_for_Sale_page.dart';
 import '../login/create_account_page.dart';
 
 class CollectionWidget extends StatefulWidget {
-  const CollectionWidget(
-      {super.key,
-      required this.dataCollection,
-      this.lastSale,
-      required this.sale,
-      this.available});
+  const CollectionWidget({
+    super.key,
+    required this.dataCollection,
+    required this.lastSale,
+    required this.sale,
+    this.available,
+    required this.catalogId,
+    required this.catalogItemName,
+    required this.favorite,
+    required this.urlImage,
+  });
 
   final List<DetailCollectionModel>? dataCollection;
-  final String? lastSale;
+  final DetailSaleInfoModel lastSale;
   final bool sale;
   final int? available;
-
+  final String catalogId;
+  final String catalogItemName;
+  final bool favorite;
+  final String urlImage;
   @override
   State<CollectionWidget> createState() => _CollectionWidgetState();
 }
@@ -238,9 +249,19 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                     SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: PrimaryButton(
-                        title: "${S.of(context).buy_for} ${widget.lastSale}",
+                        title:
+                            "${S.of(context).buy_for} ${widget.lastSale.maxPrice}",
                         onPressed: () {
                           if (isLogged) {
+                            Navigator.of(context, rootNavigator: true).push(
+                                BuyForSale.route(
+                                    widget.catalogId,
+                                    widget.catalogItemName,
+                                    widget.lastSale,
+                                    widget.urlImage,
+                                    widget.favorite,
+                                    widget.sale,
+                                    widget.available ?? 0));
                           } else {
                             Navigator.of(context, rootNavigator: true)
                                 .push(CreateAccountPage.route());
@@ -283,8 +304,18 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                               width: MediaQuery.of(context).size.width,
                               child: PrimaryButton(
                                 title:
-                                    "${S.of(context).buy_for} ${widget.lastSale}",
-                                onPressed: () {},
+                                    "${S.of(context).buy_for} ${widget.lastSale.maxPrice}",
+                                onPressed: () {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(BuyForSale.route(
+                                          widget.catalogId,
+                                          widget.catalogItemName,
+                                          widget.lastSale,
+                                          widget.urlImage,
+                                          widget.favorite,
+                                          widget.sale,
+                                          widget.available ?? 0));
+                                },
                                 type: PrimaryButtonType.green,
                               ),
                             ),
@@ -319,7 +350,16 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                               width: MediaQuery.of(context).size.width,
                               child: PrimaryButton(
                                 title: S.of(context).remove_collection_btn,
-                                onPressed: () {},
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (BuildContext context) {
+                                        return PopUpDeleteItemCollection(
+                                            dataCollection:
+                                                widget.dataCollection!);
+                                      });
+                                },
                                 type: PrimaryButtonType.pink,
                               ),
                             )
@@ -334,7 +374,16 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                               width: MediaQuery.of(context).size.width,
                               child: PrimaryButton(
                                 title: S.of(context).remove_collection_btn,
-                                onPressed: () {},
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (BuildContext context) {
+                                        return PopUpDeleteItemCollection(
+                                            dataCollection:
+                                                widget.dataCollection!);
+                                      });
+                                },
                                 type: PrimaryButtonType.pink,
                               ),
                             )

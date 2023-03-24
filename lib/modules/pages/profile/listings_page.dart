@@ -126,7 +126,10 @@ class _ListingsPageState extends State<ListingsPage> {
                                   fontFamily: "Knockout",
                                   fontSize: 24,
                                   color: Palette.current.white)),
-                      Text(listingList[index].saleInfo,
+                      Text(
+                          listingList[index].forSale
+                              ? '${S.of(context).for_sale} ${listingList[index].saleInfo.minPrice} - ${listingList[index].saleInfo.maxPrice}'
+                              : '${S.of(context).last_sale} ${listingList[index].saleInfo.lastSale}',
                           overflow: TextOverflow.fade,
                           style: Theme.of(context)
                               .textTheme

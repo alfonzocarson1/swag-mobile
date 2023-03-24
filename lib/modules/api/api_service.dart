@@ -10,7 +10,7 @@ import '../data/secure_storage/storage_repository_service.dart';
 import '../di/injector.dart';
 import 'api.dart';
 
-enum RequestMethod { get, post, put, multipart }
+enum RequestMethod { get, post, put, multipart, delete }
 
 class APIService {
   APIService();
@@ -71,6 +71,13 @@ class APIService {
           break;
         case RequestMethod.put:
           response = await client.put(
+            Uri.parse(uri.toString()),
+            headers: baseHeaders,
+            body: jsonEncode(body),
+          );
+          break;
+        case RequestMethod.delete:
+          response = await client.delete(
             Uri.parse(uri.toString()),
             headers: baseHeaders,
             body: jsonEncode(body),

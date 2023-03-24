@@ -17,7 +17,9 @@ enum Endpoint {
   requestPasswordResetCode,
   requestIsvalidCode,
   changePassword,
-  addCollection
+  addCollection,
+  buyForSaleListing,
+  createListingForSale
 }
 
 class API {
@@ -54,5 +56,7 @@ class API {
         'api/public/v1/account/requestPasswordResetCode/isvalid/%s',
     Endpoint.changePassword: 'api/public/v1/account/passwordChangeRequest',
     Endpoint.addCollection: "api/v1/profile/collectionItems",
+    Endpoint.buyForSaleListing: "api/v1/listing/forSale/%s",
+    Endpoint.createListingForSale: "api/v1/listing/listingItem"
   };
 }

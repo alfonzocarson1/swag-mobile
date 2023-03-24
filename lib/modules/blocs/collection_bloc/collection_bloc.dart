@@ -25,7 +25,9 @@ class CollectionBloc extends Bloc<CollectionEvent, CollectionState> {
   @override
   Stream<CollectionState> mapEventToState(CollectionEvent event) async* {
     yield* event.when(
-        getCollectionItem: _getCollectionItem, addCollection: _addCollection);
+        getCollectionItem: _getCollectionItem,
+        addCollection: _addCollection,
+        removeCollection: _removeCollection);
   }
 
   Stream<CollectionState> _addCollection(AddCollectionModel param) async* {
@@ -33,6 +35,18 @@ class CollectionBloc extends Bloc<CollectionEvent, CollectionState> {
     try {
       AddCollectionModel responseBody =
           await collectionService.addCollection(param);
+
+      yield CollectionState.loadedCollectionSuccess(responseBody);
+    } catch (e) {
+      yield CollectionState.error(HandlingErrors().getError(e));
+    }
+  }
+
+  Stream<CollectionState> _removeCollection(AddCollectionModel param) async* {
+    yield CollectionState.initial();
+    try {
+      AddCollectionModel responseBody =
+          await collectionService.removeCollection(param);
 
       yield CollectionState.loadedCollectionSuccess(responseBody);
     } catch (e) {

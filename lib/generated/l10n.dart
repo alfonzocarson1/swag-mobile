@@ -1909,6 +1909,106 @@ class S {
       args: [],
     );
   }
+
+  /// `Item was sold elsewhere`
+  String get delete_collection_razon_1 {
+    return Intl.message(
+      'Item was sold elsewhere',
+      name: 'delete_collection_razon_1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Item was gifted`
+  String get delete_collection_razon_2 {
+    return Intl.message(
+      'Item was gifted',
+      name: 'delete_collection_razon_2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Other`
+  String get delete_collection_razon_3 {
+    return Intl.message(
+      'Other',
+      name: 'delete_collection_razon_3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `REMOVE ITEM`
+  String get remove_item {
+    return Intl.message(
+      'REMOVE ITEM',
+      name: 'remove_item',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select the reason you are removing this item.`
+  String get razon_remove_subtitle {
+    return Intl.message(
+      'Please select the reason you are removing this item.',
+      name: 'razon_remove_subtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select the item you would like to remove from your collection.`
+  String get remove_item_subtitle {
+    return Intl.message(
+      'Please select the item you would like to remove from your collection.',
+      name: 'remove_item_subtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to remove this item from you collection? This item is also listed for sale. Removing the item from your collection will also remove the listing.`
+  String get alert_remove_subtitle {
+    return Intl.message(
+      'Are you sure you want to remove this item from you collection? This item is also listed for sale. Removing the item from your collection will also remove the listing.',
+      name: 'alert_remove_subtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SUBMIT`
+  String get razon_remove_btn {
+    return Intl.message(
+      'SUBMIT',
+      name: 'razon_remove_btn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `REMOVE`
+  String get remove_item_btn {
+    return Intl.message(
+      'REMOVE',
+      name: 'remove_item_btn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `REMOVE ITEM`
+  String get alert_remove_btn {
+    return Intl.message(
+      'REMOVE ITEM',
+      name: 'alert_remove_btn',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

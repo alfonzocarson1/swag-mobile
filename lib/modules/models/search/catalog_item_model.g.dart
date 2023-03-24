@@ -12,7 +12,8 @@ _$_CatalogItemModel _$$_CatalogItemModelFromJson(Map<String, dynamic> json) =>
       catalogItemName: json['catalogItemName'] as String,
       catalogItemImage: json['catalogItemImage'] as String,
       numberAvailable: json['numberAvailable'] as int,
-      saleInfo: json['saleInfo'] as String,
+      saleInfo: DetailSaleInfoModel.fromJson(
+          json['saleInfo'] as Map<String, dynamic>),
       forSale: json['forSale'] as bool,
       inFavorites: json['inFavorites'] as bool,
       inCollection: json['inCollection'] as bool,

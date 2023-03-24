@@ -8,6 +8,7 @@ import 'package:swagapp/modules/blocs/search_bloc.dart/search_bloc.dart';
 import 'generated/l10n.dart';
 
 import 'modules/blocs/auth_bloc/auth_bloc.dart';
+import 'modules/blocs/buy_sale_listing_bloc/buy_sale_listing_bloc.dart';
 import 'modules/blocs/category_bloc/category_bloc.dart';
 import 'modules/blocs/collection_bloc/collection_bloc.dart';
 import 'modules/blocs/detail_bloc/detail_bloc.dart';
@@ -57,6 +58,9 @@ class App extends StatelessWidget {
           BlocProvider<UpdateProfileBloc>(
               create: (context) => getIt<UpdateProfileBloc>()),
           BlocProvider<SoldBloc>(create: (context) => getIt<SoldBloc>()),
+
+          BlocProvider<BuySaleListingBloc>(
+              create: (context) => getIt<BuySaleListingBloc>()),
           BlocProvider<SharedPreferencesBloc>(
               create: (_) => getIt<SharedPreferencesBloc>()),
         ],
