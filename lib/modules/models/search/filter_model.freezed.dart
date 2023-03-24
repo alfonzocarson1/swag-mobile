@@ -221,7 +221,7 @@ class _$_FilterModel implements _FilterModel {
       {this.forSale = false,
       this.sortBy = 0,
       this.collection = null,
-      final List<String>? productType = null,
+      final List<String>? productType = const [],
       this.type = null,
       final List<String>? theme = null,
       final List<String>? conditions = null,

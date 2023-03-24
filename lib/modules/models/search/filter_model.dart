@@ -10,7 +10,7 @@ class FilterModel with _$FilterModel {
     @Default(false) final bool forSale,
     @Default(0) final int sortBy,
     @Default(null) final String? collection,
-    @Default(null) final List<String>? productType,
+    @Default([]) final List<String>? productType,
     @Default(null) final String? type,
     @Default(null) final List<String>? theme,
     @Default(null) final List<String>? conditions,

@@ -14,7 +14,7 @@ _$_FilterModel _$$_FilterModelFromJson(Map<String, dynamic> json) =>
       productType: (json['productType'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
-          null,
+          const [],
       type: json['type'] as String? ?? null,
       theme:
           (json['theme'] as List<dynamic>?)?.map((e) => e as String).toList() ??
