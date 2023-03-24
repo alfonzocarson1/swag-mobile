@@ -8,6 +8,7 @@ import '../../common/ui/custom_data_table.dart';
 import '../../common/ui/loading.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
+import '../../models/detail/detail_sale_info_model.dart';
 import '../../models/detail/sale_history_model.dart';
 import 'intem_head.dart';
 
@@ -17,7 +18,7 @@ class TransactionHistory extends StatefulWidget {
     super.key,
     required this.urlImage,
     this.catalogItemName,
-    this.lastSale,
+    required this.lastSale,
     this.sale = false,
     this.available,
     required this.favorite,
@@ -26,14 +27,20 @@ class TransactionHistory extends StatefulWidget {
 
   final String urlImage;
   final String? catalogItemName;
-  final String? lastSale;
+  final DetailSaleInfoModel lastSale;
   final bool sale;
   final int? available;
   final bool favorite;
   final String itemId;
 
-  static Route route(String urlImage, String catalogItemName, String lastSale,
-          bool sale, int available, bool favorite, String itemId) =>
+  static Route route(
+          String urlImage,
+          String catalogItemName,
+          DetailSaleInfoModel lastSale,
+          bool sale,
+          int available,
+          bool favorite,
+          String itemId) =>
       PageRoutes.material(
         settings: const RouteSettings(name: name),
         builder: (context) => TransactionHistory(

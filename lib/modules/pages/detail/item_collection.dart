@@ -9,6 +9,7 @@ import '../../common/utils/palette.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/detail/detail_collection_model.dart';
+import '../../models/detail/detail_sale_info_model.dart';
 import '../add/buy/buy_for_sale.dart';
 import '../add/collection/list_for_Sale_page.dart';
 import '../login/create_account_page.dart';
@@ -27,7 +28,7 @@ class CollectionWidget extends StatefulWidget {
   });
 
   final List<DetailCollectionModel>? dataCollection;
-  final String lastSale;
+  final DetailSaleInfoModel lastSale;
   final bool sale;
   final int? available;
   final String catalogId;
@@ -248,7 +249,8 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                     SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: PrimaryButton(
-                        title: "${S.of(context).buy_for} ${widget.lastSale}",
+                        title:
+                            "${S.of(context).buy_for} ${widget.lastSale.maxPrice}",
                         onPressed: () {
                           if (isLogged) {
                             Navigator.of(context, rootNavigator: true).push(
@@ -302,7 +304,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                               width: MediaQuery.of(context).size.width,
                               child: PrimaryButton(
                                 title:
-                                    "${S.of(context).buy_for} ${widget.lastSale}",
+                                    "${S.of(context).buy_for} ${widget.lastSale.maxPrice}",
                                 onPressed: () {
                                   Navigator.of(context, rootNavigator: true)
                                       .push(BuyForSale.route(

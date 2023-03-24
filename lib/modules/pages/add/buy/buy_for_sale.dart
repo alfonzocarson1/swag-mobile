@@ -10,6 +10,7 @@ import '../../../common/ui/loading.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
 import '../../../models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
+import '../../../models/detail/detail_sale_info_model.dart';
 import '../../detail/transaction_history_page.dart';
 import 'preview_buy_for_sale.dart';
 
@@ -28,7 +29,7 @@ class BuyForSale extends StatefulWidget {
 
   String catalogItemId;
   String catalogItemName;
-  String catalogItemPrice;
+  DetailSaleInfoModel catalogItemPrice;
   String urlImage;
   bool favorite;
   bool sale;
@@ -37,7 +38,7 @@ class BuyForSale extends StatefulWidget {
   static Route route(
           String catalogItemId,
           String catalogItemName,
-          String catalogItemPrice,
+          DetailSaleInfoModel catalogItemPrice,
           String urlImage,
           bool favorite,
           bool sale,
@@ -182,7 +183,8 @@ class _BuyForSaleState extends State<BuyForSale> {
                                   fontFamily: "Knockout",
                                   fontSize: 30,
                                   color: Palette.current.white)),
-                      Text(widget.catalogItemPrice,
+                      Text(
+                          '${S.of(context).last_sale} ${widget.catalogItemPrice.lastSale}',
                           style: Theme.of(context)
                               .textTheme
                               .bodySmall!

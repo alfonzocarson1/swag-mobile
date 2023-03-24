@@ -24,7 +24,7 @@ mixin _$CatalogItemModel {
   String get catalogItemName => throw _privateConstructorUsedError;
   String get catalogItemImage => throw _privateConstructorUsedError;
   int get numberAvailable => throw _privateConstructorUsedError;
-  String get saleInfo => throw _privateConstructorUsedError;
+  DetailSaleInfoModel get saleInfo => throw _privateConstructorUsedError;
   bool get forSale => throw _privateConstructorUsedError;
   bool get inFavorites => throw _privateConstructorUsedError;
   bool get inCollection => throw _privateConstructorUsedError;
@@ -48,11 +48,13 @@ abstract class $CatalogItemModelCopyWith<$Res> {
       String catalogItemName,
       String catalogItemImage,
       int numberAvailable,
-      String saleInfo,
+      DetailSaleInfoModel saleInfo,
       bool forSale,
       bool inFavorites,
       bool inCollection,
       List<DetailCollectionModel>? collectionItems});
+
+  $DetailSaleInfoModelCopyWith<$Res> get saleInfo;
 }
 
 /// @nodoc
@@ -98,7 +100,7 @@ class _$CatalogItemModelCopyWithImpl<$Res, $Val extends CatalogItemModel>
       saleInfo: null == saleInfo
           ? _value.saleInfo
           : saleInfo // ignore: cast_nullable_to_non_nullable
-              as String,
+              as DetailSaleInfoModel,
       forSale: null == forSale
           ? _value.forSale
           : forSale // ignore: cast_nullable_to_non_nullable
@@ -117,6 +119,14 @@ class _$CatalogItemModelCopyWithImpl<$Res, $Val extends CatalogItemModel>
               as List<DetailCollectionModel>?,
     ) as $Val);
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $DetailSaleInfoModelCopyWith<$Res> get saleInfo {
+    return $DetailSaleInfoModelCopyWith<$Res>(_value.saleInfo, (value) {
+      return _then(_value.copyWith(saleInfo: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -132,11 +142,14 @@ abstract class _$$_CatalogItemModelCopyWith<$Res>
       String catalogItemName,
       String catalogItemImage,
       int numberAvailable,
-      String saleInfo,
+      DetailSaleInfoModel saleInfo,
       bool forSale,
       bool inFavorites,
       bool inCollection,
       List<DetailCollectionModel>? collectionItems});
+
+  @override
+  $DetailSaleInfoModelCopyWith<$Res> get saleInfo;
 }
 
 /// @nodoc
@@ -180,7 +193,7 @@ class __$$_CatalogItemModelCopyWithImpl<$Res>
       saleInfo: null == saleInfo
           ? _value.saleInfo
           : saleInfo // ignore: cast_nullable_to_non_nullable
-              as String,
+              as DetailSaleInfoModel,
       forSale: null == forSale
           ? _value.forSale
           : forSale // ignore: cast_nullable_to_non_nullable
@@ -229,7 +242,7 @@ class _$_CatalogItemModel implements _CatalogItemModel {
   @override
   final int numberAvailable;
   @override
-  final String saleInfo;
+  final DetailSaleInfoModel saleInfo;
   @override
   final bool forSale;
   @override
@@ -309,7 +322,7 @@ abstract class _CatalogItemModel implements CatalogItemModel {
           required final String catalogItemName,
           required final String catalogItemImage,
           required final int numberAvailable,
-          required final String saleInfo,
+          required final DetailSaleInfoModel saleInfo,
           required final bool forSale,
           required final bool inFavorites,
           required final bool inCollection,
@@ -328,7 +341,7 @@ abstract class _CatalogItemModel implements CatalogItemModel {
   @override
   int get numberAvailable;
   @override
-  String get saleInfo;
+  DetailSaleInfoModel get saleInfo;
   @override
   bool get forSale;
   @override

@@ -10,6 +10,7 @@ import '../../common/ui/clickable_text.dart';
 import '../../common/utils/palette.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
+import '../../models/detail/detail_sale_info_model.dart';
 import '../login/create_account_page.dart';
 import 'transaction_history_page.dart';
 
@@ -18,7 +19,7 @@ class HeadWidget extends StatefulWidget {
     super.key,
     required this.urlImage,
     this.catalogItemName,
-    this.lastSale,
+    required this.lastSale,
     this.catalogItemDescription,
     this.catalogItemDescriptionShort,
     required this.sale,
@@ -30,7 +31,7 @@ class HeadWidget extends StatefulWidget {
 
   final String urlImage;
   final String? catalogItemName;
-  final String? lastSale;
+  final DetailSaleInfoModel lastSale;
   final String? catalogItemDescription;
   final String? catalogItemDescriptionShort;
   final bool sale;
@@ -223,7 +224,10 @@ class _HeadWidgetState extends State<HeadWidget> {
               ),
               Align(
                 alignment: Alignment.centerLeft,
-                child: Text('${widget.lastSale}',
+                child: Text(
+                    widget.sale
+                        ? '${S.of(context).for_sale} ${widget.lastSale.minPrice} - ${widget.lastSale.maxPrice}'
+                        : '${S.of(context).last_sale} ${widget.lastSale.lastSale}',
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                         fontWeight: FontWeight.w300,
                         color: Palette.current.primaryNeonGreen)),
@@ -248,7 +252,7 @@ class _HeadWidgetState extends State<HeadWidget> {
                                       .push(TransactionHistory.route(
                                           widget.urlImage,
                                           widget.catalogItemName!,
-                                          widget.lastSale!,
+                                          widget.lastSale,
                                           false,
                                           3,
                                           widget.favorite,
