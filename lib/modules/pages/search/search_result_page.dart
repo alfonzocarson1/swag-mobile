@@ -49,8 +49,9 @@ class _SearchResultPageState extends State<SearchResultPage>
   @override
   void initState() {
     super.initState();
-    // initFilterAndSortsWithBloc(context);
+
     _textEditingController.text = widget.searchParam;
+
     performSearch(context, searchParam: widget.searchParam, tab: null);
   }
 

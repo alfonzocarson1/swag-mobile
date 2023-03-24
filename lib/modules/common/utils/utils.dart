@@ -58,19 +58,21 @@ Future<void> performSearch(BuildContext context,
     sharedPref.isForSale(),
     conditionList.isNotEmpty,
     releaseList.isNotEmpty,
-    priceList.isNotEmpty
+    priceList.isNotEmpty,
+    productList.isNotEmpty
   ]);
 
   context.read<SearchBloc>().add(SearchEvent.performSearch(
       SearchRequestPayloadModel(
           searchParams: searchParam != null ? [searchParam] : null,
-          categoryId:
-              tab != null ? await SearchTabWrapper(tab).toStringCustom() : null,
-          filters: getCurrentFilterModel()),
+          categoryId: tab == null || tab == SearchTab.whatsHot
+              ? null
+              : await SearchTabWrapper(tab).toStringCustom(),
+          filters: await getCurrentFilterModel()),
       tab ?? SearchTab.all));
 }
 
-FilterModel getCurrentFilterModel() {
+Future<FilterModel> getCurrentFilterModel() async {
   final sharedPref = getIt<PreferenceRepositoryService>();
   final conditionList = sharedPref.getCondition().map(int.parse).toList();
   final releaseList = sharedPref.getReleaseDate().map(int.parse).toList();
@@ -78,25 +80,24 @@ FilterModel getCurrentFilterModel() {
   final productList = sharedPref.getProduct().map(int.parse).toList();
   final isForSale = sharedPref.isForSale();
   return FilterModel(
-    forSale: isForSale,
-    sortBy: sharedPref.getSortBy(),
-    priceRanges: sharedPref.getPrice().isEmpty ||
-            sharedPref.getPrice().length == Price.values.length
-        ? null
-        : getPriceRangeList(priceList),
-    releaseYears: sharedPref.getReleaseDate().isEmpty ||
-            sharedPref.getReleaseDate().length == ReleaseDate.values.length
-        ? null
-        : getReleaseYearsList(releaseList),
-    conditions: sharedPref.getCondition().isEmpty ||
-            sharedPref.getCondition().length == Condition.values.length
-        ? null
-        : getConditionStringList(conditionList),
-    // productType: sharedPref.getProduct().isEmpty ||
-    //         sharedPref.getProduct().length == Product.values.length
-    //     ? null
-    //     : getProductStringList(productList)
-  );
+      forSale: isForSale,
+      sortBy: sharedPref.getSortBy(),
+      priceRanges: sharedPref.getPrice().isEmpty ||
+              sharedPref.getPrice().length == Price.values.length
+          ? null
+          : getPriceRangeList(priceList),
+      releaseYears: sharedPref.getReleaseDate().isEmpty ||
+              sharedPref.getReleaseDate().length == ReleaseDate.values.length
+          ? null
+          : getReleaseYearsList(releaseList),
+      conditions: sharedPref.getCondition().isEmpty ||
+              sharedPref.getCondition().length == Condition.values.length
+          ? null
+          : getConditionStringList(conditionList),
+      productType: sharedPref.getProduct().isEmpty ||
+              sharedPref.getProduct().length == Product.values.length
+          ? null
+          : await getProductStringList(productList));
 }
 
 void updateSelectedFiltersAndSortsNumber(
@@ -140,17 +141,11 @@ List<int> getReleaseYearsList(List<int> releaseList) {
   return list;
 }
 
-List<String> getProductStringList(List<int> productList) {
+Future<List<String>> getProductStringList(List<int> productList) async {
   List<String> list = [];
   for (var element in productList) {
-    if (list.isEmpty) {
-      list.add(ProductWrapper(Product.values.elementAt(element))
-          .toString()
-          .toUpperCase());
-    } else {
-      list[0] =
-          "${list[0]},${ProductWrapper(Product.values.elementAt(element)).toString().toUpperCase()}";
-    }
+    list.add(await ProductWrapper(Product.values.elementAt(element))
+        .toStringCustom());
   }
   return list;
 }
@@ -196,7 +191,8 @@ void initFilterAndSortsWithBloc(BuildContext context,
           sortBy: defaultInt,
           condition: [],
           price: [],
-          product:
-              selectedProductNumber != 0 ? [selectedProductNumber! - 1] : [],
+          product: selectedProductNumber != null && selectedProductNumber != 0
+              ? [selectedProductNumber - 1]
+              : [],
           releaseDate: [])));
 }
