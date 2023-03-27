@@ -19,32 +19,38 @@ mixin _$ListingEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getListingItem,
+    required TResult Function(ListingForSaleModel model) createListing,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getListingItem,
+    TResult? Function(ListingForSaleModel model)? createListing,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getListingItem,
+    TResult Function(ListingForSaleModel model)? createListing,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetListingItem value) getListingItem,
+    required TResult Function(_ListingEvent value) createListing,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetListingItem value)? getListingItem,
+    TResult? Function(_ListingEvent value)? createListing,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetListingItem value)? getListingItem,
+    TResult Function(_ListingEvent value)? createListing,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -107,6 +113,7 @@ class _$_GetListingItem implements _GetListingItem {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getListingItem,
+    required TResult Function(ListingForSaleModel model) createListing,
   }) {
     return getListingItem();
   }
@@ -115,6 +122,7 @@ class _$_GetListingItem implements _GetListingItem {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getListingItem,
+    TResult? Function(ListingForSaleModel model)? createListing,
   }) {
     return getListingItem?.call();
   }
@@ -123,6 +131,7 @@ class _$_GetListingItem implements _GetListingItem {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getListingItem,
+    TResult Function(ListingForSaleModel model)? createListing,
     required TResult orElse(),
   }) {
     if (getListingItem != null) {
@@ -135,6 +144,7 @@ class _$_GetListingItem implements _GetListingItem {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetListingItem value) getListingItem,
+    required TResult Function(_ListingEvent value) createListing,
   }) {
     return getListingItem(this);
   }
@@ -143,6 +153,7 @@ class _$_GetListingItem implements _GetListingItem {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetListingItem value)? getListingItem,
+    TResult? Function(_ListingEvent value)? createListing,
   }) {
     return getListingItem?.call(this);
   }
@@ -151,6 +162,7 @@ class _$_GetListingItem implements _GetListingItem {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetListingItem value)? getListingItem,
+    TResult Function(_ListingEvent value)? createListing,
     required TResult orElse(),
   }) {
     if (getListingItem != null) {
@@ -165,11 +177,157 @@ abstract class _GetListingItem implements ListingEvent {
 }
 
 /// @nodoc
+abstract class _$$_ListingEventCopyWith<$Res> {
+  factory _$$_ListingEventCopyWith(
+          _$_ListingEvent value, $Res Function(_$_ListingEvent) then) =
+      __$$_ListingEventCopyWithImpl<$Res>;
+  @useResult
+  $Res call({ListingForSaleModel model});
+
+  $ListingForSaleModelCopyWith<$Res> get model;
+}
+
+/// @nodoc
+class __$$_ListingEventCopyWithImpl<$Res>
+    extends _$ListingEventCopyWithImpl<$Res, _$_ListingEvent>
+    implements _$$_ListingEventCopyWith<$Res> {
+  __$$_ListingEventCopyWithImpl(
+      _$_ListingEvent _value, $Res Function(_$_ListingEvent) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? model = null,
+  }) {
+    return _then(_$_ListingEvent(
+      null == model
+          ? _value.model
+          : model // ignore: cast_nullable_to_non_nullable
+              as ListingForSaleModel,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ListingForSaleModelCopyWith<$Res> get model {
+    return $ListingForSaleModelCopyWith<$Res>(_value.model, (value) {
+      return _then(_value.copyWith(model: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$_ListingEvent implements _ListingEvent {
+  const _$_ListingEvent(this.model);
+
+  @override
+  final ListingForSaleModel model;
+
+  @override
+  String toString() {
+    return 'ListingEvent.createListing(model: $model)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_ListingEvent &&
+            (identical(other.model, model) || other.model == model));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, model);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_ListingEventCopyWith<_$_ListingEvent> get copyWith =>
+      __$$_ListingEventCopyWithImpl<_$_ListingEvent>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getListingItem,
+    required TResult Function(ListingForSaleModel model) createListing,
+  }) {
+    return createListing(model);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getListingItem,
+    TResult? Function(ListingForSaleModel model)? createListing,
+  }) {
+    return createListing?.call(model);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getListingItem,
+    TResult Function(ListingForSaleModel model)? createListing,
+    required TResult orElse(),
+  }) {
+    if (createListing != null) {
+      return createListing(model);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetListingItem value) getListingItem,
+    required TResult Function(_ListingEvent value) createListing,
+  }) {
+    return createListing(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetListingItem value)? getListingItem,
+    TResult? Function(_ListingEvent value)? createListing,
+  }) {
+    return createListing?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetListingItem value)? getListingItem,
+    TResult Function(_ListingEvent value)? createListing,
+    required TResult orElse(),
+  }) {
+    if (createListing != null) {
+      return createListing(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ListingEvent implements ListingEvent {
+  const factory _ListingEvent(final ListingForSaleModel model) =
+      _$_ListingEvent;
+
+  ListingForSaleModel get model;
+  @JsonKey(ignore: true)
+  _$$_ListingEventCopyWith<_$_ListingEvent> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$ListingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String message) error,
+    required TResult Function(ListingForSaleModel successCollection)
+        loadedListingSuccess,
     required TResult Function(List<CatalogItemModel> dataListingList)
         loadedListingItems,
   }) =>
@@ -178,6 +336,8 @@ mixin _$ListingState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String message)? error,
+    TResult? Function(ListingForSaleModel successCollection)?
+        loadedListingSuccess,
     TResult? Function(List<CatalogItemModel> dataListingList)?
         loadedListingItems,
   }) =>
@@ -186,6 +346,8 @@ mixin _$ListingState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String message)? error,
+    TResult Function(ListingForSaleModel successCollection)?
+        loadedListingSuccess,
     TResult Function(List<CatalogItemModel> dataListingList)?
         loadedListingItems,
     required TResult orElse(),
@@ -195,6 +357,7 @@ mixin _$ListingState {
   TResult map<TResult extends Object?>({
     required TResult Function(_InitialListingState value) initial,
     required TResult Function(_ErrorListingState value) error,
+    required TResult Function(LoadedSuccessListing value) loadedListingSuccess,
     required TResult Function(LoadedListingItemState value) loadedListingItems,
   }) =>
       throw _privateConstructorUsedError;
@@ -202,6 +365,7 @@ mixin _$ListingState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_InitialListingState value)? initial,
     TResult? Function(_ErrorListingState value)? error,
+    TResult? Function(LoadedSuccessListing value)? loadedListingSuccess,
     TResult? Function(LoadedListingItemState value)? loadedListingItems,
   }) =>
       throw _privateConstructorUsedError;
@@ -209,6 +373,7 @@ mixin _$ListingState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitialListingState value)? initial,
     TResult Function(_ErrorListingState value)? error,
+    TResult Function(LoadedSuccessListing value)? loadedListingSuccess,
     TResult Function(LoadedListingItemState value)? loadedListingItems,
     required TResult orElse(),
   }) =>
@@ -273,6 +438,8 @@ class _$_InitialListingState extends _InitialListingState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String message) error,
+    required TResult Function(ListingForSaleModel successCollection)
+        loadedListingSuccess,
     required TResult Function(List<CatalogItemModel> dataListingList)
         loadedListingItems,
   }) {
@@ -284,6 +451,8 @@ class _$_InitialListingState extends _InitialListingState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String message)? error,
+    TResult? Function(ListingForSaleModel successCollection)?
+        loadedListingSuccess,
     TResult? Function(List<CatalogItemModel> dataListingList)?
         loadedListingItems,
   }) {
@@ -295,6 +464,8 @@ class _$_InitialListingState extends _InitialListingState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String message)? error,
+    TResult Function(ListingForSaleModel successCollection)?
+        loadedListingSuccess,
     TResult Function(List<CatalogItemModel> dataListingList)?
         loadedListingItems,
     required TResult orElse(),
@@ -310,6 +481,7 @@ class _$_InitialListingState extends _InitialListingState {
   TResult map<TResult extends Object?>({
     required TResult Function(_InitialListingState value) initial,
     required TResult Function(_ErrorListingState value) error,
+    required TResult Function(LoadedSuccessListing value) loadedListingSuccess,
     required TResult Function(LoadedListingItemState value) loadedListingItems,
   }) {
     return initial(this);
@@ -320,6 +492,7 @@ class _$_InitialListingState extends _InitialListingState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_InitialListingState value)? initial,
     TResult? Function(_ErrorListingState value)? error,
+    TResult? Function(LoadedSuccessListing value)? loadedListingSuccess,
     TResult? Function(LoadedListingItemState value)? loadedListingItems,
   }) {
     return initial?.call(this);
@@ -330,6 +503,7 @@ class _$_InitialListingState extends _InitialListingState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitialListingState value)? initial,
     TResult Function(_ErrorListingState value)? error,
+    TResult Function(LoadedSuccessListing value)? loadedListingSuccess,
     TResult Function(LoadedListingItemState value)? loadedListingItems,
     required TResult orElse(),
   }) {
@@ -412,6 +586,8 @@ class _$_ErrorListingState extends _ErrorListingState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String message) error,
+    required TResult Function(ListingForSaleModel successCollection)
+        loadedListingSuccess,
     required TResult Function(List<CatalogItemModel> dataListingList)
         loadedListingItems,
   }) {
@@ -423,6 +599,8 @@ class _$_ErrorListingState extends _ErrorListingState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String message)? error,
+    TResult? Function(ListingForSaleModel successCollection)?
+        loadedListingSuccess,
     TResult? Function(List<CatalogItemModel> dataListingList)?
         loadedListingItems,
   }) {
@@ -434,6 +612,8 @@ class _$_ErrorListingState extends _ErrorListingState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String message)? error,
+    TResult Function(ListingForSaleModel successCollection)?
+        loadedListingSuccess,
     TResult Function(List<CatalogItemModel> dataListingList)?
         loadedListingItems,
     required TResult orElse(),
@@ -449,6 +629,7 @@ class _$_ErrorListingState extends _ErrorListingState {
   TResult map<TResult extends Object?>({
     required TResult Function(_InitialListingState value) initial,
     required TResult Function(_ErrorListingState value) error,
+    required TResult Function(LoadedSuccessListing value) loadedListingSuccess,
     required TResult Function(LoadedListingItemState value) loadedListingItems,
   }) {
     return error(this);
@@ -459,6 +640,7 @@ class _$_ErrorListingState extends _ErrorListingState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_InitialListingState value)? initial,
     TResult? Function(_ErrorListingState value)? error,
+    TResult? Function(LoadedSuccessListing value)? loadedListingSuccess,
     TResult? Function(LoadedListingItemState value)? loadedListingItems,
   }) {
     return error?.call(this);
@@ -469,6 +651,7 @@ class _$_ErrorListingState extends _ErrorListingState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitialListingState value)? initial,
     TResult Function(_ErrorListingState value)? error,
+    TResult Function(LoadedSuccessListing value)? loadedListingSuccess,
     TResult Function(LoadedListingItemState value)? loadedListingItems,
     required TResult orElse(),
   }) {
@@ -486,6 +669,172 @@ abstract class _ErrorListingState extends ListingState {
   String get message;
   @JsonKey(ignore: true)
   _$$_ErrorListingStateCopyWith<_$_ErrorListingState> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$LoadedSuccessListingCopyWith<$Res> {
+  factory _$$LoadedSuccessListingCopyWith(_$LoadedSuccessListing value,
+          $Res Function(_$LoadedSuccessListing) then) =
+      __$$LoadedSuccessListingCopyWithImpl<$Res>;
+  @useResult
+  $Res call({ListingForSaleModel successCollection});
+
+  $ListingForSaleModelCopyWith<$Res> get successCollection;
+}
+
+/// @nodoc
+class __$$LoadedSuccessListingCopyWithImpl<$Res>
+    extends _$ListingStateCopyWithImpl<$Res, _$LoadedSuccessListing>
+    implements _$$LoadedSuccessListingCopyWith<$Res> {
+  __$$LoadedSuccessListingCopyWithImpl(_$LoadedSuccessListing _value,
+      $Res Function(_$LoadedSuccessListing) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? successCollection = null,
+  }) {
+    return _then(_$LoadedSuccessListing(
+      null == successCollection
+          ? _value.successCollection
+          : successCollection // ignore: cast_nullable_to_non_nullable
+              as ListingForSaleModel,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ListingForSaleModelCopyWith<$Res> get successCollection {
+    return $ListingForSaleModelCopyWith<$Res>(_value.successCollection,
+        (value) {
+      return _then(_value.copyWith(successCollection: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$LoadedSuccessListing extends LoadedSuccessListing {
+  _$LoadedSuccessListing(this.successCollection) : super._();
+
+  @override
+  final ListingForSaleModel successCollection;
+
+  @override
+  String toString() {
+    return 'ListingState.loadedListingSuccess(successCollection: $successCollection)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LoadedSuccessListing &&
+            (identical(other.successCollection, successCollection) ||
+                other.successCollection == successCollection));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, successCollection);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LoadedSuccessListingCopyWith<_$LoadedSuccessListing> get copyWith =>
+      __$$LoadedSuccessListingCopyWithImpl<_$LoadedSuccessListing>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(String message) error,
+    required TResult Function(ListingForSaleModel successCollection)
+        loadedListingSuccess,
+    required TResult Function(List<CatalogItemModel> dataListingList)
+        loadedListingItems,
+  }) {
+    return loadedListingSuccess(successCollection);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(String message)? error,
+    TResult? Function(ListingForSaleModel successCollection)?
+        loadedListingSuccess,
+    TResult? Function(List<CatalogItemModel> dataListingList)?
+        loadedListingItems,
+  }) {
+    return loadedListingSuccess?.call(successCollection);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(String message)? error,
+    TResult Function(ListingForSaleModel successCollection)?
+        loadedListingSuccess,
+    TResult Function(List<CatalogItemModel> dataListingList)?
+        loadedListingItems,
+    required TResult orElse(),
+  }) {
+    if (loadedListingSuccess != null) {
+      return loadedListingSuccess(successCollection);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_InitialListingState value) initial,
+    required TResult Function(_ErrorListingState value) error,
+    required TResult Function(LoadedSuccessListing value) loadedListingSuccess,
+    required TResult Function(LoadedListingItemState value) loadedListingItems,
+  }) {
+    return loadedListingSuccess(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_InitialListingState value)? initial,
+    TResult? Function(_ErrorListingState value)? error,
+    TResult? Function(LoadedSuccessListing value)? loadedListingSuccess,
+    TResult? Function(LoadedListingItemState value)? loadedListingItems,
+  }) {
+    return loadedListingSuccess?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_InitialListingState value)? initial,
+    TResult Function(_ErrorListingState value)? error,
+    TResult Function(LoadedSuccessListing value)? loadedListingSuccess,
+    TResult Function(LoadedListingItemState value)? loadedListingItems,
+    required TResult orElse(),
+  }) {
+    if (loadedListingSuccess != null) {
+      return loadedListingSuccess(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class LoadedSuccessListing extends ListingState {
+  factory LoadedSuccessListing(final ListingForSaleModel successCollection) =
+      _$LoadedSuccessListing;
+  LoadedSuccessListing._() : super._();
+
+  ListingForSaleModel get successCollection;
+  @JsonKey(ignore: true)
+  _$$LoadedSuccessListingCopyWith<_$LoadedSuccessListing> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -566,6 +915,8 @@ class _$LoadedListingItemState extends LoadedListingItemState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String message) error,
+    required TResult Function(ListingForSaleModel successCollection)
+        loadedListingSuccess,
     required TResult Function(List<CatalogItemModel> dataListingList)
         loadedListingItems,
   }) {
@@ -577,6 +928,8 @@ class _$LoadedListingItemState extends LoadedListingItemState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String message)? error,
+    TResult? Function(ListingForSaleModel successCollection)?
+        loadedListingSuccess,
     TResult? Function(List<CatalogItemModel> dataListingList)?
         loadedListingItems,
   }) {
@@ -588,6 +941,8 @@ class _$LoadedListingItemState extends LoadedListingItemState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String message)? error,
+    TResult Function(ListingForSaleModel successCollection)?
+        loadedListingSuccess,
     TResult Function(List<CatalogItemModel> dataListingList)?
         loadedListingItems,
     required TResult orElse(),
@@ -603,6 +958,7 @@ class _$LoadedListingItemState extends LoadedListingItemState {
   TResult map<TResult extends Object?>({
     required TResult Function(_InitialListingState value) initial,
     required TResult Function(_ErrorListingState value) error,
+    required TResult Function(LoadedSuccessListing value) loadedListingSuccess,
     required TResult Function(LoadedListingItemState value) loadedListingItems,
   }) {
     return loadedListingItems(this);
@@ -613,6 +969,7 @@ class _$LoadedListingItemState extends LoadedListingItemState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_InitialListingState value)? initial,
     TResult? Function(_ErrorListingState value)? error,
+    TResult? Function(LoadedSuccessListing value)? loadedListingSuccess,
     TResult? Function(LoadedListingItemState value)? loadedListingItems,
   }) {
     return loadedListingItems?.call(this);
@@ -623,6 +980,7 @@ class _$LoadedListingItemState extends LoadedListingItemState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitialListingState value)? initial,
     TResult Function(_ErrorListingState value)? error,
+    TResult Function(LoadedSuccessListing value)? loadedListingSuccess,
     TResult Function(LoadedListingItemState value)? loadedListingItems,
     required TResult orElse(),
   }) {

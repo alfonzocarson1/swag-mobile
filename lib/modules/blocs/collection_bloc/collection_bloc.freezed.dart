@@ -20,18 +20,21 @@ mixin _$CollectionEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() getCollectionItem,
     required TResult Function(AddCollectionModel model) addCollection,
+    required TResult Function(AddCollectionModel model) removeCollection,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getCollectionItem,
     TResult? Function(AddCollectionModel model)? addCollection,
+    TResult? Function(AddCollectionModel model)? removeCollection,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getCollectionItem,
     TResult Function(AddCollectionModel model)? addCollection,
+    TResult Function(AddCollectionModel model)? removeCollection,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,21 @@ mixin _$CollectionEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetCollectionItem value) getCollectionItem,
     required TResult Function(_CollectionEvent value) addCollection,
+    required TResult Function(_RemoveCollectionEvent value) removeCollection,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetCollectionItem value)? getCollectionItem,
     TResult? Function(_CollectionEvent value)? addCollection,
+    TResult? Function(_RemoveCollectionEvent value)? removeCollection,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetCollectionItem value)? getCollectionItem,
     TResult Function(_CollectionEvent value)? addCollection,
+    TResult Function(_RemoveCollectionEvent value)? removeCollection,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -114,6 +120,7 @@ class _$_GetCollectionItem implements _GetCollectionItem {
   TResult when<TResult extends Object?>({
     required TResult Function() getCollectionItem,
     required TResult Function(AddCollectionModel model) addCollection,
+    required TResult Function(AddCollectionModel model) removeCollection,
   }) {
     return getCollectionItem();
   }
@@ -123,6 +130,7 @@ class _$_GetCollectionItem implements _GetCollectionItem {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getCollectionItem,
     TResult? Function(AddCollectionModel model)? addCollection,
+    TResult? Function(AddCollectionModel model)? removeCollection,
   }) {
     return getCollectionItem?.call();
   }
@@ -132,6 +140,7 @@ class _$_GetCollectionItem implements _GetCollectionItem {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getCollectionItem,
     TResult Function(AddCollectionModel model)? addCollection,
+    TResult Function(AddCollectionModel model)? removeCollection,
     required TResult orElse(),
   }) {
     if (getCollectionItem != null) {
@@ -145,6 +154,7 @@ class _$_GetCollectionItem implements _GetCollectionItem {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetCollectionItem value) getCollectionItem,
     required TResult Function(_CollectionEvent value) addCollection,
+    required TResult Function(_RemoveCollectionEvent value) removeCollection,
   }) {
     return getCollectionItem(this);
   }
@@ -154,6 +164,7 @@ class _$_GetCollectionItem implements _GetCollectionItem {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetCollectionItem value)? getCollectionItem,
     TResult? Function(_CollectionEvent value)? addCollection,
+    TResult? Function(_RemoveCollectionEvent value)? removeCollection,
   }) {
     return getCollectionItem?.call(this);
   }
@@ -163,6 +174,7 @@ class _$_GetCollectionItem implements _GetCollectionItem {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetCollectionItem value)? getCollectionItem,
     TResult Function(_CollectionEvent value)? addCollection,
+    TResult Function(_RemoveCollectionEvent value)? removeCollection,
     required TResult orElse(),
   }) {
     if (getCollectionItem != null) {
@@ -252,6 +264,7 @@ class _$_CollectionEvent implements _CollectionEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() getCollectionItem,
     required TResult Function(AddCollectionModel model) addCollection,
+    required TResult Function(AddCollectionModel model) removeCollection,
   }) {
     return addCollection(model);
   }
@@ -261,6 +274,7 @@ class _$_CollectionEvent implements _CollectionEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getCollectionItem,
     TResult? Function(AddCollectionModel model)? addCollection,
+    TResult? Function(AddCollectionModel model)? removeCollection,
   }) {
     return addCollection?.call(model);
   }
@@ -270,6 +284,7 @@ class _$_CollectionEvent implements _CollectionEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getCollectionItem,
     TResult Function(AddCollectionModel model)? addCollection,
+    TResult Function(AddCollectionModel model)? removeCollection,
     required TResult orElse(),
   }) {
     if (addCollection != null) {
@@ -283,6 +298,7 @@ class _$_CollectionEvent implements _CollectionEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetCollectionItem value) getCollectionItem,
     required TResult Function(_CollectionEvent value) addCollection,
+    required TResult Function(_RemoveCollectionEvent value) removeCollection,
   }) {
     return addCollection(this);
   }
@@ -292,6 +308,7 @@ class _$_CollectionEvent implements _CollectionEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetCollectionItem value)? getCollectionItem,
     TResult? Function(_CollectionEvent value)? addCollection,
+    TResult? Function(_RemoveCollectionEvent value)? removeCollection,
   }) {
     return addCollection?.call(this);
   }
@@ -301,6 +318,7 @@ class _$_CollectionEvent implements _CollectionEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetCollectionItem value)? getCollectionItem,
     TResult Function(_CollectionEvent value)? addCollection,
+    TResult Function(_RemoveCollectionEvent value)? removeCollection,
     required TResult orElse(),
   }) {
     if (addCollection != null) {
@@ -317,6 +335,157 @@ abstract class _CollectionEvent implements CollectionEvent {
   AddCollectionModel get model;
   @JsonKey(ignore: true)
   _$$_CollectionEventCopyWith<_$_CollectionEvent> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_RemoveCollectionEventCopyWith<$Res> {
+  factory _$$_RemoveCollectionEventCopyWith(_$_RemoveCollectionEvent value,
+          $Res Function(_$_RemoveCollectionEvent) then) =
+      __$$_RemoveCollectionEventCopyWithImpl<$Res>;
+  @useResult
+  $Res call({AddCollectionModel model});
+
+  $AddCollectionModelCopyWith<$Res> get model;
+}
+
+/// @nodoc
+class __$$_RemoveCollectionEventCopyWithImpl<$Res>
+    extends _$CollectionEventCopyWithImpl<$Res, _$_RemoveCollectionEvent>
+    implements _$$_RemoveCollectionEventCopyWith<$Res> {
+  __$$_RemoveCollectionEventCopyWithImpl(_$_RemoveCollectionEvent _value,
+      $Res Function(_$_RemoveCollectionEvent) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? model = null,
+  }) {
+    return _then(_$_RemoveCollectionEvent(
+      null == model
+          ? _value.model
+          : model // ignore: cast_nullable_to_non_nullable
+              as AddCollectionModel,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AddCollectionModelCopyWith<$Res> get model {
+    return $AddCollectionModelCopyWith<$Res>(_value.model, (value) {
+      return _then(_value.copyWith(model: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$_RemoveCollectionEvent implements _RemoveCollectionEvent {
+  const _$_RemoveCollectionEvent(this.model);
+
+  @override
+  final AddCollectionModel model;
+
+  @override
+  String toString() {
+    return 'CollectionEvent.removeCollection(model: $model)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_RemoveCollectionEvent &&
+            (identical(other.model, model) || other.model == model));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, model);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_RemoveCollectionEventCopyWith<_$_RemoveCollectionEvent> get copyWith =>
+      __$$_RemoveCollectionEventCopyWithImpl<_$_RemoveCollectionEvent>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getCollectionItem,
+    required TResult Function(AddCollectionModel model) addCollection,
+    required TResult Function(AddCollectionModel model) removeCollection,
+  }) {
+    return removeCollection(model);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getCollectionItem,
+    TResult? Function(AddCollectionModel model)? addCollection,
+    TResult? Function(AddCollectionModel model)? removeCollection,
+  }) {
+    return removeCollection?.call(model);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getCollectionItem,
+    TResult Function(AddCollectionModel model)? addCollection,
+    TResult Function(AddCollectionModel model)? removeCollection,
+    required TResult orElse(),
+  }) {
+    if (removeCollection != null) {
+      return removeCollection(model);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetCollectionItem value) getCollectionItem,
+    required TResult Function(_CollectionEvent value) addCollection,
+    required TResult Function(_RemoveCollectionEvent value) removeCollection,
+  }) {
+    return removeCollection(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetCollectionItem value)? getCollectionItem,
+    TResult? Function(_CollectionEvent value)? addCollection,
+    TResult? Function(_RemoveCollectionEvent value)? removeCollection,
+  }) {
+    return removeCollection?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetCollectionItem value)? getCollectionItem,
+    TResult Function(_CollectionEvent value)? addCollection,
+    TResult Function(_RemoveCollectionEvent value)? removeCollection,
+    required TResult orElse(),
+  }) {
+    if (removeCollection != null) {
+      return removeCollection(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _RemoveCollectionEvent implements CollectionEvent {
+  const factory _RemoveCollectionEvent(final AddCollectionModel model) =
+      _$_RemoveCollectionEvent;
+
+  AddCollectionModel get model;
+  @JsonKey(ignore: true)
+  _$$_RemoveCollectionEventCopyWith<_$_RemoveCollectionEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

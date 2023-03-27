@@ -119,7 +119,10 @@ class _SoldPageState extends State<SoldPage> {
                                   fontFamily: "Knockout",
                                   fontSize: 24,
                                   color: Palette.current.white)),
-                      Text(soldList[index].saleInfo,
+                      Text(
+                          soldList[index].forSale
+                              ? '${S.of(context).for_sale} ${soldList[index].saleInfo.minPrice} - ${soldList[index].saleInfo.maxPrice}'
+                              : '${S.of(context).last_sale} ${soldList[index].saleInfo.lastSale}',
                           overflow: TextOverflow.fade,
                           style: Theme.of(context)
                               .textTheme

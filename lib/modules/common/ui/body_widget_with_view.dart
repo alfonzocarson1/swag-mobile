@@ -38,8 +38,8 @@ class _BodyWidgetWithViewState extends State<BodyWidgetWithView> {
   @override
   void initState() {
     
-    this._scrollController = PrimaryScrollController.of(context);
-    this._scrollController.addListener(this.widget.scrollListener ??  (){});
+    this._scrollController = ScrollController();
+    this._scrollController.addListener(this.scrollListener);
     super.initState();
   }
   
@@ -106,10 +106,12 @@ class _BodyWidgetWithViewState extends State<BodyWidgetWithView> {
   }
 
 
-  Future<void> scrollListener() async {
+  void scrollListener() async {
 
-    if(this._scrollController.offset >= this._scrollController.position.maxScrollExtent) {
-      print('object');
+    double scrollPercentage = (this._scrollController.position.maxScrollExtent * this.widget.scrollTrgiggerOffset);
+
+    if(this._scrollController.offset >= scrollPercentage) {
+      if(this.widget.scrollListener != null) this.widget.scrollListener!();      
     }
   }
 }

@@ -5,7 +5,12 @@ import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/constants/constants.dart';
 import 'package:swagapp/modules/models/search/catalog_item_model.dart';
 
+import '../../data/shared_preferences/shared_preferences_service.dart';
+import '../../di/injector.dart';
+import '../../pages/add/collection/add_collection_page.dart';
 import '../../pages/detail/item_detail_page.dart';
+import '../../pages/login/create_account_page.dart';
+import 'popup_add_exisiting_item_collection.dart';
 
 class ShrunkenItemWidget extends StatelessWidget {
   const ShrunkenItemWidget({Key? key, required this.model}) : super(key: key);
@@ -14,6 +19,8 @@ class ShrunkenItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
+
     return GestureDetector(
       onTap: () {
         Navigator.of(context, rootNavigator: true)
@@ -45,27 +52,43 @@ class ShrunkenItemWidget extends StatelessWidget {
                 ),
               ),
               Positioned(
-                top: 7,
-                right: 0,
-                child: Visibility(
-                  visible: true,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Text("3 X",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(
-                                  fontFamily: "Knockout",
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.w300,
-                                  color: Palette.current.primaryNeonGreen)),
+                  top: 0,
+                  right: 0,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.add,
+                      color: Palette.current.grey,
                     ),
-                  ),
-                ),
-              ),
+                    onPressed: () {
+                      if (isLogged) {
+                        if (model.collectionItems!.isNotEmpty) {
+                          showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (BuildContext context) {
+                                return PopUpAddExisitingItemCollection(
+                                    onAdd: () => Navigator.of(context,
+                                            rootNavigator: true)
+                                        .push(AddCollection.route(
+                                            context,
+                                            model.catalogItemId,
+                                            model.catalogItemImage,
+                                            model.catalogItemName)));
+                              });
+                        } else {
+                          Navigator.of(context, rootNavigator: true).push(
+                              AddCollection.route(
+                                  context,
+                                  model.catalogItemId,
+                                  model.catalogItemImage,
+                                  model.catalogItemName));
+                        }
+                      } else {
+                        Navigator.of(context, rootNavigator: true)
+                            .push(CreateAccountPage.route());
+                      }
+                    },
+                  )),
               Positioned(
                 bottom: 0,
                 right: 0,
@@ -113,9 +136,9 @@ class ShrunkenItemWidget extends StatelessWidget {
                   fontSize: 24,
                   color: Palette.current.white)),
           Text(
-              model.saleInfo.length >= maxCharactersForGridViewDesc
-                  ? '${model.saleInfo.substring(0, maxCharactersForGridViewDesc)}...'
-                  : model.saleInfo,
+              model.forSale
+                  ? '${S.of(context).for_sale} ${model.saleInfo.minPrice} - ${model.saleInfo.maxPrice}'
+                  : '${S.of(context).last_sale} ${model.saleInfo.lastSale}',
               overflow: TextOverflow.fade,
               maxLines: 1,
               style: Theme.of(context).textTheme.bodySmall!.copyWith(

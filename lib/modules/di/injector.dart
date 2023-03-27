@@ -9,6 +9,7 @@ import 'package:swagapp/modules/data/search/search_service.dart';
 
 import '../blocs/auth_bloc/auth_bloc.dart';
 import '../blocs/auth_bloc/username_bloc.dart';
+import '../blocs/buy_sale_listing_bloc/buy_sale_listing_bloc.dart';
 import '../blocs/category_bloc/category_bloc.dart';
 import '../blocs/collection_bloc/collection_bloc.dart';
 import '../blocs/detail_bloc/detail_bloc.dart';
@@ -21,6 +22,8 @@ import '../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
 import '../blocs/sold_bloc/sold_bloc.dart';
 import '../blocs/update_profile_bloc/update_profile_bloc.dart';
 import '../data/auth/auth_service.dart';
+import '../data/buy_for_sale_listing/buy_for_sale_listing_service.dart';
+import '../data/buy_for_sale_listing/i_buy_for_sale_listing_service.dart';
 import '../data/category/category_service.dart';
 import '../data/category/i_category_service.dart';
 import '../data/collection/collection_service.dart';
@@ -101,6 +104,11 @@ Future<void> setupAppScope() {
 
   getIt.registerLazySingleton<ISoldService>(() => SoldService(APIService()));
   getIt.registerLazySingleton<SoldBloc>(() => SoldBloc(getIt<ISoldService>()));
+
+  getIt.registerLazySingleton<IBuyForSaleListingService>(
+      () => BuyForSaleListingService(APIService()));
+  getIt.registerLazySingleton<BuySaleListingBloc>(
+      () => BuySaleListingBloc(getIt<IBuyForSaleListingService>()));
 
   getIt
       .registerLazySingleton<SharedPreferencesBloc>(() => SharedPreferencesBloc(

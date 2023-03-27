@@ -22,7 +22,8 @@ _$_DetailItemModel _$$_DetailItemModelFromJson(Map<String, dynamic> json) =>
       retail: json['retail'] as String,
       numberAvailable: json['numberAvailable'] as int,
       rarityScore: json['rarityScore'] as String,
-      saleInfo: json['saleInfo'] as String,
+      saleInfo: DetailSaleInfoModel.fromJson(
+          json['saleInfo'] as Map<String, dynamic>),
       forSale: json['forSale'] as bool,
       inFavorites: json['inFavorites'] as bool,
       inCollection: json['inCollection'] as bool,

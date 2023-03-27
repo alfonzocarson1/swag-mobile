@@ -49,8 +49,9 @@ class _SearchResultPageState extends State<SearchResultPage>
   @override
   void initState() {
     super.initState();
-    // initFilterAndSortsWithBloc(context);
+
     _textEditingController.text = widget.searchParam;
+
     performSearch(context, searchParam: widget.searchParam, tab: null);
   }
 
@@ -214,13 +215,7 @@ class _SearchResultPageState extends State<SearchResultPage>
                 controller: _textEditingController,
                 hint: title,
                 resultViewBuilder: (_, controller) => Container(),
-                onCancel: () {
-                  // _textEditingController.text = '';
-                  // context
-                  //     .read<CategoryBloc>()
-                  //     .add(const CategoryEvent.refresh());
-                  // context.read<SearchBloc>().add(const SearchEvent.reset());
-                }),
+                onCancel: () {}),
           ),
         ),
         Padding(

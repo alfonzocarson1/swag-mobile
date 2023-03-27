@@ -139,7 +139,10 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                   fontFamily: "Knockout",
                                   fontSize: 24,
                                   color: Palette.current.white)),
-                      Text(favoriteList[index].saleInfo,
+                      Text(
+                          favoriteList[index].forSale
+                              ? '${S.of(context).for_sale} ${favoriteList[index].saleInfo.minPrice} - ${favoriteList[index].saleInfo.maxPrice}'
+                              : '${S.of(context).last_sale} ${favoriteList[index].saleInfo.lastSale}',
                           overflow: TextOverflow.fade,
                           style: Theme.of(context)
                               .textTheme

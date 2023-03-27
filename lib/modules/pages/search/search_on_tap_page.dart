@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:swagapp/generated/l10n.dart';
+import 'package:swagapp/modules/blocs/search_bloc.dart/search_bloc.dart';
 import 'package:swagapp/modules/common/ui/pushed_header.dart';
 import 'package:swagapp/modules/common/ui/search_input.dart';
 import 'package:swagapp/modules/common/utils/custom_route_animations.dart';
@@ -112,10 +113,14 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
                       color: Palette.current.blackSmoke,
                       child: Column(
                         children: [
-                          _categoryItem(context, S.of(context).whats_hot),
-                          _categoryItem(context, S.of(context).headcovers),
-                          _categoryItem(context, S.of(context).putters),
-                          _categoryItem(context, S.of(context).accessories),
+                          _categoryItem(context, S.of(context).whats_hot,
+                              SearchTab.whatsHot.index),
+                          _categoryItem(context, S.of(context).headcovers,
+                              SearchTab.headcovers.index),
+                          _categoryItem(context, S.of(context).putters,
+                              SearchTab.putters.index),
+                          _categoryItem(context, S.of(context).accessories,
+                              SearchTab.accessories.index),
                         ],
                       ),
                     )
@@ -127,8 +132,9 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
     );
   }
 
-  Future<void> goToResultPage() async {
-    initFilterAndSortsWithBloc(context);
+  Future<void> goToResultPage({int? index}) async {
+    initFilterAndSortsWithBloc(context, selectedProductNumber: index);
+
     await initFiltersAndSorts();
     if (!mounted || widget._textEditingController.text.isEmpty) return;
 
@@ -139,7 +145,7 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
     );
   }
 
-  Widget _categoryItem(BuildContext context, String category) {
+  Widget _categoryItem(BuildContext context, String category, int index) {
     return Column(
       children: [
         Material(
@@ -147,7 +153,7 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
           child: InkWell(
             splashColor: Palette.current.gray2,
             onTap: () async {
-              await goToResultPage();
+              await goToResultPage(index: index);
             },
             child: SizedBox(
               height: 50,

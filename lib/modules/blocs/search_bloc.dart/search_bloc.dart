@@ -30,11 +30,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   void init() async {
-    add(SearchEvent.performSearch(
-        SearchRequestPayloadModel(
-            categoryId:
-                await SearchTabWrapper(SearchTab.whatsHot).toStringCustom(),
-            filters: const FilterModel()),
+    add(const SearchEvent.performSearch(
+        SearchRequestPayloadModel(categoryId: null, filters: FilterModel()),
         SearchTab.whatsHot));
   }
 

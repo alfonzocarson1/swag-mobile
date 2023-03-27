@@ -1,8 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'detail_attribute_model.dart';
 import 'detail_collection_model.dart';
-import 'similar_item_model.dart';
+import 'detail_sale_info_model.dart';
 
 part 'detail_item_model.freezed.dart';
 part 'detail_item_model.g.dart';
@@ -24,7 +23,7 @@ class DetailItemModel with _$DetailItemModel {
     required final String retail,
     required final int numberAvailable,
     required final String rarityScore,
-    required final String saleInfo,
+    required final DetailSaleInfoModel saleInfo,
     required final bool forSale,
     required final bool inFavorites,
     required final bool inCollection,

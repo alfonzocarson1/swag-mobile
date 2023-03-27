@@ -59,6 +59,7 @@ class _CatalogPageState extends State<CatalogPage> {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
+      controller: this.widget.scrollController,
         separatorBuilder: (context, index) => const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Divider(
@@ -271,7 +272,10 @@ class _CatalogPageState extends State<CatalogPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Row(
                     children: [
-                      Text(widget.catalogItems[index].saleInfo,
+                      Text(
+                          widget.catalogItems[index].forSale
+                              ? '${S.of(context).for_sale} ${widget.catalogItems[index].saleInfo.minPrice} - ${widget.catalogItems[index].saleInfo.maxPrice}'
+                              : '${S.of(context).last_sale} ${widget.catalogItems[index].saleInfo.lastSale}',
                           style: Theme.of(context)
                               .textTheme
                               .bodySmall!

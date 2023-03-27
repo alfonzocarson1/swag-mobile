@@ -52,16 +52,20 @@ class SearchService extends ISearchService {
   Future getCashedOrNew(bool refresh, String terms, SearchTab tab) async {
 
     final cat = _cachedSearch[tab] ?? [];
-
-    if (cat.isNotEmpty && !refresh) {} 
-    else {
+    if (cat.isNotEmpty && !refresh) {
+    } else {
+      final categoryId = await SearchTabWrapper(tab).toStringCustom();
       final response = await search(
-        model: SearchRequestPayloadModel(
-          filters: const FilterModel(),
-          categoryId: await SearchTabWrapper(tab).toStringCustom(),
-        ),
-        tab: tab,
-      );
+          model: SearchRequestPayloadModel(
+            filters: FilterModel(
+              productType: tab != SearchTab.whatsHot && categoryId != null
+                ? [categoryId]
+                : null,
+            ),
+            categoryId: tab != SearchTab.whatsHot ? categoryId : null,
+          ),
+          tab: tab,
+        );
       _cachedSearch[tab] = response[tab] ?? [];
     }
   }

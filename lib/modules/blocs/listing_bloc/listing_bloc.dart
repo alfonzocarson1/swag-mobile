@@ -6,6 +6,7 @@ import 'package:swagapp/modules/models/search/catalog_item_model.dart';
 
 import '../../common/utils/handling_errors.dart';
 import '../../data/listing/i_listing_service.dart';
+import '../../models/listing_for_sale/listing_for_sale_model.dart';
 
 part 'listing_bloc.freezed.dart';
 part 'listing_event.dart';
@@ -26,8 +27,19 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
   @override
   Stream<ListingState> mapEventToState(ListingEvent event) async* {
     yield* event.when(
-      getListingItem: _getListingItem,
-    );
+        getListingItem: _getListingItem, createListing: _createListing);
+  }
+
+  Stream<ListingState> _createListing(ListingForSaleModel param) async* {
+    yield ListingState.initial();
+    try {
+      ListingForSaleModel responseBody =
+          await listingService.createListing(param);
+
+      yield ListingState.loadedListingSuccess(responseBody);
+    } catch (e) {
+      yield ListingState.error(HandlingErrors().getError(e));
+    }
   }
 
   Stream<ListingState> _getListingItem() async* {

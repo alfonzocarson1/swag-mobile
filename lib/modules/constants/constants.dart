@@ -1,3 +1,7 @@
+import '../data/shared_preferences/shared_preferences_service.dart';
+import '../di/injector.dart';
+import '../models/search/category_model.dart';
+
 const String hostProd = "dev.core-api.app.net";
 const String hostDev = "orchestration.dev.swag.kuldisak.net:8080";
 const String hostQa = "dev.core-api.app.net";
@@ -153,6 +157,19 @@ class ProductWrapper {
   final Product type;
 
   ProductWrapper(this.type);
+
+  Future<String> toStringCustom() async {
+    List<CategoryModel> categories =
+        await getIt<PreferenceRepositoryService>().getLastCategories();
+    switch (type) {
+      case Product.headcovers:
+        return categories[1].catalogCategoryId;
+      case Product.putters:
+        return categories[2].catalogCategoryId;
+      case Product.accessories:
+        return categories[3].catalogCategoryId;
+    }
+  }
 
   @override
   String toString() {

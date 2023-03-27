@@ -186,10 +186,17 @@
     "selected":"Selected",
     "incorrect_code": "Incorrect code. Please check and try again.",
     "code_expired": "Code expired. Please select resend to receive new code.",
-
     "multi_collection_title": "WHALE ALERT", 
     "multi_collection_subtitle": "It looks like you already have this item in your collection. Are you sure you want to add another?",
-    "add_multi_collection_btn": "ADD ANOTHER"
-
-
+    "add_multi_collection_btn": "ADD ANOTHER",
+    "delete_collection_razon_1": "Item was sold elsewhere",
+    "delete_collection_razon_2": "Item was gifted",
+    "delete_collection_razon_3": "Other", 
+    "remove_item": "REMOVE ITEM",
+    "razon_remove_subtitle": "Please select the reason you are removing this item.",
+    "remove_item_subtitle": "Please select the item you would like to remove from your collection.",
+    "alert_remove_subtitle": "Are you sure you want to remove this item from you collection? This item is also listed for sale. Removing the item from your collection will also remove the listing.",
+    "razon_remove_btn": "SUBMIT",
+    "remove_item_btn": "REMOVE",
+    "alert_remove_btn": "REMOVE ITEM"
 }
