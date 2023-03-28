@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 
 import '../../../../generated/l10n.dart';
@@ -10,6 +12,7 @@ import '../../../common/ui/multi_image_slide.dart';
 import '../../../common/ui/primary_button.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
+import '../../../models/listing_for_sale/listing_for_sale_model.dart';
 import 'footer_list_item_page.dart';
 
 class ListItemPreviewPage extends StatefulWidget {
@@ -18,19 +21,25 @@ class ListItemPreviewPage extends StatefulWidget {
   ListItemPreviewPage(
       {super.key,
       required this.imgList,
-      this.itemName,
-      this.itemPrice,
-      this.itemCondition,
-      this.itemDescription});
+      required this.itemName,
+      required this.itemPrice,
+      required this.itemCondition,
+      required this.itemDescription,
+      required this.profileCollectionItemId,
+      required this.catalogItemId,
+      required this.onClose});
 
   List<XFile> imgList;
-  String? itemName;
-  String? itemPrice;
-  String? itemCondition;
-  String? itemDescription;
+  String itemName;
+  double itemPrice;
+  String itemCondition;
+  String itemDescription;
+  String profileCollectionItemId;
+  String catalogItemId;
+  Function() onClose;
 
-  static Route route(
-          imgList, itemName, itemPrice, itemCondition, itemDescription) =>
+  static Route route(imgList, itemName, itemPrice, itemCondition,
+          itemDescription, profileCollectionItemId, catalogItemId, onClose) =>
       PageRoutes.material(
         settings: const RouteSettings(name: name),
         builder: (context) => ListItemPreviewPage(
@@ -38,7 +47,10 @@ class ListItemPreviewPage extends StatefulWidget {
             itemName: itemName,
             itemPrice: itemPrice,
             itemCondition: itemCondition,
-            itemDescription: itemDescription),
+            itemDescription: itemDescription,
+            profileCollectionItemId: profileCollectionItemId,
+            catalogItemId: catalogItemId,
+            onClose: onClose),
       );
 
   @override
@@ -59,7 +71,9 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                     return null;
                   },
                   loadedListingSuccess: (state) {
+                    widget.onClose();
                     Loading.hide(context);
+                    Navigator.pop(context);
                     return null;
                   },
                   initial: () {
@@ -103,7 +117,7 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                             children: [
                               Expanded(
                                   flex: 6,
-                                  child: Text(widget.itemName ?? '',
+                                  child: Text(widget.itemName,
                                       style: Theme.of(context)
                                           .textTheme
                                           .displayLarge!
@@ -168,7 +182,7 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                           const SizedBox(height: 10),
                           Padding(
                             padding: const EdgeInsets.only(right: 50.0),
-                            child: Text(widget.itemDescription ?? '',
+                            child: Text(widget.itemDescription,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall!
@@ -183,7 +197,25 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                           const SizedBox(height: 30),
                           PrimaryButton(
                             title: S.of(context).post_listing_btn,
-                            onPressed: () {},
+                            onPressed: () {
+                              context.read<ListingBloc>().add(
+                                  ListingEvent.createListing(
+                                      ListingForSaleModel(
+                                          productItemName: widget.itemName,
+                                          productItemPrice: widget.itemPrice,
+                                          productItemDescription:
+                                              widget.itemDescription,
+                                          sold: false,
+                                          condition: widget.itemCondition
+                                              .toUpperCase(),
+                                          listingItemsAction: "ADD",
+                                          forSale: true,
+                                          lastSale: widget.itemPrice,
+                                          catalogItemId: widget.catalogItemId,
+                                          profileCollectionItemId:
+                                              widget.profileCollectionItemId),
+                                      widget.imgList));
+                            },
                             type: PrimaryButtonType.green,
                           ),
                           const SizedBox(height: 30),

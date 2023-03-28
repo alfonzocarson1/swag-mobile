@@ -9,14 +9,16 @@ import '../../models/detail/detail_collection_model.dart';
 import '../../pages/add/collection/list_for_sale_page.dart';
 
 class PopUpListItemSale extends StatefulWidget {
-  const PopUpListItemSale({super.key, required this.dataCollection});
+  const PopUpListItemSale(
+      {super.key, required this.dataCollection, required this.catalogItemName});
+  final String catalogItemName;
   final List<DetailCollectionModel>? dataCollection;
   @override
   State<PopUpListItemSale> createState() => _PopUpListItemSaleState();
 }
 
 class _PopUpListItemSaleState extends State<PopUpListItemSale> {
-  String? _condition;
+  DetailCollectionModel? removeDataCollection;
 
   @override
   void initState() {
@@ -24,18 +26,16 @@ class _PopUpListItemSaleState extends State<PopUpListItemSale> {
   }
 
   List _selecteCategorys = [];
+  DetailCollectionModel? collectionSelected;
 
-  void _onCollectionSelected(bool selected, collectionId, itemCondition) {
+  void _onCollectionSelected(
+      bool selected, DetailCollectionModel collectionData) {
     if (selected == true) {
       setState(() {
-        _condition = itemCondition;
         _selecteCategorys = [];
-        _selecteCategorys.add(collectionId);
-      });
-    } else {
-      setState(() {
-        _condition = null;
-        _selecteCategorys.remove(collectionId);
+        _selecteCategorys.add(collectionData.profileCollectionItemId);
+
+        collectionSelected = collectionData;
       });
     }
   }
@@ -124,14 +124,8 @@ class _PopUpListItemSaleState extends State<PopUpListItemSale> {
                                                           (bool? newValue) {
                                                         _onCollectionSelected(
                                                             newValue!,
-                                                            widget
-                                                                .dataCollection![
-                                                                    index]
-                                                                .profileCollectionItemId,
-                                                            widget
-                                                                .dataCollection![
-                                                                    index]
-                                                                .itemCondition);
+                                                            widget.dataCollection![
+                                                                index]);
                                                         setState(() {});
                                                       },
                                                     ),
@@ -170,9 +164,12 @@ class _PopUpListItemSaleState extends State<PopUpListItemSale> {
                     PrimaryButton(
                       title: S.of(context).ist_item_popup_btn,
                       onPressed: () {
-                        Navigator.pop(context);
-                        Navigator.of(context, rootNavigator: true)
-                            .push(ListForSalePage.route(_condition));
+                        if (collectionSelected != null) {
+                          Navigator.pop(context);
+                          Navigator.of(context, rootNavigator: true).push(
+                              ListForSalePage.route(
+                                  collectionSelected, widget.catalogItemName));
+                        }
                       },
                       type: PrimaryButtonType.green,
                     ),
