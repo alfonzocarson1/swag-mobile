@@ -8,7 +8,7 @@ class ListingState with _$ListingState {
   factory ListingState.error(final String message) = _ErrorListingState;
   factory ListingState.loadedListingSuccess(
       ListingForSaleModel successCollection) = LoadedSuccessListing;
-  factory ListingState.loadedListingItems({
-    required final List<CatalogItemModel> dataListingList,
-  }) = LoadedListingItemState;
+  factory ListingState.loadedListingItems(
+          {required final List<CatalogItemModel> dataListingList}) =
+      LoadedListingItemState;
 }

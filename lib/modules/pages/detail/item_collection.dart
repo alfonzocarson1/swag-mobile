@@ -11,7 +11,7 @@ import '../../di/injector.dart';
 import '../../models/detail/detail_collection_model.dart';
 import '../../models/detail/detail_sale_info_model.dart';
 import '../add/buy/buy_for_sale.dart';
-import '../add/collection/list_for_Sale_page.dart';
+import '../add/collection/list_for_sale_page.dart';
 import '../login/create_account_page.dart';
 
 class CollectionWidget extends StatefulWidget {
@@ -333,12 +333,16 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                           barrierDismissible: false,
                                           builder: (BuildContext context) {
                                             return PopUpListItemSale(
+                                                catalogItemName:
+                                                    widget.catalogItemName,
                                                 dataCollection:
                                                     widget.dataCollection!);
                                           })
                                       : Navigator.of(context,
                                               rootNavigator: true)
-                                          .push(ListForSalePage.route(context));
+                                          .push(ListForSalePage.route(
+                                              widget.dataCollection![0],
+                                              widget.catalogItemName));
                                 },
                                 type: PrimaryButtonType.black,
                               ),

@@ -19,7 +19,8 @@ enum Endpoint {
   changePassword,
   addCollection,
   buyForSaleListing,
-  createListingForSale
+  createListingForSale,
+  uploadImageListingForSale
 }
 
 class API {
@@ -57,6 +58,7 @@ class API {
     Endpoint.changePassword: 'api/public/v1/account/passwordChangeRequest',
     Endpoint.addCollection: "api/v1/profile/collectionItems",
     Endpoint.buyForSaleListing: "api/v1/listing/forSale/%s",
-    Endpoint.createListingForSale: "api/v1/listing/listingItem"
+    Endpoint.createListingForSale: "api/v1/listing/listingItem",
+    Endpoint.uploadImageListingForSale: 'api/v1/image/listing/%s',
   };
 }

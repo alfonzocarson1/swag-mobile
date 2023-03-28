@@ -1,12 +1,16 @@
 import 'dart:async';
+import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:swagapp/modules/models/search/catalog_item_model.dart';
 
 import '../../common/utils/handling_errors.dart';
 import '../../data/listing/i_listing_service.dart';
 import '../../models/listing_for_sale/listing_for_sale_model.dart';
+import '../../models/update_profile/update_avatar_model.dart';
 
 part 'listing_bloc.freezed.dart';
 part 'listing_event.dart';
@@ -15,9 +19,7 @@ part 'listing_state.dart';
 class ListingBloc extends Bloc<ListingEvent, ListingState> {
   final IListingService listingService;
 
-  ListingBloc(this.listingService) : super(ListingState.initial()) {
-    add(const ListingEvent.getListingItem());
-  }
+  ListingBloc(this.listingService) : super(ListingState.initial());
 
   Stream<ListingState> get authStateStream async* {
     yield state;
@@ -30,11 +32,18 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
         getListingItem: _getListingItem, createListing: _createListing);
   }
 
-  Stream<ListingState> _createListing(ListingForSaleModel param) async* {
+  Stream<ListingState> _createListing(
+      ListingForSaleModel param, List<XFile> imgList) async* {
     yield ListingState.initial();
     try {
       ListingForSaleModel responseBody =
           await listingService.createListing(param);
+
+      for (var i = 0; i < imgList.length; i++) {
+        await listingService.uploadListingImage(
+            await File(imgList[i].path).readAsBytes(),
+            responseBody.productItemId ?? '');
+      }
 
       yield ListingState.loadedListingSuccess(responseBody);
     } catch (e) {

@@ -12,16 +12,17 @@ _$_ListingForSaleModel _$$_ListingForSaleModelFromJson(
       productItemId: json['productItemId'] as String?,
       productItemName: json['productItemName'] as String?,
       productItemPrice: (json['productItemPrice'] as num?)?.toDouble(),
-      productItemImageUrls: json['productItemImageUrls'] as String?,
+      productItemImageUrls: json['productItemImageUrls'],
       productItemDescription: json['productItemDescription'] as String?,
       condition: json['condition'] as String?,
-      listingItemsAction: json['listingItemsAction'] as String?,
       profileId: json['profileId'] as String?,
       catalogItemId: json['catalogItemId'] as String?,
+      profileCollectionItemId: json['profileCollectionItemId'] as String?,
       lastSale: (json['lastSale'] as num?)?.toDouble(),
-      forSale: json['forSale'] as String?,
-      sold: json['sold'] as String?,
-      isDeleted: json['isDeleted'] as String?,
+      forSale: json['forSale'] as bool?,
+      sold: json['sold'] as bool?,
+      isDeleted: json['isDeleted'] as bool?,
+      listingItemsAction: json['listingItemsAction'] as String?,
     );
 
 Map<String, dynamic> _$$_ListingForSaleModelToJson(
@@ -40,12 +41,13 @@ Map<String, dynamic> _$$_ListingForSaleModelToJson(
   writeNotNull('productItemImageUrls', instance.productItemImageUrls);
   writeNotNull('productItemDescription', instance.productItemDescription);
   writeNotNull('condition', instance.condition);
-  writeNotNull('listingItemsAction', instance.listingItemsAction);
   writeNotNull('profileId', instance.profileId);
   writeNotNull('catalogItemId', instance.catalogItemId);
+  writeNotNull('profileCollectionItemId', instance.profileCollectionItemId);
   writeNotNull('lastSale', instance.lastSale);
   writeNotNull('forSale', instance.forSale);
   writeNotNull('sold', instance.sold);
   writeNotNull('isDeleted', instance.isDeleted);
+  writeNotNull('listingItemsAction', instance.listingItemsAction);
   return val;
 }
