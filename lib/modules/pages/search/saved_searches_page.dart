@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:swagapp/modules/pages/search/search_result_page.dart';
+import 'package:swagapp/modules/pages/search/search_result/search_result_page.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';

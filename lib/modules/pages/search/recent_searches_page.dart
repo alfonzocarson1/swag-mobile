@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:swagapp/modules/pages/search/search_result_page.dart';
+import 'package:swagapp/modules/pages/search/search_result/search_result_page.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
@@ -39,14 +39,11 @@ class _RecentSearchesPageState extends State<RecentSearchesPage> {
 
   Widget _recentItem(BuildContext context, String searchParam) {
     return InkWell(
-      onTap: () {
-        Navigator.pop(context);
-        PersistentNavBarNavigator.pushNewScreen(
-          context,
-          screen: SearchResultPage(searchParam),
-          withNavBar: true,
-        );
-      },
+      onTap: ()=> PersistentNavBarNavigator.pushNewScreen(
+        context,
+        screen: SearchResultPage(searchParam),
+        withNavBar: true,
+      ),
       child: Column(
         children: [
           Ink(
@@ -87,6 +84,14 @@ class _RecentSearchesPageState extends State<RecentSearchesPage> {
           ),
         ],
       ),
+    );
+  }
+
+  void onTapResult(BuildContext context, String searchParam) {
+    PersistentNavBarNavigator.pushNewScreen(
+      context,
+      screen: SearchResultPage(searchParam),
+      withNavBar: true,
     );
   }
 }

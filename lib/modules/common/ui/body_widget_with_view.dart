@@ -42,6 +42,12 @@ class _BodyWidgetWithViewState extends State<BodyWidgetWithView> {
     this._scrollController.addListener(this.scrollListener);
     super.initState();
   }
+
+  @override
+  void dispose() {
+    this._scrollController.dispose();
+    super.dispose();
+  }
   
   @override
   Widget build(BuildContext context) => _getBody(widget.catalogList);
@@ -67,7 +73,10 @@ class _BodyWidgetWithViewState extends State<BodyWidgetWithView> {
 
     return catalogList.isNotEmpty
       ? isListView
-        ? CatalogPage(catalogItems: catalogList, scrollController: this._scrollController)
+        ? CatalogPage(
+            catalogItems: catalogList, 
+            scrollController: this._scrollController,
+          )
         : Padding(
             padding: const EdgeInsets.only(
               top: 0, 
@@ -108,10 +117,10 @@ class _BodyWidgetWithViewState extends State<BodyWidgetWithView> {
 
   void scrollListener() async {
 
-    double scrollPercentage = (this._scrollController.position.maxScrollExtent * this.widget.scrollTrgiggerOffset);
+    double scrollPercentage = (this._scrollController.position.maxScrollExtent - 300);
 
     if(this._scrollController.offset >= scrollPercentage) {
-      if(this.widget.scrollListener != null) this.widget.scrollListener!();      
+      if(this.widget.scrollListener != null) await this.widget.scrollListener!();      
     }
   }
 }
