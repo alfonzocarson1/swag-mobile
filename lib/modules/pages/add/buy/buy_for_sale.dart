@@ -214,7 +214,8 @@ class _BuyForSaleState extends State<BuyForSale> {
                                                 widget.favorite,
                                                 widget.available ?? 0,
                                                 widget.favorite,
-                                                widget.catalogItemId));
+                                                widget.catalogItemId,
+                                                (val) {}));
                                       },
                                       child: Center(
                                         child: Container(

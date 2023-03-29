@@ -4,6 +4,7 @@ import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/common/ui/loading.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import '../../blocs/detail_bloc/detail_bloc.dart';
+import '../../blocs/favorite_bloc/favorite_bloc.dart';
 import '../../blocs/sale_history/sale_history_bloc.dart';
 import '../../common/ui/custom_app_bar.dart';
 import '../../common/ui/popup_add_exisiting_item_collection.dart';
@@ -22,13 +23,16 @@ import 'item_switched.dart';
 
 class ItemDetailPage extends StatefulWidget {
   static const name = '/ItemDetail';
-  ItemDetailPage({Key? key, required this.catalogItemId}) : super(key: key);
+  ItemDetailPage(
+      {Key? key, required this.catalogItemId, required this.addFavorite})
+      : super(key: key);
   String catalogItemId;
-  static Route route(String catalogItemId) => PageRoutes.material(
+  Function(bool) addFavorite;
+  static Route route(String catalogItemId, Function(bool) addFavorite) =>
+      PageRoutes.material(
         settings: const RouteSettings(name: name),
         builder: (context) => ItemDetailPage(
-          catalogItemId: catalogItemId,
-        ),
+            catalogItemId: catalogItemId, addFavorite: addFavorite),
       );
 
   @override
@@ -51,7 +55,6 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
     super.initState();
 
     isLogged = getIt<PreferenceRepositoryService>().isLogged();
-
     context
         .read<DetailBloc>()
         .add(DetailEvent.getDetailItem(widget.catalogItemId));
@@ -192,6 +195,11 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                 child: Column(
                   children: [
                     HeadWidget(
+                        addFavorite: (val) {
+                          widget.addFavorite(val);
+                        },
+                        profileFavoriteItemId:
+                            dataDetail[index].profileFavoriteItemId,
                         urlImage: dataDetail[index].catalogItemImage,
                         catalogItemName: dataDetail[index].catalogItemName,
                         lastSale: dataDetail[index].saleInfo,

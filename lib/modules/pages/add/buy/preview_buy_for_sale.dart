@@ -30,7 +30,6 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // print(widget.dataItem.catalogItemId);
   }
 
   @override
