@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'app.dart';
 import 'modules/api/app_config.dart';
+import 'modules/common/utils/utils.dart';
 import 'modules/constants/constants.dart';
+import 'modules/data/secure_storage/storage_repository_service.dart';
+import 'modules/data/shared_preferences/shared_preferences_service.dart';
 import 'modules/di/injector.dart';
 
 Future<void> main() async {
@@ -11,8 +14,10 @@ Future<void> main() async {
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   setupAppScope();
-  // await getIt<PreferenceRepositoryService>().initialize();
-  // getIt<StorageRepositoryService>().initialize();
+  await getIt<PreferenceRepositoryService>().initialize();
+  getIt<StorageRepositoryService>().initialize();
+  initFiltersAndSorts();
+  initUtilsPreference();
   try {
     // await PushNotificationProvider.instance.initNotifications();
   } catch (e) {

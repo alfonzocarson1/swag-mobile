@@ -4,16 +4,24 @@ abstract class Palette {
   /// Color for header text
   final Color black;
 
-  final Color appleGreenLight;
+  final Color white;
 
-  final Color appleGreenDark;
+  final Color primaryEerieBlack;
 
-  final Color tyrianPurple;
+  final Color blackSmoke;
+
+  final Color primaryNeonGreen;
+
+  final Color primaryNeonPink;
+
+  final Color primaryWhiteSmoke;
 
   final Color chromeYellow;
 
+  final Color blueNeon;
+
   /// Buttons color
-  final Color orange;
+  final Color primaryNero;
 
   final Color errorColor;
 
@@ -28,6 +36,8 @@ abstract class Palette {
 
   /// white color
   final Color light4;
+
+  final Color grey;
 
   final Color gray1;
 
@@ -45,6 +55,8 @@ abstract class Palette {
 
   final Color gray8;
 
+  final Color darkGray;
+
   final Color blue;
 
   final Color red;
@@ -53,16 +65,21 @@ abstract class Palette {
 
   const Palette({
     required this.black,
-    required this.appleGreenLight,
-    required this.appleGreenDark,
-    required this.tyrianPurple,
+    required this.white,
+    required this.primaryEerieBlack,
+    required this.blackSmoke,
+    required this.primaryNeonGreen,
+    required this.primaryNeonPink,
+    required this.primaryWhiteSmoke,
     required this.chromeYellow,
-    required this.orange,
+    required this.primaryNero,
+    required this.blueNeon,
     required this.errorColor,
     required this.light1,
     required this.light2,
     required this.light3,
     required this.light4,
+    required this.grey,
     required this.gray1,
     required this.gray2,
     required this.gray3,
@@ -71,6 +88,7 @@ abstract class Palette {
     required this.gray6,
     required this.gray7,
     required this.gray8,
+    required this.darkGray,
     required this.blue,
     required this.red,
     required this.brightness,
@@ -82,12 +100,17 @@ abstract class Palette {
 class LightPalette extends Palette {
   LightPalette()
       : super(
-          black: const Color(0xFF1C1632),
-          appleGreenLight: const Color(0xFFA0D04E),
-          appleGreenDark: const Color(0xFF76A12B),
-          tyrianPurple: const Color(0xFF550527),
+          blueNeon: const Color(0xFF00FFC8),
+          blackSmoke: const Color(0xFF1E1E1E),
+          black: const Color(0xFF080808),
+          white: const Color(0xFFFFFFFF),
+          primaryEerieBlack: const Color(0xFF181818),
+          grey: const Color(0xFF929292),
+          primaryNeonGreen: const Color(0xFFB4FF00),
+          primaryNeonPink: const Color(0xFFFF0096),
+          primaryWhiteSmoke: const Color(0xFFF2F2F2),
           chromeYellow: const Color(0xFFFAA613),
-          orange: const Color(0xFFF44708),
+          primaryNero: const Color(0xFF202020),
           errorColor: const Color(0xFFFF3354),
           light1: const Color(0xFFCECACE),
           light2: const Color(0xFFE5E8EA),
@@ -101,6 +124,7 @@ class LightPalette extends Palette {
           gray6: const Color(0xFF7E878C),
           gray7: const Color(0xFF656D71),
           gray8: const Color(0xFF545B5E),
+          darkGray: const Color(0xFF929292),
           blue: const Color(0xFF0047BA),
           red: const Color(0xFFDA0903),
           brightness: Brightness.light,

@@ -2,6 +2,9 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:http_interceptor/http_interceptor.dart';
 
+import '../../data/secure_storage/storage_repository_service.dart';
+import '../../di/injector.dart';
+
 class TokenRetryPolicy extends RetryPolicy {
   @override
   int get maxRetryAttempts => 2;
@@ -39,8 +42,7 @@ class TokenRetryPolicy extends RetryPolicy {
 class ApiInterceptor extends InterceptorContract {
   @override
   Future<BaseRequest> interceptRequest({required BaseRequest request}) async {
-    String? token =
-        ""; // TODO await getIt<StorageRepositoryService>().getAccessToken();
+    String? token = await getIt<StorageRepositoryService>().getToken();
 
     final Map<String, String> headers = Map.from(request.headers);
     headers[HttpHeaders.authorizationHeader] = 'Bearer $token';

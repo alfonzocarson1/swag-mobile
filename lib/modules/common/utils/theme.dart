@@ -20,10 +20,10 @@ ThemeData appTheme(Palette palette) {
     fontFamily: GoogleFonts.dmSans().fontFamily,
     brightness: palette.brightness,
     primaryColor: palette.light4,
-    accentColor: palette.orange,
+    accentColor: palette.primaryNeonGreen,
     errorColor: palette.errorColor,
     cardColor: palette.light4,
-    buttonColor: palette.orange,
+    buttonColor: palette.primaryNeonGreen,
     dialogBackgroundColor: palette.light3,
     visualDensity: VisualDensity.adaptivePlatformDensity,
   );
@@ -43,11 +43,11 @@ BottomSheetThemeData _bottomSheetThemeData(Palette palette) {
 SliderThemeData _sliderThemeData(Palette palette) {
   return SliderThemeData(
     trackHeight: 3,
-    activeTrackColor: palette.orange,
-    overlayColor: palette.orange.withOpacity(0.3),
+    activeTrackColor: palette.primaryNeonGreen,
+    overlayColor: palette.primaryNeonGreen.withOpacity(0.3),
     inactiveTrackColor: const Color(0xFFD6D2D6),
-    thumbColor: palette.orange,
-    thumbShape: _SliderCircleThumbShape(color: palette.orange),
+    thumbColor: palette.primaryNeonGreen,
+    thumbShape: _SliderCircleThumbShape(color: palette.primaryNeonGreen),
     trackShape: const _SliderTrackShape(),
   );
 }
@@ -61,7 +61,7 @@ IconThemeData _iconThemeData(Palette palette) {
 ButtonThemeData _buttonThemeData(Palette palette) {
   return ButtonThemeData(
     padding: const EdgeInsets.symmetric(vertical: 17.0, horizontal: 24.0),
-    buttonColor: palette.orange,
+    buttonColor: palette.primaryNeonGreen,
     textTheme: ButtonTextTheme.primary,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
   );
@@ -74,7 +74,7 @@ ElevatedButtonThemeData _elevatedButtonTheme(Palette palette) {
         if (states.contains(MaterialState.disabled)) {
           return palette.light1;
         }
-        return palette.orange;
+        return palette.primaryNeonGreen;
       }),
       padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
           const EdgeInsets.symmetric(vertical: 17.0, horizontal: 24.0)),
@@ -98,7 +98,8 @@ TextButtonThemeData _textButtonTheme(Palette palette) {
       overlayColor:
           MaterialStateProperty.all<Color>(palette.light1.withOpacity(0.3)),
       minimumSize: MaterialStateProperty.all<Size>(const Size(88.0, 36.0)),
-      foregroundColor: MaterialStateProperty.all<Color>(palette.orange),
+      foregroundColor:
+          MaterialStateProperty.all<Color>(palette.primaryNeonGreen),
       textStyle: MaterialStateProperty.all<TextStyle>(GoogleFonts.dmSans(
         fontWeight: FontWeight.bold,
         fontSize: 15,
@@ -140,64 +141,75 @@ AppBarTheme _appBarTheme(Palette palette) {
 
 TextTheme _textTheme(Palette palette) {
   return TextTheme(
-    headline1: GoogleFonts.epilogue(
+    displayLarge: TextStyle(
+      fontFamily: 'RingsideRegular',
       color: palette.black,
       fontWeight: FontWeight.w700,
       fontSize: 36,
       height: 44.27 / 34,
       letterSpacing: -0.7,
     ),
-    headline2: GoogleFonts.epilogue(
+    displayMedium: TextStyle(
+      fontFamily: 'RingsideRegular',
       color: palette.black,
       fontWeight: FontWeight.w700,
+      letterSpacing: 0.9,
       fontSize: 26,
       height: 34 / 30,
     ),
-    headline3: GoogleFonts.epilogue(
+    displaySmall: TextStyle(
+      fontFamily: 'RingsideRegular',
       color: palette.black,
-      fontWeight: FontWeight.bold,
+      fontWeight: FontWeight.normal,
       fontSize: 22,
       height: 22 / 20,
     ),
-    headline4: GoogleFonts.epilogue(
+    headlineMedium: TextStyle(
+      fontFamily: 'RingsideRegular',
       color: palette.black,
-      fontWeight: FontWeight.bold,
+      fontWeight: FontWeight.normal,
       fontSize: 20,
       height: 20 / 20,
     ),
-    headline5: GoogleFonts.epilogue(
+    headlineSmall: TextStyle(
+      fontFamily: 'RingsideRegular',
       color: palette.black,
-      fontWeight: FontWeight.bold,
+      fontWeight: FontWeight.normal,
       fontSize: 14,
       height: 20 / 20,
     ),
-    bodyText1: GoogleFonts.epilogue(
+    bodyLarge: TextStyle(
+      fontFamily: 'RingsideRegular',
       color: palette.black,
-      fontWeight: FontWeight.normal,
+      fontWeight: FontWeight.w300,
       fontSize: 17,
       height: 20 / 17,
     ),
-    bodyText2: GoogleFonts.epilogue(
+    bodyMedium: TextStyle(
+      fontFamily: 'RingsideRegular',
       color: palette.black,
-      fontWeight: FontWeight.normal,
+      fontWeight: FontWeight.w300,
       fontSize: 15,
       height: 21 / 15,
     ),
-    caption: GoogleFonts.epilogue(
+    bodySmall: TextStyle(
+      fontFamily: 'RingsideRegular',
       color: palette.black,
+      fontWeight: FontWeight.w300,
+      fontSize: 16,
+      height: 20 / 15,
+    ),
+    labelLarge: const TextStyle(
+      fontFamily: 'RingsideRegular',
+      color: Colors.white,
       fontWeight: FontWeight.normal,
       fontSize: 15,
       height: 20 / 15,
     ),
-    button: GoogleFonts.epilogue(
-      color: Colors.white,
-      fontWeight: FontWeight.bold,
-      fontSize: 15,
-      height: 20 / 15,
-    ),
-    overline: GoogleFonts.epilogue(
+    labelSmall: TextStyle(
+        fontFamily: 'RingsideRegular',
         color: palette.black,
-        fontWeight: FontWeight.normal,
+        fontWeight: FontWeight.w300,
         fontSize: 13,
         height: 18 / 13,
         letterSpacing: 0),
@@ -285,30 +297,30 @@ class _SliderTrackShape extends RoundedRectSliderTrackShape {
         0, preferredSize.top, parentBox.size.width, preferredSize.bottom);
   }
 
-  @override
-  void paint(
-    PaintingContext context,
-    Offset offset, {
-    required RenderBox parentBox,
-    required SliderThemeData sliderTheme,
-    required Animation<double> enableAnimation,
-    required TextDirection textDirection,
-    required Offset thumbCenter,
-    bool isDiscrete = false,
-    bool isEnabled = false,
-    double additionalActiveTrackHeight = 2,
-  }) {
-    super.paint(
-      context,
-      offset,
-      parentBox: parentBox,
-      sliderTheme: sliderTheme,
-      enableAnimation: enableAnimation,
-      textDirection: textDirection,
-      thumbCenter: thumbCenter,
-      isDiscrete: isDiscrete,
-      isEnabled: isEnabled,
-      additionalActiveTrackHeight: 0,
-    );
-  }
+  // @override
+  // void paint(
+  //   PaintingContext context,
+  //   Offset offset, {
+  //   required RenderBox parentBox,
+  //   required SliderThemeData sliderTheme,
+  //   required Animation<double> enableAnimation,
+  //   required TextDirection textDirection,
+  //   required Offset thumbCenter,
+  //   bool isDiscrete = false,
+  //   bool isEnabled = false,
+  //   double additionalActiveTrackHeight = 2,
+  // }) {
+  //   super.paint(
+  //     context,
+  //     offset,
+  //     parentBox: parentBox,
+  //     sliderTheme: sliderTheme,
+  //     enableAnimation: enableAnimation,
+  //     textDirection: textDirection,
+  //     thumbCenter: thumbCenter,
+  //     isDiscrete: isDiscrete,
+  //     isEnabled: isEnabled,
+  //     additionalActiveTrackHeight: 0,
+  //   );
+  // }
 }

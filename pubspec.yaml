@@ -53,6 +53,14 @@ dependencies:
   rxdart: ^0.27.1
   intl: ^0.17.0
   flutter_secure_storage: ^7.0.1
+  simple_rich_text: ^2.0.49
+  webview_flutter: ^4.0.1
+  intl_phone_number_input: ^0.7.2
+  image_picker: ^0.8.6
+  cached_network_image: ^3.2.3
+  persistent_bottom_nav_bar: ^5.0.2
+  sprintf: ^7.0.0
+  badges: ^3.0.2
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -65,6 +73,7 @@ dev_dependencies:
   json_serializable: ^6.5.4
   build_runner: ^2.0.3
   freezed: ^2.0.2
+  carousel_slider: ^4.2.1
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -76,15 +85,164 @@ dev_dependencies:
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
-# The following section is specific to Flutter packages.
+# The following section is specific to Flutter.
 flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
+  assets:
+    - assets/
+    - assets/images/
+    - assets/icons/
 
-
+  fonts:
+    - family: Knockout
+      fonts:
+        - asset: assets/fonts/knockout/Knockout-26.otf
+        - asset: assets/fonts/knockout/Knockout-27.otf
+        - asset: assets/fonts/knockout/Knockout-28.otf
+        - asset: assets/fonts/knockout/Knockout-29.otf
+        - asset: assets/fonts/knockout/Knockout-30.otf
+        - asset: assets/fonts/knockout/Knockout-31.otf
+        - asset: assets/fonts/knockout/Knockout-32.otf
+        - asset: assets/fonts/knockout/Knockout-33.otf
+        - asset: assets/fonts/knockout/Knockout-34.otf
+        - asset: assets/fonts/knockout/Knockout-46.otf
+        - asset: assets/fonts/knockout/Knockout-47.otf
+        - asset: assets/fonts/knockout/Knockout-48.otf
+        - asset: assets/fonts/knockout/Knockout-49.otf
+        - asset: assets/fonts/knockout/Knockout-50.otf
+        - asset: assets/fonts/knockout/Knockout-51.otf
+        - asset: assets/fonts/knockout/Knockout-52.otf
+        - asset: assets/fonts/knockout/Knockout-53.otf
+        - asset: assets/fonts/knockout/Knockout-54.otf
+        - asset: assets/fonts/knockout/Knockout-66.otf
+        - asset: assets/fonts/knockout/Knockout-67.otf
+        - asset: assets/fonts/knockout/Knockout-68.otf
+        - asset: assets/fonts/knockout/Knockout-69.otf
+        - asset: assets/fonts/knockout/Knockout-70.otf
+        - asset: assets/fonts/knockout/Knockout-71.otf
+        - asset: assets/fonts/knockout/Knockout-72.otf
+        - asset: assets/fonts/knockout/Knockout-73.otf
+        - asset: assets/fonts/knockout/Knockout-74.otf
+        - asset: assets/fonts/knockout/Knockout-90.otf
+        - asset: assets/fonts/knockout/Knockout-91.otf
+        - asset: assets/fonts/knockout/Knockout-92.otf
+        - asset: assets/fonts/knockout/Knockout-93.otf
+        - asset: assets/fonts/knockout/Knockout-94.otf
+    - family: knockoutCustom
+      fonts:
+        - asset: assets/fonts/knockout/Knockout-46.otf
+    - family: RingsideCompressed
+      fonts:
+        - asset: assets/fonts/ringside/RingsideCompressed-Black.otf
+        - asset: assets/fonts/ringside/RingsideCompressed-BlackItalic.otf
+        - asset: assets/fonts/ringside/RingsideCompressed-Bold.otf
+        - asset: assets/fonts/ringside/RingsideCompressed-BoldItalic.otf
+        - asset: assets/fonts/ringside/RingsideCompressed-Book.otf
+        - asset: assets/fonts/ringside/RingsideCompressed-BookItalic.otf
+        - asset: assets/fonts/ringside/RingsideCompressed-Light.otf
+        - asset: assets/fonts/ringside/RingsideCompressed-LightItalic.otf
+        - asset: assets/fonts/ringside/RingsideCompressed-Medium.otf
+        - asset: assets/fonts/ringside/RingsideCompressed-MediumItalic.otf
+        - asset: assets/fonts/ringside/RingsideCompressed-Semibold.otf
+        - asset: assets/fonts/ringside/RingsideCompressed-SemiboldItalic.otf
+        - asset: assets/fonts/ringside/RingsideCompressed-Thin.otf
+        - asset: assets/fonts/ringside/RingsideCompressed-ThinItalic.otf
+        - asset: assets/fonts/ringside/RingsideCompressed-Ultra.otf
+        - asset: assets/fonts/ringside/RingsideCompressed-UltraItalic.otf
+    - family: RingsideCondensed
+      fonts:
+        - asset: assets/fonts/ringside/RingsideCondensed-Black.otf
+        - asset: assets/fonts/ringside/RingsideCondensed-BlackItalic.otf
+        - asset: assets/fonts/ringside/RingsideCondensed-Bold.otf
+        - asset: assets/fonts/ringside/RingsideCondensed-BoldItalic.otf
+        - asset: assets/fonts/ringside/RingsideCondensed-Book.otf
+        - asset: assets/fonts/ringside/RingsideCondensed-BookItalic.otf
+        - asset: assets/fonts/ringside/RingsideCondensed-Light.otf
+        - asset: assets/fonts/ringside/RingsideCondensed-LightItalic.otf
+        - asset: assets/fonts/ringside/RingsideCondensed-Medium.otf
+        - asset: assets/fonts/ringside/RingsideCondensed-MediumItalic.otf
+        - asset: assets/fonts/ringside/RingsideCondensed-Semibold.otf
+        - asset: assets/fonts/ringside/RingsideCondensed-SemiboldItalic.otf
+        - asset: assets/fonts/ringside/RingsideCondensed-Thin.otf
+        - asset: assets/fonts/ringside/RingsideCondensed-ThinItalic.otf
+        - asset: assets/fonts/ringside/RingsideCondensed-Ultra.otf
+        - asset: assets/fonts/ringside/RingsideCondensed-UltraItalic.otf
+    - family: RingsideExtraWide
+      fonts:
+        - asset: assets/fonts/ringside/RingsideExtraWide-Black.otf
+        - asset: assets/fonts/ringside/RingsideExtraWide-BlackItalic.otf
+        - asset: assets/fonts/ringside/RingsideExtraWide-Bold.otf
+        - asset: assets/fonts/ringside/RingsideExtraWide-BoldItalic.otf
+        - asset: assets/fonts/ringside/RingsideExtraWide-Book.otf
+        - asset: assets/fonts/ringside/RingsideExtraWide-BookItalic.otf
+        - asset: assets/fonts/ringside/RingsideExtraWide-Light.otf
+        - asset: assets/fonts/ringside/RingsideExtraWide-LightItalic.otf
+        - asset: assets/fonts/ringside/RingsideExtraWide-Medium.otf
+        - asset: assets/fonts/ringside/RingsideExtraWide-MediumItalic.otf
+        - asset: assets/fonts/ringside/RingsideExtraWide-Semibold.otf
+        - asset: assets/fonts/ringside/RingsideExtraWide-SemiboldItalic.otf
+        - asset: assets/fonts/ringside/RingsideExtraWide-Thin.otf
+        - asset: assets/fonts/ringside/RingsideExtraWide-ThinItalic.otf
+        - asset: assets/fonts/ringside/RingsideExtraWide-Ultra.otf
+        - asset: assets/fonts/ringside/RingsideExtraWide-UltraItalic.otf
+    - family: RingsideNarrow
+      fonts:
+        - asset: assets/fonts/ringside/RingsideNarrow-Black.otf
+        - asset: assets/fonts/ringside/RingsideNarrow-BlackItalic.otf
+        - asset: assets/fonts/ringside/RingsideNarrow-Bold.otf
+        - asset: assets/fonts/ringside/RingsideNarrow-BoldItalic.otf
+        - asset: assets/fonts/ringside/RingsideNarrow-Book.otf
+        - asset: assets/fonts/ringside/RingsideNarrow-BookItalic.otf
+        - asset: assets/fonts/ringside/RingsideNarrow-Light.otf
+        - asset: assets/fonts/ringside/RingsideNarrow-LightItalic.otf
+        - asset: assets/fonts/ringside/RingsideNarrow-Medium.otf
+        - asset: assets/fonts/ringside/RingsideNarrow-MediumItalic.otf
+        - asset: assets/fonts/ringside/RingsideNarrow-Semibold.otf
+        - asset: assets/fonts/ringside/RingsideNarrow-SemiboldItalic.otf
+        - asset: assets/fonts/ringside/RingsideNarrow-Thin.otf
+        - asset: assets/fonts/ringside/RingsideNarrow-ThinItalic.otf
+        - asset: assets/fonts/ringside/RingsideNarrow-Ultra.otf
+        - asset: assets/fonts/ringside/RingsideNarrow-UltraItalic.otf
+    - family: RingsideRegular
+      fonts:
+        - asset: assets/fonts/ringside/RingsideRegular-Black.otf
+        - asset: assets/fonts/ringside/RingsideRegular-BlackItalic.otf
+        - asset: assets/fonts/ringside/RingsideRegular-Bold.otf
+        - asset: assets/fonts/ringside/RingsideRegular-BoldItalic.otf
+        - asset: assets/fonts/ringside/RingsideRegular-Book.otf
+        - asset: assets/fonts/ringside/RingsideRegular-BookItalic.otf
+        - asset: assets/fonts/ringside/RingsideRegular-Light.otf
+        - asset: assets/fonts/ringside/RingsideRegular-LightItalic.otf
+        - asset: assets/fonts/ringside/RingsideRegular-Medium.otf
+        - asset: assets/fonts/ringside/RingsideRegular-MediumItalic.otf
+        - asset: assets/fonts/ringside/RingsideRegular-Semibold.otf
+        - asset: assets/fonts/ringside/RingsideRegular-SemiboldItalic.otf
+        - asset: assets/fonts/ringside/RingsideRegular-Thin.otf
+        - asset: assets/fonts/ringside/RingsideRegular-ThinItalic.otf
+        - asset: assets/fonts/ringside/RingsideRegular-Ultra.otf
+        - asset: assets/fonts/ringside/RingsideRegular-UltraItalic.otf
+    - family: RingsideWide
+      fonts:
+        - asset: assets/fonts/ringside/RingsideWide-Black.otf
+        - asset: assets/fonts/ringside/RingsideWide-BlackItalic.otf
+        - asset: assets/fonts/ringside/RingsideWide-Bold.otf
+        - asset: assets/fonts/ringside/RingsideWide-BoldItalic.otf
+        - asset: assets/fonts/ringside/RingsideWide-Book.otf
+        - asset: assets/fonts/ringside/RingsideWide-BookItalic.otf
+        - asset: assets/fonts/ringside/RingsideWide-Light.otf
+        - asset: assets/fonts/ringside/RingsideWide-LightItalic.otf
+        - asset: assets/fonts/ringside/RingsideWide-Medium.otf
+        - asset: assets/fonts/ringside/RingsideWide-MediumItalic.otf
+        - asset: assets/fonts/ringside/RingsideWide-Semibold.otf
+        - asset: assets/fonts/ringside/RingsideWide-SemiboldItalic.otf
+        - asset: assets/fonts/ringside/RingsideWide-Thin.otf
+        - asset: assets/fonts/ringside/RingsideWide-ThinItalic.otf
+        - asset: assets/fonts/ringside/RingsideWide-Ultra.otf
+        - asset: assets/fonts/ringside/RingsideWide-UltraItalic.otf
+    - family: Ringside
+      fonts:
+        - asset: assets/fonts/ringside/RingsideRegular-Book.otf
+        
 flutter_intl:
   enabled: true
   main_locale: en
