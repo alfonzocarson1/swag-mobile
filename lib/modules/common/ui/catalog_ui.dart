@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../generated/l10n.dart';
-import '../../blocs/favorite_bloc/favorite_bloc.dart';
 import '../../blocs/favorite_bloc/favorite_item_bloc.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
@@ -31,6 +30,7 @@ class _CatalogPageState extends State<CatalogPage> {
   bool isSkullVisible = true;
   int? indexFavorite;
   bool isLogged = false;
+  int indexList = 0;
 
   List<CatalogItemModel> catalogList = [];
 
@@ -93,13 +93,16 @@ class _CatalogPageState extends State<CatalogPage> {
                   return favoriteItemState.maybeMap(
                       orElse: () => Container(),
                       loadedFavoriteItem: (state) {
-                        catalogList[index] = catalogList[index].copyWith(
-                            profileFavoriteItemId: state
-                                .dataFavoriteItem
-                                .profileFavoriteItems![state.dataFavoriteItem
-                                        .profileFavoriteItems!.length -
-                                    1]
-                                .profileFavoriteItemId);
+                        catalogList[indexList] = catalogList[indexList]
+                            .copyWith(
+                                profileFavoriteItemId: state
+                                    .dataFavoriteItem
+                                    .profileFavoriteItems![state
+                                            .dataFavoriteItem
+                                            .profileFavoriteItems!
+                                            .length -
+                                        1]
+                                    .profileFavoriteItemId);
 
                         return Container();
                       });
@@ -306,6 +309,10 @@ class _CatalogPageState extends State<CatalogPage> {
                                             catalogList[index] =
                                                 catalogList[index].copyWith(
                                                     inFavorites: true);
+
+                                            setState(() {
+                                              indexList = index;
+                                            });
                                             onChangeFavoriteAnimation(index);
                                           }
                                         } else {

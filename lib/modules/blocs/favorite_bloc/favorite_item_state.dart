@@ -9,4 +9,7 @@ class FavoriteItemState with _$FavoriteItemState {
       _ErrorFavoriteItemState;
   factory FavoriteItemState.loadedFavoriteItem(FavoriteModel dataFavoriteItem) =
       LoadedFavoriteItemState;
+
+  factory FavoriteItemState.removedFavoriteItem(
+      FavoriteModel dataFavoriteItem) = RemovedFavoriteItemState;
 }

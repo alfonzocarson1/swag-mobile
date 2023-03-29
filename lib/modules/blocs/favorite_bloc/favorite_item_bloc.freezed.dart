@@ -395,6 +395,8 @@ mixin _$FavoriteItemState {
     required TResult Function(String message) error,
     required TResult Function(FavoriteModel dataFavoriteItem)
         loadedFavoriteItem,
+    required TResult Function(FavoriteModel dataFavoriteItem)
+        removedFavoriteItem,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -402,6 +404,7 @@ mixin _$FavoriteItemState {
     TResult? Function()? initial,
     TResult? Function(String message)? error,
     TResult? Function(FavoriteModel dataFavoriteItem)? loadedFavoriteItem,
+    TResult? Function(FavoriteModel dataFavoriteItem)? removedFavoriteItem,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -409,6 +412,7 @@ mixin _$FavoriteItemState {
     TResult Function()? initial,
     TResult Function(String message)? error,
     TResult Function(FavoriteModel dataFavoriteItem)? loadedFavoriteItem,
+    TResult Function(FavoriteModel dataFavoriteItem)? removedFavoriteItem,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -417,6 +421,8 @@ mixin _$FavoriteItemState {
     required TResult Function(_InitialFavoriteItemState value) initial,
     required TResult Function(_ErrorFavoriteItemState value) error,
     required TResult Function(LoadedFavoriteItemState value) loadedFavoriteItem,
+    required TResult Function(RemovedFavoriteItemState value)
+        removedFavoriteItem,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -424,6 +430,7 @@ mixin _$FavoriteItemState {
     TResult? Function(_InitialFavoriteItemState value)? initial,
     TResult? Function(_ErrorFavoriteItemState value)? error,
     TResult? Function(LoadedFavoriteItemState value)? loadedFavoriteItem,
+    TResult? Function(RemovedFavoriteItemState value)? removedFavoriteItem,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -431,6 +438,7 @@ mixin _$FavoriteItemState {
     TResult Function(_InitialFavoriteItemState value)? initial,
     TResult Function(_ErrorFavoriteItemState value)? error,
     TResult Function(LoadedFavoriteItemState value)? loadedFavoriteItem,
+    TResult Function(RemovedFavoriteItemState value)? removedFavoriteItem,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -498,6 +506,8 @@ class _$_InitialFavoriteItemState extends _InitialFavoriteItemState {
     required TResult Function(String message) error,
     required TResult Function(FavoriteModel dataFavoriteItem)
         loadedFavoriteItem,
+    required TResult Function(FavoriteModel dataFavoriteItem)
+        removedFavoriteItem,
   }) {
     return initial();
   }
@@ -508,6 +518,7 @@ class _$_InitialFavoriteItemState extends _InitialFavoriteItemState {
     TResult? Function()? initial,
     TResult? Function(String message)? error,
     TResult? Function(FavoriteModel dataFavoriteItem)? loadedFavoriteItem,
+    TResult? Function(FavoriteModel dataFavoriteItem)? removedFavoriteItem,
   }) {
     return initial?.call();
   }
@@ -518,6 +529,7 @@ class _$_InitialFavoriteItemState extends _InitialFavoriteItemState {
     TResult Function()? initial,
     TResult Function(String message)? error,
     TResult Function(FavoriteModel dataFavoriteItem)? loadedFavoriteItem,
+    TResult Function(FavoriteModel dataFavoriteItem)? removedFavoriteItem,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -532,6 +544,8 @@ class _$_InitialFavoriteItemState extends _InitialFavoriteItemState {
     required TResult Function(_InitialFavoriteItemState value) initial,
     required TResult Function(_ErrorFavoriteItemState value) error,
     required TResult Function(LoadedFavoriteItemState value) loadedFavoriteItem,
+    required TResult Function(RemovedFavoriteItemState value)
+        removedFavoriteItem,
   }) {
     return initial(this);
   }
@@ -542,6 +556,7 @@ class _$_InitialFavoriteItemState extends _InitialFavoriteItemState {
     TResult? Function(_InitialFavoriteItemState value)? initial,
     TResult? Function(_ErrorFavoriteItemState value)? error,
     TResult? Function(LoadedFavoriteItemState value)? loadedFavoriteItem,
+    TResult? Function(RemovedFavoriteItemState value)? removedFavoriteItem,
   }) {
     return initial?.call(this);
   }
@@ -552,6 +567,7 @@ class _$_InitialFavoriteItemState extends _InitialFavoriteItemState {
     TResult Function(_InitialFavoriteItemState value)? initial,
     TResult Function(_ErrorFavoriteItemState value)? error,
     TResult Function(LoadedFavoriteItemState value)? loadedFavoriteItem,
+    TResult Function(RemovedFavoriteItemState value)? removedFavoriteItem,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -635,6 +651,8 @@ class _$_ErrorFavoriteItemState extends _ErrorFavoriteItemState {
     required TResult Function(String message) error,
     required TResult Function(FavoriteModel dataFavoriteItem)
         loadedFavoriteItem,
+    required TResult Function(FavoriteModel dataFavoriteItem)
+        removedFavoriteItem,
   }) {
     return error(message);
   }
@@ -645,6 +663,7 @@ class _$_ErrorFavoriteItemState extends _ErrorFavoriteItemState {
     TResult? Function()? initial,
     TResult? Function(String message)? error,
     TResult? Function(FavoriteModel dataFavoriteItem)? loadedFavoriteItem,
+    TResult? Function(FavoriteModel dataFavoriteItem)? removedFavoriteItem,
   }) {
     return error?.call(message);
   }
@@ -655,6 +674,7 @@ class _$_ErrorFavoriteItemState extends _ErrorFavoriteItemState {
     TResult Function()? initial,
     TResult Function(String message)? error,
     TResult Function(FavoriteModel dataFavoriteItem)? loadedFavoriteItem,
+    TResult Function(FavoriteModel dataFavoriteItem)? removedFavoriteItem,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -669,6 +689,8 @@ class _$_ErrorFavoriteItemState extends _ErrorFavoriteItemState {
     required TResult Function(_InitialFavoriteItemState value) initial,
     required TResult Function(_ErrorFavoriteItemState value) error,
     required TResult Function(LoadedFavoriteItemState value) loadedFavoriteItem,
+    required TResult Function(RemovedFavoriteItemState value)
+        removedFavoriteItem,
   }) {
     return error(this);
   }
@@ -679,6 +701,7 @@ class _$_ErrorFavoriteItemState extends _ErrorFavoriteItemState {
     TResult? Function(_InitialFavoriteItemState value)? initial,
     TResult? Function(_ErrorFavoriteItemState value)? error,
     TResult? Function(LoadedFavoriteItemState value)? loadedFavoriteItem,
+    TResult? Function(RemovedFavoriteItemState value)? removedFavoriteItem,
   }) {
     return error?.call(this);
   }
@@ -689,6 +712,7 @@ class _$_ErrorFavoriteItemState extends _ErrorFavoriteItemState {
     TResult Function(_InitialFavoriteItemState value)? initial,
     TResult Function(_ErrorFavoriteItemState value)? error,
     TResult Function(LoadedFavoriteItemState value)? loadedFavoriteItem,
+    TResult Function(RemovedFavoriteItemState value)? removedFavoriteItem,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -789,6 +813,8 @@ class _$LoadedFavoriteItemState extends LoadedFavoriteItemState {
     required TResult Function(String message) error,
     required TResult Function(FavoriteModel dataFavoriteItem)
         loadedFavoriteItem,
+    required TResult Function(FavoriteModel dataFavoriteItem)
+        removedFavoriteItem,
   }) {
     return loadedFavoriteItem(dataFavoriteItem);
   }
@@ -799,6 +825,7 @@ class _$LoadedFavoriteItemState extends LoadedFavoriteItemState {
     TResult? Function()? initial,
     TResult? Function(String message)? error,
     TResult? Function(FavoriteModel dataFavoriteItem)? loadedFavoriteItem,
+    TResult? Function(FavoriteModel dataFavoriteItem)? removedFavoriteItem,
   }) {
     return loadedFavoriteItem?.call(dataFavoriteItem);
   }
@@ -809,6 +836,7 @@ class _$LoadedFavoriteItemState extends LoadedFavoriteItemState {
     TResult Function()? initial,
     TResult Function(String message)? error,
     TResult Function(FavoriteModel dataFavoriteItem)? loadedFavoriteItem,
+    TResult Function(FavoriteModel dataFavoriteItem)? removedFavoriteItem,
     required TResult orElse(),
   }) {
     if (loadedFavoriteItem != null) {
@@ -823,6 +851,8 @@ class _$LoadedFavoriteItemState extends LoadedFavoriteItemState {
     required TResult Function(_InitialFavoriteItemState value) initial,
     required TResult Function(_ErrorFavoriteItemState value) error,
     required TResult Function(LoadedFavoriteItemState value) loadedFavoriteItem,
+    required TResult Function(RemovedFavoriteItemState value)
+        removedFavoriteItem,
   }) {
     return loadedFavoriteItem(this);
   }
@@ -833,6 +863,7 @@ class _$LoadedFavoriteItemState extends LoadedFavoriteItemState {
     TResult? Function(_InitialFavoriteItemState value)? initial,
     TResult? Function(_ErrorFavoriteItemState value)? error,
     TResult? Function(LoadedFavoriteItemState value)? loadedFavoriteItem,
+    TResult? Function(RemovedFavoriteItemState value)? removedFavoriteItem,
   }) {
     return loadedFavoriteItem?.call(this);
   }
@@ -843,6 +874,7 @@ class _$LoadedFavoriteItemState extends LoadedFavoriteItemState {
     TResult Function(_InitialFavoriteItemState value)? initial,
     TResult Function(_ErrorFavoriteItemState value)? error,
     TResult Function(LoadedFavoriteItemState value)? loadedFavoriteItem,
+    TResult Function(RemovedFavoriteItemState value)? removedFavoriteItem,
     required TResult orElse(),
   }) {
     if (loadedFavoriteItem != null) {
@@ -861,4 +893,167 @@ abstract class LoadedFavoriteItemState extends FavoriteItemState {
   @JsonKey(ignore: true)
   _$$LoadedFavoriteItemStateCopyWith<_$LoadedFavoriteItemState> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RemovedFavoriteItemStateCopyWith<$Res> {
+  factory _$$RemovedFavoriteItemStateCopyWith(_$RemovedFavoriteItemState value,
+          $Res Function(_$RemovedFavoriteItemState) then) =
+      __$$RemovedFavoriteItemStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({FavoriteModel dataFavoriteItem});
+
+  $FavoriteModelCopyWith<$Res> get dataFavoriteItem;
+}
+
+/// @nodoc
+class __$$RemovedFavoriteItemStateCopyWithImpl<$Res>
+    extends _$FavoriteItemStateCopyWithImpl<$Res, _$RemovedFavoriteItemState>
+    implements _$$RemovedFavoriteItemStateCopyWith<$Res> {
+  __$$RemovedFavoriteItemStateCopyWithImpl(_$RemovedFavoriteItemState _value,
+      $Res Function(_$RemovedFavoriteItemState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? dataFavoriteItem = null,
+  }) {
+    return _then(_$RemovedFavoriteItemState(
+      null == dataFavoriteItem
+          ? _value.dataFavoriteItem
+          : dataFavoriteItem // ignore: cast_nullable_to_non_nullable
+              as FavoriteModel,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $FavoriteModelCopyWith<$Res> get dataFavoriteItem {
+    return $FavoriteModelCopyWith<$Res>(_value.dataFavoriteItem, (value) {
+      return _then(_value.copyWith(dataFavoriteItem: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$RemovedFavoriteItemState extends RemovedFavoriteItemState {
+  _$RemovedFavoriteItemState(this.dataFavoriteItem) : super._();
+
+  @override
+  final FavoriteModel dataFavoriteItem;
+
+  @override
+  String toString() {
+    return 'FavoriteItemState.removedFavoriteItem(dataFavoriteItem: $dataFavoriteItem)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RemovedFavoriteItemState &&
+            (identical(other.dataFavoriteItem, dataFavoriteItem) ||
+                other.dataFavoriteItem == dataFavoriteItem));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, dataFavoriteItem);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RemovedFavoriteItemStateCopyWith<_$RemovedFavoriteItemState>
+      get copyWith =>
+          __$$RemovedFavoriteItemStateCopyWithImpl<_$RemovedFavoriteItemState>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(String message) error,
+    required TResult Function(FavoriteModel dataFavoriteItem)
+        loadedFavoriteItem,
+    required TResult Function(FavoriteModel dataFavoriteItem)
+        removedFavoriteItem,
+  }) {
+    return removedFavoriteItem(dataFavoriteItem);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(String message)? error,
+    TResult? Function(FavoriteModel dataFavoriteItem)? loadedFavoriteItem,
+    TResult? Function(FavoriteModel dataFavoriteItem)? removedFavoriteItem,
+  }) {
+    return removedFavoriteItem?.call(dataFavoriteItem);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(String message)? error,
+    TResult Function(FavoriteModel dataFavoriteItem)? loadedFavoriteItem,
+    TResult Function(FavoriteModel dataFavoriteItem)? removedFavoriteItem,
+    required TResult orElse(),
+  }) {
+    if (removedFavoriteItem != null) {
+      return removedFavoriteItem(dataFavoriteItem);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_InitialFavoriteItemState value) initial,
+    required TResult Function(_ErrorFavoriteItemState value) error,
+    required TResult Function(LoadedFavoriteItemState value) loadedFavoriteItem,
+    required TResult Function(RemovedFavoriteItemState value)
+        removedFavoriteItem,
+  }) {
+    return removedFavoriteItem(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_InitialFavoriteItemState value)? initial,
+    TResult? Function(_ErrorFavoriteItemState value)? error,
+    TResult? Function(LoadedFavoriteItemState value)? loadedFavoriteItem,
+    TResult? Function(RemovedFavoriteItemState value)? removedFavoriteItem,
+  }) {
+    return removedFavoriteItem?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_InitialFavoriteItemState value)? initial,
+    TResult Function(_ErrorFavoriteItemState value)? error,
+    TResult Function(LoadedFavoriteItemState value)? loadedFavoriteItem,
+    TResult Function(RemovedFavoriteItemState value)? removedFavoriteItem,
+    required TResult orElse(),
+  }) {
+    if (removedFavoriteItem != null) {
+      return removedFavoriteItem(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RemovedFavoriteItemState extends FavoriteItemState {
+  factory RemovedFavoriteItemState(final FavoriteModel dataFavoriteItem) =
+      _$RemovedFavoriteItemState;
+  RemovedFavoriteItemState._() : super._();
+
+  FavoriteModel get dataFavoriteItem;
+  @JsonKey(ignore: true)
+  _$$RemovedFavoriteItemStateCopyWith<_$RemovedFavoriteItemState>
+      get copyWith => throw _privateConstructorUsedError;
 }

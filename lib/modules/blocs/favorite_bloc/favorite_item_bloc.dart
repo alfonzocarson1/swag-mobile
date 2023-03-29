@@ -40,7 +40,7 @@ class FavoriteItemBloc extends Bloc<FavoriteItemEvent, FavoriteItemState> {
     yield FavoriteItemState.initial();
     try {
       FavoriteModel responseBody = await favoriteService.removeFavorite(param);
-      yield FavoriteItemState.loadedFavoriteItem(responseBody);
+      yield FavoriteItemState.removedFavoriteItem(responseBody);
     } catch (e) {
       yield FavoriteItemState.error(HandlingErrors().getError(e));
     }
