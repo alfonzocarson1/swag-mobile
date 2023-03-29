@@ -65,11 +65,12 @@ class _TransactionHistoryState extends State<TransactionHistory> {
       PrimaryScrollController.of(context);
 
   bool changeColor = false;
-
+  bool favorite = false;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    favorite = widget.favorite;
   }
 
   @override
@@ -126,9 +127,12 @@ class _TransactionHistoryState extends State<TransactionHistory> {
       children: [
         HeadWidget(
             addFavorite: (val) {
-              widget.addFavorite(val);
+              setState(() {
+                widget.addFavorite(val);
+                favorite = val;
+              });
             },
-            favorite: widget.favorite,
+            favorite: favorite,
             urlImage: widget.urlImage,
             catalogItemName: widget.catalogItemName,
             lastSale: widget.lastSale,
