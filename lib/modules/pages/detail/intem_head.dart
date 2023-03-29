@@ -57,11 +57,12 @@ class _HeadWidgetState extends State<HeadWidget> {
   int? indexFavorite;
   bool isLogged = false;
   bool favorite = false;
+  String? profileFavoriteItemId;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
+    profileFavoriteItemId = widget.profileFavoriteItemId;
     _favoriteBloc = getIt<FavoriteBloc>();
     favorite = widget.favorite;
 
@@ -105,6 +106,25 @@ class _HeadWidgetState extends State<HeadWidget> {
       mainAxisSize: MainAxisSize.min,
       children: [
         Stack(children: [
+          BlocBuilder<FavoriteItemBloc, FavoriteItemState>(
+              builder: (context, favoriteItemState) {
+            return favoriteItemState.maybeMap(
+                orElse: () => Container(),
+                loadedFavoriteItem: (state) {
+                  Future.delayed(Duration.zero, () {
+                    setState(() {
+                      profileFavoriteItemId = state
+                          .dataFavoriteItem
+                          .profileFavoriteItems![state.dataFavoriteItem
+                                  .profileFavoriteItems!.length -
+                              1]
+                          .profileFavoriteItemId;
+                    });
+                  });
+
+                  return Container();
+                });
+          }),
           CachedNetworkImage(
             fit: BoxFit.cover,
             imageUrl: widget.urlImage,
@@ -228,8 +248,8 @@ class _HeadWidgetState extends State<HeadWidget> {
                                                               "DELETE",
                                                           profileFavoriteItems: [
                                                 FavoriteItemModel(
-                                                    profileFavoriteItemId: widget
-                                                        .profileFavoriteItemId,
+                                                    profileFavoriteItemId:
+                                                        profileFavoriteItemId,
                                                     catalogItemId:
                                                         widget.itemId)
                                               ])));
@@ -287,32 +307,12 @@ class _HeadWidgetState extends State<HeadWidget> {
                                           favorite,
                                           widget.itemId, (val) {
                                     setState(() {
-                                      favorite = val;
-                                      widget.addFavorite(val);
                                       if (val) {
-                                        BlocProvider.of<FavoriteItemBloc>(
-                                                context)
-                                            .add(FavoriteItemEvent
-                                                .addFavoriteItem(FavoriteModel(
-                                                    favoritesItemAction: "ADD",
-                                                    profileFavoriteItems: [
-                                              FavoriteItemModel(
-                                                  catalogItemId: widget.itemId)
-                                            ])));
+                                        favorite = true;
+                                        widget.addFavorite(true);
                                       } else {
-                                        BlocProvider.of<FavoriteItemBloc>(
-                                                context)
-                                            .add(FavoriteItemEvent
-                                                .removeFavoriteItem(
-                                                    FavoriteModel(
-                                                        favoritesItemAction:
-                                                            "DELETE",
-                                                        profileFavoriteItems: [
-                                              FavoriteItemModel(
-                                                  profileFavoriteItemId: widget
-                                                      .profileFavoriteItemId,
-                                                  catalogItemId: widget.itemId)
-                                            ])));
+                                        widget.addFavorite(false);
+                                        favorite = false;
                                       }
                                     });
                                   }));
