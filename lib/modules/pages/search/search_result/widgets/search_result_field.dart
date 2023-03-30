@@ -77,7 +77,7 @@ class _SearchResultFieldState extends State<SearchResultField> {
 
                       await this.setIsForSale(context, !state.model.isForSale);
                       if (!mounted) return;
-                      performSearch(context, tab: SearchTab.all);
+                      performSearch(context: context, tab: SearchTab.all);
                     },
                     icon: Image.asset(
                       "assets/icons/ForSale.png",

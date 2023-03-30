@@ -4,6 +4,7 @@ import 'package:swagapp/modules/common/ui/body_widget_with_view.dart';
 import 'package:swagapp/modules/common/ui/pushed_header.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/models/search/catalog_item_model.dart';
+import 'package:swagapp/modules/models/search/search_request_payload_model.dart';
 
 import 'package:swagapp/modules/pages/search/search_result/widgets/search_result_field.dart';
 
@@ -14,15 +15,21 @@ import '../../../common/utils/utils.dart';
 import 'widgets/search_result_acttion_header.dart';
 
 class SearchResultPage extends StatefulWidget {
+
   static const name = '/SearchResult';
   final String searchParam;
+  final SearchRequestPayloadModel? searchWithFilters;
 
-  const SearchResultPage(this.searchParam, {Key? key}) : super(key: key);
+  const SearchResultPage({
+    Key? key,
+    required this.searchParam, 
+    this.searchWithFilters,
+  }) : super(key: key);
 
   static Route route(String searchParam) => PageRoutes.material(
-        settings: const RouteSettings(name: name),
-        builder: (context) => SearchResultPage(searchParam),
-      );
+    settings: const RouteSettings(name: name),
+    builder: (context) => SearchResultPage(searchParam: searchParam),
+  );
 
   @override
   State<SearchResultPage> createState() => _SearchResultPageState();
@@ -43,7 +50,12 @@ class _SearchResultPageState extends State<SearchResultPage> with AutomaticKeepA
     super.initState();
     this.previousState = null;
     this.textEditingController.text = widget.searchParam;
-    performSearch(context, searchParam: widget.searchParam, tab: null);
+    performSearch(
+      context: context, 
+      searchParam: widget.searchParam, 
+      searchWithFilters: this.widget.searchWithFilters,
+      tab: null,
+    );
   }
 
   @override
@@ -114,7 +126,7 @@ class _SearchResultPageState extends State<SearchResultPage> with AutomaticKeepA
   }
 
   Future<void> onRefresh() async {
-    performSearch(context,searchParam: widget.searchParam, tab: null);
+    performSearch(context: context,searchParam: widget.searchParam, tab: null);
     return Future.delayed(const Duration(milliseconds: 1500));
   }
 }
@@ -157,7 +169,7 @@ class _Results extends StatelessWidget {
 
     return Column(
       children: <Widget> [
-        const SearchResultActionHeader(),
+        SearchResultActionHeader(searchParam: this.searchParam,),
         Expanded(
           child: BodyWidgetWithView(
             this.catalogList, 
@@ -165,7 +177,7 @@ class _Results extends StatelessWidget {
             searchParams: this.searchParam,
             scrollTrgiggerOffset: 0.4,
             scrollListener: () async => await performSearch(
-              context, 
+              context: context, 
               searchParam: this.searchParam, 
               tab: null,
             ),

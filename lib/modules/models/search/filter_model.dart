@@ -5,6 +5,7 @@ part 'filter_model.g.dart';
 
 @freezed
 class FilterModel with _$FilterModel {
+  
   @JsonSerializable()
   const factory FilterModel({
     @Default(false) final bool forSale,

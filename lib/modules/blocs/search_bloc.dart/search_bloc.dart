@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:swagapp/modules/common/utils/utils.dart';
 import 'package:swagapp/modules/constants/constants.dart';
 import 'package:swagapp/modules/data/search/i_search_service.dart';
 import 'package:swagapp/modules/models/search/catalog_item_model.dart';
@@ -32,7 +34,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   void init() async {
     add(const SearchEvent.performSearch(
         SearchRequestPayloadModel(categoryId: null, filters: FilterModel()),
-        SearchTab.whatsHot));
+        SearchTab.whatsHot,
+      ),
+    );
   }
 
   @override
@@ -117,6 +121,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
     return SearchState.result(
       result: this._getStackedResults(
+        tab: tab,
         newSearch: response, 
         previousState: previousState,
       ),
@@ -141,6 +146,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   Map<SearchTab, List<CatalogItemModel>> _getStackedResults({
+    required SearchTab tab,
     required SearchState previousState, 
     required Map<SearchTab, List<CatalogItemModel>> newSearch,
   }) {
@@ -149,16 +155,16 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
     if(previousState is _SearchStateResult) {
 
-      List<CatalogItemModel> newItems = newSearch[SearchTab.all] ?? [];
-      List<CatalogItemModel> previousiItems = previousState.result[SearchTab.all] ?? [];        
+      List<CatalogItemModel> newItems = newSearch[tab] ?? [];
+      List<CatalogItemModel> previousiItems = previousState.result[tab] ?? [];        
       List<CatalogItemModel> concatedItems = [...previousiItems, ...newItems];
 
       newSearch.forEach((SearchTab key, List<CatalogItemModel> value) {
 
-        (!previousState.result.containsKey(SearchTab.all)) 
-        ? newResult.addAll({SearchTab.all: concatedItems})        
+        (!previousState.result.containsKey(tab)) 
+        ? newResult.addAll({tab: concatedItems})        
         : newResult.addAll({key: value}); 
-          newResult[SearchTab.all] = concatedItems.toSet().toList();
+          newResult[tab] = concatedItems;
       }); 
       
       return newResult;
@@ -177,5 +183,18 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       await getIt<PreferenceRepositoryService>().saveRecentSearches(recentSearches);
     }
   }
-}
 
+  Future<void> saveSearchWithFilters(String searchParam) async {
+
+    SearchRequestPayloadModel payload = SearchRequestPayloadModel(
+      searchParams: searchParam.isNotEmpty ? [searchParam] : null,
+      categoryId: await SearchTabWrapper(SearchTab.all).toStringCustom(),
+      filters: await getCurrentFilterModel(),
+    );
+
+    String payloadAsJson = json.encode(payload.toJson());
+    PreferenceRepositoryService sharedPref = getIt<PreferenceRepositoryService>();
+    sharedPref.saveRecentSearchesWithFilters(searchPayload: payloadAsJson);
+  }
+}
+ 

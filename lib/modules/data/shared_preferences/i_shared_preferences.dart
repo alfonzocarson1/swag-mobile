@@ -43,4 +43,7 @@ abstract class PreferenceRepositoryInt {
 
   Future<String> validCode();
   Future<void> saveValidCode(String value);
+
+  List<String> getRecentSearchesWithFilters();
+  Future<void> saveRecentSearchesWithFilters({required String searchPayload});
 }
