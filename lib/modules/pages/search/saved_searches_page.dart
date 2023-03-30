@@ -21,30 +21,30 @@ class SavedSearchesPage extends StatefulWidget {
   State<SavedSearchesPage> createState() => _SavedSearchesPageState();
 }
 
+
 class _SavedSearchesPageState extends State<SavedSearchesPage> {
-  bool isAuthenticatedUser = false;
-  bool validToken = false;
+  late bool isAuthenticatedUser;
+
 
   @override
-  Widget build(BuildContext context) {
-
+  Widget build(BuildContext context) {  
+    
     List<String> list =
         getIt<PreferenceRepositoryService>().getRecentSearches();
+    
+   isAuthenticatedUser = getIt<PreferenceRepositoryService>().isLogged();
+    
 
-  return  Scaffold(
+  return (isAuthenticatedUser) ? Scaffold(
       backgroundColor: Palette.current.primaryNero,
       body: ListView.builder(
         padding: const EdgeInsets.only(top: 10),
         itemBuilder: (_, index) => _recentItem(context, list[index]),
         itemCount: list.length,
       ),
-    );
+    ): Container();
   }
 
-  getAuthData()async{
-    isAuthenticatedUser = getIt<PreferenceRepositoryService>().isLogged(); 
-    validToken= isTokenValid(await getIt<StorageRepositoryService>().getToken());
-  }
 
   Widget _recentItem(BuildContext context, String searchParam) {
     return InkWell(
