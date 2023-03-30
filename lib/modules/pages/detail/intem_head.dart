@@ -5,29 +5,33 @@ import 'package:simple_rich_text/simple_rich_text.dart';
 
 import '../../../generated/l10n.dart';
 import '../../blocs/favorite_bloc/favorite_bloc.dart';
+import '../../blocs/favorite_bloc/favorite_item_bloc.dart';
 import '../../blocs/sale_history/sale_history_bloc.dart';
 import '../../common/ui/clickable_text.dart';
 import '../../common/utils/palette.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/detail/detail_sale_info_model.dart';
+import '../../models/favorite/favorite_item_model.dart';
+import '../../models/favorite/favorite_model.dart';
 import '../login/create_account_page.dart';
 import 'transaction_history_page.dart';
 
 class HeadWidget extends StatefulWidget {
-  const HeadWidget({
-    super.key,
-    required this.urlImage,
-    this.catalogItemName,
-    required this.lastSale,
-    this.catalogItemDescription,
-    this.catalogItemDescriptionShort,
-    required this.sale,
-    required this.favorite,
-    this.available,
-    this.saleHistory,
-    required this.itemId,
-  });
+  HeadWidget(
+      {super.key,
+      required this.urlImage,
+      this.catalogItemName,
+      required this.lastSale,
+      this.catalogItemDescription,
+      this.catalogItemDescriptionShort,
+      required this.sale,
+      required this.favorite,
+      this.available,
+      this.saleHistory,
+      required this.itemId,
+      this.profileFavoriteItemId,
+      required this.addFavorite});
 
   final String urlImage;
   final String? catalogItemName;
@@ -39,7 +43,8 @@ class HeadWidget extends StatefulWidget {
   final int? available;
   final List<dynamic>? saleHistory;
   final String itemId;
-
+  final String? profileFavoriteItemId;
+  Function(bool) addFavorite;
   @override
   State<HeadWidget> createState() => _HeadWidgetState();
 }
@@ -51,12 +56,15 @@ class _HeadWidgetState extends State<HeadWidget> {
   bool isSkullVisible = true;
   int? indexFavorite;
   bool isLogged = false;
+  bool favorite = false;
+  String? profileFavoriteItemId;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
+    profileFavoriteItemId = widget.profileFavoriteItemId;
     _favoriteBloc = getIt<FavoriteBloc>();
+    favorite = widget.favorite;
 
     //TODO: For test the ticket remove comment
     // context.read<SalesHistoryBloc>().add(SalesHistoryEvent.getSalesHistory(
@@ -91,12 +99,32 @@ class _HeadWidgetState extends State<HeadWidget> {
 
   @override
   Widget build(BuildContext context) {
+    _favoriteBloc = getIt<FavoriteBloc>();
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
         Stack(children: [
+          BlocBuilder<FavoriteItemBloc, FavoriteItemState>(
+              builder: (context, favoriteItemState) {
+            return favoriteItemState.maybeMap(
+                orElse: () => Container(),
+                loadedFavoriteItem: (state) {
+                  Future.delayed(Duration.zero, () {
+                    setState(() {
+                      profileFavoriteItemId = state
+                          .dataFavoriteItem
+                          .profileFavoriteItems![state.dataFavoriteItem
+                                  .profileFavoriteItems!.length -
+                              1]
+                          .profileFavoriteItemId;
+                    });
+                  });
+
+                  return Container();
+                });
+          }),
           CachedNetworkImage(
             fit: BoxFit.cover,
             imageUrl: widget.urlImage,
@@ -187,9 +215,7 @@ class _HeadWidgetState extends State<HeadWidget> {
                                 alignment: Alignment.centerRight,
                                 child: IconButton(
                                   icon: Image.asset(
-                                    _favoriteBloc.isExist(widget.catalogItemName
-                                                ?.toUpperCase() ??
-                                            '')
+                                    favorite
                                         ? "assets/images/Favorite.png"
                                         : "assets/images/UnFavorite.png",
                                     scale: 3.5,
@@ -197,15 +223,38 @@ class _HeadWidgetState extends State<HeadWidget> {
                                   onPressed: () async {
                                     if (isLogged) {
                                       setState(() {
-                                        _favoriteBloc.toggleFavorite(widget
-                                                .catalogItemName
-                                                ?.toUpperCase() ??
-                                            '');
-                                        if (_favoriteBloc.isExist(widget
-                                                .catalogItemName
-                                                ?.toUpperCase() ??
-                                            '')) {
+                                        if (!favorite) {
+                                          BlocProvider.of<FavoriteItemBloc>(
+                                                  context)
+                                              .add(FavoriteItemEvent
+                                                  .addFavoriteItem(FavoriteModel(
+                                                      favoritesItemAction:
+                                                          "ADD",
+                                                      profileFavoriteItems: [
+                                                FavoriteItemModel(
+                                                    catalogItemId:
+                                                        widget.itemId)
+                                              ])));
+                                          favorite = true;
+                                          widget.addFavorite(true);
                                           onChangeFavoriteAnimation(0);
+                                        } else {
+                                          BlocProvider.of<FavoriteItemBloc>(
+                                                  context)
+                                              .add(FavoriteItemEvent
+                                                  .removeFavoriteItem(
+                                                      FavoriteModel(
+                                                          favoritesItemAction:
+                                                              "DELETE",
+                                                          profileFavoriteItems: [
+                                                FavoriteItemModel(
+                                                    profileFavoriteItemId:
+                                                        profileFavoriteItemId,
+                                                    catalogItemId:
+                                                        widget.itemId)
+                                              ])));
+                                          widget.addFavorite(false);
+                                          favorite = false;
                                         }
                                       });
                                     } else {
@@ -255,8 +304,18 @@ class _HeadWidgetState extends State<HeadWidget> {
                                           widget.lastSale,
                                           false,
                                           3,
-                                          widget.favorite,
-                                          widget.itemId));
+                                          favorite,
+                                          widget.itemId, (val) {
+                                    setState(() {
+                                      if (val) {
+                                        favorite = true;
+                                        widget.addFavorite(true);
+                                      } else {
+                                        widget.addFavorite(false);
+                                        favorite = false;
+                                      }
+                                    });
+                                  }));
                                 } else {
                                   Navigator.of(context, rootNavigator: true)
                                       .push(CreateAccountPage.route());

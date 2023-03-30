@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
-import 'package:swagapp/modules/pages/search/search_page.dart';
 
 import 'package:swagapp/modules/pages/login/create_account_page.dart';
 import 'package:swagapp/modules/pages/login/sign_in_page.dart';
@@ -23,6 +22,7 @@ class LandingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    getIt<PreferenceRepositoryService>().saveSessionFlow(false);
     return Scaffold(
         resizeToAvoidBottomInset: true,
         backgroundColor: Colors.transparent,
