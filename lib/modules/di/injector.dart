@@ -15,6 +15,7 @@ import '../blocs/collection_bloc/collection_bloc.dart';
 import '../blocs/detail_bloc/detail_bloc.dart';
 import '../blocs/explore_bloc/explore_bloc.dart';
 import '../blocs/favorite_bloc/favorite_bloc.dart';
+import '../blocs/favorite_bloc/favorite_item_bloc.dart';
 import '../blocs/listing_bloc/listing_bloc.dart';
 import '../blocs/profile_favorite_bloc/profile_favorite_bloc.dart';
 import '../blocs/sale_history/sale_history_bloc.dart';
@@ -34,6 +35,8 @@ import '../data/explore/explore_service.dart';
 import '../data/explore/i_explore_service.dart';
 import '../data/favorite/favorite_service.dart';
 import '../data/favorite/i_favorite_service.dart';
+import '../data/favorite_profile/favorite_profile_service.dart';
+import '../data/favorite_profile/i_favorite_profile_service.dart';
 import '../data/listing/i_listing_service.dart';
 import '../data/listing/listing_service.dart';
 import '../data/sale_history/i_sale_history_service.dart';
@@ -97,10 +100,10 @@ Future<void> setupAppScope() {
   getIt.registerLazySingleton<ListingBloc>(
       () => ListingBloc(getIt<IListingService>()));
 
-  getIt.registerLazySingleton<IFavoriteService>(
-      () => FavoriteService(APIService()));
+  getIt.registerLazySingleton<IFavoriteProfileService>(
+      () => FavoriteProfileService(APIService()));
   getIt.registerLazySingleton<ProfileFavoriteBloc>(
-      () => ProfileFavoriteBloc(getIt<IFavoriteService>()));
+      () => ProfileFavoriteBloc(getIt<IFavoriteProfileService>()));
 
   getIt.registerLazySingleton<ISoldService>(() => SoldService(APIService()));
   getIt.registerLazySingleton<SoldBloc>(() => SoldBloc(getIt<ISoldService>()));
@@ -119,6 +122,11 @@ Future<void> setupAppScope() {
       () => CategoryService(APIService()));
   getIt.registerLazySingleton<CategoryBloc>(
       () => CategoryBloc(getIt<ICategoryService>()));
+
+  getIt.registerLazySingleton<IFavoriteService>(
+      () => FavoriteService(APIService()));
+  getIt.registerLazySingleton<FavoriteItemBloc>(
+      () => FavoriteItemBloc(getIt<IFavoriteService>()));
 
   return getIt.allReady();
 }

@@ -356,8 +356,6 @@ mixin _$ListingState {
         loadedListingSuccess,
     required TResult Function(List<CatalogItemModel> dataListingList)
         loadedListingItems,
-    required TResult Function(UpdateAvatarModel successImageList)
-        loadedImageSuccess,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -368,7 +366,6 @@ mixin _$ListingState {
         loadedListingSuccess,
     TResult? Function(List<CatalogItemModel> dataListingList)?
         loadedListingItems,
-    TResult? Function(UpdateAvatarModel successImageList)? loadedImageSuccess,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -379,7 +376,6 @@ mixin _$ListingState {
         loadedListingSuccess,
     TResult Function(List<CatalogItemModel> dataListingList)?
         loadedListingItems,
-    TResult Function(UpdateAvatarModel successImageList)? loadedImageSuccess,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -389,7 +385,6 @@ mixin _$ListingState {
     required TResult Function(_ErrorListingState value) error,
     required TResult Function(LoadedSuccessListing value) loadedListingSuccess,
     required TResult Function(LoadedListingItemState value) loadedListingItems,
-    required TResult Function(LoadedImageSuccess value) loadedImageSuccess,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -398,7 +393,6 @@ mixin _$ListingState {
     TResult? Function(_ErrorListingState value)? error,
     TResult? Function(LoadedSuccessListing value)? loadedListingSuccess,
     TResult? Function(LoadedListingItemState value)? loadedListingItems,
-    TResult? Function(LoadedImageSuccess value)? loadedImageSuccess,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -407,7 +401,6 @@ mixin _$ListingState {
     TResult Function(_ErrorListingState value)? error,
     TResult Function(LoadedSuccessListing value)? loadedListingSuccess,
     TResult Function(LoadedListingItemState value)? loadedListingItems,
-    TResult Function(LoadedImageSuccess value)? loadedImageSuccess,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -475,8 +468,6 @@ class _$_InitialListingState extends _InitialListingState {
         loadedListingSuccess,
     required TResult Function(List<CatalogItemModel> dataListingList)
         loadedListingItems,
-    required TResult Function(UpdateAvatarModel successImageList)
-        loadedImageSuccess,
   }) {
     return initial();
   }
@@ -490,7 +481,6 @@ class _$_InitialListingState extends _InitialListingState {
         loadedListingSuccess,
     TResult? Function(List<CatalogItemModel> dataListingList)?
         loadedListingItems,
-    TResult? Function(UpdateAvatarModel successImageList)? loadedImageSuccess,
   }) {
     return initial?.call();
   }
@@ -504,7 +494,6 @@ class _$_InitialListingState extends _InitialListingState {
         loadedListingSuccess,
     TResult Function(List<CatalogItemModel> dataListingList)?
         loadedListingItems,
-    TResult Function(UpdateAvatarModel successImageList)? loadedImageSuccess,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -520,7 +509,6 @@ class _$_InitialListingState extends _InitialListingState {
     required TResult Function(_ErrorListingState value) error,
     required TResult Function(LoadedSuccessListing value) loadedListingSuccess,
     required TResult Function(LoadedListingItemState value) loadedListingItems,
-    required TResult Function(LoadedImageSuccess value) loadedImageSuccess,
   }) {
     return initial(this);
   }
@@ -532,7 +520,6 @@ class _$_InitialListingState extends _InitialListingState {
     TResult? Function(_ErrorListingState value)? error,
     TResult? Function(LoadedSuccessListing value)? loadedListingSuccess,
     TResult? Function(LoadedListingItemState value)? loadedListingItems,
-    TResult? Function(LoadedImageSuccess value)? loadedImageSuccess,
   }) {
     return initial?.call(this);
   }
@@ -544,7 +531,6 @@ class _$_InitialListingState extends _InitialListingState {
     TResult Function(_ErrorListingState value)? error,
     TResult Function(LoadedSuccessListing value)? loadedListingSuccess,
     TResult Function(LoadedListingItemState value)? loadedListingItems,
-    TResult Function(LoadedImageSuccess value)? loadedImageSuccess,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -630,8 +616,6 @@ class _$_ErrorListingState extends _ErrorListingState {
         loadedListingSuccess,
     required TResult Function(List<CatalogItemModel> dataListingList)
         loadedListingItems,
-    required TResult Function(UpdateAvatarModel successImageList)
-        loadedImageSuccess,
   }) {
     return error(message);
   }
@@ -645,7 +629,6 @@ class _$_ErrorListingState extends _ErrorListingState {
         loadedListingSuccess,
     TResult? Function(List<CatalogItemModel> dataListingList)?
         loadedListingItems,
-    TResult? Function(UpdateAvatarModel successImageList)? loadedImageSuccess,
   }) {
     return error?.call(message);
   }
@@ -659,7 +642,6 @@ class _$_ErrorListingState extends _ErrorListingState {
         loadedListingSuccess,
     TResult Function(List<CatalogItemModel> dataListingList)?
         loadedListingItems,
-    TResult Function(UpdateAvatarModel successImageList)? loadedImageSuccess,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -675,7 +657,6 @@ class _$_ErrorListingState extends _ErrorListingState {
     required TResult Function(_ErrorListingState value) error,
     required TResult Function(LoadedSuccessListing value) loadedListingSuccess,
     required TResult Function(LoadedListingItemState value) loadedListingItems,
-    required TResult Function(LoadedImageSuccess value) loadedImageSuccess,
   }) {
     return error(this);
   }
@@ -687,7 +668,6 @@ class _$_ErrorListingState extends _ErrorListingState {
     TResult? Function(_ErrorListingState value)? error,
     TResult? Function(LoadedSuccessListing value)? loadedListingSuccess,
     TResult? Function(LoadedListingItemState value)? loadedListingItems,
-    TResult? Function(LoadedImageSuccess value)? loadedImageSuccess,
   }) {
     return error?.call(this);
   }
@@ -699,7 +679,6 @@ class _$_ErrorListingState extends _ErrorListingState {
     TResult Function(_ErrorListingState value)? error,
     TResult Function(LoadedSuccessListing value)? loadedListingSuccess,
     TResult Function(LoadedListingItemState value)? loadedListingItems,
-    TResult Function(LoadedImageSuccess value)? loadedImageSuccess,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -802,8 +781,6 @@ class _$LoadedSuccessListing extends LoadedSuccessListing {
         loadedListingSuccess,
     required TResult Function(List<CatalogItemModel> dataListingList)
         loadedListingItems,
-    required TResult Function(UpdateAvatarModel successImageList)
-        loadedImageSuccess,
   }) {
     return loadedListingSuccess(successCollection);
   }
@@ -817,7 +794,6 @@ class _$LoadedSuccessListing extends LoadedSuccessListing {
         loadedListingSuccess,
     TResult? Function(List<CatalogItemModel> dataListingList)?
         loadedListingItems,
-    TResult? Function(UpdateAvatarModel successImageList)? loadedImageSuccess,
   }) {
     return loadedListingSuccess?.call(successCollection);
   }
@@ -831,7 +807,6 @@ class _$LoadedSuccessListing extends LoadedSuccessListing {
         loadedListingSuccess,
     TResult Function(List<CatalogItemModel> dataListingList)?
         loadedListingItems,
-    TResult Function(UpdateAvatarModel successImageList)? loadedImageSuccess,
     required TResult orElse(),
   }) {
     if (loadedListingSuccess != null) {
@@ -847,7 +822,6 @@ class _$LoadedSuccessListing extends LoadedSuccessListing {
     required TResult Function(_ErrorListingState value) error,
     required TResult Function(LoadedSuccessListing value) loadedListingSuccess,
     required TResult Function(LoadedListingItemState value) loadedListingItems,
-    required TResult Function(LoadedImageSuccess value) loadedImageSuccess,
   }) {
     return loadedListingSuccess(this);
   }
@@ -859,7 +833,6 @@ class _$LoadedSuccessListing extends LoadedSuccessListing {
     TResult? Function(_ErrorListingState value)? error,
     TResult? Function(LoadedSuccessListing value)? loadedListingSuccess,
     TResult? Function(LoadedListingItemState value)? loadedListingItems,
-    TResult? Function(LoadedImageSuccess value)? loadedImageSuccess,
   }) {
     return loadedListingSuccess?.call(this);
   }
@@ -871,7 +844,6 @@ class _$LoadedSuccessListing extends LoadedSuccessListing {
     TResult Function(_ErrorListingState value)? error,
     TResult Function(LoadedSuccessListing value)? loadedListingSuccess,
     TResult Function(LoadedListingItemState value)? loadedListingItems,
-    TResult Function(LoadedImageSuccess value)? loadedImageSuccess,
     required TResult orElse(),
   }) {
     if (loadedListingSuccess != null) {
@@ -973,8 +945,6 @@ class _$LoadedListingItemState extends LoadedListingItemState {
         loadedListingSuccess,
     required TResult Function(List<CatalogItemModel> dataListingList)
         loadedListingItems,
-    required TResult Function(UpdateAvatarModel successImageList)
-        loadedImageSuccess,
   }) {
     return loadedListingItems(dataListingList);
   }
@@ -988,7 +958,6 @@ class _$LoadedListingItemState extends LoadedListingItemState {
         loadedListingSuccess,
     TResult? Function(List<CatalogItemModel> dataListingList)?
         loadedListingItems,
-    TResult? Function(UpdateAvatarModel successImageList)? loadedImageSuccess,
   }) {
     return loadedListingItems?.call(dataListingList);
   }
@@ -1002,7 +971,6 @@ class _$LoadedListingItemState extends LoadedListingItemState {
         loadedListingSuccess,
     TResult Function(List<CatalogItemModel> dataListingList)?
         loadedListingItems,
-    TResult Function(UpdateAvatarModel successImageList)? loadedImageSuccess,
     required TResult orElse(),
   }) {
     if (loadedListingItems != null) {
@@ -1018,7 +986,6 @@ class _$LoadedListingItemState extends LoadedListingItemState {
     required TResult Function(_ErrorListingState value) error,
     required TResult Function(LoadedSuccessListing value) loadedListingSuccess,
     required TResult Function(LoadedListingItemState value) loadedListingItems,
-    required TResult Function(LoadedImageSuccess value) loadedImageSuccess,
   }) {
     return loadedListingItems(this);
   }
@@ -1030,7 +997,6 @@ class _$LoadedListingItemState extends LoadedListingItemState {
     TResult? Function(_ErrorListingState value)? error,
     TResult? Function(LoadedSuccessListing value)? loadedListingSuccess,
     TResult? Function(LoadedListingItemState value)? loadedListingItems,
-    TResult? Function(LoadedImageSuccess value)? loadedImageSuccess,
   }) {
     return loadedListingItems?.call(this);
   }
@@ -1042,7 +1008,6 @@ class _$LoadedListingItemState extends LoadedListingItemState {
     TResult Function(_ErrorListingState value)? error,
     TResult Function(LoadedSuccessListing value)? loadedListingSuccess,
     TResult Function(LoadedListingItemState value)? loadedListingItems,
-    TResult Function(LoadedImageSuccess value)? loadedImageSuccess,
     required TResult orElse(),
   }) {
     if (loadedListingItems != null) {
@@ -1061,177 +1026,5 @@ abstract class LoadedListingItemState extends ListingState {
   List<CatalogItemModel> get dataListingList;
   @JsonKey(ignore: true)
   _$$LoadedListingItemStateCopyWith<_$LoadedListingItemState> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$LoadedImageSuccessCopyWith<$Res> {
-  factory _$$LoadedImageSuccessCopyWith(_$LoadedImageSuccess value,
-          $Res Function(_$LoadedImageSuccess) then) =
-      __$$LoadedImageSuccessCopyWithImpl<$Res>;
-  @useResult
-  $Res call({UpdateAvatarModel successImageList});
-
-  $UpdateAvatarModelCopyWith<$Res> get successImageList;
-}
-
-/// @nodoc
-class __$$LoadedImageSuccessCopyWithImpl<$Res>
-    extends _$ListingStateCopyWithImpl<$Res, _$LoadedImageSuccess>
-    implements _$$LoadedImageSuccessCopyWith<$Res> {
-  __$$LoadedImageSuccessCopyWithImpl(
-      _$LoadedImageSuccess _value, $Res Function(_$LoadedImageSuccess) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? successImageList = null,
-  }) {
-    return _then(_$LoadedImageSuccess(
-      null == successImageList
-          ? _value.successImageList
-          : successImageList // ignore: cast_nullable_to_non_nullable
-              as UpdateAvatarModel,
-    ));
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $UpdateAvatarModelCopyWith<$Res> get successImageList {
-    return $UpdateAvatarModelCopyWith<$Res>(_value.successImageList, (value) {
-      return _then(_value.copyWith(successImageList: value));
-    });
-  }
-}
-
-/// @nodoc
-
-class _$LoadedImageSuccess extends LoadedImageSuccess {
-  _$LoadedImageSuccess(this.successImageList) : super._();
-
-  @override
-  final UpdateAvatarModel successImageList;
-
-  @override
-  String toString() {
-    return 'ListingState.loadedImageSuccess(successImageList: $successImageList)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LoadedImageSuccess &&
-            (identical(other.successImageList, successImageList) ||
-                other.successImageList == successImageList));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, successImageList);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$LoadedImageSuccessCopyWith<_$LoadedImageSuccess> get copyWith =>
-      __$$LoadedImageSuccessCopyWithImpl<_$LoadedImageSuccess>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function(String message) error,
-    required TResult Function(ListingForSaleModel successCollection)
-        loadedListingSuccess,
-    required TResult Function(List<CatalogItemModel> dataListingList)
-        loadedListingItems,
-    required TResult Function(UpdateAvatarModel successImageList)
-        loadedImageSuccess,
-  }) {
-    return loadedImageSuccess(successImageList);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function(String message)? error,
-    TResult? Function(ListingForSaleModel successCollection)?
-        loadedListingSuccess,
-    TResult? Function(List<CatalogItemModel> dataListingList)?
-        loadedListingItems,
-    TResult? Function(UpdateAvatarModel successImageList)? loadedImageSuccess,
-  }) {
-    return loadedImageSuccess?.call(successImageList);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(String message)? error,
-    TResult Function(ListingForSaleModel successCollection)?
-        loadedListingSuccess,
-    TResult Function(List<CatalogItemModel> dataListingList)?
-        loadedListingItems,
-    TResult Function(UpdateAvatarModel successImageList)? loadedImageSuccess,
-    required TResult orElse(),
-  }) {
-    if (loadedImageSuccess != null) {
-      return loadedImageSuccess(successImageList);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_InitialListingState value) initial,
-    required TResult Function(_ErrorListingState value) error,
-    required TResult Function(LoadedSuccessListing value) loadedListingSuccess,
-    required TResult Function(LoadedListingItemState value) loadedListingItems,
-    required TResult Function(LoadedImageSuccess value) loadedImageSuccess,
-  }) {
-    return loadedImageSuccess(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_InitialListingState value)? initial,
-    TResult? Function(_ErrorListingState value)? error,
-    TResult? Function(LoadedSuccessListing value)? loadedListingSuccess,
-    TResult? Function(LoadedListingItemState value)? loadedListingItems,
-    TResult? Function(LoadedImageSuccess value)? loadedImageSuccess,
-  }) {
-    return loadedImageSuccess?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_InitialListingState value)? initial,
-    TResult Function(_ErrorListingState value)? error,
-    TResult Function(LoadedSuccessListing value)? loadedListingSuccess,
-    TResult Function(LoadedListingItemState value)? loadedListingItems,
-    TResult Function(LoadedImageSuccess value)? loadedImageSuccess,
-    required TResult orElse(),
-  }) {
-    if (loadedImageSuccess != null) {
-      return loadedImageSuccess(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class LoadedImageSuccess extends ListingState {
-  factory LoadedImageSuccess(final UpdateAvatarModel successImageList) =
-      _$LoadedImageSuccess;
-  LoadedImageSuccess._() : super._();
-
-  UpdateAvatarModel get successImageList;
-  @JsonKey(ignore: true)
-  _$$LoadedImageSuccessCopyWith<_$LoadedImageSuccess> get copyWith =>
       throw _privateConstructorUsedError;
 }

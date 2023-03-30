@@ -15,10 +15,13 @@ import '../../common/ui/catalog_ui.dart';
 import '../../common/ui/loading.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/utils.dart';
+import '../../data/secure_storage/storage_repository_service.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/search/catalog_item_model.dart';
 import 'package:badges/badges.dart' as badges;
+
+import '../login/create_account_page.dart';
 
 class SearchResultPage extends StatefulWidget {
   static const name = '/SearchResult';
@@ -42,9 +45,11 @@ class _SearchResultPageState extends State<SearchResultPage>
   @override
   bool get wantKeepAlive => true;
   int selectedIndex = 0;
-  late final ScrollController? _scrollController =
+  late final ScrollController _scrollController =
       PrimaryScrollController.of(context);
   final TextEditingController _textEditingController = TextEditingController();
+  late bool isAuthenticatedUser;
+  bool validToken = false;
 
   @override
   void initState() {
@@ -58,6 +63,7 @@ class _SearchResultPageState extends State<SearchResultPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    getAuthData();
     return Scaffold(
         appBar: PushedHeader(
           customWidget: Column(
@@ -121,6 +127,22 @@ class _SearchResultPageState extends State<SearchResultPage>
         ));
   }
 
+  getAuthData() async {
+    isAuthenticatedUser = getIt<PreferenceRepositoryService>().isLogged();
+    validToken =
+        isTokenValid(await getIt<StorageRepositoryService>().getToken());
+  }
+
+  saveSearch() {
+    if (isAuthenticatedUser && validToken) {
+      debugPrint('-----testing-----');
+    } else {
+      Navigator.of(context, rootNavigator: true)
+          .push(CreateAccountPage.route());
+      getIt<PreferenceRepositoryService>().saveReturExploreIsNotLogged(true);
+    }
+  }
+
   Widget getBody(List<CatalogItemModel> catalogList) {
     return Column(
       children: [
@@ -153,7 +175,7 @@ class _SearchResultPageState extends State<SearchResultPage>
                     fontSize: 15,
                     color: Palette.current.primaryWhiteSmoke),
               ),
-              onPressed: () {},
+              onPressed: saveSearch,
             ),
             Text(
               "${S.of(context).sort} Release Date",
@@ -176,7 +198,7 @@ class _SearchResultPageState extends State<SearchResultPage>
       },
       child: catalogList.isNotEmpty
           ? CatalogPage(
-              catalogItems: catalogList, scrollController: _scrollController!)
+              catalogItems: catalogList, scrollController: _scrollController)
           : ListView.builder(
               itemBuilder: (_, index) => SizedBox(
                 height: MediaQuery.of(context).size.height * 0.7,

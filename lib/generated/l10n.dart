@@ -430,6 +430,16 @@ class S {
     );
   }
 
+  /// `Invalid format please try again.`
+  String get invalid_phone_format {
+    return Intl.message(
+      'Invalid format please try again.',
+      name: 'invalid_phone_format',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `This username is taken `
   String get username_taken {
     return Intl.message(

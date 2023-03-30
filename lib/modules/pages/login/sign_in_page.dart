@@ -17,6 +17,7 @@ import '../../common/utils/custom_route_animations.dart';
 import '../../data/secure_storage/storage_repository_service.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
+import '../home/home_page.dart';
 
 class SignInPage extends StatefulWidget {
   static const name = '/SignIn';
@@ -86,7 +87,17 @@ class _SignInPageState extends State<SignInPage> {
                     return null;
                   },
                   authenticated: () {
-                    Navigator.pop(context);
+                    bool session =
+                        getIt<PreferenceRepositoryService>().sessionFlow();
+                    if (session) {
+                      getIt<PreferenceRepositoryService>()
+                          .saveHasJustSignedUp(false);
+                      Navigator.of(context, rootNavigator: false)
+                          .push(HomePage.route());
+                    } else {
+                      Navigator.pop(context);
+                    }
+
                     getIt<PreferenceRepositoryService>().saveIsLogged(true);
                     getIt<StorageRepositoryService>()
                         .saveEmail(_emailController.text);
@@ -258,6 +269,8 @@ class _SignInPageState extends State<SignInPage> {
                                       ]),
                                     ),
                                     onPressed: () {
+                                      getIt<PreferenceRepositoryService>()
+                                          .saveSessionFlow(true);
                                       Navigator.of(context, rootNavigator: true)
                                           .push(CreateAccountPage.route());
                                     }),

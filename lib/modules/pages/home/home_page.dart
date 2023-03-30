@@ -4,6 +4,7 @@ import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/di/injector.dart';
 import 'package:swagapp/modules/pages/search/search_page.dart';
 
+import '../../common/utils/custom_route_animations.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../pages/alert/alert_page.dart';
 import '../../pages/profile/profile_page.dart';
@@ -11,7 +12,13 @@ import '../explore/explore_page.dart';
 import '../login/create_account_page.dart';
 
 class HomePage extends StatefulWidget {
+  static const name = '/HomePage';
   const HomePage({super.key});
+
+  static Route route() => PageRoutes.material(
+        settings: const RouteSettings(name: name),
+        builder: (context) => const HomePage(),
+      );
 
   @override
   State<StatefulWidget> createState() {
