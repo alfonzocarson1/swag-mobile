@@ -4,6 +4,6 @@ part of 'listing_bloc.dart';
 class ListingEvent with _$ListingEvent {
   const factory ListingEvent.getListingItem() = _GetListingItem;
 
-  const factory ListingEvent.createListing(ListingForSaleModel model) =
-      _ListingEvent;
+  const factory ListingEvent.createListing(
+      ListingForSaleModel model, List<XFile> imgList) = _ListingEvent;
 }

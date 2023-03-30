@@ -26,6 +26,7 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   static const String _loginAfterGuest = 'loginAfterGuest';
   static const String _validCode = 'validCode';
   static const String _searchesWithFilters = 'searchesWithFilters';
+  static const String _sessionFlow = 'sessionFlow';
 
   late SharedPreferences _prefs;
   @override
@@ -204,6 +205,17 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   @override
   Future<void> saveloginAfterGuest(bool value) async {
     await _prefs.setBool(_loginAfterGuest, value);
+  }
+
+  @override
+  bool sessionFlow() {
+    final returnPage = _prefs.getBool(_sessionFlow);
+    return returnPage ?? false;
+  }
+
+  @override
+  Future<void> saveSessionFlow(bool value) async {
+    await _prefs.setBool(_sessionFlow, value);
   }
 
   @override

@@ -17,18 +17,25 @@ import '../../../common/ui/primary_button.dart';
 import '../../../common/ui/pushed_header.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
+
+import '../../../models/detail/detail_collection_model.dart';
 import 'list_item_preview_page.dart';
 
 class ListForSalePage extends StatefulWidget {
   static const name = '/ListForSalePage';
 
-  ListForSalePage({super.key, this.itemCondition});
+  ListForSalePage(
+      {super.key, this.collectionData, required this.catalogItemName});
 
-  String? itemCondition;
+  DetailCollectionModel? collectionData;
+  String catalogItemName;
 
-  static Route route(itemCondition) => PageRoutes.slideUp(
+  static Route route(
+          DetailCollectionModel? collectionData, String catalogItemName) =>
+      PageRoutes.slideUp(
         settings: const RouteSettings(name: name),
-        builder: (context) => ListForSalePage(itemCondition: itemCondition),
+        builder: (context) => ListForSalePage(
+            collectionData: collectionData, catalogItemName: catalogItemName),
       );
 
   @override
@@ -39,6 +46,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
   final ImagePicker imagePicker = ImagePicker();
   List<XFile> imageFileList = [];
 
+  bool isPostListing = false;
   final FocusNode _listPriceItemNode = FocusNode();
   var _listPriceItemController = TextEditingController();
   Color _listPriceItemBorder = Palette.current.primaryWhiteSmoke;
@@ -57,7 +65,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
 
   bool isFirst = true;
 
-  String _price = '0';
+  double _price = 0.0;
 
   bool validPrice = false;
 
@@ -80,7 +88,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
   void initState() {
     super.initState();
 
-    _defaultCondition = widget.itemCondition ?? 'Condition';
+    _defaultCondition = widget.collectionData!.itemCondition;
 
     _listPriceItemNode.addListener(() {
       setState(() {
@@ -220,7 +228,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                   onChanged: (value) {
                                     if (value == '00') {
                                       setState(() {
-                                        _price = "0";
+                                        _price = 0.0;
                                       });
                                     }
 
@@ -243,10 +251,11 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                       selection: TextSelection.collapsed(
                                           offset: value.length),
                                     );
-
                                     setState(() {
-                                      _price =
+                                      String str =
                                           _listPriceItemController.value.text;
+                                      String result = str.replaceAll(',', '');
+                                      _price = double.parse(result);
                                     });
                                   },
                                   borderColor: _listPriceItemBorder,
@@ -360,16 +369,21 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                               return const PopUpImageGuideline();
                                             });
                                       } else {
-                                        Navigator.of(context,
-                                                rootNavigator: true)
+                                        Navigator.of(context, rootNavigator: true)
                                             .push(ListItemPreviewPage.route(
                                                 imageFileList,
-                                                "GOLDEN KING COVER",
+                                                widget.catalogItemName,
                                                 _price,
                                                 _defaultCondition,
                                                 _listDescriptionItemController
                                                     .text
-                                                    .toString()));
+                                                    .toString(),
+                                                widget.collectionData!
+                                                    .profileCollectionItemId,
+                                                widget.collectionData!
+                                                    .catalogItemId, () {
+                                          Navigator.pop(context);
+                                        }));
                                       }
                                     }
                                   },

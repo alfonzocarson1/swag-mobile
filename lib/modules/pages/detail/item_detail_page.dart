@@ -4,6 +4,7 @@ import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/common/ui/loading.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import '../../blocs/detail_bloc/detail_bloc.dart';
+import '../../blocs/favorite_bloc/favorite_bloc.dart';
 import '../../blocs/sale_history/sale_history_bloc.dart';
 import '../../common/ui/custom_app_bar.dart';
 import '../../common/ui/popup_add_exisiting_item_collection.dart';
@@ -22,13 +23,16 @@ import 'item_switched.dart';
 
 class ItemDetailPage extends StatefulWidget {
   static const name = '/ItemDetail';
-  ItemDetailPage({Key? key, required this.catalogItemId}) : super(key: key);
+  ItemDetailPage(
+      {Key? key, required this.catalogItemId, required this.addFavorite})
+      : super(key: key);
   String catalogItemId;
-  static Route route(String catalogItemId) => PageRoutes.material(
+  Function(bool) addFavorite;
+  static Route route(String catalogItemId, Function(bool) addFavorite) =>
+      PageRoutes.material(
         settings: const RouteSettings(name: name),
         builder: (context) => ItemDetailPage(
-          catalogItemId: catalogItemId,
-        ),
+            catalogItemId: catalogItemId, addFavorite: addFavorite),
       );
 
   @override
@@ -42,16 +46,16 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
   int? _collectionLen;
   String _pathImage = '';
   String _itemName = '';
-
+  bool isFirstState = true;
   bool isLogged = false;
-
+  List<DetailItemModel>? dataDetailClone;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    isFirstState = true;
 
     isLogged = getIt<PreferenceRepositoryService>().isLogged();
-
     context
         .read<DetailBloc>()
         .add(DetailEvent.getDetailItem(widget.catalogItemId));
@@ -102,6 +106,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
               // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
             },
             initial: () {
+              isFirstState = true;
               if (!Loading.isVisible()) {
                 Loading.show(context);
               }
@@ -123,7 +128,12 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                     ));
               },
               loadedDetailItems: (state) {
-                return _getBody(state.detaItemlList);
+                if (isFirstState) {
+                  dataDetailClone = [...state.detaItemlList];
+                  isFirstState = false;
+                }
+
+                return _getBody(dataDetailClone!);
               },
             );
           },
@@ -192,6 +202,15 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                 child: Column(
                   children: [
                     HeadWidget(
+                        addFavorite: (val) {
+                          setState(() {
+                            widget.addFavorite(val);
+                            dataDetail[index] =
+                                dataDetail[index].copyWith(inFavorites: val);
+                          });
+                        },
+                        profileFavoriteItemId:
+                            dataDetail[index].profileFavoriteItemId,
                         urlImage: dataDetail[index].catalogItemImage,
                         catalogItemName: dataDetail[index].catalogItemName,
                         lastSale: dataDetail[index].saleInfo,
@@ -212,6 +231,13 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                         retail: dataDetail[index].retail,
                         available: dataDetail[index].numberAvailable),
                     CollectionWidget(
+                      addFavorite: (val) {
+                        setState(() {
+                          widget.addFavorite(val);
+                          dataDetail[index] =
+                              dataDetail[index].copyWith(inFavorites: val);
+                        });
+                      },
                       sale: dataDetail[index].forSale,
                       dataCollection: dataDetail[index].collectionItems,
                       lastSale: dataDetail[index].saleInfo,
