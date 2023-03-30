@@ -92,8 +92,6 @@ class _SignInPageState extends State<SignInPage> {
                     if (session) {
                       getIt<PreferenceRepositoryService>()
                           .saveHasJustSignedUp(false);
-                      getIt<PreferenceRepositoryService>()
-                          .saveSessionFlow(false);
                       Navigator.of(context, rootNavigator: false)
                           .push(HomePage.route());
                     } else {

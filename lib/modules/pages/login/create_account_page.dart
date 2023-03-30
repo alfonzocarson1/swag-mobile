@@ -148,8 +148,6 @@ class _CreateAccountState extends State<CreateAccountPage> {
                     bool session =
                         getIt<PreferenceRepositoryService>().sessionFlow();
                     if (session) {
-                      getIt<PreferenceRepositoryService>()
-                          .saveSessionFlow(false);
                       Navigator.of(context, rootNavigator: false)
                           .push(HomePage.route());
                     } else {

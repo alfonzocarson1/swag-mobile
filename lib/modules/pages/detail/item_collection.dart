@@ -311,17 +311,22 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                 title:
                                     "${S.of(context).buy_for} ${widget.lastSale.maxPrice}",
                                 onPressed: () {
-                                  Navigator.of(context, rootNavigator: true)
-                                      .push(BuyForSale.route(
-                                          widget.catalogId,
-                                          widget.catalogItemName,
-                                          widget.lastSale,
-                                          widget.urlImage,
-                                          widget.favorite,
-                                          widget.sale,
-                                          widget.available ?? 0, (val) {
-                                    widget.addFavorite(val);
-                                  }));
+                                  if (isLogged) {
+                                    Navigator.of(context, rootNavigator: true)
+                                        .push(BuyForSale.route(
+                                            widget.catalogId,
+                                            widget.catalogItemName,
+                                            widget.lastSale,
+                                            widget.urlImage,
+                                            widget.favorite,
+                                            widget.sale,
+                                            widget.available ?? 0, (val) {
+                                      widget.addFavorite(val);
+                                    }));
+                                  } else {
+                                    Navigator.of(context, rootNavigator: true)
+                                        .push(CreateAccountPage.route());
+                                  }
                                 },
                                 type: PrimaryButtonType.green,
                               ),
@@ -334,22 +339,27 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                               child: PrimaryButton(
                                 title: S.of(context).list_for_sale_btn,
                                 onPressed: () {
-                                  widget.dataCollection!.length > 1
-                                      ? showDialog(
-                                          context: context,
-                                          barrierDismissible: false,
-                                          builder: (BuildContext context) {
-                                            return PopUpListItemSale(
-                                                catalogItemName:
-                                                    widget.catalogItemName,
-                                                dataCollection:
-                                                    widget.dataCollection!);
-                                          })
-                                      : Navigator.of(context,
-                                              rootNavigator: true)
-                                          .push(ListForSalePage.route(
-                                              widget.dataCollection![0],
-                                              widget.catalogItemName));
+                                  if (isLogged) {
+                                    widget.dataCollection!.length > 1
+                                        ? showDialog(
+                                            context: context,
+                                            barrierDismissible: false,
+                                            builder: (BuildContext context) {
+                                              return PopUpListItemSale(
+                                                  catalogItemName:
+                                                      widget.catalogItemName,
+                                                  dataCollection:
+                                                      widget.dataCollection!);
+                                            })
+                                        : Navigator.of(context,
+                                                rootNavigator: true)
+                                            .push(ListForSalePage.route(
+                                                widget.dataCollection![0],
+                                                widget.catalogItemName));
+                                  } else {
+                                    Navigator.of(context, rootNavigator: true)
+                                        .push(CreateAccountPage.route());
+                                  }
                                 },
                                 type: PrimaryButtonType.black,
                               ),
@@ -362,14 +372,19 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                               child: PrimaryButton(
                                 title: S.of(context).remove_collection_btn,
                                 onPressed: () {
-                                  showDialog(
-                                      context: context,
-                                      barrierDismissible: false,
-                                      builder: (BuildContext context) {
-                                        return PopUpDeleteItemCollection(
-                                            dataCollection:
-                                                widget.dataCollection!);
-                                      });
+                                  if (isLogged) {
+                                    showDialog(
+                                        context: context,
+                                        barrierDismissible: false,
+                                        builder: (BuildContext context) {
+                                          return PopUpDeleteItemCollection(
+                                              dataCollection:
+                                                  widget.dataCollection!);
+                                        });
+                                  } else {
+                                    Navigator.of(context, rootNavigator: true)
+                                        .push(CreateAccountPage.route());
+                                  }
                                 },
                                 type: PrimaryButtonType.pink,
                               ),
@@ -386,14 +401,19 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                               child: PrimaryButton(
                                 title: S.of(context).remove_collection_btn,
                                 onPressed: () {
-                                  showDialog(
-                                      context: context,
-                                      barrierDismissible: false,
-                                      builder: (BuildContext context) {
-                                        return PopUpDeleteItemCollection(
-                                            dataCollection:
-                                                widget.dataCollection!);
-                                      });
+                                  if (isLogged) {
+                                    showDialog(
+                                        context: context,
+                                        barrierDismissible: false,
+                                        builder: (BuildContext context) {
+                                          return PopUpDeleteItemCollection(
+                                              dataCollection:
+                                                  widget.dataCollection!);
+                                        });
+                                  } else {
+                                    Navigator.of(context, rootNavigator: true)
+                                        .push(CreateAccountPage.route());
+                                  }
                                 },
                                 type: PrimaryButtonType.pink,
                               ),
