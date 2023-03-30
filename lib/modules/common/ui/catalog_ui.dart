@@ -1,10 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../generated/l10n.dart';
-import '../../blocs/favorite_bloc/favorite_bloc.dart';
+import '../../blocs/favorite_bloc/favorite_item_bloc.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
+import '../../models/favorite/favorite_item_model.dart';
+import '../../models/favorite/favorite_model.dart';
 import '../../models/search/catalog_item_model.dart';
 import '../../pages/add/collection/add_collection_page.dart';
 import '../../pages/detail/item_detail_page.dart';
@@ -28,16 +31,19 @@ class CatalogPage extends StatefulWidget {
 }
 
 class _CatalogPageState extends State<CatalogPage> {
-  late FavoriteBloc _favoriteBloc;
   double animateFavorite = 0.0;
   bool isSkullVisible = true;
   int? indexFavorite;
   bool isLogged = false;
+  int indexList = 0;
+
+  List<CatalogItemModel> catalogList = [];
 
   @override
   void initState() {
-    _favoriteBloc = getIt<FavoriteBloc>();
+    catalogList = [...widget.catalogItems];
     super.initState();
+
     isLogged = getIt<PreferenceRepositoryService>().isLogged();
   }
 
@@ -77,18 +83,41 @@ class _CatalogPageState extends State<CatalogPage> {
           return GestureDetector(
             onTap: () {
               Navigator.of(context, rootNavigator: true).push(
-                  ItemDetailPage.route(
-                      widget.catalogItems[index].catalogItemId));
+                  ItemDetailPage.route(catalogList[index].catalogItemId, (val) {
+                setState(() {
+                  catalogList[index] =
+                      catalogList[index].copyWith(inFavorites: val);
+                });
+              }));
             },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
+                BlocBuilder<FavoriteItemBloc, FavoriteItemState>(
+                    builder: (context, favoriteItemState) {
+                  return favoriteItemState.maybeMap(
+                      orElse: () => Container(),
+                      loadedFavoriteItem: (state) {
+                        catalogList[indexList] = catalogList[indexList]
+                            .copyWith(
+                                profileFavoriteItemId: state
+                                    .dataFavoriteItem
+                                    .profileFavoriteItems![state
+                                            .dataFavoriteItem
+                                            .profileFavoriteItems!
+                                            .length -
+                                        1]
+                                    .profileFavoriteItemId);
+
+                        return Container();
+                      });
+                }),
                 Stack(
                   children: [
                     CachedNetworkImage(
-                      imageUrl: widget.catalogItems[index].catalogItemImage,
+                      imageUrl: catalogList[index].catalogItemImage,
                       placeholder: (context, url) => SizedBox(
                         height: 340,
                         child: Center(
@@ -111,7 +140,8 @@ class _CatalogPageState extends State<CatalogPage> {
                           ),
                           onPressed: () {
                             if (isLogged) {
-                              if (widget.catalogItems[index].collectionItems!
+                              if (catalogList[index]
+                                  .collectionItems!
                                   .isNotEmpty) {
                                 showDialog(
                                     context: context,
@@ -122,11 +152,11 @@ class _CatalogPageState extends State<CatalogPage> {
                                                   rootNavigator: true)
                                               .push(AddCollection.route(
                                                   context,
-                                                  widget.catalogItems[index]
+                                                  catalogList[index]
                                                       .catalogItemId,
-                                                  widget.catalogItems[index]
+                                                  catalogList[index]
                                                       .catalogItemImage,
-                                                  widget.catalogItems[index]
+                                                  catalogList[index]
                                                       .catalogItemName)));
                                     });
                               } else {
@@ -135,10 +165,8 @@ class _CatalogPageState extends State<CatalogPage> {
                                         context,
                                         widget
                                             .catalogItems[index].catalogItemId,
-                                        widget.catalogItems[index]
-                                            .catalogItemImage,
-                                        widget.catalogItems[index]
-                                            .catalogItemName));
+                                        catalogList[index].catalogItemImage,
+                                        catalogList[index].catalogItemName));
                               }
                             } else {
                               Navigator.of(context, rootNavigator: true)
@@ -164,7 +192,7 @@ class _CatalogPageState extends State<CatalogPage> {
                         ),
                       ),
                     ),
-                    widget.catalogItems[index].forSale
+                    catalogList[index].forSale
                         ? Positioned(
                             bottom: 0,
                             width: MediaQuery.of(context).size.width,
@@ -181,7 +209,7 @@ class _CatalogPageState extends State<CatalogPage> {
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
                                         Text(
-                                          "${widget.catalogItems[index].numberAvailable} ${S.of(context).for_sale}",
+                                          "${catalogList[index].numberAvailable} ${S.of(context).for_sale}",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodySmall!
@@ -218,7 +246,8 @@ class _CatalogPageState extends State<CatalogPage> {
                                   alignment: Alignment.bottomLeft,
                                   child: Text(
                                       overflow: TextOverflow.ellipsis,
-                                      widget.catalogItems[index].catalogItemName
+                                      catalogList[index]
+                                          .catalogItemName
                                           .toUpperCase(),
                                       style: Theme.of(context)
                                           .textTheme
@@ -243,9 +272,7 @@ class _CatalogPageState extends State<CatalogPage> {
                                   alignment: Alignment.centerRight,
                                   child: IconButton(
                                     icon: Image.asset(
-                                      _favoriteBloc.isExist(widget
-                                              .catalogItems[index]
-                                              .catalogItemName)
+                                      catalogList[index].inFavorites
                                           ? "assets/images/Favorite.png"
                                           : "assets/images/UnFavorite.png",
                                       scale: 3.5,
@@ -253,12 +280,46 @@ class _CatalogPageState extends State<CatalogPage> {
                                     onPressed: () async {
                                       setState(() {
                                         if (isLogged) {
-                                          _favoriteBloc.toggleFavorite(widget
-                                              .catalogItems[index]
-                                              .catalogItemName);
-                                          if (_favoriteBloc.isExist(widget
-                                              .catalogItems[index]
-                                              .catalogItemName)) {
+                                          if (catalogList[index].inFavorites) {
+                                            catalogList[index] =
+                                                catalogList[index].copyWith(
+                                                    inFavorites: false);
+                                            BlocProvider.of<FavoriteItemBloc>(
+                                                    context)
+                                                .add(FavoriteItemEvent
+                                                    .removeFavoriteItem(
+                                                        FavoriteModel(
+                                                            favoritesItemAction:
+                                                                "DELETE",
+                                                            profileFavoriteItems: [
+                                                  FavoriteItemModel(
+                                                      profileFavoriteItemId:
+                                                          catalogList[index]
+                                                              .profileFavoriteItemId,
+                                                      catalogItemId:
+                                                          catalogList[index]
+                                                              .catalogItemId)
+                                                ])));
+                                          } else {
+                                            BlocProvider.of<FavoriteItemBloc>(
+                                                    context)
+                                                .add(FavoriteItemEvent
+                                                    .addFavoriteItem(FavoriteModel(
+                                                        favoritesItemAction:
+                                                            "ADD",
+                                                        profileFavoriteItems: [
+                                                  FavoriteItemModel(
+                                                      catalogItemId:
+                                                          catalogList[index]
+                                                              .catalogItemId)
+                                                ])));
+                                            catalogList[index] =
+                                                catalogList[index].copyWith(
+                                                    inFavorites: true);
+
+                                            setState(() {
+                                              indexList = index;
+                                            });
                                             onChangeFavoriteAnimation(index);
                                           }
                                         } else {
@@ -279,9 +340,9 @@ class _CatalogPageState extends State<CatalogPage> {
                   child: Row(
                     children: [
                       Text(
-                          widget.catalogItems[index].forSale
-                              ? '${S.of(context).for_sale} ${widget.catalogItems[index].saleInfo.minPrice} - ${widget.catalogItems[index].saleInfo.maxPrice}'
-                              : '${S.of(context).last_sale} ${widget.catalogItems[index].saleInfo.lastSale}',
+                          catalogList[index].forSale
+                              ? '${S.of(context).for_sale} ${catalogList[index].saleInfo.minPrice} - ${catalogList[index].saleInfo.maxPrice}'
+                              : '${S.of(context).last_sale} ${catalogList[index].saleInfo.lastSale}',
                           style: Theme.of(context)
                               .textTheme
                               .bodySmall!

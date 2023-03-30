@@ -18,6 +18,7 @@ class CatalogItemModel with _$CatalogItemModel {
     required final bool forSale,
     required final bool inFavorites,
     required final bool inCollection,
+    final String? profileFavoriteItemId,
     List<DetailCollectionModel>? collectionItems,
   }) = _CatalogItemModel;
 

@@ -24,7 +24,7 @@ class ShrunkenItemWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.of(context, rootNavigator: true)
-            .push(ItemDetailPage.route(model.catalogItemId));
+            .push(ItemDetailPage.route(model.catalogItemId, (val) {}));
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

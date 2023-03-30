@@ -3,6 +3,8 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:swagapp/modules/pages/search/search_result/search_result_page.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
+import '../../common/utils/utils.dart';
+import '../../data/secure_storage/storage_repository_service.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 
@@ -20,23 +22,28 @@ class RecentSearchesPage extends StatefulWidget {
 }
 
 class _RecentSearchesPageState extends State<RecentSearchesPage> {
+  late bool isAuthenticatedUser;
+
   @override
   Widget build(BuildContext context) {
 
+    this. isAuthenticatedUser = getIt<PreferenceRepositoryService>().isLogged();
     List<String> recentSearches = getIt<PreferenceRepositoryService>().getRecentSearches();
     List<String> reversedRecentSearches = recentSearches.reversed.toList();
 
-    return Container(
-      color: Palette.current.primaryNero,
-      child: ListView.builder(
-        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        itemCount: reversedRecentSearches.length,
-        padding: const EdgeInsets.only(top: 10),
-        itemBuilder: (_, index) => this._recentItem(context, reversedRecentSearches[index]),
-      ),
-    );
+    return (this.isAuthenticatedUser) 
+    ? Container(
+        color: Palette.current.primaryNero,
+        child: ListView.builder(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          itemCount: reversedRecentSearches.length,
+          padding: const EdgeInsets.only(top: 10),
+          itemBuilder: (_, index) => this._recentItem(context, reversedRecentSearches[index]),
+        ),
+     )
+    : Container();
   }
-
+  
   Widget _recentItem(BuildContext context, String searchParam) {
     return InkWell(
       onTap: ()=> PersistentNavBarNavigator.pushNewScreen(
