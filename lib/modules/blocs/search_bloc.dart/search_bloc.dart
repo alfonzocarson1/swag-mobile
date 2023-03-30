@@ -61,8 +61,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
   Stream<SearchState> _performSearch(SearchRequestPayloadModel payload, SearchTab tab) async* {
     
-    SearchState previousState = this._getPreviousState(payload);
-    if(previousState is _InitialSearchState) yield SearchState.initial();
+    SearchState previousState = this.state;
+    if(this._shouldRestartState(payload)) yield SearchState.initial();
 
     try {          
 
@@ -94,14 +94,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
   }
 
-  SearchState _getPreviousState(SearchRequestPayloadModel payload ) {
+  bool _shouldRestartState(SearchRequestPayloadModel payload) {
 
-    if(this.state is _SearchStateResult) {
-      return (this.state.query != payload.searchParams?.first)
-      ? SearchState.initial()
-      : this.state;
-    }
-    return this.state;
+    return (this.state is _SearchStateResult)
+    ? (this.state.query != payload.searchParams?.first)
+    : false;
   }
 
   Future<SearchState> _throwSearch({
@@ -159,12 +156,14 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       List<CatalogItemModel> previousiItems = previousState.result[tab] ?? [];        
       List<CatalogItemModel> concatedItems = [...previousiItems, ...newItems];
 
+      print('object');
+
       newSearch.forEach((SearchTab key, List<CatalogItemModel> value) {
 
         (!previousState.result.containsKey(tab)) 
         ? newResult.addAll({tab: concatedItems})        
         : newResult.addAll({key: value}); 
-          newResult[tab] = concatedItems;
+          newResult[tab] = concatedItems.toSet().toList();
       }); 
       
       return newResult;
