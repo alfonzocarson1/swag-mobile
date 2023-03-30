@@ -46,13 +46,14 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
   int? _collectionLen;
   String _pathImage = '';
   String _itemName = '';
-
+  bool isFirstState = true;
   bool isLogged = false;
-
+  List<DetailItemModel>? dataDetailClone;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    isFirstState = true;
 
     isLogged = getIt<PreferenceRepositoryService>().isLogged();
     context
@@ -105,6 +106,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
               // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
             },
             initial: () {
+              isFirstState = true;
               if (!Loading.isVisible()) {
                 Loading.show(context);
               }
@@ -126,7 +128,12 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                     ));
               },
               loadedDetailItems: (state) {
-                return _getBody(state.detaItemlList);
+                if (isFirstState) {
+                  dataDetailClone = [...state.detaItemlList];
+                  isFirstState = false;
+                }
+
+                return _getBody(dataDetailClone!);
               },
             );
           },
@@ -196,7 +203,11 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                   children: [
                     HeadWidget(
                         addFavorite: (val) {
-                          widget.addFavorite(val);
+                          setState(() {
+                            widget.addFavorite(val);
+                            dataDetail[index] =
+                                dataDetail[index].copyWith(inFavorites: val);
+                          });
                         },
                         profileFavoriteItemId:
                             dataDetail[index].profileFavoriteItemId,
@@ -220,6 +231,13 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                         retail: dataDetail[index].retail,
                         available: dataDetail[index].numberAvailable),
                     CollectionWidget(
+                      addFavorite: (val) {
+                        setState(() {
+                          widget.addFavorite(val);
+                          dataDetail[index] =
+                              dataDetail[index].copyWith(inFavorites: val);
+                        });
+                      },
                       sale: dataDetail[index].forSale,
                       dataCollection: dataDetail[index].collectionItems,
                       lastSale: dataDetail[index].saleInfo,
