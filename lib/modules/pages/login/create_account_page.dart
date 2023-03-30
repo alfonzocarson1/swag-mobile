@@ -20,6 +20,7 @@ import '../../constants/constants.dart';
 import '../../data/secure_storage/storage_repository_service.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
+import '../home/home_page.dart';
 
 class CreateAccountPage extends StatefulWidget {
   static const name = '/CreateAccount';
@@ -144,7 +145,15 @@ class _CreateAccountState extends State<CreateAccountPage> {
                     getIt<StorageRepositoryService>()
                         .savePassword(_passwordController.text);
                     Loading.hide(context);
-                    Navigator.popUntil(context, ModalRoute.withName('/'));
+                    bool session =
+                        getIt<PreferenceRepositoryService>().sessionFlow();
+                    if (session) {
+                      Navigator.of(context, rootNavigator: false)
+                          .push(HomePage.route());
+                    } else {
+                      Navigator.popUntil(context, ModalRoute.withName('/'));
+                    }
+
                     return null;
                   },
                   logging: () {
@@ -411,6 +420,8 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                     ]),
                                   ),
                                   onPressed: () {
+                                    getIt<PreferenceRepositoryService>()
+                                        .saveSessionFlow(true);
                                     Navigator.of(context, rootNavigator: true)
                                         .push(SignInPage.route());
                                   }),

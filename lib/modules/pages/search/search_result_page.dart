@@ -127,21 +127,20 @@ class _SearchResultPageState extends State<SearchResultPage>
         ));
   }
 
-  getAuthData()async{
-    isAuthenticatedUser = getIt<PreferenceRepositoryService>().isLogged(); 
-    validToken= isTokenValid(await getIt<StorageRepositoryService>().getToken());
+  getAuthData() async {
+    isAuthenticatedUser = getIt<PreferenceRepositoryService>().isLogged();
+    validToken =
+        isTokenValid(await getIt<StorageRepositoryService>().getToken());
   }
 
-  saveSearch(){
-    if(isAuthenticatedUser && validToken){
+  saveSearch() {
+    if (isAuthenticatedUser && validToken) {
       debugPrint('-----testing-----');
-      }
-    else{
+    } else {
       Navigator.of(context, rootNavigator: true)
           .push(CreateAccountPage.route());
       getIt<PreferenceRepositoryService>().saveReturExploreIsNotLogged(true);
     }
-     
   }
 
   Widget getBody(List<CatalogItemModel> catalogList) {
@@ -199,7 +198,7 @@ class _SearchResultPageState extends State<SearchResultPage>
       },
       child: catalogList.isNotEmpty
           ? CatalogPage(
-              catalogItems: catalogList, scrollController: _scrollController!)
+              catalogItems: catalogList, scrollController: _scrollController)
           : ListView.builder(
               itemBuilder: (_, index) => SizedBox(
                 height: MediaQuery.of(context).size.height * 0.7,
