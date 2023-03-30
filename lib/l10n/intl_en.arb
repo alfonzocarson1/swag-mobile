@@ -37,6 +37,7 @@
     "terms_of_use": "Terms of Use",
     "already_have_an_account": "Already have an account? ",
     "phone_taken": "An account is already associated with this phone number",
+    "invalid_phone_format": "Invalid format please try again.",
     "username_taken": "This username is taken ",
     "invalid_username": "Username must be between 4-20 characters",
     "title_welcome": "WELCOME TO SWAG",

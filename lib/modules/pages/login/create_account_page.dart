@@ -528,7 +528,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
           ? S.of(context).required_field
           : isPhoneValid
               ? null
-              : S.of(context).phone_taken;
+              : S.of(context).invalid_phone_format;
 
       passwordErrorText = _passwordController.text.isEmpty
           ? S.of(context).required_field
