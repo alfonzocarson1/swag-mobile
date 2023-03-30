@@ -22,22 +22,27 @@ class SearchService extends ISearchService {
   Stream<String?> subscribeToAuthChanges() => Stream.value(null);
 
   @override
-  Future<Map<SearchTab, List<CatalogItemModel>>> search(
-      SearchRequestPayloadModel model, SearchTab tab) async {
-    final isAuthenticatedUser =
-        getIt<PreferenceRepositoryService>().isLogged() &&
-            isTokenValid(await getIt<StorageRepositoryService>().getToken());
+  Future<Map<SearchTab, List<CatalogItemModel>>> search({
+    required SearchRequestPayloadModel model, 
+    required SearchTab tab,
+    int page = 0,    
+  }) async {
+
+    bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
+    String? token = await getIt<StorageRepositoryService>().getToken();
+    bool isAuthenticatedUser = isLogged && isTokenValid(token!);
 
     final response = await apiService.getEndpointData(
-        endpoint: isAuthenticatedUser
-            ? Endpoint.catalogSearchListAuthenticated
-            : Endpoint.catalogSearchListGuest,
-        method: RequestMethod.post,
-        jsonKey: "catalogList",
-        dynamicParam: "0",
-        needBearer: isAuthenticatedUser,
-        fromJson: (json) => SearchTabsResponseModel.fromJson(json),
-        body: model.toJson());
+      endpoint: isAuthenticatedUser
+        ? Endpoint.catalogSearchListAuthenticated
+        : Endpoint.catalogSearchListGuest,
+      method: RequestMethod.post,
+      jsonKey: "catalogList",
+      dynamicParam: page.toString(),
+      needBearer: isAuthenticatedUser,
+      fromJson: (json) => SearchTabsResponseModel.fromJson(json),
+      body: model.toJson(),
+    );
 
     _cachedSearch[tab] = response.catalogList;
 
@@ -45,18 +50,22 @@ class SearchService extends ISearchService {
   }
 
   Future getCashedOrNew(bool refresh, String terms, SearchTab tab) async {
+
     final cat = _cachedSearch[tab] ?? [];
     if (cat.isNotEmpty && !refresh) {
     } else {
       final categoryId = await SearchTabWrapper(tab).toStringCustom();
       final response = await search(
-          SearchRequestPayloadModel(
-              filters: FilterModel(
-                  productType: tab != SearchTab.whatsHot && categoryId != null
-                      ? [categoryId]
-                      : null),
-              categoryId: tab != SearchTab.whatsHot ? categoryId : null),
-          tab);
+          model: SearchRequestPayloadModel(
+            filters: FilterModel(
+              productType: tab != SearchTab.whatsHot && categoryId != null
+                ? [categoryId]
+                : null,
+            ),
+            categoryId: tab != SearchTab.whatsHot ? categoryId : null,
+          ),
+          tab: tab,
+        );
       _cachedSearch[tab] = response[tab] ?? [];
     }
   }

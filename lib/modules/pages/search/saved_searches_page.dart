@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:swagapp/modules/pages/search/search_result_page.dart';
+import 'package:swagapp/modules/pages/search/search_result/search_result_page.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
 import '../../common/utils/utils.dart';
@@ -29,20 +29,20 @@ class _SavedSearchesPageState extends State<SavedSearchesPage> {
   @override
   Widget build(BuildContext context) {  
     
-    List<String> list =
-        getIt<PreferenceRepositoryService>().getRecentSearches();
-    
-   isAuthenticatedUser = getIt<PreferenceRepositoryService>().isLogged();
-    
+    List<String> list =getIt<PreferenceRepositoryService>().getRecentSearches();
+    this.isAuthenticatedUser = getIt<PreferenceRepositoryService>().isLogged();
 
-  return (isAuthenticatedUser) ? Scaffold(
-      backgroundColor: Palette.current.primaryNero,
-      body: ListView.builder(
-        padding: const EdgeInsets.only(top: 10),
-        itemBuilder: (_, index) => _recentItem(context, list[index]),
-        itemCount: list.length,
-      ),
-    ): Container();
+    return (this.isAuthenticatedUser) 
+    ? Container(
+        color: Palette.current.primaryNero,
+        child: ListView.builder(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          padding: const EdgeInsets.only(top: 10),
+          itemBuilder: (_, index) => _recentItem(context, list[index]),
+          itemCount: list.length,
+        ),
+      )
+    : Container();
   }
 
 

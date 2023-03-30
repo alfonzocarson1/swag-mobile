@@ -48,6 +48,7 @@ bool isTokenValid(String? token) {
 
 Future<void> performSearch(BuildContext context,
     {String? searchParam, SearchTab? tab}) async {
+
   final sharedPref = getIt<PreferenceRepositoryService>();
   final conditionList = sharedPref.getCondition().map(int.parse).toList();
   final releaseList = sharedPref.getReleaseDate().map(int.parse).toList();
@@ -62,7 +63,17 @@ Future<void> performSearch(BuildContext context,
     productList.isNotEmpty
   ]);
 
-  context.read<SearchBloc>().add(SearchEvent.performSearch(
+  // context.read<SearchBloc>().add(
+  //   SearchEvent.performSearch(
+  //     SearchRequestPayloadModel(
+  //         searchParams: searchParam != null ? [searchParam] : null,
+  //         categoryId: tab == null || tab == SearchTab.whatsHot
+  //             ? null
+  //             : await SearchTabWrapper(tab).toStringCustom(),
+  //         filters: await getCurrentFilterModel()),
+  //     tab ?? SearchTab.all));
+
+  BlocProvider.of<SearchBloc>(context).add(SearchEvent.performSearch(
       SearchRequestPayloadModel(
           searchParams: searchParam != null ? [searchParam] : null,
           categoryId: tab == null || tab == SearchTab.whatsHot

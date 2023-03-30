@@ -25,7 +25,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   Stream<SearchState> get authStateStream async* {
-    yield state;
+    yield this.state;
     yield* stream;
   }
 
@@ -44,52 +44,138 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     );
   }
 
-  Stream<SearchState> _reset() async* {
-    // await _searchStreamSubscription?.cancel();
-    // yield SearchState.recentSearch(queries: _getSearchQuerySuggestion());
-  }
+  Stream<SearchState> _reset() async* {}
 
   Stream<SearchState> _selectTab(final SearchTab tab, bool refresh) async* {
-    if (tab == state.tab) return;
+    if (tab == this.state.tab) return;
     yield SearchState.initial();
 
     final results =
-        await searchService.find(state.query, tab, refresh: refresh);
+        await searchService.find(this.state.query, tab, refresh: refresh);
     yield SearchState.result(result: results, tab: tab);
-    // yield state.maybeMap(
-    //   orElse: () => state,
-    //   result: (state) => state.copyWith(tab: tab, result: results),
-    // );
   }
 
-  Stream<SearchState> _performSearch(
-      final SearchRequestPayloadModel payload, SearchTab tab) async* {
-    // if (state.query == term) return;
-    yield SearchState.initial();
+  Stream<SearchState> _performSearch(SearchRequestPayloadModel payload, SearchTab tab) async* {
+    
+    SearchState previousState = this._getPreviousState(payload);
+    if(previousState is _InitialSearchState) yield SearchState.initial();
 
-    // const tab = SearchTab.whatsHot;
-    // yield SearchState.searching(query: term, tab: tab);
-    try {
-      final response = await searchService.search(payload, tab);
-      final recentSearches =
-          getIt<PreferenceRepositoryService>().saveRecentSearches([
-        "Skulls",
-        "Royals 8-bit",
-        "Royals 8-bit",
-        "Royals 8-bit",
-        "Royals 8-bit",
-        "Royals 8-bit",
-        "Royals 8-bit",
-        "Royals 8-bit",
-        "Royals 8-bit",
-        "Royals 8-bit"
-      ]);
-      yield SearchState.result(
-          result: response,
-          query: payload.searchParams?[0] ?? defaultString,
-          tab: tab);
-    } catch (e) {
+    try {          
+
+      if(previousState is _InitialSearchState) {
+        
+        yield await this._throwSearch(
+          tab: tab, 
+          payload: payload, 
+          previousState: previousState, 
+          nextPage: 0,
+        );
+      }
+      else if(previousState is _SearchStateResult) {
+
+        int nextPage = this._getPageNumber(this.state);
+
+        yield (nextPage > previousState.page || (nextPage == 0 && previousState.page == 0)) 
+        ? await this._throwSearch(
+            tab: tab, 
+            payload: payload, 
+            previousState: previousState, 
+            nextPage: nextPage,
+          )
+        : previousState;
+      }
+    } 
+    catch (e) {
       yield SearchState.error(HandlingErrors().getError(e));
     }
   }
+
+  SearchState _getPreviousState(SearchRequestPayloadModel payload ) {
+
+    if(this.state is _SearchStateResult) {
+      return (this.state.query != payload.searchParams?.first)
+      ? SearchState.initial()
+      : this.state;
+    }
+    return this.state;
+  }
+
+  Future<SearchState> _throwSearch({
+    required SearchTab tab,
+    required SearchRequestPayloadModel payload,
+    required SearchState previousState,
+    required int nextPage,
+  }) async {
+
+    Map<SearchTab, List<CatalogItemModel>> response = await searchService.search(
+      tab: tab,
+      model: payload, 
+      page: nextPage,
+    );
+
+    this._saveSearches(payload, tab);
+
+    return SearchState.result(
+      result: this._getStackedResults(
+        newSearch: response, 
+        previousState: previousState,
+      ),
+      query: payload.searchParams?[0] ?? defaultString,
+      page: nextPage,
+      tab: tab,
+    );
+  }
+
+  int _getPageNumber(SearchState previousState) {
+
+    if(previousState is _SearchStateResult) {
+
+      if(previousState.result.containsKey(SearchTab.all)) {
+
+        int pageLength = previousState.result[SearchTab.all]?.length ?? 0;
+        double page =  (pageLength / defaultPageSize);
+        return (page % 1 == 0) ? page.round() : 0;
+      }  
+    }
+    return 0;      
+  }
+
+  Map<SearchTab, List<CatalogItemModel>> _getStackedResults({
+    required SearchState previousState, 
+    required Map<SearchTab, List<CatalogItemModel>> newSearch,
+  }) {
+
+    Map<SearchTab, List<CatalogItemModel>> newResult = {};
+
+    if(previousState is _SearchStateResult) {
+
+      List<CatalogItemModel> newItems = newSearch[SearchTab.all] ?? [];
+      List<CatalogItemModel> previousiItems = previousState.result[SearchTab.all] ?? [];        
+      List<CatalogItemModel> concatedItems = [...previousiItems, ...newItems];
+
+      newSearch.forEach((SearchTab key, List<CatalogItemModel> value) {
+
+        (!previousState.result.containsKey(SearchTab.all)) 
+        ? newResult.addAll({SearchTab.all: concatedItems})        
+        : newResult.addAll({key: value}); 
+          newResult[SearchTab.all] = concatedItems.toSet().toList();
+      }); 
+      
+      return newResult;
+    }
+    return newSearch;
+  }
+
+  Future<void> _saveSearches(SearchRequestPayloadModel payload, SearchTab tab) async {
+    
+    if(payload.searchParams?.isNotEmpty ?? false) {
+
+      List<String> recentSearches = getIt<PreferenceRepositoryService>().getRecentSearches();
+      
+      recentSearches.removeWhere((search) => payload.searchParams!.first == search);
+      recentSearches.add(payload.searchParams!.first);
+      await getIt<PreferenceRepositoryService>().saveRecentSearches(recentSearches);
+    }
+  }
 }
+

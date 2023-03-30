@@ -8,7 +8,7 @@ import 'package:swagapp/modules/common/utils/custom_route_animations.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/pages/search/recent_searches_page.dart';
 import 'package:swagapp/modules/pages/search/saved_searches_page.dart';
-import 'package:swagapp/modules/pages/search/search_result_page.dart';
+import 'package:swagapp/modules/pages/search/search_result/search_result_page.dart';
 
 import '../../common/utils/utils.dart';
 
@@ -69,30 +69,8 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
                   child: SearchInput(
                     resultViewBuilder: (_, controller) => Container(),
                     hint: S.of(context).search_hint,
-                    prefixIcon: Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: SizedBox.fromSize(
-                        size: const Size(20, 20),
-                        child: ClipOval(
-                          child: Material(
-                            color: Colors.transparent,
-                            child: InkWell(
-                              onTap: () async {
-                                await goToResultPage();
-                              },
-                              child: Image.asset(
-                                "assets/icons/Search.png",
-                                height: 20,
-                                width: 20,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    onSubmitted: (value) async {
-                      await goToResultPage();
-                    },
+                    prefixIcon: _InputPrefixIcon(onTap: () async => await goToResultPage()),
+                    onSubmitted: (value) async => await goToResultPage(),
                     suffixIcon: Icon(
                       Icons.close,
                       size: 22,
@@ -101,9 +79,6 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
                     focusNode: _focusNode,
                     controller: widget._textEditingController,
                     onCancel: () => Navigator.maybePop(context),
-                    //     context.read<SearchBloc>().add(const SearchEvent.reset()),
-                    // onChanged: (value) =>
-                    //     context.read<SearchBloc>().add(SearchEvent.search(value)),
                     onChanged: (value) {
                       setState(() {});
                     },
@@ -161,7 +136,8 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
     initFilterAndSortsWithBloc(context, selectedProductNumber: index);
 
     await initFiltersAndSorts();
-    if (!mounted) return;
+    if (!mounted || widget._textEditingController.text.isEmpty) return;
+
     PersistentNavBarNavigator.pushNewScreen(
       context,
       screen: SearchResultPage(widget._textEditingController.text),
@@ -281,4 +257,37 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
 
 _buildTab({required String text}) {
   return Text(text);
+}
+
+class _InputPrefixIcon extends StatelessWidget {
+
+  final Function() onTap;
+
+  const _InputPrefixIcon({
+    super.key, 
+    required this.onTap
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8),
+      child: SizedBox.fromSize(
+        size: const Size(20, 20),
+        child: ClipOval(
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: ()=> this.onTap,
+              child: Image.asset(
+                "assets/icons/Search.png",
+                height: 20,
+                width: 20,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
