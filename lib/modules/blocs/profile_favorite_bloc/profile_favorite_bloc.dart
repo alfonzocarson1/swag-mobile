@@ -5,14 +5,14 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swagapp/modules/models/search/catalog_item_model.dart';
 
 import '../../common/utils/handling_errors.dart';
-import '../../data/favorite_profile/i_favorite_profile_service.dart';
+import '../../data/favorite/i_favorite_service.dart';
 
 part 'profile_favorite_bloc.freezed.dart';
 part 'profile_favorite_event.dart';
 part 'profile_favorite_state.dart';
 
 class ProfileFavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
-  final IFavoriteProfileService favoriteService;
+  final IFavoriteService favoriteService;
 
   ProfileFavoriteBloc(this.favoriteService) : super(FavoriteState.initial()) {
     add(const FavoriteEvent.getFavoriteItem());

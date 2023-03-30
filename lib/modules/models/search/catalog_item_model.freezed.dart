@@ -28,7 +28,6 @@ mixin _$CatalogItemModel {
   bool get forSale => throw _privateConstructorUsedError;
   bool get inFavorites => throw _privateConstructorUsedError;
   bool get inCollection => throw _privateConstructorUsedError;
-  String? get profileFavoriteItemId => throw _privateConstructorUsedError;
   List<DetailCollectionModel>? get collectionItems =>
       throw _privateConstructorUsedError;
 
@@ -53,7 +52,6 @@ abstract class $CatalogItemModelCopyWith<$Res> {
       bool forSale,
       bool inFavorites,
       bool inCollection,
-      String? profileFavoriteItemId,
       List<DetailCollectionModel>? collectionItems});
 
   $DetailSaleInfoModelCopyWith<$Res> get saleInfo;
@@ -80,7 +78,6 @@ class _$CatalogItemModelCopyWithImpl<$Res, $Val extends CatalogItemModel>
     Object? forSale = null,
     Object? inFavorites = null,
     Object? inCollection = null,
-    Object? profileFavoriteItemId = freezed,
     Object? collectionItems = freezed,
   }) {
     return _then(_value.copyWith(
@@ -116,10 +113,6 @@ class _$CatalogItemModelCopyWithImpl<$Res, $Val extends CatalogItemModel>
           ? _value.inCollection
           : inCollection // ignore: cast_nullable_to_non_nullable
               as bool,
-      profileFavoriteItemId: freezed == profileFavoriteItemId
-          ? _value.profileFavoriteItemId
-          : profileFavoriteItemId // ignore: cast_nullable_to_non_nullable
-              as String?,
       collectionItems: freezed == collectionItems
           ? _value.collectionItems
           : collectionItems // ignore: cast_nullable_to_non_nullable
@@ -153,7 +146,6 @@ abstract class _$$_CatalogItemModelCopyWith<$Res>
       bool forSale,
       bool inFavorites,
       bool inCollection,
-      String? profileFavoriteItemId,
       List<DetailCollectionModel>? collectionItems});
 
   @override
@@ -179,7 +171,6 @@ class __$$_CatalogItemModelCopyWithImpl<$Res>
     Object? forSale = null,
     Object? inFavorites = null,
     Object? inCollection = null,
-    Object? profileFavoriteItemId = freezed,
     Object? collectionItems = freezed,
   }) {
     return _then(_$_CatalogItemModel(
@@ -215,10 +206,6 @@ class __$$_CatalogItemModelCopyWithImpl<$Res>
           ? _value.inCollection
           : inCollection // ignore: cast_nullable_to_non_nullable
               as bool,
-      profileFavoriteItemId: freezed == profileFavoriteItemId
-          ? _value.profileFavoriteItemId
-          : profileFavoriteItemId // ignore: cast_nullable_to_non_nullable
-              as String?,
       collectionItems: freezed == collectionItems
           ? _value._collectionItems
           : collectionItems // ignore: cast_nullable_to_non_nullable
@@ -240,7 +227,6 @@ class _$_CatalogItemModel implements _CatalogItemModel {
       required this.forSale,
       required this.inFavorites,
       required this.inCollection,
-      this.profileFavoriteItemId,
       final List<DetailCollectionModel>? collectionItems})
       : _collectionItems = collectionItems;
 
@@ -263,8 +249,6 @@ class _$_CatalogItemModel implements _CatalogItemModel {
   final bool inFavorites;
   @override
   final bool inCollection;
-  @override
-  final String? profileFavoriteItemId;
   final List<DetailCollectionModel>? _collectionItems;
   @override
   List<DetailCollectionModel>? get collectionItems {
@@ -277,7 +261,7 @@ class _$_CatalogItemModel implements _CatalogItemModel {
 
   @override
   String toString() {
-    return 'CatalogItemModel(catalogItemId: $catalogItemId, catalogItemName: $catalogItemName, catalogItemImage: $catalogItemImage, numberAvailable: $numberAvailable, saleInfo: $saleInfo, forSale: $forSale, inFavorites: $inFavorites, inCollection: $inCollection, profileFavoriteItemId: $profileFavoriteItemId, collectionItems: $collectionItems)';
+    return 'CatalogItemModel(catalogItemId: $catalogItemId, catalogItemName: $catalogItemName, catalogItemImage: $catalogItemImage, numberAvailable: $numberAvailable, saleInfo: $saleInfo, forSale: $forSale, inFavorites: $inFavorites, inCollection: $inCollection, collectionItems: $collectionItems)';
   }
 
   @override
@@ -300,8 +284,6 @@ class _$_CatalogItemModel implements _CatalogItemModel {
                 other.inFavorites == inFavorites) &&
             (identical(other.inCollection, inCollection) ||
                 other.inCollection == inCollection) &&
-            (identical(other.profileFavoriteItemId, profileFavoriteItemId) ||
-                other.profileFavoriteItemId == profileFavoriteItemId) &&
             const DeepCollectionEquality()
                 .equals(other._collectionItems, _collectionItems));
   }
@@ -318,7 +300,6 @@ class _$_CatalogItemModel implements _CatalogItemModel {
       forSale,
       inFavorites,
       inCollection,
-      profileFavoriteItemId,
       const DeepCollectionEquality().hash(_collectionItems));
 
   @JsonKey(ignore: true)
@@ -345,7 +326,6 @@ abstract class _CatalogItemModel implements CatalogItemModel {
           required final bool forSale,
           required final bool inFavorites,
           required final bool inCollection,
-          final String? profileFavoriteItemId,
           final List<DetailCollectionModel>? collectionItems}) =
       _$_CatalogItemModel;
 
@@ -368,8 +348,6 @@ abstract class _CatalogItemModel implements CatalogItemModel {
   bool get inFavorites;
   @override
   bool get inCollection;
-  @override
-  String? get profileFavoriteItemId;
   @override
   List<DetailCollectionModel>? get collectionItems;
   @override

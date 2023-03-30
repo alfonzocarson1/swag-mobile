@@ -15,17 +15,17 @@ import '../add/collection/list_for_sale_page.dart';
 import '../login/create_account_page.dart';
 
 class CollectionWidget extends StatefulWidget {
-  CollectionWidget(
-      {super.key,
-      required this.dataCollection,
-      required this.lastSale,
-      required this.sale,
-      this.available,
-      required this.catalogId,
-      required this.catalogItemName,
-      required this.favorite,
-      required this.urlImage,
-      required this.addFavorite});
+  const CollectionWidget({
+    super.key,
+    required this.dataCollection,
+    required this.lastSale,
+    required this.sale,
+    this.available,
+    required this.catalogId,
+    required this.catalogItemName,
+    required this.favorite,
+    required this.urlImage,
+  });
 
   final List<DetailCollectionModel>? dataCollection;
   final DetailSaleInfoModel lastSale;
@@ -35,7 +35,6 @@ class CollectionWidget extends StatefulWidget {
   final String catalogItemName;
   final bool favorite;
   final String urlImage;
-  Function(bool) addFavorite;
   @override
   State<CollectionWidget> createState() => _CollectionWidgetState();
 }
@@ -254,19 +253,15 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                             "${S.of(context).buy_for} ${widget.lastSale.maxPrice}",
                         onPressed: () {
                           if (isLogged) {
-                            Navigator.of(context, rootNavigator: true)
-                                .push(BuyForSale.route(
-                              widget.catalogId,
-                              widget.catalogItemName,
-                              widget.lastSale,
-                              widget.urlImage,
-                              widget.favorite,
-                              widget.sale,
-                              widget.available ?? 0,
-                              (val) {
-                                widget.addFavorite(val);
-                              },
-                            ));
+                            Navigator.of(context, rootNavigator: true).push(
+                                BuyForSale.route(
+                                    widget.catalogId,
+                                    widget.catalogItemName,
+                                    widget.lastSale,
+                                    widget.urlImage,
+                                    widget.favorite,
+                                    widget.sale,
+                                    widget.available ?? 0));
                           } else {
                             Navigator.of(context, rootNavigator: true)
                                 .push(CreateAccountPage.route());
@@ -311,22 +306,15 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                 title:
                                     "${S.of(context).buy_for} ${widget.lastSale.maxPrice}",
                                 onPressed: () {
-                                  if (isLogged) {
-                                    Navigator.of(context, rootNavigator: true)
-                                        .push(BuyForSale.route(
-                                            widget.catalogId,
-                                            widget.catalogItemName,
-                                            widget.lastSale,
-                                            widget.urlImage,
-                                            widget.favorite,
-                                            widget.sale,
-                                            widget.available ?? 0, (val) {
-                                      widget.addFavorite(val);
-                                    }));
-                                  } else {
-                                    Navigator.of(context, rootNavigator: true)
-                                        .push(CreateAccountPage.route());
-                                  }
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(BuyForSale.route(
+                                          widget.catalogId,
+                                          widget.catalogItemName,
+                                          widget.lastSale,
+                                          widget.urlImage,
+                                          widget.favorite,
+                                          widget.sale,
+                                          widget.available ?? 0));
                                 },
                                 type: PrimaryButtonType.green,
                               ),
@@ -339,27 +327,22 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                               child: PrimaryButton(
                                 title: S.of(context).list_for_sale_btn,
                                 onPressed: () {
-                                  if (isLogged) {
-                                    widget.dataCollection!.length > 1
-                                        ? showDialog(
-                                            context: context,
-                                            barrierDismissible: false,
-                                            builder: (BuildContext context) {
-                                              return PopUpListItemSale(
-                                                  catalogItemName:
-                                                      widget.catalogItemName,
-                                                  dataCollection:
-                                                      widget.dataCollection!);
-                                            })
-                                        : Navigator.of(context,
-                                                rootNavigator: true)
-                                            .push(ListForSalePage.route(
-                                                widget.dataCollection![0],
-                                                widget.catalogItemName));
-                                  } else {
-                                    Navigator.of(context, rootNavigator: true)
-                                        .push(CreateAccountPage.route());
-                                  }
+                                  widget.dataCollection!.length > 1
+                                      ? showDialog(
+                                          context: context,
+                                          barrierDismissible: false,
+                                          builder: (BuildContext context) {
+                                            return PopUpListItemSale(
+                                                catalogItemName:
+                                                    widget.catalogItemName,
+                                                dataCollection:
+                                                    widget.dataCollection!);
+                                          })
+                                      : Navigator.of(context,
+                                              rootNavigator: true)
+                                          .push(ListForSalePage.route(
+                                              widget.dataCollection![0],
+                                              widget.catalogItemName));
                                 },
                                 type: PrimaryButtonType.black,
                               ),
@@ -372,19 +355,14 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                               child: PrimaryButton(
                                 title: S.of(context).remove_collection_btn,
                                 onPressed: () {
-                                  if (isLogged) {
-                                    showDialog(
-                                        context: context,
-                                        barrierDismissible: false,
-                                        builder: (BuildContext context) {
-                                          return PopUpDeleteItemCollection(
-                                              dataCollection:
-                                                  widget.dataCollection!);
-                                        });
-                                  } else {
-                                    Navigator.of(context, rootNavigator: true)
-                                        .push(CreateAccountPage.route());
-                                  }
+                                  showDialog(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (BuildContext context) {
+                                        return PopUpDeleteItemCollection(
+                                            dataCollection:
+                                                widget.dataCollection!);
+                                      });
                                 },
                                 type: PrimaryButtonType.pink,
                               ),
@@ -401,19 +379,14 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                               child: PrimaryButton(
                                 title: S.of(context).remove_collection_btn,
                                 onPressed: () {
-                                  if (isLogged) {
-                                    showDialog(
-                                        context: context,
-                                        barrierDismissible: false,
-                                        builder: (BuildContext context) {
-                                          return PopUpDeleteItemCollection(
-                                              dataCollection:
-                                                  widget.dataCollection!);
-                                        });
-                                  } else {
-                                    Navigator.of(context, rootNavigator: true)
-                                        .push(CreateAccountPage.route());
-                                  }
+                                  showDialog(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (BuildContext context) {
+                                        return PopUpDeleteItemCollection(
+                                            dataCollection:
+                                                widget.dataCollection!);
+                                      });
                                 },
                                 type: PrimaryButtonType.pink,
                               ),

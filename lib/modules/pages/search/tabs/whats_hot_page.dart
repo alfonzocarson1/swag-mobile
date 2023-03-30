@@ -84,7 +84,11 @@ class _WhatsHotPageState extends State<WhatsHotPage> {
   }
 
   Future<void> makeCall() async {
-    context.read<SearchBloc>().add(const SearchEvent.performSearch(
-        SearchRequestPayloadModel(filters: FilterModel()), SearchTab.whatsHot));
+    context.read<SearchBloc>().add(SearchEvent.performSearch(
+        SearchRequestPayloadModel(
+            categoryId:
+                await SearchTabWrapper(SearchTab.whatsHot).toStringCustom(),
+            filters: const FilterModel()),
+        SearchTab.whatsHot));
   }
 }

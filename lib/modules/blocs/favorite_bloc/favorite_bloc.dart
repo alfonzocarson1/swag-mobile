@@ -19,10 +19,6 @@ class FavoriteBloc extends Cubit<bool> {
     }
   }
 
-  void clenFavorite() {
-    _words.clear();
-  }
-
   bool isExist(String word) {
     final isExist = _words.contains(word);
     return isExist;

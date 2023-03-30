@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../blocs/buy_sale_listing_bloc/buy_sale_listing_bloc.dart';
-import '../../../blocs/detail_bloc/detail_bloc.dart';
 import '../../../blocs/sale_history/sale_history_bloc.dart';
 import '../../../common/ui/custom_app_bar.dart';
 import '../../../common/ui/loading.dart';
@@ -26,8 +25,7 @@ class BuyForSale extends StatefulWidget {
       required this.urlImage,
       required this.favorite,
       required this.sale,
-      this.available,
-      required this.addFavorite});
+      this.available});
 
   String catalogItemId;
   String catalogItemName;
@@ -36,7 +34,7 @@ class BuyForSale extends StatefulWidget {
   bool favorite;
   bool sale;
   final int? available;
-  Function(bool) addFavorite;
+
   static Route route(
           String catalogItemId,
           String catalogItemName,
@@ -44,8 +42,7 @@ class BuyForSale extends StatefulWidget {
           String urlImage,
           bool favorite,
           bool sale,
-          int available,
-          Function(bool) addFavorite) =>
+          int available) =>
       PageRoutes.material(
         settings: const RouteSettings(name: name),
         builder: (context) => BuyForSale(
@@ -55,8 +52,7 @@ class BuyForSale extends StatefulWidget {
             urlImage: urlImage,
             favorite: favorite,
             sale: sale,
-            available: available,
-            addFavorite: addFavorite),
+            available: available),
       );
 
   @override
@@ -82,14 +78,7 @@ class _BuyForSaleState extends State<BuyForSale> {
     return Scaffold(
         resizeToAvoidBottomInset: true,
         backgroundColor: Palette.current.blackSmoke,
-        appBar: CustomAppBar(
-          onRoute: () {
-            BlocProvider.of<DetailBloc>(context)
-                .add(DetailEvent.getDetailItem(widget.catalogItemId));
-
-            Navigator.of(context, rootNavigator: true).pop();
-          },
-        ),
+        appBar: CustomAppBar(),
         body: BlocConsumer<BuySaleListingBloc, BuySaleListingState>(
           listener: (context, state) => state.maybeWhen(
             orElse: () => {
@@ -222,12 +211,10 @@ class _BuyForSaleState extends State<BuyForSale> {
                                                 widget.urlImage,
                                                 widget.catalogItemName,
                                                 widget.catalogItemPrice,
-                                                widget.sale,
+                                                widget.favorite,
                                                 widget.available ?? 0,
                                                 widget.favorite,
-                                                widget.catalogItemId, (val) {
-                                          widget.addFavorite(val);
-                                        }));
+                                                widget.catalogItemId));
                                       },
                                       child: Center(
                                         child: Container(

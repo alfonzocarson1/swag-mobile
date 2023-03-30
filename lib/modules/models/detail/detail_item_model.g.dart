@@ -27,7 +27,6 @@ _$_DetailItemModel _$$_DetailItemModelFromJson(Map<String, dynamic> json) =>
       forSale: json['forSale'] as bool,
       inFavorites: json['inFavorites'] as bool,
       inCollection: json['inCollection'] as bool,
-      profileFavoriteItemId: json['profileFavoriteItemId'] as String?,
       collectionItems: (json['collectionItems'] as List<dynamic>?)
           ?.map(
               (e) => DetailCollectionModel.fromJson(e as Map<String, dynamic>))
@@ -53,6 +52,5 @@ Map<String, dynamic> _$$_DetailItemModelToJson(_$_DetailItemModel instance) =>
       'forSale': instance.forSale,
       'inFavorites': instance.inFavorites,
       'inCollection': instance.inCollection,
-      'profileFavoriteItemId': instance.profileFavoriteItemId,
       'collectionItems': instance.collectionItems,
     };

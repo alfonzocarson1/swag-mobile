@@ -14,7 +14,6 @@ import 'modules/blocs/collection_bloc/collection_bloc.dart';
 import 'modules/blocs/detail_bloc/detail_bloc.dart';
 import 'modules/blocs/explore_bloc/explore_bloc.dart';
 import 'modules/blocs/favorite_bloc/favorite_bloc.dart';
-import 'modules/blocs/favorite_bloc/favorite_item_bloc.dart';
 import 'modules/blocs/listing_bloc/listing_bloc.dart';
 import 'modules/blocs/profile_favorite_bloc/profile_favorite_bloc.dart';
 import 'modules/blocs/sale_history/sale_history_bloc.dart';
@@ -59,8 +58,7 @@ class App extends StatelessWidget {
           BlocProvider<UpdateProfileBloc>(
               create: (context) => getIt<UpdateProfileBloc>()),
           BlocProvider<SoldBloc>(create: (context) => getIt<SoldBloc>()),
-          BlocProvider<FavoriteItemBloc>(
-              create: (context) => getIt<FavoriteItemBloc>()),
+
           BlocProvider<BuySaleListingBloc>(
               create: (context) => getIt<BuySaleListingBloc>()),
           BlocProvider<SharedPreferencesBloc>(
