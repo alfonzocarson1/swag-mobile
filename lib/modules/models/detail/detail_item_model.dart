@@ -27,7 +27,6 @@ class DetailItemModel with _$DetailItemModel {
     required final bool forSale,
     required final bool inFavorites,
     required final bool inCollection,
-    final String? profileFavoriteItemId,
     List<DetailCollectionModel>? collectionItems,
   }) = _DetailItemModel;
 

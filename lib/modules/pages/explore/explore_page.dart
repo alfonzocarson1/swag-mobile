@@ -38,8 +38,6 @@ class _ExplorePageState extends State<ExplorePage> {
   @override
   void initState() {
     super.initState();
-
-    getIt<PreferenceRepositoryService>().saveSessionFlow(false);
     _isLogged = getIt<PreferenceRepositoryService>().isLogged();
     _hasJustSignedUp = getIt<PreferenceRepositoryService>().hasJustSignedUp();
     _hasImportableData =

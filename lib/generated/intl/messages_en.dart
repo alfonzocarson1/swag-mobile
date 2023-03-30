@@ -149,8 +149,6 @@ class MessageLookup extends MessageLookupByLibrary {
             "Invalid email address format"),
         "invalid_password": MessageLookupByLibrary.simpleMessage(
             "Password doesn’t meet requirements. Min. 8 characters, 1 uppercase, 1 number & 1 symbol"),
-        "invalid_phone_format": MessageLookupByLibrary.simpleMessage(
-            "Invalid format please try again."),
         "invalid_username": MessageLookupByLibrary.simpleMessage(
             "Username must be between 4-20 characters"),
         "ist_item_popup_btn":

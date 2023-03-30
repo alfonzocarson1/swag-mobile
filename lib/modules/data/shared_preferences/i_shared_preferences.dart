@@ -43,7 +43,4 @@ abstract class PreferenceRepositoryInt {
 
   Future<String> validCode();
   Future<void> saveValidCode(String value);
-
-  bool sessionFlow();
-  Future<void> saveSessionFlow(bool value);
 }

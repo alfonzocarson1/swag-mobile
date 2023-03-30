@@ -14,16 +14,16 @@ import 'intem_head.dart';
 
 class TransactionHistory extends StatefulWidget {
   static const name = '/TransactionHistory';
-  TransactionHistory(
-      {super.key,
-      required this.urlImage,
-      this.catalogItemName,
-      required this.lastSale,
-      this.sale = false,
-      this.available,
-      required this.favorite,
-      required this.itemId,
-      required this.addFavorite});
+  TransactionHistory({
+    super.key,
+    required this.urlImage,
+    this.catalogItemName,
+    required this.lastSale,
+    this.sale = false,
+    this.available,
+    required this.favorite,
+    required this.itemId,
+  });
 
   final String urlImage;
   final String? catalogItemName;
@@ -32,7 +32,6 @@ class TransactionHistory extends StatefulWidget {
   final int? available;
   final bool favorite;
   final String itemId;
-  Function(bool) addFavorite;
 
   static Route route(
           String urlImage,
@@ -41,8 +40,7 @@ class TransactionHistory extends StatefulWidget {
           bool sale,
           int available,
           bool favorite,
-          String itemId,
-          Function(bool) addFavorite) =>
+          String itemId) =>
       PageRoutes.material(
         settings: const RouteSettings(name: name),
         builder: (context) => TransactionHistory(
@@ -52,8 +50,7 @@ class TransactionHistory extends StatefulWidget {
             sale: sale,
             available: available,
             favorite: favorite,
-            itemId: itemId,
-            addFavorite: addFavorite),
+            itemId: itemId),
       );
 
   @override
@@ -65,12 +62,11 @@ class _TransactionHistoryState extends State<TransactionHistory> {
       PrimaryScrollController.of(context);
 
   bool changeColor = false;
-  bool favorite = false;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    favorite = widget.favorite;
   }
 
   @override
@@ -126,13 +122,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
     return Column(
       children: [
         HeadWidget(
-            addFavorite: (val) {
-              setState(() {
-                widget.addFavorite(val);
-                favorite = val;
-              });
-            },
-            favorite: favorite,
+            favorite: widget.favorite,
             urlImage: widget.urlImage,
             catalogItemName: widget.catalogItemName,
             lastSale: widget.lastSale,

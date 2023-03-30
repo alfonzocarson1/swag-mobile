@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../blocs/favorite_bloc/favorite_bloc.dart';
-import '../../di/injector.dart';
 import '../utils/palette.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -75,9 +73,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             size: 24,
           ),
           onPressed: onRoute ??
-              () {
-                Navigator.of(context, rootNavigator: true).pop();
-              }),
+              () => Navigator.of(context, rootNavigator: true).pop()),
     );
   }
 
