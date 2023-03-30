@@ -3,6 +3,8 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:swagapp/modules/pages/search/search_result_page.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
+import '../../common/utils/utils.dart';
+import '../../data/secure_storage/storage_repository_service.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 
@@ -20,10 +22,16 @@ class RecentSearchesPage extends StatefulWidget {
 }
 
 class _RecentSearchesPageState extends State<RecentSearchesPage> {
+  bool isAuthenticatedUser = false;
+  bool validToken = false;
+
   @override
   Widget build(BuildContext context) {
+
+
     List<String> list =
         getIt<PreferenceRepositoryService>().getRecentSearches();
+    
     return Scaffold(
       backgroundColor: Palette.current.primaryNero,
       body: ListView.builder(
@@ -32,6 +40,12 @@ class _RecentSearchesPageState extends State<RecentSearchesPage> {
         itemCount: list.length,
       ),
     );
+  }
+
+  getAuthData()async{
+    isAuthenticatedUser = getIt<PreferenceRepositoryService>().isLogged(); 
+    validToken= isTokenValid(await getIt<StorageRepositoryService>().getToken());
+
   }
 
   Widget _recentItem(BuildContext context, String searchParam) {
