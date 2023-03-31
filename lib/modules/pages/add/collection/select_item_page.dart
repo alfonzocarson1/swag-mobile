@@ -4,24 +4,27 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/models/search/catalog_item_model.dart';
 
 import '../../../../generated/l10n.dart';
-import '../../../blocs/collection_bloc/collection_bloc.dart';
+import '../../../blocs/search_bloc.dart/search_bloc.dart';
 import '../../../common/ui/loading.dart';
 import '../../../common/ui/pushed_header.dart';
 import '../../../common/ui/search_input.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
 import '../../../common/utils/size_helper.dart';
+import '../../../models/search/filter_model.dart';
+import '../../../models/search/search_request_payload_model.dart';
 import '../../search/search_on_tap_page.dart';
 import 'add_collection_page.dart';
-import 'collection_unknown_product.dart';
 
 class SelectItemPage extends StatefulWidget {
   static const name = '/SelectItemPage';
-  const SelectItemPage({super.key});
+  const SelectItemPage({super.key, required this.page});
 
-  static Route route() => PageRoutes.material(
+  final int page;
+
+  static Route route(int page) => PageRoutes.material(
         settings: const RouteSettings(name: name),
-        builder: (context) => const SelectItemPage(),
+        builder: (context) => SelectItemPage(page: page),
       );
 
   @override
@@ -31,6 +34,15 @@ class SelectItemPage extends StatefulWidget {
 class _SelectItemPageState extends State<SelectItemPage> {
   late ResponsiveDesign _responsiveDesign;
   final TextEditingController _textEditingController = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    context
+        .read<SearchBloc>()
+        .add(SearchEvent.selectTab(SearchTab.values[widget.page], true));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +72,7 @@ class _SelectItemPageState extends State<SelectItemPage> {
           height: 120,
         ),
         backgroundColor: Palette.current.primaryNero,
-        body: BlocConsumer<CollectionBloc, CollectionState>(
+        body: BlocConsumer<SearchBloc, SearchState>(
           listener: (context, state) => state.maybeWhen(
             orElse: () => {Loading.hide(context)},
             error: (message) => {
@@ -85,21 +97,22 @@ class _SelectItemPageState extends State<SelectItemPage> {
                       itemCount: 0,
                     ));
               },
-              loadedCollectionItems: (state) {
-                return _getBody(state.dataCollectionlList);
+              result: (state) {
+                return _getBody(
+                    state.result[SearchTab.values[widget.page]] ?? []);
               },
             );
           },
         ));
   }
 
-  Widget _getBody(List<CatalogItemModel> soldList) {
+  Widget _getBody(List<CatalogItemModel> catalogList) {
     return RefreshIndicator(
       onRefresh: () async {
         makeCall();
         return Future.delayed(const Duration(milliseconds: 1500));
       },
-      child: soldList.isNotEmpty
+      child: catalogList.isNotEmpty
           ? Stack(
               children: [
                 Padding(
@@ -114,16 +127,16 @@ class _SelectItemPageState extends State<SelectItemPage> {
                       mainAxisSpacing: 12.0,
                       mainAxisExtent: 215,
                     ),
-                    itemCount: soldList.length,
+                    itemCount: catalogList.length,
                     itemBuilder: (_, index) {
                       return GestureDetector(
                         onTap: () {
                           Navigator.of(context, rootNavigator: true).push(
                               AddCollection.route(
                                   context,
-                                  soldList[index].catalogItemId,
-                                  soldList[index].catalogItemImage,
-                                  soldList[index].catalogItemName));
+                                  catalogList[index].catalogItemId,
+                                  catalogList[index].catalogItemImage,
+                                  catalogList[index].catalogItemName));
                         },
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -137,7 +150,7 @@ class _SelectItemPageState extends State<SelectItemPage> {
                                     child: CachedNetworkImage(
                                       fit: BoxFit.fitHeight,
                                       imageUrl:
-                                          soldList[index].catalogItemImage,
+                                          catalogList[index].catalogItemImage,
                                       placeholder: (context, url) => SizedBox(
                                         height: 200,
                                         child: Center(
@@ -159,7 +172,7 @@ class _SelectItemPageState extends State<SelectItemPage> {
                             const SizedBox(
                               height: 5,
                             ),
-                            Text(soldList[index].catalogItemName,
+                            Text(catalogList[index].catalogItemName,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: Theme.of(context)
@@ -172,9 +185,9 @@ class _SelectItemPageState extends State<SelectItemPage> {
                                         fontSize: 24,
                                         color: Palette.current.white)),
                             Text(
-                                soldList[index].forSale
-                                    ? '${S.of(context).for_sale} ${soldList[index].saleInfo.minPrice} - ${soldList[index].saleInfo.maxPrice}'
-                                    : '${S.of(context).last_sale} ${soldList[index].saleInfo.lastSale}',
+                                catalogList[index].forSale
+                                    ? '${S.of(context).for_sale} ${catalogList[index].saleInfo.minPrice}'
+                                    : '${S.of(context).last_sale} ${catalogList[index].saleInfo.lastSale}',
                                 overflow: TextOverflow.fade,
                                 style: Theme.of(context)
                                     .textTheme
@@ -190,64 +203,6 @@ class _SelectItemPageState extends State<SelectItemPage> {
                     },
                   ),
                 ),
-                Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: Container(
-                      height: MediaQuery.of(context).size.width * 0.20,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        color: Palette.current.blackSmoke,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.of(context, rootNavigator: true).push(
-                                  CollectionUnknownProductPage.route(context));
-                            },
-                            child: Center(
-                              child: Container(
-                                  height: 50,
-                                  width: MediaQuery.of(context).size.width,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color:
-                                              Palette.current.primaryNeonGreen),
-                                      color: Colors.transparent),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Image.asset(
-                                        "assets/icons/Trending.png",
-                                        height: 20,
-                                        width: 20,
-                                      ),
-                                      const SizedBox(
-                                        width: 15,
-                                      ),
-                                      Text(S.of(context).i_do_not_know,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge!
-                                              .copyWith(
-                                                  fontFamily: "Knockout",
-                                                  fontSize: 25,
-                                                  letterSpacing: 1,
-                                                  fontWeight: FontWeight.w500,
-                                                  color:
-                                                      Palette.current.white)),
-                                    ],
-                                  )),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ))
               ],
             )
           : ListView.builder(
@@ -267,9 +222,8 @@ class _SelectItemPageState extends State<SelectItemPage> {
   }
 
   void makeCall() {
-    context
-        .read<CollectionBloc>()
-        .add(const CollectionEvent.getCollectionItem());
+    context.read<SearchBloc>().add(const SearchEvent.performSearch(
+        SearchRequestPayloadModel(filters: FilterModel()), SearchTab.whatsHot));
   }
 
   Widget _searchField(BuildContext context, String title) {

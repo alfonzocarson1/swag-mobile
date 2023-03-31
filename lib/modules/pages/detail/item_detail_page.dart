@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/common/ui/loading.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
+import '../../blocs/collection_bloc/collection_bloc.dart';
 import '../../blocs/detail_bloc/detail_bloc.dart';
 import '../../blocs/favorite_bloc/favorite_bloc.dart';
 import '../../blocs/sale_history/sale_history_bloc.dart';
@@ -67,6 +68,11 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
         backgroundColor: Palette.current.black,
         resizeToAvoidBottomInset: true,
         appBar: CustomAppBar(
+          onRoute: () {
+            BlocProvider.of<CollectionBloc>(context)
+                .add(const CollectionEvent.getProfileCollections());
+            Navigator.of(context, rootNavigator: true).pop();
+          },
           onAction: () {
             if (isLogged) {
               if (_collectionLen == 0) {

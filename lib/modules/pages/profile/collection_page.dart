@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/models/search/catalog_item_model.dart';
@@ -9,7 +10,11 @@ import '../../common/ui/loading.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
 import '../../common/utils/size_helper.dart';
+import '../../models/collection/get_collection_model.dart';
+import '../../models/collection/get_list_collection_model.dart';
+import '../add/collection/add_to_wall_collection.dart';
 import '../add/collection/select_item_page.dart';
+import '../detail/item_detail_page.dart';
 
 class CollectionPage extends StatefulWidget {
   static const name = '/Collection';
@@ -31,6 +36,8 @@ class _CollectionPageState extends State<CollectionPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    // BlocProvider.of<CollectionBloc>(context)
+    //     .add(const CollectionEvent.getProfileCollections());
   }
 
   @override
@@ -63,15 +70,15 @@ class _CollectionPageState extends State<CollectionPage> {
                       itemCount: 0,
                     ));
               },
-              loadedCollectionItems: (state) {
-                return _getBody(state.dataCollectionlList);
+              loadedProfileCollections: (state) {
+                return _getBody(state.profileCollectionList[0].collectionList);
               },
             );
           },
         ));
   }
 
-  Widget _getBody(List<CatalogItemModel> collectionList) {
+  Widget _getBody(List<GetCollectionModel> collectionList) {
     return RefreshIndicator(
       onRefresh: () async {
         makeCall();
@@ -111,7 +118,8 @@ class _CollectionPageState extends State<CollectionPage> {
                                         onPressed: () {
                                           Navigator.of(context,
                                                   rootNavigator: true)
-                                              .push(SelectItemPage.route());
+                                              .push(
+                                                  AddToWallCollection.route());
                                         },
                                       ),
                                     ),
@@ -136,8 +144,136 @@ class _CollectionPageState extends State<CollectionPage> {
                                         color: Palette.current.white)),
                           ],
                         )
-                      : ShrunkenItemWidget(
-                          model: collectionList[index - 1],
+                      : GestureDetector(
+                          onTap: () {
+                            Navigator.of(context, rootNavigator: true).push(
+                                ItemDetailPage.route(
+                                    collectionList[index - 1].catalogItemId,
+                                    (val) {}));
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Stack(
+                                children: [
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.width *
+                                        0.38,
+                                    child: ClipRRect(
+                                      child: CachedNetworkImage(
+                                        fit: BoxFit.fitHeight,
+                                        imageUrl: collectionList[index - 1]
+                                            .catalogItemImage,
+                                        placeholder: (context, url) => SizedBox(
+                                          height: 200,
+                                          child: Center(
+                                            child: CircularProgressIndicator(
+                                              color: Palette
+                                                  .current.primaryNeonGreen,
+                                              backgroundColor: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                        errorWidget: (context, url, error) =>
+                                            Image.asset(
+                                                "assets/images/ProfilePhoto.png"),
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    top: 7,
+                                    right: 0,
+                                    child: Visibility(
+                                      visible: collectionList[index - 1]
+                                          .collectionItems!
+                                          .isNotEmpty,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20),
+                                        child: Align(
+                                          alignment: Alignment.centerRight,
+                                          child: Text(
+                                              "${collectionList[index - 1].collectionItems!.length} X",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall!
+                                                  .copyWith(
+                                                      fontFamily: "Knockout",
+                                                      fontSize: 30,
+                                                      fontWeight:
+                                                          FontWeight.w300,
+                                                      color: Palette.current
+                                                          .primaryNeonGreen)),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    bottom: 0,
+                                    right: 0,
+                                    child: Visibility(
+                                        visible:
+                                            collectionList[index - 1].forSale,
+                                        child: Container(
+                                          height: 30,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          decoration: BoxDecoration(
+                                            color:
+                                                Palette.current.primaryNeonPink,
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 20),
+                                            child: Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Text(
+                                                  '''${collectionList[index - 1].numberAvailable} ${S.of(context).for_sale}''',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall!
+                                                      .copyWith(
+                                                          fontSize: 13,
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          color: Palette
+                                                              .current.white)),
+                                            ),
+                                          ),
+                                        )),
+                                  )
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Text(collectionList[index - 1].catalogItemName,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayLarge!
+                                      .copyWith(
+                                          letterSpacing: 1,
+                                          fontWeight: FontWeight.w300,
+                                          fontFamily: "Knockout",
+                                          fontSize: 24,
+                                          color: Palette.current.white)),
+                              Text(
+                                  collectionList[index - 1].forSale
+                                      ? '${S.of(context).for_sale} ${collectionList[index - 1].saleInfo.minPrice}'
+                                      : '${S.of(context).last_sale} ${collectionList[index - 1].saleInfo.lastSale}',
+                                  overflow: TextOverflow.fade,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(
+                                          fontWeight: FontWeight.w300,
+                                          fontSize: 13,
+                                          color: Palette
+                                              .current.primaryNeonGreen)),
+                            ],
+                          ),
                         );
                 },
               ),
@@ -159,8 +295,7 @@ class _CollectionPageState extends State<CollectionPage> {
   }
 
   void makeCall() {
-    context
-        .read<CollectionBloc>()
-        .add(const CollectionEvent.getCollectionItem());
+    BlocProvider.of<CollectionBloc>(context)
+        .add(const CollectionEvent.getProfileCollections());
   }
 }

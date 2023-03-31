@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
+
+import '../../blocs/collection_bloc/collection_bloc.dart';
 
 class PushedHeader extends StatefulWidget implements PreferredSizeWidget {
   static const _defaultActions = <Widget>[];
@@ -69,7 +72,9 @@ class _PushedHeaderState extends State<PushedHeader>
                                 color: Palette.current.primaryNeonGreen,
                                 size: 24,
                               ),
-                              onPressed: () => Navigator.maybePop(context))
+                              onPressed: () {
+                                Navigator.maybePop(context);
+                              })
                           : Container(),
                       widget.title ?? Container(),
                       widget.suffixIconButton != null
