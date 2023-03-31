@@ -177,9 +177,10 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                                           : Palette.current.darkGray,
                                       size: 22,
                                     ),
-                                  )
+                                  ),
                                 ],
-                              )),
+                              ),
+                            ),
                           _filterItem(
                             context,
                             S.of(context).for_sale.toUpperCase(),
@@ -268,7 +269,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                           _actionButtonSection(context),
                           const SizedBox(
                             height: 40,
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -306,10 +307,11 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
           child: PrimaryButton(
             title: S.of(context).see_results.toUpperCase(),
             onPressed: () {
-              performSearch(context,
-                  // isForsale: isForSale,
-                  searchParam: widget.searchParam,
-                  tab: widget.tab);
+              performSearch(
+                context: context,
+                searchParam: widget.searchParam,
+                tab: widget.tab,
+              );
               Navigator.pop(context);
             },
             type: PrimaryButtonType.primaryEerieBlack,

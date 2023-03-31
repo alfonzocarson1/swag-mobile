@@ -48,7 +48,7 @@ class _RecentSearchesPageState extends State<RecentSearchesPage> {
     return InkWell(
       onTap: ()=> PersistentNavBarNavigator.pushNewScreen(
         context,
-        screen: SearchResultPage(searchParam),
+        screen: SearchResultPage(searchParam: searchParam),
         withNavBar: true,
       ),
       child: Column(
@@ -97,7 +97,7 @@ class _RecentSearchesPageState extends State<RecentSearchesPage> {
   void onTapResult(BuildContext context, String searchParam) {
     PersistentNavBarNavigator.pushNewScreen(
       context,
-      screen: SearchResultPage(searchParam),
+      screen: SearchResultPage(searchParam: searchParam),
       withNavBar: true,
     );
   }

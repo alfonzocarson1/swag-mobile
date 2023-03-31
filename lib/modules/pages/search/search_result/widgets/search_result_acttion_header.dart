@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/generated/l10n.dart';
+import 'package:swagapp/modules/blocs/search_bloc.dart/search_bloc.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 
 class SearchResultActionHeader extends StatelessWidget {
 
-  const SearchResultActionHeader({super.key});
+  final String searchParam;
+
+  const SearchResultActionHeader({
+    super.key, 
+    required this.searchParam,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +38,7 @@ class SearchResultActionHeader extends StatelessWidget {
                   color: Palette.current.primaryWhiteSmoke,
                 ),
               ),
-              onPressed: () {},
+              onPressed: () async => await context.read<SearchBloc>().saveSearchWithFilters(this.searchParam),
             ),
             Text(
               "${S.of(context).sort} Release Date",

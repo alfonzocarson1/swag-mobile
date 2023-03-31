@@ -56,7 +56,7 @@ class _BodyWidgetWithViewState extends State<BodyWidgetWithView> {
 
     return RefreshIndicator(
       onRefresh: () async {
-        performSearch(context, searchParam: widget.searchParams, tab: widget.tab);
+        performSearch(context: context, searchParam: widget.searchParams, tab: widget.tab);
         return Future.delayed(const Duration(milliseconds: 1500));
       }, 
       child: BlocBuilder<SharedPreferencesBloc, SharedPreferencesState>(

@@ -7,6 +7,7 @@ import '../../models/search/category_model.dart';
 import 'i_shared_preferences.dart';
 
 class PreferenceRepositoryService implements PreferenceRepositoryInt {
+
   static const String _logged = 'logged';
   static const String _register = 'register';
   static const String _recentSearches = 'recentSearches';
@@ -24,6 +25,7 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   static const String _returnPage = 'returnPage';
   static const String _loginAfterGuest = 'loginAfterGuest';
   static const String _validCode = 'validCode';
+  static const String _searchesWithFilters = 'searchesWithFilters';
   static const String _sessionFlow = 'sessionFlow';
 
   late SharedPreferences _prefs;
@@ -225,5 +227,20 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   @override
   Future<void> saveValidCode(String value) async {
     await _prefs.setString(_validCode, value);
+  }
+  
+  @override
+  List<String> getRecentSearchesWithFilters() {
+
+    List<String> searchesWithFilters = this._prefs.getStringList(_searchesWithFilters) ?? [];
+    return searchesWithFilters;
+  }
+  
+  @override
+  Future<void> saveRecentSearchesWithFilters({required String searchPayload}) async {
+    
+    List<String> searchesWithFilters = this._prefs.getStringList(_searchesWithFilters) ?? [];
+    searchesWithFilters.add(searchPayload);
+    await this._prefs.setStringList(_searchesWithFilters, searchesWithFilters);
   }
 }

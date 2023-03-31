@@ -143,29 +143,24 @@ class _SearchPageState extends State<SearchPage>
                 withNavBar: true,
                 pageTransitionAnimation: PageTransitionAnimation.cupertino,
               ).then((completion) async {
-                initFilterAndSortsWithBloc(context,
-                    selectedProductNumber: _tabController.index);
-                await initFiltersAndSorts(
-                    selectedProductNumber: _tabController.index);
+                initFilterAndSortsWithBloc(context,selectedProductNumber: _tabController.index);
+                await initFiltersAndSorts(selectedProductNumber: _tabController.index);
                 if (!mounted) return;
-                performSearch(context,
-                    tab: SearchTab.values.elementAt(_tabController.index));
+                performSearch(
+                  context:context ,
+                  tab: SearchTab.values.elementAt(_tabController.index),
+                );
               });
             },
             child: SearchInput(
-                prefixIcon: null,
-                suffixIcon: null,
-                enabled: false,
-                controller: _textEditingController,
-                hint: title,
-                resultViewBuilder: (_, controller) => Container(),
-                onCancel: () {
-                  // _textEditingController.text = '';
-                  // context
-                  //     .read<CategoryBloc>()
-                  //     .add(const CategoryEvent.refresh());
-                  // context.read<SearchBloc>().add(const SearchEvent.reset());
-                }),
+              prefixIcon: null,
+              suffixIcon: null,
+              enabled: false,
+              controller: _textEditingController,
+              hint: title,
+              resultViewBuilder: (_, controller) => Container(),
+              onCancel: (){},
+            ),
           ),
         ),
         Padding(
@@ -179,10 +174,10 @@ class _SearchPageState extends State<SearchPage>
                     onPressed: () async {
                       await setIsForSale(!state.model.isForSale);
                       if (!mounted) return;
-                      performSearch(context,
-                          // isForsale: !state.model.isForSale,
-                          tab:
-                              SearchTab.values.elementAt(_tabController.index));
+                      performSearch(
+                        context: context,                      
+                        tab: SearchTab.values.elementAt(_tabController.index),
+                      );
                     },
                     icon: Image.asset(
                       "assets/icons/ForSale.png",

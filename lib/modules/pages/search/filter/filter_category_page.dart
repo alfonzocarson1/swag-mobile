@@ -68,8 +68,11 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
-        performSearch(context,
-            searchParam: widget.searchParam, tab: widget.tab);
+        performSearch(
+          context: context,
+          searchParam: widget.searchParam, 
+          tab: widget.tab,
+        );
         return Future.value(true);
       },
       child: GestureDetector(
@@ -94,8 +97,11 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
                     padding: const EdgeInsets.only(right: 0.0),
                     child: IconButton(
                         onPressed: () {
-                          performSearch(context,
-                              searchParam: widget.searchParam, tab: widget.tab);
+                          performSearch(
+                            context: context,
+                            searchParam: widget.searchParam, 
+                            tab: widget.tab,
+                          );
                           Navigator.pop(context);
                         },
                         icon: Icon(
@@ -161,8 +167,11 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
           child: PrimaryButton(
             title: S.of(context).see_results.toUpperCase(),
             onPressed: () {
-              performSearch(context,
-                  searchParam: widget.searchParam, tab: widget.tab);
+              performSearch(
+                context: context,
+                searchParam: widget.searchParam, 
+                tab: widget.tab,
+              );
               Navigator.pop(context);
               Navigator.pop(context);
             },
@@ -320,11 +329,9 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
       case FilterType.product:
         return Column(
           children: [
-            _filterItem(
-                context, S.of(context).headcovers, Product.headcovers.index),
+            _filterItem(context, S.of(context).headcovers, Product.headcovers.index),
             _filterItem(context, S.of(context).putters, Product.putters.index),
-            _filterItem(
-                context, S.of(context).accessories, Product.accessories.index),
+            _filterItem(context, S.of(context).accessories, Product.accessories.index),
           ],
         );
       case FilterType.condition:

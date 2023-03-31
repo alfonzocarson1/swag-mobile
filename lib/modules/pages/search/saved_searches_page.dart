@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:swagapp/modules/models/search/search_request_payload_model.dart';
 import 'package:swagapp/modules/pages/search/search_result/search_result_page.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
@@ -27,10 +30,10 @@ class _SavedSearchesPageState extends State<SavedSearchesPage> {
 
 
   @override
-  Widget build(BuildContext context) {  
-    
-    List<String> list =getIt<PreferenceRepositoryService>().getRecentSearches();
+  Widget build(BuildContext context) {
+
     this.isAuthenticatedUser = getIt<PreferenceRepositoryService>().isLogged();
+    List<String> list = getIt<PreferenceRepositoryService>().getRecentSearchesWithFilters();
 
     return (this.isAuthenticatedUser) 
     ? Container(
@@ -38,21 +41,49 @@ class _SavedSearchesPageState extends State<SavedSearchesPage> {
         child: ListView.builder(
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           padding: const EdgeInsets.only(top: 10),
-          itemBuilder: (_, index) => _recentItem(context, list[index]),
+          itemBuilder: (_, index) => _ResetItem(
+            searchParam: this.getSearchParam(list[index]),
+            searchWithFilters: this.getSavedSearchWithFilters(list[index]),
+          ),
           itemCount: list.length,
         ),
       )
     : Container();
   }
 
+  String getSearchParam(String payLoadJson) {
 
-  Widget _recentItem(BuildContext context, String searchParam) {
+    SearchRequestPayloadModel payloadModel = SearchRequestPayloadModel.fromJson(json.decode(payLoadJson));
+    return payloadModel.searchParams?.first ?? '';
+  }
+
+  SearchRequestPayloadModel getSavedSearchWithFilters(String payLoadJson){
+    return SearchRequestPayloadModel.fromJson(json.decode(payLoadJson));
+  }
+}
+
+class _ResetItem extends StatelessWidget {
+
+  final String searchParam; 
+  final SearchRequestPayloadModel searchWithFilters;
+  
+  const _ResetItem({
+    super.key, 
+    required this.searchParam, 
+    required this.searchWithFilters,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         Navigator.pop(context);
         PersistentNavBarNavigator.pushNewScreen(
           context,
-          screen: SearchResultPage(searchParam),
+          screen: SearchResultPage(
+            searchParam:searchParam,
+            searchWithFilters: this.searchWithFilters,
+          ),
           withNavBar: true,
         );
       },

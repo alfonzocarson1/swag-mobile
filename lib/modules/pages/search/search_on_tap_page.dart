@@ -140,7 +140,7 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
 
     PersistentNavBarNavigator.pushNewScreen(
       context,
-      screen: SearchResultPage(widget._textEditingController.text),
+      screen: SearchResultPage(searchParam: widget._textEditingController.text),
       withNavBar: true,
     );
   }
