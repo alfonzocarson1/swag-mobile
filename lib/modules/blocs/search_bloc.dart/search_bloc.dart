@@ -154,9 +154,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
       List<CatalogItemModel> newItems = newSearch[tab] ?? [];
       List<CatalogItemModel> previousiItems = previousState.result[tab] ?? [];        
-      List<CatalogItemModel> concatedItems = [...previousiItems, ...newItems];
-
-      print('object');
+      List<CatalogItemModel> concatedItems = [...previousiItems, ...newItems]; 
 
       newSearch.forEach((SearchTab key, List<CatalogItemModel> value) {
 

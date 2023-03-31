@@ -41,7 +41,7 @@ class _CatalogPageState extends State<CatalogPage> {
 
   @override
   void initState() {
-    catalogList = [...widget.catalogItems];
+    this.catalogList = [...widget.catalogItems];
     super.initState();
 
     isLogged = getIt<PreferenceRepositoryService>().isLogged();
@@ -68,6 +68,12 @@ class _CatalogPageState extends State<CatalogPage> {
   }
 
   @override
+  void didUpdateWidget(covariant CatalogPage oldWidget) {
+    setState(()=> this.catalogList = this.widget.catalogItems);
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ListView.separated(
       controller: this.widget.scrollController,
@@ -85,8 +91,7 @@ class _CatalogPageState extends State<CatalogPage> {
               Navigator.of(context, rootNavigator: true).push(
                   ItemDetailPage.route(catalogList[index].catalogItemId, (val) {
                 setState(() {
-                  catalogList[index] =
-                      catalogList[index].copyWith(inFavorites: val);
+                  catalogList[index] = catalogList[index].copyWith(inFavorites: val);
                 });
               }));
             },
