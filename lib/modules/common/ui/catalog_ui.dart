@@ -15,9 +15,14 @@ import '../../pages/login/create_account_page.dart';
 import '../utils/palette.dart';
 import 'popup_add_exisiting_item_collection.dart';
 
-class CatalogPage extends StatefulWidget {
-  const CatalogPage(
-      {super.key, required this.catalogItems, required this.scrollController});
+class CatalogPage extends StatefulWidget { 
+  
+  const CatalogPage({
+    super.key, 
+    required this.catalogItems, 
+    required this.scrollController,
+  });
+  
   final List<CatalogItemModel> catalogItems;
   final ScrollController scrollController;
 
@@ -36,7 +41,7 @@ class _CatalogPageState extends State<CatalogPage> {
 
   @override
   void initState() {
-    catalogList = [...widget.catalogItems];
+    this.catalogList = [...widget.catalogItems];
     super.initState();
 
     isLogged = getIt<PreferenceRepositoryService>().isLogged();
@@ -63,23 +68,30 @@ class _CatalogPageState extends State<CatalogPage> {
   }
 
   @override
+  void didUpdateWidget(covariant CatalogPage oldWidget) {
+    setState(()=> this.catalogList = this.widget.catalogItems);
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ListView.separated(
+      controller: this.widget.scrollController,
         separatorBuilder: (context, index) => const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Divider(
-                color: Colors.transparent,
-              ),
-            ),
-        itemCount: catalogList.length,
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: Divider(
+            color: Colors.transparent,
+          ),
+        ),
+        itemCount: widget.catalogItems.length,
         itemBuilder: (context, index) {
+
           return GestureDetector(
             onTap: () {
               Navigator.of(context, rootNavigator: true).push(
                   ItemDetailPage.route(catalogList[index].catalogItemId, (val) {
                 setState(() {
-                  catalogList[index] =
-                      catalogList[index].copyWith(inFavorites: val);
+                  catalogList[index] = catalogList[index].copyWith(inFavorites: val);
                 });
               }));
             },

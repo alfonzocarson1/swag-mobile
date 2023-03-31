@@ -57,7 +57,7 @@ class _SearchResultPageState extends State<SearchResultPage>
 
     _textEditingController.text = widget.searchParam;
 
-    performSearch(context, searchParam: widget.searchParam, tab: null);
+    performSearch(context: context, searchParam: widget.searchParam, tab: null);
   }
 
   @override
@@ -100,7 +100,7 @@ class _SearchResultPageState extends State<SearchResultPage>
               error: (_) {
                 return RefreshIndicator(
                     onRefresh: () async {
-                      performSearch(context,
+                      performSearch(context: context,
                           searchParam: widget.searchParam, tab: null);
                       return Future.delayed(const Duration(milliseconds: 1500));
                     },
@@ -193,7 +193,7 @@ class _SearchResultPageState extends State<SearchResultPage>
   Widget _getCatalogList(List<CatalogItemModel> catalogList) {
     return RefreshIndicator(
       onRefresh: () async {
-        performSearch(context, searchParam: widget.searchParam, tab: null);
+        performSearch(context: context, searchParam: widget.searchParam, tab: null);
         return Future.delayed(const Duration(milliseconds: 1500));
       },
       child: catalogList.isNotEmpty
@@ -266,7 +266,7 @@ class _SearchResultPageState extends State<SearchResultPage>
                     onPressed: () async {
                       await setIsForSale(!state.model.isForSale);
                       if (!mounted) return;
-                      performSearch(context,
+                      performSearch(context: context,
                           // isForsale: !state.model.isForSale,
                           tab: SearchTab.all);
                     },

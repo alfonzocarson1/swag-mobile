@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:swagapp/modules/pages/search/search_result_page.dart';
+import 'package:swagapp/modules/models/search/search_request_payload_model.dart';
+import 'package:swagapp/modules/pages/search/search_result/search_result_page.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
 import '../../common/utils/utils.dart';
@@ -21,38 +24,66 @@ class SavedSearchesPage extends StatefulWidget {
   State<SavedSearchesPage> createState() => _SavedSearchesPageState();
 }
 
+
 class _SavedSearchesPageState extends State<SavedSearchesPage> {
-  bool isAuthenticatedUser = false;
-  bool validToken = false;
+  late bool isAuthenticatedUser;
+
 
   @override
   Widget build(BuildContext context) {
 
-    List<String> list =
-        getIt<PreferenceRepositoryService>().getRecentSearches();
+    this.isAuthenticatedUser = getIt<PreferenceRepositoryService>().isLogged();
+    List<String> list = getIt<PreferenceRepositoryService>().getRecentSearchesWithFilters();
 
-  return  Scaffold(
-      backgroundColor: Palette.current.primaryNero,
-      body: ListView.builder(
-        padding: const EdgeInsets.only(top: 10),
-        itemBuilder: (_, index) => _recentItem(context, list[index]),
-        itemCount: list.length,
-      ),
-    );
+    return (this.isAuthenticatedUser) 
+    ? Container(
+        color: Palette.current.primaryNero,
+        child: ListView.builder(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          padding: const EdgeInsets.only(top: 10),
+          itemBuilder: (_, index) => _ResetItem(
+            searchParam: this.getSearchParam(list[index]),
+            searchWithFilters: this.getSavedSearchWithFilters(list[index]),
+          ),
+          itemCount: list.length,
+        ),
+      )
+    : Container();
   }
 
-  getAuthData()async{
-    isAuthenticatedUser = getIt<PreferenceRepositoryService>().isLogged(); 
-    validToken= isTokenValid(await getIt<StorageRepositoryService>().getToken());
+  String getSearchParam(String payLoadJson) {
+
+    SearchRequestPayloadModel payloadModel = SearchRequestPayloadModel.fromJson(json.decode(payLoadJson));
+    return payloadModel.searchParams?.first ?? '';
   }
 
-  Widget _recentItem(BuildContext context, String searchParam) {
+  SearchRequestPayloadModel getSavedSearchWithFilters(String payLoadJson){
+    return SearchRequestPayloadModel.fromJson(json.decode(payLoadJson));
+  }
+}
+
+class _ResetItem extends StatelessWidget {
+
+  final String searchParam; 
+  final SearchRequestPayloadModel searchWithFilters;
+  
+  const _ResetItem({
+    super.key, 
+    required this.searchParam, 
+    required this.searchWithFilters,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         Navigator.pop(context);
         PersistentNavBarNavigator.pushNewScreen(
           context,
-          screen: SearchResultPage(searchParam),
+          screen: SearchResultPage(
+            searchParam:searchParam,
+            searchWithFilters: this.searchWithFilters,
+          ),
           withNavBar: true,
         );
       },

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:swagapp/modules/pages/search/search_result_page.dart';
+import 'package:swagapp/modules/pages/search/search_result/search_result_page.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
 import '../../common/utils/utils.dart';
@@ -22,49 +22,40 @@ class RecentSearchesPage extends StatefulWidget {
 }
 
 class _RecentSearchesPageState extends State<RecentSearchesPage> {
-  bool isAuthenticatedUser = false;
-  bool validToken = false;
+  late bool isAuthenticatedUser;
 
   @override
   Widget build(BuildContext context) {
 
+    this. isAuthenticatedUser = getIt<PreferenceRepositoryService>().isLogged();
+    List<String> recentSearches = getIt<PreferenceRepositoryService>().getRecentSearches();
+    List<String> reversedRecentSearches = recentSearches.reversed.toList();
 
-    List<String> list =
-        getIt<PreferenceRepositoryService>().getRecentSearches();
-    
-    return Scaffold(
-      backgroundColor: Palette.current.primaryNero,
-      body: ListView.builder(
-        padding: const EdgeInsets.only(top: 10),
-        itemBuilder: (_, index) => _recentItem(context, list[index]),
-        itemCount: list.length,
-      ),
-    );
+    return (this.isAuthenticatedUser) 
+    ? Container(
+        color: Palette.current.primaryNero,
+        child: ListView.builder(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          itemCount: reversedRecentSearches.length,
+          padding: const EdgeInsets.only(top: 10),
+          itemBuilder: (_, index) => this._recentItem(context, reversedRecentSearches[index]),
+        ),
+     )
+    : Container();
   }
-
-  getAuthData()async{
-    isAuthenticatedUser = getIt<PreferenceRepositoryService>().isLogged(); 
-    validToken= isTokenValid(await getIt<StorageRepositoryService>().getToken());
-
-  }
-
+  
   Widget _recentItem(BuildContext context, String searchParam) {
     return InkWell(
-      onTap: () {
-        Navigator.pop(context);
-        PersistentNavBarNavigator.pushNewScreen(
-          context,
-          screen: SearchResultPage(searchParam),
-          withNavBar: true,
-        );
-      },
+      onTap: ()=> PersistentNavBarNavigator.pushNewScreen(
+        context,
+        screen: SearchResultPage(searchParam: searchParam),
+        withNavBar: true,
+      ),
       child: Column(
         children: [
           Ink(
             height: 50,
-            decoration: BoxDecoration(
-              color: Palette.current.primaryNero,
-            ),
+            decoration: BoxDecoration(color: Palette.current.primaryNero),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -100,6 +91,14 @@ class _RecentSearchesPageState extends State<RecentSearchesPage> {
           ),
         ],
       ),
+    );
+  }
+
+  void onTapResult(BuildContext context, String searchParam) {
+    PersistentNavBarNavigator.pushNewScreen(
+      context,
+      screen: SearchResultPage(searchParam: searchParam),
+      withNavBar: true,
     );
   }
 }

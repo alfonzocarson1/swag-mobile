@@ -46,8 +46,13 @@ bool isTokenValid(String? token) {
   return token != null && token != defaultString;
 }
 
-Future<void> performSearch(BuildContext context,
-    {String? searchParam, SearchTab? tab}) async {
+Future<void> performSearch({ 
+  required BuildContext context, 
+  SearchTab? tab,
+  String? searchParam, 
+  SearchRequestPayloadModel? searchWithFilters,
+}) async {
+
   final sharedPref = getIt<PreferenceRepositoryService>();
   final conditionList = sharedPref.getCondition().map(int.parse).toList();
   final releaseList = sharedPref.getReleaseDate().map(int.parse).toList();
@@ -62,42 +67,44 @@ Future<void> performSearch(BuildContext context,
     productList.isNotEmpty
   ]);
 
-  context.read<SearchBloc>().add(SearchEvent.performSearch(
-      SearchRequestPayloadModel(
-          searchParams: searchParam != null ? [searchParam] : null,
-          categoryId: tab == null || tab == SearchTab.whatsHot
-              ? null
-              : await SearchTabWrapper(tab).toStringCustom(),
-          filters: await getCurrentFilterModel()),
-      tab ?? SearchTab.all));
+  SearchRequestPayloadModel payload = (searchWithFilters != null) 
+  ? searchWithFilters
+  : SearchRequestPayloadModel(
+      searchParams: searchParam != null ? [searchParam] : null,
+      categoryId: tab == null || tab == SearchTab.whatsHot
+        ? null
+        : await SearchTabWrapper(tab).toStringCustom(),
+      filters: await getCurrentFilterModel(),
+    );
+
+  context.read<SearchBloc>().add(SearchEvent.performSearch(payload,tab ?? SearchTab.all));
 }
 
 Future<FilterModel> getCurrentFilterModel() async {
-  final sharedPref = getIt<PreferenceRepositoryService>();
-  final conditionList = sharedPref.getCondition().map(int.parse).toList();
-  final releaseList = sharedPref.getReleaseDate().map(int.parse).toList();
-  final priceList = sharedPref.getPrice().map(int.parse).toList();
-  final productList = sharedPref.getProduct().map(int.parse).toList();
-  final isForSale = sharedPref.isForSale();
+
+  PreferenceRepositoryService sharedPref = getIt<PreferenceRepositoryService>();
+  List<int> conditionList = sharedPref.getCondition().map(int.parse).toList();
+  List<int> releaseList = sharedPref.getReleaseDate().map(int.parse).toList();
+  List<int> priceList = sharedPref.getPrice().map(int.parse).toList();
+  List<int> productList = sharedPref.getProduct().map(int.parse).toList();
+  bool isForSale = sharedPref.isForSale();
+
   return FilterModel(
-      forSale: isForSale,
-      sortBy: sharedPref.getSortBy(),
-      priceRanges: sharedPref.getPrice().isEmpty ||
-              sharedPref.getPrice().length == Price.values.length
-          ? null
-          : getPriceRangeList(priceList),
-      releaseYears: sharedPref.getReleaseDate().isEmpty ||
-              sharedPref.getReleaseDate().length == ReleaseDate.values.length
-          ? null
-          : getReleaseYearsList(releaseList),
-      conditions: sharedPref.getCondition().isEmpty ||
-              sharedPref.getCondition().length == Condition.values.length
-          ? null
-          : getConditionStringList(conditionList),
-      productType: sharedPref.getProduct().isEmpty ||
-              sharedPref.getProduct().length == Product.values.length
-          ? null
-          : await getProductStringList(productList));
+    forSale: isForSale,
+    sortBy: sharedPref.getSortBy(),
+    priceRanges: sharedPref.getPrice().isEmpty || sharedPref.getPrice().length == Price.values.length
+      ? null
+      : getPriceRangeList(priceList),
+    releaseYears: sharedPref.getReleaseDate().isEmpty || sharedPref.getReleaseDate().length == ReleaseDate.values.length
+      ? null
+      : getReleaseYearsList(releaseList),
+    conditions: sharedPref.getCondition().isEmpty || sharedPref.getCondition().length == Condition.values.length
+      ? null
+      : getConditionStringList(conditionList),
+    productType: sharedPref.getProduct().isEmpty || sharedPref.getProduct().length == Product.values.length
+      ? null
+      : await getProductStringList(productList),
+  );
 }
 
 void updateSelectedFiltersAndSortsNumber(
@@ -165,34 +172,38 @@ List<String> getConditionStringList(List<int> conditionList) {
   return list;
 }
 
-Future<void> initFiltersAndSorts({int? selectedProductNumber = 0}) async {
+Future<void> initFiltersAndSorts({int selectedProductNumber = 0}) async {
+
+  List<String> selectedProduct = (selectedProductNumber != 0) 
+    ? [(selectedProductNumber - 1).toString()] 
+    : [];
+
   await getIt<PreferenceRepositoryService>().saveIsListView(true);
   await getIt<PreferenceRepositoryService>().saveIsForSale(false);
   await getIt<PreferenceRepositoryService>().setSortBy(defaultInt);
   await getIt<PreferenceRepositoryService>().setCondition([]);
   await getIt<PreferenceRepositoryService>().setPrice([]);
   await getIt<PreferenceRepositoryService>().setReleaseDate([]);
-  await getIt<PreferenceRepositoryService>().setProduct(
-      selectedProductNumber != 0
-          ? [(selectedProductNumber! - 1).toString()]
-          : []);
+  await getIt<PreferenceRepositoryService>().setProduct(selectedProduct);
 }
 
-void initUtilsPreference() {
-  getIt<PreferenceRepositoryService>().saveValidCode('');
-}
+void initUtilsPreference()=> getIt<PreferenceRepositoryService>().saveValidCode('');
 
-void initFilterAndSortsWithBloc(BuildContext context,
-    {int? selectedProductNumber = 0}) {
+void initFilterAndSortsWithBloc(BuildContext context, {int? selectedProductNumber = 0}) {
+
   context.read<SharedPreferencesBloc>().add(
-      SharedPreferencesEvent.setPreference(SharedPreferenceModel(
-          isListView: true,
-          isForSale: false,
-          sortBy: defaultInt,
-          condition: [],
-          price: [],
-          product: selectedProductNumber != null && selectedProductNumber != 0
-              ? [selectedProductNumber - 1]
-              : [],
-          releaseDate: [])));
+    SharedPreferencesEvent.setPreference(
+      SharedPreferenceModel(
+        isListView: true,
+        isForSale: false,
+        sortBy: defaultInt,
+        condition: [],
+        price: [],
+        product: (selectedProductNumber != null && selectedProductNumber != 0)
+          ? [selectedProductNumber - 1]
+          : [],
+        releaseDate: [],
+      ),
+    ),
+  );
 }
