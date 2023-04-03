@@ -45,7 +45,7 @@ class _SearchResultPageState extends State<SearchResultPage>
   @override
   bool get wantKeepAlive => true;
   int selectedIndex = 0;
-  late final ScrollController _scrollController =
+  late final ScrollController? _scrollController =
       PrimaryScrollController.of(context);
   final TextEditingController _textEditingController = TextEditingController();
   late bool isAuthenticatedUser;
@@ -100,8 +100,10 @@ class _SearchResultPageState extends State<SearchResultPage>
               error: (_) {
                 return RefreshIndicator(
                     onRefresh: () async {
-                      performSearch(context: context,
-                          searchParam: widget.searchParam, tab: null);
+                      performSearch(
+                          context: context,
+                          searchParam: widget.searchParam,
+                          tab: null);
                       return Future.delayed(const Duration(milliseconds: 1500));
                     },
                     child: ListView.builder(
@@ -193,12 +195,13 @@ class _SearchResultPageState extends State<SearchResultPage>
   Widget _getCatalogList(List<CatalogItemModel> catalogList) {
     return RefreshIndicator(
       onRefresh: () async {
-        performSearch(context: context, searchParam: widget.searchParam, tab: null);
+        performSearch(
+            context: context, searchParam: widget.searchParam, tab: null);
         return Future.delayed(const Duration(milliseconds: 1500));
       },
       child: catalogList.isNotEmpty
           ? CatalogPage(
-              catalogItems: catalogList, scrollController: _scrollController)
+              catalogItems: catalogList, scrollController: _scrollController!)
           : ListView.builder(
               itemBuilder: (_, index) => SizedBox(
                 height: MediaQuery.of(context).size.height * 0.7,
@@ -266,7 +269,8 @@ class _SearchResultPageState extends State<SearchResultPage>
                     onPressed: () async {
                       await setIsForSale(!state.model.isForSale);
                       if (!mounted) return;
-                      performSearch(context: context,
+                      performSearch(
+                          context: context,
                           // isForsale: !state.model.isForSale,
                           tab: SearchTab.all);
                     },
