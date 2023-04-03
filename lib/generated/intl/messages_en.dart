@@ -34,6 +34,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ADD ANOTHER"),
         "add_new_item": MessageLookupByLibrary.simpleMessage("ADD NEW ITEM"),
         "add_photos": MessageLookupByLibrary.simpleMessage("ADD PHOTOS"),
+        "add_to_wall_collection_subtitle": MessageLookupByLibrary.simpleMessage(
+            "Select the type of product you would like to add to your collection."),
+        "add_to_wall_collection_title":
+            MessageLookupByLibrary.simpleMessage("ADD TO YOUR COLLECTION"),
         "aditional_listing_detail": MessageLookupByLibrary.simpleMessage(
             "Additional listing details..."),
         "agree_to": MessageLookupByLibrary.simpleMessage("I agree to Swag’s "),

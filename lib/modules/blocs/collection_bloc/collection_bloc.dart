@@ -7,6 +7,7 @@ import 'package:swagapp/modules/models/search/catalog_item_model.dart';
 import '../../common/utils/handling_errors.dart';
 import '../../data/collection/i_collection_service.dart';
 import '../../models/collection/add_collection_model.dart';
+import '../../models/collection/get_list_collection_model.dart';
 
 part 'collection_bloc.freezed.dart';
 part 'collection_event.dart';
@@ -15,7 +16,9 @@ part 'collection_state.dart';
 class CollectionBloc extends Bloc<CollectionEvent, CollectionState> {
   final ICollectionService collectionService;
 
-  CollectionBloc(this.collectionService) : super(CollectionState.initial());
+  CollectionBloc(this.collectionService) : super(CollectionState.initial()) {
+    add(const CollectionEvent.getProfileCollections());
+  }
 
   Stream<CollectionState> get authStateStream async* {
     yield state;
@@ -27,7 +30,21 @@ class CollectionBloc extends Bloc<CollectionEvent, CollectionState> {
     yield* event.when(
         getCollectionItem: _getCollectionItem,
         addCollection: _addCollection,
-        removeCollection: _removeCollection);
+        removeCollection: _removeCollection,
+        getProfileCollections: _getProfileCollections);
+  }
+
+  Stream<CollectionState> _getProfileCollections() async* {
+    yield CollectionState.initial();
+    try {
+      ListCollectionProfileResponseModel responseBody =
+          await collectionService.getCollection();
+
+      yield CollectionState.loadedProfileCollections(
+          profileCollectionList: [responseBody]);
+    } catch (e) {
+      yield CollectionState.error(HandlingErrors().getError(e));
+    }
   }
 
   Stream<CollectionState> _addCollection(AddCollectionModel param) async* {

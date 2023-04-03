@@ -7,12 +7,15 @@ import 'package:swagapp/modules/common/ui/loading.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 
 import '../../blocs/explore_bloc/explore_bloc.dart';
+import '../../blocs/search_bloc.dart/search_bloc.dart';
 import '../../common/ui/custom_app_bar.dart';
 import '../../common/ui/popup_screen.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/explore/explore_item_model.dart';
+import '../../models/search/filter_model.dart';
+import '../../models/search/search_request_payload_model.dart';
 import 'account_info.dart';
 
 class ExplorePage extends StatefulWidget {
@@ -38,6 +41,9 @@ class _ExplorePageState extends State<ExplorePage> {
   @override
   void initState() {
     super.initState();
+
+    context.read<SearchBloc>().add(const SearchEvent.performSearch(
+        SearchRequestPayloadModel(filters: FilterModel()), SearchTab.whatsHot));
 
     getIt<PreferenceRepositoryService>().saveSessionFlow(false);
     _isLogged = getIt<PreferenceRepositoryService>().isLogged();

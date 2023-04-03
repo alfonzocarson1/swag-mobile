@@ -2019,6 +2019,26 @@ class S {
       args: [],
     );
   }
+
+  /// `ADD TO YOUR COLLECTION`
+  String get add_to_wall_collection_title {
+    return Intl.message(
+      'ADD TO YOUR COLLECTION',
+      name: 'add_to_wall_collection_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select the type of product you would like to add to your collection.`
+  String get add_to_wall_collection_subtitle {
+    return Intl.message(
+      'Select the type of product you would like to add to your collection.',
+      name: 'add_to_wall_collection_subtitle',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

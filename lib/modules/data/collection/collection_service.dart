@@ -1,6 +1,7 @@
 import '../../api/api.dart';
 import '../../api/api_service.dart';
 import '../../models/collection/add_collection_model.dart';
+import '../../models/collection/get_list_collection_model.dart';
 import 'i_collection_service.dart';
 
 class CollectionService extends ICollectionService {
@@ -31,6 +32,19 @@ class CollectionService extends ICollectionService {
       body: model.toJson(),
       needBearer: true,
       fromJson: (json) => AddCollectionModel.fromJson(json),
+    );
+    return response;
+  }
+
+  @override
+  Future<ListCollectionProfileResponseModel> getCollection() async {
+    ListCollectionProfileResponseModel response =
+        await apiService.getEndpointData(
+      endpoint: Endpoint.addCollection,
+      method: RequestMethod.get,
+      jsonKey: "collectionList",
+      needBearer: true,
+      fromJson: (json) => ListCollectionProfileResponseModel.fromJson(json),
     );
     return response;
   }

@@ -11,4 +11,9 @@ class CollectionState with _$CollectionState {
   factory CollectionState.loadedCollectionItems({
     required final List<CatalogItemModel> dataCollectionlList,
   }) = LoadedCollectionItemState;
+
+  factory CollectionState.loadedProfileCollections({
+    required final List<ListCollectionProfileResponseModel>
+        profileCollectionList,
+  }) = LoadedCollectionsState;
 }

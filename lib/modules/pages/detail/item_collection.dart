@@ -96,7 +96,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: (!widget.sale && widget.dataCollection == null)
+          child: (!widget.sale && widget.dataCollection!.isEmpty)
               ? Column(
                   children: [
                     const SizedBox(
@@ -126,7 +126,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                     ),
                   ],
                 )
-              : (widget.sale && widget.dataCollection == null)
+              : (widget.sale && widget.dataCollection!.isEmpty)
                   ? Column(
                       children: [
                         const SizedBox(
@@ -143,8 +143,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: (widget.dataCollection != null &&
-                  widget.dataCollection!.isNotEmpty)
+          child: widget.dataCollection!.isNotEmpty
               ? Column(
                   children: List.generate(
                       widget.dataCollection!.length,
@@ -244,7 +243,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: (widget.sale && widget.dataCollection == null)
+          child: (widget.sale && widget.dataCollection!.isEmpty)
               ? Column(
                   children: [
                     SizedBox(
@@ -277,7 +276,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                     )
                   ],
                 )
-              : (!widget.sale && widget.dataCollection == null)
+              : (!widget.sale && widget.dataCollection!.isEmpty)
                   ? Column(
                       children: [
                         const SizedBox(
@@ -302,7 +301,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                         )
                       ],
                     )
-                  : (widget.sale && widget.dataCollection != null)
+                  : (widget.sale && widget.dataCollection!.isNotEmpty)
                       ? Column(
                           children: [
                             SizedBox(

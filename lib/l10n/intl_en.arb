@@ -199,5 +199,7 @@
     "alert_remove_subtitle": "Are you sure you want to remove this item from you collection? This item is also listed for sale. Removing the item from your collection will also remove the listing.",
     "razon_remove_btn": "SUBMIT",
     "remove_item_btn": "REMOVE",
-    "alert_remove_btn": "REMOVE ITEM"
+    "alert_remove_btn": "REMOVE ITEM",
+    "add_to_wall_collection_title": "ADD TO YOUR COLLECTION",
+    "add_to_wall_collection_subtitle": "Select the type of product you would like to add to your collection."
 }
