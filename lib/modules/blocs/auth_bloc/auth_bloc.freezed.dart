@@ -1270,6 +1270,7 @@ mixin _$AuthState {
     required TResult Function() reset,
     required TResult Function() registered,
     required TResult Function() sendEmailSuccess,
+    required TResult Function() emailIsNotValid,
     required TResult Function() codeSent,
     required TResult Function(ForgotPasswordCodeModel successValidCode)
         validCodeSuccess,
@@ -1287,6 +1288,7 @@ mixin _$AuthState {
     TResult? Function()? reset,
     TResult? Function()? registered,
     TResult? Function()? sendEmailSuccess,
+    TResult? Function()? emailIsNotValid,
     TResult? Function()? codeSent,
     TResult? Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
@@ -1304,6 +1306,7 @@ mixin _$AuthState {
     TResult Function()? reset,
     TResult Function()? registered,
     TResult Function()? sendEmailSuccess,
+    TResult Function()? emailIsNotValid,
     TResult Function()? codeSent,
     TResult Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
@@ -1322,6 +1325,7 @@ mixin _$AuthState {
     required TResult Function(Reset value) reset,
     required TResult Function(Registered value) registered,
     required TResult Function(SendEmail value) sendEmailSuccess,
+    required TResult Function(ValidEmail value) emailIsNotValid,
     required TResult Function(CodeStatus value) codeSent,
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
   }) =>
@@ -1338,6 +1342,7 @@ mixin _$AuthState {
     TResult? Function(Reset value)? reset,
     TResult? Function(Registered value)? registered,
     TResult? Function(SendEmail value)? sendEmailSuccess,
+    TResult? Function(ValidEmail value)? emailIsNotValid,
     TResult? Function(CodeStatus value)? codeSent,
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
   }) =>
@@ -1354,6 +1359,7 @@ mixin _$AuthState {
     TResult Function(Reset value)? reset,
     TResult Function(Registered value)? registered,
     TResult Function(SendEmail value)? sendEmailSuccess,
+    TResult Function(ValidEmail value)? emailIsNotValid,
     TResult Function(CodeStatus value)? codeSent,
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     required TResult orElse(),
@@ -1424,6 +1430,7 @@ class _$Initial implements Initial {
     required TResult Function() reset,
     required TResult Function() registered,
     required TResult Function() sendEmailSuccess,
+    required TResult Function() emailIsNotValid,
     required TResult Function() codeSent,
     required TResult Function(ForgotPasswordCodeModel successValidCode)
         validCodeSuccess,
@@ -1444,6 +1451,7 @@ class _$Initial implements Initial {
     TResult? Function()? reset,
     TResult? Function()? registered,
     TResult? Function()? sendEmailSuccess,
+    TResult? Function()? emailIsNotValid,
     TResult? Function()? codeSent,
     TResult? Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
@@ -1464,6 +1472,7 @@ class _$Initial implements Initial {
     TResult Function()? reset,
     TResult Function()? registered,
     TResult Function()? sendEmailSuccess,
+    TResult Function()? emailIsNotValid,
     TResult Function()? codeSent,
     TResult Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
@@ -1488,6 +1497,7 @@ class _$Initial implements Initial {
     required TResult Function(Reset value) reset,
     required TResult Function(Registered value) registered,
     required TResult Function(SendEmail value) sendEmailSuccess,
+    required TResult Function(ValidEmail value) emailIsNotValid,
     required TResult Function(CodeStatus value) codeSent,
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
   }) {
@@ -1507,6 +1517,7 @@ class _$Initial implements Initial {
     TResult? Function(Reset value)? reset,
     TResult? Function(Registered value)? registered,
     TResult? Function(SendEmail value)? sendEmailSuccess,
+    TResult? Function(ValidEmail value)? emailIsNotValid,
     TResult? Function(CodeStatus value)? codeSent,
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
   }) {
@@ -1526,6 +1537,7 @@ class _$Initial implements Initial {
     TResult Function(Reset value)? reset,
     TResult Function(Registered value)? registered,
     TResult Function(SendEmail value)? sendEmailSuccess,
+    TResult Function(ValidEmail value)? emailIsNotValid,
     TResult Function(CodeStatus value)? codeSent,
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     required TResult orElse(),
@@ -1589,6 +1601,7 @@ class _$Walkthrough implements Walkthrough {
     required TResult Function() reset,
     required TResult Function() registered,
     required TResult Function() sendEmailSuccess,
+    required TResult Function() emailIsNotValid,
     required TResult Function() codeSent,
     required TResult Function(ForgotPasswordCodeModel successValidCode)
         validCodeSuccess,
@@ -1609,6 +1622,7 @@ class _$Walkthrough implements Walkthrough {
     TResult? Function()? reset,
     TResult? Function()? registered,
     TResult? Function()? sendEmailSuccess,
+    TResult? Function()? emailIsNotValid,
     TResult? Function()? codeSent,
     TResult? Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
@@ -1629,6 +1643,7 @@ class _$Walkthrough implements Walkthrough {
     TResult Function()? reset,
     TResult Function()? registered,
     TResult Function()? sendEmailSuccess,
+    TResult Function()? emailIsNotValid,
     TResult Function()? codeSent,
     TResult Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
@@ -1653,6 +1668,7 @@ class _$Walkthrough implements Walkthrough {
     required TResult Function(Reset value) reset,
     required TResult Function(Registered value) registered,
     required TResult Function(SendEmail value) sendEmailSuccess,
+    required TResult Function(ValidEmail value) emailIsNotValid,
     required TResult Function(CodeStatus value) codeSent,
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
   }) {
@@ -1672,6 +1688,7 @@ class _$Walkthrough implements Walkthrough {
     TResult? Function(Reset value)? reset,
     TResult? Function(Registered value)? registered,
     TResult? Function(SendEmail value)? sendEmailSuccess,
+    TResult? Function(ValidEmail value)? emailIsNotValid,
     TResult? Function(CodeStatus value)? codeSent,
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
   }) {
@@ -1691,6 +1708,7 @@ class _$Walkthrough implements Walkthrough {
     TResult Function(Reset value)? reset,
     TResult Function(Registered value)? registered,
     TResult Function(SendEmail value)? sendEmailSuccess,
+    TResult Function(ValidEmail value)? emailIsNotValid,
     TResult Function(CodeStatus value)? codeSent,
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     required TResult orElse(),
@@ -1754,6 +1772,7 @@ class _$Onboarding implements Onboarding {
     required TResult Function() reset,
     required TResult Function() registered,
     required TResult Function() sendEmailSuccess,
+    required TResult Function() emailIsNotValid,
     required TResult Function() codeSent,
     required TResult Function(ForgotPasswordCodeModel successValidCode)
         validCodeSuccess,
@@ -1774,6 +1793,7 @@ class _$Onboarding implements Onboarding {
     TResult? Function()? reset,
     TResult? Function()? registered,
     TResult? Function()? sendEmailSuccess,
+    TResult? Function()? emailIsNotValid,
     TResult? Function()? codeSent,
     TResult? Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
@@ -1794,6 +1814,7 @@ class _$Onboarding implements Onboarding {
     TResult Function()? reset,
     TResult Function()? registered,
     TResult Function()? sendEmailSuccess,
+    TResult Function()? emailIsNotValid,
     TResult Function()? codeSent,
     TResult Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
@@ -1818,6 +1839,7 @@ class _$Onboarding implements Onboarding {
     required TResult Function(Reset value) reset,
     required TResult Function(Registered value) registered,
     required TResult Function(SendEmail value) sendEmailSuccess,
+    required TResult Function(ValidEmail value) emailIsNotValid,
     required TResult Function(CodeStatus value) codeSent,
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
   }) {
@@ -1837,6 +1859,7 @@ class _$Onboarding implements Onboarding {
     TResult? Function(Reset value)? reset,
     TResult? Function(Registered value)? registered,
     TResult? Function(SendEmail value)? sendEmailSuccess,
+    TResult? Function(ValidEmail value)? emailIsNotValid,
     TResult? Function(CodeStatus value)? codeSent,
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
   }) {
@@ -1856,6 +1879,7 @@ class _$Onboarding implements Onboarding {
     TResult Function(Reset value)? reset,
     TResult Function(Registered value)? registered,
     TResult Function(SendEmail value)? sendEmailSuccess,
+    TResult Function(ValidEmail value)? emailIsNotValid,
     TResult Function(CodeStatus value)? codeSent,
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     required TResult orElse(),
@@ -1917,6 +1941,7 @@ class _$Logging implements Logging {
     required TResult Function() reset,
     required TResult Function() registered,
     required TResult Function() sendEmailSuccess,
+    required TResult Function() emailIsNotValid,
     required TResult Function() codeSent,
     required TResult Function(ForgotPasswordCodeModel successValidCode)
         validCodeSuccess,
@@ -1937,6 +1962,7 @@ class _$Logging implements Logging {
     TResult? Function()? reset,
     TResult? Function()? registered,
     TResult? Function()? sendEmailSuccess,
+    TResult? Function()? emailIsNotValid,
     TResult? Function()? codeSent,
     TResult? Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
@@ -1957,6 +1983,7 @@ class _$Logging implements Logging {
     TResult Function()? reset,
     TResult Function()? registered,
     TResult Function()? sendEmailSuccess,
+    TResult Function()? emailIsNotValid,
     TResult Function()? codeSent,
     TResult Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
@@ -1981,6 +2008,7 @@ class _$Logging implements Logging {
     required TResult Function(Reset value) reset,
     required TResult Function(Registered value) registered,
     required TResult Function(SendEmail value) sendEmailSuccess,
+    required TResult Function(ValidEmail value) emailIsNotValid,
     required TResult Function(CodeStatus value) codeSent,
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
   }) {
@@ -2000,6 +2028,7 @@ class _$Logging implements Logging {
     TResult? Function(Reset value)? reset,
     TResult? Function(Registered value)? registered,
     TResult? Function(SendEmail value)? sendEmailSuccess,
+    TResult? Function(ValidEmail value)? emailIsNotValid,
     TResult? Function(CodeStatus value)? codeSent,
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
   }) {
@@ -2019,6 +2048,7 @@ class _$Logging implements Logging {
     TResult Function(Reset value)? reset,
     TResult Function(Registered value)? registered,
     TResult Function(SendEmail value)? sendEmailSuccess,
+    TResult Function(ValidEmail value)? emailIsNotValid,
     TResult Function(CodeStatus value)? codeSent,
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     required TResult orElse(),
@@ -2082,6 +2112,7 @@ class _$Authenticated implements Authenticated {
     required TResult Function() reset,
     required TResult Function() registered,
     required TResult Function() sendEmailSuccess,
+    required TResult Function() emailIsNotValid,
     required TResult Function() codeSent,
     required TResult Function(ForgotPasswordCodeModel successValidCode)
         validCodeSuccess,
@@ -2102,6 +2133,7 @@ class _$Authenticated implements Authenticated {
     TResult? Function()? reset,
     TResult? Function()? registered,
     TResult? Function()? sendEmailSuccess,
+    TResult? Function()? emailIsNotValid,
     TResult? Function()? codeSent,
     TResult? Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
@@ -2122,6 +2154,7 @@ class _$Authenticated implements Authenticated {
     TResult Function()? reset,
     TResult Function()? registered,
     TResult Function()? sendEmailSuccess,
+    TResult Function()? emailIsNotValid,
     TResult Function()? codeSent,
     TResult Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
@@ -2146,6 +2179,7 @@ class _$Authenticated implements Authenticated {
     required TResult Function(Reset value) reset,
     required TResult Function(Registered value) registered,
     required TResult Function(SendEmail value) sendEmailSuccess,
+    required TResult Function(ValidEmail value) emailIsNotValid,
     required TResult Function(CodeStatus value) codeSent,
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
   }) {
@@ -2165,6 +2199,7 @@ class _$Authenticated implements Authenticated {
     TResult? Function(Reset value)? reset,
     TResult? Function(Registered value)? registered,
     TResult? Function(SendEmail value)? sendEmailSuccess,
+    TResult? Function(ValidEmail value)? emailIsNotValid,
     TResult? Function(CodeStatus value)? codeSent,
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
   }) {
@@ -2184,6 +2219,7 @@ class _$Authenticated implements Authenticated {
     TResult Function(Reset value)? reset,
     TResult Function(Registered value)? registered,
     TResult Function(SendEmail value)? sendEmailSuccess,
+    TResult Function(ValidEmail value)? emailIsNotValid,
     TResult Function(CodeStatus value)? codeSent,
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     required TResult orElse(),
@@ -2247,6 +2283,7 @@ class _$Unauthenticated implements Unauthenticated {
     required TResult Function() reset,
     required TResult Function() registered,
     required TResult Function() sendEmailSuccess,
+    required TResult Function() emailIsNotValid,
     required TResult Function() codeSent,
     required TResult Function(ForgotPasswordCodeModel successValidCode)
         validCodeSuccess,
@@ -2267,6 +2304,7 @@ class _$Unauthenticated implements Unauthenticated {
     TResult? Function()? reset,
     TResult? Function()? registered,
     TResult? Function()? sendEmailSuccess,
+    TResult? Function()? emailIsNotValid,
     TResult? Function()? codeSent,
     TResult? Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
@@ -2287,6 +2325,7 @@ class _$Unauthenticated implements Unauthenticated {
     TResult Function()? reset,
     TResult Function()? registered,
     TResult Function()? sendEmailSuccess,
+    TResult Function()? emailIsNotValid,
     TResult Function()? codeSent,
     TResult Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
@@ -2311,6 +2350,7 @@ class _$Unauthenticated implements Unauthenticated {
     required TResult Function(Reset value) reset,
     required TResult Function(Registered value) registered,
     required TResult Function(SendEmail value) sendEmailSuccess,
+    required TResult Function(ValidEmail value) emailIsNotValid,
     required TResult Function(CodeStatus value) codeSent,
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
   }) {
@@ -2330,6 +2370,7 @@ class _$Unauthenticated implements Unauthenticated {
     TResult? Function(Reset value)? reset,
     TResult? Function(Registered value)? registered,
     TResult? Function(SendEmail value)? sendEmailSuccess,
+    TResult? Function(ValidEmail value)? emailIsNotValid,
     TResult? Function(CodeStatus value)? codeSent,
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
   }) {
@@ -2349,6 +2390,7 @@ class _$Unauthenticated implements Unauthenticated {
     TResult Function(Reset value)? reset,
     TResult Function(Registered value)? registered,
     TResult Function(SendEmail value)? sendEmailSuccess,
+    TResult Function(ValidEmail value)? emailIsNotValid,
     TResult Function(CodeStatus value)? codeSent,
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     required TResult orElse(),
@@ -2439,6 +2481,7 @@ class _$AuthenticationError implements AuthenticationError {
     required TResult Function() reset,
     required TResult Function() registered,
     required TResult Function() sendEmailSuccess,
+    required TResult Function() emailIsNotValid,
     required TResult Function() codeSent,
     required TResult Function(ForgotPasswordCodeModel successValidCode)
         validCodeSuccess,
@@ -2459,6 +2502,7 @@ class _$AuthenticationError implements AuthenticationError {
     TResult? Function()? reset,
     TResult? Function()? registered,
     TResult? Function()? sendEmailSuccess,
+    TResult? Function()? emailIsNotValid,
     TResult? Function()? codeSent,
     TResult? Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
@@ -2479,6 +2523,7 @@ class _$AuthenticationError implements AuthenticationError {
     TResult Function()? reset,
     TResult Function()? registered,
     TResult Function()? sendEmailSuccess,
+    TResult Function()? emailIsNotValid,
     TResult Function()? codeSent,
     TResult Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
@@ -2503,6 +2548,7 @@ class _$AuthenticationError implements AuthenticationError {
     required TResult Function(Reset value) reset,
     required TResult Function(Registered value) registered,
     required TResult Function(SendEmail value) sendEmailSuccess,
+    required TResult Function(ValidEmail value) emailIsNotValid,
     required TResult Function(CodeStatus value) codeSent,
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
   }) {
@@ -2522,6 +2568,7 @@ class _$AuthenticationError implements AuthenticationError {
     TResult? Function(Reset value)? reset,
     TResult? Function(Registered value)? registered,
     TResult? Function(SendEmail value)? sendEmailSuccess,
+    TResult? Function(ValidEmail value)? emailIsNotValid,
     TResult? Function(CodeStatus value)? codeSent,
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
   }) {
@@ -2541,6 +2588,7 @@ class _$AuthenticationError implements AuthenticationError {
     TResult Function(Reset value)? reset,
     TResult Function(Registered value)? registered,
     TResult Function(SendEmail value)? sendEmailSuccess,
+    TResult Function(ValidEmail value)? emailIsNotValid,
     TResult Function(CodeStatus value)? codeSent,
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     required TResult orElse(),
@@ -2607,6 +2655,7 @@ class _$Reset implements Reset {
     required TResult Function() reset,
     required TResult Function() registered,
     required TResult Function() sendEmailSuccess,
+    required TResult Function() emailIsNotValid,
     required TResult Function() codeSent,
     required TResult Function(ForgotPasswordCodeModel successValidCode)
         validCodeSuccess,
@@ -2627,6 +2676,7 @@ class _$Reset implements Reset {
     TResult? Function()? reset,
     TResult? Function()? registered,
     TResult? Function()? sendEmailSuccess,
+    TResult? Function()? emailIsNotValid,
     TResult? Function()? codeSent,
     TResult? Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
@@ -2647,6 +2697,7 @@ class _$Reset implements Reset {
     TResult Function()? reset,
     TResult Function()? registered,
     TResult Function()? sendEmailSuccess,
+    TResult Function()? emailIsNotValid,
     TResult Function()? codeSent,
     TResult Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
@@ -2671,6 +2722,7 @@ class _$Reset implements Reset {
     required TResult Function(Reset value) reset,
     required TResult Function(Registered value) registered,
     required TResult Function(SendEmail value) sendEmailSuccess,
+    required TResult Function(ValidEmail value) emailIsNotValid,
     required TResult Function(CodeStatus value) codeSent,
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
   }) {
@@ -2690,6 +2742,7 @@ class _$Reset implements Reset {
     TResult? Function(Reset value)? reset,
     TResult? Function(Registered value)? registered,
     TResult? Function(SendEmail value)? sendEmailSuccess,
+    TResult? Function(ValidEmail value)? emailIsNotValid,
     TResult? Function(CodeStatus value)? codeSent,
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
   }) {
@@ -2709,6 +2762,7 @@ class _$Reset implements Reset {
     TResult Function(Reset value)? reset,
     TResult Function(Registered value)? registered,
     TResult Function(SendEmail value)? sendEmailSuccess,
+    TResult Function(ValidEmail value)? emailIsNotValid,
     TResult Function(CodeStatus value)? codeSent,
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     required TResult orElse(),
@@ -2772,6 +2826,7 @@ class _$Registered implements Registered {
     required TResult Function() reset,
     required TResult Function() registered,
     required TResult Function() sendEmailSuccess,
+    required TResult Function() emailIsNotValid,
     required TResult Function() codeSent,
     required TResult Function(ForgotPasswordCodeModel successValidCode)
         validCodeSuccess,
@@ -2792,6 +2847,7 @@ class _$Registered implements Registered {
     TResult? Function()? reset,
     TResult? Function()? registered,
     TResult? Function()? sendEmailSuccess,
+    TResult? Function()? emailIsNotValid,
     TResult? Function()? codeSent,
     TResult? Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
@@ -2812,6 +2868,7 @@ class _$Registered implements Registered {
     TResult Function()? reset,
     TResult Function()? registered,
     TResult Function()? sendEmailSuccess,
+    TResult Function()? emailIsNotValid,
     TResult Function()? codeSent,
     TResult Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
@@ -2836,6 +2893,7 @@ class _$Registered implements Registered {
     required TResult Function(Reset value) reset,
     required TResult Function(Registered value) registered,
     required TResult Function(SendEmail value) sendEmailSuccess,
+    required TResult Function(ValidEmail value) emailIsNotValid,
     required TResult Function(CodeStatus value) codeSent,
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
   }) {
@@ -2855,6 +2913,7 @@ class _$Registered implements Registered {
     TResult? Function(Reset value)? reset,
     TResult? Function(Registered value)? registered,
     TResult? Function(SendEmail value)? sendEmailSuccess,
+    TResult? Function(ValidEmail value)? emailIsNotValid,
     TResult? Function(CodeStatus value)? codeSent,
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
   }) {
@@ -2874,6 +2933,7 @@ class _$Registered implements Registered {
     TResult Function(Reset value)? reset,
     TResult Function(Registered value)? registered,
     TResult Function(SendEmail value)? sendEmailSuccess,
+    TResult Function(ValidEmail value)? emailIsNotValid,
     TResult Function(CodeStatus value)? codeSent,
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     required TResult orElse(),
@@ -2937,6 +2997,7 @@ class _$SendEmail implements SendEmail {
     required TResult Function() reset,
     required TResult Function() registered,
     required TResult Function() sendEmailSuccess,
+    required TResult Function() emailIsNotValid,
     required TResult Function() codeSent,
     required TResult Function(ForgotPasswordCodeModel successValidCode)
         validCodeSuccess,
@@ -2957,6 +3018,7 @@ class _$SendEmail implements SendEmail {
     TResult? Function()? reset,
     TResult? Function()? registered,
     TResult? Function()? sendEmailSuccess,
+    TResult? Function()? emailIsNotValid,
     TResult? Function()? codeSent,
     TResult? Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
@@ -2977,6 +3039,7 @@ class _$SendEmail implements SendEmail {
     TResult Function()? reset,
     TResult Function()? registered,
     TResult Function()? sendEmailSuccess,
+    TResult Function()? emailIsNotValid,
     TResult Function()? codeSent,
     TResult Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
@@ -3001,6 +3064,7 @@ class _$SendEmail implements SendEmail {
     required TResult Function(Reset value) reset,
     required TResult Function(Registered value) registered,
     required TResult Function(SendEmail value) sendEmailSuccess,
+    required TResult Function(ValidEmail value) emailIsNotValid,
     required TResult Function(CodeStatus value) codeSent,
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
   }) {
@@ -3020,6 +3084,7 @@ class _$SendEmail implements SendEmail {
     TResult? Function(Reset value)? reset,
     TResult? Function(Registered value)? registered,
     TResult? Function(SendEmail value)? sendEmailSuccess,
+    TResult? Function(ValidEmail value)? emailIsNotValid,
     TResult? Function(CodeStatus value)? codeSent,
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
   }) {
@@ -3039,6 +3104,7 @@ class _$SendEmail implements SendEmail {
     TResult Function(Reset value)? reset,
     TResult Function(Registered value)? registered,
     TResult Function(SendEmail value)? sendEmailSuccess,
+    TResult Function(ValidEmail value)? emailIsNotValid,
     TResult Function(CodeStatus value)? codeSent,
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     required TResult orElse(),
@@ -3052,6 +3118,177 @@ class _$SendEmail implements SendEmail {
 
 abstract class SendEmail implements AuthState {
   const factory SendEmail() = _$SendEmail;
+}
+
+/// @nodoc
+abstract class _$$ValidEmailCopyWith<$Res> {
+  factory _$$ValidEmailCopyWith(
+          _$ValidEmail value, $Res Function(_$ValidEmail) then) =
+      __$$ValidEmailCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ValidEmailCopyWithImpl<$Res>
+    extends _$AuthStateCopyWithImpl<$Res, _$ValidEmail>
+    implements _$$ValidEmailCopyWith<$Res> {
+  __$$ValidEmailCopyWithImpl(
+      _$ValidEmail _value, $Res Function(_$ValidEmail) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$ValidEmail implements ValidEmail {
+  const _$ValidEmail();
+
+  @override
+  String toString() {
+    return 'AuthState.emailIsNotValid()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ValidEmail);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() walkthrough,
+    required TResult Function() onboarding,
+    required TResult Function() logging,
+    required TResult Function() authenticated,
+    required TResult Function() unauthenticated,
+    required TResult Function(String message) error,
+    required TResult Function() reset,
+    required TResult Function() registered,
+    required TResult Function() sendEmailSuccess,
+    required TResult Function() emailIsNotValid,
+    required TResult Function() codeSent,
+    required TResult Function(ForgotPasswordCodeModel successValidCode)
+        validCodeSuccess,
+  }) {
+    return emailIsNotValid();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? walkthrough,
+    TResult? Function()? onboarding,
+    TResult? Function()? logging,
+    TResult? Function()? authenticated,
+    TResult? Function()? unauthenticated,
+    TResult? Function(String message)? error,
+    TResult? Function()? reset,
+    TResult? Function()? registered,
+    TResult? Function()? sendEmailSuccess,
+    TResult? Function()? emailIsNotValid,
+    TResult? Function()? codeSent,
+    TResult? Function(ForgotPasswordCodeModel successValidCode)?
+        validCodeSuccess,
+  }) {
+    return emailIsNotValid?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? walkthrough,
+    TResult Function()? onboarding,
+    TResult Function()? logging,
+    TResult Function()? authenticated,
+    TResult Function()? unauthenticated,
+    TResult Function(String message)? error,
+    TResult Function()? reset,
+    TResult Function()? registered,
+    TResult Function()? sendEmailSuccess,
+    TResult Function()? emailIsNotValid,
+    TResult Function()? codeSent,
+    TResult Function(ForgotPasswordCodeModel successValidCode)?
+        validCodeSuccess,
+    required TResult orElse(),
+  }) {
+    if (emailIsNotValid != null) {
+      return emailIsNotValid();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Initial value) initial,
+    required TResult Function(Walkthrough value) walkthrough,
+    required TResult Function(Onboarding value) onboarding,
+    required TResult Function(Logging value) logging,
+    required TResult Function(Authenticated value) authenticated,
+    required TResult Function(Unauthenticated value) unauthenticated,
+    required TResult Function(AuthenticationError value) error,
+    required TResult Function(Reset value) reset,
+    required TResult Function(Registered value) registered,
+    required TResult Function(SendEmail value) sendEmailSuccess,
+    required TResult Function(ValidEmail value) emailIsNotValid,
+    required TResult Function(CodeStatus value) codeSent,
+    required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
+  }) {
+    return emailIsNotValid(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Initial value)? initial,
+    TResult? Function(Walkthrough value)? walkthrough,
+    TResult? Function(Onboarding value)? onboarding,
+    TResult? Function(Logging value)? logging,
+    TResult? Function(Authenticated value)? authenticated,
+    TResult? Function(Unauthenticated value)? unauthenticated,
+    TResult? Function(AuthenticationError value)? error,
+    TResult? Function(Reset value)? reset,
+    TResult? Function(Registered value)? registered,
+    TResult? Function(SendEmail value)? sendEmailSuccess,
+    TResult? Function(ValidEmail value)? emailIsNotValid,
+    TResult? Function(CodeStatus value)? codeSent,
+    TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
+  }) {
+    return emailIsNotValid?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Initial value)? initial,
+    TResult Function(Walkthrough value)? walkthrough,
+    TResult Function(Onboarding value)? onboarding,
+    TResult Function(Logging value)? logging,
+    TResult Function(Authenticated value)? authenticated,
+    TResult Function(Unauthenticated value)? unauthenticated,
+    TResult Function(AuthenticationError value)? error,
+    TResult Function(Reset value)? reset,
+    TResult Function(Registered value)? registered,
+    TResult Function(SendEmail value)? sendEmailSuccess,
+    TResult Function(ValidEmail value)? emailIsNotValid,
+    TResult Function(CodeStatus value)? codeSent,
+    TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
+    required TResult orElse(),
+  }) {
+    if (emailIsNotValid != null) {
+      return emailIsNotValid(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ValidEmail implements AuthState {
+  const factory ValidEmail() = _$ValidEmail;
 }
 
 /// @nodoc
@@ -3102,6 +3339,7 @@ class _$CodeStatus implements CodeStatus {
     required TResult Function() reset,
     required TResult Function() registered,
     required TResult Function() sendEmailSuccess,
+    required TResult Function() emailIsNotValid,
     required TResult Function() codeSent,
     required TResult Function(ForgotPasswordCodeModel successValidCode)
         validCodeSuccess,
@@ -3122,6 +3360,7 @@ class _$CodeStatus implements CodeStatus {
     TResult? Function()? reset,
     TResult? Function()? registered,
     TResult? Function()? sendEmailSuccess,
+    TResult? Function()? emailIsNotValid,
     TResult? Function()? codeSent,
     TResult? Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
@@ -3142,6 +3381,7 @@ class _$CodeStatus implements CodeStatus {
     TResult Function()? reset,
     TResult Function()? registered,
     TResult Function()? sendEmailSuccess,
+    TResult Function()? emailIsNotValid,
     TResult Function()? codeSent,
     TResult Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
@@ -3166,6 +3406,7 @@ class _$CodeStatus implements CodeStatus {
     required TResult Function(Reset value) reset,
     required TResult Function(Registered value) registered,
     required TResult Function(SendEmail value) sendEmailSuccess,
+    required TResult Function(ValidEmail value) emailIsNotValid,
     required TResult Function(CodeStatus value) codeSent,
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
   }) {
@@ -3185,6 +3426,7 @@ class _$CodeStatus implements CodeStatus {
     TResult? Function(Reset value)? reset,
     TResult? Function(Registered value)? registered,
     TResult? Function(SendEmail value)? sendEmailSuccess,
+    TResult? Function(ValidEmail value)? emailIsNotValid,
     TResult? Function(CodeStatus value)? codeSent,
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
   }) {
@@ -3204,6 +3446,7 @@ class _$CodeStatus implements CodeStatus {
     TResult Function(Reset value)? reset,
     TResult Function(Registered value)? registered,
     TResult Function(SendEmail value)? sendEmailSuccess,
+    TResult Function(ValidEmail value)? emailIsNotValid,
     TResult Function(CodeStatus value)? codeSent,
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     required TResult orElse(),
@@ -3306,6 +3549,7 @@ class _$LoadedvalidCodeSuccess implements LoadedvalidCodeSuccess {
     required TResult Function() reset,
     required TResult Function() registered,
     required TResult Function() sendEmailSuccess,
+    required TResult Function() emailIsNotValid,
     required TResult Function() codeSent,
     required TResult Function(ForgotPasswordCodeModel successValidCode)
         validCodeSuccess,
@@ -3326,6 +3570,7 @@ class _$LoadedvalidCodeSuccess implements LoadedvalidCodeSuccess {
     TResult? Function()? reset,
     TResult? Function()? registered,
     TResult? Function()? sendEmailSuccess,
+    TResult? Function()? emailIsNotValid,
     TResult? Function()? codeSent,
     TResult? Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
@@ -3346,6 +3591,7 @@ class _$LoadedvalidCodeSuccess implements LoadedvalidCodeSuccess {
     TResult Function()? reset,
     TResult Function()? registered,
     TResult Function()? sendEmailSuccess,
+    TResult Function()? emailIsNotValid,
     TResult Function()? codeSent,
     TResult Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
@@ -3370,6 +3616,7 @@ class _$LoadedvalidCodeSuccess implements LoadedvalidCodeSuccess {
     required TResult Function(Reset value) reset,
     required TResult Function(Registered value) registered,
     required TResult Function(SendEmail value) sendEmailSuccess,
+    required TResult Function(ValidEmail value) emailIsNotValid,
     required TResult Function(CodeStatus value) codeSent,
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
   }) {
@@ -3389,6 +3636,7 @@ class _$LoadedvalidCodeSuccess implements LoadedvalidCodeSuccess {
     TResult? Function(Reset value)? reset,
     TResult? Function(Registered value)? registered,
     TResult? Function(SendEmail value)? sendEmailSuccess,
+    TResult? Function(ValidEmail value)? emailIsNotValid,
     TResult? Function(CodeStatus value)? codeSent,
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
   }) {
@@ -3408,6 +3656,7 @@ class _$LoadedvalidCodeSuccess implements LoadedvalidCodeSuccess {
     TResult Function(Reset value)? reset,
     TResult Function(Registered value)? registered,
     TResult Function(SendEmail value)? sendEmailSuccess,
+    TResult Function(ValidEmail value)? emailIsNotValid,
     TResult Function(CodeStatus value)? codeSent,
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     required TResult orElse(),

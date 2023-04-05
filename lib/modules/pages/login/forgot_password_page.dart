@@ -75,7 +75,12 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: true,
         backgroundColor: Colors.transparent,
-        appBar: CustomAppBar(),
+        appBar: CustomAppBar(
+          onRoute: () {
+            getIt<PreferenceRepositoryService>().saveForgotPasswordFlow(false);
+            Navigator.of(context, rootNavigator: true).pop();
+          },
+        ),
         body: BlocListener<AuthBloc, AuthState>(
             listener: (context, state) => state.maybeWhen(
                   orElse: () {
@@ -108,6 +113,13 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       });
                       Loading.hide(context);
                     }
+                  },
+                  emailIsNotValid: () {
+                    setState(() {
+                      errorText = S.of(context).invadlidEmail;
+                    });
+
+                    Loading.hide(context);
                   },
                   codeSent: () {
                     setState(() {
@@ -202,8 +214,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                           title: S.of(context).reset_password_btn,
                           onPressed: () {
                             forgotPasswordShowErrors();
-                            context.read<AuthBloc>().add(
-                                AuthEvent.sendEmail(_emailController.text));
+                            if (areFieldsValid()) {
+                              context.read<AuthBloc>().add(
+                                  AuthEvent.sendEmail(_emailController.text));
+                            }
                           },
                           type: PrimaryButtonType.green,
                         ),
@@ -284,5 +298,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       errorText =
           _codeController.text.isNotEmpty ? null : S.of(context).field_empty;
     });
+  }
+
+  bool areFieldsValid() {
+    return errorText == null && _emailController.text.isNotEmpty;
   }
 }

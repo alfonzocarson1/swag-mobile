@@ -149,6 +149,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please provide as much information as you can about the product and how you acquired it. Be sure to include the following:"),
         "info_guideline_popup_title":
             MessageLookupByLibrary.simpleMessage("INFO GUIDELINES"),
+        "invadlidEmail": MessageLookupByLibrary.simpleMessage(
+            "Incorrect email. Please try again."),
         "invalid_email": MessageLookupByLibrary.simpleMessage(
             "Invalid email address format"),
         "invalid_password": MessageLookupByLibrary.simpleMessage(

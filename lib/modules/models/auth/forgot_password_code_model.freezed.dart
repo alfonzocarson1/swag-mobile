@@ -21,8 +21,9 @@ ForgotPasswordCodeModel _$ForgotPasswordCodeModelFromJson(
 
 /// @nodoc
 mixin _$ForgotPasswordCodeModel {
-  String get statusCode => throw _privateConstructorUsedError;
-  String get statusMessage => throw _privateConstructorUsedError;
+  String? get statusCode => throw _privateConstructorUsedError;
+  String? get statusMessage => throw _privateConstructorUsedError;
+  bool? get response => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +37,7 @@ abstract class $ForgotPasswordCodeModelCopyWith<$Res> {
           $Res Function(ForgotPasswordCodeModel) then) =
       _$ForgotPasswordCodeModelCopyWithImpl<$Res, ForgotPasswordCodeModel>;
   @useResult
-  $Res call({String statusCode, String statusMessage});
+  $Res call({String? statusCode, String? statusMessage, bool? response});
 }
 
 /// @nodoc
@@ -53,18 +54,23 @@ class _$ForgotPasswordCodeModelCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? statusCode = null,
-    Object? statusMessage = null,
+    Object? statusCode = freezed,
+    Object? statusMessage = freezed,
+    Object? response = freezed,
   }) {
     return _then(_value.copyWith(
-      statusCode: null == statusCode
+      statusCode: freezed == statusCode
           ? _value.statusCode
           : statusCode // ignore: cast_nullable_to_non_nullable
-              as String,
-      statusMessage: null == statusMessage
+              as String?,
+      statusMessage: freezed == statusMessage
           ? _value.statusMessage
           : statusMessage // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      response: freezed == response
+          ? _value.response
+          : response // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 }
@@ -77,7 +83,7 @@ abstract class _$$_ForgotPasswordCodeModelCopyWith<$Res>
       __$$_ForgotPasswordCodeModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String statusCode, String statusMessage});
+  $Res call({String? statusCode, String? statusMessage, bool? response});
 }
 
 /// @nodoc
@@ -92,40 +98,47 @@ class __$$_ForgotPasswordCodeModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? statusCode = null,
-    Object? statusMessage = null,
+    Object? statusCode = freezed,
+    Object? statusMessage = freezed,
+    Object? response = freezed,
   }) {
     return _then(_$_ForgotPasswordCodeModel(
-      statusCode: null == statusCode
+      statusCode: freezed == statusCode
           ? _value.statusCode
           : statusCode // ignore: cast_nullable_to_non_nullable
-              as String,
-      statusMessage: null == statusMessage
+              as String?,
+      statusMessage: freezed == statusMessage
           ? _value.statusMessage
           : statusMessage // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      response: freezed == response
+          ? _value.response
+          : response // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
 
 /// @nodoc
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class _$_ForgotPasswordCodeModel implements _ForgotPasswordCodeModel {
   const _$_ForgotPasswordCodeModel(
-      {required this.statusCode, required this.statusMessage});
+      {this.statusCode, this.statusMessage, this.response});
 
   factory _$_ForgotPasswordCodeModel.fromJson(Map<String, dynamic> json) =>
       _$$_ForgotPasswordCodeModelFromJson(json);
 
   @override
-  final String statusCode;
+  final String? statusCode;
   @override
-  final String statusMessage;
+  final String? statusMessage;
+  @override
+  final bool? response;
 
   @override
   String toString() {
-    return 'ForgotPasswordCodeModel(statusCode: $statusCode, statusMessage: $statusMessage)';
+    return 'ForgotPasswordCodeModel(statusCode: $statusCode, statusMessage: $statusMessage, response: $response)';
   }
 
   @override
@@ -136,12 +149,15 @@ class _$_ForgotPasswordCodeModel implements _ForgotPasswordCodeModel {
             (identical(other.statusCode, statusCode) ||
                 other.statusCode == statusCode) &&
             (identical(other.statusMessage, statusMessage) ||
-                other.statusMessage == statusMessage));
+                other.statusMessage == statusMessage) &&
+            (identical(other.response, response) ||
+                other.response == response));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, statusCode, statusMessage);
+  int get hashCode =>
+      Object.hash(runtimeType, statusCode, statusMessage, response);
 
   @JsonKey(ignore: true)
   @override
@@ -161,16 +177,19 @@ class _$_ForgotPasswordCodeModel implements _ForgotPasswordCodeModel {
 
 abstract class _ForgotPasswordCodeModel implements ForgotPasswordCodeModel {
   const factory _ForgotPasswordCodeModel(
-      {required final String statusCode,
-      required final String statusMessage}) = _$_ForgotPasswordCodeModel;
+      {final String? statusCode,
+      final String? statusMessage,
+      final bool? response}) = _$_ForgotPasswordCodeModel;
 
   factory _ForgotPasswordCodeModel.fromJson(Map<String, dynamic> json) =
       _$_ForgotPasswordCodeModel.fromJson;
 
   @override
-  String get statusCode;
+  String? get statusCode;
   @override
-  String get statusMessage;
+  String? get statusMessage;
+  @override
+  bool? get response;
   @override
   @JsonKey(ignore: true)
   _$$_ForgotPasswordCodeModelCopyWith<_$_ForgotPasswordCodeModel>

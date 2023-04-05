@@ -2049,6 +2049,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Incorrect email. Please try again.`
+  String get invadlidEmail {
+    return Intl.message(
+      'Incorrect email. Please try again.',
+      name: 'invadlidEmail',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
