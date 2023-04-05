@@ -33,9 +33,9 @@ class SavedSearchService implements ISavedSearchService {
       needBearer: isAuthenticatedUser,
       fromJson: (json) => SavedSearchResult.fromJson(json),
     );
-    List<SavedSearch> lista= response.savedSearchResult;
+    List<SavedSearch> searchesList= response.savedSearchResult;
 
-    return lista;    
+    return searchesList;    
   }
   
   @override
