@@ -217,7 +217,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     )
    );
       
-    var saveSearchResponse = savedSearchService.saveSearch(payload);
+   savedSearchService.saveSearch(payload);
 
   }
 }
