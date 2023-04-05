@@ -89,7 +89,14 @@ class _SignInPageState extends State<SignInPage> {
                         .savePassword(_passwordController.text);
                     Loading.hide(context);
 
-                    Navigator.popUntil(context, ModalRoute.withName('/'));
+                    if (getIt<PreferenceRepositoryService>()
+                        .forgotPasswordFlow()) {
+                      getIt<PreferenceRepositoryService>()
+                          .saveForgotPasswordFlow(false);
+                      Navigator.of(context, rootNavigator: true).pop();
+                    } else {
+                      Navigator.popUntil(context, ModalRoute.withName('/'));
+                    }
 
                     return null;
                   },
@@ -203,6 +210,8 @@ class _SignInPageState extends State<SignInPage> {
                                               fontWeight: FontWeight.w300),
                                     ),
                                     onPressed: () {
+                                      getIt<PreferenceRepositoryService>()
+                                          .saveForgotPasswordFlow(true);
                                       Navigator.of(context, rootNavigator: true)
                                           .push(ForgotPasswordPage.route());
                                     }),

@@ -104,8 +104,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     yield const AuthState.initial();
 
     try {
-      await authService.requestPasswordResetCode(email);
-      yield AuthState.codeSent();
+      var response = await authService.validEmail(email);
+
+      if (response.response ?? false) {
+        await authService.requestPasswordResetCode(email);
+        yield AuthState.codeSent();
+      } else {
+        yield const AuthState.emailIsNotValid();
+      }
     } catch (e) {
       yield AuthState.error(HandlingErrors().getError(e));
     }
