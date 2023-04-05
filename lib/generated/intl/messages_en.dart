@@ -298,6 +298,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("GOLDEN KING COVER"),
         "title_welcome":
             MessageLookupByLibrary.simpleMessage("WELCOME TO SWAG"),
+        "toast_message_create_account": MessageLookupByLibrary.simpleMessage(
+            "A verification email has been resent. \nPlease check your inbox."),
         "total_mode": MessageLookupByLibrary.simpleMessage("Total Made:"),
         "type": MessageLookupByLibrary.simpleMessage("type"),
         "username": MessageLookupByLibrary.simpleMessage("@username"),

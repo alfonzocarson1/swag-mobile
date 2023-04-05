@@ -41,11 +41,6 @@ class _ExplorePageState extends State<ExplorePage> {
   @override
   void initState() {
     super.initState();
-
-    context.read<SearchBloc>().add(const SearchEvent.performSearch(
-        SearchRequestPayloadModel(filters: FilterModel()), SearchTab.whatsHot));
-
-    getIt<PreferenceRepositoryService>().saveSessionFlow(false);
     _isLogged = getIt<PreferenceRepositoryService>().isLogged();
     _hasJustSignedUp = getIt<PreferenceRepositoryService>().hasJustSignedUp();
     _hasImportableData =
@@ -53,9 +48,12 @@ class _ExplorePageState extends State<ExplorePage> {
     if (!_isLogged) {
       getIt<PreferenceRepositoryService>().saveloginAfterGuest(true);
     }
+    bool loginAfterGuest =
+        getIt<PreferenceRepositoryService>().loginAfterGuest();
+
     if (_isLogged && _hasJustSignedUp) {
       getIt<PreferenceRepositoryService>().saveHasJustSignedUp(false);
-      Future.delayed(const Duration(milliseconds: 4000), () {
+      Future.delayed(Duration(milliseconds: loginAfterGuest ? 5000 : 7000), () {
         Navigator.of(context, rootNavigator: true)
             .push(AccountInfoPage.route());
         Future.delayed(const Duration(milliseconds: 1000), () {

@@ -7,7 +7,6 @@ import '../../models/search/category_model.dart';
 import 'i_shared_preferences.dart';
 
 class PreferenceRepositoryService implements PreferenceRepositoryInt {
-
   static const String _logged = 'logged';
   static const String _register = 'register';
   static const String _recentSearches = 'recentSearches';
@@ -21,12 +20,10 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   static const String _lastCategories = 'lastCategories';
   static const String _hasImportableData = 'hasImportableData';
   static const String _accountId = 'accountId';
-  static const String _detailCollectionLen = 'collectionLen';
   static const String _returnPage = 'returnPage';
   static const String _loginAfterGuest = 'loginAfterGuest';
   static const String _validCode = 'validCode';
   static const String _searchesWithFilters = 'searchesWithFilters';
-  static const String _sessionFlow = 'sessionFlow';
 
   late SharedPreferences _prefs;
   @override
@@ -71,11 +68,11 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   }
 
   @override
-  List<String> getRecentSearches()=> _prefs.getStringList(_recentSearches) ?? [];
+  List<String> getRecentSearches() =>
+      _prefs.getStringList(_recentSearches) ?? [];
 
   @override
   Future<void> saveRecentSearches(List<String> elements) async {
-
     if (elements.length >= 10) elements.removeAt(0);
     await _prefs.setStringList(_recentSearches, elements);
   }
@@ -208,17 +205,6 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   }
 
   @override
-  bool sessionFlow() {
-    final returnPage = _prefs.getBool(_sessionFlow);
-    return returnPage ?? false;
-  }
-
-  @override
-  Future<void> saveSessionFlow(bool value) async {
-    await _prefs.setBool(_sessionFlow, value);
-  }
-
-  @override
   Future<String> validCode() async {
     final statusCode = _prefs.getString(_validCode);
     return statusCode ?? '';
@@ -228,18 +214,19 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   Future<void> saveValidCode(String value) async {
     await _prefs.setString(_validCode, value);
   }
-  
+
   @override
   List<String> getRecentSearchesWithFilters() {
-
-    List<String> searchesWithFilters = this._prefs.getStringList(_searchesWithFilters) ?? [];
+    List<String> searchesWithFilters =
+        this._prefs.getStringList(_searchesWithFilters) ?? [];
     return searchesWithFilters;
   }
-  
+
   @override
-  Future<void> saveRecentSearchesWithFilters({required String searchPayload}) async {
-    
-    List<String> searchesWithFilters = this._prefs.getStringList(_searchesWithFilters) ?? [];
+  Future<void> saveRecentSearchesWithFilters(
+      {required String searchPayload}) async {
+    List<String> searchesWithFilters =
+        this._prefs.getStringList(_searchesWithFilters) ?? [];
     searchesWithFilters.add(searchPayload);
     await this._prefs.setStringList(_searchesWithFilters, searchesWithFilters);
   }
