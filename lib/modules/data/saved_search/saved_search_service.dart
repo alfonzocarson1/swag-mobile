@@ -56,8 +56,26 @@ class SavedSearchService implements ISavedSearchService {
      catch(e){
       debugPrint(e.toString());
      }   
+  }
+  
+  @override
+  Future deleteSearch(String searchId) async {
 
+    bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
+    String? token = await getIt<StorageRepositoryService>().getToken();
+    bool isAuthenticatedUser = isLogged && isTokenValid(token);
 
+    try {
+      await apiService.getEndpointData(
+      endpoint: Endpoint.deleteSearch,
+      method: RequestMethod.put,
+      needBearer: isAuthenticatedUser,
+      dynamicParam: searchId
+    );
+     }
+     catch(e){
+      debugPrint(e.toString());
+     }   
   }
   
 }
