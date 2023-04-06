@@ -3,18 +3,21 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:swagapp/modules/models/saved_searches/search_values.dart';
 
 import '../../../../common/utils/palette.dart';
-import '../../../../common/utils/utils.dart';
+import '../../../../cubits/saved_search/saved_searches_cubit.dart';
+import '../../../../di/injector.dart';
 import '../../../../models/search/filter_model.dart';
 import '../../../../models/search/search_request_payload_model.dart';
 import '../../search_result/search_result_page.dart';
 
 class SavedSearchItem extends StatelessWidget {
-
+  
+  final int index;
   final String searchParam; 
   final SearchValues searchFilters;
   
   const SavedSearchItem({
-    super.key, 
+    super.key,
+    required this.index, 
     required this.searchParam, 
     required this.searchFilters,
   });
@@ -81,7 +84,9 @@ class SavedSearchItem extends StatelessWidget {
                       ),
                       const Spacer(),
                       IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            getIt<SavedSearchesCubit>().removeSearch(index);
+                          },
                           icon: Icon(
                             Icons.close,
                             size: 20,

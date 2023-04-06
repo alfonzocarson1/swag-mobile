@@ -1,11 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/cubits/saved_search/saved_searches_cubit.dart';
-import 'package:swagapp/modules/models/search/search_request_payload_model.dart';
 import 'package:swagapp/modules/pages/search/saved_searches/widgets/saved_search_item.dart';
 import '../../../common/utils/custom_route_animations.dart';
+import '../../../cubits/saved_search/saved_searches_state.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
 import '../../../models/saved_searches/saved_search.dart';
@@ -26,7 +24,7 @@ class SavedSearchesPage extends StatefulWidget {
 
 class _SavedSearchesPageState extends State<SavedSearchesPage> {
   late bool isAuthenticatedUser;
-    
+
   @override
   Widget build(BuildContext context) {   
     
@@ -60,7 +58,7 @@ class _SavedSearchBody extends StatelessWidget {
           padding: const EdgeInsets.only(top: 10),
           itemBuilder: (_, index) {
             var searchValues = savedSearchList[index].searchValues;
-            return SavedSearchItem(searchParam: savedSearchList[index].searchName.toString(), searchFilters: searchValues!);
+            return SavedSearchItem(index:index, searchParam: savedSearchList[index].searchName.toString(), searchFilters: searchValues!);
           }, 
           itemCount: savedSearchList.length,
         );
