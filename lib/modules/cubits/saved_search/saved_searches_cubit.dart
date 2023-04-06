@@ -16,7 +16,7 @@ class SavedSearchesCubit extends Cubit<SavedSearchesState> {
   }
 
   Future<void> loadSearches() async {
-    emit(SavedSearchesState.loading());
+    emit(const SavedSearchesState.loading());
     try{
       final List<SavedSearch> savedSearchResponse = await savedSearchService.getSavedSearchs();
       emit(SavedSearchesState.loaded(savedSearchResponse));
