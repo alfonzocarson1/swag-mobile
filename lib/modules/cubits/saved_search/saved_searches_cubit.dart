@@ -27,9 +27,12 @@ class SavedSearchesCubit extends Cubit<SavedSearchesState> {
     void removeSearch(int index) async {   
     state.when(
       loading: (){}, 
-      loaded: (savedSearchList){
+      loaded: (savedSearchList) async{
+        String searchToDelete = savedSearchList[index].searchId.toString();
         List<SavedSearch> updatedList = List.from(savedSearchList)..removeAt(index);
         emit( SavedSearchesState.loaded(updatedList));
+
+        await savedSearchService.deleteSearch(searchToDelete);
     }, 
     error: (errorMessage) => errorMessage);
   }
