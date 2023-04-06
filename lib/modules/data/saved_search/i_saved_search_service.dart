@@ -5,5 +5,6 @@ abstract class ISavedSearchService {
 
   Future<List<SavedSearch>> getSavedSearchs();
   Future saveSearch(SavedSearch search);
+  Future deleteSearch(String searchId);
 
 }
