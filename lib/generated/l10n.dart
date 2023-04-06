@@ -2039,6 +2039,26 @@ class S {
       args: [],
     );
   }
+
+  /// `A verification email has been resent. \nPlease check your inbox.`
+  String get toast_message_create_account {
+    return Intl.message(
+      'A verification email has been resent. \nPlease check your inbox.',
+      name: 'toast_message_create_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Incorrect email. Please try again.`
+  String get invadlidEmail {
+    return Intl.message(
+      'Incorrect email. Please try again.',
+      name: 'invadlidEmail',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

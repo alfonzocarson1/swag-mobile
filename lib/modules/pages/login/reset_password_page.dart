@@ -93,6 +93,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         backgroundColor: Colors.transparent,
         appBar: CustomAppBar(
           onRoute: () {
+            getIt<PreferenceRepositoryService>().saveForgotPasswordFlow(false);
             Navigator.of(context, rootNavigator: true)
                 .popUntil(ModalRoute.withName('/SignIn'));
           },

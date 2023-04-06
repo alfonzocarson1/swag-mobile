@@ -80,6 +80,17 @@ class AuthService extends IAuthService {
   }
 
   @override
+  Future<ForgotPasswordCodeModel> validEmail(String email) async {
+    final response = await apiService.getEndpointData(
+      endpoint: Endpoint.isEmailInUse,
+      method: RequestMethod.get,
+      dynamicParam: email,
+      fromJson: (json) => ForgotPasswordCodeModel.fromJson(json),
+    );
+    return response;
+  }
+
+  @override
   Future<ChangePasswordResponseModel> changePassword(
       String changeCode, String newPassword, String deviceId) async {
     Map<String, String> params = {
