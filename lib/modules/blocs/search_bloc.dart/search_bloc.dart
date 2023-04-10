@@ -3,12 +3,17 @@ import 'dart:convert';
 
 import 'package:swagapp/modules/common/utils/utils.dart';
 import 'package:swagapp/modules/constants/constants.dart';
+import 'package:swagapp/modules/data/saved_search/saved_search_service.dart';
 import 'package:swagapp/modules/data/search/i_search_service.dart';
+import 'package:swagapp/modules/models/saved_searches/saved_search.dart';
+import 'package:swagapp/modules/models/saved_searches/search_values.dart';
 import 'package:swagapp/modules/models/search/catalog_item_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../common/utils/handling_errors.dart';
+import '../../data/saved_search/i_saved_search_service.dart';
+import '../../data/secure_storage/storage_repository_service.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/search/category_model.dart';
@@ -21,8 +26,9 @@ part 'search_state.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   final ISearchService searchService;
+  final ISavedSearchService savedSearchService;
 
-  SearchBloc(this.searchService) : super(SearchState.initial()) {
+  SearchBloc(this.searchService, this.savedSearchService) : super(SearchState.initial()) {
     init();
   }
 
@@ -181,8 +187,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
   }
 
-  Future<void> saveSearchWithFilters(String searchParam) async {
-
+  Future<void> saveSearchlocally(String searchParam) async{
+    
     SearchRequestPayloadModel payload = SearchRequestPayloadModel(
       searchParams: searchParam.isNotEmpty ? [searchParam] : null,
       categoryId: await SearchTabWrapper(SearchTab.all).toStringCustom(),
@@ -190,8 +196,29 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     );
 
     String payloadAsJson = json.encode(payload.toJson());
+
     PreferenceRepositoryService sharedPref = getIt<PreferenceRepositoryService>();
     sharedPref.saveRecentSearchesWithFilters(searchPayload: payloadAsJson);
+  }
+
+  Future<void> saveSearchWithFilters(String searchParam) async {
+
+   FilterModel filters = await getCurrentFilterModel();  
+   
+   SavedSearch payload= SavedSearch(
+    searchName: searchParam,
+    searchValues: SearchValues(
+      conditions: filters.conditions,
+      releaseYears: filters.releaseYears,
+      collection: filters.collection,
+      forSale: filters.forSale,
+      priceRanges: filters.priceRanges,
+      sortBy: filters.sortBy
+    )
+   );
+      
+   savedSearchService.saveSearch(payload);
+
   }
 }
  
