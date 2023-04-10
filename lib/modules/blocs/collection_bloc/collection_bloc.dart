@@ -16,9 +16,7 @@ part 'collection_state.dart';
 class CollectionBloc extends Bloc<CollectionEvent, CollectionState> {
   final ICollectionService collectionService;
 
-  CollectionBloc(this.collectionService) : super(CollectionState.initial()) {
-    add(const CollectionEvent.getProfileCollections());
-  }
+  CollectionBloc(this.collectionService) : super(CollectionState.initial());
 
   Stream<CollectionState> get authStateStream async* {
     yield state;
