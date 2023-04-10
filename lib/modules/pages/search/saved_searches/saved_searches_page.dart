@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/cubits/saved_search/saved_searches_cubit.dart';
+import 'package:swagapp/modules/models/saved_searches/search_values.dart';
 import 'package:swagapp/modules/pages/search/saved_searches/widgets/saved_search_item.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../cubits/saved_search/saved_searches_state.dart';
@@ -64,12 +65,25 @@ class _SavedSearchBody extends StatelessWidget {
           padding: const EdgeInsets.only(top: 10),
           itemBuilder: (_, index) {
             var searchValues = savedSearchList[index].searchValues;
-            return SavedSearchItem(index:index, searchParam: savedSearchList[index].searchName.toString(), searchFilters: searchValues!);
+            searchValues ??= const SearchValues(
+                forSale: false,
+                collection: null,
+                productType: null,
+                priceRanges: null,
+                sortBy: null,
+                type: null,
+                theme: null,
+                conditions: null,
+                releaseYears: null,              
+
+              );  
+            return SavedSearchItem(index:index, searchParam: savedSearchList[index].searchName.toString(), searchFilters: searchValues);
           }, 
           itemCount: savedSearchList.length,
         );
   }
 }
+
 
 
 
