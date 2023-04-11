@@ -24,6 +24,7 @@ mixin _$AuthEvent {
     required TResult Function() logout,
     required TResult Function(String email) sendEmail,
     required TResult Function(String code) validCode,
+    required TResult Function() privateProfile,
     required TResult Function(
             String changeCode, String newPassword, String deviceId)
         changePassword,
@@ -37,6 +38,7 @@ mixin _$AuthEvent {
     TResult? Function()? logout,
     TResult? Function(String email)? sendEmail,
     TResult? Function(String code)? validCode,
+    TResult? Function()? privateProfile,
     TResult? Function(String changeCode, String newPassword, String deviceId)?
         changePassword,
   }) =>
@@ -49,6 +51,7 @@ mixin _$AuthEvent {
     TResult Function()? logout,
     TResult Function(String email)? sendEmail,
     TResult Function(String code)? validCode,
+    TResult Function()? privateProfile,
     TResult Function(String changeCode, String newPassword, String deviceId)?
         changePassword,
     required TResult orElse(),
@@ -62,6 +65,7 @@ mixin _$AuthEvent {
     required TResult Function(LogoutAuth value) logout,
     required TResult Function(_SendEmail value) sendEmail,
     required TResult Function(_ValidCode value) validCode,
+    required TResult Function(_PrivateProfile value) privateProfile,
     required TResult Function(_ChangePassword value) changePassword,
   }) =>
       throw _privateConstructorUsedError;
@@ -73,6 +77,7 @@ mixin _$AuthEvent {
     TResult? Function(LogoutAuth value)? logout,
     TResult? Function(_SendEmail value)? sendEmail,
     TResult? Function(_ValidCode value)? validCode,
+    TResult? Function(_PrivateProfile value)? privateProfile,
     TResult? Function(_ChangePassword value)? changePassword,
   }) =>
       throw _privateConstructorUsedError;
@@ -84,6 +89,7 @@ mixin _$AuthEvent {
     TResult Function(LogoutAuth value)? logout,
     TResult Function(_SendEmail value)? sendEmail,
     TResult Function(_ValidCode value)? validCode,
+    TResult Function(_PrivateProfile value)? privateProfile,
     TResult Function(_ChangePassword value)? changePassword,
     required TResult orElse(),
   }) =>
@@ -148,6 +154,7 @@ class _$Init implements Init {
     required TResult Function() logout,
     required TResult Function(String email) sendEmail,
     required TResult Function(String code) validCode,
+    required TResult Function() privateProfile,
     required TResult Function(
             String changeCode, String newPassword, String deviceId)
         changePassword,
@@ -164,6 +171,7 @@ class _$Init implements Init {
     TResult? Function()? logout,
     TResult? Function(String email)? sendEmail,
     TResult? Function(String code)? validCode,
+    TResult? Function()? privateProfile,
     TResult? Function(String changeCode, String newPassword, String deviceId)?
         changePassword,
   }) {
@@ -179,6 +187,7 @@ class _$Init implements Init {
     TResult Function()? logout,
     TResult Function(String email)? sendEmail,
     TResult Function(String code)? validCode,
+    TResult Function()? privateProfile,
     TResult Function(String changeCode, String newPassword, String deviceId)?
         changePassword,
     required TResult orElse(),
@@ -198,6 +207,7 @@ class _$Init implements Init {
     required TResult Function(LogoutAuth value) logout,
     required TResult Function(_SendEmail value) sendEmail,
     required TResult Function(_ValidCode value) validCode,
+    required TResult Function(_PrivateProfile value) privateProfile,
     required TResult Function(_ChangePassword value) changePassword,
   }) {
     return init(this);
@@ -212,6 +222,7 @@ class _$Init implements Init {
     TResult? Function(LogoutAuth value)? logout,
     TResult? Function(_SendEmail value)? sendEmail,
     TResult? Function(_ValidCode value)? validCode,
+    TResult? Function(_PrivateProfile value)? privateProfile,
     TResult? Function(_ChangePassword value)? changePassword,
   }) {
     return init?.call(this);
@@ -226,6 +237,7 @@ class _$Init implements Init {
     TResult Function(LogoutAuth value)? logout,
     TResult Function(_SendEmail value)? sendEmail,
     TResult Function(_ValidCode value)? validCode,
+    TResult Function(_PrivateProfile value)? privateProfile,
     TResult Function(_ChangePassword value)? changePassword,
     required TResult orElse(),
   }) {
@@ -320,6 +332,7 @@ class _$CreateAccount implements CreateAccount {
     required TResult Function() logout,
     required TResult Function(String email) sendEmail,
     required TResult Function(String code) validCode,
+    required TResult Function() privateProfile,
     required TResult Function(
             String changeCode, String newPassword, String deviceId)
         changePassword,
@@ -336,6 +349,7 @@ class _$CreateAccount implements CreateAccount {
     TResult? Function()? logout,
     TResult? Function(String email)? sendEmail,
     TResult? Function(String code)? validCode,
+    TResult? Function()? privateProfile,
     TResult? Function(String changeCode, String newPassword, String deviceId)?
         changePassword,
   }) {
@@ -351,6 +365,7 @@ class _$CreateAccount implements CreateAccount {
     TResult Function()? logout,
     TResult Function(String email)? sendEmail,
     TResult Function(String code)? validCode,
+    TResult Function()? privateProfile,
     TResult Function(String changeCode, String newPassword, String deviceId)?
         changePassword,
     required TResult orElse(),
@@ -370,6 +385,7 @@ class _$CreateAccount implements CreateAccount {
     required TResult Function(LogoutAuth value) logout,
     required TResult Function(_SendEmail value) sendEmail,
     required TResult Function(_ValidCode value) validCode,
+    required TResult Function(_PrivateProfile value) privateProfile,
     required TResult Function(_ChangePassword value) changePassword,
   }) {
     return createAccount(this);
@@ -384,6 +400,7 @@ class _$CreateAccount implements CreateAccount {
     TResult? Function(LogoutAuth value)? logout,
     TResult? Function(_SendEmail value)? sendEmail,
     TResult? Function(_ValidCode value)? validCode,
+    TResult? Function(_PrivateProfile value)? privateProfile,
     TResult? Function(_ChangePassword value)? changePassword,
   }) {
     return createAccount?.call(this);
@@ -398,6 +415,7 @@ class _$CreateAccount implements CreateAccount {
     TResult Function(LogoutAuth value)? logout,
     TResult Function(_SendEmail value)? sendEmail,
     TResult Function(_ValidCode value)? validCode,
+    TResult Function(_PrivateProfile value)? privateProfile,
     TResult Function(_ChangePassword value)? changePassword,
     required TResult orElse(),
   }) {
@@ -497,6 +515,7 @@ class _$Authenticate implements Authenticate {
     required TResult Function() logout,
     required TResult Function(String email) sendEmail,
     required TResult Function(String code) validCode,
+    required TResult Function() privateProfile,
     required TResult Function(
             String changeCode, String newPassword, String deviceId)
         changePassword,
@@ -513,6 +532,7 @@ class _$Authenticate implements Authenticate {
     TResult? Function()? logout,
     TResult? Function(String email)? sendEmail,
     TResult? Function(String code)? validCode,
+    TResult? Function()? privateProfile,
     TResult? Function(String changeCode, String newPassword, String deviceId)?
         changePassword,
   }) {
@@ -528,6 +548,7 @@ class _$Authenticate implements Authenticate {
     TResult Function()? logout,
     TResult Function(String email)? sendEmail,
     TResult Function(String code)? validCode,
+    TResult Function()? privateProfile,
     TResult Function(String changeCode, String newPassword, String deviceId)?
         changePassword,
     required TResult orElse(),
@@ -547,6 +568,7 @@ class _$Authenticate implements Authenticate {
     required TResult Function(LogoutAuth value) logout,
     required TResult Function(_SendEmail value) sendEmail,
     required TResult Function(_ValidCode value) validCode,
+    required TResult Function(_PrivateProfile value) privateProfile,
     required TResult Function(_ChangePassword value) changePassword,
   }) {
     return authenticate(this);
@@ -561,6 +583,7 @@ class _$Authenticate implements Authenticate {
     TResult? Function(LogoutAuth value)? logout,
     TResult? Function(_SendEmail value)? sendEmail,
     TResult? Function(_ValidCode value)? validCode,
+    TResult? Function(_PrivateProfile value)? privateProfile,
     TResult? Function(_ChangePassword value)? changePassword,
   }) {
     return authenticate?.call(this);
@@ -575,6 +598,7 @@ class _$Authenticate implements Authenticate {
     TResult Function(LogoutAuth value)? logout,
     TResult Function(_SendEmail value)? sendEmail,
     TResult Function(_ValidCode value)? validCode,
+    TResult Function(_PrivateProfile value)? privateProfile,
     TResult Function(_ChangePassword value)? changePassword,
     required TResult orElse(),
   }) {
@@ -640,6 +664,7 @@ class _$LogoutAuth implements LogoutAuth {
     required TResult Function() logout,
     required TResult Function(String email) sendEmail,
     required TResult Function(String code) validCode,
+    required TResult Function() privateProfile,
     required TResult Function(
             String changeCode, String newPassword, String deviceId)
         changePassword,
@@ -656,6 +681,7 @@ class _$LogoutAuth implements LogoutAuth {
     TResult? Function()? logout,
     TResult? Function(String email)? sendEmail,
     TResult? Function(String code)? validCode,
+    TResult? Function()? privateProfile,
     TResult? Function(String changeCode, String newPassword, String deviceId)?
         changePassword,
   }) {
@@ -671,6 +697,7 @@ class _$LogoutAuth implements LogoutAuth {
     TResult Function()? logout,
     TResult Function(String email)? sendEmail,
     TResult Function(String code)? validCode,
+    TResult Function()? privateProfile,
     TResult Function(String changeCode, String newPassword, String deviceId)?
         changePassword,
     required TResult orElse(),
@@ -690,6 +717,7 @@ class _$LogoutAuth implements LogoutAuth {
     required TResult Function(LogoutAuth value) logout,
     required TResult Function(_SendEmail value) sendEmail,
     required TResult Function(_ValidCode value) validCode,
+    required TResult Function(_PrivateProfile value) privateProfile,
     required TResult Function(_ChangePassword value) changePassword,
   }) {
     return logout(this);
@@ -704,6 +732,7 @@ class _$LogoutAuth implements LogoutAuth {
     TResult? Function(LogoutAuth value)? logout,
     TResult? Function(_SendEmail value)? sendEmail,
     TResult? Function(_ValidCode value)? validCode,
+    TResult? Function(_PrivateProfile value)? privateProfile,
     TResult? Function(_ChangePassword value)? changePassword,
   }) {
     return logout?.call(this);
@@ -718,6 +747,7 @@ class _$LogoutAuth implements LogoutAuth {
     TResult Function(LogoutAuth value)? logout,
     TResult Function(_SendEmail value)? sendEmail,
     TResult Function(_ValidCode value)? validCode,
+    TResult Function(_PrivateProfile value)? privateProfile,
     TResult Function(_ChangePassword value)? changePassword,
     required TResult orElse(),
   }) {
@@ -802,6 +832,7 @@ class _$_SendEmail implements _SendEmail {
     required TResult Function() logout,
     required TResult Function(String email) sendEmail,
     required TResult Function(String code) validCode,
+    required TResult Function() privateProfile,
     required TResult Function(
             String changeCode, String newPassword, String deviceId)
         changePassword,
@@ -818,6 +849,7 @@ class _$_SendEmail implements _SendEmail {
     TResult? Function()? logout,
     TResult? Function(String email)? sendEmail,
     TResult? Function(String code)? validCode,
+    TResult? Function()? privateProfile,
     TResult? Function(String changeCode, String newPassword, String deviceId)?
         changePassword,
   }) {
@@ -833,6 +865,7 @@ class _$_SendEmail implements _SendEmail {
     TResult Function()? logout,
     TResult Function(String email)? sendEmail,
     TResult Function(String code)? validCode,
+    TResult Function()? privateProfile,
     TResult Function(String changeCode, String newPassword, String deviceId)?
         changePassword,
     required TResult orElse(),
@@ -852,6 +885,7 @@ class _$_SendEmail implements _SendEmail {
     required TResult Function(LogoutAuth value) logout,
     required TResult Function(_SendEmail value) sendEmail,
     required TResult Function(_ValidCode value) validCode,
+    required TResult Function(_PrivateProfile value) privateProfile,
     required TResult Function(_ChangePassword value) changePassword,
   }) {
     return sendEmail(this);
@@ -866,6 +900,7 @@ class _$_SendEmail implements _SendEmail {
     TResult? Function(LogoutAuth value)? logout,
     TResult? Function(_SendEmail value)? sendEmail,
     TResult? Function(_ValidCode value)? validCode,
+    TResult? Function(_PrivateProfile value)? privateProfile,
     TResult? Function(_ChangePassword value)? changePassword,
   }) {
     return sendEmail?.call(this);
@@ -880,6 +915,7 @@ class _$_SendEmail implements _SendEmail {
     TResult Function(LogoutAuth value)? logout,
     TResult Function(_SendEmail value)? sendEmail,
     TResult Function(_ValidCode value)? validCode,
+    TResult Function(_PrivateProfile value)? privateProfile,
     TResult Function(_ChangePassword value)? changePassword,
     required TResult orElse(),
   }) {
@@ -969,6 +1005,7 @@ class _$_ValidCode implements _ValidCode {
     required TResult Function() logout,
     required TResult Function(String email) sendEmail,
     required TResult Function(String code) validCode,
+    required TResult Function() privateProfile,
     required TResult Function(
             String changeCode, String newPassword, String deviceId)
         changePassword,
@@ -985,6 +1022,7 @@ class _$_ValidCode implements _ValidCode {
     TResult? Function()? logout,
     TResult? Function(String email)? sendEmail,
     TResult? Function(String code)? validCode,
+    TResult? Function()? privateProfile,
     TResult? Function(String changeCode, String newPassword, String deviceId)?
         changePassword,
   }) {
@@ -1000,6 +1038,7 @@ class _$_ValidCode implements _ValidCode {
     TResult Function()? logout,
     TResult Function(String email)? sendEmail,
     TResult Function(String code)? validCode,
+    TResult Function()? privateProfile,
     TResult Function(String changeCode, String newPassword, String deviceId)?
         changePassword,
     required TResult orElse(),
@@ -1019,6 +1058,7 @@ class _$_ValidCode implements _ValidCode {
     required TResult Function(LogoutAuth value) logout,
     required TResult Function(_SendEmail value) sendEmail,
     required TResult Function(_ValidCode value) validCode,
+    required TResult Function(_PrivateProfile value) privateProfile,
     required TResult Function(_ChangePassword value) changePassword,
   }) {
     return validCode(this);
@@ -1033,6 +1073,7 @@ class _$_ValidCode implements _ValidCode {
     TResult? Function(LogoutAuth value)? logout,
     TResult? Function(_SendEmail value)? sendEmail,
     TResult? Function(_ValidCode value)? validCode,
+    TResult? Function(_PrivateProfile value)? privateProfile,
     TResult? Function(_ChangePassword value)? changePassword,
   }) {
     return validCode?.call(this);
@@ -1047,6 +1088,7 @@ class _$_ValidCode implements _ValidCode {
     TResult Function(LogoutAuth value)? logout,
     TResult Function(_SendEmail value)? sendEmail,
     TResult Function(_ValidCode value)? validCode,
+    TResult Function(_PrivateProfile value)? privateProfile,
     TResult Function(_ChangePassword value)? changePassword,
     required TResult orElse(),
   }) {
@@ -1064,6 +1106,148 @@ abstract class _ValidCode implements AuthEvent {
   @JsonKey(ignore: true)
   _$$_ValidCodeCopyWith<_$_ValidCode> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_PrivateProfileCopyWith<$Res> {
+  factory _$$_PrivateProfileCopyWith(
+          _$_PrivateProfile value, $Res Function(_$_PrivateProfile) then) =
+      __$$_PrivateProfileCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_PrivateProfileCopyWithImpl<$Res>
+    extends _$AuthEventCopyWithImpl<$Res, _$_PrivateProfile>
+    implements _$$_PrivateProfileCopyWith<$Res> {
+  __$$_PrivateProfileCopyWithImpl(
+      _$_PrivateProfile _value, $Res Function(_$_PrivateProfile) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_PrivateProfile implements _PrivateProfile {
+  const _$_PrivateProfile();
+
+  @override
+  String toString() {
+    return 'AuthEvent.privateProfile()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_PrivateProfile);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() init,
+    required TResult Function(CreateAccountPayloadModel model) createAccount,
+    required TResult Function(String email, String password) authenticate,
+    required TResult Function() logout,
+    required TResult Function(String email) sendEmail,
+    required TResult Function(String code) validCode,
+    required TResult Function() privateProfile,
+    required TResult Function(
+            String changeCode, String newPassword, String deviceId)
+        changePassword,
+  }) {
+    return privateProfile();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? init,
+    TResult? Function(CreateAccountPayloadModel model)? createAccount,
+    TResult? Function(String email, String password)? authenticate,
+    TResult? Function()? logout,
+    TResult? Function(String email)? sendEmail,
+    TResult? Function(String code)? validCode,
+    TResult? Function()? privateProfile,
+    TResult? Function(String changeCode, String newPassword, String deviceId)?
+        changePassword,
+  }) {
+    return privateProfile?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? init,
+    TResult Function(CreateAccountPayloadModel model)? createAccount,
+    TResult Function(String email, String password)? authenticate,
+    TResult Function()? logout,
+    TResult Function(String email)? sendEmail,
+    TResult Function(String code)? validCode,
+    TResult Function()? privateProfile,
+    TResult Function(String changeCode, String newPassword, String deviceId)?
+        changePassword,
+    required TResult orElse(),
+  }) {
+    if (privateProfile != null) {
+      return privateProfile();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Init value) init,
+    required TResult Function(CreateAccount value) createAccount,
+    required TResult Function(Authenticate value) authenticate,
+    required TResult Function(LogoutAuth value) logout,
+    required TResult Function(_SendEmail value) sendEmail,
+    required TResult Function(_ValidCode value) validCode,
+    required TResult Function(_PrivateProfile value) privateProfile,
+    required TResult Function(_ChangePassword value) changePassword,
+  }) {
+    return privateProfile(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Init value)? init,
+    TResult? Function(CreateAccount value)? createAccount,
+    TResult? Function(Authenticate value)? authenticate,
+    TResult? Function(LogoutAuth value)? logout,
+    TResult? Function(_SendEmail value)? sendEmail,
+    TResult? Function(_ValidCode value)? validCode,
+    TResult? Function(_PrivateProfile value)? privateProfile,
+    TResult? Function(_ChangePassword value)? changePassword,
+  }) {
+    return privateProfile?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Init value)? init,
+    TResult Function(CreateAccount value)? createAccount,
+    TResult Function(Authenticate value)? authenticate,
+    TResult Function(LogoutAuth value)? logout,
+    TResult Function(_SendEmail value)? sendEmail,
+    TResult Function(_ValidCode value)? validCode,
+    TResult Function(_PrivateProfile value)? privateProfile,
+    TResult Function(_ChangePassword value)? changePassword,
+    required TResult orElse(),
+  }) {
+    if (privateProfile != null) {
+      return privateProfile(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _PrivateProfile implements AuthEvent {
+  const factory _PrivateProfile() = _$_PrivateProfile;
 }
 
 /// @nodoc
@@ -1156,6 +1340,7 @@ class _$_ChangePassword implements _ChangePassword {
     required TResult Function() logout,
     required TResult Function(String email) sendEmail,
     required TResult Function(String code) validCode,
+    required TResult Function() privateProfile,
     required TResult Function(
             String changeCode, String newPassword, String deviceId)
         changePassword,
@@ -1172,6 +1357,7 @@ class _$_ChangePassword implements _ChangePassword {
     TResult? Function()? logout,
     TResult? Function(String email)? sendEmail,
     TResult? Function(String code)? validCode,
+    TResult? Function()? privateProfile,
     TResult? Function(String changeCode, String newPassword, String deviceId)?
         changePassword,
   }) {
@@ -1187,6 +1373,7 @@ class _$_ChangePassword implements _ChangePassword {
     TResult Function()? logout,
     TResult Function(String email)? sendEmail,
     TResult Function(String code)? validCode,
+    TResult Function()? privateProfile,
     TResult Function(String changeCode, String newPassword, String deviceId)?
         changePassword,
     required TResult orElse(),
@@ -1206,6 +1393,7 @@ class _$_ChangePassword implements _ChangePassword {
     required TResult Function(LogoutAuth value) logout,
     required TResult Function(_SendEmail value) sendEmail,
     required TResult Function(_ValidCode value) validCode,
+    required TResult Function(_PrivateProfile value) privateProfile,
     required TResult Function(_ChangePassword value) changePassword,
   }) {
     return changePassword(this);
@@ -1220,6 +1408,7 @@ class _$_ChangePassword implements _ChangePassword {
     TResult? Function(LogoutAuth value)? logout,
     TResult? Function(_SendEmail value)? sendEmail,
     TResult? Function(_ValidCode value)? validCode,
+    TResult? Function(_PrivateProfile value)? privateProfile,
     TResult? Function(_ChangePassword value)? changePassword,
   }) {
     return changePassword?.call(this);
@@ -1234,6 +1423,7 @@ class _$_ChangePassword implements _ChangePassword {
     TResult Function(LogoutAuth value)? logout,
     TResult Function(_SendEmail value)? sendEmail,
     TResult Function(_ValidCode value)? validCode,
+    TResult Function(_PrivateProfile value)? privateProfile,
     TResult Function(_ChangePassword value)? changePassword,
     required TResult orElse(),
   }) {

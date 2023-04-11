@@ -13,6 +13,7 @@ import '../../di/injector.dart';
 import '../../models/auth/change_password_response_model.dart';
 import '../../models/auth/create_account_payload_model.dart';
 import '../../models/auth/forgot_password_code_model.dart';
+import '../../models/profile/profile_model.dart';
 
 part 'auth_bloc.freezed.dart';
 part 'auth_event.dart';
@@ -52,6 +53,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       sendEmail: _sendEmail,
       validCode: _validCode,
       changePassword: _changePassword,
+      privateProfile: _privateProfile,
       init: _init,
     );
   }
@@ -91,6 +93,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       getIt<StorageRepositoryService>().saveToken(response.token);
       if (response.errorCode == successResponse ||
           response.errorCode == defaultString) {
+        add(const AuthEvent.privateProfile());
         yield const AuthState.authenticated();
       } else {
         yield AuthState.error(HandlingErrors().getError(response.errorCode));
@@ -140,6 +143,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       getIt<StorageRepositoryService>().saveToken(response.token);
 
       yield const AuthState.authenticated();
+    } catch (e) {
+      yield AuthState.error(HandlingErrors().getError(e));
+    }
+  }
+
+  Stream<AuthState> _privateProfile() async* {
+    try {
+      ProfileModel response = await authService.privateProfile();
+      getIt<PreferenceRepositoryService>().saveProfileData(response);
     } catch (e) {
       yield AuthState.error(HandlingErrors().getError(e));
     }
