@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../constants/constants.dart';
+import '../../models/profile/profile_model.dart';
 import '../../models/search/category_model.dart';
 import 'i_shared_preferences.dart';
 
@@ -25,6 +26,7 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   static const String _validCode = 'validCode';
   static const String _searchesWithFilters = 'searchesWithFilters';
   static const String _forgotPasswordFlow = 'forgotPasswordFlow';
+  static const String _profileData = 'profileData';
 
   late SharedPreferences _prefs;
   @override
@@ -241,5 +243,16 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   @override
   Future<void> saveForgotPasswordFlow(bool value) async {
     await _prefs.setBool(_forgotPasswordFlow, value);
+  }
+
+  @override
+  Future<void> saveProfileData(ProfileModel profileData) async {
+    await _prefs.setString(_profileData, jsonEncode(profileData));
+  }
+
+  @override
+  ProfileModel profileData() {
+    final profileData = _prefs.getString(_profileData);
+    return ProfileModel.fromJson(json.decode(profileData ?? ''));
   }
 }
