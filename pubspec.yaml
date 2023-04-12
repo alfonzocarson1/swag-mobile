@@ -49,7 +49,7 @@ dependencies:
   shared_preferences: ^2.0.13
 
 # Utils
-  freezed_annotation: ^2.0.1
+  freezed_annotation: ^2.2.0
   rxdart: ^0.27.1
   intl: ^0.17.0
   flutter_secure_storage: ^7.0.1
@@ -70,9 +70,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  json_serializable: ^6.5.4
-  build_runner: ^2.0.3
-  freezed: ^2.0.2
+  json_serializable: ^6.6.1
+  build_runner: ^2.3.3
+  freezed: ^2.3.2
   carousel_slider: ^4.2.1
 
   # The "flutter_lints" package below contains a set of recommended lints to

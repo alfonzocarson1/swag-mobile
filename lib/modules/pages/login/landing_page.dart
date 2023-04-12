@@ -22,7 +22,6 @@ class LandingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    getIt<PreferenceRepositoryService>().saveSessionFlow(false);
     return Scaffold(
         resizeToAvoidBottomInset: true,
         backgroundColor: Colors.transparent,

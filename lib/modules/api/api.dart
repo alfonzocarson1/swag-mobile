@@ -21,7 +21,11 @@ enum Endpoint {
   buyForSaleListing,
   createListingForSale,
   uploadImageListingForSale,
-  favoriteFlow
+  favoriteFlow,
+  savedSearches,
+  deleteSearch,
+  isEmailInUse,
+  privateProfile
 }
 
 class API {
@@ -61,6 +65,10 @@ class API {
     Endpoint.buyForSaleListing: "api/v1/listing/forSale/%s",
     Endpoint.createListingForSale: "api/v1/listing/listingItem",
     Endpoint.uploadImageListingForSale: 'api/v1/image/listing/%s',
-    Endpoint.favoriteFlow: 'api/v1/profile/favoriteItems'
+    Endpoint.favoriteFlow: 'api/v1/profile/favoriteItems',
+    Endpoint.savedSearches: "api/v1/catalog/searches/",
+    Endpoint.deleteSearch: "api/v1/catalog/searches/%s",
+    Endpoint.isEmailInUse: 'api/public/v1/account/isEmailInUse/%s',
+    Endpoint.privateProfile: 'api/v1/profile'
   };
 }

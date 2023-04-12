@@ -149,6 +149,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please provide as much information as you can about the product and how you acquired it. Be sure to include the following:"),
         "info_guideline_popup_title":
             MessageLookupByLibrary.simpleMessage("INFO GUIDELINES"),
+        "invadlidEmail": MessageLookupByLibrary.simpleMessage(
+            "Incorrect email. Please try again."),
         "invalid_email": MessageLookupByLibrary.simpleMessage(
             "Invalid email address format"),
         "invalid_password": MessageLookupByLibrary.simpleMessage(
@@ -298,6 +300,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("GOLDEN KING COVER"),
         "title_welcome":
             MessageLookupByLibrary.simpleMessage("WELCOME TO SWAG"),
+        "toast_message_create_account": MessageLookupByLibrary.simpleMessage(
+            "A verification email has been resent. \nPlease check your inbox."),
         "total_mode": MessageLookupByLibrary.simpleMessage("Total Made:"),
         "type": MessageLookupByLibrary.simpleMessage("type"),
         "username": MessageLookupByLibrary.simpleMessage("@username"),

@@ -12,6 +12,7 @@ class AuthState with _$AuthState {
   const factory AuthState.reset() = Reset;
   const factory AuthState.registered() = Registered;
   const factory AuthState.sendEmailSuccess() = SendEmail;
+  const factory AuthState.emailIsNotValid() = ValidEmail;
   factory AuthState.codeSent() = CodeStatus;
   factory AuthState.validCodeSuccess(ForgotPasswordCodeModel successValidCode) =
       LoadedvalidCodeSuccess;

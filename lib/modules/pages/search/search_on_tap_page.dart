@@ -7,7 +7,7 @@ import 'package:swagapp/modules/common/ui/search_input.dart';
 import 'package:swagapp/modules/common/utils/custom_route_animations.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/pages/search/recent_searches_page.dart';
-import 'package:swagapp/modules/pages/search/saved_searches_page.dart';
+import 'package:swagapp/modules/pages/search/saved_searches/saved_searches_page.dart';
 import 'package:swagapp/modules/pages/search/search_result/search_result_page.dart';
 
 import '../../common/utils/utils.dart';

@@ -75,35 +75,29 @@ class _SignInPageState extends State<SignInPage> {
         extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: true,
         backgroundColor: Colors.transparent,
-        appBar: CustomAppBar(
-          onRoute: () {
-            Navigator.of(context, rootNavigator: true)
-                .popUntil(ModalRoute.withName('/'));
-          },
-        ),
+        appBar: CustomAppBar(),
         body: BlocListener<AuthBloc, AuthState>(
             listener: (context, state) => state.maybeWhen(
                   orElse: () {
                     return null;
                   },
                   authenticated: () {
-                    bool session =
-                        getIt<PreferenceRepositoryService>().sessionFlow();
-                    if (session) {
-                      getIt<PreferenceRepositoryService>()
-                          .saveHasJustSignedUp(false);
-                      Navigator.of(context, rootNavigator: false)
-                          .push(HomePage.route());
-                    } else {
-                      Navigator.pop(context);
-                    }
-
                     getIt<PreferenceRepositoryService>().saveIsLogged(true);
                     getIt<StorageRepositoryService>()
                         .saveEmail(_emailController.text);
                     getIt<StorageRepositoryService>()
                         .savePassword(_passwordController.text);
                     Loading.hide(context);
+
+                    if (getIt<PreferenceRepositoryService>()
+                        .forgotPasswordFlow()) {
+                      getIt<PreferenceRepositoryService>()
+                          .saveForgotPasswordFlow(false);
+                      Navigator.of(context, rootNavigator: true).pop();
+                    } else {
+                      Navigator.popUntil(context, ModalRoute.withName('/'));
+                    }
+
                     return null;
                   },
                   logging: () {
@@ -216,6 +210,8 @@ class _SignInPageState extends State<SignInPage> {
                                               fontWeight: FontWeight.w300),
                                     ),
                                     onPressed: () {
+                                      getIt<PreferenceRepositoryService>()
+                                          .saveForgotPasswordFlow(true);
                                       Navigator.of(context, rootNavigator: true)
                                           .push(ForgotPasswordPage.route());
                                     }),
@@ -269,8 +265,7 @@ class _SignInPageState extends State<SignInPage> {
                                       ]),
                                     ),
                                     onPressed: () {
-                                      getIt<PreferenceRepositoryService>()
-                                          .saveSessionFlow(true);
+                                      Navigator.pop(context);
                                       Navigator.of(context, rootNavigator: true)
                                           .push(CreateAccountPage.route());
                                     }),

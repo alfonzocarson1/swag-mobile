@@ -1,5 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../models/profile/profile_model.dart';
 import '../../models/search/category_model.dart';
 
 abstract class PreferenceRepositoryInt {
@@ -46,7 +47,10 @@ abstract class PreferenceRepositoryInt {
 
   List<String> getRecentSearchesWithFilters();
   Future<void> saveRecentSearchesWithFilters({required String searchPayload});
-  
-  bool sessionFlow();
-  Future<void> saveSessionFlow(bool value);
+
+  bool forgotPasswordFlow();
+  Future<void> saveForgotPasswordFlow(bool value);
+
+  ProfileModel profileData();
+  Future<void> saveProfileData(ProfileModel value);
 }

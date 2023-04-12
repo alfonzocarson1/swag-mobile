@@ -13,6 +13,7 @@ import 'package:swagapp/modules/pages/login/sign_in_page.dart';
 
 import '../../blocs/auth_bloc/auth_bloc.dart';
 import '../../common/ui/custom_text_form_field.dart';
+import '../../common/ui/dynamic_toast_messages.dart';
 import '../../common/ui/loading.dart';
 import '../../common/ui/web_view.dart';
 import '../../common/utils/custom_route_animations.dart';
@@ -137,6 +138,8 @@ class _CreateAccountState extends State<CreateAccountPage> {
                     return null;
                   },
                   authenticated: () {
+                    bool loginAfterGuest =
+                        getIt<PreferenceRepositoryService>().loginAfterGuest();
                     getIt<PreferenceRepositoryService>()
                         .saveHasJustSignedUp(true);
                     getIt<PreferenceRepositoryService>().saveIsLogged(true);
@@ -145,14 +148,33 @@ class _CreateAccountState extends State<CreateAccountPage> {
                     getIt<StorageRepositoryService>()
                         .savePassword(_passwordController.text);
                     Loading.hide(context);
-                    bool session =
-                        getIt<PreferenceRepositoryService>().sessionFlow();
-                    if (session) {
-                      Navigator.of(context, rootNavigator: false)
-                          .push(HomePage.route());
-                    } else {
+
+                    Future.delayed(
+                        Duration(milliseconds: loginAfterGuest ? 0 : 2000), () {
+                      _emailController.text = '';
+                      _phoneController.text = '';
+                      _passwordController.text = '';
+                      _confirmPasswordController.text = '';
+                      _usernameController.text = '';
+
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          duration: const Duration(seconds: 3),
+                          behavior: SnackBarBehavior.floating,
+                          margin: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).size.height / 1.3,
+                          ),
+                          backgroundColor: Colors.transparent,
+                          content: ToastMessage(
+                            message: S.of(context).toast_message_create_account,
+                          ),
+                          dismissDirection: DismissDirection.none));
+                    });
+
+                    Future.delayed(
+                        Duration(milliseconds: loginAfterGuest ? 4000 : 6000),
+                        () {
                       Navigator.popUntil(context, ModalRoute.withName('/'));
-                    }
+                    });
 
                     return null;
                   },
@@ -420,8 +442,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                     ]),
                                   ),
                                   onPressed: () {
-                                    getIt<PreferenceRepositoryService>()
-                                        .saveSessionFlow(true);
+                                    Navigator.pop(context);
                                     Navigator.of(context, rootNavigator: true)
                                         .push(SignInPage.route());
                                   }),

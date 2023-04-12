@@ -7,6 +7,8 @@ import '../../../blocs/collection_bloc/collection_bloc.dart';
 import '../../../blocs/search_bloc.dart/search_bloc.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
+import '../../../models/search/filter_model.dart';
+import '../../../models/search/search_request_payload_model.dart';
 
 class AddToWallCollection extends StatefulWidget {
   static const name = '/AddToWallCollection';
@@ -22,6 +24,14 @@ class AddToWallCollection extends StatefulWidget {
 }
 
 class _AddToWallCollectionState extends State<AddToWallCollection> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    context.read<SearchBloc>().add(const SearchEvent.performSearch(
+        SearchRequestPayloadModel(filters: FilterModel()), SearchTab.whatsHot));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,19 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:swagapp/modules/models/search/catalog_item_model.dart';
-import 'package:swagapp/modules/common/ui/shrunken_item_widget.dart';
+import 'package:swagapp/modules/di/injector.dart';
+
+import 'package:swagapp/modules/common/ui/refresh_widget.dart';
 
 import '../../../generated/l10n.dart';
 import '../../blocs/collection_bloc/collection_bloc.dart';
 import '../../common/ui/loading.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
-import '../../common/utils/size_helper.dart';
 import '../../models/collection/get_collection_model.dart';
-import '../../models/collection/get_list_collection_model.dart';
 import '../add/collection/add_to_wall_collection.dart';
-import '../add/collection/select_item_page.dart';
+
 import '../detail/item_detail_page.dart';
 
 class CollectionPage extends StatefulWidget {
@@ -30,62 +29,52 @@ class CollectionPage extends StatefulWidget {
 }
 
 class _CollectionPageState extends State<CollectionPage> {
-  late ResponsiveDesign _responsiveDesign;
+  List<GetCollectionModel> collectionList = [];
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    // BlocProvider.of<CollectionBloc>(context)
-    //     .add(const CollectionEvent.getProfileCollections());
+    loadList();
+  }
+
+  Future loadList() async {
+    getIt<CollectionBloc>().add(const CollectionEvent.getProfileCollections());
   }
 
   @override
   Widget build(BuildContext context) {
-    _responsiveDesign = ResponsiveDesign(context);
-    return Scaffold(
-        backgroundColor: Palette.current.primaryNero,
-        body: BlocConsumer<CollectionBloc, CollectionState>(
-          listener: (context, state) => state.maybeWhen(
-            orElse: () => {Loading.hide(context)},
-            error: (message) => {
-              Loading.hide(context),
-              // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
-            },
-            initial: () {
-              return Loading.show(context);
-            },
-          ),
-          builder: (context, state) {
-            return state.maybeMap(
-              orElse: () => const Center(),
-              error: (_) {
-                return RefreshIndicator(
-                    onRefresh: () async {
-                      makeCall();
-                      return Future.delayed(const Duration(milliseconds: 1500));
-                    },
-                    child: ListView.builder(
-                      itemBuilder: (_, index) => Container(),
-                      itemCount: 0,
-                    ));
+    return BlocListener<CollectionBloc, CollectionState>(
+        listener: (context, state) => state.maybeWhen(
+              orElse: () {
+                return null;
+              },
+              loadedCollectionSuccess: (state) {
+                Navigator.of(context, rootNavigator: true).pop();
+                return null;
               },
               loadedProfileCollections: (state) {
-                return _getBody(state.profileCollectionList[0].collectionList);
+                setState(() {
+                  collectionList = [...state[0].collectionList];
+                  Loading.hide(context);
+                });
+                return null;
               },
-            );
-          },
-        ));
+              initial: () {
+                return Loading.show(context);
+              },
+              error: (message) => {
+                Loading.hide(context),
+                // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
+              },
+            ),
+        child: _getBody(collectionList));
   }
 
   Widget _getBody(List<GetCollectionModel> collectionList) {
-    return RefreshIndicator(
-      onRefresh: () async {
-        makeCall();
-        return Future.delayed(const Duration(milliseconds: 1500));
-      },
-      child: collectionList.isNotEmpty
-          ? Padding(
+    return collectionList.isNotEmpty
+        ? RefreshWidget(
+            onRefresh: loadList,
+            child: Padding(
               padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
               child: GridView.builder(
                 physics: const ScrollPhysics(),
@@ -277,25 +266,20 @@ class _CollectionPageState extends State<CollectionPage> {
                         );
                 },
               ),
-            )
-          : ListView.builder(
-              itemBuilder: (_, index) => SizedBox(
-                height: MediaQuery.of(context).size.height * 0.7,
-                child: Center(
-                  child: Text(
-                    S.of(context).empty_text,
-                    style: TextStyle(
-                        fontSize: 24, color: Colors.black.withOpacity(0.50)),
-                  ),
+            ),
+          )
+        : ListView.builder(
+            itemBuilder: (_, index) => SizedBox(
+              height: MediaQuery.of(context).size.height * 0.7,
+              child: Center(
+                child: Text(
+                  S.of(context).empty_text,
+                  style: TextStyle(
+                      fontSize: 24, color: Colors.black.withOpacity(0.50)),
                 ),
               ),
-              itemCount: 1,
             ),
-    );
-  }
-
-  void makeCall() {
-    BlocProvider.of<CollectionBloc>(context)
-        .add(const CollectionEvent.getProfileCollections());
+            itemCount: 1,
+          );
   }
 }
