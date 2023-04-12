@@ -2,7 +2,7 @@ import 'package:swagapp/modules/data/search/i_search_service.dart';
 
 import '../../api/api.dart';
 import '../../api/api_service.dart';
-import '../../blocs/search_bloc.dart/search_bloc.dart';
+import '../../common/utils/tab_wrapper.dart';
 import '../../common/utils/utils.dart';
 import '../../di/injector.dart';
 import '../../models/search/catalog_item_model.dart';
@@ -49,7 +49,7 @@ class SearchService extends ISearchService {
     return _cachedSearch;
   }
 
-  Future getCashedOrNew(bool refresh, String terms, SearchTab tab) async {
+  Future getCachedOrNew(bool refresh, String terms, SearchTab tab) async {
 
     final cat = _cachedSearch[tab] ?? [];
     if (cat.isNotEmpty && !refresh) {
@@ -74,7 +74,7 @@ class SearchService extends ISearchService {
   Future<Map<SearchTab, List<CatalogItemModel>>> find(
       String term, SearchTab tab,
       {bool refresh = false}) async {
-    await getCashedOrNew(refresh, term, tab);
+    await getCachedOrNew(refresh, term, tab);
     return _cachedSearch;
   }
 }

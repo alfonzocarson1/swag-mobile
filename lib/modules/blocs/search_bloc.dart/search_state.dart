@@ -1,25 +1,25 @@
 part of 'search_bloc.dart';
 
-enum SearchTab { whatsHot, headcovers, putters, accessories, all }
+// enum SearchTab { whatsHot, headcovers, putters, accessories, all }
 
-class SearchTabWrapper {
-  final SearchTab type;
+// class SearchTabWrapper {
+//   final SearchTab type;
 
-  SearchTabWrapper(this.type);
+//   SearchTabWrapper(this.type);
 
-  Future<String?> toStringCustom() async {
+//   Future<String?> toStringCustom() async {
     
-    List<CategoryModel> categories =  await getIt<PreferenceRepositoryService>().getLastCategories();
+//     List<CategoryModel> categories =  await getIt<PreferenceRepositoryService>().getLastCategories();
 
-    switch (type) {
-      case SearchTab.whatsHot: return categories[0].catalogCategoryId;
-      case SearchTab.headcovers: return categories[1].catalogCategoryId;
-      case SearchTab.putters: return categories[2].catalogCategoryId;
-      case SearchTab.accessories: return categories[3].catalogCategoryId;
-      case SearchTab.all: return null;
-    }
-  }
-}
+//     switch (type) {
+//       case SearchTab.whatsHot: return categories[0].catalogCategoryId;
+//       case SearchTab.headcovers: return categories[1].catalogCategoryId;
+//       case SearchTab.putters: return categories[2].catalogCategoryId;
+//       case SearchTab.accessories: return categories[3].catalogCategoryId;
+//       case SearchTab.all: return null;
+//     }
+//   }
+// }
 
 @freezed
 class SearchState with _$SearchState {

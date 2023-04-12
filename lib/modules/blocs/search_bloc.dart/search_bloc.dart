@@ -3,7 +3,6 @@ import 'dart:convert';
 
 import 'package:swagapp/modules/common/utils/utils.dart';
 import 'package:swagapp/modules/constants/constants.dart';
-import 'package:swagapp/modules/data/saved_search/saved_search_service.dart';
 import 'package:swagapp/modules/data/search/i_search_service.dart';
 import 'package:swagapp/modules/models/saved_searches/saved_search.dart';
 import 'package:swagapp/modules/models/saved_searches/search_values.dart';
@@ -12,11 +11,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../common/utils/handling_errors.dart';
+import '../../common/utils/tab_wrapper.dart';
 import '../../data/saved_search/i_saved_search_service.dart';
-import '../../data/secure_storage/storage_repository_service.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
-import '../../models/search/category_model.dart';
 import '../../models/search/filter_model.dart';
 import '../../models/search/search_request_payload_model.dart';
 
@@ -114,7 +112,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     required int nextPage,
   }) async {
 
-    Map<SearchTab, List<CatalogItemModel>> response = await searchService.search(
+    Map<SearchTab, List<CatalogItemModel>>? response = await searchService.search(
       tab: tab,
       model: payload, 
       page: nextPage,
