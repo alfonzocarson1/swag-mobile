@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:swagapp/modules/pages/explore/update_avatar_bottom_sheet.dart';
 
+import '../../data/shared_preferences/shared_preferences_service.dart';
+import '../../di/injector.dart';
+import '../../models/profile/profile_model.dart';
 import '../utils/palette.dart';
+import '../utils/utils.dart';
 
 class AvatarPage extends StatefulWidget {
   const AvatarPage({super.key});
@@ -12,6 +16,26 @@ class AvatarPage extends StatefulWidget {
 
 class _AvatarPageState extends State<AvatarPage> {
   ImageProvider? image;
+  ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
+
+  String defaultImage = '';
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    if (profileData.useAvatar != 'CUSTOM') {
+      var data = imagesList
+          .where((avatar) => (avatar["id"].contains(profileData.useAvatar)));
+
+      defaultImage = data.first['url'];
+    } else {
+      defaultImage = profileData.avatarUrl ??
+          'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Franklin.png?alt=media&token=c1073f88-74c2-44c8-a287-fbe0caebf878';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -21,9 +45,8 @@ class _AvatarPageState extends State<AvatarPage> {
           width: 128,
           child: CircleAvatar(
             backgroundColor: Colors.transparent,
-            backgroundImage: image != null
-                ? image!
-                : const AssetImage("assets/images/ProfilePhoto.png"),
+            backgroundImage:
+                image != null ? image! : NetworkImage("${defaultImage}"),
             radius: 75,
           ),
         ),
