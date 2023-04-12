@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_indicator/loading_indicator.dart';
+import 'package:swagapp/modules/common/ui/simple_loader.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/cubits/saved_search/saved_searches_cubit.dart';
 import 'package:swagapp/modules/models/saved_searches/search_values.dart';
@@ -37,12 +39,7 @@ class _SavedSearchesPageState extends State<SavedSearchesPage> {
     ? BlocBuilder<SavedSearchesCubit, SavedSearchesState>(
       builder: (context, state){
         return state.when(
-          loading:()=>  Center(child: Center(
-                              child: CircularProgressIndicator(
-                                color: Palette.current.primaryNeonGreen,
-                                backgroundColor: Colors.white,
-                              ),
-                            )), 
+          loading:()=> const SimpleLoader(), 
           loaded: (savedSearchResponse) => _SavedSearchBody(savedSearchList: savedSearchResponse), 
           error: (message)=> Center(
             child: Text(message),
