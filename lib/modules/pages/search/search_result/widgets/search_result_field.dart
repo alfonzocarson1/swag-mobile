@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/generated/l10n.dart';
-import 'package:swagapp/modules/blocs/search_bloc.dart/search_bloc.dart';
 import 'package:swagapp/modules/blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
 import 'package:swagapp/modules/common/ui/search_input.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
@@ -12,6 +11,8 @@ import 'package:swagapp/modules/di/injector.dart';
 import 'package:swagapp/modules/pages/search/filter/filters_bottom_sheet.dart';
 import 'package:swagapp/modules/pages/search/search_on_tap_page.dart';
 import 'package:badges/badges.dart' as badges;
+
+import '../../../../common/utils/tab_wrapper.dart';
 
 class SearchResultField extends StatefulWidget {
 
