@@ -203,5 +203,7 @@
     "add_to_wall_collection_title": "ADD TO YOUR COLLECTION",
     "add_to_wall_collection_subtitle": "Select the type of product you would like to add to your collection.",
     "toast_message_create_account": "A verification email has been resent. \nPlease check your inbox.",
-    "invadlidEmail": "Incorrect email. Please try again."
+    "invadlidEmail": "Incorrect email. Please try again.",
+    "toast_message_forgot_password": "A verification email has been sent",
+    "toast_message_reset_password": "Your password has been successfully reset"
 }
