@@ -302,6 +302,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("WELCOME TO SWAG"),
         "toast_message_create_account": MessageLookupByLibrary.simpleMessage(
             "A verification email has been resent. \nPlease check your inbox."),
+        "toast_message_forgot_password": MessageLookupByLibrary.simpleMessage(
+            "A verification email has been sent"),
+        "toast_message_reset_password": MessageLookupByLibrary.simpleMessage(
+            "Your password has been successfully reset"),
         "total_mode": MessageLookupByLibrary.simpleMessage("Total Made:"),
         "type": MessageLookupByLibrary.simpleMessage("type"),
         "username": MessageLookupByLibrary.simpleMessage("@username"),

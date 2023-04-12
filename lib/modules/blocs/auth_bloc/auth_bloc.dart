@@ -142,6 +142,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       getIt<StorageRepositoryService>().saveToken(response.token);
 
+      yield const AuthState.passwordChanged();
       yield const AuthState.authenticated();
     } catch (e) {
       yield AuthState.error(HandlingErrors().getError(e));
