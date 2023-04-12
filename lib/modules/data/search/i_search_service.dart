@@ -1,4 +1,5 @@
-import '../../blocs/search_bloc.dart/search_bloc.dart';
+
+import '../../common/utils/tab_wrapper.dart';
 import '../../models/search/catalog_item_model.dart';
 import '../../models/search/search_request_payload_model.dart';
 
