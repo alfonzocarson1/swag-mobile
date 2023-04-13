@@ -4,6 +4,7 @@ import 'package:swagapp/modules/common/ui/body_widget_with_view.dart';
 import 'package:swagapp/modules/common/ui/simple_loader.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/cubits/paginated_search/paginated_search_cubit.dart';
+import 'package:swagapp/modules/models/search/catalog_item_model.dart';
 import 'package:swagapp/modules/models/search/search_request_payload_model.dart';
 
 import '../../../common/ui/loading.dart';
@@ -28,6 +29,8 @@ class WhatsHotPage extends StatefulWidget {
 class _WhatsHotPageState extends State<WhatsHotPage> {
   SearchTab tab = SearchTab.whatsHot;    
   String categoryId= "";
+  List<CatalogItemModel> resultList=[];
+  
 
   @override
   void initState() {
@@ -82,7 +85,13 @@ class _WhatsHotPageState extends State<WhatsHotPage> {
            (
            initial: () => const SimpleLoader(), 
            loading: ()=> const SimpleLoader(), 
-           loaded: (tabSearchList, hasReachedMax) => BodyWidgetWithView(tabSearchList, hasReachedMax ,tab)
+           loaded: (tabMap) {
+            var tabMapList = tabMap[tab];
+            if(tabMapList != null){            
+             resultList = tabMapList;
+            }                   
+            return BodyWidgetWithView(resultList, tab);
+            }
            );             
           }),
     );

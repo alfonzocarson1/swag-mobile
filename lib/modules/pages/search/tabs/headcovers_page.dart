@@ -34,8 +34,10 @@ class HeadcoversPage extends StatefulWidget {
 }
 
 class _HeadcoversPageState extends State<HeadcoversPage> {
- SearchTab tab = SearchTab.headcovers;    
+  SearchTab tab = SearchTab.headcovers;    
   String categoryId= "";
+  List<CatalogItemModel> resultList=[];
+  
 
   @override
   void initState() {
@@ -90,7 +92,13 @@ class _HeadcoversPageState extends State<HeadcoversPage> {
            (
            initial: () => const SimpleLoader(), 
            loading: ()=> const SimpleLoader(), 
-           loaded: (tabSearchList, hasReachedMax) => BodyWidgetWithView(tabSearchList, hasReachedMax ,tab)
+           loaded: (tabMap) {
+            var tabMapList = tabMap[tab];
+            if(tabMapList != null){            
+             resultList = tabMapList;
+            }                   
+            return BodyWidgetWithView(resultList, tab);
+            }
            );             
           }),
     );

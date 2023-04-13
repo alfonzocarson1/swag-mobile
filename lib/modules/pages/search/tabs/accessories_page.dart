@@ -10,6 +10,7 @@ import '../../../common/utils/tab_wrapper.dart';
 import '../../../cubits/paginated_search/paginated_search_cubit.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
+import '../../../models/search/catalog_item_model.dart';
 import '../../../models/search/filter_model.dart';
 import '../../../models/search/search_request_payload_model.dart';
 
@@ -27,8 +28,10 @@ class AccessoriesPage extends StatefulWidget {
 }
 
 class _AccessoriesPageState extends State<AccessoriesPage> {
- SearchTab tab = SearchTab.headcovers;    
+ SearchTab tab = SearchTab.accessories;    
   String categoryId= "";
+  List<CatalogItemModel> resultList=[];
+  
 
   @override
   void initState() {
@@ -62,7 +65,7 @@ class _AccessoriesPageState extends State<AccessoriesPage> {
       searchModel: SearchRequestPayloadModel(
         categoryId: await getTabId(),
         filters: FilterModel(
-              productType: tab != SearchTab.headcovers
+              productType: tab != SearchTab.accessories
                 ? [categoryId]
                 : null,
             ),
@@ -83,7 +86,13 @@ class _AccessoriesPageState extends State<AccessoriesPage> {
            (
            initial: () => const SimpleLoader(), 
            loading: ()=> const SimpleLoader(), 
-           loaded: (tabSearchList, hasReachedMax) => BodyWidgetWithView(tabSearchList, hasReachedMax ,tab)
+           loaded: (tabMap) {
+            var tabMapList = tabMap[tab];
+            if(tabMapList != null){            
+             resultList = tabMapList;
+            }                   
+            return BodyWidgetWithView(resultList, tab);
+            }
            );             
           }),
     );

@@ -21,7 +21,7 @@ mixin _$PaginatedSearchState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(
-            List<CatalogItemModel> tabSearchList, bool hasReachMax)
+            Map<SearchTab, List<CatalogItemModel>> tabResultMap)
         loaded,
   }) =>
       throw _privateConstructorUsedError;
@@ -29,7 +29,7 @@ mixin _$PaginatedSearchState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<CatalogItemModel> tabSearchList, bool hasReachMax)?
+    TResult? Function(Map<SearchTab, List<CatalogItemModel>> tabResultMap)?
         loaded,
   }) =>
       throw _privateConstructorUsedError;
@@ -37,7 +37,7 @@ mixin _$PaginatedSearchState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<CatalogItemModel> tabSearchList, bool hasReachMax)?
+    TResult Function(Map<SearchTab, List<CatalogItemModel>> tabResultMap)?
         loaded,
     required TResult orElse(),
   }) =>
@@ -125,7 +125,7 @@ class _$_Initial implements _Initial {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(
-            List<CatalogItemModel> tabSearchList, bool hasReachMax)
+            Map<SearchTab, List<CatalogItemModel>> tabResultMap)
         loaded,
   }) {
     return initial();
@@ -136,7 +136,7 @@ class _$_Initial implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<CatalogItemModel> tabSearchList, bool hasReachMax)?
+    TResult? Function(Map<SearchTab, List<CatalogItemModel>> tabResultMap)?
         loaded,
   }) {
     return initial?.call();
@@ -147,7 +147,7 @@ class _$_Initial implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<CatalogItemModel> tabSearchList, bool hasReachMax)?
+    TResult Function(Map<SearchTab, List<CatalogItemModel>> tabResultMap)?
         loaded,
     required TResult orElse(),
   }) {
@@ -237,7 +237,7 @@ class _$loading_search implements loading_search {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(
-            List<CatalogItemModel> tabSearchList, bool hasReachMax)
+            Map<SearchTab, List<CatalogItemModel>> tabResultMap)
         loaded,
   }) {
     return loading();
@@ -248,7 +248,7 @@ class _$loading_search implements loading_search {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<CatalogItemModel> tabSearchList, bool hasReachMax)?
+    TResult? Function(Map<SearchTab, List<CatalogItemModel>> tabResultMap)?
         loaded,
   }) {
     return loading?.call();
@@ -259,7 +259,7 @@ class _$loading_search implements loading_search {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<CatalogItemModel> tabSearchList, bool hasReachMax)?
+    TResult Function(Map<SearchTab, List<CatalogItemModel>> tabResultMap)?
         loaded,
     required TResult orElse(),
   }) {
@@ -314,7 +314,7 @@ abstract class _$$loaded_searchCopyWith<$Res> {
           _$loaded_search value, $Res Function(_$loaded_search) then) =
       __$$loaded_searchCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<CatalogItemModel> tabSearchList, bool hasReachMax});
+  $Res call({Map<SearchTab, List<CatalogItemModel>> tabResultMap});
 }
 
 /// @nodoc
@@ -328,18 +328,13 @@ class __$$loaded_searchCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? tabSearchList = null,
-    Object? hasReachMax = null,
+    Object? tabResultMap = null,
   }) {
     return _then(_$loaded_search(
-      null == tabSearchList
-          ? _value._tabSearchList
-          : tabSearchList // ignore: cast_nullable_to_non_nullable
-              as List<CatalogItemModel>,
-      null == hasReachMax
-          ? _value.hasReachMax
-          : hasReachMax // ignore: cast_nullable_to_non_nullable
-              as bool,
+      null == tabResultMap
+          ? _value._tabResultMap
+          : tabResultMap // ignore: cast_nullable_to_non_nullable
+              as Map<SearchTab, List<CatalogItemModel>>,
     ));
   }
 }
@@ -348,23 +343,20 @@ class __$$loaded_searchCopyWithImpl<$Res>
 
 class _$loaded_search implements loaded_search {
   const _$loaded_search(
-      final List<CatalogItemModel> tabSearchList, this.hasReachMax)
-      : _tabSearchList = tabSearchList;
+      final Map<SearchTab, List<CatalogItemModel>> tabResultMap)
+      : _tabResultMap = tabResultMap;
 
-  final List<CatalogItemModel> _tabSearchList;
+  final Map<SearchTab, List<CatalogItemModel>> _tabResultMap;
   @override
-  List<CatalogItemModel> get tabSearchList {
-    if (_tabSearchList is EqualUnmodifiableListView) return _tabSearchList;
+  Map<SearchTab, List<CatalogItemModel>> get tabResultMap {
+    if (_tabResultMap is EqualUnmodifiableMapView) return _tabResultMap;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_tabSearchList);
+    return EqualUnmodifiableMapView(_tabResultMap);
   }
 
   @override
-  final bool hasReachMax;
-
-  @override
   String toString() {
-    return 'PaginatedSearchState.loaded(tabSearchList: $tabSearchList, hasReachMax: $hasReachMax)';
+    return 'PaginatedSearchState.loaded(tabResultMap: $tabResultMap)';
   }
 
   @override
@@ -373,14 +365,12 @@ class _$loaded_search implements loaded_search {
         (other.runtimeType == runtimeType &&
             other is _$loaded_search &&
             const DeepCollectionEquality()
-                .equals(other._tabSearchList, _tabSearchList) &&
-            (identical(other.hasReachMax, hasReachMax) ||
-                other.hasReachMax == hasReachMax));
+                .equals(other._tabResultMap, _tabResultMap));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_tabSearchList), hasReachMax);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_tabResultMap));
 
   @JsonKey(ignore: true)
   @override
@@ -394,10 +384,10 @@ class _$loaded_search implements loaded_search {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(
-            List<CatalogItemModel> tabSearchList, bool hasReachMax)
+            Map<SearchTab, List<CatalogItemModel>> tabResultMap)
         loaded,
   }) {
-    return loaded(tabSearchList, hasReachMax);
+    return loaded(tabResultMap);
   }
 
   @override
@@ -405,10 +395,10 @@ class _$loaded_search implements loaded_search {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<CatalogItemModel> tabSearchList, bool hasReachMax)?
+    TResult? Function(Map<SearchTab, List<CatalogItemModel>> tabResultMap)?
         loaded,
   }) {
-    return loaded?.call(tabSearchList, hasReachMax);
+    return loaded?.call(tabResultMap);
   }
 
   @override
@@ -416,12 +406,12 @@ class _$loaded_search implements loaded_search {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<CatalogItemModel> tabSearchList, bool hasReachMax)?
+    TResult Function(Map<SearchTab, List<CatalogItemModel>> tabResultMap)?
         loaded,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(tabSearchList, hasReachMax);
+      return loaded(tabResultMap);
     }
     return orElse();
   }
@@ -463,11 +453,10 @@ class _$loaded_search implements loaded_search {
 
 abstract class loaded_search implements PaginatedSearchState {
   const factory loaded_search(
-          final List<CatalogItemModel> tabSearchList, final bool hasReachMax) =
+          final Map<SearchTab, List<CatalogItemModel>> tabResultMap) =
       _$loaded_search;
 
-  List<CatalogItemModel> get tabSearchList;
-  bool get hasReachMax;
+  Map<SearchTab, List<CatalogItemModel>> get tabResultMap;
   @JsonKey(ignore: true)
   _$$loaded_searchCopyWith<_$loaded_search> get copyWith =>
       throw _privateConstructorUsedError;

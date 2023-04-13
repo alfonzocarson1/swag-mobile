@@ -15,8 +15,7 @@ class PaginatedSearchCubit extends Cubit<PaginatedSearchState> {
   PaginatedSearchCubit(this.tabSearchService) : super(const PaginatedSearchState.initial());
 
   int page = 0;
-  Map<SearchTab, List<CatalogItemModel>> oldMap = {};
-  Map<SearchTab, List<CatalogItemModel>> newMap = {};
+  Map<SearchTab, List<CatalogItemModel>> resultMap = {};
   late SearchTab currentTab;
   late SearchRequestPayloadModel model;
   
@@ -28,11 +27,11 @@ class PaginatedSearchCubit extends Cubit<PaginatedSearchState> {
       if(state is loading_search) return;
       emit(loading_search());
       
-      oldMap = await tabSearchService.search(model: searchModel, tab: searchTab, page: page);
-      List<CatalogItemModel>? lista = oldMap[currentTab];
+      resultMap = await tabSearchService.search(model: searchModel, tab: searchTab, page: page);
+      List<CatalogItemModel>? lista = resultMap[currentTab];
       print(lista!.length.toString());
       final hasReachMax = lista!.length < defaultPageSize;
-      emit(loaded_search(lista, hasReachMax));
+      emit(loaded_search(resultMap));
     }
     catch(e){
       //TODO error handling
@@ -42,7 +41,7 @@ class PaginatedSearchCubit extends Cubit<PaginatedSearchState> {
   Future<void> loadMoreResults()async {
     if(state is loaded_search){
       final currentState = state as loaded_search;
-      page = (currentState.tabSearchList.length / defaultPageSize).ceil()+1;
+     // page = (currentState.tabSearchList.length / defaultPageSize).ceil()+1;
       await loadResults(searchTab: currentTab, searchModel: model);
     }
   }

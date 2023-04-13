@@ -4,10 +4,10 @@ import 'package:swagapp/modules/common/ui/catalog_ui.dart';
 import 'package:swagapp/modules/common/ui/shrunken_item_widget.dart';
 
 import '../../../generated/l10n.dart';
-import '../../blocs/search_bloc.dart/search_bloc.dart';
 import '../../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
 
 import '../../models/search/catalog_item_model.dart';
+import '../utils/tab_wrapper.dart';
 import '../utils/utils.dart';
 
 class BodyWidgetWithView extends StatefulWidget {

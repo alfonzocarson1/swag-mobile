@@ -11,6 +11,7 @@ import 'package:swagapp/modules/pages/search/search_result/widgets/search_result
 import '../../../blocs/search_bloc.dart/search_bloc.dart';
 import '../../../common/ui/loading.dart';
 import '../../../common/utils/custom_route_animations.dart';
+import '../../../common/utils/tab_wrapper.dart';
 import '../../../common/utils/utils.dart';
 import 'widgets/search_result_acttion_header.dart';
 
