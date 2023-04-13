@@ -307,8 +307,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   void codeFieldShowErrors() {
     setState(() {
-      errorText =
-          _codeController.text.isNotEmpty ? null : S.of(context).field_empty;
+      errorText = _codeController.text.isNotEmpty
+          ? null
+          : S.of(context).code_not_entered_message;
     });
   }
 

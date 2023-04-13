@@ -2079,6 +2079,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Please enter code.`
+  String get code_not_entered_message {
+    return Intl.message(
+      'Please enter code.',
+      name: 'code_not_entered_message',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

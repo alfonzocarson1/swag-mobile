@@ -205,5 +205,6 @@
     "toast_message_create_account": "A verification email has been resent. \nPlease check your inbox.",
     "invadlidEmail": "Incorrect email. Please try again.",
     "toast_message_forgot_password": "A verification email has been sent",
-    "toast_message_reset_password": "Your password has been successfully reset"
+    "toast_message_reset_password": "Your password has been successfully reset",
+    "code_not_entered_message": "Please enter code."
 }
