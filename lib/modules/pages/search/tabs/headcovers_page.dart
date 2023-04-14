@@ -1,12 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:swagapp/modules/blocs/search_bloc.dart/search_bloc.dart';
+import 'package:swagapp/modules/constants/constants.dart';
 import '../../../common/ui/body_widget_with_view.dart';
 import '../../../common/ui/simple_loader.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
-
-import '../../../../generated/l10n.dart';
-import '../../../common/ui/catalog_ui.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -36,7 +34,10 @@ class HeadcoversPage extends StatefulWidget {
 class _HeadcoversPageState extends State<HeadcoversPage> {
   SearchTab tab = SearchTab.headcovers;    
   String categoryId= "";
+  bool isLoading = false;
+  Map<SearchTab, List<CatalogItemModel>> resultMap = { };
   List<CatalogItemModel> resultList=[];
+  bool hasReachedMax=false;
   
 
   @override
@@ -44,11 +45,6 @@ class _HeadcoversPageState extends State<HeadcoversPage> {
     super.initState();
     bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
     bool isLoggedAfterGuest = getIt<PreferenceRepositoryService>().loginAfterGuest();
-    
-    // if (isLogged && isLoggedAfterGuest) {
-    //   getTabId();
-    //   getIt<PreferenceRepositoryService>().saveloginAfterGuest(false);
-    // }
   }
 
  @override
@@ -57,7 +53,7 @@ class _HeadcoversPageState extends State<HeadcoversPage> {
    if (Loading.isVisible()) {
     Loading.hide(context);
     }
-   print("");
+
  }
 
  getTabId() async {    
@@ -66,7 +62,7 @@ class _HeadcoversPageState extends State<HeadcoversPage> {
    return categoryId;
   }
 
-  callApi() async {
+    callApi() async {
     getIt<PaginatedSearchCubit>().loadResults(
       searchModel: SearchRequestPayloadModel(
         categoryId: await getTabId(),
@@ -79,25 +75,42 @@ class _HeadcoversPageState extends State<HeadcoversPage> {
         searchTab: tab );
   }
 
-
   @override
   Widget build(BuildContext context) {
 
-    callApi();    
+    callApi();
     return Scaffold(
         backgroundColor: Palette.current.primaryNero,
         body: BlocBuilder<PaginatedSearchCubit, PaginatedSearchState>(
-          builder: (context, state){
+          builder: (context, state){          
            return state.when
            (
            initial: () => const SimpleLoader(), 
-           loading: ()=> const SimpleLoader(), 
-           loaded: (tabMap) {
-            var tabMapList = tabMap[tab];
-            if(tabMapList != null){            
-             resultList = tabMapList;
-            }                   
-            return BodyWidgetWithView(resultList, tab);
+           loading: (isFirstFetch) {
+
+            isLoading = true;
+            if(isFirstFetch){
+             return const SimpleLoader();
+            }
+             return BodyWidgetWithView(
+              resultList, 
+              tab, 
+              scrollListener: () => hasReachedMax ? getIt<PaginatedSearchCubit>().loadMoreResults() : {},
+              );            
+           }, 
+           loaded: (tabMap, newMap) {
+         
+            var newMapList = newMap[tab];
+            resultList = tabMap[tab] ?? [];
+            if(newMapList != null){            
+             hasReachedMax = newMapList.length >= defaultPageSize; 
+            }  
+                             
+            return BodyWidgetWithView(
+              resultList, 
+              tab, 
+              scrollListener: () => hasReachedMax ? getIt<PaginatedSearchCubit>().loadMoreResults() : {},
+              );
             }
            );             
           }),
