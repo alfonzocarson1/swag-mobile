@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../common/ui/body_widget_with_view.dart';
@@ -7,6 +8,7 @@ import '../../../common/utils/palette.dart';
 import 'package:swagapp/modules/common/ui/loading.dart';
 
 import '../../../common/utils/tab_wrapper.dart';
+import '../../../constants/constants.dart';
 import '../../../cubits/paginated_search/paginated_search_cubit.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
@@ -30,7 +32,10 @@ class AccessoriesPage extends StatefulWidget {
 class _AccessoriesPageState extends State<AccessoriesPage> {
  SearchTab tab = SearchTab.accessories;    
   String categoryId= "";
+  bool isLoading = false;
+  Map<SearchTab, List<CatalogItemModel>> resultMap = { };
   List<CatalogItemModel> resultList=[];
+  bool hasReachedMax=false;
   
 
   @override
@@ -38,11 +43,6 @@ class _AccessoriesPageState extends State<AccessoriesPage> {
     super.initState();
     bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
     bool isLoggedAfterGuest = getIt<PreferenceRepositoryService>().loginAfterGuest();
-    
-    // if (isLogged && isLoggedAfterGuest) {
-    //   getTabId();
-    //   getIt<PreferenceRepositoryService>().saveloginAfterGuest(false);
-    // }
   }
 
  @override
@@ -51,7 +51,6 @@ class _AccessoriesPageState extends State<AccessoriesPage> {
    if (Loading.isVisible()) {
     Loading.hide(context);
     }
-   print("");
  }
 
  getTabId() async {    
@@ -85,13 +84,22 @@ class _AccessoriesPageState extends State<AccessoriesPage> {
            return state.when
            (
            initial: () => const SimpleLoader(), 
-           loading: ()=> const SimpleLoader(), 
-           loaded: (tabMap) {
-            var tabMapList = tabMap[tab];
-            if(tabMapList != null){            
-             resultList = tabMapList;
-            }                   
-            return BodyWidgetWithView(resultList, tab);
+           loading: (isFirstFetch) {
+        
+            isLoading = true;
+            return const SimpleLoader();
+           }, 
+           loaded: (tabMap, newMap) {
+            var newMapList = newMap[tab];
+              resultList = tabMap[tab] ?? [];
+              if (newMapList != null) {
+                hasReachedMax = newMapList.length >= defaultPageSize;
+              }                     
+            return BodyWidgetWithView(
+              resultList, 
+              tab, 
+              scrollListener: () => hasReachedMax ? getIt<PaginatedSearchCubit>().loadMoreResults() : {},
+              );
             }
            );             
           }),

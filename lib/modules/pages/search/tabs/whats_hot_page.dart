@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/ui/body_widget_with_view.dart';
@@ -10,6 +11,7 @@ import 'package:swagapp/modules/models/search/search_request_payload_model.dart'
 import '../../../common/ui/loading.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/tab_wrapper.dart';
+import '../../../constants/constants.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
 import '../../../models/search/filter_model.dart';
@@ -27,9 +29,12 @@ class WhatsHotPage extends StatefulWidget {
 }
 
 class _WhatsHotPageState extends State<WhatsHotPage> {
-  SearchTab tab = SearchTab.whatsHot;    
+ SearchTab tab = SearchTab.whatsHot;    
   String categoryId= "";
+  bool isLoading = false;
+  Map<SearchTab, List<CatalogItemModel>> resultMap = { };
   List<CatalogItemModel> resultList=[];
+  bool hasReachedMax=false;
   
 
   @override
@@ -37,11 +42,12 @@ class _WhatsHotPageState extends State<WhatsHotPage> {
     super.initState();
     bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
     bool isLoggedAfterGuest = getIt<PreferenceRepositoryService>().loginAfterGuest();
-    
-    // if (isLogged && isLoggedAfterGuest) {
-    //   getTabId();
-    //   getIt<PreferenceRepositoryService>().saveloginAfterGuest(false);
-    // }
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      final currentState = context.read<PaginatedSearchCubit>().state;
+     if (currentState is !loaded_search && currentState is !loading_search) {
+        callApi();
+      }
+    });
   }
 
  @override
@@ -50,7 +56,6 @@ class _WhatsHotPageState extends State<WhatsHotPage> {
    if (Loading.isVisible()) {
     Loading.hide(context);
     }
-   print("");
  }
 
  getTabId() async {    
@@ -75,8 +80,7 @@ class _WhatsHotPageState extends State<WhatsHotPage> {
 
   @override
   Widget build(BuildContext context) {
-
-    callApi();    
+ 
     return Scaffold(
         backgroundColor: Palette.current.primaryNero,
         body: BlocBuilder<PaginatedSearchCubit, PaginatedSearchState>(
@@ -84,13 +88,23 @@ class _WhatsHotPageState extends State<WhatsHotPage> {
            return state.when
            (
            initial: () => const SimpleLoader(), 
-           loading: ()=> const SimpleLoader(), 
-           loaded: (tabMap) {
-            var tabMapList = tabMap[tab];
-            if(tabMapList != null){            
-             resultList = tabMapList;
-            }                   
-            return BodyWidgetWithView(resultList, tab);
+           loading: (isFirstFetch) {
+           // callApi();
+  
+            isLoading = true;
+            return const SimpleLoader();
+           }, 
+           loaded: (tabMap, newMap) {
+             var newMapList = newMap[tab];
+              resultList = tabMap[tab] ?? [];
+              if (newMapList != null) {
+                hasReachedMax = newMapList.length >= defaultPageSize;
+              }                  
+            return BodyWidgetWithView(
+              resultList, 
+              tab, 
+              scrollListener: () => hasReachedMax ? getIt<PaginatedSearchCubit>().loadMoreResults() : {},
+              );
             }
            );             
           }),
