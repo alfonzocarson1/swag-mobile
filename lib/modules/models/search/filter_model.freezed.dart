@@ -22,9 +22,9 @@ FilterModel _$FilterModelFromJson(Map<String, dynamic> json) {
 mixin _$FilterModel {
   bool get forSale => throw _privateConstructorUsedError;
   int get sortBy => throw _privateConstructorUsedError;
-  String? get collection => throw _privateConstructorUsedError;
+  List<String>? get collection => throw _privateConstructorUsedError;
   List<String>? get productType => throw _privateConstructorUsedError;
-  String? get type => throw _privateConstructorUsedError;
+  List<String>? get type => throw _privateConstructorUsedError;
   List<String>? get theme => throw _privateConstructorUsedError;
   List<String>? get conditions => throw _privateConstructorUsedError;
   List<int>? get releaseYears => throw _privateConstructorUsedError;
@@ -46,9 +46,9 @@ abstract class $FilterModelCopyWith<$Res> {
   $Res call(
       {bool forSale,
       int sortBy,
-      String? collection,
+      List<String>? collection,
       List<String>? productType,
-      String? type,
+      List<String>? type,
       List<String>? theme,
       List<String>? conditions,
       List<int>? releaseYears,
@@ -92,7 +92,7 @@ class _$FilterModelCopyWithImpl<$Res, $Val extends FilterModel>
       collection: freezed == collection
           ? _value.collection
           : collection // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as List<String>?,
       productType: freezed == productType
           ? _value.productType
           : productType // ignore: cast_nullable_to_non_nullable
@@ -100,7 +100,7 @@ class _$FilterModelCopyWithImpl<$Res, $Val extends FilterModel>
       type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as List<String>?,
       theme: freezed == theme
           ? _value.theme
           : theme // ignore: cast_nullable_to_non_nullable
@@ -136,9 +136,9 @@ abstract class _$$_FilterModelCopyWith<$Res>
   $Res call(
       {bool forSale,
       int sortBy,
-      String? collection,
+      List<String>? collection,
       List<String>? productType,
-      String? type,
+      List<String>? type,
       List<String>? theme,
       List<String>? conditions,
       List<int>? releaseYears,
@@ -178,17 +178,17 @@ class __$$_FilterModelCopyWithImpl<$Res>
           : sortBy // ignore: cast_nullable_to_non_nullable
               as int,
       collection: freezed == collection
-          ? _value.collection
+          ? _value._collection
           : collection // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as List<String>?,
       productType: freezed == productType
           ? _value._productType
           : productType // ignore: cast_nullable_to_non_nullable
               as List<String>?,
       type: freezed == type
-          ? _value.type
+          ? _value._type
           : type // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as List<String>?,
       theme: freezed == theme
           ? _value._theme
           : theme // ignore: cast_nullable_to_non_nullable
@@ -220,15 +220,17 @@ class _$_FilterModel implements _FilterModel {
   const _$_FilterModel(
       {this.forSale = false,
       this.sortBy = 0,
-      this.collection = null,
+      final List<String>? collection = null,
       final List<String>? productType = null,
-      this.type = null,
+      final List<String>? type = null,
       final List<String>? theme = null,
       final List<String>? conditions = null,
       final List<int>? releaseYears = null,
       final List<int>? priceRanges = null,
       this.rarityScore = null})
-      : _productType = productType,
+      : _collection = collection,
+        _productType = productType,
+        _type = type,
         _theme = theme,
         _conditions = conditions,
         _releaseYears = releaseYears,
@@ -243,9 +245,17 @@ class _$_FilterModel implements _FilterModel {
   @override
   @JsonKey()
   final int sortBy;
+  final List<String>? _collection;
   @override
   @JsonKey()
-  final String? collection;
+  List<String>? get collection {
+    final value = _collection;
+    if (value == null) return null;
+    if (_collection is EqualUnmodifiableListView) return _collection;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   final List<String>? _productType;
   @override
   @JsonKey()
@@ -257,9 +267,17 @@ class _$_FilterModel implements _FilterModel {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<String>? _type;
   @override
   @JsonKey()
-  final String? type;
+  List<String>? get type {
+    final value = _type;
+    if (value == null) return null;
+    if (_type is EqualUnmodifiableListView) return _type;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   final List<String>? _theme;
   @override
   @JsonKey()
@@ -320,11 +338,11 @@ class _$_FilterModel implements _FilterModel {
             other is _$_FilterModel &&
             (identical(other.forSale, forSale) || other.forSale == forSale) &&
             (identical(other.sortBy, sortBy) || other.sortBy == sortBy) &&
-            (identical(other.collection, collection) ||
-                other.collection == collection) &&
+            const DeepCollectionEquality()
+                .equals(other._collection, _collection) &&
             const DeepCollectionEquality()
                 .equals(other._productType, _productType) &&
-            (identical(other.type, type) || other.type == type) &&
+            const DeepCollectionEquality().equals(other._type, _type) &&
             const DeepCollectionEquality().equals(other._theme, _theme) &&
             const DeepCollectionEquality()
                 .equals(other._conditions, _conditions) &&
@@ -342,9 +360,9 @@ class _$_FilterModel implements _FilterModel {
       runtimeType,
       forSale,
       sortBy,
-      collection,
+      const DeepCollectionEquality().hash(_collection),
       const DeepCollectionEquality().hash(_productType),
-      type,
+      const DeepCollectionEquality().hash(_type),
       const DeepCollectionEquality().hash(_theme),
       const DeepCollectionEquality().hash(_conditions),
       const DeepCollectionEquality().hash(_releaseYears),
@@ -369,9 +387,9 @@ abstract class _FilterModel implements FilterModel {
   const factory _FilterModel(
       {final bool forSale,
       final int sortBy,
-      final String? collection,
+      final List<String>? collection,
       final List<String>? productType,
-      final String? type,
+      final List<String>? type,
       final List<String>? theme,
       final List<String>? conditions,
       final List<int>? releaseYears,
@@ -386,11 +404,11 @@ abstract class _FilterModel implements FilterModel {
   @override
   int get sortBy;
   @override
-  String? get collection;
+  List<String>? get collection;
   @override
   List<String>? get productType;
   @override
-  String? get type;
+  List<String>? get type;
   @override
   List<String>? get theme;
   @override

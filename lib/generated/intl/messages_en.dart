@@ -60,7 +60,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "code": MessageLookupByLibrary.simpleMessage("Code"),
         "code_expired": MessageLookupByLibrary.simpleMessage(
             "Code expired. Please select resend to receive new code."),
-        "collection": MessageLookupByLibrary.simpleMessage(
+        "collection": MessageLookupByLibrary.simpleMessage("Collection"),
+        "collection_message": MessageLookupByLibrary.simpleMessage(
             "This cover is not in your collection, buy it now before it’s too late"),
         "collections": MessageLookupByLibrary.simpleMessage("collections"),
         "condition": MessageLookupByLibrary.simpleMessage("Condition"),

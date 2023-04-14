@@ -59,7 +59,8 @@ Future<void> performSearch({
   final priceList = sharedPref.getPrice().map(int.parse).toList();
   final productList = sharedPref.getProduct().map(int.parse).toList();
 
-  updateSelectedFiltersAndSortsNumber(context, [
+  updateSelectedFiltersAndSortsNumber(
+    context, [
     sharedPref.isForSale(),
     conditionList.isNotEmpty,
     releaseList.isNotEmpty,
@@ -87,6 +88,9 @@ Future<FilterModel> getCurrentFilterModel() async {
   List<int> releaseList = sharedPref.getReleaseDate().map(int.parse).toList();
   List<int> priceList = sharedPref.getPrice().map(int.parse).toList();
   List<int> productList = sharedPref.getProduct().map(int.parse).toList();
+  List<String> collection = sharedPref.getCollection();
+  List<String> theme = sharedPref.getThemes();
+  List<String> type = sharedPref.getTypes();
   bool isForSale = sharedPref.isForSale();
 
   return FilterModel(
@@ -104,6 +108,9 @@ Future<FilterModel> getCurrentFilterModel() async {
     productType: sharedPref.getProduct().isEmpty || sharedPref.getProduct().length == Product.values.length
       ? null
       : await getProductStringList(productList),
+    collection: collection.isEmpty ? null : collection,
+    theme: theme.isEmpty ? null : theme,
+    type: type.isEmpty ? null : type,
   );
 }
 

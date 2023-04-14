@@ -213,8 +213,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       collection: filters.collection,
       forSale: filters.forSale,
       priceRanges: filters.priceRanges,
-      sortBy: filters.sortBy
-    )
+      sortBy: filters.sortBy,
+    ),
    );
       
    savedSearchService.saveSearch(payload);

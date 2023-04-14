@@ -5,6 +5,7 @@ import 'package:swagapp/modules/blocs/search_bloc.dart/search_bloc.dart';
 import 'package:swagapp/modules/common/utils/context_service.dart';
 import 'package:swagapp/modules/cubits/saved_search/saved_searches_cubit.dart';
 import 'package:swagapp/modules/data/auth/i_auth_service.dart';
+import 'package:swagapp/modules/data/filters/filters_service.dart';
 import 'package:swagapp/modules/data/saved_search/i_saved_search_service.dart';
 import 'package:swagapp/modules/data/saved_search/saved_search_service.dart';
 import 'package:swagapp/modules/data/search/i_search_service.dart';
@@ -58,7 +59,9 @@ const unauthorizedScope = 'unauthorizedScope';
 const authorizedScope = 'authorizedScope';
 
 Future<void> setupAppScope() {
+
   getIt.registerLazySingleton(() => PreferenceRepositoryService());
+  getIt.registerLazySingleton(() => FiltersService(APIService()));
   getIt.registerLazySingleton(() => StorageRepositoryService());
   getIt.registerLazySingleton(() => ContextService());
   getIt.registerLazySingleton<IAuthService>(() => AuthService(APIService()));
