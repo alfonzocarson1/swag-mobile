@@ -7,6 +7,7 @@ import 'package:swagapp/modules/common/utils/palette.dart';
 
 import '../../blocs/auth_bloc/auth_bloc.dart';
 import '../../common/ui/custom_text_form_field.dart';
+import '../../common/ui/dynamic_toast_messages.dart';
 import '../../common/ui/loading.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/size_helper.dart';
@@ -109,7 +110,29 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                     getIt<StorageRepositoryService>()
                         .savePassword(_confirmPasswordController.text);
                     Loading.hide(context);
-                    Navigator.popUntil(context, ModalRoute.withName('/'));
+                    _passwordController.text = '';
+                    _confirmPasswordController.text = '';
+                    Future.delayed(const Duration(milliseconds: 5000), () {
+                      Navigator.popUntil(context, ModalRoute.withName('/'));
+                    });
+
+                    return null;
+                  },
+                  passwordChanged: () {
+                    Future.delayed(const Duration(milliseconds: 2000), () {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          duration: const Duration(seconds: 3),
+                          behavior: SnackBarBehavior.floating,
+                          margin: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).size.height / 1.3,
+                          ),
+                          backgroundColor: Colors.transparent,
+                          content: ToastMessage(
+                            message: S.of(context).toast_message_reset_password,
+                          ),
+                          dismissDirection: DismissDirection.none));
+                    });
+
                     return null;
                   },
                   logging: () {

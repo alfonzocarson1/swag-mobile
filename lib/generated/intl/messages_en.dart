@@ -61,7 +61,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "code_expired": MessageLookupByLibrary.simpleMessage(
             "Code expired. Please select resend to receive new code."),
         "collection": MessageLookupByLibrary.simpleMessage("Collection"),
-        "collection_message": MessageLookupByLibrary.simpleMessage(
+        "code_not_entered_message":
+            MessageLookupByLibrary.simpleMessage("Please enter code."),
             "This cover is not in your collection, buy it now before it’s too late"),
         "collections": MessageLookupByLibrary.simpleMessage("collections"),
         "condition": MessageLookupByLibrary.simpleMessage("Condition"),
@@ -303,6 +304,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("WELCOME TO SWAG"),
         "toast_message_create_account": MessageLookupByLibrary.simpleMessage(
             "A verification email has been resent. \nPlease check your inbox."),
+        "toast_message_forgot_password": MessageLookupByLibrary.simpleMessage(
+            "A verification email has been sent"),
+        "toast_message_reset_password": MessageLookupByLibrary.simpleMessage(
+            "Your password has been successfully reset"),
         "total_mode": MessageLookupByLibrary.simpleMessage("Total Made:"),
         "type": MessageLookupByLibrary.simpleMessage("type"),
         "username": MessageLookupByLibrary.simpleMessage("@username"),

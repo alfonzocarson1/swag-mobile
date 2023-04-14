@@ -13,6 +13,7 @@ class UpdateProfilePayloadModel with _$UpdateProfilePayloadModel {
     final String? phoneNumber,
     final String? email,
     final String? userName,
+    final String? useAvatar,
     List<AddressesPayloadModel>? addresses,
   }) = _UpdateProfilePayloadModel;
 

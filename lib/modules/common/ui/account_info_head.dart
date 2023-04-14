@@ -20,6 +20,13 @@ class _AccountInfoHeaderWidgetState extends State<AccountInfoHeaderWidget> {
   ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getIt<PreferenceRepositoryService>().saveAccountId(profileData.accountId);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Center(
       child: Column(

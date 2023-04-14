@@ -46,13 +46,12 @@ bool isTokenValid(String? token) {
   return token != null && token != defaultString;
 }
 
-Future<void> performSearch({ 
-  required BuildContext context, 
+Future<void> performSearch({
+  required BuildContext context,
   SearchTab? tab,
-  String? searchParam, 
+  String? searchParam,
   SearchRequestPayloadModel? searchWithFilters,
 }) async {
-
   final sharedPref = getIt<PreferenceRepositoryService>();
   final conditionList = sharedPref.getCondition().map(int.parse).toList();
   final releaseList = sharedPref.getReleaseDate().map(int.parse).toList();
@@ -68,21 +67,22 @@ Future<void> performSearch({
     productList.isNotEmpty
   ]);
 
-  SearchRequestPayloadModel payload = (searchWithFilters != null) 
-  ? searchWithFilters
-  : SearchRequestPayloadModel(
-      searchParams: searchParam != null ? [searchParam] : null,
-      categoryId: tab == null || tab == SearchTab.whatsHot
-        ? null
-        : await SearchTabWrapper(tab).toStringCustom(),
-      filters: await getCurrentFilterModel(),
-    );
+  SearchRequestPayloadModel payload = (searchWithFilters != null)
+      ? searchWithFilters
+      : SearchRequestPayloadModel(
+          searchParams: searchParam != null ? [searchParam] : null,
+          categoryId: tab == null || tab == SearchTab.whatsHot
+              ? null
+              : await SearchTabWrapper(tab).toStringCustom(),
+          filters: await getCurrentFilterModel(),
+        );
 
-  context.read<SearchBloc>().add(SearchEvent.performSearch(payload,tab ?? SearchTab.all));
+  context
+      .read<SearchBloc>()
+      .add(SearchEvent.performSearch(payload, tab ?? SearchTab.all));
 }
 
 Future<FilterModel> getCurrentFilterModel() async {
-
   PreferenceRepositoryService sharedPref = getIt<PreferenceRepositoryService>();
   List<int> conditionList = sharedPref.getCondition().map(int.parse).toList();
   List<int> releaseList = sharedPref.getReleaseDate().map(int.parse).toList();
@@ -180,10 +180,9 @@ List<String> getConditionStringList(List<int> conditionList) {
 }
 
 Future<void> initFiltersAndSorts({int selectedProductNumber = 0}) async {
-
-  List<String> selectedProduct = (selectedProductNumber != 0) 
-    ? [(selectedProductNumber - 1).toString()] 
-    : [];
+  List<String> selectedProduct = (selectedProductNumber != 0)
+      ? [(selectedProductNumber - 1).toString()]
+      : [];
 
   await getIt<PreferenceRepositoryService>().saveIsListView(true);
   await getIt<PreferenceRepositoryService>().saveIsForSale(false);
@@ -194,23 +193,73 @@ Future<void> initFiltersAndSorts({int selectedProductNumber = 0}) async {
   await getIt<PreferenceRepositoryService>().setProduct(selectedProduct);
 }
 
-void initUtilsPreference()=> getIt<PreferenceRepositoryService>().saveValidCode('');
+void initUtilsPreference() =>
+    getIt<PreferenceRepositoryService>().saveValidCode('');
 
-void initFilterAndSortsWithBloc(BuildContext context, {int? selectedProductNumber = 0}) {
-
+void initFilterAndSortsWithBloc(BuildContext context,
+    {int? selectedProductNumber = 0}) {
   context.read<SharedPreferencesBloc>().add(
-    SharedPreferencesEvent.setPreference(
-      SharedPreferenceModel(
-        isListView: true,
-        isForSale: false,
-        sortBy: defaultInt,
-        condition: [],
-        price: [],
-        product: (selectedProductNumber != null && selectedProductNumber != 0)
-          ? [selectedProductNumber - 1]
-          : [],
-        releaseDate: [],
-      ),
-    ),
-  );
+        SharedPreferencesEvent.setPreference(
+          SharedPreferenceModel(
+            isListView: true,
+            isForSale: false,
+            sortBy: defaultInt,
+            condition: [],
+            price: [],
+            product:
+                (selectedProductNumber != null && selectedProductNumber != 0)
+                    ? [selectedProductNumber - 1]
+                    : [],
+            releaseDate: [],
+          ),
+        ),
+      );
 }
+
+List<dynamic> imagesList = [
+  {
+    'id': 'AVATAR1',
+    'url':
+        'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Franklin.png?alt=media&token=c1073f88-74c2-44c8-a287-fbe0caebf878'
+  },
+  {
+    'id': 'AVATAR2',
+    'url':
+        'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Lincoln.png?alt=media&token=8cc89dc2-6910-451c-bf2e-32578215d5ca'
+  },
+  {
+    'id': 'AVATAR3',
+    'url':
+        'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Hamilton.png?alt=media&token=2cc6fe55-598d-4e6c-b260-cd837d1a5424'
+  },
+  {
+    'id': 'AVATAR4',
+    'url':
+        'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/queen.png?alt=media&token=fd838f3d-8b30-4785-974c-a5bbfaff113b'
+  },
+  {
+    'id': 'AVATAR5',
+    'url':
+        'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/King.png?alt=media&token=2ff68eab-1ad6-4eb2-8c6f-78bf731d3248'
+  },
+  {
+    'id': 'AVATAR6',
+    'url':
+        'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Flipper.png?alt=media&token=fa4b02fb-992e-4bc2-8532-80fdfd7071de'
+  },
+  {
+    'id': 'AVATAR7',
+    'url':
+        'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Dripskull.png?alt=media&token=3e50bd26-fe59-4008-ae3d-049d8a35ff17'
+  },
+  {
+    'id': 'AVATAR8',
+    'url':
+        'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Skull1.png?alt=media&token=a5efe842-e17b-409a-985a-b7f4a7967a7f'
+  },
+  {
+    'id': 'AVATAR9',
+    'url':
+        'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/HotDog.png?alt=media&token=ca2732fc-e230-4e85-b892-1bcc018ccc6d'
+  },
+];

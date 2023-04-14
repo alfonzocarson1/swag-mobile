@@ -12,6 +12,7 @@ class ProfileModel with _$ProfileModel {
     required final String accountId,
     required final String username,
     required final String useAvatar,
+    final String? avatarUrl,
     required final double listingsRating,
     required final String phoneNumber,
     required final String email,
