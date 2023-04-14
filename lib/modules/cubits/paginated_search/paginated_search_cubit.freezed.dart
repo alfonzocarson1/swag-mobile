@@ -19,25 +19,28 @@ mixin _$PaginatedSearchState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function(bool isFirstFetch) loading,
     required TResult Function(
-            Map<SearchTab, List<CatalogItemModel>> tabResultMap)
+            Map<SearchTab, List<CatalogItemModel>> tabResultMap,
+            Map<SearchTab, List<CatalogItemModel>> newMap)
         loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(Map<SearchTab, List<CatalogItemModel>> tabResultMap)?
+    TResult? Function(bool isFirstFetch)? loading,
+    TResult? Function(Map<SearchTab, List<CatalogItemModel>> tabResultMap,
+            Map<SearchTab, List<CatalogItemModel>> newMap)?
         loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(Map<SearchTab, List<CatalogItemModel>> tabResultMap)?
+    TResult Function(bool isFirstFetch)? loading,
+    TResult Function(Map<SearchTab, List<CatalogItemModel>> tabResultMap,
+            Map<SearchTab, List<CatalogItemModel>> newMap)?
         loaded,
     required TResult orElse(),
   }) =>
@@ -123,9 +126,10 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function(bool isFirstFetch) loading,
     required TResult Function(
-            Map<SearchTab, List<CatalogItemModel>> tabResultMap)
+            Map<SearchTab, List<CatalogItemModel>> tabResultMap,
+            Map<SearchTab, List<CatalogItemModel>> newMap)
         loaded,
   }) {
     return initial();
@@ -135,8 +139,9 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(Map<SearchTab, List<CatalogItemModel>> tabResultMap)?
+    TResult? Function(bool isFirstFetch)? loading,
+    TResult? Function(Map<SearchTab, List<CatalogItemModel>> tabResultMap,
+            Map<SearchTab, List<CatalogItemModel>> newMap)?
         loaded,
   }) {
     return initial?.call();
@@ -146,8 +151,9 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(Map<SearchTab, List<CatalogItemModel>> tabResultMap)?
+    TResult Function(bool isFirstFetch)? loading,
+    TResult Function(Map<SearchTab, List<CatalogItemModel>> tabResultMap,
+            Map<SearchTab, List<CatalogItemModel>> newMap)?
         loaded,
     required TResult orElse(),
   }) {
@@ -201,6 +207,8 @@ abstract class _$$loading_searchCopyWith<$Res> {
   factory _$$loading_searchCopyWith(
           _$loading_search value, $Res Function(_$loading_search) then) =
       __$$loading_searchCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool isFirstFetch});
 }
 
 /// @nodoc
@@ -210,61 +218,90 @@ class __$$loading_searchCopyWithImpl<$Res>
   __$$loading_searchCopyWithImpl(
       _$loading_search _value, $Res Function(_$loading_search) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isFirstFetch = null,
+  }) {
+    return _then(_$loading_search(
+      isFirstFetch: null == isFirstFetch
+          ? _value.isFirstFetch
+          : isFirstFetch // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$loading_search implements loading_search {
-  const _$loading_search();
+  const _$loading_search({this.isFirstFetch = false});
+
+  @override
+  @JsonKey()
+  final bool isFirstFetch;
 
   @override
   String toString() {
-    return 'PaginatedSearchState.loading()';
+    return 'PaginatedSearchState.loading(isFirstFetch: $isFirstFetch)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$loading_search);
+        (other.runtimeType == runtimeType &&
+            other is _$loading_search &&
+            (identical(other.isFirstFetch, isFirstFetch) ||
+                other.isFirstFetch == isFirstFetch));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, isFirstFetch);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$loading_searchCopyWith<_$loading_search> get copyWith =>
+      __$$loading_searchCopyWithImpl<_$loading_search>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function(bool isFirstFetch) loading,
     required TResult Function(
-            Map<SearchTab, List<CatalogItemModel>> tabResultMap)
+            Map<SearchTab, List<CatalogItemModel>> tabResultMap,
+            Map<SearchTab, List<CatalogItemModel>> newMap)
         loaded,
   }) {
-    return loading();
+    return loading(isFirstFetch);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(Map<SearchTab, List<CatalogItemModel>> tabResultMap)?
+    TResult? Function(bool isFirstFetch)? loading,
+    TResult? Function(Map<SearchTab, List<CatalogItemModel>> tabResultMap,
+            Map<SearchTab, List<CatalogItemModel>> newMap)?
         loaded,
   }) {
-    return loading?.call();
+    return loading?.call(isFirstFetch);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(Map<SearchTab, List<CatalogItemModel>> tabResultMap)?
+    TResult Function(bool isFirstFetch)? loading,
+    TResult Function(Map<SearchTab, List<CatalogItemModel>> tabResultMap,
+            Map<SearchTab, List<CatalogItemModel>> newMap)?
         loaded,
     required TResult orElse(),
   }) {
     if (loading != null) {
-      return loading();
+      return loading(isFirstFetch);
     }
     return orElse();
   }
@@ -305,7 +342,12 @@ class _$loading_search implements loading_search {
 }
 
 abstract class loading_search implements PaginatedSearchState {
-  const factory loading_search() = _$loading_search;
+  const factory loading_search({final bool isFirstFetch}) = _$loading_search;
+
+  bool get isFirstFetch;
+  @JsonKey(ignore: true)
+  _$$loading_searchCopyWith<_$loading_search> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -314,7 +356,9 @@ abstract class _$$loaded_searchCopyWith<$Res> {
           _$loaded_search value, $Res Function(_$loaded_search) then) =
       __$$loaded_searchCopyWithImpl<$Res>;
   @useResult
-  $Res call({Map<SearchTab, List<CatalogItemModel>> tabResultMap});
+  $Res call(
+      {Map<SearchTab, List<CatalogItemModel>> tabResultMap,
+      Map<SearchTab, List<CatalogItemModel>> newMap});
 }
 
 /// @nodoc
@@ -329,11 +373,16 @@ class __$$loaded_searchCopyWithImpl<$Res>
   @override
   $Res call({
     Object? tabResultMap = null,
+    Object? newMap = null,
   }) {
     return _then(_$loaded_search(
-      null == tabResultMap
+      tabResultMap: null == tabResultMap
           ? _value._tabResultMap
           : tabResultMap // ignore: cast_nullable_to_non_nullable
+              as Map<SearchTab, List<CatalogItemModel>>,
+      newMap: null == newMap
+          ? _value._newMap
+          : newMap // ignore: cast_nullable_to_non_nullable
               as Map<SearchTab, List<CatalogItemModel>>,
     ));
   }
@@ -343,8 +392,10 @@ class __$$loaded_searchCopyWithImpl<$Res>
 
 class _$loaded_search implements loaded_search {
   const _$loaded_search(
-      final Map<SearchTab, List<CatalogItemModel>> tabResultMap)
-      : _tabResultMap = tabResultMap;
+      {required final Map<SearchTab, List<CatalogItemModel>> tabResultMap,
+      required final Map<SearchTab, List<CatalogItemModel>> newMap})
+      : _tabResultMap = tabResultMap,
+        _newMap = newMap;
 
   final Map<SearchTab, List<CatalogItemModel>> _tabResultMap;
   @override
@@ -354,9 +405,17 @@ class _$loaded_search implements loaded_search {
     return EqualUnmodifiableMapView(_tabResultMap);
   }
 
+  final Map<SearchTab, List<CatalogItemModel>> _newMap;
+  @override
+  Map<SearchTab, List<CatalogItemModel>> get newMap {
+    if (_newMap is EqualUnmodifiableMapView) return _newMap;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_newMap);
+  }
+
   @override
   String toString() {
-    return 'PaginatedSearchState.loaded(tabResultMap: $tabResultMap)';
+    return 'PaginatedSearchState.loaded(tabResultMap: $tabResultMap, newMap: $newMap)';
   }
 
   @override
@@ -365,12 +424,15 @@ class _$loaded_search implements loaded_search {
         (other.runtimeType == runtimeType &&
             other is _$loaded_search &&
             const DeepCollectionEquality()
-                .equals(other._tabResultMap, _tabResultMap));
+                .equals(other._tabResultMap, _tabResultMap) &&
+            const DeepCollectionEquality().equals(other._newMap, _newMap));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_tabResultMap));
+      runtimeType,
+      const DeepCollectionEquality().hash(_tabResultMap),
+      const DeepCollectionEquality().hash(_newMap));
 
   @JsonKey(ignore: true)
   @override
@@ -382,36 +444,39 @@ class _$loaded_search implements loaded_search {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function(bool isFirstFetch) loading,
     required TResult Function(
-            Map<SearchTab, List<CatalogItemModel>> tabResultMap)
+            Map<SearchTab, List<CatalogItemModel>> tabResultMap,
+            Map<SearchTab, List<CatalogItemModel>> newMap)
         loaded,
   }) {
-    return loaded(tabResultMap);
+    return loaded(tabResultMap, newMap);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(Map<SearchTab, List<CatalogItemModel>> tabResultMap)?
+    TResult? Function(bool isFirstFetch)? loading,
+    TResult? Function(Map<SearchTab, List<CatalogItemModel>> tabResultMap,
+            Map<SearchTab, List<CatalogItemModel>> newMap)?
         loaded,
   }) {
-    return loaded?.call(tabResultMap);
+    return loaded?.call(tabResultMap, newMap);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(Map<SearchTab, List<CatalogItemModel>> tabResultMap)?
+    TResult Function(bool isFirstFetch)? loading,
+    TResult Function(Map<SearchTab, List<CatalogItemModel>> tabResultMap,
+            Map<SearchTab, List<CatalogItemModel>> newMap)?
         loaded,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(tabResultMap);
+      return loaded(tabResultMap, newMap);
     }
     return orElse();
   }
@@ -453,10 +518,12 @@ class _$loaded_search implements loaded_search {
 
 abstract class loaded_search implements PaginatedSearchState {
   const factory loaded_search(
-          final Map<SearchTab, List<CatalogItemModel>> tabResultMap) =
+          {required final Map<SearchTab, List<CatalogItemModel>> tabResultMap,
+          required final Map<SearchTab, List<CatalogItemModel>> newMap}) =
       _$loaded_search;
 
   Map<SearchTab, List<CatalogItemModel>> get tabResultMap;
+  Map<SearchTab, List<CatalogItemModel>> get newMap;
   @JsonKey(ignore: true)
   _$$loaded_searchCopyWith<_$loaded_search> get copyWith =>
       throw _privateConstructorUsedError;

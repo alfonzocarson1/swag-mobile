@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:swagapp/modules/constants/constants.dart';
 
 import '../../common/utils/tab_wrapper.dart';
 import '../../data/search_service/i_search_service.dart';
@@ -14,35 +13,80 @@ class PaginatedSearchCubit extends Cubit<PaginatedSearchState> {
   final ISearchService2 tabSearchService;
   PaginatedSearchCubit(this.tabSearchService) : super(const PaginatedSearchState.initial());
 
-  int page = 0;
   Map<SearchTab, List<CatalogItemModel>> resultMap = {};
+  Map<SearchTab, List<CatalogItemModel>> oldResultMap = {};
+  //final Map<SearchTab, PaginatedSearchState> _screenStates = {};
+  
+  Map<SearchTab, int> pageCountMap = {
+    SearchTab.all:0,
+    SearchTab.whatsHot:0,
+    SearchTab.headcovers:0,
+    SearchTab.putters:0,
+    SearchTab.accessories:0,
+  };
   late SearchTab currentTab;
   late SearchRequestPayloadModel model;
+  bool isLoadingMore=false;
+
   
   Future<void> loadResults({required SearchTab searchTab, 
-      required SearchRequestPayloadModel searchModel})async {
-        currentTab = searchTab;
+      required SearchRequestPayloadModel searchModel,
+      })async {
+
+      //  emit(_screenStates[searchTab] ?? const PaginatedSearchState.initial());        
+        
+        var currentState = state;
         model = searchModel;
-    try{
-      if(state is loading_search) return;
-      emit(loading_search());
-      
-      resultMap = await tabSearchService.search(model: searchModel, tab: searchTab, page: page);
-      List<CatalogItemModel>? lista = resultMap[currentTab];
-      print(lista!.length.toString());
-      final hasReachMax = lista!.length < defaultPageSize;
-      emit(loaded_search(resultMap));
-    }
-    catch(e){
-      //TODO error handling
-    }
+        currentTab =searchTab;
+
+        if(state is loading_search) return;
+
+        if(currentState is loaded_search){
+          oldResultMap = mergeMaps(currentState.tabResultMap, {});
+        }
+       
+        
+        emit(loading_search(isFirstFetch: pageCountMap[currentTab] == 0));
+
+        tabSearchService.search(model: searchModel, tab: currentTab, page: pageCountMap[currentTab] ?? 0).then((newMap) {
+          if(isLoadingMore){           
+            isLoadingMore=false;
+          }
+
+          resultMap= mergeMaps(oldResultMap, newMap);
+
+          var newState =loaded_search(tabResultMap: resultMap, newMap: newMap);
+         // _screenStates[currentTab] = newState;
+         // pageCountMap.update(currentTab, (value) => value = 0);
+          emit(newState);
+
+        });      
   }
 
-  Future<void> loadMoreResults()async {
-    if(state is loaded_search){
-      final currentState = state as loaded_search;
-     // page = (currentState.tabSearchList.length / defaultPageSize).ceil()+1;
-      await loadResults(searchTab: currentTab, searchModel: model);
+  Map<SearchTab, List<CatalogItemModel>> mergeMaps(
+    Map<SearchTab, List<CatalogItemModel>> map1,
+    Map<SearchTab, List<CatalogItemModel>> map2) {
+  Map<SearchTab, List<CatalogItemModel>> mergedMap = Map.from(map1);
+
+  map2.forEach((key, value) {
+    if (mergedMap.containsKey(key)) {
+      value.forEach((element) {
+        if (!mergedMap[key]!.contains(element)) {
+          mergedMap[key]!.add(element);
+        }
+      });
+    } else {
+      mergedMap[key] = List.from(value);
     }
+  });
+
+  return mergedMap;
+}
+
+  Future<void> loadMoreResults()async {
+   // page ++;
+    pageCountMap.update(currentTab, (value) => value + 1);
+    isLoadingMore=true;
+    await loadResults(searchModel: model, searchTab: currentTab);
   }
 }
