@@ -10,7 +10,9 @@ _$_SearchValues _$$_SearchValuesFromJson(Map<String, dynamic> json) =>
     _$_SearchValues(
       forSale: json['forSale'] as bool?,
       sortBy: json['sortBy'] as int?,
-      collection: json['collection'] as String?,
+      collection: (json['collection'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
       productType: (json['productType'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),

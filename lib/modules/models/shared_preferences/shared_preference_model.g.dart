@@ -25,6 +25,16 @@ _$_SharedPreferenceModel _$$_SharedPreferenceModelFromJson(
       product:
           (json['product'] as List<dynamic>?)?.map((e) => e as int).toList() ??
               const [],
+      collection: (json['collection'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
+      theme:
+          (json['theme'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+              const [],
+      type:
+          (json['type'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+              const [],
       filtersAndSortsSelected:
           json['filtersAndSortsSelected'] as int? ?? defaultInt,
     );
@@ -39,5 +49,8 @@ Map<String, dynamic> _$$_SharedPreferenceModelToJson(
       'price': instance.price,
       'releaseDate': instance.releaseDate,
       'product': instance.product,
+      'collection': instance.collection,
+      'theme': instance.theme,
+      'type': instance.type,
       'filtersAndSortsSelected': instance.filtersAndSortsSelected,
     };

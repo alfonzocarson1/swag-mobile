@@ -22,7 +22,7 @@ SearchValues _$SearchValuesFromJson(Map<String, dynamic> json) {
 mixin _$SearchValues {
   bool? get forSale => throw _privateConstructorUsedError;
   int? get sortBy => throw _privateConstructorUsedError;
-  String? get collection => throw _privateConstructorUsedError;
+  List<String>? get collection => throw _privateConstructorUsedError;
   List<String>? get productType => throw _privateConstructorUsedError;
   String? get type => throw _privateConstructorUsedError;
   List<String>? get theme => throw _privateConstructorUsedError;
@@ -45,7 +45,7 @@ abstract class $SearchValuesCopyWith<$Res> {
   $Res call(
       {bool? forSale,
       int? sortBy,
-      String? collection,
+      List<String>? collection,
       List<String>? productType,
       String? type,
       List<String>? theme,
@@ -89,7 +89,7 @@ class _$SearchValuesCopyWithImpl<$Res, $Val extends SearchValues>
       collection: freezed == collection
           ? _value.collection
           : collection // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as List<String>?,
       productType: freezed == productType
           ? _value.productType
           : productType // ignore: cast_nullable_to_non_nullable
@@ -129,7 +129,7 @@ abstract class _$$_SearchValuesCopyWith<$Res>
   $Res call(
       {bool? forSale,
       int? sortBy,
-      String? collection,
+      List<String>? collection,
       List<String>? productType,
       String? type,
       List<String>? theme,
@@ -169,9 +169,9 @@ class __$$_SearchValuesCopyWithImpl<$Res>
           : sortBy // ignore: cast_nullable_to_non_nullable
               as int?,
       collection: freezed == collection
-          ? _value.collection
+          ? _value._collection
           : collection // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as List<String>?,
       productType: freezed == productType
           ? _value._productType
           : productType // ignore: cast_nullable_to_non_nullable
@@ -206,14 +206,15 @@ class _$_SearchValues implements _SearchValues {
   const _$_SearchValues(
       {this.forSale,
       this.sortBy,
-      this.collection,
+      final List<String>? collection,
       final List<String>? productType,
       this.type,
       final List<String>? theme,
       final List<String>? conditions,
       final List<int>? releaseYears,
       final List<int>? priceRanges})
-      : _productType = productType,
+      : _collection = collection,
+        _productType = productType,
         _theme = theme,
         _conditions = conditions,
         _releaseYears = releaseYears,
@@ -226,8 +227,16 @@ class _$_SearchValues implements _SearchValues {
   final bool? forSale;
   @override
   final int? sortBy;
+  final List<String>? _collection;
   @override
-  final String? collection;
+  List<String>? get collection {
+    final value = _collection;
+    if (value == null) return null;
+    if (_collection is EqualUnmodifiableListView) return _collection;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   final List<String>? _productType;
   @override
   List<String>? get productType {
@@ -292,8 +301,8 @@ class _$_SearchValues implements _SearchValues {
             other is _$_SearchValues &&
             (identical(other.forSale, forSale) || other.forSale == forSale) &&
             (identical(other.sortBy, sortBy) || other.sortBy == sortBy) &&
-            (identical(other.collection, collection) ||
-                other.collection == collection) &&
+            const DeepCollectionEquality()
+                .equals(other._collection, _collection) &&
             const DeepCollectionEquality()
                 .equals(other._productType, _productType) &&
             (identical(other.type, type) || other.type == type) &&
@@ -312,7 +321,7 @@ class _$_SearchValues implements _SearchValues {
       runtimeType,
       forSale,
       sortBy,
-      collection,
+      const DeepCollectionEquality().hash(_collection),
       const DeepCollectionEquality().hash(_productType),
       type,
       const DeepCollectionEquality().hash(_theme),
@@ -338,7 +347,7 @@ abstract class _SearchValues implements SearchValues {
   const factory _SearchValues(
       {final bool? forSale,
       final int? sortBy,
-      final String? collection,
+      final List<String>? collection,
       final List<String>? productType,
       final String? type,
       final List<String>? theme,
@@ -354,7 +363,7 @@ abstract class _SearchValues implements SearchValues {
   @override
   int? get sortBy;
   @override
-  String? get collection;
+  List<String>? get collection;
   @override
   List<String>? get productType;
   @override

@@ -9,7 +9,7 @@ class SearchValues with _$SearchValues{
   const factory SearchValues({
     bool? forSale,
     int? sortBy,
-    String? collection,
+    List<String>? collection,
     List<String>? productType,
     String? type,
     List<String>? theme,

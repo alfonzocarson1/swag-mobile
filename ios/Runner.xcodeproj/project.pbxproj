@@ -382,7 +382,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+<<<<<<< HEAD
 				CURRENT_PROJECT_VERSION = 33;
+=======
+				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+>>>>>>> 0d255be (ASA-1456 Make sure that collection filters are being saved on the shared preferences)
 				DEVELOPMENT_TEAM = 7MG8N5U2LM;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -463,7 +467,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+<<<<<<< HEAD
 				CURRENT_PROJECT_VERSION = 33;
+=======
+				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+>>>>>>> 0d255be (ASA-1456 Make sure that collection filters are being saved on the shared preferences)
 				DEVELOPMENT_TEAM = 7MG8N5U2LM;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -546,7 +554,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+<<<<<<< HEAD
 				CURRENT_PROJECT_VERSION = 33;
+=======
+				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+>>>>>>> 0d255be (ASA-1456 Make sure that collection filters are being saved on the shared preferences)
 				DEVELOPMENT_TEAM = 7MG8N5U2LM;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -627,7 +639,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+<<<<<<< HEAD
 				CURRENT_PROJECT_VERSION = 33;
+=======
+				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+>>>>>>> 0d255be (ASA-1456 Make sure that collection filters are being saved on the shared preferences)
 				DEVELOPMENT_TEAM = 7MG8N5U2LM;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -710,7 +726,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+<<<<<<< HEAD
 				CURRENT_PROJECT_VERSION = 33;
+=======
+				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+>>>>>>> 0d255be (ASA-1456 Make sure that collection filters are being saved on the shared preferences)
 				DEVELOPMENT_TEAM = 7MG8N5U2LM;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -791,7 +811,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+<<<<<<< HEAD
 				CURRENT_PROJECT_VERSION = 33;
+=======
+				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+>>>>>>> 0d255be (ASA-1456 Make sure that collection filters are being saved on the shared preferences)
 				DEVELOPMENT_TEAM = 7MG8N5U2LM;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -869,7 +893,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+<<<<<<< HEAD
 				CURRENT_PROJECT_VERSION = 33;
+=======
+				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+>>>>>>> 0d255be (ASA-1456 Make sure that collection filters are being saved on the shared preferences)
 				DEVELOPMENT_TEAM = 7MG8N5U2LM;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -1033,7 +1061,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+<<<<<<< HEAD
 				CURRENT_PROJECT_VERSION = 33;
+=======
+				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+>>>>>>> 0d255be (ASA-1456 Make sure that collection filters are being saved on the shared preferences)
 				DEVELOPMENT_TEAM = 7MG8N5U2LM;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
