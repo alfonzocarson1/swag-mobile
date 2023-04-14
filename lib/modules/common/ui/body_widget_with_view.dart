@@ -12,7 +12,7 @@ import '../utils/utils.dart';
 
 class BodyWidgetWithView extends StatefulWidget {
   
-  BodyWidgetWithView(
+  const BodyWidgetWithView(
     this.catalogList, 
     this.tab, {
       Key? key, 
@@ -21,8 +21,8 @@ class BodyWidgetWithView extends StatefulWidget {
       this.scrollTrgiggerOffset = 0,
     }) : super(key: key);
 
-  List<CatalogItemModel> catalogList;
-  SearchTab tab;
+  final List<CatalogItemModel> catalogList;
+  final SearchTab tab;
   final String? searchParams;
   final Function()? scrollListener;
   final double scrollTrgiggerOffset;
@@ -34,6 +34,7 @@ class BodyWidgetWithView extends StatefulWidget {
 class _BodyWidgetWithViewState extends State<BodyWidgetWithView> {
 
   late final ScrollController _scrollController;
+
 
   @override
   void initState() {
@@ -115,12 +116,15 @@ class _BodyWidgetWithViewState extends State<BodyWidgetWithView> {
   }
 
 
-  void scrollListener() async {
+  Future<void> scrollListener()  async {
 
-    double scrollPercentage = (this._scrollController.position.maxScrollExtent - 300);
-
-    if(this._scrollController.offset >= scrollPercentage) {
-      if(this.widget.scrollListener != null) await this.widget.scrollListener!();      
-    }
-  }
+    var scrollListenerFunction = this.widget.scrollListener;
+     if (this._scrollController.position.atEdge) {
+        if (this._scrollController.position.pixels != 0) {
+           if(scrollListenerFunction != null) {
+          await scrollListenerFunction();
+          }  
+        }
+      }
+}
 }
