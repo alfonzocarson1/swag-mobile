@@ -46,8 +46,7 @@ class PaginatedSearchCubit extends Cubit<PaginatedSearchState> {
           if(!isLoadingMore){
             oldResultMap.update(currentTab, (value) => []);
           }          
-        }
-       
+        }       
         
         emit(loading_search(isFirstFetch: pageCountMap[currentTab] == 0));
 
