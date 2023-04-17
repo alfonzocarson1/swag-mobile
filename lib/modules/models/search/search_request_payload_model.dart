@@ -14,6 +14,7 @@ class SearchRequestPayloadModel with _$SearchRequestPayloadModel {
     @Default(null) final List<String>? searchParams,
     @Default(defaultPageSize) final int pageSize,
     @Default(null) final String? categoryId,
+    @Default(false) final bool? whatsHotFlag,
   }) = _SearchRequestPayloadModel;
 
   factory SearchRequestPayloadModel.fromJson(Map<String, dynamic> json) =>
