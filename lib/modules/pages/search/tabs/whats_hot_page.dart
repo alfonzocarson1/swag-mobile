@@ -42,12 +42,7 @@ class _WhatsHotPageState extends State<WhatsHotPage> {
     super.initState();
     bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
     bool isLoggedAfterGuest = getIt<PreferenceRepositoryService>().loginAfterGuest();
-    WidgetsBinding.instance.addPostFrameCallback((_){
-      final currentState = context.read<PaginatedSearchCubit>().state;
-     if (currentState is !loaded_search && currentState is !loading_search) {
-        callApi();
-      }
-    });
+  
   }
 
  @override
@@ -67,7 +62,8 @@ class _WhatsHotPageState extends State<WhatsHotPage> {
   callApi() async {
     getIt<PaginatedSearchCubit>().loadResults(
       searchModel: SearchRequestPayloadModel(
-        categoryId: await getTabId(),
+        whatsHotFlag: true,
+        categoryId: null,
         filters: FilterModel(
               productType: tab != SearchTab.whatsHot
                 ? [categoryId]
@@ -80,7 +76,9 @@ class _WhatsHotPageState extends State<WhatsHotPage> {
 
   @override
   Widget build(BuildContext context) {
- 
+
+    callApi();
+
     return Scaffold(
         backgroundColor: Palette.current.primaryNero,
         body: BlocBuilder<PaginatedSearchCubit, PaginatedSearchState>(
