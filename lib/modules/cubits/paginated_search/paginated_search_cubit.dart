@@ -15,7 +15,6 @@ class PaginatedSearchCubit extends Cubit<PaginatedSearchState> {
 
   Map<SearchTab, List<CatalogItemModel>> resultMap = {};
   Map<SearchTab, List<CatalogItemModel>> oldResultMap = {};
-  //final Map<SearchTab, PaginatedSearchState> _screenStates = {};
   
   Map<SearchTab, int> pageCountMap = {
     SearchTab.all:0,
@@ -31,9 +30,7 @@ class PaginatedSearchCubit extends Cubit<PaginatedSearchState> {
   
   Future<void> loadResults({required SearchTab searchTab, 
       required SearchRequestPayloadModel searchModel,
-      })async {
-
-      //  emit(_screenStates[searchTab] ?? const PaginatedSearchState.initial());        
+      })async {     
         
         var currentState = state;
         model = searchModel;
@@ -52,12 +49,8 @@ class PaginatedSearchCubit extends Cubit<PaginatedSearchState> {
           if(isLoadingMore){           
             isLoadingMore=false;
           }
-
           resultMap= mergeMaps(oldResultMap, newMap);
-
           var newState =loaded_search(tabResultMap: resultMap, newMap: newMap);
-         // _screenStates[currentTab] = newState;
-         // pageCountMap.update(currentTab, (value) => value = 0);
           emit(newState);
 
         });      
@@ -84,7 +77,6 @@ class PaginatedSearchCubit extends Cubit<PaginatedSearchState> {
 }
 
   Future<void> loadMoreResults()async {
-   // page ++;
     pageCountMap.update(currentTab, (value) => value + 1);
     isLoadingMore=true;
     await loadResults(searchModel: model, searchTab: currentTab);
