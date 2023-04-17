@@ -59,8 +59,7 @@ Future<void> performSearch({
   final priceList = sharedPref.getPrice().map(int.parse).toList();
   final productList = sharedPref.getProduct().map(int.parse).toList();
 
-  updateSelectedFiltersAndSortsNumber(
-    context, [
+  updateSelectedFiltersAndSortsNumber(context, [
     sharedPref.isForSale(),
     conditionList.isNotEmpty,
     releaseList.isNotEmpty,
@@ -89,29 +88,27 @@ Future<FilterModel> getCurrentFilterModel() async {
   List<int> releaseList = sharedPref.getReleaseDate().map(int.parse).toList();
   List<int> priceList = sharedPref.getPrice().map(int.parse).toList();
   List<int> productList = sharedPref.getProduct().map(int.parse).toList();
-  List<String> collection = sharedPref.getCollection();
-  List<String> theme = sharedPref.getThemes();
-  List<String> type = sharedPref.getTypes();
   bool isForSale = sharedPref.isForSale();
 
   return FilterModel(
     forSale: isForSale,
     sortBy: sharedPref.getSortBy(),
-    priceRanges: sharedPref.getPrice().isEmpty || sharedPref.getPrice().length == Price.values.length
-      ? null
-      : getPriceRangeList(priceList),
-    releaseYears: sharedPref.getReleaseDate().isEmpty || sharedPref.getReleaseDate().length == ReleaseDate.values.length
-      ? null
-      : getReleaseYearsList(releaseList),
-    conditions: sharedPref.getCondition().isEmpty || sharedPref.getCondition().length == Condition.values.length
-      ? null
-      : getConditionStringList(conditionList),
-    productType: sharedPref.getProduct().isEmpty || sharedPref.getProduct().length == Product.values.length
-      ? null
-      : await getProductStringList(productList),
-    collection: collection.isEmpty ? null : collection,
-    theme: theme.isEmpty ? null : theme,
-    type: type.isEmpty ? null : type,
+    priceRanges: sharedPref.getPrice().isEmpty ||
+            sharedPref.getPrice().length == Price.values.length
+        ? null
+        : getPriceRangeList(priceList),
+    releaseYears: sharedPref.getReleaseDate().isEmpty ||
+            sharedPref.getReleaseDate().length == ReleaseDate.values.length
+        ? null
+        : getReleaseYearsList(releaseList),
+    conditions: sharedPref.getCondition().isEmpty ||
+            sharedPref.getCondition().length == Condition.values.length
+        ? null
+        : getConditionStringList(conditionList),
+    productType: sharedPref.getProduct().isEmpty ||
+            sharedPref.getProduct().length == Product.values.length
+        ? null
+        : await getProductStringList(productList),
   );
 }
 

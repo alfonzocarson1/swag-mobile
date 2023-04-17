@@ -37,9 +37,6 @@ class SharedPreferencesBloc
     await _preferenceRepository.setPrice(model.price.map((el) => el.toString()).toList());
     await _preferenceRepository.setReleaseDate(model.releaseDate.map((el) => el.toString()).toList());
     await _preferenceRepository.setProduct(model.product.map((el) => el.toString()).toList());
-    await _preferenceRepository.saveCollection(model.collection);
-    await _preferenceRepository.saveThemes(model.theme);
-    await _preferenceRepository.saveTypes(model.type);
     
     yield SharedPreferencesState.setPreference(model);
   }
