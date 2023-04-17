@@ -9,10 +9,14 @@ import 'package:swagapp/modules/models/search/search_request_payload_model.dart'
 import 'package:swagapp/modules/pages/search/search_result/widgets/search_result_field.dart';
 
 import '../../../blocs/search_bloc.dart/search_bloc.dart';
-import '../../../common/ui/loading.dart';
+import '../../../common/ui/simple_loader.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/tab_wrapper.dart';
 import '../../../common/utils/utils.dart';
+import '../../../constants/constants.dart';
+import '../../../cubits/paginated_search/paginated_search_cubit.dart';
+import '../../../di/injector.dart';
+import '../../../models/search/filter_model.dart';
 import 'widgets/search_result_acttion_header.dart';
 
 class SearchResultPage extends StatefulWidget {
@@ -42,8 +46,13 @@ class _SearchResultPageState extends State<SearchResultPage> with AutomaticKeepA
 
   @override
   bool get wantKeepAlive => true;
+   SearchTab tab = SearchTab.all;  
   int selectedIndex = 0;
+  bool isLoading = false;
   final TextEditingController textEditingController = TextEditingController();
+  Map<SearchTab, List<CatalogItemModel>> resultMap = { };
+  List<CatalogItemModel> resultList=[];
+  bool hasReachedMax=false;
 
   @override
   void initState() {
@@ -51,12 +60,24 @@ class _SearchResultPageState extends State<SearchResultPage> with AutomaticKeepA
     super.initState();
     this.previousState = null;
     this.textEditingController.text = widget.searchParam;
-    performSearch(
-      context: context, 
-      searchParam: widget.searchParam, 
-      searchWithFilters: this.widget.searchWithFilters,
-      tab: null,
-    );
+    // performSearch(
+    //   context: context, 
+    //   searchParam: widget.searchParam, 
+    //   searchWithFilters: this.widget.searchWithFilters,
+    //   tab: null,
+    // );
+  }
+
+   callApi() async {
+    getIt<PaginatedSearchCubit>().loadResults(
+      searchModel: SearchRequestPayloadModel(
+        searchParams: [widget.searchParam],
+        categoryId: null,
+        filters: FilterModel(
+              productType: null
+            ),
+            ), 
+        searchTab: tab );
   }
 
   @override
@@ -64,6 +85,7 @@ class _SearchResultPageState extends State<SearchResultPage> with AutomaticKeepA
 
     super.build(context);
 
+    callApi();
     return Scaffold(
       appBar: PushedHeader(
         customWidget: Column(
@@ -81,40 +103,36 @@ class _SearchResultPageState extends State<SearchResultPage> with AutomaticKeepA
         height: 62,
       ),
       backgroundColor: Palette.current.primaryNero,
-      body: BlocConsumer<SearchBloc, SearchState>(
-        listener: (context, state) => state.maybeWhen(
-          orElse: () => Loading.isVisible() ? Loading.hide(context) : (){},
-          error: (String message) => Loading.isVisible() ? Loading.hide(context) : (){},
-          initial: ()=> !Loading.isVisible() ? Loading.show(context) : null,
-          result: (result, query, page, tab) => this.setPreviousState(state),
-        ),
-        builder: (context, state) {
-
-          return (this.previousState == null) 
-          ? state.maybeMap(
-              orElse: () => const Center(),
-              error: (error)=>  _RefreshIndicator(onRefresh: this.onRefresh),
-              result: (state) {   
-
-                this.setPreviousState(state);
-
-                return _Results(
-                  catalogList: state.result[SearchTab.all] ?? [], 
-                  searchParam: this.widget.searchParam,
-                );
-              },
-            )
-          : this.previousState!.maybeMap(
-              orElse: ()=> const SizedBox.shrink(),
-              result: (state) {
-                return _Results(
-                  catalogList: state.result[SearchTab.all] ?? [], 
-                  searchParam: this.widget.searchParam,
-                );
-              },
-            ); 
-        },
-      ),
+      body: BlocBuilder<PaginatedSearchCubit, PaginatedSearchState>(
+          builder: (context, state){
+           return state.when
+           (
+           initial: () => const SimpleLoader(), 
+           loading: (isFirstFetch) {        
+            isLoading = true;
+           return  (resultList.isEmpty)? const SimpleLoader():
+                BodyWidgetWithView(
+              resultList, 
+              tab, 
+              searchParams: widget.searchParam,
+              scrollListener: () => hasReachedMax ? getIt<PaginatedSearchCubit>().loadMoreResults() : {},
+              );
+           }, 
+           loaded: (tabMap, newMap) {
+            var newMapList = newMap[tab];
+              resultList = tabMap[tab] ?? [];
+              if (newMapList != null) {
+                hasReachedMax = newMapList.length >= defaultPageSize;
+              }                     
+            return BodyWidgetWithView(
+              resultList, 
+              tab, 
+              searchParams: widget.searchParam,
+              scrollListener: () => hasReachedMax ? getIt<PaginatedSearchCubit>().loadMoreResults() : {},
+              );
+            }
+           );             
+          })
     );
   }
 
