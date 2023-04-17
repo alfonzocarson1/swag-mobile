@@ -55,6 +55,9 @@ class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
 
       yield UpdateProfileState.updated();
 
+      add(const UpdateProfileEvent.update(
+          UpdateProfilePayloadModel(useAvatar: "CUSTOM")));
+
       yield UpdateProfileState.loadedAvatarSuccess(responseBody);
     } catch (e) {
       yield UpdateProfileState.error(HandlingErrors().getError(e));

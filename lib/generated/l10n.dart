@@ -2059,6 +2059,36 @@ class S {
       args: [],
     );
   }
+
+  /// `A verification email has been sent`
+  String get toast_message_forgot_password {
+    return Intl.message(
+      'A verification email has been sent',
+      name: 'toast_message_forgot_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your password has been successfully reset`
+  String get toast_message_reset_password {
+    return Intl.message(
+      'Your password has been successfully reset',
+      name: 'toast_message_reset_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter code.`
+  String get code_not_entered_message {
+    return Intl.message(
+      'Please enter code.',
+      name: 'code_not_entered_message',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -13,6 +13,7 @@ _$_UpdateProfilePayloadModel _$$_UpdateProfilePayloadModelFromJson(
       phoneNumber: json['phoneNumber'] as String?,
       email: json['email'] as String?,
       userName: json['userName'] as String?,
+      useAvatar: json['useAvatar'] as String?,
       addresses: (json['addresses'] as List<dynamic>?)
           ?.map(
               (e) => AddressesPayloadModel.fromJson(e as Map<String, dynamic>))
@@ -33,6 +34,7 @@ Map<String, dynamic> _$$_UpdateProfilePayloadModelToJson(
   writeNotNull('phoneNumber', instance.phoneNumber);
   writeNotNull('email', instance.email);
   writeNotNull('userName', instance.userName);
+  writeNotNull('useAvatar', instance.useAvatar);
   writeNotNull('addresses', instance.addresses);
   return val;
 }

@@ -23,6 +23,7 @@ mixin _$ProfileModel {
   String get accountId => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
   String get useAvatar => throw _privateConstructorUsedError;
+  String? get avatarUrl => throw _privateConstructorUsedError;
   double get listingsRating => throw _privateConstructorUsedError;
   String get phoneNumber => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
@@ -46,6 +47,7 @@ abstract class $ProfileModelCopyWith<$Res> {
       {String accountId,
       String username,
       String useAvatar,
+      String? avatarUrl,
       double listingsRating,
       String phoneNumber,
       String email,
@@ -69,6 +71,7 @@ class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
     Object? accountId = null,
     Object? username = null,
     Object? useAvatar = null,
+    Object? avatarUrl = freezed,
     Object? listingsRating = null,
     Object? phoneNumber = null,
     Object? email = null,
@@ -88,6 +91,10 @@ class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
           ? _value.useAvatar
           : useAvatar // ignore: cast_nullable_to_non_nullable
               as String,
+      avatarUrl: freezed == avatarUrl
+          ? _value.avatarUrl
+          : avatarUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
       listingsRating: null == listingsRating
           ? _value.listingsRating
           : listingsRating // ignore: cast_nullable_to_non_nullable
@@ -124,6 +131,7 @@ abstract class _$$_ProfileModelCopyWith<$Res>
       {String accountId,
       String username,
       String useAvatar,
+      String? avatarUrl,
       double listingsRating,
       String phoneNumber,
       String email,
@@ -145,6 +153,7 @@ class __$$_ProfileModelCopyWithImpl<$Res>
     Object? accountId = null,
     Object? username = null,
     Object? useAvatar = null,
+    Object? avatarUrl = freezed,
     Object? listingsRating = null,
     Object? phoneNumber = null,
     Object? email = null,
@@ -164,6 +173,10 @@ class __$$_ProfileModelCopyWithImpl<$Res>
           ? _value.useAvatar
           : useAvatar // ignore: cast_nullable_to_non_nullable
               as String,
+      avatarUrl: freezed == avatarUrl
+          ? _value.avatarUrl
+          : avatarUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
       listingsRating: null == listingsRating
           ? _value.listingsRating
           : listingsRating // ignore: cast_nullable_to_non_nullable
@@ -196,6 +209,7 @@ class _$_ProfileModel implements _ProfileModel {
       {required this.accountId,
       required this.username,
       required this.useAvatar,
+      this.avatarUrl,
       required this.listingsRating,
       required this.phoneNumber,
       required this.email,
@@ -212,6 +226,8 @@ class _$_ProfileModel implements _ProfileModel {
   final String username;
   @override
   final String useAvatar;
+  @override
+  final String? avatarUrl;
   @override
   final double listingsRating;
   @override
@@ -233,7 +249,7 @@ class _$_ProfileModel implements _ProfileModel {
 
   @override
   String toString() {
-    return 'ProfileModel(accountId: $accountId, username: $username, useAvatar: $useAvatar, listingsRating: $listingsRating, phoneNumber: $phoneNumber, email: $email, addresses: $addresses, accountVerified: $accountVerified)';
+    return 'ProfileModel(accountId: $accountId, username: $username, useAvatar: $useAvatar, avatarUrl: $avatarUrl, listingsRating: $listingsRating, phoneNumber: $phoneNumber, email: $email, addresses: $addresses, accountVerified: $accountVerified)';
   }
 
   @override
@@ -247,6 +263,8 @@ class _$_ProfileModel implements _ProfileModel {
                 other.username == username) &&
             (identical(other.useAvatar, useAvatar) ||
                 other.useAvatar == useAvatar) &&
+            (identical(other.avatarUrl, avatarUrl) ||
+                other.avatarUrl == avatarUrl) &&
             (identical(other.listingsRating, listingsRating) ||
                 other.listingsRating == listingsRating) &&
             (identical(other.phoneNumber, phoneNumber) ||
@@ -265,6 +283,7 @@ class _$_ProfileModel implements _ProfileModel {
       accountId,
       username,
       useAvatar,
+      avatarUrl,
       listingsRating,
       phoneNumber,
       email,
@@ -290,6 +309,7 @@ abstract class _ProfileModel implements ProfileModel {
       {required final String accountId,
       required final String username,
       required final String useAvatar,
+      final String? avatarUrl,
       required final double listingsRating,
       required final String phoneNumber,
       required final String email,
@@ -305,6 +325,8 @@ abstract class _ProfileModel implements ProfileModel {
   String get username;
   @override
   String get useAvatar;
+  @override
+  String? get avatarUrl;
   @override
   double get listingsRating;
   @override

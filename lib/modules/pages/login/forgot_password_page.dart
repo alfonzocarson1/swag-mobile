@@ -8,6 +8,7 @@ import 'package:swagapp/modules/common/utils/palette.dart';
 import '../../common/ui/clickable_text.dart';
 import '../../common/ui/custom_app_bar.dart';
 import '../../common/ui/custom_text_form_field.dart';
+import '../../common/ui/dynamic_toast_messages.dart';
 import '../../common/ui/loading.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/utils.dart';
@@ -126,6 +127,17 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       _codeView = true;
                     });
                     Loading.hide(context);
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        duration: const Duration(seconds: 3),
+                        behavior: SnackBarBehavior.floating,
+                        margin: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).size.height / 1.3,
+                        ),
+                        backgroundColor: Colors.transparent,
+                        content: ToastMessage(
+                          message: S.of(context).toast_message_forgot_password,
+                        ),
+                        dismissDirection: DismissDirection.none));
                   },
                   initial: () {
                     return Loading.show(context);
@@ -295,8 +307,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   void codeFieldShowErrors() {
     setState(() {
-      errorText =
-          _codeController.text.isNotEmpty ? null : S.of(context).field_empty;
+      errorText = _codeController.text.isNotEmpty
+          ? null
+          : S.of(context).code_not_entered_message;
     });
   }
 
