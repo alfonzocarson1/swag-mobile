@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 
-import '../../../generated/l10n.dart';
+import '../../data/shared_preferences/shared_preferences_service.dart';
+import '../../di/injector.dart';
+import '../../models/profile/profile_model.dart';
 import 'avatar.dart';
 
 class AccountInfoHeaderWidget extends StatefulWidget {
@@ -13,6 +17,15 @@ class AccountInfoHeaderWidget extends StatefulWidget {
 }
 
 class _AccountInfoHeaderWidgetState extends State<AccountInfoHeaderWidget> {
+  ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getIt<PreferenceRepositoryService>().saveAccountId(profileData.accountId);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -28,7 +41,7 @@ class _AccountInfoHeaderWidgetState extends State<AccountInfoHeaderWidget> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 10.0),
-                child: Text(S.of(context).verify_name,
+                child: Text('@${profileData.username}',
                     style: Theme.of(context).textTheme.displayMedium!.copyWith(
                         fontFamily: "Knockout",
                         fontSize: 33,

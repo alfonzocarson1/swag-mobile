@@ -93,7 +93,9 @@ class _SignInPageState extends State<SignInPage> {
                         .forgotPasswordFlow()) {
                       getIt<PreferenceRepositoryService>()
                           .saveForgotPasswordFlow(false);
-                      Navigator.of(context, rootNavigator: true).pop();
+                      Future.delayed(const Duration(milliseconds: 5000), () {
+                        Navigator.of(context, rootNavigator: true).pop();
+                      });
                     } else {
                       Navigator.popUntil(context, ModalRoute.withName('/'));
                     }

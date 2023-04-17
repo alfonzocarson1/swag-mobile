@@ -1,5 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../models/profile/profile_model.dart';
 import '../../models/search/category_model.dart';
 
 abstract class PreferenceRepositoryInt {
@@ -49,4 +50,7 @@ abstract class PreferenceRepositoryInt {
 
   bool forgotPasswordFlow();
   Future<void> saveForgotPasswordFlow(bool value);
+
+  ProfileModel profileData();
+  Future<void> saveProfileData(ProfileModel value);
 }

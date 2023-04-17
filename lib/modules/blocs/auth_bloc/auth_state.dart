@@ -16,4 +16,5 @@ class AuthState with _$AuthState {
   factory AuthState.codeSent() = CodeStatus;
   factory AuthState.validCodeSuccess(ForgotPasswordCodeModel successValidCode) =
       LoadedvalidCodeSuccess;
+  const factory AuthState.passwordChanged() = PasswordChanged;
 }

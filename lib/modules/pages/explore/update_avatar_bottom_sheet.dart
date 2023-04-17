@@ -13,8 +13,10 @@ import '../../blocs/update_profile_bloc/update_profile_bloc.dart';
 import '../../common/ui/handler.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
+import '../../common/utils/utils.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
+import '../../models/update_profile/update_profile_payload_model.dart';
 
 class UpdateAvatarBottomSheet extends StatefulWidget {
   const UpdateAvatarBottomSheet(this.image, {Key? key}) : super(key: key);
@@ -36,17 +38,6 @@ class UpdateAvatarBottomSheet extends StatefulWidget {
 
 class _UpdateAvatarBottomSheetState extends State<UpdateAvatarBottomSheet> {
   final FocusNode _focusNode = FocusNode();
-  List<String> imagesList = [
-    "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Franklin.png?alt=media&token=c1073f88-74c2-44c8-a287-fbe0caebf878",
-    "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Lincoln.png?alt=media&token=8cc89dc2-6910-451c-bf2e-32578215d5ca",
-    "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Hamilton.png?alt=media&token=2cc6fe55-598d-4e6c-b260-cd837d1a5424",
-    "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/queen.png?alt=media&token=fd838f3d-8b30-4785-974c-a5bbfaff113b",
-    "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/King.png?alt=media&token=2ff68eab-1ad6-4eb2-8c6f-78bf731d3248",
-    "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Flipper.png?alt=media&token=fa4b02fb-992e-4bc2-8532-80fdfd7071de",
-    "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Dripskull.png?alt=media&token=3e50bd26-fe59-4008-ae3d-049d8a35ff17",
-    "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Skull1.png?alt=media&token=a5efe842-e17b-409a-985a-b7f4a7967a7f",
-    "https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/HotDog.png?alt=media&token=ca2732fc-e230-4e85-b892-1bcc018ccc6d",
-  ];
 
   String _accountId = '';
 
@@ -100,7 +91,29 @@ class _UpdateAvatarBottomSheetState extends State<UpdateAvatarBottomSheet> {
               const SizedBox(
                 height: 20,
               ),
-              getAvatarWidgetList(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: GridView.builder(
+                  shrinkWrap: true,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 12.0,
+                    mainAxisSpacing: 12.0,
+                    mainAxisExtent: 100,
+                  ),
+                  itemCount: imagesList.length,
+                  itemBuilder: (_, index) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Stack(
+                          children: [_imageItem(imagesList[index])],
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ),
               const Spacer(),
               _actionButtonSection(context),
             ],
@@ -108,63 +121,20 @@ class _UpdateAvatarBottomSheetState extends State<UpdateAvatarBottomSheet> {
         ));
   }
 
-  Widget getAvatarWidgetList() {
-    var chunks = [];
-    int chunkSize = 3;
-    for (var i = 0; i < imagesList.length; i += chunkSize) {
-      chunks.add(imagesList.sublist(
-          i,
-          i + chunkSize > imagesList.length
-              ? imagesList.length
-              : i + chunkSize));
-    }
-    return Column(
-      children: [
-        _rowList(chunks[0]),
-        const SizedBox(
-          height: 20,
-        ),
-        _rowList(chunks[1]),
-        const SizedBox(
-          height: 20,
-        ),
-        _rowList(chunks[2]),
-      ],
-    );
-  }
-
-  Padding _rowList(List<String> imagesSubList) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _imageItem(imagesSubList[0]),
-          const SizedBox(
-            width: 20,
-          ),
-          _imageItem(imagesSubList[1]),
-          const SizedBox(
-            width: 20,
-          ),
-          _imageItem(imagesSubList[2]),
-        ],
-      ),
-    );
-  }
-
-  Widget _imageItem(String url) {
+  Widget _imageItem(dynamic avatar) {
     return Material(
       color: Palette.current.primaryEerieBlack,
       child: InkWell(
           splashColor: Palette.current.darkGray,
           highlightColor: Palette.current.primaryEerieBlack,
           onTap: () {
+            getIt<UpdateProfileBloc>().add(UpdateProfileEvent.update(
+                UpdateProfilePayloadModel(useAvatar: avatar['id'])));
             Navigator.of(context, rootNavigator: true)
-                .pop(CachedNetworkImageProvider(url));
+                .pop(CachedNetworkImageProvider(avatar['url']));
           },
           child: CachedNetworkImage(
-            imageUrl: url,
+            imageUrl: avatar['url'],
             height: 90,
             width: 90,
             placeholder: (context, url) => Center(

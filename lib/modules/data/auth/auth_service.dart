@@ -7,6 +7,7 @@ import '../../api/api_service.dart';
 import '../../models/auth/change_password_response_model.dart';
 import '../../models/auth/create_account_payload_model.dart';
 import '../../models/auth/forgot_password_code_model.dart';
+import '../../models/profile/profile_model.dart';
 import 'i_auth_service.dart';
 
 class AuthService extends IAuthService {
@@ -103,6 +104,17 @@ class AuthService extends IAuthService {
         method: RequestMethod.post,
         fromJson: (json) => ChangePasswordResponseModel.fromJson(json),
         body: params);
+    return response;
+  }
+
+  @override
+  Future<ProfileModel> privateProfile() async {
+    final response = await apiService.getEndpointData(
+      endpoint: Endpoint.privateProfile,
+      method: RequestMethod.get,
+      needBearer: true,
+      fromJson: (json) => ProfileModel.fromJson(json),
+    );
     return response;
   }
 }
