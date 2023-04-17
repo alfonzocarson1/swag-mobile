@@ -84,11 +84,15 @@ class _AccessoriesPageState extends State<AccessoriesPage> {
            return state.when
            (
            initial: () => const SimpleLoader(), 
-           loading: (isFirstFetch) {
-        
+           loading: (isFirstFetch) {        
             isLoading = true;
-            return const SimpleLoader();
-           }, 
+           return  (resultList.isEmpty)? const SimpleLoader():
+                BodyWidgetWithView(
+              resultList, 
+              tab, 
+              scrollListener: () => hasReachedMax ? getIt<PaginatedSearchCubit>().loadMoreResults() : {},
+              );
+           },
            loaded: (tabMap, newMap) {
             var newMapList = newMap[tab];
               resultList = tabMap[tab] ?? [];

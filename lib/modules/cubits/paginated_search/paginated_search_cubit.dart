@@ -36,10 +36,16 @@ class PaginatedSearchCubit extends Cubit<PaginatedSearchState> {
         model = searchModel;
         currentTab =searchTab;
 
-        if(state is loading_search) return;
+        if(state is loading_search) return;       
 
         if(currentState is loaded_search){
           oldResultMap = mergeMaps(currentState.tabResultMap, {});
+        }
+
+        if(currentTab == SearchTab.all && oldResultMap.containsKey(currentTab)){
+          if(!isLoadingMore){
+            oldResultMap.update(currentTab, (value) => []);
+          }          
         }
        
         

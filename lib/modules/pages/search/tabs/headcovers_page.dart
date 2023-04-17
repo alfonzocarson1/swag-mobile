@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:swagapp/modules/constants/constants.dart';
 import '../../../common/ui/body_widget_with_view.dart';

@@ -54,12 +54,7 @@ class _SearchPageState extends State<SearchPage>
     _tabController.addListener(() {
       final index = _tabController.index;
       initFilterAndSortsWithBloc(context, selectedProductNumber: index);
-
-      context.read<SearchBloc>().add(SearchEvent.selectTab(
-          SearchTab.values[index],
-          true)); //preference.filtersAndSortsSelected > 0 //TODO logic to update only if there was a change in filters and sorts between tabs
-
-      if (index > 0) {
+    if (index > 0) {
         filterIndicatorCounter = 1;
       } else {
         filterIndicatorCounter = 0;
