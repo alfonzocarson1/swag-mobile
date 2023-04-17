@@ -1,5 +1,4 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:swagapp/modules/models/filters/dynamic_filters.dart';
 
 import '../../models/profile/profile_model.dart';
 import '../../models/search/category_model.dart';
@@ -54,16 +53,4 @@ abstract class PreferenceRepositoryInt {
 
   ProfileModel profileData();
   Future<void> saveProfileData(ProfileModel value);
-
-  DynamicFilters? getDynamicFilters();
-  Future<void> saveDynamicFilters(DynamicFilters dynamicFilters);
-
-  List<String> getCollection();
-  Future<void> saveCollection(List<String> collections);
-
-  List<String> getThemes();
-  Future<void> saveThemes(List<String> themes);
-
-  List<String> getTypes();
-  Future<void> saveTypes(List<String> types);
 }
