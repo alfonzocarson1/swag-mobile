@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:swagapp/modules/common/utils/tab_wrapper.dart';
 import 'package:swagapp/modules/models/shared_preferences/shared_preference_model.dart';
 
 import '../../blocs/search_bloc.dart/search_bloc.dart';

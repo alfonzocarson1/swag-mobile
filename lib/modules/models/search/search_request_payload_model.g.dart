@@ -16,6 +16,7 @@ _$_SearchRequestPayloadModel _$$_SearchRequestPayloadModelFromJson(
           null,
       pageSize: json['pageSize'] as int? ?? defaultPageSize,
       categoryId: json['categoryId'] as String? ?? null,
+      whatsHotFlag: json['whatsHotFlag'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$_SearchRequestPayloadModelToJson(
@@ -25,4 +26,5 @@ Map<String, dynamic> _$$_SearchRequestPayloadModelToJson(
       'searchParams': instance.searchParams,
       'pageSize': instance.pageSize,
       'categoryId': instance.categoryId,
+      'whatsHotFlag': instance.whatsHotFlag,
     };

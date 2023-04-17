@@ -11,6 +11,7 @@ import '../../../common/ui/search_input.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
 import '../../../common/utils/size_helper.dart';
+import '../../../common/utils/tab_wrapper.dart';
 import '../../../models/search/filter_model.dart';
 import '../../../models/search/search_request_payload_model.dart';
 import '../../search/search_on_tap_page.dart';
