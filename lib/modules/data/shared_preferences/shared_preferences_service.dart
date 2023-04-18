@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:swagapp/modules/models/filters/dynamic_filters.dart';
 
 import '../../constants/constants.dart';
 import '../../models/profile/profile_model.dart';
@@ -27,6 +28,10 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   static const String _searchesWithFilters = 'searchesWithFilters';
   static const String _forgotPasswordFlow = 'forgotPasswordFlow';
   static const String _profileData = 'profileData';
+  static const String _dynamicFilters = 'dynamicFilters';
+  static const String _collection = 'collection';
+  static const String _themes = 'themes';
+  static const String _types = 'types';
 
   late SharedPreferences _prefs;
   @override
@@ -220,16 +225,15 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
 
   @override
   List<String> getRecentSearchesWithFilters() {
-    List<String> searchesWithFilters =
-        this._prefs.getStringList(_searchesWithFilters) ?? [];
+    List<String> searchesWithFilters = this._prefs.getStringList(_searchesWithFilters) ?? [];
     return searchesWithFilters;
   }
 
   @override
-  Future<void> saveRecentSearchesWithFilters(
-      {required String searchPayload}) async {
-    List<String> searchesWithFilters =
-        this._prefs.getStringList(_searchesWithFilters) ?? [];
+  Future<void> saveRecentSearchesWithFilters( {
+    required String searchPayload,
+  }) async {
+    List<String> searchesWithFilters = this._prefs.getStringList(_searchesWithFilters) ?? [];
     searchesWithFilters.add(searchPayload);
     await this._prefs.setStringList(_searchesWithFilters, searchesWithFilters);
   }
@@ -255,4 +259,46 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
     final profileData = _prefs.getString(_profileData);
     return ProfileModel.fromJson(json.decode(profileData ?? ''));
   }
+
+  @override
+  DynamicFilters? getDynamicFilters() {
+
+    String dynamicFiltersString = this._prefs.getString(_dynamicFilters) ?? '';
+    Map<String, dynamic>? dynamicFiltersJson = (dynamicFiltersString.isNotEmpty) 
+    ? json.decode(dynamicFiltersString)
+    : null;
+
+    return (dynamicFiltersJson != null) ? DynamicFilters.fromJson(dynamicFiltersJson) : null;
+  }
+
+  @override
+  Future<void> saveDynamicFilters(DynamicFilters dynamicFilters) async {
+    
+    await this._prefs.setString(_dynamicFilters, json.encode(dynamicFilters.toJson()));
+  }
+
+  @override
+  List<String> getCollection()=> this._prefs.getStringList(_collection) ?? [];
+
+  @override
+  Future<void> saveCollection(List<String> collections) async {
+    await this._prefs.setStringList(_collection, collections);
+  }
+
+  @override
+  List<String> getThemes()=> this._prefs.getStringList(_themes) ?? [];
+
+  @override
+  Future<void> saveThemes(List<String> themes) async {
+    await this._prefs.setStringList(_themes, themes);
+  }
+
+  @override
+  List<String> getTypes()=> this._prefs.getStringList(_types) ?? [];
+
+  @override
+  Future<void> saveTypes(List<String> types) async {
+    await this._prefs.setStringList(_types, types);
+  }
+
 }
