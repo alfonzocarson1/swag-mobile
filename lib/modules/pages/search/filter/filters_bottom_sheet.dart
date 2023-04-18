@@ -47,14 +47,20 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
   bool isListView = true;
   bool isForSale = false;
   String categoryId = "";
+  FilterModel filters =  FilterModel();
 
   @override
   void initState() {
     getTabId(widget.tab ?? SearchTab.all);
     isListView = getIt<PreferenceRepositoryService>().isListView();
     isForSale = getIt<PreferenceRepositoryService>().isForSale();
-    super.initState();
-    
+    super.initState();    
+  }
+
+  @override
+  void didChangeDependencies() async {
+  filters = await getCurrentFilterModel(); 
+    super.didChangeDependencies();
   }
 
   @override
@@ -324,8 +330,8 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                   searchModel: SearchRequestPayloadModel(
                     categoryId: this.categoryId,
                     whatsHotFlag: false,
-                    filters: const FilterModel(
-                      conditions: ["sealed"],
+                    filters:  FilterModel(
+                      conditions: filters.conditions,
                       forSale: false ,
                       productType: null,
                     ),
