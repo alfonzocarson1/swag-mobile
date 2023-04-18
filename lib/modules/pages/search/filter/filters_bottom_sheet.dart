@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/constants/constants.dart';
 import 'package:swagapp/modules/pages/search/filter/filter_category_page.dart';
@@ -221,35 +220,35 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                             context,
                             S.of(context).product.toUpperCase(),
                             (widget.tab == SearchTab.whatsHot || widget.tab == SearchTab.all ||widget.tab == null)
-                            ? () => this.navigateToCategoryPage(FilterType.product)
+                            ? () => this.navigateToCategoryPage(FilterType.product, categoryId)
                             : null,
                           ),
                           _filterItem(
                             context, 
                             S.of(context).sort_by.toUpperCase(), 
-                            ()=> this.navigateToCategoryPage(FilterType.sortBy), 
+                            ()=> this.navigateToCategoryPage(FilterType.sortBy, categoryId), 
                             selection: S.of(context).release_date_newest,
                           ),
                           _filterItem(
                             context, 
                             S.of(context).type.toUpperCase(), 
-                            ()=> this.navigateToCategoryPage(FilterType.type),
+                           (widget.tab == SearchTab.headcovers || widget.tab == SearchTab.putters) ? ()=> this.navigateToCategoryPage(FilterType.type, categoryId) : null,
                           ),
                           _filterItem(
                             context,
                             S.of(context).collections.toUpperCase(), 
-                            ()=> this.navigateToCategoryPage(FilterType.collection),
+                            ()=> this.navigateToCategoryPage(FilterType.collection, categoryId),
                           ),
                           _filterItem(
                             context, 
                             S.of(context).condition.toUpperCase(),
-                            ()=> this.navigateToCategoryPage(FilterType.condition) , 
+                            ()=> this.navigateToCategoryPage(FilterType.condition, categoryId), 
                             selection: S.of(context).sealed
                           ),
                           _filterItem(
                             context, 
                             S.of(context).release_date.toUpperCase(),
-                            ()=> this.navigateToCategoryPage(FilterType.releaseDate),
+                            ()=> this.navigateToCategoryPage(FilterType.releaseDate, categoryId),
                           ),
                           _filterItem(
                             context,
@@ -259,12 +258,12 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                           _filterItem(
                             context, 
                             S.of(context).price_range.toUpperCase(),
-                            ()=> this.navigateToCategoryPage(FilterType.price),
+                            ()=> this.navigateToCategoryPage(FilterType.price, categoryId),
                           ),
                           _filterItem(
                             context, 
                             S.of(context).theme.toUpperCase(), 
-                            ()=> this.navigateToCategoryPage(FilterType.theme),
+                            ()=> this.navigateToCategoryPage(FilterType.theme, categoryId),
                             isSeparatorNeeded: false,
                           ),
                           _actionButtonSection(context),
@@ -283,11 +282,12 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
       ); 
   }
 
-  void navigateToCategoryPage(FilterType type) {
+  void navigateToCategoryPage(FilterType type, String categoryId) {
     
      Navigator.of(context, rootNavigator: true).push(
       FilterCategoryPage.route(
-        context, 
+        context,
+        categoryId, 
         type,
         isMultipleSelection: true,
         searchParam: this.widget.searchParam,
@@ -312,8 +312,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
 
    getTabId(SearchTab tab) async {    
     categoryId = await SearchTabWrapper(tab).toStringCustom()?? "";
-    Future.delayed(const Duration(milliseconds: 500));
-    
+    Future.delayed(const Duration(milliseconds: 500));    
   }
 
   Widget _actionButtonSection(BuildContext context) {
@@ -328,18 +327,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
           child: PrimaryButton(
             title: S.of(context).see_results.toUpperCase(),
             onPressed: () {
-              getIt<PaginatedSearchCubit>().loadResults(
-                  searchModel: SearchRequestPayloadModel(
-                    categoryId: this.categoryId,
-                    whatsHotFlag: false,
-                    filters:  FilterModel(
-                      conditions: filters.conditions,
-                      forSale: false ,
-                      productType: null,
-                    ),
-                  ),
-                  
-                  searchTab: widget.tab!);
+              apiCall();
               // performSearch(
               //   context: context,
               //   searchParam: widget.searchParam,
@@ -501,5 +489,22 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
       case FilterType.theme: return '';
       case FilterType.type: return '';
     }
+  }
+  
+  void apiCall() async  {
+   filters = await getCurrentFilterModel();
+    getIt<PaginatedSearchCubit>().loadResults(
+                  searchModel: SearchRequestPayloadModel(
+                    categoryId: this.categoryId,
+                    whatsHotFlag:(widget.tab == SearchTab.whatsHot) ? true : false,
+                    filters:  FilterModel(
+                      sortBy: filters.sortBy,
+                      type: filters.type,
+                      conditions: filters.conditions,
+                      forSale: filters.forSale ,
+                      productType: filters.productType,
+                    ),
+                  ),
+                  searchTab: widget.tab!);
   }
 }
