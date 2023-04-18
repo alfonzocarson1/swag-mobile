@@ -495,8 +495,9 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
    filters = await getCurrentFilterModel();
     getIt<PaginatedSearchCubit>().loadResults(
                   searchModel: SearchRequestPayloadModel(
-                    categoryId: this.categoryId,
+                    categoryId: (widget.tab == SearchTab.all || widget.tab == null) ? null : this.categoryId,
                     whatsHotFlag:(widget.tab == SearchTab.whatsHot) ? true : false,
+                    searchParams: (widget.tab == SearchTab.all || widget.tab == null) ? [widget.searchParam ?? ""] : [] ,
                     filters:  FilterModel(
                       sortBy: filters.sortBy,
                       type: filters.type,
@@ -505,6 +506,6 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                       productType: filters.productType,
                     ),
                   ),
-                  searchTab: widget.tab!);
+                  searchTab: widget.tab ?? SearchTab.all);
   }
 }
