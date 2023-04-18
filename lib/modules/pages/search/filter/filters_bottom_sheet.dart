@@ -492,7 +492,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                   searchModel: SearchRequestPayloadModel(
                     categoryId: (widget.tab == SearchTab.all || widget.tab == null) ? null : this.categoryId,
                     whatsHotFlag:(widget.tab == SearchTab.whatsHot) ? true : false,
-                    searchParams: (widget.tab == SearchTab.all || widget.tab == null) ? [widget.searchParam ?? ""] : [] ,
+                    searchParams: (widget.tab == SearchTab.all || widget.tab == null) ? [widget.searchParam ?? ""] : null ,
                     filters:  FilterModel(
                       sortBy: filters.sortBy,
                       type: filters.type,
