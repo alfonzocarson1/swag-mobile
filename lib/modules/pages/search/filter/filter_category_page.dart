@@ -11,13 +11,17 @@ import '../../../common/utils/palette.dart';
 import '../../../common/utils/tab_wrapper.dart';
 import '../../../common/utils/utils.dart';
 import '../../../constants/constants.dart';
+import '../../../cubits/paginated_search/paginated_search_cubit.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
+import '../../../models/search/filter_model.dart';
+import '../../../models/search/search_request_payload_model.dart';
 
 class FilterCategoryPage extends StatefulWidget {
   const FilterCategoryPage(
       {Key? key,
       required this.filterType,
+      this.categoryId,
       this.searchParam,
       this.tab,
       this.isMultipleSelection = false})
@@ -27,9 +31,11 @@ class FilterCategoryPage extends StatefulWidget {
   final String? searchParam;
   final SearchTab? tab;
   final bool isMultipleSelection;
+  final String? categoryId;
 
   static Route route(
     BuildContext context, 
+    String categoryId,
     FilterType filterType, {
       String? searchParam,
       SearchTab? tab,
@@ -41,6 +47,7 @@ class FilterCategoryPage extends StatefulWidget {
         isDismissible: false,
         settings: const RouteSettings(name: name),
         builder: (context) => FilterCategoryPage(
+          categoryId: categoryId,
           filterType: filterType,
           searchParam: searchParam,
           tab: tab,
@@ -56,6 +63,7 @@ class FilterCategoryPage extends StatefulWidget {
 class _FilterCategoryPageState extends State<FilterCategoryPage> {
   final FocusNode _focusNode = FocusNode();
   List<int> checkBoxIndexes = [];
+  FilterModel filters =  FilterModel();
 
   @override
   void initState() {
@@ -172,11 +180,7 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
           child: PrimaryButton(
             title: S.of(context).see_results.toUpperCase(),
             onPressed: () {
-              // performSearch(
-              //   context: context,
-              //   searchParam: widget.searchParam, 
-              //   tab: widget.tab,
-              // );
+              apiCall();
               Navigator.pop(context);
               Navigator.pop(context);
             },
@@ -482,5 +486,22 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
     }
 
     return items; 
+  }
+  
+void apiCall() async  {
+   filters = await getCurrentFilterModel();
+    getIt<PaginatedSearchCubit>().loadResults(
+                  searchModel: SearchRequestPayloadModel(
+                    categoryId: widget.categoryId,
+                    whatsHotFlag:(widget.tab == SearchTab.whatsHot) ? true : false,
+                    filters:  FilterModel(
+                      sortBy: filters.sortBy,
+                      type: filters.type,
+                      conditions: filters.conditions,
+                      forSale: filters.forSale ,
+                      productType: filters.productType,
+                    ),
+                  ),
+                  searchTab: widget.tab!);
   }
 }
