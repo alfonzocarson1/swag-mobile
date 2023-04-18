@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/ui/catalog_ui.dart';
 import 'package:swagapp/modules/common/ui/shrunken_item_widget.dart';
+import 'package:swagapp/modules/cubits/paginated_search/paginated_search_cubit.dart';
 
 import '../../../generated/l10n.dart';
 import '../../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
 
+import '../../di/injector.dart';
 import '../../models/search/catalog_item_model.dart';
 import '../utils/tab_wrapper.dart';
 import '../utils/utils.dart';
@@ -57,7 +59,7 @@ class _BodyWidgetWithViewState extends State<BodyWidgetWithView> {
 
     return RefreshIndicator(
       onRefresh: () async {
-        performSearch(context: context, searchParam: widget.searchParams, tab: widget.tab);
+        getIt<PaginatedSearchCubit>().refreshResults();
         return Future.delayed(const Duration(milliseconds: 1500));
       }, 
       child: BlocBuilder<SharedPreferencesBloc, SharedPreferencesState>(
