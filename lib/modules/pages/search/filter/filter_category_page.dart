@@ -167,11 +167,11 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
           child: PrimaryButton(
             title: S.of(context).see_results.toUpperCase(),
             onPressed: () {
-              performSearch(
-                context: context,
-                searchParam: widget.searchParam, 
-                tab: widget.tab,
-              );
+              // performSearch(
+              //   context: context,
+              //   searchParam: widget.searchParam, 
+              //   tab: widget.tab,
+              // );
               Navigator.pop(context);
               Navigator.pop(context);
             },
