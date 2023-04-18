@@ -499,6 +499,7 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
                       sortBy: filters.sortBy,
                       type: filters.type,
                       conditions: filters.conditions,
+                      collection: filters.collection,
                       forSale: filters.forSale ,
                       productType: filters.productType,
                     ),

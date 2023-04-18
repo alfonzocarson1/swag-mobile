@@ -328,11 +328,6 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
             title: S.of(context).see_results.toUpperCase(),
             onPressed: () {
               apiCall();
-              // performSearch(
-              //   context: context,
-              //   searchParam: widget.searchParam,
-              //   tab: widget.tab,
-              // );
               Navigator.pop(context);
             },
             type: PrimaryButtonType.primaryEerieBlack,
@@ -502,6 +497,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                       sortBy: filters.sortBy,
                       type: filters.type,
                       conditions: filters.conditions,
+                      collection: filters.collection,
                       forSale: filters.forSale ,
                       productType: filters.productType,
                     ),
