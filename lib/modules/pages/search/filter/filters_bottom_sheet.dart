@@ -10,8 +10,11 @@ import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
 import '../../../common/utils/tab_wrapper.dart';
 import '../../../common/utils/utils.dart';
+import '../../../cubits/paginated_search/paginated_search_cubit.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
+import '../../../models/search/filter_model.dart';
+import '../../../models/search/search_request_payload_model.dart';
 import '../../../models/shared_preferences/shared_preference_model.dart';
 
 class FiltersBottomSheet extends StatefulWidget {
@@ -42,12 +45,21 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
   final FocusNode _focusNode = FocusNode();
   bool isListView = true;
   bool isForSale = false;
+  String categoryId = "";
+  FilterModel filters =  FilterModel();
 
   @override
   void initState() {
+    getTabId(widget.tab ?? SearchTab.all);
     isListView = getIt<PreferenceRepositoryService>().isListView();
     isForSale = getIt<PreferenceRepositoryService>().isForSale();
-    super.initState();
+    super.initState();    
+  }
+
+  @override
+  void didChangeDependencies() async {
+  filters = await getCurrentFilterModel(); 
+    super.didChangeDependencies();
   }
 
   @override
@@ -208,35 +220,35 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                             context,
                             S.of(context).product.toUpperCase(),
                             (widget.tab == SearchTab.whatsHot || widget.tab == SearchTab.all ||widget.tab == null)
-                            ? () => this.navigateToCategoryPage(FilterType.product)
+                            ? () => this.navigateToCategoryPage(FilterType.product, categoryId)
                             : null,
                           ),
                           _filterItem(
                             context, 
                             S.of(context).sort_by.toUpperCase(), 
-                            ()=> this.navigateToCategoryPage(FilterType.sortBy), 
+                            ()=> this.navigateToCategoryPage(FilterType.sortBy, categoryId), 
                             selection: S.of(context).release_date_newest,
                           ),
                           _filterItem(
                             context, 
                             S.of(context).type.toUpperCase(), 
-                            ()=> this.navigateToCategoryPage(FilterType.type),
+                           (widget.tab == SearchTab.headcovers || widget.tab == SearchTab.putters || widget.tab == null) ? ()=> this.navigateToCategoryPage(FilterType.type, categoryId) : null,
                           ),
                           _filterItem(
                             context,
                             S.of(context).collections.toUpperCase(), 
-                            ()=> this.navigateToCategoryPage(FilterType.collection),
+                            ()=> this.navigateToCategoryPage(FilterType.collection, categoryId),
                           ),
                           _filterItem(
                             context, 
                             S.of(context).condition.toUpperCase(),
-                            ()=> this.navigateToCategoryPage(FilterType.condition) , 
+                            ()=> this.navigateToCategoryPage(FilterType.condition, categoryId), 
                             selection: S.of(context).sealed
                           ),
                           _filterItem(
                             context, 
                             S.of(context).release_date.toUpperCase(),
-                            ()=> this.navigateToCategoryPage(FilterType.releaseDate),
+                            ()=> this.navigateToCategoryPage(FilterType.releaseDate, categoryId),
                           ),
                           _filterItem(
                             context,
@@ -246,12 +258,12 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                           _filterItem(
                             context, 
                             S.of(context).price_range.toUpperCase(),
-                            ()=> this.navigateToCategoryPage(FilterType.price),
+                            ()=> this.navigateToCategoryPage(FilterType.price, categoryId),
                           ),
                           _filterItem(
                             context, 
                             S.of(context).theme.toUpperCase(), 
-                            ()=> this.navigateToCategoryPage(FilterType.theme),
+                            ()=> this.navigateToCategoryPage(FilterType.theme, categoryId),
                             isSeparatorNeeded: false,
                           ),
                           _actionButtonSection(context),
@@ -270,11 +282,12 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
       ); 
   }
 
-  void navigateToCategoryPage(FilterType type) {
+  void navigateToCategoryPage(FilterType type, String categoryId) {
     
      Navigator.of(context, rootNavigator: true).push(
       FilterCategoryPage.route(
-        context, 
+        context,
+        categoryId, 
         type,
         isMultipleSelection: true,
         searchParam: this.widget.searchParam,
@@ -297,6 +310,11 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
             preference.copyWith(isForSale: isForSale)));
   }
 
+   getTabId(SearchTab tab) async {    
+    categoryId = await SearchTabWrapper(tab).toStringCustom()?? "";
+    Future.delayed(const Duration(milliseconds: 500));    
+  }
+
   Widget _actionButtonSection(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -309,11 +327,12 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
           child: PrimaryButton(
             title: S.of(context).see_results.toUpperCase(),
             onPressed: () {
-              performSearch(
-                context: context,
-                searchParam: widget.searchParam,
-                tab: widget.tab,
-              );
+              apiCall();
+              // performSearch(
+              //   context: context,
+              //   searchParam: widget.searchParam,
+              //   tab: widget.tab,
+              // );
               Navigator.pop(context);
             },
             type: PrimaryButtonType.primaryEerieBlack,
@@ -470,5 +489,23 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
       case FilterType.theme: return '';
       case FilterType.type: return '';
     }
+  }
+  
+  void apiCall() async  {
+   filters = await getCurrentFilterModel();
+    getIt<PaginatedSearchCubit>().loadResults(
+                  searchModel: SearchRequestPayloadModel(
+                    categoryId: (widget.tab == SearchTab.all || widget.tab == null) ? null : this.categoryId,
+                    whatsHotFlag:(widget.tab == SearchTab.whatsHot) ? true : false,
+                    searchParams: (widget.tab == SearchTab.all || widget.tab == null) ? [widget.searchParam ?? ""] : [] ,
+                    filters:  FilterModel(
+                      sortBy: filters.sortBy,
+                      type: filters.type,
+                      conditions: filters.conditions,
+                      forSale: filters.forSale ,
+                      productType: filters.productType,
+                    ),
+                  ),
+                  searchTab: widget.tab ?? SearchTab.all);
   }
 }
