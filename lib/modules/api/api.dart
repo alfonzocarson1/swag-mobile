@@ -25,7 +25,8 @@ enum Endpoint {
   savedSearches,
   deleteSearch,
   isEmailInUse,
-  privateProfile
+  privateProfile,
+  filtersAvailable,
 }
 
 class API {
@@ -69,6 +70,7 @@ class API {
     Endpoint.savedSearches: "api/v1/catalog/searches/",
     Endpoint.deleteSearch: "api/v1/catalog/searches/%s",
     Endpoint.isEmailInUse: 'api/public/v1/account/isEmailInUse/%s',
-    Endpoint.privateProfile: 'api/v1/profile'
+    Endpoint.privateProfile: 'api/v1/profile',
+    Endpoint.filtersAvailable: 'api/public/v1/catalog/filtersAvailable/',
   };
 }
