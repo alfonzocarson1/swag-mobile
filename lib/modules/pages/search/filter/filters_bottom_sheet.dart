@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/constants/constants.dart';
 import 'package:swagapp/modules/pages/search/filter/filter_category_page.dart';
@@ -10,8 +11,11 @@ import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
 import '../../../common/utils/tab_wrapper.dart';
 import '../../../common/utils/utils.dart';
+import '../../../cubits/paginated_search/paginated_search_cubit.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
+import '../../../models/search/filter_model.dart';
+import '../../../models/search/search_request_payload_model.dart';
 import '../../../models/shared_preferences/shared_preference_model.dart';
 
 class FiltersBottomSheet extends StatefulWidget {
@@ -42,12 +46,15 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
   final FocusNode _focusNode = FocusNode();
   bool isListView = true;
   bool isForSale = false;
+  String categoryId = "";
 
   @override
   void initState() {
+    getTabId(widget.tab ?? SearchTab.all);
     isListView = getIt<PreferenceRepositoryService>().isListView();
     isForSale = getIt<PreferenceRepositoryService>().isForSale();
     super.initState();
+    
   }
 
   @override
@@ -295,6 +302,12 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
             preference.copyWith(isForSale: isForSale)));
   }
 
+   getTabId(SearchTab tab) async {    
+    categoryId = await SearchTabWrapper(tab).toStringCustom()?? "";
+    Future.delayed(const Duration(milliseconds: 500));
+    
+  }
+
   Widget _actionButtonSection(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -307,11 +320,23 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
           child: PrimaryButton(
             title: S.of(context).see_results.toUpperCase(),
             onPressed: () {
-              performSearch(
-                context: context,
-                searchParam: widget.searchParam,
-                tab: widget.tab,
-              );
+              getIt<PaginatedSearchCubit>().loadResults(
+                  searchModel: SearchRequestPayloadModel(
+                    categoryId: this.categoryId,
+                    whatsHotFlag: false,
+                    filters: const FilterModel(
+                      conditions: ["sealed"],
+                      forSale: false ,
+                      productType: null,
+                    ),
+                  ),
+                  
+                  searchTab: widget.tab!);
+              // performSearch(
+              //   context: context,
+              //   searchParam: widget.searchParam,
+              //   tab: widget.tab,
+              // );
               Navigator.pop(context);
             },
             type: PrimaryButtonType.primaryEerieBlack,
