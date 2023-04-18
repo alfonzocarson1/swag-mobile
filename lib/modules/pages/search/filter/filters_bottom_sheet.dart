@@ -232,7 +232,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                           _filterItem(
                             context, 
                             S.of(context).type.toUpperCase(), 
-                           (widget.tab == SearchTab.headcovers || widget.tab == SearchTab.putters) ? ()=> this.navigateToCategoryPage(FilterType.type, categoryId) : null,
+                           (widget.tab == SearchTab.headcovers || widget.tab == SearchTab.putters || widget.tab == null) ? ()=> this.navigateToCategoryPage(FilterType.type, categoryId) : null,
                           ),
                           _filterItem(
                             context,
