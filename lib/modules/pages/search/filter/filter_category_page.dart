@@ -494,11 +494,12 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
                   searchModel: SearchRequestPayloadModel(
                     categoryId: (widget.tab == SearchTab.all || widget.tab == null) ? null : widget.categoryId,
                     whatsHotFlag:(widget.tab == SearchTab.whatsHot) ? true : false,
-                    searchParams: (widget.tab == SearchTab.all || widget.tab == null) ? [widget.searchParam ?? ""] : [] ,
+                    searchParams: (widget.tab == SearchTab.all || widget.tab == null) ? [widget.searchParam ?? ""] : null ,
                     filters:  FilterModel(
                       sortBy: filters.sortBy,
                       type: filters.type,
                       conditions: filters.conditions,
+                      collection: filters.collection,
                       forSale: filters.forSale ,
                       productType: filters.productType,
                     ),
