@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
-import 'package:swagapp/modules/models/filters/dynamic_filters.dart';
-import 'package:swagapp/modules/models/shared_preferences/shared_preference_model.dart';
 
 import '../../../../generated/l10n.dart';
-import '../../../blocs/search_bloc.dart/search_bloc.dart';
 import '../../../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
+import '../../../common/utils/tab_wrapper.dart';
 import '../../../common/utils/utils.dart';
 import '../../../constants/constants.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
@@ -28,13 +26,10 @@ class FilterCategoryPage extends StatefulWidget {
   final SearchTab? tab;
   final bool isMultipleSelection;
 
-  static Route route(
-    BuildContext context, 
-    FilterType filterType, {
-      String? searchParam,
-      SearchTab? tab,
-      bool isMultipleSelection = false
-    }) =>
+  static Route route(final BuildContext context, FilterType filterType,
+          {String? searchParam,
+          SearchTab? tab,
+          bool isMultipleSelection = false}) =>
       PageRoutes.modalBottomSheet(
         isScrollControlled: true,
         enableDrag: false,
@@ -205,17 +200,37 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
                     Checkbox(
                       checkColor: Palette.current.black,
                       value: checkBoxIndexes.contains(index),
-                      onChanged: (bool? value)=> this.onChangedItem(value, index),
+                      onChanged: (value) {
+                        setState(() {
+                          if (value ?? false) {
+                            if (value!) {
+                              if ((!widget.isMultipleSelection)) {
+                                if (checkBoxIndexes.isEmpty) {
+                                  checkBoxIndexes.add(index);
+                                } else {
+                                  checkBoxIndexes.removeAt(0);
+                                  checkBoxIndexes.add(index);
+                                }
+                              } else if (!checkBoxIndexes.contains(index)) {
+                                checkBoxIndexes.add(index);
+                              }
+                            }
+                            //we don't let to delete unique item in case it is single selection
+                          } else if (widget.isMultipleSelection) {
+                            checkBoxIndexes.remove(index);
+                          }
+                          setValueFor(widget.filterType);
+                        });
+                      },
                       side: BorderSide(color: Palette.current.darkGray),
                     ),
                     Expanded(
                       child: Text(
                         title,
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          color: checkBoxIndexes.contains(index)
-                          ? Palette.current.primaryNeonGreen
-                          : Palette.current.darkGray,
-                        ),
+                            color: checkBoxIndexes.contains(index)
+                                ? Palette.current.primaryNeonGreen
+                                : Palette.current.darkGray),
                       ),
                     ),
                   ],
@@ -232,169 +247,84 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
     );
   }
 
-  void onChangedItem(bool? value, int index) {
-
-    setState(() {
-      if (value ?? false) {
-        if (value!) {
-          if ((!widget.isMultipleSelection)) {
-            if (checkBoxIndexes.isEmpty) {
-              checkBoxIndexes.add(index);
-            } else {
-              checkBoxIndexes.removeAt(0);
-              checkBoxIndexes.add(index);
-            }
-          } else if (!checkBoxIndexes.contains(index)) {
-            checkBoxIndexes.add(index);
-          }
-        }
-        //we don't let to delete unique item in case it is single selection
-      } else if (widget.isMultipleSelection) {
-        checkBoxIndexes.remove(index);
-      }
-
-      this.setValueByType(widget.filterType);
-    });
-  }
-
   void initFor(FilterType type) {
-
-    
-    DynamicFilters dynamicFilters = getIt<PreferenceRepositoryService>().getDynamicFilters()!;
-
     switch (type) {
       case FilterType.product:
         checkBoxIndexes = getIt<PreferenceRepositoryService>()
-          .getProduct()
-          .map(int.parse)
-          .toList();
+            .getProduct()
+            .map(int.parse)
+            .toList();
         break;
       case FilterType.condition:
         checkBoxIndexes = getIt<PreferenceRepositoryService>()
-          .getCondition()
-          .map(int.parse)
-          .toList();
+            .getCondition()
+            .map(int.parse)
+            .toList();
         break;
       case FilterType.price:
         checkBoxIndexes = getIt<PreferenceRepositoryService>()
-          .getPrice()
-          .map(int.parse)
-          .toList();
+            .getPrice()
+            .map(int.parse)
+            .toList();
         break;
       case FilterType.sortBy:
         checkBoxIndexes.add(getIt<PreferenceRepositoryService>().getSortBy());
         break;
       case FilterType.releaseDate:
         checkBoxIndexes = getIt<PreferenceRepositoryService>()
-          .getReleaseDate()
-          .map(int.parse)
-          .toList();
-          break;
-      case FilterType.collection:
-
-        List<String> selectedFilters = getIt<PreferenceRepositoryService>().getCollection();
-        this.checkBoxIndexes = this.getDynamicFiltersIndex(selectedFilters, dynamicFilters.collections);
-        break;
-      case FilterType.theme:
-
-        List<String> selectedFilters = getIt<PreferenceRepositoryService>().getThemes();
-        this.checkBoxIndexes = this.getDynamicFiltersIndex(selectedFilters, dynamicFilters.themes);
-        break;
-      case FilterType.type:
-
-        List<String> selectedFilters = getIt<PreferenceRepositoryService>().getTypes();
-        this.checkBoxIndexes = this.getDynamicFiltersIndex(selectedFilters, dynamicFilters.types);
-        break;
+            .getReleaseDate()
+            .map(int.parse)
+            .toList();
     }
-  }
-
-  List<int> getDynamicFiltersIndex(List<String> selectedFilters, List<String> dynamicFilters) {
-
-    List<int> indexes = [];
-
-    for (int i = 0; i < selectedFilters.length; i++) {
-      
-      indexes.add(dynamicFilters.indexOf(selectedFilters[i]));
-    }
-
-    return indexes;
   }
 
   String getPageTitle(FilterType type) {
-    
-    switch (type) {
-      case FilterType.product: return S.of(context).product.toUpperCase();
-      case FilterType.condition: return S.of(context).condition.toUpperCase();
-      case FilterType.price: return S.of(context).price.toUpperCase();
-      case FilterType.sortBy: return S.of(context).sort_by.toUpperCase();
-      case FilterType.releaseDate: return S.of(context).release_date.toUpperCase();
-      case FilterType.collection: return S.current.collection.toUpperCase();
-      case FilterType.theme: return S.current.theme.toUpperCase();
-      case FilterType.type: return S.current.type.toUpperCase();
-    }
-  }
-
-  void setValueByType(FilterType type) {
-
-    SharedPreferenceModel preference = context.read<SharedPreferencesBloc>().state.model;
-    List<int> newList = List.from(this.checkBoxIndexes);
-    
     switch (type) {
       case FilterType.product:
-        return this.setFilterValues(preference.copyWith(product: newList));
+        return S.of(context).product.toUpperCase();
       case FilterType.condition:
-        return this.setFilterValues(preference.copyWith(condition: newList));
+        return S.of(context).condition.toUpperCase();
       case FilterType.price:
-        return this.setFilterValues(preference.copyWith(price: newList));
+        return S.of(context).price.toUpperCase();
       case FilterType.sortBy:
-        return this.setFilterValues(preference.copyWith(sortBy: checkBoxIndexes[0]));
-      case FilterType.releaseDate:       
-        return this.setFilterValues(preference.copyWith(releaseDate: newList));
-      case FilterType.collection:
-        return this.setFilterValues(preference.copyWith(collection: this.getSelectedDynamicFiltersById(type)));
-      case FilterType.theme:
-        return this.setFilterValues(preference.copyWith(theme: this.getSelectedDynamicFiltersById(type)));
-      case FilterType.type:
-        return this.setFilterValues(preference.copyWith(type: this.getSelectedDynamicFiltersById(type)));
+        return S.of(context).sort_by.toUpperCase();
+      case FilterType.releaseDate:
+        return S.of(context).release_date.toUpperCase();
     }
   }
 
-  void setFilterValues(SharedPreferenceModel preference){
-    
-    context.read<SharedPreferencesBloc>().add(SharedPreferencesEvent.setPreference(preference));
-  }
-
-  List<String> getSelectedDynamicFiltersById(FilterType type) {
-
-    List<String> items = [];
-    DynamicFilters dynamicFilters = getIt<PreferenceRepositoryService>().getDynamicFilters()!;
-    
+  void setValueFor(FilterType type) {
+    final preference = context.read<SharedPreferencesBloc>().state.model;
+    List<int> newList = List.from(checkBoxIndexes);
     switch (type) {
-      
-      case FilterType.sortBy: break;
-      case FilterType.condition: break;
-      case FilterType.price: break;
-      case FilterType.releaseDate: break;
-      case FilterType.product: break;
-      case FilterType.collection: 
-
-        this.checkBoxIndexes.forEach((int index)=> items.add(dynamicFilters.collections[index]));
+      case FilterType.product:
+        context.read<SharedPreferencesBloc>().add(
+            SharedPreferencesEvent.setPreference(
+                preference.copyWith(product: newList)));
         break;
-      case FilterType.theme: 
-        this.checkBoxIndexes.forEach((int index)=> items.add(dynamicFilters.themes[index]));
+      case FilterType.condition:
+        context.read<SharedPreferencesBloc>().add(
+            SharedPreferencesEvent.setPreference(
+                preference.copyWith(condition: newList)));
         break;
-      case FilterType.type: 
-        this.checkBoxIndexes.forEach((int index)=> items.add(dynamicFilters.types[index]));
+      case FilterType.price:
+        context.read<SharedPreferencesBloc>().add(
+            SharedPreferencesEvent.setPreference(
+                preference.copyWith(price: newList)));
         break;
+      case FilterType.sortBy:
+        context.read<SharedPreferencesBloc>().add(
+            SharedPreferencesEvent.setPreference(
+                preference.copyWith(sortBy: checkBoxIndexes[0])));
+        break;
+      case FilterType.releaseDate:
+        context.read<SharedPreferencesBloc>().add(
+            SharedPreferencesEvent.setPreference(
+                preference.copyWith(releaseDate: newList)));
     }
-
-    return items;
   }
 
   Widget getItemListFor(FilterType type) {
-
-    DynamicFilters? dynamicFilters = getIt<PreferenceRepositoryService>().getDynamicFilters();
-    
     switch (type) {
       case FilterType.product:
         return Column(
@@ -450,37 +380,6 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
             _filterItem(context, S.of(context).y2023, ReleaseDate.y2023.index),
           ],
         );
-      case FilterType.collection:
-
-        return (dynamicFilters != null) 
-        ? Column(children: this.getDynamicFiltersItems(dynamicFilters.collections))
-        : const SizedBox.shrink();
-
-      case FilterType.theme:
-
-        return (dynamicFilters != null) 
-        ? Column(children: this.getDynamicFiltersItems(dynamicFilters.themes))
-        : const SizedBox.shrink();
-      case FilterType.type:
-
-        return (dynamicFilters != null) 
-        ? Column(children: this.getDynamicFiltersItems(dynamicFilters.types))
-        : const SizedBox.shrink();
     }
-  }
-
-  List<Widget> getDynamicFiltersItems(List<String> filters) {
-
-    List<Widget> items = [];
-
-    if(filters.isNotEmpty) {
-
-      for (int i = 0; i < filters.length; i++) {
-
-        items.add(this._filterItem(context, filters[i], i));
-      }
-    }
-
-    return items; 
   }
 }

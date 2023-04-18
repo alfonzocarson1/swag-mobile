@@ -32,7 +32,7 @@ const countries = [
   "KR",
 ];
 
-enum FilterType { sortBy, condition, price, releaseDate, product, collection, theme, type }
+enum FilterType { sortBy, condition, price, releaseDate, product }
 
 enum ReleaseDate {
   y2018,

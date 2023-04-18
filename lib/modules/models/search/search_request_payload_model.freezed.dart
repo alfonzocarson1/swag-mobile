@@ -25,6 +25,7 @@ mixin _$SearchRequestPayloadModel {
   List<String>? get searchParams => throw _privateConstructorUsedError;
   int get pageSize => throw _privateConstructorUsedError;
   String? get categoryId => throw _privateConstructorUsedError;
+  bool? get whatsHotFlag => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,7 +43,8 @@ abstract class $SearchRequestPayloadModelCopyWith<$Res> {
       {FilterModel filters,
       List<String>? searchParams,
       int pageSize,
-      String? categoryId});
+      String? categoryId,
+      bool? whatsHotFlag});
 
   $FilterModelCopyWith<$Res> get filters;
 }
@@ -65,6 +67,7 @@ class _$SearchRequestPayloadModelCopyWithImpl<$Res,
     Object? searchParams = freezed,
     Object? pageSize = null,
     Object? categoryId = freezed,
+    Object? whatsHotFlag = freezed,
   }) {
     return _then(_value.copyWith(
       filters: null == filters
@@ -83,6 +86,10 @@ class _$SearchRequestPayloadModelCopyWithImpl<$Res,
           ? _value.categoryId
           : categoryId // ignore: cast_nullable_to_non_nullable
               as String?,
+      whatsHotFlag: freezed == whatsHotFlag
+          ? _value.whatsHotFlag
+          : whatsHotFlag // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 
@@ -108,7 +115,8 @@ abstract class _$$_SearchRequestPayloadModelCopyWith<$Res>
       {FilterModel filters,
       List<String>? searchParams,
       int pageSize,
-      String? categoryId});
+      String? categoryId,
+      bool? whatsHotFlag});
 
   @override
   $FilterModelCopyWith<$Res> get filters;
@@ -131,6 +139,7 @@ class __$$_SearchRequestPayloadModelCopyWithImpl<$Res>
     Object? searchParams = freezed,
     Object? pageSize = null,
     Object? categoryId = freezed,
+    Object? whatsHotFlag = freezed,
   }) {
     return _then(_$_SearchRequestPayloadModel(
       filters: null == filters
@@ -149,6 +158,10 @@ class __$$_SearchRequestPayloadModelCopyWithImpl<$Res>
           ? _value.categoryId
           : categoryId // ignore: cast_nullable_to_non_nullable
               as String?,
+      whatsHotFlag: freezed == whatsHotFlag
+          ? _value.whatsHotFlag
+          : whatsHotFlag // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -161,7 +174,8 @@ class _$_SearchRequestPayloadModel implements _SearchRequestPayloadModel {
       {required this.filters,
       final List<String>? searchParams = null,
       this.pageSize = defaultPageSize,
-      this.categoryId = null})
+      this.categoryId = null,
+      this.whatsHotFlag = false})
       : _searchParams = searchParams;
 
   factory _$_SearchRequestPayloadModel.fromJson(Map<String, dynamic> json) =>
@@ -186,10 +200,13 @@ class _$_SearchRequestPayloadModel implements _SearchRequestPayloadModel {
   @override
   @JsonKey()
   final String? categoryId;
+  @override
+  @JsonKey()
+  final bool? whatsHotFlag;
 
   @override
   String toString() {
-    return 'SearchRequestPayloadModel(filters: $filters, searchParams: $searchParams, pageSize: $pageSize, categoryId: $categoryId)';
+    return 'SearchRequestPayloadModel(filters: $filters, searchParams: $searchParams, pageSize: $pageSize, categoryId: $categoryId, whatsHotFlag: $whatsHotFlag)';
   }
 
   @override
@@ -203,13 +220,20 @@ class _$_SearchRequestPayloadModel implements _SearchRequestPayloadModel {
             (identical(other.pageSize, pageSize) ||
                 other.pageSize == pageSize) &&
             (identical(other.categoryId, categoryId) ||
-                other.categoryId == categoryId));
+                other.categoryId == categoryId) &&
+            (identical(other.whatsHotFlag, whatsHotFlag) ||
+                other.whatsHotFlag == whatsHotFlag));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, filters,
-      const DeepCollectionEquality().hash(_searchParams), pageSize, categoryId);
+  int get hashCode => Object.hash(
+      runtimeType,
+      filters,
+      const DeepCollectionEquality().hash(_searchParams),
+      pageSize,
+      categoryId,
+      whatsHotFlag);
 
   @JsonKey(ignore: true)
   @override
@@ -231,7 +255,8 @@ abstract class _SearchRequestPayloadModel implements SearchRequestPayloadModel {
       {required final FilterModel filters,
       final List<String>? searchParams,
       final int pageSize,
-      final String? categoryId}) = _$_SearchRequestPayloadModel;
+      final String? categoryId,
+      final bool? whatsHotFlag}) = _$_SearchRequestPayloadModel;
 
   factory _SearchRequestPayloadModel.fromJson(Map<String, dynamic> json) =
       _$_SearchRequestPayloadModel.fromJson;
@@ -244,6 +269,8 @@ abstract class _SearchRequestPayloadModel implements SearchRequestPayloadModel {
   int get pageSize;
   @override
   String? get categoryId;
+  @override
+  bool? get whatsHotFlag;
   @override
   @JsonKey(ignore: true)
   _$$_SearchRequestPayloadModelCopyWith<_$_SearchRequestPayloadModel>

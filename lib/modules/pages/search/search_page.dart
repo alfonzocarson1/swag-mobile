@@ -17,6 +17,7 @@ import 'package:badges/badges.dart' as badges;
 import '../../blocs/search_bloc.dart/search_bloc.dart';
 import '../../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
 import '../../common/utils/custom_route_animations.dart';
+import '../../common/utils/tab_wrapper.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 
@@ -53,12 +54,7 @@ class _SearchPageState extends State<SearchPage>
     _tabController.addListener(() {
       final index = _tabController.index;
       initFilterAndSortsWithBloc(context, selectedProductNumber: index);
-
-      context.read<SearchBloc>().add(SearchEvent.selectTab(
-          SearchTab.values[index],
-          true)); //preference.filtersAndSortsSelected > 0 //TODO logic to update only if there was a change in filters and sorts between tabs
-
-      if (index > 0) {
+    if (index > 0) {
         filterIndicatorCounter = 1;
       } else {
         filterIndicatorCounter = 0;

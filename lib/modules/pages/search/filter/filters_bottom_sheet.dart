@@ -5,10 +5,10 @@ import 'package:swagapp/modules/constants/constants.dart';
 import 'package:swagapp/modules/pages/search/filter/filter_category_page.dart';
 
 import '../../../../generated/l10n.dart';
-import '../../../blocs/search_bloc.dart/search_bloc.dart';
 import '../../../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
+import '../../../common/utils/tab_wrapper.dart';
 import '../../../common/utils/utils.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
@@ -205,55 +205,67 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                             ),
                           ),
                           _filterItem(
-                            context,
-                            S.of(context).product.toUpperCase(),
-                            (widget.tab == SearchTab.whatsHot || widget.tab == SearchTab.all ||widget.tab == null)
-                            ? () => this.navigateToCategoryPage(FilterType.product)
-                            : null,
-                          ),
+                              context,
+                              S.of(context).product.toUpperCase(),
+                              widget.tab == SearchTab.whatsHot ||
+                                      widget.tab == SearchTab.all ||
+                                      widget.tab == null
+                                  ? () {
+                                      Navigator.of(context, rootNavigator: true)
+                                          .push(FilterCategoryPage.route(
+                                              context, FilterType.product,
+                                              searchParam: widget.searchParam,
+                                              isMultipleSelection: true,
+                                              tab: widget.tab));
+                                    }
+                                  : null),
                           _filterItem(
-                            context, 
-                            S.of(context).sort_by.toUpperCase(), 
-                            ()=> this.navigateToCategoryPage(FilterType.sortBy), 
-                            selection: S.of(context).release_date_newest,
-                          ),
+                              context, S.of(context).sort_by.toUpperCase(), () {
+                            Navigator.of(context, rootNavigator: true).push(
+                                FilterCategoryPage.route(
+                                    context, FilterType.sortBy,
+                                    searchParam: widget.searchParam,
+                                    tab: widget.tab));
+                          }, selection: S.of(context).release_date_newest),
                           _filterItem(
-                            context, 
-                            S.of(context).type.toUpperCase(), 
-                            ()=> this.navigateToCategoryPage(FilterType.type),
-                          ),
+                              context, S.of(context).type.toUpperCase(), () {}),
+                          _filterItem(context,
+                              S.of(context).collections.toUpperCase(), () {}),
                           _filterItem(
-                            context,
-                            S.of(context).collections.toUpperCase(), 
-                            ()=> this.navigateToCategoryPage(FilterType.collection),
-                          ),
+                              context, S.of(context).condition.toUpperCase(),
+                              () {
+                            Navigator.of(context, rootNavigator: true).push(
+                                FilterCategoryPage.route(
+                                    context, FilterType.condition,
+                                    searchParam: widget.searchParam,
+                                    tab: widget.tab,
+                                    isMultipleSelection: true));
+                          }, selection: S.of(context).sealed),
                           _filterItem(
-                            context, 
-                            S.of(context).condition.toUpperCase(),
-                            ()=> this.navigateToCategoryPage(FilterType.condition) , 
-                            selection: S.of(context).sealed
-                          ),
+                              context, S.of(context).release_date.toUpperCase(),
+                              () {
+                            Navigator.of(context, rootNavigator: true).push(
+                                FilterCategoryPage.route(
+                                    context, FilterType.releaseDate,
+                                    searchParam: widget.searchParam,
+                                    isMultipleSelection: true,
+                                    tab: widget.tab));
+                          }),
+                          _filterItem(context,
+                              S.of(context).rarity_score.toUpperCase(), () {}),
                           _filterItem(
-                            context, 
-                            S.of(context).release_date.toUpperCase(),
-                            ()=> this.navigateToCategoryPage(FilterType.releaseDate),
-                          ),
+                              context, S.of(context).price_range.toUpperCase(),
+                              () {
+                            Navigator.of(context, rootNavigator: true).push(
+                                FilterCategoryPage.route(
+                                    context, FilterType.price,
+                                    isMultipleSelection: true,
+                                    searchParam: widget.searchParam,
+                                    tab: widget.tab));
+                          }),
                           _filterItem(
-                            context,
-                            S.of(context).rarity_score.toUpperCase(), 
-                            () {},
-                          ),
-                          _filterItem(
-                            context, 
-                            S.of(context).price_range.toUpperCase(),
-                            ()=> this.navigateToCategoryPage(FilterType.price),
-                          ),
-                          _filterItem(
-                            context, 
-                            S.of(context).theme.toUpperCase(), 
-                            ()=> this.navigateToCategoryPage(FilterType.theme),
-                            isSeparatorNeeded: false,
-                          ),
+                              context, S.of(context).theme.toUpperCase(), () {},
+                              isSeparatorNeeded: false),
                           _actionButtonSection(context),
                           const SizedBox(
                             height: 40,
@@ -266,21 +278,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
               ),
             ],
           ),
-        ),
-      ); 
-  }
-
-  void navigateToCategoryPage(FilterType type) {
-    
-     Navigator.of(context, rootNavigator: true).push(
-      FilterCategoryPage.route(
-        context, 
-        type,
-        isMultipleSelection: true,
-        searchParam: this.widget.searchParam,
-        tab: this.widget.tab,
-      ),
-    );
+        ));
   }
 
   void setIsListView() {
@@ -323,13 +321,10 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
     );
   }
 
-  Widget _filterItem(
-    BuildContext context, 
-    String title, Function()? onTap, {
-      Widget? buttons,
+  Widget _filterItem(BuildContext context, String title, Function()? onTap,
+      {Widget? buttons,
       String selection = defaultString,
-      bool isSeparatorNeeded = true,
-    }) {
+      bool isSeparatorNeeded = true}) {
     return Material(
       color: Palette.current.primaryEerieBlack,
       child: InkWell(
@@ -434,7 +429,6 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
   }
 
   String getText(FilterType type, {int? index, int? length}) {
-    
     switch (type) {
       case FilterType.product:
         return index == null
@@ -465,10 +459,6 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                 ? ReleaseDateWrapper(ReleaseDate.values.elementAt(index))
                     .toString()
                 : "$length ${S.of(context).selected}";
-
-      case FilterType.collection: return '';
-      case FilterType.theme: return '';
-      case FilterType.type: return '';
     }
   }
 }

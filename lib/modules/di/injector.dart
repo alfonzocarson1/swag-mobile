@@ -3,13 +3,14 @@ import 'package:get_it/get_it.dart';
 import 'package:swagapp/modules/api/api_service.dart';
 import 'package:swagapp/modules/blocs/search_bloc.dart/search_bloc.dart';
 import 'package:swagapp/modules/common/utils/context_service.dart';
+import 'package:swagapp/modules/cubits/paginated_search/paginated_search_cubit.dart';
 import 'package:swagapp/modules/cubits/saved_search/saved_searches_cubit.dart';
 import 'package:swagapp/modules/data/auth/i_auth_service.dart';
-import 'package:swagapp/modules/data/filters/filters_service.dart';
 import 'package:swagapp/modules/data/saved_search/i_saved_search_service.dart';
 import 'package:swagapp/modules/data/saved_search/saved_search_service.dart';
 import 'package:swagapp/modules/data/search/i_search_service.dart';
 import 'package:swagapp/modules/data/search/search_service.dart';
+import 'package:swagapp/modules/data/search_service/search_service.dart' as search;
 
 import '../blocs/auth_bloc/auth_bloc.dart';
 import '../blocs/auth_bloc/username_bloc.dart';
@@ -45,6 +46,7 @@ import '../data/listing/i_listing_service.dart';
 import '../data/listing/listing_service.dart';
 import '../data/sale_history/i_sale_history_service.dart';
 import '../data/sale_history/sale_history_service.dart';
+import '../data/search_service/i_search_service.dart';
 import '../data/secure_storage/storage_repository_service.dart';
 import '../data/shared_preferences/shared_preferences_service.dart';
 import '../data/sold/i_sold_service.dart';
@@ -59,9 +61,7 @@ const unauthorizedScope = 'unauthorizedScope';
 const authorizedScope = 'authorizedScope';
 
 Future<void> setupAppScope() {
-
   getIt.registerLazySingleton(() => PreferenceRepositoryService());
-  getIt.registerLazySingleton(() => FiltersService(APIService()));
   getIt.registerLazySingleton(() => StorageRepositoryService());
   getIt.registerLazySingleton(() => ContextService());
   getIt.registerLazySingleton<IAuthService>(() => AuthService(APIService()));
@@ -70,12 +70,14 @@ Future<void> setupAppScope() {
       () => UsernameBloc(getIt<IAuthService>()));
 
   getIt.registerLazySingleton<ISearchService>(() => SearchService(APIService()));
+  getIt.registerLazySingleton<ISearchService2>(() => search.SearchService(APIService()));
   getIt.registerLazySingleton<ISavedSearchService>(() => SavedSearchService(APIService()));
 
   getIt.registerLazySingleton<SearchBloc>(
       () => SearchBloc(getIt<ISearchService>(), getIt<ISavedSearchService>()));
 
   getIt.registerLazySingleton<SavedSearchesCubit>(() => SavedSearchesCubit(getIt<ISavedSearchService>()));
+  getIt.registerLazySingleton<PaginatedSearchCubit>(()=> PaginatedSearchCubit(getIt<ISearchService2>()));
 
   getIt.registerLazySingleton<IExploreService>(
       () => ExploreService(APIService()));

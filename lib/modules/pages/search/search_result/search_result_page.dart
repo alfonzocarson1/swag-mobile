@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:swagapp/modules/common/ui/body_widget_with_view.dart';
 import 'package:swagapp/modules/common/ui/pushed_header.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/models/search/catalog_item_model.dart';
@@ -9,10 +8,15 @@ import 'package:swagapp/modules/models/search/search_request_payload_model.dart'
 import 'package:swagapp/modules/pages/search/search_result/widgets/search_result_field.dart';
 
 import '../../../blocs/search_bloc.dart/search_bloc.dart';
-import '../../../common/ui/loading.dart';
+import '../../../common/ui/simple_loader.dart';
 import '../../../common/utils/custom_route_animations.dart';
+import '../../../common/utils/tab_wrapper.dart';
 import '../../../common/utils/utils.dart';
-import 'widgets/search_result_acttion_header.dart';
+import '../../../constants/constants.dart';
+import '../../../cubits/paginated_search/paginated_search_cubit.dart';
+import '../../../di/injector.dart';
+import '../../../models/search/filter_model.dart';
+import 'widgets/search_result_body.dart';
 
 class SearchResultPage extends StatefulWidget {
 
@@ -41,8 +45,13 @@ class _SearchResultPageState extends State<SearchResultPage> with AutomaticKeepA
 
   @override
   bool get wantKeepAlive => true;
+   SearchTab tab = SearchTab.all;  
   int selectedIndex = 0;
+  bool isLoading = false;
   final TextEditingController textEditingController = TextEditingController();
+  Map<SearchTab, List<CatalogItemModel>> resultMap = { };
+  List<CatalogItemModel> resultList=[];
+  bool hasReachedMax=false;
 
   @override
   void initState() {
@@ -50,12 +59,18 @@ class _SearchResultPageState extends State<SearchResultPage> with AutomaticKeepA
     super.initState();
     this.previousState = null;
     this.textEditingController.text = widget.searchParam;
-    performSearch(
-      context: context, 
-      searchParam: widget.searchParam, 
-      searchWithFilters: this.widget.searchWithFilters,
-      tab: null,
-    );
+  }
+
+   callApi() async {
+    getIt<PaginatedSearchCubit>().loadResults(
+      searchModel: SearchRequestPayloadModel(
+        searchParams: [widget.searchParam],
+        categoryId: null,
+        filters: const FilterModel(
+              productType: null
+            ),
+            ), 
+        searchTab: tab );
   }
 
   @override
@@ -63,6 +78,7 @@ class _SearchResultPageState extends State<SearchResultPage> with AutomaticKeepA
 
     super.build(context);
 
+    callApi();
     return Scaffold(
       appBar: PushedHeader(
         customWidget: Column(
@@ -80,40 +96,26 @@ class _SearchResultPageState extends State<SearchResultPage> with AutomaticKeepA
         height: 62,
       ),
       backgroundColor: Palette.current.primaryNero,
-      body: BlocConsumer<SearchBloc, SearchState>(
-        listener: (context, state) => state.maybeWhen(
-          orElse: () => Loading.isVisible() ? Loading.hide(context) : (){},
-          error: (String message) => Loading.isVisible() ? Loading.hide(context) : (){},
-          initial: ()=> !Loading.isVisible() ? Loading.show(context) : null,
-          result: (result, query, page, tab) => this.setPreviousState(state),
-        ),
-        builder: (context, state) {
-
-          return (this.previousState == null) 
-          ? state.maybeMap(
-              orElse: () => const Center(),
-              error: (error)=>  _RefreshIndicator(onRefresh: this.onRefresh),
-              result: (state) {   
-
-                this.setPreviousState(state);
-
-                return _Results(
-                  catalogList: state.result[SearchTab.all] ?? [], 
-                  searchParam: this.widget.searchParam,
-                );
-              },
-            )
-          : this.previousState!.maybeMap(
-              orElse: ()=> const SizedBox.shrink(),
-              result: (state) {
-                return _Results(
-                  catalogList: state.result[SearchTab.all] ?? [], 
-                  searchParam: this.widget.searchParam,
-                );
-              },
-            ); 
-        },
-      ),
+      body: BlocBuilder<PaginatedSearchCubit, PaginatedSearchState>(
+          builder: (context, state){
+           return state.when
+           (
+           initial: () => const SimpleLoader(), 
+           loading: (isFirstFetch) {        
+            isLoading = true;
+           return  (resultList.isEmpty)? const SimpleLoader():
+              Result_body(widget: widget, resultList: resultList, tab: tab,hasReachedMax: hasReachedMax);
+           }, 
+           loaded: (tabMap, newMap) {
+            var newMapList = newMap[tab];
+              resultList = tabMap[tab] ?? [];
+              if (newMapList != null) {
+                hasReachedMax = newMapList.length >= defaultPageSize;
+              }                     
+            return Result_body(widget: widget, resultList: resultList, tab: tab,hasReachedMax: hasReachedMax);
+            }
+           );             
+          })
     );
   }
 
@@ -130,6 +132,8 @@ class _SearchResultPageState extends State<SearchResultPage> with AutomaticKeepA
     return Future.delayed(const Duration(milliseconds: 1500));
   }
 }
+
+
 
 class _RefreshIndicator extends StatelessWidget {
 
@@ -153,39 +157,5 @@ class _RefreshIndicator extends StatelessWidget {
   }
 }
 
-class _Results extends StatelessWidget {
-
-  final String searchParam;
-  final List<CatalogItemModel> catalogList;
-
-  const _Results({
-    super.key,
-    required this.catalogList, 
-    required this.searchParam,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-
-    return Column(
-      children: <Widget> [
-        SearchResultActionHeader(searchParam: this.searchParam,),
-        Expanded(
-          child: BodyWidgetWithView(
-            this.catalogList, 
-            SearchTab.all,
-            searchParams: this.searchParam,
-            scrollTrgiggerOffset: 0.4,
-            scrollListener: () async => await performSearch(
-              context: context, 
-              searchParam: this.searchParam, 
-              tab: null,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
 
 

@@ -1,13 +1,20 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
-import '../../../blocs/search_bloc.dart/search_bloc.dart';
 import '../../../common/ui/body_widget_with_view.dart';
+import '../../../common/ui/simple_loader.dart';
 import '../../../common/utils/custom_route_animations.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:swagapp/modules/common/ui/loading.dart';
 
+import '../../../common/utils/tab_wrapper.dart';
+import '../../../constants/constants.dart';
+import '../../../cubits/paginated_search/paginated_search_cubit.dart';
+import '../../../data/shared_preferences/shared_preferences_service.dart';
+import '../../../di/injector.dart';
+import '../../../models/search/catalog_item_model.dart';
 import '../../../models/search/filter_model.dart';
 import '../../../models/search/search_request_payload_model.dart';
 
@@ -25,59 +32,83 @@ class PuttersPage extends StatefulWidget {
 }
 
 class _PuttersPageState extends State<PuttersPage> {
-  late final ScrollController? _scrollController =
-      PrimaryScrollController.of(context);
+  SearchTab tab = SearchTab.putters;    
+  String categoryId= "";
+  bool isLoading = false;
+  Map<SearchTab, List<CatalogItemModel>> resultMap = { };
+  List<CatalogItemModel> resultList=[];
+  bool hasReachedMax=false;
+  
+
+  @override
+  void initState() {
+    super.initState();
+    bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
+    bool isLoggedAfterGuest = getIt<PreferenceRepositoryService>().loginAfterGuest();
+  }
+
+ @override
+ void didChangeDependencies() {
+   super.didChangeDependencies();
+   if (Loading.isVisible()) {
+    Loading.hide(context);
+    }
+ }
+
+ getTabId() async {    
+    String categoryId = await SearchTabWrapper(tab).toStringCustom()?? "";
+    Future.delayed(const Duration(milliseconds: 500));
+   return categoryId;
+  }
+
+  callApi() async {
+    getIt<PaginatedSearchCubit>().loadResults(
+      searchModel: SearchRequestPayloadModel(
+        categoryId: await getTabId(),
+        filters: FilterModel(
+              productType: tab != SearchTab.putters
+                ? [categoryId]
+                : null,
+            ),
+            ), 
+        searchTab: tab );
+  }
+
 
   @override
   Widget build(BuildContext context) {
+
+    callApi();    
     return Scaffold(
         backgroundColor: Palette.current.primaryNero,
-        body: BlocConsumer<SearchBloc, SearchState>(
-          listener: (context, state) => state.maybeWhen(
-            orElse: () => {
-              if (Loading.isVisible()) {Loading.hide(context)}
-            },
-            error: (message) => {
-              Loading.hide(context),
-              // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
-            },
-            initial: () => {
-              if (!Loading.isVisible()) {Loading.show(context)}
-            },
-          ),
-          builder: (context, state) {
-            return state.maybeMap(
-              orElse: () => const Center(),
-              error: (_) {
-                return RefreshIndicator(
-                    onRefresh: () async {
-                      makeCall();
-                      return Future.delayed(const Duration(milliseconds: 1500));
-                    },
-                    child: ListView.builder(
-                      itemBuilder: (_, index) => Container(),
-                      itemCount: 0,
-                    ));
-              },
-              result: (state) {
-                if (state.result[SearchTab.putters] != null) {
-                  return BodyWidgetWithView(
-                      state.result[SearchTab.putters] ?? [], SearchTab.putters);
-                } else {
-                  return const Center();
-                }
-              },
-            );
-          },
-        ));
-  }
-
-  Future<void> makeCall() async {
-    context.read<SearchBloc>().add(SearchEvent.performSearch(
-        SearchRequestPayloadModel(
-            categoryId:
-                await SearchTabWrapper(SearchTab.putters).toStringCustom(),
-            filters: const FilterModel()),
-        SearchTab.putters));
-  }
+        body: BlocBuilder<PaginatedSearchCubit, PaginatedSearchState>(
+          builder: (context, state){
+           return state.when
+           (
+           initial: () => const SimpleLoader(), 
+           loading: (isFirstFetch) {        
+            isLoading = true;
+           return  (resultList.isEmpty)? const SimpleLoader():
+                BodyWidgetWithView(
+              resultList, 
+              tab, 
+              scrollListener: () => hasReachedMax ? getIt<PaginatedSearchCubit>().loadMoreResults() : {},
+              );
+           }, 
+           loaded: (tabMap, newMap) {
+             var newMapList = newMap[tab];
+              resultList = tabMap[tab] ?? [];
+              if (newMapList != null) {
+                hasReachedMax = newMapList.length >= defaultPageSize;
+              }                   
+            return BodyWidgetWithView(
+              resultList, 
+              tab, 
+              scrollListener: () => hasReachedMax ? getIt<PaginatedSearchCubit>().loadMoreResults() : {},
+              );
+            }
+           );             
+          }),
+    );
+}
 }

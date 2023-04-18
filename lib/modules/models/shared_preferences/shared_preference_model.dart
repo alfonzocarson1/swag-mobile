@@ -6,7 +6,6 @@ part 'shared_preference_model.g.dart';
 
 @freezed
 class SharedPreferenceModel with _$SharedPreferenceModel {
-
   @JsonSerializable()
   const factory SharedPreferenceModel({
     @Default(true) final bool isListView,
@@ -16,9 +15,6 @@ class SharedPreferenceModel with _$SharedPreferenceModel {
     @Default([]) final List<int> price,
     @Default([]) final List<int> releaseDate,
     @Default([]) final List<int> product,
-    @Default([]) final List<String> collection,
-    @Default([]) final List<String> theme,
-    @Default([]) final List<String> type,
     @Default(defaultInt) final int filtersAndSortsSelected,
   }) = _SharedPreferenceModel;
 

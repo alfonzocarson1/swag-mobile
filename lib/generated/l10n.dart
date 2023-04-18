@@ -760,16 +760,6 @@ class S {
     );
   }
 
-  /// `Collection`
-  String get collection {
-    return Intl.message(
-      'Collection',
-      name: 'collection',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `BUY FOR`
   String get buy_for {
     return Intl.message(
@@ -901,10 +891,10 @@ class S {
   }
 
   /// `This cover is not in your collection, buy it now before it’s too late`
-  String get collection_message {
+  String get collection {
     return Intl.message(
       'This cover is not in your collection, buy it now before it’s too late',
-      name: 'collection_message',
+      name: 'collection',
       desc: '',
       args: [],
     );
