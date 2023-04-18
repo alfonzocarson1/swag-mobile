@@ -42,7 +42,7 @@ class PaginatedSearchCubit extends Cubit<PaginatedSearchState> {
           oldResultMap = mergeMaps(currentState.tabResultMap, {});
         }
 
-        if(currentTab == SearchTab.all && oldResultMap.containsKey(currentTab)){
+        if(oldResultMap.containsKey(currentTab)){
           if(!isLoadingMore){
             oldResultMap.update(currentTab, (value) => []);
           }          
