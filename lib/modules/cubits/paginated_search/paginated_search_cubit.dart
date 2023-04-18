@@ -4,6 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../common/utils/tab_wrapper.dart';
 import '../../data/search_service/i_search_service.dart';
 import '../../models/search/catalog_item_model.dart';
+import '../../models/search/filter_model.dart';
 import '../../models/search/search_request_payload_model.dart';
 
 part 'paginated_search_state.dart';
@@ -80,6 +81,17 @@ class PaginatedSearchCubit extends Cubit<PaginatedSearchState> {
 
   return mergedMap;
 }
+
+  Future<void> refreshResults() async {
+    var tabId= model.categoryId;
+    model= SearchRequestPayloadModel(
+      whatsHotFlag:(currentTab== SearchTab.whatsHot) ? true : false,
+        categoryId: tabId,
+        filters: const FilterModel(
+            ),
+            );
+    await loadResults(searchModel: model, searchTab: currentTab);
+  } 
 
   Future<void> loadMoreResults()async {
     pageCountMap.update(currentTab, (value) => value + 1);
