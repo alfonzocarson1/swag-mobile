@@ -27,12 +27,11 @@ mixin _$DetailItemModel {
   String get catalogItemImage => throw _privateConstructorUsedError;
   String get catalogItemCollection => throw _privateConstructorUsedError;
   String get catalogItemCategoryId => throw _privateConstructorUsedError;
-  String get released => throw _privateConstructorUsedError;
-  String get releasedType => throw _privateConstructorUsedError;
-  int get totalMade => throw _privateConstructorUsedError;
-  String get retail => throw _privateConstructorUsedError;
-  int get numberAvailable => throw _privateConstructorUsedError;
-  String get rarityScore => throw _privateConstructorUsedError;
+  String? get released => throw _privateConstructorUsedError;
+  int? get totalMade => throw _privateConstructorUsedError;
+  String? get retail => throw _privateConstructorUsedError;
+  int? get numberAvailable => throw _privateConstructorUsedError;
+  String? get rarityScore => throw _privateConstructorUsedError;
   DetailSaleInfoModel get saleInfo => throw _privateConstructorUsedError;
   bool get forSale => throw _privateConstructorUsedError;
   bool get inFavorites => throw _privateConstructorUsedError;
@@ -61,12 +60,11 @@ abstract class $DetailItemModelCopyWith<$Res> {
       String catalogItemImage,
       String catalogItemCollection,
       String catalogItemCategoryId,
-      String released,
-      String releasedType,
-      int totalMade,
-      String retail,
-      int numberAvailable,
-      String rarityScore,
+      String? released,
+      int? totalMade,
+      String? retail,
+      int? numberAvailable,
+      String? rarityScore,
       DetailSaleInfoModel saleInfo,
       bool forSale,
       bool inFavorites,
@@ -97,12 +95,11 @@ class _$DetailItemModelCopyWithImpl<$Res, $Val extends DetailItemModel>
     Object? catalogItemImage = null,
     Object? catalogItemCollection = null,
     Object? catalogItemCategoryId = null,
-    Object? released = null,
-    Object? releasedType = null,
-    Object? totalMade = null,
-    Object? retail = null,
-    Object? numberAvailable = null,
-    Object? rarityScore = null,
+    Object? released = freezed,
+    Object? totalMade = freezed,
+    Object? retail = freezed,
+    Object? numberAvailable = freezed,
+    Object? rarityScore = freezed,
     Object? saleInfo = null,
     Object? forSale = null,
     Object? inFavorites = null,
@@ -139,30 +136,26 @@ class _$DetailItemModelCopyWithImpl<$Res, $Val extends DetailItemModel>
           ? _value.catalogItemCategoryId
           : catalogItemCategoryId // ignore: cast_nullable_to_non_nullable
               as String,
-      released: null == released
+      released: freezed == released
           ? _value.released
           : released // ignore: cast_nullable_to_non_nullable
-              as String,
-      releasedType: null == releasedType
-          ? _value.releasedType
-          : releasedType // ignore: cast_nullable_to_non_nullable
-              as String,
-      totalMade: null == totalMade
+              as String?,
+      totalMade: freezed == totalMade
           ? _value.totalMade
           : totalMade // ignore: cast_nullable_to_non_nullable
-              as int,
-      retail: null == retail
+              as int?,
+      retail: freezed == retail
           ? _value.retail
           : retail // ignore: cast_nullable_to_non_nullable
-              as String,
-      numberAvailable: null == numberAvailable
+              as String?,
+      numberAvailable: freezed == numberAvailable
           ? _value.numberAvailable
           : numberAvailable // ignore: cast_nullable_to_non_nullable
-              as int,
-      rarityScore: null == rarityScore
+              as int?,
+      rarityScore: freezed == rarityScore
           ? _value.rarityScore
           : rarityScore // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       saleInfo: null == saleInfo
           ? _value.saleInfo
           : saleInfo // ignore: cast_nullable_to_non_nullable
@@ -215,12 +208,11 @@ abstract class _$$_DetailItemModelCopyWith<$Res>
       String catalogItemImage,
       String catalogItemCollection,
       String catalogItemCategoryId,
-      String released,
-      String releasedType,
-      int totalMade,
-      String retail,
-      int numberAvailable,
-      String rarityScore,
+      String? released,
+      int? totalMade,
+      String? retail,
+      int? numberAvailable,
+      String? rarityScore,
       DetailSaleInfoModel saleInfo,
       bool forSale,
       bool inFavorites,
@@ -250,12 +242,11 @@ class __$$_DetailItemModelCopyWithImpl<$Res>
     Object? catalogItemImage = null,
     Object? catalogItemCollection = null,
     Object? catalogItemCategoryId = null,
-    Object? released = null,
-    Object? releasedType = null,
-    Object? totalMade = null,
-    Object? retail = null,
-    Object? numberAvailable = null,
-    Object? rarityScore = null,
+    Object? released = freezed,
+    Object? totalMade = freezed,
+    Object? retail = freezed,
+    Object? numberAvailable = freezed,
+    Object? rarityScore = freezed,
     Object? saleInfo = null,
     Object? forSale = null,
     Object? inFavorites = null,
@@ -292,30 +283,26 @@ class __$$_DetailItemModelCopyWithImpl<$Res>
           ? _value.catalogItemCategoryId
           : catalogItemCategoryId // ignore: cast_nullable_to_non_nullable
               as String,
-      released: null == released
+      released: freezed == released
           ? _value.released
           : released // ignore: cast_nullable_to_non_nullable
-              as String,
-      releasedType: null == releasedType
-          ? _value.releasedType
-          : releasedType // ignore: cast_nullable_to_non_nullable
-              as String,
-      totalMade: null == totalMade
+              as String?,
+      totalMade: freezed == totalMade
           ? _value.totalMade
           : totalMade // ignore: cast_nullable_to_non_nullable
-              as int,
-      retail: null == retail
+              as int?,
+      retail: freezed == retail
           ? _value.retail
           : retail // ignore: cast_nullable_to_non_nullable
-              as String,
-      numberAvailable: null == numberAvailable
+              as String?,
+      numberAvailable: freezed == numberAvailable
           ? _value.numberAvailable
           : numberAvailable // ignore: cast_nullable_to_non_nullable
-              as int,
-      rarityScore: null == rarityScore
+              as int?,
+      rarityScore: freezed == rarityScore
           ? _value.rarityScore
           : rarityScore // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       saleInfo: null == saleInfo
           ? _value.saleInfo
           : saleInfo // ignore: cast_nullable_to_non_nullable
@@ -356,12 +343,11 @@ class _$_DetailItemModel implements _DetailItemModel {
       required this.catalogItemImage,
       required this.catalogItemCollection,
       required this.catalogItemCategoryId,
-      required this.released,
-      required this.releasedType,
-      required this.totalMade,
-      required this.retail,
-      required this.numberAvailable,
-      required this.rarityScore,
+      this.released,
+      this.totalMade,
+      this.retail,
+      this.numberAvailable,
+      this.rarityScore,
       required this.saleInfo,
       required this.forSale,
       required this.inFavorites,
@@ -388,17 +374,15 @@ class _$_DetailItemModel implements _DetailItemModel {
   @override
   final String catalogItemCategoryId;
   @override
-  final String released;
+  final String? released;
   @override
-  final String releasedType;
+  final int? totalMade;
   @override
-  final int totalMade;
+  final String? retail;
   @override
-  final String retail;
+  final int? numberAvailable;
   @override
-  final int numberAvailable;
-  @override
-  final String rarityScore;
+  final String? rarityScore;
   @override
   final DetailSaleInfoModel saleInfo;
   @override
@@ -421,7 +405,7 @@ class _$_DetailItemModel implements _DetailItemModel {
 
   @override
   String toString() {
-    return 'DetailItemModel(catalogItemId: $catalogItemId, catalogItemName: $catalogItemName, catalogItemDescription: $catalogItemDescription, catalogItemDescriptionShort: $catalogItemDescriptionShort, catalogItemImage: $catalogItemImage, catalogItemCollection: $catalogItemCollection, catalogItemCategoryId: $catalogItemCategoryId, released: $released, releasedType: $releasedType, totalMade: $totalMade, retail: $retail, numberAvailable: $numberAvailable, rarityScore: $rarityScore, saleInfo: $saleInfo, forSale: $forSale, inFavorites: $inFavorites, inCollection: $inCollection, profileFavoriteItemId: $profileFavoriteItemId, collectionItems: $collectionItems)';
+    return 'DetailItemModel(catalogItemId: $catalogItemId, catalogItemName: $catalogItemName, catalogItemDescription: $catalogItemDescription, catalogItemDescriptionShort: $catalogItemDescriptionShort, catalogItemImage: $catalogItemImage, catalogItemCollection: $catalogItemCollection, catalogItemCategoryId: $catalogItemCategoryId, released: $released, totalMade: $totalMade, retail: $retail, numberAvailable: $numberAvailable, rarityScore: $rarityScore, saleInfo: $saleInfo, forSale: $forSale, inFavorites: $inFavorites, inCollection: $inCollection, profileFavoriteItemId: $profileFavoriteItemId, collectionItems: $collectionItems)';
   }
 
   @override
@@ -447,8 +431,6 @@ class _$_DetailItemModel implements _DetailItemModel {
                 other.catalogItemCategoryId == catalogItemCategoryId) &&
             (identical(other.released, released) ||
                 other.released == released) &&
-            (identical(other.releasedType, releasedType) ||
-                other.releasedType == releasedType) &&
             (identical(other.totalMade, totalMade) ||
                 other.totalMade == totalMade) &&
             (identical(other.retail, retail) || other.retail == retail) &&
@@ -471,28 +453,26 @@ class _$_DetailItemModel implements _DetailItemModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hashAll([
-        runtimeType,
-        catalogItemId,
-        catalogItemName,
-        catalogItemDescription,
-        catalogItemDescriptionShort,
-        catalogItemImage,
-        catalogItemCollection,
-        catalogItemCategoryId,
-        released,
-        releasedType,
-        totalMade,
-        retail,
-        numberAvailable,
-        rarityScore,
-        saleInfo,
-        forSale,
-        inFavorites,
-        inCollection,
-        profileFavoriteItemId,
-        const DeepCollectionEquality().hash(_collectionItems)
-      ]);
+  int get hashCode => Object.hash(
+      runtimeType,
+      catalogItemId,
+      catalogItemName,
+      catalogItemDescription,
+      catalogItemDescriptionShort,
+      catalogItemImage,
+      catalogItemCollection,
+      catalogItemCategoryId,
+      released,
+      totalMade,
+      retail,
+      numberAvailable,
+      rarityScore,
+      saleInfo,
+      forSale,
+      inFavorites,
+      inCollection,
+      profileFavoriteItemId,
+      const DeepCollectionEquality().hash(_collectionItems));
 
   @JsonKey(ignore: true)
   @override
@@ -517,12 +497,11 @@ abstract class _DetailItemModel implements DetailItemModel {
       required final String catalogItemImage,
       required final String catalogItemCollection,
       required final String catalogItemCategoryId,
-      required final String released,
-      required final String releasedType,
-      required final int totalMade,
-      required final String retail,
-      required final int numberAvailable,
-      required final String rarityScore,
+      final String? released,
+      final int? totalMade,
+      final String? retail,
+      final int? numberAvailable,
+      final String? rarityScore,
       required final DetailSaleInfoModel saleInfo,
       required final bool forSale,
       required final bool inFavorites,
@@ -548,17 +527,15 @@ abstract class _DetailItemModel implements DetailItemModel {
   @override
   String get catalogItemCategoryId;
   @override
-  String get released;
+  String? get released;
   @override
-  String get releasedType;
+  int? get totalMade;
   @override
-  int get totalMade;
+  String? get retail;
   @override
-  String get retail;
+  int? get numberAvailable;
   @override
-  int get numberAvailable;
-  @override
-  String get rarityScore;
+  String? get rarityScore;
   @override
   DetailSaleInfoModel get saleInfo;
   @override
