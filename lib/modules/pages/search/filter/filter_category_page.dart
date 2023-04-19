@@ -497,6 +497,7 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
                     searchParams: (widget.tab == SearchTab.all || widget.tab == null) ? [widget.searchParam ?? ""] : null ,
                     filters:  FilterModel(
                       sortBy: filters.sortBy,
+                      theme: filters.theme,
                       type: filters.type,
                       conditions: filters.conditions,
                       collection: filters.collection,

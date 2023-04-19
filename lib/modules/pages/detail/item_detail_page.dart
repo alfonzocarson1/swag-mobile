@@ -5,7 +5,6 @@ import 'package:swagapp/modules/common/ui/loading.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import '../../blocs/collection_bloc/collection_bloc.dart';
 import '../../blocs/detail_bloc/detail_bloc.dart';
-import '../../blocs/favorite_bloc/favorite_bloc.dart';
 import '../../blocs/sale_history/sale_history_bloc.dart';
 import '../../common/ui/custom_app_bar.dart';
 import '../../common/ui/popup_add_exisiting_item_collection.dart';
@@ -24,11 +23,11 @@ import 'item_switched.dart';
 
 class ItemDetailPage extends StatefulWidget {
   static const name = '/ItemDetail';
-  ItemDetailPage(
+  const ItemDetailPage(
       {Key? key, required this.catalogItemId, required this.addFavorite})
       : super(key: key);
-  String catalogItemId;
-  Function(bool) addFavorite;
+  final String catalogItemId;
+  final Function(bool) addFavorite;
   static Route route(String catalogItemId, Function(bool) addFavorite) =>
       PageRoutes.material(
         settings: const RouteSettings(name: name),
@@ -41,7 +40,7 @@ class ItemDetailPage extends StatefulWidget {
 }
 
 class _ItemDetailPageState extends State<ItemDetailPage> {
-  late final ScrollController? _scrollController =
+  late final ScrollController _scrollController =
       PrimaryScrollController.of(context);
 
   int? _collectionLen;

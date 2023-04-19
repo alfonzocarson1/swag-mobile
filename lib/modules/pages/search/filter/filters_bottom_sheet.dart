@@ -496,6 +496,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                     filters:  FilterModel(
                       sortBy: filters.sortBy,
                       type: filters.type,
+                      theme:filters.theme,
                       conditions: filters.conditions,
                       collection: filters.collection,
                       forSale: filters.forSale ,
