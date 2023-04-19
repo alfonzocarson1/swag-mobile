@@ -15,15 +15,13 @@ import 'package:badges/badges.dart' as badges;
 import '../../../../common/utils/tab_wrapper.dart';
 
 class SearchResultField extends StatefulWidget {
-
   final String searchParam;
   final TextEditingController textEditingController;
 
-  const SearchResultField({
-    super.key, 
-    required this.textEditingController, 
-    required this.searchParam
-  });
+  const SearchResultField(
+      {super.key,
+      required this.textEditingController,
+      required this.searchParam});
 
   @override
   State<SearchResultField> createState() => _SearchResultFieldState();
@@ -32,7 +30,6 @@ class SearchResultField extends StatefulWidget {
 class _SearchResultFieldState extends State<SearchResultField> {
   @override
   Widget build(BuildContext context) {
-
     return Row(
       children: [
         Padding(
@@ -54,7 +51,7 @@ class _SearchResultFieldState extends State<SearchResultField> {
           child: InkWell(
             onTap: () {
               Navigator.of(context, rootNavigator: true)
-                  .push(SearchOnTapPage.route());
+                  .push(SearchOnTapPage.route(true));
             },
             child: SearchInput(
                 prefixIcon: null,
@@ -75,7 +72,6 @@ class _SearchResultFieldState extends State<SearchResultField> {
                 return stateSharedPreferences.map(
                   setPreference: (state) => IconButton(
                     onPressed: () async {
-
                       await this.setIsForSale(context, !state.model.isForSale);
                       if (!mounted) return;
                       performSearch(context: context, tab: SearchTab.all);
@@ -97,7 +93,9 @@ class _SearchResultFieldState extends State<SearchResultField> {
                   setPreference: (state) => IconButton(
                     onPressed: () {
                       Navigator.of(context, rootNavigator: true).push(
-                          FiltersBottomSheet.route(context, searchParam: this.widget.searchParam,
+                        FiltersBottomSheet.route(
+                          context,
+                          searchParam: this.widget.searchParam,
                         ),
                       );
                     },
@@ -149,4 +147,3 @@ class _SearchResultFieldState extends State<SearchResultField> {
     await getIt<PreferenceRepositoryService>().saveIsForSale(isForSale);
   }
 }
-

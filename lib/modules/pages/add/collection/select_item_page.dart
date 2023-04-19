@@ -242,22 +242,16 @@ class _SelectItemPageState extends State<SelectItemPage> {
           child: InkWell(
             onTap: () {
               Navigator.of(context, rootNavigator: true)
-                  .push(SearchOnTapPage.route()); //_textEditingController
+                  .push(SearchOnTapPage.route(false)); //_textEditingController
             },
             child: SearchInput(
-                prefixIcon: null,
-                suffixIcon: null,
-                enabled: false,
-                controller: _textEditingController,
-                hint: title,
-                resultViewBuilder: (_, controller) => Container(),
-                onCancel: () {
-                  // _textEditingController.text = '';
-                  // context
-                  //     .read<CategoryBloc>()
-                  //     .add(const CategoryEvent.refresh());
-                  // context.read<SearchBloc>().add(const SearchEvent.reset());
-                }),
+              prefixIcon: null,
+              suffixIcon: null,
+              enabled: false,
+              controller: _textEditingController,
+              hint: title,
+              resultViewBuilder: (_, controller) => Container(),
+            ),
           ),
         ),
       ],

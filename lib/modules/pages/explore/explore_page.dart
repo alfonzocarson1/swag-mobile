@@ -34,26 +34,27 @@ class ExplorePage extends StatefulWidget {
 }
 
 class _ExplorePageState extends State<ExplorePage> {
-
   bool _isLogged = false;
   bool _hasJustSignedUp = false;
   bool _hasImportableData = false;
-  late final ScrollController _scrollController = PrimaryScrollController.of(context);
+  late final ScrollController? _scrollController =
+      PrimaryScrollController.of(context);
 
   @override
   void initState() {
-
     this.loadDynamicFilters();
     this._isLogged = getIt<PreferenceRepositoryService>().isLogged();
-    this._hasJustSignedUp = getIt<PreferenceRepositoryService>().hasJustSignedUp();
-    this._hasImportableData = getIt<PreferenceRepositoryService>().hasImportableData();
+    this._hasJustSignedUp =
+        getIt<PreferenceRepositoryService>().hasJustSignedUp();
+    this._hasImportableData =
+        getIt<PreferenceRepositoryService>().hasImportableData();
 
-    if (!_isLogged) getIt<PreferenceRepositoryService>().saveloginAfterGuest(true);    
+    if (!_isLogged)
+      getIt<PreferenceRepositoryService>().saveloginAfterGuest(true);
 
     if (_isLogged && _hasJustSignedUp) {
-
       getIt<PreferenceRepositoryService>().saveHasJustSignedUp(false);
-      this.navigateToAccountInfoPage();      
+      this.navigateToAccountInfoPage();
     }
 
     super.initState();
@@ -106,7 +107,7 @@ class _ExplorePageState extends State<ExplorePage> {
         return Future.delayed(const Duration(milliseconds: 1500));
       },
       child: exploreList.isNotEmpty
-          ? _exploreList(exploreList, this._scrollController)
+          ? _exploreList(exploreList, this._scrollController!)
           : ListView.builder(
               itemBuilder: (_, index) => SizedBox(
                 height: MediaQuery.of(context).size.height * 0.7,
@@ -165,32 +166,33 @@ class _ExplorePageState extends State<ExplorePage> {
   }
 
   void navigateToAccountInfoPage() {
-
-    bool loginAfterGuest = getIt<PreferenceRepositoryService>().loginAfterGuest();
+    bool loginAfterGuest =
+        getIt<PreferenceRepositoryService>().loginAfterGuest();
 
     Future.delayed(Duration(milliseconds: loginAfterGuest ? 5000 : 7000), () {
+      Navigator.of(context, rootNavigator: true).push(AccountInfoPage.route());
 
-        Navigator.of(context, rootNavigator: true).push(AccountInfoPage.route());
-
-        Future.delayed(const Duration(milliseconds: 1000), () {
+      Future.delayed(
+        const Duration(milliseconds: 1000),
+        () {
           if (_hasImportableData) {
             showDialog(
               context: context,
               barrierDismissible: false,
-              builder: (BuildContext context)=> const PopUp(name: "MRDOUG"),
+              builder: (BuildContext context) => const PopUp(name: "MRDOUG"),
             );
           }
         },
       );
-    });    
+    });
   }
 
   void loadDynamicFilters() {
-
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async { 
-
-      DynamicFilters dynamicFilters = await getIt<FiltersService>().getDynamicFilters();
-      await getIt<PreferenceRepositoryService>().saveDynamicFilters(dynamicFilters);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      DynamicFilters dynamicFilters =
+          await getIt<FiltersService>().getDynamicFilters();
+      await getIt<PreferenceRepositoryService>()
+          .saveDynamicFilters(dynamicFilters);
     });
   }
 }
