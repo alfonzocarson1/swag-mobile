@@ -40,7 +40,7 @@ class ItemDetailPage extends StatefulWidget {
 }
 
 class _ItemDetailPageState extends State<ItemDetailPage> {
-  late final ScrollController _scrollController =
+  late final ScrollController? _scrollController =
       PrimaryScrollController.of(context);
 
   int? _collectionLen;

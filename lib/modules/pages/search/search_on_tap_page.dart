@@ -16,12 +16,14 @@ class SearchOnTapPage extends StatefulWidget {
   static const name = '/searchOnTap';
   final TextEditingController _textEditingController = TextEditingController();
 
-  static Route route() => PageRoutes.fade(
-        settings: const RouteSettings(name: name),
-        builder: (_) => SearchOnTapPage(),
-      );
+  SearchOnTapPage({super.key, this.showTabBar = true});
 
-  SearchOnTapPage({super.key});
+  final bool showTabBar;
+
+  static Route route(bool showTabBar) => PageRoutes.fade(
+        settings: const RouteSettings(name: name),
+        builder: (_) => SearchOnTapPage(showTabBar: showTabBar),
+      );
 
   @override
   State<SearchOnTapPage> createState() => _SearchOnTapPageState();
@@ -69,7 +71,8 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
                   child: SearchInput(
                     resultViewBuilder: (_, controller) => Container(),
                     hint: S.of(context).search_hint,
-                    prefixIcon: _InputPrefixIcon(onTap: () async => await goToResultPage()),
+                    prefixIcon: _InputPrefixIcon(
+                        onTap: () async => await goToResultPage()),
                     onSubmitted: (value) async => await goToResultPage(),
                     suffixIcon: Icon(
                       Icons.close,
@@ -98,7 +101,7 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  _getTabBar(context),
+                  widget.showTabBar ? _getTabBar(context) : Container(),
                   Expanded(
                     child:
                         TabBarView(controller: _tabController, children: const [
@@ -260,13 +263,9 @@ _buildTab({required String text}) {
 }
 
 class _InputPrefixIcon extends StatelessWidget {
-
   final Function() onTap;
 
-  const _InputPrefixIcon({
-    super.key, 
-    required this.onTap
-  });
+  const _InputPrefixIcon({super.key, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -278,7 +277,7 @@ class _InputPrefixIcon extends StatelessWidget {
           child: Material(
             color: Colors.transparent,
             child: InkWell(
-              onTap: ()=> this.onTap,
+              onTap: () => this.onTap,
               child: Image.asset(
                 "assets/icons/Search.png",
                 height: 20,
