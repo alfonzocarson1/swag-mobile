@@ -8,14 +8,12 @@ class RarityWidget extends StatefulWidget {
       {super.key,
       this.rarity,
       this.released,
-      this.releaseType,
       this.totalMade,
       this.retail,
       this.available});
 
   final String? rarity;
   final String? released;
-  final String? releaseType;
   final int? totalMade;
   final String? retail;
   final int? available;
@@ -71,20 +69,6 @@ class _RarityWidgetState extends State<RarityWidget> {
                           color: Palette.current.primaryWhiteSmoke,
                         )),
                 trailing: Text(widget.released ?? '',
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 15,
-                          color: Palette.current.primaryWhiteSmoke,
-                        )),
-              ),
-              ListTile(
-                visualDensity: const VisualDensity(vertical: -4),
-                dense: true,
-                leading: Text(S.of(context).released_type,
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 15,
-                          color: Palette.current.primaryWhiteSmoke,
-                        )),
-                trailing: Text(widget.releaseType ?? '',
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           fontSize: 15,
                           color: Palette.current.primaryWhiteSmoke,

@@ -232,7 +232,6 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                     RarityWidget(
                         rarity: dataDetail[index].rarityScore,
                         released: dataDetail[index].released,
-                        releaseType: dataDetail[index].releasedType,
                         totalMade: dataDetail[index].totalMade,
                         retail: dataDetail[index].retail,
                         available: dataDetail[index].numberAvailable),
