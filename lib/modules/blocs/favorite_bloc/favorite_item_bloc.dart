@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../common/utils/handling_errors.dart';
+import '../../cubits/favorites/get_favorites_cubit.dart';
 import '../../data/favorite/i_favorite_service.dart';
+import '../../di/injector.dart';
 import '../../models/favorite/favorite_model.dart';
 
 part 'favorite_item_bloc.freezed.dart';
@@ -30,6 +32,7 @@ class FavoriteItemBloc extends Bloc<FavoriteItemEvent, FavoriteItemState> {
     yield FavoriteItemState.initial();
     try {
       FavoriteModel responseBody = await favoriteService.addFavorite(param);
+      getIt<FavoriteProfileCubit>().loadResults();
       yield FavoriteItemState.loadedFavoriteItem(responseBody);
     } catch (e) {
       yield FavoriteItemState.error(HandlingErrors().getError(e));
@@ -40,6 +43,8 @@ class FavoriteItemBloc extends Bloc<FavoriteItemEvent, FavoriteItemState> {
     yield FavoriteItemState.initial();
     try {
       FavoriteModel responseBody = await favoriteService.removeFavorite(param);
+
+      getIt<FavoriteProfileCubit>().loadResults();
       yield FavoriteItemState.removedFavoriteItem(responseBody);
     } catch (e) {
       yield FavoriteItemState.error(HandlingErrors().getError(e));

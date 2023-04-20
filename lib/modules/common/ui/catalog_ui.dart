@@ -104,17 +104,27 @@ class _CatalogPageState extends State<CatalogPage> {
                   return favoriteItemState.maybeMap(
                       orElse: () => Container(),
                       removedFavoriteItem: (state) {
-                        catalogList[indexList] =
-                            catalogList[indexList].copyWith(inFavorites: false);
+                        if (catalogList[indexList].profileFavoriteItemId !=
+                            null) {
+                          catalogList[indexList] = catalogList[indexList]
+                              .copyWith(inFavorites: false);
+
+                          catalogList[indexList] = catalogList[indexList]
+                              .copyWith(profileFavoriteItemId: null);
+                        }
+
                         return Container();
                       },
                       loadedFavoriteItem: (state) {
-                        catalogList[indexList] = catalogList[indexList]
-                            .copyWith(
-                                profileFavoriteItemId: state
-                                    .dataFavoriteItem
-                                    .profileFavoriteItems![0]
-                                    .profileFavoriteItemId);
+                        if (catalogList[indexList].profileFavoriteItemId ==
+                            null) {
+                          catalogList[indexList] = catalogList[indexList]
+                              .copyWith(
+                                  profileFavoriteItemId: state
+                                      .dataFavoriteItem
+                                      .profileFavoriteItems![0]
+                                      .profileFavoriteItemId);
+                        }
 
                         return Container();
                       });
@@ -305,6 +315,10 @@ class _CatalogPageState extends State<CatalogPage> {
                                             catalogList[index] =
                                                 catalogList[index].copyWith(
                                                     inFavorites: false);
+
+                                            setState(() {
+                                              indexList = index;
+                                            });
                                           } else {
                                             BlocProvider.of<FavoriteItemBloc>(
                                                     context)

@@ -1,14 +1,20 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:swagapp/modules/models/search/catalog_item_model.dart';
 
 import '../../../generated/l10n.dart';
-import '../../blocs/profile_favorite_bloc/profile_favorite_bloc.dart';
-import '../../common/ui/loading.dart';
+import '../../blocs/favorite_bloc/favorite_item_bloc.dart';
+
+import '../../common/ui/refresh_widget.dart';
+import '../../common/ui/simple_loader.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
-import '../../common/utils/size_helper.dart';
+import '../../cubits/favorites/get_favorites_cubit.dart';
+import '../../di/injector.dart';
+import '../../models/detail/detail_item_model.dart';
+import '../../models/favorite/favorite_item_model.dart';
+import '../../models/favorite/favorite_model.dart';
+import '../../models/favorite/profile_favorite_list.dart';
 
 class FavoritesPage extends StatefulWidget {
   static const name = '/Favorite';
@@ -24,56 +30,61 @@ class FavoritesPage extends StatefulWidget {
 }
 
 class _FavoritesPageState extends State<FavoritesPage> {
-  late ResponsiveDesign _responsiveDesign;
+  List<DetailItemModel> favoritesList = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadList();
+  }
+
+  Future loadList() async {
+    getIt<FavoriteProfileCubit>().loadResults();
+  }
 
   @override
   Widget build(BuildContext context) {
-    _responsiveDesign = ResponsiveDesign(context);
-    return Scaffold(
-        backgroundColor: Palette.current.primaryNero,
-        body: BlocConsumer<ProfileFavoriteBloc, FavoriteState>(
-          listener: (context, state) => state.maybeWhen(
-            orElse: () => {Loading.hide(context)},
-            error: (message) => {
-              Loading.hide(context),
-              // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
-            },
-            initial: () {
-              return Loading.show(context);
-            },
+    return BlocBuilder<FavoriteProfileCubit, FavoriteCubitState>(
+        builder: (context, state) {
+      return state.when(
+        initial: () => ListView.builder(
+          itemBuilder: (_, index) => SizedBox(
+            height: MediaQuery.of(context).size.height * 0.5,
+            child: const Center(child: SimpleLoader()),
           ),
-          builder: (context, state) {
-            return state.maybeMap(
-              orElse: () => const Center(),
-              error: (_) {
-                return RefreshIndicator(
-                    onRefresh: () async {
-                      makeCall();
-                      return Future.delayed(const Duration(milliseconds: 1500));
-                    },
-                    child: ListView.builder(
-                      itemBuilder: (_, index) => Container(),
-                      itemCount: 0,
-                    ));
-              },
-              loadedFavoriteItems: (state) {
-                return _getBody(state.dataFavoriteList);
-              },
-            );
-          },
-        ));
+          itemCount: 1,
+        ),
+        loadedProfileFavorites:
+            (List<ListFavoriteProfileResponseModel> profileFavoriteList) {
+          favoritesList = [...profileFavoriteList.first.favoriteList];
+
+          return _getBody(favoritesList);
+        },
+        loading: (bool isFirstFetch) {
+          return Container();
+        },
+        error: (String message) {
+          return Container();
+        },
+        loadedFavoriteItem: (FavoriteModel dataFavoriteItem) {
+          return Container();
+        },
+        removedFavoriteItem: (FavoriteModel dataFavoriteItem) {
+          return Container();
+        },
+      );
+    });
   }
 
-  Widget _getBody(List<CatalogItemModel> favoriteList) {
-    return RefreshIndicator(
-      onRefresh: () async {
-        makeCall();
-        return Future.delayed(const Duration(milliseconds: 1500));
-      },
-      child: favoriteList.isNotEmpty
-          ? Padding(
+  Widget _getBody(List<DetailItemModel> favoriteList) {
+    return favoriteList.isNotEmpty
+        ? RefreshWidget(
+            onRefresh: loadList,
+            child: Padding(
               padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
               child: GridView.builder(
+                physics: const ScrollPhysics(),
                 shrinkWrap: true,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
@@ -114,11 +125,26 @@ class _FavoritesPageState extends State<FavoritesPage> {
                             right: 0,
                             child: IconButton(
                               icon: Image.asset(
-                                "assets/images/Favorite.png",
+                                favoriteList[index].inFavorites
+                                    ? "assets/images/Favorite.png"
+                                    : "assets/images/UnFavorite.png",
                                 scale: 3.5,
                               ),
                               onPressed: () {
-                                setState(() {});
+                                setState(() {
+                                  BlocProvider.of<FavoriteItemBloc>(context)
+                                      .add(FavoriteItemEvent.removeFavoriteItem(
+                                          FavoriteModel(
+                                              favoritesItemAction: "DELETE",
+                                              profileFavoriteItems: [
+                                        FavoriteItemModel(
+                                            profileFavoriteItemId:
+                                                favoriteList[index]
+                                                    .profileFavoriteItemId,
+                                            catalogItemId: favoriteList[index]
+                                                .catalogItemId)
+                                      ])));
+                                });
                               },
                             ),
                           )
@@ -140,9 +166,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                   fontSize: 24,
                                   color: Palette.current.white)),
                       Text(
-                          favoriteList[index].forSale
-                              ? '${S.of(context).for_sale} ${favoriteList[index].saleInfo.minPrice} - ${favoriteList[index].saleInfo.maxPrice}'
-                              : '${S.of(context).last_sale} ${favoriteList[index].saleInfo.lastSale}',
+                          '${S.of(context).last_sale} ${favoriteList[index].saleInfo.lastSale}',
                           overflow: TextOverflow.fade,
                           style: Theme.of(context)
                               .textTheme
@@ -155,26 +179,20 @@ class _FavoritesPageState extends State<FavoritesPage> {
                   );
                 },
               ),
-            )
-          : ListView.builder(
-              itemBuilder: (_, index) => SizedBox(
-                height: MediaQuery.of(context).size.height * 0.7,
-                child: Center(
-                  child: Text(
-                    S.of(context).empty_text,
-                    style: TextStyle(
-                        fontSize: 24, color: Colors.black.withOpacity(0.50)),
-                  ),
+            ),
+          )
+        : ListView.builder(
+            itemBuilder: (_, index) => SizedBox(
+              height: MediaQuery.of(context).size.height * 0.30,
+              child: Center(
+                child: Text(
+                  S.of(context).empty_text,
+                  style: TextStyle(
+                      fontSize: 24, color: Colors.black.withOpacity(0.50)),
                 ),
               ),
-              itemCount: 1,
             ),
-    );
-  }
-
-  void makeCall() {
-    context
-        .read<ProfileFavoriteBloc>()
-        .add(const FavoriteEvent.getFavoriteItem());
+            itemCount: 1,
+          );
   }
 }

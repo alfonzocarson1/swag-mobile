@@ -22,11 +22,11 @@ DetailItemModel _$DetailItemModelFromJson(Map<String, dynamic> json) {
 mixin _$DetailItemModel {
   String get catalogItemId => throw _privateConstructorUsedError;
   String get catalogItemName => throw _privateConstructorUsedError;
-  String get catalogItemDescription => throw _privateConstructorUsedError;
-  String get catalogItemDescriptionShort => throw _privateConstructorUsedError;
+  String? get catalogItemDescription => throw _privateConstructorUsedError;
+  String? get catalogItemDescriptionShort => throw _privateConstructorUsedError;
   String get catalogItemImage => throw _privateConstructorUsedError;
-  String get catalogItemCollection => throw _privateConstructorUsedError;
-  String get catalogItemCategoryId => throw _privateConstructorUsedError;
+  String? get catalogItemCollection => throw _privateConstructorUsedError;
+  String? get catalogItemCategoryId => throw _privateConstructorUsedError;
   String? get released => throw _privateConstructorUsedError;
   int? get totalMade => throw _privateConstructorUsedError;
   String? get retail => throw _privateConstructorUsedError;
@@ -55,11 +55,11 @@ abstract class $DetailItemModelCopyWith<$Res> {
   $Res call(
       {String catalogItemId,
       String catalogItemName,
-      String catalogItemDescription,
-      String catalogItemDescriptionShort,
+      String? catalogItemDescription,
+      String? catalogItemDescriptionShort,
       String catalogItemImage,
-      String catalogItemCollection,
-      String catalogItemCategoryId,
+      String? catalogItemCollection,
+      String? catalogItemCategoryId,
       String? released,
       int? totalMade,
       String? retail,
@@ -90,11 +90,11 @@ class _$DetailItemModelCopyWithImpl<$Res, $Val extends DetailItemModel>
   $Res call({
     Object? catalogItemId = null,
     Object? catalogItemName = null,
-    Object? catalogItemDescription = null,
-    Object? catalogItemDescriptionShort = null,
+    Object? catalogItemDescription = freezed,
+    Object? catalogItemDescriptionShort = freezed,
     Object? catalogItemImage = null,
-    Object? catalogItemCollection = null,
-    Object? catalogItemCategoryId = null,
+    Object? catalogItemCollection = freezed,
+    Object? catalogItemCategoryId = freezed,
     Object? released = freezed,
     Object? totalMade = freezed,
     Object? retail = freezed,
@@ -116,26 +116,26 @@ class _$DetailItemModelCopyWithImpl<$Res, $Val extends DetailItemModel>
           ? _value.catalogItemName
           : catalogItemName // ignore: cast_nullable_to_non_nullable
               as String,
-      catalogItemDescription: null == catalogItemDescription
+      catalogItemDescription: freezed == catalogItemDescription
           ? _value.catalogItemDescription
           : catalogItemDescription // ignore: cast_nullable_to_non_nullable
-              as String,
-      catalogItemDescriptionShort: null == catalogItemDescriptionShort
+              as String?,
+      catalogItemDescriptionShort: freezed == catalogItemDescriptionShort
           ? _value.catalogItemDescriptionShort
           : catalogItemDescriptionShort // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       catalogItemImage: null == catalogItemImage
           ? _value.catalogItemImage
           : catalogItemImage // ignore: cast_nullable_to_non_nullable
               as String,
-      catalogItemCollection: null == catalogItemCollection
+      catalogItemCollection: freezed == catalogItemCollection
           ? _value.catalogItemCollection
           : catalogItemCollection // ignore: cast_nullable_to_non_nullable
-              as String,
-      catalogItemCategoryId: null == catalogItemCategoryId
+              as String?,
+      catalogItemCategoryId: freezed == catalogItemCategoryId
           ? _value.catalogItemCategoryId
           : catalogItemCategoryId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       released: freezed == released
           ? _value.released
           : released // ignore: cast_nullable_to_non_nullable
@@ -203,11 +203,11 @@ abstract class _$$_DetailItemModelCopyWith<$Res>
   $Res call(
       {String catalogItemId,
       String catalogItemName,
-      String catalogItemDescription,
-      String catalogItemDescriptionShort,
+      String? catalogItemDescription,
+      String? catalogItemDescriptionShort,
       String catalogItemImage,
-      String catalogItemCollection,
-      String catalogItemCategoryId,
+      String? catalogItemCollection,
+      String? catalogItemCategoryId,
       String? released,
       int? totalMade,
       String? retail,
@@ -237,11 +237,11 @@ class __$$_DetailItemModelCopyWithImpl<$Res>
   $Res call({
     Object? catalogItemId = null,
     Object? catalogItemName = null,
-    Object? catalogItemDescription = null,
-    Object? catalogItemDescriptionShort = null,
+    Object? catalogItemDescription = freezed,
+    Object? catalogItemDescriptionShort = freezed,
     Object? catalogItemImage = null,
-    Object? catalogItemCollection = null,
-    Object? catalogItemCategoryId = null,
+    Object? catalogItemCollection = freezed,
+    Object? catalogItemCategoryId = freezed,
     Object? released = freezed,
     Object? totalMade = freezed,
     Object? retail = freezed,
@@ -263,26 +263,26 @@ class __$$_DetailItemModelCopyWithImpl<$Res>
           ? _value.catalogItemName
           : catalogItemName // ignore: cast_nullable_to_non_nullable
               as String,
-      catalogItemDescription: null == catalogItemDescription
+      catalogItemDescription: freezed == catalogItemDescription
           ? _value.catalogItemDescription
           : catalogItemDescription // ignore: cast_nullable_to_non_nullable
-              as String,
-      catalogItemDescriptionShort: null == catalogItemDescriptionShort
+              as String?,
+      catalogItemDescriptionShort: freezed == catalogItemDescriptionShort
           ? _value.catalogItemDescriptionShort
           : catalogItemDescriptionShort // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       catalogItemImage: null == catalogItemImage
           ? _value.catalogItemImage
           : catalogItemImage // ignore: cast_nullable_to_non_nullable
               as String,
-      catalogItemCollection: null == catalogItemCollection
+      catalogItemCollection: freezed == catalogItemCollection
           ? _value.catalogItemCollection
           : catalogItemCollection // ignore: cast_nullable_to_non_nullable
-              as String,
-      catalogItemCategoryId: null == catalogItemCategoryId
+              as String?,
+      catalogItemCategoryId: freezed == catalogItemCategoryId
           ? _value.catalogItemCategoryId
           : catalogItemCategoryId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       released: freezed == released
           ? _value.released
           : released // ignore: cast_nullable_to_non_nullable
@@ -333,16 +333,16 @@ class __$$_DetailItemModelCopyWithImpl<$Res>
 
 /// @nodoc
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class _$_DetailItemModel implements _DetailItemModel {
   const _$_DetailItemModel(
       {required this.catalogItemId,
       required this.catalogItemName,
-      required this.catalogItemDescription,
-      required this.catalogItemDescriptionShort,
+      this.catalogItemDescription,
+      this.catalogItemDescriptionShort,
       required this.catalogItemImage,
-      required this.catalogItemCollection,
-      required this.catalogItemCategoryId,
+      this.catalogItemCollection,
+      this.catalogItemCategoryId,
       this.released,
       this.totalMade,
       this.retail,
@@ -364,15 +364,15 @@ class _$_DetailItemModel implements _DetailItemModel {
   @override
   final String catalogItemName;
   @override
-  final String catalogItemDescription;
+  final String? catalogItemDescription;
   @override
-  final String catalogItemDescriptionShort;
+  final String? catalogItemDescriptionShort;
   @override
   final String catalogItemImage;
   @override
-  final String catalogItemCollection;
+  final String? catalogItemCollection;
   @override
-  final String catalogItemCategoryId;
+  final String? catalogItemCategoryId;
   @override
   final String? released;
   @override
@@ -492,11 +492,11 @@ abstract class _DetailItemModel implements DetailItemModel {
   const factory _DetailItemModel(
       {required final String catalogItemId,
       required final String catalogItemName,
-      required final String catalogItemDescription,
-      required final String catalogItemDescriptionShort,
+      final String? catalogItemDescription,
+      final String? catalogItemDescriptionShort,
       required final String catalogItemImage,
-      required final String catalogItemCollection,
-      required final String catalogItemCategoryId,
+      final String? catalogItemCollection,
+      final String? catalogItemCategoryId,
       final String? released,
       final int? totalMade,
       final String? retail,
@@ -517,15 +517,15 @@ abstract class _DetailItemModel implements DetailItemModel {
   @override
   String get catalogItemName;
   @override
-  String get catalogItemDescription;
+  String? get catalogItemDescription;
   @override
-  String get catalogItemDescriptionShort;
+  String? get catalogItemDescriptionShort;
   @override
   String get catalogItemImage;
   @override
-  String get catalogItemCollection;
+  String? get catalogItemCollection;
   @override
-  String get catalogItemCategoryId;
+  String? get catalogItemCategoryId;
   @override
   String? get released;
   @override
