@@ -15,6 +15,7 @@ import '../../models/detail/detail_item_model.dart';
 import '../../models/favorite/favorite_item_model.dart';
 import '../../models/favorite/favorite_model.dart';
 import '../../models/favorite/profile_favorite_list.dart';
+import '../detail/item_detail_page.dart';
 
 class FavoritesPage extends StatefulWidget {
   static const name = '/Favorite';
@@ -94,88 +95,96 @@ class _FavoritesPageState extends State<FavoritesPage> {
                 ),
                 itemCount: favoriteList.length,
                 itemBuilder: (_, index) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Stack(
-                        children: [
-                          SizedBox(
-                            height: MediaQuery.of(context).size.width * 0.38,
-                            child: ClipRRect(
-                              child: CachedNetworkImage(
-                                fit: BoxFit.fitHeight,
-                                imageUrl: favoriteList[index].catalogItemImage,
-                                placeholder: (context, url) => SizedBox(
-                                  height: 200,
-                                  child: Center(
-                                    child: CircularProgressIndicator(
-                                      color: Palette.current.primaryNeonGreen,
-                                      backgroundColor: Colors.white,
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.of(context, rootNavigator: true).push(
+                          ItemDetailPage.route(
+                              favoriteList[index].catalogItemId, (val) {}));
+                    },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Stack(
+                          children: [
+                            SizedBox(
+                              height: MediaQuery.of(context).size.width * 0.38,
+                              child: ClipRRect(
+                                child: CachedNetworkImage(
+                                  fit: BoxFit.fitHeight,
+                                  imageUrl:
+                                      favoriteList[index].catalogItemImage,
+                                  placeholder: (context, url) => SizedBox(
+                                    height: 200,
+                                    child: Center(
+                                      child: CircularProgressIndicator(
+                                        color: Palette.current.primaryNeonGreen,
+                                        backgroundColor: Colors.white,
+                                      ),
                                     ),
                                   ),
+                                  errorWidget: (context, url, error) =>
+                                      Image.asset(
+                                          "assets/images/ProfilePhoto.png"),
                                 ),
-                                errorWidget: (context, url, error) =>
-                                    Image.asset(
-                                        "assets/images/ProfilePhoto.png"),
                               ),
                             ),
-                          ),
-                          Positioned(
-                            top: 0,
-                            right: 0,
-                            child: IconButton(
-                              icon: Image.asset(
-                                favoriteList[index].inFavorites
-                                    ? "assets/images/Favorite.png"
-                                    : "assets/images/UnFavorite.png",
-                                scale: 3.5,
+                            Positioned(
+                              top: 0,
+                              right: 0,
+                              child: IconButton(
+                                icon: Image.asset(
+                                  favoriteList[index].inFavorites
+                                      ? "assets/images/Favorite.png"
+                                      : "assets/images/UnFavorite.png",
+                                  scale: 3.5,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    BlocProvider.of<FavoriteItemBloc>(context)
+                                        .add(FavoriteItemEvent
+                                            .removeFavoriteItem(FavoriteModel(
+                                                favoritesItemAction: "DELETE",
+                                                profileFavoriteItems: [
+                                          FavoriteItemModel(
+                                              profileFavoriteItemId:
+                                                  favoriteList[index]
+                                                      .profileFavoriteItemId,
+                                              catalogItemId: favoriteList[index]
+                                                  .catalogItemId)
+                                        ])));
+                                  });
+                                },
                               ),
-                              onPressed: () {
-                                setState(() {
-                                  BlocProvider.of<FavoriteItemBloc>(context)
-                                      .add(FavoriteItemEvent.removeFavoriteItem(
-                                          FavoriteModel(
-                                              favoritesItemAction: "DELETE",
-                                              profileFavoriteItems: [
-                                        FavoriteItemModel(
-                                            profileFavoriteItemId:
-                                                favoriteList[index]
-                                                    .profileFavoriteItemId,
-                                            catalogItemId: favoriteList[index]
-                                                .catalogItemId)
-                                      ])));
-                                });
-                              },
-                            ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Text(favoriteList[index].catalogItemName,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayLarge!
-                              .copyWith(
-                                  letterSpacing: 1,
-                                  fontWeight: FontWeight.w300,
-                                  fontFamily: "Knockout",
-                                  fontSize: 24,
-                                  color: Palette.current.white)),
-                      Text(
-                          '${S.of(context).last_sale} ${favoriteList[index].saleInfo.lastSale}',
-                          overflow: TextOverflow.fade,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(
-                                  fontWeight: FontWeight.w300,
-                                  fontSize: 13,
-                                  color: Palette.current.primaryNeonGreen)),
-                    ],
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(favoriteList[index].catalogItemName,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayLarge!
+                                .copyWith(
+                                    letterSpacing: 1,
+                                    fontWeight: FontWeight.w300,
+                                    fontFamily: "Knockout",
+                                    fontSize: 24,
+                                    color: Palette.current.white)),
+                        Text(
+                            '${S.of(context).last_sale} ${favoriteList[index].saleInfo.lastSale}',
+                            overflow: TextOverflow.fade,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(
+                                    fontWeight: FontWeight.w300,
+                                    fontSize: 13,
+                                    color: Palette.current.primaryNeonGreen)),
+                      ],
+                    ),
                   );
                 },
               ),

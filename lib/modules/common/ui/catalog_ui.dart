@@ -91,6 +91,11 @@ class _CatalogPageState extends State<CatalogPage> {
                 setState(() {
                   catalogList[index] =
                       catalogList[index].copyWith(inFavorites: val);
+
+                  if (!val) {
+                    catalogList[index] = catalogList[index]
+                        .copyWith(profileFavoriteItemId: null);
+                  }
                 });
               }));
             },
