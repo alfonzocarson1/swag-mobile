@@ -2099,6 +2099,46 @@ class S {
       args: [],
     );
   }
+
+  /// `TAP THE “+” ICON ON ANY ITEM TO ADD TO YOUR COLLECTION`
+  String get empty_collection {
+    return Intl.message(
+      'TAP THE “+” ICON ON ANY ITEM TO ADD TO YOUR COLLECTION',
+      name: 'empty_collection',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `TAP THE SKULL ICON NEXT TO ANY ITEM TO SAVE TO YOUR FAVORITES.`
+  String get empty_favorite {
+    return Intl.message(
+      'TAP THE SKULL ICON NEXT TO ANY ITEM TO SAVE TO YOUR FAVORITES.',
+      name: 'empty_favorite',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `YOU DON’T HAVE ANY LISTINGS. ALL YOUR LISTINGS WILL APPEAR HERE.`
+  String get empty_listing {
+    return Intl.message(
+      'YOU DON’T HAVE ANY LISTINGS. ALL YOUR LISTINGS WILL APPEAR HERE.',
+      name: 'empty_listing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `YOU HAVEN’T SOLD ANY ITEMS YET. ALL YOUR SOLD ITEMS WILL APPEAR HERE.`
+  String get empty_sold {
+    return Intl.message(
+      'YOU HAVEN’T SOLD ANY ITEMS YET. ALL YOUR SOLD ITEMS WILL APPEAR HERE.',
+      name: 'empty_sold',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

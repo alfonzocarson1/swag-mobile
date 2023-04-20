@@ -270,12 +270,33 @@ class _CollectionPageState extends State<CollectionPage> {
           )
         : ListView.builder(
             itemBuilder: (_, index) => SizedBox(
-              height: MediaQuery.of(context).size.height * 0.7,
-              child: Center(
-                child: Text(
-                  S.of(context).empty_text,
-                  style: TextStyle(
-                      fontSize: 24, color: Colors.black.withOpacity(0.50)),
+              height: MediaQuery.of(context).size.height * 0.30,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 90.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      "assets/images/UnFavorite.png",
+                      scale: 3,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Center(
+                      child: Text(
+                        textAlign: TextAlign.center,
+                        S.of(context).empty_collection,
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            fontFamily: "KnockoutCustom",
+                            fontWeight: FontWeight.w300,
+                            fontSize: 30,
+                            letterSpacing: 1.2,
+                            color: Palette.current.darkGray),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),

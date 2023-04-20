@@ -98,8 +98,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "email_taken": MessageLookupByLibrary.simpleMessage(
             "An account is already associated with this email"),
+        "empty_collection": MessageLookupByLibrary.simpleMessage(
+            "TAP THE “+” ICON ON ANY ITEM TO ADD TO YOUR COLLECTION"),
+        "empty_favorite": MessageLookupByLibrary.simpleMessage(
+            "TAP THE SKULL ICON NEXT TO ANY ITEM TO SAVE TO YOUR FAVORITES."),
+        "empty_listing": MessageLookupByLibrary.simpleMessage(
+            "YOU DON’T HAVE ANY LISTINGS. ALL YOUR LISTINGS WILL APPEAR HERE."),
         "empty_password":
             MessageLookupByLibrary.simpleMessage("Invalid password"),
+        "empty_sold": MessageLookupByLibrary.simpleMessage(
+            "YOU HAVEN’T SOLD ANY ITEMS YET. ALL YOUR SOLD ITEMS WILL APPEAR HERE."),
         "empty_text": MessageLookupByLibrary.simpleMessage("No items yet"),
         "existing_item_to_collection_error_btn":
             MessageLookupByLibrary.simpleMessage("YES, ADD ANOTHER"),

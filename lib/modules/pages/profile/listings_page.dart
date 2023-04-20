@@ -1,14 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:swagapp/modules/models/search/catalog_item_model.dart';
 
 import '../../../generated/l10n.dart';
 import '../../blocs/listing_bloc/listing_bloc.dart';
-import '../../common/ui/loading.dart';
+import '../../common/ui/refresh_widget.dart';
+import '../../common/ui/simple_loader.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
-import '../../common/utils/size_helper.dart';
+import '../../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
+import '../../di/injector.dart';
+import '../../models/listing_for_sale/listing_for_sale_model.dart';
+import '../../models/listing_for_sale/profile_listing_model.dart';
 
 class ListingsPage extends StatefulWidget {
   static const name = '/Listings';
@@ -24,56 +27,50 @@ class ListingsPage extends StatefulWidget {
 }
 
 class _ListingsPageState extends State<ListingsPage> {
-  late ResponsiveDesign _responsiveDesign;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadList();
+  }
+
+  Future loadList() async {
+    getIt<ListingProfileCubit>().loadResults();
+  }
 
   @override
   Widget build(BuildContext context) {
-    _responsiveDesign = ResponsiveDesign(context);
-    return Scaffold(
-        backgroundColor: Palette.current.primaryNero,
-        body: BlocConsumer<ListingBloc, ListingState>(
-          listener: (context, state) => state.maybeWhen(
-            orElse: () => {Loading.hide(context)},
-            error: (message) => {
-              Loading.hide(context),
-              // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
-            },
-            initial: () {
-              return Loading.show(context);
-            },
-          ),
-          builder: (context, state) {
-            return state.maybeMap(
-              orElse: () => const Center(),
-              error: (_) {
-                return RefreshIndicator(
-                    onRefresh: () async {
-                      makeCall();
-                      return Future.delayed(const Duration(milliseconds: 1500));
-                    },
-                    child: ListView.builder(
-                      itemBuilder: (_, index) => Container(),
-                      itemCount: 0,
-                    ));
-              },
-              loadedListingItems: (state) {
-                return _getBody(state.dataListingList);
-              },
-            );
+    return BlocBuilder<ListingProfileCubit, ListingCubitState>(
+        builder: (context, state) {
+      return state.when(
+          initial: () => ListView.builder(
+                itemBuilder: (_, index) => SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.5,
+                  child: const Center(child: SimpleLoader()),
+                ),
+                itemCount: 1,
+              ),
+          loading: (bool isFirstFetch) {
+            return Container();
           },
-        ));
+          error: (String message) {
+            return Container();
+          },
+          loadedProfileListings:
+              (List<ListingForSaleProfileResponseModel> listForSale) {
+            return _getBody(listForSale.first.listForSale);
+          });
+    });
   }
 
-  Widget _getBody(List<CatalogItemModel> listingList) {
-    return RefreshIndicator(
-      onRefresh: () async {
-        makeCall();
-        return Future.delayed(const Duration(milliseconds: 1500));
-      },
-      child: listingList.isNotEmpty
-          ? Padding(
+  Widget _getBody(List<ListingForSaleModel> listingList) {
+    return listingList.isNotEmpty
+        ? RefreshWidget(
+            onRefresh: loadList,
+            child: Padding(
               padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
               child: GridView.builder(
+                physics: const ScrollPhysics(),
                 shrinkWrap: true,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
@@ -93,7 +90,9 @@ class _ListingsPageState extends State<ListingsPage> {
                             child: ClipRRect(
                               child: CachedNetworkImage(
                                 fit: BoxFit.fitHeight,
-                                imageUrl: listingList[index].catalogItemImage,
+                                imageUrl: listingList[index]
+                                        .productItemImageUrls[0] ??
+                                    'assets/images/Avatar.png',
                                 placeholder: (context, url) => SizedBox(
                                   height: 200,
                                   child: Center(
@@ -114,7 +113,7 @@ class _ListingsPageState extends State<ListingsPage> {
                       const SizedBox(
                         height: 5,
                       ),
-                      Text(listingList[index].catalogItemName,
+                      Text(listingList[index].productItemName ?? '',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context)
@@ -127,9 +126,7 @@ class _ListingsPageState extends State<ListingsPage> {
                                   fontSize: 24,
                                   color: Palette.current.white)),
                       Text(
-                          listingList[index].forSale
-                              ? '${S.of(context).for_sale} ${listingList[index].saleInfo.minPrice} - ${listingList[index].saleInfo.maxPrice}'
-                              : '${S.of(context).last_sale} ${listingList[index].saleInfo.lastSale}',
+                          '${S.of(context).last_sale} \$${listingList[index].lastSale}',
                           overflow: TextOverflow.fade,
                           style: Theme.of(context)
                               .textTheme
@@ -142,21 +139,42 @@ class _ListingsPageState extends State<ListingsPage> {
                   );
                 },
               ),
-            )
-          : ListView.builder(
-              itemBuilder: (_, index) => SizedBox(
-                height: MediaQuery.of(context).size.height * 0.7,
-                child: Center(
-                  child: Text(
-                    S.of(context).empty_text,
-                    style: TextStyle(
-                        fontSize: 24, color: Colors.black.withOpacity(0.50)),
-                  ),
+            ),
+          )
+        : ListView.builder(
+            itemBuilder: (_, index) => SizedBox(
+              height: MediaQuery.of(context).size.height * 0.30,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 70.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      "assets/images/UnFavorite.png",
+                      scale: 3,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Center(
+                      child: Text(
+                        textAlign: TextAlign.center,
+                        S.of(context).empty_listing,
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            fontFamily: "KnockoutCustom",
+                            fontWeight: FontWeight.w300,
+                            fontSize: 30,
+                            letterSpacing: 1.2,
+                            color: Palette.current.darkGray),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              itemCount: 1,
             ),
-    );
+            itemCount: 1,
+          );
   }
 
   void makeCall() {

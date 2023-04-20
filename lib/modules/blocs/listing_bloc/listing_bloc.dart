@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -8,9 +7,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:swagapp/modules/models/search/catalog_item_model.dart';
 
 import '../../common/utils/handling_errors.dart';
+import '../../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
 import '../../data/listing/i_listing_service.dart';
+import '../../di/injector.dart';
 import '../../models/listing_for_sale/listing_for_sale_model.dart';
-import '../../models/update_profile/update_avatar_model.dart';
 
 part 'listing_bloc.freezed.dart';
 part 'listing_event.dart';
@@ -44,6 +44,7 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
             responseBody.productItemId ?? '');
       }
 
+      getIt<ListingProfileCubit>().loadResults();
       yield ListingState.loadedListingSuccess(responseBody);
     } catch (e) {
       yield ListingState.error(HandlingErrors().getError(e));

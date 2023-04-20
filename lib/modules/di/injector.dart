@@ -30,6 +30,7 @@ import '../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
 import '../blocs/sold_bloc/sold_bloc.dart';
 import '../blocs/update_profile_bloc/update_profile_bloc.dart';
 import '../cubits/favorites/get_favorites_cubit.dart';
+import '../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
 import '../data/auth/auth_service.dart';
 import '../data/buy_for_sale_listing/buy_for_sale_listing_service.dart';
 import '../data/buy_for_sale_listing/i_buy_for_sale_listing_service.dart';
@@ -90,6 +91,9 @@ Future<void> setupAppScope() {
 
   getIt.registerLazySingleton<FavoriteProfileCubit>(
       () => FavoriteProfileCubit(getIt<IFavoriteService>()));
+
+  getIt.registerLazySingleton<ListingProfileCubit>(
+      () => ListingProfileCubit(getIt<IListingService>()));
 
   getIt.registerLazySingleton<IExploreService>(
       () => ExploreService(APIService()));

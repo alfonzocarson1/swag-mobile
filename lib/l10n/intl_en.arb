@@ -207,5 +207,9 @@
     "invadlidEmail": "Incorrect email. Please try again.",
     "toast_message_forgot_password": "A verification email has been sent",
     "toast_message_reset_password": "Your password has been successfully reset",
-    "code_not_entered_message": "Please enter code."
+    "code_not_entered_message": "Please enter code.",
+    "empty_collection": "TAP THE “+” ICON ON ANY ITEM TO ADD TO YOUR COLLECTION",
+    "empty_favorite": "TAP THE SKULL ICON NEXT TO ANY ITEM TO SAVE TO YOUR FAVORITES.",
+    "empty_listing": "YOU DON’T HAVE ANY LISTINGS. ALL YOUR LISTINGS WILL APPEAR HERE.",
+    "empty_sold": "YOU HAVEN’T SOLD ANY ITEMS YET. ALL YOUR SOLD ITEMS WILL APPEAR HERE."
 }
