@@ -84,6 +84,7 @@ class PaginatedSearchCubit extends Cubit<PaginatedSearchState> {
 
   Future<void> refreshResults() async {
     var tabId= model.categoryId;
+    pageCountMap.update(currentTab, (value) => 0);
     model= SearchRequestPayloadModel(
       whatsHotFlag:(currentTab== SearchTab.whatsHot) ? true : false,
         categoryId: tabId,
@@ -93,9 +94,10 @@ class PaginatedSearchCubit extends Cubit<PaginatedSearchState> {
     await loadResults(searchModel: model, searchTab: currentTab);
   } 
 
-  Future<void> loadMoreResults()async {
-    pageCountMap.update(currentTab, (value) => value + 1);
+  Future<void> loadMoreResults(SearchTab tab)async {
+ 
+    pageCountMap.update(tab, (value) => value + 1);
     isLoadingMore=true;
-    await loadResults(searchModel: model, searchTab: currentTab);
+    await loadResults(searchModel: model, searchTab: tab);
   }
 }
