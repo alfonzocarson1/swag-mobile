@@ -27,7 +27,7 @@ class WhatsHotPage extends StatefulWidget {
   @override
   State<WhatsHotPage> createState() => _WhatsHotPageState();
 }
-
+bool shouldLoad = true;
 class _WhatsHotPageState extends State<WhatsHotPage> {
  SearchTab tab = SearchTab.whatsHot;    
   String categoryId= "";
@@ -40,8 +40,11 @@ class _WhatsHotPageState extends State<WhatsHotPage> {
   @override
   void initState() {
     super.initState();
-    bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
-    bool isLoggedAfterGuest = getIt<PreferenceRepositoryService>().loginAfterGuest();
+
+     if(shouldLoad){
+    callApi();
+    shouldLoad = false;
+   }
   
   }
 
@@ -77,8 +80,6 @@ class _WhatsHotPageState extends State<WhatsHotPage> {
   @override
   Widget build(BuildContext context) {
 
-    callApi();
-
     return Scaffold(
         backgroundColor: Palette.current.primaryNero,
         body: BlocBuilder<PaginatedSearchCubit, PaginatedSearchState>(
@@ -92,7 +93,7 @@ class _WhatsHotPageState extends State<WhatsHotPage> {
                 BodyWidgetWithView(
               resultList, 
               tab, 
-              scrollListener: () => hasReachedMax ? getIt<PaginatedSearchCubit>().loadMoreResults() : {},
+              scrollListener: () => hasReachedMax ? getIt<PaginatedSearchCubit>().loadMoreResults(tab) : {},
               );
            }, 
            loaded: (tabMap, newMap) {
@@ -104,7 +105,7 @@ class _WhatsHotPageState extends State<WhatsHotPage> {
             return BodyWidgetWithView(
               resultList, 
               tab, 
-              scrollListener: () => hasReachedMax ? getIt<PaginatedSearchCubit>().loadMoreResults() : {},
+              scrollListener: () => hasReachedMax ? getIt<PaginatedSearchCubit>().loadMoreResults(tab) : {},
               );
             }
            );             

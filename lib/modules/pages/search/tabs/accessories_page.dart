@@ -28,7 +28,7 @@ class AccessoriesPage extends StatefulWidget {
   @override
   State<AccessoriesPage> createState() => _AccessoriesPageState();
 }
-
+bool shouldLoad = true;
 class _AccessoriesPageState extends State<AccessoriesPage> {
  SearchTab tab = SearchTab.accessories;    
   String categoryId= "";
@@ -41,8 +41,10 @@ class _AccessoriesPageState extends State<AccessoriesPage> {
   @override
   void initState() {
     super.initState();
-    bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
-    bool isLoggedAfterGuest = getIt<PreferenceRepositoryService>().loginAfterGuest();
+       if(shouldLoad){
+    callApi();
+    shouldLoad = false;
+   }
   }
 
  @override
@@ -76,7 +78,7 @@ class _AccessoriesPageState extends State<AccessoriesPage> {
   @override
   Widget build(BuildContext context) {
 
-    callApi();    
+     
     return Scaffold(
         backgroundColor: Palette.current.primaryNero,
         body: BlocBuilder<PaginatedSearchCubit, PaginatedSearchState>(
@@ -90,7 +92,7 @@ class _AccessoriesPageState extends State<AccessoriesPage> {
                 BodyWidgetWithView(
               resultList, 
               tab, 
-              scrollListener: () => hasReachedMax ? getIt<PaginatedSearchCubit>().loadMoreResults() : {},
+              scrollListener: () => hasReachedMax ? getIt<PaginatedSearchCubit>().loadMoreResults(tab) : {},
               );
            },
            loaded: (tabMap, newMap) {
@@ -102,7 +104,7 @@ class _AccessoriesPageState extends State<AccessoriesPage> {
             return BodyWidgetWithView(
               resultList, 
               tab, 
-              scrollListener: () => hasReachedMax ? getIt<PaginatedSearchCubit>().loadMoreResults() : {},
+              scrollListener: () => hasReachedMax ? getIt<PaginatedSearchCubit>().loadMoreResults(tab) : {},
               );
             }
            );             

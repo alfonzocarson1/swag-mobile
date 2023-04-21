@@ -31,84 +31,86 @@ class PuttersPage extends StatefulWidget {
   State<PuttersPage> createState() => _PuttersPageState();
 }
 
+bool shouldLoad = true;
+
 class _PuttersPageState extends State<PuttersPage> {
-  SearchTab tab = SearchTab.putters;    
-  String categoryId= "";
+  SearchTab tab = SearchTab.putters;
+  String categoryId = "";
   bool isLoading = false;
-  Map<SearchTab, List<CatalogItemModel>> resultMap = { };
-  List<CatalogItemModel> resultList=[];
-  bool hasReachedMax=false;
-  
+  Map<SearchTab, List<CatalogItemModel>> resultMap = {};
+  List<CatalogItemModel> resultList = [];
+  bool hasReachedMax = false;
 
   @override
   void initState() {
     super.initState();
-    bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
-    bool isLoggedAfterGuest = getIt<PreferenceRepositoryService>().loginAfterGuest();
+    if (shouldLoad) {
+      callApi();
+      shouldLoad = false;
+    }
   }
 
- @override
- void didChangeDependencies() {
-   super.didChangeDependencies();
-   if (Loading.isVisible()) {
-    Loading.hide(context);
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (Loading.isVisible()) {
+      Loading.hide(context);
     }
- }
+  }
 
- getTabId() async {    
-    String categoryId = await SearchTabWrapper(tab).toStringCustom()?? "";
+  getTabId() async {
+    String categoryId = await SearchTabWrapper(tab).toStringCustom() ?? "";
     Future.delayed(const Duration(milliseconds: 500));
-   return categoryId;
+    return categoryId;
   }
 
   callApi() async {
     getIt<PaginatedSearchCubit>().loadResults(
-      searchModel: SearchRequestPayloadModel(
-        categoryId: await getTabId(),
-        filters: FilterModel(
-              productType: tab != SearchTab.putters
-                ? [categoryId]
-                : null,
-            ),
-            ), 
-        searchTab: tab );
+        searchModel: SearchRequestPayloadModel(
+          categoryId: await getTabId(),
+          filters: FilterModel(
+            productType: tab != SearchTab.putters ? [categoryId] : null,
+          ),
+        ),
+        searchTab: tab);
   }
-
 
   @override
   Widget build(BuildContext context) {
 
-    callApi();    
     return Scaffold(
-        backgroundColor: Palette.current.primaryNero,
-        body: BlocBuilder<PaginatedSearchCubit, PaginatedSearchState>(
-          builder: (context, state){
-           return state.when
-           (
-           initial: () => const SimpleLoader(), 
-           loading: (isFirstFetch) {        
-            isLoading = true;
-           return  (resultList.isEmpty)? const SimpleLoader():
-                BodyWidgetWithView(
-              resultList, 
-              tab, 
-              scrollListener: () => hasReachedMax ? getIt<PaginatedSearchCubit>().loadMoreResults() : {},
-              );
-           }, 
-           loaded: (tabMap, newMap) {
-             var newMapList = newMap[tab];
+      backgroundColor: Palette.current.primaryNero,
+      body: BlocBuilder<PaginatedSearchCubit, PaginatedSearchState>(
+          builder: (context, state) {
+        return state.when(
+            initial: () => const SimpleLoader(),
+            loading: (isFirstFetch) {
+              isLoading = true;
+              return (resultList.isEmpty)
+                  ? const SimpleLoader()
+                  : BodyWidgetWithView(
+                      resultList,
+                      tab,
+                      scrollListener: () => hasReachedMax
+                          ? getIt<PaginatedSearchCubit>().loadMoreResults(tab)
+                          : {},
+                    );
+            },
+            loaded: (tabMap, newMap) {
+              var newMapList = newMap[tab];
               resultList = tabMap[tab] ?? [];
               if (newMapList != null) {
                 hasReachedMax = newMapList.length >= defaultPageSize;
-              }                   
-            return BodyWidgetWithView(
-              resultList, 
-              tab, 
-              scrollListener: () => hasReachedMax ? getIt<PaginatedSearchCubit>().loadMoreResults() : {},
+              }
+              return BodyWidgetWithView(
+                resultList,
+                tab,
+                scrollListener: () => hasReachedMax
+                    ? getIt<PaginatedSearchCubit>().loadMoreResults(tab)
+                    : {},
               );
-            }
-           );             
-          }),
+            });
+      }),
     );
-}
+  }
 }

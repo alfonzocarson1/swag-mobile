@@ -17,6 +17,8 @@ import '../../../models/search/catalog_item_model.dart';
 import '../../../models/search/filter_model.dart';
 import '../../../models/search/search_request_payload_model.dart';
 
+
+
 class HeadcoversPage extends StatefulWidget {
   static const name = '/Headcovers';
   const HeadcoversPage({Key? key}) : super(key: key);
@@ -30,6 +32,8 @@ class HeadcoversPage extends StatefulWidget {
   State<HeadcoversPage> createState() => _HeadcoversPageState();
 }
 
+bool shouldLoad = true;
+
 class _HeadcoversPageState extends State<HeadcoversPage> {
   SearchTab tab = SearchTab.headcovers;    
   String categoryId= "";
@@ -42,8 +46,11 @@ class _HeadcoversPageState extends State<HeadcoversPage> {
   @override
   void initState() {
     super.initState();
-    bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
-    bool isLoggedAfterGuest = getIt<PreferenceRepositoryService>().loginAfterGuest();
+
+   if(shouldLoad){
+    callApi();
+    shouldLoad = false;
+   }
   }
 
  @override
@@ -77,7 +84,7 @@ class _HeadcoversPageState extends State<HeadcoversPage> {
   @override
   Widget build(BuildContext context) {
 
-    callApi();
+    
     return Scaffold(
         backgroundColor: Palette.current.primaryNero,
         body: BlocBuilder<PaginatedSearchCubit, PaginatedSearchState>(
@@ -94,7 +101,7 @@ class _HeadcoversPageState extends State<HeadcoversPage> {
              return BodyWidgetWithView(
               resultList, 
               tab, 
-              scrollListener: () => hasReachedMax ? getIt<PaginatedSearchCubit>().loadMoreResults() : {},
+              scrollListener: () => hasReachedMax ? getIt<PaginatedSearchCubit>().loadMoreResults(tab) : {},
               );            
            }, 
            loaded: (tabMap, newMap) {
@@ -108,7 +115,7 @@ class _HeadcoversPageState extends State<HeadcoversPage> {
             return BodyWidgetWithView(
               resultList, 
               tab, 
-              scrollListener: () => hasReachedMax ? getIt<PaginatedSearchCubit>().loadMoreResults() : {},
+              scrollListener: () => hasReachedMax ? getIt<PaginatedSearchCubit>().loadMoreResults(tab) : {},
               );
             }
            );             
