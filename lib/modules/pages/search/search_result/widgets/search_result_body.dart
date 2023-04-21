@@ -33,7 +33,7 @@ class Result_body extends StatelessWidget {
             resultList, 
             tab, 
             searchParams: widget.searchParam,
-            scrollListener: () => hasReachedMax ? getIt<PaginatedSearchCubit>().loadMoreResults() : {},
+            scrollListener: () => hasReachedMax ? getIt<PaginatedSearchCubit>().loadMoreResults(tab) : {},
             ),
         ),
       ],
