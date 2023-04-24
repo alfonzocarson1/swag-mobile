@@ -21,7 +21,6 @@ mixin _$CollectionEvent {
     required TResult Function() getCollectionItem,
     required TResult Function(AddCollectionModel model) addCollection,
     required TResult Function(AddCollectionModel model) removeCollection,
-    required TResult Function() getProfileCollections,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -29,7 +28,6 @@ mixin _$CollectionEvent {
     TResult? Function()? getCollectionItem,
     TResult? Function(AddCollectionModel model)? addCollection,
     TResult? Function(AddCollectionModel model)? removeCollection,
-    TResult? Function()? getProfileCollections,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -37,7 +35,6 @@ mixin _$CollectionEvent {
     TResult Function()? getCollectionItem,
     TResult Function(AddCollectionModel model)? addCollection,
     TResult Function(AddCollectionModel model)? removeCollection,
-    TResult Function()? getProfileCollections,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -46,8 +43,6 @@ mixin _$CollectionEvent {
     required TResult Function(_GetCollectionItem value) getCollectionItem,
     required TResult Function(_CollectionEvent value) addCollection,
     required TResult Function(_RemoveCollectionEvent value) removeCollection,
-    required TResult Function(_GetProfileCollections value)
-        getProfileCollections,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -55,7 +50,6 @@ mixin _$CollectionEvent {
     TResult? Function(_GetCollectionItem value)? getCollectionItem,
     TResult? Function(_CollectionEvent value)? addCollection,
     TResult? Function(_RemoveCollectionEvent value)? removeCollection,
-    TResult? Function(_GetProfileCollections value)? getProfileCollections,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -63,7 +57,6 @@ mixin _$CollectionEvent {
     TResult Function(_GetCollectionItem value)? getCollectionItem,
     TResult Function(_CollectionEvent value)? addCollection,
     TResult Function(_RemoveCollectionEvent value)? removeCollection,
-    TResult Function(_GetProfileCollections value)? getProfileCollections,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -128,7 +121,6 @@ class _$_GetCollectionItem implements _GetCollectionItem {
     required TResult Function() getCollectionItem,
     required TResult Function(AddCollectionModel model) addCollection,
     required TResult Function(AddCollectionModel model) removeCollection,
-    required TResult Function() getProfileCollections,
   }) {
     return getCollectionItem();
   }
@@ -139,7 +131,6 @@ class _$_GetCollectionItem implements _GetCollectionItem {
     TResult? Function()? getCollectionItem,
     TResult? Function(AddCollectionModel model)? addCollection,
     TResult? Function(AddCollectionModel model)? removeCollection,
-    TResult? Function()? getProfileCollections,
   }) {
     return getCollectionItem?.call();
   }
@@ -150,7 +141,6 @@ class _$_GetCollectionItem implements _GetCollectionItem {
     TResult Function()? getCollectionItem,
     TResult Function(AddCollectionModel model)? addCollection,
     TResult Function(AddCollectionModel model)? removeCollection,
-    TResult Function()? getProfileCollections,
     required TResult orElse(),
   }) {
     if (getCollectionItem != null) {
@@ -165,8 +155,6 @@ class _$_GetCollectionItem implements _GetCollectionItem {
     required TResult Function(_GetCollectionItem value) getCollectionItem,
     required TResult Function(_CollectionEvent value) addCollection,
     required TResult Function(_RemoveCollectionEvent value) removeCollection,
-    required TResult Function(_GetProfileCollections value)
-        getProfileCollections,
   }) {
     return getCollectionItem(this);
   }
@@ -177,7 +165,6 @@ class _$_GetCollectionItem implements _GetCollectionItem {
     TResult? Function(_GetCollectionItem value)? getCollectionItem,
     TResult? Function(_CollectionEvent value)? addCollection,
     TResult? Function(_RemoveCollectionEvent value)? removeCollection,
-    TResult? Function(_GetProfileCollections value)? getProfileCollections,
   }) {
     return getCollectionItem?.call(this);
   }
@@ -188,7 +175,6 @@ class _$_GetCollectionItem implements _GetCollectionItem {
     TResult Function(_GetCollectionItem value)? getCollectionItem,
     TResult Function(_CollectionEvent value)? addCollection,
     TResult Function(_RemoveCollectionEvent value)? removeCollection,
-    TResult Function(_GetProfileCollections value)? getProfileCollections,
     required TResult orElse(),
   }) {
     if (getCollectionItem != null) {
@@ -279,7 +265,6 @@ class _$_CollectionEvent implements _CollectionEvent {
     required TResult Function() getCollectionItem,
     required TResult Function(AddCollectionModel model) addCollection,
     required TResult Function(AddCollectionModel model) removeCollection,
-    required TResult Function() getProfileCollections,
   }) {
     return addCollection(model);
   }
@@ -290,7 +275,6 @@ class _$_CollectionEvent implements _CollectionEvent {
     TResult? Function()? getCollectionItem,
     TResult? Function(AddCollectionModel model)? addCollection,
     TResult? Function(AddCollectionModel model)? removeCollection,
-    TResult? Function()? getProfileCollections,
   }) {
     return addCollection?.call(model);
   }
@@ -301,7 +285,6 @@ class _$_CollectionEvent implements _CollectionEvent {
     TResult Function()? getCollectionItem,
     TResult Function(AddCollectionModel model)? addCollection,
     TResult Function(AddCollectionModel model)? removeCollection,
-    TResult Function()? getProfileCollections,
     required TResult orElse(),
   }) {
     if (addCollection != null) {
@@ -316,8 +299,6 @@ class _$_CollectionEvent implements _CollectionEvent {
     required TResult Function(_GetCollectionItem value) getCollectionItem,
     required TResult Function(_CollectionEvent value) addCollection,
     required TResult Function(_RemoveCollectionEvent value) removeCollection,
-    required TResult Function(_GetProfileCollections value)
-        getProfileCollections,
   }) {
     return addCollection(this);
   }
@@ -328,7 +309,6 @@ class _$_CollectionEvent implements _CollectionEvent {
     TResult? Function(_GetCollectionItem value)? getCollectionItem,
     TResult? Function(_CollectionEvent value)? addCollection,
     TResult? Function(_RemoveCollectionEvent value)? removeCollection,
-    TResult? Function(_GetProfileCollections value)? getProfileCollections,
   }) {
     return addCollection?.call(this);
   }
@@ -339,7 +319,6 @@ class _$_CollectionEvent implements _CollectionEvent {
     TResult Function(_GetCollectionItem value)? getCollectionItem,
     TResult Function(_CollectionEvent value)? addCollection,
     TResult Function(_RemoveCollectionEvent value)? removeCollection,
-    TResult Function(_GetProfileCollections value)? getProfileCollections,
     required TResult orElse(),
   }) {
     if (addCollection != null) {
@@ -437,7 +416,6 @@ class _$_RemoveCollectionEvent implements _RemoveCollectionEvent {
     required TResult Function() getCollectionItem,
     required TResult Function(AddCollectionModel model) addCollection,
     required TResult Function(AddCollectionModel model) removeCollection,
-    required TResult Function() getProfileCollections,
   }) {
     return removeCollection(model);
   }
@@ -448,7 +426,6 @@ class _$_RemoveCollectionEvent implements _RemoveCollectionEvent {
     TResult? Function()? getCollectionItem,
     TResult? Function(AddCollectionModel model)? addCollection,
     TResult? Function(AddCollectionModel model)? removeCollection,
-    TResult? Function()? getProfileCollections,
   }) {
     return removeCollection?.call(model);
   }
@@ -459,7 +436,6 @@ class _$_RemoveCollectionEvent implements _RemoveCollectionEvent {
     TResult Function()? getCollectionItem,
     TResult Function(AddCollectionModel model)? addCollection,
     TResult Function(AddCollectionModel model)? removeCollection,
-    TResult Function()? getProfileCollections,
     required TResult orElse(),
   }) {
     if (removeCollection != null) {
@@ -474,8 +450,6 @@ class _$_RemoveCollectionEvent implements _RemoveCollectionEvent {
     required TResult Function(_GetCollectionItem value) getCollectionItem,
     required TResult Function(_CollectionEvent value) addCollection,
     required TResult Function(_RemoveCollectionEvent value) removeCollection,
-    required TResult Function(_GetProfileCollections value)
-        getProfileCollections,
   }) {
     return removeCollection(this);
   }
@@ -486,7 +460,6 @@ class _$_RemoveCollectionEvent implements _RemoveCollectionEvent {
     TResult? Function(_GetCollectionItem value)? getCollectionItem,
     TResult? Function(_CollectionEvent value)? addCollection,
     TResult? Function(_RemoveCollectionEvent value)? removeCollection,
-    TResult? Function(_GetProfileCollections value)? getProfileCollections,
   }) {
     return removeCollection?.call(this);
   }
@@ -497,7 +470,6 @@ class _$_RemoveCollectionEvent implements _RemoveCollectionEvent {
     TResult Function(_GetCollectionItem value)? getCollectionItem,
     TResult Function(_CollectionEvent value)? addCollection,
     TResult Function(_RemoveCollectionEvent value)? removeCollection,
-    TResult Function(_GetProfileCollections value)? getProfileCollections,
     required TResult orElse(),
   }) {
     if (removeCollection != null) {
@@ -518,121 +490,6 @@ abstract class _RemoveCollectionEvent implements CollectionEvent {
 }
 
 /// @nodoc
-abstract class _$$_GetProfileCollectionsCopyWith<$Res> {
-  factory _$$_GetProfileCollectionsCopyWith(_$_GetProfileCollections value,
-          $Res Function(_$_GetProfileCollections) then) =
-      __$$_GetProfileCollectionsCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$_GetProfileCollectionsCopyWithImpl<$Res>
-    extends _$CollectionEventCopyWithImpl<$Res, _$_GetProfileCollections>
-    implements _$$_GetProfileCollectionsCopyWith<$Res> {
-  __$$_GetProfileCollectionsCopyWithImpl(_$_GetProfileCollections _value,
-      $Res Function(_$_GetProfileCollections) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$_GetProfileCollections implements _GetProfileCollections {
-  const _$_GetProfileCollections();
-
-  @override
-  String toString() {
-    return 'CollectionEvent.getProfileCollections()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_GetProfileCollections);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() getCollectionItem,
-    required TResult Function(AddCollectionModel model) addCollection,
-    required TResult Function(AddCollectionModel model) removeCollection,
-    required TResult Function() getProfileCollections,
-  }) {
-    return getProfileCollections();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getCollectionItem,
-    TResult? Function(AddCollectionModel model)? addCollection,
-    TResult? Function(AddCollectionModel model)? removeCollection,
-    TResult? Function()? getProfileCollections,
-  }) {
-    return getProfileCollections?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getCollectionItem,
-    TResult Function(AddCollectionModel model)? addCollection,
-    TResult Function(AddCollectionModel model)? removeCollection,
-    TResult Function()? getProfileCollections,
-    required TResult orElse(),
-  }) {
-    if (getProfileCollections != null) {
-      return getProfileCollections();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_GetCollectionItem value) getCollectionItem,
-    required TResult Function(_CollectionEvent value) addCollection,
-    required TResult Function(_RemoveCollectionEvent value) removeCollection,
-    required TResult Function(_GetProfileCollections value)
-        getProfileCollections,
-  }) {
-    return getProfileCollections(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_GetCollectionItem value)? getCollectionItem,
-    TResult? Function(_CollectionEvent value)? addCollection,
-    TResult? Function(_RemoveCollectionEvent value)? removeCollection,
-    TResult? Function(_GetProfileCollections value)? getProfileCollections,
-  }) {
-    return getProfileCollections?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_GetCollectionItem value)? getCollectionItem,
-    TResult Function(_CollectionEvent value)? addCollection,
-    TResult Function(_RemoveCollectionEvent value)? removeCollection,
-    TResult Function(_GetProfileCollections value)? getProfileCollections,
-    required TResult orElse(),
-  }) {
-    if (getProfileCollections != null) {
-      return getProfileCollections(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _GetProfileCollections implements CollectionEvent {
-  const factory _GetProfileCollections() = _$_GetProfileCollections;
-}
-
-/// @nodoc
 mixin _$CollectionState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
@@ -642,9 +499,6 @@ mixin _$CollectionState {
         loadedCollectionSuccess,
     required TResult Function(List<CatalogItemModel> dataCollectionlList)
         loadedCollectionItems,
-    required TResult Function(
-            List<ListCollectionProfileResponseModel> profileCollectionList)
-        loadedProfileCollections,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -655,9 +509,6 @@ mixin _$CollectionState {
         loadedCollectionSuccess,
     TResult? Function(List<CatalogItemModel> dataCollectionlList)?
         loadedCollectionItems,
-    TResult? Function(
-            List<ListCollectionProfileResponseModel> profileCollectionList)?
-        loadedProfileCollections,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -668,9 +519,6 @@ mixin _$CollectionState {
         loadedCollectionSuccess,
     TResult Function(List<CatalogItemModel> dataCollectionlList)?
         loadedCollectionItems,
-    TResult Function(
-            List<ListCollectionProfileResponseModel> profileCollectionList)?
-        loadedProfileCollections,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -682,8 +530,6 @@ mixin _$CollectionState {
         loadedCollectionSuccess,
     required TResult Function(LoadedCollectionItemState value)
         loadedCollectionItems,
-    required TResult Function(LoadedCollectionsState value)
-        loadedProfileCollections,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -692,7 +538,6 @@ mixin _$CollectionState {
     TResult? Function(_ErrorCollectionState value)? error,
     TResult? Function(LoadedSuccessCollection value)? loadedCollectionSuccess,
     TResult? Function(LoadedCollectionItemState value)? loadedCollectionItems,
-    TResult? Function(LoadedCollectionsState value)? loadedProfileCollections,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -701,7 +546,6 @@ mixin _$CollectionState {
     TResult Function(_ErrorCollectionState value)? error,
     TResult Function(LoadedSuccessCollection value)? loadedCollectionSuccess,
     TResult Function(LoadedCollectionItemState value)? loadedCollectionItems,
-    TResult Function(LoadedCollectionsState value)? loadedProfileCollections,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -770,9 +614,6 @@ class _$_InitialCollectionState extends _InitialCollectionState {
         loadedCollectionSuccess,
     required TResult Function(List<CatalogItemModel> dataCollectionlList)
         loadedCollectionItems,
-    required TResult Function(
-            List<ListCollectionProfileResponseModel> profileCollectionList)
-        loadedProfileCollections,
   }) {
     return initial();
   }
@@ -786,9 +627,6 @@ class _$_InitialCollectionState extends _InitialCollectionState {
         loadedCollectionSuccess,
     TResult? Function(List<CatalogItemModel> dataCollectionlList)?
         loadedCollectionItems,
-    TResult? Function(
-            List<ListCollectionProfileResponseModel> profileCollectionList)?
-        loadedProfileCollections,
   }) {
     return initial?.call();
   }
@@ -802,9 +640,6 @@ class _$_InitialCollectionState extends _InitialCollectionState {
         loadedCollectionSuccess,
     TResult Function(List<CatalogItemModel> dataCollectionlList)?
         loadedCollectionItems,
-    TResult Function(
-            List<ListCollectionProfileResponseModel> profileCollectionList)?
-        loadedProfileCollections,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -822,8 +657,6 @@ class _$_InitialCollectionState extends _InitialCollectionState {
         loadedCollectionSuccess,
     required TResult Function(LoadedCollectionItemState value)
         loadedCollectionItems,
-    required TResult Function(LoadedCollectionsState value)
-        loadedProfileCollections,
   }) {
     return initial(this);
   }
@@ -835,7 +668,6 @@ class _$_InitialCollectionState extends _InitialCollectionState {
     TResult? Function(_ErrorCollectionState value)? error,
     TResult? Function(LoadedSuccessCollection value)? loadedCollectionSuccess,
     TResult? Function(LoadedCollectionItemState value)? loadedCollectionItems,
-    TResult? Function(LoadedCollectionsState value)? loadedProfileCollections,
   }) {
     return initial?.call(this);
   }
@@ -847,7 +679,6 @@ class _$_InitialCollectionState extends _InitialCollectionState {
     TResult Function(_ErrorCollectionState value)? error,
     TResult Function(LoadedSuccessCollection value)? loadedCollectionSuccess,
     TResult Function(LoadedCollectionItemState value)? loadedCollectionItems,
-    TResult Function(LoadedCollectionsState value)? loadedProfileCollections,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -933,9 +764,6 @@ class _$_ErrorCollectionState extends _ErrorCollectionState {
         loadedCollectionSuccess,
     required TResult Function(List<CatalogItemModel> dataCollectionlList)
         loadedCollectionItems,
-    required TResult Function(
-            List<ListCollectionProfileResponseModel> profileCollectionList)
-        loadedProfileCollections,
   }) {
     return error(message);
   }
@@ -949,9 +777,6 @@ class _$_ErrorCollectionState extends _ErrorCollectionState {
         loadedCollectionSuccess,
     TResult? Function(List<CatalogItemModel> dataCollectionlList)?
         loadedCollectionItems,
-    TResult? Function(
-            List<ListCollectionProfileResponseModel> profileCollectionList)?
-        loadedProfileCollections,
   }) {
     return error?.call(message);
   }
@@ -965,9 +790,6 @@ class _$_ErrorCollectionState extends _ErrorCollectionState {
         loadedCollectionSuccess,
     TResult Function(List<CatalogItemModel> dataCollectionlList)?
         loadedCollectionItems,
-    TResult Function(
-            List<ListCollectionProfileResponseModel> profileCollectionList)?
-        loadedProfileCollections,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -985,8 +807,6 @@ class _$_ErrorCollectionState extends _ErrorCollectionState {
         loadedCollectionSuccess,
     required TResult Function(LoadedCollectionItemState value)
         loadedCollectionItems,
-    required TResult Function(LoadedCollectionsState value)
-        loadedProfileCollections,
   }) {
     return error(this);
   }
@@ -998,7 +818,6 @@ class _$_ErrorCollectionState extends _ErrorCollectionState {
     TResult? Function(_ErrorCollectionState value)? error,
     TResult? Function(LoadedSuccessCollection value)? loadedCollectionSuccess,
     TResult? Function(LoadedCollectionItemState value)? loadedCollectionItems,
-    TResult? Function(LoadedCollectionsState value)? loadedProfileCollections,
   }) {
     return error?.call(this);
   }
@@ -1010,7 +829,6 @@ class _$_ErrorCollectionState extends _ErrorCollectionState {
     TResult Function(_ErrorCollectionState value)? error,
     TResult Function(LoadedSuccessCollection value)? loadedCollectionSuccess,
     TResult Function(LoadedCollectionItemState value)? loadedCollectionItems,
-    TResult Function(LoadedCollectionsState value)? loadedProfileCollections,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -1112,9 +930,6 @@ class _$LoadedSuccessCollection extends LoadedSuccessCollection {
         loadedCollectionSuccess,
     required TResult Function(List<CatalogItemModel> dataCollectionlList)
         loadedCollectionItems,
-    required TResult Function(
-            List<ListCollectionProfileResponseModel> profileCollectionList)
-        loadedProfileCollections,
   }) {
     return loadedCollectionSuccess(successCollection);
   }
@@ -1128,9 +943,6 @@ class _$LoadedSuccessCollection extends LoadedSuccessCollection {
         loadedCollectionSuccess,
     TResult? Function(List<CatalogItemModel> dataCollectionlList)?
         loadedCollectionItems,
-    TResult? Function(
-            List<ListCollectionProfileResponseModel> profileCollectionList)?
-        loadedProfileCollections,
   }) {
     return loadedCollectionSuccess?.call(successCollection);
   }
@@ -1144,9 +956,6 @@ class _$LoadedSuccessCollection extends LoadedSuccessCollection {
         loadedCollectionSuccess,
     TResult Function(List<CatalogItemModel> dataCollectionlList)?
         loadedCollectionItems,
-    TResult Function(
-            List<ListCollectionProfileResponseModel> profileCollectionList)?
-        loadedProfileCollections,
     required TResult orElse(),
   }) {
     if (loadedCollectionSuccess != null) {
@@ -1164,8 +973,6 @@ class _$LoadedSuccessCollection extends LoadedSuccessCollection {
         loadedCollectionSuccess,
     required TResult Function(LoadedCollectionItemState value)
         loadedCollectionItems,
-    required TResult Function(LoadedCollectionsState value)
-        loadedProfileCollections,
   }) {
     return loadedCollectionSuccess(this);
   }
@@ -1177,7 +984,6 @@ class _$LoadedSuccessCollection extends LoadedSuccessCollection {
     TResult? Function(_ErrorCollectionState value)? error,
     TResult? Function(LoadedSuccessCollection value)? loadedCollectionSuccess,
     TResult? Function(LoadedCollectionItemState value)? loadedCollectionItems,
-    TResult? Function(LoadedCollectionsState value)? loadedProfileCollections,
   }) {
     return loadedCollectionSuccess?.call(this);
   }
@@ -1189,7 +995,6 @@ class _$LoadedSuccessCollection extends LoadedSuccessCollection {
     TResult Function(_ErrorCollectionState value)? error,
     TResult Function(LoadedSuccessCollection value)? loadedCollectionSuccess,
     TResult Function(LoadedCollectionItemState value)? loadedCollectionItems,
-    TResult Function(LoadedCollectionsState value)? loadedProfileCollections,
     required TResult orElse(),
   }) {
     if (loadedCollectionSuccess != null) {
@@ -1293,9 +1098,6 @@ class _$LoadedCollectionItemState extends LoadedCollectionItemState {
         loadedCollectionSuccess,
     required TResult Function(List<CatalogItemModel> dataCollectionlList)
         loadedCollectionItems,
-    required TResult Function(
-            List<ListCollectionProfileResponseModel> profileCollectionList)
-        loadedProfileCollections,
   }) {
     return loadedCollectionItems(dataCollectionlList);
   }
@@ -1309,9 +1111,6 @@ class _$LoadedCollectionItemState extends LoadedCollectionItemState {
         loadedCollectionSuccess,
     TResult? Function(List<CatalogItemModel> dataCollectionlList)?
         loadedCollectionItems,
-    TResult? Function(
-            List<ListCollectionProfileResponseModel> profileCollectionList)?
-        loadedProfileCollections,
   }) {
     return loadedCollectionItems?.call(dataCollectionlList);
   }
@@ -1325,9 +1124,6 @@ class _$LoadedCollectionItemState extends LoadedCollectionItemState {
         loadedCollectionSuccess,
     TResult Function(List<CatalogItemModel> dataCollectionlList)?
         loadedCollectionItems,
-    TResult Function(
-            List<ListCollectionProfileResponseModel> profileCollectionList)?
-        loadedProfileCollections,
     required TResult orElse(),
   }) {
     if (loadedCollectionItems != null) {
@@ -1345,8 +1141,6 @@ class _$LoadedCollectionItemState extends LoadedCollectionItemState {
         loadedCollectionSuccess,
     required TResult Function(LoadedCollectionItemState value)
         loadedCollectionItems,
-    required TResult Function(LoadedCollectionsState value)
-        loadedProfileCollections,
   }) {
     return loadedCollectionItems(this);
   }
@@ -1358,7 +1152,6 @@ class _$LoadedCollectionItemState extends LoadedCollectionItemState {
     TResult? Function(_ErrorCollectionState value)? error,
     TResult? Function(LoadedSuccessCollection value)? loadedCollectionSuccess,
     TResult? Function(LoadedCollectionItemState value)? loadedCollectionItems,
-    TResult? Function(LoadedCollectionsState value)? loadedProfileCollections,
   }) {
     return loadedCollectionItems?.call(this);
   }
@@ -1370,7 +1163,6 @@ class _$LoadedCollectionItemState extends LoadedCollectionItemState {
     TResult Function(_ErrorCollectionState value)? error,
     TResult Function(LoadedSuccessCollection value)? loadedCollectionSuccess,
     TResult Function(LoadedCollectionItemState value)? loadedCollectionItems,
-    TResult Function(LoadedCollectionsState value)? loadedProfileCollections,
     required TResult orElse(),
   }) {
     if (loadedCollectionItems != null) {
@@ -1390,186 +1182,4 @@ abstract class LoadedCollectionItemState extends CollectionState {
   @JsonKey(ignore: true)
   _$$LoadedCollectionItemStateCopyWith<_$LoadedCollectionItemState>
       get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$LoadedCollectionsStateCopyWith<$Res> {
-  factory _$$LoadedCollectionsStateCopyWith(_$LoadedCollectionsState value,
-          $Res Function(_$LoadedCollectionsState) then) =
-      __$$LoadedCollectionsStateCopyWithImpl<$Res>;
-  @useResult
-  $Res call({List<ListCollectionProfileResponseModel> profileCollectionList});
-}
-
-/// @nodoc
-class __$$LoadedCollectionsStateCopyWithImpl<$Res>
-    extends _$CollectionStateCopyWithImpl<$Res, _$LoadedCollectionsState>
-    implements _$$LoadedCollectionsStateCopyWith<$Res> {
-  __$$LoadedCollectionsStateCopyWithImpl(_$LoadedCollectionsState _value,
-      $Res Function(_$LoadedCollectionsState) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? profileCollectionList = null,
-  }) {
-    return _then(_$LoadedCollectionsState(
-      profileCollectionList: null == profileCollectionList
-          ? _value._profileCollectionList
-          : profileCollectionList // ignore: cast_nullable_to_non_nullable
-              as List<ListCollectionProfileResponseModel>,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$LoadedCollectionsState extends LoadedCollectionsState {
-  _$LoadedCollectionsState(
-      {required final List<ListCollectionProfileResponseModel>
-          profileCollectionList})
-      : _profileCollectionList = profileCollectionList,
-        super._();
-
-  final List<ListCollectionProfileResponseModel> _profileCollectionList;
-  @override
-  List<ListCollectionProfileResponseModel> get profileCollectionList {
-    if (_profileCollectionList is EqualUnmodifiableListView)
-      return _profileCollectionList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_profileCollectionList);
-  }
-
-  @override
-  String toString() {
-    return 'CollectionState.loadedProfileCollections(profileCollectionList: $profileCollectionList)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LoadedCollectionsState &&
-            const DeepCollectionEquality()
-                .equals(other._profileCollectionList, _profileCollectionList));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_profileCollectionList));
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$LoadedCollectionsStateCopyWith<_$LoadedCollectionsState> get copyWith =>
-      __$$LoadedCollectionsStateCopyWithImpl<_$LoadedCollectionsState>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function(String message) error,
-    required TResult Function(AddCollectionModel successCollection)
-        loadedCollectionSuccess,
-    required TResult Function(List<CatalogItemModel> dataCollectionlList)
-        loadedCollectionItems,
-    required TResult Function(
-            List<ListCollectionProfileResponseModel> profileCollectionList)
-        loadedProfileCollections,
-  }) {
-    return loadedProfileCollections(profileCollectionList);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function(String message)? error,
-    TResult? Function(AddCollectionModel successCollection)?
-        loadedCollectionSuccess,
-    TResult? Function(List<CatalogItemModel> dataCollectionlList)?
-        loadedCollectionItems,
-    TResult? Function(
-            List<ListCollectionProfileResponseModel> profileCollectionList)?
-        loadedProfileCollections,
-  }) {
-    return loadedProfileCollections?.call(profileCollectionList);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(String message)? error,
-    TResult Function(AddCollectionModel successCollection)?
-        loadedCollectionSuccess,
-    TResult Function(List<CatalogItemModel> dataCollectionlList)?
-        loadedCollectionItems,
-    TResult Function(
-            List<ListCollectionProfileResponseModel> profileCollectionList)?
-        loadedProfileCollections,
-    required TResult orElse(),
-  }) {
-    if (loadedProfileCollections != null) {
-      return loadedProfileCollections(profileCollectionList);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_InitialCollectionState value) initial,
-    required TResult Function(_ErrorCollectionState value) error,
-    required TResult Function(LoadedSuccessCollection value)
-        loadedCollectionSuccess,
-    required TResult Function(LoadedCollectionItemState value)
-        loadedCollectionItems,
-    required TResult Function(LoadedCollectionsState value)
-        loadedProfileCollections,
-  }) {
-    return loadedProfileCollections(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_InitialCollectionState value)? initial,
-    TResult? Function(_ErrorCollectionState value)? error,
-    TResult? Function(LoadedSuccessCollection value)? loadedCollectionSuccess,
-    TResult? Function(LoadedCollectionItemState value)? loadedCollectionItems,
-    TResult? Function(LoadedCollectionsState value)? loadedProfileCollections,
-  }) {
-    return loadedProfileCollections?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_InitialCollectionState value)? initial,
-    TResult Function(_ErrorCollectionState value)? error,
-    TResult Function(LoadedSuccessCollection value)? loadedCollectionSuccess,
-    TResult Function(LoadedCollectionItemState value)? loadedCollectionItems,
-    TResult Function(LoadedCollectionsState value)? loadedProfileCollections,
-    required TResult orElse(),
-  }) {
-    if (loadedProfileCollections != null) {
-      return loadedProfileCollections(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class LoadedCollectionsState extends CollectionState {
-  factory LoadedCollectionsState(
-      {required final List<ListCollectionProfileResponseModel>
-          profileCollectionList}) = _$LoadedCollectionsState;
-  LoadedCollectionsState._() : super._();
-
-  List<ListCollectionProfileResponseModel> get profileCollectionList;
-  @JsonKey(ignore: true)
-  _$$LoadedCollectionsStateCopyWith<_$LoadedCollectionsState> get copyWith =>
-      throw _privateConstructorUsedError;
 }

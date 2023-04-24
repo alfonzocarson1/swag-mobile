@@ -9,7 +9,4 @@ class CollectionEvent with _$CollectionEvent {
 
   const factory CollectionEvent.removeCollection(AddCollectionModel model) =
       _RemoveCollectionEvent;
-
-  const factory CollectionEvent.getProfileCollections() =
-      _GetProfileCollections;
 }

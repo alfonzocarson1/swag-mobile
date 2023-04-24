@@ -48,7 +48,10 @@ class _FavoritesPageState extends State<FavoritesPage> {
   Widget build(BuildContext context) {
     return BlocBuilder<FavoriteProfileCubit, FavoriteCubitState>(
         builder: (context, state) {
-      return state.when(
+      return state.maybeWhen(
+        orElse: () {
+          return Container();
+        },
         initial: () => ListView.builder(
           itemBuilder: (_, index) => SizedBox(
             height: MediaQuery.of(context).size.height * 0.5,
@@ -61,18 +64,6 @@ class _FavoritesPageState extends State<FavoritesPage> {
           favoritesList = [...profileFavoriteList.first.favoriteList];
 
           return _getBody(favoritesList);
-        },
-        loading: (bool isFirstFetch) {
-          return Container();
-        },
-        error: (String message) {
-          return Container();
-        },
-        loadedFavoriteItem: (FavoriteModel dataFavoriteItem) {
-          return Container();
-        },
-        removedFavoriteItem: (FavoriteModel dataFavoriteItem) {
-          return Container();
         },
       );
     });
