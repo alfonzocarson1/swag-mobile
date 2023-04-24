@@ -1,4 +1,4 @@
-package com.example.swagapp
+package golf.swag.dev.swagapp
 
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
