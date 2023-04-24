@@ -5,9 +5,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swagapp/modules/models/search/catalog_item_model.dart';
 
 import '../../common/utils/handling_errors.dart';
+import '../../cubits/collections/get_collections_cubit.dart';
 import '../../data/collection/i_collection_service.dart';
+import '../../di/injector.dart';
 import '../../models/collection/add_collection_model.dart';
-import '../../models/collection/get_list_collection_model.dart';
 
 part 'collection_bloc.freezed.dart';
 part 'collection_event.dart';
@@ -28,21 +29,7 @@ class CollectionBloc extends Bloc<CollectionEvent, CollectionState> {
     yield* event.when(
         getCollectionItem: _getCollectionItem,
         addCollection: _addCollection,
-        removeCollection: _removeCollection,
-        getProfileCollections: _getProfileCollections);
-  }
-
-  Stream<CollectionState> _getProfileCollections() async* {
-    yield CollectionState.initial();
-    try {
-      ListCollectionProfileResponseModel responseBody =
-          await collectionService.getCollection();
-
-      yield CollectionState.loadedProfileCollections(
-          profileCollectionList: [responseBody]);
-    } catch (e) {
-      yield CollectionState.error(HandlingErrors().getError(e));
-    }
+        removeCollection: _removeCollection);
   }
 
   Stream<CollectionState> _addCollection(AddCollectionModel param) async* {
@@ -51,6 +38,7 @@ class CollectionBloc extends Bloc<CollectionEvent, CollectionState> {
       AddCollectionModel responseBody =
           await collectionService.addCollection(param);
 
+      getIt<CollectionProfileCubit>().loadResults();
       yield CollectionState.loadedCollectionSuccess(responseBody);
     } catch (e) {
       yield CollectionState.error(HandlingErrors().getError(e));
@@ -63,6 +51,7 @@ class CollectionBloc extends Bloc<CollectionEvent, CollectionState> {
       AddCollectionModel responseBody =
           await collectionService.removeCollection(param);
 
+      getIt<CollectionProfileCubit>().loadResults();
       yield CollectionState.loadedCollectionSuccess(responseBody);
     } catch (e) {
       yield CollectionState.error(HandlingErrors().getError(e));

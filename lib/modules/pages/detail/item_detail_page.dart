@@ -68,8 +68,6 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
         resizeToAvoidBottomInset: true,
         appBar: CustomAppBar(
           onRoute: () {
-            BlocProvider.of<CollectionBloc>(context)
-                .add(const CollectionEvent.getProfileCollections());
             Navigator.of(context, rootNavigator: true).pop();
           },
           onAction: () {
