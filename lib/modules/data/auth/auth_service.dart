@@ -19,25 +19,25 @@ class AuthService extends IAuthService {
   Stream<String?> subscribeToAuthChanges() => Stream.value(null);
 
   @override
-  Future<GenericResponseModel> authenticate(
+  Future<CreateAccountResponseModel> authenticate(
       String email, String password) async {
     final response = await apiService.getEndpointData(
       endpoint: Endpoint.login,
       method: RequestMethod.post,
       body: {"password": password, "email": email, "deviceId": defaultString},
-      fromJson: (json) => GenericResponseModel.fromJson(json),
+      fromJson: (json) => CreateAccountResponseModel.fromJson(json),
     );
     return response;
   }
 
   @override
-  Future<GenericResponseModel> createAccount(
+  Future<CreateAccountResponseModel> createAccount(
       CreateAccountPayloadModel model) async {
     final response = await apiService.getEndpointData(
       endpoint: Endpoint.createNewAccount,
       method: RequestMethod.post,
       body: model.toJson(),
-      fromJson: (json) => GenericResponseModel.fromJson(json),
+      fromJson: (json) => CreateAccountResponseModel.fromJson(json),
     );
     return response;
   }

@@ -7,8 +7,8 @@ import '../../models/profile/profile_model.dart';
 
 abstract class IAuthService {
   Stream<String?> subscribeToAuthChanges();
-  Future<GenericResponseModel> authenticate(String email, String password);
-  Future<GenericResponseModel> createAccount(CreateAccountPayloadModel model);
+  Future<CreateAccountResponseModel> authenticate(String email, String password);
+  Future<CreateAccountResponseModel> createAccount(CreateAccountPayloadModel model);
   Future<void> logOut();
   Future<bool> isUsernameAvailable(String username);
   Future<void> requestPasswordResetCode(String email);
