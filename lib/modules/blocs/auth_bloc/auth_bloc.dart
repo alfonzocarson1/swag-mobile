@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:swagapp/modules/models/auth/create_account_response_model.dart';
+import 'package:swagapp/modules/models/update_profile/addresses_payload_model.dart';
 
 import '../../common/utils/handling_errors.dart';
 import '../../common/utils/utils.dart';
@@ -70,8 +72,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Stream<AuthState> _createAccount(CreateAccountPayloadModel model) async* {
     yield const AuthState.logging();
     try {
-      var response = await authService.createAccount(model);
+      CreateAccountResponseModel response = await authService.createAccount(model);
+      List<AddressesPayloadModel>? addresses = response.addresses;
+     
       getIt<StorageRepositoryService>().saveToken(response.token);
+
+      if(response.hasImportableData && addresses!.isNotEmpty){
+        getIt<StorageRepositoryService>().saveFirstName(addresses[0].firstName ?? '');
+        getIt<StorageRepositoryService>().saveLastName(addresses[0].lastName ?? '');
+        getIt<StorageRepositoryService>().saveAddresses([addresses[0].address1 ?? '', addresses[0].address2??'']);
+      }         
+      
       getIt<PreferenceRepositoryService>()
           .savehasImportableData(response.hasImportableData);
       getIt<PreferenceRepositoryService>().saveAccountId(response.accountId);
