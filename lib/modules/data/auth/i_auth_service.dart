@@ -2,7 +2,7 @@ import 'package:swagapp/modules/models/auth/create_account_payload_model.dart';
 
 import '../../models/auth/change_password_response_model.dart';
 import '../../models/auth/forgot_password_code_model.dart';
-import '../../models/auth/generic_response_model.dart';
+import '../../models/auth/create_account_response_model.dart';
 import '../../models/profile/profile_model.dart';
 
 abstract class IAuthService {
