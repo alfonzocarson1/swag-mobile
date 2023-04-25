@@ -81,7 +81,8 @@ class StorageRepositoryService implements StorageRepositoryInt {
   Future<List<String?>> getAddresses() async {
     try{
       final String? addresses = await storage.read(key: _addresses);
-      return jsonDecode(addresses!);
+      List<dynamic> decodedAddresses = jsonDecode(addresses!);
+      return decodedAddresses.cast<String?>();
     }
     catch(e){
       final List<String> emptyList = [];
