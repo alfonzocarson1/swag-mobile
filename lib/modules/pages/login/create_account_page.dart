@@ -147,6 +147,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
                     getIt<StorageRepositoryService>()
                         .savePassword(_passwordController.text);
                     Loading.hide(context);
+                    getIt<AuthBloc>().add(const AuthEvent.privateProfile());
 
                     Future.delayed(
                         Duration(milliseconds: loginAfterGuest ? 0 : 2000), () {
