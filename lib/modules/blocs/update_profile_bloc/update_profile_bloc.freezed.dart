@@ -22,6 +22,7 @@ mixin _$UpdateProfileEvent {
     required TResult Function(
             Uint8List bytes, String imageTopic, String topicId)
         updateAvatar,
+    required TResult Function() importData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -29,6 +30,7 @@ mixin _$UpdateProfileEvent {
     TResult? Function(UpdateProfilePayloadModel model)? update,
     TResult? Function(Uint8List bytes, String imageTopic, String topicId)?
         updateAvatar,
+    TResult? Function()? importData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -36,6 +38,7 @@ mixin _$UpdateProfileEvent {
     TResult Function(UpdateProfilePayloadModel model)? update,
     TResult Function(Uint8List bytes, String imageTopic, String topicId)?
         updateAvatar,
+    TResult Function()? importData,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -43,18 +46,21 @@ mixin _$UpdateProfileEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_UpdateProfileEvent value) update,
     required TResult Function(_UpdateAvatarEvent value) updateAvatar,
+    required TResult Function(_importDataEvent value) importData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_UpdateProfileEvent value)? update,
     TResult? Function(_UpdateAvatarEvent value)? updateAvatar,
+    TResult? Function(_importDataEvent value)? importData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_UpdateProfileEvent value)? update,
     TResult Function(_UpdateAvatarEvent value)? updateAvatar,
+    TResult Function(_importDataEvent value)? importData,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -157,6 +163,7 @@ class _$_UpdateProfileEvent implements _UpdateProfileEvent {
     required TResult Function(
             Uint8List bytes, String imageTopic, String topicId)
         updateAvatar,
+    required TResult Function() importData,
   }) {
     return update(model);
   }
@@ -167,6 +174,7 @@ class _$_UpdateProfileEvent implements _UpdateProfileEvent {
     TResult? Function(UpdateProfilePayloadModel model)? update,
     TResult? Function(Uint8List bytes, String imageTopic, String topicId)?
         updateAvatar,
+    TResult? Function()? importData,
   }) {
     return update?.call(model);
   }
@@ -177,6 +185,7 @@ class _$_UpdateProfileEvent implements _UpdateProfileEvent {
     TResult Function(UpdateProfilePayloadModel model)? update,
     TResult Function(Uint8List bytes, String imageTopic, String topicId)?
         updateAvatar,
+    TResult Function()? importData,
     required TResult orElse(),
   }) {
     if (update != null) {
@@ -190,6 +199,7 @@ class _$_UpdateProfileEvent implements _UpdateProfileEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_UpdateProfileEvent value) update,
     required TResult Function(_UpdateAvatarEvent value) updateAvatar,
+    required TResult Function(_importDataEvent value) importData,
   }) {
     return update(this);
   }
@@ -199,6 +209,7 @@ class _$_UpdateProfileEvent implements _UpdateProfileEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_UpdateProfileEvent value)? update,
     TResult? Function(_UpdateAvatarEvent value)? updateAvatar,
+    TResult? Function(_importDataEvent value)? importData,
   }) {
     return update?.call(this);
   }
@@ -208,6 +219,7 @@ class _$_UpdateProfileEvent implements _UpdateProfileEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_UpdateProfileEvent value)? update,
     TResult Function(_UpdateAvatarEvent value)? updateAvatar,
+    TResult Function(_importDataEvent value)? importData,
     required TResult orElse(),
   }) {
     if (update != null) {
@@ -314,6 +326,7 @@ class _$_UpdateAvatarEvent implements _UpdateAvatarEvent {
     required TResult Function(
             Uint8List bytes, String imageTopic, String topicId)
         updateAvatar,
+    required TResult Function() importData,
   }) {
     return updateAvatar(bytes, imageTopic, topicId);
   }
@@ -324,6 +337,7 @@ class _$_UpdateAvatarEvent implements _UpdateAvatarEvent {
     TResult? Function(UpdateProfilePayloadModel model)? update,
     TResult? Function(Uint8List bytes, String imageTopic, String topicId)?
         updateAvatar,
+    TResult? Function()? importData,
   }) {
     return updateAvatar?.call(bytes, imageTopic, topicId);
   }
@@ -334,6 +348,7 @@ class _$_UpdateAvatarEvent implements _UpdateAvatarEvent {
     TResult Function(UpdateProfilePayloadModel model)? update,
     TResult Function(Uint8List bytes, String imageTopic, String topicId)?
         updateAvatar,
+    TResult Function()? importData,
     required TResult orElse(),
   }) {
     if (updateAvatar != null) {
@@ -347,6 +362,7 @@ class _$_UpdateAvatarEvent implements _UpdateAvatarEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_UpdateProfileEvent value) update,
     required TResult Function(_UpdateAvatarEvent value) updateAvatar,
+    required TResult Function(_importDataEvent value) importData,
   }) {
     return updateAvatar(this);
   }
@@ -356,6 +372,7 @@ class _$_UpdateAvatarEvent implements _UpdateAvatarEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_UpdateProfileEvent value)? update,
     TResult? Function(_UpdateAvatarEvent value)? updateAvatar,
+    TResult? Function(_importDataEvent value)? importData,
   }) {
     return updateAvatar?.call(this);
   }
@@ -365,6 +382,7 @@ class _$_UpdateAvatarEvent implements _UpdateAvatarEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_UpdateProfileEvent value)? update,
     TResult Function(_UpdateAvatarEvent value)? updateAvatar,
+    TResult Function(_importDataEvent value)? importData,
     required TResult orElse(),
   }) {
     if (updateAvatar != null) {
@@ -384,6 +402,118 @@ abstract class _UpdateAvatarEvent implements UpdateProfileEvent {
   @JsonKey(ignore: true)
   _$$_UpdateAvatarEventCopyWith<_$_UpdateAvatarEvent> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_importDataEventCopyWith<$Res> {
+  factory _$$_importDataEventCopyWith(
+          _$_importDataEvent value, $Res Function(_$_importDataEvent) then) =
+      __$$_importDataEventCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_importDataEventCopyWithImpl<$Res>
+    extends _$UpdateProfileEventCopyWithImpl<$Res, _$_importDataEvent>
+    implements _$$_importDataEventCopyWith<$Res> {
+  __$$_importDataEventCopyWithImpl(
+      _$_importDataEvent _value, $Res Function(_$_importDataEvent) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_importDataEvent implements _importDataEvent {
+  const _$_importDataEvent();
+
+  @override
+  String toString() {
+    return 'UpdateProfileEvent.importData()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_importDataEvent);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(UpdateProfilePayloadModel model) update,
+    required TResult Function(
+            Uint8List bytes, String imageTopic, String topicId)
+        updateAvatar,
+    required TResult Function() importData,
+  }) {
+    return importData();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(UpdateProfilePayloadModel model)? update,
+    TResult? Function(Uint8List bytes, String imageTopic, String topicId)?
+        updateAvatar,
+    TResult? Function()? importData,
+  }) {
+    return importData?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(UpdateProfilePayloadModel model)? update,
+    TResult Function(Uint8List bytes, String imageTopic, String topicId)?
+        updateAvatar,
+    TResult Function()? importData,
+    required TResult orElse(),
+  }) {
+    if (importData != null) {
+      return importData();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_UpdateProfileEvent value) update,
+    required TResult Function(_UpdateAvatarEvent value) updateAvatar,
+    required TResult Function(_importDataEvent value) importData,
+  }) {
+    return importData(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_UpdateProfileEvent value)? update,
+    TResult? Function(_UpdateAvatarEvent value)? updateAvatar,
+    TResult? Function(_importDataEvent value)? importData,
+  }) {
+    return importData?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_UpdateProfileEvent value)? update,
+    TResult Function(_UpdateAvatarEvent value)? updateAvatar,
+    TResult Function(_importDataEvent value)? importData,
+    required TResult orElse(),
+  }) {
+    if (importData != null) {
+      return importData(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _importDataEvent implements UpdateProfileEvent {
+  const factory _importDataEvent() = _$_importDataEvent;
 }
 
 /// @nodoc
