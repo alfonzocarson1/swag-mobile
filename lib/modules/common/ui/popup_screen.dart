@@ -5,7 +5,11 @@ import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 
 import '../../../generated/l10n.dart';
+import '../../blocs/auth_bloc/auth_bloc.dart';
 import '../../blocs/update_profile_bloc/update_profile_bloc.dart';
+import '../../data/shared_preferences/shared_preferences_service.dart';
+import '../../di/injector.dart';
+import '../../models/profile/profile_model.dart';
 import 'clickable_text.dart';
 
 class PopUp extends StatefulWidget {
@@ -24,6 +28,8 @@ class _PopUpState extends State<PopUp> {
 
   @override
   Widget build(BuildContext context) {
+    String? tempName = widget.name;
+    
     return Center(
       child: Dialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
@@ -37,7 +43,7 @@ class _PopUpState extends State<PopUp> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    widget.name != null
+                    tempName != null
                         ? Column(
                             children: [
                               const SizedBox(
@@ -109,16 +115,26 @@ class _PopUpState extends State<PopUp> {
                     const SizedBox(
                       height: 30,
                     ),
-                    widget.name != null
+                    tempName != null
                         ? Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               PrimaryButton(
                                 title: S.of(context).popup_btn_yes,
                                 onPressed: () {
-                                  context.read<UpdateProfileBloc>().add(const UpdateProfileEvent.importData());
-                                  Navigator.pop(context);
-                                  
+                                  ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
+                                  if(profileData.accountVerified){
+                                    context.read<UpdateProfileBloc>().add(const UpdateProfileEvent.importData());
+                                    Navigator.pop(context);
+                                  }
+                                  else{                                                             
+                                      Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute<void>(
+                                          builder: (BuildContext context) =>
+                                              const PopUp(),
+                                        ),
+                                      );                                                                   
+                                  }                                                                    
                                 },
                                 type: PrimaryButtonType.green,
                               ),
@@ -180,6 +196,16 @@ class _PopUpState extends State<PopUp> {
                 iconSize: 30,
                 color: Palette.current.primaryNeonGreen,
                 onPressed: () {
+                  getIt<AuthBloc>().add(const AuthEvent.privateProfile());
+                  ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
+                  if(profileData.accountVerified){
+                     Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute<void>(
+                                          builder: (BuildContext context) =>
+                                              const PopUp(name: "importData",),
+                                        ),
+                                      ); 
+                  }                  
                   Navigator.of(context).pop();
                 },
                 icon: const Icon(
