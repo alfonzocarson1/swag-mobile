@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_rich_text/simple_rich_text.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 
 import '../../../generated/l10n.dart';
+import '../../blocs/update_profile_bloc/update_profile_bloc.dart';
 import 'clickable_text.dart';
 
 class PopUp extends StatefulWidget {
@@ -114,7 +116,9 @@ class _PopUpState extends State<PopUp> {
                               PrimaryButton(
                                 title: S.of(context).popup_btn_yes,
                                 onPressed: () {
+                                  context.read<UpdateProfileBloc>().add(const UpdateProfileEvent.importData());
                                   Navigator.pop(context);
+                                  
                                 },
                                 type: PrimaryButtonType.green,
                               ),
