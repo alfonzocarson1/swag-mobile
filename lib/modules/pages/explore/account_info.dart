@@ -181,7 +181,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
 
   getStoredInfo()async{
     firstName = (await getIt<StorageRepositoryService>().getFirstName())!;
-    lastName = (await getIt<StorageRepositoryService>().getFirstName())!;
+    lastName = (await getIt<StorageRepositoryService>().getLastName())!;
     var addresses = (await getIt<StorageRepositoryService>().getAddresses());
     if(addresses.isNotEmpty){
       address1 = addresses[0]??'';
