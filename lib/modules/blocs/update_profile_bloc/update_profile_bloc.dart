@@ -16,6 +16,7 @@ part 'update_profile_state.dart';
 
 class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
   final IUpdateProfileService updateProfileService;
+  
 
   UpdateProfileBloc(this.updateProfileService)
       : super(UpdateProfileState.initial());
@@ -27,7 +28,7 @@ class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
 
   @override
   Stream<UpdateProfileState> mapEventToState(UpdateProfileEvent event) async* {
-    yield* event.when(update: _update, updateAvatar: _updateAvatar, importData: importData);
+    yield* event.when(update: _update, updateAvatar: _updateAvatar, importData: importData, askEmailVerification: _askEmailVerification);
   }
 
   Stream<UpdateProfileState> _update(UpdateProfilePayloadModel param) async* {
@@ -64,5 +65,14 @@ class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
 
   Stream<UpdateProfileState> importData() async* {
     yield UpdateProfileState.updated();
+  }
+
+    Stream<UpdateProfileState> _askEmailVerification() async* {
+    try {
+      bool response = await updateProfileService.requestEmailVerification();
+      yield  UpdateProfileState.verificationEmailSent(response);
+    } on Exception catch (e) {
+      yield UpdateProfileState.error(HandlingErrors().getError(e));
+    }   
   }
 }

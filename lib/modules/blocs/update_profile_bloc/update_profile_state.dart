@@ -6,12 +6,10 @@ class UpdateProfileState with _$UpdateProfileState {
   factory UpdateProfileState.initial() = _InitialUpdateProfileState;
   factory UpdateProfileState.error(final String message) =
       _ErrorUpdateProfileState;
-
   factory UpdateProfileState.loadedSuccess(UpdateProfileModel successList) =
       LoadedSuccess;
-
   factory UpdateProfileState.loadedAvatarSuccess(
       UpdateAvatarModel successAvatarList) = LoadedAvatarSuccess;
-
   factory UpdateProfileState.updated() = Updated;
+  factory UpdateProfileState.verificationEmailSent(bool verificationSent) = VerificationEmailSent;
 }
