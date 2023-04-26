@@ -123,7 +123,7 @@ class _PopUpState extends State<PopUp> {
                                 title: S.of(context).popup_btn_yes,
                                 onPressed: () {
                                   ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
-                                  if(profileData.accountVerified){
+                                  if(profileData.emailVerified){
                                     context.read<UpdateProfileBloc>().add(const UpdateProfileEvent.importData());
                                     Navigator.pop(context);
                                   }
@@ -198,7 +198,7 @@ class _PopUpState extends State<PopUp> {
                 onPressed: () {
                   getIt<AuthBloc>().add(const AuthEvent.privateProfile());
                   ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
-                  if(profileData.accountVerified){
+                  if(profileData.emailVerified){
                      Navigator.of(context).pushReplacement(
                                         MaterialPageRoute<void>(
                                           builder: (BuildContext context) =>
