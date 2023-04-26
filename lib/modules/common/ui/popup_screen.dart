@@ -11,6 +11,7 @@ import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/profile/profile_model.dart';
 import 'clickable_text.dart';
+import 'dynamic_toast_messages.dart';
 
 class PopUp extends StatefulWidget {
   const PopUp({super.key, this.name});
@@ -21,15 +22,17 @@ class PopUp extends StatefulWidget {
 }
 
 class _PopUpState extends State<PopUp> {
+
   @override
   void initState() {
-    super.initState();
+    super.initState();  
   }
 
   @override
   Widget build(BuildContext context) {
     String? tempName = widget.name;
     
+
     return Center(
       child: Dialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
@@ -122,19 +125,21 @@ class _PopUpState extends State<PopUp> {
                               PrimaryButton(
                                 title: S.of(context).popup_btn_yes,
                                 onPressed: () {
-                                  ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
-                                  if(profileData.emailVerified){
-                                    context.read<UpdateProfileBloc>().add(const UpdateProfileEvent.importData());
+                                  ProfileModel profileData =
+                                      getIt<PreferenceRepositoryService>()
+                                          .profileData();
+                                  if (profileData.emailVerified) {
+                                    context.read<UpdateProfileBloc>().add(
+                                        const UpdateProfileEvent.importData());
                                     Navigator.pop(context);
+                                  } else {
+                                    Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute<void>(
+                                        builder: (BuildContext context) =>
+                                            const PopUp(),
+                                      ),
+                                    );
                                   }
-                                  else{                                                             
-                                      Navigator.of(context).pushReplacement(
-                                        MaterialPageRoute<void>(
-                                          builder: (BuildContext context) =>
-                                              const PopUp(),
-                                        ),
-                                      );                                                                   
-                                  }                                                                    
                                 },
                                 type: PrimaryButtonType.green,
                               ),
@@ -177,7 +182,29 @@ class _PopUpState extends State<PopUp> {
                               ),
                               PrimaryButton(
                                 title: S.of(context).resend_verification_email,
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.of(context).pop();                                
+                                  getIt<UpdateProfileBloc>().add(
+                                      const UpdateProfileEvent.askEmailVerification());
+                                   ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          duration: const Duration(seconds: 5),
+                                          behavior: SnackBarBehavior.floating,
+                                          margin: EdgeInsets.only(
+                                            bottom: MediaQuery.of(context)
+                                                    .size
+                                                    .height /
+                                                1.3,
+                                          ),
+                                          backgroundColor: Colors.transparent,
+                                          content: ToastMessage(
+                                            message: S
+                                                .of(context)
+                                                .toast_message_create_account,
+                                          ),
+                                          dismissDirection:
+                                              DismissDirection.none));
+                                },
                                 type: PrimaryButtonType.green,
                               ),
                             ],
@@ -197,15 +224,17 @@ class _PopUpState extends State<PopUp> {
                 color: Palette.current.primaryNeonGreen,
                 onPressed: () {
                   getIt<AuthBloc>().add(const AuthEvent.privateProfile());
-                  ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
-                  if(profileData.emailVerified){
-                     Navigator.of(context).pushReplacement(
-                                        MaterialPageRoute<void>(
-                                          builder: (BuildContext context) =>
-                                              const PopUp(name: "importData",),
-                                        ),
-                                      ); 
-                  }                  
+                  ProfileModel profileData =
+                      getIt<PreferenceRepositoryService>().profileData();
+                  if (profileData.emailVerified) {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext context) =>  PopUp(
+                          name: widget.name,
+                        ),
+                      ),
+                    );
+                  }
                   Navigator.of(context).pop();
                 },
                 icon: const Icon(
