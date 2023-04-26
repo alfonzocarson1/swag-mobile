@@ -9,15 +9,13 @@ import 'package:swagapp/modules/data/filters/filters_service.dart';
 import 'package:swagapp/modules/models/filters/dynamic_filters.dart';
 
 import '../../blocs/explore_bloc/explore_bloc.dart';
-import '../../blocs/search_bloc.dart/search_bloc.dart';
 import '../../common/ui/custom_app_bar.dart';
 import '../../common/ui/popup_screen.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/explore/explore_item_model.dart';
-import '../../models/search/filter_model.dart';
-import '../../models/search/search_request_payload_model.dart';
+
 import 'account_info.dart';
 
 class ExplorePage extends StatefulWidget {
@@ -37,26 +35,23 @@ class _ExplorePageState extends State<ExplorePage> {
   bool _isLogged = false;
   bool _hasJustSignedUp = false;
   bool _hasImportableData = false;
-  late final ScrollController? _scrollController =
+  late final ScrollController _scrollController =
       PrimaryScrollController.of(context);
 
   @override
   void initState() {
     this.loadDynamicFilters();
     this._isLogged = getIt<PreferenceRepositoryService>().isLogged();
-    this._hasJustSignedUp =
-        getIt<PreferenceRepositoryService>().hasJustSignedUp();
-    this._hasImportableData =
-        getIt<PreferenceRepositoryService>().hasImportableData();
+    this._hasJustSignedUp =    getIt<PreferenceRepositoryService>().hasJustSignedUp();
+    this._hasImportableData =  getIt<PreferenceRepositoryService>().hasImportableData();
 
-    if (!_isLogged)
+    if (!_isLogged) {
       getIt<PreferenceRepositoryService>().saveloginAfterGuest(true);
-
+    }
     if (_isLogged && _hasJustSignedUp) {
       getIt<PreferenceRepositoryService>().saveHasJustSignedUp(false);
       this.navigateToAccountInfoPage();
     }
-
     super.initState();
   }
 
@@ -107,7 +102,7 @@ class _ExplorePageState extends State<ExplorePage> {
         return Future.delayed(const Duration(milliseconds: 1500));
       },
       child: exploreList.isNotEmpty
-          ? _exploreList(exploreList, this._scrollController!)
+          ? _exploreList(exploreList, this._scrollController)
           : ListView.builder(
               itemBuilder: (_, index) => SizedBox(
                 height: MediaQuery.of(context).size.height * 0.7,
