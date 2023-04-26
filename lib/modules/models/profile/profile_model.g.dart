@@ -20,6 +20,7 @@ _$_ProfileModel _$$_ProfileModelFromJson(Map<String, dynamic> json) =>
               (e) => AddressesPayloadModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       accountVerified: json['accountVerified'] as bool,
+      emailVerified: json['emailVerified'] as bool,
     );
 
 Map<String, dynamic> _$$_ProfileModelToJson(_$_ProfileModel instance) =>
@@ -33,4 +34,5 @@ Map<String, dynamic> _$$_ProfileModelToJson(_$_ProfileModel instance) =>
       'email': instance.email,
       'addresses': instance.addresses,
       'accountVerified': instance.accountVerified,
+      'emailVerified': instance.emailVerified,
     };
