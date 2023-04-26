@@ -106,9 +106,6 @@ class _AddToWallCollectionState extends State<AddToWallCollection> {
                                   iconSize: 30,
                                   color: Palette.current.primaryNeonGreen,
                                   onPressed: () {
-                                    BlocProvider.of<CollectionBloc>(context)
-                                        .add(const CollectionEvent
-                                            .getProfileCollections());
                                     Navigator.of(context).pop();
                                   },
                                   icon: const Icon(

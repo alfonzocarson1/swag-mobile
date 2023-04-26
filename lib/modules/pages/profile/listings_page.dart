@@ -42,7 +42,10 @@ class _ListingsPageState extends State<ListingsPage> {
   Widget build(BuildContext context) {
     return BlocBuilder<ListingProfileCubit, ListingCubitState>(
         builder: (context, state) {
-      return state.when(
+      return state.maybeWhen(
+          orElse: () {
+            return Container();
+          },
           initial: () => ListView.builder(
                 itemBuilder: (_, index) => SizedBox(
                   height: MediaQuery.of(context).size.height * 0.5,
@@ -50,12 +53,6 @@ class _ListingsPageState extends State<ListingsPage> {
                 ),
                 itemCount: 1,
               ),
-          loading: (bool isFirstFetch) {
-            return Container();
-          },
-          error: (String message) {
-            return Container();
-          },
           loadedProfileListings:
               (List<ListingForSaleProfileResponseModel> listForSale) {
             return _getBody(listForSale.first.listForSale);

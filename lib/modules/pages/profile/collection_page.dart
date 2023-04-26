@@ -6,11 +6,13 @@ import 'package:swagapp/modules/di/injector.dart';
 import 'package:swagapp/modules/common/ui/refresh_widget.dart';
 
 import '../../../generated/l10n.dart';
-import '../../blocs/collection_bloc/collection_bloc.dart';
-import '../../common/ui/loading.dart';
+
+import '../../common/ui/simple_loader.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
+import '../../cubits/collections/get_collections_cubit.dart';
 import '../../models/collection/get_collection_model.dart';
+import '../../models/collection/get_list_collection_model.dart';
 import '../add/collection/add_to_wall_collection.dart';
 
 import '../detail/item_detail_page.dart';
@@ -38,36 +40,37 @@ class _CollectionPageState extends State<CollectionPage> {
   }
 
   Future loadList() async {
-    getIt<CollectionBloc>().add(const CollectionEvent.getProfileCollections());
+    getIt<CollectionProfileCubit>().loadResults();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<CollectionBloc, CollectionState>(
-        listener: (context, state) => state.maybeWhen(
-              orElse: () {
-                return null;
-              },
-              loadedCollectionSuccess: (state) {
-                Navigator.of(context, rootNavigator: true).pop();
-                return null;
-              },
-              loadedProfileCollections: (state) {
-                setState(() {
-                  collectionList = [...state[0].collectionList];
-                  Loading.hide(context);
-                });
-                return null;
-              },
-              initial: () {
-                return Loading.show(context);
-              },
-              error: (message) => {
-                Loading.hide(context),
-                // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
-              },
-            ),
-        child: _getBody(collectionList));
+    return BlocBuilder<CollectionProfileCubit, CollectionCubitState>(
+        builder: (context, state) {
+      return state.maybeWhen(
+          orElse: () {
+            return Container();
+          },
+          initial: () => ListView.builder(
+                itemBuilder: (_, index) => SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.5,
+                  child: const Center(child: SimpleLoader()),
+                ),
+                itemCount: 1,
+              ),
+          loading: (bool isFirstFetch) {
+            return Container();
+          },
+          error: (String message) {
+            return Container();
+          },
+          loadedProfileCollections:
+              (List<ListCollectionProfileResponseModel> profileCollectionList) {
+            collectionList = [...profileCollectionList.first.collectionList];
+
+            return _getBody(collectionList);
+          });
+    });
   }
 
   Widget _getBody(List<GetCollectionModel> collectionList) {
