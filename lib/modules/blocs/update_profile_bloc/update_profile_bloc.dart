@@ -27,18 +27,16 @@ class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
 
   @override
   Stream<UpdateProfileState> mapEventToState(UpdateProfileEvent event) async* {
-    yield* event.when(update: _update, updateAvatar: _updateAvatar);
+    yield* event.when(update: _update, updateAvatar: _updateAvatar, importData: importData);
   }
 
   Stream<UpdateProfileState> _update(UpdateProfilePayloadModel param) async* {
     yield UpdateProfileState.initial();
-
     try {
       UpdateProfileModel responseBody =
           await updateProfileService.updateProfile(param);
 
       yield UpdateProfileState.updated();
-
       yield UpdateProfileState.loadedSuccess(responseBody);
     } catch (e) {
       yield UpdateProfileState.error(HandlingErrors().getError(e));
@@ -62,5 +60,9 @@ class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
     } catch (e) {
       yield UpdateProfileState.error(HandlingErrors().getError(e));
     }
+  }
+
+  Stream<UpdateProfileState> importData() async* {
+    yield UpdateProfileState.updated();
   }
 }

@@ -9,4 +9,11 @@ abstract class StorageRepositoryInt {
   Future<String?> getEmail();
   Future<void> savePassword(String password);
   Future<String?> getPassword();
+  Future<void> saveFirstName(String firstName);
+  Future<String?> getFirstName();
+  Future<void> saveLastName(String lastName);
+  Future<String?> getLastName();
+  Future<void> saveAddresses(List<String> addresses);
+  Future<List<String?>> getAddresses();
+
 }

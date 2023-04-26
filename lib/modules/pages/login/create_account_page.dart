@@ -21,7 +21,6 @@ import '../../constants/constants.dart';
 import '../../data/secure_storage/storage_repository_service.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
-import '../home/home_page.dart';
 
 class CreateAccountPage extends StatefulWidget {
   static const name = '/CreateAccount';
@@ -148,6 +147,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
                     getIt<StorageRepositoryService>()
                         .savePassword(_passwordController.text);
                     Loading.hide(context);
+                    getIt<AuthBloc>().add(const AuthEvent.privateProfile());
 
                     Future.delayed(
                         Duration(milliseconds: loginAfterGuest ? 0 : 2000), () {
