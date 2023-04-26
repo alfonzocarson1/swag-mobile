@@ -117,4 +117,15 @@ class AuthService extends IAuthService {
     );
     return response;
   }
+  
+  @override
+  Future<bool> requestEmailVerification() async {
+   String response = await apiService.getEndpointData(
+      endpoint: Endpoint.requestEmailVerification,
+      method: RequestMethod.post,
+      needBearer: true,
+      fromJson: (json) => json,
+    );
+    return response.parseBool();
+  }
 }
