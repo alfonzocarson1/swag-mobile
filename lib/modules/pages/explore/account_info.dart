@@ -11,10 +11,13 @@ import '../../common/ui/cupertino_custom_picker.dart';
 import '../../common/ui/custom_text_form_field.dart';
 import '../../common/ui/account_info_head.dart';
 import '../../common/ui/loading.dart';
+import '../../common/ui/popup_screen.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/size_helper.dart';
 import '../../data/secure_storage/storage_repository_service.dart';
+import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
+import '../../models/profile/profile_model.dart';
 import '../../models/update_profile/addresses_payload_model.dart';
 import '../../models/update_profile/update_profile_payload_model.dart';
 
@@ -71,10 +74,10 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   String? cityErrorText;
   String? stateErrorText;
   String? zipErrorText;
-  String firstName='';
-  String lastName='';
-  String address1='';
-  String address2='';
+  String firstName = '';
+  String lastName = '';
+  String address1 = '';
+  String address2 = '';
 
   late ResponsiveDesign _responsiveDesign;
 
@@ -98,6 +101,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   int value = 0;
 
   bool updateAllFlow = false;
+  String userName = '';
 
   @override
   void dispose() {
@@ -113,7 +117,11 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   @override
   void initState() {
     super.initState();
-   
+    ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
+    setState(() {
+      userName= profileData.username;
+    });    
+
     _firstNameNode.addListener(() {
       setState(() {
         _firstNameBorder = _firstNameNode.hasFocus
@@ -179,19 +187,19 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
     });
   }
 
-  getStoredInfo()async{
-    firstName = (await getIt<StorageRepositoryService>().getFirstName())!;
-    lastName = (await getIt<StorageRepositoryService>().getLastName())!;
+  getStoredInfo() async {
+    firstName = (await getIt<StorageRepositoryService>().getFirstName()) ?? '';
+    lastName = (await getIt<StorageRepositoryService>().getLastName()) ?? '';
     var addresses = (await getIt<StorageRepositoryService>().getAddresses());
-    if(addresses.isNotEmpty){
-      address1 = addresses[0]??'';
-      address2 = addresses[1]??'';
+    if (addresses.isNotEmpty) {
+      address1 = addresses[0] ?? '';
+      address2 = addresses[1] ?? '';
     }
   }
 
   @override
   Widget build(BuildContext context) {
-     getStoredInfo();
+    getStoredInfo();
 
     _responsiveDesign = ResponsiveDesign(context);
     return Scaffold(
@@ -201,47 +209,53 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
         appBar: CustomAppBar(),
         body: BlocListener<UpdateProfileBloc, UpdateProfileState>(
             listener: (context, state) => state.maybeWhen(
-                  orElse: () {
-                    return null;
-                  },
-                  updated: () {     
-                    if (updateAllFlow) {
-                      setState(() {
-                        _firstNameController.text = '';
-                        _lastNameController.text = '';
-                        _defaultCountry = 'Country';
-                        _firstAddressController.text = '';
-                        _secondAddressController.text = '';
-                        _cityController.text = '';
-                        _defaultState = 'State';
-                        _zipController.text = '';
-                        updateAllFlow = false;
-                      });
-                      Navigator.of(context, rootNavigator: true).pop();
-                    }
-                     setState(() {
-                        _firstNameController.text = firstName;
-                        _lastNameController.text = lastName;
-                        _defaultCountry = 'Country';
-                        _firstAddressController.text = address1;
-                        _secondAddressController.text = address2;
-                        _cityController.text = '';
-                        _defaultState = 'State';
-                        _zipController.text = '';
-                        updateAllFlow = false;
-                      });
-                   // Loading.hide(context);
-                   // return null;
-                  },
-                  initial: () {
-                    return Loading.show(context);
-                  },
-                  error: (message) => {
-                    updateAllFlow = false,
-                    Loading.hide(context),
-                    // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
-                  },
-                ),
+                orElse: () {
+                  return null;
+                },
+                updated: () {
+                  if (updateAllFlow) {
+                    setState(() {
+                      _firstNameController.text = '';
+                      _lastNameController.text = '';
+                      _defaultCountry = 'Country';
+                      _firstAddressController.text = '';
+                      _secondAddressController.text = '';
+                      _cityController.text = '';
+                      _defaultState = 'State';
+                      _zipController.text = '';
+                      updateAllFlow = false;
+                    });
+                    Navigator.of(context, rootNavigator: true).pop();
+                  }
+                  setState(() {
+                    _firstNameController.text = firstName;
+                    _lastNameController.text = lastName;
+                    _defaultCountry = 'Country';
+                    _firstAddressController.text = address1;
+                    _secondAddressController.text = address2;
+                    _cityController.text = '';
+                    _defaultState = 'State';
+                    _zipController.text = '';
+                    updateAllFlow = false;
+                  });
+                  return null;
+                  // Loading.hide(context);
+                  // return null;
+                },
+                initial: () {
+                  return Loading.show(context);
+                },
+                error: (message) => {
+                      updateAllFlow = false,
+                      Loading.hide(context),
+                      // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
+                    },
+                verificationEmailSent: (verification) => showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (BuildContext context) =>
+                           PopUp(name: userName),
+                    )),
             child: _getBody()));
   }
 
