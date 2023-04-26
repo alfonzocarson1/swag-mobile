@@ -1,12 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swagapp/generated/l10n.dart';
 
 import 'package:swagapp/modules/common/ui/loading.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/data/filters/filters_service.dart';
 import 'package:swagapp/modules/models/filters/dynamic_filters.dart';
+import 'package:swagapp/modules/models/shared_preferences/shared_preference_model.dart';
 
 import '../../blocs/explore_bloc/explore_bloc.dart';
 import '../../common/ui/custom_app_bar.dart';
@@ -16,6 +18,7 @@ import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/explore/explore_item_model.dart';
 
+import '../../models/profile/profile_model.dart';
 import 'account_info.dart';
 
 class ExplorePage extends StatefulWidget {
@@ -42,8 +45,8 @@ class _ExplorePageState extends State<ExplorePage> {
   void initState() {
     this.loadDynamicFilters();
     this._isLogged = getIt<PreferenceRepositoryService>().isLogged();
-    this._hasJustSignedUp =    getIt<PreferenceRepositoryService>().hasJustSignedUp();
-    this._hasImportableData =  getIt<PreferenceRepositoryService>().hasImportableData();
+    this._hasJustSignedUp = getIt<PreferenceRepositoryService>().hasJustSignedUp();
+    this._hasImportableData = getIt<PreferenceRepositoryService>().hasImportableData();
 
     if (!_isLogged) {
       getIt<PreferenceRepositoryService>().saveloginAfterGuest(true);
@@ -163,6 +166,7 @@ class _ExplorePageState extends State<ExplorePage> {
   void navigateToAccountInfoPage() {
     bool loginAfterGuest =
         getIt<PreferenceRepositoryService>().loginAfterGuest();
+    ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
 
     Future.delayed(Duration(milliseconds: loginAfterGuest ? 5000 : 7000), () {
       Navigator.of(context, rootNavigator: true).push(AccountInfoPage.route());
@@ -174,7 +178,7 @@ class _ExplorePageState extends State<ExplorePage> {
             showDialog(
               context: context,
               barrierDismissible: false,
-              builder: (BuildContext context) => const PopUp(name: "MRDOUG"),
+              builder: (BuildContext context) =>  PopUp(name: profileData.username),
             );
           }
         },
