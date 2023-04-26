@@ -1,5 +1,7 @@
 import 'dart:typed_data';
 
+import 'package:swagapp/modules/pages/login/create_account_page.dart';
+
 import '../../api/api.dart';
 import '../../api/api_service.dart';
 import '../../models/update_profile/update_avatar_model.dart';
@@ -41,5 +43,16 @@ class UpdateProfileService extends IUpdateProfileService {
       fromJson: (json) => UpdateAvatarModel.fromJson(json),
     );
     return response;
+  }
+
+  @override
+  Future<bool> requestEmailVerification() async {
+    String response = await apiService.getEndpointData(
+      endpoint: Endpoint.requestEmailVerification,
+      method: RequestMethod.post,
+      needBearer: true,
+      fromJson: (json) => json,
+    );
+    return response.parseBool();
   }
 }
