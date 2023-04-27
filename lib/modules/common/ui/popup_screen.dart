@@ -21,6 +21,8 @@ class PopUp extends StatefulWidget {
 }
 
 class _PopUpState extends State<PopUp> {
+  late ProfileModel profileModel;
+
   @override
   void initState() {
     super.initState();
@@ -29,6 +31,7 @@ class _PopUpState extends State<PopUp> {
   @override
   Widget build(BuildContext context) {
     String? tempName = widget.name;
+  
     
     return Center(
       child: Dialog(
@@ -121,20 +124,9 @@ class _PopUpState extends State<PopUp> {
                             children: [
                               PrimaryButton(
                                 title: S.of(context).popup_btn_yes,
-                                onPressed: () {
-                                  ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
-                                  if(profileData.emailVerified){
-                                    context.read<UpdateProfileBloc>().add(const UpdateProfileEvent.importData());
-                                    Navigator.pop(context);
-                                  }
-                                  else{                                                             
-                                      Navigator.of(context).pushReplacement(
-                                        MaterialPageRoute<void>(
-                                          builder: (BuildContext context) =>
-                                              const PopUp(),
-                                        ),
-                                      );                                                                   
-                                  }                                                                    
+                                onPressed: ()  {
+                                 getIt<UpdateProfileBloc>().add(const UpdateProfileEvent.importData());  
+                                 //Navigator.of(context).pop();                                                                                                                      
                                 },
                                 type: PrimaryButtonType.green,
                               ),
@@ -195,17 +187,7 @@ class _PopUpState extends State<PopUp> {
               child: IconButton(
                 iconSize: 30,
                 color: Palette.current.primaryNeonGreen,
-                onPressed: () {
-                  getIt<AuthBloc>().add(const AuthEvent.privateProfile());
-                  ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
-                  if(profileData.emailVerified){
-                     Navigator.of(context).pushReplacement(
-                                        MaterialPageRoute<void>(
-                                          builder: (BuildContext context) =>
-                                              const PopUp(name: "importData",),
-                                        ),
-                                      ); 
-                  }                  
+                onPressed: () {                    
                   Navigator.of(context).pop();
                 },
                 icon: const Icon(
