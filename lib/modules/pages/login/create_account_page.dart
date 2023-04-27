@@ -173,7 +173,8 @@ class _CreateAccountState extends State<CreateAccountPage> {
                     Future.delayed(
                         Duration(milliseconds: loginAfterGuest ? 4000 : 6000),
                         () {
-                      Navigator.popUntil(context, ModalRoute.withName('/'));
+                      Navigator.popUntil(context, ModalRoute.withName('/AccountInfo'));
+                    //  Navigator.popAndPushNamed(context, '/AccountInfo');
                     });
 
                     return null;
