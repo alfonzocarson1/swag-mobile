@@ -65,6 +65,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "collection": MessageLookupByLibrary.simpleMessage("Collection"),
         "collection_message": MessageLookupByLibrary.simpleMessage(
             "This cover is not in your collection, buy it now before it’s too late"),
+        "collection_value":
+            MessageLookupByLibrary.simpleMessage("COLLECTION VALUE:"),
         "collections": MessageLookupByLibrary.simpleMessage("collections"),
         "condition": MessageLookupByLibrary.simpleMessage("Condition"),
         "confirm_password":

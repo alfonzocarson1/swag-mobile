@@ -2139,6 +2139,16 @@ class S {
       args: [],
     );
   }
+
+  /// `COLLECTION VALUE:`
+  String get collection_value {
+    return Intl.message(
+      'COLLECTION VALUE:',
+      name: 'collection_value',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
