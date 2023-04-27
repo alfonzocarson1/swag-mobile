@@ -9,6 +9,7 @@ import '../../cubits/collections/get_collections_cubit.dart';
 import '../../data/collection/i_collection_service.dart';
 import '../../di/injector.dart';
 import '../../models/collection/add_collection_model.dart';
+import '../auth_bloc/auth_bloc.dart';
 
 part 'collection_bloc.freezed.dart';
 part 'collection_event.dart';
@@ -39,6 +40,7 @@ class CollectionBloc extends Bloc<CollectionEvent, CollectionState> {
           await collectionService.addCollection(param);
 
       getIt<CollectionProfileCubit>().loadResults();
+      getIt<AuthBloc>().add(const AuthEvent.privateProfile());
       yield CollectionState.loadedCollectionSuccess(responseBody);
     } catch (e) {
       yield CollectionState.error(HandlingErrors().getError(e));
@@ -52,6 +54,7 @@ class CollectionBloc extends Bloc<CollectionEvent, CollectionState> {
           await collectionService.removeCollection(param);
 
       getIt<CollectionProfileCubit>().loadResults();
+      getIt<AuthBloc>().add(const AuthEvent.privateProfile());
       yield CollectionState.loadedCollectionSuccess(responseBody);
     } catch (e) {
       yield CollectionState.error(HandlingErrors().getError(e));

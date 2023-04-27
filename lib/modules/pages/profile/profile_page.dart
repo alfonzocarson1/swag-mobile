@@ -4,9 +4,11 @@ import 'package:swagapp/modules/pages/profile/sold_page.dart';
 
 import '../../../generated/l10n.dart';
 import '../../common/ui/account_info_head.dart';
-import '../../common/ui/rating_ui.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
+import '../../data/shared_preferences/shared_preferences_service.dart';
+import '../../di/injector.dart';
+import '../../models/profile/profile_model.dart';
 import 'collection_page.dart';
 import 'favorites_page.dart';
 import 'listings_page.dart';
@@ -29,6 +31,7 @@ class _ProfilePageState extends State<ProfilePage>
   late TabController _tabController;
   double rating = 3.5;
   int _currentIndex = 0;
+  ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
 
   @override
   void initState() {
@@ -79,12 +82,45 @@ class _ProfilePageState extends State<ProfilePage>
           children: [
             const AccountInfoHeaderWidget(),
             const SizedBox(
+              height: 20,
+            ),
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: Text('COLLECTION VALUE:',
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium!
+                          .copyWith(
+                              fontFamily: "Knockout",
+                              fontSize: 20,
+                              letterSpacing: 1.5,
+                              fontWeight: FontWeight.w300,
+                              color: Palette.current.light4)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: Text('\$${profileData.collectionValue}',
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium!
+                          .copyWith(
+                              fontFamily: "Knockout",
+                              fontSize: 45,
+                              letterSpacing: 1.0,
+                              fontWeight: FontWeight.w300,
+                              color: Palette.current.light4)),
+                ),
+              ],
+            ),
+            const SizedBox(
               height: 10,
             ),
-            StarRating(
-              rating: rating,
-              onRatingChanged: (rating) => setState(() => this.rating = rating),
-            ),
+            // StarRating(
+            //   rating: rating,
+            //   onRatingChanged: (rating) => setState(() => this.rating = rating),
+            // ),
             const SizedBox(
               height: 10,
             ),
