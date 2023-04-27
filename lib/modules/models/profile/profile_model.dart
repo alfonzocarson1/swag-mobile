@@ -17,6 +17,7 @@ class ProfileModel with _$ProfileModel {
     required final String phoneNumber,
     required final String email,
     List<AddressesPayloadModel>? addresses,
+    required final double collectionValue,
     required final bool accountVerified,
     required final bool emailVerified,
   }) = _ProfileModel;
