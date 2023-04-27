@@ -9,6 +9,7 @@ import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/common/utils/utils.dart';
 import 'package:swagapp/modules/models/auth/create_account_payload_model.dart';
+import 'package:swagapp/modules/pages/explore/account_info.dart';
 import 'package:swagapp/modules/pages/login/sign_in_page.dart';
 
 import '../../blocs/auth_bloc/auth_bloc.dart';
@@ -173,8 +174,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
                     Future.delayed(
                         Duration(milliseconds: loginAfterGuest ? 4000 : 6000),
                         () {
-                      Navigator.popUntil(context, ModalRoute.withName('/AccountInfo'));
-                    //  Navigator.popAndPushNamed(context, '/AccountInfo');
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const AccountInfoPage()));
                     });
 
                     return null;
