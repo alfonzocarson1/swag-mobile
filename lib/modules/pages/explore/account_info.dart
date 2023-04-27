@@ -11,9 +11,11 @@ import '../../common/ui/cupertino_custom_picker.dart';
 import '../../common/ui/custom_text_form_field.dart';
 import '../../common/ui/account_info_head.dart';
 import '../../common/ui/loading.dart';
+import '../../common/ui/popup_screen.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/size_helper.dart';
 import '../../data/secure_storage/storage_repository_service.dart';
+import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/update_profile/addresses_payload_model.dart';
 import '../../models/update_profile/update_profile_payload_model.dart';
@@ -71,10 +73,11 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   String? cityErrorText;
   String? stateErrorText;
   String? zipErrorText;
-  String firstName='';
-  String lastName='';
-  String address1='';
-  String address2='';
+  String firstName = '';
+  String lastName = '';
+  String address1 = '';
+  String address2 = '';
+  bool hasImportableData = false;
 
   late ResponsiveDesign _responsiveDesign;
 
@@ -113,7 +116,10 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   @override
   void initState() {
     super.initState();
-   
+
+    hasImportableData =
+        getIt<PreferenceRepositoryService>().hasImportableData();
+
     _firstNameNode.addListener(() {
       setState(() {
         _firstNameBorder = _firstNameNode.hasFocus
@@ -179,19 +185,22 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
     });
   }
 
-  getStoredInfo()async{
-    firstName = (await getIt<StorageRepositoryService>().getFirstName())!;
-    lastName = (await getIt<StorageRepositoryService>().getLastName())!;
+  getStoredInfo() async {
+    firstName = (await getIt<StorageRepositoryService>().getFirstName() ?? '');
+    lastName = (await getIt<StorageRepositoryService>().getLastName() ?? '');
     var addresses = (await getIt<StorageRepositoryService>().getAddresses());
-    if(addresses.isNotEmpty){
-      address1 = addresses[0]??'';
-      address2 = addresses[1]??'';
+    if (addresses.isNotEmpty) {
+      address1 = addresses[0] ?? '';
+      address2 = addresses[1] ?? '';
     }
   }
 
   @override
   Widget build(BuildContext context) {
-     getStoredInfo();
+    getStoredInfo();
+    if (firstName == '' || lastName == '') {
+      showPopUp();
+    }
 
     _responsiveDesign = ResponsiveDesign(context);
     return Scaffold(
@@ -204,7 +213,32 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                   orElse: () {
                     return null;
                   },
-                  updated: () {     
+                  dataImported: (emailVerified) {
+                    if (emailVerified) {
+                      // context.read<UpdateProfileBloc>().add(const UpdateProfileEvent.importData());
+                      Navigator.of(context).pop();
+                      setState(() {
+                        getStoredInfo();
+                        _firstNameController.text = firstName;
+                        _lastNameController.text = lastName;
+                        _defaultCountry = 'Country';
+                        _firstAddressController.text = address1;
+                        _secondAddressController.text = address2;
+                        _cityController.text = '';
+                        _defaultState = 'State';
+                        _zipController.text = '';
+                        updateAllFlow = false;
+                      });
+                    } else {
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) => const PopUp(),
+                        ),
+                      );
+                    }
+                    return null;
+                  },
+                  updated: () {
                     if (updateAllFlow) {
                       setState(() {
                         _firstNameController.text = '';
@@ -219,19 +253,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                       });
                       Navigator.of(context, rootNavigator: true).pop();
                     }
-                     setState(() {
-                        _firstNameController.text = firstName;
-                        _lastNameController.text = lastName;
-                        _defaultCountry = 'Country';
-                        _firstAddressController.text = address1;
-                        _secondAddressController.text = address2;
-                        _cityController.text = '';
-                        _defaultState = 'State';
-                        _zipController.text = '';
-                        updateAllFlow = false;
-                      });
-                   // Loading.hide(context);
-                   // return null;
+                    Loading.hide(context);
+                    return null;
                   },
                   initial: () {
                     return Loading.show(context);
@@ -558,5 +581,20 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
         _cityController.text.isNotEmpty &&
         _defaultState != 'State' &&
         _zipController.text.isNotEmpty;
+  }
+
+  void showPopUp() {
+    Future.delayed(
+      const Duration(milliseconds: 500),
+      () {
+        if (hasImportableData) {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) => const PopUp(name: "MRDOUG"),
+          );
+        }
+      },
+    );
   }
 }
