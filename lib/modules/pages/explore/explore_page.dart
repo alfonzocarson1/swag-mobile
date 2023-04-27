@@ -10,7 +10,6 @@ import 'package:swagapp/modules/models/filters/dynamic_filters.dart';
 
 import '../../blocs/explore_bloc/explore_bloc.dart';
 import '../../common/ui/custom_app_bar.dart';
-import '../../common/ui/popup_screen.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
@@ -34,7 +33,7 @@ class ExplorePage extends StatefulWidget {
 class _ExplorePageState extends State<ExplorePage> {
   bool _isLogged = false;
   bool _hasJustSignedUp = false;
-  bool _hasImportableData = false;
+  
   late final ScrollController _scrollController =
       PrimaryScrollController.of(context);
 
@@ -43,7 +42,6 @@ class _ExplorePageState extends State<ExplorePage> {
     this.loadDynamicFilters();
     this._isLogged = getIt<PreferenceRepositoryService>().isLogged();
     this._hasJustSignedUp =    getIt<PreferenceRepositoryService>().hasJustSignedUp();
-    this._hasImportableData =  getIt<PreferenceRepositoryService>().hasImportableData();
 
     if (!_isLogged) {
       getIt<PreferenceRepositoryService>().saveloginAfterGuest(true);
@@ -166,19 +164,6 @@ class _ExplorePageState extends State<ExplorePage> {
 
     Future.delayed(Duration(milliseconds: loginAfterGuest ? 5000 : 7000), () {
       Navigator.of(context, rootNavigator: true).push(AccountInfoPage.route());
-
-      Future.delayed(
-        const Duration(milliseconds: 1000),
-        () {
-          if (_hasImportableData) {
-            showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (BuildContext context) => const PopUp(name: "MRDOUG"),
-            );
-          }
-        },
-      );
     });
   }
 
