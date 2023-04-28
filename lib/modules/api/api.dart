@@ -15,6 +15,7 @@ enum Endpoint {
   updateProfile,
   updateAvatar,
   requestPasswordResetCode,
+  requestEmailVerification,
   requestIsvalidCode,
   changePassword,
   addCollection,
@@ -60,6 +61,7 @@ class API {
     Endpoint.updateAvatar: 'api/v1/image/%s',
     Endpoint.requestPasswordResetCode:
         'api/public/v1/account/requestPasswordResetCode/%s',
+    Endpoint.requestEmailVerification:'api/v1/account/requestEmailVerification',    
     Endpoint.requestIsvalidCode:
         'api/public/v1/account/requestPasswordResetCode/isvalid/%s',
     Endpoint.changePassword: 'api/public/v1/account/passwordChangeRequest',

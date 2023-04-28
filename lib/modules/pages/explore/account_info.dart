@@ -10,6 +10,7 @@ import '../../blocs/update_profile_bloc/update_profile_bloc.dart';
 import '../../common/ui/cupertino_custom_picker.dart';
 import '../../common/ui/custom_text_form_field.dart';
 import '../../common/ui/account_info_head.dart';
+import '../../common/ui/dynamic_toast_messages.dart';
 import '../../common/ui/loading.dart';
 import '../../common/ui/popup_screen.dart';
 import '../../common/utils/custom_route_animations.dart';
@@ -78,6 +79,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   String address1 = '';
   String address2 = '';
   bool hasImportableData = false;
+  bool verificationEmailSent = false;
 
   late ResponsiveDesign _responsiveDesign;
 
@@ -101,6 +103,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   int value = 0;
 
   bool updateAllFlow = false;
+  String userName = 'MrDoug';
 
   @override
   void dispose() {
@@ -199,9 +202,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   Widget build(BuildContext context) {
     getStoredInfo();
     if (firstName == '' || lastName == '') {
-      showPopUp();
+      showPopUp(username: userName);
     }
-
     _responsiveDesign = ResponsiveDesign(context);
     return Scaffold(
         extendBodyBehindAppBar: true,
@@ -213,9 +215,28 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                   orElse: () {
                     return null;
                   },
+                  verificationEmailSent: (verificationSent) {
+                    if(verificationSent){
+                      Navigator.of(context).pop();   
+
+                     Future.delayed(const Duration(seconds: 3),(() => showPopUp(username: userName)));                      
+
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        duration: const Duration(seconds: 5),
+                        behavior: SnackBarBehavior.floating,
+                        margin: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).size.height / 1.3,
+                        ),
+                        backgroundColor: Colors.transparent,
+                        content: ToastMessage(
+                          message: S.of(context).toast_message_create_account,
+                        ),
+                        dismissDirection: DismissDirection.none));
+                    }
+                    return null;                    
+                  },
                   dataImported: (emailVerified) {
                     if (emailVerified) {
-                      // context.read<UpdateProfileBloc>().add(const UpdateProfileEvent.importData());
                       Navigator.of(context).pop();
                       setState(() {
                         getStoredInfo();
@@ -230,11 +251,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                         updateAllFlow = false;
                       });
                     } else {
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute<void>(
-                          builder: (BuildContext context) => const PopUp(),
-                        ),
-                      );
+                      Navigator.of(context).pop();
+                      Future.delayed(const Duration(seconds: 1),(() => showPopUp()));   
                     }
                     return null;
                   },
@@ -583,15 +601,21 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
         _zipController.text.isNotEmpty;
   }
 
-  void showPopUp() {
+  void showPopUp({String? username}) {
     Future.delayed(
       const Duration(milliseconds: 500),
       () {
-        if (hasImportableData) {
+        if (hasImportableData && username !=null) {
           showDialog(
             context: context,
             barrierDismissible: false,
-            builder: (BuildContext context) => const PopUp(name: "MRDOUG"),
+            builder: (BuildContext context) =>  PopUp(name: username),
+          );
+        } else if(hasImportableData && username == null){
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) => const PopUp(),
           );
         }
       },

@@ -14,6 +14,7 @@ abstract class IAuthService {
   Future<void> requestPasswordResetCode(String email);
   Future<ForgotPasswordCodeModel> sendCode(String code);
   Future<ForgotPasswordCodeModel> validEmail(String email);
+  Future<bool> requestEmailVerification();
   Future<ProfileModel> privateProfile();
   Future<ChangePasswordResponseModel> changePassword(
       String changeCode, String newPassword, String deviceId);

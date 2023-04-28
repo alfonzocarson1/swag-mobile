@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_rich_text/simple_rich_text.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 
 import '../../../generated/l10n.dart';
 import '../../blocs/update_profile_bloc/update_profile_bloc.dart';
-import '../../cubits/profile/get_profile_cubit.dart';
-import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
-import '../../models/profile/profile_model.dart';
 import 'clickable_text.dart';
+import 'dynamic_toast_messages.dart';
 
 class PopUp extends StatefulWidget {
   const PopUp({super.key, this.name});
@@ -21,11 +18,10 @@ class PopUp extends StatefulWidget {
 }
 
 class _PopUpState extends State<PopUp> {
-  late ProfileModel profileModel;
 
   @override
   void initState() {
-    super.initState();
+    super.initState();  
   }
 
   @override
@@ -33,6 +29,7 @@ class _PopUpState extends State<PopUp> {
     String? tempName = widget.name;
   
     
+
     return Center(
       child: Dialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
@@ -168,7 +165,11 @@ class _PopUpState extends State<PopUp> {
                               ),
                               PrimaryButton(
                                 title: S.of(context).resend_verification_email,
-                                onPressed: () {},
+                                onPressed: () {                         
+                                  getIt<UpdateProfileBloc>().add(
+                                      const UpdateProfileEvent.askEmailVerification());
+                                        
+                                },
                                 type: PrimaryButtonType.green,
                               ),
                             ],
