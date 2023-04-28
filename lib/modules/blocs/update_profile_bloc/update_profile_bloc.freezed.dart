@@ -526,6 +526,7 @@ mixin _$UpdateProfileState {
     required TResult Function(UpdateAvatarModel successAvatarList)
         loadedAvatarSuccess,
     required TResult Function() updated,
+    required TResult Function(bool emailVerified) dataImported,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -535,6 +536,7 @@ mixin _$UpdateProfileState {
     TResult? Function(UpdateProfileModel successList)? loadedSuccess,
     TResult? Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
     TResult? Function()? updated,
+    TResult? Function(bool emailVerified)? dataImported,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -544,6 +546,7 @@ mixin _$UpdateProfileState {
     TResult Function(UpdateProfileModel successList)? loadedSuccess,
     TResult Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
     TResult Function()? updated,
+    TResult Function(bool emailVerified)? dataImported,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -554,6 +557,7 @@ mixin _$UpdateProfileState {
     required TResult Function(LoadedSuccess value) loadedSuccess,
     required TResult Function(LoadedAvatarSuccess value) loadedAvatarSuccess,
     required TResult Function(Updated value) updated,
+    required TResult Function(DataImported value) dataImported,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -563,6 +567,7 @@ mixin _$UpdateProfileState {
     TResult? Function(LoadedSuccess value)? loadedSuccess,
     TResult? Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
     TResult? Function(Updated value)? updated,
+    TResult? Function(DataImported value)? dataImported,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -572,6 +577,7 @@ mixin _$UpdateProfileState {
     TResult Function(LoadedSuccess value)? loadedSuccess,
     TResult Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
     TResult Function(Updated value)? updated,
+    TResult Function(DataImported value)? dataImported,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -642,6 +648,7 @@ class _$_InitialUpdateProfileState extends _InitialUpdateProfileState {
     required TResult Function(UpdateAvatarModel successAvatarList)
         loadedAvatarSuccess,
     required TResult Function() updated,
+    required TResult Function(bool emailVerified) dataImported,
   }) {
     return initial();
   }
@@ -654,6 +661,7 @@ class _$_InitialUpdateProfileState extends _InitialUpdateProfileState {
     TResult? Function(UpdateProfileModel successList)? loadedSuccess,
     TResult? Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
     TResult? Function()? updated,
+    TResult? Function(bool emailVerified)? dataImported,
   }) {
     return initial?.call();
   }
@@ -666,6 +674,7 @@ class _$_InitialUpdateProfileState extends _InitialUpdateProfileState {
     TResult Function(UpdateProfileModel successList)? loadedSuccess,
     TResult Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
     TResult Function()? updated,
+    TResult Function(bool emailVerified)? dataImported,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -682,6 +691,7 @@ class _$_InitialUpdateProfileState extends _InitialUpdateProfileState {
     required TResult Function(LoadedSuccess value) loadedSuccess,
     required TResult Function(LoadedAvatarSuccess value) loadedAvatarSuccess,
     required TResult Function(Updated value) updated,
+    required TResult Function(DataImported value) dataImported,
   }) {
     return initial(this);
   }
@@ -694,6 +704,7 @@ class _$_InitialUpdateProfileState extends _InitialUpdateProfileState {
     TResult? Function(LoadedSuccess value)? loadedSuccess,
     TResult? Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
     TResult? Function(Updated value)? updated,
+    TResult? Function(DataImported value)? dataImported,
   }) {
     return initial?.call(this);
   }
@@ -706,6 +717,7 @@ class _$_InitialUpdateProfileState extends _InitialUpdateProfileState {
     TResult Function(LoadedSuccess value)? loadedSuccess,
     TResult Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
     TResult Function(Updated value)? updated,
+    TResult Function(DataImported value)? dataImported,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -792,6 +804,7 @@ class _$_ErrorUpdateProfileState extends _ErrorUpdateProfileState {
     required TResult Function(UpdateAvatarModel successAvatarList)
         loadedAvatarSuccess,
     required TResult Function() updated,
+    required TResult Function(bool emailVerified) dataImported,
   }) {
     return error(message);
   }
@@ -804,6 +817,7 @@ class _$_ErrorUpdateProfileState extends _ErrorUpdateProfileState {
     TResult? Function(UpdateProfileModel successList)? loadedSuccess,
     TResult? Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
     TResult? Function()? updated,
+    TResult? Function(bool emailVerified)? dataImported,
   }) {
     return error?.call(message);
   }
@@ -816,6 +830,7 @@ class _$_ErrorUpdateProfileState extends _ErrorUpdateProfileState {
     TResult Function(UpdateProfileModel successList)? loadedSuccess,
     TResult Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
     TResult Function()? updated,
+    TResult Function(bool emailVerified)? dataImported,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -832,6 +847,7 @@ class _$_ErrorUpdateProfileState extends _ErrorUpdateProfileState {
     required TResult Function(LoadedSuccess value) loadedSuccess,
     required TResult Function(LoadedAvatarSuccess value) loadedAvatarSuccess,
     required TResult Function(Updated value) updated,
+    required TResult Function(DataImported value) dataImported,
   }) {
     return error(this);
   }
@@ -844,6 +860,7 @@ class _$_ErrorUpdateProfileState extends _ErrorUpdateProfileState {
     TResult? Function(LoadedSuccess value)? loadedSuccess,
     TResult? Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
     TResult? Function(Updated value)? updated,
+    TResult? Function(DataImported value)? dataImported,
   }) {
     return error?.call(this);
   }
@@ -856,6 +873,7 @@ class _$_ErrorUpdateProfileState extends _ErrorUpdateProfileState {
     TResult Function(LoadedSuccess value)? loadedSuccess,
     TResult Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
     TResult Function(Updated value)? updated,
+    TResult Function(DataImported value)? dataImported,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -957,6 +975,7 @@ class _$LoadedSuccess extends LoadedSuccess {
     required TResult Function(UpdateAvatarModel successAvatarList)
         loadedAvatarSuccess,
     required TResult Function() updated,
+    required TResult Function(bool emailVerified) dataImported,
   }) {
     return loadedSuccess(successList);
   }
@@ -969,6 +988,7 @@ class _$LoadedSuccess extends LoadedSuccess {
     TResult? Function(UpdateProfileModel successList)? loadedSuccess,
     TResult? Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
     TResult? Function()? updated,
+    TResult? Function(bool emailVerified)? dataImported,
   }) {
     return loadedSuccess?.call(successList);
   }
@@ -981,6 +1001,7 @@ class _$LoadedSuccess extends LoadedSuccess {
     TResult Function(UpdateProfileModel successList)? loadedSuccess,
     TResult Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
     TResult Function()? updated,
+    TResult Function(bool emailVerified)? dataImported,
     required TResult orElse(),
   }) {
     if (loadedSuccess != null) {
@@ -997,6 +1018,7 @@ class _$LoadedSuccess extends LoadedSuccess {
     required TResult Function(LoadedSuccess value) loadedSuccess,
     required TResult Function(LoadedAvatarSuccess value) loadedAvatarSuccess,
     required TResult Function(Updated value) updated,
+    required TResult Function(DataImported value) dataImported,
   }) {
     return loadedSuccess(this);
   }
@@ -1009,6 +1031,7 @@ class _$LoadedSuccess extends LoadedSuccess {
     TResult? Function(LoadedSuccess value)? loadedSuccess,
     TResult? Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
     TResult? Function(Updated value)? updated,
+    TResult? Function(DataImported value)? dataImported,
   }) {
     return loadedSuccess?.call(this);
   }
@@ -1021,6 +1044,7 @@ class _$LoadedSuccess extends LoadedSuccess {
     TResult Function(LoadedSuccess value)? loadedSuccess,
     TResult Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
     TResult Function(Updated value)? updated,
+    TResult Function(DataImported value)? dataImported,
     required TResult orElse(),
   }) {
     if (loadedSuccess != null) {
@@ -1122,6 +1146,7 @@ class _$LoadedAvatarSuccess extends LoadedAvatarSuccess {
     required TResult Function(UpdateAvatarModel successAvatarList)
         loadedAvatarSuccess,
     required TResult Function() updated,
+    required TResult Function(bool emailVerified) dataImported,
   }) {
     return loadedAvatarSuccess(successAvatarList);
   }
@@ -1134,6 +1159,7 @@ class _$LoadedAvatarSuccess extends LoadedAvatarSuccess {
     TResult? Function(UpdateProfileModel successList)? loadedSuccess,
     TResult? Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
     TResult? Function()? updated,
+    TResult? Function(bool emailVerified)? dataImported,
   }) {
     return loadedAvatarSuccess?.call(successAvatarList);
   }
@@ -1146,6 +1172,7 @@ class _$LoadedAvatarSuccess extends LoadedAvatarSuccess {
     TResult Function(UpdateProfileModel successList)? loadedSuccess,
     TResult Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
     TResult Function()? updated,
+    TResult Function(bool emailVerified)? dataImported,
     required TResult orElse(),
   }) {
     if (loadedAvatarSuccess != null) {
@@ -1162,6 +1189,7 @@ class _$LoadedAvatarSuccess extends LoadedAvatarSuccess {
     required TResult Function(LoadedSuccess value) loadedSuccess,
     required TResult Function(LoadedAvatarSuccess value) loadedAvatarSuccess,
     required TResult Function(Updated value) updated,
+    required TResult Function(DataImported value) dataImported,
   }) {
     return loadedAvatarSuccess(this);
   }
@@ -1174,6 +1202,7 @@ class _$LoadedAvatarSuccess extends LoadedAvatarSuccess {
     TResult? Function(LoadedSuccess value)? loadedSuccess,
     TResult? Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
     TResult? Function(Updated value)? updated,
+    TResult? Function(DataImported value)? dataImported,
   }) {
     return loadedAvatarSuccess?.call(this);
   }
@@ -1186,6 +1215,7 @@ class _$LoadedAvatarSuccess extends LoadedAvatarSuccess {
     TResult Function(LoadedSuccess value)? loadedSuccess,
     TResult Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
     TResult Function(Updated value)? updated,
+    TResult Function(DataImported value)? dataImported,
     required TResult orElse(),
   }) {
     if (loadedAvatarSuccess != null) {
@@ -1248,6 +1278,7 @@ class _$Updated extends Updated {
     required TResult Function(UpdateAvatarModel successAvatarList)
         loadedAvatarSuccess,
     required TResult Function() updated,
+    required TResult Function(bool emailVerified) dataImported,
   }) {
     return updated();
   }
@@ -1260,6 +1291,7 @@ class _$Updated extends Updated {
     TResult? Function(UpdateProfileModel successList)? loadedSuccess,
     TResult? Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
     TResult? Function()? updated,
+    TResult? Function(bool emailVerified)? dataImported,
   }) {
     return updated?.call();
   }
@@ -1272,6 +1304,7 @@ class _$Updated extends Updated {
     TResult Function(UpdateProfileModel successList)? loadedSuccess,
     TResult Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
     TResult Function()? updated,
+    TResult Function(bool emailVerified)? dataImported,
     required TResult orElse(),
   }) {
     if (updated != null) {
@@ -1288,6 +1321,7 @@ class _$Updated extends Updated {
     required TResult Function(LoadedSuccess value) loadedSuccess,
     required TResult Function(LoadedAvatarSuccess value) loadedAvatarSuccess,
     required TResult Function(Updated value) updated,
+    required TResult Function(DataImported value) dataImported,
   }) {
     return updated(this);
   }
@@ -1300,6 +1334,7 @@ class _$Updated extends Updated {
     TResult? Function(LoadedSuccess value)? loadedSuccess,
     TResult? Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
     TResult? Function(Updated value)? updated,
+    TResult? Function(DataImported value)? dataImported,
   }) {
     return updated?.call(this);
   }
@@ -1312,6 +1347,7 @@ class _$Updated extends Updated {
     TResult Function(LoadedSuccess value)? loadedSuccess,
     TResult Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
     TResult Function(Updated value)? updated,
+    TResult Function(DataImported value)? dataImported,
     required TResult orElse(),
   }) {
     if (updated != null) {
@@ -1324,4 +1360,164 @@ class _$Updated extends Updated {
 abstract class Updated extends UpdateProfileState {
   factory Updated() = _$Updated;
   Updated._() : super._();
+}
+
+/// @nodoc
+abstract class _$$DataImportedCopyWith<$Res> {
+  factory _$$DataImportedCopyWith(
+          _$DataImported value, $Res Function(_$DataImported) then) =
+      __$$DataImportedCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool emailVerified});
+}
+
+/// @nodoc
+class __$$DataImportedCopyWithImpl<$Res>
+    extends _$UpdateProfileStateCopyWithImpl<$Res, _$DataImported>
+    implements _$$DataImportedCopyWith<$Res> {
+  __$$DataImportedCopyWithImpl(
+      _$DataImported _value, $Res Function(_$DataImported) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? emailVerified = null,
+  }) {
+    return _then(_$DataImported(
+      null == emailVerified
+          ? _value.emailVerified
+          : emailVerified // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DataImported extends DataImported {
+  _$DataImported(this.emailVerified) : super._();
+
+  @override
+  final bool emailVerified;
+
+  @override
+  String toString() {
+    return 'UpdateProfileState.dataImported(emailVerified: $emailVerified)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DataImported &&
+            (identical(other.emailVerified, emailVerified) ||
+                other.emailVerified == emailVerified));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, emailVerified);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DataImportedCopyWith<_$DataImported> get copyWith =>
+      __$$DataImportedCopyWithImpl<_$DataImported>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(String message) error,
+    required TResult Function(UpdateProfileModel successList) loadedSuccess,
+    required TResult Function(UpdateAvatarModel successAvatarList)
+        loadedAvatarSuccess,
+    required TResult Function() updated,
+    required TResult Function(bool emailVerified) dataImported,
+  }) {
+    return dataImported(emailVerified);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(String message)? error,
+    TResult? Function(UpdateProfileModel successList)? loadedSuccess,
+    TResult? Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
+    TResult? Function()? updated,
+    TResult? Function(bool emailVerified)? dataImported,
+  }) {
+    return dataImported?.call(emailVerified);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(String message)? error,
+    TResult Function(UpdateProfileModel successList)? loadedSuccess,
+    TResult Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
+    TResult Function()? updated,
+    TResult Function(bool emailVerified)? dataImported,
+    required TResult orElse(),
+  }) {
+    if (dataImported != null) {
+      return dataImported(emailVerified);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_InitialUpdateProfileState value) initial,
+    required TResult Function(_ErrorUpdateProfileState value) error,
+    required TResult Function(LoadedSuccess value) loadedSuccess,
+    required TResult Function(LoadedAvatarSuccess value) loadedAvatarSuccess,
+    required TResult Function(Updated value) updated,
+    required TResult Function(DataImported value) dataImported,
+  }) {
+    return dataImported(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_InitialUpdateProfileState value)? initial,
+    TResult? Function(_ErrorUpdateProfileState value)? error,
+    TResult? Function(LoadedSuccess value)? loadedSuccess,
+    TResult? Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
+    TResult? Function(Updated value)? updated,
+    TResult? Function(DataImported value)? dataImported,
+  }) {
+    return dataImported?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_InitialUpdateProfileState value)? initial,
+    TResult Function(_ErrorUpdateProfileState value)? error,
+    TResult Function(LoadedSuccess value)? loadedSuccess,
+    TResult Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
+    TResult Function(Updated value)? updated,
+    TResult Function(DataImported value)? dataImported,
+    required TResult orElse(),
+  }) {
+    if (dataImported != null) {
+      return dataImported(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class DataImported extends UpdateProfileState {
+  factory DataImported(final bool emailVerified) = _$DataImported;
+  DataImported._() : super._();
+
+  bool get emailVerified;
+  @JsonKey(ignore: true)
+  _$$DataImportedCopyWith<_$DataImported> get copyWith =>
+      throw _privateConstructorUsedError;
 }
