@@ -10,6 +10,7 @@ import '../../blocs/update_profile_bloc/update_profile_bloc.dart';
 import '../../common/ui/cupertino_custom_picker.dart';
 import '../../common/ui/custom_text_form_field.dart';
 import '../../common/ui/account_info_head.dart';
+import '../../common/ui/dynamic_toast_messages.dart';
 import '../../common/ui/loading.dart';
 import '../../common/ui/popup_screen.dart';
 import '../../common/utils/custom_route_animations.dart';
@@ -215,9 +216,28 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                   orElse: () {
                     return null;
                   },
+                  verificationEmailSent: (verificationSent) {
+                    if(verificationSent){
+                        Navigator.of(context).pushReplacement(
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) => const PopUp(name: 'MrDoug'),
+                        ),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        duration: const Duration(seconds: 5),
+                        behavior: SnackBarBehavior.floating,
+                        margin: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).size.height / 1.3,
+                        ),
+                        backgroundColor: Colors.transparent,
+                        content: ToastMessage(
+                          message: S.of(context).toast_message_create_account,
+                        ),
+                        dismissDirection: DismissDirection.none));
+                    }                    
+                  },
                   dataImported: (emailVerified) {
                     if (emailVerified) {
-                      // context.read<UpdateProfileBloc>().add(const UpdateProfileEvent.importData());
                       Navigator.of(context).pop();
                       setState(() {
                         getStoredInfo();
