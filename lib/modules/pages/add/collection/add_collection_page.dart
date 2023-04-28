@@ -54,7 +54,7 @@ class AddCollection extends StatefulWidget {
 }
 
 class _AddCollectionState extends State<AddCollection> {
-  DateTime? _defaultDateTime;
+  DateTime _defaultDateTime = DateTime.now();
 
   var formattedDate = "";
 

@@ -38,7 +38,7 @@ class CollectionUnknownProductPage extends StatefulWidget {
 
 class _CollectionUnknownProductPageState
     extends State<CollectionUnknownProductPage> {
-  DateTime? _defaultDateTime;
+  DateTime _defaultDateTime = DateTime.now();
 
   final FocusNode _purchaseNode = FocusNode();
   final _purchaseController = TextEditingController();
