@@ -18,7 +18,6 @@ import '../../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
 import '../../di/injector.dart';
 import '../../models/listing_for_sale/listing_for_sale_model.dart';
 import '../../models/listing_for_sale/profile_listing_model.dart';
-import '../detail/item_detail_page.dart';
 
 class ListingsPage extends StatefulWidget {
   static const name = '/Listings';
@@ -100,6 +99,7 @@ class _ListingsPageState extends State<ListingsPage> {
                               if(catalogItemId != null){
                                 Navigator.of(context, rootNavigator: true).push(
                                 MaterialPageRoute(builder: (context) => ListItemPreviewPage(
+                                  profileId: listItem.profileId,
                                   imgList: imageFileList, 
                                   itemName: listItem.productItemName ?? '', 
                                   itemPrice: listItem.productItemPrice ?? 0.0, 
