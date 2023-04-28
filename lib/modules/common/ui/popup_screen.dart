@@ -165,11 +165,10 @@ class _PopUpState extends State<PopUp> {
                               ),
                               PrimaryButton(
                                 title: S.of(context).resend_verification_email,
-                                onPressed: () {
-                                 // Navigator.of(context).pop();                                
+                                onPressed: () {                         
                                   getIt<UpdateProfileBloc>().add(
                                       const UpdateProfileEvent.askEmailVerification());
-                                   
+                                        
                                 },
                                 type: PrimaryButtonType.green,
                               ),
