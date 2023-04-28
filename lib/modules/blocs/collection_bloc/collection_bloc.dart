@@ -6,6 +6,7 @@ import 'package:swagapp/modules/models/search/catalog_item_model.dart';
 
 import '../../common/utils/handling_errors.dart';
 import '../../cubits/collections/get_collections_cubit.dart';
+import '../../cubits/profile/get_profile_cubit.dart';
 import '../../data/collection/i_collection_service.dart';
 import '../../di/injector.dart';
 import '../../models/collection/add_collection_model.dart';
@@ -39,6 +40,7 @@ class CollectionBloc extends Bloc<CollectionEvent, CollectionState> {
           await collectionService.addCollection(param);
 
       getIt<CollectionProfileCubit>().loadResults();
+      getIt<ProfileCubit>().loadResults();
       yield CollectionState.loadedCollectionSuccess(responseBody);
     } catch (e) {
       yield CollectionState.error(HandlingErrors().getError(e));
@@ -52,6 +54,7 @@ class CollectionBloc extends Bloc<CollectionEvent, CollectionState> {
           await collectionService.removeCollection(param);
 
       getIt<CollectionProfileCubit>().loadResults();
+      getIt<ProfileCubit>().loadResults();
       yield CollectionState.loadedCollectionSuccess(responseBody);
     } catch (e) {
       yield CollectionState.error(HandlingErrors().getError(e));

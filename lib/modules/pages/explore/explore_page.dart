@@ -99,7 +99,7 @@ class _ExplorePageState extends State<ExplorePage> {
         return Future.delayed(const Duration(milliseconds: 1500));
       },
       child: exploreList.isNotEmpty
-          ? _exploreList(exploreList, this._scrollController)
+          ? _exploreList(exploreList, this._scrollController!)
           : ListView.builder(
               itemBuilder: (_, index) => SizedBox(
                 height: MediaQuery.of(context).size.height * 0.7,

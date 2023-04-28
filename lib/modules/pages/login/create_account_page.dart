@@ -19,6 +19,7 @@ import '../../common/ui/loading.dart';
 import '../../common/ui/web_view.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../constants/constants.dart';
+import '../../cubits/profile/get_profile_cubit.dart';
 import '../../data/secure_storage/storage_repository_service.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
@@ -148,7 +149,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
                     getIt<StorageRepositoryService>()
                         .savePassword(_passwordController.text);
                     Loading.hide(context);
-                    getIt<AuthBloc>().add(const AuthEvent.privateProfile());
+                    getIt<ProfileCubit>().loadResults();
 
                     Future.delayed(
                         Duration(milliseconds: loginAfterGuest ? 0 : 2000), () {

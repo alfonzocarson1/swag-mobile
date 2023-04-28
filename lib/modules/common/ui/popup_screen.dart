@@ -5,8 +5,8 @@ import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 
 import '../../../generated/l10n.dart';
-import '../../blocs/auth_bloc/auth_bloc.dart';
 import '../../blocs/update_profile_bloc/update_profile_bloc.dart';
+import '../../cubits/profile/get_profile_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/profile/profile_model.dart';
