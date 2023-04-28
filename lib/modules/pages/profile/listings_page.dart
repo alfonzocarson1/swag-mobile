@@ -12,6 +12,7 @@ import '../../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
 import '../../di/injector.dart';
 import '../../models/listing_for_sale/listing_for_sale_model.dart';
 import '../../models/listing_for_sale/profile_listing_model.dart';
+import '../detail/item_detail_page.dart';
 
 class ListingsPage extends StatefulWidget {
   static const name = '/Listings';
@@ -77,31 +78,40 @@ class _ListingsPageState extends State<ListingsPage> {
                 ),
                 itemCount: listingList.length,
                 itemBuilder: (_, index) {
+                  var catalogItemId = listingList[index].catalogItemId;
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Stack(
                         children: [
-                          SizedBox(
-                            height: MediaQuery.of(context).size.width * 0.38,
-                            child: ClipRRect(
-                              child: CachedNetworkImage(
-                                fit: BoxFit.fitHeight,
-                                imageUrl: listingList[index]
-                                        .productItemImageUrls[0] ??
-                                    'assets/images/Avatar.png',
-                                placeholder: (context, url) => SizedBox(
-                                  height: 200,
-                                  child: Center(
-                                    child: CircularProgressIndicator(
-                                      color: Palette.current.primaryNeonGreen,
-                                      backgroundColor: Colors.white,
+                          GestureDetector(
+                            onTap: () {
+                              if(catalogItemId != null){
+                                Navigator.of(context, rootNavigator: true).push(
+                                MaterialPageRoute(builder: builder)
+                              }                              
+                            },
+                            child: SizedBox(
+                              height: MediaQuery.of(context).size.width * 0.38,
+                              child: ClipRRect(
+                                child: CachedNetworkImage(
+                                  fit: BoxFit.fitHeight,
+                                  imageUrl: listingList[index]
+                                          .productItemImageUrls[0] ??
+                                      'assets/images/Avatar.png',
+                                  placeholder: (context, url) => SizedBox(
+                                    height: 200,
+                                    child: Center(
+                                      child: CircularProgressIndicator(
+                                        color: Palette.current.primaryNeonGreen,
+                                        backgroundColor: Colors.white,
+                                      ),
                                     ),
                                   ),
+                                  errorWidget: (context, url, error) =>
+                                      Image.asset(
+                                          "assets/images/ProfilePhoto.png"),
                                 ),
-                                errorWidget: (context, url, error) =>
-                                    Image.asset(
-                                        "assets/images/ProfilePhoto.png"),
                               ),
                             ),
                           ),
