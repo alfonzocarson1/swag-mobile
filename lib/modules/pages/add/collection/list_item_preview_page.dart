@@ -4,6 +4,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
+import 'package:swagapp/modules/cubits/profile/get_profile_cubit.dart';
+import 'package:swagapp/modules/pages/add/collection/widgets/custom_overlay_button.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../blocs/listing_bloc/listing_bloc.dart';
@@ -12,7 +14,11 @@ import '../../../common/ui/multi_image_slide.dart';
 import '../../../common/ui/primary_button.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
+import '../../../constants/constants.dart';
+import '../../../di/injector.dart';
 import '../../../models/listing_for_sale/listing_for_sale_model.dart';
+import '../../../models/overlay_buton/overlay_button_model.dart';
+import '../../../models/profile/profile_model.dart';
 import 'footer_list_item_page.dart';
 
 class ListItemPreviewPage extends StatefulWidget {
@@ -27,6 +33,7 @@ class ListItemPreviewPage extends StatefulWidget {
       required this.itemDescription,
       required this.profileCollectionItemId,
       required this.catalogItemId,
+      this.profileId,
       required this.onClose});
 
   List<XFile> imgList;
@@ -36,6 +43,7 @@ class ListItemPreviewPage extends StatefulWidget {
   String itemDescription;
   String profileCollectionItemId;
   String catalogItemId;
+  String? profileId;
   Function() onClose;
 
   static Route route(imgList, itemName, itemPrice, itemCondition,
@@ -58,6 +66,21 @@ class ListItemPreviewPage extends StatefulWidget {
 }
 
 class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
+  String profileId = "";
+  List<CustomOverlayItemModel> items = editListingDropDown;
+
+  @override
+  void initState() {
+    super.initState();
+    getProfileData();
+  }
+
+  getProfileData() async {
+    var tempProfile =
+        await getIt<ProfileCubit>().profileService.privateProfile();
+    profileId = tempProfile.accountId;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -143,13 +166,16 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                                   flex: 1,
                                   child: Align(
                                     alignment: Alignment.centerLeft,
-                                    child: IconButton(
+                                    child: CustomOverlayButton(
                                       icon: Image.asset(
                                         "assets/images/more-horizontal.png",
-                                        scale: 3.5,
+                                        scale: 2,
+                                      ), 
+                                      items: items, 
+                                      onItemSelected: (String value ) { 
+                                        print(value);
+                                       },
                                       ),
-                                      onPressed: () async {},
-                                    ),
                                   ))
                             ],
                           ),
