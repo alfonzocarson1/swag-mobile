@@ -5,8 +5,6 @@ import 'package:swagapp/modules/common/utils/palette.dart';
 
 import '../../../generated/l10n.dart';
 import '../../blocs/update_profile_bloc/update_profile_bloc.dart';
-import '../../cubits/profile/get_profile_cubit.dart';
-import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import 'clickable_text.dart';
 import 'dynamic_toast_messages.dart';
@@ -20,8 +18,6 @@ class PopUp extends StatefulWidget {
 }
 
 class _PopUpState extends State<PopUp> {
-
-  late ProfileModel profileModel;
 
   @override
   void initState() {
@@ -170,27 +166,10 @@ class _PopUpState extends State<PopUp> {
                               PrimaryButton(
                                 title: S.of(context).resend_verification_email,
                                 onPressed: () {
-                                  Navigator.of(context).pop();                                
+                                 // Navigator.of(context).pop();                                
                                   getIt<UpdateProfileBloc>().add(
                                       const UpdateProfileEvent.askEmailVerification());
-                                   ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                          duration: const Duration(seconds: 5),
-                                          behavior: SnackBarBehavior.floating,
-                                          margin: EdgeInsets.only(
-                                            bottom: MediaQuery.of(context)
-                                                    .size
-                                                    .height /
-                                                1.3,
-                                          ),
-                                          backgroundColor: Colors.transparent,
-                                          content: ToastMessage(
-                                            message: S
-                                                .of(context)
-                                                .toast_message_create_account,
-                                          ),
-                                          dismissDirection:
-                                              DismissDirection.none));
+                                   
                                 },
                                 type: PrimaryButtonType.green,
                               ),
