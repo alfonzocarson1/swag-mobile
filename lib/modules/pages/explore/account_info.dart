@@ -18,7 +18,6 @@ import '../../common/utils/size_helper.dart';
 import '../../data/secure_storage/storage_repository_service.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
-import '../../models/profile/profile_model.dart';
 import '../../models/update_profile/addresses_payload_model.dart';
 import '../../models/update_profile/update_profile_payload_model.dart';
 
@@ -80,6 +79,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   String address1 = '';
   String address2 = '';
   bool hasImportableData = false;
+  bool verificationEmailSent = false;
 
   late ResponsiveDesign _responsiveDesign;
 
@@ -103,7 +103,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   int value = 0;
 
   bool updateAllFlow = false;
-  String userName = '';
+  String userName = 'MrDoug';
 
   @override
   void dispose() {
@@ -202,9 +202,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   Widget build(BuildContext context) {
     getStoredInfo();
     if (firstName == '' || lastName == '') {
-      showPopUp();
+      showPopUp(username: userName);
     }
-
     _responsiveDesign = ResponsiveDesign(context);
     return Scaffold(
         extendBodyBehindAppBar: true,
@@ -218,11 +217,10 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                   },
                   verificationEmailSent: (verificationSent) {
                     if(verificationSent){
-                        Navigator.of(context).pushReplacement(
-                        MaterialPageRoute<void>(
-                          builder: (BuildContext context) => const PopUp(name: 'MrDoug'),
-                        ),
-                      );
+                      Navigator.of(context).pop();   
+
+                     Future.delayed(const Duration(seconds: 3),(() => showPopUp(username: userName)));                      
+
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         duration: const Duration(seconds: 5),
                         behavior: SnackBarBehavior.floating,
@@ -234,7 +232,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                           message: S.of(context).toast_message_create_account,
                         ),
                         dismissDirection: DismissDirection.none));
-                    }                    
+                    }
+                    return null;                    
                   },
                   dataImported: (emailVerified) {
                     if (emailVerified) {
@@ -252,11 +251,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                         updateAllFlow = false;
                       });
                     } else {
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute<void>(
-                          builder: (BuildContext context) => const PopUp(),
-                        ),
-                      );
+                      Navigator.of(context).pop();
+                      Future.delayed(const Duration(seconds: 1),(() => showPopUp()));   
                     }
                     return null;
                   },
@@ -605,15 +601,21 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
         _zipController.text.isNotEmpty;
   }
 
-  void showPopUp() {
+  void showPopUp({String? username}) {
     Future.delayed(
       const Duration(milliseconds: 500),
       () {
-        if (hasImportableData) {
+        if (hasImportableData && username !=null) {
           showDialog(
             context: context,
             barrierDismissible: false,
-            builder: (BuildContext context) => const PopUp(name: "MRDOUG"),
+            builder: (BuildContext context) =>  PopUp(name: username),
+          );
+        } else if(hasImportableData && username == null){
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) => const PopUp(),
           );
         }
       },
