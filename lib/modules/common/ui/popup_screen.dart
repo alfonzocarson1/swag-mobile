@@ -125,8 +125,7 @@ class _PopUpState extends State<PopUp> {
                               PrimaryButton(
                                 title: S.of(context).popup_btn_yes,
                                 onPressed: ()  {
-                                 getIt<UpdateProfileBloc>().add(const UpdateProfileEvent.importData());  
-                                 //Navigator.of(context).pop();                                                                                                                      
+                                 getIt<UpdateProfileBloc>().add(const UpdateProfileEvent.importData());                                                                                                                       
                                 },
                                 type: PrimaryButtonType.green,
                               ),
