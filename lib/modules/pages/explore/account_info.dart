@@ -78,6 +78,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   String lastName = '';
   String address1 = '';
   String address2 = '';
+  bool hasImportableData = false;
 
   late ResponsiveDesign _responsiveDesign;
 
@@ -117,10 +118,9 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   @override
   void initState() {
     super.initState();
-    ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
-    setState(() {
-      userName= profileData.username;
-    });    
+
+    hasImportableData =
+        getIt<PreferenceRepositoryService>().hasImportableData();
 
     _firstNameNode.addListener(() {
       setState(() {
@@ -188,8 +188,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   }
 
   getStoredInfo() async {
-    firstName = (await getIt<StorageRepositoryService>().getFirstName()) ?? '';
-    lastName = (await getIt<StorageRepositoryService>().getLastName()) ?? '';
+    firstName = (await getIt<StorageRepositoryService>().getFirstName() ?? '');
+    lastName = (await getIt<StorageRepositoryService>().getLastName() ?? '');
     var addresses = (await getIt<StorageRepositoryService>().getAddresses());
     if (addresses.isNotEmpty) {
       address1 = addresses[0] ?? '';
@@ -200,6 +200,9 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   @override
   Widget build(BuildContext context) {
     getStoredInfo();
+    if (firstName == '' || lastName == '') {
+      showPopUp();
+    }
 
     _responsiveDesign = ResponsiveDesign(context);
     return Scaffold(
@@ -209,53 +212,61 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
         appBar: CustomAppBar(),
         body: BlocListener<UpdateProfileBloc, UpdateProfileState>(
             listener: (context, state) => state.maybeWhen(
-                orElse: () {
-                  return null;
-                },
-                updated: () {
-                  if (updateAllFlow) {
-                    setState(() {
-                      _firstNameController.text = '';
-                      _lastNameController.text = '';
-                      _defaultCountry = 'Country';
-                      _firstAddressController.text = '';
-                      _secondAddressController.text = '';
-                      _cityController.text = '';
-                      _defaultState = 'State';
-                      _zipController.text = '';
-                      updateAllFlow = false;
-                    });
-                    Navigator.of(context, rootNavigator: true).pop();
-                  }
-                  setState(() {
-                    _firstNameController.text = firstName;
-                    _lastNameController.text = lastName;
-                    _defaultCountry = 'Country';
-                    _firstAddressController.text = address1;
-                    _secondAddressController.text = address2;
-                    _cityController.text = '';
-                    _defaultState = 'State';
-                    _zipController.text = '';
-                    updateAllFlow = false;
-                  });
-                  return null;
-                  // Loading.hide(context);
-                  // return null;
-                },
-                initial: () {
-                  return Loading.show(context);
-                },
-                error: (message) => {
-                      updateAllFlow = false,
-                      Loading.hide(context),
-                      // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
-                    },
-                verificationEmailSent: (verification) => showDialog(
-                      context: context,
-                      barrierDismissible: false,
-                      builder: (BuildContext context) =>
-                           PopUp(name: userName),
-                    )),
+                  orElse: () {
+                    return null;
+                  },
+                  dataImported: (emailVerified) {
+                    if (emailVerified) {
+                      // context.read<UpdateProfileBloc>().add(const UpdateProfileEvent.importData());
+                      Navigator.of(context).pop();
+                      setState(() {
+                        getStoredInfo();
+                        _firstNameController.text = firstName;
+                        _lastNameController.text = lastName;
+                        _defaultCountry = 'Country';
+                        _firstAddressController.text = address1;
+                        _secondAddressController.text = address2;
+                        _cityController.text = '';
+                        _defaultState = 'State';
+                        _zipController.text = '';
+                        updateAllFlow = false;
+                      });
+                    } else {
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) => const PopUp(),
+                        ),
+                      );
+                    }
+                    return null;
+                  },
+                  updated: () {
+                    if (updateAllFlow) {
+                      setState(() {
+                        _firstNameController.text = '';
+                        _lastNameController.text = '';
+                        _defaultCountry = 'Country';
+                        _firstAddressController.text = '';
+                        _secondAddressController.text = '';
+                        _cityController.text = '';
+                        _defaultState = 'State';
+                        _zipController.text = '';
+                        updateAllFlow = false;
+                      });
+                      Navigator.of(context, rootNavigator: true).pop();
+                    }
+                    Loading.hide(context);
+                    return null;
+                  },
+                  initial: () {
+                    return Loading.show(context);
+                  },
+                  error: (message) => {
+                    updateAllFlow = false,
+                    Loading.hide(context),
+                    // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
+                  },
+                ),
             child: _getBody()));
   }
 
@@ -572,5 +583,20 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
         _cityController.text.isNotEmpty &&
         _defaultState != 'State' &&
         _zipController.text.isNotEmpty;
+  }
+
+  void showPopUp() {
+    Future.delayed(
+      const Duration(milliseconds: 500),
+      () {
+        if (hasImportableData) {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) => const PopUp(name: "MRDOUG"),
+          );
+        }
+      },
+    );
   }
 }

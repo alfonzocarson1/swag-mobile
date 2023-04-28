@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_rich_text/simple_rich_text.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 
 import '../../../generated/l10n.dart';
-import '../../blocs/auth_bloc/auth_bloc.dart';
 import '../../blocs/update_profile_bloc/update_profile_bloc.dart';
+import '../../cubits/profile/get_profile_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
-import '../../models/profile/profile_model.dart';
 import 'clickable_text.dart';
 import 'dynamic_toast_messages.dart';
 
@@ -23,6 +21,8 @@ class PopUp extends StatefulWidget {
 
 class _PopUpState extends State<PopUp> {
 
+  late ProfileModel profileModel;
+
   @override
   void initState() {
     super.initState();  
@@ -31,6 +31,7 @@ class _PopUpState extends State<PopUp> {
   @override
   Widget build(BuildContext context) {
     String? tempName = widget.name;
+  
     
 
     return Center(
@@ -124,22 +125,8 @@ class _PopUpState extends State<PopUp> {
                             children: [
                               PrimaryButton(
                                 title: S.of(context).popup_btn_yes,
-                                onPressed: () {
-                                  ProfileModel profileData =
-                                      getIt<PreferenceRepositoryService>()
-                                          .profileData();
-                                  if (profileData.emailVerified) {
-                                    context.read<UpdateProfileBloc>().add(
-                                        const UpdateProfileEvent.importData());
-                                    Navigator.pop(context);
-                                  } else {
-                                    Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute<void>(
-                                        builder: (BuildContext context) =>
-                                            const PopUp(),
-                                      ),
-                                    );
-                                  }
+                                onPressed: ()  {
+                                 getIt<UpdateProfileBloc>().add(const UpdateProfileEvent.importData());                                                                                                                       
                                 },
                                 type: PrimaryButtonType.green,
                               ),
@@ -222,19 +209,7 @@ class _PopUpState extends State<PopUp> {
               child: IconButton(
                 iconSize: 30,
                 color: Palette.current.primaryNeonGreen,
-                onPressed: () {
-                  getIt<AuthBloc>().add(const AuthEvent.privateProfile());
-                  ProfileModel profileData =
-                      getIt<PreferenceRepositoryService>().profileData();
-                  if (profileData.emailVerified) {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute<void>(
-                        builder: (BuildContext context) =>  PopUp(
-                          name: widget.name,
-                        ),
-                      ),
-                    );
-                  }
+                onPressed: () {                    
                   Navigator.of(context).pop();
                 },
                 icon: const Icon(

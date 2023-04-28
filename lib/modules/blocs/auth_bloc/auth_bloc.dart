@@ -8,6 +8,7 @@ import 'package:swagapp/modules/models/update_profile/addresses_payload_model.da
 import '../../common/utils/handling_errors.dart';
 import '../../common/utils/utils.dart';
 import '../../constants/constants.dart';
+import '../../cubits/profile/get_profile_cubit.dart';
 import '../../data/auth/i_auth_service.dart';
 import '../../data/secure_storage/storage_repository_service.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
@@ -15,7 +16,6 @@ import '../../di/injector.dart';
 import '../../models/auth/change_password_response_model.dart';
 import '../../models/auth/create_account_payload_model.dart';
 import '../../models/auth/forgot_password_code_model.dart';
-import '../../models/profile/profile_model.dart';
 
 part 'auth_bloc.freezed.dart';
 part 'auth_event.dart';
@@ -55,7 +55,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       sendEmail: _sendEmail,
       validCode: _validCode,
       changePassword: _changePassword,
-      privateProfile: _privateProfile,
       init: _init,
     );
   }
@@ -72,17 +71,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Stream<AuthState> _createAccount(CreateAccountPayloadModel model) async* {
     yield const AuthState.logging();
     try {
-      CreateAccountResponseModel response = await authService.createAccount(model);
+      CreateAccountResponseModel response =
+          await authService.createAccount(model);
       List<AddressesPayloadModel>? addresses = response.addresses;
-     
+
       getIt<StorageRepositoryService>().saveToken(response.token);
 
-      if(response.hasImportableData && addresses!.isNotEmpty){
-        getIt<StorageRepositoryService>().saveFirstName(addresses[0].firstName ?? '');
-        getIt<StorageRepositoryService>().saveLastName(addresses[0].lastName ?? '');
-        getIt<StorageRepositoryService>().saveAddresses([addresses[0].address1 ?? '', addresses[0].address2??'']);
-      }         
-      
+      if (response.hasImportableData && addresses!.isNotEmpty) {
+        getIt<StorageRepositoryService>()
+            .saveFirstName(addresses[0].firstName ?? '');
+        getIt<StorageRepositoryService>()
+            .saveLastName(addresses[0].lastName ?? '');
+        getIt<StorageRepositoryService>().saveAddresses(
+            [addresses[0].address1 ?? '', addresses[0].address2 ?? '']);
+      }
+
       getIt<PreferenceRepositoryService>()
           .savehasImportableData(response.hasImportableData);
       getIt<PreferenceRepositoryService>().saveAccountId(response.accountId);
@@ -104,7 +107,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       getIt<StorageRepositoryService>().saveToken(response.token);
       if (response.errorCode == successResponse ||
           response.errorCode == defaultString) {
-        add(const AuthEvent.privateProfile());
+        getIt<ProfileCubit>().loadResults();
         yield const AuthState.authenticated();
       } else {
         yield AuthState.error(HandlingErrors().getError(response.errorCode));
@@ -155,15 +158,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       yield const AuthState.passwordChanged();
       yield const AuthState.authenticated();
-    } catch (e) {
-      yield AuthState.error(HandlingErrors().getError(e));
-    }
-  }
-
-  Stream<AuthState> _privateProfile() async* {
-    try {
-      ProfileModel response = await authService.privateProfile();
-      getIt<PreferenceRepositoryService>().saveProfileData(response);
     } catch (e) {
       yield AuthState.error(HandlingErrors().getError(e));
     }

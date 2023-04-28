@@ -2,13 +2,17 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:swagapp/modules/models/profile/profile_model.dart';
 
 import '../../common/utils/handling_errors.dart';
 import '../../data/update_profile/i_update_profile_service.dart';
+import '../../di/injector.dart';
 import '../../models/update_profile/update_avatar_model.dart';
 import '../../models/update_profile/update_profile_model.dart';
 import '../../models/update_profile/update_profile_payload_model.dart';
 import 'dart:typed_data';
+
+import '../auth_bloc/auth_bloc.dart';
 
 part 'update_profile_bloc.freezed.dart';
 part 'update_profile_event.dart';
@@ -64,7 +68,9 @@ class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
   }
 
   Stream<UpdateProfileState> importData() async* {
-    yield UpdateProfileState.updated();
+   ProfileModel profileModel  = await getIt<AuthBloc>().authService.privateProfile();
+   bool emailVerified = profileModel.emailVerified;
+    yield UpdateProfileState.dataImported(emailVerified);
   }
 
     Stream<UpdateProfileState> _askEmailVerification() async* {

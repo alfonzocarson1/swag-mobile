@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:swagapp/modules/pages/profile/sold_page.dart';
 
 import '../../../generated/l10n.dart';
 import '../../common/ui/account_info_head.dart';
-import '../../common/ui/rating_ui.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
+import '../../cubits/profile/get_profile_cubit.dart';
+import '../../di/injector.dart';
+import '../../models/profile/profile_model.dart';
 import 'collection_page.dart';
 import 'favorites_page.dart';
 import 'listings_page.dart';
@@ -34,6 +38,7 @@ class _ProfilePageState extends State<ProfilePage>
   void initState() {
     _tabController = TabController(length: 4, vsync: this);
     _tabController.addListener(_handleTabSelection);
+    getIt<ProfileCubit>().loadResults();
 
     super.initState();
   }
@@ -79,12 +84,66 @@ class _ProfilePageState extends State<ProfilePage>
           children: [
             const AccountInfoHeaderWidget(),
             const SizedBox(
+              height: 20,
+            ),
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: Text(S.of(context).collection_value,
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium!
+                          .copyWith(
+                              fontFamily: "Knockout",
+                              fontSize: 20,
+                              letterSpacing: 1.5,
+                              fontWeight: FontWeight.w300,
+                              color: Palette.current.light4)),
+                ),
+                BlocBuilder<ProfileCubit, ProfileCubitState>(
+                    builder: (context, state) {
+                  return state.maybeWhen(
+                    orElse: () => Container(),
+                    loadedProfileData: (ProfileModel profileBuildData) {
+                      var decimalDigits = profileBuildData.collectionValue
+                          .toString()
+                          .split('.');
+
+                      var oCcy = NumberFormat.currency(
+                          locale: 'en_US',
+                          customPattern: decimalDigits[1].length == 1
+                              ? '#,#'
+                              : decimalDigits[1].length == 2
+                                  ? '#,###,00'
+                                  : '#,###,000',
+                          decimalDigits: 3);
+                      return Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Text(
+                            '\$${oCcy.format(int.parse(profileBuildData.collectionValue.toString().split('.').join('')))}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium!
+                                .copyWith(
+                                    fontFamily: "Knockout",
+                                    fontSize: 45,
+                                    letterSpacing: 1.0,
+                                    fontWeight: FontWeight.w300,
+                                    color: Palette.current.light4)),
+                      );
+                    },
+                  );
+                }),
+              ],
+            ),
+            const SizedBox(
               height: 10,
             ),
-            StarRating(
-              rating: rating,
-              onRatingChanged: (rating) => setState(() => this.rating = rating),
-            ),
+            // StarRating(
+            //   rating: rating,
+            //   onRatingChanged: (rating) => setState(() => this.rating = rating),
+            // ),
             const SizedBox(
               height: 10,
             ),

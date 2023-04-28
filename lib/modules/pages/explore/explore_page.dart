@@ -12,7 +12,6 @@ import 'package:swagapp/modules/models/shared_preferences/shared_preference_mode
 
 import '../../blocs/explore_bloc/explore_bloc.dart';
 import '../../common/ui/custom_app_bar.dart';
-import '../../common/ui/popup_screen.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
@@ -37,7 +36,7 @@ class ExplorePage extends StatefulWidget {
 class _ExplorePageState extends State<ExplorePage> {
   bool _isLogged = false;
   bool _hasJustSignedUp = false;
-  bool _hasImportableData = false;
+  
   late final ScrollController _scrollController =
       PrimaryScrollController.of(context);
 
@@ -45,15 +44,13 @@ class _ExplorePageState extends State<ExplorePage> {
   void initState() {
     this.loadDynamicFilters();
     this._isLogged = getIt<PreferenceRepositoryService>().isLogged();
-    this._hasJustSignedUp = getIt<PreferenceRepositoryService>().hasJustSignedUp();
-    this._hasImportableData = getIt<PreferenceRepositoryService>().hasImportableData();
+    this._hasJustSignedUp =    getIt<PreferenceRepositoryService>().hasJustSignedUp();
 
     if (!_isLogged) {
       getIt<PreferenceRepositoryService>().saveloginAfterGuest(true);
     }
     if (_isLogged && _hasJustSignedUp) {
       getIt<PreferenceRepositoryService>().saveHasJustSignedUp(false);
-      this.navigateToAccountInfoPage();
     }
     super.initState();
   }
@@ -105,7 +102,7 @@ class _ExplorePageState extends State<ExplorePage> {
         return Future.delayed(const Duration(milliseconds: 1500));
       },
       child: exploreList.isNotEmpty
-          ? _exploreList(exploreList, this._scrollController)
+          ? _exploreList(exploreList, this._scrollController!)
           : ListView.builder(
               itemBuilder: (_, index) => SizedBox(
                 height: MediaQuery.of(context).size.height * 0.7,
@@ -170,19 +167,6 @@ class _ExplorePageState extends State<ExplorePage> {
 
     Future.delayed(Duration(milliseconds: loginAfterGuest ? 5000 : 7000), () {
       Navigator.of(context, rootNavigator: true).push(AccountInfoPage.route());
-
-      Future.delayed(
-        const Duration(milliseconds: 1000),
-        () {
-          if (_hasImportableData) {
-            showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (BuildContext context) =>  PopUp(name: profileData.username),
-            );
-          }
-        },
-      );
     });
   }
 
