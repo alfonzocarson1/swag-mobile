@@ -218,7 +218,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("NO, I\'LL DO THIS LATER"),
         "popup_btn_yes": MessageLookupByLibrary.simpleMessage("IMPORT MY INFO"),
         "popup_description": MessageLookupByLibrary.simpleMessage(
-            "It looks like you have an account on swag.golf. After you verify your email you will be able to  import your information into the Swag app."),
+            "It looks like you have an account on Swag.Golf. After you verify your email you will be able to  import your information into the Swag app."),
         "popup_title": MessageLookupByLibrary.simpleMessage("WELCOME @"),
         "post_listing_btn":
             MessageLookupByLibrary.simpleMessage("POST LISTING"),
