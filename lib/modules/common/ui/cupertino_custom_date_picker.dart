@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../../generated/l10n.dart';
 import '../utils/palette.dart';
@@ -10,7 +11,7 @@ class CupertinoDatePickerView extends StatefulWidget {
       {Key? key, required this.cupertinoDatePickervalue, required this.onDone})
       : super(key: key);
 
-  final DateTime? cupertinoDatePickervalue;
+  final DateTime cupertinoDatePickervalue;
   Function(DateTime) onDone;
 
   @override
@@ -21,7 +22,19 @@ class CupertinoDatePickerView extends StatefulWidget {
 class _CupertinoDatePickerViewState extends State<CupertinoDatePickerView> {
   DateTime selectDate = DateTime.now();
 
-  DateTime minimumDate = DateTime.now();
+  DateTime maximumDate = DateTime.now();
+
+  bool initMessage = true;
+
+  var myFormat = DateFormat('d-MM-yyyy');
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    maximumDate = widget.cupertinoDatePickervalue;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +74,7 @@ class _CupertinoDatePickerViewState extends State<CupertinoDatePickerView> {
                           Expanded(
                               flex: 1,
                               child: Text(
-                                widget.cupertinoDatePickervalue == null
+                                initMessage
                                     ? S.of(context).date_purchased
                                     : formatDate(widget.cupertinoDatePickervalue
                                         .toString()),
@@ -134,11 +147,18 @@ class _CupertinoDatePickerViewState extends State<CupertinoDatePickerView> {
                   SizedBox(
                     height: 400,
                     child: CupertinoDatePicker(
-                        minimumDate: minimumDate,
+                        maximumDate: maximumDate,
                         mode: CupertinoDatePickerMode.date,
                         initialDateTime: widget.cupertinoDatePickervalue,
                         onDateTimeChanged: (val) {
                           setState(() {
+                            if (myFormat.format(val) ==
+                                myFormat.format(maximumDate)) {
+                              initMessage = true;
+                            } else {
+                              initMessage = false;
+                            }
+
                             selectDate = val;
                           });
                         }),
