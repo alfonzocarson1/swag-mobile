@@ -48,7 +48,6 @@ class _ExplorePageState extends State<ExplorePage> {
     }
     if (_isLogged && _hasJustSignedUp) {
       getIt<PreferenceRepositoryService>().saveHasJustSignedUp(false);
-      this.navigateToAccountInfoPage();
     }
     super.initState();
   }
