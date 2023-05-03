@@ -5,6 +5,7 @@ import '../../../../generated/l10n.dart';
 import '../../../common/ui/primary_button.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
+import '../../../common/utils/utils.dart';
 import '../../../models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
 import '../collection/footer_list_item_page.dart';
 import 'multi_image_slide_buy_preview.dart';
@@ -109,7 +110,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                             Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                  '${S.of(context).for_sale}: \$${widget.dataItem.lastSale}',
+                                  '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(widget.dataItem.lastSale.toString())} ',
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodySmall!
@@ -151,7 +152,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                             const SizedBox(height: 30),
                             PrimaryButton(
                               title:
-                                  '${S.of(context).buy_for} \$${widget.dataItem.lastSale}',
+                                  '${S.of(context).buy_for}  ${decimalDigitsLastSalePrice(widget.dataItem.lastSale.toString())}',
                               onPressed: () {},
                               type: PrimaryButtonType.green,
                             ),

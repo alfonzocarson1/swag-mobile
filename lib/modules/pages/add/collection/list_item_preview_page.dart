@@ -12,6 +12,7 @@ import '../../../common/ui/multi_image_slide.dart';
 import '../../../common/ui/primary_button.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
+import '../../../common/utils/utils.dart';
 import '../../../models/listing_for_sale/listing_for_sale_model.dart';
 import 'footer_list_item_page.dart';
 
@@ -157,7 +158,7 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                                "${S.of(context).for_sale}: \$${widget.itemPrice}",
+                                "${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(widget.itemPrice.toString())}",
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall!

@@ -8,6 +8,7 @@ import '../../common/ui/refresh_widget.dart';
 import '../../common/ui/simple_loader.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
+import '../../common/utils/utils.dart';
 import '../../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
 import '../../di/injector.dart';
 import '../../models/listing_for_sale/listing_for_sale_model.dart';
@@ -123,7 +124,7 @@ class _ListingsPageState extends State<ListingsPage> {
                                   fontSize: 24,
                                   color: Palette.current.white)),
                       Text(
-                          '${S.of(context).last_sale} \$${listingList[index].lastSale}',
+                          '${S.of(context).last_sale}: ${decimalDigitsLastSalePrice(listingList[index].lastSale.toString())}',
                           overflow: TextOverflow.fade,
                           style: Theme.of(context)
                               .textTheme

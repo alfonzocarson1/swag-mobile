@@ -6,6 +6,7 @@ import '../../common/ui/popup_delete_item_collection.dart';
 import '../../common/ui/popup_list_item_sale.dart';
 import '../../common/ui/primary_button.dart';
 import '../../common/utils/palette.dart';
+import '../../common/utils/utils.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/detail/detail_collection_model.dart';
@@ -189,7 +190,9 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                               Palette.current.primaryWhiteSmoke,
                                         )),
                                 trailing: Text(
-                                    '${widget.dataCollection![index].purchasePrice}',
+                                    decimalDigitsLastSalePrice(widget
+                                        .dataCollection![index].purchasePrice
+                                        .toString()),
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodySmall!
@@ -250,7 +253,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                       width: MediaQuery.of(context).size.width,
                       child: PrimaryButton(
                         title:
-                            "${S.of(context).buy_for} ${widget.lastSale.maxPrice}",
+                            '${S.of(context).buy_for} ${decimalDigitsLastSalePrice(widget.lastSale.maxPrice!)}',
                         onPressed: () {
                           if (isLogged) {
                             Navigator.of(context, rootNavigator: true)
@@ -308,7 +311,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                               width: MediaQuery.of(context).size.width,
                               child: PrimaryButton(
                                 title:
-                                    "${S.of(context).buy_for} ${widget.lastSale.maxPrice}",
+                                    '${S.of(context).buy_for} ${decimalDigitsLastSalePrice(widget.lastSale.maxPrice!)}',
                                 onPressed: () {
                                   if (isLogged) {
                                     Navigator.of(context, rootNavigator: true)

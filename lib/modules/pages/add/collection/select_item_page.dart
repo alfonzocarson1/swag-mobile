@@ -12,6 +12,7 @@ import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
 import '../../../common/utils/size_helper.dart';
 import '../../../common/utils/tab_wrapper.dart';
+import '../../../common/utils/utils.dart';
 import '../../../models/search/filter_model.dart';
 import '../../../models/search/search_request_payload_model.dart';
 import '../../search/search_on_tap_page.dart';
@@ -187,8 +188,8 @@ class _SelectItemPageState extends State<SelectItemPage> {
                                         color: Palette.current.white)),
                             Text(
                                 catalogList[index].forSale
-                                    ? '${S.of(context).for_sale} ${catalogList[index].saleInfo.minPrice}'
-                                    : '${S.of(context).last_sale} ${catalogList[index].saleInfo.lastSale}',
+                                    ? '${S.of(context).for_sale} ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.minPrice.toString())}'
+                                    : '${S.of(context).last_sale}  ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.lastSale.toString())}',
                                 overflow: TextOverflow.fade,
                                 style: Theme.of(context)
                                     .textTheme

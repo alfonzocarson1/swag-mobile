@@ -8,11 +8,15 @@ import '../utils/utils.dart';
 
 class CupertinoDatePickerView extends StatefulWidget {
   CupertinoDatePickerView(
-      {Key? key, required this.cupertinoDatePickervalue, required this.onDone})
+      {Key? key,
+      required this.cupertinoDatePickervalue,
+      required this.onDone,
+      this.errorText})
       : super(key: key);
 
   final DateTime cupertinoDatePickervalue;
   Function(DateTime) onDone;
+  String? errorText;
 
   @override
   State<CupertinoDatePickerView> createState() =>
@@ -20,9 +24,9 @@ class CupertinoDatePickerView extends StatefulWidget {
 }
 
 class _CupertinoDatePickerViewState extends State<CupertinoDatePickerView> {
-  DateTime selectDate = DateTime.now();
+  DateTime selectDate = DateTime.now().subtract(const Duration(hours: 1));
 
-  DateTime maximumDate = DateTime.now();
+  DateTime maximumDate = DateTime.now().subtract(const Duration(hours: 1));
 
   bool initMessage = true;
 
@@ -32,8 +36,6 @@ class _CupertinoDatePickerViewState extends State<CupertinoDatePickerView> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
-    maximumDate = widget.cupertinoDatePickervalue;
   }
 
   @override
@@ -58,7 +60,9 @@ class _CupertinoDatePickerViewState extends State<CupertinoDatePickerView> {
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                       border: Border.all(
-                        color: Colors.white,
+                        color: widget.errorText != null
+                            ? Palette.current.primaryNeonPink
+                            : Colors.white,
                       ),
                       color: Colors.transparent),
                   padding: const EdgeInsets.only(bottom: 6),
@@ -100,6 +104,17 @@ class _CupertinoDatePickerViewState extends State<CupertinoDatePickerView> {
                     ),
                   ),
                 ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    widget.errorText ?? '',
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(color: Palette.current.primaryNeonPink),
+                  ),
+                )
               ],
             ),
           )
@@ -133,6 +148,7 @@ class _CupertinoDatePickerViewState extends State<CupertinoDatePickerView> {
                         ),
                         CupertinoButton(
                           onPressed: () {
+                            initMessage = false;
                             widget.onDone(selectDate);
                           },
                           padding: const EdgeInsets.symmetric(
@@ -149,16 +165,9 @@ class _CupertinoDatePickerViewState extends State<CupertinoDatePickerView> {
                     child: CupertinoDatePicker(
                         maximumDate: maximumDate,
                         mode: CupertinoDatePickerMode.date,
-                        initialDateTime: widget.cupertinoDatePickervalue,
+                        initialDateTime: selectDate,
                         onDateTimeChanged: (val) {
                           setState(() {
-                            if (myFormat.format(val) ==
-                                myFormat.format(maximumDate)) {
-                              initMessage = true;
-                            } else {
-                              initMessage = false;
-                            }
-
                             selectDate = val;
                           });
                         }),
