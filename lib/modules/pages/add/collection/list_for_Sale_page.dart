@@ -18,6 +18,7 @@ import '../../../common/ui/pushed_header.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
 
+import '../../../common/utils/utils.dart';
 import '../../../models/detail/detail_collection_model.dart';
 import 'list_item_preview_page.dart';
 
@@ -188,7 +189,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                     Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                          "${S.of(context).for_sale}: \$$_price",
+                                          "${S.of(context).for_sale}:  ${decimalDigitsLastSalePrice(_price.toString())}",
                                           textAlign: TextAlign.left,
                                           overflow: TextOverflow.fade,
                                           style: Theme.of(context)

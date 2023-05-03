@@ -43,6 +43,42 @@ String formatDate(String dateTime) {
   return formatted;
 }
 
+String decimalDigitsLastSalePrice(String lastSale) {
+  if (lastSale != "N/A") {
+    var decimalDigitsLastSalePrice = lastSale.split('.');
+    var oCcy = NumberFormat.currency(
+        locale: 'en_US', customPattern: '#,###', decimalDigits: 3);
+
+    if (decimalDigitsLastSalePrice[0][0] == "\$") {
+      decimalDigitsLastSalePrice[0] =
+          decimalDigitsLastSalePrice[0].toString().split('\$').join('');
+    }
+
+    if (decimalDigitsLastSalePrice[0].length > 3) {
+      var thousandDigits =
+          oCcy.format(int.parse(decimalDigitsLastSalePrice[0].toString()));
+
+      var splitThousandDigits = thousandDigits.split('.');
+
+      var lastPrice =
+          '\$${splitThousandDigits[0]}.${decimalDigitsLastSalePrice[1].length == 1 ? '${decimalDigitsLastSalePrice[1]}0' : decimalDigitsLastSalePrice[1]}';
+
+      return lastPrice;
+    } else {
+      var addDecimalLastSalePrice =
+          decimalDigitsLastSalePrice[1].length == 1 ? '${lastSale}0' : lastSale;
+
+      if (addDecimalLastSalePrice[0] != '\$') {
+        addDecimalLastSalePrice = '\$$addDecimalLastSalePrice';
+      }
+
+      return addDecimalLastSalePrice;
+    }
+  } else {
+    return lastSale;
+  }
+}
+
 bool isTokenValid(String? token) {
   return token != null && token != defaultString;
 }
@@ -59,8 +95,7 @@ Future<void> performSearch({
   final priceList = sharedPref.getPrice().map(int.parse).toList();
   final productList = sharedPref.getProduct().map(int.parse).toList();
 
-  updateSelectedFiltersAndSortsNumber(
-    context, [
+  updateSelectedFiltersAndSortsNumber(context, [
     sharedPref.isForSale(),
     conditionList.isNotEmpty,
     releaseList.isNotEmpty,
@@ -97,18 +132,22 @@ Future<FilterModel> getCurrentFilterModel() async {
   return FilterModel(
     forSale: isForSale,
     sortBy: sharedPref.getSortBy(),
-    priceRanges: sharedPref.getPrice().isEmpty || sharedPref.getPrice().length == Price.values.length
-      ? null
-      : getPriceRangeList(priceList),
-    releaseYears: sharedPref.getReleaseDate().isEmpty || sharedPref.getReleaseDate().length == ReleaseDate.values.length
-      ? null
-      : getReleaseYearsList(releaseList),
-    conditions: sharedPref.getCondition().isEmpty || sharedPref.getCondition().length == Condition.values.length
-      ? null
-      : getConditionStringList(conditionList),
-    productType: sharedPref.getProduct().isEmpty || sharedPref.getProduct().length == Product.values.length
-      ? null
-      : await getProductStringList(productList),
+    priceRanges: sharedPref.getPrice().isEmpty ||
+            sharedPref.getPrice().length == Price.values.length
+        ? null
+        : getPriceRangeList(priceList),
+    releaseYears: sharedPref.getReleaseDate().isEmpty ||
+            sharedPref.getReleaseDate().length == ReleaseDate.values.length
+        ? null
+        : getReleaseYearsList(releaseList),
+    conditions: sharedPref.getCondition().isEmpty ||
+            sharedPref.getCondition().length == Condition.values.length
+        ? null
+        : getConditionStringList(conditionList),
+    productType: sharedPref.getProduct().isEmpty ||
+            sharedPref.getProduct().length == Product.values.length
+        ? null
+        : await getProductStringList(productList),
     collection: collection.isEmpty ? null : collection,
     theme: theme.isEmpty ? null : theme,
     type: type.isEmpty ? null : type,

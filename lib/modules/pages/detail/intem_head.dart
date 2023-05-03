@@ -9,6 +9,7 @@ import '../../blocs/favorite_bloc/favorite_item_bloc.dart';
 import '../../blocs/sale_history/sale_history_bloc.dart';
 import '../../common/ui/clickable_text.dart';
 import '../../common/utils/palette.dart';
+import '../../common/utils/utils.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/detail/detail_sale_info_model.dart';
@@ -58,6 +59,7 @@ class _HeadWidgetState extends State<HeadWidget> {
   bool isLogged = false;
   bool favorite = false;
   String? profileFavoriteItemId;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -275,8 +277,8 @@ class _HeadWidgetState extends State<HeadWidget> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                     widget.sale
-                        ? '${S.of(context).for_sale} ${widget.lastSale.minPrice} - ${widget.lastSale.maxPrice}'
-                        : '${S.of(context).last_sale} ${widget.lastSale.lastSale}',
+                        ? '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(widget.lastSale.minPrice!)} - ${decimalDigitsLastSalePrice(widget.lastSale.maxPrice!)}'
+                        : '${S.of(context).last_sale}: ${decimalDigitsLastSalePrice(widget.lastSale.lastSale!)}',
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                         fontWeight: FontWeight.w300,
                         color: Palette.current.primaryNeonGreen)),

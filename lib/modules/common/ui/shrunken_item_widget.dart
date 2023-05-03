@@ -10,6 +10,7 @@ import '../../di/injector.dart';
 import '../../pages/add/collection/add_collection_page.dart';
 import '../../pages/detail/item_detail_page.dart';
 import '../../pages/login/create_account_page.dart';
+import '../utils/utils.dart';
 import 'popup_add_exisiting_item_collection.dart';
 
 class ShrunkenItemWidget extends StatelessWidget {
@@ -137,8 +138,8 @@ class ShrunkenItemWidget extends StatelessWidget {
                   color: Palette.current.white)),
           Text(
               model.forSale
-                  ? '${S.of(context).for_sale} ${model.saleInfo.minPrice} - ${model.saleInfo.maxPrice}'
-                  : '${S.of(context).last_sale} ${model.saleInfo.lastSale}',
+                  ? '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(model.saleInfo.minPrice!)}'
+                  : '${S.of(context).last_sale}: ${decimalDigitsLastSalePrice(model.saleInfo.lastSale!)}',
               overflow: TextOverflow.fade,
               maxLines: 1,
               style: Theme.of(context).textTheme.bodySmall!.copyWith(

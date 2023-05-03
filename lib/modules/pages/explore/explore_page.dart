@@ -36,15 +36,16 @@ class ExplorePage extends StatefulWidget {
 class _ExplorePageState extends State<ExplorePage> {
   bool _isLogged = false;
   bool _hasJustSignedUp = false;
-  
-  late final ScrollController _scrollController =
+
+  late final ScrollController? _scrollController =
       PrimaryScrollController.of(context);
 
   @override
   void initState() {
     this.loadDynamicFilters();
     this._isLogged = getIt<PreferenceRepositoryService>().isLogged();
-    this._hasJustSignedUp =    getIt<PreferenceRepositoryService>().hasJustSignedUp();
+    this._hasJustSignedUp =
+        getIt<PreferenceRepositoryService>().hasJustSignedUp();
 
     if (!_isLogged) {
       getIt<PreferenceRepositoryService>().saveloginAfterGuest(true);
@@ -163,7 +164,8 @@ class _ExplorePageState extends State<ExplorePage> {
   void navigateToAccountInfoPage() {
     bool loginAfterGuest =
         getIt<PreferenceRepositoryService>().loginAfterGuest();
-    ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
+    ProfileModel profileData =
+        getIt<PreferenceRepositoryService>().profileData();
 
     Future.delayed(Duration(milliseconds: loginAfterGuest ? 5000 : 7000), () {
       Navigator.of(context, rootNavigator: true).push(AccountInfoPage.route());
