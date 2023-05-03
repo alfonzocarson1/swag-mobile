@@ -34,14 +34,14 @@ class _RarityWidgetState extends State<RarityWidget> {
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
                     letterSpacing: 1,
                     fontWeight: FontWeight.w300,
-                    fontFamily: "Knockout",
+                    fontFamily: "KnockoutCustom",
                     fontSize: 33,
                     color: Palette.current.white)),
             Text(widget.rarity ?? '',
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
                     letterSpacing: 1,
                     fontWeight: FontWeight.w300,
-                    fontFamily: "Knockout",
+                    fontFamily: "KnockoutCustom",
                     fontSize: 30,
                     color: Palette.current.primaryNeonPink)),
             const SizedBox(

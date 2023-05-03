@@ -273,9 +273,9 @@ class _CatalogPageState extends State<CatalogPage> {
                                           .textTheme
                                           .displayLarge!
                                           .copyWith(
-                                              letterSpacing: 1,
+                                              letterSpacing: 0.54,
                                               fontWeight: FontWeight.w300,
-                                              fontFamily: "Knockout",
+                                              fontFamily: "KnockoutCustom",
                                               fontSize: 30,
                                               color: Palette.current.white)),
                                 )),
@@ -371,6 +371,7 @@ class _CatalogPageState extends State<CatalogPage> {
                               .textTheme
                               .bodySmall!
                               .copyWith(
+                                letterSpacing: 0.0244,
                                   fontWeight: FontWeight.w300,
                                   color: Palette.current.primaryNeonGreen))
                     ],

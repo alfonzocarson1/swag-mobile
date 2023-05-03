@@ -70,7 +70,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
                     letterSpacing: 1,
                     fontWeight: FontWeight.w300,
-                    fontFamily: "Knockout",
+                    fontFamily: "KnockoutCustom",
                     fontSize: 27,
                     color: Palette.current.white)),
             const SizedBox(
@@ -81,7 +81,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                     style: Theme.of(context).textTheme.displayLarge!.copyWith(
                         letterSpacing: 1,
                         fontWeight: FontWeight.w300,
-                        fontFamily: "Knockout",
+                        fontFamily: "KnockoutCustom",
                         fontSize: 27,
                         color: Palette.current.white))
                 : Container(),

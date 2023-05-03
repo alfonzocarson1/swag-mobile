@@ -131,7 +131,7 @@ class _CollectionPageState extends State<CollectionPage> {
                                     .copyWith(
                                         letterSpacing: 1,
                                         fontWeight: FontWeight.w300,
-                                        fontFamily: "Knockout",
+                                        fontFamily: "KnockoutCustom",
                                         fontSize: 24,
                                         color: Palette.current.white)),
                           ],
@@ -190,7 +190,7 @@ class _CollectionPageState extends State<CollectionPage> {
                                                   .textTheme
                                                   .bodySmall!
                                                   .copyWith(
-                                                      fontFamily: "Knockout",
+                                                      fontFamily: "KnockoutCustom",
                                                       fontSize: 30,
                                                       fontWeight:
                                                           FontWeight.w300,
@@ -248,7 +248,7 @@ class _CollectionPageState extends State<CollectionPage> {
                                       .copyWith(
                                           letterSpacing: 1,
                                           fontWeight: FontWeight.w300,
-                                          fontFamily: "Knockout",
+                                          fontFamily: "KnockoutCustom",
                                           fontSize: 24,
                                           color: Palette.current.white)),
                               Text(

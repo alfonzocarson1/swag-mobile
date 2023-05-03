@@ -110,7 +110,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                           .textTheme
                           .headlineMedium!
                           .copyWith(
-                              fontFamily: "Knockout",
+                              fontFamily: "KnockoutCustom",
                               fontSize: 30,
                               fontWeight: FontWeight.w300,
                               letterSpacing: 1.0,

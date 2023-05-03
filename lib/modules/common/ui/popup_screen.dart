@@ -59,7 +59,7 @@ class _PopUpState extends State<PopUp> {
                                         .textTheme
                                         .displayMedium!
                                         .copyWith(
-                                          fontFamily: "Knockout",
+                                          fontFamily: "KnockoutCustom",
                                           fontSize: 44,
                                           fontWeight: FontWeight.w300,
                                           color:
@@ -92,7 +92,7 @@ class _PopUpState extends State<PopUp> {
                                         .textTheme
                                         .displayMedium!
                                         .copyWith(
-                                          fontFamily: "Knockout",
+                                          fontFamily: "KnockoutCustom",
                                           fontSize: 44,
                                           fontWeight: FontWeight.w300,
                                           color:

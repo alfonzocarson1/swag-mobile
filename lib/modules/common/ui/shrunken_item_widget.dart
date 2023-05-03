@@ -132,7 +132,7 @@ class ShrunkenItemWidget extends StatelessWidget {
               style: Theme.of(context).textTheme.displayLarge!.copyWith(
                   letterSpacing: 1,
                   fontWeight: FontWeight.w300,
-                  fontFamily: "Knockout",
+                  fontFamily: "KnockoutCustom",
                   fontSize: 24,
                   color: Palette.current.white)),
           Text(

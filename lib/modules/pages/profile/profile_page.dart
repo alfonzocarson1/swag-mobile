@@ -95,7 +95,7 @@ class _ProfilePageState extends State<ProfilePage>
                           .textTheme
                           .displayMedium!
                           .copyWith(
-                              fontFamily: "Knockout",
+                              fontFamily: "KnockoutCustom",
                               fontSize: 20,
                               letterSpacing: 1.5,
                               fontWeight: FontWeight.w300,
@@ -126,7 +126,7 @@ class _ProfilePageState extends State<ProfilePage>
                                 .textTheme
                                 .displayMedium!
                                 .copyWith(
-                                    fontFamily: "Knockout",
+                                    fontFamily: "KnockoutCustom",
                                     fontSize: 45,
                                     letterSpacing: 1.0,
                                     fontWeight: FontWeight.w300,
