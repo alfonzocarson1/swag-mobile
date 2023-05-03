@@ -192,7 +192,7 @@ class _BuyForSaleState extends State<BuyForSale> {
                               .copyWith(
                                   letterSpacing: 1,
                                   fontWeight: FontWeight.w300,
-                                  fontFamily: "Knockout",
+                                  fontFamily: "KnockoutCustom",
                                   fontSize: 30,
                                   color: Palette.current.white)),
                       Text(
@@ -265,7 +265,7 @@ class _BuyForSaleState extends State<BuyForSale> {
                                                         .bodyLarge!
                                                         .copyWith(
                                                             fontFamily:
-                                                                "Knockout",
+                                                                "KnockoutCustom",
                                                             fontSize: 25,
                                                             letterSpacing: 1,
                                                             fontWeight:
@@ -311,7 +311,7 @@ class _BuyForSaleState extends State<BuyForSale> {
                                 .copyWith(
                                     letterSpacing: 1,
                                     fontWeight: FontWeight.w300,
-                                    fontFamily: "Knockout",
+                                    fontFamily: "KnockoutCustom",
                                     fontSize: 27,
                                     color: Palette.current.white)),
                         const SizedBox(
@@ -398,7 +398,7 @@ class _BuyForSaleState extends State<BuyForSale> {
                                                 .copyWith(
                                                     letterSpacing: 1,
                                                     fontWeight: FontWeight.w300,
-                                                    fontFamily: "Knockout",
+                                                    fontFamily: "KnockoutCustom",
                                                     fontSize: 27,
                                                     color: Palette.current
                                                         .primaryNeonGreen)),

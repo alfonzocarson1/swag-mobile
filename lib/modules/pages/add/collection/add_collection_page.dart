@@ -225,7 +225,7 @@ class _AddCollectionState extends State<AddCollection> {
                                         .copyWith(
                                             letterSpacing: 1,
                                             fontWeight: FontWeight.w300,
-                                            fontFamily: "Knockout",
+                                            fontFamily: "KnockoutCustom",
                                             fontSize: 30,
                                             color: Palette
                                                 .current.primaryNeonGreen)),
@@ -265,7 +265,7 @@ class _AddCollectionState extends State<AddCollection> {
                                         .copyWith(
                                             letterSpacing: 1,
                                             fontWeight: FontWeight.w300,
-                                            fontFamily: "Knockout",
+                                            fontFamily: "KnockoutCustom",
                                             fontSize: 30,
                                             color: Palette.current.white)),
                               ),

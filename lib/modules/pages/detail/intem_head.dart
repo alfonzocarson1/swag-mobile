@@ -200,9 +200,9 @@ class _HeadWidgetState extends State<HeadWidget> {
                                 .textTheme
                                 .displayLarge!
                                 .copyWith(
-                                    letterSpacing: 1,
+                                    letterSpacing: 0.54,
                                     fontWeight: FontWeight.w300,
-                                    fontFamily: "Knockout",
+                                    fontFamily: "KnockoutCustom",
                                     fontSize: 30,
                                     color: Palette.current.white)),
                       )),
@@ -280,6 +280,7 @@ class _HeadWidgetState extends State<HeadWidget> {
                         ? '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(widget.lastSale.minPrice!)} - ${decimalDigitsLastSalePrice(widget.lastSale.maxPrice!)}'
                         : '${S.of(context).last_sale}: ${decimalDigitsLastSalePrice(widget.lastSale.lastSale!)}',
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      letterSpacing: 0.0224,
                         fontWeight: FontWeight.w300,
                         color: Palette.current.primaryNeonGreen)),
               ),
@@ -354,9 +355,9 @@ class _HeadWidgetState extends State<HeadWidget> {
                                                 .textTheme
                                                 .bodyLarge!
                                                 .copyWith(
-                                                    fontFamily: "Knockout",
+                                                    fontFamily: "KnockoutCustom",
                                                     fontSize: 25,
-                                                    letterSpacing: 1,
+                                                    letterSpacing: 1.2,
                                                     fontWeight: FontWeight.w300,
                                                     color:
                                                         Palette.current.white)),
@@ -393,8 +394,8 @@ class _HeadWidgetState extends State<HeadWidget> {
                         child: Text(widget.catalogItemDescriptionShort ?? '',
                             style:
                                 Theme.of(context).textTheme.bodySmall!.copyWith(
-                                      fontSize: 15,
-                                      letterSpacing: 0.3,
+                                      fontSize: 16,
+                                      letterSpacing: 0.24,
                                       color: Palette.current.primaryWhiteSmoke,
                                     )),
                       ),

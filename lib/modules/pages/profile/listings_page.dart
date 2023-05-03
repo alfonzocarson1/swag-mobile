@@ -120,7 +120,7 @@ class _ListingsPageState extends State<ListingsPage> {
                               .copyWith(
                                   letterSpacing: 1,
                                   fontWeight: FontWeight.w300,
-                                  fontFamily: "Knockout",
+                                  fontFamily: "KnockoutCustom",
                                   fontSize: 24,
                                   color: Palette.current.white)),
                       Text(

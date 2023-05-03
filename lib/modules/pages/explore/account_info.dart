@@ -319,7 +319,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
               ),
               Text(S.of(context).title_welcome,
                   style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                        fontFamily: "Knockout",
+                        fontFamily: "KnockoutCustom",
                         fontSize: 50,
                         wordSpacing: 1,
                         fontWeight: FontWeight.w300,

@@ -130,7 +130,7 @@ flutter:
         - asset: assets/fonts/knockout/Knockout-94.otf
     - family: knockoutCustom
       fonts:
-        - asset: assets/fonts/knockout/Knockout-46.otf
+        - asset: assets/fonts/knockout/Knockout-27.otf
     - family: RingsideCompressed
       fonts:
         - asset: assets/fonts/ringside/RingsideCompressed-Black.otf

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
@@ -253,6 +255,7 @@ class _SearchPageState extends State<SearchPage>
     return Padding(
       padding: const EdgeInsets.only(top: 10, left: 0, right: 0),
       child: TabBar(
+        labelPadding: EdgeInsets.all(0),
           controller: _tabController,
           labelColor: Palette.current.primaryNeonGreen,
           indicatorSize: TabBarIndicatorSize.label,
@@ -262,13 +265,13 @@ class _SearchPageState extends State<SearchPage>
               .headlineMedium!
               .copyWith(
                   fontFamily: "KnockoutCustom",
-                  fontSize: 20,
-                  letterSpacing: 1.1,
+                  fontSize: 21,
+                  letterSpacing: 1.35,
                   fontWeight: FontWeight.w300),
           labelStyle: Theme.of(context).textTheme.headlineMedium!.copyWith(
               fontFamily: "KnockoutCustom",
-              fontSize: 21,
-              letterSpacing: 1.0,
+              fontSize: 22,
+              letterSpacing: 1.35,
               fontWeight: FontWeight.w300),
           onTap: (index) {
             setState(() {});

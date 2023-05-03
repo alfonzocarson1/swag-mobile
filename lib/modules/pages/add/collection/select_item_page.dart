@@ -58,7 +58,7 @@ class _SelectItemPageState extends State<SelectItemPage> {
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
                     letterSpacing: 1,
                     fontWeight: FontWeight.w300,
-                    fontFamily: "Knockout",
+                    fontFamily: "KnockoutCustom",
                     fontSize: 30,
                     color: Palette.current.primaryNeonGreen)),
           ),
@@ -183,7 +183,7 @@ class _SelectItemPageState extends State<SelectItemPage> {
                                     .copyWith(
                                         letterSpacing: 1,
                                         fontWeight: FontWeight.w300,
-                                        fontFamily: "Knockout",
+                                        fontFamily: "KnockoutCustom",
                                         fontSize: 24,
                                         color: Palette.current.white)),
                             Text(
