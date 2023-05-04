@@ -104,18 +104,6 @@ class _CollectionWidgetState extends State<CollectionWidget> {
             const SizedBox(
               width: 10,
             ),
-            widget.dataCollection != null
-                ? Text("(${widget.dataCollection!.length}X)",
-                    style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                        letterSpacing: 1,
-                        fontWeight: FontWeight.w300,
-                        fontFamily: "KnockoutCustom",
-                        fontSize: 27,
-                        color: Palette.current.primaryNeonGreen))
-                : Container(),
-            const SizedBox(
-              width: 10,
-            ),
             Expanded(
                 child: Divider(
               color: Palette.current.grey,

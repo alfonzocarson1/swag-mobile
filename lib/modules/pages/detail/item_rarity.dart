@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../generated/l10n.dart';
 import '../../common/utils/palette.dart';
+import '../../common/utils/utils.dart';
 
 class RarityWidget extends StatefulWidget {
   const RarityWidget(
@@ -97,7 +98,7 @@ class _RarityWidgetState extends State<RarityWidget> {
                           fontSize: 15,
                           color: Palette.current.primaryWhiteSmoke,
                         )),
-                trailing: Text(widget.retail ?? '',
+                trailing: Text(decimalDigitsLastSalePrice(widget.retail!),
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           fontSize: 15,
                           color: Palette.current.primaryWhiteSmoke,
