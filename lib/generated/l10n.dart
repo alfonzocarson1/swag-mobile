@@ -1230,6 +1230,16 @@ class S {
     );
   }
 
+  /// `DETAILS`
+  String get detail {
+    return Intl.message(
+      'DETAILS',
+      name: 'detail',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `INFO GUIDELINES`
   String get info_guideline_popup_title {
     return Intl.message(

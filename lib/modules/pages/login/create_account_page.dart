@@ -175,7 +175,10 @@ class _CreateAccountState extends State<CreateAccountPage> {
                     Future.delayed(
                         Duration(milliseconds: loginAfterGuest ? 4000 : 6000),
                         () {
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const AccountInfoPage()));
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const AccountInfoPage()));
                     });
 
                     return null;
@@ -184,6 +187,19 @@ class _CreateAccountState extends State<CreateAccountPage> {
                     return Loading.show(context);
                   },
                   error: (message) => {
+                    if (message == '202')
+                      {
+                        setState(() {
+                          phoneErrorText = S.of(context).invalid_phone_format;
+                        })
+                      }
+                    else if (message == '204')
+                      {
+                        setState(() {
+                          phoneErrorText = S.of(context).phone_taken;
+                        })
+                      },
+
                     Loading.hide(context),
                     // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
                   },
@@ -243,7 +259,10 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                 return authState.maybeMap(orElse: () {
                                   return _getEmailField(context, true);
                                 }, error: (state) {
-                                  return _getEmailField(context, false);
+                                  if (state.message == '203') {
+                                    return _getEmailField(context, false);
+                                  }
+                                  return _getEmailField(context, true);
                                 });
                               }),
                               const SizedBox(

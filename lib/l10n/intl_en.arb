@@ -119,6 +119,8 @@
     "photo_condition_four": "• Minimum of 4 photos maximum of 6",
     "date_purchased": "Date Purchased",
     "select_item": "SELECT ITEM",
+
+    "detail": "DETAILS",
     "info_guideline_popup_title": "INFO GUIDELINES",
     "info_guideline_popup_sub_title": "Please provide as much information as you can about the product and how you acquired it. Be sure to include the following:",
     "info_guideline_popup_badg_one": "• Detailed product description",
@@ -131,6 +133,7 @@
     "remove_collection_btn": "REMOVE FROM COLLECTION",
     "list_for_sale_btn": "LIST FOR SALE",
     "receive_offer": "RECEIVE OFFERS ON THIS ITEM",
+
 
     "filters_title": "filters",
     "clear_all": "Clear All",

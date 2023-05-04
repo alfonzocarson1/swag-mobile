@@ -93,7 +93,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (response.errorCode == successResponse) {
         yield const AuthState.authenticated();
       } else {
-        yield AuthState.error(HandlingErrors().getError(response.errorCode));
+        yield AuthState.error(response.errorCode);
       }
     } catch (e) {
       yield AuthState.error(HandlingErrors().getError(e));
