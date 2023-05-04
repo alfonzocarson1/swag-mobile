@@ -86,6 +86,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete_photo": MessageLookupByLibrary.simpleMessage("DELETE PHOTO"),
         "delete_photo_descrption": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to delete this photo?"),
+        "detail": MessageLookupByLibrary.simpleMessage("DETAILS"),
         "didnt_get_email":
             MessageLookupByLibrary.simpleMessage("Didn’t get an email? "),
         "displayed": MessageLookupByLibrary.simpleMessage("Displayed"),

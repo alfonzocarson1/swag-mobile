@@ -136,7 +136,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
             urlImage: widget.urlImage,
             catalogItemName: widget.catalogItemName,
             lastSale: widget.lastSale,
-            sale: widget.sale,
+            sale: false,
             available: widget.available,
             itemId: widget.itemId),
         historyList!.isNotEmpty

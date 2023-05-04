@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 
 import '../../../../generated/l10n.dart';
+import '../../../blocs/detail_bloc/detail_bloc.dart';
 import '../../../blocs/listing_bloc/listing_bloc.dart';
 import '../../../common/ui/loading.dart';
 import '../../../common/ui/multi_image_slide.dart';
@@ -72,6 +73,8 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                     return null;
                   },
                   loadedListingSuccess: (state) {
+                    BlocProvider.of<DetailBloc>(context)
+                        .add(DetailEvent.getDetailItem(widget.catalogItemId));
                     widget.onClose();
                     Loading.hide(context);
                     Navigator.pop(context);

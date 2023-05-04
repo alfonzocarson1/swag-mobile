@@ -27,6 +27,7 @@ class _CupertinoDatePickerViewState extends State<CupertinoDatePickerView> {
   DateTime selectDate = DateTime.now().subtract(const Duration(hours: 1));
 
   DateTime maximumDate = DateTime.now().subtract(const Duration(hours: 1));
+  DateTime mindate = DateTime(2018, 4, 1);
 
   bool initMessage = true;
 
@@ -163,6 +164,7 @@ class _CupertinoDatePickerViewState extends State<CupertinoDatePickerView> {
                   SizedBox(
                     height: 400,
                     child: CupertinoDatePicker(
+                        minimumDate: mindate,
                         maximumDate: maximumDate,
                         mode: CupertinoDatePickerMode.date,
                         initialDateTime: selectDate,

@@ -280,7 +280,7 @@ class _HeadWidgetState extends State<HeadWidget> {
                         ? '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(widget.lastSale.minPrice!)} - ${decimalDigitsLastSalePrice(widget.lastSale.maxPrice!)}'
                         : '${S.of(context).last_sale}: ${decimalDigitsLastSalePrice(widget.lastSale.lastSale!)}',
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      letterSpacing: 0.0224,
+                        letterSpacing: 0.0224,
                         fontWeight: FontWeight.w300,
                         color: Palette.current.primaryNeonGreen)),
               ),
@@ -355,7 +355,8 @@ class _HeadWidgetState extends State<HeadWidget> {
                                                 .textTheme
                                                 .bodyLarge!
                                                 .copyWith(
-                                                    fontFamily: "KnockoutCustom",
+                                                    fontFamily:
+                                                        "KnockoutCustom",
                                                     fontSize: 25,
                                                     letterSpacing: 1.2,
                                                     fontWeight: FontWeight.w300,
