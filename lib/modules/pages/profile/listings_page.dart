@@ -4,9 +4,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:swagapp/modules/pages/add/collection/list_item_preview_page.dart';
-import 'package:http/http.dart' as http;
+import 'package:swagapp/modules/models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
+import 'package:swagapp/modules/pages/add/buy/preview_buy_for_sale.dart';
+
 
 import '../../../generated/l10n.dart';
 import '../../blocs/listing_bloc/listing_bloc.dart';
@@ -33,13 +33,18 @@ class ListingsPage extends StatefulWidget {
 }
 
 class _ListingsPageState extends State<ListingsPage> {
-  
+  List<File> tempFiles = [];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     loadList();
+  }
+
+    @override
+  void dispose() {
+    super.dispose(); 
   }
 
   Future loadList() async {
@@ -86,9 +91,9 @@ class _ListingsPageState extends State<ListingsPage> {
                 itemCount: listingList.length,
                 itemBuilder: (_, index) {
                   List<XFile> imageFileList = [];
-                  var listItem = listingList[index];
+                  ListingForSaleModel listItem = listingList[index];
                   var catalogItemId = listingList[index].catalogItemId;
-                  addUrlImagesToList(listItem.productItemImageUrls, imageFileList);
+                  var imageUrls = listingList[index].productItemImageUrls ?? [];
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -98,16 +103,19 @@ class _ListingsPageState extends State<ListingsPage> {
                             onTap: () {
                               if(catalogItemId != null){
                                 Navigator.of(context, rootNavigator: true).push(
-                                MaterialPageRoute(builder: (context) => ListItemPreviewPage(
-                                  profileId: listItem.profileId,
-                                  imgList: imageFileList, 
-                                  itemName: listItem.productItemName ?? '', 
-                                  itemPrice: listItem.productItemPrice ?? 0.0, 
-                                  itemCondition: listItem.condition ?? '', 
-                                  itemDescription: listItem.productItemDescription ?? '', 
-                                  profileCollectionItemId: listItem.profileCollectionItemId ?? '', 
-                                  catalogItemId: catalogItemId, 
-                                  onClose: () {} )));
+                                MaterialPageRoute(builder: (context) => 
+                                  BuyPreviewPage(dataItem: 
+                                  BuyForSaleListingModel(
+                                    catalogItemId: listItem.catalogItemId,
+                                    productItemId: listItem.productItemId,
+                                    productItemImageUrls: listItem.productItemImageUrls ?? [],
+                                    productItemName: listItem.productItemName,
+                                    productItemDescription: listItem.productItemDescription,
+                                    productItemPrice:listItem.productItemPrice?? 0.0,
+                                    condition: listItem.condition,
+                                    lastSale: listItem.lastSale,
+                                    ))
+                                  ));
                               }                              
                             },
                             child: SizedBox(
@@ -115,8 +123,8 @@ class _ListingsPageState extends State<ListingsPage> {
                               child: ClipRRect(
                                 child: CachedNetworkImage(
                                   fit: BoxFit.fitHeight,
-                                  imageUrl: listingList[index]
-                                          .productItemImageUrls[0] ??
+                                  imageUrl: (imageUrls.isNotEmpty)? listingList[index]
+                                          .productItemImageUrls[0]:
                                       'assets/images/Avatar.png',
                                   placeholder: (context, url) => SizedBox(
                                     height: 200,
@@ -207,33 +215,6 @@ class _ListingsPageState extends State<ListingsPage> {
     context.read<ListingBloc>().add(const ListingEvent.getListingItem());
   }
 
-  Future<XFile> downloadImageAndGetXFile(String imageUrl) async {
-  // Download the image
-  final response = await http.get(Uri.parse(imageUrl));
-  if (response.statusCode != 200) {
-    throw Exception("Failed to download image");
-  }
 
-  // Save the image to a local file
-  final directory = await getTemporaryDirectory();
-  final fileName = DateTime.now().millisecondsSinceEpoch.toString() + '.jpg';
-  final localFilePath = '${directory.path}/$fileName';
-  final localFile = File(localFilePath);
-  await localFile.writeAsBytes(response.bodyBytes);
+}
 
-  // Create an XFile object and return it
-  return XFile(localFilePath);
-}
-  
-  Future<void> addUrlImagesToList(List<dynamic> imageUrls, List<XFile> imgList) async {
-  for (String imageUrl in imageUrls) {
-    try {
-      final xFile = await downloadImageAndGetXFile(imageUrl);
-      imgList.add(xFile);
-      print('Image added to the list: $imageUrl');
-    } catch (e) {
-      print('Error downloading image: $e');
-    }
-  }
-}
-}
