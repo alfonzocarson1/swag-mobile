@@ -50,8 +50,9 @@ const List<CustomOverlayItemModel> editListingDropDown = [
   CustomOverlayItemModel(imagePath: 'assets/icons/xCircle.png', label: 'Remove listing'),
 ];
 
-const reportListingDropDown = [
-
+const List<CustomOverlayItemModel>  reportListingDropDown = [
+  CustomOverlayItemModel(imagePath: 'assets/icons/BlockUserWhite.png', label: 'Block user'),
+  CustomOverlayItemModel(imagePath: 'assets/icons/ReportUserWhite.png', label: 'Report User'),
 ];
 
 enum FilterType { sortBy, condition, price, releaseDate, product, collection, theme, type }
