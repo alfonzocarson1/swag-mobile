@@ -33,6 +33,7 @@ mixin _$ListingForSaleModel {
   bool? get forSale => throw _privateConstructorUsedError;
   bool? get sold => throw _privateConstructorUsedError;
   bool? get isDeleted => throw _privateConstructorUsedError;
+  String? get status => throw _privateConstructorUsedError;
   String? get listingItemsAction => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -61,6 +62,7 @@ abstract class $ListingForSaleModelCopyWith<$Res> {
       bool? forSale,
       bool? sold,
       bool? isDeleted,
+      String? status,
       String? listingItemsAction});
 }
 
@@ -90,6 +92,7 @@ class _$ListingForSaleModelCopyWithImpl<$Res, $Val extends ListingForSaleModel>
     Object? forSale = freezed,
     Object? sold = freezed,
     Object? isDeleted = freezed,
+    Object? status = freezed,
     Object? listingItemsAction = freezed,
   }) {
     return _then(_value.copyWith(
@@ -145,6 +148,10 @@ class _$ListingForSaleModelCopyWithImpl<$Res, $Val extends ListingForSaleModel>
           ? _value.isDeleted
           : isDeleted // ignore: cast_nullable_to_non_nullable
               as bool?,
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
       listingItemsAction: freezed == listingItemsAction
           ? _value.listingItemsAction
           : listingItemsAction // ignore: cast_nullable_to_non_nullable
@@ -175,6 +182,7 @@ abstract class _$$_ListingForSaleModelCopyWith<$Res>
       bool? forSale,
       bool? sold,
       bool? isDeleted,
+      String? status,
       String? listingItemsAction});
 }
 
@@ -202,6 +210,7 @@ class __$$_ListingForSaleModelCopyWithImpl<$Res>
     Object? forSale = freezed,
     Object? sold = freezed,
     Object? isDeleted = freezed,
+    Object? status = freezed,
     Object? listingItemsAction = freezed,
   }) {
     return _then(_$_ListingForSaleModel(
@@ -257,6 +266,10 @@ class __$$_ListingForSaleModelCopyWithImpl<$Res>
           ? _value.isDeleted
           : isDeleted // ignore: cast_nullable_to_non_nullable
               as bool?,
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
       listingItemsAction: freezed == listingItemsAction
           ? _value.listingItemsAction
           : listingItemsAction // ignore: cast_nullable_to_non_nullable
@@ -283,6 +296,7 @@ class _$_ListingForSaleModel implements _ListingForSaleModel {
       this.forSale,
       this.sold,
       this.isDeleted,
+      this.status,
       this.listingItemsAction});
 
   factory _$_ListingForSaleModel.fromJson(Map<String, dynamic> json) =>
@@ -315,11 +329,13 @@ class _$_ListingForSaleModel implements _ListingForSaleModel {
   @override
   final bool? isDeleted;
   @override
+  final String? status;
+  @override
   final String? listingItemsAction;
 
   @override
   String toString() {
-    return 'ListingForSaleModel(productItemId: $productItemId, productItemName: $productItemName, productItemPrice: $productItemPrice, productItemImageUrls: $productItemImageUrls, productItemDescription: $productItemDescription, condition: $condition, profileId: $profileId, catalogItemId: $catalogItemId, profileCollectionItemId: $profileCollectionItemId, lastSale: $lastSale, forSale: $forSale, sold: $sold, isDeleted: $isDeleted, listingItemsAction: $listingItemsAction)';
+    return 'ListingForSaleModel(productItemId: $productItemId, productItemName: $productItemName, productItemPrice: $productItemPrice, productItemImageUrls: $productItemImageUrls, productItemDescription: $productItemDescription, condition: $condition, profileId: $profileId, catalogItemId: $catalogItemId, profileCollectionItemId: $profileCollectionItemId, lastSale: $lastSale, forSale: $forSale, sold: $sold, isDeleted: $isDeleted, status: $status, listingItemsAction: $listingItemsAction)';
   }
 
   @override
@@ -352,6 +368,7 @@ class _$_ListingForSaleModel implements _ListingForSaleModel {
             (identical(other.sold, sold) || other.sold == sold) &&
             (identical(other.isDeleted, isDeleted) ||
                 other.isDeleted == isDeleted) &&
+            (identical(other.status, status) || other.status == status) &&
             (identical(other.listingItemsAction, listingItemsAction) ||
                 other.listingItemsAction == listingItemsAction));
   }
@@ -373,6 +390,7 @@ class _$_ListingForSaleModel implements _ListingForSaleModel {
       forSale,
       sold,
       isDeleted,
+      status,
       listingItemsAction);
 
   @JsonKey(ignore: true)
@@ -405,6 +423,7 @@ abstract class _ListingForSaleModel implements ListingForSaleModel {
       final bool? forSale,
       final bool? sold,
       final bool? isDeleted,
+      final String? status,
       final String? listingItemsAction}) = _$_ListingForSaleModel;
 
   factory _ListingForSaleModel.fromJson(Map<String, dynamic> json) =
@@ -436,6 +455,8 @@ abstract class _ListingForSaleModel implements ListingForSaleModel {
   bool? get sold;
   @override
   bool? get isDeleted;
+  @override
+  String? get status;
   @override
   String? get listingItemsAction;
   @override
