@@ -1,12 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 import 'package:swagapp/modules/cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
 import 'package:swagapp/modules/models/listing_for_sale/listing_for_sale_model.dart';
-
 import '../../../../generated/l10n.dart';
 import '../../../common/ui/primary_button.dart';
 import '../../../common/utils/custom_route_animations.dart';
@@ -22,7 +19,7 @@ import '../collection/edit_list_for_Sale_page.dart';
 import '../collection/footer_list_item_page.dart';
 import '../collection/widgets/custom_overlay_button.dart';
 import 'multi_image_slide_buy_preview.dart';
-import 'package:http/http.dart' as http;
+
 
 class BuyPreviewPage extends StatefulWidget {
   static const name = '/BuyPreviewPage';
