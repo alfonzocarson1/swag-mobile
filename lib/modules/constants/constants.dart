@@ -36,6 +36,15 @@ const countries = [
   "KR",
 ];
 
+const itemConditions = [
+    'Condition',
+    'Sealed',
+    'Displayed',
+    'Gamed',
+  ];
+
+ 
+
 const List<CustomOverlayItemModel> editListingDropDown = [
   CustomOverlayItemModel(imagePath: 'assets/icons/editWhite.png', label: 'Edit listing'),
   CustomOverlayItemModel(imagePath: 'assets/icons/xCircle.png', label: 'Remove listing'),
@@ -55,6 +64,14 @@ enum ReleaseDate {
   y2022,
   y2023,
 }
+
+
+ 
+enum EditingListingStatus {
+  editing,
+  listed,
+  removed,
+} 
 
 class ReleaseDateWrapper {
   final ReleaseDate type;
