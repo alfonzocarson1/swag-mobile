@@ -32,7 +32,7 @@ class _RelatedItemsWidgetState extends State<RelatedItemsWidget> {
                   style: Theme.of(context).textTheme.displayLarge!.copyWith(
                       letterSpacing: 1,
                       fontWeight: FontWeight.w300,
-                      fontFamily: "Knockout",
+                      fontFamily: "KnockoutCustom",
                       fontSize: 30,
                       color: Palette.current.white)),
             ),
@@ -92,7 +92,7 @@ class _RelatedItemsWidgetState extends State<RelatedItemsWidget> {
                                       .copyWith(
                                           letterSpacing: 1,
                                           fontWeight: FontWeight.w300,
-                                          fontFamily: "Knockout",
+                                          fontFamily: "KnockoutCustom",
                                           fontSize: 24,
                                           color: Palette.current.white)),
                               Text(
@@ -157,7 +157,7 @@ class _RelatedItemsWidgetState extends State<RelatedItemsWidget> {
                                       .copyWith(
                                           letterSpacing: 1,
                                           fontWeight: FontWeight.w300,
-                                          fontFamily: "Knockout",
+                                          fontFamily: "KnockoutCustom",
                                           fontSize: 24,
                                           color: Palette.current.white)),
                               Text(

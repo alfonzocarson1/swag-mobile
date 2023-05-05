@@ -43,7 +43,7 @@ class _AccountInfoHeaderWidgetState extends State<AccountInfoHeaderWidget> {
                 padding: const EdgeInsets.only(left: 10.0),
                 child: Text('@${profileData.username}',
                     style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                        fontFamily: "Knockout",
+                        fontFamily: "KnockoutCustom",
                         fontSize: 33,
                         letterSpacing: 1.0,
                         fontWeight: FontWeight.w300,

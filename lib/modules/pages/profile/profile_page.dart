@@ -8,6 +8,7 @@ import '../../../generated/l10n.dart';
 import '../../common/ui/account_info_head.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
+import '../../common/utils/utils.dart';
 import '../../cubits/profile/get_profile_cubit.dart';
 import '../../di/injector.dart';
 import '../../models/profile/profile_model.dart';
@@ -95,7 +96,7 @@ class _ProfilePageState extends State<ProfilePage>
                           .textTheme
                           .displayMedium!
                           .copyWith(
-                              fontFamily: "Knockout",
+                              fontFamily: "KnockoutCustom",
                               fontSize: 20,
                               letterSpacing: 1.5,
                               fontWeight: FontWeight.w300,
@@ -106,27 +107,16 @@ class _ProfilePageState extends State<ProfilePage>
                   return state.maybeWhen(
                     orElse: () => Container(),
                     loadedProfileData: (ProfileModel profileBuildData) {
-                      var decimalDigits = profileBuildData.collectionValue
-                          .toString()
-                          .split('.');
-
-                      var oCcy = NumberFormat.currency(
-                          locale: 'en_US',
-                          customPattern: decimalDigits[1].length == 1
-                              ? '#,#'
-                              : decimalDigits[1].length == 2
-                                  ? '#,###,00'
-                                  : '#,###,000',
-                          decimalDigits: 3);
                       return Padding(
                         padding: const EdgeInsets.only(left: 10.0),
                         child: Text(
-                            '\$${oCcy.format(int.parse(profileBuildData.collectionValue.toString().split('.').join('')))}',
+                            decimalDigitsLastSalePrice(
+                                profileBuildData.collectionValue.toString()),
                             style: Theme.of(context)
                                 .textTheme
                                 .displayMedium!
                                 .copyWith(
-                                    fontFamily: "Knockout",
+                                    fontFamily: "KnockoutCustom",
                                     fontSize: 45,
                                     letterSpacing: 1.0,
                                     fontWeight: FontWeight.w300,

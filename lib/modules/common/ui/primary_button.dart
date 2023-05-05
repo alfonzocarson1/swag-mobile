@@ -72,8 +72,8 @@ class PrimaryButton extends StatelessWidget {
               title,
               style: Theme.of(context).textTheme.displayMedium!.copyWith(
                   fontFamily: "KnockoutCustom",
-                  fontSize: 26,
-                  letterSpacing: 1.1,
+                  fontSize: 24,
+                  letterSpacing: 1.2,
                   fontWeight: FontWeight.w300,
                   color: type == PrimaryButtonType.black
                       ? Palette.current.primaryNeonGreen

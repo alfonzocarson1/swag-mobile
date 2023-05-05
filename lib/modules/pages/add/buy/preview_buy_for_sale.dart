@@ -14,6 +14,7 @@ import '../../../common/utils/palette.dart';
 import '../../../constants/constants.dart';
 import '../../../cubits/profile/get_profile_cubit.dart';
 import '../../../di/injector.dart';
+import '../../../common/utils/utils.dart';
 import '../../../models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
 import '../../../models/detail/detail_collection_model.dart';
 import '../../../models/overlay_buton/overlay_button_model.dart';
@@ -115,7 +116,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                             .copyWith(
                                                 letterSpacing: 1,
                                                 fontWeight: FontWeight.w300,
-                                                fontFamily: "Knockout",
+                                                fontFamily: "KnockoutCustom",
                                                 fontSize: 30,
                                                 color: Palette.current.white))),
                                 Expanded(
@@ -170,7 +171,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                             Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                  '${S.of(context).for_sale}: \$${widget.dataItem.lastSale}',
+                                  '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(widget.dataItem.lastSale.toString())} ',
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodySmall!
@@ -212,7 +213,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                             const SizedBox(height: 30),
                             PrimaryButton(
                               title:
-                                  '${S.of(context).buy_for} \$${widget.dataItem.lastSale}',
+                                  '${S.of(context).buy_for}  ${decimalDigitsLastSalePrice(widget.dataItem.lastSale.toString())}',
                               onPressed: () {},
                               type: PrimaryButtonType.green,
                             ),

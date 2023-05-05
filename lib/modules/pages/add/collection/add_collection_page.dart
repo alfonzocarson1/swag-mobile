@@ -73,6 +73,8 @@ class _AddCollectionState extends State<AddCollection> {
   String? purchaseErrorText;
   String? conditionErrorText;
   String? sourceErrorText;
+  String? datePickerErrorText;
+  bool datePickerErrorFlag = false;
 
   bool isFirst = true;
 
@@ -223,7 +225,7 @@ class _AddCollectionState extends State<AddCollection> {
                                         .copyWith(
                                             letterSpacing: 1,
                                             fontWeight: FontWeight.w300,
-                                            fontFamily: "Knockout",
+                                            fontFamily: "KnockoutCustom",
                                             fontSize: 30,
                                             color: Palette
                                                 .current.primaryNeonGreen)),
@@ -263,7 +265,7 @@ class _AddCollectionState extends State<AddCollection> {
                                         .copyWith(
                                             letterSpacing: 1,
                                             fontWeight: FontWeight.w300,
-                                            fontFamily: "Knockout",
+                                            fontFamily: "KnockoutCustom",
                                             fontSize: 30,
                                             color: Palette.current.white)),
                               ),
@@ -271,10 +273,12 @@ class _AddCollectionState extends State<AddCollection> {
                                 height: 30,
                               ),
                               CupertinoDatePickerView(
+                                errorText: datePickerErrorText,
                                 cupertinoDatePickervalue: _defaultDateTime,
                                 onDone: (DateTime newValue) {
                                   setState(() {
                                     setState(() {
+                                      datePickerErrorFlag = true;
                                       _defaultDateTime = newValue;
                                       String str = _defaultDateTime.toString();
                                       String result = str.replaceAll(' ', 'T');
@@ -285,7 +289,7 @@ class _AddCollectionState extends State<AddCollection> {
                                 },
                               ),
                               const SizedBox(
-                                height: 20,
+                                height: 10,
                               ),
                               CustomTextFormField(
                                 borderColor: _purchaseBorder,
@@ -428,12 +432,16 @@ class _AddCollectionState extends State<AddCollection> {
 
       sourceErrorText =
           _defaultSource != 'Source' ? null : S.of(context).required_field;
+
+      datePickerErrorText =
+          datePickerErrorFlag == true ? null : S.of(context).required_field;
     });
   }
 
   bool areFieldsValid() {
     return _purchaseController.text.isNotEmpty &&
         _defaultCondition != 'Condition' &&
-        _defaultSource != 'Source';
+        _defaultSource != 'Source' &&
+        datePickerErrorFlag == true;
   }
 }

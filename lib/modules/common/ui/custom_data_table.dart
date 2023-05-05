@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../generated/l10n.dart';
 import '../../models/detail/sale_history_model.dart';
 import '../utils/palette.dart';
+import '../utils/utils.dart';
 
 extension on Priority {
   int compareTo(Priority other) => index.compareTo(other.index);
@@ -226,7 +227,9 @@ class _CustomDataTableState extends State<CustomDataTable> {
                                                 .current.primaryNeonPink)),
                               )),
                               DataCell(Center(
-                                  child: Text("\$${history.productItemPrice}",
+                                  child: Text(
+                                      decimalDigitsLastSalePrice(
+                                          history.productItemPrice.toString()),
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodySmall!

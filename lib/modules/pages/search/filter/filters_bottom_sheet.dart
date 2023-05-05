@@ -46,19 +46,19 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
   bool isListView = true;
   bool isForSale = false;
   String categoryId = "";
-  FilterModel filters =  FilterModel();
+  FilterModel filters = FilterModel();
 
   @override
   void initState() {
     getTabId(widget.tab ?? SearchTab.all);
     isListView = getIt<PreferenceRepositoryService>().isListView();
     isForSale = getIt<PreferenceRepositoryService>().isForSale();
-    super.initState();    
+    super.initState();
   }
 
   @override
   void didChangeDependencies() async {
-  filters = await getCurrentFilterModel(); 
+    filters = await getCurrentFilterModel();
     super.didChangeDependencies();
   }
 
@@ -71,223 +71,228 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Palette.current.primaryEerieBlack,
-            borderRadius: BorderRadius.circular(15),
-          ),
-          constraints: BoxConstraints(
-              minHeight: MediaQuery.of(context).size.height * 0.90,
-              maxHeight: MediaQuery.of(context).size.height * 0.90),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 0.0),
-                    child: IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: Icon(
-                          Icons.arrow_back,
-                          size: 24,
-                          color: Palette.current.primaryNeonGreen,
-                        )),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20.0),
-                    child: Text(
-                      S.of(context).filters_title.toUpperCase(),
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineMedium!
-                          .copyWith(
-                              fontFamily: "Knockout",
-                              fontSize: 30,
-                              fontWeight: FontWeight.w300,
-                              letterSpacing: 1.0,
-                              color: Palette.current.primaryWhiteSmoke),
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      initFilterAndSortsWithBloc(context,
-                          selectedProductNumber:
-                              widget.tab?.index ?? defaultInt);
-                    },
-                    style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.transparent)),
-                    child: Text(
-                      S.of(context).clear_all,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall!
-                          .copyWith(color: Palette.current.primaryNeonGreen),
-                    ),
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 4,
-              ),
-              Expanded(
-                child: LayoutBuilder(builder: (context, viewportConstraints) {
-                  return SingleChildScrollView(
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(
-                        minHeight: viewportConstraints.maxHeight,
-                      ),
-                      child: Column(
-                        children: [
-                          _filterItem(
-                              context, S.of(context).view.toUpperCase(), () {},
-                              buttons: Row(
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        if (!isListView) {
-                                          isListView = !isListView;
-                                        }
-                                      });
-                                      setIsListView();
-                                    },
-                                    child: Image.asset(
-                                      'assets/images/server.png',
-                                      color: isListView
-                                          ? Palette.current.primaryNeonGreen
-                                          : Palette.current.darkGray,
-                                      height: 20,
-                                      width: 20,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        if (isListView) {
-                                          isListView = !isListView;
-                                        }
-                                      });
-                                      setIsListView();
-                                    },
-                                    child: Icon(
-                                      Icons.grid_view,
-                                      color: !isListView
-                                          ? Palette.current.primaryNeonGreen
-                                          : Palette.current.darkGray,
-                                      size: 22,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          _filterItem(
-                            context,
-                            S.of(context).for_sale.toUpperCase(),
-                            () {},
-                            buttons: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  isForSale = !isForSale;
-                                });
-                                setIsForSale();
-                              },
-                              padding: EdgeInsets.zero,
-                              constraints: const BoxConstraints(),
-                              icon: Image.asset(
-                                'assets/icons/ForSale.png',
-                                color: isForSale
-                                    ? Palette.current.primaryNeonGreen
-                                    : Palette.current.darkGray,
-                                height: 20,
-                                width: 20,
-                              ),
-                            ),
-                          ),
-                          _filterItem(
-                            context,
-                            S.of(context).product.toUpperCase(),
-                            (widget.tab == SearchTab.whatsHot || widget.tab == SearchTab.all ||widget.tab == null)
-                            ? () => this.navigateToCategoryPage(FilterType.product, categoryId)
-                            : null,
-                          ),
-                          _filterItem(
-                            context, 
-                            S.of(context).sort_by.toUpperCase(), 
-                            ()=> this.navigateToCategoryPage(FilterType.sortBy, categoryId), 
-                            selection: S.of(context).release_date_newest,
-                          ),
-                          _filterItem(
-                            context, 
-                            S.of(context).type.toUpperCase(), 
-                           (widget.tab == SearchTab.headcovers || widget.tab == SearchTab.putters || widget.tab == null) ? ()=> this.navigateToCategoryPage(FilterType.type, categoryId) : null,
-                          ),
-                          _filterItem(
-                            context,
-                            S.of(context).collections.toUpperCase(), 
-                            ()=> this.navigateToCategoryPage(FilterType.collection, categoryId),
-                          ),
-                          _filterItem(
-                            context, 
-                            S.of(context).condition.toUpperCase(),
-                            ()=> this.navigateToCategoryPage(FilterType.condition, categoryId), 
-                            selection: S.of(context).sealed
-                          ),
-                          _filterItem(
-                            context, 
-                            S.of(context).release_date.toUpperCase(),
-                            ()=> this.navigateToCategoryPage(FilterType.releaseDate, categoryId),
-                          ),
-                          _filterItem(
-                            context,
-                            S.of(context).rarity_score.toUpperCase(), 
-                            () {},
-                          ),
-                          _filterItem(
-                            context, 
-                            S.of(context).price_range.toUpperCase(),
-                            ()=> this.navigateToCategoryPage(FilterType.price, categoryId),
-                          ),
-                          _filterItem(
-                            context, 
-                            S.of(context).theme.toUpperCase(), 
-                            ()=> this.navigateToCategoryPage(FilterType.theme, categoryId),
-                            isSeparatorNeeded: false,
-                          ),
-                          _actionButtonSection(context),
-                          const SizedBox(
-                            height: 40,
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                }),
-              ),
-            ],
-          ),
+      behavior: HitTestBehavior.opaque,
+      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Palette.current.primaryEerieBlack,
+          borderRadius: BorderRadius.circular(15),
         ),
-      ); 
+        constraints: BoxConstraints(
+            minHeight: MediaQuery.of(context).size.height * 0.90,
+            maxHeight: MediaQuery.of(context).size.height * 0.90),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 0.0),
+                  child: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(
+                        Icons.arrow_back,
+                        size: 24,
+                        color: Palette.current.primaryNeonGreen,
+                      )),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20.0),
+                  child: Text(
+                    S.of(context).filters_title.toUpperCase(),
+                    style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                        fontFamily: "KnockoutCustom",
+                        fontSize: 30,
+                        fontWeight: FontWeight.w300,
+                        letterSpacing: 1.0,
+                        color: Palette.current.primaryWhiteSmoke),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    initFilterAndSortsWithBloc(context,
+                        selectedProductNumber: widget.tab?.index ?? defaultInt);
+                  },
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(Colors.transparent)),
+                  child: Text(
+                    S.of(context).clear_all,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(color: Palette.current.primaryNeonGreen),
+                  ),
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 4,
+            ),
+            Expanded(
+              child: LayoutBuilder(builder: (context, viewportConstraints) {
+                return SingleChildScrollView(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: viewportConstraints.maxHeight,
+                    ),
+                    child: Column(
+                      children: [
+                        _filterItem(
+                          context,
+                          S.of(context).view.toUpperCase(),
+                          () {},
+                          buttons: Row(
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    if (!isListView) {
+                                      isListView = !isListView;
+                                    }
+                                  });
+                                  setIsListView();
+                                },
+                                child: Image.asset(
+                                  'assets/images/server.png',
+                                  color: isListView
+                                      ? Palette.current.primaryNeonGreen
+                                      : Palette.current.darkGray,
+                                  height: 20,
+                                  width: 20,
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    if (isListView) {
+                                      isListView = !isListView;
+                                    }
+                                  });
+                                  setIsListView();
+                                },
+                                child: Icon(
+                                  Icons.grid_view,
+                                  color: !isListView
+                                      ? Palette.current.primaryNeonGreen
+                                      : Palette.current.darkGray,
+                                  size: 22,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        _filterItem(
+                          context,
+                          S.of(context).for_sale.toUpperCase(),
+                          () {},
+                          buttons: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                isForSale = !isForSale;
+                              });
+                              setIsForSale();
+                            },
+                            padding: EdgeInsets.zero,
+                            constraints: const BoxConstraints(),
+                            icon: Image.asset(
+                              'assets/icons/ForSale.png',
+                              color: isForSale
+                                  ? Palette.current.primaryNeonGreen
+                                  : Palette.current.darkGray,
+                              height: 20,
+                              width: 20,
+                            ),
+                          ),
+                        ),
+                        _filterItem(
+                          context,
+                          S.of(context).product.toUpperCase(),
+                          (widget.tab == SearchTab.whatsHot ||
+                                  widget.tab == SearchTab.all ||
+                                  widget.tab == null)
+                              ? () => this.navigateToCategoryPage(
+                                  FilterType.product, categoryId)
+                              : null,
+                        ),
+                        _filterItem(
+                          context,
+                          S.of(context).sort_by.toUpperCase(),
+                          () => this.navigateToCategoryPage(
+                              FilterType.sortBy, categoryId),
+                          selection: S.of(context).release_date_newest,
+                        ),
+                        _filterItem(
+                          context,
+                          S.of(context).type.toUpperCase(),
+                          (widget.tab == SearchTab.headcovers ||
+                                  widget.tab == SearchTab.putters ||
+                                  widget.tab == null)
+                              ? () => this.navigateToCategoryPage(
+                                  FilterType.type, categoryId)
+                              : null,
+                        ),
+                        _filterItem(
+                          context,
+                          S.of(context).collections.toUpperCase(),
+                          () => this.navigateToCategoryPage(
+                              FilterType.collection, categoryId),
+                        ),
+                        _filterItem(
+                            context,
+                            S.of(context).condition.toUpperCase(),
+                            () => this.navigateToCategoryPage(
+                                FilterType.condition, categoryId),
+                            selection: S.of(context).sealed),
+                        _filterItem(
+                          context,
+                          S.of(context).release_date.toUpperCase(),
+                          () => this.navigateToCategoryPage(
+                              FilterType.releaseDate, categoryId),
+                        ),
+                        _filterItem(
+                          context,
+                          S.of(context).price_range.toUpperCase(),
+                          () => this.navigateToCategoryPage(
+                              FilterType.price, categoryId),
+                        ),
+                        _filterItem(
+                          context,
+                          S.of(context).theme.toUpperCase(),
+                          () => this.navigateToCategoryPage(
+                              FilterType.theme, categoryId),
+                          isSeparatorNeeded: false,
+                        ),
+                        _actionButtonSection(context),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   void navigateToCategoryPage(FilterType type, String categoryId) {
-    
-     Navigator.of(context, rootNavigator: true).push(
+    Navigator.of(context, rootNavigator: true).push(
       FilterCategoryPage.route(
         context,
-        categoryId, 
+        categoryId,
         type,
         isMultipleSelection: true,
         searchParam: this.widget.searchParam,
@@ -310,9 +315,9 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
             preference.copyWith(isForSale: isForSale)));
   }
 
-   getTabId(SearchTab tab) async {    
-    categoryId = await SearchTabWrapper(tab).toStringCustom()?? "";
-    Future.delayed(const Duration(milliseconds: 500));    
+  getTabId(SearchTab tab) async {
+    categoryId = await SearchTabWrapper(tab).toStringCustom() ?? "";
+    Future.delayed(const Duration(milliseconds: 500));
   }
 
   Widget _actionButtonSection(BuildContext context) {
@@ -338,12 +343,13 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
   }
 
   Widget _filterItem(
-    BuildContext context, 
-    String title, Function()? onTap, {
-      Widget? buttons,
-      String selection = defaultString,
-      bool isSeparatorNeeded = true,
-    }) {
+    BuildContext context,
+    String title,
+    Function()? onTap, {
+    Widget? buttons,
+    String selection = defaultString,
+    bool isSeparatorNeeded = true,
+  }) {
     return Material(
       color: Palette.current.primaryEerieBlack,
       child: InkWell(
@@ -448,7 +454,6 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
   }
 
   String getText(FilterType type, {int? index, int? length}) {
-    
     switch (type) {
       case FilterType.product:
         return index == null
@@ -480,29 +485,36 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                     .toString()
                 : "$length ${S.of(context).selected}";
 
-      case FilterType.collection: return '';
-      case FilterType.theme: return '';
-      case FilterType.type: return '';
+      case FilterType.collection:
+        return '';
+      case FilterType.theme:
+        return '';
+      case FilterType.type:
+        return '';
     }
   }
-  
-  void apiCall() async  {
-   filters = await getCurrentFilterModel();
+
+  void apiCall() async {
+    filters = await getCurrentFilterModel();
     getIt<PaginatedSearchCubit>().loadResults(
-                  searchModel: SearchRequestPayloadModel(
-                    categoryId: (widget.tab == SearchTab.all || widget.tab == null) ? null : this.categoryId,
-                    whatsHotFlag:(widget.tab == SearchTab.whatsHot) ? true : false,
-                    searchParams: (widget.tab == SearchTab.all || widget.tab == null) ? [widget.searchParam ?? ""] : null ,
-                    filters:  FilterModel(
-                      sortBy: filters.sortBy,
-                      type: filters.type,
-                      theme:filters.theme,
-                      conditions: filters.conditions,
-                      collection: filters.collection,
-                      forSale: filters.forSale ,
-                      productType: filters.productType,
-                    ),
-                  ),
-                  searchTab: widget.tab ?? SearchTab.all);
+        searchModel: SearchRequestPayloadModel(
+          categoryId: (widget.tab == SearchTab.all || widget.tab == null)
+              ? null
+              : this.categoryId,
+          whatsHotFlag: (widget.tab == SearchTab.whatsHot) ? true : false,
+          searchParams: (widget.tab == SearchTab.all || widget.tab == null)
+              ? [widget.searchParam ?? ""]
+              : null,
+          filters: FilterModel(
+            sortBy: filters.sortBy,
+            type: filters.type,
+            theme: filters.theme,
+            conditions: filters.conditions,
+            collection: filters.collection,
+            forSale: filters.forSale,
+            productType: filters.productType,
+          ),
+        ),
+        searchTab: widget.tab ?? SearchTab.all);
   }
 }

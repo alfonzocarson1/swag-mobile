@@ -13,6 +13,7 @@ import '../../pages/add/collection/add_collection_page.dart';
 import '../../pages/detail/item_detail_page.dart';
 import '../../pages/login/create_account_page.dart';
 import '../utils/palette.dart';
+import '../utils/utils.dart';
 import 'popup_add_exisiting_item_collection.dart';
 
 class CatalogPage extends StatefulWidget {
@@ -273,9 +274,9 @@ class _CatalogPageState extends State<CatalogPage> {
                                           .textTheme
                                           .displayLarge!
                                           .copyWith(
-                                              letterSpacing: 1,
+                                              letterSpacing: 0.54,
                                               fontWeight: FontWeight.w300,
-                                              fontFamily: "Knockout",
+                                              fontFamily: "KnockoutCustom",
                                               fontSize: 30,
                                               color: Palette.current.white)),
                                 )),
@@ -365,12 +366,13 @@ class _CatalogPageState extends State<CatalogPage> {
                     children: [
                       Text(
                           catalogList[index].forSale
-                              ? '${S.of(context).for_sale} ${catalogList[index].saleInfo.minPrice} - ${catalogList[index].saleInfo.maxPrice}'
-                              : '${S.of(context).last_sale} ${catalogList[index].saleInfo.lastSale}',
+                              ? '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.minPrice!)} - ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.maxPrice!)}'
+                              : '${S.of(context).last_sale}: ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.lastSale!)}',
                           style: Theme.of(context)
                               .textTheme
                               .bodySmall!
                               .copyWith(
+                                letterSpacing: 0.0244,
                                   fontWeight: FontWeight.w300,
                                   color: Palette.current.primaryNeonGreen))
                     ],

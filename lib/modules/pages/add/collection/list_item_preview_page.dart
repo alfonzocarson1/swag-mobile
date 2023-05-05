@@ -8,12 +8,14 @@ import 'package:swagapp/modules/pages/add/collection/edit_list_for_sale_page.dar
 import 'package:swagapp/modules/pages/add/collection/widgets/custom_overlay_button.dart';
 
 import '../../../../generated/l10n.dart';
+import '../../../blocs/detail_bloc/detail_bloc.dart';
 import '../../../blocs/listing_bloc/listing_bloc.dart';
 import '../../../common/ui/loading.dart';
 import '../../../common/ui/multi_image_slide.dart';
 import '../../../common/ui/primary_button.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
+import '../../../common/utils/utils.dart';
 import '../../../constants/constants.dart';
 import '../../../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
 import '../../../di/injector.dart';
@@ -112,6 +114,8 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                     return null;
                   },
                   loadedListingSuccess: (state) {
+                    BlocProvider.of<DetailBloc>(context)
+                        .add(DetailEvent.getDetailItem(widget.catalogItemId));
                     widget.onClose();
                     Loading.hide(context);
                     Navigator.pop(context);
@@ -165,7 +169,7 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                                           .copyWith(
                                               letterSpacing: 1,
                                               fontWeight: FontWeight.w300,
-                                              fontFamily: "Knockout",
+                                              fontFamily: "KnockoutCustom",
                                               fontSize: 30,
                                               color: Palette.current.white))),
                               Expanded(
@@ -209,7 +213,7 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                                "${S.of(context).for_sale}: \$${widget.itemPrice}",
+                                "${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(widget.itemPrice.toString())}",
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall!

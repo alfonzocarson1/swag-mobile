@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -6,10 +7,12 @@ import '../../common/ui/popup_delete_item_collection.dart';
 import '../../common/ui/popup_list_item_sale.dart';
 import '../../common/ui/primary_button.dart';
 import '../../common/utils/palette.dart';
+import '../../common/utils/utils.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/detail/detail_collection_model.dart';
 import '../../models/detail/detail_sale_info_model.dart';
+import '../../models/profile/profile_model.dart';
 import '../add/buy/buy_for_sale.dart';
 import '../add/collection/list_for_sale_page.dart';
 import '../login/create_account_page.dart';
@@ -42,11 +45,28 @@ class CollectionWidget extends StatefulWidget {
 
 class _CollectionWidgetState extends State<CollectionWidget> {
   bool isLogged = false;
+  ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
+  String? profileURL;
+
+  String? defaultImage;
+
+  bool _loadImageError = false;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     isLogged = getIt<PreferenceRepositoryService>().isLogged();
+
+    if (profileData.useAvatar != 'CUSTOM') {
+      var data = imagesList
+          .where((avatar) => (avatar["id"].contains(profileData.useAvatar)));
+
+      defaultImage = data.first['url'];
+    } else {
+      profileURL = profileData.avatarUrl ??
+          'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Franklin.png?alt=media&token=c1073f88-74c2-44c8-a287-fbe0caebf878';
+    }
   }
 
   @override
@@ -57,11 +77,19 @@ class _CollectionWidgetState extends State<CollectionWidget> {
           height: 30,
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 20),
+          padding: const EdgeInsets.only(left: 10),
           child: Row(children: <Widget>[
-            Image.asset(
-              "assets/images/Avatar.png",
-              scale: 3,
+            SizedBox(
+              height: 40,
+              width: 40,
+              child: CircleAvatar(
+                backgroundColor: Colors.transparent,
+                backgroundImage: const AssetImage('assets/images/Avatar.png'),
+                foregroundImage: profileURL != null
+                    ? NetworkImage('$profileURL')
+                    : NetworkImage('$defaultImage'),
+                radius: 75,
+              ),
             ),
             const SizedBox(
               width: 8,
@@ -70,21 +98,9 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
                     letterSpacing: 1,
                     fontWeight: FontWeight.w300,
-                    fontFamily: "Knockout",
+                    fontFamily: "KnockoutCustom",
                     fontSize: 27,
-                    color: Palette.current.white)),
-            const SizedBox(
-              width: 10,
-            ),
-            widget.dataCollection != null
-                ? Text("(${widget.dataCollection!.length}X)",
-                    style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                        letterSpacing: 1,
-                        fontWeight: FontWeight.w300,
-                        fontFamily: "Knockout",
-                        fontSize: 27,
-                        color: Palette.current.white))
-                : Container(),
+                    color: Palette.current.primaryNeonGreen)),
             const SizedBox(
               width: 10,
             ),
@@ -132,7 +148,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                         const SizedBox(
                           height: 20,
                         ),
-                        Text(S.of(context).collection,
+                        Text(S.of(context).collection_message,
                             style: TextStyle(
                               fontSize: 15,
                               color: Palette.current.primaryWhiteSmoke,
@@ -189,7 +205,9 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                               Palette.current.primaryWhiteSmoke,
                                         )),
                                 trailing: Text(
-                                    '${widget.dataCollection![index].purchasePrice}',
+                                    decimalDigitsLastSalePrice(widget
+                                        .dataCollection![index].purchasePrice
+                                        .toString()),
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodySmall!
@@ -250,7 +268,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                       width: MediaQuery.of(context).size.width,
                       child: PrimaryButton(
                         title:
-                            "${S.of(context).buy_for} ${widget.lastSale.maxPrice}",
+                            '${S.of(context).buy_for} ${decimalDigitsLastSalePrice(widget.lastSale.maxPrice!)}',
                         onPressed: () {
                           if (isLogged) {
                             Navigator.of(context, rootNavigator: true)
@@ -308,7 +326,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                               width: MediaQuery.of(context).size.width,
                               child: PrimaryButton(
                                 title:
-                                    "${S.of(context).buy_for} ${widget.lastSale.maxPrice}",
+                                    '${S.of(context).buy_for} ${decimalDigitsLastSalePrice(widget.lastSale.maxPrice!)}',
                                 onPressed: () {
                                   if (isLogged) {
                                     Navigator.of(context, rootNavigator: true)
@@ -416,7 +434,40 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                 },
                                 type: PrimaryButtonType.pink,
                               ),
-                            )
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width,
+                              child: PrimaryButton(
+                                title: S.of(context).list_for_sale_btn,
+                                onPressed: () {
+                                  if (isLogged) {
+                                    widget.dataCollection!.length > 1
+                                        ? showDialog(
+                                            context: context,
+                                            barrierDismissible: false,
+                                            builder: (BuildContext context) {
+                                              return PopUpListItemSale(
+                                                  catalogItemName:
+                                                      widget.catalogItemName,
+                                                  dataCollection:
+                                                      widget.dataCollection!);
+                                            })
+                                        : Navigator.of(context,
+                                                rootNavigator: true)
+                                            .push(ListForSalePage.route(
+                                                widget.dataCollection![0],
+                                                widget.catalogItemName));
+                                  } else {
+                                    Navigator.of(context, rootNavigator: true)
+                                        .push(CreateAccountPage.route());
+                                  }
+                                },
+                                type: PrimaryButtonType.black,
+                              ),
+                            ),
                           ],
                         ),
         )

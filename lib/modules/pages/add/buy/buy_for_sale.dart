@@ -10,6 +10,7 @@ import '../../../common/ui/custom_app_bar.dart';
 import '../../../common/ui/loading.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
+import '../../../common/utils/utils.dart';
 import '../../../models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
 import '../../../models/detail/detail_sale_info_model.dart';
 import '../../detail/transaction_history_page.dart';
@@ -191,11 +192,11 @@ class _BuyForSaleState extends State<BuyForSale> {
                               .copyWith(
                                   letterSpacing: 1,
                                   fontWeight: FontWeight.w300,
-                                  fontFamily: "Knockout",
+                                  fontFamily: "KnockoutCustom",
                                   fontSize: 30,
                                   color: Palette.current.white)),
                       Text(
-                          '${S.of(context).last_sale} ${widget.catalogItemPrice.lastSale}',
+                          '${S.of(context).last_sale} ${decimalDigitsLastSalePrice(widget.catalogItemPrice.lastSale.toString())} ',
                           style: Theme.of(context)
                               .textTheme
                               .bodySmall!
@@ -264,7 +265,7 @@ class _BuyForSaleState extends State<BuyForSale> {
                                                         .bodyLarge!
                                                         .copyWith(
                                                             fontFamily:
-                                                                "Knockout",
+                                                                "KnockoutCustom",
                                                             fontSize: 25,
                                                             letterSpacing: 1,
                                                             fontWeight:
@@ -310,7 +311,7 @@ class _BuyForSaleState extends State<BuyForSale> {
                                 .copyWith(
                                     letterSpacing: 1,
                                     fontWeight: FontWeight.w300,
-                                    fontFamily: "Knockout",
+                                    fontFamily: "KnockoutCustom",
                                     fontSize: 27,
                                     color: Palette.current.white)),
                         const SizedBox(
@@ -390,14 +391,14 @@ class _BuyForSaleState extends State<BuyForSale> {
                                       Align(
                                         alignment: Alignment.centerLeft,
                                         child: Text(
-                                            "\$${dataListingSale[index].lastSale}",
+                                            "${decimalDigitsLastSalePrice(dataListingSale[index].lastSale.toString())}  ",
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .displayLarge!
                                                 .copyWith(
                                                     letterSpacing: 1,
                                                     fontWeight: FontWeight.w300,
-                                                    fontFamily: "Knockout",
+                                                    fontFamily: "KnockoutCustom",
                                                     fontSize: 27,
                                                     color: Palette.current
                                                         .primaryNeonGreen)),

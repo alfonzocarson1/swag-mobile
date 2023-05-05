@@ -133,7 +133,7 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
                               .textTheme
                               .headlineMedium!
                               .copyWith(
-                                  fontFamily: "Knockout",
+                                  fontFamily: "KnockoutCustom",
                                   fontSize: 30,
                                   fontWeight: FontWeight.w300,
                                   letterSpacing: 1.0,

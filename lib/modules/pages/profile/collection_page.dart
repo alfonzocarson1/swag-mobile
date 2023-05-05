@@ -10,6 +10,7 @@ import '../../../generated/l10n.dart';
 import '../../common/ui/simple_loader.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
+import '../../common/utils/utils.dart';
 import '../../cubits/collections/get_collections_cubit.dart';
 import '../../models/collection/get_collection_model.dart';
 import '../../models/collection/get_list_collection_model.dart';
@@ -131,7 +132,7 @@ class _CollectionPageState extends State<CollectionPage> {
                                     .copyWith(
                                         letterSpacing: 1,
                                         fontWeight: FontWeight.w300,
-                                        fontFamily: "Knockout",
+                                        fontFamily: "KnockoutCustom",
                                         fontSize: 24,
                                         color: Palette.current.white)),
                           ],
@@ -190,7 +191,7 @@ class _CollectionPageState extends State<CollectionPage> {
                                                   .textTheme
                                                   .bodySmall!
                                                   .copyWith(
-                                                      fontFamily: "Knockout",
+                                                      fontFamily: "KnockoutCustom",
                                                       fontSize: 30,
                                                       fontWeight:
                                                           FontWeight.w300,
@@ -248,13 +249,13 @@ class _CollectionPageState extends State<CollectionPage> {
                                       .copyWith(
                                           letterSpacing: 1,
                                           fontWeight: FontWeight.w300,
-                                          fontFamily: "Knockout",
+                                          fontFamily: "KnockoutCustom",
                                           fontSize: 24,
                                           color: Palette.current.white)),
                               Text(
                                   collectionList[index - 1].forSale
-                                      ? '${S.of(context).for_sale} ${collectionList[index - 1].saleInfo.minPrice}'
-                                      : '${S.of(context).last_sale} ${collectionList[index - 1].saleInfo.lastSale}',
+                                      ? '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(collectionList[index - 1].saleInfo.minPrice!)}'
+                                      : '${S.of(context).last_sale}: ${decimalDigitsLastSalePrice(collectionList[index - 1].saleInfo.lastSale!)}',
                                   overflow: TextOverflow.fade,
                                   style: Theme.of(context)
                                       .textTheme
