@@ -172,41 +172,6 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                                               fontFamily: "KnockoutCustom",
                                               fontSize: 30,
                                               color: Palette.current.white))),
-                              Expanded(
-                                  flex: 2,
-                                  child: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: IconButton(
-                                      icon: Image.asset(
-                                        "assets/images/share.png",
-                                        scale: 3.5,
-                                      ),
-                                      onPressed: () async {},
-                                    ),
-                                  )),
-                              Expanded(
-                                  flex: 1,
-                                  child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: CustomOverlayButton(
-                                      icon: Image.asset(
-                                        "assets/images/more-horizontal.png",
-                                        scale: 2,
-                                      ), 
-                                      items: items, 
-                                      onItemSelected: (String value ) { 
-                                        print(value);
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .push(EditListForSalePage.route(
-                                                collectionModel,
-                                                widget.productItemId,
-                                                widget.itemName,
-                                                widget.imgList
-                                                ));
-                                       },
-                                      ),
-                                  ))
                             ],
                           ),
                           const SizedBox(height: 10),
