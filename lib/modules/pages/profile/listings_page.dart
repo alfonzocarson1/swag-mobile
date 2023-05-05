@@ -107,6 +107,7 @@ class _ListingsPageState extends State<ListingsPage> {
                                 MaterialPageRoute(builder: (context) => 
                                   BuyPreviewPage(dataItem: 
                                   BuyForSaleListingModel(
+                                    profileId: listItem.profileId,
                                     catalogItemId: listItem.catalogItemId,
                                     productItemId: listItem.productItemId,
                                     productItemImageUrls: listItem.productItemImageUrls ?? [],
