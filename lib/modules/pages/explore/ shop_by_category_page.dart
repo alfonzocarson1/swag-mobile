@@ -4,11 +4,13 @@ import 'package:simple_rich_text/simple_rich_text.dart';
 import '../../../generated/l10n.dart';
 import '../../common/ui/clickable_text.dart';
 import '../../common/utils/palette.dart';
+import '../../cubits/page_from_explore/page_from_explore_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 
 class ShopByCategory extends StatefulWidget {
-  const ShopByCategory({super.key});
+  const ShopByCategory({super.key, required this.pageFromExplore});
+  final Function() pageFromExplore;
 
   @override
   State<ShopByCategory> createState() => _ShopByCategoryState();
@@ -67,7 +69,9 @@ class _ShopByCategoryState extends State<ShopByCategory> {
         ),
         GestureDetector(
           onTap: () {
+            widget.pageFromExplore();
             getIt<PreferenceRepositoryService>().setPageFromExplore(1);
+            getIt<PageFromExploreCubit>().loadResults(1);
           },
           child: Image.asset(
             'assets/images/headcover.png',
@@ -76,7 +80,9 @@ class _ShopByCategoryState extends State<ShopByCategory> {
         ),
         GestureDetector(
           onTap: () {
+            widget.pageFromExplore();
             getIt<PreferenceRepositoryService>().setPageFromExplore(2);
+            getIt<PageFromExploreCubit>().loadResults(2);
           },
           child: Image.asset(
             'assets/images/putter.png',
@@ -85,7 +91,9 @@ class _ShopByCategoryState extends State<ShopByCategory> {
         ),
         GestureDetector(
           onTap: () {
+            widget.pageFromExplore();
             getIt<PreferenceRepositoryService>().setPageFromExplore(3);
+            getIt<PageFromExploreCubit>().loadResults(3);
           },
           child: Image.asset(
             'assets/images/accessory.png',

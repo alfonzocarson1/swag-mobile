@@ -309,7 +309,7 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   @override
   int getPageFromExplore() {
     final pageFromExplore = _prefs.getInt(_pageFromExplore);
-    return pageFromExplore ?? -1;
+    return pageFromExplore ?? defaultInt;
   }
 
   @override

@@ -25,6 +25,7 @@ import 'modules/blocs/update_profile_bloc/update_profile_bloc.dart';
 import 'modules/cubits/collections/get_collections_cubit.dart';
 import 'modules/cubits/favorites/get_favorites_cubit.dart';
 import 'modules/cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
+import 'modules/cubits/page_from_explore/page_from_explore_cubit.dart';
 import 'modules/cubits/profile/get_profile_cubit.dart';
 import 'modules/pages/home/home_page.dart';
 import 'modules/common/utils/context_service.dart';
@@ -64,6 +65,9 @@ class App extends StatelessWidget {
 
           BlocProvider<ProfileCubit>(
               create: (context) => getIt<ProfileCubit>()),
+
+          BlocProvider<PageFromExploreCubit>(
+              create: (context) => getIt<PageFromExploreCubit>()),
 
           BlocProvider<CategoryBloc>(
               create: (context) => getIt<CategoryBloc>()),

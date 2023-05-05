@@ -32,6 +32,7 @@ import '../blocs/update_profile_bloc/update_profile_bloc.dart';
 import '../cubits/collections/get_collections_cubit.dart';
 import '../cubits/favorites/get_favorites_cubit.dart';
 import '../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
+import '../cubits/page_from_explore/page_from_explore_cubit.dart';
 import '../cubits/profile/get_profile_cubit.dart';
 import '../data/auth/auth_service.dart';
 import '../data/buy_for_sale_listing/buy_for_sale_listing_service.dart';
@@ -124,6 +125,9 @@ Future<void> setupAppScope() {
       () => CollectionService(APIService()));
   getIt.registerLazySingleton<CollectionBloc>(
       () => CollectionBloc(getIt<ICollectionService>()));
+
+  getIt.registerLazySingleton<PageFromExploreCubit>(
+      () => PageFromExploreCubit());
 
   getIt.registerLazySingleton<ISalesHistoryService>(
       () => SalesHistoryService(APIService()));

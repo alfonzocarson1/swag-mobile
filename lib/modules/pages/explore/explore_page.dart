@@ -18,11 +18,12 @@ import 'whats_hot_page.dart';
 
 class ExplorePage extends StatefulWidget {
   static const name = '/ExplorePage';
-  const ExplorePage({Key? key, this.pageFromExplore}) : super(key: key);
+  const ExplorePage({Key? key, required this.pageFromExplore})
+      : super(key: key);
 
-  final Function(int)? pageFromExplore;
+  final Function() pageFromExplore;
 
-  static Route route(Function(int)? pageFromExplore) => PageRoutes.material(
+  static Route route(Function() pageFromExplore) => PageRoutes.material(
         settings: const RouteSettings(name: name),
         builder: (context) => ExplorePage(pageFromExplore: pageFromExplore),
       );
@@ -56,7 +57,7 @@ class _ExplorePageState extends State<ExplorePage> {
 
   @override
   Widget build(BuildContext context) {
-    getIt<PreferenceRepositoryService>().setPageFromExplore(-1);
+    getIt<PreferenceRepositoryService>().setPageFromExplore(0);
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -75,8 +76,12 @@ class _ExplorePageState extends State<ExplorePage> {
                     child: Padding(
                       padding: const EdgeInsets.only(top: 50),
                       child: Column(
-                        children: const [
-                          ShopByCategory(),
+                        children: [
+                          ShopByCategory(
+                            pageFromExplore: () {
+                              widget.pageFromExplore();
+                            },
+                          ),
                           UnicornCoversPage(),
                           WhatsHotExplorePage(),
                           StaffPicksPage()
