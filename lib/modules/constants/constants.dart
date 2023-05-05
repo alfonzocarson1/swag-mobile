@@ -1,5 +1,9 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
 import '../data/shared_preferences/shared_preferences_service.dart';
 import '../di/injector.dart';
+import '../models/overlay_buton/overlay_button_model.dart';
 import '../models/search/category_model.dart';
 
 const String hostProd = "dev.core-api.app.net";
@@ -32,6 +36,24 @@ const countries = [
   "KR",
 ];
 
+const itemConditions = [
+    'Condition',
+    'Sealed',
+    'Displayed',
+    'Gamed',
+  ];
+
+ 
+
+const List<CustomOverlayItemModel> editListingDropDown = [
+  CustomOverlayItemModel(imagePath: 'assets/icons/editWhite.png', label: 'Edit listing'),
+  CustomOverlayItemModel(imagePath: 'assets/icons/xCircle.png', label: 'Remove listing'),
+];
+
+const reportListingDropDown = [
+
+];
+
 enum FilterType { sortBy, condition, price, releaseDate, product, collection, theme, type }
 
 enum ReleaseDate {
@@ -42,6 +64,14 @@ enum ReleaseDate {
   y2022,
   y2023,
 }
+
+
+ 
+enum EditingListingStatus {
+  editing,
+  listed,
+  removed,
+} 
 
 class ReleaseDateWrapper {
   final ReleaseDate type;

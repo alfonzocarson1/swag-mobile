@@ -27,6 +27,7 @@ mixin _$DetailCollectionModel {
   double get purchasePrice => throw _privateConstructorUsedError;
   String get itemCondition => throw _privateConstructorUsedError;
   String get itemSource => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -46,7 +47,8 @@ abstract class $DetailCollectionModelCopyWith<$Res> {
       String purchaseDate,
       double purchasePrice,
       String itemCondition,
-      String itemSource});
+      String itemSource,
+      String? description});
 }
 
 /// @nodoc
@@ -69,6 +71,7 @@ class _$DetailCollectionModelCopyWithImpl<$Res,
     Object? purchasePrice = null,
     Object? itemCondition = null,
     Object? itemSource = null,
+    Object? description = freezed,
   }) {
     return _then(_value.copyWith(
       profileCollectionItemId: null == profileCollectionItemId
@@ -95,6 +98,10 @@ class _$DetailCollectionModelCopyWithImpl<$Res,
           ? _value.itemSource
           : itemSource // ignore: cast_nullable_to_non_nullable
               as String,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -113,7 +120,8 @@ abstract class _$$_DetailCollectionModelCopyWith<$Res>
       String purchaseDate,
       double purchasePrice,
       String itemCondition,
-      String itemSource});
+      String itemSource,
+      String? description});
 }
 
 /// @nodoc
@@ -133,6 +141,7 @@ class __$$_DetailCollectionModelCopyWithImpl<$Res>
     Object? purchasePrice = null,
     Object? itemCondition = null,
     Object? itemSource = null,
+    Object? description = freezed,
   }) {
     return _then(_$_DetailCollectionModel(
       profileCollectionItemId: null == profileCollectionItemId
@@ -159,6 +168,10 @@ class __$$_DetailCollectionModelCopyWithImpl<$Res>
           ? _value.itemSource
           : itemSource // ignore: cast_nullable_to_non_nullable
               as String,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -173,7 +186,8 @@ class _$_DetailCollectionModel implements _DetailCollectionModel {
       required this.purchaseDate,
       required this.purchasePrice,
       required this.itemCondition,
-      required this.itemSource});
+      required this.itemSource,
+      this.description});
 
   factory _$_DetailCollectionModel.fromJson(Map<String, dynamic> json) =>
       _$$_DetailCollectionModelFromJson(json);
@@ -190,10 +204,12 @@ class _$_DetailCollectionModel implements _DetailCollectionModel {
   final String itemCondition;
   @override
   final String itemSource;
+  @override
+  final String? description;
 
   @override
   String toString() {
-    return 'DetailCollectionModel(profileCollectionItemId: $profileCollectionItemId, catalogItemId: $catalogItemId, purchaseDate: $purchaseDate, purchasePrice: $purchasePrice, itemCondition: $itemCondition, itemSource: $itemSource)';
+    return 'DetailCollectionModel(profileCollectionItemId: $profileCollectionItemId, catalogItemId: $catalogItemId, purchaseDate: $purchaseDate, purchasePrice: $purchasePrice, itemCondition: $itemCondition, itemSource: $itemSource, description: $description)';
   }
 
   @override
@@ -213,13 +229,22 @@ class _$_DetailCollectionModel implements _DetailCollectionModel {
             (identical(other.itemCondition, itemCondition) ||
                 other.itemCondition == itemCondition) &&
             (identical(other.itemSource, itemSource) ||
-                other.itemSource == itemSource));
+                other.itemSource == itemSource) &&
+            (identical(other.description, description) ||
+                other.description == description));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, profileCollectionItemId,
-      catalogItemId, purchaseDate, purchasePrice, itemCondition, itemSource);
+  int get hashCode => Object.hash(
+      runtimeType,
+      profileCollectionItemId,
+      catalogItemId,
+      purchaseDate,
+      purchasePrice,
+      itemCondition,
+      itemSource,
+      description);
 
   @JsonKey(ignore: true)
   @override
@@ -243,7 +268,8 @@ abstract class _DetailCollectionModel implements DetailCollectionModel {
       required final String purchaseDate,
       required final double purchasePrice,
       required final String itemCondition,
-      required final String itemSource}) = _$_DetailCollectionModel;
+      required final String itemSource,
+      final String? description}) = _$_DetailCollectionModel;
 
   factory _DetailCollectionModel.fromJson(Map<String, dynamic> json) =
       _$_DetailCollectionModel.fromJson;
@@ -260,6 +286,8 @@ abstract class _DetailCollectionModel implements DetailCollectionModel {
   String get itemCondition;
   @override
   String get itemSource;
+  @override
+  String? get description;
   @override
   @JsonKey(ignore: true)
   _$$_DetailCollectionModelCopyWith<_$_DetailCollectionModel> get copyWith =>

@@ -22,6 +22,7 @@ _$_ListingForSaleModel _$$_ListingForSaleModelFromJson(
       forSale: json['forSale'] as bool?,
       sold: json['sold'] as bool?,
       isDeleted: json['isDeleted'] as bool?,
+      status: json['status'] as String?,
       listingItemsAction: json['listingItemsAction'] as String?,
     );
 
@@ -48,6 +49,7 @@ Map<String, dynamic> _$$_ListingForSaleModelToJson(
   writeNotNull('forSale', instance.forSale);
   writeNotNull('sold', instance.sold);
   writeNotNull('isDeleted', instance.isDeleted);
+  writeNotNull('status', instance.status);
   writeNotNull('listingItemsAction', instance.listingItemsAction);
   return val;
 }

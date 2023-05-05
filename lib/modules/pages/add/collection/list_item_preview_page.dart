@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
+import 'package:swagapp/modules/cubits/profile/get_profile_cubit.dart';
+import 'package:swagapp/modules/pages/add/collection/edit_list_for_sale_page.dart';
+import 'package:swagapp/modules/pages/add/collection/widgets/custom_overlay_button.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../blocs/detail_bloc/detail_bloc.dart';
@@ -14,14 +16,22 @@ import '../../../common/ui/primary_button.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
 import '../../../common/utils/utils.dart';
+import '../../../constants/constants.dart';
+import '../../../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
+import '../../../di/injector.dart';
+import '../../../models/detail/detail_collection_model.dart';
 import '../../../models/listing_for_sale/listing_for_sale_model.dart';
+import '../../../models/overlay_buton/overlay_button_model.dart';
+
 import 'footer_list_item_page.dart';
+
 
 class ListItemPreviewPage extends StatefulWidget {
   static const name = '/ListItemPreviewPage';
 
   ListItemPreviewPage(
       {super.key,
+      required this.isUpdate,
       required this.imgList,
       required this.itemName,
       required this.itemPrice,
@@ -29,8 +39,11 @@ class ListItemPreviewPage extends StatefulWidget {
       required this.itemDescription,
       required this.profileCollectionItemId,
       required this.catalogItemId,
+      this.profileId,
+      this.productItemId,
       required this.onClose});
-
+  
+  bool isUpdate;
   List<XFile> imgList;
   String itemName;
   double itemPrice;
@@ -38,13 +51,17 @@ class ListItemPreviewPage extends StatefulWidget {
   String itemDescription;
   String profileCollectionItemId;
   String catalogItemId;
+  String? productItemId;
+  String? profileId;
   Function() onClose;
 
-  static Route route(imgList, itemName, itemPrice, itemCondition,
-          itemDescription, profileCollectionItemId, catalogItemId, onClose) =>
+  static Route route({isUpdate, productItemId, imgList, itemName, itemPrice, itemCondition,
+          itemDescription, profileCollectionItemId, catalogItemId, onClose}) =>
       PageRoutes.material(
         settings: const RouteSettings(name: name),
         builder: (context) => ListItemPreviewPage(
+            isUpdate: isUpdate,
+            productItemId: productItemId,
             imgList: imgList,
             itemName: itemName,
             itemPrice: itemPrice,
@@ -60,8 +77,32 @@ class ListItemPreviewPage extends StatefulWidget {
 }
 
 class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
+  String profileId = "";
+  List<CustomOverlayItemModel> items = editListingDropDown;
+  late DetailCollectionModel collectionModel;
+  
+  @override
+  void initState() {
+    super.initState();
+    getProfileData();
+  }
+
+  getProfileData() async {
+    var tempProfile =
+        await getIt<ProfileCubit>().profileService.privateProfile();
+    profileId = tempProfile.accountId;
+  }
+
   @override
   Widget build(BuildContext context) {
+     collectionModel =  DetailCollectionModel(
+    profileCollectionItemId: 'profileCollectionItemId', 
+    catalogItemId: 'catalogItemId', 
+    purchaseDate: '', 
+    purchasePrice: widget.itemPrice, 
+    itemCondition: 'itemCondition', 
+    itemSource: '');
+
     return Scaffold(
         extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: true,
@@ -147,13 +188,24 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                                   flex: 1,
                                   child: Align(
                                     alignment: Alignment.centerLeft,
-                                    child: IconButton(
+                                    child: CustomOverlayButton(
                                       icon: Image.asset(
                                         "assets/images/more-horizontal.png",
-                                        scale: 3.5,
+                                        scale: 2,
+                                      ), 
+                                      items: items, 
+                                      onItemSelected: (String value ) { 
+                                        print(value);
+                                        Navigator.of(context,
+                                                rootNavigator: true)
+                                            .push(EditListForSalePage.route(
+                                                collectionModel,
+                                                widget.productItemId,
+                                                widget.itemName,
+                                                widget.imgList
+                                                ));
+                                       },
                                       ),
-                                      onPressed: () async {},
-                                    ),
                                   ))
                             ],
                           ),
@@ -202,6 +254,7 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                           PrimaryButton(
                             title: S.of(context).post_listing_btn,
                             onPressed: () {
+                              (widget.isUpdate == false)?
                               context.read<ListingBloc>().add(
                                   ListingEvent.createListing(
                                       ListingForSaleModel(
@@ -218,7 +271,29 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                                           catalogItemId: widget.catalogItemId,
                                           profileCollectionItemId:
                                               widget.profileCollectionItemId),
-                                      widget.imgList));
+                                      widget.imgList)) : 
+                                getIt<ListingProfileCubit>().updateListing(
+                                    ListingForSaleModel(
+                                          productItemId: widget.productItemId ,
+                                          productItemName: widget.itemName,
+                                          productItemPrice: widget.itemPrice,
+                                          productItemDescription:
+                                              widget.itemDescription,
+                                          sold: false,
+                                          condition: widget.itemCondition
+                                              .toUpperCase(),
+                                          listingItemsAction: "ADD",
+                                          forSale: true,
+                                          lastSale: widget.itemPrice,
+                                          catalogItemId: widget.catalogItemId,
+                                          profileCollectionItemId:
+                                              widget.profileCollectionItemId,
+                                                status: 'Listed',
+                                              ), 
+                                  widget.imgList) ;
+                              Navigator.of(context).pop();
+                              Navigator.of(context).pop();
+                              Navigator.of(context).pop();
                             },
                             type: PrimaryButtonType.green,
                           ),

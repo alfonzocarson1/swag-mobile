@@ -1,6 +1,12 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:swagapp/modules/models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
+import 'package:swagapp/modules/pages/add/buy/preview_buy_for_sale.dart';
+
 
 import '../../../generated/l10n.dart';
 import '../../blocs/listing_bloc/listing_bloc.dart';
@@ -28,11 +34,18 @@ class ListingsPage extends StatefulWidget {
 }
 
 class _ListingsPageState extends State<ListingsPage> {
+  List<File> tempFiles = [];
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     loadList();
+  }
+
+    @override
+  void dispose() {
+    super.dispose(); 
   }
 
   Future loadList() async {
@@ -78,31 +91,55 @@ class _ListingsPageState extends State<ListingsPage> {
                 ),
                 itemCount: listingList.length,
                 itemBuilder: (_, index) {
+                  List<XFile> imageFileList = [];
+                  ListingForSaleModel listItem = listingList[index];
+                  var catalogItemId = listingList[index].catalogItemId;
+                  var imageUrls = listingList[index].productItemImageUrls ?? [];
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Stack(
                         children: [
-                          SizedBox(
-                            height: MediaQuery.of(context).size.width * 0.38,
-                            child: ClipRRect(
-                              child: CachedNetworkImage(
-                                fit: BoxFit.fitHeight,
-                                imageUrl: listingList[index]
-                                        .productItemImageUrls[0] ??
-                                    'assets/images/Avatar.png',
-                                placeholder: (context, url) => SizedBox(
-                                  height: 200,
-                                  child: Center(
-                                    child: CircularProgressIndicator(
-                                      color: Palette.current.primaryNeonGreen,
-                                      backgroundColor: Colors.white,
+                          GestureDetector(
+                            onTap: () {
+                              if(catalogItemId != null){
+                                Navigator.of(context, rootNavigator: true).push(
+                                MaterialPageRoute(builder: (context) => 
+                                  BuyPreviewPage(dataItem: 
+                                  BuyForSaleListingModel(
+                                    catalogItemId: listItem.catalogItemId,
+                                    productItemId: listItem.productItemId,
+                                    productItemImageUrls: listItem.productItemImageUrls ?? [],
+                                    productItemName: listItem.productItemName,
+                                    productItemDescription: listItem.productItemDescription,
+                                    productItemPrice:listItem.productItemPrice?? 0.0,
+                                    condition: listItem.condition,
+                                    lastSale: listItem.lastSale,
+                                    ))
+                                  ));
+                              }                              
+                            },
+                            child: SizedBox(
+                              height: MediaQuery.of(context).size.width * 0.38,
+                              child: ClipRRect(
+                                child: CachedNetworkImage(
+                                  fit: BoxFit.fitHeight,
+                                  imageUrl: (imageUrls.isNotEmpty)? listingList[index]
+                                          .productItemImageUrls[0]:
+                                      'assets/images/Avatar.png',
+                                  placeholder: (context, url) => SizedBox(
+                                    height: 200,
+                                    child: Center(
+                                      child: CircularProgressIndicator(
+                                        color: Palette.current.primaryNeonGreen,
+                                        backgroundColor: Colors.white,
+                                      ),
                                     ),
                                   ),
+                                  errorWidget: (context, url, error) =>
+                                      Image.asset(
+                                          "assets/images/ProfilePhoto.png"),
                                 ),
-                                errorWidget: (context, url, error) =>
-                                    Image.asset(
-                                        "assets/images/ProfilePhoto.png"),
                               ),
                             ),
                           ),
@@ -178,4 +215,7 @@ class _ListingsPageState extends State<ListingsPage> {
   void makeCall() {
     context.read<ListingBloc>().add(const ListingEvent.getListingItem());
   }
+
+
 }
+
