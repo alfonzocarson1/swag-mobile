@@ -1660,10 +1660,10 @@ class S {
     );
   }
 
-  /// `Please include the following images based on item condition. All photos must include a post-it with username and date.`
+  /// `Include the following images with your listing. Photos MUST include a physical note with username and date.`
   String get image_guidelines_description {
     return Intl.message(
-      'Please include the following images based on item condition. All photos must include a post-it with username and date.',
+      'Include the following images with your listing. Photos MUST include a physical note with username and date.',
       name: 'image_guidelines_description',
       desc: '',
       args: [],
@@ -1700,11 +1700,21 @@ class S {
     );
   }
 
-  /// `•  Minimum of 3 photos Max of 6`
+  /// `•  Tagged picture`
   String get sealed_item_three {
     return Intl.message(
-      '•  Minimum of 3 photos Max of 6',
+      '•  Tagged picture',
       name: 'sealed_item_three',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `•  Minimum of 3, photos Max of 6`
+  String get sealed_item_four {
+    return Intl.message(
+      '•  Minimum of 3, photos Max of 6',
+      name: 'sealed_item_four',
       desc: '',
       args: [],
     );
@@ -1720,10 +1730,10 @@ class S {
     );
   }
 
-  /// `•  Minimum of 4 photos Max of 6`
+  /// `•  Minimum of 4, photos Max of 6`
   String get displayed_gamed_item_four {
     return Intl.message(
-      '•  Minimum of 4 photos Max of 6',
+      '•  Minimum of 4, photos Max of 6',
       name: 'displayed_gamed_item_four',
       desc: '',
       args: [],

@@ -93,7 +93,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "displayed_gamed":
             MessageLookupByLibrary.simpleMessage("DISPLAYED/GAMED:"),
         "displayed_gamed_item_four": MessageLookupByLibrary.simpleMessage(
-            "•  Minimum of 4 photos Max of 6"),
+            "•  Minimum of 4, photos Max of 6"),
         "displayed_gamed_item_three":
             MessageLookupByLibrary.simpleMessage("•  Bottom of item"),
         "dont_have_account":
@@ -146,7 +146,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "image_guidelines":
             MessageLookupByLibrary.simpleMessage("IMAGE GUIDELINES"),
         "image_guidelines_description": MessageLookupByLibrary.simpleMessage(
-            "Please include the following images based on item condition. All photos must include a post-it with username and date."),
+            "Include the following images with your listing. Photos MUST include a physical note with username and date."),
         "import_late": MessageLookupByLibrary.simpleMessage(
             "*You’ll be able to make updates later."),
         "incorrect_code": MessageLookupByLibrary.simpleMessage(
@@ -276,10 +276,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "saved_searches":
             MessageLookupByLibrary.simpleMessage("SAVED SEARCHES"),
         "sealed": MessageLookupByLibrary.simpleMessage("Sealed"),
+        "sealed_item_four": MessageLookupByLibrary.simpleMessage(
+            "•  Minimum of 3, photos Max of 6"),
         "sealed_item_one":
             MessageLookupByLibrary.simpleMessage("•  Front of item"),
-        "sealed_item_three": MessageLookupByLibrary.simpleMessage(
-            "•  Minimum of 3 photos Max of 6"),
+        "sealed_item_three":
+            MessageLookupByLibrary.simpleMessage("•  Tagged picture"),
         "sealed_item_two":
             MessageLookupByLibrary.simpleMessage("•  Back of item"),
         "search_hint": MessageLookupByLibrary.simpleMessage(
