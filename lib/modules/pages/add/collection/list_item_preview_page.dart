@@ -136,7 +136,7 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
     return Container(
       constraints: BoxConstraints(
           minHeight: MediaQuery.of(context).size.height * 0.9,
-          maxHeight: MediaQuery.of(context).size.height * 0.9),
+          maxHeight: MediaQuery.of(context).size.height * 1),
       child: Stack(
         children: [
           LayoutBuilder(builder: (context, viewportConstraints) {
@@ -172,41 +172,6 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                                               fontFamily: "KnockoutCustom",
                                               fontSize: 30,
                                               color: Palette.current.white))),
-                              Expanded(
-                                  flex: 2,
-                                  child: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: IconButton(
-                                      icon: Image.asset(
-                                        "assets/images/share.png",
-                                        scale: 3.5,
-                                      ),
-                                      onPressed: () async {},
-                                    ),
-                                  )),
-                              Expanded(
-                                  flex: 1,
-                                  child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: CustomOverlayButton(
-                                      icon: Image.asset(
-                                        "assets/images/more-horizontal.png",
-                                        scale: 2,
-                                      ), 
-                                      items: items, 
-                                      onItemSelected: (String value ) { 
-                                        print(value);
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .push(EditListForSalePage.route(
-                                                collectionModel,
-                                                widget.productItemId,
-                                                widget.itemName,
-                                                widget.imgList
-                                                ));
-                                       },
-                                      ),
-                                  ))
                             ],
                           ),
                           const SizedBox(height: 10),
@@ -236,7 +201,8 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                                             Palette.current.primaryNeonPink)),
                           ),
                           const SizedBox(height: 10),
-                          Padding(
+                          Container(
+                            height: MediaQuery.of(context).devicePixelRatio * 70,
                             padding: const EdgeInsets.only(right: 50.0),
                             child: Text(widget.itemDescription,
                                 style: Theme.of(context)
