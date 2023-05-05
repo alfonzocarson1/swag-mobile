@@ -10,5 +10,7 @@ class ListingCubitState with _$ListingCubitState {
     required final List<ListingForSaleProfileResponseModel> listForSale,
   }) = LoadedListingsState;
 
+  factory ListingCubitState.updateListing() = UpdateListing;
+
   factory ListingCubitState.error(final String message) = ErrorListingState;
 }

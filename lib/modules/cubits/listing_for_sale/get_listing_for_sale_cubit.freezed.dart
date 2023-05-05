@@ -23,6 +23,7 @@ mixin _$ListingCubitState {
     required TResult Function(
             List<ListingForSaleProfileResponseModel> listForSale)
         loadedProfileListings,
+    required TResult Function() updateListing,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -32,6 +33,7 @@ mixin _$ListingCubitState {
     TResult? Function(bool isFirstFetch)? loading,
     TResult? Function(List<ListingForSaleProfileResponseModel> listForSale)?
         loadedProfileListings,
+    TResult? Function()? updateListing,
     TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -41,6 +43,7 @@ mixin _$ListingCubitState {
     TResult Function(bool isFirstFetch)? loading,
     TResult Function(List<ListingForSaleProfileResponseModel> listForSale)?
         loadedProfileListings,
+    TResult Function()? updateListing,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
@@ -50,6 +53,7 @@ mixin _$ListingCubitState {
     required TResult Function(_Initial value) initial,
     required TResult Function(loading value) loading,
     required TResult Function(LoadedListingsState value) loadedProfileListings,
+    required TResult Function(UpdateListing value) updateListing,
     required TResult Function(ErrorListingState value) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -58,6 +62,7 @@ mixin _$ListingCubitState {
     TResult? Function(_Initial value)? initial,
     TResult? Function(loading value)? loading,
     TResult? Function(LoadedListingsState value)? loadedProfileListings,
+    TResult? Function(UpdateListing value)? updateListing,
     TResult? Function(ErrorListingState value)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -66,6 +71,7 @@ mixin _$ListingCubitState {
     TResult Function(_Initial value)? initial,
     TResult Function(loading value)? loading,
     TResult Function(LoadedListingsState value)? loadedProfileListings,
+    TResult Function(UpdateListing value)? updateListing,
     TResult Function(ErrorListingState value)? error,
     required TResult orElse(),
   }) =>
@@ -132,6 +138,7 @@ class _$_Initial implements _Initial {
     required TResult Function(
             List<ListingForSaleProfileResponseModel> listForSale)
         loadedProfileListings,
+    required TResult Function() updateListing,
     required TResult Function(String message) error,
   }) {
     return initial();
@@ -144,6 +151,7 @@ class _$_Initial implements _Initial {
     TResult? Function(bool isFirstFetch)? loading,
     TResult? Function(List<ListingForSaleProfileResponseModel> listForSale)?
         loadedProfileListings,
+    TResult? Function()? updateListing,
     TResult? Function(String message)? error,
   }) {
     return initial?.call();
@@ -156,6 +164,7 @@ class _$_Initial implements _Initial {
     TResult Function(bool isFirstFetch)? loading,
     TResult Function(List<ListingForSaleProfileResponseModel> listForSale)?
         loadedProfileListings,
+    TResult Function()? updateListing,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -171,6 +180,7 @@ class _$_Initial implements _Initial {
     required TResult Function(_Initial value) initial,
     required TResult Function(loading value) loading,
     required TResult Function(LoadedListingsState value) loadedProfileListings,
+    required TResult Function(UpdateListing value) updateListing,
     required TResult Function(ErrorListingState value) error,
   }) {
     return initial(this);
@@ -182,6 +192,7 @@ class _$_Initial implements _Initial {
     TResult? Function(_Initial value)? initial,
     TResult? Function(loading value)? loading,
     TResult? Function(LoadedListingsState value)? loadedProfileListings,
+    TResult? Function(UpdateListing value)? updateListing,
     TResult? Function(ErrorListingState value)? error,
   }) {
     return initial?.call(this);
@@ -193,6 +204,7 @@ class _$_Initial implements _Initial {
     TResult Function(_Initial value)? initial,
     TResult Function(loading value)? loading,
     TResult Function(LoadedListingsState value)? loadedProfileListings,
+    TResult Function(UpdateListing value)? updateListing,
     TResult Function(ErrorListingState value)? error,
     required TResult orElse(),
   }) {
@@ -276,6 +288,7 @@ class _$loading implements loading {
     required TResult Function(
             List<ListingForSaleProfileResponseModel> listForSale)
         loadedProfileListings,
+    required TResult Function() updateListing,
     required TResult Function(String message) error,
   }) {
     return loading(isFirstFetch);
@@ -288,6 +301,7 @@ class _$loading implements loading {
     TResult? Function(bool isFirstFetch)? loading,
     TResult? Function(List<ListingForSaleProfileResponseModel> listForSale)?
         loadedProfileListings,
+    TResult? Function()? updateListing,
     TResult? Function(String message)? error,
   }) {
     return loading?.call(isFirstFetch);
@@ -300,6 +314,7 @@ class _$loading implements loading {
     TResult Function(bool isFirstFetch)? loading,
     TResult Function(List<ListingForSaleProfileResponseModel> listForSale)?
         loadedProfileListings,
+    TResult Function()? updateListing,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -315,6 +330,7 @@ class _$loading implements loading {
     required TResult Function(_Initial value) initial,
     required TResult Function(loading value) loading,
     required TResult Function(LoadedListingsState value) loadedProfileListings,
+    required TResult Function(UpdateListing value) updateListing,
     required TResult Function(ErrorListingState value) error,
   }) {
     return loading(this);
@@ -326,6 +342,7 @@ class _$loading implements loading {
     TResult? Function(_Initial value)? initial,
     TResult? Function(loading value)? loading,
     TResult? Function(LoadedListingsState value)? loadedProfileListings,
+    TResult? Function(UpdateListing value)? updateListing,
     TResult? Function(ErrorListingState value)? error,
   }) {
     return loading?.call(this);
@@ -337,6 +354,7 @@ class _$loading implements loading {
     TResult Function(_Initial value)? initial,
     TResult Function(loading value)? loading,
     TResult Function(LoadedListingsState value)? loadedProfileListings,
+    TResult Function(UpdateListing value)? updateListing,
     TResult Function(ErrorListingState value)? error,
     required TResult orElse(),
   }) {
@@ -435,6 +453,7 @@ class _$LoadedListingsState implements LoadedListingsState {
     required TResult Function(
             List<ListingForSaleProfileResponseModel> listForSale)
         loadedProfileListings,
+    required TResult Function() updateListing,
     required TResult Function(String message) error,
   }) {
     return loadedProfileListings(listForSale);
@@ -447,6 +466,7 @@ class _$LoadedListingsState implements LoadedListingsState {
     TResult? Function(bool isFirstFetch)? loading,
     TResult? Function(List<ListingForSaleProfileResponseModel> listForSale)?
         loadedProfileListings,
+    TResult? Function()? updateListing,
     TResult? Function(String message)? error,
   }) {
     return loadedProfileListings?.call(listForSale);
@@ -459,6 +479,7 @@ class _$LoadedListingsState implements LoadedListingsState {
     TResult Function(bool isFirstFetch)? loading,
     TResult Function(List<ListingForSaleProfileResponseModel> listForSale)?
         loadedProfileListings,
+    TResult Function()? updateListing,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -474,6 +495,7 @@ class _$LoadedListingsState implements LoadedListingsState {
     required TResult Function(_Initial value) initial,
     required TResult Function(loading value) loading,
     required TResult Function(LoadedListingsState value) loadedProfileListings,
+    required TResult Function(UpdateListing value) updateListing,
     required TResult Function(ErrorListingState value) error,
   }) {
     return loadedProfileListings(this);
@@ -485,6 +507,7 @@ class _$LoadedListingsState implements LoadedListingsState {
     TResult? Function(_Initial value)? initial,
     TResult? Function(loading value)? loading,
     TResult? Function(LoadedListingsState value)? loadedProfileListings,
+    TResult? Function(UpdateListing value)? updateListing,
     TResult? Function(ErrorListingState value)? error,
   }) {
     return loadedProfileListings?.call(this);
@@ -496,6 +519,7 @@ class _$LoadedListingsState implements LoadedListingsState {
     TResult Function(_Initial value)? initial,
     TResult Function(loading value)? loading,
     TResult Function(LoadedListingsState value)? loadedProfileListings,
+    TResult Function(UpdateListing value)? updateListing,
     TResult Function(ErrorListingState value)? error,
     required TResult orElse(),
   }) {
@@ -515,6 +539,130 @@ abstract class LoadedListingsState implements ListingCubitState {
   @JsonKey(ignore: true)
   _$$LoadedListingsStateCopyWith<_$LoadedListingsState> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$UpdateListingCopyWith<$Res> {
+  factory _$$UpdateListingCopyWith(
+          _$UpdateListing value, $Res Function(_$UpdateListing) then) =
+      __$$UpdateListingCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$UpdateListingCopyWithImpl<$Res>
+    extends _$ListingCubitStateCopyWithImpl<$Res, _$UpdateListing>
+    implements _$$UpdateListingCopyWith<$Res> {
+  __$$UpdateListingCopyWithImpl(
+      _$UpdateListing _value, $Res Function(_$UpdateListing) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$UpdateListing implements UpdateListing {
+  _$UpdateListing();
+
+  @override
+  String toString() {
+    return 'ListingCubitState.updateListing()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$UpdateListing);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(bool isFirstFetch) loading,
+    required TResult Function(
+            List<ListingForSaleProfileResponseModel> listForSale)
+        loadedProfileListings,
+    required TResult Function() updateListing,
+    required TResult Function(String message) error,
+  }) {
+    return updateListing();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(bool isFirstFetch)? loading,
+    TResult? Function(List<ListingForSaleProfileResponseModel> listForSale)?
+        loadedProfileListings,
+    TResult? Function()? updateListing,
+    TResult? Function(String message)? error,
+  }) {
+    return updateListing?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(bool isFirstFetch)? loading,
+    TResult Function(List<ListingForSaleProfileResponseModel> listForSale)?
+        loadedProfileListings,
+    TResult Function()? updateListing,
+    TResult Function(String message)? error,
+    required TResult orElse(),
+  }) {
+    if (updateListing != null) {
+      return updateListing();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(loading value) loading,
+    required TResult Function(LoadedListingsState value) loadedProfileListings,
+    required TResult Function(UpdateListing value) updateListing,
+    required TResult Function(ErrorListingState value) error,
+  }) {
+    return updateListing(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(loading value)? loading,
+    TResult? Function(LoadedListingsState value)? loadedProfileListings,
+    TResult? Function(UpdateListing value)? updateListing,
+    TResult? Function(ErrorListingState value)? error,
+  }) {
+    return updateListing?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(loading value)? loading,
+    TResult Function(LoadedListingsState value)? loadedProfileListings,
+    TResult Function(UpdateListing value)? updateListing,
+    TResult Function(ErrorListingState value)? error,
+    required TResult orElse(),
+  }) {
+    if (updateListing != null) {
+      return updateListing(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UpdateListing implements ListingCubitState {
+  factory UpdateListing() = _$UpdateListing;
 }
 
 /// @nodoc
@@ -586,6 +734,7 @@ class _$ErrorListingState implements ErrorListingState {
     required TResult Function(
             List<ListingForSaleProfileResponseModel> listForSale)
         loadedProfileListings,
+    required TResult Function() updateListing,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -598,6 +747,7 @@ class _$ErrorListingState implements ErrorListingState {
     TResult? Function(bool isFirstFetch)? loading,
     TResult? Function(List<ListingForSaleProfileResponseModel> listForSale)?
         loadedProfileListings,
+    TResult? Function()? updateListing,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -610,6 +760,7 @@ class _$ErrorListingState implements ErrorListingState {
     TResult Function(bool isFirstFetch)? loading,
     TResult Function(List<ListingForSaleProfileResponseModel> listForSale)?
         loadedProfileListings,
+    TResult Function()? updateListing,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -625,6 +776,7 @@ class _$ErrorListingState implements ErrorListingState {
     required TResult Function(_Initial value) initial,
     required TResult Function(loading value) loading,
     required TResult Function(LoadedListingsState value) loadedProfileListings,
+    required TResult Function(UpdateListing value) updateListing,
     required TResult Function(ErrorListingState value) error,
   }) {
     return error(this);
@@ -636,6 +788,7 @@ class _$ErrorListingState implements ErrorListingState {
     TResult? Function(_Initial value)? initial,
     TResult? Function(loading value)? loading,
     TResult? Function(LoadedListingsState value)? loadedProfileListings,
+    TResult? Function(UpdateListing value)? updateListing,
     TResult? Function(ErrorListingState value)? error,
   }) {
     return error?.call(this);
@@ -647,6 +800,7 @@ class _$ErrorListingState implements ErrorListingState {
     TResult Function(_Initial value)? initial,
     TResult Function(loading value)? loading,
     TResult Function(LoadedListingsState value)? loadedProfileListings,
+    TResult Function(UpdateListing value)? updateListing,
     TResult Function(ErrorListingState value)? error,
     required TResult orElse(),
   }) {
