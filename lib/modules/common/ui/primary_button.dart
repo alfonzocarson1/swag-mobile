@@ -45,7 +45,6 @@ class PrimaryButton extends StatelessWidget {
         child: RawMaterialButton(
           elevation: 0,
           constraints: BoxConstraints(
-            maxWidth: 94.0,
             maxHeight: maxHeight,
           ),
           fillColor: type == PrimaryButtonType.green
