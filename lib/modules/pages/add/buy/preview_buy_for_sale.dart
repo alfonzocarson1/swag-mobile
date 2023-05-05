@@ -1,13 +1,27 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
+import 'package:swagapp/modules/cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
+import 'package:swagapp/modules/models/listing_for_sale/listing_for_sale_model.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../common/ui/primary_button.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
+import '../../../constants/constants.dart';
+import '../../../cubits/profile/get_profile_cubit.dart';
+import '../../../di/injector.dart';
 import '../../../models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
+import '../../../models/detail/detail_collection_model.dart';
+import '../../../models/overlay_buton/overlay_button_model.dart';
+import '../collection/edit_list_for_Sale_page.dart';
 import '../collection/footer_list_item_page.dart';
+import '../collection/widgets/custom_overlay_button.dart';
 import 'multi_image_slide_buy_preview.dart';
+import 'package:http/http.dart' as http;
 
 class BuyPreviewPage extends StatefulWidget {
   static const name = '/BuyPreviewPage';
@@ -26,14 +40,39 @@ class BuyPreviewPage extends StatefulWidget {
 }
 
 class _BuyPreviewPageState extends State<BuyPreviewPage> {
+  List<CustomOverlayItemModel> items = editListingDropDown;
+  String profileId = "";
+  late DetailCollectionModel collectionModel;
+  List<File> tempFiles = [];
+
   @override
   void initState() {
-    // TODO: implement initState
+    getProfileData();
     super.initState();
+  }
+
+    @override
+  void dispose() {
+    super.dispose();
+  }
+
+  getProfileData() async {
+    var tempProfile =
+        await getIt<ProfileCubit>().profileService.privateProfile();
+    profileId = tempProfile.accountId;
   }
 
   @override
   Widget build(BuildContext context) {
+
+    collectionModel = DetailCollectionModel(
+        profileCollectionItemId: widget.dataItem.productItemId ?? '',
+        catalogItemId: widget.dataItem.catalogItemId ?? '',
+        purchaseDate: '',
+        purchasePrice: widget.dataItem.lastSale ?? 0.0,
+        itemCondition: widget.dataItem.condition ?? 'condition',
+        itemSource: '');   
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: true,
@@ -95,12 +134,34 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                     flex: 1,
                                     child: Align(
                                       alignment: Alignment.centerLeft,
-                                      child: IconButton(
+                                      child: CustomOverlayButton(
                                         icon: Image.asset(
                                           "assets/images/more-horizontal.png",
-                                          scale: 3.5,
+                                          scale: 2,
                                         ),
-                                        onPressed: () async {},
+                                        items: items,
+                                        onItemSelected: (String value) {
+                                          print(value);
+                                          if(value == editListingDropDown[0].label){
+                                            getIt<ListingProfileCubit>().listingService.updateListing(
+                                              ListingForSaleModel(
+                                                productItemId: widget.dataItem.productItemId,
+                                                forSale: true,
+                                                sold: false,                                                
+                                                status: 'Editing',
+                                              )
+                                            );
+                                             Navigator.of(context,
+                                                  rootNavigator: true)
+                                              .push(EditListForSalePage.route(
+                                                  collectionModel,
+                                                  widget.dataItem.productItemId,
+                                                  widget.dataItem
+                                                          .productItemName ??
+                                                      '',
+                                                  widget.dataItem.productItemImageUrls));
+                                          }                                         
+                                        },
                                       ),
                                     ))
                               ],
@@ -169,4 +230,5 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
       ),
     );
   }
+
 }
