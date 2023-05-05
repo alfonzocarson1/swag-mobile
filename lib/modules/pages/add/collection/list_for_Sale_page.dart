@@ -432,6 +432,8 @@ class _ListForSalePageState extends State<ListForSalePage> {
     try {
       final List<XFile> selectedImages = await imagePicker.pickMultiImage();
 
+      //TODO Resize the multi image
+
       if ((selectedImages.length + imageFileList.length) <= 6) {
         imageFileList.addAll(selectedImages);
       } else {

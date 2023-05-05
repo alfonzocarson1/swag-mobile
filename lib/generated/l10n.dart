@@ -2159,6 +2159,36 @@ class S {
       args: [],
     );
   }
+
+  /// `SHOP BY CATEGORY`
+  String get shop_by_category_title {
+    return Intl.message(
+      'SHOP BY CATEGORY',
+      name: 'shop_by_category_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `See All`
+  String get See_All {
+    return Intl.message(
+      'See All',
+      name: 'See_All',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `STAFF PICKS`
+  String get staff_picks {
+    return Intl.message(
+      'STAFF PICKS',
+      name: 'staff_picks',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

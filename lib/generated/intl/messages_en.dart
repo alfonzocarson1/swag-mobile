@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "See_All": MessageLookupByLibrary.simpleMessage("See All"),
         "a_to_z": MessageLookupByLibrary.simpleMessage("A to Z"),
         "access_photos": MessageLookupByLibrary.simpleMessage("CHOOSE PHOTO"),
         "accessories": MessageLookupByLibrary.simpleMessage("Accesories"),
@@ -297,10 +298,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "selected": MessageLookupByLibrary.simpleMessage("Selected"),
         "sell_for": MessageLookupByLibrary.simpleMessage("SELL FOR"),
         "send_info": MessageLookupByLibrary.simpleMessage("SEND INFO"),
+        "shop_by_category_title":
+            MessageLookupByLibrary.simpleMessage("SHOP BY CATEGORY"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Sign In"),
         "similar_items": MessageLookupByLibrary.simpleMessage("SIMILAR ITEMS"),
         "sort": MessageLookupByLibrary.simpleMessage("Sort:"),
         "sort_by": MessageLookupByLibrary.simpleMessage("sort by"),
+        "staff_picks": MessageLookupByLibrary.simpleMessage("STAFF PICKS"),
         "state": MessageLookupByLibrary.simpleMessage("State"),
         "subtitle_welcome":
             MessageLookupByLibrary.simpleMessage("Let’s create your profile!"),
