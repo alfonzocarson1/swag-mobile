@@ -55,7 +55,7 @@ const List<CustomOverlayItemModel>  reportListingDropDown = [
   CustomOverlayItemModel(imagePath: 'assets/icons/ReportUserWhite.png', label: 'Report User'),
 ];
 
-enum FilterType { sortBy, condition, price, releaseDate, product, collection, theme, type }
+enum FilterType { sortBy, condition, price, releaseDate, category, collection, theme, type }
 
 enum ReleaseDate {
   y2018,

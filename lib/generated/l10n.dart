@@ -1380,11 +1380,11 @@ class S {
     );
   }
 
-  /// `product`
-  String get product {
+  /// `category`
+  String get category {
     return Intl.message(
-      'product',
-      name: 'product',
+      'category',
+      name: 'category',
       desc: '',
       args: [],
     );

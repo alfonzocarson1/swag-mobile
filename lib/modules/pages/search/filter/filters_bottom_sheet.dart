@@ -216,12 +216,12 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                         ),
                         _filterItem(
                           context,
-                          S.of(context).product.toUpperCase(),
+                          S.of(context).category.toUpperCase(),
                           (widget.tab == SearchTab.whatsHot ||
                                   widget.tab == SearchTab.all ||
                                   widget.tab == null)
                               ? () => this.navigateToCategoryPage(
-                                  FilterType.product, categoryId)
+                                  FilterType.category, categoryId)
                               : null,
                         ),
                         _filterItem(
@@ -418,8 +418,8 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
   Widget getSelectedWidget(String title, SharedPreferenceModel model) {
     if (title == S.of(context).sort_by.toUpperCase()) {
       return getSelectedText(context, FilterType.sortBy, index: model.sortBy);
-    } else if (title == S.of(context).product.toUpperCase()) {
-      return getSelectedText(context, FilterType.product,
+    } else if (title == S.of(context).category.toUpperCase()) {
+      return getSelectedText(context, FilterType.category,
           index: model.product.isEmpty ? null : model.product[0],
           length: model.product.length);
     } else if (title == S.of(context).condition.toUpperCase()) {
@@ -455,7 +455,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
 
   String getText(FilterType type, {int? index, int? length}) {
     switch (type) {
-      case FilterType.product:
+      case FilterType.category:
         return index == null
             ? defaultString
             : length == 1

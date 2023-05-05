@@ -267,7 +267,7 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
     DynamicFilters dynamicFilters = getIt<PreferenceRepositoryService>().getDynamicFilters()!;
 
     switch (type) {
-      case FilterType.product:
+      case FilterType.category:
         checkBoxIndexes = getIt<PreferenceRepositoryService>()
           .getProduct()
           .map(int.parse)
@@ -327,7 +327,7 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
   String getPageTitle(FilterType type) {
     
     switch (type) {
-      case FilterType.product: return S.of(context).product.toUpperCase();
+      case FilterType.category: return S.of(context).category.toUpperCase();
       case FilterType.condition: return S.of(context).condition.toUpperCase();
       case FilterType.price: return S.of(context).price.toUpperCase();
       case FilterType.sortBy: return S.of(context).sort_by.toUpperCase();
@@ -344,7 +344,7 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
     List<int> newList = List.from(this.checkBoxIndexes);
     
     switch (type) {
-      case FilterType.product:
+      case FilterType.category:
         return this.setFilterValues(preference.copyWith(product: newList));
       case FilterType.condition:
         return this.setFilterValues(preference.copyWith(condition: newList));
@@ -379,7 +379,7 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
       case FilterType.condition: break;
       case FilterType.price: break;
       case FilterType.releaseDate: break;
-      case FilterType.product: break;
+      case FilterType.category: break;
       case FilterType.collection: 
 
         this.checkBoxIndexes.forEach((int index)=> items.add(dynamicFilters.collections[index]));
@@ -400,7 +400,7 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
     DynamicFilters? dynamicFilters = getIt<PreferenceRepositoryService>().getDynamicFilters();
     
     switch (type) {
-      case FilterType.product:
+      case FilterType.category:
         return Column(
           children: [
             _filterItem(context, S.of(context).headcovers, Product.headcovers.index),

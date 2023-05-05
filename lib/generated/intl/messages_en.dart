@@ -55,6 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "buy_for": MessageLookupByLibrary.simpleMessage("BUY FOR"),
         "camera": MessageLookupByLibrary.simpleMessage("TAKE PHOTO"),
         "cancel": MessageLookupByLibrary.simpleMessage("CANCEL"),
+        "category": MessageLookupByLibrary.simpleMessage("category"),
         "city": MessageLookupByLibrary.simpleMessage("City"),
         "clear_all": MessageLookupByLibrary.simpleMessage("Clear All"),
         "code": MessageLookupByLibrary.simpleMessage("Code"),
@@ -235,7 +236,6 @@ class MessageLookup extends MessageLookupByLibrary {
             "cannot enter more than 2 decimal places"),
         "privacy_policy_text":
             MessageLookupByLibrary.simpleMessage("Privacy Policy"),
-        "product": MessageLookupByLibrary.simpleMessage("product"),
         "purchase_price":
             MessageLookupByLibrary.simpleMessage("Purchase Price"),
         "putters": MessageLookupByLibrary.simpleMessage("Putters"),
