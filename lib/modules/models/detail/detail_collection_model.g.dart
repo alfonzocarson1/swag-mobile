@@ -15,6 +15,7 @@ _$_DetailCollectionModel _$$_DetailCollectionModelFromJson(
       purchasePrice: (json['purchasePrice'] as num).toDouble(),
       itemCondition: json['itemCondition'] as String,
       itemSource: json['itemSource'] as String,
+      description: json['description'] as String?,
     );
 
 Map<String, dynamic> _$$_DetailCollectionModelToJson(
@@ -26,4 +27,5 @@ Map<String, dynamic> _$$_DetailCollectionModelToJson(
       'purchasePrice': instance.purchasePrice,
       'itemCondition': instance.itemCondition,
       'itemSource': instance.itemSource,
+      'description': instance.description,
     };
