@@ -11,12 +11,12 @@ import 'package:swagapp/modules/common/utils/utils.dart';
 import 'package:swagapp/modules/models/auth/create_account_payload_model.dart';
 import 'package:swagapp/modules/pages/explore/account_info.dart';
 import 'package:swagapp/modules/pages/login/sign_in_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../blocs/auth_bloc/auth_bloc.dart';
 import '../../common/ui/custom_text_form_field.dart';
 import '../../common/ui/dynamic_toast_messages.dart';
 import '../../common/ui/loading.dart';
-import '../../common/ui/web_view.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../constants/constants.dart';
 import '../../cubits/profile/get_profile_cubit.dart';
@@ -392,13 +392,9 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                             ]),
                                           ),
                                           onPressed: () {
-                                            Navigator.of(context,
-                                                    rootNavigator: true)
-                                                .push(WebViewPage.route(
-                                              context,
-                                              termsAndConditionsBasePath,
-                                              termsAndConditionsUrl,
-                                            ));
+                                            _launchUrl(                                                                                            
+                                              Uri.parse(termsAndConditionsUrl),                                              
+                                              );
                                           }),
                                     ),
                                   ),
@@ -532,6 +528,14 @@ class _CreateAccountState extends State<CreateAccountPage> {
                   ),
         inputType: TextInputType.emailAddress);
   }
+
+  Future<void> _launchUrl(Uri url) async {
+  if (!await launchUrl(url,
+      mode: LaunchMode.externalApplication,
+  )) {
+    throw Exception('Could not launch $url');
+  }
+}
 
   void setUsernameErrorText(
     bool isCorrectSize,
