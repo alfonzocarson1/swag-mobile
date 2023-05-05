@@ -288,6 +288,8 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                                               ), 
                                   widget.imgList) ;
                               Navigator.of(context).pop();
+                              Navigator.of(context).pop();
+                              Navigator.of(context).pop();
                             },
                             type: PrimaryButtonType.green,
                           ),
