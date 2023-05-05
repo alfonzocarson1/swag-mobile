@@ -194,7 +194,7 @@ class _MultiImageSlideState extends State<MultiImageSlide> {
                     });
               },
               icon: Image.asset(
-                "assets/icons/x.png",
+                "assets/icons/trash.png",
                 scale: 3,
               ),
             ),
