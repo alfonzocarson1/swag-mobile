@@ -136,7 +136,7 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
     return Container(
       constraints: BoxConstraints(
           minHeight: MediaQuery.of(context).size.height * 0.9,
-          maxHeight: MediaQuery.of(context).size.height * 0.9),
+          maxHeight: MediaQuery.of(context).size.height * 1),
       child: Stack(
         children: [
           LayoutBuilder(builder: (context, viewportConstraints) {
@@ -201,7 +201,8 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                                             Palette.current.primaryNeonPink)),
                           ),
                           const SizedBox(height: 10),
-                          Padding(
+                          Container(
+                            height: MediaQuery.of(context).devicePixelRatio * 70,
                             padding: const EdgeInsets.only(right: 50.0),
                             child: Text(widget.itemDescription,
                                 style: Theme.of(context)

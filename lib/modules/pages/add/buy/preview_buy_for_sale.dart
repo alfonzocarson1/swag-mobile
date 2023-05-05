@@ -78,7 +78,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
             return Container(
             constraints: BoxConstraints(
                 minHeight: MediaQuery.of(context).size.height * 0.9,
-                maxHeight: MediaQuery.of(context).size.height * 0.9),
+                maxHeight: MediaQuery.of(context).size.height),
                 child: Stack(
               children: [
                 LayoutBuilder(builder: (context, viewportConstraints) {
@@ -199,7 +199,8 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                   .current.primaryNeonPink)),
                                 ),
                                 const SizedBox(height: 10),
-                                Padding(
+                                Container(
+                                  height: MediaQuery.of(context).devicePixelRatio * 70,
                                   padding: const EdgeInsets.only(right: 50.0),
                                   child: Text(
                                       '${widget.dataItem.productItemDescription}',
@@ -215,8 +216,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                 ),
                                 (profileBuildData.accountId != widget.dataItem.profileId)
                                     ? Column(
-                                        children: [
-                                          const SizedBox(height: 30),
+                                        children: [     
                                           const FooterListItemPage(),
                                           const SizedBox(height: 30),
                                           PrimaryButton(
@@ -225,7 +225,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                             onPressed: () {},
                                             type: PrimaryButtonType.green,
                                           ),
-                                          const SizedBox(height: 30),
+                                         
                                         ],
                                       )
                                     : const SizedBox.shrink(),
