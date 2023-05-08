@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -31,7 +33,7 @@ class ListItemPreviewPage extends StatefulWidget {
       required this.catalogItemId,
       required this.onClose});
 
-  List<XFile> imgList;
+  List<File> imgList;
   String itemName;
   double itemPrice;
   String itemCondition;

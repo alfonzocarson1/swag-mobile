@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:swagapp/modules/common/ui/popup_delete_photo_verify.dart';
 
 import '../../../generated/l10n.dart';
@@ -11,7 +10,7 @@ class MultiImageSlide extends StatefulWidget {
       {Key? key, required this.imgList, this.addPhoto, this.onRemove})
       : super(key: key);
 
-  List<XFile> imgList;
+  List<File> imgList;
   Function()? addPhoto;
   Function(int)? onRemove;
   @override
@@ -138,7 +137,8 @@ class _MultiImageSlideState extends State<MultiImageSlide> {
                                                   .textTheme
                                                   .bodyLarge!
                                                   .copyWith(
-                                                      fontFamily: "KnockoutCustom",
+                                                      fontFamily:
+                                                          "KnockoutCustom",
                                                       fontSize: 25,
                                                       letterSpacing: 1,
                                                       fontWeight:
