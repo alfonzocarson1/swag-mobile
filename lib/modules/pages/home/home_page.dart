@@ -16,9 +16,9 @@ class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   static Route route() => PageRoutes.material(
-        settings: const RouteSettings(name: name),
-        builder: (context) => const HomePage(),
-      );
+    settings: const RouteSettings(name: name),
+    builder: (context) => const HomePage(),
+  );
 
   @override
   State<StatefulWidget> createState() {
@@ -27,9 +27,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePage extends State<HomePage> {
-  final PersistentTabController _controller =
-      PersistentTabController(initialIndex: 0);
+
+  final PersistentTabController _controller = PersistentTabController(initialIndex: 0);
   int indexTap = 0;
+
   final List<Widget> widgetsChildren = [
     const ExplorePage(),
     const SearchPage(),
@@ -38,6 +39,7 @@ class _HomePage extends State<HomePage> {
   ];
 
   void onTapTapped(int index) {
+
     bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
     if ((index == 2 || index == 3) && !isLogged) {
       Navigator.of(context, rootNavigator: true)
@@ -47,7 +49,7 @@ class _HomePage extends State<HomePage> {
 
     setState(() {
       _controller.index = index;
-      indexTap = index;
+      indexTap = index; 
     });
   }
 
@@ -63,61 +65,59 @@ class _HomePage extends State<HomePage> {
         getIt<PreferenceRepositoryService>().saveReturExploreIsNotLogged(false);
       });
     }
-    return SizedBox(
-      height: 100,
-      child: PersistentTabView.custom(
-        context,
-        controller: _controller,
-        screens: widgetsChildren,
-        confineInSafeArea: true,
+    return PersistentTabView.custom(
+      context,
+      controller: _controller,
+      screens: widgetsChildren,
+      confineInSafeArea: true,
+      backgroundColor: Palette.current.primaryEerieBlack,
+      handleAndroidBackButtonPress: true,
+      resizeToAvoidBottomInset: true,
+      stateManagement: true,
+      hideNavigationBarWhenKeyboardShows: true,
+      onWillPop: (p0) => Future.value(true),
+      customWidget: BottomNavigationBar(
+        elevation: 0,
         backgroundColor: Palette.current.primaryEerieBlack,
-        handleAndroidBackButtonPress: true,
-        resizeToAvoidBottomInset: true,
-        stateManagement: true,
-        hideNavigationBarWhenKeyboardShows: true,
-        onWillPop: (p0) => Future.value(true),
-        customWidget: BottomNavigationBar(
-            elevation: 0,
-            backgroundColor: Palette.current.primaryEerieBlack,
-            selectedItemColor: Palette.current.primaryNeonGreen,
-            unselectedItemColor: Palette.current.grey,
-            selectedFontSize: 14,
-            unselectedFontSize: 14,
-            onTap: onTapTapped,
-            currentIndex: indexTap,
-            type: BottomNavigationBarType.fixed,
-            items: const [
-              BottomNavigationBarItem(
-                icon: ImageIcon(
-                  AssetImage('assets/images/server.png'),
-                  size: 20,
-                ),
-                label: "Explore",
-              ),
-              BottomNavigationBarItem(
-                icon: ImageIcon(
-                  AssetImage('assets/images/Browse.png'),
-                  size: 20,
-                ),
-                label: "Search",
-              ),
-              BottomNavigationBarItem(
-                icon: ImageIcon(
-                  AssetImage('assets/images/Alerts.png'),
-                  size: 20,
-                ),
-                label: "Alerts",
-              ),
-              BottomNavigationBarItem(
-                icon: ImageIcon(
-                  AssetImage('assets/images/You.png'),
-                  size: 20,
-                ),
-                label: "Profile",
-              )
-            ]),
-        itemCount: 4,
+        selectedItemColor: Palette.current.primaryNeonGreen,
+        unselectedItemColor: Palette.current.grey,
+        selectedFontSize: 14,
+        unselectedFontSize: 14,
+        onTap: onTapTapped,
+        currentIndex: indexTap,
+        type: BottomNavigationBarType.fixed,
+        items: const [
+          BottomNavigationBarItem(
+            icon: ImageIcon(
+              AssetImage('assets/images/server.png'),
+              size: 20,
+            ),
+            label: "Explore",
+          ),
+          BottomNavigationBarItem(
+            icon: ImageIcon(
+              AssetImage('assets/images/Browse.png'),
+              size: 20,
+            ),
+            label: "Search",
+          ),
+          BottomNavigationBarItem(
+            icon: ImageIcon(
+              AssetImage('assets/images/Alerts.png'),
+              size: 20,
+            ),
+            label: "Alerts",
+          ),
+          BottomNavigationBarItem(
+            icon: ImageIcon(
+              AssetImage('assets/images/You.png'),
+              size: 20,
+            ),
+            label: "Profile",
+          ),
+        ],
       ),
+      itemCount: 4,
     );
   }
 }

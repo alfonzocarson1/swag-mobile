@@ -32,6 +32,8 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   static const String _collection = 'collection';
   static const String _themes = 'themes';
   static const String _types = 'types';
+  static const String _userSendBirdId = 'userSendBirdId';
+  static const String _userSendBirdToken = 'userSendBirdToken';
 
   late SharedPreferences _prefs;
   @override
@@ -299,6 +301,23 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   @override
   Future<void> saveTypes(List<String> types) async {
     await this._prefs.setStringList(_types, types);
+  }
+
+
+  @override
+  String getUserSendBirdId()=> this._prefs.getString(_userSendBirdId) ?? '';
+
+  @override
+  Future<void> saveUserSendBirdId(String userId) async {
+    await this._prefs.setString(_userSendBirdId, userId);
+  }
+
+  @override
+  String getUserSendBirdToken()=> this._prefs.getString(_userSendBirdToken) ?? '';
+
+  @override
+  Future<void> saveUserSendBirdToken(String token) async {
+    await this._prefs.setString(_userSendBirdToken, token);
   }
 
 }

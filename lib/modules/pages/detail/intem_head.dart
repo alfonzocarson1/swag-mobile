@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_rich_text/simple_rich_text.dart';
+import 'package:swagapp/modules/common/assets/icons.dart';
+import 'package:swagapp/modules/common/ui/custom_outline_button.dart';
 
 import '../../../generated/l10n.dart';
 import '../../blocs/favorite_bloc/favorite_bloc.dart';
@@ -99,6 +101,7 @@ class _HeadWidgetState extends State<HeadWidget> {
 
   @override
   Widget build(BuildContext context) {
+
     _favoriteBloc = getIt<FavoriteBloc>();
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
@@ -322,44 +325,12 @@ class _HeadWidgetState extends State<HeadWidget> {
                                 }
                               },
                               child: Center(
-                                child: Container(
-                                    height: 60,
-                                    width: MediaQuery.of(context).size.width,
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: Palette
-                                                .current.primaryNeonGreen),
-                                        color: Colors.transparent),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        const SizedBox(
-                                          height: 50,
-                                        ),
-                                        Image.asset(
-                                          "assets/images/trending-up.png",
-                                          height: 20,
-                                          width: 20,
-                                        ),
-                                        const SizedBox(
-                                          width: 15,
-                                        ),
-                                        Text(S.of(context).sales_history,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyLarge!
-                                                .copyWith(
-                                                    fontFamily: "Knockout",
-                                                    fontSize: 25,
-                                                    letterSpacing: 1,
-                                                    fontWeight: FontWeight.w300,
-                                                    color:
-                                                        Palette.current.white)),
-                                      ],
-                                    )),
+                                child: CustomOutlineButton(
+                                  text: S.of(context).sales_history, 
+                                  iconPath: AppIcons.trendingUp,
+                                  width: MediaQuery.of(context).size.width,
+                                  onTap: (){}, 
+                                ),
                               ),
                             ),
                           ],

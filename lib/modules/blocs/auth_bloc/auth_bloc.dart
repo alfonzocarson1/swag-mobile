@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:swagapp/modules/models/auth/generic_response_model.dart';
 
 import '../../common/utils/handling_errors.dart';
 import '../../common/utils/utils.dart';
@@ -24,25 +25,24 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   late StreamSubscription<String?> _userStreamSubscription;
 
   AuthBloc(this.authService) : super(const AuthState.initial()) {
-    _userStreamSubscription =
-        authService.subscribeToAuthChanges().distinct().listen((user) async => {
-              emit(getIt<PreferenceRepositoryService>().isLogged()
-                  ? const AuthState.initial()
-                  : const AuthState.unauthenticated()),
-              if (getIt<PreferenceRepositoryService>().isLogged() &&
-                  isTokenValid(
-                      await getIt<StorageRepositoryService>().getToken()))
-                {
-                  add(AuthEvent.authenticate(
-                      await getIt<StorageRepositoryService>().getEmail() ??
-                          defaultString,
-                      await getIt<StorageRepositoryService>().getPassword() ??
-                          defaultString))
-                }
-            });
+
+    bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
+
+    _userStreamSubscription = authService.subscribeToAuthChanges().distinct().listen((user) async => {
+      
+      emit(isLogged ? const AuthState.initial() : const AuthState.unauthenticated()),
+
+      if(isLogged && isTokenValid(await getIt<StorageRepositoryService>().getToken())) {
+        
+        add(AuthEvent.authenticate( 
+          await getIt<StorageRepositoryService>().getEmail() ?? defaultString,
+          await getIt<StorageRepositoryService>().getPassword() ?? defaultString,
+        )),
+      }
+    });
   }
 
-  void logout() => add(const AuthEvent.logout());
+  void logout()=> add(const AuthEvent.logout());
 
   @override
   Stream<AuthState> mapEventToState(AuthEvent event) async* {
@@ -68,13 +68,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Stream<AuthState> _createAccount(CreateAccountPayloadModel model) async* {
+
     yield const AuthState.logging();
+
     try {
-      var response = await authService.createAccount(model);
+
+      GenericResponseModel response = await authService.createAccount(model);
+
       getIt<StorageRepositoryService>().saveToken(response.token);
-      getIt<PreferenceRepositoryService>()
-          .savehasImportableData(response.hasImportableData);
+      getIt<PreferenceRepositoryService>().savehasImportableData(response.hasImportableData);
       getIt<PreferenceRepositoryService>().saveAccountId(response.accountId);
+
+      getIt<PreferenceRepositoryService>().saveUserSendBirdId('cristian_tabares_id');
+      getIt<PreferenceRepositoryService>().saveUserSendBirdToken('9d76f66cbbe8be88dd8c4cf55333020b306e7217');
 
       if (response.errorCode == successResponse) {
         yield const AuthState.authenticated();
@@ -87,10 +93,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Stream<AuthState> _authenticate(String email, String password) async* {
+
     yield const AuthState.logging();
     try {
-      var response = await authService.authenticate(email, password);
+
+      GenericResponseModel response = await authService.authenticate(email, password);
+
       getIt<StorageRepositoryService>().saveToken(response.token);
+      getIt<PreferenceRepositoryService>().saveUserSendBirdId('cristian_tabares_id');
+      getIt<PreferenceRepositoryService>().saveUserSendBirdToken('9d76f66cbbe8be88dd8c4cf55333020b306e7217');
+
       if (response.errorCode == successResponse ||
           response.errorCode == defaultString) {
         add(const AuthEvent.privateProfile());

@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/generated/l10n.dart';
+import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
 
 import 'package:swagapp/modules/common/ui/loading.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
@@ -37,22 +38,21 @@ class _ExplorePageState extends State<ExplorePage> {
   bool _isLogged = false;
   bool _hasJustSignedUp = false;
   bool _hasImportableData = false;
-  late final ScrollController? _scrollController =
-      PrimaryScrollController.of(context);
+  late final ScrollController _scrollController = PrimaryScrollController.of(context);
 
   @override
   void initState() {
+
+    this.initSendBirdApp();
     this.loadDynamicFilters();
+    
     this._isLogged = getIt<PreferenceRepositoryService>().isLogged();
-    this._hasJustSignedUp =
-        getIt<PreferenceRepositoryService>().hasJustSignedUp();
-    this._hasImportableData =
-        getIt<PreferenceRepositoryService>().hasImportableData();
+    this._hasJustSignedUp = getIt<PreferenceRepositoryService>().hasJustSignedUp();
+    this._hasImportableData = getIt<PreferenceRepositoryService>().hasImportableData();
 
-    if (!_isLogged)
-      getIt<PreferenceRepositoryService>().saveloginAfterGuest(true);
+    if (!this._isLogged) getIt<PreferenceRepositoryService>().saveloginAfterGuest(true);
 
-    if (_isLogged && _hasJustSignedUp) {
+    if (this._isLogged && this._hasJustSignedUp) {
       getIt<PreferenceRepositoryService>().saveHasJustSignedUp(false);
       this.navigateToAccountInfoPage();
     }
@@ -107,7 +107,7 @@ class _ExplorePageState extends State<ExplorePage> {
         return Future.delayed(const Duration(milliseconds: 1500));
       },
       child: exploreList.isNotEmpty
-          ? _exploreList(exploreList, this._scrollController!)
+          ? _exploreList(exploreList, this._scrollController)
           : ListView.builder(
               itemBuilder: (_, index) => SizedBox(
                 height: MediaQuery.of(context).size.height * 0.7,
@@ -188,11 +188,22 @@ class _ExplorePageState extends State<ExplorePage> {
   }
 
   void loadDynamicFilters() {
+
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      DynamicFilters dynamicFilters =
-          await getIt<FiltersService>().getDynamicFilters();
-      await getIt<PreferenceRepositoryService>()
-          .saveDynamicFilters(dynamicFilters);
+
+      DynamicFilters dynamicFilters = await getIt<FiltersService>().getDynamicFilters();
+      await getIt<PreferenceRepositoryService>().saveDynamicFilters(dynamicFilters);
+    });
+  }
+
+  void initSendBirdApp() {
+    
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+
+      ChatBloc chatBloc = context.read<ChatBloc>();
+
+      await chatBloc.initSendBirdApp();
+      await chatBloc.getChannels();
     });
   }
 }

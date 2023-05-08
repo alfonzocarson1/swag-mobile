@@ -55,6 +55,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "buy_for": MessageLookupByLibrary.simpleMessage("BUY FOR"),
         "camera": MessageLookupByLibrary.simpleMessage("TAKE PHOTO"),
         "cancel": MessageLookupByLibrary.simpleMessage("CANCEL"),
+        "chatChat": MessageLookupByLibrary.simpleMessage("Chat"),
+        "chatInputHintText":
+            MessageLookupByLibrary.simpleMessage("Enter message"),
+        "chatModeratorName": MessageLookupByLibrary.simpleMessage("SWAG"),
+        "chatNoMessages":
+            MessageLookupByLibrary.simpleMessage("No previous messages"),
         "city": MessageLookupByLibrary.simpleMessage("City"),
         "clear_all": MessageLookupByLibrary.simpleMessage("Clear All"),
         "code": MessageLookupByLibrary.simpleMessage("Code"),

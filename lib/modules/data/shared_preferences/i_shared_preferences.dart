@@ -66,4 +66,10 @@ abstract class PreferenceRepositoryInt {
 
   List<String> getTypes();
   Future<void> saveTypes(List<String> types);
+
+  String getUserSendBirdId();
+  Future<void> saveUserSendBirdId(String userId);
+
+  String getUserSendBirdToken();
+  Future<void> saveUserSendBirdToken(String token);
 }

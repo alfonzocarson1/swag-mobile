@@ -144,7 +144,8 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                         letterSpacing: 0.3,
                                         color:
                                             Palette.current.primaryWhiteSmoke,
-                                      )),
+                                      )
+                                    ),
                             ),
                             const SizedBox(height: 30),
                             const FooterListItemPage(),
