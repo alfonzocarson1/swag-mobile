@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_rich_text/simple_rich_text.dart';
+import 'package:swagapp/modules/common/assets/icons.dart';
+import 'package:swagapp/modules/common/ui/custom_outline_button.dart';
 
 import '../../../generated/l10n.dart';
 import '../../blocs/favorite_bloc/favorite_bloc.dart';
@@ -94,6 +96,7 @@ class _HeadWidgetState extends State<HeadWidget> {
 
   @override
   Widget build(BuildContext context) {
+
     _favoriteBloc = getIt<FavoriteBloc>();
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,

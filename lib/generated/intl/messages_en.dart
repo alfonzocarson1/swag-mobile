@@ -70,6 +70,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "cash_app_sub_title": MessageLookupByLibrary.simpleMessage(
             "Please enter and confirm your \nCashApp cashtag"),
         "category": MessageLookupByLibrary.simpleMessage("category"),
+        "chatChat": MessageLookupByLibrary.simpleMessage("Chat"),
+        "chatInputHintText":
+            MessageLookupByLibrary.simpleMessage("Enter message"),
+        "chatModeratorName": MessageLookupByLibrary.simpleMessage("SWAG"),
+        "chatNoMessages":
+            MessageLookupByLibrary.simpleMessage("No previous messages"),
         "city": MessageLookupByLibrary.simpleMessage("City"),
         "clear_all": MessageLookupByLibrary.simpleMessage("Clear All"),
         "code": MessageLookupByLibrary.simpleMessage("Code"),

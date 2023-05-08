@@ -2799,6 +2799,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Chat`
+  String get chatChat {
+    return Intl.message(
+      'Chat',
+      name: 'chatChat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SWAG`
+  String get chatModeratorName {
+    return Intl.message(
+      'SWAG',
+      name: 'chatModeratorName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter message`
+  String get chatInputHintText {
+    return Intl.message(
+      'Enter message',
+      name: 'chatInputHintText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No previous messages`
+  String get chatNoMessages {
+    return Intl.message(
+      'No previous messages',
+      name: 'chatNoMessages',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

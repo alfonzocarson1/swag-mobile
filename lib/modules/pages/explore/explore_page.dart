@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swagapp/generated/l10n.dart';
+import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
 
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/data/filters/filters_service.dart';
@@ -39,23 +42,14 @@ class ExplorePage extends StatefulWidget {
 class _ExplorePageState extends State<ExplorePage> {
   bool _isLogged = false;
   bool _hasJustSignedUp = false;
-
-  late final ScrollController? _scrollController =
-      PrimaryScrollController.of(context);
+  late final ScrollController _scrollController = PrimaryScrollController.of(context);
 
   @override
   void initState() {
-    getIt<PeerToPeerPaymentsCubit>().getPyments();
 
-    getIt<ExploreCubit>()
-        .getUnicorn(const ExploreRequestPayloadModel(unicornFlag: true));
-    getIt<ExploreCubit>()
-        .getWhatsHot(const ExploreRequestPayloadModel(whatsHotFlag: true));
-
-    getIt<ExploreCubit>()
-        .getStaff(const ExploreRequestPayloadModel(staffPicksFlag: true));
-
+    this.initSendBirdApp();
     this.loadDynamicFilters();
+    
     this._isLogged = getIt<PreferenceRepositoryService>().isLogged();
     this._hasJustSignedUp =
         getIt<PreferenceRepositoryService>().hasJustSignedUp();
@@ -125,11 +119,22 @@ class _ExplorePageState extends State<ExplorePage> {
   }
 
   void loadDynamicFilters() {
+
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      DynamicFilters dynamicFilters =
-          await getIt<FiltersService>().getDynamicFilters();
-      await getIt<PreferenceRepositoryService>()
-          .saveDynamicFilters(dynamicFilters);
+
+      DynamicFilters dynamicFilters = await getIt<FiltersService>().getDynamicFilters();
+      await getIt<PreferenceRepositoryService>().saveDynamicFilters(dynamicFilters);
+    });
+  }
+
+  void initSendBirdApp() {
+    
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+
+      ChatBloc chatBloc = context.read<ChatBloc>();
+
+      await chatBloc.initSendBirdApp();
+      await chatBloc.getChannels();
     });
   }
 }

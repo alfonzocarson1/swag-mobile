@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:swagapp/modules/common/assets/icons.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../common/ui/add_photo_list_item.dart';
@@ -248,7 +249,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                     child: (widget.salesHistoryNavigation !=
                                             null)
                                         ? Image.asset(
-                                            'assets/images/trending-up.png',
+                                            AppIcons.trendingUp,
                                             width: 20,
                                             height: 20,
                                             scale: 3,
