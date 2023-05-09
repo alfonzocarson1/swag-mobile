@@ -130,7 +130,6 @@ class _GeneralDeletePopupState extends State<GeneralDeletePopup> {
                   onPressed: () {
                     setState(() {
                       getIt<ListingProfileCubit>().removeListingItem(model);
-                      getIt<ListingProfileCubit>().loadResults();
                       Navigator.of(context).pop();
                       Navigator.of(context).pop();
                     });
