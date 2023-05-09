@@ -1,16 +1,13 @@
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
+
 import '../../common/utils/handling_errors.dart';
 import '../../data/listing/i_listing_service.dart';
 import '../../di/injector.dart';
 import '../../models/listing_for_sale/listing_for_sale_model.dart';
 import '../../models/listing_for_sale/profile_listing_model.dart';
-import 'package:http/http.dart' as http;
 
 part 'get_listing_for_sale_state.dart';
 part 'get_listing_for_sale_cubit.freezed.dart';
@@ -38,7 +35,7 @@ class ListingProfileCubit extends Cubit<ListingCubitState> {
   }
 
   Future<void> updateListing(
-      ListingForSaleModel model, List<XFile> imgList) async {
+      ListingForSaleModel model, List<File> imgList) async {
     try {
       ListingForSaleModel response = await listingService.updateListing(model);
 
