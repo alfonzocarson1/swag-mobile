@@ -77,4 +77,16 @@ class ListingService extends IListingService {
     );
     return response;
   }
+  
+  @override
+  Future<ListingForSaleModel> removeListingItem(ListingForSaleModel model) async {
+    ListingForSaleModel response = await apiService.getEndpointData(
+      endpoint: Endpoint.createListingForSale,
+      method: RequestMethod.delete,
+      body: model.toJson(),
+      needBearer: true,
+      fromJson: (json) => ListingForSaleModel.fromJson(json),
+    );
+     return response;
+  }
 }
