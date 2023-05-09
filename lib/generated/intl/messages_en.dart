@@ -85,6 +85,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Item was gifted"),
         "delete_collection_razon_3":
             MessageLookupByLibrary.simpleMessage("Other"),
+        "delete_collection_reason_4":
+            MessageLookupByLibrary.simpleMessage("Changed my mind"),
         "delete_photo": MessageLookupByLibrary.simpleMessage("DELETE PHOTO"),
         "delete_photo_descrption": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to delete this photo?"),
@@ -261,6 +263,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "remove_item_btn": MessageLookupByLibrary.simpleMessage("REMOVE"),
         "remove_item_subtitle": MessageLookupByLibrary.simpleMessage(
             "Please select the item you would like to remove from your collection."),
+        "remove_listing":
+            MessageLookupByLibrary.simpleMessage("REMOVE LISTING"),
+        "remove_listing_subtitle": MessageLookupByLibrary.simpleMessage(
+            "Please select the reason you are removing this listing."),
         "required_field":
             MessageLookupByLibrary.simpleMessage("Required field"),
         "resend_email": MessageLookupByLibrary.simpleMessage("Resend Email"),

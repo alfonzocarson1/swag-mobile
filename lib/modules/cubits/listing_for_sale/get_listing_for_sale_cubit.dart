@@ -49,4 +49,14 @@ class ListingProfileCubit extends Cubit<ListingCubitState> {
       print(e);
     }
   }
+
+  Future<void> removeListingItem(ListingForSaleModel model) async{
+    try{
+      ListingForSaleModel response = await listingService.removeListingItem(model);
+      getIt<ListingProfileCubit>().loadResults();
+    }
+    on Exception catch(e){
+      print(e);
+    }
+  }
 }
