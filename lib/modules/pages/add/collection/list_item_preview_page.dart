@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -42,9 +44,13 @@ class ListItemPreviewPage extends StatefulWidget {
       this.profileId,
       this.productItemId,
       required this.onClose});
+
+
+  List<File> imgList;
+
   
   bool isUpdate;
-  List<XFile> imgList;
+
   String itemName;
   double itemPrice;
   String itemCondition;
@@ -55,7 +61,12 @@ class ListItemPreviewPage extends StatefulWidget {
   String? profileId;
   Function() onClose;
 
-  static Route route({isUpdate, productItemId, imgList, itemName, itemPrice, itemCondition,
+  static Route route({isUpdate, productItemId, 
+                      
+                      
+                      
+                      
+                      , itemName, itemPrice, itemCondition,
           itemDescription, profileCollectionItemId, catalogItemId, onClose}) =>
       PageRoutes.material(
         settings: const RouteSettings(name: name),
