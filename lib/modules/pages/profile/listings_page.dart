@@ -91,7 +91,6 @@ class _ListingsPageState extends State<ListingsPage> {
                 ),
                 itemCount: listingList.length,
                 itemBuilder: (_, index) {
-                  List<XFile> imageFileList = [];
                   ListingForSaleModel listItem = listingList[index];
                   var catalogItemId = listingList[index].catalogItemId;
                   var imageUrls = listingList[index].productItemImageUrls ?? [];
