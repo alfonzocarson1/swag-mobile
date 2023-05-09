@@ -182,7 +182,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                              CheckboxModel(title: S.of(context).delete_collection_reason_4),
                              CheckboxModel(title: S.of(context).delete_collection_razon_3),
                             ],
-                            model: collectionModel,
+                            model: widget.dataItem,
                             onSubmit: (){},
                             );
                         });
