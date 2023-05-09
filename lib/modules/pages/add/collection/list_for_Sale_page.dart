@@ -114,6 +114,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       extendBodyBehindAppBar: true,
       backgroundColor: Palette.current.primaryEerieBlack,
       appBar: PushedHeader(
@@ -235,7 +236,6 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                         _price = 0.0;
                                       });
                                     }
-
                                     String newValue = value
                                         .replaceAll(',', '')
                                         .replaceAll('.', '');
@@ -374,21 +374,25 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                             });
                                       } else {
                                         Navigator.of(context, rootNavigator: true)
-                                            .push(ListItemPreviewPage.route(
-                                                imageFileList,
-                                                widget.catalogItemName,
-                                                _price,
-                                                _defaultCondition,
-                                                _listDescriptionItemController
+                                            .push(
+                                              ListItemPreviewPage.route(
+                                              isUpdate: false,
+                                              catalogItemId: widget.collectionData!
+                                                    .catalogItemId,
+                                              imgList:imageFileList,                                             
+                                              itemCondition: _defaultCondition,
+                                              itemDescription:  _listDescriptionItemController
                                                     .text
                                                     .toString(),
-                                                widget.collectionData!
-                                                    .profileCollectionItemId,
-                                                widget.collectionData!
-                                                    .catalogItemId, () {
+                                              itemName:widget.catalogItemName ,
+                                              itemPrice: _price ,
+                  
+                                              profileCollectionItemId:  widget.collectionData!
+                                                    .profileCollectionItemId,                                                    
+                                              onClose:() {
                                           Navigator.pop(context);
-                                        }));
-                                      }
+                                      }),);
+                                            }                                     
                                     }
                                   },
                                   type: PrimaryButtonType.green,

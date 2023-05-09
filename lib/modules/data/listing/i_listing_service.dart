@@ -8,4 +8,5 @@ abstract class IListingService {
   Future<ListingForSaleModel> createListing(ListingForSaleModel model);
   Future<UpdateAvatarModel> uploadListingImage(Uint8List bytes, String topicId);
   Future<ListingForSaleProfileResponseModel> getListingForSale();
+  Future<ListingForSaleModel> updateListing(ListingForSaleModel model);
 }

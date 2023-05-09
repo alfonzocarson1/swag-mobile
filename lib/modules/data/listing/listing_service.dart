@@ -33,15 +33,20 @@ class ListingService extends IListingService {
   @override
   Future<UpdateAvatarModel> uploadListingImage(
       Uint8List bytes, String topicId) async {
-    UpdateAvatarModel response = await apiService.getEndpointData(
-      endpoint: Endpoint.uploadImageListingForSale,
-      method: RequestMethod.multipart,
-      dynamicParam: topicId,
-      needBearer: true,
-      bytes: bytes,
-      fromJson: (json) => UpdateAvatarModel.fromJson(json),
-    );
-    return response;
+    try {
+  UpdateAvatarModel response = await apiService.getEndpointData(
+    endpoint: Endpoint.uploadImageListingForSale,
+    method: RequestMethod.multipart,
+    dynamicParam: topicId,
+    needBearer: true,
+    bytes: bytes,
+    fromJson: (json) => UpdateAvatarModel.fromJson(json),
+  );
+  return response;
+} on Exception catch (e) {
+  throw(e);
+}
+    
   }
 
   @override
@@ -57,6 +62,18 @@ class ListingService extends IListingService {
       jsonKey: "listForSale",
       needBearer: true,
       fromJson: (json) => ListingForSaleProfileResponseModel.fromJson(json),
+    );
+    return response;
+  }
+  
+  @override
+  Future<ListingForSaleModel> updateListing(ListingForSaleModel model)async{
+     ListingForSaleModel response = await apiService.getEndpointData(
+      endpoint: Endpoint.createListingForSale,
+      method: RequestMethod.put,
+      body: model.toJson(),
+      needBearer: true,
+      fromJson: (json) => ListingForSaleModel.fromJson(json),
     );
     return response;
   }

@@ -12,7 +12,9 @@ class DetailCollectionModel with _$DetailCollectionModel {
       required final String purchaseDate,
       required final double purchasePrice,
       required final String itemCondition,
-      required final String itemSource}) = _DetailCollectionModel;
+      required final String itemSource,
+      final String? description,
+      }) = _DetailCollectionModel;
 
   factory DetailCollectionModel.fromJson(Map<String, dynamic> json) =>
       _$DetailCollectionModelFromJson(json);

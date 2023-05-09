@@ -56,6 +56,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "buy_for": MessageLookupByLibrary.simpleMessage("BUY FOR"),
         "camera": MessageLookupByLibrary.simpleMessage("TAKE PHOTO"),
         "cancel": MessageLookupByLibrary.simpleMessage("CANCEL"),
+        "category": MessageLookupByLibrary.simpleMessage("category"),
         "city": MessageLookupByLibrary.simpleMessage("City"),
         "clear_all": MessageLookupByLibrary.simpleMessage("Clear All"),
         "code": MessageLookupByLibrary.simpleMessage("Code"),
@@ -94,7 +95,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "displayed_gamed":
             MessageLookupByLibrary.simpleMessage("DISPLAYED/GAMED:"),
         "displayed_gamed_item_four": MessageLookupByLibrary.simpleMessage(
-            "•  Minimum of 4 photos Max of 6"),
+            "•  Minimum of 4, photos Max of 6"),
         "displayed_gamed_item_three":
             MessageLookupByLibrary.simpleMessage("•  Bottom of item"),
         "dont_have_account":
@@ -147,7 +148,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "image_guidelines":
             MessageLookupByLibrary.simpleMessage("IMAGE GUIDELINES"),
         "image_guidelines_description": MessageLookupByLibrary.simpleMessage(
-            "Please include the following images based on item condition. All photos must include a post-it with username and date."),
+            "Include the following images with your listing. Photos MUST include a physical note with username and date."),
         "import_late": MessageLookupByLibrary.simpleMessage(
             "*You’ll be able to make updates later."),
         "incorrect_code": MessageLookupByLibrary.simpleMessage(
@@ -236,7 +237,6 @@ class MessageLookup extends MessageLookupByLibrary {
             "cannot enter more than 2 decimal places"),
         "privacy_policy_text":
             MessageLookupByLibrary.simpleMessage("Privacy Policy"),
-        "product": MessageLookupByLibrary.simpleMessage("product"),
         "purchase_price":
             MessageLookupByLibrary.simpleMessage("Purchase Price"),
         "putters": MessageLookupByLibrary.simpleMessage("Putters"),
@@ -277,10 +277,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "saved_searches":
             MessageLookupByLibrary.simpleMessage("SAVED SEARCHES"),
         "sealed": MessageLookupByLibrary.simpleMessage("Sealed"),
+        "sealed_item_four": MessageLookupByLibrary.simpleMessage(
+            "•  Minimum of 3, photos Max of 6"),
         "sealed_item_one":
             MessageLookupByLibrary.simpleMessage("•  Front of item"),
-        "sealed_item_three": MessageLookupByLibrary.simpleMessage(
-            "•  Minimum of 3 photos Max of 6"),
+        "sealed_item_three":
+            MessageLookupByLibrary.simpleMessage("•  Tagged picture"),
         "sealed_item_two":
             MessageLookupByLibrary.simpleMessage("•  Back of item"),
         "search_hint": MessageLookupByLibrary.simpleMessage(

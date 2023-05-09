@@ -21,7 +21,7 @@ class _PopUpImageGuidelineState extends State<PopUpImageGuideline> {
   Widget build(BuildContext context) {
     return Center(
       child: Dialog(
-        insetPadding: EdgeInsets.all(20),
+        insetPadding: const EdgeInsets.all(20),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
         child: Stack(
           children: [
@@ -138,6 +138,22 @@ class _PopUpImageGuidelineState extends State<PopUpImageGuideline> {
                                               Palette.current.primaryWhiteSmoke,
                                         )),
                               ),
+                               const SizedBox(
+                                height: 7,
+                              ),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(S.of(context).sealed_item_four,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(
+                                          fontSize: 14,
+                                          letterSpacing: 0.3,
+                                          color:
+                                              Palette.current.primaryWhiteSmoke,
+                                        )),
+                              )
                             ],
                           ),
                         ),
@@ -202,6 +218,22 @@ class _PopUpImageGuidelineState extends State<PopUpImageGuideline> {
                                 alignment: Alignment.centerLeft,
                                 child: Text(
                                     S.of(context).displayed_gamed_item_three,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(
+                                          fontSize: 14,
+                                          letterSpacing: 0.3,
+                                          color:
+                                              Palette.current.primaryWhiteSmoke,
+                                        )),
+                              ),
+                              const SizedBox(
+                                height: 7,
+                              ),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(S.of(context).sealed_item_three,
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodySmall!
