@@ -3,9 +3,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
+import 'package:swagapp/modules/common/ui/general_delete_popup.dart';
 import 'package:swagapp/modules/cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
 import 'package:swagapp/modules/models/listing_for_sale/listing_for_sale_model.dart';
 import 'package:swagapp/modules/models/profile/profile_model.dart';
+import 'package:swagapp/modules/models/ui_models/checkbox_model.dart';
 import '../../../../generated/l10n.dart';
 import '../../../common/ui/primary_button.dart';
 import '../../../common/utils/custom_route_animations.dart';
@@ -140,7 +142,6 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                             ),
                                             items: overlayItems,
                                             onItemSelected: (String value) {
-                                              print(value);
                                               if (value ==
                                                   editListingDropDown[0]
                                                       .label) {
@@ -166,7 +167,26 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                             '',
                                                         widget.dataItem
                                                             .productItemImageUrls));
-                                              }
+                                              }else if(value == editListingDropDown[1]
+                                                      .label){
+                                                        showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (BuildContext context) {
+                          return  GeneralDeletePopup(
+                            title: S.of(context).remove_listing,
+                            message: S.of(context).remove_listing_subtitle,
+                            options: [
+                             CheckboxModel(title: S.of(context).delete_collection_razon_1),
+                             CheckboxModel(title: S.of(context).delete_collection_razon_2),
+                             CheckboxModel(title: S.of(context).delete_collection_reason_4),
+                             CheckboxModel(title: S.of(context).delete_collection_razon_3),
+                            ],
+                            model: collectionModel,
+                            onSubmit: (){},
+                            );
+                        });
+                                                      }
                                             },
                                           ),
                                         ))
