@@ -12,7 +12,6 @@ import '../../models/listing_for_sale/listing_for_sale_model.dart';
 import '../../models/listing_for_sale/profile_listing_model.dart';
 import 'package:http/http.dart' as http;
 
-
 part 'get_listing_for_sale_state.dart';
 part 'get_listing_for_sale_cubit.freezed.dart';
 
@@ -38,22 +37,28 @@ class ListingProfileCubit extends Cubit<ListingCubitState> {
     }
   }
 
-  Future<void> updateListing(ListingForSaleModel model, List<XFile> imgList) async {
-    
+  Future<void> updateListing(
+      ListingForSaleModel model, List<XFile> imgList) async {
     try {
-   ListingForSaleModel response = await listingService.updateListing(model);
-  
-   for (var i = 0; i < imgList.length; i++) {
+      ListingForSaleModel response = await listingService.updateListing(model);
+
+      for (var i = 0; i < imgList.length; i++) {
         await listingService.uploadListingImage(
             await File(imgList[i].path).readAsBytes(),
             response.productItemId ?? '');
       }
       getIt<ListingProfileCubit>().loadResults();
-} on Exception catch (e) {
-  print(e);
-  
-}
+    } on Exception catch (e) {
+      print(e);
+    }
   }
 
-
+  Future<void> removeListingItem(ListingForSaleModel model) async{
+    try{
+      ListingForSaleModel response = await listingService.removeListingItem(model);
+    }
+    on Exception catch(e){
+      print(e);
+    }
+  }
 }
