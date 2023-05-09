@@ -1980,6 +1980,16 @@ class S {
     );
   }
 
+  /// `Changed my mind`
+  String get delete_collection_reason_4 {
+    return Intl.message(
+      'Changed my mind',
+      name: 'delete_collection_reason_4',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `REMOVE ITEM`
   String get remove_item {
     return Intl.message(
@@ -2045,6 +2055,26 @@ class S {
     return Intl.message(
       'REMOVE ITEM',
       name: 'alert_remove_btn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `REMOVE LISTING`
+  String get remove_listing {
+    return Intl.message(
+      'REMOVE LISTING',
+      name: 'remove_listing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select the reason you are removing this listing.`
+  String get remove_listing_subtitle {
+    return Intl.message(
+      'Please select the reason you are removing this listing.',
+      name: 'remove_listing_subtitle',
       desc: '',
       args: [],
     );
