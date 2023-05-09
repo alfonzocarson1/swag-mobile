@@ -27,7 +27,6 @@ import '../../../models/overlay_buton/overlay_button_model.dart';
 
 import 'footer_list_item_page.dart';
 
-
 class ListItemPreviewPage extends StatefulWidget {
   static const name = '/ListItemPreviewPage';
 
@@ -45,10 +44,8 @@ class ListItemPreviewPage extends StatefulWidget {
       this.productItemId,
       required this.onClose});
 
-
   List<File> imgList;
 
-  
   bool isUpdate;
 
   String itemName;
@@ -61,13 +58,17 @@ class ListItemPreviewPage extends StatefulWidget {
   String? profileId;
   Function() onClose;
 
-  static Route route({isUpdate, productItemId, 
-                      
-                      
-                      
-                      
-                      , itemName, itemPrice, itemCondition,
-          itemDescription, profileCollectionItemId, catalogItemId, onClose}) =>
+  static Route route(
+          {isUpdate,
+          productItemId,
+          imgList,
+          itemName,
+          itemPrice,
+          itemCondition,
+          itemDescription,
+          profileCollectionItemId,
+          catalogItemId,
+          onClose}) =>
       PageRoutes.material(
         settings: const RouteSettings(name: name),
         builder: (context) => ListItemPreviewPage(
@@ -91,7 +92,7 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
   String profileId = "";
   List<CustomOverlayItemModel> items = editListingDropDown;
   late DetailCollectionModel collectionModel;
-  
+
   @override
   void initState() {
     super.initState();
@@ -106,13 +107,13 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
 
   @override
   Widget build(BuildContext context) {
-     collectionModel =  DetailCollectionModel(
-    profileCollectionItemId: 'profileCollectionItemId', 
-    catalogItemId: 'catalogItemId', 
-    purchaseDate: '', 
-    purchasePrice: widget.itemPrice, 
-    itemCondition: 'itemCondition', 
-    itemSource: '');
+    collectionModel = DetailCollectionModel(
+        profileCollectionItemId: 'profileCollectionItemId',
+        catalogItemId: 'catalogItemId',
+        purchaseDate: '',
+        purchasePrice: widget.itemPrice,
+        itemCondition: 'itemCondition',
+        itemSource: '');
 
     return Scaffold(
         extendBodyBehindAppBar: true,
@@ -213,7 +214,8 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                           ),
                           const SizedBox(height: 10),
                           Container(
-                            height: MediaQuery.of(context).devicePixelRatio * 70,
+                            height:
+                                MediaQuery.of(context).devicePixelRatio * 70,
                             padding: const EdgeInsets.only(right: 50.0),
                             child: Text(widget.itemDescription,
                                 style: Theme.of(context)
@@ -231,43 +233,45 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                           PrimaryButton(
                             title: S.of(context).post_listing_btn,
                             onPressed: () {
-                              (widget.isUpdate == false)?
-                              context.read<ListingBloc>().add(
-                                  ListingEvent.createListing(
+                              (widget.isUpdate == false)
+                                  ? context.read<ListingBloc>().add(
+                                      ListingEvent.createListing(
+                                          ListingForSaleModel(
+                                              productItemName: widget.itemName,
+                                              productItemPrice:
+                                                  widget.itemPrice,
+                                              productItemDescription:
+                                                  widget.itemDescription,
+                                              sold: false,
+                                              condition: widget.itemCondition
+                                                  .toUpperCase(),
+                                              listingItemsAction: "ADD",
+                                              forSale: true,
+                                              lastSale: widget.itemPrice,
+                                              catalogItemId:
+                                                  widget.catalogItemId,
+                                              profileCollectionItemId: widget
+                                                  .profileCollectionItemId),
+                                          widget.imgList))
+                                  : getIt<ListingProfileCubit>().updateListing(
                                       ListingForSaleModel(
-                                          productItemName: widget.itemName,
-                                          productItemPrice: widget.itemPrice,
-                                          productItemDescription:
-                                              widget.itemDescription,
-                                          sold: false,
-                                          condition: widget.itemCondition
-                                              .toUpperCase(),
-                                          listingItemsAction: "ADD",
-                                          forSale: true,
-                                          lastSale: widget.itemPrice,
-                                          catalogItemId: widget.catalogItemId,
-                                          profileCollectionItemId:
-                                              widget.profileCollectionItemId),
-                                      widget.imgList)) : 
-                                getIt<ListingProfileCubit>().updateListing(
-                                    ListingForSaleModel(
-                                          productItemId: widget.productItemId ,
-                                          productItemName: widget.itemName,
-                                          productItemPrice: widget.itemPrice,
-                                          productItemDescription:
-                                              widget.itemDescription,
-                                          sold: false,
-                                          condition: widget.itemCondition
-                                              .toUpperCase(),
-                                          listingItemsAction: "ADD",
-                                          forSale: true,
-                                          lastSale: widget.itemPrice,
-                                          catalogItemId: widget.catalogItemId,
-                                          profileCollectionItemId:
-                                              widget.profileCollectionItemId,
-                                                status: 'Listed',
-                                              ), 
-                                  widget.imgList) ;
+                                        productItemId: widget.productItemId,
+                                        productItemName: widget.itemName,
+                                        productItemPrice: widget.itemPrice,
+                                        productItemDescription:
+                                            widget.itemDescription,
+                                        sold: false,
+                                        condition:
+                                            widget.itemCondition.toUpperCase(),
+                                        listingItemsAction: "ADD",
+                                        forSale: true,
+                                        lastSale: widget.itemPrice,
+                                        catalogItemId: widget.catalogItemId,
+                                        profileCollectionItemId:
+                                            widget.profileCollectionItemId,
+                                        status: 'Listed',
+                                      ),
+                                      widget.imgList);
                               Navigator.of(context).pop();
                               Navigator.of(context).pop();
                               Navigator.of(context).pop();

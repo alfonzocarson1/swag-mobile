@@ -47,7 +47,8 @@ class _CustomOverlayButtonState extends State<CustomOverlayButton> {
               top: offset.dy + size.height,
               width: deviceSizeRatio * 450,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(8.0), // Adjust the corner radius here
+                borderRadius:
+                    BorderRadius.circular(8.0), // Adjust the corner radius here
                 child: Material(
                   color: Colors.black,
                   elevation: 8.0,
@@ -62,7 +63,7 @@ class _CustomOverlayButtonState extends State<CustomOverlayButton> {
                           height: deviceSizeRatio * 65,
                           width: deviceSizeRatio * 65,
                           fit: BoxFit.contain,
-                          ),
+                        ),
                         title: Text(
                           item.label,
                           style: TextStyle(
@@ -89,8 +90,8 @@ class _CustomOverlayButtonState extends State<CustomOverlayButton> {
       },
     );
 
-    Overlay.of(context).insert(_overlayEntry!);
-  } 
+    Overlay.of(context)!.insert(_overlayEntry!);
+  }
 
   @override
   Widget build(BuildContext context) {

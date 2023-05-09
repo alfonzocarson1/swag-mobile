@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -33,8 +35,11 @@ class EditListForSalePage extends StatefulWidget {
   final String catalogItemName;
   final List<dynamic>? imageUrls;
 
-  static Route route(DetailCollectionModel? collectionData, String? productItemId,
-          String catalogItemName, List<dynamic>? imageUrls) =>
+  static Route route(
+          DetailCollectionModel? collectionData,
+          String? productItemId,
+          String catalogItemName,
+          List<dynamic>? imageUrls) =>
       PageRoutes.slideUp(
         settings: const RouteSettings(name: name),
         builder: (context) => EditListForSalePage(
@@ -52,7 +57,7 @@ class EditListForSalePage extends StatefulWidget {
 class _EditListForSalePageState extends State<EditListForSalePage> {
   final ImagePicker imagePicker = ImagePicker();
   List<dynamic> imageFileList = [];
-  List<XFile>  tempFiles = [];
+  List<File> tempFiles = [];
 
   bool isPostListing = false;
   final FocusNode _listPriceItemNode = FocusNode();
@@ -110,21 +115,22 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
     });
   }
 
-  getImageFiles(List<XFile> imageFiles){
+  getImageFiles(List<File> imageFiles) {
     setState(() {
       tempFiles = imageFiles;
     });
   }
-    _onWillPop(context){
-    getIt<ListingProfileCubit>().listingService.updateListing(
-                                                ListingForSaleModel(
-                                                  productItemId: widget.productItemId,
-                                                  forSale: true,
-                                                  sold: false,                                                
-                                                  status: 'listed',
-                                                )
-                                              );
-                                              //Navigator.maybePop(context);
+
+  _onWillPop(context) {
+    getIt<ListingProfileCubit>()
+        .listingService
+        .updateListing(ListingForSaleModel(
+          productItemId: widget.productItemId,
+          forSale: true,
+          sold: false,
+          status: 'listed',
+        ));
+    //Navigator.maybePop(context);
     Navigator.of(context).pop(true);
   }
 
@@ -132,10 +138,10 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-            _onWillPop(context);         
-            return true;
-        },
-      child: Scaffold(        
+        _onWillPop(context);
+        return true;
+      },
+      child: Scaffold(
         extendBodyBehindAppBar: true,
         backgroundColor: Palette.current.primaryEerieBlack,
         appBar: PushedHeader(
@@ -143,9 +149,9 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
           suffixIconButton: IconButton(
             iconSize: 30,
             color: Palette.current.primaryNeonGreen,
-            onPressed: () {                
+            onPressed: () {
               _onWillPop(context);
-              Navigator.of(context).pop; 
+              Navigator.of(context).pop;
             },
             icon: const Icon(
               Icons.clear_outlined,
@@ -191,211 +197,220 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
                           padding: const EdgeInsets.all(19.0),
                           child: Column(
                             children: [
-                                    Align(
-                          alignment: Alignment.centerLeft,
-                          child: Column(                          
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(widget.catalogItemName.toUpperCase(),
-                                  textAlign: TextAlign.left,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displayMedium!
-                                      .copyWith(
-                                        fontFamily: "Knockout",
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.w300,
-                                        color:
-                                            Palette.current.primaryWhiteSmoke,
-                                      )),
-                              Text("${S.of(context).for_sale}: \$$_price",
-                                  textAlign: TextAlign.left,
-                                  overflow: TextOverflow.fade,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall!
-                                      .copyWith(
-                                          fontWeight: FontWeight.w300,
-                                          fontSize: 16,
-                                          color: Palette
-                                              .current.primaryNeonGreen)),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 21,
-                        ),
-                        Column(
-                          children: [
-                            CustomTextFormField(
-                              suffix: Image.asset(
-                                'assets/images/trending-up.png',
-                                width: 20,
-                                height: 20,
-                                scale: 3,
-                                color: Palette.current.blackSmoke,
-                              ),
-                              inputFormatters: <TextInputFormatter>[
-                                FilteringTextInputFormatter.digitsOnly
-                              ],
-                              maxLength: 7,
-                              onChanged: (value) {
-                                if (value == '00') {
-                                  setState(() {
-                                    _price = 0.0;
-                                  });
-                                }
-                                String newValue = value
-                                    .replaceAll(',', '')
-                                    .replaceAll('.', '');
-                                if (value.isEmpty || newValue == '00') {
-                                  _listPriceItemController.clear();
-                                  isFirst = true;
-                                  return;
-                                }
-                                double value1 = double.parse(newValue);
-                                if (!isFirst) value1 = value1 * 100;
-                                value = NumberFormat.currency(
-                                        customPattern: '###,###.##')
-                                    .format(value1 / 100);
-                                _listPriceItemController.value =
-                                    TextEditingValue(
-                                  text: value,
-                                  selection: TextSelection.collapsed(
-                                      offset: value.length),
-                                );
-                                setState(() {
-                                  String str =
-                                      _listPriceItemController.value.text;
-                                  String result = str.replaceAll(',', '');
-                                  _price = double.parse(result);
-                                });
-                              },
-                              borderColor: _listPriceItemBorder,
-                              autofocus: false,
-                              errorText: listPriceItemErrorText,
-                              labelText: S.of(context).list_price_input,
-                              focusNode: _listPriceItemNode,
-                              controller: _listPriceItemController,
-                              inputType: const TextInputType.numberWithOptions(
-                                decimal: true,
-                                signed: false,
-                              ),
-                            ),
-                             const SizedBox(
-                          height: 21,
-                        ),
-                            CustomTextFormField(
-                                borderColor: _conditionBorder,
-                                autofocus: false,
-                                errorText: conditionErrorText,
-                                dropdownForm: true,
-                                dropdownFormItems: itemConditions,
-                                dropdownvalue: _defaultCondition,
-                                dropdownOnChanged: (String? newValue) {
-                                  setState(() {
-                                    setState(() {
-                                      _defaultCondition = newValue!;
-                                    });
-                                  });
-                                },
-                                focusNode: _conditionNode,
-                                controller: _conditionController,
-                                inputType: TextInputType.text),
-                          ],
-                        ),
-                         const SizedBox(
-                          height: 21,
-                        ),
-                        Column(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      width: 0.5,
-                                      color: descriptionErrorText != null
-                                          ? Palette.current.primaryNeonPink
-                                          : Palette.current.grey)),
-                              child: TextField(
-                                controller: _listDescriptionItemController,
-                                keyboardType: TextInputType.text,
-                                maxLength: 140,
-                                maxLines: 6,
-                                style: TextStyle(
-                                    fontSize: 16.0,
-                                    color: Palette.current.primaryWhiteSmoke),
-                                decoration: InputDecoration(
-                                  hintStyle: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(
-                                          fontSize: 16.0,
-                                          color: Palette.current.white),
-                                  contentPadding: const EdgeInsets.only(
-                                      top: 8, left: 8, right: 8),
-                                  border: InputBorder.none,
-                                  counterStyle: const TextStyle(
-                                      height: 5,
-                                      color: Colors.grey,
-                                      fontSize: 11),
-                                  hintText:
-                                      S.of(context).aditional_listing_detail,
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(widget.catalogItemName.toUpperCase(),
+                                        textAlign: TextAlign.left,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displayMedium!
+                                            .copyWith(
+                                              fontFamily: "Knockout",
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.w300,
+                                              color: Palette
+                                                  .current.primaryWhiteSmoke,
+                                            )),
+                                    Text("${S.of(context).for_sale}: \$$_price",
+                                        textAlign: TextAlign.left,
+                                        overflow: TextOverflow.fade,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(
+                                                fontWeight: FontWeight.w300,
+                                                fontSize: 16,
+                                                color: Palette
+                                                    .current.primaryNeonGreen)),
+                                  ],
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                         const SizedBox(
-                          height: 21,
-                        ),
-                        PrimaryButton(
-                          title: S.of(context).preview_listing,
-                          onPressed: () {
-                            showErrors();
-                            if (areFieldsValid()) {
-                              if (_defaultCondition == "Sealed" &&
-                                  imageFileList.length < 3) {
-                                showDialog(
-                                    context: context,
-                                    barrierDismissible: false,
-                                    builder: (BuildContext context) {
-                                      return const PopUpImageGuideline();
-                                    });
-                              } else if (_defaultCondition != "Sealed" &&
-                                  imageFileList.length < 4) {
-                                showDialog(
-                                    context: context,
-                                    barrierDismissible: false,
-                                    builder: (BuildContext context) {
-                                      return const PopUpImageGuideline();
-                                    });
-                              } else {
-                                Navigator.of(context, rootNavigator: true).push(
-                                      ListItemPreviewPage.route(
-                                                isUpdate: true,
-                                                catalogItemId: widget.collectionData!
-                                                      .catalogItemId,
-                                                imgList:tempFiles,                                             
-                                                itemCondition: _defaultCondition,
-                                                itemDescription:  _listDescriptionItemController
+                              const SizedBox(
+                                height: 21,
+                              ),
+                              Column(
+                                children: [
+                                  CustomTextFormField(
+                                    suffix: Image.asset(
+                                      'assets/images/trending-up.png',
+                                      width: 20,
+                                      height: 20,
+                                      scale: 3,
+                                      color: Palette.current.blackSmoke,
+                                    ),
+                                    inputFormatters: <TextInputFormatter>[
+                                      FilteringTextInputFormatter.digitsOnly
+                                    ],
+                                    maxLength: 7,
+                                    onChanged: (value) {
+                                      if (value == '00') {
+                                        setState(() {
+                                          _price = 0.0;
+                                        });
+                                      }
+                                      String newValue = value
+                                          .replaceAll(',', '')
+                                          .replaceAll('.', '');
+                                      if (value.isEmpty || newValue == '00') {
+                                        _listPriceItemController.clear();
+                                        isFirst = true;
+                                        return;
+                                      }
+                                      double value1 = double.parse(newValue);
+                                      if (!isFirst) value1 = value1 * 100;
+                                      value = NumberFormat.currency(
+                                              customPattern: '###,###.##')
+                                          .format(value1 / 100);
+                                      _listPriceItemController.value =
+                                          TextEditingValue(
+                                        text: value,
+                                        selection: TextSelection.collapsed(
+                                            offset: value.length),
+                                      );
+                                      setState(() {
+                                        String str =
+                                            _listPriceItemController.value.text;
+                                        String result = str.replaceAll(',', '');
+                                        _price = double.parse(result);
+                                      });
+                                    },
+                                    borderColor: _listPriceItemBorder,
+                                    autofocus: false,
+                                    errorText: listPriceItemErrorText,
+                                    labelText: S.of(context).list_price_input,
+                                    focusNode: _listPriceItemNode,
+                                    controller: _listPriceItemController,
+                                    inputType:
+                                        const TextInputType.numberWithOptions(
+                                      decimal: true,
+                                      signed: false,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 21,
+                                  ),
+                                  CustomTextFormField(
+                                      borderColor: _conditionBorder,
+                                      autofocus: false,
+                                      errorText: conditionErrorText,
+                                      dropdownForm: true,
+                                      dropdownFormItems: itemConditions,
+                                      dropdownvalue: _defaultCondition,
+                                      dropdownOnChanged: (String? newValue) {
+                                        setState(() {
+                                          setState(() {
+                                            _defaultCondition = newValue!;
+                                          });
+                                        });
+                                      },
+                                      focusNode: _conditionNode,
+                                      controller: _conditionController,
+                                      inputType: TextInputType.text),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 21,
+                              ),
+                              Column(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            width: 0.5,
+                                            color: descriptionErrorText != null
+                                                ? Palette
+                                                    .current.primaryNeonPink
+                                                : Palette.current.grey)),
+                                    child: TextField(
+                                      controller:
+                                          _listDescriptionItemController,
+                                      keyboardType: TextInputType.text,
+                                      maxLength: 140,
+                                      maxLines: 6,
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          color: Palette
+                                              .current.primaryWhiteSmoke),
+                                      decoration: InputDecoration(
+                                        hintStyle: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium!
+                                            .copyWith(
+                                                fontSize: 16.0,
+                                                color: Palette.current.white),
+                                        contentPadding: const EdgeInsets.only(
+                                            top: 8, left: 8, right: 8),
+                                        border: InputBorder.none,
+                                        counterStyle: const TextStyle(
+                                            height: 5,
+                                            color: Colors.grey,
+                                            fontSize: 11),
+                                        hintText: S
+                                            .of(context)
+                                            .aditional_listing_detail,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 21,
+                              ),
+                              PrimaryButton(
+                                title: S.of(context).preview_listing,
+                                onPressed: () {
+                                  showErrors();
+                                  if (areFieldsValid()) {
+                                    if (_defaultCondition == "Sealed" &&
+                                        imageFileList.length < 3) {
+                                      showDialog(
+                                          context: context,
+                                          barrierDismissible: false,
+                                          builder: (BuildContext context) {
+                                            return const PopUpImageGuideline();
+                                          });
+                                    } else if (_defaultCondition != "Sealed" &&
+                                        imageFileList.length < 4) {
+                                      showDialog(
+                                          context: context,
+                                          barrierDismissible: false,
+                                          builder: (BuildContext context) {
+                                            return const PopUpImageGuideline();
+                                          });
+                                    } else {
+                                      Navigator.of(context, rootNavigator: true)
+                                          .push(ListItemPreviewPage.route(
+                                              isUpdate: true,
+                                              catalogItemId: widget
+                                                  .collectionData!
+                                                  .catalogItemId,
+                                              imgList: tempFiles,
+                                              itemCondition: _defaultCondition,
+                                              itemDescription:
+                                                  _listDescriptionItemController
                                                       .text
                                                       .toString(),
-                                                itemName:widget.catalogItemName ,
-                                                itemPrice: _price ,
-                                                productItemId:  widget.productItemId,                  
-                                                profileCollectionItemId:  widget.collectionData!
-                                                      .profileCollectionItemId,                                                    
-                                                onClose:() {
-                                            Navigator.pop(context);
-                                        }));                       
-                              }
-                            }
-                          },
-                          type: PrimaryButtonType.green,
-                        )
+                                              itemName: widget.catalogItemName,
+                                              itemPrice: _price,
+                                              productItemId:
+                                                  widget.productItemId,
+                                              profileCollectionItemId: widget
+                                                  .collectionData!
+                                                  .profileCollectionItemId,
+                                              onClose: () {
+                                                Navigator.pop(context);
+                                              }));
+                                    }
+                                  }
+                                },
+                                type: PrimaryButtonType.green,
+                              )
                             ],
                           ),
-                          )                
+                        )
                       ],
                     ),
                   ),
