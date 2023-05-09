@@ -28,7 +28,8 @@ enum Endpoint {
   isEmailInUse,
   privateProfile,
   filtersAvailable,
-  listingsProfile
+  listingsProfile,
+  explorePage
 }
 
 class API {
@@ -61,7 +62,8 @@ class API {
     Endpoint.updateAvatar: 'api/v1/image/%s',
     Endpoint.requestPasswordResetCode:
         'api/public/v1/account/requestPasswordResetCode/%s',
-    Endpoint.requestEmailVerification:'api/v1/account/requestEmailVerification',    
+    Endpoint.requestEmailVerification:
+        'api/v1/account/requestEmailVerification',
     Endpoint.requestIsvalidCode:
         'api/public/v1/account/requestPasswordResetCode/isvalid/%s',
     Endpoint.changePassword: 'api/public/v1/account/passwordChangeRequest',
@@ -76,5 +78,6 @@ class API {
     Endpoint.privateProfile: 'api/v1/profile',
     Endpoint.filtersAvailable: 'api/public/v1/catalog/filtersAvailable/',
     Endpoint.listingsProfile: 'api/public/v1/listing/productItems/profile/%s',
+    Endpoint.explorePage: 'api/public/v1/catalog/search/0'
   };
 }

@@ -326,6 +326,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Your password has been successfully reset"),
         "total_mode": MessageLookupByLibrary.simpleMessage("Total Made:"),
         "type": MessageLookupByLibrary.simpleMessage("type"),
+        "unicorn_covers":
+            MessageLookupByLibrary.simpleMessage("UNICORN COVERS"),
         "username": MessageLookupByLibrary.simpleMessage("@username"),
         "username_taken":
             MessageLookupByLibrary.simpleMessage("This username is taken "),

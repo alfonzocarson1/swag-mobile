@@ -56,7 +56,12 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                                     letterSpacing: 0.3,
                                     color: Palette.current.primaryWhiteSmoke,
                                   )),
-                          onPressed: () {},
+                          onPressed: () {
+                            widget.pageFromExplore();
+                            getIt<PreferenceRepositoryService>()
+                                .setPageFromExplore(1);
+                            getIt<PageFromExploreCubit>().loadResults(1);
+                          },
                         )),
                   )
                 ],

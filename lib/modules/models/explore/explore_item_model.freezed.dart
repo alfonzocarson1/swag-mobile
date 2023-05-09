@@ -14,33 +14,34 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-ExploreItemModel _$ExploreItemModelFromJson(Map<String, dynamic> json) {
-  return _ExploreItemModel.fromJson(json);
+ListExploreItemModel _$ListExploreItemModelFromJson(Map<String, dynamic> json) {
+  return _ListExploreItemModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$ExploreItemModel {
-  String get image => throw _privateConstructorUsedError;
+mixin _$ListExploreItemModel {
+  List<CatalogItemModel> get exploreList => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ExploreItemModelCopyWith<ExploreItemModel> get copyWith =>
+  $ListExploreItemModelCopyWith<ListExploreItemModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ExploreItemModelCopyWith<$Res> {
-  factory $ExploreItemModelCopyWith(
-          ExploreItemModel value, $Res Function(ExploreItemModel) then) =
-      _$ExploreItemModelCopyWithImpl<$Res, ExploreItemModel>;
+abstract class $ListExploreItemModelCopyWith<$Res> {
+  factory $ListExploreItemModelCopyWith(ListExploreItemModel value,
+          $Res Function(ListExploreItemModel) then) =
+      _$ListExploreItemModelCopyWithImpl<$Res, ListExploreItemModel>;
   @useResult
-  $Res call({String image});
+  $Res call({List<CatalogItemModel> exploreList});
 }
 
 /// @nodoc
-class _$ExploreItemModelCopyWithImpl<$Res, $Val extends ExploreItemModel>
-    implements $ExploreItemModelCopyWith<$Res> {
-  _$ExploreItemModelCopyWithImpl(this._value, this._then);
+class _$ListExploreItemModelCopyWithImpl<$Res,
+        $Val extends ListExploreItemModel>
+    implements $ListExploreItemModelCopyWith<$Res> {
+  _$ListExploreItemModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -50,46 +51,46 @@ class _$ExploreItemModelCopyWithImpl<$Res, $Val extends ExploreItemModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? image = null,
+    Object? exploreList = null,
   }) {
     return _then(_value.copyWith(
-      image: null == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String,
+      exploreList: null == exploreList
+          ? _value.exploreList
+          : exploreList // ignore: cast_nullable_to_non_nullable
+              as List<CatalogItemModel>,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_ExploreItemModelCopyWith<$Res>
-    implements $ExploreItemModelCopyWith<$Res> {
-  factory _$$_ExploreItemModelCopyWith(
-          _$_ExploreItemModel value, $Res Function(_$_ExploreItemModel) then) =
-      __$$_ExploreItemModelCopyWithImpl<$Res>;
+abstract class _$$_ListExploreItemModelCopyWith<$Res>
+    implements $ListExploreItemModelCopyWith<$Res> {
+  factory _$$_ListExploreItemModelCopyWith(_$_ListExploreItemModel value,
+          $Res Function(_$_ListExploreItemModel) then) =
+      __$$_ListExploreItemModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String image});
+  $Res call({List<CatalogItemModel> exploreList});
 }
 
 /// @nodoc
-class __$$_ExploreItemModelCopyWithImpl<$Res>
-    extends _$ExploreItemModelCopyWithImpl<$Res, _$_ExploreItemModel>
-    implements _$$_ExploreItemModelCopyWith<$Res> {
-  __$$_ExploreItemModelCopyWithImpl(
-      _$_ExploreItemModel _value, $Res Function(_$_ExploreItemModel) _then)
+class __$$_ListExploreItemModelCopyWithImpl<$Res>
+    extends _$ListExploreItemModelCopyWithImpl<$Res, _$_ListExploreItemModel>
+    implements _$$_ListExploreItemModelCopyWith<$Res> {
+  __$$_ListExploreItemModelCopyWithImpl(_$_ListExploreItemModel _value,
+      $Res Function(_$_ListExploreItemModel) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? image = null,
+    Object? exploreList = null,
   }) {
-    return _then(_$_ExploreItemModel(
-      image: null == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String,
+    return _then(_$_ListExploreItemModel(
+      exploreList: null == exploreList
+          ? _value._exploreList
+          : exploreList // ignore: cast_nullable_to_non_nullable
+              as List<CatalogItemModel>,
     ));
   }
 }
@@ -97,57 +98,68 @@ class __$$_ExploreItemModelCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable()
-class _$_ExploreItemModel implements _ExploreItemModel {
-  const _$_ExploreItemModel({required this.image});
+class _$_ListExploreItemModel implements _ListExploreItemModel {
+  const _$_ListExploreItemModel(
+      {required final List<CatalogItemModel> exploreList})
+      : _exploreList = exploreList;
 
-  factory _$_ExploreItemModel.fromJson(Map<String, dynamic> json) =>
-      _$$_ExploreItemModelFromJson(json);
+  factory _$_ListExploreItemModel.fromJson(Map<String, dynamic> json) =>
+      _$$_ListExploreItemModelFromJson(json);
 
+  final List<CatalogItemModel> _exploreList;
   @override
-  final String image;
+  List<CatalogItemModel> get exploreList {
+    if (_exploreList is EqualUnmodifiableListView) return _exploreList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_exploreList);
+  }
 
   @override
   String toString() {
-    return 'ExploreItemModel(image: $image)';
+    return 'ListExploreItemModel(exploreList: $exploreList)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ExploreItemModel &&
-            (identical(other.image, image) || other.image == image));
+            other is _$_ListExploreItemModel &&
+            const DeepCollectionEquality()
+                .equals(other._exploreList, _exploreList));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, image);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_exploreList));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ExploreItemModelCopyWith<_$_ExploreItemModel> get copyWith =>
-      __$$_ExploreItemModelCopyWithImpl<_$_ExploreItemModel>(this, _$identity);
+  _$$_ListExploreItemModelCopyWith<_$_ListExploreItemModel> get copyWith =>
+      __$$_ListExploreItemModelCopyWithImpl<_$_ListExploreItemModel>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ExploreItemModelToJson(
+    return _$$_ListExploreItemModelToJson(
       this,
     );
   }
 }
 
-abstract class _ExploreItemModel implements ExploreItemModel {
-  const factory _ExploreItemModel({required final String image}) =
-      _$_ExploreItemModel;
+abstract class _ListExploreItemModel implements ListExploreItemModel {
+  const factory _ListExploreItemModel(
+          {required final List<CatalogItemModel> exploreList}) =
+      _$_ListExploreItemModel;
 
-  factory _ExploreItemModel.fromJson(Map<String, dynamic> json) =
-      _$_ExploreItemModel.fromJson;
+  factory _ListExploreItemModel.fromJson(Map<String, dynamic> json) =
+      _$_ListExploreItemModel.fromJson;
 
   @override
-  String get image;
+  List<CatalogItemModel> get exploreList;
   @override
   @JsonKey(ignore: true)
-  _$$_ExploreItemModelCopyWith<_$_ExploreItemModel> get copyWith =>
+  _$$_ListExploreItemModelCopyWith<_$_ListExploreItemModel> get copyWith =>
       throw _privateConstructorUsedError;
 }

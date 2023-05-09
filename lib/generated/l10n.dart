@@ -2189,6 +2189,16 @@ class S {
       args: [],
     );
   }
+
+  /// `UNICORN COVERS`
+  String get unicorn_covers {
+    return Intl.message(
+      'UNICORN COVERS',
+      name: 'unicorn_covers',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

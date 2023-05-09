@@ -6,12 +6,16 @@ part of 'explore_item_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ExploreItemModel _$$_ExploreItemModelFromJson(Map<String, dynamic> json) =>
-    _$_ExploreItemModel(
-      image: json['image'] as String,
+_$_ListExploreItemModel _$$_ListExploreItemModelFromJson(
+        Map<String, dynamic> json) =>
+    _$_ListExploreItemModel(
+      exploreList: (json['exploreList'] as List<dynamic>)
+          .map((e) => CatalogItemModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
-Map<String, dynamic> _$$_ExploreItemModelToJson(_$_ExploreItemModel instance) =>
+Map<String, dynamic> _$$_ListExploreItemModelToJson(
+        _$_ListExploreItemModel instance) =>
     <String, dynamic>{
-      'image': instance.image,
+      'exploreList': instance.exploreList,
     };

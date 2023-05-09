@@ -7,9 +7,11 @@ import 'package:swagapp/modules/models/filters/dynamic_filters.dart';
 import ' shop_by_category_page.dart';
 
 import '../../common/utils/custom_route_animations.dart';
+import '../../cubits/explore/get_explore_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 
+import '../../models/explore/explore_payload_model.dart';
 import '../../models/profile/profile_model.dart';
 import 'account_info.dart';
 import 'staff_picks_page.dart';
@@ -41,6 +43,14 @@ class _ExplorePageState extends State<ExplorePage> {
 
   @override
   void initState() {
+    getIt<ExploreCubit>()
+        .getUnicorn(const ExploreRequestPayloadModel(unicornFlag: true));
+    getIt<ExploreCubit>()
+        .getWhatsHot(const ExploreRequestPayloadModel(whatsHotFlag: true));
+
+    getIt<ExploreCubit>()
+        .getStaff(const ExploreRequestPayloadModel(staffPicksFlag: true));
+
     this.loadDynamicFilters();
     this._isLogged = getIt<PreferenceRepositoryService>().isLogged();
     this._hasJustSignedUp =
@@ -83,7 +93,11 @@ class _ExplorePageState extends State<ExplorePage> {
                             },
                           ),
                           UnicornCoversPage(),
-                          WhatsHotExplorePage(),
+                          WhatsHotExplorePage(
+                            pageFromExplore: () {
+                              widget.pageFromExplore();
+                            },
+                          ),
                           StaffPicksPage()
                         ],
                       ),
