@@ -16,10 +16,10 @@ import 'package:swagapp/modules/pages/search/search_on_tap_page.dart';
 import 'package:swagapp/modules/pages/search/tabs/whats_hot_page.dart';
 import 'package:badges/badges.dart' as badges;
 
-import '../../blocs/search_bloc.dart/search_bloc.dart';
 import '../../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/tab_wrapper.dart';
+import '../../cubits/page_from_explore/page_from_explore_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 
@@ -44,19 +44,24 @@ class _SearchPageState extends State<SearchPage>
   int selectedIndex = 0;
   final TextEditingController _textEditingController = TextEditingController();
   int filterIndicatorCounter = 0;
+  bool initialData = false;
 
   List<dynamic> categoriesData = [];
   var tabLen = 0;
+  int initialPos = getIt<PreferenceRepositoryService>().getPageFromExplore();
 
   @override
   void initState() {
     super.initState();
     getLastCategories();
-    _tabController = TabController(length: 4, vsync: this);
+    _tabController = TabController(
+        length: 4, vsync: this, initialIndex: initialPos != 0 ? initialPos : 0);
+
     _tabController.addListener(() {
       final index = _tabController.index;
+
       initFilterAndSortsWithBloc(context, selectedProductNumber: index);
-    if (index > 0) {
+      if (index > 0) {
         filterIndicatorCounter = 1;
       } else {
         filterIndicatorCounter = 0;
@@ -108,14 +113,39 @@ class _SearchPageState extends State<SearchPage>
   Widget getBody() {
     return Column(
       children: [
+        BlocBuilder<PageFromExploreCubit, PageFromExploreState>(
+            builder: (context, state) {
+          return state.maybeWhen(
+            orElse: () {
+              return Container();
+            },
+            changeTabPage: (int tabPage) {
+              Future.delayed(Duration.zero, () {
+                setState(() {
+                  selectedIndex = tabPage;
+                  if (selectedIndex != 0) {
+                    initialData = true;
+                  }
+                });
+              });
+
+              return Container();
+            },
+          );
+        }),
         tabLen == 0 ? Container() : _getTabBar(context),
         Expanded(
-          child: TabBarView(controller: _tabController, children: const [
-            WhatsHotPage(),
-            HeadcoversPage(),
-            PuttersPage(),
-            AccessoriesPage(),
-          ]),
+          child: TabBarView(
+              controller: initialData
+                  ? TabController(
+                      length: 4, vsync: this, initialIndex: selectedIndex)
+                  : _tabController,
+              children: const [
+                WhatsHotPage(),
+                HeadcoversPage(),
+                PuttersPage(),
+                AccessoriesPage(),
+              ]),
         ),
       ],
     );
@@ -141,11 +171,13 @@ class _SearchPageState extends State<SearchPage>
                 withNavBar: true,
                 pageTransitionAnimation: PageTransitionAnimation.cupertino,
               ).then((completion) async {
-                initFilterAndSortsWithBloc(context,selectedProductNumber: _tabController.index);
-                await initFiltersAndSorts(selectedProductNumber: _tabController.index);
+                initFilterAndSortsWithBloc(context,
+                    selectedProductNumber: _tabController.index);
+                await initFiltersAndSorts(
+                    selectedProductNumber: _tabController.index);
                 if (!mounted) return;
                 performSearch(
-                  context:context ,
+                  context: context,
                   tab: SearchTab.values.elementAt(_tabController.index),
                 );
               });
@@ -157,7 +189,7 @@ class _SearchPageState extends State<SearchPage>
               controller: _textEditingController,
               hint: title,
               resultViewBuilder: (_, controller) => Container(),
-              onCancel: (){},
+              onCancel: () {},
             ),
           ),
         ),
@@ -173,7 +205,7 @@ class _SearchPageState extends State<SearchPage>
                       await setIsForSale(!state.model.isForSale);
                       if (!mounted) return;
                       performSearch(
-                        context: context,                      
+                        context: context,
                         tab: SearchTab.values.elementAt(_tabController.index),
                       );
                     },
@@ -255,8 +287,9 @@ class _SearchPageState extends State<SearchPage>
     return Padding(
       padding: const EdgeInsets.only(top: 10, left: 0, right: 0),
       child: TabBar(
-        labelPadding: EdgeInsets.all(0),
-          controller: _tabController,
+          labelPadding: const EdgeInsets.all(0),
+          controller: TabController(
+              length: 4, vsync: this, initialIndex: selectedIndex),
           labelColor: Palette.current.primaryNeonGreen,
           indicatorSize: TabBarIndicatorSize.label,
           unselectedLabelColor: Palette.current.primaryWhiteSmoke,
@@ -274,6 +307,7 @@ class _SearchPageState extends State<SearchPage>
               letterSpacing: 1.35,
               fontWeight: FontWeight.w300),
           onTap: (index) {
+            getIt<PageFromExploreCubit>().loadResults(index);
             setState(() {});
           },
           tabs: List<Widget>.generate(categoriesData.length, (index) {

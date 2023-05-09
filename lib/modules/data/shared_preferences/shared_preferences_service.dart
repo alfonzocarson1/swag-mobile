@@ -32,6 +32,7 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   static const String _collection = 'collection';
   static const String _themes = 'themes';
   static const String _types = 'types';
+  static const String _pageFromExplore = 'pageFromExplore';
 
   late SharedPreferences _prefs;
   @override
@@ -225,15 +226,17 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
 
   @override
   List<String> getRecentSearchesWithFilters() {
-    List<String> searchesWithFilters = this._prefs.getStringList(_searchesWithFilters) ?? [];
+    List<String> searchesWithFilters =
+        this._prefs.getStringList(_searchesWithFilters) ?? [];
     return searchesWithFilters;
   }
 
   @override
-  Future<void> saveRecentSearchesWithFilters( {
+  Future<void> saveRecentSearchesWithFilters({
     required String searchPayload,
   }) async {
-    List<String> searchesWithFilters = this._prefs.getStringList(_searchesWithFilters) ?? [];
+    List<String> searchesWithFilters =
+        this._prefs.getStringList(_searchesWithFilters) ?? [];
     searchesWithFilters.add(searchPayload);
     await this._prefs.setStringList(_searchesWithFilters, searchesWithFilters);
   }
@@ -262,23 +265,25 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
 
   @override
   DynamicFilters? getDynamicFilters() {
-
     String dynamicFiltersString = this._prefs.getString(_dynamicFilters) ?? '';
-    Map<String, dynamic>? dynamicFiltersJson = (dynamicFiltersString.isNotEmpty) 
-    ? json.decode(dynamicFiltersString)
-    : null;
+    Map<String, dynamic>? dynamicFiltersJson = (dynamicFiltersString.isNotEmpty)
+        ? json.decode(dynamicFiltersString)
+        : null;
 
-    return (dynamicFiltersJson != null) ? DynamicFilters.fromJson(dynamicFiltersJson) : null;
+    return (dynamicFiltersJson != null)
+        ? DynamicFilters.fromJson(dynamicFiltersJson)
+        : null;
   }
 
   @override
   Future<void> saveDynamicFilters(DynamicFilters dynamicFilters) async {
-    
-    await this._prefs.setString(_dynamicFilters, json.encode(dynamicFilters.toJson()));
+    await this
+        ._prefs
+        .setString(_dynamicFilters, json.encode(dynamicFilters.toJson()));
   }
 
   @override
-  List<String> getCollection()=> this._prefs.getStringList(_collection) ?? [];
+  List<String> getCollection() => this._prefs.getStringList(_collection) ?? [];
 
   @override
   Future<void> saveCollection(List<String> collections) async {
@@ -286,7 +291,7 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   }
 
   @override
-  List<String> getThemes()=> this._prefs.getStringList(_themes) ?? [];
+  List<String> getThemes() => this._prefs.getStringList(_themes) ?? [];
 
   @override
   Future<void> saveThemes(List<String> themes) async {
@@ -294,11 +299,21 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   }
 
   @override
-  List<String> getTypes()=> this._prefs.getStringList(_types) ?? [];
+  List<String> getTypes() => this._prefs.getStringList(_types) ?? [];
 
   @override
   Future<void> saveTypes(List<String> types) async {
     await this._prefs.setStringList(_types, types);
   }
 
+  @override
+  int getPageFromExplore() {
+    final pageFromExplore = _prefs.getInt(_pageFromExplore);
+    return pageFromExplore ?? defaultInt;
+  }
+
+  @override
+  Future<void> setPageFromExplore(int value) async {
+    await _prefs.setInt(_pageFromExplore, value);
+  }
 }

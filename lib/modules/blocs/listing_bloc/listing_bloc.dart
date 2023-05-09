@@ -32,7 +32,7 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
   }
 
   Stream<ListingState> _createListing(
-      ListingForSaleModel param, List<XFile> imgList) async* {
+      ListingForSaleModel param, List<File> imgList) async* {
     yield ListingState.initial();
     try {
       ListingForSaleModel responseBody =

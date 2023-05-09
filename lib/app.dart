@@ -14,7 +14,6 @@ import 'modules/blocs/buy_sale_listing_bloc/buy_sale_listing_bloc.dart';
 import 'modules/blocs/category_bloc/category_bloc.dart';
 import 'modules/blocs/collection_bloc/collection_bloc.dart';
 import 'modules/blocs/detail_bloc/detail_bloc.dart';
-import 'modules/blocs/explore_bloc/explore_bloc.dart';
 import 'modules/blocs/favorite_bloc/favorite_bloc.dart';
 import 'modules/blocs/favorite_bloc/favorite_item_bloc.dart';
 import 'modules/blocs/listing_bloc/listing_bloc.dart';
@@ -23,8 +22,10 @@ import 'modules/blocs/sale_history/sale_history_bloc.dart';
 import 'modules/blocs/sold_bloc/sold_bloc.dart';
 import 'modules/blocs/update_profile_bloc/update_profile_bloc.dart';
 import 'modules/cubits/collections/get_collections_cubit.dart';
+import 'modules/cubits/explore/get_explore_cubit.dart';
 import 'modules/cubits/favorites/get_favorites_cubit.dart';
 import 'modules/cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
+import 'modules/cubits/page_from_explore/page_from_explore_cubit.dart';
 import 'modules/cubits/profile/get_profile_cubit.dart';
 import 'modules/pages/home/home_page.dart';
 import 'modules/common/utils/context_service.dart';
@@ -65,9 +66,15 @@ class App extends StatelessWidget {
           BlocProvider<ProfileCubit>(
               create: (context) => getIt<ProfileCubit>()),
 
+          BlocProvider<ExploreCubit>(
+              create: (context) => getIt<ExploreCubit>()),
+
+          BlocProvider<PageFromExploreCubit>(
+              create: (context) => getIt<PageFromExploreCubit>()),
+
           BlocProvider<CategoryBloc>(
               create: (context) => getIt<CategoryBloc>()),
-          BlocProvider<ExploreBloc>(create: (context) => getIt<ExploreBloc>()),
+
           BlocProvider<SalesHistoryBloc>(
               create: (context) => getIt<SalesHistoryBloc>()),
 

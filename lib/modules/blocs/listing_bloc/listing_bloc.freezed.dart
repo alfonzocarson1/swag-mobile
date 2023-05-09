@@ -19,21 +19,21 @@ mixin _$ListingEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getListingItem,
-    required TResult Function(ListingForSaleModel model, List<XFile> imgList)
+    required TResult Function(ListingForSaleModel model, List<File> imgList)
         createListing,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getListingItem,
-    TResult? Function(ListingForSaleModel model, List<XFile> imgList)?
+    TResult? Function(ListingForSaleModel model, List<File> imgList)?
         createListing,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getListingItem,
-    TResult Function(ListingForSaleModel model, List<XFile> imgList)?
+    TResult Function(ListingForSaleModel model, List<File> imgList)?
         createListing,
     required TResult orElse(),
   }) =>
@@ -116,7 +116,7 @@ class _$_GetListingItem implements _GetListingItem {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getListingItem,
-    required TResult Function(ListingForSaleModel model, List<XFile> imgList)
+    required TResult Function(ListingForSaleModel model, List<File> imgList)
         createListing,
   }) {
     return getListingItem();
@@ -126,7 +126,7 @@ class _$_GetListingItem implements _GetListingItem {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getListingItem,
-    TResult? Function(ListingForSaleModel model, List<XFile> imgList)?
+    TResult? Function(ListingForSaleModel model, List<File> imgList)?
         createListing,
   }) {
     return getListingItem?.call();
@@ -136,7 +136,7 @@ class _$_GetListingItem implements _GetListingItem {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getListingItem,
-    TResult Function(ListingForSaleModel model, List<XFile> imgList)?
+    TResult Function(ListingForSaleModel model, List<File> imgList)?
         createListing,
     required TResult orElse(),
   }) {
@@ -188,7 +188,7 @@ abstract class _$$_ListingEventCopyWith<$Res> {
           _$_ListingEvent value, $Res Function(_$_ListingEvent) then) =
       __$$_ListingEventCopyWithImpl<$Res>;
   @useResult
-  $Res call({ListingForSaleModel model, List<XFile> imgList});
+  $Res call({ListingForSaleModel model, List<File> imgList});
 
   $ListingForSaleModelCopyWith<$Res> get model;
 }
@@ -215,7 +215,7 @@ class __$$_ListingEventCopyWithImpl<$Res>
       null == imgList
           ? _value._imgList
           : imgList // ignore: cast_nullable_to_non_nullable
-              as List<XFile>,
+              as List<File>,
     ));
   }
 
@@ -231,14 +231,14 @@ class __$$_ListingEventCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_ListingEvent implements _ListingEvent {
-  const _$_ListingEvent(this.model, final List<XFile> imgList)
+  const _$_ListingEvent(this.model, final List<File> imgList)
       : _imgList = imgList;
 
   @override
   final ListingForSaleModel model;
-  final List<XFile> _imgList;
+  final List<File> _imgList;
   @override
-  List<XFile> get imgList {
+  List<File> get imgList {
     if (_imgList is EqualUnmodifiableListView) return _imgList;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_imgList);
@@ -272,7 +272,7 @@ class _$_ListingEvent implements _ListingEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getListingItem,
-    required TResult Function(ListingForSaleModel model, List<XFile> imgList)
+    required TResult Function(ListingForSaleModel model, List<File> imgList)
         createListing,
   }) {
     return createListing(model, imgList);
@@ -282,7 +282,7 @@ class _$_ListingEvent implements _ListingEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getListingItem,
-    TResult? Function(ListingForSaleModel model, List<XFile> imgList)?
+    TResult? Function(ListingForSaleModel model, List<File> imgList)?
         createListing,
   }) {
     return createListing?.call(model, imgList);
@@ -292,7 +292,7 @@ class _$_ListingEvent implements _ListingEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getListingItem,
-    TResult Function(ListingForSaleModel model, List<XFile> imgList)?
+    TResult Function(ListingForSaleModel model, List<File> imgList)?
         createListing,
     required TResult orElse(),
   }) {
@@ -336,11 +336,11 @@ class _$_ListingEvent implements _ListingEvent {
 
 abstract class _ListingEvent implements ListingEvent {
   const factory _ListingEvent(
-          final ListingForSaleModel model, final List<XFile> imgList) =
+          final ListingForSaleModel model, final List<File> imgList) =
       _$_ListingEvent;
 
   ListingForSaleModel get model;
-  List<XFile> get imgList;
+  List<File> get imgList;
   @JsonKey(ignore: true)
   _$$_ListingEventCopyWith<_$_ListingEvent> get copyWith =>
       throw _privateConstructorUsedError;

@@ -66,4 +66,7 @@ abstract class PreferenceRepositoryInt {
 
   List<String> getTypes();
   Future<void> saveTypes(List<String> types);
+
+  Future<void> setPageFromExplore(int value);
+  int getPageFromExplore();
 }

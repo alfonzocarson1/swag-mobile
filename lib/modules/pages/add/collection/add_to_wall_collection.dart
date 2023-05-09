@@ -129,6 +129,9 @@ class _AddToWallCollectionState extends State<AddToWallCollection> {
                               fit: BoxFit.cover,
                             ),
                           ),
+                          const SizedBox(
+                            height: 10,
+                          ),
                           GestureDetector(
                             onTap: () {
                               Navigator.of(context, rootNavigator: true)

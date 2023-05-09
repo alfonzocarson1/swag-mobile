@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,6 +22,8 @@ import '../../../common/utils/palette.dart';
 import '../../../common/utils/utils.dart';
 import '../../../models/detail/detail_collection_model.dart';
 import 'list_item_preview_page.dart';
+
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 class ListForSalePage extends StatefulWidget {
   static const name = '/ListForSalePage';
@@ -45,7 +48,7 @@ class ListForSalePage extends StatefulWidget {
 
 class _ListForSalePageState extends State<ListForSalePage> {
   final ImagePicker imagePicker = ImagePicker();
-  List<XFile> imageFileList = [];
+  List<File> imageFileList = [];
 
   bool isPostListing = false;
   final FocusNode _listPriceItemNode = FocusNode();
@@ -434,10 +437,10 @@ class _ListForSalePageState extends State<ListForSalePage> {
   Future<void> selectImages() async {
     // Pick an image
     try {
-      final List<XFile> selectedImages = await imagePicker.pickMultiImage();
-
+      final List<XFile> selectedImages =
+          await ImagePicker().pickMultiImage(imageQuality: 80);
       if ((selectedImages.length + imageFileList.length) <= 6) {
-        imageFileList.addAll(selectedImages);
+        scaleDownXFile(selectedImages);
       } else {
         showDialog(
             context: context,
@@ -451,5 +454,28 @@ class _ListForSalePageState extends State<ListForSalePage> {
     } catch (e) {
       log("Image picker: $e");
     }
+  }
+
+  Future<void> scaleDownXFile(List<XFile> xFiles,
+      {int maxWidth = 800, int maxHeight = 800, int quality = 75}) async {
+    for (final image in xFiles) {
+      final index = xFiles.indexOf(image);
+
+      final filePath = xFiles[index].path;
+      final bytes = await xFiles[index].readAsBytes();
+
+      final compressedBytes = await FlutterImageCompress.compressWithList(
+        bytes,
+        minHeight: maxHeight,
+        minWidth: maxWidth,
+        quality: quality,
+      );
+
+      final file = File(filePath);
+      await file.writeAsBytes(compressedBytes);
+
+      imageFileList.add(file);
+    }
+    setState(() {});
   }
 }
