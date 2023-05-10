@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import '../../api/api.dart';
@@ -88,5 +89,16 @@ class ListingService extends IListingService {
       fromJson: (json) => ListingForSaleModel.fromJson(json),
     );
      return response;
+  }
+  
+  @override
+  Future<void> updateImages(List<String> imageUrls) async {
+   
+    String response = await apiService.updateImageEndpoint(
+      endpoint: Endpoint.updateImages,
+      method: RequestMethod.post,
+      body: imageUrls,
+      needBearer: true,
+    );
   }
 }
