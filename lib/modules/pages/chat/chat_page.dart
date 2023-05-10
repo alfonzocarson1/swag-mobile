@@ -26,10 +26,13 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> with ChannelEventHandler {
 
   late ScrollController scrollController;
+  late bool isTyping;
 
   @override
   void initState() {
 
+    this.isTyping = false;
+    context.read<ChatBloc>().sendBirdSdk.addChannelEventHandler('identifier', this);
     this.scrollController = ScrollController();
     super.initState();
   }
@@ -53,14 +56,7 @@ class _ChatPageState extends State<ChatPage> with ChannelEventHandler {
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle.light,
         backgroundColor: Palette.current.blackAppbarBlackground,
-        title: Text(
-          member.nickname,
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Palette.current.white,
-          ),
-        ),
+        title: AppBarTitle(member: member, isTyping: isTyping),
         centerTitle: false,
         leading: IconButton(
           icon: Icon(
@@ -82,10 +78,15 @@ class _ChatPageState extends State<ChatPage> with ChannelEventHandler {
   @override
   void onTypingStatusUpdated(GroupChannel channel) {
     
-
-    print('ENTRO');
-
+    setState(()=> this.isTyping = channel.isTyping);
     super.onTypingStatusUpdated(channel);
+  }
+
+  @override
+  void onMessageReceived(BaseChannel channel, BaseMessage message) async {
+
+    context.read<ChatBloc>().receiveMessage(this.widget.chatData, message);
+    super.onMessageReceived(channel, message);
   }
 }
 
@@ -117,6 +118,50 @@ class _Body extends StatelessWidget {
         ChatChatInput(chatData: this.chatData),
         const SafeArea(child: SizedBox.shrink()),
       ],
+    );
+  }
+}
+
+class AppBarTitle extends StatelessWidget {
+
+  final Member member;
+  final bool isTyping;
+
+  const AppBarTitle({
+    super.key,
+    required this.member,
+    required this.isTyping,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+
+    return SizedBox(
+      height: 45,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center ,
+        children: <Widget>
+        [
+          Text(
+            member.nickname,
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Palette.current.white,
+            ),
+          ),
+          (this.isTyping) 
+          ? Text(
+              S.current.chatTyping,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 12,
+              ),
+            )
+          : const SizedBox.shrink(),
+        ],
+      ),
     );
   }
 }

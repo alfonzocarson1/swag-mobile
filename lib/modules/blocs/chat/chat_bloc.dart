@@ -22,6 +22,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     on<UpdateMessageEvent>((event, emit)=> emit(this.state.copyWith(chats: event.getUpdatedChats())));
   }
 
+  SendbirdSdk get sendBirdSdk => this._sendbirdSdk;
+
   Future<void> initSendBirdApp() async {
 
     try {
@@ -129,6 +131,15 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       );
     } 
     catch (e) { throw Exception('There was an error sending a message'); }
+  }
+
+  Future<void> receiveMessage(ChatData chatData, BaseMessage message) async {
+
+    this.add(UpdateMessageEvent(
+      chatData: chatData, 
+      message: message, 
+      chats: this.state.chats,
+    ));
   }
 
   UserMessage _getLocalMessage(String message, ChatData chatData) {

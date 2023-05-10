@@ -2839,6 +2839,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Typing...`
+  String get chatTyping {
+    return Intl.message(
+      'Typing...',
+      name: 'chatTyping',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
