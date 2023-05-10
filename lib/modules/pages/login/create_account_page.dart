@@ -598,8 +598,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
     bool isUsernameAvailable,
   ) {
     if (isEmptyUserName) {
-      emailErrorText = S.of(context).required_field;
-      isEmptyUserName = _emailController.text.isEmpty;
+      usernameErrorText = S.of(context).required_field;
     } else {
       isUsernameTaken = !isUsernameAvailable;
       bool isUsernameOk = isCorrectSize && isUsernameAvailable;
@@ -630,6 +629,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
     setState(() {
       if (isEmptyPhone) {
         phoneErrorText = S.of(context).required_field;
+        isEmptyPhone = _phoneController.text.isEmpty;
       } else {
         phoneErrorText =
             (isPhoneValid && !isPhoneInUse) || _phoneController.text.isEmpty
