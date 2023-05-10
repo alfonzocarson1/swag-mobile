@@ -57,6 +57,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
   bool isPhoneInUse = false;
   bool isEmptyPhone = false;
   bool isEmptyUserName = false;
+  bool isEmptyEmail = false;
   PhoneNumber? currentPhoneNumber;
 
   final FocusNode _phoneNode = FocusNode();
@@ -540,6 +541,13 @@ class _CreateAccountState extends State<CreateAccountPage> {
         labelText: S.of(context).email,
         focusNode: _emailNode,
         controller: _emailController,
+        onChanged: (value) {
+          if (value.isNotEmpty) {
+            setState(() {
+              isEmptyEmail = false;
+            });
+          }
+        },
         inputType: TextInputType.emailAddress);
   }
 
@@ -614,12 +622,16 @@ class _CreateAccountState extends State<CreateAccountPage> {
     bool isValid,
     bool isEmailAvailable,
   ) {
-    bool isEmailOk = isValid && isEmailAvailable;
-    emailErrorText = isEmailOk || _emailController.text.isEmpty
-        ? null
-        : isValid
-            ? S.of(context).email_taken
-            : S.of(context).invalid_email;
+    if (isEmptyEmail) {
+      emailErrorText = S.of(context).required_field;
+    } else {
+      bool isEmailOk = isValid && isEmailAvailable;
+      emailErrorText = isEmailOk || _emailController.text.isEmpty
+          ? null
+          : isValid
+              ? S.of(context).email_taken
+              : S.of(context).invalid_email;
+    }
   }
 
   void setPhoneErrorText(
@@ -649,6 +661,10 @@ class _CreateAccountState extends State<CreateAccountPage> {
 
       if (_usernameController.text.isEmpty) {
         isEmptyUserName = true;
+      }
+
+      if (_emailController.text.isEmpty) {
+        isEmptyEmail = true;
       }
 
       emailErrorText = _emailController.text.isEmpty
