@@ -20,7 +20,7 @@ class SetMyUser extends ChatEvent {
 class UpdateMessageEvent extends ChatEvent {
 
   final ChatData chatData;
-  final UserMessage message;
+  final BaseMessage message;
   final List<ChatData> chats;
 
   UpdateMessageEvent({

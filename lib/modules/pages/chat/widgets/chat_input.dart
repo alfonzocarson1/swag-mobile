@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sendbird_sdk/sendbird_sdk.dart';
@@ -61,12 +63,14 @@ class _Input extends StatefulWidget {
 
 class _InputState extends State<_Input> {
 
+  late Timer? debounce;
   late FocusNode focusNode;
   late TextEditingController textEditingController;
 
   @override
   void initState() {
 
+    this.debounce = null;
     this.focusNode = FocusNode();
     this.textEditingController = TextEditingController();
     super.initState();
@@ -75,6 +79,7 @@ class _InputState extends State<_Input> {
   @override
   void dispose() {
 
+    this.debounce?.cancel();
     this.focusNode.dispose();
     this.textEditingController.dispose();
     super.dispose();
@@ -113,6 +118,7 @@ class _InputState extends State<_Input> {
                 ),
               ),  
               onSubmitted: (String value)=> this.focusNode.requestFocus(),
+              onChanged: (String? value)=> this.onTextChange(),
             ),
           ),
           _SendButton(
@@ -122,6 +128,15 @@ class _InputState extends State<_Input> {
         ],
       ),
     );
+  }
+
+  void onTextChange() {
+
+    Duration debounceDuration = const Duration(milliseconds: 500);
+    this.widget.chatData.channel.startTyping();
+
+    if(this.debounce?.isActive ?? false) this.debounce?.cancel();
+    this.debounce = Timer(debounceDuration,()=> this.widget.chatData.channel.endTyping());
   }
 }
 

@@ -35,13 +35,15 @@ Future<void> _handleFlavorConfig() async {
     debugPrint('STARTED WITH FLAVOR $flavor');
     switch (flavor) {
       case AppConfig.swagProd:
-        AppConfig().init(url: hostProd).then((_) => _runApp());
+        // AppConfig().init(url: hostProd).then((_) => _runApp());
+        AppConfig().init(url: hostDev).then((_) => _runApp());
         break;
       case AppConfig.swagDev:
         AppConfig().init(url: hostDev).then((_) => _runApp());
         break;
       case AppConfig.swagQa:
-        AppConfig().init(url: hostQa).then((_) => _runApp());
+        // AppConfig().init(url: hostQa).then((_) => _runApp());
+        AppConfig().init(url: hostDev).then((_) => _runApp());
         break;
     }
   }).catchError((error) {

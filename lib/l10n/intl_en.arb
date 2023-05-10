@@ -216,7 +216,8 @@
     "chatChat": "Chat",
     "chatModeratorName": "SWAG",
     "chatInputHintText": "Enter message",
-    "chatNoMessages": "No previous messages"
+    "chatNoMessages": "No previous messages",
+    "chatTyping": "Typing..."
 
     
 }
