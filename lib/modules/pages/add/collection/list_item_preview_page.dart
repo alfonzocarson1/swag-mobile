@@ -128,13 +128,13 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                   loadedListingSuccess: (state) {
                     BlocProvider.of<DetailBloc>(context)
                         .add(DetailEvent.getDetailItem(widget.catalogItemId));
-                    Loading.hide(context);
+                  //  Loading.hide(context);
                     widget.onClose();                    
                     Navigator.pop(context);
                     return null;
                   },
                   initial: () {
-                    return Loading.show(context);
+                    //return Loading.show(context);
                   },
                   error: (message) => {
                     Loading.hide(context),
