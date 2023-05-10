@@ -92,13 +92,13 @@ class _ExplorePageState extends State<ExplorePage> {
                               widget.pageFromExplore();
                             },
                           ),
-                          UnicornCoversPage(),
+                          const UnicornCoversPage(),
                           WhatsHotExplorePage(
                             pageFromExplore: () {
                               widget.pageFromExplore();
                             },
                           ),
-                          StaffPicksPage()
+                          const StaffPicksPage()
                         ],
                       ),
                     )),
