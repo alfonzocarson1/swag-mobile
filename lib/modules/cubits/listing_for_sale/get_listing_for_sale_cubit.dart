@@ -35,8 +35,9 @@ class ListingProfileCubit extends Cubit<ListingCubitState> {
   }
 
   Future<void> updateListing(
-      ListingForSaleModel model, List<File> imgList) async {
-    try {
+      ListingForSaleModel model, List<File> imgList, List<String> imageUrls) async {
+       
+    try {      
       ListingForSaleModel response = await listingService.updateListing(model);
 
       for (var i = 0; i < imgList.length; i++) {
@@ -44,6 +45,7 @@ class ListingProfileCubit extends Cubit<ListingCubitState> {
             await File(imgList[i].path).readAsBytes(),
             response.productItemId ?? '');
       }
+      await listingService.updateImages(imageUrls);      
       getIt<ListingProfileCubit>().loadResults();
     } on Exception catch (e) {
       print(e);
