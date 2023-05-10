@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -8,6 +7,7 @@ import '../../common/ui/popup_list_item_sale.dart';
 import '../../common/ui/primary_button.dart';
 import '../../common/utils/palette.dart';
 import '../../common/utils/utils.dart';
+import '../../cubits/profile/get_profile_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/detail/detail_collection_model.dart';
@@ -45,7 +45,7 @@ class CollectionWidget extends StatefulWidget {
 
 class _CollectionWidgetState extends State<CollectionWidget> {
   bool isLogged = false;
-  ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
+  ProfileModel? profileData;
   String? profileURL;
 
   String? defaultImage;
@@ -56,21 +56,36 @@ class _CollectionWidgetState extends State<CollectionWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    isLogged = getIt<PreferenceRepositoryService>().isLogged();
 
-    if (profileData.useAvatar != 'CUSTOM') {
+    isLogged = getIt<PreferenceRepositoryService>().isLogged();
+    if (isLogged) {
+      getIt<ProfileCubit>().loadResults();
+      getProfileAvatar();
+    }
+  }
+
+  getProfileAvatar() {
+    profileData = getIt<PreferenceRepositoryService>().profileData();
+
+    if (profileData!.useAvatar != 'CUSTOM') {
       var data = imagesList
-          .where((avatar) => (avatar["id"].contains(profileData.useAvatar)));
+          .where((avatar) => (avatar["id"].contains(profileData?.useAvatar)));
 
       defaultImage = data.first['url'];
     } else {
-      profileURL = profileData.avatarUrl ??
+      profileURL = profileData!.avatarUrl ??
           'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Franklin.png?alt=media&token=c1073f88-74c2-44c8-a287-fbe0caebf878';
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    if (isLogged) {
+      Future.delayed(Duration.zero, () {
+        getProfileAvatar();
+      });
+    }
+
     return Column(
       children: [
         const SizedBox(
@@ -79,18 +94,24 @@ class _CollectionWidgetState extends State<CollectionWidget> {
         Padding(
           padding: const EdgeInsets.only(left: 10),
           child: Row(children: <Widget>[
-            SizedBox(
-              height: 40,
-              width: 40,
-              child: CircleAvatar(
-                backgroundColor: Colors.transparent,
-                backgroundImage: const AssetImage('assets/images/Avatar.png'),
-                foregroundImage: profileURL != null
-                    ? NetworkImage('$profileURL')
-                    : NetworkImage('$defaultImage'),
-                radius: 75,
-              ),
-            ),
+            isLogged
+                ? SizedBox(
+                    height: 40,
+                    width: 40,
+                    child: CircleAvatar(
+                      backgroundColor: Colors.transparent,
+                      backgroundImage:
+                          const AssetImage('assets/images/Avatar.png'),
+                      foregroundImage: profileURL != null
+                          ? NetworkImage('$profileURL')
+                          : NetworkImage('$defaultImage'),
+                      radius: 75,
+                    ),
+                  )
+                : Image.asset(
+                    "assets/images/Avatar.png",
+                    scale: 3,
+                  ),
             const SizedBox(
               width: 8,
             ),

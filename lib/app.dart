@@ -21,6 +21,7 @@ import 'modules/blocs/profile_favorite_bloc/profile_favorite_bloc.dart';
 import 'modules/blocs/sale_history/sale_history_bloc.dart';
 import 'modules/blocs/sold_bloc/sold_bloc.dart';
 import 'modules/blocs/update_profile_bloc/update_profile_bloc.dart';
+import 'modules/cubits/auth/auth_cubit.dart';
 import 'modules/cubits/collections/get_collections_cubit.dart';
 import 'modules/cubits/explore/get_explore_cubit.dart';
 import 'modules/cubits/favorites/get_favorites_cubit.dart';
@@ -62,6 +63,8 @@ class App extends StatelessWidget {
 
           BlocProvider<ListingProfileCubit>(
               create: (context) => getIt<ListingProfileCubit>()),
+
+          BlocProvider<AuthCubit>(create: (context) => getIt<AuthCubit>()),
 
           BlocProvider<ProfileCubit>(
               create: (context) => getIt<ProfileCubit>()),

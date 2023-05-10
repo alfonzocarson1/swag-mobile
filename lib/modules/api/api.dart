@@ -4,6 +4,7 @@ import 'package:swagapp/modules/constants/constants.dart';
 
 enum Endpoint {
   isUsernameAvailable,
+  isPhoneAvailable,
   createNewAccount,
   catalogItemDetail,
   publicCatalogItemDetail,
@@ -50,6 +51,7 @@ class API {
   static final Map<Endpoint, String> _paths = {
     Endpoint.isUsernameAvailable:
         'api/public/v1/account/isUsernameAvailable/%s',
+    Endpoint.isPhoneAvailable: 'api/public/v1/account/isPhoneInUse/%s',
     Endpoint.createNewAccount: 'api/public/v1/account/createNewAccount',
     Endpoint.catalogItemDetail: 'api/v1/catalog/catalogItemDetail/%s',
     Endpoint.publicCatalogItemDetail:

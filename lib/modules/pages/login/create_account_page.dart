@@ -19,6 +19,7 @@ import '../../common/ui/dynamic_toast_messages.dart';
 import '../../common/ui/loading.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../constants/constants.dart';
+import '../../cubits/auth/auth_cubit.dart';
 import '../../cubits/profile/get_profile_cubit.dart';
 import '../../data/secure_storage/storage_repository_service.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
@@ -53,6 +54,10 @@ class _CreateAccountState extends State<CreateAccountPage> {
   Color _confirmPasswordBorder = Palette.current.primaryWhiteSmoke;
   String? confirmPasswordErrorText;
   bool isPhoneValid = false;
+  bool isPhoneInUse = false;
+  bool isEmptyPhone = false;
+  bool isEmptyUserName = false;
+  bool isEmptyEmail = false;
   PhoneNumber? currentPhoneNumber;
 
   final FocusNode _phoneNode = FocusNode();
@@ -268,11 +273,43 @@ class _CreateAccountState extends State<CreateAccountPage> {
                               const SizedBox(
                                 height: 20,
                               ),
-                              _PhoneSection(_phoneController, _phoneNode,
-                                  phoneErrorText, _phoneBorder,
-                                  (isPhoneValidParam, phoneNumber) {
-                                isPhoneValid = isPhoneValidParam;
-                                currentPhoneNumber = phoneNumber;
+                              BlocBuilder<AuthCubit, AuthStateCubit>(
+                                  builder: (context, usernameState) {
+                                return usernameState.maybeMap(
+                                    orElse: () => _PhoneSection(
+                                            _phoneController,
+                                            _phoneNode,
+                                            phoneErrorText,
+                                            _phoneBorder,
+                                            (isPhoneValidParam, phoneNumber) {
+                                          isPhoneValid = isPhoneValidParam;
+                                          currentPhoneNumber = phoneNumber;
+                                          setPhoneErrorText(
+                                              isPhoneValid, false);
+                                        }),
+                                    isPhoneAvailable: (state) {
+                                      Future.delayed(Duration.zero, () {
+                                        setState(() {
+                                          isPhoneInUse = state.isPhoneAvailable;
+                                          setPhoneErrorText(
+                                              isPhoneValid, isPhoneInUse);
+                                        });
+                                      });
+
+                                      var phoneSection = _PhoneSection(
+                                          _phoneController,
+                                          _phoneNode,
+                                          phoneErrorText,
+                                          _phoneBorder,
+                                          (isPhoneValidParam, phoneNumber) {
+                                        isPhoneValid = isPhoneValidParam;
+                                        currentPhoneNumber = phoneNumber;
+                                        isPhoneInUse = state.isPhoneAvailable;
+                                        setPhoneErrorText(
+                                            isPhoneValid, isPhoneInUse);
+                                      });
+                                      return phoneSection;
+                                    });
                               }),
                               const SizedBox(
                                 height: 20,
@@ -285,6 +322,13 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                   labelText: S.of(context).password,
                                   focusNode: _passwordNode,
                                   controller: _passwordController,
+                                  onChanged: (value) {
+                                    if (_passwordController.text.isNotEmpty) {
+                                      setState(() {
+                                        passwordErrorText = null;
+                                      });
+                                    }
+                                  },
                                   secure: true,
                                   inputType: TextInputType.text),
                               const SizedBox(
@@ -297,6 +341,13 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                   labelText: S.of(context).confirm_password,
                                   focusNode: _confirmPasswordNode,
                                   controller: _confirmPasswordController,
+                                  onChanged: (value) {
+                                    if (_passwordController.text.isNotEmpty) {
+                                      setState(() {
+                                        confirmPasswordErrorText = null;
+                                      });
+                                    }
+                                  },
                                   secure: true,
                                   inputType: TextInputType.text),
                               const SizedBox(
@@ -392,9 +443,9 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                             ]),
                                           ),
                                           onPressed: () {
-                                            _launchUrl(                                                                                            
-                                              Uri.parse(termsAndConditionsUrl),                                              
-                                              );
+                                            _launchUrl(
+                                              Uri.parse(termsAndConditionsUrl),
+                                            );
                                           }),
                                     ),
                                   ),
@@ -490,6 +541,13 @@ class _CreateAccountState extends State<CreateAccountPage> {
         labelText: S.of(context).email,
         focusNode: _emailNode,
         controller: _emailController,
+        onChanged: (value) {
+          if (value.isNotEmpty) {
+            setState(() {
+              isEmptyEmail = false;
+            });
+          }
+        },
         inputType: TextInputType.emailAddress);
   }
 
@@ -507,6 +565,11 @@ class _CreateAccountState extends State<CreateAccountPage> {
         focusNode: _usernameNode,
         controller: _usernameController,
         onChanged: (value) {
+          if (value.isNotEmpty) {
+            setState(() {
+              isEmptyUserName = false;
+            });
+          }
           usernameVal = value;
           if (isValidUsername(value)) {
             context
@@ -530,40 +593,80 @@ class _CreateAccountState extends State<CreateAccountPage> {
   }
 
   Future<void> _launchUrl(Uri url) async {
-  if (!await launchUrl(url,
+    if (!await launchUrl(
+      url,
       mode: LaunchMode.externalApplication,
-  )) {
-    throw Exception('Could not launch $url');
+    )) {
+      throw Exception('Could not launch $url');
+    }
   }
-}
 
   void setUsernameErrorText(
     bool isCorrectSize,
     bool isUsernameAvailable,
   ) {
-    isUsernameTaken = !isUsernameAvailable;
-    bool isUsernameOk = isCorrectSize && isUsernameAvailable;
-    usernameErrorText = isUsernameOk || _usernameController.text.isEmpty
-        ? null
-        : isCorrectSize
-            ? S.of(context).username_taken
-            : S.of(context).invalid_username;
+    if (isEmptyUserName) {
+      usernameErrorText = S.of(context).required_field;
+    } else {
+      isUsernameTaken = !isUsernameAvailable;
+      bool isUsernameOk = isCorrectSize && isUsernameAvailable;
+      usernameErrorText = isUsernameOk || _usernameController.text.isEmpty
+          ? null
+          : isCorrectSize
+              ? S.of(context).username_taken
+              : S.of(context).invalid_username;
+    }
   }
 
   void setEmailErrorText(
     bool isValid,
     bool isEmailAvailable,
   ) {
-    bool isEmailOk = isValid && isEmailAvailable;
-    emailErrorText = isEmailOk || _emailController.text.isEmpty
-        ? null
-        : isValid
-            ? S.of(context).email_taken
-            : S.of(context).invalid_email;
+    if (isEmptyEmail) {
+      emailErrorText = S.of(context).required_field;
+    } else {
+      bool isEmailOk = isValid && isEmailAvailable;
+      emailErrorText = isEmailOk || _emailController.text.isEmpty
+          ? null
+          : isValid
+              ? S.of(context).email_taken
+              : S.of(context).invalid_email;
+    }
+  }
+
+  void setPhoneErrorText(
+    bool isPhoneValid,
+    bool isPhoneInUse,
+  ) {
+    setState(() {
+      if (isEmptyPhone) {
+        phoneErrorText = S.of(context).required_field;
+        isEmptyPhone = _phoneController.text.isEmpty;
+      } else {
+        phoneErrorText =
+            (isPhoneValid && !isPhoneInUse) || _phoneController.text.isEmpty
+                ? null
+                : (isPhoneValid && isPhoneInUse)
+                    ? S.of(context).phone_taken
+                    : S.of(context).invalid_phone_format;
+      }
+    });
   }
 
   void showErrors() {
     setState(() {
+      if (_phoneController.text.isEmpty) {
+        isEmptyPhone = true;
+      }
+
+      if (_usernameController.text.isEmpty) {
+        isEmptyUserName = true;
+      }
+
+      if (_emailController.text.isEmpty) {
+        isEmptyEmail = true;
+      }
+
       emailErrorText = _emailController.text.isEmpty
           ? S.of(context).required_field
           : isValidEmail(_emailController.text)
@@ -623,6 +726,7 @@ class _PhoneSection extends StatefulWidget {
   final Function(bool, PhoneNumber) notifyIsPhoneValid;
   final String? errorText;
   final Color? borderColor;
+
   const _PhoneSection(this.phoneController, this.focusPhone, this.errorText,
       this.borderColor, this.notifyIsPhoneValid);
 
@@ -682,6 +786,10 @@ class __PhoneSectionState extends State<_PhoneSection> {
                     choseNumber = nbr;
                   },
                   onInputValidated: (bool value) {
+                    if (value) {
+                      getIt<AuthCubit>().loadResultsPhoneAvailable(
+                          choseNumber.phoneNumber ?? '');
+                    }
                     setState(() {
                       widget.notifyIsPhoneValid(value, choseNumber);
                     });
