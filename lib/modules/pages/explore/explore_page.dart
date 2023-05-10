@@ -92,13 +92,13 @@ class _ExplorePageState extends State<ExplorePage> {
                               widget.pageFromExplore();
                             },
                           ),
-                          UnicornCoversPage(),
+                          const UnicornCoversPage(),
                           WhatsHotExplorePage(
                             pageFromExplore: () {
                               widget.pageFromExplore();
                             },
                           ),
-                          StaffPicksPage()
+                          const StaffPicksPage()
                         ],
                       ),
                     )),
@@ -113,8 +113,6 @@ class _ExplorePageState extends State<ExplorePage> {
   void navigateToAccountInfoPage() {
     bool loginAfterGuest =
         getIt<PreferenceRepositoryService>().loginAfterGuest();
-    ProfileModel profileData =
-        getIt<PreferenceRepositoryService>().profileData();
 
     Future.delayed(Duration(milliseconds: loginAfterGuest ? 5000 : 7000), () {
       Navigator.of(context, rootNavigator: true).push(AccountInfoPage.route());
