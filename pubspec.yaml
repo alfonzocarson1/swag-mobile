@@ -38,7 +38,7 @@ dependencies:
 
 # UI
   loading_indicator: ^3.1.0
-  google_fonts: ^3.0.1
+  google_fonts: ^4.0.4
 
 # DI
   get_it: ^7.2.0
