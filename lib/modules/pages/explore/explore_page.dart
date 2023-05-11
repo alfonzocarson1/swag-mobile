@@ -6,6 +6,7 @@ import 'package:swagapp/modules/models/filters/dynamic_filters.dart';
 
 import ' shop_by_category_page.dart';
 
+import '../../common/ui/custom_app_bar.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../cubits/explore/get_explore_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
@@ -70,9 +71,10 @@ class _ExplorePageState extends State<ExplorePage> {
     getIt<PreferenceRepositoryService>().setPageFromExplore(0);
 
     return Scaffold(
-      extendBodyBehindAppBar: true,
+      extendBodyBehindAppBar: false,
       resizeToAvoidBottomInset: true,
       backgroundColor: Palette.current.blackSmoke,
+      appBar: !_isLogged ? CustomAppBar() : null,
       body: Column(
         children: [
           Expanded(
@@ -84,7 +86,7 @@ class _ExplorePageState extends State<ExplorePage> {
                       minHeight: viewportConstraints.maxHeight,
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 50),
+                      padding: EdgeInsets.only(top: _isLogged ? 50 : 0),
                       child: Column(
                         children: [
                           ShopByCategory(

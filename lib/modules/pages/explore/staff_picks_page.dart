@@ -8,6 +8,7 @@ import '../../common/utils/palette.dart';
 import '../../cubits/explore/get_explore_cubit.dart';
 import '../../models/explore/explore_item_model.dart';
 import '../../models/search/catalog_item_model.dart';
+import '../search/search_result/search_result_page.dart';
 import 'slide_horizontal_widget.dart';
 
 class StaffPicksPage extends StatefulWidget {
@@ -75,7 +76,13 @@ class _StaffPicksPageState extends State<StaffPicksPage> {
                                     letterSpacing: 0.3,
                                     color: Palette.current.primaryWhiteSmoke,
                                   )),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context, rootNavigator: true).push(
+                                SearchResultPage.route(
+                                    searchParam: '',
+                                    staffPicksFlag: true,
+                                    unicornFlag: false));
+                          },
                         )),
                   )
                 ],

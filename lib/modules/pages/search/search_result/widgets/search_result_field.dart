@@ -38,7 +38,6 @@ class _SearchResultFieldState extends State<SearchResultField> {
             onTap: () async {
               this.widget.textEditingController.text = '';
               Navigator.pop(context);
-              Navigator.pop(context);
             },
             child: Icon(
               Icons.arrow_back,
