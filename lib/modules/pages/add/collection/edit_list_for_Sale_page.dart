@@ -58,6 +58,7 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
   final ImagePicker imagePicker = ImagePicker();
   List<dynamic> imageFileList = [];
   List<File> tempFiles = [];
+  List<String> imageUrls = [];
 
   bool isPostListing = false;
   final FocusNode _listPriceItemNode = FocusNode();
@@ -136,6 +137,11 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
 
   @override
   Widget build(BuildContext context) {
+    var tempImageUrls2 = widget.imageUrls;
+    if(tempImageUrls2 !=null){
+      imageUrls = tempImageUrls2.whereType<String>().toList();
+    }
+    
     return WillPopScope(
       onWillPop: () async {
         _onWillPop(context);
@@ -388,6 +394,7 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
                                                   .collectionData!
                                                   .catalogItemId,
                                               imgList: tempFiles,
+                                              imgUrls: imageUrls,
                                               itemCondition: _defaultCondition,
                                               itemDescription:
                                                   _listDescriptionItemController

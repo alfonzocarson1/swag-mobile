@@ -51,93 +51,105 @@ class _GeneralDeletePopupState extends State<GeneralDeletePopup> {
           unselectedWidgetColor: Palette.current.darkGray,
         ),
         child: Container(
-          height: deviceScreenRatio * 220,
           color: Palette.current.blackSmoke,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(31, 15, 31, 40),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                 Transform(
-                  transform: Matrix4.translationValues(deviceScreenRatio * 105, deviceScreenRatio * -1,0),
-                   child: SizedBox(
-                    height: deviceScreenRatio*10,
-                     child: IconButton(
-                      padding: const EdgeInsets.all(0),
-                       color: Palette.current.primaryNeonGreen,
-                       onPressed: () {
-                         Navigator.of(context).pop();
-                       },
-                       icon: const Icon(
-                         Icons.clear_outlined,
-                         size: 20,
+          height: deviceScreenRatio * 230,
+          padding: const EdgeInsets.fromLTRB(0, 15, 15, 10) ,
+          child: Column(            
+            children: [
+                 Align(
+                    alignment: Alignment.topRight,
+                     child: SizedBox(
+                      height: deviceScreenRatio*10,
+                      width: deviceScreenRatio*10,
+                       child: IconButton(
+                        padding: const EdgeInsets.all(0),
+                         color: Palette.current.primaryNeonGreen,
+                         onPressed: () {
+                           Navigator.of(context).pop();
+                         },
+                         icon: const Icon(
+                           Icons.clear_outlined,
+                           size: 20,
+                         ),
                        ),
                      ),
                    ),
-                 ),
-                Text(widget.title.toUpperCase(),
-                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                          fontFamily: "KnockoutCustom",
-                          fontSize: 44,
-                          fontWeight: FontWeight.w300,
-                          color: Palette.current.primaryNeonGreen,
-                        )),
-                SizedBox(
-                  height: deviceScreenRatio * 10,
-                ),
-                Text(widget.message,
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 16,
-                          letterSpacing: 0.3,
-                          color: Palette.current.primaryWhiteSmoke,
-                        )),
-                SizedBox(
-                  height: deviceScreenRatio * 10,
-                ),
-                Expanded(child: StatefulBuilder(builder: (context, setState) {
-                  return ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: options.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(options[index].title,
-                            style:
-                                Theme.of(context).textTheme.bodySmall!.copyWith(
-                                      fontSize: 16,
-                                      letterSpacing: 0.3,
-                                      color: Palette.current.primaryWhiteSmoke,
-                                    )),
-                        leading: Checkbox(
-                          value: selectedOption == index,
-                          onChanged: (bool? value) {
-                            setState(() {
-                              selectedOption = value == true ? index : -1;
-                              model = model.copyWith(removedReason: options[index].title, status: "removed");                              
-                            });
+              Container(
+                height: deviceScreenRatio * 210,
+                color: Palette.current.blackSmoke,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(31, 15, 31, 40),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [              
+                      Text(widget.title.toUpperCase(),
+                          style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                                fontFamily: "KnockoutCustom",
+                                fontSize: 44,
+                                fontWeight: FontWeight.w300,
+                                color: Palette.current.primaryNeonGreen,
+                              )),
+                      SizedBox(
+                        height: deviceScreenRatio * 10,
+                      ),
+                      Text(widget.message,
+                          style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                fontSize: 16,
+                                letterSpacing: 0.3,
+                                color: Palette.current.primaryWhiteSmoke,
+                              )),
+                      SizedBox(
+                        height: deviceScreenRatio * 10,
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: StatefulBuilder(builder: (context, setState) {
+                        return ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: options.length,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              title: Text(options[index].title,
+                                  style:
+                                      Theme.of(context).textTheme.bodySmall!.copyWith(
+                                            fontSize: 16,
+                                            letterSpacing: 0.3,
+                                            color: Palette.current.primaryWhiteSmoke,
+                                          )),
+                              leading: Checkbox(
+                                value: selectedOption == index,
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    selectedOption = value == true ? index : -1;
+                                    model = model.copyWith(removedReason: options[index].title, status: "removed");                              
+                                  });
+                                },
+                                activeColor: Palette.current.primaryNeonGreen,
+                                checkColor: Palette.current.primaryEerieBlack,
+                              ),
+                            );
                           },
-                          activeColor: Palette.current.primaryNeonGreen,
-                          checkColor: Palette.current.primaryEerieBlack,
-                        ),
-                      );
-                    },
-                  );
-                })),
-                SizedBox(
-                  height: deviceScreenRatio * 10,
+                        );
+                      })),
+                      SizedBox(
+                        height: deviceScreenRatio * 10,
+                      ),
+                      PrimaryButton(
+                        title: S.of(context).razon_remove_btn,
+                        onPressed: () {
+                          setState(() {
+                            getIt<ListingProfileCubit>().removeListingItem(model);
+                            Navigator.of(context).pop();
+                            Navigator.of(context).pop();
+                          });
+                        },
+                        type: PrimaryButtonType.green,
+                      ),               
+                    ],
+                  ),
                 ),
-                PrimaryButton(
-                  title: S.of(context).razon_remove_btn,
-                  onPressed: () {
-                    setState(() {
-                      getIt<ListingProfileCubit>().removeListingItem(model);
-                      Navigator.of(context).pop();
-                      Navigator.of(context).pop();
-                    });
-                  },
-                  type: PrimaryButtonType.green,
-                ),               
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

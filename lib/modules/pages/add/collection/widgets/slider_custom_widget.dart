@@ -7,6 +7,7 @@ import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
+import 'package:swagapp/modules/common/ui/add_photo_list_item.dart';
 
 import '../../../../common/ui/multi_image_slide.dart';
 import '../../../../common/ui/popup_image_guidelines.dart';
@@ -26,17 +27,17 @@ class _SliderCustomWidgetState extends State<SliderCustomWidget> {
   final ImagePicker imagePicker = ImagePicker();
   List<File> tempFiles = [];
   List<File> imgList = [];
+  bool removedImages = false;
 
   @override
   void dispose() {
     super.dispose();
-    _cleanupTemporaryFiles();
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: (widget.imageUrls != null && imgList.isEmpty)
+      child: (widget.imageUrls != null && imgList.isEmpty )
           ? AsyncBuilder(
               future: addUrlImagesToList(widget.imageUrls ?? [], imgList),
               waiting: (context) => Center(
@@ -46,24 +47,24 @@ class _SliderCustomWidgetState extends State<SliderCustomWidget> {
                 ),
               ),
               builder: (BuildContext context, value) {
-                return MultiImageSlide(
+              return  (removedImages == false) ? MultiImageSlide(
                   imgList: imgList,
                   addPhoto: () => selectImages(),
                   onRemove: (index) {
-                    setState(() {
+                    setState(() {            
                       imgList.removeAt(index);
                     });
                   },
-                );
+                ): AddPhotoWidget(
+                  addPhoto: () => selectImages(),
+                ) ;
               },
             )
           : MultiImageSlide(
               imgList: imgList,
               addPhoto: () => selectImages(),
               onRemove: (index) {
-                setState(() {
-                  imgList.removeAt(index);
-                });
+                removeImage(index, imgList);
               },
             ),
     );
@@ -91,6 +92,18 @@ class _SliderCustomWidgetState extends State<SliderCustomWidget> {
     }
   }
 
+  void removeImage(int index, List<File> imgList){
+    if(imgList.length == 1){
+      setState(() {
+        removedImages = true;
+      });
+      
+    }
+    setState(() {
+                  imgList.removeAt(index);
+                });
+  }
+
   Future<void> scaleDownXFile(List<XFile> xFiles,
       {int maxWidth = 800, int maxHeight = 800, int quality = 75}) async {
     for (final image in xFiles) {
@@ -110,8 +123,10 @@ class _SliderCustomWidgetState extends State<SliderCustomWidget> {
       await file.writeAsBytes(compressedBytes);
 
       imgList.add(file);
-    }
-    setState(() {});
+    }   
+    setState(() {
+       widget.getImageFiles(imgList);
+    });
   }
 
   Future<XFile> downloadImageAndGetXFile(String imageUrl) async {
@@ -121,7 +136,6 @@ class _SliderCustomWidgetState extends State<SliderCustomWidget> {
       if (response.statusCode != 200) {
         throw Exception("Failed to download image");
       }
-
       // Save the image to a local file
       final directory = await getTemporaryDirectory();
       final fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
@@ -148,8 +162,8 @@ class _SliderCustomWidgetState extends State<SliderCustomWidget> {
       } catch (e) {
         print('Error downloading image: $e');
       }
-    }
-    widget.getImageFiles(imgList);
+    } 
+    
   }
 
   Future<void> scaleDownOneXFile(XFile xFile,
@@ -168,17 +182,11 @@ class _SliderCustomWidgetState extends State<SliderCustomWidget> {
     await file.writeAsBytes(compressedBytes);
 
     imgList.add(file);
+    setState(() {
+       widget.getImageFiles(imgList);
+        print(imgList);  
+    });    
   }
 
-  Future<void> _cleanupTemporaryFiles() async {
-    // If you have stored the temporary files in a list, iterate through the list and delete each file.
-    for (File file in tempFiles) {
-      try {
-        await file.delete();
-        debugPrint("temporary fiile deleted");
-      } catch (e) {
-        print("Error deleting file: $e");
-      }
-    }
-  }
+  
 }

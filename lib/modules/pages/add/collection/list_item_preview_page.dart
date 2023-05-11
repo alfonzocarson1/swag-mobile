@@ -1,13 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 import 'package:swagapp/modules/cubits/profile/get_profile_cubit.dart';
-import 'package:swagapp/modules/pages/add/collection/edit_list_for_sale_page.dart';
-import 'package:swagapp/modules/pages/add/collection/widgets/custom_overlay_button.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../blocs/detail_bloc/detail_bloc.dart';
@@ -42,6 +39,7 @@ class ListItemPreviewPage extends StatefulWidget {
       required this.catalogItemId,
       this.profileId,
       this.productItemId,
+      this.imgUrls,
       required this.onClose});
 
   List<File> imgList;
@@ -56,12 +54,14 @@ class ListItemPreviewPage extends StatefulWidget {
   String catalogItemId;
   String? productItemId;
   String? profileId;
+  List<String>? imgUrls;
   Function() onClose;
 
   static Route route(
           {isUpdate,
           productItemId,
           imgList,
+          imgUrls,
           itemName,
           itemPrice,
           itemCondition,
@@ -75,6 +75,7 @@ class ListItemPreviewPage extends StatefulWidget {
             isUpdate: isUpdate,
             productItemId: productItemId,
             imgList: imgList,
+            imgUrls: imgUrls,
             itemName: itemName,
             itemPrice: itemPrice,
             itemCondition: itemCondition,
@@ -134,7 +135,8 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                     return null;
                   },
                   initial: () {
-                    return Loading.show(context);
+                    return null;
+                    // return Loading.show(context);
                   },
                   error: (message) => {
                     Loading.hide(context),
@@ -233,47 +235,48 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                           PrimaryButton(
                             title: S.of(context).post_listing_btn,
                             onPressed: () {
-                              (widget.isUpdate == false)
-                                  ? context.read<ListingBloc>().add(
-                                      ListingEvent.createListing(
-                                          ListingForSaleModel(
-                                              productItemName: widget.itemName,
-                                              productItemPrice:
-                                                  widget.itemPrice,
-                                              productItemDescription:
-                                                  widget.itemDescription,
-                                              sold: false,
-                                              condition: widget.itemCondition
-                                                  .toUpperCase(),
-                                              listingItemsAction: "ADD",
-                                              forSale: true,
-                                              lastSale: widget.itemPrice,
-                                              catalogItemId:
-                                                  widget.catalogItemId,
-                                              profileCollectionItemId: widget
-                                                  .profileCollectionItemId),
-                                          widget.imgList))
-                                  : getIt<ListingProfileCubit>().updateListing(
-                                      ListingForSaleModel(
-                                        productItemId: widget.productItemId,
-                                        productItemName: widget.itemName,
-                                        productItemPrice: widget.itemPrice,
-                                        productItemDescription:
-                                            widget.itemDescription,
-                                        sold: false,
-                                        condition:
-                                            widget.itemCondition.toUpperCase(),
-                                        listingItemsAction: "ADD",
-                                        forSale: true,
-                                        lastSale: widget.itemPrice,
-                                        catalogItemId: widget.catalogItemId,
-                                        profileCollectionItemId:
-                                            widget.profileCollectionItemId,
-                                        status: 'Listed',
-                                      ),
-                                      widget.imgList);
-
-                              if (widget.isUpdate) {
+                              if (widget.isUpdate == false) {
+                                context.read<ListingBloc>().add(
+                                    ListingEvent.createListing(
+                                        ListingForSaleModel(
+                                            productItemName: widget.itemName,
+                                            productItemPrice: widget.itemPrice,
+                                            productItemDescription:
+                                                widget.itemDescription,
+                                            sold: false,
+                                            condition: widget.itemCondition
+                                                .toUpperCase(),
+                                            listingItemsAction: "ADD",
+                                            forSale: true,
+                                            lastSale: widget.itemPrice,
+                                            catalogItemId: widget.catalogItemId,
+                                            profileCollectionItemId:
+                                                widget.profileCollectionItemId),
+                                        widget.imgList));
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                              } else {
+                                getIt<ListingProfileCubit>().updateListing(
+                                  ListingForSaleModel(
+                                    productItemId: widget.productItemId,
+                                    productItemName: widget.itemName,
+                                    productItemPrice: widget.itemPrice,
+                                    productItemDescription:
+                                        widget.itemDescription,
+                                    sold: false,
+                                    condition:
+                                        widget.itemCondition.toUpperCase(),
+                                    listingItemsAction: "ADD",
+                                    forSale: true,
+                                    lastSale: widget.itemPrice,
+                                    catalogItemId: widget.catalogItemId,
+                                    profileCollectionItemId:
+                                        widget.profileCollectionItemId,
+                                    status: 'Listed',
+                                  ),
+                                  widget.imgList,
+                                  widget.imgUrls ?? [],
+                                );
                                 Navigator.of(context).pop();
                                 Navigator.of(context).pop();
                                 Navigator.of(context).pop();
