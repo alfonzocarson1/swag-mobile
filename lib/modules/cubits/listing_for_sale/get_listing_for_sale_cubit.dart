@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
@@ -45,7 +46,8 @@ class ListingProfileCubit extends Cubit<ListingCubitState> {
             await File(imgList[i].path).readAsBytes(),
             response.productItemId ?? '');
       }
-      await listingService.updateImages(imageUrls);      
+      await listingService.updateImages(imageUrls); 
+      _cleanupTemporaryFiles(imgList);     
       getIt<ListingProfileCubit>().loadResults();
     } on Exception catch (e) {
       print(e);
@@ -59,6 +61,18 @@ class ListingProfileCubit extends Cubit<ListingCubitState> {
     }
     on Exception catch(e){
       print(e);
+    }
+  }
+
+  Future _cleanupTemporaryFiles(List<File> tempFiles)async {
+    // If you have stored the temporary files in a list, iterate through the list and delete each file.
+    for (File file in tempFiles) {
+      try {
+        await file.delete();
+        log("temporary file $file deleted");
+      } catch (e) {
+        log("Error deleting file: $e");
+      }
     }
   }
 }
