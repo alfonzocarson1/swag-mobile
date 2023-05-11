@@ -32,7 +32,6 @@ class _SliderCustomWidgetState extends State<SliderCustomWidget> {
   @override
   void dispose() {
     super.dispose();
-   // _cleanupTemporaryFiles();
   }
 
   @override
@@ -186,19 +185,8 @@ class _SliderCustomWidgetState extends State<SliderCustomWidget> {
     setState(() {
        widget.getImageFiles(imgList);
         print(imgList);  
-    });
-    
+    });    
   }
 
-  Future<void> _cleanupTemporaryFiles() async {
-    // If you have stored the temporary files in a list, iterate through the list and delete each file.
-    for (File file in tempFiles) {
-      try {
-        await file.delete();
-        debugPrint("temporary fiile deleted");
-      } catch (e) {
-        print("Error deleting file: $e");
-      }
-    }
-  }
+  
 }
