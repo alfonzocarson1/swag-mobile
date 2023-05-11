@@ -97,7 +97,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "displayed_gamed":
             MessageLookupByLibrary.simpleMessage("DISPLAYED/GAMED:"),
         "displayed_gamed_item_four": MessageLookupByLibrary.simpleMessage(
-            "•  Minimum of 4, photos Max of 6"),
+            "•  Minimum of 4, Maximum of 6"),
         "displayed_gamed_item_three":
             MessageLookupByLibrary.simpleMessage("•  Bottom of item"),
         "dont_have_account":
@@ -212,7 +212,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "phone_taken": MessageLookupByLibrary.simpleMessage(
             "An account is already associated with this phone number"),
         "photo_condition_four": MessageLookupByLibrary.simpleMessage(
-            "• Minimum of 4 photos maximum of 6"),
+            "• Minimum of 4, Maximum of 6"),
         "photo_condition_one": MessageLookupByLibrary.simpleMessage(
             "• The tag on the inside of the headcover"),
         "photo_condition_three":
@@ -284,7 +284,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("SAVED SEARCHES"),
         "sealed": MessageLookupByLibrary.simpleMessage("Sealed"),
         "sealed_item_four": MessageLookupByLibrary.simpleMessage(
-            "•  Minimum of 3, photos Max of 6"),
+            "•  Minimum of 3, Maximun of 6"),
         "sealed_item_one":
             MessageLookupByLibrary.simpleMessage("•  Front of item"),
         "sealed_item_three":

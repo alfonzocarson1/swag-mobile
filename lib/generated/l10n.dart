@@ -1200,10 +1200,10 @@ class S {
     );
   }
 
-  /// `• Minimum of 4 photos maximum of 6`
+  /// `• Minimum of 4, Maximum of 6`
   String get photo_condition_four {
     return Intl.message(
-      '• Minimum of 4 photos maximum of 6',
+      '• Minimum of 4, Maximum of 6',
       name: 'photo_condition_four',
       desc: '',
       args: [],
@@ -1710,10 +1710,10 @@ class S {
     );
   }
 
-  /// `•  Minimum of 3, photos Max of 6`
+  /// `•  Minimum of 3, Maximun of 6`
   String get sealed_item_four {
     return Intl.message(
-      '•  Minimum of 3, photos Max of 6',
+      '•  Minimum of 3, Maximun of 6',
       name: 'sealed_item_four',
       desc: '',
       args: [],
@@ -1730,10 +1730,10 @@ class S {
     );
   }
 
-  /// `•  Minimum of 4, photos Max of 6`
+  /// `•  Minimum of 4, Maximum of 6`
   String get displayed_gamed_item_four {
     return Intl.message(
-      '•  Minimum of 4, photos Max of 6',
+      '•  Minimum of 4, Maximum of 6',
       name: 'displayed_gamed_item_four',
       desc: '',
       args: [],
