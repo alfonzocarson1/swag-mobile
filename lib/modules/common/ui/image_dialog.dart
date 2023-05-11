@@ -17,13 +17,13 @@ class ImageDialog extends StatefulWidget {
 
 class _ImageDialogState extends State<ImageDialog> {
   late PageController pageController;
+  final ScrollController controller = ScrollController();
   int pageNo = 0;
 
   @override
   void initState() {
     pageController =
         PageController(initialPage: widget.page, viewportFraction: 1);
-
     pageNo = widget.page;
     super.initState();
   }
@@ -36,6 +36,7 @@ class _ImageDialogState extends State<ImageDialog> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
       backgroundColor: Palette.current.blackSmoke,
@@ -49,6 +50,7 @@ class _ImageDialogState extends State<ImageDialog> {
               height: 400,
               child: PageView.builder(
                 physics: const ClampingScrollPhysics(),
+                allowImplicitScrolling: true ,
                 controller: pageController,
                 onPageChanged: (index) {
                   pageNo = index;
@@ -60,71 +62,72 @@ class _ImageDialogState extends State<ImageDialog> {
                       builder: (ctx, child) {
                         return child!;
                       },
-                      child: GestureDetector(
-                        onTap: () {
-                          print(widget.imgList[index]);
-                        },
-                        onPanDown: (d) {},
-                        onPanCancel: () {},
-                        child: SizedBox(
-                          height: 400,
-                          child: Stack(children: [
-                            Positioned.fill(
-                              child: ClipRRect(
-                                child: FutureBuilder(
-                                    future: precacheImage(
-                                      CachedNetworkImageProvider(
-                                          widget.imgList[index]),
-                                      context,
-                                    ),
-                                    builder: (context, snapshot) {
-                                      switch (snapshot.connectionState) {
-                                        case ConnectionState.none:
-                                          break;
-                                        case ConnectionState.waiting:
-                                          return CircularProgressIndicator(
-                                            color: Palette
-                                                .current.primaryNeonGreen,
-                                            backgroundColor: Colors.white,
-                                          );
-                                        case ConnectionState.active:
-                                          return const Center(
-                                              child: Text('Loading...'));
-                                        case ConnectionState.done:
-                                          if (snapshot.hasError)
-                                            return Center(
-                                                child: Text(
-                                                    'Error: ${snapshot.error}'));
-                                          else
-                                            return PhotoView(
-                                              imageProvider:
-                                                  CachedNetworkImageProvider(
-                                                "https://example.com/your-image-url.jpg",
-                                              ),
-                                            );
+                      child: SizedBox(
+                        height: 400,
+                        child: Stack(children: [
+                          Positioned.fill(
+                            child: ClipRRect(
+                              child: FutureBuilder(
+                                future: precacheImage(
+                                  CachedNetworkImageProvider(
+                                      widget.imgList[index]),
+                                  context,
+                                ),
+                                builder: (context, snapshot) {
+                                  switch (snapshot.connectionState) {
+                                    case ConnectionState.none:
+                                      return const Center(
+                                          child: Text(
+                                              'Nothing has started yet.'));
+                                    case ConnectionState.waiting:
+                                      return Center(
+                                          child: CircularProgressIndicator(
+                                      color: Palette.current.primaryNeonGreen,
+                                      backgroundColor: Colors.white,));
+                                    case ConnectionState.active:
+                                      return const Center(
+                                          child: Text('Loading...'));
+                                    case ConnectionState.done:
+                                      if (snapshot.hasError) {
+                                        return  Center(
+                                            child:  Image.asset(
+                                        "assets/images/ProfilePhoto.png")
+                                                );
+                                      } else {
+                                        return PhotoView(
+                                          imageProvider:
+                                               CachedNetworkImageProvider(
+                                            widget.imgList[index],
+                                          ),
+                                        );
                                       }
-                                    }),
-
-                                // CachedNetworkImage(
-                                //   fit: BoxFit.fitHeight,
-                                //   imageUrl: widget.imgList[index],
-                                //   placeholder: (context, url) => SizedBox(
-                                //     height: 200,
-                                //     child: Center(
-                                //       child: CircularProgressIndicator(
-                                //         color: Palette.current.primaryNeonGreen,
-                                //         backgroundColor: Colors.white,
-                                //       ),
-                                //     ),
-                                //   ),
-                                //   errorWidget: (context, url, error) =>
-                                //       Image.asset(
-                                //           "assets/images/ProfilePhoto.png"),
-                                // ),
+                                    default:
+                                      return const Center(
+                                          child: Text(
+                                              'Something unexpected happened'));
+                                  }
+                                },
                               ),
+
+                              // CachedNetworkImage(
+                              //   fit: BoxFit.fitHeight,
+                              //   imageUrl: widget.imgList[index],
+                              //   placeholder: (context, url) => SizedBox(
+                              //     height: 200,
+                              //     child: Center(
+                              //       child: CircularProgressIndicator(
+                              //         color: Palette.current.primaryNeonGreen,
+                              //         backgroundColor: Colors.white,
+                              //       ),
+                              //     ),
+                              //   ),
+                              //   errorWidget: (context, url, error) =>
+                              //       Image.asset(
+                              //           "assets/images/ProfilePhoto.png"),
+                              // ),
                             ),
-                          ]),
-                        ),
+                          ),
+                        ]),
                       ));
                 },
                 itemCount: widget.imgList.length,
