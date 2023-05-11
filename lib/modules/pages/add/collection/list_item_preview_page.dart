@@ -1,13 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 import 'package:swagapp/modules/cubits/profile/get_profile_cubit.dart';
-import 'package:swagapp/modules/pages/add/collection/edit_list_for_sale_page.dart';
-import 'package:swagapp/modules/pages/add/collection/widgets/custom_overlay_button.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../blocs/detail_bloc/detail_bloc.dart';
