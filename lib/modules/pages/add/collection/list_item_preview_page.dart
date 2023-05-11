@@ -128,13 +128,13 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                   loadedListingSuccess: (state) {
                     BlocProvider.of<DetailBloc>(context)
                         .add(DetailEvent.getDetailItem(widget.catalogItemId));
-                  //  Loading.hide(context);
-                    widget.onClose();                    
+                    Loading.hide(context);
+                    widget.onClose();
                     Navigator.pop(context);
                     return null;
                   },
                   initial: () {
-                    //return Loading.show(context);
+                    return Loading.show(context);
                   },
                   error: (message) => {
                     Loading.hide(context),
@@ -272,9 +272,12 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                                         status: 'Listed',
                                       ),
                                       widget.imgList);
-                              Navigator.of(context).pop();
-                              Navigator.of(context).pop();
-                              Navigator.of(context).pop();
+
+                              if (widget.isUpdate) {
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                              }
                             },
                             type: PrimaryButtonType.green,
                           ),
