@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:photo_view/photo_view.dart';
 
 import '../utils/palette.dart';
 
@@ -60,7 +61,9 @@ class _ImageDialogState extends State<ImageDialog> {
                         return child!;
                       },
                       child: GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          print(widget.imgList[index]);
+                        },
                         onPanDown: (d) {},
                         onPanCancel: () {},
                         child: SizedBox(
@@ -68,22 +71,56 @@ class _ImageDialogState extends State<ImageDialog> {
                           child: Stack(children: [
                             Positioned.fill(
                               child: ClipRRect(
-                                child: CachedNetworkImage(
-                                  fit: BoxFit.fitHeight,
-                                  imageUrl: widget.imgList[index],
-                                  placeholder: (context, url) => SizedBox(
-                                    height: 200,
-                                    child: Center(
-                                      child: CircularProgressIndicator(
-                                        color: Palette.current.primaryNeonGreen,
-                                        backgroundColor: Colors.white,
-                                      ),
+                                child: FutureBuilder(
+                                    future: precacheImage(
+                                      CachedNetworkImageProvider(
+                                          widget.imgList[index]),
+                                      context,
                                     ),
-                                  ),
-                                  errorWidget: (context, url, error) =>
-                                      Image.asset(
-                                          "assets/images/ProfilePhoto.png"),
-                                ),
+                                    builder: (context, snapshot) {
+                                      switch (snapshot.connectionState) {
+                                        case ConnectionState.none:
+                                          break;
+                                        case ConnectionState.waiting:
+                                          return CircularProgressIndicator(
+                                            color: Palette
+                                                .current.primaryNeonGreen,
+                                            backgroundColor: Colors.white,
+                                          );
+                                        case ConnectionState.active:
+                                          return const Center(
+                                              child: Text('Loading...'));
+                                        case ConnectionState.done:
+                                          if (snapshot.hasError)
+                                            return Center(
+                                                child: Text(
+                                                    'Error: ${snapshot.error}'));
+                                          else
+                                            return PhotoView(
+                                              imageProvider:
+                                                  CachedNetworkImageProvider(
+                                                "https://example.com/your-image-url.jpg",
+                                              ),
+                                            );
+                                      }
+                                    }),
+
+                                // CachedNetworkImage(
+                                //   fit: BoxFit.fitHeight,
+                                //   imageUrl: widget.imgList[index],
+                                //   placeholder: (context, url) => SizedBox(
+                                //     height: 200,
+                                //     child: Center(
+                                //       child: CircularProgressIndicator(
+                                //         color: Palette.current.primaryNeonGreen,
+                                //         backgroundColor: Colors.white,
+                                //       ),
+                                //     ),
+                                //   ),
+                                //   errorWidget: (context, url, error) =>
+                                //       Image.asset(
+                                //           "assets/images/ProfilePhoto.png"),
+                                // ),
                               ),
                             ),
                           ]),
