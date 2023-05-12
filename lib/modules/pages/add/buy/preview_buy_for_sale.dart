@@ -57,7 +57,6 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
 
   @override
   Widget build(BuildContext context) {
-
     collectionModel = DetailCollectionModel(
         profileCollectionItemId: widget.dataItem.productItemId ?? '',
         catalogItemId: widget.dataItem.catalogItemId ?? '',
@@ -74,193 +73,222 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
       body: BlocBuilder<ProfileCubit, ProfileCubitState>(
         builder: (context, state) {
           return state.maybeWhen(
-            initial: () => Container(), 
-            loadedProfileData:(ProfileModel profileBuildData) {
-            (profileBuildData.accountId == widget.dataItem.profileId)? overlayItems = editListingDropDown : overlayItems = reportListingDropDown;
-            return Container(
-            constraints: BoxConstraints(
-                minHeight: MediaQuery.of(context).size.height * 0.9,
-                maxHeight: MediaQuery.of(context).size.height),
+            initial: () => Container(),
+            loadedProfileData: (ProfileModel profileBuildData) {
+              (profileBuildData.accountId == widget.dataItem.profileId)
+                  ? overlayItems = editListingDropDown
+                  : overlayItems = reportListingDropDown;
+              return Container(
+                constraints: BoxConstraints(
+                    minHeight: MediaQuery.of(context).size.height * 0.9,
+                    maxHeight: MediaQuery.of(context).size.height),
                 child: Stack(
-              children: [
-                LayoutBuilder(builder: (context, viewportConstraints) {
-                  return SingleChildScrollView(
-                    physics: const ClampingScrollPhysics(),
-                    reverse: false,
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(
-                        minHeight: viewportConstraints.maxHeight,
-                      ),
-                      child: Column(
-                        children: [
-                          MultiImageSlideBuyPreview(
-                            imgList: widget.dataItem.productItemImageUrls,
+                  children: [
+                    LayoutBuilder(builder: (context, viewportConstraints) {
+                      return SingleChildScrollView(
+                        physics: const ClampingScrollPhysics(),
+                        reverse: false,
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(
+                            minHeight: viewportConstraints.maxHeight,
                           ),
-                          const SizedBox(height: 4),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                Row(
+                          child: Column(
+                            children: [
+                              MultiImageSlideBuyPreview(
+                                imgList: widget.dataItem.productItemImageUrls,
+                              ),
+                              const SizedBox(height: 4),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
                                   children: [
-                                    Expanded(
-                                        flex: 6,
-                                        child: Text(
-                                            '${widget.dataItem.productItemName}',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .displayLarge!
-                                                .copyWith(
-                                                    letterSpacing: 1,
-                                                    fontWeight: FontWeight.w300,
-                                                    fontFamily:
-                                                        "KnockoutCustom",
-                                                    fontSize: 30,
-                                                    color: Palette
-                                                        .current.white))),
-                                    Expanded(
-                                        flex: 2,
-                                        child: Align(
-                                          alignment: Alignment.centerRight,
-                                          child: IconButton(
-                                            icon: Image.asset(
-                                              "assets/images/share.png",
-                                              scale: 3.5,
-                                            ),
-                                            onPressed: () async {},
-                                          ),
-                                        )),
-                                    Expanded(
-                                        flex: 1,
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: CustomOverlayButton(
-                                            icon: Image.asset(
-                                              "assets/images/more-horizontal.png",
-                                              scale: 2,
-                                            ),
-                                            items: overlayItems,
-                                            onItemSelected: (String value) {
-                                              if (value ==
-                                                  editListingDropDown[0]
-                                                      .label) {
-                                                getIt<ListingProfileCubit>()
-                                                    .listingService
-                                                    .updateListing(
-                                                        ListingForSaleModel(
-                                                      productItemId: widget
-                                                          .dataItem
-                                                          .productItemId,
-                                                      forSale: true,
-                                                      sold: false,
-                                                      status: 'Editing',
-                                                    ));
-                                                Navigator.of(context,
-                                                        rootNavigator: true)
-                                                    .push(EditListForSalePage.route(
-                                                        collectionModel,
-                                                        widget.dataItem
-                                                            .productItemId,
-                                                        widget.dataItem
-                                                                .productItemName ??
-                                                            '',
-                                                        widget.dataItem
-                                                            .productItemImageUrls));
-                                              }else if(value == editListingDropDown[1]
-                                                      .label){
-                                                        showDialog(
-                        context: context,
-                        barrierDismissible: false,
-                        builder: (BuildContext context) {
-                          return  GeneralDeletePopup(
-                            title: S.of(context).remove_listing,
-                            message: S.of(context).remove_listing_subtitle,
-                            options: [
-                             CheckboxModel(title: S.of(context).delete_collection_razon_1),
-                             CheckboxModel(title: S.of(context).delete_collection_razon_2),
-                             CheckboxModel(title: S.of(context).delete_collection_reason_4),
-                             CheckboxModel(title: S.of(context).delete_collection_razon_3),
-                            ],
-                            model: widget.dataItem,
-                            onSubmit: (){},
-                            );
-                        });
-                                                      }
-                                            },
-                                          ),
-                                        ))
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                            flex: 6,
+                                            child: Text(
+                                                '${widget.dataItem.productItemName}',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .displayLarge!
+                                                    .copyWith(
+                                                        letterSpacing: 1,
+                                                        fontWeight:
+                                                            FontWeight.w300,
+                                                        fontFamily:
+                                                            "KnockoutCustom",
+                                                        fontSize: 30,
+                                                        color: Palette
+                                                            .current.white))),
+                                        Expanded(
+                                            flex: 2,
+                                            child: Align(
+                                              alignment: Alignment.centerRight,
+                                              child: IconButton(
+                                                icon: Image.asset(
+                                                  "assets/images/share.png",
+                                                  scale: 3.5,
+                                                ),
+                                                onPressed: () async {},
+                                              ),
+                                            )),
+                                        Expanded(
+                                            flex: 1,
+                                            child: Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: CustomOverlayButton(
+                                                icon: Image.asset(
+                                                  "assets/images/more-horizontal.png",
+                                                  scale: 2,
+                                                ),
+                                                items: overlayItems,
+                                                onItemSelected: (String value) {
+                                                  if (value ==
+                                                      editListingDropDown[0]
+                                                          .label) {
+                                                    getIt<ListingProfileCubit>()
+                                                        .listingService
+                                                        .updateListing(
+                                                            ListingForSaleModel(
+                                                          productItemId: widget
+                                                              .dataItem
+                                                              .productItemId,
+                                                          forSale: true,
+                                                          sold: false,
+                                                          status: 'Editing',
+                                                        ));
+                                                    Navigator.of(context,
+                                                            rootNavigator: true)
+                                                        .push(EditListForSalePage.route(
+                                                            collectionModel,
+                                                            widget.dataItem
+                                                                .productItemId,
+                                                            widget.dataItem
+                                                                    .productItemName ??
+                                                                '',
+                                                            widget.dataItem
+                                                                .productItemImageUrls));
+                                                  } else if (value ==
+                                                      editListingDropDown[1]
+                                                          .label) {
+                                                    showDialog(
+                                                        context: context,
+                                                        barrierDismissible:
+                                                            false,
+                                                        builder: (BuildContext
+                                                            context) {
+                                                          return GeneralDeletePopup(
+                                                            title: S
+                                                                .of(context)
+                                                                .remove_listing,
+                                                            message: S
+                                                                .of(context)
+                                                                .remove_listing_subtitle,
+                                                            options: [
+                                                              CheckboxModel(
+                                                                  title: S
+                                                                      .of(context)
+                                                                      .delete_collection_razon_1),
+                                                              CheckboxModel(
+                                                                  title: S
+                                                                      .of(context)
+                                                                      .delete_collection_razon_2),
+                                                              CheckboxModel(
+                                                                  title: S
+                                                                      .of(context)
+                                                                      .delete_collection_reason_4),
+                                                              CheckboxModel(
+                                                                  title: S
+                                                                      .of(context)
+                                                                      .delete_collection_razon_3),
+                                                            ],
+                                                            model:
+                                                                widget.dataItem,
+                                                            onSubmit: () {},
+                                                          );
+                                                        });
+                                                  }
+                                                },
+                                              ),
+                                            ))
+                                      ],
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                          '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(widget.dataItem.lastSale.toString())} ',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                                  fontWeight: FontWeight.w300,
+                                                  color: Palette.current
+                                                      .primaryNeonGreen)),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                          "Condition: ${widget.dataItem.condition}",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                                  fontWeight: FontWeight.w300,
+                                                  color: Palette.current
+                                                      .primaryNeonPink)),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Container(
+                                      height: MediaQuery.of(context)
+                                              .devicePixelRatio *
+                                          70,
+                                      padding:
+                                          const EdgeInsets.only(right: 50.0),
+                                      child: Text(
+                                          '${widget.dataItem.productItemDescription}',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                                fontSize: 15,
+                                                letterSpacing: 0.3,
+                                                color: Palette
+                                                    .current.primaryWhiteSmoke,
+                                              )),
+                                    ),
+                                    (profileBuildData.accountId !=
+                                            widget.dataItem.profileId)
+                                        ? Column(
+                                            children: [
+                                              const FooterListItemPage(),
+                                              const SizedBox(height: 30),
+                                              PrimaryButton(
+                                                title:
+                                                    '${S.of(context).buy_for}  ${decimalDigitsLastSalePrice(widget.dataItem.lastSale.toString())}',
+                                                onPressed: () {},
+                                                type: PrimaryButtonType.green,
+                                              ),
+                                            ],
+                                          )
+                                        : const SizedBox.shrink(),
                                   ],
                                 ),
-                                const SizedBox(height: 10),
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                      '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(widget.dataItem.lastSale.toString())} ',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                              fontWeight: FontWeight.w300,
-                                              color: Palette
-                                                  .current.primaryNeonGreen)),
-                                ),
-                                const SizedBox(height: 10),
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                      "Condition: ${widget.dataItem.condition}",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                              fontWeight: FontWeight.w300,
-                                              color: Palette
-                                                  .current.primaryNeonPink)),
-                                ),
-                                const SizedBox(height: 10),
-                                Container(
-                                  height: MediaQuery.of(context).devicePixelRatio * 70,
-                                  padding: const EdgeInsets.only(right: 50.0),
-                                  child: Text(
-                                      '${widget.dataItem.productItemDescription}',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                            fontSize: 15,
-                                            letterSpacing: 0.3,
-                                            color: Palette
-                                                .current.primaryWhiteSmoke,
-                                          )),
-                                ),
-                                (profileBuildData.accountId != widget.dataItem.profileId)
-                                    ? Column(
-                                        children: [     
-                                          const FooterListItemPage(),
-                                          const SizedBox(height: 30),
-                                          PrimaryButton(
-                                            title:
-                                                '${S.of(context).buy_for}  ${decimalDigitsLastSalePrice(widget.dataItem.lastSale.toString())}',
-                                            onPressed: () {},
-                                            type: PrimaryButtonType.green,
-                                          ),
-                                         
-                                        ],
-                                      )
-                                    : const SizedBox.shrink(),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
-                  );
-                })
-              ],
-            ),
-          );
-          }, orElse: () => Container(), 
+                        ),
+                      );
+                    })
+                  ],
+                ),
+              );
+            },
+            orElse: () => Container(),
           );
         },
       ),
