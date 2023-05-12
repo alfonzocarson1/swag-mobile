@@ -25,19 +25,31 @@ class SliderCustomWidget extends StatefulWidget {
 
 class _SliderCustomWidgetState extends State<SliderCustomWidget> {
   final ImagePicker imagePicker = ImagePicker();
+  List<dynamic> urls= [];
   List<File> tempFiles = [];
   List<File> imgList = [];
   bool removedImages = false;
+  
+  @override
+  void initState() {
+   urls= widget.imageUrls ?? [];
+    super.initState();
+  }
 
+  
   @override
   void dispose() {
     super.dispose();
   }
 
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: (widget.imageUrls != null && imgList.isEmpty )
+
+    return (removedImages == true) ?  AddPhotoWidget(
+                  addPhoto: () => selectImages(),
+                ):  Container(
+      child: (urls.isNotEmpty && imgList.isEmpty )
           ? AsyncBuilder(
               future: addUrlImagesToList(widget.imageUrls ?? [], imgList),
               waiting: (context) => Center(
@@ -47,7 +59,7 @@ class _SliderCustomWidgetState extends State<SliderCustomWidget> {
                 ),
               ),
               builder: (BuildContext context, value) {
-              return  (removedImages == false) ? MultiImageSlide(
+              return  (MultiImageSlide(
                   imgList: imgList,
                   addPhoto: () => selectImages(),
                   onRemove: (index) {
@@ -55,9 +67,7 @@ class _SliderCustomWidgetState extends State<SliderCustomWidget> {
                       imgList.removeAt(index);
                     });
                   },
-                ): AddPhotoWidget(
-                  addPhoto: () => selectImages(),
-                ) ;
+                ));
               },
             )
           : MultiImageSlide(
@@ -72,6 +82,7 @@ class _SliderCustomWidgetState extends State<SliderCustomWidget> {
 
   Future<void> selectImages() async {
     // Pick an image
+    removedImages = false;
     try {
       final List<XFile> selectedImages = await imagePicker.pickMultiImage();
 
@@ -95,6 +106,8 @@ class _SliderCustomWidgetState extends State<SliderCustomWidget> {
   void removeImage(int index, List<File> imgList){
     if(imgList.length == 1){
       setState(() {
+        tempFiles = [];
+        urls = [];
         removedImages = true;
       });
       
