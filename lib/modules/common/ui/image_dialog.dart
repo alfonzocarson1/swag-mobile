@@ -1,15 +1,15 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:photo_view/photo_view_gallery.dart';
 
 import '../utils/palette.dart';
 
 class ImageDialog extends StatefulWidget {
-  ImageDialog({Key? key, required this.imgList, required this.page})
+  const ImageDialog({Key? key, required this.imgList, required this.page})
       : super(key: key);
 
-  List<dynamic> imgList;
-  int page;
+  final List<dynamic> imgList;
+  final int page;
 
   @override
   State<ImageDialog> createState() => _ImageDialogState();
@@ -23,7 +23,7 @@ class _ImageDialogState extends State<ImageDialog> {
   @override
   void initState() {
     pageController =
-        PageController(initialPage: widget.page, viewportFraction: 1);
+        PageController(initialPage: widget.page, viewportFraction: 1);  
     pageNo = widget.page;
     super.initState();
   }
@@ -36,7 +36,6 @@ class _ImageDialogState extends State<ImageDialog> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
       backgroundColor: Palette.current.blackSmoke,
@@ -48,89 +47,38 @@ class _ImageDialogState extends State<ImageDialog> {
           children: [
             SizedBox(
               height: 400,
-              child: PageView.builder(
-                physics: const ClampingScrollPhysics(),
-                allowImplicitScrolling: true ,
-                controller: pageController,
+              child: PhotoViewGallery.builder(
+                pageController:pageController,
                 onPageChanged: (index) {
-                  pageNo = index;
-                  setState(() {});
+                  setState(() {
+                    pageNo = index;
+                  }); 
                 },
-                itemBuilder: (_, index) {
-                  return AnimatedBuilder(
-                      animation: pageController,
-                      builder: (ctx, child) {
-                        return child!;
-                      },
-                      child: SizedBox(
-                        height: 400,
-                        child: Stack(children: [
-                          Positioned.fill(
-                            child: ClipRRect(
-                              child: FutureBuilder(
-                                future: precacheImage(
-                                  CachedNetworkImageProvider(
-                                      widget.imgList[index]),
-                                  context,
-                                ),
-                                builder: (context, snapshot) {
-                                  switch (snapshot.connectionState) {
-                                    case ConnectionState.none:
-                                      return const Center(
-                                          child: Text(
-                                              'Nothing has started yet.'));
-                                    case ConnectionState.waiting:
-                                      return Center(
-                                          child: CircularProgressIndicator(
-                                      color: Palette.current.primaryNeonGreen,
-                                      backgroundColor: Colors.white,));
-                                    case ConnectionState.active:
-                                      return const Center(
-                                          child: Text('Loading...'));
-                                    case ConnectionState.done:
-                                      if (snapshot.hasError) {
-                                        return  Center(
-                                            child:  Image.asset(
-                                        "assets/images/ProfilePhoto.png")
-                                                );
-                                      } else {
-                                        return PhotoView(
-                                          imageProvider:
-                                               CachedNetworkImageProvider(
-                                            widget.imgList[index],
-                                          ),
-                                        );
-                                      }
-                                    default:
-                                      return const Center(
-                                          child: Text(
-                                              'Something unexpected happened'));
-                                  }
-                                },
-                              ),
-
-                              // CachedNetworkImage(
-                              //   fit: BoxFit.fitHeight,
-                              //   imageUrl: widget.imgList[index],
-                              //   placeholder: (context, url) => SizedBox(
-                              //     height: 200,
-                              //     child: Center(
-                              //       child: CircularProgressIndicator(
-                              //         color: Palette.current.primaryNeonGreen,
-                              //         backgroundColor: Colors.white,
-                              //       ),
-                              //     ),
-                              //   ),
-                              //   errorWidget: (context, url, error) =>
-                              //       Image.asset(
-                              //           "assets/images/ProfilePhoto.png"),
-                              // ),
-                            ),
-                          ),
-                        ]),
-                      ));
+                scrollPhysics: const BouncingScrollPhysics(),
+                builder: (BuildContext context, int index) {
+                  return PhotoViewGalleryPageOptions(
+                    imageProvider: NetworkImage(
+                      widget.imgList[index], // Use elements from your list
+                    ),
+                    initialScale: PhotoViewComputedScale.covered,
+                    minScale: PhotoViewComputedScale.contained,
+                    maxScale: PhotoViewComputedScale.covered * 2,
+                    heroAttributes: PhotoViewHeroAttributes(tag: index),
+                  );
                 },
-                itemCount: widget.imgList.length,
+                itemCount: widget.imgList.length, // Length of your list
+                loadingBuilder: (context, event) =>  Center(
+                  child: SizedBox(
+                    width: 30.0,
+                    height: 30.0,
+                    child: CircularProgressIndicator(
+                                    color: Palette.current.primaryNeonGreen,
+                                    backgroundColor: Colors.white,)
+                  ),
+                ),
+                backgroundDecoration: BoxDecoration(
+                  color: Palette.current.blackSmoke,
+                ),
               ),
             ),
             const SizedBox(
