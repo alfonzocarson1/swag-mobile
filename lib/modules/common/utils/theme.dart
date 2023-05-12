@@ -5,6 +5,7 @@ import 'package:swagapp/modules/common/utils/palette.dart';
 
 ThemeData appTheme(Palette palette) {
   return ThemeData(
+    useMaterial3: true,
     scaffoldBackgroundColor: palette.light2,
     textTheme: _textTheme(palette),
     backgroundColor: palette.light2,
