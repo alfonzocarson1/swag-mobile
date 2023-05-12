@@ -31,7 +31,8 @@ enum Endpoint {
   privateProfile,
   filtersAvailable,
   listingsProfile,
-  explorePage
+  explorePage,
+  notifyAvailability
 }
 
 class API {
@@ -82,6 +83,7 @@ class API {
     Endpoint.privateProfile: 'api/v1/profile',
     Endpoint.filtersAvailable: 'api/public/v1/catalog/filtersAvailable/',
     Endpoint.listingsProfile: 'api/public/v1/listing/productItems/profile/%s',
-    Endpoint.explorePage: 'api/public/v1/catalog/search/0'
+    Endpoint.explorePage: 'api/public/v1/catalog/search/0',
+    Endpoint.notifyAvailability: 'api/v1/notification/notifyAvailability'
   };
 }

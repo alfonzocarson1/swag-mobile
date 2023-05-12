@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 import '../../../generated/l10n.dart';
+import '../../common/ui/dynamic_toast_messages.dart';
 import '../../common/ui/popup_delete_item_collection.dart';
 import '../../common/ui/popup_list_item_sale.dart';
 import '../../common/ui/primary_button.dart';
 import '../../common/utils/palette.dart';
 import '../../common/utils/utils.dart';
+import '../../cubits/catalog_detail/catalog_detail_cubit.dart';
 import '../../cubits/profile/get_profile_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
@@ -49,8 +52,6 @@ class _CollectionWidgetState extends State<CollectionWidget> {
   String? profileURL;
 
   String? defaultImage;
-
-  bool _loadImageError = false;
 
   @override
   void initState() {
@@ -437,31 +438,6 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                             SizedBox(
                               width: MediaQuery.of(context).size.width,
                               child: PrimaryButton(
-                                title: S.of(context).remove_collection_btn,
-                                onPressed: () {
-                                  if (isLogged) {
-                                    showDialog(
-                                        context: context,
-                                        barrierDismissible: false,
-                                        builder: (BuildContext context) {
-                                          return PopUpDeleteItemCollection(
-                                              dataCollection:
-                                                  widget.dataCollection!);
-                                        });
-                                  } else {
-                                    Navigator.of(context, rootNavigator: true)
-                                        .push(CreateAccountPage.route());
-                                  }
-                                },
-                                type: PrimaryButtonType.pink,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width,
-                              child: PrimaryButton(
                                 title: S.of(context).list_for_sale_btn,
                                 onPressed: () {
                                   if (isLogged) {
@@ -487,6 +463,117 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                   }
                                 },
                                 type: PrimaryButtonType.black,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width,
+                              child: PrimaryButton(
+                                title: S.of(context).remove_collection_btn,
+                                onPressed: () {
+                                  if (isLogged) {
+                                    showDialog(
+                                        context: context,
+                                        barrierDismissible: false,
+                                        builder: (BuildContext context) {
+                                          return PopUpDeleteItemCollection(
+                                              dataCollection:
+                                                  widget.dataCollection!);
+                                        });
+                                  } else {
+                                    Navigator.of(context, rootNavigator: true)
+                                        .push(CreateAccountPage.route());
+                                  }
+                                },
+                                type: PrimaryButtonType.pink,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            Visibility(
+                              visible: !widget.sale,
+                              child: SizedBox(
+                                width: MediaQuery.of(context).size.width,
+                                child: PrimaryButton(
+                                  title: S.of(context).notify_available,
+                                  onPressed: () {
+                                    if (isLogged) {
+                                      getIt<CatalogDetailCubit>()
+                                          .notifyAvailability(widget.catalogId);
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                              duration:
+                                                  const Duration(seconds: 3),
+                                              behavior:
+                                                  SnackBarBehavior.floating,
+                                              margin: EdgeInsets.only(
+                                                bottom: MediaQuery.of(context)
+                                                        .size
+                                                        .height /
+                                                    1.3,
+                                              ),
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              content: Row(
+                                                children: <Widget>[
+                                                  Flexible(
+                                                    child: Container(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              18),
+                                                      decoration: BoxDecoration(
+                                                          color: Palette.current
+                                                              .blackSmoke,
+                                                          borderRadius:
+                                                              const BorderRadius
+                                                                      .all(
+                                                                  Radius
+                                                                      .circular(
+                                                                          5))),
+                                                      child: Column(
+                                                        children: <Widget>[
+                                                          Row(
+                                                            children: <Widget>[
+                                                              Flexible(
+                                                                flex: 1,
+                                                                child:
+                                                                    Image.asset(
+                                                                  scale: 3,
+                                                                  "assets/images/Favorite.png",
+                                                                ),
+                                                              ),
+                                                              Flexible(
+                                                                  flex: 10,
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: const EdgeInsets
+                                                                            .only(
+                                                                        left:
+                                                                            20),
+                                                                    child: Text(S
+                                                                        .of(context)
+                                                                        .notify_availability),
+                                                                  )),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              dismissDirection:
+                                                  DismissDirection.none));
+                                    } else {
+                                      Navigator.of(context, rootNavigator: true)
+                                          .push(CreateAccountPage.route());
+                                    }
+                                  },
+                                  type: PrimaryButtonType.primaryEerieBlack,
+                                ),
                               ),
                             ),
                           ],

@@ -2239,6 +2239,16 @@ class S {
       args: [],
     );
   }
+
+  /// `You will be notified when this item is available.`
+  String get notify_availability {
+    return Intl.message(
+      'You will be notified when this item is available.',
+      name: 'notify_availability',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

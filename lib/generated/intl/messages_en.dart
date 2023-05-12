@@ -202,6 +202,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "next_btn": MessageLookupByLibrary.simpleMessage("NEXT"),
         "no_match_password":
             MessageLookupByLibrary.simpleMessage("Password doesn’t match"),
+        "notify_availability": MessageLookupByLibrary.simpleMessage(
+            "You will be notified when this item is available."),
         "notify_available":
             MessageLookupByLibrary.simpleMessage("NOTIFY ME WHEN AVAILABLE"),
         "paid": MessageLookupByLibrary.simpleMessage("Paid:"),

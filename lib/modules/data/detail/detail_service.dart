@@ -30,4 +30,17 @@ class DetailService extends IDetailService {
         fromJson: (json) => DetailItemModel.fromJson(json));
     return response;
   }
+
+  @override
+  Future<dynamic> notifyAvailability(String catalogoId) async {
+    var response = await apiService.getEndpointData(
+      endpoint: Endpoint.notifyAvailability,
+      method: RequestMethod.post,
+      needBearer: true,
+      fromJson: (json) => json,
+      body: {"catalogItemId": catalogoId},
+    );
+
+    return response;
+  }
 }
