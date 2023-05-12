@@ -371,7 +371,7 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
                                   showErrors();
                                   if (areFieldsValid()) {
                                     if (_defaultCondition == "Sealed" &&
-                                        imageFileList.length < 3) {
+                                        tempFiles.length < 3) {
                                       showDialog(
                                           context: context,
                                           barrierDismissible: false,
@@ -379,7 +379,7 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
                                             return const PopUpImageGuideline();
                                           });
                                     } else if (_defaultCondition != "Sealed" &&
-                                        imageFileList.length < 4) {
+                                        tempFiles.length < 4) {
                                       showDialog(
                                           context: context,
                                           barrierDismissible: false,
