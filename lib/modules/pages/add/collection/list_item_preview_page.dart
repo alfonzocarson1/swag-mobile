@@ -135,8 +135,7 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                     return null;
                   },
                   initial: () {
-                    return null;
-                    // return Loading.show(context);
+                    return Loading.show(context);
                   },
                   error: (message) => {
                     Loading.hide(context),
@@ -253,8 +252,6 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                                             profileCollectionItemId:
                                                 widget.profileCollectionItemId),
                                         widget.imgList));
-                                Navigator.of(context).pop();
-                                Navigator.of(context).pop();
                               } else {
                                 getIt<ListingProfileCubit>().updateListing(
                                   ListingForSaleModel(

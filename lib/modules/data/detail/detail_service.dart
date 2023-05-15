@@ -2,6 +2,7 @@ import '../../api/api.dart';
 import '../../api/api_service.dart';
 import '../../common/utils/utils.dart';
 import '../../di/injector.dart';
+import '../../models/buy_for_sale_listing/buy_for_sale_listing_response_model.dart';
 import '../../models/detail/detail_item_model.dart';
 import '../secure_storage/storage_repository_service.dart';
 import '../shared_preferences/shared_preferences_service.dart';
@@ -41,6 +42,19 @@ class DetailService extends IDetailService {
       body: {"catalogItemId": catalogoId},
     );
 
+    return response;
+  }
+
+  @override
+  Future<BuyForSaleListingResponseModel> buyForSaleListing(
+      String catalogItemId) async {
+    BuyForSaleListingResponseModel response = await apiService.getEndpointData(
+        endpoint: Endpoint.buyForSaleListing,
+        method: RequestMethod.get,
+        needBearer: true,
+        dynamicParam: catalogItemId,
+        jsonKey: "saledItemdList",
+        fromJson: (json) => BuyForSaleListingResponseModel.fromJson(json));
     return response;
   }
 }
