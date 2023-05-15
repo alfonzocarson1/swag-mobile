@@ -2,9 +2,9 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../common/utils/tab_wrapper.dart';
+import '../../common/utils/utils.dart';
 import '../../data/search_service/i_search_service.dart';
 import '../../models/search/catalog_item_model.dart';
-import '../../models/search/filter_model.dart';
 import '../../models/search/search_request_payload_model.dart';
 
 part 'paginated_search_state.dart';
@@ -87,12 +87,13 @@ class PaginatedSearchCubit extends Cubit<PaginatedSearchState> {
   }
 
   Future<void> refreshResults() async {
+    var currentfilters = await getCurrentFilterModel();
     var tabId = model.categoryId;
     pageCountMap.update(currentTab, (value) => 0);
     model = SearchRequestPayloadModel(
       whatsHotFlag: (currentTab == SearchTab.whatsHot) ? true : false,
-      categoryId: tabId,
-      filters: const FilterModel(),
+      categoryId: (currentTab == SearchTab.whatsHot) ? null : tabId,
+      filters: currentfilters,
     );
     await loadResults(searchModel: model, searchTab: currentTab);
   }
