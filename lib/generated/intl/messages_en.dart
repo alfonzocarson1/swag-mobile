@@ -113,6 +113,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "YOU DON’T HAVE ANY LISTINGS. ALL YOUR LISTINGS WILL APPEAR HERE."),
         "empty_password":
             MessageLookupByLibrary.simpleMessage("Invalid password"),
+        "empty_search_result":
+            MessageLookupByLibrary.simpleMessage("NO ITEMS MATCH YOUR SEARCH!"),
         "empty_sold": MessageLookupByLibrary.simpleMessage(
             "YOU HAVEN’T SOLD ANY ITEMS YET. ALL YOUR SOLD ITEMS WILL APPEAR HERE."),
         "empty_text": MessageLookupByLibrary.simpleMessage("No items yet"),

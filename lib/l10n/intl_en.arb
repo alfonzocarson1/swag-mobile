@@ -65,6 +65,7 @@
     "n_a": "N/A",
     "for_sale": "FOR SALE",
     "empty_text": "No items yet",
+    "empty_search_result": "NO ITEMS MATCH YOUR SEARCH!",
     "sales_history": "SALES HISTORY",
     "my_collection": "MY COLLECTION",
     "acquired": "Acquired:",

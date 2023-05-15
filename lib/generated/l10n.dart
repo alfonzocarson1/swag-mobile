@@ -710,6 +710,16 @@ class S {
     );
   }
 
+  /// `NO ITEMS MATCH YOUR SEARCH!`
+  String get empty_search_result {
+    return Intl.message(
+      'NO ITEMS MATCH YOUR SEARCH!',
+      name: 'empty_search_result',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `SALES HISTORY`
   String get sales_history {
     return Intl.message(
