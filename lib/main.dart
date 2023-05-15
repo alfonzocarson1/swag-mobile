@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:swagapp/modules/services/push_notifications_service.dart';
 import 'app.dart';
 import 'modules/api/app_config.dart';
 import 'modules/common/utils/utils.dart';
@@ -52,6 +53,9 @@ Future<void> _handleFlavorConfig() async {
   });
 }
 
-void _runApp() {
+Future<void> _runApp() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await PushNotificationsService.initializeApp();
   return runApp(App());
 }

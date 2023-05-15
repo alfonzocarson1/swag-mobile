@@ -7,7 +7,6 @@ import 'package:swagapp/modules/common/ui/custom_outline_button.dart';
 import 'package:swagapp/modules/common/ui/loading.dart';
 import 'package:swagapp/modules/models/chat/chat_data.dart';
 import 'package:swagapp/modules/pages/chat/chat_page.dart';
-import 'package:swagapp/modules/pages/chats/chats_page.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../common/ui/list_item_preview_rating_ui.dart';

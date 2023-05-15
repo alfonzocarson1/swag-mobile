@@ -77,7 +77,7 @@ class _ChatPageState extends State<ChatPage> with ChannelEventHandler {
 
   @override
   void onTypingStatusUpdated(GroupChannel channel) {
-    
+
     setState(()=> this.isTyping = channel.isTyping);
     super.onTypingStatusUpdated(channel);
   }
