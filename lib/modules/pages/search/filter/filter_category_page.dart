@@ -492,7 +492,7 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
    filters = await getCurrentFilterModel();
     getIt<PaginatedSearchCubit>().loadResults(
                   searchModel: SearchRequestPayloadModel(
-                    categoryId: (widget.tab == SearchTab.all || widget.tab == null) ? null : widget.categoryId,
+                    categoryId: (widget.tab == SearchTab.all || widget.tab == null || widget.tab == SearchTab.whatsHot) ? null : widget.categoryId,
                     whatsHotFlag:(widget.tab == SearchTab.whatsHot) ? true : false,
                     searchParams: (widget.tab == SearchTab.all || widget.tab == null) ? [widget.searchParam ?? ""] : null ,
                     filters:  FilterModel(
