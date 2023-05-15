@@ -79,4 +79,7 @@ abstract class PreferenceRepositoryInt {
 
   String getUserSendBirdToken();
   Future<void> saveUserSendBirdToken(String token);
+
+  String getFirebaseDeviceToken();
+  Future<void> saveFirebaseDeviceToken(String token);
 }
