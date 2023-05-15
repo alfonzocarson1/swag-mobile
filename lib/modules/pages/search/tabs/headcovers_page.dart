@@ -93,7 +93,6 @@ class _HeadcoversPageState extends State<HeadcoversPage> {
            (
            initial: () => const SimpleLoader(), 
            loading: (isFirstFetch) {
-
             isLoading = true;
             if(isFirstFetch){
              return const SimpleLoader();
