@@ -20,6 +20,9 @@ mixin _$CatalogDetailState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() willBeNotified,
+    required TResult Function(
+            List<BuyForSaleListingResponseModel> saledItemdList)
+        loadedSaledItems,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -27,6 +30,8 @@ mixin _$CatalogDetailState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? willBeNotified,
+    TResult? Function(List<BuyForSaleListingResponseModel> saledItemdList)?
+        loadedSaledItems,
     TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -34,6 +39,8 @@ mixin _$CatalogDetailState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? willBeNotified,
+    TResult Function(List<BuyForSaleListingResponseModel> saledItemdList)?
+        loadedSaledItems,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
@@ -42,6 +49,8 @@ mixin _$CatalogDetailState {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_WillBeNotified value) willBeNotified,
+    required TResult Function(LoadedBuyCatalogDetailState value)
+        loadedSaledItems,
     required TResult Function(ErrorCatalogDetailState value) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -49,6 +58,7 @@ mixin _$CatalogDetailState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_WillBeNotified value)? willBeNotified,
+    TResult? Function(LoadedBuyCatalogDetailState value)? loadedSaledItems,
     TResult? Function(ErrorCatalogDetailState value)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -56,6 +66,7 @@ mixin _$CatalogDetailState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_WillBeNotified value)? willBeNotified,
+    TResult Function(LoadedBuyCatalogDetailState value)? loadedSaledItems,
     TResult Function(ErrorCatalogDetailState value)? error,
     required TResult orElse(),
   }) =>
@@ -119,6 +130,9 @@ class _$_Initial implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() willBeNotified,
+    required TResult Function(
+            List<BuyForSaleListingResponseModel> saledItemdList)
+        loadedSaledItems,
     required TResult Function(String message) error,
   }) {
     return initial();
@@ -129,6 +143,8 @@ class _$_Initial implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? willBeNotified,
+    TResult? Function(List<BuyForSaleListingResponseModel> saledItemdList)?
+        loadedSaledItems,
     TResult? Function(String message)? error,
   }) {
     return initial?.call();
@@ -139,6 +155,8 @@ class _$_Initial implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? willBeNotified,
+    TResult Function(List<BuyForSaleListingResponseModel> saledItemdList)?
+        loadedSaledItems,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -153,6 +171,8 @@ class _$_Initial implements _Initial {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_WillBeNotified value) willBeNotified,
+    required TResult Function(LoadedBuyCatalogDetailState value)
+        loadedSaledItems,
     required TResult Function(ErrorCatalogDetailState value) error,
   }) {
     return initial(this);
@@ -163,6 +183,7 @@ class _$_Initial implements _Initial {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_WillBeNotified value)? willBeNotified,
+    TResult? Function(LoadedBuyCatalogDetailState value)? loadedSaledItems,
     TResult? Function(ErrorCatalogDetailState value)? error,
   }) {
     return initial?.call(this);
@@ -173,6 +194,7 @@ class _$_Initial implements _Initial {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_WillBeNotified value)? willBeNotified,
+    TResult Function(LoadedBuyCatalogDetailState value)? loadedSaledItems,
     TResult Function(ErrorCatalogDetailState value)? error,
     required TResult orElse(),
   }) {
@@ -227,6 +249,9 @@ class _$_WillBeNotified implements _WillBeNotified {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() willBeNotified,
+    required TResult Function(
+            List<BuyForSaleListingResponseModel> saledItemdList)
+        loadedSaledItems,
     required TResult Function(String message) error,
   }) {
     return willBeNotified();
@@ -237,6 +262,8 @@ class _$_WillBeNotified implements _WillBeNotified {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? willBeNotified,
+    TResult? Function(List<BuyForSaleListingResponseModel> saledItemdList)?
+        loadedSaledItems,
     TResult? Function(String message)? error,
   }) {
     return willBeNotified?.call();
@@ -247,6 +274,8 @@ class _$_WillBeNotified implements _WillBeNotified {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? willBeNotified,
+    TResult Function(List<BuyForSaleListingResponseModel> saledItemdList)?
+        loadedSaledItems,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -261,6 +290,8 @@ class _$_WillBeNotified implements _WillBeNotified {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_WillBeNotified value) willBeNotified,
+    required TResult Function(LoadedBuyCatalogDetailState value)
+        loadedSaledItems,
     required TResult Function(ErrorCatalogDetailState value) error,
   }) {
     return willBeNotified(this);
@@ -271,6 +302,7 @@ class _$_WillBeNotified implements _WillBeNotified {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_WillBeNotified value)? willBeNotified,
+    TResult? Function(LoadedBuyCatalogDetailState value)? loadedSaledItems,
     TResult? Function(ErrorCatalogDetailState value)? error,
   }) {
     return willBeNotified?.call(this);
@@ -281,6 +313,7 @@ class _$_WillBeNotified implements _WillBeNotified {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_WillBeNotified value)? willBeNotified,
+    TResult Function(LoadedBuyCatalogDetailState value)? loadedSaledItems,
     TResult Function(ErrorCatalogDetailState value)? error,
     required TResult orElse(),
   }) {
@@ -293,6 +326,171 @@ class _$_WillBeNotified implements _WillBeNotified {
 
 abstract class _WillBeNotified implements CatalogDetailState {
   const factory _WillBeNotified() = _$_WillBeNotified;
+}
+
+/// @nodoc
+abstract class _$$LoadedBuyCatalogDetailStateCopyWith<$Res> {
+  factory _$$LoadedBuyCatalogDetailStateCopyWith(
+          _$LoadedBuyCatalogDetailState value,
+          $Res Function(_$LoadedBuyCatalogDetailState) then) =
+      __$$LoadedBuyCatalogDetailStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<BuyForSaleListingResponseModel> saledItemdList});
+}
+
+/// @nodoc
+class __$$LoadedBuyCatalogDetailStateCopyWithImpl<$Res>
+    extends _$CatalogDetailStateCopyWithImpl<$Res,
+        _$LoadedBuyCatalogDetailState>
+    implements _$$LoadedBuyCatalogDetailStateCopyWith<$Res> {
+  __$$LoadedBuyCatalogDetailStateCopyWithImpl(
+      _$LoadedBuyCatalogDetailState _value,
+      $Res Function(_$LoadedBuyCatalogDetailState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? saledItemdList = null,
+  }) {
+    return _then(_$LoadedBuyCatalogDetailState(
+      saledItemdList: null == saledItemdList
+          ? _value._saledItemdList
+          : saledItemdList // ignore: cast_nullable_to_non_nullable
+              as List<BuyForSaleListingResponseModel>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$LoadedBuyCatalogDetailState implements LoadedBuyCatalogDetailState {
+  _$LoadedBuyCatalogDetailState(
+      {required final List<BuyForSaleListingResponseModel> saledItemdList})
+      : _saledItemdList = saledItemdList;
+
+  final List<BuyForSaleListingResponseModel> _saledItemdList;
+  @override
+  List<BuyForSaleListingResponseModel> get saledItemdList {
+    if (_saledItemdList is EqualUnmodifiableListView) return _saledItemdList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_saledItemdList);
+  }
+
+  @override
+  String toString() {
+    return 'CatalogDetailState.loadedSaledItems(saledItemdList: $saledItemdList)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LoadedBuyCatalogDetailState &&
+            const DeepCollectionEquality()
+                .equals(other._saledItemdList, _saledItemdList));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_saledItemdList));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LoadedBuyCatalogDetailStateCopyWith<_$LoadedBuyCatalogDetailState>
+      get copyWith => __$$LoadedBuyCatalogDetailStateCopyWithImpl<
+          _$LoadedBuyCatalogDetailState>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() willBeNotified,
+    required TResult Function(
+            List<BuyForSaleListingResponseModel> saledItemdList)
+        loadedSaledItems,
+    required TResult Function(String message) error,
+  }) {
+    return loadedSaledItems(saledItemdList);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? willBeNotified,
+    TResult? Function(List<BuyForSaleListingResponseModel> saledItemdList)?
+        loadedSaledItems,
+    TResult? Function(String message)? error,
+  }) {
+    return loadedSaledItems?.call(saledItemdList);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? willBeNotified,
+    TResult Function(List<BuyForSaleListingResponseModel> saledItemdList)?
+        loadedSaledItems,
+    TResult Function(String message)? error,
+    required TResult orElse(),
+  }) {
+    if (loadedSaledItems != null) {
+      return loadedSaledItems(saledItemdList);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_WillBeNotified value) willBeNotified,
+    required TResult Function(LoadedBuyCatalogDetailState value)
+        loadedSaledItems,
+    required TResult Function(ErrorCatalogDetailState value) error,
+  }) {
+    return loadedSaledItems(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_WillBeNotified value)? willBeNotified,
+    TResult? Function(LoadedBuyCatalogDetailState value)? loadedSaledItems,
+    TResult? Function(ErrorCatalogDetailState value)? error,
+  }) {
+    return loadedSaledItems?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_WillBeNotified value)? willBeNotified,
+    TResult Function(LoadedBuyCatalogDetailState value)? loadedSaledItems,
+    TResult Function(ErrorCatalogDetailState value)? error,
+    required TResult orElse(),
+  }) {
+    if (loadedSaledItems != null) {
+      return loadedSaledItems(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class LoadedBuyCatalogDetailState implements CatalogDetailState {
+  factory LoadedBuyCatalogDetailState(
+      {required final List<BuyForSaleListingResponseModel>
+          saledItemdList}) = _$LoadedBuyCatalogDetailState;
+
+  List<BuyForSaleListingResponseModel> get saledItemdList;
+  @JsonKey(ignore: true)
+  _$$LoadedBuyCatalogDetailStateCopyWith<_$LoadedBuyCatalogDetailState>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -362,6 +560,9 @@ class _$ErrorCatalogDetailState implements ErrorCatalogDetailState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() willBeNotified,
+    required TResult Function(
+            List<BuyForSaleListingResponseModel> saledItemdList)
+        loadedSaledItems,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -372,6 +573,8 @@ class _$ErrorCatalogDetailState implements ErrorCatalogDetailState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? willBeNotified,
+    TResult? Function(List<BuyForSaleListingResponseModel> saledItemdList)?
+        loadedSaledItems,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -382,6 +585,8 @@ class _$ErrorCatalogDetailState implements ErrorCatalogDetailState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? willBeNotified,
+    TResult Function(List<BuyForSaleListingResponseModel> saledItemdList)?
+        loadedSaledItems,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -396,6 +601,8 @@ class _$ErrorCatalogDetailState implements ErrorCatalogDetailState {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_WillBeNotified value) willBeNotified,
+    required TResult Function(LoadedBuyCatalogDetailState value)
+        loadedSaledItems,
     required TResult Function(ErrorCatalogDetailState value) error,
   }) {
     return error(this);
@@ -406,6 +613,7 @@ class _$ErrorCatalogDetailState implements ErrorCatalogDetailState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_WillBeNotified value)? willBeNotified,
+    TResult? Function(LoadedBuyCatalogDetailState value)? loadedSaledItems,
     TResult? Function(ErrorCatalogDetailState value)? error,
   }) {
     return error?.call(this);
@@ -416,6 +624,7 @@ class _$ErrorCatalogDetailState implements ErrorCatalogDetailState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_WillBeNotified value)? willBeNotified,
+    TResult Function(LoadedBuyCatalogDetailState value)? loadedSaledItems,
     TResult Function(ErrorCatalogDetailState value)? error,
     required TResult orElse(),
   }) {
