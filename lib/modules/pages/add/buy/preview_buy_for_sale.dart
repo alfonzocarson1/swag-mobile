@@ -60,6 +60,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
     collectionModel = DetailCollectionModel(
         profileCollectionItemId: widget.dataItem.productItemId ?? '',
         catalogItemId: widget.dataItem.catalogItemId ?? '',
+        description: widget.dataItem.productItemDescription,
         purchaseDate: '',
         purchasePrice: widget.dataItem.lastSale ?? 0.0,
         itemCondition: widget.dataItem.condition ?? 'condition',
