@@ -29,6 +29,7 @@ import '../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
 import '../blocs/sold_bloc/sold_bloc.dart';
 import '../blocs/update_profile_bloc/update_profile_bloc.dart';
 import '../cubits/auth/auth_cubit.dart';
+import '../cubits/catalog_detail/catalog_detail_cubit.dart';
 import '../cubits/collections/get_collections_cubit.dart';
 import '../cubits/explore/get_explore_cubit.dart';
 import '../cubits/favorites/get_favorites_cubit.dart';
@@ -104,6 +105,9 @@ Future<void> setupAppScope() {
 
   getIt
       .registerLazySingleton<AuthCubit>(() => AuthCubit(getIt<IAuthService>()));
+
+  getIt.registerLazySingleton<CatalogDetailCubit>(
+      () => CatalogDetailCubit(getIt<IDetailService>()));
 
   getIt.registerLazySingleton<CollectionProfileCubit>(
       () => CollectionProfileCubit(getIt<ICollectionService>()));
