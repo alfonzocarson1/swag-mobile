@@ -276,7 +276,18 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                               ),
                                             ],
                                           )
-                                        : const SizedBox.shrink(),
+                                        : Column(
+                                            children: [
+                                              const FooterListItemPage(),
+                                              const SizedBox(height: 30),
+                                              PrimaryButton(
+                                                title:
+                                                    '${S.of(context).buy_for}  ${decimalDigitsLastSalePrice(widget.dataItem.lastSale.toString())}',
+                                                onPressed: null,
+                                                type: PrimaryButtonType.grey,
+                                              ),
+                                            ],
+                                          ),
                                   ],
                                 ),
                               ),
