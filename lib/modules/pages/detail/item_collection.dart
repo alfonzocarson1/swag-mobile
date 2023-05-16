@@ -35,7 +35,7 @@ class CollectionWidget extends StatefulWidget {
   final String catalogItemName;
   final bool favorite;
   final String urlImage;
-  Function(bool) addFavorite;
+  final Function(bool) addFavorite;
   @override
   State<CollectionWidget> createState() => _CollectionWidgetState();
 }

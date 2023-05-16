@@ -17,11 +17,11 @@ class SoldPage extends StatefulWidget {
 }
 
 class _SoldPageState extends State<SoldPage> {
-  late ResponsiveDesign _responsiveDesign;
+  late ResponsiveDesign responsiveDesign;
 
   @override
   Widget build(BuildContext context) {
-    _responsiveDesign = ResponsiveDesign(context);
+    responsiveDesign = ResponsiveDesign(context);
     return Scaffold(
         backgroundColor: Palette.current.primaryNero,
         body: BlocConsumer<SoldBloc, SoldState>(

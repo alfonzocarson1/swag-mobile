@@ -33,7 +33,8 @@ class SelectItemPage extends StatefulWidget {
 }
 
 class _SelectItemPageState extends State<SelectItemPage> {
-  late ResponsiveDesign _responsiveDesign;
+
+  late ResponsiveDesign responsiveDesign;
   final TextEditingController _textEditingController = TextEditingController();
 
   @override
@@ -47,7 +48,7 @@ class _SelectItemPageState extends State<SelectItemPage> {
 
   @override
   Widget build(BuildContext context) {
-    _responsiveDesign = ResponsiveDesign(context);
+    responsiveDesign = ResponsiveDesign(context);
     return Scaffold(
         appBar: PushedHeader(
           showBackButton: true,

@@ -30,14 +30,14 @@ class BuyForSale extends StatefulWidget {
       this.available,
       required this.addFavorite});
 
-  String catalogItemId;
-  String catalogItemName;
-  DetailSaleInfoModel catalogItemPrice;
-  String urlImage;
-  bool favorite;
-  bool sale;
+  final String catalogItemId;
+  final String catalogItemName;
+  final DetailSaleInfoModel catalogItemPrice;
+  final String urlImage;
+  final bool favorite;
+  final bool sale;
   final int? available;
-  Function(bool) addFavorite;
+  final Function(bool) addFavorite;
   static Route route(
           String catalogItemId,
           String catalogItemName,

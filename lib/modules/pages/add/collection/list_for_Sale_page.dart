@@ -28,8 +28,8 @@ class ListForSalePage extends StatefulWidget {
   ListForSalePage(
       {super.key, this.collectionData, required this.catalogItemName});
 
-  DetailCollectionModel? collectionData;
-  String catalogItemName;
+  final DetailCollectionModel? collectionData;
+  final String catalogItemName;
 
   static Route route(
           DetailCollectionModel? collectionData, String catalogItemName) =>

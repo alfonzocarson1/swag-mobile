@@ -14,7 +14,6 @@ import 'package:swagapp/modules/pages/search/search_on_tap_page.dart';
 import 'package:swagapp/modules/pages/search/tabs/whats_hot_page.dart';
 import 'package:badges/badges.dart' as badges;
 
-import '../../blocs/search_bloc.dart/search_bloc.dart';
 import '../../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/tab_wrapper.dart';

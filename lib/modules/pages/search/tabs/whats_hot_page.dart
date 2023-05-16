@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/ui/body_widget_with_view.dart';
@@ -12,7 +11,6 @@ import '../../../common/ui/loading.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/tab_wrapper.dart';
 import '../../../constants/constants.dart';
-import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
 import '../../../models/search/filter_model.dart';
 

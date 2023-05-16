@@ -11,9 +11,9 @@ class MultiImageSlide extends StatefulWidget {
       {Key? key, required this.imgList, this.addPhoto, this.onRemove})
       : super(key: key);
 
-  List<XFile> imgList;
-  Function()? addPhoto;
-  Function(int)? onRemove;
+  final List<XFile> imgList;
+  final Function()? addPhoto;
+  final Function(int)? onRemove;
   @override
   State<MultiImageSlide> createState() => _MultiImageSlideState();
 }

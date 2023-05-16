@@ -55,8 +55,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   Color _cityBorder = Palette.current.primaryWhiteSmoke;
 
   final FocusNode _stateNode = FocusNode();
-  final _stateController = TextEditingController();
-  Color _stateBorder = Palette.current.primaryWhiteSmoke;
+  final stateController = TextEditingController();
+  Color stateBorder = Palette.current.primaryWhiteSmoke;
 
   final FocusNode _zipNode = FocusNode();
   final _zipController = TextEditingController();
@@ -70,7 +70,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   String? stateErrorText;
   String? zipErrorText;
 
-  late ResponsiveDesign _responsiveDesign;
+  late ResponsiveDesign responsiveDesign;
 
   String _defaultCountry = 'Country';
   String _defaultState = 'State';
@@ -157,7 +157,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
 
     _stateNode.addListener(() {
       setState(() {
-        _stateBorder = _stateNode.hasFocus
+        stateBorder = _stateNode.hasFocus
             ? Palette.current.primaryNeonGreen
             : Palette.current.primaryWhiteSmoke;
       });
@@ -174,7 +174,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
 
   @override
   Widget build(BuildContext context) {
-    _responsiveDesign = ResponsiveDesign(context);
+    responsiveDesign = ResponsiveDesign(context);
     return Scaffold(
         extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: true,

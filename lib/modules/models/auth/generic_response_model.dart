@@ -5,8 +5,8 @@ part 'generic_response_model.freezed.dart';
 part 'generic_response_model.g.dart';
 
 @freezed
+@JsonSerializable()
 class GenericResponseModel with _$GenericResponseModel {
-  @JsonSerializable()
   const factory GenericResponseModel({
     @Default(defaultString) final String errorCode,
     @Default(defaultString) final String errorMessage,

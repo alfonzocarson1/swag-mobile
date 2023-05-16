@@ -10,7 +10,6 @@ import '../../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
 import '../../di/injector.dart';
 import '../../models/search/catalog_item_model.dart';
 import '../utils/tab_wrapper.dart';
-import '../utils/utils.dart';
 
 class BodyWidgetWithView extends StatefulWidget {
   

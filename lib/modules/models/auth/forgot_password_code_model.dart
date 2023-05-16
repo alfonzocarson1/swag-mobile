@@ -4,8 +4,8 @@ part 'forgot_password_code_model.freezed.dart';
 part 'forgot_password_code_model.g.dart';
 
 @freezed
+@JsonSerializable(includeIfNull: false)
 class ForgotPasswordCodeModel with _$ForgotPasswordCodeModel {
-  @JsonSerializable(includeIfNull: false)
   const factory ForgotPasswordCodeModel(
       {final String? statusCode,
       final String? statusMessage,

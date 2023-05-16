@@ -7,8 +7,8 @@ part 'search_request_payload_model.freezed.dart';
 part 'search_request_payload_model.g.dart';
 
 @freezed
+@JsonSerializable()
 class SearchRequestPayloadModel with _$SearchRequestPayloadModel {
-  @JsonSerializable()
   const factory SearchRequestPayloadModel({
     required final FilterModel filters,
     @Default(null) final List<String>? searchParams,

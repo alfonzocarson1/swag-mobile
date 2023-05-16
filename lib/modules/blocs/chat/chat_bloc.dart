@@ -94,6 +94,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     else {
 
       //TODO: Create ChatData with the new user. Request data to backend
+      return null;
     }
   }
   

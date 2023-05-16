@@ -4,8 +4,8 @@ part 'explore_item_model.freezed.dart';
 part 'explore_item_model.g.dart';
 
 @freezed
+@JsonSerializable()
 class ExploreItemModel with _$ExploreItemModel {
-  @JsonSerializable()
   const factory ExploreItemModel({
     required final String image,
   }) = _ExploreItemModel;

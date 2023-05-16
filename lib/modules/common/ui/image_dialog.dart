@@ -7,8 +7,8 @@ class ImageDialog extends StatefulWidget {
   ImageDialog({Key? key, required this.imgList, required this.page})
       : super(key: key);
 
-  List<dynamic> imgList;
-  int page;
+  final List<dynamic> imgList;
+  final int page;
 
   @override
   State<ImageDialog> createState() => _ImageDialogState();

@@ -5,6 +5,7 @@ import 'package:swagapp/modules/common/utils/palette.dart';
 
 ThemeData appTheme(Palette palette) {
   return ThemeData(
+    useMaterial3: true,
     scaffoldBackgroundColor: palette.light2,
     textTheme: _textTheme(palette),
     backgroundColor: palette.light2,
@@ -20,10 +21,8 @@ ThemeData appTheme(Palette palette) {
     fontFamily: GoogleFonts.dmSans().fontFamily,
     brightness: palette.brightness,
     primaryColor: palette.light4,
-    accentColor: palette.primaryNeonGreen,
     errorColor: palette.errorColor,
     cardColor: palette.light4,
-    buttonColor: palette.primaryNeonGreen,
     dialogBackgroundColor: palette.light3,
     visualDensity: VisualDensity.adaptivePlatformDensity,
   );
@@ -132,10 +131,9 @@ AppBarTheme _appBarTheme(Palette palette) {
     iconTheme: IconThemeData(
       color: palette.black,
     ),
-    textTheme: _textTheme(palette),
     actionsIconTheme: IconThemeData(
       color: palette.light4,
-    ),
+    ), toolbarTextStyle: _textTheme(palette).bodyMedium, titleTextStyle: _textTheme(palette).titleLarge,
   );
 }
 

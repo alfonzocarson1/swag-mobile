@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import '../../../common/ui/body_widget_with_view.dart';
@@ -12,7 +11,6 @@ import 'package:swagapp/modules/common/ui/loading.dart';
 import '../../../common/utils/tab_wrapper.dart';
 import '../../../constants/constants.dart';
 import '../../../cubits/paginated_search/paginated_search_cubit.dart';
-import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
 import '../../../models/search/catalog_item_model.dart';
 import '../../../models/search/filter_model.dart';

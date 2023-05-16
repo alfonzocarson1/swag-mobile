@@ -13,8 +13,8 @@ class CupertinoPickerView extends StatefulWidget {
     this.errorText,
   }) : super(key: key);
 
-  void Function(int)? onDone;
-  void Function(int)? cupertinoPickerOnChanged;
+  final void Function(int)? onDone;
+  final void Function(int)? cupertinoPickerOnChanged;
   final String? cupertinoPickervalue;
   final List<dynamic>? cupertinoPickerItems;
   final String? errorText;

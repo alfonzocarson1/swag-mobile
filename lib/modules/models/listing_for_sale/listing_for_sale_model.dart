@@ -4,8 +4,8 @@ part 'listing_for_sale_model.freezed.dart';
 part 'listing_for_sale_model.g.dart';
 
 @freezed
+@JsonSerializable(includeIfNull: false)
 class ListingForSaleModel with _$ListingForSaleModel {
-  @JsonSerializable(includeIfNull: false)
   const factory ListingForSaleModel(
       {final String? productItemId,
       final String? productItemName,

@@ -29,14 +29,14 @@ class ListItemPreviewPage extends StatefulWidget {
       required this.catalogItemId,
       required this.onClose});
 
-  List<XFile> imgList;
-  String itemName;
-  double itemPrice;
-  String itemCondition;
-  String itemDescription;
-  String profileCollectionItemId;
-  String catalogItemId;
-  Function() onClose;
+  final List<XFile> imgList;
+  final String itemName;
+  final double itemPrice;
+  final String itemCondition;
+  final String itemDescription;
+  final String profileCollectionItemId;
+  final String catalogItemId;
+  final Function() onClose;
 
   static Route route(imgList, itemName, itemPrice, itemCondition,
           itemDescription, profileCollectionItemId, catalogItemId, onClose) =>

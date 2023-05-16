@@ -6,8 +6,8 @@ part 'profile_favorite_list.freezed.dart';
 part 'profile_favorite_list.g.dart';
 
 @freezed
+@JsonSerializable()
 class ListFavoriteProfileResponseModel with _$ListFavoriteProfileResponseModel {
-  @JsonSerializable()
   const factory ListFavoriteProfileResponseModel({
     required List<DetailItemModel> favoriteList,
   }) = _ListFavoriteProfileResponseModel;
