@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 
-enum PrimaryButtonType { green, black, pink, primaryEerieBlack, blueNeon }
+enum PrimaryButtonType { green, black, pink, primaryEerieBlack, blueNeon, grey }
 
 class PrimaryButton extends StatelessWidget {
   const PrimaryButton({
@@ -23,13 +23,17 @@ class PrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: type == PrimaryButtonType.black
-            ? Palette.current.primaryNeonGreen
-            : type == PrimaryButtonType.primaryEerieBlack
-                ? Palette.current.primaryWhiteSmoke
-                : Colors.transparent,
+        color:  type == PrimaryButtonType.black
+                ? Palette.current.primaryNeonGreen
+                : type == PrimaryButtonType.primaryEerieBlack
+                    ? Palette.current.primaryWhiteSmoke
+                    : Colors.transparent,
         border: Border.all(
-          color: type == PrimaryButtonType.pink
+          color: 
+          type == PrimaryButtonType.grey
+            ? Palette.current.darkGray.withOpacity(0.24)
+            :
+          type == PrimaryButtonType.pink
               ? Palette.current.primaryNeonPink
               : type == PrimaryButtonType.primaryEerieBlack
                   ? Palette.current.primaryWhiteSmoke
@@ -55,7 +59,9 @@ class PrimaryButton extends StatelessWidget {
                       ? Palette.current.primaryEerieBlack.withOpacity(0.95)
                       : type == PrimaryButtonType.blueNeon
                           ? Palette.current.blueNeon
-                          : Palette.current.black,
+                          : type == PrimaryButtonType.grey
+                              ? Palette.current.darkGray.withOpacity(0.24)
+                              : Palette.current.black,
           splashColor: Palette.current.primaryNeonPink.withOpacity(0.4),
           highlightColor: Palette.current.black.withOpacity(0.3),
           onPressed: onPressed,
