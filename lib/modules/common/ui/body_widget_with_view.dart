@@ -59,7 +59,12 @@ class _BodyWidgetWithViewState extends State<BodyWidgetWithView> {
 
     return RefreshIndicator(
       onRefresh: () async {
+        if(widget.tab != SearchTab.all){
         getIt<PaginatedSearchCubit>().refreshResults();
+        }
+        else{
+          getIt<PaginatedSearchCubit>().refreshResults(params: widget.searchParams);
+        }
         return Future.delayed(const Duration(milliseconds: 1500));
       }, 
       child: BlocBuilder<SharedPreferencesBloc, SharedPreferencesState>(
