@@ -209,7 +209,8 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
                     Checkbox(
                       checkColor: Palette.current.black,
                       value: checkBoxIndexes.contains(index),
-                      onChanged: (bool? value)=> this.onChangedItem(value, index),
+                      onChanged: (bool? 
+                      value)=> this.onChangedItem(value, index),
                       side: BorderSide(color: Palette.current.darkGray),
                     ),
                     Expanded(
@@ -494,6 +495,8 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
                   searchModel: SearchRequestPayloadModel(
                     categoryId: (widget.tab == SearchTab.all || widget.tab == null || widget.tab == SearchTab.whatsHot) ? null : widget.categoryId,
                     whatsHotFlag:(widget.tab == SearchTab.whatsHot) ? true : false,
+                    staffPicksFlag: null,
+                    unicornFlag: null,
                     searchParams: (widget.tab == SearchTab.all || widget.tab == null) ? [widget.searchParam ?? ""] : null ,
                     filters:  FilterModel(
                       sortBy: filters.sortBy,
