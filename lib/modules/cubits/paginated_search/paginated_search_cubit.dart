@@ -86,11 +86,12 @@ class PaginatedSearchCubit extends Cubit<PaginatedSearchState> {
     return mergedMap;
   }
 
-  Future<void> refreshResults() async {
+  Future<void> refreshResults({String? params}) async {
     var currentfilters = await getCurrentFilterModel();
     var tabId = model.categoryId;
     pageCountMap.update(currentTab, (value) => 0);
     model = SearchRequestPayloadModel(
+      searchParams: [params ?? '' ],
       whatsHotFlag: (currentTab == SearchTab.whatsHot) ? true : false,
       categoryId: (currentTab == SearchTab.whatsHot) ? null : tabId,
       filters: currentfilters,
