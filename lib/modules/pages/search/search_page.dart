@@ -57,6 +57,7 @@ class _SearchPageState extends State<SearchPage>
     _tabController = TabController(
         length: 4, vsync: this, initialIndex: initialPos != 0 ? initialPos : 0);
     _tabController.addListener(() {
+      clearFilters(context);
       _handleTabSelection();
       final index = _tabController.index;
 
