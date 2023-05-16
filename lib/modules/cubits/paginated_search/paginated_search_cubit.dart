@@ -91,7 +91,7 @@ class PaginatedSearchCubit extends Cubit<PaginatedSearchState> {
     var tabId = model.categoryId;
     pageCountMap.update(currentTab, (value) => 0);
     model = SearchRequestPayloadModel(
-      searchParams: [params ?? '' ],
+      searchParams: (params !=null ) ? [params] : null,
       whatsHotFlag: (currentTab == SearchTab.whatsHot) ? true : false,
       categoryId: (currentTab == SearchTab.whatsHot) ? null : tabId,
       filters: currentfilters,
