@@ -65,6 +65,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "code_not_entered_message":
             MessageLookupByLibrary.simpleMessage("Please enter code."),
         "collection": MessageLookupByLibrary.simpleMessage("Collection"),
+        "collection_listed": MessageLookupByLibrary.simpleMessage(
+            "Collection item(s) already listed"),
         "collection_message": MessageLookupByLibrary.simpleMessage(
             "This cover is not in your collection, buy it now before it’s too late"),
         "collection_value":

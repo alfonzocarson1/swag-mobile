@@ -2259,6 +2259,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Collection item(s) already listed`
+  String get collection_listed {
+    return Intl.message(
+      'Collection item(s) already listed',
+      name: 'collection_listed',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

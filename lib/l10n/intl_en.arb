@@ -225,6 +225,7 @@
     "See_All": "See All",
     "staff_picks": "STAFF PICKS",
     "unicorn_covers": "UNICORN COVERS",
-    "notify_availability": "You will be notified when this item is available."
+    "notify_availability": "You will be notified when this item is available.",
+    "collection_listed": "Collection item(s) already listed"
 
 }

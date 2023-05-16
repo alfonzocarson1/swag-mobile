@@ -15,6 +15,7 @@ class BuyForSaleListingModel with _$BuyForSaleListingModel {
     final String? condition,
     final String? profileId,
     final String? catalogItemId,
+    final String? profileCollectionItemId,
     final double? lastSale,
     final bool? forSale,
     final bool? sold,

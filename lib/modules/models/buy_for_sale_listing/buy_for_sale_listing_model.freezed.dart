@@ -29,6 +29,7 @@ mixin _$BuyForSaleListingModel {
   String? get condition => throw _privateConstructorUsedError;
   String? get profileId => throw _privateConstructorUsedError;
   String? get catalogItemId => throw _privateConstructorUsedError;
+  String? get profileCollectionItemId => throw _privateConstructorUsedError;
   double? get lastSale => throw _privateConstructorUsedError;
   bool? get forSale => throw _privateConstructorUsedError;
   bool? get sold => throw _privateConstructorUsedError;
@@ -55,6 +56,7 @@ abstract class $BuyForSaleListingModelCopyWith<$Res> {
       String? condition,
       String? profileId,
       String? catalogItemId,
+      String? profileCollectionItemId,
       double? lastSale,
       bool? forSale,
       bool? sold,
@@ -83,6 +85,7 @@ class _$BuyForSaleListingModelCopyWithImpl<$Res,
     Object? condition = freezed,
     Object? profileId = freezed,
     Object? catalogItemId = freezed,
+    Object? profileCollectionItemId = freezed,
     Object? lastSale = freezed,
     Object? forSale = freezed,
     Object? sold = freezed,
@@ -121,6 +124,10 @@ class _$BuyForSaleListingModelCopyWithImpl<$Res,
           ? _value.catalogItemId
           : catalogItemId // ignore: cast_nullable_to_non_nullable
               as String?,
+      profileCollectionItemId: freezed == profileCollectionItemId
+          ? _value.profileCollectionItemId
+          : profileCollectionItemId // ignore: cast_nullable_to_non_nullable
+              as String?,
       lastSale: freezed == lastSale
           ? _value.lastSale
           : lastSale // ignore: cast_nullable_to_non_nullable
@@ -158,6 +165,7 @@ abstract class _$$_BuyForSaleListingModelCopyWith<$Res>
       String? condition,
       String? profileId,
       String? catalogItemId,
+      String? profileCollectionItemId,
       double? lastSale,
       bool? forSale,
       bool? sold,
@@ -184,6 +192,7 @@ class __$$_BuyForSaleListingModelCopyWithImpl<$Res>
     Object? condition = freezed,
     Object? profileId = freezed,
     Object? catalogItemId = freezed,
+    Object? profileCollectionItemId = freezed,
     Object? lastSale = freezed,
     Object? forSale = freezed,
     Object? sold = freezed,
@@ -222,6 +231,10 @@ class __$$_BuyForSaleListingModelCopyWithImpl<$Res>
           ? _value.catalogItemId
           : catalogItemId // ignore: cast_nullable_to_non_nullable
               as String?,
+      profileCollectionItemId: freezed == profileCollectionItemId
+          ? _value.profileCollectionItemId
+          : profileCollectionItemId // ignore: cast_nullable_to_non_nullable
+              as String?,
       lastSale: freezed == lastSale
           ? _value.lastSale
           : lastSale // ignore: cast_nullable_to_non_nullable
@@ -255,6 +268,7 @@ class _$_BuyForSaleListingModel implements _BuyForSaleListingModel {
       this.condition,
       this.profileId,
       this.catalogItemId,
+      this.profileCollectionItemId,
       this.lastSale,
       this.forSale,
       this.sold,
@@ -288,6 +302,8 @@ class _$_BuyForSaleListingModel implements _BuyForSaleListingModel {
   @override
   final String? catalogItemId;
   @override
+  final String? profileCollectionItemId;
+  @override
   final double? lastSale;
   @override
   final bool? forSale;
@@ -298,7 +314,7 @@ class _$_BuyForSaleListingModel implements _BuyForSaleListingModel {
 
   @override
   String toString() {
-    return 'BuyForSaleListingModel(productItemId: $productItemId, productItemName: $productItemName, productItemPrice: $productItemPrice, productItemImageUrls: $productItemImageUrls, productItemDescription: $productItemDescription, condition: $condition, profileId: $profileId, catalogItemId: $catalogItemId, lastSale: $lastSale, forSale: $forSale, sold: $sold, isDeleted: $isDeleted)';
+    return 'BuyForSaleListingModel(productItemId: $productItemId, productItemName: $productItemName, productItemPrice: $productItemPrice, productItemImageUrls: $productItemImageUrls, productItemDescription: $productItemDescription, condition: $condition, profileId: $profileId, catalogItemId: $catalogItemId, profileCollectionItemId: $profileCollectionItemId, lastSale: $lastSale, forSale: $forSale, sold: $sold, isDeleted: $isDeleted)';
   }
 
   @override
@@ -322,6 +338,9 @@ class _$_BuyForSaleListingModel implements _BuyForSaleListingModel {
                 other.profileId == profileId) &&
             (identical(other.catalogItemId, catalogItemId) ||
                 other.catalogItemId == catalogItemId) &&
+            (identical(
+                    other.profileCollectionItemId, profileCollectionItemId) ||
+                other.profileCollectionItemId == profileCollectionItemId) &&
             (identical(other.lastSale, lastSale) ||
                 other.lastSale == lastSale) &&
             (identical(other.forSale, forSale) || other.forSale == forSale) &&
@@ -342,6 +361,7 @@ class _$_BuyForSaleListingModel implements _BuyForSaleListingModel {
       condition,
       profileId,
       catalogItemId,
+      profileCollectionItemId,
       lastSale,
       forSale,
       sold,
@@ -372,6 +392,7 @@ abstract class _BuyForSaleListingModel implements BuyForSaleListingModel {
       final String? condition,
       final String? profileId,
       final String? catalogItemId,
+      final String? profileCollectionItemId,
       final double? lastSale,
       final bool? forSale,
       final bool? sold,
@@ -396,6 +417,8 @@ abstract class _BuyForSaleListingModel implements BuyForSaleListingModel {
   String? get profileId;
   @override
   String? get catalogItemId;
+  @override
+  String? get profileCollectionItemId;
   @override
   double? get lastSale;
   @override
