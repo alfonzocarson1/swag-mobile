@@ -86,6 +86,9 @@ class _PuttersPageState extends State<PuttersPage> {
             initial: () => const SimpleLoader(),
             loading: (isFirstFetch) {
               isLoading = true;
+               if(isFirstFetch){
+             return const SimpleLoader();
+            }
               return (resultList.isEmpty)
                   ? const SimpleLoader()
                   : BodyWidgetWithView(

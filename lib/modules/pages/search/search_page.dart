@@ -56,8 +56,8 @@ class _SearchPageState extends State<SearchPage>
     getLastCategories();
     _tabController = TabController(
         length: 4, vsync: this, initialIndex: initialPos != 0 ? initialPos : 0);
-
     _tabController.addListener(() {
+      _handleTabSelection();
       final index = _tabController.index;
 
       initFilterAndSortsWithBloc(context, selectedProductNumber: index);
@@ -71,7 +71,8 @@ class _SearchPageState extends State<SearchPage>
 
   @override
   void dispose() {
-    _tabController.dispose();
+  _tabController.removeListener(_handleTabSelection);
+  _tabController.dispose();
     super.dispose();
   }
 
@@ -136,10 +137,7 @@ class _SearchPageState extends State<SearchPage>
         tabLen == 0 ? Container() : _getTabBar(context),
         Expanded(
           child: TabBarView(
-              controller: initialData
-                  ? TabController(
-                      length: 4, vsync: this, initialIndex: selectedIndex)
-                  : _tabController,
+              controller: _tabController,
               children: const [
                 WhatsHotPage(),
                 HeadcoversPage(),
@@ -288,8 +286,7 @@ class _SearchPageState extends State<SearchPage>
       padding: const EdgeInsets.only(top: 10, left: 0, right: 0),
       child: TabBar(
           labelPadding: const EdgeInsets.all(0),
-          controller: TabController(
-              length: 4, vsync: this, initialIndex: selectedIndex),
+          controller: _tabController,
           labelColor: Palette.current.primaryNeonGreen,
           indicatorSize: TabBarIndicatorSize.label,
           unselectedLabelColor: Palette.current.primaryWhiteSmoke,
@@ -319,6 +316,13 @@ class _SearchPageState extends State<SearchPage>
           })),
     );
   }
+  
+  void 
+    _handleTabSelection() {
+    setState(() {
+    selectedIndex = _tabController.index;
+  });
+  }  
 }
 
 _buildTab({required String text}) {

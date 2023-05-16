@@ -498,7 +498,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
     filters = await getCurrentFilterModel();
     getIt<PaginatedSearchCubit>().loadResults(
         searchModel: SearchRequestPayloadModel(
-          categoryId: (widget.tab == SearchTab.all || widget.tab == null)
+          categoryId: (widget.tab == SearchTab.all || widget.tab == null || widget.tab == SearchTab.whatsHot)
               ? null
               : this.categoryId,
           whatsHotFlag: (widget.tab == SearchTab.whatsHot) ? true : false,

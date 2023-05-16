@@ -88,6 +88,9 @@ class _AccessoriesPageState extends State<AccessoriesPage> {
            initial: () => const SimpleLoader(), 
            loading: (isFirstFetch) {        
             isLoading = true;
+             if(isFirstFetch){
+             return const SimpleLoader();
+            }
            return  (resultList.isEmpty)? const SimpleLoader():
                 BodyWidgetWithView(
               resultList, 
