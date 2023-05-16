@@ -503,6 +503,7 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
                       collection: filters.collection,
                       forSale: filters.forSale ,
                       productType: filters.productType,
+                      releaseYears: filters.releaseYears
                     ),
                   ),
                   searchTab: widget.tab ?? SearchTab.all);
