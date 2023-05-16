@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sendbird_sdk/sendbird_sdk.dart';
 import 'package:swagapp/modules/common/assets/images.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/models/chat/chat_data.dart';
@@ -7,31 +6,38 @@ import 'package:swagapp/modules/pages/chat/chat_page.dart';
 
 class ChatsContact extends StatelessWidget {
 
-  final Member member;
   final String lastMessage;
   final ChatData chatData;
 
   const ChatsContact({
     super.key,
-    required this.member,
     required this.lastMessage, 
     required this.chatData,
   });
 
   @override
   Widget build(BuildContext context) {
+
+    int unreadMessages = this.chatData.channel.unreadMessageCount;
+    bool hasUreadMessages = unreadMessages > 0;
     
     return ListTile(            
-      leading: Image.asset(
-        AppImages.avatar,
-        scale: 3,
+      leading: CircleAvatar(
+        backgroundColor: (hasUreadMessages) 
+        ? Palette.current.primaryNeonPink
+        : Colors.transparent,
+        maxRadius: 18,
+        child: Image.asset(
+          AppImages.avatar,
+          scale: 3,
+        ),
       ),
       title: Text(
-        this.member.nickname,
+        this.chatData.channel.name!,
         style: Theme.of(context).textTheme.bodySmall!.copyWith(
-          fontWeight: FontWeight.w300,
+          fontWeight: (hasUreadMessages) ? FontWeight.w300 : FontWeight.w300,
           fontSize: 20,
-          color: Palette.current.white,
+          color: (hasUreadMessages) ? Colors.white : Palette.current.grey,
         ),
       ),
       subtitle: Text(

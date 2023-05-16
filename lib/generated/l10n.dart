@@ -2189,6 +2189,26 @@ class S {
       args: [],
     );
   }
+
+  /// `ALERTS & Notifications`
+  String get chatsHeader {
+    return Intl.message(
+      'ALERTS & Notifications',
+      name: 'chatsHeader',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{chatsNumber} Unread`
+  String chatsUnreadMessages(Object chatsNumber) {
+    return Intl.message(
+      '$chatsNumber Unread',
+      name: 'chatsUnreadMessages',
+      desc: '',
+      args: [chatsNumber],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

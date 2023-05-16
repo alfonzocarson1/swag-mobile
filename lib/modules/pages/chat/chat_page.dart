@@ -31,8 +31,10 @@ class _ChatPageState extends State<ChatPage> with ChannelEventHandler {
   @override
   void initState() {
 
-    this.isTyping = false;
+    this.updateChatData();
     context.read<ChatBloc>().sendBirdSdk.addChannelEventHandler('identifier', this);
+
+    this.isTyping = false;
     this.scrollController = ScrollController();
     super.initState();
   }
@@ -47,16 +49,14 @@ class _ChatPageState extends State<ChatPage> with ChannelEventHandler {
   @override
   Widget build(BuildContext context) {
 
-    ChatBloc chatBloc = context.watch<ChatBloc>();
-    String mySendbirdUserId = chatBloc.state.myUser!.userId;
-    List<Member> members = this.widget.chatData.channel.members;
-    Member member = members.firstWhere((Member member)=> member.userId != mySendbirdUserId);
-
     return Scaffold(
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle.light,
         backgroundColor: Palette.current.blackAppbarBlackground,
-        title: AppBarTitle(member: member, isTyping: isTyping),
+        title: AppBarTitle(
+          chatName: this.widget.chatData.channel.name!, 
+          isTyping: isTyping,
+        ),
         centerTitle: false,
         leading: IconButton(
           icon: Icon(
@@ -86,7 +86,15 @@ class _ChatPageState extends State<ChatPage> with ChannelEventHandler {
   void onMessageReceived(BaseChannel channel, BaseMessage message) async {
 
     context.read<ChatBloc>().receiveMessage(this.widget.chatData, message);
+    context.read<ChatBloc>().updateChatReadStatus(this.widget.chatData);
     super.onMessageReceived(channel, message);
+  }
+
+  void updateChatData() {
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async { 
+      await context.read<ChatBloc>().updateChatReadStatus(this.widget.chatData);
+    });
   }
 }
 
@@ -124,12 +132,12 @@ class _Body extends StatelessWidget {
 
 class AppBarTitle extends StatelessWidget {
 
-  final Member member;
+  final String chatName;
   final bool isTyping;
 
   const AppBarTitle({
     super.key,
-    required this.member,
+    required this.chatName,
     required this.isTyping,
   });
 
@@ -144,7 +152,7 @@ class AppBarTitle extends StatelessWidget {
         children: <Widget>
         [
           Text(
-            member.nickname,
+            this.chatName,
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,

@@ -28,6 +28,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
     try {
 
+      // await this.initSendBirdPushNotifications();
+
       String userId = getIt<PreferenceRepositoryService>().getUserSendBirdId();
       String userToken = getIt<PreferenceRepositoryService>().getUserSendBirdToken();
 
@@ -38,7 +40,19 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
       this.add(SetMyUser(user));
     } 
-    catch (e) {  throw Exception('Error loading my user'); }
+    catch (e) {  
+      throw Exception('Error loading my user'); 
+    }
+  }
+
+  Future<void> initSendBirdPushNotifications() async {
+
+    String firebaseToken = getIt<PreferenceRepositoryService>().getFirebaseDeviceToken();
+
+    await this._sendbirdSdk.registerPushToken(
+      type: PushTokenType.fcm, 
+      token: firebaseToken,
+    );
   }
 
   Future<void> getChannels() async {
@@ -141,6 +155,18 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       message: message, 
       chats: this.state.chats,
     ));
+  }
+
+  Future<void> updateChatReadStatus(ChatData updateChatData) async {
+
+    for (ChatData chatData in this.state.chats) { 
+
+      if(chatData.channel.channelUrl == updateChatData.channel.channelUrl) {
+        await chatData.channel.markAsRead();
+        this.add(AddChatsEvent(this.state.chats));
+        break;        
+      }
+    }
   }
 
   UserMessage _getLocalMessage(String message, ChatData chatData) {
