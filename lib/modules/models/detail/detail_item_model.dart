@@ -7,8 +7,8 @@ part 'detail_item_model.freezed.dart';
 part 'detail_item_model.g.dart';
 
 @freezed
+@JsonSerializable(includeIfNull: false)
 class DetailItemModel with _$DetailItemModel {
-  @JsonSerializable(includeIfNull: false)
   const factory DetailItemModel({
     required final String catalogItemId,
     required final String catalogItemName,

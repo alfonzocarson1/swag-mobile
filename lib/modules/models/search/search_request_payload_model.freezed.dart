@@ -193,7 +193,6 @@ class __$$_SearchRequestPayloadModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
 @JsonSerializable()
 class _$_SearchRequestPayloadModel implements _SearchRequestPayloadModel {
   const _$_SearchRequestPayloadModel(

@@ -34,12 +34,12 @@ class BuyForSale extends StatefulWidget {
       required this.saleHistoryList,
       });
 
-  String catalogItemId;
-  String catalogItemName;
-  DetailSaleInfoModel catalogItemPrice;
-  String urlImage;
-  bool favorite;
-  bool sale;
+  final String catalogItemId;
+  final String catalogItemName;
+  final DetailSaleInfoModel catalogItemPrice;
+  final String urlImage;
+  final bool favorite;
+  final bool sale;
   final int? available;
   Function(bool) addFavorite;
   List<SalesHistoryModel> saleHistoryList;

@@ -123,7 +123,6 @@ class __$$_SearchResponseModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
 @JsonSerializable()
 class _$_SearchResponseModel implements _SearchResponseModel {
   const _$_SearchResponseModel(

@@ -106,7 +106,6 @@ class __$$_CategoryModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
 @JsonSerializable()
 class _$_CategoryModel implements _CategoryModel {
   const _$_CategoryModel(

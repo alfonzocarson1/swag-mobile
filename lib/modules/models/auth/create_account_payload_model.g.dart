@@ -6,6 +6,28 @@ part of 'create_account_payload_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+CreateAccountPayloadModel _$CreateAccountPayloadModelFromJson(
+        Map<String, dynamic> json) =>
+    CreateAccountPayloadModel(
+      email: json['email'] as String,
+      phoneNumber: json['phoneNumber'] as String,
+      password: json['password'] as String,
+      userName: json['userName'] as String,
+      termsOfServiceAccepted: json['termsOfServiceAccepted'] as bool,
+      deviceId: json['deviceId'] as String,
+    );
+
+Map<String, dynamic> _$CreateAccountPayloadModelToJson(
+        CreateAccountPayloadModel instance) =>
+    <String, dynamic>{
+      'email': instance.email,
+      'phoneNumber': instance.phoneNumber,
+      'password': instance.password,
+      'userName': instance.userName,
+      'termsOfServiceAccepted': instance.termsOfServiceAccepted,
+      'deviceId': instance.deviceId,
+    };
+
 _$_CreateAccountPayloadModel _$$_CreateAccountPayloadModelFromJson(
         Map<String, dynamic> json) =>
     _$_CreateAccountPayloadModel(

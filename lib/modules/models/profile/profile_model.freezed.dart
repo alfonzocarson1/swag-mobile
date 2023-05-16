@@ -228,7 +228,6 @@ class __$$_ProfileModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
 @JsonSerializable()
 class _$_ProfileModel implements _ProfileModel {
   const _$_ProfileModel(

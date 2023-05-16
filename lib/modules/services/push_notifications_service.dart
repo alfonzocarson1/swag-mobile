@@ -1,8 +1,8 @@
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:swagapp/modules/di/injector.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
-import 'package:swagapp/modules/di/injector.dart';
 
 abstract class PushNotificationsService {
 

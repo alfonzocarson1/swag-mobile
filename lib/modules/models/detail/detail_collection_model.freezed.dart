@@ -177,7 +177,6 @@ class __$$_DetailCollectionModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
 @JsonSerializable()
 class _$_DetailCollectionModel implements _DetailCollectionModel {
   const _$_DetailCollectionModel(

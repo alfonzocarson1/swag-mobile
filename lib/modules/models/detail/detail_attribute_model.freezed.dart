@@ -124,7 +124,6 @@ class __$$_DetailAttributeModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
 @JsonSerializable()
 class _$_DetailAttributeModel implements _DetailAttributeModel {
   const _$_DetailAttributeModel(

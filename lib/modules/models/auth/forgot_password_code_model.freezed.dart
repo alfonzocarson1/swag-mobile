@@ -120,8 +120,7 @@ class __$$_ForgotPasswordCodeModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(includeIfNull: false)
+@JsonSerializable()
 class _$_ForgotPasswordCodeModel implements _ForgotPasswordCodeModel {
   const _$_ForgotPasswordCodeModel(
       {this.statusCode, this.statusMessage, this.response});

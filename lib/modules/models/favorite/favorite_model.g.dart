@@ -6,8 +6,8 @@ part of 'favorite_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_FavoriteModel _$$_FavoriteModelFromJson(Map<String, dynamic> json) =>
-    _$_FavoriteModel(
+FavoriteModel _$FavoriteModelFromJson(Map<String, dynamic> json) =>
+    FavoriteModel(
       favoritesItemAction: json['favoritesItemAction'] as String?,
       accountId: json['accountId'] as String?,
       profileFavoriteItems: (json['profileFavoriteItems'] as List<dynamic>?)
@@ -15,7 +15,7 @@ _$_FavoriteModel _$$_FavoriteModelFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$$_FavoriteModelToJson(_$_FavoriteModel instance) {
+Map<String, dynamic> _$FavoriteModelToJson(FavoriteModel instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -29,3 +29,19 @@ Map<String, dynamic> _$$_FavoriteModelToJson(_$_FavoriteModel instance) {
   writeNotNull('profileFavoriteItems', instance.profileFavoriteItems);
   return val;
 }
+
+_$_FavoriteModel _$$_FavoriteModelFromJson(Map<String, dynamic> json) =>
+    _$_FavoriteModel(
+      favoritesItemAction: json['favoritesItemAction'] as String?,
+      accountId: json['accountId'] as String?,
+      profileFavoriteItems: (json['profileFavoriteItems'] as List<dynamic>?)
+          ?.map((e) => FavoriteItemModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$$_FavoriteModelToJson(_$_FavoriteModel instance) =>
+    <String, dynamic>{
+      'favoritesItemAction': instance.favoritesItemAction,
+      'accountId': instance.accountId,
+      'profileFavoriteItems': instance.profileFavoriteItems,
+    };

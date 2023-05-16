@@ -337,8 +337,7 @@ class __$$_ListingForSaleModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(includeIfNull: false)
+@JsonSerializable()
 class _$_ListingForSaleModel implements _ListingForSaleModel {
   const _$_ListingForSaleModel(
       {this.accountId,

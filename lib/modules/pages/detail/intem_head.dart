@@ -55,7 +55,7 @@ class HeadWidget extends StatefulWidget {
 
 class _HeadWidgetState extends State<HeadWidget> {
   bool _viewMore = false;
-  late FavoriteBloc _favoriteBloc;
+  late FavoriteBloc favoriteBloc;
   double animateFavorite = 0.0;
   bool isSkullVisible = true;
   int? indexFavorite;
@@ -68,7 +68,7 @@ class _HeadWidgetState extends State<HeadWidget> {
     // TODO: implement initState
     super.initState();
     profileFavoriteItemId = widget.profileFavoriteItemId;
-    _favoriteBloc = getIt<FavoriteBloc>();
+    favoriteBloc = getIt<FavoriteBloc>();
     favorite = widget.favorite;
 
     isLogged = getIt<PreferenceRepositoryService>().isLogged();
@@ -97,7 +97,7 @@ class _HeadWidgetState extends State<HeadWidget> {
   @override
   Widget build(BuildContext context) {
 
-    _favoriteBloc = getIt<FavoriteBloc>();
+    favoriteBloc = getIt<FavoriteBloc>();
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.start,

@@ -214,7 +214,6 @@ class __$$_FilterModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
 @JsonSerializable()
 class _$_FilterModel implements _FilterModel {
   const _$_FilterModel(

@@ -7,8 +7,8 @@ part 'buy_for_sale_listing_model.freezed.dart';
 part 'buy_for_sale_listing_model.g.dart';
 
 @freezed
+@JsonSerializable()
 class BuyForSaleListingModel with _$BuyForSaleListingModel {
-  @JsonSerializable()
   const factory BuyForSaleListingModel({
     final String? productItemId,
     final String? productItemName,

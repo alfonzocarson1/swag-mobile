@@ -301,7 +301,6 @@ class __$$_BuyForSaleListingModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
 @JsonSerializable()
 class _$_BuyForSaleListingModel implements _BuyForSaleListingModel {
   const _$_BuyForSaleListingModel(

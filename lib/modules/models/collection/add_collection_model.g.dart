@@ -6,9 +6,8 @@ part of 'add_collection_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_AddCollectionModel _$$_AddCollectionModelFromJson(
-        Map<String, dynamic> json) =>
-    _$_AddCollectionModel(
+AddCollectionModel _$AddCollectionModelFromJson(Map<String, dynamic> json) =>
+    AddCollectionModel(
       accountId: json['accountId'] as String?,
       collectionItemsAction: json['collectionItemsAction'] as String?,
       deleteReason: json['deleteReason'] as String?,
@@ -18,8 +17,7 @@ _$_AddCollectionModel _$$_AddCollectionModelFromJson(
           .toList(),
     );
 
-Map<String, dynamic> _$$_AddCollectionModelToJson(
-    _$_AddCollectionModel instance) {
+Map<String, dynamic> _$AddCollectionModelToJson(AddCollectionModel instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -34,3 +32,24 @@ Map<String, dynamic> _$$_AddCollectionModelToJson(
   writeNotNull('profileCollectionItems', instance.profileCollectionItems);
   return val;
 }
+
+_$_AddCollectionModel _$$_AddCollectionModelFromJson(
+        Map<String, dynamic> json) =>
+    _$_AddCollectionModel(
+      accountId: json['accountId'] as String?,
+      collectionItemsAction: json['collectionItemsAction'] as String?,
+      deleteReason: json['deleteReason'] as String?,
+      profileCollectionItems: (json['profileCollectionItems'] as List<dynamic>?)
+          ?.map((e) =>
+              AddCollectionItemPayloadModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$$_AddCollectionModelToJson(
+        _$_AddCollectionModel instance) =>
+    <String, dynamic>{
+      'accountId': instance.accountId,
+      'collectionItemsAction': instance.collectionItemsAction,
+      'deleteReason': instance.deleteReason,
+      'profileCollectionItems': instance.profileCollectionItems,
+    };

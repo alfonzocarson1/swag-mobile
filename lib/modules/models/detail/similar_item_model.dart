@@ -4,8 +4,8 @@ part 'similar_item_model.freezed.dart';
 part 'similar_item_model.g.dart';
 
 @freezed
+@JsonSerializable()
 class SimilarItemModel with _$SimilarItemModel {
-  @JsonSerializable()
   const factory SimilarItemModel(
       {required final String catalogItemId,
       required final String catalogItemImage,

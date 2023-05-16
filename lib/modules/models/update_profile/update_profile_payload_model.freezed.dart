@@ -168,8 +168,7 @@ class __$$_UpdateProfilePayloadModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(includeIfNull: false)
+@JsonSerializable()
 class _$_UpdateProfilePayloadModel implements _UpdateProfilePayloadModel {
   const _$_UpdateProfilePayloadModel(
       {this.accountId,

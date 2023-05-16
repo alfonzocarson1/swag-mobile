@@ -228,7 +228,6 @@ class __$$_GetCollectionModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
 @JsonSerializable()
 class _$_GetCollectionModel implements _GetCollectionModel {
   const _$_GetCollectionModel(

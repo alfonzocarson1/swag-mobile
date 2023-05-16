@@ -98,7 +98,6 @@ class __$$_SalesHistoryListModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
 @JsonSerializable()
 class _$_SalesHistoryListModel implements _SalesHistoryListModel {
   const _$_SalesHistoryListModel(

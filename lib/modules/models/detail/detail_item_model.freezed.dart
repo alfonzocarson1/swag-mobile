@@ -332,8 +332,7 @@ class __$$_DetailItemModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(includeIfNull: false)
+@JsonSerializable()
 class _$_DetailItemModel implements _DetailItemModel {
   const _$_DetailItemModel(
       {required this.catalogItemId,

@@ -240,7 +240,6 @@ class __$$_SalesHistoryModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
 @JsonSerializable()
 class _$_SalesHistoryModel implements _SalesHistoryModel {
   const _$_SalesHistoryModel(
