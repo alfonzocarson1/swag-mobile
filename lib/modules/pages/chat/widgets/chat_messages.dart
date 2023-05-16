@@ -2,7 +2,9 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:swagapp/generated/l10n.dart';
 import 'package:sendbird_sdk/sendbird_sdk.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/di/injector.dart';
+import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
 import 'package:swagapp/modules/common/assets/images.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
@@ -24,6 +26,7 @@ class ChatMessages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    context.watch<ChatBloc>();
     String userSendbirdiId = getIt<PreferenceRepositoryService>().getUserSendBirdId();
     List<Widget> items = this.getChatItems(userSendbirdiId);
 

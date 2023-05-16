@@ -289,7 +289,10 @@
     "chatModeratorName": "SWAG",
     "chatInputHintText": "Enter message",
     "chatNoMessages": "No previous messages",
-    "chatTyping": "Typing..."
+    "chatTyping": "Typing...",
+
+    "chatsHeader": "ALERTS & Notifications",
+    "chatsUnreadMessages": "{chatsNumber} Unread"
 
     
 }
