@@ -154,6 +154,26 @@ Future<FilterModel> getCurrentFilterModel() async {
   );
 }
 
+clearFilters( BuildContext context) {
+  final preference = context.read<SharedPreferencesBloc>().state.model;
+
+  context.read<SharedPreferencesBloc>().add(
+      SharedPreferencesEvent.setPreference(preference.copyWith(
+          isForSale: false,
+          collection:[],
+          condition: [],
+          isListView: true,
+          price:[],
+          product:[],
+          releaseDate:[],
+          theme: [],
+          sortBy:0,
+          type: [],
+          filtersAndSortsSelected: 0)));
+}
+
+ 
+
 void updateSelectedFiltersAndSortsNumber(
     BuildContext context, List<bool> list) {
   final preference = context.read<SharedPreferencesBloc>().state.model;
