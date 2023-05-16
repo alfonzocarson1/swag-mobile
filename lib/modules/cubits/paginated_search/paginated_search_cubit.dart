@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -93,6 +95,8 @@ class PaginatedSearchCubit extends Cubit<PaginatedSearchState> {
     model = SearchRequestPayloadModel(
       searchParams: (params !=null ) ? [params] : null,
       whatsHotFlag: (currentTab == SearchTab.whatsHot) ? true : false,
+      staffPicksFlag: null,
+      unicornFlag: null,
       categoryId: (currentTab == SearchTab.whatsHot) ? null : tabId,
       filters: currentfilters,
     );
