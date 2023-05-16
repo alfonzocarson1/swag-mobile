@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -52,16 +54,48 @@ class _CollectionWidgetState extends State<CollectionWidget> {
   String? profileURL;
   String? defaultImage;
   bool notifyAvailabilityFlagBTN = false;
+  bool oneTine = false;
+  Timer? timer;
+  List<DetailCollectionModel> newCollectionList = [];
+  List<BuyForSaleListingResponseModel> buyForSaleList = [];
+
+  List<String> ids = [];
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    timer = Timer(const Duration(seconds: 1), () {
+      setState(() {
+        if (buyForSaleList.first.saledItemdList.isEmpty) {
+          newCollectionList = widget.dataCollection!;
+        } else {
+          for (final item in buyForSaleList.first.saledItemdList) {
+            final index = buyForSaleList.first.saledItemdList.indexOf(item);
+            ids.add(buyForSaleList
+                .first.saledItemdList[index].profileCollectionItemId!);
+          }
+
+          newCollectionList = widget.dataCollection!
+              .where((item) => !ids.contains(item.profileCollectionItemId))
+              .toList();
+        }
+      });
+    });
 
     isLogged = getIt<PreferenceRepositoryService>().isLogged();
     if (isLogged) {
       getIt<ProfileCubit>().loadResults();
       getProfileAvatar();
     }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    timer!.cancel();
   }
 
   getProfileAvatar() {
@@ -98,6 +132,9 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                   .toList();
 
               WidgetsBinding.instance.addPostFrameCallback((_) {
+                setState(() {
+                  buyForSaleList = response;
+                });
                 if (notifyAvailabilityFlag.isEmpty) {
                   setState(() {
                     notifyAvailabilityFlagBTN = true;
@@ -349,7 +386,8 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                           title: S.of(context).list_for_sale_btn,
                           onPressed: () {
                             if (isLogged) {
-                              widget.dataCollection!.length > 1
+                              (newCollectionList.isNotEmpty &&
+                                      (newCollectionList.length > 1))
                                   ? showDialog(
                                       context: context,
                                       barrierDismissible: false,
@@ -357,13 +395,79 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                         return PopUpListItemSale(
                                             catalogItemName:
                                                 widget.catalogItemName,
-                                            dataCollection:
-                                                widget.dataCollection!);
+                                            dataCollection: newCollectionList);
                                       })
-                                  : Navigator.of(context, rootNavigator: true)
-                                      .push(ListForSalePage.route(
-                                          widget.dataCollection![0],
-                                          widget.catalogItemName));
+                                  : (newCollectionList.isNotEmpty &&
+                                          (newCollectionList.length == 1))
+                                      ? Navigator.of(context,
+                                              rootNavigator: true)
+                                          .push(ListForSalePage.route(
+                                              newCollectionList[0],
+                                              widget.catalogItemName))
+                                      : ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                              duration:
+                                                  const Duration(seconds: 3),
+                                              behavior:
+                                                  SnackBarBehavior.floating,
+                                              margin: EdgeInsets.only(
+                                                bottom: MediaQuery.of(context)
+                                                        .size
+                                                        .height /
+                                                    1.3,
+                                              ),
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              content: Row(
+                                                children: <Widget>[
+                                                  Flexible(
+                                                    child: Container(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              18),
+                                                      decoration: BoxDecoration(
+                                                          color: Palette.current
+                                                              .blackSmoke,
+                                                          borderRadius:
+                                                              const BorderRadius
+                                                                      .all(
+                                                                  Radius
+                                                                      .circular(
+                                                                          5))),
+                                                      child: Column(
+                                                        children: <Widget>[
+                                                          Row(
+                                                            children: <Widget>[
+                                                              Flexible(
+                                                                flex: 1,
+                                                                child:
+                                                                    Image.asset(
+                                                                  scale: 3,
+                                                                  "assets/images/Favorite.png",
+                                                                ),
+                                                              ),
+                                                              Flexible(
+                                                                  flex: 10,
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: const EdgeInsets
+                                                                            .only(
+                                                                        left:
+                                                                            20),
+                                                                    child: Text(S
+                                                                        .of(context)
+                                                                        .collection_listed),
+                                                                  )),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              dismissDirection:
+                                                  DismissDirection.none));
                             } else {
                               Navigator.of(context, rootNavigator: true)
                                   .push(CreateAccountPage.route());
