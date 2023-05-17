@@ -20,8 +20,11 @@ import '../../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/tab_wrapper.dart';
 import '../../cubits/page_from_explore/page_from_explore_cubit.dart';
+import '../../cubits/paginated_search/paginated_search_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
+import '../../models/search/filter_model.dart';
+import '../../models/search/search_request_payload_model.dart';
 
 class SearchPage extends StatefulWidget {
   static const name = '/SearchCatalog';
@@ -35,6 +38,7 @@ class SearchPage extends StatefulWidget {
   @override
   State<SearchPage> createState() => _SearchPageState();
 }
+final TextEditingController _textEditingController = TextEditingController();
 
 class _SearchPageState extends State<SearchPage>
     with TickerProviderStateMixin, AutomaticKeepAliveClientMixin<SearchPage> {
@@ -42,7 +46,7 @@ class _SearchPageState extends State<SearchPage>
   bool get wantKeepAlive => true;
   late final TabController _tabController;
   int selectedIndex = 0;
-  final TextEditingController _textEditingController = TextEditingController();
+  
   int filterIndicatorCounter = 0;
   bool initialData = false;
 
@@ -203,10 +207,7 @@ class _SearchPageState extends State<SearchPage>
                     onPressed: () async {
                       await setIsForSale(!state.model.isForSale);
                       if (!mounted) return;
-                      performSearch(
-                        context: context,
-                        tab: SearchTab.values.elementAt(_tabController.index),
-                      );
+                      callApi(SearchTab.values.elementAt(_tabController.index));
                     },
                     icon: Image.asset(
                       "assets/icons/ForSale.png",
@@ -325,6 +326,32 @@ class _SearchPageState extends State<SearchPage>
   });
   }  
 }
+
+
+  getTabId(SearchTab tab) async {
+    String categoryId = await SearchTabWrapper(tab).toStringCustom() ?? "";
+    Future.delayed(const Duration(milliseconds: 500));
+    return categoryId;
+  }
+
+  callApi(SearchTab? tab) async {
+    String categoryId = "";
+    FilterModel filters = await getCurrentFilterModel();
+    if (tab != null) {
+      categoryId = await getTabId(tab);
+    } 
+    getIt<PaginatedSearchCubit>().loadResults(
+        searchModel: SearchRequestPayloadModel(
+          categoryId: (tab == SearchTab.all || tab == null || tab == SearchTab.whatsHot)
+              ? null : categoryId,
+          filters: FilterModel(
+            sortBy: filters.sortBy,
+            forSale: filters.forSale,
+          )
+        ),
+        searchTab: tab ?? SearchTab.all
+        );
+  } 
 
 _buildTab({required String text}) {
   return Container(
