@@ -294,7 +294,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
         context,
         categoryId,
         type,
-        isMultipleSelection: true,
+        isMultipleSelection: type == FilterType.sortBy ? false : true,
         searchParam: this.widget.searchParam,
         tab: this.widget.tab,
       ),
@@ -517,7 +517,9 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
     filters = await getCurrentFilterModel();
     getIt<PaginatedSearchCubit>().loadResults(
         searchModel: SearchRequestPayloadModel(
-          categoryId: (widget.tab == SearchTab.all || widget.tab == null || widget.tab == SearchTab.whatsHot)
+          categoryId: (widget.tab == SearchTab.all ||
+                  widget.tab == null ||
+                  widget.tab == SearchTab.whatsHot)
               ? null
               : this.categoryId,
           whatsHotFlag: (widget.tab == SearchTab.whatsHot) ? true : false,
@@ -527,16 +529,15 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
               ? [widget.searchParam ?? ""]
               : null,
           filters: FilterModel(
-            sortBy: filters.sortBy,
-            type: filters.type,
-            theme: filters.theme,
-            conditions: filters.conditions,
-            collection: filters.collection,
-            forSale: filters.forSale,
-            productType: filters.productType,
-            priceRanges: filters.priceRanges,
-            releaseYears: filters.releaseYears
-          ),
+              sortBy: filters.sortBy,
+              type: filters.type,
+              theme: filters.theme,
+              conditions: filters.conditions,
+              collection: filters.collection,
+              forSale: filters.forSale,
+              productType: filters.productType,
+              priceRanges: filters.priceRanges,
+              releaseYears: filters.releaseYears),
         ),
         searchTab: widget.tab ?? SearchTab.all);
   }
