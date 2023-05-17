@@ -434,17 +434,37 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
       return getSelectedText(context, FilterType.releaseDate,
           index: model.releaseDate.isEmpty ? null : model.releaseDate[0],
           length: model.releaseDate.length);
-    } else {
+    } else if (title == S.of(context).collections.toUpperCase()) {
+     return getCustomText(context, model.collection.isEmpty ? defaultString : model.collection[0], model.collection.length);
+    } else if (title == S.of(context).theme.toUpperCase()) {
+     return getCustomText(context, model.theme.isEmpty ? defaultString : model.theme[0], model.theme.length);
+    } else if (title == S.of(context).type.toUpperCase()) {
+     return getCustomText(context, model.type.isEmpty ? defaultString : model.type[0], model.type.length);
+    } 
+    else {
       return Container();
     }
   }
 
   Widget getSelectedText(BuildContext context, FilterType type,
-      {int? index, int? length}) {
+      {int? index, int? length, String? text}) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 4.0),
+      child:Text(
+        (type == FilterType.collection) ? text ?? "" : getText(type, index: index, length: length),
+        style: Theme.of(context)
+            .textTheme
+            .bodySmall!
+            .copyWith(color: Palette.current.primaryNeonGreen),
+      ),
+    );
+  }
+   Widget getCustomText(BuildContext context, String text, int? length) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 4.0),
       child: Text(
-        getText(type, index: index, length: length),
+        (length != null && length == 1) ? text 
+        : (length == 0) ? "" : "$length ${S.of(context).selected}",
         style: Theme.of(context)
             .textTheme
             .bodySmall!
@@ -484,7 +504,6 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                 ? ReleaseDateWrapper(ReleaseDate.values.elementAt(index))
                     .toString()
                 : "$length ${S.of(context).selected}";
-
       case FilterType.collection:
         return '';
       case FilterType.theme:
