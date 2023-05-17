@@ -344,9 +344,6 @@ class _SearchPageState extends State<SearchPage>
         searchModel: SearchRequestPayloadModel(
           categoryId: (tab == SearchTab.all || tab == null || tab == SearchTab.whatsHot)
               ? null : categoryId,
-          searchParams: (tab == SearchTab.all || tab == null)
-              ? [_textEditingController.text]
-              : null,
           filters: FilterModel(
             sortBy: filters.sortBy,
             forSale: filters.forSale,
