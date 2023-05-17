@@ -199,10 +199,10 @@ class APIService {
         dynamic res;
         try {
           if (jsonKey != null) {
-            final rawList = jsonDecode(response.body);
+            final rawList = jsonDecode(utf8.decode(response.bodyBytes));
             res = fromJson!({jsonKey: rawList});
           } else {
-            res = fromJson!(json.decode(response.body));
+            res = fromJson!(json.decode(utf8.decode(response.bodyBytes)));
           }
         } catch (e) {
           return response.body;
