@@ -100,7 +100,7 @@ Future<void> performSearch({
           filters: await getCurrentFilterModel(),
         );
    
-   updateSelectedFiltersAndSortsNumber(context);
+   updateSelectedFiltersAndSortsNumber(context, tab: tab);
 
   context
       .read<SearchBloc>()
@@ -162,7 +162,7 @@ clearFilters(BuildContext context) {
 }
 
 void updateSelectedFiltersAndSortsNumber(
-    BuildContext context) {
+    BuildContext context,{SearchTab? tab}) {
       
   final sharedPref = getIt<PreferenceRepositoryService>();
   final preference = context.read<SharedPreferencesBloc>().state.model;
@@ -188,7 +188,7 @@ void updateSelectedFiltersAndSortsNumber(
   context.read<SharedPreferencesBloc>().add(
       SharedPreferencesEvent.setPreference(preference.copyWith(
           isForSale: list[0],
-          filtersAndSortsSelected: list.where((c) => c).length)));
+          filtersAndSortsSelected: (tab == null || tab == SearchTab.whatsHot || tab == SearchTab.all) ? list.where((c) => c).length : list.where((c) => c).length - 1 )));
 }
 
 List<int> getPriceRangeList(List<int> priceList) {
