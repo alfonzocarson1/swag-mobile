@@ -342,6 +342,7 @@ class _SearchPageState extends State<SearchPage>
     } 
     getIt<PaginatedSearchCubit>().loadResults(
         searchModel: SearchRequestPayloadModel(
+          whatsHotFlag: (tab == SearchTab.whatsHot) ? true : false ,
           categoryId: (tab == SearchTab.all || tab == null || tab == SearchTab.whatsHot)
               ? null : categoryId,
           filters: FilterModel(
