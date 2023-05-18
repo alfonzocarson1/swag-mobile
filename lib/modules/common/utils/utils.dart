@@ -199,11 +199,16 @@ List<int> getPriceRangeList(List<int> priceList) {
     list.addAll(range.map(int.parse).toList());
   }
 
-  var maximumNumber =
+  if(list.length !=1){
+     var maximumNumber =
       list.reduce((value, element) => value > element ? value : element);
   var minimumNumber =
       list.reduce((value, element) => value < element ? value : element);
   return [minimumNumber, maximumNumber];
+  }else{
+    return[list.reduce((value, element) => value > element ? value : element)];
+  }  
+ 
 }
 
 List<int> getReleaseYearsList(List<int> releaseList) {
