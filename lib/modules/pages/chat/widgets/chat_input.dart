@@ -35,6 +35,7 @@ class ChatChatInput extends StatelessWidget {
               width: 30,
               image: AssetImage(AppIcons.add),
             ),
+            onTap: ()=> context.read<ChatBloc>().sendFileMessage(chatData: this.chatData),
           ),
           const SizedBox(width: 15),
           Flexible(
@@ -203,21 +204,7 @@ class _SendButtonState extends State<_SendButton> {
         message: textMessage.trim(),
         chatData: this.widget.chatData, 
       );    
-
-      // await this.animateScrollToEnd();
     }
-
-
-    // UserMessage cosa = UserMessage(
-    //   translations: {}, 
-    //   messageId: 0, 
-    //   message: 'Mensage de prueba', 
-    //   channelUrl: '', 
-    //   channelType: ChannelType.group,
-    // );
-
-    // this.widget.chatData.messages.add(cosa);
-    // setState(() {});
   }
   
   void updateIcon() {

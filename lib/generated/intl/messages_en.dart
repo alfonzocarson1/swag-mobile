@@ -73,8 +73,12 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please enter and confirm your \nCashApp cashtag"),
         "category": MessageLookupByLibrary.simpleMessage("category"),
         "chatChat": MessageLookupByLibrary.simpleMessage("Chat"),
+        "chatErrorFile":
+            MessageLookupByLibrary.simpleMessage("Error loading the file"),
         "chatInputHintText":
             MessageLookupByLibrary.simpleMessage("Enter message"),
+        "chatLoadingFile":
+            MessageLookupByLibrary.simpleMessage("Loading File..."),
         "chatModeratorName": MessageLookupByLibrary.simpleMessage("SWAG"),
         "chatNoMessages":
             MessageLookupByLibrary.simpleMessage("No previous messages"),

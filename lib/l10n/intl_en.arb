@@ -290,6 +290,8 @@
     "chatInputHintText": "Enter message",
     "chatNoMessages": "No previous messages",
     "chatTyping": "Typing...",
+    "chatErrorFile": "Error loading the file",
+    "chatLoadingFile": "Loading File...",
 
     "chatsHeader": "ALERTS & Notifications",
     "chatsUnreadMessages": "{chatsNumber} Unread"

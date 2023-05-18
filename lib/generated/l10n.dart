@@ -2850,6 +2850,26 @@ class S {
     );
   }
 
+  /// `Error loading the file`
+  String get chatErrorFile {
+    return Intl.message(
+      'Error loading the file',
+      name: 'chatErrorFile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Loading File...`
+  String get chatLoadingFile {
+    return Intl.message(
+      'Loading File...',
+      name: 'chatLoadingFile',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `ALERTS & Notifications`
   String get chatsHeader {
     return Intl.message(
