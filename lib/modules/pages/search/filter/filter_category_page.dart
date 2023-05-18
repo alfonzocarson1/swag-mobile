@@ -257,7 +257,6 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
       } else if (widget.isMultipleSelection) {
         checkBoxIndexes.remove(index);
       }
-
       this.setValueByType(widget.filterType);
     });
   }
@@ -381,15 +380,20 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
       case FilterType.price: break;
       case FilterType.releaseDate: break;
       case FilterType.category: break;
-      case FilterType.collection: 
-
-        this.checkBoxIndexes.forEach((int index)=> items.add(dynamicFilters.collections[index]));
+      case FilterType.collection:
+        for (var index in this.checkBoxIndexes) {
+          items.add(dynamicFilters.collections[index]);
+        }
         break;
       case FilterType.theme: 
-        this.checkBoxIndexes.forEach((int index)=> items.add(dynamicFilters.themes[index]));
+        for (var index in this.checkBoxIndexes) {
+          items.add(dynamicFilters.themes[index]);
+        }
         break;
       case FilterType.type: 
-        this.checkBoxIndexes.forEach((int index)=> items.add(dynamicFilters.types[index]));
+        for (var index in this.checkBoxIndexes) {
+          items.add(dynamicFilters.types[index]);
+        }
         break;
     }
 
@@ -475,13 +479,9 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
   }
 
   List<Widget> getDynamicFiltersItems(List<String> filters) {
-
     List<Widget> items = [];
-
     if(filters.isNotEmpty) {
-
       for (int i = 0; i < filters.length; i++) {
-
         items.add(this._filterItem(context, filters[i], i));
       }
     }
