@@ -66,6 +66,7 @@ class _SearchResultPageState extends State<SearchResultPage>
   @override
   void initState() {
     super.initState();
+    clearFilters(context);
     this.previousState = null;
     this.textEditingController.text = widget.searchParam;
   }

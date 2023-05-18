@@ -89,19 +89,6 @@ Future<void> performSearch({
   String? searchParam,
   SearchRequestPayloadModel? searchWithFilters,
 }) async {
-  final sharedPref = getIt<PreferenceRepositoryService>();
-  final conditionList = sharedPref.getCondition().map(int.parse).toList();
-  final releaseList = sharedPref.getReleaseDate().map(int.parse).toList();
-  final priceList = sharedPref.getPrice().map(int.parse).toList();
-  final productList = sharedPref.getProduct().map(int.parse).toList();
-
-  updateSelectedFiltersAndSortsNumber(context, [
-    sharedPref.isForSale(),
-    conditionList.isNotEmpty,
-    releaseList.isNotEmpty,
-    priceList.isNotEmpty,
-    productList.isNotEmpty
-  ]);
 
   SearchRequestPayloadModel payload = (searchWithFilters != null)
       ? searchWithFilters
@@ -112,6 +99,8 @@ Future<void> performSearch({
               : await SearchTabWrapper(tab).toStringCustom(),
           filters: await getCurrentFilterModel(),
         );
+   
+   updateSelectedFiltersAndSortsNumber(context, tab: tab);
 
   context
       .read<SearchBloc>()
@@ -154,34 +143,52 @@ Future<FilterModel> getCurrentFilterModel() async {
   );
 }
 
-clearFilters( BuildContext context) {
+clearFilters(BuildContext context) {
   final preference = context.read<SharedPreferencesBloc>().state.model;
 
   context.read<SharedPreferencesBloc>().add(
       SharedPreferencesEvent.setPreference(preference.copyWith(
           isForSale: false,
-          collection:[],
+          collection: [],
           condition: [],
           isListView: true,
-          price:[],
-          product:[],
-          releaseDate:[],
+          price: [],
+          product: [],
+          releaseDate: [],
           theme: [],
-          sortBy:0,
+          sortBy: 0,
           type: [],
           filtersAndSortsSelected: 0)));
 }
 
- 
-
 void updateSelectedFiltersAndSortsNumber(
-    BuildContext context, List<bool> list) {
+    BuildContext context,{SearchTab? tab}) {
+      
+  final sharedPref = getIt<PreferenceRepositoryService>();
   final preference = context.read<SharedPreferencesBloc>().state.model;
+  final conditionList = sharedPref.getCondition().map(int.parse).toList();
+  final releaseList = sharedPref.getReleaseDate().map(int.parse).toList();
+  final priceList = sharedPref.getPrice().map(int.parse).toList();
+  final categorylist = sharedPref.getProduct().map(int.parse).toList();
+  final typeList = sharedPref.getTypes();
+  final collectionList = sharedPref.getCollection();
+  final themeList = sharedPref.getThemes();
+
+  List<bool> list = [
+    sharedPref.isForSale(),
+    conditionList.isNotEmpty,
+    releaseList.isNotEmpty,
+    priceList.isNotEmpty,
+    categorylist.isNotEmpty,
+    typeList.isNotEmpty,
+    collectionList.isNotEmpty,
+    themeList.isNotEmpty,
+  ];
 
   context.read<SharedPreferencesBloc>().add(
       SharedPreferencesEvent.setPreference(preference.copyWith(
           isForSale: list[0],
-          filtersAndSortsSelected: list.where((c) => c).length)));
+          filtersAndSortsSelected: (tab == null || tab == SearchTab.whatsHot || tab == SearchTab.all) ? list.where((c) => c).length : list.where((c) => c).length - 1 )));
 }
 
 List<int> getPriceRangeList(List<int> priceList) {
@@ -256,6 +263,9 @@ Future<void> initFiltersAndSorts({int selectedProductNumber = 0}) async {
   await getIt<PreferenceRepositoryService>().setPrice([]);
   await getIt<PreferenceRepositoryService>().setReleaseDate([]);
   await getIt<PreferenceRepositoryService>().setProduct(selectedProduct);
+  await getIt<PreferenceRepositoryService>().saveCollection([]);
+  await getIt<PreferenceRepositoryService>().saveThemes([]);
+  await getIt<PreferenceRepositoryService>().saveTypes([]);
 }
 
 void initUtilsPreference() =>
@@ -266,17 +276,19 @@ void initFilterAndSortsWithBloc(BuildContext context,
   context.read<SharedPreferencesBloc>().add(
         SharedPreferencesEvent.setPreference(
           SharedPreferenceModel(
-            isListView: true,
-            isForSale: false,
-            sortBy: defaultInt,
-            condition: [],
-            price: [],
-            product:
-                (selectedProductNumber != null && selectedProductNumber != 0)
-                    ? [selectedProductNumber - 1]
-                    : [],
-            releaseDate: [],
-          ),
+              isListView: true,
+              isForSale: false,
+              sortBy: defaultInt,
+              condition: [],
+              price: [],
+              product:
+                  (selectedProductNumber != null && selectedProductNumber != 0)
+                      ? [selectedProductNumber - 1]
+                      : [],
+              releaseDate: [],
+              collection: [],
+              theme: [],
+              type: []),
         ),
       );
 }
