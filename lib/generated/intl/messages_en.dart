@@ -58,8 +58,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "camera": MessageLookupByLibrary.simpleMessage("TAKE PHOTO"),
         "cancel": MessageLookupByLibrary.simpleMessage("CANCEL"),
         "chatChat": MessageLookupByLibrary.simpleMessage("Chat"),
+        "chatErrorFile":
+            MessageLookupByLibrary.simpleMessage("Error loading the file"),
         "chatInputHintText":
             MessageLookupByLibrary.simpleMessage("Enter message"),
+        "chatLoadingFile":
+            MessageLookupByLibrary.simpleMessage("Loading File..."),
         "chatModeratorName": MessageLookupByLibrary.simpleMessage("SWAG"),
         "chatNoMessages":
             MessageLookupByLibrary.simpleMessage("No previous messages"),

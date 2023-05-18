@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'package:bloc/bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:sendbird_sdk/sendbird_sdk.dart';
 import 'package:swagapp/modules/di/injector.dart';
 import 'package:swagapp/modules/constants/constants.dart';
@@ -17,9 +19,10 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
     this._sendbirdSdk = SendbirdSdk(appId: sendBirdAppId);
 
-    on<SetMyUser>((event, emit)=> emit(this.state.copyWith(myUser: event.user)));
-    on<AddChatsEvent>((event, emit)=> emit(this.state.copyWith(chats: event.chats)));
-    on<UpdateMessageEvent>((event, emit)=> emit(this.state.copyWith(chats: event.getUpdatedChats())));
+    on<ChatSetMyUser>((event, emit)=> emit(this.state.copyWith(myUser: event.user)));
+    on<ChatAddChatsEvent>((event, emit)=> emit(this.state.copyWith(chats: event.chats)));
+    on<ChatUpdateMessageEvent>((event, emit)=> emit(this.state.copyWith(chats: event.getUpdatedChats())));
+    on<ChatLoadinFileEvent>((event, emit)=> emit(this.state.copyWith(isLoadingFile: event.isLoadingFile)));
   }
 
   SendbirdSdk get sendBirdSdk => this._sendbirdSdk;
@@ -38,7 +41,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         accessToken: userToken,
       );
 
-      this.add(SetMyUser(user));
+      this.add(ChatSetMyUser(user));
     } 
     catch (e) {  
       throw Exception('Error loading my user'); 
@@ -84,7 +87,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       ));
     }
 
-    this.add(AddChatsEvent(chatsData));
+    this.add(ChatAddChatsEvent(chatsData));
   }
 
   Future<ChatData?> startNewChat(String listingId) async {
@@ -124,18 +127,18 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     required ChatData chatData,
   }) async {
 
-    UserMessageParams paramas = UserMessageParams(message: message);
+    UserMessageParams params = UserMessageParams(message: message);
     // UserMessage localMessage = this._getLocalMessage(message, chatData);
 
     try {
       
       chatData.channel.sendUserMessage(
-        paramas, 
+        params, 
         onCompleted: (UserMessage message, Error? error) async {
 
           if(error == null) {
 
-            this.add(UpdateMessageEvent(
+            this.add(ChatUpdateMessageEvent(
               chatData: chatData, 
               message: message, 
               chats: this.state.chats,
@@ -148,9 +151,52 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     catch (e) { throw Exception('There was an error sending a message'); }
   }
 
+  Future<void> sendFileMessage({
+    required ChatData chatData,
+  }) async {
+
+    ImagePicker picker = ImagePicker();
+    XFile? image = await picker.pickVideo(source: ImageSource.gallery);
+
+    if(image != null) {
+
+      FileMessageParams params = FileMessageParams.withFile(File(image.path));
+      params.pushOption = PushNotificationDeliveryOption.normal;
+
+      try {
+        
+        this.add(ChatLoadinFileEvent(true));
+
+        chatData.channel.sendFileMessage(
+          params, 
+          onCompleted: (FileMessage message, Error? error) async {
+
+            if(error == null) {
+
+              this.add(ChatUpdateMessageEvent(
+                chatData: chatData, 
+                message: message, 
+                chats: this.state.chats,
+              ));
+
+              this.add(ChatLoadinFileEvent(false));
+            }
+            else throw Exception();
+          },
+        );
+
+      } 
+      catch (e) { 
+
+        this.add(ChatLoadinFileEvent(false));
+        throw Exception('There was an error sending a message'); 
+      }
+    }
+  }
+
   Future<void> receiveMessage(ChatData chatData, BaseMessage message) async {
 
-    this.add(UpdateMessageEvent(
+    this.add(ChatUpdateMessageEvent(
       chatData: chatData, 
       message: message, 
       chats: this.state.chats,
@@ -163,7 +209,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
       if(chatData.channel.channelUrl == updateChatData.channel.channelUrl) {
         await chatData.channel.markAsRead();
-        this.add(AddChatsEvent(this.state.chats));
+        this.add(ChatAddChatsEvent(this.state.chats));
         break;        
       }
     }

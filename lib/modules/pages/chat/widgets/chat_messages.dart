@@ -8,8 +8,11 @@ import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
 import 'package:swagapp/modules/common/assets/images.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
+import 'package:swagapp/modules/pages/media_viewer/media_viewer_page.dart';
 
 import 'chat_initial_date.dart';
+import 'chat_message_content.dart';
+import 'chat_loading_file_message.dart';
 
 class ChatMessages extends StatelessWidget {
 
@@ -26,9 +29,9 @@ class ChatMessages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    context.watch<ChatBloc>();
+    ChatBloc chatBloc = context.watch<ChatBloc>();    
     String userSendbirdiId = getIt<PreferenceRepositoryService>().getUserSendBirdId();
-    List<Widget> items = this.getChatItems(userSendbirdiId);
+    List<Widget> items = this.getChatItems(userSendbirdiId, chatBloc);
 
     return ListView.builder(
       key: const PageStorageKey<String>('item'),
@@ -41,10 +44,14 @@ class ChatMessages extends StatelessWidget {
     );
   }
 
-  List<Widget> getChatItems(String userSendbirdiId ) {
+  List<Widget> getChatItems(String userSendbirdiId, ChatBloc chatBloc) {
 
     List<Widget> items = [];
-
+    
+    (chatBloc.state.isLoadingFile)
+    ? items.add(const ChatLoadingFileMessage())
+    : null;    
+      
     for (BaseMessage message in this.messages.reversed) { 
 
       bool isMyMessage = (message.sender?.userId == userSendbirdiId);
@@ -54,7 +61,7 @@ class ChatMessages extends StatelessWidget {
         message: message,
       ));
     }
-
+    
     items.add(const ChatInitialDate());
 
     return items;
@@ -80,48 +87,60 @@ class _Message extends StatelessWidget {
     DateTime createdAt = DateTime.fromMillisecondsSinceEpoch(message.createdAt);
     DateFormat dateFormat = DateFormat().add_jm();
     String createdAtFormated = dateFormat.format(createdAt);
+    bool isFile = (this.message is FileMessage);
+    String filePath = (isFile) ? (this.message as FileMessage).secureUrl! : '';
 
-    return Container(
-      margin: const EdgeInsets.only(bottom: 5),
-      child: Row(
-        mainAxisAlignment: (this.isMyMessage) 
-        ? MainAxisAlignment.end 
-        : MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: <Widget>
-        [
-          (this.isMyMessage) 
-          ? Flexible(child: Container())
-          : const SizedBox.shrink(),
-
-          (this.isMyMessage) 
-          ? Flexible(child: _MessageCreatedAt(createdAtFormated: createdAtFormated))
-          : const SizedBox.shrink(),
-
-          (this.isMyMessage) 
-          ? const SizedBox.shrink()
-          : const Flexible(child: _MessageAvatar()),
-
-          (this.isMyMessage) 
-          ? _MessageText(
-              isMyMessage: this.isMyMessage,
-              nickName: nickName, 
-              message: message,
-            )
-          : Flexible(
-              flex: 6,
-              child: _MessageText(
+    return GestureDetector(
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 5),
+        child: Row(
+          mainAxisAlignment: (this.isMyMessage) 
+          ? MainAxisAlignment.end 
+          : MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: <Widget>
+          [
+            (this.isMyMessage) 
+            ? Flexible(child: Container())
+            : const SizedBox.shrink(),
+    
+            (this.isMyMessage) 
+            ? Flexible(child: _MessageCreatedAt(createdAtFormated: createdAtFormated))
+            : const SizedBox.shrink(),
+    
+            (this.isMyMessage) 
+            ? const SizedBox.shrink()
+            : const Flexible(child: _MessageAvatar()),
+    
+            (this.isMyMessage) 
+            ? ChatMessageContent(
+                isFile: isFile,
+                filePath: filePath,
                 isMyMessage: this.isMyMessage,
                 nickName: nickName, 
                 message: message,
+              )
+            : Flexible(
+                flex: 6,
+                child: ChatMessageContent(
+                  isFile: isFile,
+                  filePath: filePath,
+                  isMyMessage: this.isMyMessage,
+                  nickName: nickName, 
+                  message: message,
+                ),
               ),
-            ),
-
-          (this.isMyMessage) 
-          ? const SizedBox.shrink()
-          : Flexible(child: _MessageCreatedAt(createdAtFormated: createdAtFormated)),
-        ],
+    
+            (this.isMyMessage) 
+            ? const SizedBox.shrink()
+            : Flexible(child: _MessageCreatedAt(createdAtFormated: createdAtFormated)),
+          ],
+        ),
       ),
+      onTap: ()=> Navigator.push(
+        context, 
+        MaterialPageRoute(builder: (BuildContext context)=> MediaViewerPage(url: filePath),
+      )),
     );
   }
 }
@@ -171,60 +190,4 @@ class _MessageAvatar extends StatelessWidget {
   }
 }
 
-class _MessageText extends StatelessWidget {
-
-  final String nickName;
-  final BaseMessage message;
-  final bool isMyMessage;
-
-  const _MessageText({
-    super.key,
-    required this.nickName,
-    required this.message, 
-    required this.isMyMessage,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>
-      [
-        (!this.isMyMessage) 
-        ? Container(
-            margin: const EdgeInsets.symmetric(horizontal: 10),
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Text(
-              nickName,
-              style: TextStyle(
-                fontSize: 14,              
-                fontWeight: FontWeight.lerp(FontWeight.w300, FontWeight.w400, 0.5),
-                color: Palette.current.grey,
-              ),
-            ),
-          )
-        : const SizedBox.shrink(),
-        Container(
-          width: (this.isMyMessage) ? null : double.infinity,
-          decoration: BoxDecoration(
-            color: (!this.isMyMessage) 
-            ? Palette.current.greyMessage
-            : Palette.current.primaryNeonGreen,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-          child: Text(
-            this.message.message,
-            style: TextStyle(
-              fontSize: 16, 
-              color: (!this.isMyMessage) ? Colors.white : Colors.black,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
 

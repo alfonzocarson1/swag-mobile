@@ -80,9 +80,7 @@ class _ChatsPageState extends State<ChatsPage> with ChannelEventHandler {
 
 class _AppBarTitle extends StatelessWidget {
 
-  const _AppBarTitle({
-    super.key,
-  });
+  const _AppBarTitle({super.key});
 
   @override
   Widget build(BuildContext context) {
