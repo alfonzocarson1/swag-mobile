@@ -351,7 +351,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                         width: MediaQuery.of(context).size.width,
                         child: PrimaryButton(
                           title:
-                              '${S.of(context).buy_for} ${decimalDigitsLastSalePrice(widget.lastSale.maxPrice!)}',
+                              '${S.of(context).buy_for} ${decimalDigitsLastSalePrice(widget.lastSale.minPrice!)}',
                           onPressed: () {
                             if (isLogged) {
                               Navigator.of(context, rootNavigator: true)
