@@ -59,6 +59,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
   @override
   void didChangeDependencies() async {
     filters = await getCurrentFilterModel();
+    setState(() {});
     super.didChangeDependencies();
   }
 
@@ -214,16 +215,18 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                             ),
                           ),
                         ),
-                        (widget.tab == SearchTab.whatsHot || widget.tab == null) ?  _filterItem(
-                          context,
-                          S.of(context).category.toUpperCase(),
-                          (widget.tab == SearchTab.whatsHot ||
-                                  widget.tab == SearchTab.all ||
-                                  widget.tab == null)
-                              ? () => this.navigateToCategoryPage(
-                                  FilterType.category, categoryId)
-                              : null,
-                        ): const SizedBox.shrink(),
+                        (widget.tab == SearchTab.whatsHot || widget.tab == null)
+                            ? _filterItem(
+                                context,
+                                S.of(context).category.toUpperCase(),
+                                (widget.tab == SearchTab.whatsHot ||
+                                        widget.tab == SearchTab.all ||
+                                        widget.tab == null)
+                                    ? () => this.navigateToCategoryPage(
+                                        FilterType.category, categoryId)
+                                    : null,
+                              )
+                            : const SizedBox.shrink(),
                         _filterItem(
                           context,
                           S.of(context).sort_by.toUpperCase(),
@@ -231,16 +234,16 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                               FilterType.sortBy, categoryId),
                           selection: S.of(context).release_date_newest,
                         ),
-                        _filterItem(
-                          context,
-                          S.of(context).type.toUpperCase(),
-                          (widget.tab == SearchTab.headcovers ||
-                                  widget.tab == SearchTab.putters ||
-                                  widget.tab == null)
-                              ? () => this.navigateToCategoryPage(
-                                  FilterType.type, categoryId)
-                              : null,
-                        ),
+                        (filters.productType != null &&
+                                filters.productType!.isNotEmpty)
+                            ? _filterItem(
+                                context,
+                                S.of(context).type.toUpperCase(),
+                                 () => this.navigateToCategoryPage(
+                                        FilterType.type, categoryId)
+                                    ,
+                              )
+                            : const SizedBox.shrink(),
                         _filterItem(
                           context,
                           S.of(context).collections.toUpperCase(),
@@ -297,6 +300,11 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
         isMultipleSelection: type == FilterType.sortBy ? false : true,
         searchParam: this.widget.searchParam,
         tab: this.widget.tab,
+        updateFilters: () async {
+          filters = await getCurrentFilterModel();
+          Future.delayed(const Duration(milliseconds: 1500));
+          setState(() {});
+        },
       ),
     );
   }
@@ -435,13 +443,21 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
           index: model.releaseDate.isEmpty ? null : model.releaseDate[0],
           length: model.releaseDate.length);
     } else if (title == S.of(context).collections.toUpperCase()) {
-     return getCustomText(context, model.collection.isEmpty ? defaultString : model.collection[0], model.collection.length);
+      return getCustomText(
+          context,
+          model.collection.isEmpty ? defaultString : model.collection[0],
+          model.collection.length);
     } else if (title == S.of(context).theme.toUpperCase()) {
-     return getCustomText(context, model.theme.isEmpty ? defaultString : model.theme[0], model.theme.length);
+      return getCustomText(
+          context,
+          model.theme.isEmpty ? defaultString : model.theme[0],
+          model.theme.length);
     } else if (title == S.of(context).type.toUpperCase()) {
-     return getCustomText(context, model.type.isEmpty ? defaultString : model.type[0], model.type.length);
-    } 
-    else {
+      return getCustomText(
+          context,
+          model.type.isEmpty ? defaultString : model.type[0],
+          model.type.length);
+    } else {
       return Container();
     }
   }
@@ -450,8 +466,10 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
       {int? index, int? length, String? text}) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 4.0),
-      child:Text(
-        (type == FilterType.collection) ? text ?? "" : getText(type, index: index, length: length),
+      child: Text(
+        (type == FilterType.collection)
+            ? text ?? ""
+            : getText(type, index: index, length: length),
         style: Theme.of(context)
             .textTheme
             .bodySmall!
@@ -459,12 +477,16 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
       ),
     );
   }
-   Widget getCustomText(BuildContext context, String text, int? length) {
+
+  Widget getCustomText(BuildContext context, String text, int? length) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 4.0),
       child: Text(
-        (length != null && length == 1) ? text 
-        : (length == 0) ? "" : "$length ${S.of(context).selected}",
+        (length != null && length == 1)
+            ? text
+            : (length == 0)
+                ? ""
+                : "$length ${S.of(context).selected}",
         style: Theme.of(context)
             .textTheme
             .bodySmall!
