@@ -5,10 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 import 'package:swagapp/modules/common/ui/general_delete_popup.dart';
 import 'package:swagapp/modules/cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
+import 'package:swagapp/modules/models/detail/sale_history_model.dart';
+import 'package:swagapp/modules/models/detail/sale_list_history_model.dart';
 import 'package:swagapp/modules/models/listing_for_sale/listing_for_sale_model.dart';
 import 'package:swagapp/modules/models/profile/profile_model.dart';
 import 'package:swagapp/modules/models/ui_models/checkbox_model.dart';
 import '../../../../generated/l10n.dart';
+import '../../../blocs/sale_history/sale_history_bloc.dart';
 import '../../../common/ui/primary_button.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
@@ -44,15 +47,23 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
   List<CustomOverlayItemModel> overlayItems = [];
   late DetailCollectionModel collectionModel;
   List<File> tempFiles = [];
+  late SalesHistoryListModel salesHistoryList;
 
   @override
   void initState() {
-    super.initState();
+    getSalesHistory();
+    super.initState(); 
+
   }
 
-  @override
+    @override
   void dispose() {
     super.dispose();
+  }
+
+  getSalesHistory() async{
+      var catalogItemId = widget.dataItem.catalogItemId;
+     salesHistoryList = await getIt<SalesHistoryBloc>().salesHistoryService.salesHistory(catalogItemId ?? "");
   }
 
   @override
@@ -171,7 +182,9 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                                     .productItemName ??
                                                                 '',
                                                             widget.dataItem
-                                                                .productItemImageUrls));
+                                                                .productItemImageUrls,
+                                                            salesHistoryList    
+                                                                ));
                                                   } else if (value ==
                                                       editListingDropDown[1]
                                                           .label) {
