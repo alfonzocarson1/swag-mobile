@@ -239,12 +239,9 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                             ? _filterItem(
                                 context,
                                 S.of(context).type.toUpperCase(),
-                                (widget.tab == SearchTab.headcovers ||
-                                        widget.tab == SearchTab.putters ||
-                                        widget.tab == null)
-                                    ? () => this.navigateToCategoryPage(
+                                 () => this.navigateToCategoryPage(
                                         FilterType.type, categoryId)
-                                    : null,
+                                    ,
                               )
                             : const SizedBox.shrink(),
                         _filterItem(
