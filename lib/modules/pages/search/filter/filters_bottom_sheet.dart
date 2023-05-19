@@ -214,7 +214,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                             ),
                           ),
                         ),
-                        _filterItem(
+                        (widget.tab == SearchTab.whatsHot || widget.tab == null) ?  _filterItem(
                           context,
                           S.of(context).category.toUpperCase(),
                           (widget.tab == SearchTab.whatsHot ||
@@ -223,7 +223,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                               ? () => this.navigateToCategoryPage(
                                   FilterType.category, categoryId)
                               : null,
-                        ),
+                        ): const SizedBox.shrink(),
                         _filterItem(
                           context,
                           S.of(context).sort_by.toUpperCase(),
