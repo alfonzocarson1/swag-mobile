@@ -2269,6 +2269,186 @@ class S {
       args: [],
     );
   }
+
+  /// `SETTINGS`
+  String get settings {
+    return Intl.message(
+      'SETTINGS',
+      name: 'settings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Account`
+  String get account_title {
+    return Intl.message(
+      'Account',
+      name: 'account_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Billing, shipping, payment`
+  String get account_sub_title {
+    return Intl.message(
+      'Billing, shipping, payment',
+      name: 'account_sub_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Profile`
+  String get profile_title {
+    return Intl.message(
+      'Profile',
+      name: 'profile_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Username, email, password, phone`
+  String get profile_sub_title {
+    return Intl.message(
+      'Username, email, password, phone',
+      name: 'profile_sub_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Purchase History`
+  String get purchase_title {
+    return Intl.message(
+      'Purchase History',
+      name: 'purchase_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Atomic Drops purchases`
+  String get purchase_sub_title {
+    return Intl.message(
+      'Atomic Drops purchases',
+      name: 'purchase_sub_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Security`
+  String get security_title {
+    return Intl.message(
+      'Security',
+      name: 'security_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Two-Step verification`
+  String get security_sub_title {
+    return Intl.message(
+      'Two-Step verification',
+      name: 'security_sub_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `NFT Wallet`
+  String get nft_wallet_title {
+    return Intl.message(
+      'NFT Wallet',
+      name: 'nft_wallet_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Connect your OpenSea Wallet`
+  String get nft_wallet_sub_title {
+    return Intl.message(
+      'Connect your OpenSea Wallet',
+      name: 'nft_wallet_sub_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Communications`
+  String get communications_title {
+    return Intl.message(
+      'Communications',
+      name: 'communications_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Manage notifications and blocking`
+  String get communications_sub_title {
+    return Intl.message(
+      'Manage notifications and blocking',
+      name: 'communications_sub_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Contact Us`
+  String get contact_us_title {
+    return Intl.message(
+      'Contact Us',
+      name: 'contact_us_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Get in touch with Swag support`
+  String get contact_us_sub_title {
+    return Intl.message(
+      'Get in touch with Swag support',
+      name: 'contact_us_sub_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Help Center`
+  String get help_center_title {
+    return Intl.message(
+      'Help Center',
+      name: 'help_center_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `See our FAQS, Terms and Privacy`
+  String get help_center_sub_title {
+    return Intl.message(
+      'See our FAQS, Terms and Privacy',
+      name: 'help_center_sub_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `PREMIUM MEMBER`
+  String get premium_member_title {
+    return Intl.message(
+      'PREMIUM MEMBER',
+      name: 'premium_member_title',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

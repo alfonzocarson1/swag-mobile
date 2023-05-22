@@ -226,6 +226,27 @@
     "staff_picks": "STAFF PICKS",
     "unicorn_covers": "UNICORN COVERS",
     "notify_availability": "You will be notified when this item is available.",
-    "collection_listed": "Collection item(s) already listed"
+    "collection_listed": "Collection item(s) already listed",
+
+    
+    "settings": "SETTINGS",
+    "account_title": "Account",
+    "account_sub_title": "Billing, shipping, payment",
+    "profile_title": "Profile",
+    "profile_sub_title": "Username, email, password, phone",
+    "purchase_title": "Purchase History",
+    "purchase_sub_title": "Atomic Drops purchases",
+    "security_title": "Security",
+    "security_sub_title": "Two-Step verification",
+    "nft_wallet_title": "NFT Wallet",
+    "nft_wallet_sub_title": "Connect your OpenSea Wallet",
+    "communications_title": "Communications",
+    "communications_sub_title": "Manage notifications and blocking",
+    "contact_us_title": "Contact Us",
+    "contact_us_sub_title": "Get in touch with Swag support",
+    "help_center_title": "Help Center",
+    "help_center_sub_title": "See our FAQS, Terms and Privacy",
+    "premium_member_title": "PREMIUM MEMBER"
+    
 
 }
