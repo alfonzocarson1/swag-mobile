@@ -327,6 +327,23 @@ Widget selectSettings(
   );
 }
 
+String toCamelCase(String input) {
+  if (input.isEmpty) {
+    return input;
+  }
+
+  List<String> words = input.split(RegExp(r'\s+|-|_'));
+
+  for (int i = 1; i < words.length; i++) {
+    String word = words[i];
+    if (word.isNotEmpty) {
+      words[i] = word[0].toUpperCase() + word.substring(1);
+    }
+  }
+
+  return words.join();
+}
+
 List<dynamic> imagesList = [
   {
     'id': 'AVATAR1',
