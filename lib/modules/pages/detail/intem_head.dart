@@ -32,6 +32,7 @@ class HeadWidget extends StatefulWidget {
       this.saleHistory,
       required this.itemId,
       this.profileFavoriteItemId,
+      this.saleHistoryNavigation,
       required this.addFavorite});
 
   final String urlImage;
@@ -46,6 +47,7 @@ class HeadWidget extends StatefulWidget {
   final String itemId;
   final String? profileFavoriteItemId;
   Function(bool) addFavorite;
+  Function? saleHistoryNavigation;
   @override
   State<HeadWidget> createState() => _HeadWidgetState();
 }
@@ -67,10 +69,6 @@ class _HeadWidgetState extends State<HeadWidget> {
     profileFavoriteItemId = widget.profileFavoriteItemId;
     _favoriteBloc = getIt<FavoriteBloc>();
     favorite = widget.favorite;
-
-    //TODO: For test the ticket remove comment
-    // context.read<SalesHistoryBloc>().add(SalesHistoryEvent.getSalesHistory(
-    //     'a434e065-6bc6-490e-9e26-ea1b348b0003'));
 
     isLogged = getIt<PreferenceRepositoryService>().isLogged();
 
@@ -299,26 +297,8 @@ class _HeadWidgetState extends State<HeadWidget> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                if (isLogged) {
-                                  Navigator.of(context, rootNavigator: true)
-                                      .push(TransactionHistory.route(
-                                          widget.urlImage,
-                                          widget.catalogItemName!,
-                                          widget.lastSale,
-                                          false,
-                                          3,
-                                          favorite,
-                                          widget.itemId, (val) {
-                                    setState(() {
-                                      if (val) {
-                                        favorite = true;
-                                        widget.addFavorite(true);
-                                      } else {
-                                        widget.addFavorite(false);
-                                        favorite = false;
-                                      }
-                                    });
-                                  }));
+                                if (isLogged && widget.saleHistoryNavigation != null)  {
+                                 widget.saleHistoryNavigation!();
                                 } else {
                                   Navigator.of(context, rootNavigator: true)
                                       .push(CreateAccountPage.route());
