@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/common/utils/tab_wrapper.dart';
 import 'package:swagapp/modules/models/shared_preferences/shared_preference_model.dart';
 
@@ -89,7 +90,6 @@ Future<void> performSearch({
   String? searchParam,
   SearchRequestPayloadModel? searchWithFilters,
 }) async {
-
   SearchRequestPayloadModel payload = (searchWithFilters != null)
       ? searchWithFilters
       : SearchRequestPayloadModel(
@@ -99,8 +99,8 @@ Future<void> performSearch({
               : await SearchTabWrapper(tab).toStringCustom(),
           filters: await getCurrentFilterModel(),
         );
-   
-   updateSelectedFiltersAndSortsNumber(context, tab: tab);
+
+  updateSelectedFiltersAndSortsNumber(context, tab: tab);
 
   context
       .read<SearchBloc>()
@@ -161,9 +161,8 @@ clearFilters(BuildContext context) {
           filtersAndSortsSelected: 0)));
 }
 
-void updateSelectedFiltersAndSortsNumber(
-    BuildContext context,{SearchTab? tab}) {
-      
+void updateSelectedFiltersAndSortsNumber(BuildContext context,
+    {SearchTab? tab}) {
   final sharedPref = getIt<PreferenceRepositoryService>();
   final preference = context.read<SharedPreferencesBloc>().state.model;
   final conditionList = sharedPref.getCondition().map(int.parse).toList();
@@ -188,7 +187,10 @@ void updateSelectedFiltersAndSortsNumber(
   context.read<SharedPreferencesBloc>().add(
       SharedPreferencesEvent.setPreference(preference.copyWith(
           isForSale: list[0],
-          filtersAndSortsSelected: (tab == null || tab == SearchTab.whatsHot || tab == SearchTab.all) ? list.where((c) => c).length : list.where((c) => c).length - 1 )));
+          filtersAndSortsSelected:
+              (tab == null || tab == SearchTab.whatsHot || tab == SearchTab.all)
+                  ? list.where((c) => c).length
+                  : list.where((c) => c).length - 1)));
 }
 
 List<int> getPriceRangeList(List<int> priceList) {
@@ -206,16 +208,15 @@ List<int> getPriceRangeList(List<int> priceList) {
     list.addAll(range.map(int.parse).toList());
   }
 
-  if(list.length !=1){
-     var maximumNumber =
-      list.reduce((value, element) => value > element ? value : element);
-  var minimumNumber =
-      list.reduce((value, element) => value < element ? value : element);
-  return [minimumNumber, maximumNumber];
-  }else{
-    return[list.reduce((value, element) => value > element ? value : element)];
-  }  
- 
+  if (list.length != 1) {
+    var maximumNumber =
+        list.reduce((value, element) => value > element ? value : element);
+    var minimumNumber =
+        list.reduce((value, element) => value < element ? value : element);
+    return [minimumNumber, maximumNumber];
+  } else {
+    return [list.reduce((value, element) => value > element ? value : element)];
+  }
 }
 
 List<int> getReleaseYearsList(List<int> releaseList) {
@@ -291,6 +292,56 @@ void initFilterAndSortsWithBloc(BuildContext context,
               type: []),
         ),
       );
+}
+
+Widget selectSettings(
+    BuildContext context,
+    String iconUrl,
+    String title,
+    String subTitle,
+    Function()? onTap,
+    Widget trailing,
+    Widget? customSubTitle) {
+  return InkWell(
+    onTap: onTap,
+    splashColor: Palette.current.primaryNero,
+    child: ListTile(
+      leading: ImageIcon(
+        AssetImage(iconUrl),
+        size: 25,
+        color: Colors.white,
+      ),
+      title: Text(title,
+          style: Theme.of(context).textTheme.bodySmall!.copyWith(
+              fontWeight: FontWeight.w400,
+              color: Palette.current.primaryWhiteSmoke,
+              fontSize: 16)),
+      subtitle: customSubTitle ??
+          Text(subTitle,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodySmall!
+                  .copyWith(color: Palette.current.grey, fontSize: 14)),
+      trailing: trailing,
+    ),
+  );
+}
+
+String toCamelCase(String input) {
+  if (input.isEmpty) {
+    return input;
+  }
+
+  List<String> words = input.split(RegExp(r'\s+|-|_'));
+
+  for (int i = 1; i < words.length; i++) {
+    String word = words[i];
+    if (word.isNotEmpty) {
+      words[i] = word[0].toUpperCase() + word.substring(1);
+    }
+  }
+
+  return words.join();
 }
 
 List<dynamic> imagesList = [

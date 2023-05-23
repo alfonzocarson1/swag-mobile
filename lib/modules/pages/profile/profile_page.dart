@@ -12,6 +12,7 @@ import '../../common/utils/utils.dart';
 import '../../cubits/profile/get_profile_cubit.dart';
 import '../../di/injector.dart';
 import '../../models/profile/profile_model.dart';
+import '../settings/settings_page.dart';
 import 'collection_page.dart';
 import 'favorites_page.dart';
 import 'listings_page.dart';
@@ -63,10 +64,13 @@ class _ProfilePageState extends State<ProfilePage>
           Padding(
             padding: const EdgeInsets.only(right: 10),
             child: IconButton(
-              icon: Image.asset('assets/images/Setting.png'),
-              tooltip: 'Open shopping cart',
+              icon: Image.asset(
+                'assets/images/Setting.png',
+                scale: 2,
+              ),
               onPressed: () {
-                // handle the press
+                Navigator.of(context, rootNavigator: true)
+                    .push(SettingsPage.route());
               },
             ),
           ),

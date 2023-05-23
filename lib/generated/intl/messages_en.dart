@@ -26,13 +26,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "a_to_z": MessageLookupByLibrary.simpleMessage("A to Z"),
         "access_photos": MessageLookupByLibrary.simpleMessage("CHOOSE PHOTO"),
         "accessories": MessageLookupByLibrary.simpleMessage("Accesories"),
+        "account_sub_title":
+            MessageLookupByLibrary.simpleMessage("Billing, shipping, payment"),
+        "account_title": MessageLookupByLibrary.simpleMessage("Account"),
         "acquired": MessageLookupByLibrary.simpleMessage("Acquired:"),
+        "active": MessageLookupByLibrary.simpleMessage("Active"),
         "add_collection":
             MessageLookupByLibrary.simpleMessage("ADD TO COLLECTION"),
         "add_collection_title":
             MessageLookupByLibrary.simpleMessage("ADD TO YOUR COLLECTION"),
         "add_multi_collection_btn":
             MessageLookupByLibrary.simpleMessage("ADD ANOTHER"),
+        "add_new_address":
+            MessageLookupByLibrary.simpleMessage("Add New Address"),
         "add_new_item": MessageLookupByLibrary.simpleMessage("ADD NEW ITEM"),
         "add_photos": MessageLookupByLibrary.simpleMessage("ADD PHOTOS"),
         "add_to_wall_collection_subtitle": MessageLookupByLibrary.simpleMessage(
@@ -72,9 +78,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "collection_value":
             MessageLookupByLibrary.simpleMessage("COLLECTION VALUE:"),
         "collections": MessageLookupByLibrary.simpleMessage("collections"),
+        "communications_sub_title": MessageLookupByLibrary.simpleMessage(
+            "Manage notifications and blocking"),
+        "communications_title":
+            MessageLookupByLibrary.simpleMessage("Communications"),
         "condition": MessageLookupByLibrary.simpleMessage("Condition"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
+        "contact_us_sub_title": MessageLookupByLibrary.simpleMessage(
+            "Get in touch with Swag support"),
+        "contact_us_title": MessageLookupByLibrary.simpleMessage("Contact Us"),
         "country": MessageLookupByLibrary.simpleMessage("Country"),
         "create_account":
             MessageLookupByLibrary.simpleMessage("Create Account"),
@@ -104,6 +117,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("•  Bottom of item"),
         "dont_have_account":
             MessageLookupByLibrary.simpleMessage("Don’t have an account? "),
+        "edit_address": MessageLookupByLibrary.simpleMessage("Edit Address"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "email_taken": MessageLookupByLibrary.simpleMessage(
             "An account is already associated with this email"),
@@ -127,6 +141,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "It looks like you already have this item in your collection. Are you sure you want to add another one?"),
         "existing_item_to_collection_error_title":
             MessageLookupByLibrary.simpleMessage("Are you sure"),
+        "expired": MessageLookupByLibrary.simpleMessage("Expired"),
         "explore_as_guest":
             MessageLookupByLibrary.simpleMessage("EXPLORE AS GUEST"),
         "field_empty":
@@ -149,6 +164,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "get_an_email":
             MessageLookupByLibrary.simpleMessage("Didn’t get an email?"),
         "headcovers": MessageLookupByLibrary.simpleMessage("Headcovers"),
+        "help_center_sub_title": MessageLookupByLibrary.simpleMessage(
+            "See our FAQS, Terms and Privacy"),
+        "help_center_title":
+            MessageLookupByLibrary.simpleMessage("Help Center"),
         "i_do_not_know":
             MessageLookupByLibrary.simpleMessage("I DON’T KNOW/ NOT LISTED"),
         "image_guidelines":
@@ -183,6 +202,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Username must be between 4-20 characters"),
         "ist_item_popup_btn":
             MessageLookupByLibrary.simpleMessage("CREATE LISTING"),
+        "kyc_title": MessageLookupByLibrary.simpleMessage("KYC"),
         "last_name": MessageLookupByLibrary.simpleMessage("Last Name"),
         "last_sale": MessageLookupByLibrary.simpleMessage("LAST SALE"),
         "less_than": MessageLookupByLibrary.simpleMessage("Less than \$111"),
@@ -204,6 +224,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "n_a": MessageLookupByLibrary.simpleMessage("N/A"),
         "new_password": MessageLookupByLibrary.simpleMessage("New Password"),
         "next_btn": MessageLookupByLibrary.simpleMessage("NEXT"),
+        "nft_wallet_sub_title":
+            MessageLookupByLibrary.simpleMessage("Connect your OpenSea Wallet"),
+        "nft_wallet_title": MessageLookupByLibrary.simpleMessage("NFT Wallet"),
         "no_match_password":
             MessageLookupByLibrary.simpleMessage("Password doesn’t match"),
         "notify_availability": MessageLookupByLibrary.simpleMessage(
@@ -214,6 +237,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "password_helper": MessageLookupByLibrary.simpleMessage(
             "At least 8 characters, 1 uppercase, 1 number & 1 symbol"),
+        "peer_to_peer_payment_options_sub_title":
+            MessageLookupByLibrary.simpleMessage("Venmo, CashApp, PayPal"),
+        "peer_to_peer_payment_options_title":
+            MessageLookupByLibrary.simpleMessage(
+                "Peer to Peer Payment Options"),
         "phone": MessageLookupByLibrary.simpleMessage("Phone"),
         "phone_taken": MessageLookupByLibrary.simpleMessage(
             "An account is already associated with this phone number"),
@@ -233,6 +261,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "popup_title": MessageLookupByLibrary.simpleMessage("WELCOME @"),
         "post_listing_btn":
             MessageLookupByLibrary.simpleMessage("POST LISTING"),
+        "premium_member_title":
+            MessageLookupByLibrary.simpleMessage("PREMIUM MEMBER"),
+        "premium_memberatomic_drop_payments_sub_title":
+            MessageLookupByLibrary.simpleMessage("Manage Cards"),
+        "premium_memberatomic_drop_payments_title":
+            MessageLookupByLibrary.simpleMessage("Atomic Drop Payments"),
         "preview_listing":
             MessageLookupByLibrary.simpleMessage("PREVIEW LISTING"),
         "price": MessageLookupByLibrary.simpleMessage("PRICE"),
@@ -245,8 +279,15 @@ class MessageLookup extends MessageLookupByLibrary {
             "cannot enter more than 2 decimal places"),
         "privacy_policy_text":
             MessageLookupByLibrary.simpleMessage("Privacy Policy"),
+        "profile_sub_title": MessageLookupByLibrary.simpleMessage(
+            "Username, email, password, phone"),
+        "profile_title": MessageLookupByLibrary.simpleMessage("Profile"),
         "purchase_price":
             MessageLookupByLibrary.simpleMessage("Purchase Price"),
+        "purchase_sub_title":
+            MessageLookupByLibrary.simpleMessage("Atomic Drops purchases"),
+        "purchase_title":
+            MessageLookupByLibrary.simpleMessage("Purchase History"),
         "putters": MessageLookupByLibrary.simpleMessage("Putters"),
         "rarity_score": MessageLookupByLibrary.simpleMessage("RARITY SCORE"),
         "razon_remove_btn": MessageLookupByLibrary.simpleMessage("SUBMIT"),
@@ -263,6 +304,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Release Date - Oldest"),
         "released": MessageLookupByLibrary.simpleMessage("Released:"),
         "released_type": MessageLookupByLibrary.simpleMessage("Release Type:"),
+        "remove_address": MessageLookupByLibrary.simpleMessage("Remove"),
         "remove_collection_btn":
             MessageLookupByLibrary.simpleMessage("REMOVE FROM COLLECTION"),
         "remove_item": MessageLookupByLibrary.simpleMessage("REMOVE ITEM"),
@@ -301,6 +343,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Search name, style, color etc"),
         "second_address":
             MessageLookupByLibrary.simpleMessage("Address 2 (optional)"),
+        "security_sub_title":
+            MessageLookupByLibrary.simpleMessage("Two-Step verification"),
+        "security_title": MessageLookupByLibrary.simpleMessage("Security"),
         "see_info":
             MessageLookupByLibrary.simpleMessage("ⓘ  See info guidelines"),
         "see_photo_guidelines":
@@ -312,6 +357,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "selected": MessageLookupByLibrary.simpleMessage("Selected"),
         "sell_for": MessageLookupByLibrary.simpleMessage("SELL FOR"),
         "send_info": MessageLookupByLibrary.simpleMessage("SEND INFO"),
+        "settings": MessageLookupByLibrary.simpleMessage("SETTINGS"),
+        "shipping_address_title":
+            MessageLookupByLibrary.simpleMessage("Shipping Address"),
         "shop_by_category_title":
             MessageLookupByLibrary.simpleMessage("SHOP BY CATEGORY"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Sign In"),
@@ -320,6 +368,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "sort_by": MessageLookupByLibrary.simpleMessage("sort by"),
         "staff_picks": MessageLookupByLibrary.simpleMessage("STAFF PICKS"),
         "state": MessageLookupByLibrary.simpleMessage("State"),
+        "subscription_title":
+            MessageLookupByLibrary.simpleMessage("Subscription"),
         "subtitle_welcome":
             MessageLookupByLibrary.simpleMessage("Let’s create your profile!"),
         "tab_collection": MessageLookupByLibrary.simpleMessage("COLLECTION"),
