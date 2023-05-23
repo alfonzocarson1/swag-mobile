@@ -29,16 +29,18 @@ class ListForSalePage extends StatefulWidget {
   static const name = '/ListForSalePage';
 
   ListForSalePage(
-      {super.key, this.collectionData, required this.catalogItemName});
+      {super.key, this.collectionData, required this.catalogItemName, this.salesHistoryNavigation});
 
   DetailCollectionModel? collectionData;
   String catalogItemName;
+  VoidCallback? salesHistoryNavigation;
 
   static Route route(
-          DetailCollectionModel? collectionData, String catalogItemName) =>
+      VoidCallback? salesHistoryNavigation, DetailCollectionModel? collectionData, String catalogItemName) =>
       PageRoutes.slideUp(
         settings: const RouteSettings(name: name),
         builder: (context) => ListForSalePage(
+          salesHistoryNavigation: salesHistoryNavigation,
             collectionData: collectionData, catalogItemName: catalogItemName),
       );
 
@@ -52,7 +54,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
 
   bool isPostListing = false;
   final FocusNode _listPriceItemNode = FocusNode();
-  var _listPriceItemController = TextEditingController();
+  final _listPriceItemController = TextEditingController();
   Color _listPriceItemBorder = Palette.current.primaryWhiteSmoke;
 
   final FocusNode _conditionNode = FocusNode();
@@ -219,12 +221,15 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                   height: 5,
                                 ),
                                 CustomTextFormField(
-                                  suffix: Image.asset(
-                                    'assets/images/trending-up.png',
-                                    width: 20,
-                                    height: 20,
-                                    scale: 3,
-                                    color: Palette.current.blackSmoke,
+                                  suffix: GestureDetector(
+                                    onTap: widget.salesHistoryNavigation,
+                                    child: (widget.salesHistoryNavigation != null) ? Image.asset(
+                                      'assets/images/trending-up.png',
+                                      width: 20,
+                                      height: 20,
+                                      scale: 3,
+                                      color: Palette.current.blackSmoke,
+                                    ) : const SizedBox.shrink(),
                                   ),
                                   inputFormatters: <TextInputFormatter>[
                                     FilteringTextInputFormatter.digitsOnly

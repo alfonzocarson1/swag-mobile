@@ -2,10 +2,14 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:swagapp/modules/models/detail/detail_sale_info_model.dart';
+import 'package:swagapp/modules/models/detail/sale_history_model.dart';
 import 'package:swagapp/modules/pages/add/collection/widgets/slider_custom_widget.dart';
 import '../../../../generated/l10n.dart';
+import '../../../blocs/sale_history/sale_history_bloc.dart';
 import '../../../common/ui/custom_text_form_field.dart';
 import '../../../common/ui/popup_image_guidelines.dart';
 import '../../../common/ui/primary_button.dart';
@@ -15,9 +19,13 @@ import '../../../common/utils/palette.dart';
 
 import '../../../constants/constants.dart';
 import '../../../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
+import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
 import '../../../models/detail/detail_collection_model.dart';
+import '../../../models/detail/sale_list_history_model.dart';
 import '../../../models/listing_for_sale/listing_for_sale_model.dart';
+import '../../detail/transaction_history_page.dart';
+import '../../login/create_account_page.dart';
 import 'list_item_preview_page.dart';
 
 class EditListForSalePage extends StatefulWidget {
@@ -28,25 +36,28 @@ class EditListForSalePage extends StatefulWidget {
       this.collectionData,
       this.productItemId,
       required this.catalogItemName,
-      this.imageUrls});
+      this.imageUrls, required this.salesHistoryListModel,
+      });
 
   final DetailCollectionModel? collectionData;
   final String? productItemId;
   final String catalogItemName;
   final List<dynamic>? imageUrls;
+  final SalesHistoryListModel salesHistoryListModel;
 
   static Route route(
           DetailCollectionModel? collectionData,
           String? productItemId,
           String catalogItemName,
-          List<dynamic>? imageUrls) =>
+          List<dynamic>? imageUrls,
+          SalesHistoryListModel salesHistoryListModel,)=>
       PageRoutes.slideUp(
         settings: const RouteSettings(name: name),
         builder: (context) => EditListForSalePage(
           productItemId: productItemId,
           collectionData: collectionData,
           catalogItemName: catalogItemName,
-          imageUrls: imageUrls,
+          imageUrls: imageUrls, salesHistoryListModel: salesHistoryListModel,
         ),
       );
 
@@ -55,6 +66,7 @@ class EditListForSalePage extends StatefulWidget {
 }
 
 class _EditListForSalePageState extends State<EditListForSalePage> {
+  bool isLogged = false;
   final ImagePicker imagePicker = ImagePicker();
   List<dynamic> imageFileList = [];
   List<File> tempFiles = [];
@@ -79,6 +91,7 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
   bool isFirst = true;
   double _price = 100.0;
   bool validPrice = false;
+  late SalesHistoryListModel saleHistoryModel;
 
   @override
   void dispose() {
@@ -90,6 +103,9 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
   @override
   void initState() {
     super.initState();
+     isLogged = getIt<PreferenceRepositoryService>().isLogged();
+    
+     
     if (widget.collectionData != null) {
       _price = widget.collectionData?.purchasePrice ?? 0.0;
       _listDescriptionItemController.text =
@@ -141,7 +157,8 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
     if(tempImageUrls2 !=null){
       imageUrls = tempImageUrls2.whereType<String>().toList();
     }
-    
+    List<SalesHistoryModel> saleHistoryList = widget.salesHistoryListModel.saleHistoryList ?? [];
+         
     return WillPopScope(
       onWillPop: () async {
         _onWillPop(context);
@@ -240,13 +257,30 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
                               Column(
                                 children: [
                                   CustomTextFormField(
-                                    suffix: Image.asset(
+                                    suffix: (saleHistoryList.isNotEmpty) ? 
+                                                      Column(
+                          children: [
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                if (isLogged) {               
+                                } else {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(CreateAccountPage.route());
+                                }
+                              },
+                              child: Image.asset(
                                       'assets/images/trending-up.png',
                                       width: 20,
                                       height: 20,
                                       scale: 3,
                                       color: Palette.current.blackSmoke,
                                     ),
+                            ),
+                          ],
+                        ): const SizedBox.shrink(),                                  
                                     inputFormatters: <TextInputFormatter>[
                                       FilteringTextInputFormatter.digitsOnly
                                     ],
