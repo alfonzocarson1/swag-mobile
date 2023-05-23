@@ -225,7 +225,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                                 dataDetail[index].copyWith(inFavorites: val);
                           });
                         },
-                        SaleHistoryNavigation: () => navigationCallback(dataDetail[index]),
+                        saleHistoryNavigation: () => navigationCallback(dataDetail[index]),
                         profileFavoriteItemId:
                             dataDetail[index].profileFavoriteItemId,
                         urlImage: dataDetail[index].catalogItemImage,
