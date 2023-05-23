@@ -2539,6 +2539,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Add New Address`
+  String get add_new_address {
+    return Intl.message(
+      'Add New Address',
+      name: 'add_new_address',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove`
+  String get remove_address {
+    return Intl.message(
+      'Remove',
+      name: 'remove_address',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit Address`
+  String get edit_address {
+    return Intl.message(
+      'Edit Address',
+      name: 'edit_address',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

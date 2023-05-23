@@ -37,6 +37,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ADD TO YOUR COLLECTION"),
         "add_multi_collection_btn":
             MessageLookupByLibrary.simpleMessage("ADD ANOTHER"),
+        "add_new_address":
+            MessageLookupByLibrary.simpleMessage("Add New Address"),
         "add_new_item": MessageLookupByLibrary.simpleMessage("ADD NEW ITEM"),
         "add_photos": MessageLookupByLibrary.simpleMessage("ADD PHOTOS"),
         "add_to_wall_collection_subtitle": MessageLookupByLibrary.simpleMessage(
@@ -115,6 +117,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("•  Bottom of item"),
         "dont_have_account":
             MessageLookupByLibrary.simpleMessage("Don’t have an account? "),
+        "edit_address": MessageLookupByLibrary.simpleMessage("Edit Address"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "email_taken": MessageLookupByLibrary.simpleMessage(
             "An account is already associated with this email"),
@@ -301,6 +304,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Release Date - Oldest"),
         "released": MessageLookupByLibrary.simpleMessage("Released:"),
         "released_type": MessageLookupByLibrary.simpleMessage("Release Type:"),
+        "remove_address": MessageLookupByLibrary.simpleMessage("Remove"),
         "remove_collection_btn":
             MessageLookupByLibrary.simpleMessage("REMOVE FROM COLLECTION"),
         "remove_item": MessageLookupByLibrary.simpleMessage("REMOVE ITEM"),

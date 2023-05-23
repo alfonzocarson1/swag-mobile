@@ -255,7 +255,11 @@
     "kyc_title": "KYC",
     "subscription_title": "Subscription",
     "active": "Active",
-    "expired": "Expired"
+    "expired": "Expired",
+    "add_new_address": "Add New Address",
+    "remove_address": "Remove",
+    "edit_address": "Edit Address"
+
     
    
     

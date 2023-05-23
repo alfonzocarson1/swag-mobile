@@ -8,6 +8,7 @@ import '../../../common/utils/utils.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
 import '../../../models/profile/profile_model.dart';
+import 'shipping_address_page.dart';
 
 class AccountPage extends StatefulWidget {
   static const name = '/AccountPage';
@@ -84,7 +85,10 @@ class _AccountPageState extends State<AccountPage> {
                             'assets/icons/shipping_address_icon.png',
                             S.of(context).shipping_address_title,
                             '${profileData.addresses![0].address1}, ${profileData.addresses![0].city}, ${profileData.addresses![0].postalCode}',
-                            () {},
+                            () {
+                          Navigator.of(context, rootNavigator: true)
+                              .push(ShippingAddressPage.route());
+                        },
                             Icon(
                               Icons.arrow_forward_ios_sharp,
                               size: 10,
@@ -117,42 +121,43 @@ class _AccountPageState extends State<AccountPage> {
                             color: Palette.current.grey,
                           ),
                         ),
-                        selectSettings(
-                            context,
-                            'assets/icons/KYC_icon.png',
-                            S.of(context).kyc_title,
-                            profileData.username,
-                            () {},
-                            Text('Verified',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displayLarge!
-                                    .copyWith(
-                                        fontWeight: FontWeight.w300,
-                                        fontSize: 16,
-                                        color:
-                                            Palette.current.primaryNeonGreen)),
-                            null),
-                        SizedBox(
-                          height: 0.2,
-                          child: Container(
-                            color: Palette.current.grey,
-                          ),
-                        ),
-                        selectSettings(
-                            context,
-                            'assets/icons/atomic_drop_payments_icon.png',
-                            S.of(context).subscription_title,
-                            '',
-                            () {},
-                            const SizedBox(),
-                            Text(S.of(context).active,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                                    .copyWith(
-                                        color: Palette.current.primaryNeonGreen,
-                                        fontSize: 14))),
+                        //Todo This will be implemented in the future
+                        // selectSettings(
+                        //     context,
+                        //     'assets/icons/KYC_icon.png',
+                        //     S.of(context).kyc_title,
+                        //     profileData.username,
+                        //     () {},
+                        //     Text('Verified',
+                        //         style: Theme.of(context)
+                        //             .textTheme
+                        //             .displayLarge!
+                        //             .copyWith(
+                        //                 fontWeight: FontWeight.w300,
+                        //                 fontSize: 16,
+                        //                 color:
+                        //                     Palette.current.primaryNeonGreen)),
+                        //     null),
+                        // SizedBox(
+                        //   height: 0.2,
+                        //   child: Container(
+                        //     color: Palette.current.grey,
+                        //   ),
+                        // ),
+                        // selectSettings(
+                        //     context,
+                        //     'assets/icons/atomic_drop_payments_icon.png',
+                        //     S.of(context).subscription_title,
+                        //     '',
+                        //     () {},
+                        //     const SizedBox(),
+                        //     Text(S.of(context).active,
+                        //         style: Theme.of(context)
+                        //             .textTheme
+                        //             .bodySmall!
+                        //             .copyWith(
+                        //                 color: Palette.current.primaryNeonGreen,
+                        //                 fontSize: 14))),
                       ],
                     )),
               );

@@ -39,10 +39,11 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
         height: 70,
         actions: [
-          HeaderActionButton(
-            buttonText: S.of(context).premium_member_title,
-            onPressed: () {},
-          ),
+          //Todo This will be implemented in the future
+          // HeaderActionButton(
+          //   buttonText: S.of(context).premium_member_title,
+          //   onPressed: () {},
+          // ),
         ],
       ),
       backgroundColor: Palette.current.primaryEerieBlack,
@@ -93,11 +94,12 @@ class _SettingsPageState extends State<SettingsPage> {
                             color: Palette.current.grey,
                           ),
                         ),
-                        _selectSettings(
-                            'assets/icons/security_icon.png',
-                            S.of(context).security_title,
-                            S.of(context).security_sub_title,
-                            () {}),
+                        //Todo This will be implemented in the future
+                        // _selectSettings(
+                        //     'assets/icons/security_icon.png',
+                        //     S.of(context).security_title,
+                        //     S.of(context).security_sub_title,
+                        //     () {}),
                         SizedBox(
                           height: 0.2,
                           child: Container(
