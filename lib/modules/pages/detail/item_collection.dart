@@ -3,8 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:swagapp/modules/common/utils/context_service.dart';
 
 import '../../../generated/l10n.dart';
+import '../../blocs/sale_history/sale_history_bloc.dart';
 import '../../common/ui/popup_delete_item_collection.dart';
 import '../../common/ui/popup_list_item_sale.dart';
 import '../../common/ui/primary_button.dart';
@@ -33,7 +35,10 @@ class CollectionWidget extends StatefulWidget {
       required this.catalogItemName,
       required this.favorite,
       required this.urlImage,
-      required this.addFavorite});
+      required this.addFavorite,
+      this.salesHistoryNavigation,
+      
+      });
 
   final List<DetailCollectionModel>? dataCollection;
   final DetailSaleInfoModel lastSale;
@@ -44,6 +49,7 @@ class CollectionWidget extends StatefulWidget {
   final bool favorite;
   final String urlImage;
   Function(bool) addFavorite;
+  VoidCallback? salesHistoryNavigation;
   @override
   State<CollectionWidget> createState() => _CollectionWidgetState();
 }
@@ -76,7 +82,6 @@ class _CollectionWidgetState extends State<CollectionWidget> {
             ids.add(buyForSaleList
                 .first.saledItemdList[index].profileCollectionItemId!);
           }
-
           newCollectionList = widget.dataCollection!
               .where((item) => !ids.contains(item.profileCollectionItemId))
               .toList();
@@ -119,6 +124,8 @@ class _CollectionWidgetState extends State<CollectionWidget> {
         getProfileAvatar();
       });
     }
+
+
 
     return Column(
       children: [
@@ -401,9 +408,11 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                           (newCollectionList.length == 1))
                                       ? Navigator.of(context,
                                               rootNavigator: true)
-                                          .push(ListForSalePage.route(
+                                          .push(ListForSalePage.route(                                           
+                                              widget.salesHistoryNavigation,
                                               newCollectionList[0],
-                                              widget.catalogItemName))
+                                              widget.catalogItemName,                                           
+                                              ))
                                       : ScaffoldMessenger.of(context)
                                           .showSnackBar(SnackBar(
                                               duration:
