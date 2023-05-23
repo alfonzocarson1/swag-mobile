@@ -4,6 +4,7 @@ import '../../../generated/l10n.dart';
 import '../../common/ui/pushed_header.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
+import 'account/account_page.dart';
 import 'shared_widgetds.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -60,8 +61,10 @@ class _SettingsPageState extends State<SettingsPage> {
                         _selectSettings(
                             'assets/icons/account_icon.png',
                             S.of(context).account_title,
-                            S.of(context).account_sub_title,
-                            () {}),
+                            S.of(context).account_sub_title, () {
+                          Navigator.of(context, rootNavigator: true)
+                              .push(AccountPage.route());
+                        }),
                         SizedBox(
                           height: 0.2,
                           child: Container(
