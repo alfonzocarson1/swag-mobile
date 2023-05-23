@@ -246,7 +246,18 @@
     "contact_us_sub_title": "Get in touch with Swag support",
     "help_center_title": "Help Center",
     "help_center_sub_title": "See our FAQS, Terms and Privacy",
-    "premium_member_title": "PREMIUM MEMBER"
+    "premium_member_title": "PREMIUM MEMBER",
+    "premium_memberatomic_drop_payments_title": "Atomic Drop Payments",
+    "premium_memberatomic_drop_payments_sub_title": "Manage Cards",
+    "shipping_address_title": "Shipping Address",
+    "peer_to_peer_payment_options_title": "Peer to Peer Payment Options",
+    "peer_to_peer_payment_options_sub_title": "Venmo, CashApp, PayPal",
+    "kyc_title": "KYC",
+    "subscription_title": "Subscription",
+    "active": "Active",
+    "expired": "Expired"
+    
+   
     
 
 }

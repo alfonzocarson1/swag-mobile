@@ -30,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Billing, shipping, payment"),
         "account_title": MessageLookupByLibrary.simpleMessage("Account"),
         "acquired": MessageLookupByLibrary.simpleMessage("Acquired:"),
+        "active": MessageLookupByLibrary.simpleMessage("Active"),
         "add_collection":
             MessageLookupByLibrary.simpleMessage("ADD TO COLLECTION"),
         "add_collection_title":
@@ -137,6 +138,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "It looks like you already have this item in your collection. Are you sure you want to add another one?"),
         "existing_item_to_collection_error_title":
             MessageLookupByLibrary.simpleMessage("Are you sure"),
+        "expired": MessageLookupByLibrary.simpleMessage("Expired"),
         "explore_as_guest":
             MessageLookupByLibrary.simpleMessage("EXPLORE AS GUEST"),
         "field_empty":
@@ -197,6 +199,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Username must be between 4-20 characters"),
         "ist_item_popup_btn":
             MessageLookupByLibrary.simpleMessage("CREATE LISTING"),
+        "kyc_title": MessageLookupByLibrary.simpleMessage("KYC"),
         "last_name": MessageLookupByLibrary.simpleMessage("Last Name"),
         "last_sale": MessageLookupByLibrary.simpleMessage("LAST SALE"),
         "less_than": MessageLookupByLibrary.simpleMessage("Less than \$111"),
@@ -231,6 +234,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "password_helper": MessageLookupByLibrary.simpleMessage(
             "At least 8 characters, 1 uppercase, 1 number & 1 symbol"),
+        "peer_to_peer_payment_options_sub_title":
+            MessageLookupByLibrary.simpleMessage("Venmo, CashApp, PayPal"),
+        "peer_to_peer_payment_options_title":
+            MessageLookupByLibrary.simpleMessage(
+                "Peer to Peer Payment Options"),
         "phone": MessageLookupByLibrary.simpleMessage("Phone"),
         "phone_taken": MessageLookupByLibrary.simpleMessage(
             "An account is already associated with this phone number"),
@@ -252,6 +260,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("POST LISTING"),
         "premium_member_title":
             MessageLookupByLibrary.simpleMessage("PREMIUM MEMBER"),
+        "premium_memberatomic_drop_payments_sub_title":
+            MessageLookupByLibrary.simpleMessage("Manage Cards"),
+        "premium_memberatomic_drop_payments_title":
+            MessageLookupByLibrary.simpleMessage("Atomic Drop Payments"),
         "preview_listing":
             MessageLookupByLibrary.simpleMessage("PREVIEW LISTING"),
         "price": MessageLookupByLibrary.simpleMessage("PRICE"),
@@ -342,6 +354,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "sell_for": MessageLookupByLibrary.simpleMessage("SELL FOR"),
         "send_info": MessageLookupByLibrary.simpleMessage("SEND INFO"),
         "settings": MessageLookupByLibrary.simpleMessage("SETTINGS"),
+        "shipping_address_title":
+            MessageLookupByLibrary.simpleMessage("Shipping Address"),
         "shop_by_category_title":
             MessageLookupByLibrary.simpleMessage("SHOP BY CATEGORY"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Sign In"),
@@ -350,6 +364,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "sort_by": MessageLookupByLibrary.simpleMessage("sort by"),
         "staff_picks": MessageLookupByLibrary.simpleMessage("STAFF PICKS"),
         "state": MessageLookupByLibrary.simpleMessage("State"),
+        "subscription_title":
+            MessageLookupByLibrary.simpleMessage("Subscription"),
         "subtitle_welcome":
             MessageLookupByLibrary.simpleMessage("Let’s create your profile!"),
         "tab_collection": MessageLookupByLibrary.simpleMessage("COLLECTION"),

@@ -2449,6 +2449,96 @@ class S {
       args: [],
     );
   }
+
+  /// `Atomic Drop Payments`
+  String get premium_memberatomic_drop_payments_title {
+    return Intl.message(
+      'Atomic Drop Payments',
+      name: 'premium_memberatomic_drop_payments_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Manage Cards`
+  String get premium_memberatomic_drop_payments_sub_title {
+    return Intl.message(
+      'Manage Cards',
+      name: 'premium_memberatomic_drop_payments_sub_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shipping Address`
+  String get shipping_address_title {
+    return Intl.message(
+      'Shipping Address',
+      name: 'shipping_address_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Peer to Peer Payment Options`
+  String get peer_to_peer_payment_options_title {
+    return Intl.message(
+      'Peer to Peer Payment Options',
+      name: 'peer_to_peer_payment_options_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Venmo, CashApp, PayPal`
+  String get peer_to_peer_payment_options_sub_title {
+    return Intl.message(
+      'Venmo, CashApp, PayPal',
+      name: 'peer_to_peer_payment_options_sub_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `KYC`
+  String get kyc_title {
+    return Intl.message(
+      'KYC',
+      name: 'kyc_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Subscription`
+  String get subscription_title {
+    return Intl.message(
+      'Subscription',
+      name: 'subscription_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Active`
+  String get active {
+    return Intl.message(
+      'Active',
+      name: 'active',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Expired`
+  String get expired {
+    return Intl.message(
+      'Expired',
+      name: 'expired',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
