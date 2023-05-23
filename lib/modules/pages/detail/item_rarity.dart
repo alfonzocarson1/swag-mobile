@@ -98,7 +98,7 @@ class _RarityWidgetState extends State<RarityWidget> {
                           fontSize: 15,
                           color: Palette.current.primaryWhiteSmoke,
                         )),
-                trailing: Text(decimalDigitsLastSalePrice(widget.retail!),
+                trailing: Text('\$${widget.retail}',
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           fontSize: 15,
                           color: Palette.current.primaryWhiteSmoke,
