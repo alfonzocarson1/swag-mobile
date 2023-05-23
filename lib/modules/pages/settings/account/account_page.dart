@@ -8,6 +8,7 @@ import '../../../common/utils/utils.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
 import '../../../models/profile/profile_model.dart';
+import 'peer_to_peer_payments_page.dart';
 import 'shipping_address_page.dart';
 
 class AccountPage extends StatefulWidget {
@@ -107,8 +108,10 @@ class _AccountPageState extends State<AccountPage> {
                             S.of(context).peer_to_peer_payment_options_title,
                             S
                                 .of(context)
-                                .peer_to_peer_payment_options_sub_title,
-                            () {},
+                                .peer_to_peer_payment_options_sub_title, () {
+                          Navigator.of(context, rootNavigator: true)
+                              .push(PeerToPeerPaymentsPage.route());
+                        },
                             Icon(
                               Icons.arrow_forward_ios_sharp,
                               size: 10,

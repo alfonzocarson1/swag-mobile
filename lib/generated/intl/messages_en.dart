@@ -62,6 +62,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "buy_for": MessageLookupByLibrary.simpleMessage("BUY FOR"),
         "camera": MessageLookupByLibrary.simpleMessage("TAKE PHOTO"),
         "cancel": MessageLookupByLibrary.simpleMessage("CANCEL"),
+        "cash_app": MessageLookupByLibrary.simpleMessage("CashApp"),
+        "cash_app_sub_title": MessageLookupByLibrary.simpleMessage(
+            "Please enter and confirm your \nCashApp cashtag"),
         "category": MessageLookupByLibrary.simpleMessage("category"),
         "city": MessageLookupByLibrary.simpleMessage("City"),
         "clear_all": MessageLookupByLibrary.simpleMessage("Clear All"),
@@ -190,6 +193,12 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please provide as much information as you can about the product and how you acquired it. Be sure to include the following:"),
         "info_guideline_popup_title":
             MessageLookupByLibrary.simpleMessage("INFO GUIDELINES"),
+        "input_cash_app": MessageLookupByLibrary.simpleMessage("\$cashtag"),
+        "input_cash_app_ivalid": MessageLookupByLibrary.simpleMessage(
+            "Must 20 characters or less, min 1 letter, no spaces"),
+        "input_venmo": MessageLookupByLibrary.simpleMessage("@Venmo username"),
+        "input_venmo_ivalid": MessageLookupByLibrary.simpleMessage(
+            "Must be 5-10 characters, no spaces or special characters except - or _"),
         "invadlidEmail": MessageLookupByLibrary.simpleMessage(
             "Incorrect email. Please try again."),
         "invalid_email": MessageLookupByLibrary.simpleMessage(
@@ -237,6 +246,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "password_helper": MessageLookupByLibrary.simpleMessage(
             "At least 8 characters, 1 uppercase, 1 number & 1 symbol"),
+        "payPal": MessageLookupByLibrary.simpleMessage("PayPal"),
+        "payPal_sub_title": MessageLookupByLibrary.simpleMessage(
+            "Please enter and confirm your PayPal email"),
         "peer_to_peer_payment_options_sub_title":
             MessageLookupByLibrary.simpleMessage("Venmo, CashApp, PayPal"),
         "peer_to_peer_payment_options_title":
@@ -327,6 +339,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "retail": MessageLookupByLibrary.simpleMessage("Retail:"),
         "sale_data": MessageLookupByLibrary.simpleMessage("SALE DATE"),
         "sales_history": MessageLookupByLibrary.simpleMessage("SALES HISTORY"),
+        "save_btn": MessageLookupByLibrary.simpleMessage("SAVE"),
         "save_search": MessageLookupByLibrary.simpleMessage("Save Search"),
         "saved_searches":
             MessageLookupByLibrary.simpleMessage("SAVED SEARCHES"),
@@ -395,6 +408,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "username": MessageLookupByLibrary.simpleMessage("@username"),
         "username_taken":
             MessageLookupByLibrary.simpleMessage("This username is taken "),
+        "venmo": MessageLookupByLibrary.simpleMessage("Venmo"),
+        "venmo_sub_title": MessageLookupByLibrary.simpleMessage(
+            "Please enter and confirm your \nVenmo username."),
         "verify_email": MessageLookupByLibrary.simpleMessage("VERIFY EMAIL"),
         "verify_email_description": MessageLookupByLibrary.simpleMessage(
             "You must verify your email before you can import your data. Check your inbox for the email."),

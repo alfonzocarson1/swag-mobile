@@ -258,7 +258,22 @@
     "expired": "Expired",
     "add_new_address": "Add New Address",
     "remove_address": "Remove",
-    "edit_address": "Edit Address"
+    "edit_address": "Edit Address",
+    "venmo": "Venmo",
+    "cash_app": "CashApp",
+    "payPal": "PayPal",
+    "save_btn": "SAVE",
+    "venmo_sub_title": "Please enter and confirm your \nVenmo username.",
+    "payPal_sub_title": "Please enter and confirm your PayPal email",
+    "cash_app_sub_title": "Please enter and confirm your \nCashApp cashtag",
+
+    "input_venmo": "@Venmo username",
+    "input_cash_app": "$cashtag",
+    "input_cash_app_ivalid": "Must 20 characters or less, min 1 letter, no spaces",
+    "input_venmo_ivalid": "Must be 5-10 characters, no spaces or special characters except - or _"
+
+
+
 
     
    

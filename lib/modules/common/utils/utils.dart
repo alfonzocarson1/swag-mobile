@@ -28,6 +28,14 @@ bool isValidUsername(String username) {
   return RegExp(r"^.{4,20}$").hasMatch(username);
 }
 
+bool isValidCashAppTag(String cashAppTag) {
+  return RegExp(r"^(?=.*[a-zA-Z])[^\s]{1,20}$").hasMatch(cashAppTag);
+}
+
+bool isValidVenmoUser(String venmoUser) {
+  return RegExp(r"^[-_a-zA-Z0-9]{5,10}$").hasMatch(venmoUser);
+}
+
 bool isValidNumberDot(String number) {
   return RegExp(r"^[0-9]+\.[0-9][0-9]$").hasMatch(number);
 }
@@ -306,10 +314,9 @@ Widget selectSettings(
     onTap: onTap,
     splashColor: Palette.current.primaryNero,
     child: ListTile(
-      leading: ImageIcon(
-        AssetImage(iconUrl),
-        size: 25,
-        color: Colors.white,
+      leading: Image.asset(
+        iconUrl,
+        scale: 3,
       ),
       title: Text(title,
           style: Theme.of(context).textTheme.bodySmall!.copyWith(
