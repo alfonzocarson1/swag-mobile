@@ -55,7 +55,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    getSalesHistory();
     super.initState();
     isFirstState = true;
     isLogged = getIt<PreferenceRepositoryService>().isLogged();
@@ -73,7 +73,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
   @override
   Widget build(BuildContext context) {
 
-    getSalesHistory();
+    
     saleHistoryList = saleHistoryModel.saleHistoryList ?? [];
     return Scaffold(
         backgroundColor: Palette.current.black,
