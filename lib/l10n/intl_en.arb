@@ -292,6 +292,7 @@
     "chatTyping": "Typing...",
     "chatErrorFile": "Error loading the file",
     "chatLoadingFile": "Loading File...",
+    "chatToday": "Today",
 
     "chatsHeader": "ALERTS & Notifications",
     "chatsUnreadMessages": "{chatsNumber} Unread"

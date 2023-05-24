@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:loading_indicator/loading_indicator.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
-import 'package:video_player/video_player.dart';
+import 'package:cached_video_player/cached_video_player.dart';
+import 'package:swagapp/modules/common/ui/swagg_video_player.dart';
 
 class MediaViewerPage extends StatefulWidget {
 
@@ -18,13 +18,14 @@ class MediaViewerPage extends StatefulWidget {
 
 class _MediaViewerPageState extends State<MediaViewerPage> {
 
-  late VideoPlayerController controller;
+  late CachedVideoPlayerController controller;
 
   @override
   void initState() {
     
-    this.controller = VideoPlayerController.network(this.widget.url);
-    this.controller.initialize().then((value)=> setState(()=> {}));
+    this.controller = CachedVideoPlayerController.network(this.widget.url);
+    this.initializeController();
+
     super.initState();
   }
 
@@ -43,7 +44,7 @@ class _MediaViewerPageState extends State<MediaViewerPage> {
       body: Stack(
         children: <Widget>
         [
-          Positioned.fill(child: _VideoPlayer(controller: this.controller)),
+          Positioned.fill(child: SwaggVideoPlayer(controller: this.controller)),
           Align(
             alignment: Alignment.topLeft,
             child: Container(
@@ -60,37 +61,76 @@ class _MediaViewerPageState extends State<MediaViewerPage> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(onPressed: ()=> this.controller.play()),
+      floatingActionButton: _PlayButton(controller: controller),
     );
+  }
+
+  void initializeController() {
+
+    this.controller.initialize().then((value){
+      
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+        
+        setState((){});
+        await this.controller.play();
+      });
+    });
   }
 }
 
-class _VideoPlayer extends StatelessWidget {
+class _PlayButton extends StatefulWidget {
 
-  final VideoPlayerController controller;
+  final CachedVideoPlayerController controller;
 
-  const _VideoPlayer({
-    super.key, 
+  const _PlayButton({
+    super.key,
     required this.controller,
   });
 
   @override
-  Widget build(BuildContext context) {
+  State<_PlayButton> createState() => _PlayButtonState();
+}
 
-    return Center(
-      child: AspectRatio(
-        aspectRatio: this.controller.value.aspectRatio,      
-        child: (this.controller.value.isInitialized) 
-        ? VideoPlayer(this.controller)
-        : Container(
-            margin: const EdgeInsets.symmetric(horizontal: 150),
-            child: const LoadingIndicator(
-              indicatorType: Indicator.ballPulse,
-              colors: [Colors.white],
-              strokeWidth: 2.0,
-            ),
-          ),
+class _PlayButtonState extends State<_PlayButton> {
+
+  @override
+  void initState() {
+    
+    this.widget.controller.addListener(()=> this.listenControllerPostion());
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    
+    return FloatingActionButton(
+      onPressed: this.onTap,
+      splashColor: Colors.transparent,
+      backgroundColor: Palette.current.primaryNeonGreen,
+      child: Icon(
+        (this.widget.controller.value.isPlaying) 
+        ? Icons.pause
+        : Icons.play_arrow,
+        color: Colors.black,
       ),
     );
+  }
+
+  void onTap() {
+
+    (this.widget.controller.value.isPlaying) 
+    ? this.widget.controller.pause()
+    : this.widget.controller.play();
+    
+    setState((){});
+  }
+
+  void listenControllerPostion() {
+
+    if(this.widget.controller.value.position == this.widget.controller.value.duration) {
+      
+      this.widget.controller.pause();
+      setState((){});
+    }
   }
 }

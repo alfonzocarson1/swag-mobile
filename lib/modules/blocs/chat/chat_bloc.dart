@@ -130,6 +130,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     UserMessageParams params = UserMessageParams(message: message);
     // UserMessage localMessage = this._getLocalMessage(message, chatData);
 
+    await Future.delayed(const Duration(milliseconds: 1000));
+
     try {
       
       chatData.channel.sendUserMessage(
