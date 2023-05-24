@@ -61,7 +61,7 @@ class _ShippingAddressDetailPageState extends State<ShippingAddressDetailPage> {
                             context,
                             'assets/icons/shipping_address_icon.png',
                             '${widget.address.address1}',
-                            '${widget.address.city}, ${widget.address.postalCode}',
+                            '',
                             () {},
                             Text(S.of(context).remove_address,
                                 style: Theme.of(context)
@@ -72,7 +72,16 @@ class _ShippingAddressDetailPageState extends State<ShippingAddressDetailPage> {
                                         fontSize: 16,
                                         color:
                                             Palette.current.primaryNeonPink)),
-                            null),
+                            Text(
+                                '${widget.address.city}, ${widget.address.postalCode}',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(
+                                        fontWeight: FontWeight.w400,
+                                        color:
+                                            Palette.current.primaryWhiteSmoke,
+                                        fontSize: 16))),
                         Padding(
                           padding: const EdgeInsets.only(left: 57),
                           child: Align(

@@ -2569,6 +2569,116 @@ class S {
       args: [],
     );
   }
+
+  /// `Venmo`
+  String get venmo {
+    return Intl.message(
+      'Venmo',
+      name: 'venmo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CashApp`
+  String get cash_app {
+    return Intl.message(
+      'CashApp',
+      name: 'cash_app',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `PayPal`
+  String get payPal {
+    return Intl.message(
+      'PayPal',
+      name: 'payPal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SAVE`
+  String get save_btn {
+    return Intl.message(
+      'SAVE',
+      name: 'save_btn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter and confirm your \nVenmo username.`
+  String get venmo_sub_title {
+    return Intl.message(
+      'Please enter and confirm your \nVenmo username.',
+      name: 'venmo_sub_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter and confirm your PayPal email`
+  String get payPal_sub_title {
+    return Intl.message(
+      'Please enter and confirm your PayPal email',
+      name: 'payPal_sub_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter and confirm your \nCashApp cashtag`
+  String get cash_app_sub_title {
+    return Intl.message(
+      'Please enter and confirm your \nCashApp cashtag',
+      name: 'cash_app_sub_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `@Venmo username`
+  String get input_venmo {
+    return Intl.message(
+      '@Venmo username',
+      name: 'input_venmo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `$cashtag`
+  String get input_cash_app {
+    return Intl.message(
+      '\$cashtag',
+      name: 'input_cash_app',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Must 20 characters or less, min 1 letter, no spaces`
+  String get input_cash_app_ivalid {
+    return Intl.message(
+      'Must 20 characters or less, min 1 letter, no spaces',
+      name: 'input_cash_app_ivalid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Must be 5-10 characters, no spaces or special characters except - or _`
+  String get input_venmo_ivalid {
+    return Intl.message(
+      'Must be 5-10 characters, no spaces or special characters except - or _',
+      name: 'input_venmo_ivalid',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

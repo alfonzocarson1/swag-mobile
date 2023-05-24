@@ -6,6 +6,7 @@ import 'package:swagapp/modules/models/filters/dynamic_filters.dart';
 import '../../constants/constants.dart';
 import '../../models/profile/profile_model.dart';
 import '../../models/search/category_model.dart';
+import '../../models/settings/peer_to_peer_payments_get_model.dart';
 import 'i_shared_preferences.dart';
 
 class PreferenceRepositoryService implements PreferenceRepositoryInt {
@@ -28,6 +29,8 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   static const String _searchesWithFilters = 'searchesWithFilters';
   static const String _forgotPasswordFlow = 'forgotPasswordFlow';
   static const String _profileData = 'profileData';
+  static const String _paymentData = 'paymentData';
+
   static const String _dynamicFilters = 'dynamicFilters';
   static const String _collection = 'collection';
   static const String _themes = 'themes';
@@ -261,6 +264,18 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   ProfileModel profileData() {
     final profileData = _prefs.getString(_profileData);
     return ProfileModel.fromJson(json.decode(profileData ?? ''));
+  }
+
+  @override
+  Future<void> savePaymentData(PeerToPeerPaymentsGetModel paymentData) async {
+    await _prefs.setString(_paymentData, jsonEncode(paymentData));
+  }
+
+  @override
+  PeerToPeerPaymentsGetModel paymanetData() {
+    final paymentData = _prefs.getString(_paymentData);
+
+    return PeerToPeerPaymentsGetModel.fromJson(json.decode(paymentData ?? ''));
   }
 
   @override

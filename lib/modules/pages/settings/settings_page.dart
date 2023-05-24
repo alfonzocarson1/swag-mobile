@@ -4,6 +4,8 @@ import '../../../generated/l10n.dart';
 import '../../common/ui/pushed_header.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
+import '../../cubits/peer_to_peer_payments/peer_to_peer_payments_cubit.dart';
+import '../../di/injector.dart';
 import 'account/account_page.dart';
 import 'shared_widgetds.dart';
 
@@ -22,6 +24,13 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getIt<PeerToPeerPaymentsCubit>().getPyments();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -64,23 +64,34 @@ class _ShippingAddressPageState extends State<ShippingAddressPage> {
                                 (index) => Column(
                                       children: [
                                         selectSettings(
-                                            context,
-                                            'assets/icons/shipping_address_icon.png',
-                                            '${profileData.addresses![index].address1}',
-                                            '${profileData.addresses![index].city}, ${profileData.addresses![index].postalCode}',
-                                            () {
-                                          Navigator.of(context,
-                                                  rootNavigator: true)
-                                              .push(ShippingAddressDetailPage
-                                                  .route(profileData
-                                                      .addresses![index]));
-                                        },
-                                            Icon(
-                                              Icons.arrow_forward_ios_sharp,
-                                              size: 10,
-                                              color: Palette.current.darkGray,
-                                            ),
-                                            null),
+                                          context,
+                                          'assets/icons/shipping_address_icon.png',
+                                          '${profileData.addresses![index].address1}',
+                                          '',
+                                          () {
+                                            Navigator.of(context,
+                                                    rootNavigator: true)
+                                                .push(ShippingAddressDetailPage
+                                                    .route(profileData
+                                                        .addresses![index]));
+                                          },
+                                          Icon(
+                                            Icons.arrow_forward_ios_sharp,
+                                            size: 10,
+                                            color: Palette.current.darkGray,
+                                          ),
+                                          Text(
+                                              '${profileData.addresses![index].city}, ${profileData.addresses![index].postalCode}',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color: Palette.current
+                                                          .primaryWhiteSmoke,
+                                                      fontSize: 16)),
+                                        ),
                                         SizedBox(
                                           height: 0.2,
                                           child: Container(
