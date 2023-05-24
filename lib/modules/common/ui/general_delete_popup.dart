@@ -33,7 +33,7 @@ class _GeneralDeletePopupState extends State<GeneralDeletePopup> {
 
   @override
   Widget build(BuildContext context) {
-    double deviceScreenRatio = MediaQuery.of(context).devicePixelRatio;
+    double deviceScreenRatio = MediaQuery.of(context).size.aspectRatio;
     List<CheckboxModel> options = widget.options;
     int selectedOption = -1;    
     model = ListingForSaleModel(
@@ -46,21 +46,22 @@ class _GeneralDeletePopupState extends State<GeneralDeletePopup> {
     );
 
     return Dialog(
+      insetPadding: const EdgeInsets.all(20),
       child: Theme(
         data: Theme.of(context).copyWith(
           unselectedWidgetColor: Palette.current.darkGray,
         ),
         child: Container(
           color: Palette.current.blackSmoke,
-          height: deviceScreenRatio * 230,
-          padding: const EdgeInsets.fromLTRB(0, 15, 15, 10) ,
+          height: deviceScreenRatio * 1200,
+          padding: const EdgeInsets.fromLTRB(10, 10, 10, 0  ) ,
           child: Column(            
             children: [
                  Align(
                     alignment: Alignment.topRight,
                      child: SizedBox(
-                      height: deviceScreenRatio*10,
-                      width: deviceScreenRatio*10,
+                      height: deviceScreenRatio*100,
+                      width: deviceScreenRatio*100,
                        child: IconButton(
                         padding: const EdgeInsets.all(0),
                          color: Palette.current.primaryNeonGreen,
@@ -75,10 +76,10 @@ class _GeneralDeletePopupState extends State<GeneralDeletePopup> {
                      ),
                    ),
               Container(
-                height: deviceScreenRatio * 210,
+                height: deviceScreenRatio * 1050,
                 color: Palette.current.blackSmoke,
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(31, 15, 31, 40),
+                  padding: const EdgeInsets.fromLTRB(25, 0, 25, 40),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [              
@@ -90,7 +91,7 @@ class _GeneralDeletePopupState extends State<GeneralDeletePopup> {
                                 color: Palette.current.primaryNeonGreen,
                               )),
                       SizedBox(
-                        height: deviceScreenRatio * 10,
+                        height: deviceScreenRatio * 50,
                       ),
                       Text(widget.message,
                           style: Theme.of(context).textTheme.bodySmall!.copyWith(
@@ -99,7 +100,7 @@ class _GeneralDeletePopupState extends State<GeneralDeletePopup> {
                                 color: Palette.current.primaryWhiteSmoke,
                               )),
                       SizedBox(
-                        height: deviceScreenRatio * 10,
+                        height: deviceScreenRatio * 50,
                       ),
                       Expanded(
                         flex: 1,
@@ -108,7 +109,8 @@ class _GeneralDeletePopupState extends State<GeneralDeletePopup> {
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: options.length,
                           itemBuilder: (context, index) {
-                            return ListTile(
+                            return ListTile(                              
+                             contentPadding: const EdgeInsets.all(1),
                               title: Text(options[index].title,
                                   style:
                                       Theme.of(context).textTheme.bodySmall!.copyWith(
@@ -116,16 +118,20 @@ class _GeneralDeletePopupState extends State<GeneralDeletePopup> {
                                             letterSpacing: 0.3,
                                             color: Palette.current.primaryWhiteSmoke,
                                           )),
-                              leading: Checkbox(
-                                value: selectedOption == index,
-                                onChanged: (bool? value) {
-                                  setState(() {
-                                    selectedOption = value == true ? index : -1;
-                                    model = model.copyWith(removedReason: options[index].title, status: "removed");                              
-                                  });
-                                },
-                                activeColor: Palette.current.primaryNeonGreen,
-                                checkColor: Palette.current.primaryEerieBlack,
+                              leading: SizedBox(
+                                height: 15,
+                                width: 15,
+                                child: Checkbox(
+                                  value: selectedOption == index,
+                                  onChanged: (bool? value) {
+                                    setState(() {
+                                      selectedOption = value == true ? index : -1;
+                                      model = model.copyWith(removedReason: options[index].title, status: "removed");                              
+                                    });
+                                  },
+                                  activeColor: Palette.current.primaryNeonGreen,
+                                  checkColor: Palette.current.primaryEerieBlack,
+                                ),
                               ),
                             );
                           },
