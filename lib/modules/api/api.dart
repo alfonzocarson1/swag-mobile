@@ -32,7 +32,8 @@ enum Endpoint {
   filtersAvailable,
   listingsProfile,
   explorePage,
-  notifyAvailability
+  notifyAvailability,
+  peerToPeerPayments
 }
 
 class API {
@@ -84,6 +85,7 @@ class API {
     Endpoint.filtersAvailable: 'api/public/v1/catalog/filtersAvailable/',
     Endpoint.listingsProfile: 'api/public/v1/listing/productItems/profile/%s',
     Endpoint.explorePage: 'api/public/v1/catalog/search/0',
-    Endpoint.notifyAvailability: 'api/v1/notification/notifyAvailability'
+    Endpoint.notifyAvailability: 'api/v1/notification/notifyAvailability',
+    Endpoint.peerToPeerPayments: 'api/v1/profile/settings/peerToPeerPayments',
   };
 }

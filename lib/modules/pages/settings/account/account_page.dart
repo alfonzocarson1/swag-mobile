@@ -31,6 +31,8 @@ class _AccountPageState extends State<AccountPage> {
     ProfileModel profileData =
         getIt<PreferenceRepositoryService>().profileData();
 
+    print(profileData);
+
     return Scaffold(
       appBar: PushedHeader(
         showBackButton: true,
@@ -85,8 +87,9 @@ class _AccountPageState extends State<AccountPage> {
                             context,
                             'assets/icons/shipping_address_icon.png',
                             S.of(context).shipping_address_title,
-                            '${profileData.addresses![0].address1}, ${profileData.addresses![0].city}, ${profileData.addresses![0].postalCode}',
-                            () {
+                            profileData.addresses!.isNotEmpty
+                                ? '${profileData.addresses![0].address1}, ${profileData.addresses![0].city}, ${profileData.addresses![0].postalCode}'
+                                : 'Your shipping address is empty', () {
                           Navigator.of(context, rootNavigator: true)
                               .push(ShippingAddressPage.route());
                         },

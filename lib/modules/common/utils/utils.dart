@@ -323,12 +323,14 @@ Widget selectSettings(
               fontWeight: FontWeight.w400,
               color: Palette.current.primaryWhiteSmoke,
               fontSize: 16)),
-      subtitle: customSubTitle ??
-          Text(subTitle,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodySmall!
-                  .copyWith(color: Palette.current.grey, fontSize: 14)),
+      subtitle: (subTitle.isEmpty && customSubTitle == null)
+          ? null
+          : customSubTitle ??
+              Text(subTitle,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall!
+                      .copyWith(color: Palette.current.grey, fontSize: 14)),
       trailing: trailing,
     ),
   );

@@ -68,7 +68,7 @@ class APIService {
             headers: baseHeaders,
             body: jsonEncode(body),
           );
-          print(response.body);
+
           break;
         case RequestMethod.put:
           response = await client.put(

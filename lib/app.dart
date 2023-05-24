@@ -28,6 +28,7 @@ import 'modules/cubits/explore/get_explore_cubit.dart';
 import 'modules/cubits/favorites/get_favorites_cubit.dart';
 import 'modules/cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
 import 'modules/cubits/page_from_explore/page_from_explore_cubit.dart';
+import 'modules/cubits/peer_to_peer_payments/peer_to_peer_payments_cubit.dart';
 import 'modules/cubits/profile/get_profile_cubit.dart';
 import 'modules/pages/home/home_page.dart';
 import 'modules/common/utils/context_service.dart';
@@ -69,6 +70,9 @@ class App extends StatelessWidget {
 
           BlocProvider<CatalogDetailCubit>(
               create: (context) => getIt<CatalogDetailCubit>()),
+
+          BlocProvider<PeerToPeerPaymentsCubit>(
+              create: (context) => getIt<PeerToPeerPaymentsCubit>()),
 
           BlocProvider<ProfileCubit>(
               create: (context) => getIt<ProfileCubit>()),

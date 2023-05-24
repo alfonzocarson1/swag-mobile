@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../common/ui/custom_text_form_field.dart';
+import '../../../common/ui/loading.dart';
 import '../../../common/ui/primary_button.dart';
 import '../../../common/ui/pushed_header.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
 import '../../../common/utils/utils.dart';
+import '../../../cubits/peer_to_peer_payments/peer_to_peer_payments_cubit.dart';
+import '../../../di/injector.dart';
+import '../../../models/settings/peer_to_peer_payments_model.dart';
 
 class PeerToPeerPaymentsSaveWidget extends StatefulWidget {
   static const name = '/PeerToPeerPaymentsSaveWidget';
@@ -113,160 +118,187 @@ class _PeerToPeerPaymentsSaveWidgetState
         height: 90,
       ),
       backgroundColor: Palette.current.primaryEerieBlack,
-      body: GestureDetector(
-          behavior: HitTestBehavior.translucent,
-          onTap: () {
-            _emailNode.unfocus();
-            _venmoNode.unfocus();
-            _cashAppNode.unfocus();
-          },
-          child: Stack(children: [
-            LayoutBuilder(builder: (context, viewportConstraints) {
-              return SingleChildScrollView(
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    minHeight: viewportConstraints.maxHeight,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: SafeArea(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Visibility(
-                              visible: widget.venmo,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Image.asset(
-                                      'assets/images/venmo_title.png',
-                                      scale: 3,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  Text(S.of(context).venmo_sub_title,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                            letterSpacing: 0.3,
-                                            color: Palette
-                                                .current.primaryWhiteSmoke,
-                                          )),
-                                  const SizedBox(
-                                    height: 16,
-                                  ),
-                                  CustomTextFormField(
-                                      borderColor: _venmoBorder,
-                                      errorText: venmoErrorText,
-                                      autofocus: false,
-                                      labelText: S.of(context).input_venmo,
-                                      focusNode: _venmoNode,
-                                      controller: _venmoController,
-                                      inputType: TextInputType.text),
-                                ],
-                              )),
-                          Visibility(
-                              visible: widget.cashTag,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Image.asset(
-                                      'assets/images/cash_app_title.png',
-                                      scale: 3,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  Text(S.of(context).cash_app_sub_title,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                            letterSpacing: 0.3,
-                                            color: Palette
-                                                .current.primaryWhiteSmoke,
-                                          )),
-                                  const SizedBox(
-                                    height: 16,
-                                  ),
-                                  CustomTextFormField(
-                                      borderColor: _cashAppBorder,
-                                      errorText: cashAppErrorText,
-                                      autofocus: false,
-                                      labelText: S.of(context).input_cash_app,
-                                      focusNode: _cashAppNode,
-                                      controller: _cashAppController,
-                                      inputType: TextInputType.text),
-                                ],
-                              )),
-                          Visibility(
-                              visible: widget.payPal,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Image.asset(
-                                      'assets/images/payPal_title.png',
-                                      scale: 3,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  Text(S.of(context).payPal_sub_title,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                            letterSpacing: 0.3,
-                                            color: Palette
-                                                .current.primaryWhiteSmoke,
-                                          )),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  CustomTextFormField(
-                                      borderColor: _emailBorder,
-                                      errorText: emailErrorText,
-                                      autofocus: false,
-                                      labelText: S.of(context).email,
-                                      focusNode: _emailNode,
-                                      controller: _emailController,
-                                      inputType: TextInputType.emailAddress),
-                                ],
-                              )),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              );
-            }),
-          ])),
+      body: BlocListener<PeerToPeerPaymentsCubit, PeerToPeerPaymentsState>(
+          listener: (context, state) => state.maybeWhen(orElse: () {
+                return null;
+              }, loading: (bool loadin) {
+                return loadin ? Loading.show(context) : Loading.hide(context);
+              }),
+          child: _getBody()),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(left: 20.0, bottom: 20.0, right: 20.0),
         child: PrimaryButton(
           title: S.of(context).save_btn,
           onPressed: () {
             showErrors();
-            if (areFieldsValid()) {}
+            if (areFieldsValid()) {
+              if (widget.venmo) {
+                getIt<PeerToPeerPaymentsCubit>().postPyments(
+                    PeerToPeerPaymentsModel(venmoUser: _venmoController.text),
+                    context);
+              }
+              if (widget.cashTag) {
+                getIt<PeerToPeerPaymentsCubit>().postPyments(
+                    PeerToPeerPaymentsModel(cashTag: _cashAppController.text),
+                    context);
+              }
+
+              if (widget.payPal) {
+                getIt<PeerToPeerPaymentsCubit>().postPyments(
+                    PeerToPeerPaymentsModel(payPalEmail: _emailController.text),
+                    context);
+              }
+            }
           },
           type: PrimaryButtonType.green,
         ),
       ),
     );
+  }
+
+  Widget _getBody() {
+    return GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: () {
+          _emailNode.unfocus();
+          _venmoNode.unfocus();
+          _cashAppNode.unfocus();
+        },
+        child: Stack(children: [
+          LayoutBuilder(builder: (context, viewportConstraints) {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: viewportConstraints.maxHeight,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: SafeArea(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Visibility(
+                            visible: widget.venmo,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Image.asset(
+                                    'assets/images/venmo_title.png',
+                                    scale: 3,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                Text(S.of(context).venmo_sub_title,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(
+                                          letterSpacing: 0.3,
+                                          color:
+                                              Palette.current.primaryWhiteSmoke,
+                                        )),
+                                const SizedBox(
+                                  height: 16,
+                                ),
+                                CustomTextFormField(
+                                    borderColor: _venmoBorder,
+                                    errorText: venmoErrorText,
+                                    autofocus: false,
+                                    labelText: S.of(context).input_venmo,
+                                    focusNode: _venmoNode,
+                                    controller: _venmoController,
+                                    inputType: TextInputType.text),
+                              ],
+                            )),
+                        Visibility(
+                            visible: widget.cashTag,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Image.asset(
+                                    'assets/images/cash_app_title.png',
+                                    scale: 3,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                Text(S.of(context).cash_app_sub_title,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(
+                                          letterSpacing: 0.3,
+                                          color:
+                                              Palette.current.primaryWhiteSmoke,
+                                        )),
+                                const SizedBox(
+                                  height: 16,
+                                ),
+                                CustomTextFormField(
+                                    borderColor: _cashAppBorder,
+                                    errorText: cashAppErrorText,
+                                    autofocus: false,
+                                    labelText: S.of(context).input_cash_app,
+                                    focusNode: _cashAppNode,
+                                    controller: _cashAppController,
+                                    inputType: TextInputType.text),
+                              ],
+                            )),
+                        Visibility(
+                            visible: widget.payPal,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Image.asset(
+                                    'assets/images/payPal_title.png',
+                                    scale: 3,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                Text(S.of(context).payPal_sub_title,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(
+                                          letterSpacing: 0.3,
+                                          color:
+                                              Palette.current.primaryWhiteSmoke,
+                                        )),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                CustomTextFormField(
+                                    borderColor: _emailBorder,
+                                    errorText: emailErrorText,
+                                    autofocus: false,
+                                    labelText: S.of(context).email,
+                                    focusNode: _emailNode,
+                                    controller: _emailController,
+                                    inputType: TextInputType.emailAddress),
+                              ],
+                            )),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            );
+          }),
+        ]));
   }
 
   void showErrors() {
