@@ -58,7 +58,6 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
     // TODO: implement initState
     super.initState();
     isFirstState = true;
-
     isLogged = getIt<PreferenceRepositoryService>().isLogged();
 
    
@@ -240,13 +239,13 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                         available: dataDetail[index].numberAvailable,
                         saleHistory: const [],
                         itemId: dataDetail[index].catalogItemId),
-                    RarityWidget(
+                    (isLogged) ? RarityWidget(
                         rarity: dataDetail[index].rarityScore,
                         released: dataDetail[index].released,
                         totalMade: dataDetail[index].totalMade,
                         retail: dataDetail[index].retail,
-                        available: dataDetail[index].numberAvailable),
-                    CollectionWidget(
+                        available: dataDetail[index].numberAvailable):const SizedBox.shrink(),
+                   (isLogged) ? CollectionWidget(
                       addFavorite: (val) {
                         setState(() {
                           widget.addFavorite(val);
@@ -263,7 +262,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                       catalogItemName: dataDetail[index].catalogItemName,
                       favorite: dataDetail[index].inFavorites,
                       urlImage: dataDetail[index].catalogItemImage,
-                    ),
+                    ) : const SizedBox.shrink(),
                   ],
                 ),
               ),
