@@ -27,6 +27,9 @@ mixin _$SalesHistoryModel {
   String get productItemImage => throw _privateConstructorUsedError;
   double get lastSale => throw _privateConstructorUsedError;
   String get condition => throw _privateConstructorUsedError;
+  String get catalogItemId => throw _privateConstructorUsedError;
+  String get profileCollectionItemId => throw _privateConstructorUsedError;
+  String get sku => throw _privateConstructorUsedError;
   String get updatedDate => throw _privateConstructorUsedError;
   Priority get priority => throw _privateConstructorUsedError;
 
@@ -50,6 +53,9 @@ abstract class $SalesHistoryModelCopyWith<$Res> {
       String productItemImage,
       double lastSale,
       String condition,
+      String catalogItemId,
+      String profileCollectionItemId,
+      String sku,
       String updatedDate,
       Priority priority});
 }
@@ -74,6 +80,9 @@ class _$SalesHistoryModelCopyWithImpl<$Res, $Val extends SalesHistoryModel>
     Object? productItemImage = null,
     Object? lastSale = null,
     Object? condition = null,
+    Object? catalogItemId = null,
+    Object? profileCollectionItemId = null,
+    Object? sku = null,
     Object? updatedDate = null,
     Object? priority = null,
   }) {
@@ -106,6 +115,18 @@ class _$SalesHistoryModelCopyWithImpl<$Res, $Val extends SalesHistoryModel>
           ? _value.condition
           : condition // ignore: cast_nullable_to_non_nullable
               as String,
+      catalogItemId: null == catalogItemId
+          ? _value.catalogItemId
+          : catalogItemId // ignore: cast_nullable_to_non_nullable
+              as String,
+      profileCollectionItemId: null == profileCollectionItemId
+          ? _value.profileCollectionItemId
+          : profileCollectionItemId // ignore: cast_nullable_to_non_nullable
+              as String,
+      sku: null == sku
+          ? _value.sku
+          : sku // ignore: cast_nullable_to_non_nullable
+              as String,
       updatedDate: null == updatedDate
           ? _value.updatedDate
           : updatedDate // ignore: cast_nullable_to_non_nullable
@@ -134,6 +155,9 @@ abstract class _$$_SalesHistoryModelCopyWith<$Res>
       String productItemImage,
       double lastSale,
       String condition,
+      String catalogItemId,
+      String profileCollectionItemId,
+      String sku,
       String updatedDate,
       Priority priority});
 }
@@ -156,6 +180,9 @@ class __$$_SalesHistoryModelCopyWithImpl<$Res>
     Object? productItemImage = null,
     Object? lastSale = null,
     Object? condition = null,
+    Object? catalogItemId = null,
+    Object? profileCollectionItemId = null,
+    Object? sku = null,
     Object? updatedDate = null,
     Object? priority = null,
   }) {
@@ -188,6 +215,18 @@ class __$$_SalesHistoryModelCopyWithImpl<$Res>
           ? _value.condition
           : condition // ignore: cast_nullable_to_non_nullable
               as String,
+      catalogItemId: null == catalogItemId
+          ? _value.catalogItemId
+          : catalogItemId // ignore: cast_nullable_to_non_nullable
+              as String,
+      profileCollectionItemId: null == profileCollectionItemId
+          ? _value.profileCollectionItemId
+          : profileCollectionItemId // ignore: cast_nullable_to_non_nullable
+              as String,
+      sku: null == sku
+          ? _value.sku
+          : sku // ignore: cast_nullable_to_non_nullable
+              as String,
       updatedDate: null == updatedDate
           ? _value.updatedDate
           : updatedDate // ignore: cast_nullable_to_non_nullable
@@ -206,12 +245,15 @@ class __$$_SalesHistoryModelCopyWithImpl<$Res>
 class _$_SalesHistoryModel implements _SalesHistoryModel {
   const _$_SalesHistoryModel(
       {required this.salesPriceHistoryId,
-      required this.productItemId,
+      this.productItemId = 'productItemId Null',
       required this.productItemName,
       required this.productItemPrice,
-      required this.productItemImage,
+      this.productItemImage = 'productItemImage Null',
       required this.lastSale,
       required this.condition,
+      this.catalogItemId = 'catalogItemId Null',
+      this.profileCollectionItemId = 'profileCollectionItemId Null',
+      this.sku = 'sku Null',
       required this.updatedDate,
       this.priority = Priority.defaul});
 
@@ -221,17 +263,28 @@ class _$_SalesHistoryModel implements _SalesHistoryModel {
   @override
   final String salesPriceHistoryId;
   @override
+  @JsonKey()
   final String productItemId;
   @override
   final String productItemName;
   @override
   final double productItemPrice;
   @override
+  @JsonKey()
   final String productItemImage;
   @override
   final double lastSale;
   @override
   final String condition;
+  @override
+  @JsonKey()
+  final String catalogItemId;
+  @override
+  @JsonKey()
+  final String profileCollectionItemId;
+  @override
+  @JsonKey()
+  final String sku;
   @override
   final String updatedDate;
   @override
@@ -240,7 +293,7 @@ class _$_SalesHistoryModel implements _SalesHistoryModel {
 
   @override
   String toString() {
-    return 'SalesHistoryModel(salesPriceHistoryId: $salesPriceHistoryId, productItemId: $productItemId, productItemName: $productItemName, productItemPrice: $productItemPrice, productItemImage: $productItemImage, lastSale: $lastSale, condition: $condition, updatedDate: $updatedDate, priority: $priority)';
+    return 'SalesHistoryModel(salesPriceHistoryId: $salesPriceHistoryId, productItemId: $productItemId, productItemName: $productItemName, productItemPrice: $productItemPrice, productItemImage: $productItemImage, lastSale: $lastSale, condition: $condition, catalogItemId: $catalogItemId, profileCollectionItemId: $profileCollectionItemId, sku: $sku, updatedDate: $updatedDate, priority: $priority)';
   }
 
   @override
@@ -262,6 +315,12 @@ class _$_SalesHistoryModel implements _SalesHistoryModel {
                 other.lastSale == lastSale) &&
             (identical(other.condition, condition) ||
                 other.condition == condition) &&
+            (identical(other.catalogItemId, catalogItemId) ||
+                other.catalogItemId == catalogItemId) &&
+            (identical(
+                    other.profileCollectionItemId, profileCollectionItemId) ||
+                other.profileCollectionItemId == profileCollectionItemId) &&
+            (identical(other.sku, sku) || other.sku == sku) &&
             (identical(other.updatedDate, updatedDate) ||
                 other.updatedDate == updatedDate) &&
             (identical(other.priority, priority) ||
@@ -279,6 +338,9 @@ class _$_SalesHistoryModel implements _SalesHistoryModel {
       productItemImage,
       lastSale,
       condition,
+      catalogItemId,
+      profileCollectionItemId,
+      sku,
       updatedDate,
       priority);
 
@@ -300,12 +362,15 @@ class _$_SalesHistoryModel implements _SalesHistoryModel {
 abstract class _SalesHistoryModel implements SalesHistoryModel {
   const factory _SalesHistoryModel(
       {required final String salesPriceHistoryId,
-      required final String productItemId,
+      final String productItemId,
       required final String productItemName,
       required final double productItemPrice,
-      required final String productItemImage,
+      final String productItemImage,
       required final double lastSale,
       required final String condition,
+      final String catalogItemId,
+      final String profileCollectionItemId,
+      final String sku,
       required final String updatedDate,
       final Priority priority}) = _$_SalesHistoryModel;
 
@@ -326,6 +391,12 @@ abstract class _SalesHistoryModel implements SalesHistoryModel {
   double get lastSale;
   @override
   String get condition;
+  @override
+  String get catalogItemId;
+  @override
+  String get profileCollectionItemId;
+  @override
+  String get sku;
   @override
   String get updatedDate;
   @override
