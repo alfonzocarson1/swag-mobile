@@ -2210,6 +2210,16 @@ class S {
     );
   }
 
+  /// `Today`
+  String get chatToday {
+    return Intl.message(
+      'Today',
+      name: 'chatToday',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `ALERTS & Notifications`
   String get chatsHeader {
     return Intl.message(

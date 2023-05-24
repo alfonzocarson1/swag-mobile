@@ -67,6 +67,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "chatModeratorName": MessageLookupByLibrary.simpleMessage("SWAG"),
         "chatNoMessages":
             MessageLookupByLibrary.simpleMessage("No previous messages"),
+        "chatToday": MessageLookupByLibrary.simpleMessage("Today"),
         "chatTyping": MessageLookupByLibrary.simpleMessage("Typing..."),
         "chatsHeader":
             MessageLookupByLibrary.simpleMessage("ALERTS & Notifications"),
