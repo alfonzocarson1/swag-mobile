@@ -56,9 +56,8 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
 
   @override
   void initState() {
-    
-    super.initState();
-    getSalesHistory();
+     getSalesHistory();
+    super.initState();   
     isFirstState = true;
     isLogged = getIt<PreferenceRepositoryService>().isLogged();
 
@@ -74,6 +73,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+
     
     saleHistoryList = saleHistoryModel.saleHistoryList ?? [];
     return Scaffold(
@@ -254,6 +254,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                               dataDetail[index].copyWith(inFavorites: val);
                         });
                       },
+                      saleHistoryList: saleHistoryList,
                       salesHistoryNavigation:(saleHistoryList.isNotEmpty) ? () => navigationCallback(dataDetail[index]) : null,
                       sale: dataDetail[index].forSale,
                       dataCollection: dataDetail[index].collectionItems,
@@ -293,6 +294,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                                           3,
                                            false,
                                           model.catalogItemId, 
+                                          saleHistoryList,
                                           (val) {
                                     setState(() {
                                       if (val) {                                
