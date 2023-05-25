@@ -72,9 +72,6 @@ class _HeadWidgetState extends State<HeadWidget> {
 
     isLogged = getIt<PreferenceRepositoryService>().isLogged();
 
-    context
-        .read<SalesHistoryBloc>()
-        .add(SalesHistoryEvent.getSalesHistory(widget.itemId));
   }
 
   onChangeFavoriteAnimation(int index) async {
