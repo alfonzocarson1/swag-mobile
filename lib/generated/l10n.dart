@@ -1720,10 +1720,10 @@ class S {
     );
   }
 
-  /// `•  Minimum of 3, Maximun of 6`
+  /// `•  Minimum of 3, Maximum of 6`
   String get sealed_item_four {
     return Intl.message(
-      '•  Minimum of 3, Maximun of 6',
+      '•  Minimum of 3, Maximum of 6',
       name: 'sealed_item_four',
       desc: '',
       args: [],

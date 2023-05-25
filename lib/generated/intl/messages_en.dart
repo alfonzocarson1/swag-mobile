@@ -345,7 +345,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("SAVED SEARCHES"),
         "sealed": MessageLookupByLibrary.simpleMessage("Sealed"),
         "sealed_item_four": MessageLookupByLibrary.simpleMessage(
-            "•  Minimum of 3, Maximun of 6"),
+            "•  Minimum of 3, Maximum of 6"),
         "sealed_item_one":
             MessageLookupByLibrary.simpleMessage("•  Front of item"),
         "sealed_item_three":
