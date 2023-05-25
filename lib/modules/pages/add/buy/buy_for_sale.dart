@@ -211,14 +211,7 @@ class _BuyForSaleState extends State<BuyForSale> {
                               .copyWith(
                                   fontWeight: FontWeight.w300,
                                   color: Palette.current.primaryNeonGreen)),
-                      BlocBuilder<SalesHistoryBloc, SalesHistoryState>(
-                          builder: (context, usernameState) {
-                        return usernameState.maybeMap(
-                            orElse: () => Container(),
-                            loadedSalesHistory: (state) {
-                              if (state.detaSalesHistoryList[0].saleHistoryList!
-                                  .isNotEmpty) {
-                                return Column(
+                   (widget.saleHistoryList.isNotEmpty) ?  Column(
                                   children: [
                                     const SizedBox(
                                       height: 20,
@@ -288,12 +281,7 @@ class _BuyForSaleState extends State<BuyForSale> {
                                       ),
                                     ),
                                   ],
-                                );
-                              } else {
-                                return Container();
-                              }
-                            });
-                      }),
+                                ):const SizedBox.shrink(),
                     ],
                   ),
                 ),
