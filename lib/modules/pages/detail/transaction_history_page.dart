@@ -23,12 +23,13 @@ class TransactionHistory extends StatefulWidget {
       this.available,
       required this.favorite,
       required this.itemId,
-      required this.addFavorite,
-      });
+      required this.addFavorite, 
+      required this.saleHIstoryList});
 
   final String urlImage;
   final String? catalogItemName;
   final DetailSaleInfoModel lastSale;
+  final List<SalesHistoryModel> saleHIstoryList;
   final bool sale;
   final int? available;
   final bool favorite;
@@ -43,6 +44,7 @@ class TransactionHistory extends StatefulWidget {
           int available,
           bool favorite,
           String itemId,
+          List<SalesHistoryModel> saleHIstoryList,
           Function(bool) addFavorite,
           
           ) =>
@@ -57,7 +59,7 @@ class TransactionHistory extends StatefulWidget {
             favorite: favorite,
             itemId: itemId,
             addFavorite: addFavorite, 
-            ),
+            saleHIstoryList: saleHIstoryList,),
       );
 
   @override
@@ -83,42 +85,14 @@ class _TransactionHistoryState extends State<TransactionHistory> {
         backgroundColor: Palette.current.blackSmoke,
         resizeToAvoidBottomInset: true,
         appBar: CustomAppBar(color: Palette.current.black, actions: true),
-        body: BlocConsumer<SalesHistoryBloc, SalesHistoryState>(
-          listener: (context, state) => state.maybeWhen(
-            orElse: () => {Loading.hide(context)},
-            error: (message) => {
-              Loading.hide(context),
-              // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
-            },
-            initial: () {
-              return Loading.show(context);
-            },
-          ),
-          builder: (context, state) {
-            return state.maybeMap(
-              orElse: () => const Center(),
-              error: (_) {
-                return RefreshIndicator(
-                    onRefresh: () async {
-                      makeCall();
-                      return Future.delayed(const Duration(milliseconds: 1500));
-                    },
-                    child: ListView.builder(
-                      itemBuilder: (_, index) => Container(),
-                      itemCount: 0,
-                    ));
-              },
-              loadedSalesHistory: (state) {
-                return Container(
+        body: 
+        Container(
                     width: MediaQuery.of(context).size.width,
                     decoration:
                         BoxDecoration(color: Palette.current.blackSmoke),
                     child: _getBody(
-                        state.detaSalesHistoryList[0].saleHistoryList));
-              },
-            );
-          },
-        )
+                        widget.saleHIstoryList)
+                        )
         );
   }
 
@@ -143,7 +117,8 @@ class _TransactionHistoryState extends State<TransactionHistory> {
             lastSale: widget.lastSale,
             sale: false,
             available: widget.available,
-            itemId: widget.itemId),
+            itemId: widget.itemId, 
+            saleHistory: const [],),
         historyList!.isNotEmpty
             ? CustomDataTable(histories: historyList)
             : Center(
