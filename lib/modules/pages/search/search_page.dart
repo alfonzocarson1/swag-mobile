@@ -66,11 +66,7 @@ class _SearchPageState extends State<SearchPage>
       final index = _tabController.index;
 
       initFilterAndSortsWithBloc(context, selectedProductNumber: index);
-      if (index > 0) {
-        filterIndicatorCounter = 1;
-      } else {
-        filterIndicatorCounter = 0;
-      }
+
     });
   }
 
