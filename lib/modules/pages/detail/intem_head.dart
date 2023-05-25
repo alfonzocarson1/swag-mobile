@@ -6,17 +6,16 @@ import 'package:simple_rich_text/simple_rich_text.dart';
 import '../../../generated/l10n.dart';
 import '../../blocs/favorite_bloc/favorite_bloc.dart';
 import '../../blocs/favorite_bloc/favorite_item_bloc.dart';
-import '../../blocs/sale_history/sale_history_bloc.dart';
 import '../../common/ui/clickable_text.dart';
 import '../../common/utils/palette.dart';
 import '../../common/utils/utils.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/detail/detail_sale_info_model.dart';
+import '../../models/detail/sale_history_model.dart';
 import '../../models/favorite/favorite_item_model.dart';
 import '../../models/favorite/favorite_model.dart';
 import '../login/create_account_page.dart';
-import 'transaction_history_page.dart';
 
 class HeadWidget extends StatefulWidget {
   HeadWidget(
@@ -29,7 +28,7 @@ class HeadWidget extends StatefulWidget {
       required this.sale,
       required this.favorite,
       this.available,
-      this.saleHistory,
+      required this.saleHistory,
       required this.itemId,
       this.profileFavoriteItemId,
       this.saleHistoryNavigation,
@@ -43,7 +42,7 @@ class HeadWidget extends StatefulWidget {
   final bool sale;
   final bool favorite;
   final int? available;
-  final List<dynamic>? saleHistory;
+  final List<SalesHistoryModel> saleHistory;
   final String itemId;
   final String? profileFavoriteItemId;
   Function(bool) addFavorite;
@@ -279,15 +278,8 @@ class _HeadWidgetState extends State<HeadWidget> {
                         fontWeight: FontWeight.w300,
                         color: Palette.current.primaryNeonGreen)),
               ),
-              BlocBuilder<SalesHistoryBloc, SalesHistoryState>(
-                  builder: (context, usernameState) {
-                return usernameState.maybeMap(
-                    orElse: () => Container(),
-                    loadedSalesHistory: (state) {
-                      if (state.detaSalesHistoryList[0].saleHistoryList!
-                              .isNotEmpty &&
-                          widget.saleHistory != null) {
-                        return Column(
+              (widget.saleHistory.isNotEmpty)?
+              Column(
                           children: [
                             const SizedBox(
                               height: 20,
@@ -344,12 +336,7 @@ class _HeadWidgetState extends State<HeadWidget> {
                               ),
                             ),
                           ],
-                        );
-                      } else {
-                        return Container();
-                      }
-                    });
-              }),
+                        ): const SizedBox.shrink(),
               Visibility(
                   visible: widget.catalogItemDescription != null,
                   child: Column(
