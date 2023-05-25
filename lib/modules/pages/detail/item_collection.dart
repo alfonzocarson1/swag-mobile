@@ -19,6 +19,7 @@ import '../../di/injector.dart';
 import '../../models/buy_for_sale_listing/buy_for_sale_listing_response_model.dart';
 import '../../models/detail/detail_collection_model.dart';
 import '../../models/detail/detail_sale_info_model.dart';
+import '../../models/detail/sale_history_model.dart';
 import '../../models/profile/profile_model.dart';
 import '../add/buy/buy_for_sale.dart';
 import '../add/collection/list_for_sale_page.dart';
@@ -37,6 +38,7 @@ class CollectionWidget extends StatefulWidget {
       required this.urlImage,
       required this.addFavorite,
       this.salesHistoryNavigation,
+      required this.saleHistoryList,
       
       });
 
@@ -50,6 +52,8 @@ class CollectionWidget extends StatefulWidget {
   final String urlImage;
   Function(bool) addFavorite;
   VoidCallback? salesHistoryNavigation;
+  List<SalesHistoryModel> saleHistoryList;
+
   @override
   State<CollectionWidget> createState() => _CollectionWidgetState();
 }
@@ -370,6 +374,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                 widget.favorite,
                                 widget.sale,
                                 widget.available ?? 0,
+                                widget.saleHistoryList,
                                 (val) {
                                   widget.addFavorite(val);
                                 },
