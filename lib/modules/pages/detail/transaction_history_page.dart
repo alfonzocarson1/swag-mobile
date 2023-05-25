@@ -23,7 +23,8 @@ class TransactionHistory extends StatefulWidget {
       this.available,
       required this.favorite,
       required this.itemId,
-      required this.addFavorite});
+      required this.addFavorite,
+      });
 
   final String urlImage;
   final String? catalogItemName;
@@ -42,7 +43,9 @@ class TransactionHistory extends StatefulWidget {
           int available,
           bool favorite,
           String itemId,
-          Function(bool) addFavorite) =>
+          Function(bool) addFavorite,
+          
+          ) =>
       PageRoutes.material(
         settings: const RouteSettings(name: name),
         builder: (context) => TransactionHistory(
@@ -53,7 +56,8 @@ class TransactionHistory extends StatefulWidget {
             available: available,
             favorite: favorite,
             itemId: itemId,
-            addFavorite: addFavorite),
+            addFavorite: addFavorite, 
+            ),
       );
 
   @override
@@ -114,7 +118,8 @@ class _TransactionHistoryState extends State<TransactionHistory> {
               },
             );
           },
-        ));
+        )
+        );
   }
 
   Widget _getBody(List<SalesHistoryModel>? historyList) {
