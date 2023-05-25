@@ -125,10 +125,11 @@ Future<FilterModel> getCurrentFilterModel() async {
   List<String> theme = sharedPref.getThemes();
   List<String> type = sharedPref.getTypes();
   bool isForSale = sharedPref.isForSale();
+  int sortBy = sharedPref.getSortBy();
 
   return FilterModel(
     forSale: isForSale,
-    sortBy: sharedPref.getSortBy(),
+    sortBy: sortBy,
     priceRanges: sharedPref.getPrice().isEmpty ||
             sharedPref.getPrice().length == Price.values.length
         ? null
@@ -172,6 +173,7 @@ clearFilters(BuildContext context) {
 void updateSelectedFiltersAndSortsNumber(BuildContext context,
     {SearchTab? tab}) {
   final sharedPref = getIt<PreferenceRepositoryService>();
+  final sortBy = sharedPref.getSortBy();
   final preference = context.read<SharedPreferencesBloc>().state.model;
   final conditionList = sharedPref.getCondition().map(int.parse).toList();
   final releaseList = sharedPref.getReleaseDate().map(int.parse).toList();
@@ -183,6 +185,7 @@ void updateSelectedFiltersAndSortsNumber(BuildContext context,
 
   List<bool> list = [
     sharedPref.isForSale(),
+    sortBy !=0,
     conditionList.isNotEmpty,
     releaseList.isNotEmpty,
     priceList.isNotEmpty,
@@ -287,7 +290,7 @@ void initFilterAndSortsWithBloc(BuildContext context,
           SharedPreferenceModel(
               isListView: true,
               isForSale: false,
-              sortBy: defaultInt,
+              sortBy: 0,
               condition: [],
               price: [],
               product:
