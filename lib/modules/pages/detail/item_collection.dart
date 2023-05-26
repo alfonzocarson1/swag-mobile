@@ -170,7 +170,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
         const SizedBox(
           height: 30,
         ),
-        Padding(
+      (isLogged) ? Padding(
           padding: const EdgeInsets.only(left: 10),
           child: Row(children: <Widget>[
             isLogged
@@ -209,8 +209,8 @@ class _CollectionWidgetState extends State<CollectionWidget> {
               color: Palette.current.grey,
             )),
           ]),
-        ),
-        Padding(
+        ):const SizedBox.shrink(),
+       (isLogged) ? Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: (!widget.sale && dataCollection.isEmpty)
               ? Column(
@@ -256,7 +256,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                       ],
                     )
                   : const Text(''),
-        ),
+        ): const SizedBox.shrink(),
        (dataCollection.isNotEmpty) ? Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: dataCollection.isNotEmpty
