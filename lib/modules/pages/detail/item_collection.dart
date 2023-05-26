@@ -3,10 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:swagapp/modules/common/utils/context_service.dart';
+import 'package:swagapp/modules/models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
 
 import '../../../generated/l10n.dart';
-import '../../blocs/sale_history/sale_history_bloc.dart';
 import '../../common/ui/popup_delete_item_collection.dart';
 import '../../common/ui/popup_list_item_sale.dart';
 import '../../common/ui/primary_button.dart';
@@ -68,25 +67,26 @@ class _CollectionWidgetState extends State<CollectionWidget> {
   Timer? timer;
   List<DetailCollectionModel> newCollectionList = [];
   List<BuyForSaleListingResponseModel> buyForSaleList = [];
+  List<DetailCollectionModel> dataCollection =[];
 
   List<String> ids = [];
 
   @override
   void initState() {
-    // TODO: implement initState
+    dataCollection = widget.dataCollection ?? [];
     super.initState();
 
     timer = Timer(const Duration(seconds: 1), () {
       setState(() {
         if (buyForSaleList.first.saledItemdList.isEmpty) {
-          newCollectionList = widget.dataCollection!;
+          newCollectionList = widget.dataCollection ?? [];
         } else {
           for (final item in buyForSaleList.first.saledItemdList) {
             final index = buyForSaleList.first.saledItemdList.indexOf(item);
             ids.add(buyForSaleList
                 .first.saledItemdList[index].profileCollectionItemId!);
           }
-          newCollectionList = widget.dataCollection!
+          newCollectionList = dataCollection
               .where((item) => !ids.contains(item.profileCollectionItemId))
               .toList();
         }
@@ -138,9 +138,15 @@ class _CollectionWidgetState extends State<CollectionWidget> {
           return usernameState.maybeWhen(
             orElse: () => Container(),
             loadedSaledItems: (List<BuyForSaleListingResponseModel> response) {
-              var notifyAvailabilityFlag = response.first.saledItemdList
-                  .where((i) => i.profileId != profileData!.accountId)
+              List<BuyForSaleListingModel> notifyAvailabilityFlag = []; 
+                var profileDataModel = profileData;
+              if(isLogged && profileDataModel != null){
+                 notifyAvailabilityFlag = response.first.saledItemdList
+                  .where((i) {
+                    return i.profileId != profileDataModel.accountId;
+                  })
                   .toList();
+              }          
 
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 setState(() {
@@ -206,7 +212,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: (!widget.sale && widget.dataCollection!.isEmpty)
+          child: (!widget.sale && dataCollection.isEmpty)
               ? Column(
                   children: [
                     const SizedBox(
@@ -236,7 +242,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                     ),
                   ],
                 )
-              : (widget.sale && widget.dataCollection!.isEmpty)
+              : (widget.sale && dataCollection.isEmpty)
                   ? Column(
                       children: [
                         const SizedBox(
@@ -251,12 +257,12 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                     )
                   : const Text(''),
         ),
-        Padding(
+       (dataCollection.isNotEmpty) ? Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: widget.dataCollection!.isNotEmpty
+          child: dataCollection.isNotEmpty
               ? Column(
                   children: List.generate(
-                      widget.dataCollection!.length,
+                      dataCollection.length,
                       (index) => Column(
                             children: [
                               ListTile(
@@ -274,7 +280,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                         )),
                                 trailing: Text(
                                     DateFormat.yMd().format(DateTime.parse(
-                                        widget.dataCollection![index]
+                                        dataCollection[index]
                                             .purchaseDate)),
                                     style: Theme.of(context)
                                         .textTheme
@@ -299,8 +305,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                               Palette.current.primaryWhiteSmoke,
                                         )),
                                 trailing: Text(
-                                    decimalDigitsLastSalePrice(widget
-                                        .dataCollection![index].purchasePrice
+                                    decimalDigitsLastSalePrice(dataCollection[index].purchasePrice
                                         .toString()),
                                     style: Theme.of(context)
                                         .textTheme
@@ -325,7 +330,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                               Palette.current.primaryWhiteSmoke,
                                         )),
                                 trailing: Text(
-                                    widget.dataCollection![index].itemCondition,
+                                    dataCollection[index].itemCondition,
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodySmall!
@@ -337,7 +342,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                               ),
                               Visibility(
                                 visible:
-                                    index != widget.dataCollection!.length - 1,
+                                    index != dataCollection.length - 1,
                                 child: Divider(
                                   color: Palette.current.grey,
                                 ),
@@ -349,7 +354,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                           )),
                 )
               : const Text(""),
-        ),
+        ):const SizedBox.shrink(),
         const SizedBox(
           height: 20,
         ),
@@ -391,7 +396,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                 const SizedBox(
                   height: 20,
                 ),
-                (widget.dataCollection!.isNotEmpty)
+                (dataCollection.isNotEmpty)
                     ? SizedBox(
                         width: MediaQuery.of(context).size.width,
                         child: PrimaryButton(
@@ -494,7 +499,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                 const SizedBox(
                   height: 20,
                 ),
-                (widget.dataCollection!.isNotEmpty)
+                (dataCollection.isNotEmpty)
                     ? SizedBox(
                         width: MediaQuery.of(context).size.width,
                         child: PrimaryButton(
@@ -506,7 +511,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                   barrierDismissible: false,
                                   builder: (BuildContext context) {
                                     return PopUpDeleteItemCollection(
-                                        dataCollection: widget.dataCollection!);
+                                        dataCollection: dataCollection);
                                   });
                             } else {
                               Navigator.of(context, rootNavigator: true)
