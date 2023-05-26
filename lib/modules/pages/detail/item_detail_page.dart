@@ -51,30 +51,30 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
   bool isFirstState = true;
   bool isLogged = false;
   List<DetailItemModel>? dataDetailClone;
-  SalesHistoryListModel saleHistoryModel = const SalesHistoryListModel(saleHistoryList: []);
-  List<SalesHistoryModel> saleHistoryList =[];
+  SalesHistoryListModel saleHistoryModel =
+      const SalesHistoryListModel(saleHistoryList: []);
+  List<SalesHistoryModel> saleHistoryList = [];
 
   @override
   void initState() {
-     getSalesHistory();
-    super.initState();   
+    getSalesHistory();
+    super.initState();
     isFirstState = true;
     isLogged = getIt<PreferenceRepositoryService>().isLogged();
 
-   
     context
         .read<DetailBloc>()
         .add(DetailEvent.getDetailItem(widget.catalogItemId));
   }
 
-  getSalesHistory()async{
-   saleHistoryModel = await getIt<SalesHistoryBloc>().salesHistoryService.salesHistory(widget.catalogItemId);
+  getSalesHistory() async {
+    saleHistoryModel = await getIt<SalesHistoryBloc>()
+        .salesHistoryService
+        .salesHistory(widget.catalogItemId);
   }
 
   @override
   Widget build(BuildContext context) {
-
-    
     saleHistoryList = saleHistoryModel.saleHistoryList ?? [];
     return Scaffold(
         backgroundColor: Palette.current.black,
@@ -225,7 +225,8 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                                 dataDetail[index].copyWith(inFavorites: val);
                           });
                         },
-                        saleHistoryNavigation: () => navigationCallback(dataDetail[index]),
+                        saleHistoryNavigation: () =>
+                            navigationCallback(dataDetail[index]),
                         profileFavoriteItemId:
                             dataDetail[index].profileFavoriteItemId,
                         urlImage: dataDetail[index].catalogItemImage,
@@ -240,13 +241,13 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                         available: dataDetail[index].numberAvailable,
                         saleHistory: saleHistoryList,
                         itemId: dataDetail[index].catalogItemId),
-                    (isLogged) ? RarityWidget(
+                    RarityWidget(
                         rarity: dataDetail[index].rarityScore,
                         released: dataDetail[index].released,
                         totalMade: dataDetail[index].totalMade,
                         retail: dataDetail[index].retail,
-                        available: dataDetail[index].numberAvailable):const SizedBox.shrink(),
-                   (isLogged) ? CollectionWidget(
+                        available: dataDetail[index].numberAvailable),
+                    CollectionWidget(
                       addFavorite: (val) {
                         setState(() {
                           widget.addFavorite(val);
@@ -255,7 +256,9 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                         });
                       },
                       saleHistoryList: saleHistoryList,
-                      salesHistoryNavigation:(saleHistoryList.isNotEmpty) ? () => navigationCallback(dataDetail[index]) : null,
+                      salesHistoryNavigation: (saleHistoryList.isNotEmpty)
+                          ? () => navigationCallback(dataDetail[index])
+                          : null,
                       sale: dataDetail[index].forSale,
                       dataCollection: dataDetail[index].collectionItems,
                       lastSale: dataDetail[index].saleInfo,
@@ -264,7 +267,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                       catalogItemName: dataDetail[index].catalogItemName,
                       favorite: dataDetail[index].inFavorites,
                       urlImage: dataDetail[index].catalogItemImage,
-                    ) : const SizedBox.shrink(),
+                    ),
                   ],
                 ),
               ),
@@ -285,24 +288,22 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
   }
 
   void navigationCallback(DetailItemModel model) {
-    Navigator.of(context, rootNavigator: true)
-                                      .push(TransactionHistory.route(
-                                          model.catalogItemImage,
-                                          model.catalogItemName,
-                                          model.saleInfo,
-                                          false,
-                                          3,
-                                           false,
-                                          model.catalogItemId, 
-                                          saleHistoryList,
-                                          (val) {
-                                    setState(() {
-                                      if (val) {                                
-                                        widget.addFavorite(true);
-                                      } else {
-                                        widget.addFavorite(false);                                 
-                                      }
-                                    });
-                                  }));
+    Navigator.of(context, rootNavigator: true).push(TransactionHistory.route(
+        model.catalogItemImage,
+        model.catalogItemName,
+        model.saleInfo,
+        false,
+        3,
+        false,
+        model.catalogItemId,
+        saleHistoryList, (val) {
+      setState(() {
+        if (val) {
+          widget.addFavorite(true);
+        } else {
+          widget.addFavorite(false);
+        }
+      });
+    }));
   }
 }
