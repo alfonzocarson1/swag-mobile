@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:swagapp/modules/data/detail/detail_service.dart';
 import 'package:swagapp/modules/models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
 
 import '../../../generated/l10n.dart';
@@ -19,6 +20,7 @@ import '../../models/buy_for_sale_listing/buy_for_sale_listing_response_model.da
 import '../../models/detail/detail_collection_model.dart';
 import '../../models/detail/detail_sale_info_model.dart';
 import '../../models/detail/sale_history_model.dart';
+import '../../models/notify_when_available/profile_notify_list.dart';
 import '../../models/profile/profile_model.dart';
 import '../add/buy/buy_for_sale.dart';
 import '../add/collection/list_for_sale_page.dart';
@@ -70,9 +72,11 @@ class _CollectionWidgetState extends State<CollectionWidget> {
   List<DetailCollectionModel> dataCollection =[];
 
   List<String> ids = [];
+  ProfileNotifyList notificationList = [] as ProfileNotifyList;
 
   @override
   void initState() {
+    getNotificationStatus();
     dataCollection = widget.dataCollection ?? [];
     super.initState();
 
@@ -105,6 +109,10 @@ class _CollectionWidgetState extends State<CollectionWidget> {
     // TODO: implement dispose
     super.dispose();
     timer!.cancel();
+  }
+
+  getNotificationStatus()async{
+    notificationList = await getIt<DetailService>().getAvailabilityStatus();
   }
 
   getProfileAvatar() {

@@ -4,6 +4,8 @@ import '../../common/utils/utils.dart';
 import '../../di/injector.dart';
 import '../../models/buy_for_sale_listing/buy_for_sale_listing_response_model.dart';
 import '../../models/detail/detail_item_model.dart';
+import '../../models/notify_when_available/profile_notify_list.dart';
+import '../../models/notify_when_available/profile_notify_status.dart';
 import '../secure_storage/storage_repository_service.dart';
 import '../shared_preferences/shared_preferences_service.dart';
 import 'i_detail_service.dart';
@@ -56,5 +58,18 @@ class DetailService extends IDetailService {
         jsonKey: "saledItemdList",
         fromJson: (json) => BuyForSaleListingResponseModel.fromJson(json));
     return response;
+  }
+  
+  @override
+  Future<ProfileNotifyList> getAvailabilityStatus() async {
+    ProfileNotifyList response = await apiService.getEndpointData(
+      endpoint: Endpoint.profileNotifyStatus, 
+      method: RequestMethod.get,
+      needBearer: true,
+      jsonKey: "profileNotificationList",
+      fromJson: (json) => ProfileNotifyList.fromJson(json));
+
+      return response;
+      
   }
 }
