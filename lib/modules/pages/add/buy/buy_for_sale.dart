@@ -13,6 +13,7 @@ import '../../../common/utils/palette.dart';
 import '../../../common/utils/utils.dart';
 import '../../../models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
 import '../../../models/detail/detail_sale_info_model.dart';
+import '../../../models/detail/sale_history_model.dart';
 import '../../detail/transaction_history_page.dart';
 import 'preview_buy_for_sale.dart';
 
@@ -28,7 +29,9 @@ class BuyForSale extends StatefulWidget {
       required this.favorite,
       required this.sale,
       this.available,
-      required this.addFavorite});
+      required this.addFavorite,
+      required this.saleHistoryList,
+      });
 
   String catalogItemId;
   String catalogItemName;
@@ -38,6 +41,8 @@ class BuyForSale extends StatefulWidget {
   bool sale;
   final int? available;
   Function(bool) addFavorite;
+  List<SalesHistoryModel> saleHistoryList;
+
   static Route route(
           String catalogItemId,
           String catalogItemName,
@@ -46,6 +51,7 @@ class BuyForSale extends StatefulWidget {
           bool favorite,
           bool sale,
           int available,
+          List<SalesHistoryModel> saleHistoryList,
           Function(bool) addFavorite) =>
       PageRoutes.material(
         settings: const RouteSettings(name: name),
@@ -57,7 +63,9 @@ class BuyForSale extends StatefulWidget {
             favorite: favorite,
             sale: sale,
             available: available,
-            addFavorite: addFavorite),
+            addFavorite: addFavorite,
+            saleHistoryList: saleHistoryList,
+            ),
       );
 
   @override
@@ -203,14 +211,7 @@ class _BuyForSaleState extends State<BuyForSale> {
                               .copyWith(
                                   fontWeight: FontWeight.w300,
                                   color: Palette.current.primaryNeonGreen)),
-                      BlocBuilder<SalesHistoryBloc, SalesHistoryState>(
-                          builder: (context, usernameState) {
-                        return usernameState.maybeMap(
-                            orElse: () => Container(),
-                            loadedSalesHistory: (state) {
-                              if (state.detaSalesHistoryList[0].saleHistoryList!
-                                  .isNotEmpty) {
-                                return Column(
+                   (widget.saleHistoryList.isNotEmpty) ?  Column(
                                   children: [
                                     const SizedBox(
                                       height: 20,
@@ -226,7 +227,9 @@ class _BuyForSaleState extends State<BuyForSale> {
                                                 widget.sale,
                                                 widget.available ?? 0,
                                                 widget.favorite,
-                                                widget.catalogItemId, (val) {
+                                                widget.catalogItemId, 
+                                                widget.saleHistoryList,
+                                                (val) {
                                           widget.addFavorite(val);
                                         }));
                                       },
@@ -278,12 +281,7 @@ class _BuyForSaleState extends State<BuyForSale> {
                                       ),
                                     ),
                                   ],
-                                );
-                              } else {
-                                return Container();
-                              }
-                            });
-                      }),
+                                ):const SizedBox.shrink(),
                     ],
                   ),
                 ),
