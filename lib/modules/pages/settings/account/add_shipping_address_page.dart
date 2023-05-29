@@ -18,6 +18,7 @@ import '../../../common/utils/palette.dart';
 import 'package:csc_picker/csc_picker.dart';
 
 import '../../../common/utils/utils.dart';
+import '../../../cubits/profile/get_profile_cubit.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
 import '../../../models/profile/profile_model.dart';
@@ -317,19 +318,11 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
                           onPressed: () {
                             showErrors();
                             if (areFieldsValid()) {
-                              ProfileModel profileData =
-                                  getIt<PreferenceRepositoryService>()
-                                      .profileData();
-
                               context.read<UpdateProfileBloc>().add(
                                       UpdateProfileEvent.update(
                                           UpdateProfilePayloadModel(addresses: [
                                     AddressesPayloadModel(
                                         addressType: "SHIPPING",
-                                        firstName:
-                                            profileData.addresses![0].firstName,
-                                        lastName:
-                                            profileData.addresses![0].lastName,
                                         country: _defaultCountry,
                                         address1: _firstAddressController.text,
                                         address2: _secondAddressController.text,
@@ -380,7 +373,9 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
                     return null;
                   },
                   updated: () {
+                    getIt<ProfileCubit>().loadProfileResults();
                     Loading.hide(context);
+                    Navigator.of(context).pop();
                     return null;
                   },
                   initial: () {

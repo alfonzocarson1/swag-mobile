@@ -25,21 +25,20 @@ import '../add/collection/list_for_sale_page.dart';
 import '../login/create_account_page.dart';
 
 class CollectionWidget extends StatefulWidget {
-  CollectionWidget(
-      {super.key,
-      required this.dataCollection,
-      required this.lastSale,
-      required this.sale,
-      this.available,
-      required this.catalogId,
-      required this.catalogItemName,
-      required this.favorite,
-      required this.urlImage,
-      required this.addFavorite,
-      this.salesHistoryNavigation,
-      required this.saleHistoryList,
-      
-      });
+  CollectionWidget({
+    super.key,
+    required this.dataCollection,
+    required this.lastSale,
+    required this.sale,
+    this.available,
+    required this.catalogId,
+    required this.catalogItemName,
+    required this.favorite,
+    required this.urlImage,
+    required this.addFavorite,
+    this.salesHistoryNavigation,
+    required this.saleHistoryList,
+  });
 
   final List<DetailCollectionModel>? dataCollection;
   final DetailSaleInfoModel lastSale;
@@ -67,7 +66,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
   Timer? timer;
   List<DetailCollectionModel> newCollectionList = [];
   List<BuyForSaleListingResponseModel> buyForSaleList = [];
-  List<DetailCollectionModel> dataCollection =[];
+  List<DetailCollectionModel> dataCollection = [];
 
   List<String> ids = [];
 
@@ -95,7 +94,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
 
     isLogged = getIt<PreferenceRepositoryService>().isLogged();
     if (isLogged) {
-      getIt<ProfileCubit>().loadResults();
+      getIt<ProfileCubit>().loadProfileResults();
       getProfileAvatar();
     }
   }
@@ -129,8 +128,6 @@ class _CollectionWidgetState extends State<CollectionWidget> {
       });
     }
 
-
-
     return Column(
       children: [
         BlocBuilder<CatalogDetailCubit, CatalogDetailState>(
@@ -138,15 +135,14 @@ class _CollectionWidgetState extends State<CollectionWidget> {
           return usernameState.maybeWhen(
             orElse: () => Container(),
             loadedSaledItems: (List<BuyForSaleListingResponseModel> response) {
-              List<BuyForSaleListingModel> notifyAvailabilityFlag = []; 
-                var profileDataModel = profileData;
-              if(isLogged && profileDataModel != null){
-                 notifyAvailabilityFlag = response.first.saledItemdList
-                  .where((i) {
-                    return i.profileId != profileDataModel.accountId;
-                  })
-                  .toList();
-              }          
+              List<BuyForSaleListingModel> notifyAvailabilityFlag = [];
+              var profileDataModel = profileData;
+              if (isLogged && profileDataModel != null) {
+                notifyAvailabilityFlag =
+                    response.first.saledItemdList.where((i) {
+                  return i.profileId != profileDataModel.accountId;
+                }).toList();
+              }
 
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 setState(() {
@@ -170,191 +166,201 @@ class _CollectionWidgetState extends State<CollectionWidget> {
         const SizedBox(
           height: 30,
         ),
-      (isLogged) ? Padding(
-          padding: const EdgeInsets.only(left: 10),
-          child: Row(children: <Widget>[
-            isLogged
-                ? SizedBox(
-                    height: 40,
-                    width: 40,
-                    child: CircleAvatar(
-                      backgroundColor: Colors.transparent,
-                      backgroundImage:
-                          const AssetImage('assets/images/Avatar.png'),
-                      foregroundImage: profileURL != null
-                          ? NetworkImage('$profileURL')
-                          : NetworkImage('$defaultImage'),
-                      radius: 75,
-                    ),
-                  )
-                : Image.asset(
-                    "assets/images/Avatar.png",
-                    scale: 3,
-                  ),
-            const SizedBox(
-              width: 8,
-            ),
-            Text(S.of(context).my_collection,
-                style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                    letterSpacing: 1,
-                    fontWeight: FontWeight.w300,
-                    fontFamily: "KnockoutCustom",
-                    fontSize: 27,
-                    color: Palette.current.primaryNeonGreen)),
-            const SizedBox(
-              width: 10,
-            ),
-            Expanded(
-                child: Divider(
-              color: Palette.current.grey,
-            )),
-          ]),
-        ):const SizedBox.shrink(),
-       (isLogged) ? Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: (!widget.sale && dataCollection.isEmpty)
-              ? Column(
-                  children: [
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    RichText(
-                      text: TextSpan(children: [
-                        TextSpan(
-                            text: 'This item is not in your collection. ',
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Palette.current.primaryWhiteSmoke,
-                            )),
-                        TextSpan(
-                            text: 'Select to be notified ',
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Palette.current.blueNeon,
-                            )),
-                        TextSpan(
-                            text: 'when one becomes available.',
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Palette.current.primaryWhiteSmoke,
-                            ))
-                      ]),
-                    ),
-                  ],
-                )
-              : (widget.sale && dataCollection.isEmpty)
-                  ? Column(
-                      children: [
-                        const SizedBox(
-                          height: 20,
+        (isLogged)
+            ? Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: Row(children: <Widget>[
+                  isLogged
+                      ? SizedBox(
+                          height: 40,
+                          width: 40,
+                          child: CircleAvatar(
+                            backgroundColor: Colors.transparent,
+                            backgroundImage:
+                                const AssetImage('assets/images/Avatar.png'),
+                            foregroundImage: profileURL != null
+                                ? NetworkImage('$profileURL')
+                                : NetworkImage('$defaultImage'),
+                            radius: 75,
+                          ),
+                        )
+                      : Image.asset(
+                          "assets/images/Avatar.png",
+                          scale: 3,
                         ),
-                        Text(S.of(context).collection_message,
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Palette.current.primaryWhiteSmoke,
-                            )),
-                      ],
-                    )
-                  : const Text(''),
-        ): const SizedBox.shrink(),
-       (dataCollection.isNotEmpty) ? Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: dataCollection.isNotEmpty
-              ? Column(
-                  children: List.generate(
-                      dataCollection.length,
-                      (index) => Column(
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Text(S.of(context).my_collection,
+                      style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                          letterSpacing: 1,
+                          fontWeight: FontWeight.w300,
+                          fontFamily: "KnockoutCustom",
+                          fontSize: 27,
+                          color: Palette.current.primaryNeonGreen)),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                      child: Divider(
+                    color: Palette.current.grey,
+                  )),
+                ]),
+              )
+            : const SizedBox.shrink(),
+        (isLogged)
+            ? Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: (!widget.sale && dataCollection.isEmpty)
+                    ? Column(
+                        children: [
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          RichText(
+                            text: TextSpan(children: [
+                              TextSpan(
+                                  text: 'This item is not in your collection. ',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: Palette.current.primaryWhiteSmoke,
+                                  )),
+                              TextSpan(
+                                  text: 'Select to be notified ',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: Palette.current.blueNeon,
+                                  )),
+                              TextSpan(
+                                  text: 'when one becomes available.',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: Palette.current.primaryWhiteSmoke,
+                                  ))
+                            ]),
+                          ),
+                        ],
+                      )
+                    : (widget.sale && dataCollection.isEmpty)
+                        ? Column(
                             children: [
-                              ListTile(
-                                visualDensity:
-                                    const VisualDensity(vertical: -4),
-                                dense: true,
-                                leading: Text(S.of(context).acquired,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(
-                                          fontSize: 15,
-                                          color:
-                                              Palette.current.primaryWhiteSmoke,
-                                        )),
-                                trailing: Text(
-                                    DateFormat.yMd().format(DateTime.parse(
-                                        dataCollection[index]
-                                            .purchaseDate)),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(
-                                          fontSize: 15,
-                                          color:
-                                              Palette.current.primaryWhiteSmoke,
-                                        )),
-                              ),
-                              ListTile(
-                                visualDensity:
-                                    const VisualDensity(vertical: -4),
-                                dense: true,
-                                leading: Text(S.of(context).paid,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(
-                                          fontSize: 15,
-                                          color:
-                                              Palette.current.primaryWhiteSmoke,
-                                        )),
-                                trailing: Text(
-                                    decimalDigitsLastSalePrice(dataCollection[index].purchasePrice
-                                        .toString()),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(
-                                          fontSize: 15,
-                                          color:
-                                              Palette.current.primaryNeonGreen,
-                                        )),
-                              ),
-                              ListTile(
-                                visualDensity:
-                                    const VisualDensity(vertical: -4),
-                                dense: true,
-                                leading: Text("${S.of(context).condition}:",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(
-                                          fontSize: 15,
-                                          color:
-                                              Palette.current.primaryWhiteSmoke,
-                                        )),
-                                trailing: Text(
-                                    dataCollection[index].itemCondition,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(
-                                          fontSize: 15,
-                                          color:
-                                              Palette.current.primaryNeonPink,
-                                        )),
-                              ),
-                              Visibility(
-                                visible:
-                                    index != dataCollection.length - 1,
-                                child: Divider(
-                                  color: Palette.current.grey,
-                                ),
-                              ),
                               const SizedBox(
                                 height: 20,
                               ),
+                              Text(S.of(context).collection_message,
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: Palette.current.primaryWhiteSmoke,
+                                  )),
                             ],
-                          )),
-                )
-              : const Text(""),
-        ):const SizedBox.shrink(),
+                          )
+                        : const Text(''),
+              )
+            : const SizedBox.shrink(),
+        (dataCollection.isNotEmpty)
+            ? Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: dataCollection.isNotEmpty
+                    ? Column(
+                        children: List.generate(
+                            dataCollection.length,
+                            (index) => Column(
+                                  children: [
+                                    ListTile(
+                                      visualDensity:
+                                          const VisualDensity(vertical: -4),
+                                      dense: true,
+                                      leading: Text(S.of(context).acquired,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                                fontSize: 15,
+                                                color: Palette
+                                                    .current.primaryWhiteSmoke,
+                                              )),
+                                      trailing: Text(
+                                          DateFormat.yMd().format(
+                                              DateTime.parse(
+                                                  dataCollection[index]
+                                                      .purchaseDate)),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                                fontSize: 15,
+                                                color: Palette
+                                                    .current.primaryWhiteSmoke,
+                                              )),
+                                    ),
+                                    ListTile(
+                                      visualDensity:
+                                          const VisualDensity(vertical: -4),
+                                      dense: true,
+                                      leading: Text(S.of(context).paid,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                                fontSize: 15,
+                                                color: Palette
+                                                    .current.primaryWhiteSmoke,
+                                              )),
+                                      trailing: Text(
+                                          decimalDigitsLastSalePrice(
+                                              dataCollection[index]
+                                                  .purchasePrice
+                                                  .toString()),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                                fontSize: 15,
+                                                color: Palette
+                                                    .current.primaryNeonGreen,
+                                              )),
+                                    ),
+                                    ListTile(
+                                      visualDensity:
+                                          const VisualDensity(vertical: -4),
+                                      dense: true,
+                                      leading: Text(
+                                          "${S.of(context).condition}:",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                                fontSize: 15,
+                                                color: Palette
+                                                    .current.primaryWhiteSmoke,
+                                              )),
+                                      trailing: Text(
+                                          dataCollection[index].itemCondition,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                                fontSize: 15,
+                                                color: Palette
+                                                    .current.primaryNeonPink,
+                                              )),
+                                    ),
+                                    Visibility(
+                                      visible:
+                                          index != dataCollection.length - 1,
+                                      child: Divider(
+                                        color: Palette.current.grey,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                  ],
+                                )),
+                      )
+                    : const Text(""),
+              )
+            : const SizedBox.shrink(),
         const SizedBox(
           height: 20,
         ),
@@ -418,11 +424,11 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                           (newCollectionList.length == 1))
                                       ? Navigator.of(context,
                                               rootNavigator: true)
-                                          .push(ListForSalePage.route(                                           
-                                              widget.salesHistoryNavigation,
-                                              newCollectionList[0],
-                                              widget.catalogItemName,                                           
-                                              ))
+                                          .push(ListForSalePage.route(
+                                          widget.salesHistoryNavigation,
+                                          newCollectionList[0],
+                                          widget.catalogItemName,
+                                        ))
                                       : ScaffoldMessenger.of(context)
                                           .showSnackBar(SnackBar(
                                               duration:

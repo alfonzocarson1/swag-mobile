@@ -26,10 +26,12 @@ class ShippingAddressPage extends StatefulWidget {
 }
 
 class _ShippingAddressPageState extends State<ShippingAddressPage> {
+  ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
   @override
   Widget build(BuildContext context) {
-    ProfileModel profileData =
-        getIt<PreferenceRepositoryService>().profileData();
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
+          profileData = getIt<PreferenceRepositoryService>().profileData();
+        }));
 
     return Scaffold(
       appBar: PushedHeader(

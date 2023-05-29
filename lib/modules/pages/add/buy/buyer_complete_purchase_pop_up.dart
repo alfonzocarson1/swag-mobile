@@ -7,6 +7,7 @@ import '../../../../generated/l10n.dart';
 import '../../../common/ui/clickable_text.dart';
 import '../../../common/ui/cupertino_custom_picker.dart';
 import '../../../common/ui/custom_text_form_field.dart';
+import '../../../common/utils/utils.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
 import '../../../models/profile/profile_model.dart';
@@ -67,6 +68,7 @@ class _BuyerCompletePurchasePopUpState
   ];
 
   var shippedAddress = ['Shiped Address'];
+
   String? paymentTypeErrorText;
   String? shippedAddressErrorText;
   String? addressErrorText;
@@ -74,13 +76,8 @@ class _BuyerCompletePurchasePopUpState
   String? stateErrorText;
   String? zipErrorText;
 
-  var states = [
-    'State',
-    'State 1',
-    'State 2',
-    'State 3',
-    'State 4',
-  ];
+  final _states = ['State'];
+
   int value = 0;
 
   @override
@@ -147,7 +144,15 @@ class _BuyerCompletePurchasePopUpState
             : Palette.current.primaryWhiteSmoke;
       });
     });
+    _getStates();
     super.initState();
+  }
+
+  void _getStates() async {
+    var responseSatate = await getStates();
+    setState(() {
+      _states.addAll(responseSatate as Iterable<String>);
+    });
   }
 
   @override
@@ -313,11 +318,11 @@ class _BuyerCompletePurchasePopUpState
                                     children: [
                                       CupertinoPickerView(
                                           errorText: stateErrorText,
-                                          cupertinoPickerItems: states,
+                                          cupertinoPickerItems: _states,
                                           cupertinoPickervalue: _defaultState,
                                           onDone: (index) {
                                             setState(() => value = index);
-                                            _defaultState = states[index];
+                                            _defaultState = _states[index];
                                             Navigator.pop(context);
                                           }),
                                       Visibility(

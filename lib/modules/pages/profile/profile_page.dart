@@ -40,7 +40,7 @@ class _ProfilePageState extends State<ProfilePage>
   void initState() {
     _tabController = TabController(length: 4, vsync: this);
     _tabController.addListener(_handleTabSelection);
-    getIt<ProfileCubit>().loadResults();
+    getIt<ProfileCubit>().loadProfileResults();
 
     super.initState();
   }
