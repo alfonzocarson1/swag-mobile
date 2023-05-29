@@ -2679,6 +2679,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Complete Purchase`
+  String get complete_purchase_title {
+    return Intl.message(
+      'Complete Purchase',
+      name: 'complete_purchase_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We will connect you with the seller to complete this purchase. Please select how you like to pay for this item? `
+  String get complete_purchase_sub_title {
+    return Intl.message(
+      'We will connect you with the seller to complete this purchase. Please select how you like to pay for this item? ',
+      name: 'complete_purchase_sub_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payment Type`
+  String get payment_types {
+    return Intl.message(
+      'Payment Type',
+      name: 'payment_types',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please confirm or update your shipping address for this item to be shipped.`
+  String get shipped_input_title {
+    return Intl.message(
+      'Please confirm or update your shipping address for this item to be shipped.',
+      name: 'shipped_input_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save address to your account`
+  String get save_address {
+    return Intl.message(
+      'Save address to your account',
+      name: 'save_address',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

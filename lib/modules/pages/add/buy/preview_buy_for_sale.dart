@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 import 'package:swagapp/modules/common/ui/general_delete_popup.dart';
 import 'package:swagapp/modules/cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
-import 'package:swagapp/modules/models/detail/sale_history_model.dart';
 import 'package:swagapp/modules/models/detail/sale_list_history_model.dart';
 import 'package:swagapp/modules/models/listing_for_sale/listing_for_sale_model.dart';
 import 'package:swagapp/modules/models/profile/profile_model.dart';
@@ -25,6 +24,7 @@ import '../../../models/overlay_buton/overlay_button_model.dart';
 import '../collection/edit_list_for_Sale_page.dart';
 import '../collection/footer_list_item_page.dart';
 import '../collection/widgets/custom_overlay_button.dart';
+import 'buyer_complete_purchase_pop_up.dart';
 import 'multi_image_slide_buy_preview.dart';
 
 class BuyPreviewPage extends StatefulWidget {
@@ -52,18 +52,19 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
   @override
   void initState() {
     getSalesHistory();
-    super.initState(); 
-
+    super.initState();
   }
 
-    @override
+  @override
   void dispose() {
     super.dispose();
   }
 
-  getSalesHistory() async{
-      var catalogItemId = widget.dataItem.catalogItemId;
-     salesHistoryList = await getIt<SalesHistoryBloc>().salesHistoryService.salesHistory(catalogItemId ?? "");
+  getSalesHistory() async {
+    var catalogItemId = widget.dataItem.catalogItemId;
+    salesHistoryList = await getIt<SalesHistoryBloc>()
+        .salesHistoryService
+        .salesHistory(catalogItemId ?? "");
   }
 
   @override
@@ -183,8 +184,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                                 '',
                                                             widget.dataItem
                                                                 .productItemImageUrls,
-                                                            salesHistoryList    
-                                                                ));
+                                                            salesHistoryList));
                                                   } else if (value ==
                                                       editListingDropDown[1]
                                                           .label) {
@@ -281,12 +281,37 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                             children: [
                                               const FooterListItemPage(),
                                               const SizedBox(height: 30),
-                                              PrimaryButton(
-                                                title:
-                                                    '${S.of(context).buy_for}  ${decimalDigitsLastSalePrice(widget.dataItem.lastSale.toString())}',
-                                                onPressed: () {},
-                                                type: PrimaryButtonType.green,
-                                              ),
+                                              Visibility(
+                                                  visible:
+                                                      widget.dataItem.status ==
+                                                          'listed',
+                                                  child: PrimaryButton(
+                                                    title:
+                                                        '${S.of(context).buy_for}  ${decimalDigitsLastSalePrice(widget.dataItem.lastSale.toString())}',
+                                                    onPressed: () {
+                                                      showDialog(
+                                                        context: context,
+                                                        barrierDismissible:
+                                                            false,
+                                                        builder: (BuildContext
+                                                                context) =>
+                                                            const BuyerCompletePurchasePopUp(),
+                                                      );
+                                                    },
+                                                    type:
+                                                        PrimaryButtonType.green,
+                                                  )),
+                                              Visibility(
+                                                  visible:
+                                                      widget.dataItem.status !=
+                                                          'listed',
+                                                  child: PrimaryButton(
+                                                    title:
+                                                        '${S.of(context).buy_for}  ${decimalDigitsLastSalePrice(widget.dataItem.lastSale.toString())}',
+                                                    onPressed: () {},
+                                                    type:
+                                                        PrimaryButtonType.green,
+                                                  )),
                                             ],
                                           )
                                         : Column(
