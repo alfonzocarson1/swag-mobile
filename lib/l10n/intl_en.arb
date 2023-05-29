@@ -293,6 +293,7 @@
     "chatErrorFile": "Error loading the file",
     "chatLoadingFile": "Loading File...",
     "chatToday": "Today",
+    "chatMessageFrom": "New message from {sender}",
 
     "chatsHeader": "ALERTS & Notifications",
     "chatsUnreadMessages": "{chatsNumber} Unread"

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:swagapp/modules/blocs/blocs.dart';
 import 'package:swagapp/modules/pages/login/landing_page.dart';
+import 'package:swagapp/modules/services/push_notifications_service.dart';
 import 'generated/l10n.dart';
 
 import 'modules/blocs/auth_bloc/auth_bloc.dart';
@@ -14,12 +15,26 @@ import 'modules/common/utils/theme.dart';
 import 'modules/di/injector.dart';
 import 'modules/pages/splash/splash_page.dart';
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
+
+  App({Key? key}) : super(key: key);
+
+  @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+
+  @override
+  void initState() {
+    
+    PushNotificationsService.listenPushNotifications();
+    super.initState();
+  }
+
   final GlobalKey<NavigatorState> _homeNavigatorKey = GlobalKey<NavigatorState>(
     debugLabel: 'home_page_tab',
   );
-
-  App({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

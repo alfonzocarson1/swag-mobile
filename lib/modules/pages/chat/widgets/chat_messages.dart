@@ -7,6 +7,7 @@ import 'package:swagapp/modules/di/injector.dart';
 import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
 import 'package:swagapp/modules/common/assets/images.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
+import 'package:swagapp/modules/models/chat/chat_data.dart';
 import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
 
 import 'chat_date_separator.dart';
@@ -15,13 +16,13 @@ import 'chat_loading_file_message.dart';
 
 class ChatMessages extends StatefulWidget {
 
-  final List<BaseMessage> messages;
+  final ChatData chatData;
   final ScrollController scrollController;
 
   const ChatMessages({
-    super.key,
-    required this.messages,
-    required this.scrollController,
+    super.key,    
+    required this.chatData,
+    required this.scrollController, 
   });
 
   @override
@@ -29,23 +30,45 @@ class ChatMessages extends StatefulWidget {
 }
 
 class _ChatMessagesState extends State<ChatMessages> {
+
+  late List<Widget> items;
+  late String userSendbirdiId; 
+  late int previousMessagesLengh;
+  late GlobalKey<AnimatedListState> listKey;
+
+  @override
+  void initState() {
+
+    ChatBloc chatBloc = context.read<ChatBloc>();
+
+    this.listKey = GlobalKey<AnimatedListState>();
+    this.previousMessagesLengh = this.widget.chatData.messages.length;
+    this.userSendbirdiId = getIt<PreferenceRepositoryService>().getUserSendBirdId();
+    this.items = this.getChatItems(userSendbirdiId, chatBloc).reversed.toList();
+
+    super.initState();
+  }
   
   @override
   Widget build(BuildContext context) {
 
-    ChatBloc chatBloc = context.watch<ChatBloc>();    
-    String userSendbirdiId = getIt<PreferenceRepositoryService>().getUserSendBirdId();
-    List<Widget> items = this.getChatItems(userSendbirdiId, chatBloc);
+    ChatBloc chatBloc = context.watch<ChatBloc>();
+    this.updateItems(chatBloc, userSendbirdiId);
 
-    return ListView.builder(
-      key: const PageStorageKey<String>('item'),
+    return AnimatedList(
+      key: this.listKey,
       reverse: true,
-      itemCount: items.length,
+      initialItemCount: this.items.reversed.length,
       controller: this.widget.scrollController,
       physics: const RangeMaintainingScrollPhysics(),
-      padding: const EdgeInsets.symmetric(vertical: 20),
-      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-      itemBuilder: (BuildContext context, int index)=> items[index],
+      padding: const EdgeInsets.only(top: 20, bottom: 5),
+      itemBuilder: (BuildContext context, int index, Animation<double> animation) {  
+
+        return SizeTransition(
+          sizeFactor: animation,
+          child: this.items[index],
+        );
+      },
     );
   }
 
@@ -57,17 +80,16 @@ class _ChatMessagesState extends State<ChatMessages> {
     ? items.add(const ChatLoadingFileMessage())
     : null;    
 
-    for (int i = 0; i < this.widget.messages.length; i++) {
+    for (int i = 0; i < this.widget.chatData.messages.length; i++) {
       
-      BaseMessage message = this.widget.messages.reversed.toList()[i];
+      BaseMessage message = this.widget.chatData.messages.toList()[i];
       bool isMyMessage = (message.sender?.userId == userSendbirdiId);
-
 
       items.add(_Message(
         isMyMessage: isMyMessage,
         message: message,
-      ));
-      
+      ));      
+
       items.add(this.addDateSeparator(i, message));
     }
 
@@ -80,14 +102,42 @@ class _ChatMessagesState extends State<ChatMessages> {
 
     if(index > 0) {
 
-      BaseMessage previousMessage = this.widget.messages.reversed.toList()[index - 1];
+      BaseMessage previousMessage = this.widget.chatData.messages.toList()[index - 1];
       DateTime previousCreatedAt = DateTime.fromMillisecondsSinceEpoch(previousMessage.createdAt);
 
       return (createdAt.day != previousCreatedAt.day)
-      ? ChatlDateSeparator(date: previousCreatedAt)
+      ? ChatlDateSeparator(date: createdAt)
       : const SizedBox.shrink();
     }
+    else if (this.widget.chatData.messages.length == 1) return ChatlDateSeparator(date: createdAt);
     else return const SizedBox.shrink();
+  }
+
+  void updateItems(ChatBloc chatBloc, String userSendbirdiId) {
+
+    if(this.widget.chatData.messages.length > this.previousMessagesLengh) {
+
+      BaseMessage message = this.widget.chatData.messages.last;
+      bool isMyMessage = (message.sender?.userId == userSendbirdiId);
+      this.previousMessagesLengh = this.widget.chatData.messages.length;
+      this.addItem(message, isMyMessage);
+    }
+  }
+
+  void addItem(BaseMessage message, bool isMyMessage) async {
+
+    this.items.insert(
+      0, 
+      _Message(
+        message: message, 
+        isMyMessage: isMyMessage,
+      ),
+    );
+
+    this.listKey.currentState!.insertItem(
+      0,
+      duration: const Duration(milliseconds: 300),
+    );
   }
 }
 
@@ -200,5 +250,4 @@ class _MessageAvatar extends StatelessWidget {
     );
   }
 }
-
 

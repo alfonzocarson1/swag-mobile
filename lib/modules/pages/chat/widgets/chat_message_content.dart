@@ -3,11 +3,11 @@ import 'package:swagapp/generated/l10n.dart';
 import 'package:sendbird_sdk/sendbird_sdk.dart';
 import 'package:swagapp/modules/common/assets/images.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
-import 'package:cached_video_player/cached_video_player.dart';
 import 'package:swagapp/modules/enums/chat_message_type.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:swagapp/modules/common/ui/swagg_video_player.dart';
 import 'package:swagapp/modules/pages/media_viewer/media_viewer_page.dart';
+
+import 'chat_message_video_content.dart';
 
 class ChatMessageContent extends StatelessWidget {
 
@@ -49,7 +49,7 @@ class ChatMessageContent extends StatelessWidget {
   }
 }
 
-class _Content extends StatelessWidget {
+class _Content extends StatefulWidget {
 
   final bool isMyMessage;
   final BaseMessage message;
@@ -61,18 +61,25 @@ class _Content extends StatelessWidget {
   });
 
   @override
+  State<_Content> createState() => _ContentState();
+}
+
+class _ContentState extends State<_Content> with AutomaticKeepAliveClientMixin { 
+
+  @override
   Widget build(BuildContext context) {
 
-    bool isFile = (this.message is FileMessage);
+    super.build(context);
+    bool isFile = (this.widget.message is FileMessage);
     bool isImage = (isFile) ? this.verifyIfFileIsImage() : false;
 
-    String fileUrl = (isFile) ? (this.message as FileMessage).secureUrl! : '';
+    String fileUrl = (isFile) ? (this.widget.message as FileMessage).secureUrl! : '';
 
     return GestureDetector(
       child: Container(
-        width: (this.isMyMessage) ? null : double.infinity,
+        width: (this.widget.isMyMessage) ? null : double.infinity,
         decoration: BoxDecoration(
-          color: (!this.isMyMessage) 
+          color: (!this.widget.isMyMessage) 
           ? Palette.current.greyMessage
           : Palette.current.primaryNeonGreen,
           borderRadius: BorderRadius.circular(20),
@@ -82,12 +89,12 @@ class _Content extends StatelessWidget {
         child: (isFile) 
         ? (isImage) 
           ? _MessageImage(url: fileUrl)
-          : _MessageVideo(url: fileUrl)
+          : ChatMessageVideoContent(url: fileUrl)
         : Text(
-          this.message.message,
+          this.widget.message.message,
           style: TextStyle(
             fontSize: 16, 
-            color: (!this.isMyMessage) ? Colors.white : Colors.black,
+            color: (!this.widget.isMyMessage) ? Colors.white : Colors.black,
           ),
         ),
       ),
@@ -102,7 +109,7 @@ class _Content extends StatelessWidget {
 
   bool verifyIfFileIsImage() {
 
-    FileMessage message = this.message as FileMessage;
+    FileMessage message = this.widget.message as FileMessage;
 
     if(message.type?.contains(ChatMessageType.image.textValue) ?? false) {
       return true;
@@ -112,6 +119,9 @@ class _Content extends StatelessWidget {
     }
     else return false;
   }
+  
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class _MessageImage extends StatefulWidget {
@@ -127,12 +137,11 @@ class _MessageImage extends StatefulWidget {
   State<_MessageImage> createState() => _MessageImageState();
 }
 
-class _MessageImageState extends State<_MessageImage> with AutomaticKeepAliveClientMixin {
+class _MessageImageState extends State<_MessageImage> {
 
   @override
   Widget build(BuildContext context) {
 
-    super.build(context);
     Size size = MediaQuery.of(context).size;
     double imageSize = (size.width * 0.65);
 
@@ -157,104 +166,5 @@ class _MessageImageState extends State<_MessageImage> with AutomaticKeepAliveCli
       ),
     );
   }
-  
-  @override
-  bool get wantKeepAlive => true;
-}
-
-class _MessageVideo extends StatefulWidget {
-
-  final String url;
-
-  const _MessageVideo({
-    super.key, 
-    required this.url,
-  });
-
-  @override
-  State<_MessageVideo> createState() => __MessageVideoState();
-}
-
-class __MessageVideoState extends State<_MessageVideo> with AutomaticKeepAliveClientMixin {
-
-  late CachedVideoPlayerController controller;
-
-  @override
-  void initState() {
-    
-    this.controller = CachedVideoPlayerController.network(this.widget.url);
-    this.controller.setVolume(0);
-
-    this.initializeController();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    
-    this.controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-
-    super.build(context);
-    Size size = MediaQuery.of(context).size;
-    double videoSize = size.width * 0.65;
-    double aspectRatio = this.controller.value.aspectRatio;
-
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(15),
-      child: ConstrainedBox(
-        constraints: BoxConstraints(
-          maxWidth: videoSize,
-          maxHeight: videoSize,
-        ),
-        child: AspectRatio(
-          aspectRatio: aspectRatio,
-          child: Stack(
-            children: <Widget> 
-            [
-              Positioned.fill(
-                child: AspectRatio(
-                  aspectRatio: aspectRatio,
-                  child: SwaggVideoPlayer(controller: controller),
-                ),
-              ),
-              Align(
-                alignment: Alignment.center,
-                child: Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.black.withOpacity(0.5),
-                  ),
-                  child: const Icon(Icons.play_arrow),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  void initializeController() {
-
-    this.controller.initialize().then((value){
-      
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-        
-        setState((){});
-        await this.controller.play();
-        await Future.delayed(const Duration(milliseconds: 10));
-        await this.controller.pause();
-      });
-    });
-  }
-  
-  @override
-  bool get wantKeepAlive => true;
 }
 
