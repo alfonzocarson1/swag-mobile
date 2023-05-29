@@ -20,7 +20,9 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(chatsNumber) => "${chatsNumber} Unread";
+  static String m0(sender) => "New message from ${sender}";
+
+  static String m1(chatsNumber) => "${chatsNumber} Unread";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -64,6 +66,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter message"),
         "chatLoadingFile":
             MessageLookupByLibrary.simpleMessage("Loading File..."),
+        "chatMessageFrom": m0,
         "chatModeratorName": MessageLookupByLibrary.simpleMessage("SWAG"),
         "chatNoMessages":
             MessageLookupByLibrary.simpleMessage("No previous messages"),
@@ -71,7 +74,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "chatTyping": MessageLookupByLibrary.simpleMessage("Typing..."),
         "chatsHeader":
             MessageLookupByLibrary.simpleMessage("ALERTS & Notifications"),
-        "chatsUnreadMessages": m0,
+        "chatsUnreadMessages": m1,
         "city": MessageLookupByLibrary.simpleMessage("City"),
         "clear_all": MessageLookupByLibrary.simpleMessage("Clear All"),
         "code": MessageLookupByLibrary.simpleMessage("Code"),

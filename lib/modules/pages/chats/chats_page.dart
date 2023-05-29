@@ -53,7 +53,9 @@ class _ChatsPageState extends State<ChatsPage> with ChannelEventHandler {
         itemBuilder: (BuildContext context, int index) {
 
           ChatData chatData = chatBloc.state.chats[index];
-          String lastMessage = chatData.messages.last.message;
+          String lastMessage = (chatData.messages.isNotEmpty) 
+          ? chatData.messages.last.message
+          : S.current.chatNoMessages;
           
           return ChatsContact(
             chatData: chatData,

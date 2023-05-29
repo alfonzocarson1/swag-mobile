@@ -1,11 +1,13 @@
 import 'dart:io';
 import 'package:bloc/bloc.dart';
+import 'package:cached_video_player/cached_video_player.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sendbird_sdk/sendbird_sdk.dart';
 import 'package:swagapp/modules/di/injector.dart';
 import 'package:swagapp/modules/constants/constants.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
+import 'package:swagapp/modules/enums/chat_message_type.dart';
 import 'package:swagapp/modules/models/chat/chat_data.dart';
 
 part 'chat_event.dart';
@@ -23,6 +25,10 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     on<ChatAddChatsEvent>((event, emit)=> emit(this.state.copyWith(chats: event.chats)));
     on<ChatUpdateMessageEvent>((event, emit)=> emit(this.state.copyWith(chats: event.getUpdatedChats())));
     on<ChatLoadinFileEvent>((event, emit)=> emit(this.state.copyWith(isLoadingFile: event.isLoadingFile)));
+
+    on<ChatAddMessageVideoController>((event, emit) {
+      emit(this.state.copyWith(videoChatControllers: event.updatedControllers()));
+    });
   }
 
   SendbirdSdk get sendBirdSdk => this._sendbirdSdk;
@@ -30,8 +36,6 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   Future<void> initSendBirdApp() async {
 
     try {
-
-      // await this.initSendBirdPushNotifications();
 
       String userId = getIt<PreferenceRepositoryService>().getUserSendBirdId();
       String userToken = getIt<PreferenceRepositoryService>().getUserSendBirdToken();
@@ -41,11 +45,11 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         accessToken: userToken,
       );
 
+      await this.initSendBirdPushNotifications();
+
       this.add(ChatSetMyUser(user));
     } 
-    catch (e) {  
-      throw Exception('Error loading my user'); 
-    }
+    catch (e) { throw Exception('Error loading my user'); }
   }
 
   Future<void> initSendBirdPushNotifications() async {
@@ -53,7 +57,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     String firebaseToken = getIt<PreferenceRepositoryService>().getFirebaseDeviceToken();
 
     await this._sendbirdSdk.registerPushToken(
-      type: PushTokenType.fcm, 
+      type: (Platform.isIOS) ? PushTokenType.apns : PushTokenType.fcm, 
       token: firebaseToken,
     );
   }
@@ -128,9 +132,6 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   }) async {
 
     UserMessageParams params = UserMessageParams(message: message);
-    // UserMessage localMessage = this._getLocalMessage(message, chatData);
-
-    await Future.delayed(const Duration(milliseconds: 1000));
 
     try {
       
@@ -174,6 +175,10 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           onCompleted: (FileMessage message, Error? error) async {
 
             if(error == null) {
+
+              if(message.type!.contains(ChatMessageType.video.textValue)) {
+                await this._createNewMessageVideoController(message.secureUrl!);
+              }
 
               this.add(ChatUpdateMessageEvent(
                 chatData: chatData, 
@@ -230,5 +235,40 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         nickname: this.state.myUser!.nickname,
       ),
     );
+  }
+
+  void addMessageVideoController(CachedVideoPlayerController newController) {
+
+    bool isNotController = this.state.videoChatControllers.any((controller) {
+
+      String url1 = controller.dataSource.substring(0, 50);
+      String url2 = newController.dataSource.substring(0, 50);
+
+      return url1 == url2;
+    });
+
+    if(!isNotController) {
+
+      this.add(ChatAddMessageVideoController(
+        newController: newController, 
+        controllers: this.state.videoChatControllers,
+      ));
+    }
+  }
+
+  Future<void> _createNewMessageVideoController(String url) async {
+
+    CachedVideoPlayerController controller;
+    controller = CachedVideoPlayerController.network(url);
+    controller.setVolume(0);
+    this.state;
+    print('object');
+
+    controller.initialize().then((value) async {      
+        
+      await controller.play();
+      await controller.pause();
+      this.addMessageVideoController(controller);
+    });
   }
 }

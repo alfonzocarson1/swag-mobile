@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:swagapp/modules/services/local_notifications_service.dart';
 import 'package:swagapp/modules/services/push_notifications_service.dart';
 import 'app.dart';
 import 'modules/api/app_config.dart';
@@ -36,15 +37,13 @@ Future<void> _handleFlavorConfig() async {
     debugPrint('STARTED WITH FLAVOR $flavor');
     switch (flavor) {
       case AppConfig.swagProd:
-        // AppConfig().init(url: hostProd).then((_) => _runApp());
-        AppConfig().init(url: hostDev).then((_) => _runApp());
+        AppConfig().init(url: hostProd).then((_) => _runApp());
         break;
       case AppConfig.swagDev:
         AppConfig().init(url: hostDev).then((_) => _runApp());
         break;
       case AppConfig.swagQa:
-        // AppConfig().init(url: hostQa).then((_) => _runApp());
-        AppConfig().init(url: hostDev).then((_) => _runApp());
+        AppConfig().init(url: hostQa).then((_) => _runApp());
         break;
     }
   }).catchError((error) {
@@ -57,5 +56,6 @@ Future<void> _runApp() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   await PushNotificationsService.initializeApp();
+  await LocalNotificationsService.initializeApp();
   return runApp(App());
 }

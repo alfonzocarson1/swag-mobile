@@ -12,11 +12,11 @@ import 'widgets/chat_messages.dart';
 
 class ChatPage extends StatefulWidget {
 
-  final ChatData chatData;
+  final ChatData? chatData;
 
   const ChatPage({
     super.key, 
-    required this.chatData, 
+    this.chatData, 
   });
 
   @override
@@ -54,7 +54,7 @@ class _ChatPageState extends State<ChatPage> with ChannelEventHandler {
         systemOverlayStyle: SystemUiOverlayStyle.light,
         backgroundColor: Palette.current.blackAppbarBlackground,
         title: AppBarTitle(
-          chatName: this.widget.chatData.channel.name!, 
+          chatName: this.widget.chatData!.channel.name!, 
           isTyping: isTyping,
         ),
         centerTitle: false,
@@ -68,7 +68,7 @@ class _ChatPageState extends State<ChatPage> with ChannelEventHandler {
         ),
       ),
       body: _Body(
-        chatData: this.widget.chatData,
+        chatData: this.widget.chatData!,
         scrollController: this.scrollController,
       ),
       backgroundColor: Palette.current.blackChatBlackground,
@@ -85,15 +85,17 @@ class _ChatPageState extends State<ChatPage> with ChannelEventHandler {
   @override
   void onMessageReceived(BaseChannel channel, BaseMessage message) async {
 
-    context.read<ChatBloc>().receiveMessage(this.widget.chatData, message);
-    context.read<ChatBloc>().updateChatReadStatus(this.widget.chatData);
+    ChatBloc chatBloc = context.read<ChatBloc>();
+
+    await chatBloc.receiveMessage(this.widget.chatData!, message);
+    await chatBloc.updateChatReadStatus(this.widget.chatData!);
     super.onMessageReceived(channel, message);
   }
 
   void updateChatData() {
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async { 
-      await context.read<ChatBloc>().updateChatReadStatus(this.widget.chatData);
+      await context.read<ChatBloc>().updateChatReadStatus(this.widget.chatData!);
     });
   }
 }
@@ -118,12 +120,15 @@ class _Body extends StatelessWidget {
         Flexible(
           child: (this.chatData.messages.isNotEmpty) 
           ? ChatMessages(
-              messages: this.chatData.messages, 
+              chatData: this.chatData,
               scrollController: this.scrollController,
             )
           : Center(child: Text(S.current.chatNoMessages)),
         ),
-        ChatChatInput(chatData: this.chatData),
+        ChatChatInput(
+          chatData: this.chatData,
+          scrollController: this.scrollController,
+        ),
         const SafeArea(child: SizedBox.shrink()),
       ],
     );

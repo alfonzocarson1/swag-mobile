@@ -35,6 +35,7 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   static const String _userSendBirdId = 'userSendBirdId';
   static const String _userSendBirdToken = 'userSendBirdToken';
   static const String _firebaseDeviceToken = 'firebaseDeviceToken';
+  static const String _currentPageName = 'currentPageName';
 
   late SharedPreferences _prefs;
   @override
@@ -327,6 +328,16 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   @override
   Future<void> saveFirebaseDeviceToken(String token) async {
     await this._prefs.setString(_firebaseDeviceToken, token);
+  }
+  
+  //TODO: These methods were defined to manage the current page name. 
+  //This is  a solution for the issue related with missing a routing system in the app
+  @override
+  String getCurrentPageName()=> this._prefs.getString(_currentPageName) ?? '';
+  
+  @override
+  Future<void> saveCurrentPageName(String pageName) async {    
+    await this._prefs.setString(_currentPageName, pageName);
   }
 
 }

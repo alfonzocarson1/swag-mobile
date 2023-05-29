@@ -48,3 +48,20 @@ class ChatLoadinFileEvent extends ChatEvent {
 
   ChatLoadinFileEvent(this.isLoadingFile);
 }
+
+class ChatAddMessageVideoController extends ChatEvent {
+
+  final CachedVideoPlayerController newController;
+  final List<CachedVideoPlayerController> controllers;
+
+  ChatAddMessageVideoController({
+    required this.newController, 
+    required this.controllers,
+  });
+
+  List<CachedVideoPlayerController> updatedControllers() {
+
+    this.controllers.add(this.newController);
+    return this.controllers; 
+  }
+}

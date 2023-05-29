@@ -75,4 +75,7 @@ abstract class PreferenceRepositoryInt {
 
   String getFirebaseDeviceToken();
   Future<void> saveFirebaseDeviceToken(String token);
+
+  String getCurrentPageName();
+  Future<void> saveCurrentPageName(String pageName);
 }

@@ -2220,6 +2220,16 @@ class S {
     );
   }
 
+  /// `New message from {sender}`
+  String chatMessageFrom(Object sender) {
+    return Intl.message(
+      'New message from $sender',
+      name: 'chatMessageFrom',
+      desc: '',
+      args: [sender],
+    );
+  }
+
   /// `ALERTS & Notifications`
   String get chatsHeader {
     return Intl.message(

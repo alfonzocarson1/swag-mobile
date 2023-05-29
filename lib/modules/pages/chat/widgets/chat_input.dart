@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sendbird_sdk/sendbird_sdk.dart';
@@ -12,16 +11,19 @@ import 'package:swagapp/modules/models/chat/chat_data.dart';
 class ChatChatInput extends StatelessWidget {
 
   final ChatData chatData;
+  final ScrollController scrollController;
   
   const ChatChatInput({
     super.key, 
     required this.chatData, 
+    required this.scrollController, 
   });
 
   @override
   Widget build(BuildContext context) {    
 
     double height = 60;
+    ChatBloc chatBloc = context.watch<ChatBloc>(); 
 
     return Container(
       height: height,
@@ -35,12 +37,13 @@ class ChatChatInput extends StatelessWidget {
               width: 30,
               image: AssetImage(AppIcons.add),
             ),
-            onTap: ()=> context.read<ChatBloc>().sendFileMessage(chatData: this.chatData),
+            onTap: () async => await chatBloc.sendFileMessage(chatData: this.chatData),
           ),
           const SizedBox(width: 15),
           Flexible(
             child: _Input(
               chatData: this.chatData,
+              scrollController: this.scrollController,
             ),
           ),
         ],
@@ -52,10 +55,12 @@ class ChatChatInput extends StatelessWidget {
 class _Input extends StatefulWidget {
 
   final ChatData chatData;
+  final ScrollController scrollController;
 
   const _Input({
     super.key,
-    required this.chatData,
+    required this.chatData, 
+    required this.scrollController,
   });
 
   @override
@@ -74,6 +79,7 @@ class _InputState extends State<_Input> {
     this.debounce = null;
     this.focusNode = FocusNode();
     this.textEditingController = TextEditingController();
+
     super.initState();
   }
 
@@ -148,8 +154,8 @@ class _SendButton extends StatefulWidget {
 
   const _SendButton({
     super.key, 
-    required this.textEditingController,
     required this.chatData, 
+    required this.textEditingController, 
   });
 
   @override
@@ -203,7 +209,7 @@ class _SendButtonState extends State<_SendButton> {
       await chatBloc.sendMessage(
         message: textMessage.trim(),
         chatData: this.widget.chatData, 
-      );    
+      );
     }
   }
   
