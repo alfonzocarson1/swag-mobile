@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:swagapp/modules/data/detail/detail_service.dart';
+import 'package:swagapp/modules/data/detail/i_detail_service.dart';
 import 'package:swagapp/modules/models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
 
 import '../../../generated/l10n.dart';
@@ -65,6 +65,8 @@ class _CollectionWidgetState extends State<CollectionWidget> {
   String? profileURL;
   String? defaultImage;
   bool notifyAvailabilityFlagBTN = false;
+  bool itemInNotifyList = false;
+  bool buttonEnable = true;
   bool oneTine = false;
   Timer? timer;
   List<DetailCollectionModel> newCollectionList = [];
@@ -72,11 +74,11 @@ class _CollectionWidgetState extends State<CollectionWidget> {
   List<DetailCollectionModel> dataCollection =[];
 
   List<String> ids = [];
-  ProfileNotifyList notificationList = [] as ProfileNotifyList;
+  ProfileNotifyList notificationList = const ProfileNotifyList(profileNotificationList: []);
 
   @override
   void initState() {
-    getNotificationStatus();
+    getNotificationStatus();    
     dataCollection = widget.dataCollection ?? [];
     super.initState();
 
@@ -112,7 +114,8 @@ class _CollectionWidgetState extends State<CollectionWidget> {
   }
 
   getNotificationStatus()async{
-    notificationList = await getIt<DetailService>().getAvailabilityStatus();
+    notificationList = await getIt<IDetailService>().getAvailabilityStatus();
+    isInNotifyList(widget.catalogId);
   }
 
   getProfileAvatar() {
@@ -129,15 +132,19 @@ class _CollectionWidgetState extends State<CollectionWidget> {
     }
   }
 
+  bool isInNotifyList(String itemId) {
+  itemInNotifyList = notificationList.profileNotificationList.any((item) => item.catalogItemId == itemId);
+  return itemInNotifyList;
+}
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
+
     if (isLogged) {
       Future.delayed(Duration.zero, () {
         getProfileAvatar();
       });
     }
-
-
 
     return Column(
       children: [
@@ -160,7 +167,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                 setState(() {
                   buyForSaleList = response;
                 });
-                if (notifyAvailabilityFlag.isEmpty) {
+                if(notifyAvailabilityFlag.isEmpty && !itemInNotifyList) {
                   setState(() {
                     notifyAvailabilityFlagBTN = true;
                   });
@@ -539,7 +546,11 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                         child: PrimaryButton(
                           title: S.of(context).notify_available,
                           onPressed: () {
-                            if (isLogged) {
+                          if (isLogged && notifyAvailabilityFlagBTN && buttonEnable && !itemInNotifyList) {
+                            buttonEnable = false;
+                              setState(() {
+                                
+                              });                              
                               getIt<CatalogDetailCubit>()
                                   .notifyAvailability(widget.catalogId);
                               ScaffoldMessenger.of(context)
@@ -594,7 +605,10 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                         ],
                                       ),
                                       dismissDirection: DismissDirection.none));
-                            } else {
+                            }else if(isLogged && buttonEnable == false && !itemInNotifyList){
+
+                            } 
+                            else if(!isLogged) {
                               Navigator.of(context, rootNavigator: true)
                                   .push(CreateAccountPage.route());
                             }
