@@ -5,7 +5,6 @@ import '../../di/injector.dart';
 import '../../models/buy_for_sale_listing/buy_for_sale_listing_response_model.dart';
 import '../../models/detail/detail_item_model.dart';
 import '../../models/notify_when_available/profile_notify_list.dart';
-import '../../models/notify_when_available/profile_notify_status.dart';
 import '../secure_storage/storage_repository_service.dart';
 import '../shared_preferences/shared_preferences_service.dart';
 import 'i_detail_service.dart';
@@ -35,13 +34,13 @@ class DetailService extends IDetailService {
   }
 
   @override
-  Future<dynamic> notifyAvailability(String catalogoId) async {
+  Future<dynamic> notifyAvailability(String catalogId) async {
     var response = await apiService.getEndpointData(
       endpoint: Endpoint.notifyAvailability,
       method: RequestMethod.post,
       needBearer: true,
       fromJson: (json) => json,
-      body: {"catalogItemId": catalogoId},
+      body: {"catalogItemId": catalogId},
     );
 
     return response;
