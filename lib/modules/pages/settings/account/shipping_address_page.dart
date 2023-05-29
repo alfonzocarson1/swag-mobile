@@ -9,6 +9,7 @@ import '../../../common/utils/utils.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
 import '../../../models/profile/profile_model.dart';
+import 'add_shipping_address_page.dart';
 
 class ShippingAddressPage extends StatefulWidget {
   static const name = '/ShippingAddressPage';
@@ -101,7 +102,10 @@ class _ShippingAddressPageState extends State<ShippingAddressPage> {
                                       ],
                                     ))),
                         InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.of(context, rootNavigator: true)
+                                .push(AddShippingAddressPage.route());
+                          },
                           splashColor: Palette.current.primaryNero,
                           child: ListTile(
                             leading: Icon(

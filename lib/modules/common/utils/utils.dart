@@ -1,4 +1,8 @@
+import 'dart:convert';
+
+import 'package:csc_picker/model/select_status_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
@@ -185,7 +189,7 @@ void updateSelectedFiltersAndSortsNumber(BuildContext context,
 
   List<bool> list = [
     sharedPref.isForSale(),
-    sortBy !=0,
+    sortBy != 0,
     conditionList.isNotEmpty,
     releaseList.isNotEmpty,
     priceList.isNotEmpty,
@@ -354,6 +358,36 @@ String toCamelCase(String input) {
   }
 
   return words.join();
+}
+
+String _defaultCountry = 'United States';
+final _states = ['State'];
+
+Future<dynamic> getResponse() async {
+  var res = await rootBundle
+      .loadString('packages/csc_picker/lib/assets/country.json');
+  return jsonDecode(res);
+}
+
+///get states from json response
+Future<List<String?>> getStates() async {
+  _states.clear();
+  var response = await getResponse();
+  var takeState = response
+      .map((map) => Country.fromJson(map))
+      .where((item) => item.name == _defaultCountry)
+      .map((item) => item.state)
+      .toList();
+  var states = takeState as List;
+
+  for (var f in states) {
+    var name = f.map((item) => item.name).toList();
+    for (var stateName in name) {
+      _states.add(stateName.toString());
+    }
+  }
+  _states.sort((a, b) => a.compareTo(b));
+  return _states;
 }
 
 List<dynamic> imagesList = [

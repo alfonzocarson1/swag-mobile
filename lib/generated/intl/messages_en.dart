@@ -31,6 +31,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "account_title": MessageLookupByLibrary.simpleMessage("Account"),
         "acquired": MessageLookupByLibrary.simpleMessage("Acquired:"),
         "active": MessageLookupByLibrary.simpleMessage("Active"),
+        "add_address_title": MessageLookupByLibrary.simpleMessage(
+            "Please enter and confirm your shipping information."),
         "add_collection":
             MessageLookupByLibrary.simpleMessage("ADD TO COLLECTION"),
         "add_collection_title":

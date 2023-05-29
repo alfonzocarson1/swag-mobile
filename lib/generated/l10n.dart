@@ -2729,6 +2729,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Please enter and confirm your shipping information.`
+  String get add_address_title {
+    return Intl.message(
+      'Please enter and confirm your shipping information.',
+      name: 'add_address_title',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
