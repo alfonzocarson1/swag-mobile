@@ -13,9 +13,9 @@ class CatalogDetailCubit extends Cubit<CatalogDetailState> {
   CatalogDetailCubit(this.catalogDetailService)
       : super(const CatalogDetailState.initial());
 
-  Future<void> notifyAvailability(String catalogoId) async {
+  Future<void> notifyAvailability(String catalogId) async {
     try {
-      var response = await catalogDetailService.notifyAvailability(catalogoId);
+      var response = await catalogDetailService.notifyAvailability(catalogId);
 
       if (response['errorCode'] == '203') {
         emit(ErrorCatalogDetailState(response['errorMessage']));
