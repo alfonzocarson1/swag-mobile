@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:simple_rich_text/simple_rich_text.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
@@ -11,6 +12,7 @@ import '../../../common/utils/utils.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
 import '../../../models/profile/profile_model.dart';
+import '../../../models/settings/peer_to_peer_payments_get_model.dart';
 import '../../../models/update_profile/addresses_payload_model.dart';
 
 class BuyerCompletePurchasePopUp extends StatefulWidget {
@@ -25,6 +27,8 @@ class BuyerCompletePurchasePopUp extends StatefulWidget {
 class _BuyerCompletePurchasePopUpState
     extends State<BuyerCompletePurchasePopUp> {
   ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
+  PeerToPeerPaymentsGetModel paymentData =
+      getIt<PreferenceRepositoryService>().paymanetData();
   final FocusNode _paymentTypeNode = FocusNode();
   final _paymentTypeController = TextEditingController();
   Color _paymentTypeBorder = Palette.current.primaryWhiteSmoke;
@@ -60,12 +64,7 @@ class _BuyerCompletePurchasePopUpState
 
   List<AddressesPayloadModel> addresses = [];
 
-  var paymentTypes = [
-    'Payment Type',
-    'Venmo',
-    'PayPal',
-    'Cashapp',
-  ];
+  var paymentTypes = ['Payment Type'];
 
   var shippedAddress = ['Shiped Address'];
 
@@ -82,6 +81,16 @@ class _BuyerCompletePurchasePopUpState
 
   @override
   void initState() {
+    if (paymentData.peerToPeerPayments!.venmoUser != null) {
+      paymentTypes.add('Venmo');
+    }
+    if (paymentData.peerToPeerPayments!.cashTag != null) {
+      paymentTypes.add('Cashapp');
+    }
+
+    if (paymentData.peerToPeerPayments!.payPalEmail != null) {
+      paymentTypes.add('PayPal');
+    }
     for (final address in profileData.addresses!) {
       final index = profileData.addresses!.indexOf(address);
       shippedAddress.add('${profileData.addresses![index].address1}');
@@ -289,6 +298,10 @@ class _BuyerCompletePurchasePopUpState
                               height: 10,
                             ),
                             CustomTextFormField(
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.allow(
+                                      RegExp("^.{0,50}\$")),
+                                ],
                                 borderColor: _addressBorder,
                                 autofocus: false,
                                 labelText: 'Address',
@@ -300,6 +313,10 @@ class _BuyerCompletePurchasePopUpState
                               height: 10,
                             ),
                             CustomTextFormField(
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.allow(
+                                      RegExp("^.{0,50}\$")),
+                                ],
                                 borderColor: _cityBorder,
                                 autofocus: false,
                                 labelText: 'City',
