@@ -2260,6 +2260,16 @@ class S {
     );
   }
 
+  /// `You have already requested to be notified.  We will notify you when item is listed for sale.`
+  String get notification_already_requested {
+    return Intl.message(
+      'You have already requested to be notified.  We will notify you when item is listed for sale.',
+      name: 'notification_already_requested',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Collection item(s) already listed`
   String get collection_listed {
     return Intl.message(

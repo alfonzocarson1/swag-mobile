@@ -604,9 +604,61 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                           ),
                                         ],
                                       ),
-                                      dismissDirection: DismissDirection.none));
+                                      dismissDirection: DismissDirection.none)
+                                      );
                             }else if(isLogged && buttonEnable == false && !itemInNotifyList){
-
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                      duration: const Duration(seconds: 3),
+                                      behavior: SnackBarBehavior.floating,
+                                      margin: EdgeInsets.only(
+                                        bottom:
+                                            MediaQuery.of(context).size.height /
+                                                1.3,
+                                      ),
+                                      backgroundColor: Colors.transparent,
+                                      content: Row(
+                                        children: <Widget>[
+                                          Flexible(
+                                            child: Container(
+                                              padding: const EdgeInsets.all(18),
+                                              decoration: BoxDecoration(
+                                                  color: Palette
+                                                      .current.blackSmoke,
+                                                  borderRadius:
+                                                      const BorderRadius.all(
+                                                          Radius.circular(5))),
+                                              child: Column(
+                                                children: <Widget>[
+                                                  Row(
+                                                    children: <Widget>[
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Image.asset(
+                                                          scale: 3,
+                                                          "assets/images/Favorite.png",
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                          flex: 10,
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    left: 20),
+                                                            child: Text(S
+                                                                .of(context)
+                                                                .notification_already_requested),
+                                                          )),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      dismissDirection: DismissDirection.none));
                             } 
                             else if(!isLogged) {
                               Navigator.of(context, rootNavigator: true)
