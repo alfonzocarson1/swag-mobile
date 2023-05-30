@@ -271,7 +271,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                   ],
                 ),
               ),
-              const ItemSwitched()
+              // const ItemSwitched()
             ],
           );
         });
