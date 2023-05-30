@@ -45,6 +45,8 @@ class _ExplorePageState extends State<ExplorePage> {
 
   @override
   void initState() {
+    getIt<PeerToPeerPaymentsCubit>().getPyments();
+
     getIt<ExploreCubit>()
         .getUnicorn(const ExploreRequestPayloadModel(unicornFlag: true));
     getIt<ExploreCubit>()
