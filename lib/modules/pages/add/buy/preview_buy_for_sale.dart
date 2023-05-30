@@ -69,6 +69,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
 
   @override
   Widget build(BuildContext context) {
+    
     collectionModel = DetailCollectionModel(
         profileCollectionItemId: widget.dataItem.productItemId ?? '',
         catalogItemId: widget.dataItem.catalogItemId ?? '',
@@ -379,7 +380,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                           )
                                         : Column(
                                             children: [
-                                              FooterListItemPage(),
+                                              FooterListItemPage(productItemId: this.widget.dataItem.productItemId ?? ''),
                                               const SizedBox(height: 30),
                                               PrimaryButton(
                                                 title:
@@ -408,3 +409,6 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
     );
   }
 }
+
+// 03141d4f-e39e-4d84-b7cc-7706f94d52a3
+
