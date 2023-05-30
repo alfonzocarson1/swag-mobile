@@ -6,6 +6,7 @@ import 'package:swagapp/modules/common/utils/context_service.dart';
 import 'package:swagapp/modules/cubits/paginated_search/paginated_search_cubit.dart';
 import 'package:swagapp/modules/cubits/saved_search/saved_searches_cubit.dart';
 import 'package:swagapp/modules/data/auth/i_auth_service.dart';
+import 'package:swagapp/modules/data/chat/chat_service.dart';
 import 'package:swagapp/modules/data/filters/filters_service.dart';
 import 'package:swagapp/modules/data/saved_search/i_saved_search_service.dart';
 import 'package:swagapp/modules/data/saved_search/saved_search_service.dart';
@@ -68,6 +69,7 @@ const authorizedScope = 'authorizedScope';
 Future<void> setupAppScope() {
   getIt.registerLazySingleton(() => PreferenceRepositoryService());
   getIt.registerLazySingleton(() => FiltersService(APIService()));
+  getIt.registerLazySingleton(() => ChatService(APIService()));
   getIt.registerLazySingleton(() => StorageRepositoryService());
   getIt.registerLazySingleton(() => ContextService());
   getIt.registerLazySingleton<IAuthService>(() => AuthService(APIService()));

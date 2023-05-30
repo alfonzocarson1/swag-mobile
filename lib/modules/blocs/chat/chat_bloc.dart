@@ -1,14 +1,14 @@
 import 'dart:io';
 import 'package:bloc/bloc.dart';
-import 'package:cached_video_player/cached_video_player.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sendbird_sdk/sendbird_sdk.dart';
 import 'package:swagapp/modules/di/injector.dart';
 import 'package:swagapp/modules/constants/constants.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
-import 'package:swagapp/modules/enums/chat_message_type.dart';
 import 'package:swagapp/modules/models/chat/chat_data.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:cached_video_player/cached_video_player.dart';
+import 'package:swagapp/modules/data/chat/ichat_service.dart';
+import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
 
 part 'chat_event.dart';
 part 'chat_state.dart';
@@ -16,8 +16,9 @@ part 'chat_state.dart';
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
   late SendbirdSdk _sendbirdSdk;
+  final IChatService service;
 
-  ChatBloc() : super(ChatState()) {
+  ChatBloc(this.service) : super(ChatState()) {
 
     this._sendbirdSdk = SendbirdSdk(appId: sendBirdAppId);
 
@@ -46,7 +47,6 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       );
 
       await this.initSendBirdPushNotifications();
-
       this.add(ChatSetMyUser(user));
     } 
     catch (e) { throw Exception('Error loading my user'); }
@@ -94,37 +94,38 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     this.add(ChatAddChatsEvent(chatsData));
   }
 
-  Future<ChatData?> startNewChat(String listingId) async {
+  Future<ChatData> startNewChat(String listingId) async {
     
-    //TODO: Get user id based on the listing id
-    String otherUserId = await this._getOtherUserId();
+    try {
 
-    bool chatExists = this.state.chats.any((ChatData chatData) {
-      return this.verifyUserIsOnChatData(
-        chatData: chatData, 
-        otherUserId: otherUserId,
-      );
-    });
+      String channelUrl = await this.service.loadChannel(listingId);
+      GroupChannel newChannel = await GroupChannel.getChannel(channelUrl);
 
-    if(chatExists) {
-      return this.state.chats.firstWhere((ChatData chatData)=> this.verifyUserIsOnChatData(
-        chatData: chatData, 
-        otherUserId: otherUserId,
-      ));
-    }
-    else {
+      bool chatExists = this.state.chats.any((ChatData chatData) {
+        return chatData.channel.channelUrl == newChannel.channelUrl;
+      });
 
-      //TODO: Create ChatData with the new user. Request data to backend
-      return null;
-    }
+      if(chatExists) {
+
+        return this.state.chats.firstWhere((ChatData chatData) {
+          return chatData.channel.channelUrl == newChannel.channelUrl;
+        });
+      }
+      else {
+
+        this.add(ChatAddChatEvent(
+          currentChats: this.state.chats,
+          newChat: ChatData(
+            messages: [], 
+            channel: newChannel,
+          ),
+        ));
+
+        return this.state.chats.last;
+      }      
+    } 
+    catch (e) { throw Exception('Error loading channel'); }
   }
-  
-  Future<String> _getOtherUserId() async => 'sendbird_desk_agent_id_fbabbaff-4837-4758-93a1-e50c5b957033';
-
-  bool verifyUserIsOnChatData({
-    required ChatData chatData, 
-    required String otherUserId,
-  })=> chatData.channel.members.any((Member member)=> member.userId == otherUserId);
 
   Future<void> sendMessage({
     required String message, 
@@ -176,10 +177,6 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
             if(error == null) {
 
-              if(message.type!.contains(ChatMessageType.video.textValue)) {
-                await this._createNewMessageVideoController(message.secureUrl!);
-              }
-
               this.add(ChatUpdateMessageEvent(
                 chatData: chatData, 
                 message: message, 
@@ -222,21 +219,6 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     }
   }
 
-  UserMessage _getLocalMessage(String message, ChatData chatData) {
-
-    return UserMessage(
-      translations: {}, 
-      messageId: 0, 
-      message: message, 
-      channelUrl: chatData.channel.channelUrl, 
-      channelType: chatData.channel.channelType,
-      sender: Sender(
-        userId: this.state.myUser!.userId, 
-        nickname: this.state.myUser!.nickname,
-      ),
-    );
-  }
-
   void addMessageVideoController(CachedVideoPlayerController newController) {
 
     bool isNotController = this.state.videoChatControllers.any((controller) {
@@ -254,21 +236,5 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         controllers: this.state.videoChatControllers,
       ));
     }
-  }
-
-  Future<void> _createNewMessageVideoController(String url) async {
-
-    CachedVideoPlayerController controller;
-    controller = CachedVideoPlayerController.network(url);
-    controller.setVolume(0);
-    this.state;
-    print('object');
-
-    controller.initialize().then((value) async {      
-        
-      await controller.play();
-      await controller.pause();
-      this.addMessageVideoController(controller);
-    });
   }
 }

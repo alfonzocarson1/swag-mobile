@@ -13,6 +13,7 @@ import 'package:swagapp/modules/cubits/favorites/get_favorites_cubit.dart';
 import 'package:swagapp/modules/cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
 import 'package:swagapp/modules/cubits/paginated_search/paginated_search_cubit.dart';
 import 'package:swagapp/modules/cubits/saved_search/saved_searches_cubit.dart';
+import 'package:swagapp/modules/data/chat/chat_service.dart';
 import 'package:swagapp/modules/di/injector.dart';
 
 import 'buy_sale_listing_bloc/buy_sale_listing_bloc.dart';
@@ -51,7 +52,7 @@ abstract class AppBlocs {
     BlocProvider<FavoriteItemBloc>(create: (BuildContext context) => getIt<FavoriteItemBloc>()),
     BlocProvider<BuySaleListingBloc>(create: (BuildContext context) => getIt<BuySaleListingBloc>()),
     BlocProvider<SharedPreferencesBloc>(create: (BuildContext context) => getIt<SharedPreferencesBloc>()),
-    BlocProvider<ChatBloc>(create: (BuildContext context)=> ChatBloc()),
+    BlocProvider<ChatBloc>(create: (BuildContext context)=> ChatBloc(getIt<ChatService>())),
   ];
 }
 

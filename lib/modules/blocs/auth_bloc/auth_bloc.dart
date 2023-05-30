@@ -78,8 +78,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       getIt<PreferenceRepositoryService>().savehasImportableData(response.hasImportableData);
       getIt<PreferenceRepositoryService>().saveAccountId(response.accountId);
 
-      getIt<PreferenceRepositoryService>().saveUserSendBirdId('cristian_tabares_id');
-      getIt<PreferenceRepositoryService>().saveUserSendBirdToken('9d76f66cbbe8be88dd8c4cf55333020b306e7217');
+      getIt<PreferenceRepositoryService>().saveUserSendBirdId('c62b8700-a7e9-49d3-93a2-ae5219fd1d9d');
+      getIt<PreferenceRepositoryService>().saveUserSendBirdToken('9260e655bdbc50a65796fed280743b121c3de8e8');
 
       if (response.errorCode == successResponse) {
         yield const AuthState.authenticated();
@@ -99,8 +99,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       GenericResponseModel response = await authService.authenticate(email, password);
 
       getIt<StorageRepositoryService>().saveToken(response.token);
-      getIt<PreferenceRepositoryService>().saveUserSendBirdId('cristian_tabares_id');
-      getIt<PreferenceRepositoryService>().saveUserSendBirdToken('9d76f66cbbe8be88dd8c4cf55333020b306e7217');
+      getIt<PreferenceRepositoryService>().saveUserSendBirdId('c62b8700-a7e9-49d3-93a2-ae5219fd1d9d');
+      getIt<PreferenceRepositoryService>().saveUserSendBirdToken('9260e655bdbc50a65796fed280743b121c3de8e8');
 
       // getIt<StorageRepositoryService>().saveToken('eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZWUxN2RlNC1iNmE4LTRhMWYtOWQzMi00OGY5NTNlZmFhZGEiLCJpYXQiOjE2ODM2NTc0NzYsImV4cCI6MTY4NDY3Nzg2OX0.vMH04L1Px7APnERqDPCBn8RK7Re0fI1YWhXzr4oMdL8');
       // getIt<PreferenceRepositoryService>().saveUserSendBirdId('sendbird_desk_agent_id_fbabbaff-4837-4758-93a1-e50c5b957033');

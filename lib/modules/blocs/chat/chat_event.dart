@@ -10,6 +10,31 @@ class ChatAddChatsEvent extends ChatEvent {
   ChatAddChatsEvent(this.chats);
 }
 
+class ChatAddChatEvent extends ChatEvent {
+
+  final List<ChatData> currentChats;
+  final ChatData newChat;
+
+  ChatAddChatEvent({
+    required this.currentChats, 
+    required this.newChat,
+  });
+
+  List<ChatData> getChats() {
+
+    bool newChannelExists = this.currentChats.any((ChatData chatData) {
+      return chatData.channel.channelUrl == this.newChat.channel.channelUrl;
+    });
+
+    if(newChannelExists) return this.currentChats;
+    else {
+
+      this.currentChats.add(newChat);
+      return this.currentChats;
+    }
+  }
+}
+
 class ChatSetMyUser extends ChatEvent {
 
   final User user;

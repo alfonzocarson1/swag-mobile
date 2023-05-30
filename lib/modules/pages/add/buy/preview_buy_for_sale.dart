@@ -34,6 +34,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: true,
@@ -148,11 +149,10 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                     ),
                             ),
                             const SizedBox(height: 30),
-                            const FooterListItemPage(),
-                            const SizedBox(height: 30),
+                            FooterListItemPage(productItemId: this.widget.dataItem.productItemId ?? ''),
+                            const SizedBox(height: 30), 
                             PrimaryButton(
-                              title:
-                                  '${S.of(context).buy_for} \$${widget.dataItem.lastSale}',
+                              title:'${S.of(context).buy_for} \$${widget.dataItem.lastSale}',
                               onPressed: () {},
                               type: PrimaryButtonType.green,
                             ),
@@ -171,3 +171,6 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
     );
   }
 }
+
+// 03141d4f-e39e-4d84-b7cc-7706f94d52a3
+

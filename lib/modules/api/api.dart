@@ -27,7 +27,8 @@ enum Endpoint {
   isEmailInUse,
   privateProfile,
   filtersAvailable,
-  listingsProfile
+  listingsProfile,
+  chat,
 }
 
 class API {
@@ -74,5 +75,6 @@ class API {
     Endpoint.privateProfile: 'api/v1/profile',
     Endpoint.filtersAvailable: 'api/public/v1/catalog/filtersAvailable/',
     Endpoint.listingsProfile: 'api/public/v1/listing/productItems/profile/%s',
+    Endpoint.chat: 'api/v1/listing/%s/chat',
   };
 }

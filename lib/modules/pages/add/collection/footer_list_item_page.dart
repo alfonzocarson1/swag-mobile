@@ -15,10 +15,12 @@ import '../../../common/utils/palette.dart';
 class FooterListItemPage extends StatefulWidget {
 
   final bool showChatButton;
+  final String productItemId;
 
   const FooterListItemPage({
     super.key, 
-    this.showChatButton = false ,
+    this.showChatButton = false, 
+    this.productItemId = '',
   });
 
   @override
@@ -85,16 +87,18 @@ class _FooterListItemPageState extends State<FooterListItemPage> {
 
   Future<void> onTapChat(ChatBloc chatBloc) async {
 
-    Loading.show(context);
+    try {
 
-    await Future.delayed(const Duration(milliseconds: 500));
-    ChatData? chatData = await chatBloc.startNewChat('listingId');
+      Loading.show(context);
+      await Future.delayed(const Duration(milliseconds: 500));
+      ChatData? chatData = await chatBloc.startNewChat(this.widget.productItemId);
+      Loading.hide(context);
 
-    Loading.hide(context);
-
-    await Navigator.of(context, rootNavigator: true).push(
-      MaterialPageRoute(builder: (BuildContext context)=> ChatPage(chatData: chatData!,)),
-    );
+      await Navigator.of(context, rootNavigator: true).push(
+        MaterialPageRoute(builder: (BuildContext context)=> ChatPage(chatData: chatData)),
+      );        
+    } 
+    catch (e) { Loading.hide(context); }
   }
 }
 
