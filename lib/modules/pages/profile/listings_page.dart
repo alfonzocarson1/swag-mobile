@@ -120,7 +120,7 @@ class _ListingsPageState extends State<ListingsPage> {
                               }                              
                             },
                             child: SizedBox(
-                              height: MediaQuery.of(context).size.width * 0.38,
+                              height: MediaQuery.of(context).size.width * 0.37,
                               child: ClipRRect(
                                 child: CachedNetworkImage(
                                   fit: BoxFit.fitHeight,
@@ -146,7 +146,7 @@ class _ListingsPageState extends State<ListingsPage> {
                         ],
                       ),
                       const SizedBox(
-                        height: 5,
+                        height: 5
                       ),
                       Text(listingList[index].productItemName ?? '',
                           maxLines: 1,
@@ -161,7 +161,7 @@ class _ListingsPageState extends State<ListingsPage> {
                                   fontSize: 24,
                                   color: Palette.current.white)),
                       Text(
-                          '${S.of(context).last_sale}: ${decimalDigitsLastSalePrice(listingList[index].lastSale.toString())}',
+                          '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(listingList[index].lastSale.toString())}',
                           overflow: TextOverflow.fade,
                           style: Theme.of(context)
                               .textTheme
