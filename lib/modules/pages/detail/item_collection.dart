@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:swagapp/modules/data/detail/i_detail_service.dart';
 import 'package:swagapp/modules/models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
 
 import '../../../generated/l10n.dart';
@@ -19,6 +20,7 @@ import '../../models/buy_for_sale_listing/buy_for_sale_listing_response_model.da
 import '../../models/detail/detail_collection_model.dart';
 import '../../models/detail/detail_sale_info_model.dart';
 import '../../models/detail/sale_history_model.dart';
+import '../../models/notify_when_available/profile_notify_list.dart';
 import '../../models/profile/profile_model.dart';
 import '../add/buy/buy_for_sale.dart';
 import '../add/collection/list_for_sale_page.dart';
@@ -62,6 +64,8 @@ class _CollectionWidgetState extends State<CollectionWidget> {
   String? profileURL;
   String? defaultImage;
   bool notifyAvailabilityFlagBTN = false;
+  bool itemInNotifyList = false;
+  bool buttonEnable = true;
   bool oneTine = false;
   Timer? timer;
   List<DetailCollectionModel> newCollectionList = [];
@@ -69,9 +73,12 @@ class _CollectionWidgetState extends State<CollectionWidget> {
   List<DetailCollectionModel> dataCollection = [];
 
   List<String> ids = [];
+  ProfileNotifyList notificationList =
+      const ProfileNotifyList(profileNotificationList: []);
 
   @override
   void initState() {
+    getNotificationStatus();
     dataCollection = widget.dataCollection ?? [];
     super.initState();
 
@@ -106,6 +113,11 @@ class _CollectionWidgetState extends State<CollectionWidget> {
     timer!.cancel();
   }
 
+  getNotificationStatus() async {
+    notificationList = await getIt<IDetailService>().getAvailabilityStatus();
+    isInNotifyList(widget.catalogId);
+  }
+
   getProfileAvatar() {
     profileData = getIt<PreferenceRepositoryService>().profileData();
 
@@ -118,6 +130,56 @@ class _CollectionWidgetState extends State<CollectionWidget> {
       profileURL = profileData!.avatarUrl ??
           'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Franklin.png?alt=media&token=c1073f88-74c2-44c8-a287-fbe0caebf878';
     }
+  }
+
+  bool isInNotifyList(String itemId) {
+    itemInNotifyList = notificationList.profileNotificationList
+        .any((item) => item.catalogItemId == itemId);
+    return itemInNotifyList;
+  }
+
+  showToastMessage(String text) {
+    return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        duration: const Duration(seconds: 3),
+        behavior: SnackBarBehavior.floating,
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).size.height / 1.3,
+        ),
+        backgroundColor: Colors.transparent,
+        content: Row(
+          children: <Widget>[
+            Flexible(
+              child: Container(
+                padding: const EdgeInsets.all(18),
+                decoration: BoxDecoration(
+                    color: Palette.current.blackSmoke,
+                    borderRadius: const BorderRadius.all(Radius.circular(5))),
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Flexible(
+                          flex: 1,
+                          child: Image.asset(
+                            scale: 3,
+                            "assets/images/Favorite.png",
+                          ),
+                        ),
+                        Flexible(
+                            flex: 10,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 20),
+                              child: Text(text),
+                            )),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+        dismissDirection: DismissDirection.none));
   }
 
   @override
@@ -148,7 +210,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                 setState(() {
                   buyForSaleList = response;
                 });
-                if (notifyAvailabilityFlag.isEmpty) {
+                if (notifyAvailabilityFlag.isEmpty && !itemInNotifyList) {
                   setState(() {
                     notifyAvailabilityFlagBTN = true;
                   });
@@ -429,70 +491,8 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                           newCollectionList[0],
                                           widget.catalogItemName,
                                         ))
-                                      : ScaffoldMessenger.of(context)
-                                          .showSnackBar(SnackBar(
-                                              duration:
-                                                  const Duration(seconds: 3),
-                                              behavior:
-                                                  SnackBarBehavior.floating,
-                                              margin: EdgeInsets.only(
-                                                bottom: MediaQuery.of(context)
-                                                        .size
-                                                        .height /
-                                                    1.3,
-                                              ),
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              content: Row(
-                                                children: <Widget>[
-                                                  Flexible(
-                                                    child: Container(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              18),
-                                                      decoration: BoxDecoration(
-                                                          color: Palette.current
-                                                              .blackSmoke,
-                                                          borderRadius:
-                                                              const BorderRadius
-                                                                      .all(
-                                                                  Radius
-                                                                      .circular(
-                                                                          5))),
-                                                      child: Column(
-                                                        children: <Widget>[
-                                                          Row(
-                                                            children: <Widget>[
-                                                              Flexible(
-                                                                flex: 1,
-                                                                child:
-                                                                    Image.asset(
-                                                                  scale: 3,
-                                                                  "assets/images/Favorite.png",
-                                                                ),
-                                                              ),
-                                                              Flexible(
-                                                                  flex: 10,
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: const EdgeInsets
-                                                                            .only(
-                                                                        left:
-                                                                            20),
-                                                                    child: Text(S
-                                                                        .of(context)
-                                                                        .collection_listed),
-                                                                  )),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              dismissDirection:
-                                                  DismissDirection.none));
+                                      : showToastMessage(
+                                          S.of(context).collection_listed);
                             } else {
                               Navigator.of(context, rootNavigator: true)
                                   .push(CreateAccountPage.route());
@@ -537,62 +537,27 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                         child: PrimaryButton(
                           title: S.of(context).notify_available,
                           onPressed: () {
-                            if (isLogged) {
+                            if (isLogged &&
+                                notifyAvailabilityFlagBTN &&
+                                buttonEnable &&
+                                !itemInNotifyList) {
+                              buttonEnable = false;
+                              setState(() {});
                               getIt<CatalogDetailCubit>()
                                   .notifyAvailability(widget.catalogId);
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(
-                                      duration: const Duration(seconds: 3),
-                                      behavior: SnackBarBehavior.floating,
-                                      margin: EdgeInsets.only(
-                                        bottom:
-                                            MediaQuery.of(context).size.height /
-                                                1.3,
-                                      ),
-                                      backgroundColor: Colors.transparent,
-                                      content: Row(
-                                        children: <Widget>[
-                                          Flexible(
-                                            child: Container(
-                                              padding: const EdgeInsets.all(18),
-                                              decoration: BoxDecoration(
-                                                  color: Palette
-                                                      .current.blackSmoke,
-                                                  borderRadius:
-                                                      const BorderRadius.all(
-                                                          Radius.circular(5))),
-                                              child: Column(
-                                                children: <Widget>[
-                                                  Row(
-                                                    children: <Widget>[
-                                                      Flexible(
-                                                        flex: 1,
-                                                        child: Image.asset(
-                                                          scale: 3,
-                                                          "assets/images/Favorite.png",
-                                                        ),
-                                                      ),
-                                                      Flexible(
-                                                          flex: 10,
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    left: 20),
-                                                            child: Text(S
-                                                                .of(context)
-                                                                .notify_availability),
-                                                          )),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      dismissDirection: DismissDirection.none));
-                            } else {
+                              showToastMessage(
+                                  S.of(context).notify_availability);
+                            } else if (isLogged &&
+                                buttonEnable == false &&
+                                !itemInNotifyList) {
+                              showToastMessage(
+                                  S.of(context).notification_already_requested);
+                            } else if (!notifyAvailabilityFlagBTN &&
+                                buttonEnable &&
+                                itemInNotifyList) {
+                              showToastMessage(
+                                  S.of(context).notification_already_requested);
+                            } else if (!isLogged) {
                               Navigator.of(context, rootNavigator: true)
                                   .push(CreateAccountPage.route());
                             }

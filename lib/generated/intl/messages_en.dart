@@ -244,6 +244,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "nft_wallet_title": MessageLookupByLibrary.simpleMessage("NFT Wallet"),
         "no_match_password":
             MessageLookupByLibrary.simpleMessage("Password doesn’t match"),
+        "notification_already_requested": MessageLookupByLibrary.simpleMessage(
+            "You have already requested to be notified.  We will notify you when item is listed for sale."),
         "notify_availability": MessageLookupByLibrary.simpleMessage(
             "You will be notified when this item is available."),
         "notify_available":
