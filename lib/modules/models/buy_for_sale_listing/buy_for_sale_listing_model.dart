@@ -20,6 +20,7 @@ class BuyForSaleListingModel with _$BuyForSaleListingModel {
     final bool? forSale,
     final bool? sold,
     final bool? isDeleted,
+    final String? status,
   }) = _BuyForSaleListingModel;
 
   factory BuyForSaleListingModel.fromJson(Map<String, dynamic> json) =>

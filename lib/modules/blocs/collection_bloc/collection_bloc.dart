@@ -40,7 +40,7 @@ class CollectionBloc extends Bloc<CollectionEvent, CollectionState> {
           await collectionService.addCollection(param);
 
       getIt<CollectionProfileCubit>().loadResults();
-      getIt<ProfileCubit>().loadResults();
+      getIt<ProfileCubit>().loadProfileResults();
       yield CollectionState.loadedCollectionSuccess(responseBody);
     } catch (e) {
       yield CollectionState.error(HandlingErrors().getError(e));
@@ -54,7 +54,7 @@ class CollectionBloc extends Bloc<CollectionEvent, CollectionState> {
           await collectionService.removeCollection(param);
 
       getIt<CollectionProfileCubit>().loadResults();
-      getIt<ProfileCubit>().loadResults();
+      getIt<ProfileCubit>().loadProfileResults();
       yield CollectionState.loadedCollectionSuccess(responseBody);
     } catch (e) {
       yield CollectionState.error(HandlingErrors().getError(e));

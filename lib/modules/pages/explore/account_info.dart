@@ -15,6 +15,7 @@ import '../../common/ui/loading.dart';
 import '../../common/ui/popup_screen.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/size_helper.dart';
+import '../../common/utils/utils.dart';
 import '../../data/secure_storage/storage_repository_service.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
@@ -83,23 +84,12 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
 
   late ResponsiveDesign _responsiveDesign;
 
-  String _defaultCountry = 'Country';
+  String _defaultCountry = 'United States';
   String _defaultState = 'State';
-  var countries = [
-    'Country',
-    'Country 1',
-    'Country 2',
-    'Country 3',
-    'Country 4',
-  ];
 
-  var states = [
-    'State',
-    'State 1',
-    'State 2',
-    'State 3',
-    'State 4',
-  ];
+  var countries = ['United States'];
+  final _states = ['State'];
+
   int value = 0;
 
   bool updateAllFlow = false;
@@ -114,6 +104,14 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
     _cityNode.dispose();
     _zipNode.dispose();
     super.dispose();
+  }
+
+  void _getStates() async {
+    var responseSatate = await getStates();
+
+    setState(() {
+      _states.addAll(responseSatate as Iterable<String>);
+    });
   }
 
   @override
@@ -186,6 +184,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
             : Palette.current.primaryWhiteSmoke;
       });
     });
+    _getStates();
   }
 
   getStoredInfo() async {
@@ -216,24 +215,25 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                     return null;
                   },
                   verificationEmailSent: (verificationSent) {
-                    if(verificationSent){
-                      Navigator.of(context).pop();   
+                    if (verificationSent) {
+                      Navigator.of(context).pop();
 
-                     Future.delayed(const Duration(seconds: 3),(() => showPopUp(username: userName)));                      
+                      Future.delayed(const Duration(seconds: 3),
+                          (() => showPopUp(username: userName)));
 
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        duration: const Duration(seconds: 5),
-                        behavior: SnackBarBehavior.floating,
-                        margin: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).size.height / 1.3,
-                        ),
-                        backgroundColor: Colors.transparent,
-                        content: ToastMessage(
-                          message: S.of(context).toast_message_create_account,
-                        ),
-                        dismissDirection: DismissDirection.none));
+                          duration: const Duration(seconds: 5),
+                          behavior: SnackBarBehavior.floating,
+                          margin: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).size.height / 1.3,
+                          ),
+                          backgroundColor: Colors.transparent,
+                          content: ToastMessage(
+                            message: S.of(context).toast_message_create_account,
+                          ),
+                          dismissDirection: DismissDirection.none));
                     }
-                    return null;                    
+                    return null;
                   },
                   dataImported: (emailVerified) {
                     if (emailVerified) {
@@ -252,7 +252,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                       });
                     } else {
                       Navigator.of(context).pop();
-                      Future.delayed(const Duration(seconds: 1),(() => showPopUp()));   
+                      Future.delayed(
+                          const Duration(seconds: 1), (() => showPopUp()));
                     }
                     return null;
                   },
@@ -455,11 +456,11 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                     children: [
                                       CupertinoPickerView(
                                           errorText: stateErrorText,
-                                          cupertinoPickerItems: states,
+                                          cupertinoPickerItems: _states,
                                           cupertinoPickervalue: _defaultState,
                                           onDone: (index) {
                                             setState(() => value = index);
-                                            _defaultState = states[index];
+                                            _defaultState = _states[index];
                                             Navigator.pop(context);
                                           }),
                                       Visibility(
@@ -605,13 +606,13 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
     Future.delayed(
       const Duration(milliseconds: 500),
       () {
-        if (hasImportableData && username !=null) {
+        if (hasImportableData && username != null) {
           showDialog(
             context: context,
             barrierDismissible: false,
-            builder: (BuildContext context) =>  PopUp(name: username),
+            builder: (BuildContext context) => PopUp(name: username),
           );
-        } else if(hasImportableData && username == null){
+        } else if (hasImportableData && username == null) {
           showDialog(
             context: context,
             barrierDismissible: false,

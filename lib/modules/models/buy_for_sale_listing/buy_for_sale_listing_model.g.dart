@@ -22,6 +22,7 @@ _$_BuyForSaleListingModel _$$_BuyForSaleListingModelFromJson(
       forSale: json['forSale'] as bool?,
       sold: json['sold'] as bool?,
       isDeleted: json['isDeleted'] as bool?,
+      status: json['status'] as String?,
     );
 
 Map<String, dynamic> _$$_BuyForSaleListingModelToJson(
@@ -40,4 +41,5 @@ Map<String, dynamic> _$$_BuyForSaleListingModelToJson(
       'forSale': instance.forSale,
       'sold': instance.sold,
       'isDeleted': instance.isDeleted,
+      'status': instance.status,
     };

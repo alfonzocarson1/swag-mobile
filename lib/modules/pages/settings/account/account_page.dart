@@ -31,8 +31,6 @@ class _AccountPageState extends State<AccountPage> {
     ProfileModel profileData =
         getIt<PreferenceRepositoryService>().profileData();
 
-    print(profileData);
-
     return Scaffold(
       appBar: PushedHeader(
         showBackButton: true,

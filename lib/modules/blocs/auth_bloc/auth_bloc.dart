@@ -107,7 +107,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       getIt<StorageRepositoryService>().saveToken(response.token);
       if (response.errorCode == successResponse ||
           response.errorCode == defaultString) {
-        getIt<ProfileCubit>().loadResults();
+        getIt<ProfileCubit>().loadProfileResults();
         yield const AuthState.authenticated();
       } else {
         yield AuthState.error(HandlingErrors().getError(response.errorCode));

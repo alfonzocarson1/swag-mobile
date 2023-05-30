@@ -31,6 +31,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "account_title": MessageLookupByLibrary.simpleMessage("Account"),
         "acquired": MessageLookupByLibrary.simpleMessage("Acquired:"),
         "active": MessageLookupByLibrary.simpleMessage("Active"),
+        "add_address_title": MessageLookupByLibrary.simpleMessage(
+            "Please enter and confirm your shipping information."),
         "add_collection":
             MessageLookupByLibrary.simpleMessage("ADD TO COLLECTION"),
         "add_collection_title":
@@ -85,6 +87,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Manage notifications and blocking"),
         "communications_title":
             MessageLookupByLibrary.simpleMessage("Communications"),
+        "complete_purchase_sub_title": MessageLookupByLibrary.simpleMessage(
+            "We will connect you with the seller to complete this purchase. Please select how you like to pay for this item? "),
+        "complete_purchase_title":
+            MessageLookupByLibrary.simpleMessage("Complete Purchase"),
         "condition": MessageLookupByLibrary.simpleMessage("Condition"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
@@ -251,6 +257,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "payPal": MessageLookupByLibrary.simpleMessage("PayPal"),
         "payPal_sub_title": MessageLookupByLibrary.simpleMessage(
             "Please enter and confirm your PayPal email"),
+        "payment_types": MessageLookupByLibrary.simpleMessage("Payment Type"),
         "peer_to_peer_payment_options_sub_title":
             MessageLookupByLibrary.simpleMessage("Venmo, CashApp, PayPal"),
         "peer_to_peer_payment_options_title":
@@ -341,6 +348,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "retail": MessageLookupByLibrary.simpleMessage("Retail:"),
         "sale_data": MessageLookupByLibrary.simpleMessage("SALE DATE"),
         "sales_history": MessageLookupByLibrary.simpleMessage("SALES HISTORY"),
+        "save_address": MessageLookupByLibrary.simpleMessage(
+            "Save address to your account"),
         "save_btn": MessageLookupByLibrary.simpleMessage("SAVE"),
         "save_search": MessageLookupByLibrary.simpleMessage("Save Search"),
         "saved_searches":
@@ -373,6 +382,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "sell_for": MessageLookupByLibrary.simpleMessage("SELL FOR"),
         "send_info": MessageLookupByLibrary.simpleMessage("SEND INFO"),
         "settings": MessageLookupByLibrary.simpleMessage("SETTINGS"),
+        "shipped_input_title": MessageLookupByLibrary.simpleMessage(
+            "Please confirm or update your shipping address for this item to be shipped."),
         "shipping_address_title":
             MessageLookupByLibrary.simpleMessage("Shipping Address"),
         "shop_by_category_title":

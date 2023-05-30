@@ -15,7 +15,7 @@ class ProfileCubit extends Cubit<ProfileCubitState> {
   final IAuthService profileService;
   ProfileCubit(this.profileService) : super(const ProfileCubitState.initial());
 
-  Future<void> loadResults() async {
+  Future<void> loadProfileResults() async {
     emit(
       const _Initial(),
     );

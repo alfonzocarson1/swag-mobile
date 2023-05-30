@@ -271,7 +271,14 @@
     "input_venmo": "@Venmo username",
     "input_cash_app": "$cashtag",
     "input_cash_app_ivalid": "Must 20 characters or less, min 1 letter, no spaces",
-    "input_venmo_ivalid": "Must be 5-10 characters, no spaces or special characters except - or _"
+    "input_venmo_ivalid": "Must be 5-10 characters, no spaces or special characters except - or _",
+
+    "complete_purchase_title":"Complete Purchase",
+    "complete_purchase_sub_title": "We will connect you with the seller to complete this purchase. Please select how you like to pay for this item? ",
+    "payment_types": "Payment Type",
+    "shipped_input_title": "Please confirm or update your shipping address for this item to be shipped.",
+    "save_address": "Save address to your account",
+    "add_address_title": "Please enter and confirm your shipping information."
 
 
 
