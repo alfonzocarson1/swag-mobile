@@ -137,6 +137,71 @@ class _CollectionWidgetState extends State<CollectionWidget> {
   return itemInNotifyList;
 }
 
+showToastMessage(String text){
+  return ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                              duration:
+                                                  const Duration(seconds: 3),
+                                              behavior:
+                                                  SnackBarBehavior.floating,
+                                              margin: EdgeInsets.only(
+                                                bottom: MediaQuery.of(context)
+                                                        .size
+                                                        .height /
+                                                    1.3,
+                                              ),
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              content: Row(
+                                                children: <Widget>[
+                                                  Flexible(
+                                                    child: Container(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              18),
+                                                      decoration: BoxDecoration(
+                                                          color: Palette.current
+                                                              .blackSmoke,
+                                                          borderRadius:
+                                                              const BorderRadius
+                                                                      .all(
+                                                                  Radius
+                                                                      .circular(
+                                                                          5))),
+                                                      child: Column(
+                                                        children: <Widget>[
+                                                          Row(
+                                                            children: <Widget>[
+                                                              Flexible(
+                                                                flex: 1,
+                                                                child:
+                                                                    Image.asset(
+                                                                  scale: 3,
+                                                                  "assets/images/Favorite.png",
+                                                                ),
+                                                              ),
+                                                              Flexible(
+                                                                  flex: 10,
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: const EdgeInsets
+                                                                            .only(
+                                                                        left:
+                                                                            20),
+                                                                    child: Text(text),
+                                                                  )),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              dismissDirection:
+                                                  DismissDirection.none));
+}
+
   @override
   Widget build(BuildContext context) { 
 
@@ -438,70 +503,9 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                               newCollectionList[0],
                                               widget.catalogItemName,                                           
                                               ))
-                                      : ScaffoldMessenger.of(context)
-                                          .showSnackBar(SnackBar(
-                                              duration:
-                                                  const Duration(seconds: 3),
-                                              behavior:
-                                                  SnackBarBehavior.floating,
-                                              margin: EdgeInsets.only(
-                                                bottom: MediaQuery.of(context)
-                                                        .size
-                                                        .height /
-                                                    1.3,
-                                              ),
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              content: Row(
-                                                children: <Widget>[
-                                                  Flexible(
-                                                    child: Container(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              18),
-                                                      decoration: BoxDecoration(
-                                                          color: Palette.current
-                                                              .blackSmoke,
-                                                          borderRadius:
-                                                              const BorderRadius
-                                                                      .all(
-                                                                  Radius
-                                                                      .circular(
-                                                                          5))),
-                                                      child: Column(
-                                                        children: <Widget>[
-                                                          Row(
-                                                            children: <Widget>[
-                                                              Flexible(
-                                                                flex: 1,
-                                                                child:
-                                                                    Image.asset(
-                                                                  scale: 3,
-                                                                  "assets/images/Favorite.png",
-                                                                ),
-                                                              ),
-                                                              Flexible(
-                                                                  flex: 10,
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: const EdgeInsets
-                                                                            .only(
-                                                                        left:
-                                                                            20),
-                                                                    child: Text(S
+                                      : showToastMessage(S
                                                                         .of(context)
-                                                                        .collection_listed),
-                                                                  )),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              dismissDirection:
-                                                  DismissDirection.none));
+                                                                        .collection_listed);
                             } else {
                               Navigator.of(context, rootNavigator: true)
                                   .push(CreateAccountPage.route());
@@ -553,113 +557,19 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                               });                              
                               getIt<CatalogDetailCubit>()
                                   .notifyAvailability(widget.catalogId);
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(
-                                      duration: const Duration(seconds: 3),
-                                      behavior: SnackBarBehavior.floating,
-                                      margin: EdgeInsets.only(
-                                        bottom:
-                                            MediaQuery.of(context).size.height /
-                                                1.3,
-                                      ),
-                                      backgroundColor: Colors.transparent,
-                                      content: Row(
-                                        children: <Widget>[
-                                          Flexible(
-                                            child: Container(
-                                              padding: const EdgeInsets.all(18),
-                                              decoration: BoxDecoration(
-                                                  color: Palette
-                                                      .current.blackSmoke,
-                                                  borderRadius:
-                                                      const BorderRadius.all(
-                                                          Radius.circular(5))),
-                                              child: Column(
-                                                children: <Widget>[
-                                                  Row(
-                                                    children: <Widget>[
-                                                      Flexible(
-                                                        flex: 1,
-                                                        child: Image.asset(
-                                                          scale: 3,
-                                                          "assets/images/Favorite.png",
-                                                        ),
-                                                      ),
-                                                      Flexible(
-                                                          flex: 10,
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    left: 20),
-                                                            child: Text(S
+                              showToastMessage(S
                                                                 .of(context)
-                                                                .notify_availability),
-                                                          )),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      dismissDirection: DismissDirection.none)
-                                      );
+                                                                .notify_availability);
                             }else if(isLogged && buttonEnable == false && !itemInNotifyList){
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(
-                                      duration: const Duration(seconds: 3),
-                                      behavior: SnackBarBehavior.floating,
-                                      margin: EdgeInsets.only(
-                                        bottom:
-                                            MediaQuery.of(context).size.height /
-                                                1.3,
-                                      ),
-                                      backgroundColor: Colors.transparent,
-                                      content: Row(
-                                        children: <Widget>[
-                                          Flexible(
-                                            child: Container(
-                                              padding: const EdgeInsets.all(18),
-                                              decoration: BoxDecoration(
-                                                  color: Palette
-                                                      .current.blackSmoke,
-                                                  borderRadius:
-                                                      const BorderRadius.all(
-                                                          Radius.circular(5))),
-                                              child: Column(
-                                                children: <Widget>[
-                                                  Row(
-                                                    children: <Widget>[
-                                                      Flexible(
-                                                        flex: 1,
-                                                        child: Image.asset(
-                                                          scale: 3,
-                                                          "assets/images/Favorite.png",
-                                                        ),
-                                                      ),
-                                                      Flexible(
-                                                          flex: 10,
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    left: 20),
-                                                            child: Text(S
+                              showToastMessage(S
                                                                 .of(context)
-                                                                .notification_already_requested),
-                                                          )),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      dismissDirection: DismissDirection.none));
+                                                                .notification_already_requested);
                             } 
+                            else if(!notifyAvailabilityFlagBTN && buttonEnable && itemInNotifyList){
+                              showToastMessage(S
+                                                                .of(context)
+                                                                .notification_already_requested);
+                            }
                             else if(!isLogged) {
                               Navigator.of(context, rootNavigator: true)
                                   .push(CreateAccountPage.route());
