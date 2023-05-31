@@ -18,17 +18,14 @@ class PopUp extends StatefulWidget {
 }
 
 class _PopUpState extends State<PopUp> {
-
   @override
   void initState() {
-    super.initState();  
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     String? tempName = widget.name;
-  
-    
 
     return Center(
       child: Dialog(
@@ -121,8 +118,9 @@ class _PopUpState extends State<PopUp> {
                             children: [
                               PrimaryButton(
                                 title: S.of(context).popup_btn_yes,
-                                onPressed: ()  {
-                                 getIt<UpdateProfileBloc>().add(const UpdateProfileEvent.importData());                                                                                                                       
+                                onPressed: () {
+                                  getIt<UpdateProfileBloc>().add(
+                                      const UpdateProfileEvent.importData());
                                 },
                                 type: PrimaryButtonType.green,
                               ),
@@ -165,10 +163,10 @@ class _PopUpState extends State<PopUp> {
                               ),
                               PrimaryButton(
                                 title: S.of(context).resend_verification_email,
-                                onPressed: () {                         
+                                onPressed: () {
                                   getIt<UpdateProfileBloc>().add(
-                                      const UpdateProfileEvent.askEmailVerification());
-                                        
+                                      const UpdateProfileEvent
+                                          .askEmailVerification());
                                 },
                                 type: PrimaryButtonType.green,
                               ),
@@ -187,7 +185,9 @@ class _PopUpState extends State<PopUp> {
               child: IconButton(
                 iconSize: 30,
                 color: Palette.current.primaryNeonGreen,
-                onPressed: () {                    
+                onPressed: () {
+                  getIt<UpdateProfileBloc>().add(
+                                      const UpdateProfileEvent.closeVerifyEmailModal());
                   Navigator.of(context).pop();
                 },
                 icon: const Icon(
