@@ -32,7 +32,14 @@ class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
 
   @override
   Stream<UpdateProfileState> mapEventToState(UpdateProfileEvent event) async* {
-    yield* event.when(update: _update, updateAvatar: _updateAvatar, importData: importData, askEmailVerification: _askEmailVerification);
+    yield* event.when(
+      update: _update, 
+      updateAvatar: _updateAvatar, 
+      importData: importData, 
+      askEmailVerification: _askEmailVerification, 
+      closeVerifyEmailModal: _closeVerifyEmailModal,
+      
+      );
   }
 
   Stream<UpdateProfileState> _update(UpdateProfilePayloadModel param) async* {
@@ -80,5 +87,9 @@ class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
     } on Exception catch (e) {
       yield UpdateProfileState.error(HandlingErrors().getError(e));
     }   
+  }
+
+  Stream<UpdateProfileState> _closeVerifyEmailModal() async* {
+    yield UpdateProfileState.verifyEmailModalClosed(true);
   }
 }
