@@ -133,7 +133,7 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
   }
 
   void _getStates() async {
-    var responseSatate = await getStates();
+    var responseSatate = await getStates('United States');
 
     setState(() {
       _states.addAll(responseSatate as Iterable<String>);

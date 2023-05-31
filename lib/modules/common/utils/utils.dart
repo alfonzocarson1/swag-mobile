@@ -370,12 +370,12 @@ Future<dynamic> getResponse() async {
 }
 
 ///get states from json response
-Future<List<String?>> getStates() async {
+Future<List<String?>> getStates(String country) async {
   _states.clear();
   var response = await getResponse();
   var takeState = response
       .map((map) => Country.fromJson(map))
-      .where((item) => item.name == _defaultCountry)
+      .where((item) => item.name == country)
       .map((item) => item.state)
       .toList();
   var states = takeState as List;
