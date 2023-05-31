@@ -200,6 +200,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   @override
   Widget build(BuildContext context) {
     getStoredInfo();
+    
     if (firstName == '' || lastName == '') {
       showPopUp(username: userName);
     }
@@ -214,6 +215,11 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                   orElse: () {
                     return null;
                   },
+                  verifyEmailModalClosed: (modalClosed) {
+                      Future.delayed(const Duration(seconds: 1),
+                          (() => showPopUp(username: userName)));
+                      return null;
+                  } ,
                   verificationEmailSent: (verificationSent) {
                     if (verificationSent) {
                       Navigator.of(context).pop();
@@ -239,7 +245,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                     if (emailVerified) {
                       Navigator.of(context).pop();
                       setState(() {
-                        getStoredInfo();
+                       // getStoredInfo();
                         _firstNameController.text = firstName;
                         _lastNameController.text = lastName;
                         _defaultCountry = 'United States';
@@ -258,6 +264,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                     return null;
                   },
                   updated: () {
+                    showPopUp(username: userName);
                     if (updateAllFlow) {
                       setState(() {
                         _firstNameController.text = '';
@@ -276,7 +283,9 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                     return null;
                   },
                   initial: () {
+                    
                     return Loading.show(context);
+                    
                   },
                   error: (message) => {
                     updateAllFlow = false,
@@ -394,7 +403,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                 dropdownOnChanged: (String? newValue) {
                                   setState(() {
                                     setState(() {
-                                      _defaultCountry = newValue!;
+                                      _defaultCountry = newValue??_defaultCountry;
                                     });
                                   });
                                 },
