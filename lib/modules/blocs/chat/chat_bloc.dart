@@ -24,6 +24,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
     on<ChatSetMyUser>((event, emit)=> emit(this.state.copyWith(myUser: event.user)));
     on<ChatAddChatsEvent>((event, emit)=> emit(this.state.copyWith(chats: event.chats)));
+    on<ChatAddChatEvent>((event, emit)=> emit(this.state.copyWith(chats: event.getChats())));
     on<ChatUpdateMessageEvent>((event, emit)=> emit(this.state.copyWith(chats: event.getUpdatedChats())));
     on<ChatLoadinFileEvent>((event, emit)=> emit(this.state.copyWith(isLoadingFile: event.isLoadingFile)));
 
@@ -113,15 +114,17 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       }
       else {
 
+        ChatData newChat = ChatData(
+          messages: [], 
+          channel: newChannel,
+        );
+
         this.add(ChatAddChatEvent(
           currentChats: this.state.chats,
-          newChat: ChatData(
-            messages: [], 
-            channel: newChannel,
-          ),
+          newChat: newChat,
         ));
 
-        return this.state.chats.last;
+        return newChat;
       }      
     } 
     catch (e) { throw Exception('Error loading channel'); }

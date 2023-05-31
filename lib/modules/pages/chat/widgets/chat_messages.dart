@@ -109,7 +109,7 @@ class _ChatMessagesState extends State<ChatMessages> {
       ? ChatlDateSeparator(date: createdAt)
       : const SizedBox.shrink();
     }
-    else if (this.widget.chatData.messages.length == 1) return ChatlDateSeparator(date: createdAt);
+    else if (this.widget.chatData.messages.isEmpty) return ChatlDateSeparator(date: createdAt);
     else return const SizedBox.shrink();
   }
 

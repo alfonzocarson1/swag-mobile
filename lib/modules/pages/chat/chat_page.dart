@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:swagapp/generated/l10n.dart';
@@ -6,6 +7,7 @@ import 'package:sendbird_sdk/sendbird_sdk.dart';
 import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/models/chat/chat_data.dart';
+import 'package:swagapp/modules/models/chat/sendbird_channel_data.dart';
 
 import 'widgets/chat_input.dart';
 import 'widgets/chat_messages.dart';
@@ -49,12 +51,14 @@ class _ChatPageState extends State<ChatPage> with ChannelEventHandler {
   @override
   Widget build(BuildContext context) {
 
+    SendBirdChannelData channelData = this.getChannelData();
+
     return Scaffold(
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle.light,
         backgroundColor: Palette.current.blackAppbarBlackground,
         title: AppBarTitle(
-          chatName: this.widget.chatData!.channel.name!, 
+          chatName: channelData.listingProductName, 
           isTyping: isTyping,
         ),
         centerTitle: false,
@@ -74,6 +78,15 @@ class _ChatPageState extends State<ChatPage> with ChannelEventHandler {
       backgroundColor: Palette.current.blackChatBlackground,
     );
   }
+
+  SendBirdChannelData  getChannelData() {
+
+    String stringData = json.encode(this.widget.chatData!.channel.data!.replaceAll("'", '"'));
+    String formatedData = stringData.replaceAll('\\', "");
+    Map<String, dynamic> data  = json.decode(formatedData.substring(1, formatedData.length - 1));
+
+    return SendBirdChannelData.fromJson(data);
+  } 
 
   @override
   void onTypingStatusUpdated(GroupChannel channel) {
@@ -113,6 +126,8 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    context.watch<ChatBloc>();
 
     return Column(
       children: <Widget> 
