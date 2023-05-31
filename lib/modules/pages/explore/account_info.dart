@@ -93,7 +93,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   int value = 0;
 
   bool updateAllFlow = false;
-  String userName = 'MrDoug';
+  late String userName;
 
   @override
   void dispose() {
@@ -188,6 +188,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   }
 
   getStoredInfo() async {
+    userName = (getIt<PreferenceRepositoryService>().profileData().username);
     firstName = (await getIt<StorageRepositoryService>().getFirstName() ?? '');
     lastName = (await getIt<StorageRepositoryService>().getLastName() ?? '');
     var addresses = (await getIt<StorageRepositoryService>().getAddresses());
