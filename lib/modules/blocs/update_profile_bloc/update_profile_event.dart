@@ -9,5 +9,6 @@ class UpdateProfileEvent with _$UpdateProfileEvent {
       Uint8List bytes, String imageTopic, String topicId) = _UpdateAvatarEvent;
   const factory UpdateProfileEvent.importData() = _importDataEvent;
   const factory UpdateProfileEvent.askEmailVerification() = _AskEmailVerification;
+  const factory UpdateProfileEvent.closeVerifyEmailModal() = _CloseVerifyEmailModal;
   
 }

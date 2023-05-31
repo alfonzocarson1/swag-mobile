@@ -12,5 +12,6 @@ class UpdateProfileState with _$UpdateProfileState {
       UpdateAvatarModel successAvatarList) = LoadedAvatarSuccess;
   factory UpdateProfileState.updated() = Updated;
   factory UpdateProfileState.verificationEmailSent(bool verificationSent) = VerificationEmailSent;
+  factory UpdateProfileState.verifyEmailModalClosed (bool modalClosed) = VerifyEmailModalClosed;
   factory UpdateProfileState.dataImported(bool emailVerified) = DataImported;
 }
