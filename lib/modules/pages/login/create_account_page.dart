@@ -770,7 +770,7 @@ class __PhoneSectionState extends State<_PhoneSection> {
                 padding: const EdgeInsets.only(left: 16, right: 16),
                 child: InternationalPhoneNumberInput(
                   autoFocus: false,
-                  countries: countries,
+                  countries: countriesCode,
                   focusNode: widget.focusPhone,
                   cursorColor: Palette.current.blackSmoke,
                   inputDecoration: InputDecoration(
