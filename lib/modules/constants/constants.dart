@@ -22,7 +22,7 @@ const maxCharactersForGridViewTitle = 25;
 const maxCharactersForGridViewDesc = 22;
 const defaultPageSize = 20;
 
-const countries = [
+const countriesCode = [
   "US",
   "CA",
   "GB",
@@ -34,6 +34,20 @@ const countries = [
   "HK",
   "CN",
   "KR",
+];
+
+const countries = [
+'Australia',
+'Canada',
+'China',
+'Germany',
+'Hong Kong',
+'Japan',
+'Korea',
+'Singapore',
+'Sweden',
+'United Kingdom',
+'United States',
 ];
 
 const itemConditions = [
