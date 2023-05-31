@@ -16,6 +16,7 @@ import '../../common/ui/popup_screen.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/size_helper.dart';
 import '../../common/utils/utils.dart';
+import '../../constants/constants.dart';
 import '../../data/secure_storage/storage_repository_service.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
@@ -85,11 +86,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   late ResponsiveDesign _responsiveDesign;
 
   String _defaultCountry = 'United States';
-  String _defaultState = 'State';
-
-  var countries = ['United States'];
-  final _states = ['State'];
-
+  String _defaultState = 'State'; 
+  List<String> _states = ['State'];
   int value = 0;
 
   bool updateAllFlow = false;
@@ -106,11 +104,13 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
     super.dispose();
   }
 
-  void _getStates() async {
-    var responseSatate = await getStates();
-
+  void _getStates(String country) async {
+    _states = ['State'];
+    _defaultState ='State';
+    var responseSatate = await getStates(country);
+    _states.addAll(responseSatate as Iterable<String>);
     setState(() {
-      _states.addAll(responseSatate as Iterable<String>);
+  
     });
   }
 
@@ -184,7 +184,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
             : Palette.current.primaryWhiteSmoke;
       });
     });
-    _getStates();
+    _getStates(_defaultCountry);
   }
 
   getStoredInfo() async {
@@ -294,8 +294,14 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                     // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
                   },
                 ),
-            child: _getBody()));
+            child: StatefulBuilder(
+              builder: (context, state) {
+                return _getBody();
+              }
+            )));
   }
+
+  
 
   GestureDetector _getBody() {
     return GestureDetector(
@@ -404,8 +410,9 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                 dropdownOnChanged: (String? newValue) {
                                   setState(() {
                                     setState(() {
-                                      _defaultCountry = newValue??_defaultCountry;
+                                      _defaultCountry = newValue ?? _defaultCountry;
                                     });
+                                    _getStates(newValue ?? _defaultCountry);
                                   });
                                 },
                                 focusNode: _countryNode,
