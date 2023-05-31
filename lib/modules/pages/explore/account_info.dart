@@ -242,7 +242,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                         getStoredInfo();
                         _firstNameController.text = firstName;
                         _lastNameController.text = lastName;
-                        _defaultCountry = 'Country';
+                        _defaultCountry = 'United States';
                         _firstAddressController.text = address1;
                         _secondAddressController.text = address2;
                         _cityController.text = '';
@@ -262,7 +262,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                       setState(() {
                         _firstNameController.text = '';
                         _lastNameController.text = '';
-                        _defaultCountry = 'Country';
+                        _defaultCountry = 'United States';
                         _firstAddressController.text = '';
                         _secondAddressController.text = '';
                         _cityController.text = '';
@@ -495,7 +495,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                       CustomTextFormField(
                                         inputType: TextInputType.text,
                                         inputFormatters: [
-                                         FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9 ]')),
+                                          FilteringTextInputFormatter.allow(
+                                              RegExp(r'[a-zA-Z0-9 ]')),
                                         ],
                                         borderColor: _zipBorder,
                                         autofocus: false,

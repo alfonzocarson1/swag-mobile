@@ -24,20 +24,30 @@ class _AvatarPageState extends State<AvatarPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    getProfileAvatar();
+  }
 
-    if (profileData.useAvatar != 'CUSTOM') {
-      var data = imagesList
-          .where((avatar) => (avatar["id"].contains(profileData.useAvatar)));
+  getProfileAvatar() {
+    setState(() {
+      profileData = getIt<PreferenceRepositoryService>().profileData();
 
-      defaultImage = data.first['url'];
-    } else {
-      defaultImage = profileData.avatarUrl ??
-          'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Franklin.png?alt=media&token=c1073f88-74c2-44c8-a287-fbe0caebf878';
-    }
+      if (profileData.useAvatar != 'CUSTOM') {
+        var data = imagesList
+            .where((avatar) => (avatar["id"].contains(profileData.useAvatar)));
+
+        defaultImage = data.first['url'];
+      } else {
+        defaultImage = profileData.avatarUrl ??
+            'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Franklin.png?alt=media&token=c1073f88-74c2-44c8-a287-fbe0caebf878';
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
+          getProfileAvatar();
+        }));
     return Center(
       child: Stack(children: [
         SizedBox(
