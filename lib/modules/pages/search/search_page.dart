@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
@@ -38,6 +36,7 @@ class SearchPage extends StatefulWidget {
   @override
   State<SearchPage> createState() => _SearchPageState();
 }
+
 final TextEditingController _textEditingController = TextEditingController();
 
 class _SearchPageState extends State<SearchPage>
@@ -46,7 +45,7 @@ class _SearchPageState extends State<SearchPage>
   bool get wantKeepAlive => true;
   late final TabController _tabController;
   int selectedIndex = 0;
-  
+
   int filterIndicatorCounter = 0;
   bool initialData = false;
 
@@ -62,18 +61,15 @@ class _SearchPageState extends State<SearchPage>
         length: 4, vsync: this, initialIndex: initialPos != 0 ? initialPos : 0);
     _tabController.addListener(() {
       clearFilters(context);
-      _handleTabSelection();
       final index = _tabController.index;
 
       initFilterAndSortsWithBloc(context, selectedProductNumber: index);
-
     });
   }
 
   @override
   void dispose() {
-  _tabController.removeListener(_handleTabSelection);
-  _tabController.dispose();
+    _tabController.dispose();
     super.dispose();
   }
 
@@ -124,10 +120,7 @@ class _SearchPageState extends State<SearchPage>
             changeTabPage: (int tabPage) {
               Future.delayed(Duration.zero, () {
                 setState(() {
-                  selectedIndex = tabPage;
-                  if (selectedIndex != 0) {
-                    initialData = true;
-                  }
+                  _tabController.index = tabPage;
                 });
               });
 
@@ -137,14 +130,12 @@ class _SearchPageState extends State<SearchPage>
         }),
         tabLen == 0 ? Container() : _getTabBar(context),
         Expanded(
-          child: TabBarView(
-              controller: _tabController,
-              children: const [
-                WhatsHotPage(),
-                HeadcoversPage(),
-                PuttersPage(),
-                AccessoriesPage(),
-              ]),
+          child: TabBarView(controller: _tabController, children: const [
+            WhatsHotPage(),
+            HeadcoversPage(),
+            PuttersPage(),
+            AccessoriesPage(),
+          ]),
         ),
       ],
     );
@@ -314,41 +305,33 @@ class _SearchPageState extends State<SearchPage>
           })),
     );
   }
-  
-  void 
-    _handleTabSelection() {
-    setState(() {
-    selectedIndex = _tabController.index;
-  });
-  }  
 }
 
+getTabId(SearchTab tab) async {
+  String categoryId = await SearchTabWrapper(tab).toStringCustom() ?? "";
+  Future.delayed(const Duration(milliseconds: 500));
+  return categoryId;
+}
 
-  getTabId(SearchTab tab) async {
-    String categoryId = await SearchTabWrapper(tab).toStringCustom() ?? "";
-    Future.delayed(const Duration(milliseconds: 500));
-    return categoryId;
+callApi(SearchTab? tab) async {
+  String categoryId = "";
+  FilterModel filters = await getCurrentFilterModel();
+  if (tab != null) {
+    categoryId = await getTabId(tab);
   }
-
-  callApi(SearchTab? tab) async {
-    String categoryId = "";
-    FilterModel filters = await getCurrentFilterModel();
-    if (tab != null) {
-      categoryId = await getTabId(tab);
-    } 
-    getIt<PaginatedSearchCubit>().loadResults(
-        searchModel: SearchRequestPayloadModel(
-          whatsHotFlag: (tab == SearchTab.whatsHot) ? true : false ,
-          categoryId: (tab == SearchTab.all || tab == null || tab == SearchTab.whatsHot)
-              ? null : categoryId,
+  getIt<PaginatedSearchCubit>().loadResults(
+      searchModel: SearchRequestPayloadModel(
+          whatsHotFlag: (tab == SearchTab.whatsHot) ? true : false,
+          categoryId:
+              (tab == SearchTab.all || tab == null || tab == SearchTab.whatsHot)
+                  ? null
+                  : categoryId,
           filters: FilterModel(
             sortBy: filters.sortBy,
             forSale: filters.forSale,
-          )
-        ),
-        searchTab: tab ?? SearchTab.all
-        );
-  } 
+          )),
+      searchTab: tab ?? SearchTab.all);
+}
 
 _buildTab({required String text}) {
   return Container(
