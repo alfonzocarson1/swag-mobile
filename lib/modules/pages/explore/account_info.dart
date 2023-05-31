@@ -248,11 +248,11 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                        // getStoredInfo();
                         _firstNameController.text = firstName;
                         _lastNameController.text = lastName;
-                        _defaultCountry = 'United States';
+                        _defaultCountry = _defaultCountry;
                         _firstAddressController.text = address1;
                         _secondAddressController.text = address2;
                         _cityController.text = '';
-                        _defaultState = 'State';
+                        _defaultState = _defaultState;
                         _zipController.text = '';
                         updateAllFlow = false;
                       });
@@ -269,11 +269,11 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                       setState(() {
                         _firstNameController.text = '';
                         _lastNameController.text = '';
-                        _defaultCountry = 'United States';
+                        _defaultCountry = _defaultCountry;
                         _firstAddressController.text = '';
                         _secondAddressController.text = '';
                         _cityController.text = '';
-                        _defaultState = 'State';
+                        _defaultState = _defaultState;
                         _zipController.text = '';
                         updateAllFlow = false;
                       });
