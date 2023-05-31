@@ -493,11 +493,10 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                   child: Column(
                                     children: [
                                       CustomTextFormField(
-                                        inputType: const TextInputType
-                                            .numberWithOptions(
-                                          decimal: true,
-                                          signed: false,
-                                        ),
+                                        inputType: TextInputType.text,
+                                        inputFormatters: [
+                                         FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9 ]')),
+                                        ],
                                         borderColor: _zipBorder,
                                         autofocus: false,
                                         errorText: zipErrorText,
