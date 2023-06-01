@@ -279,7 +279,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                             widget.dataItem.profileId)
                                         ? Column(
                                             children: [
-                                              const FooterListItemPage(),
+                                              FooterListItemPage(),
                                               const SizedBox(height: 30),
                                               Visibility(
                                                   visible:
@@ -316,7 +316,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                           )
                                         : Column(
                                             children: [
-                                              const FooterListItemPage(),
+                                              FooterListItemPage(),
                                               const SizedBox(height: 30),
                                               PrimaryButton(
                                                 title:

@@ -76,11 +76,14 @@ class _CupertinoPickerViewState extends State<CupertinoPickerView> {
                           Expanded(
                               flex: 1,
                               child: Text(
-                                widget.cupertinoPickervalue ?? 'Item 1',
+                                widget.cupertinoPickervalue!.length > 4
+                                    ? '${widget.cupertinoPickervalue!.substring(0, 4)}...'
+                                    : widget.cupertinoPickervalue!,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall!
                                     .copyWith(
+                                      fontSize: 15,
                                       fontFamily: "Ringside",
                                       color: Palette.current.primaryNero,
                                     ),
