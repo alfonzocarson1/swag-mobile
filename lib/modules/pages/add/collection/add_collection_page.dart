@@ -93,13 +93,7 @@ class _AddCollectionState extends State<AddCollection> {
     'Gamed',
   ];
 
-  var Sources = [
-    'Source',
-    'Swag',
-    'Ebay',
-    'Facebook',
-    'Friend/ Gift or Other',
-  ];
+  var Sources = ['Source', 'Swag', 'Ebay', 'Facebook', 'Friend/Gift', 'Other'];
 
   @override
   void dispose() {

@@ -229,7 +229,7 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                                     )),
                           ),
                           const SizedBox(height: 30),
-                          const FooterListItemPage(),
+                          FooterListItemPage(addList: true),
                           const SizedBox(height: 30),
                           PrimaryButton(
                             title: S.of(context).post_listing_btn,
