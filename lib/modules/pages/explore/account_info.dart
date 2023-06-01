@@ -201,7 +201,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   @override
   Widget build(BuildContext context) {
     getStoredInfo();
-    
+
     if (firstName == '' || lastName == '') {
       showPopUp(username: userName);
     }
@@ -294,14 +294,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                     // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
                   },
                 ),
-            child: StatefulBuilder(
-              builder: (context, state) {
-                return _getBody();
-              }
-            )));
-  }
-
-  
+            child: _getBody()));
+  }  
 
   GestureDetector _getBody() {
     return GestureDetector(
@@ -399,25 +393,15 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                             const SizedBox(
                               height: 20,
                             ),
-                            CustomTextFormField(
-                                borderColor: _countryBorder,
-                                autofocus: false,
-                                labelText: S.of(context).country,
-                                errorText: countryErrorText,
-                                dropdownForm: true,
-                                dropdownFormItems: countries,
-                                dropdownvalue: _defaultCountry,
-                                dropdownOnChanged: (String? newValue) {
-                                  setState(() {
-                                    setState(() {
-                                      _defaultCountry = newValue ?? _defaultCountry;
-                                    });
-                                    _getStates(newValue ?? _defaultCountry);
-                                  });
-                                },
-                                focusNode: _countryNode,
-                                controller: _countryController,
-                                inputType: TextInputType.text),
+                            CupertinoPickerView(
+                                          errorText: stateErrorText,
+                                          cupertinoPickerItems: countries,
+                                          cupertinoPickervalue: _defaultCountry,
+                                          onDone: (index) {
+                                            setState(() => value = index);
+                                            _defaultCountry = countries[index];
+                                            Navigator.pop(context);
+                                          }),
                             const SizedBox(
                               height: 20,
                             ),
@@ -472,8 +456,9 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                   child: Column(
                                     children: [
                                       CupertinoPickerView(
+                                        key: const Key('State-Picker'),
                                           errorText: stateErrorText,
-                                          cupertinoPickerItems: _states,
+                                          cupertinoPickerItems:(_defaultCountry == 'United States') ? _states : ["State"],
                                           cupertinoPickervalue: _defaultState,
                                           onDone: (index) {
                                             setState(() => value = index);
