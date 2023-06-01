@@ -357,13 +357,11 @@ String toCamelCase(String input) {
     }
   }
 
-  return words.join();
-}
+  return words.join();}
 
-String _defaultCountry = 'United States';
 final _states = ['State'];
 
-Future<dynamic> getResponse() async {
+Future<dynamic> getCountryJson() async {
   var res = await rootBundle
       .loadString('packages/csc_picker/lib/assets/country.json');
   return jsonDecode(res);
@@ -372,7 +370,8 @@ Future<dynamic> getResponse() async {
 ///get states from json response
 Future<List<String?>> getStates(String country) async {
   _states.clear();
-  var response = await getResponse();
+  var response = await getCountryJson();
+
   var takeState = response
       .map((map) => Country.fromJson(map))
       .where((item) => item.name == country)
