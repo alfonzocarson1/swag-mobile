@@ -78,9 +78,7 @@ class _CupertinoPickerViewState extends State<CupertinoPickerView> {
                           Expanded(
                               flex: 1,
                               child: Text(
-                                widget.cupertinoPickervalue!.length > 4
-                                    ? '${widget.cupertinoPickervalue!.substring(0, 4)}...'
-                                    : widget.cupertinoPickervalue!,
+                                widget.cupertinoPickervalue ?? "",
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall!
