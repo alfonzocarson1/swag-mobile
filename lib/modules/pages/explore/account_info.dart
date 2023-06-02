@@ -400,6 +400,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                           onDone: (index) {
                                             setState(() => value = index);
                                             _defaultCountry = countries[index];
+                                            _countryController.text = _defaultCountry;
                                             if(_defaultCountry != defaultCountry) _defaultState = defaultState;
                                             Navigator.pop(context);
                                           }),
@@ -459,11 +460,12 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                       (_defaultCountry == defaultCountry) ? CupertinoPickerView(
                                         key: const Key('State-Picker'),
                                           errorText: stateErrorText,
-                                          cupertinoPickerItems:(_defaultCountry == 'United States') ? _states : ["State"],
+                                          cupertinoPickerItems: stateCodes,
                                           cupertinoPickervalue: _defaultState,
                                           onDone: (index) {
                                             setState(() => value = index);
-                                            _defaultState = _states[index];
+                                            _defaultState = stateCodes[index];
+                                            _stateController.text = _defaultState;
                                             Navigator.pop(context);
                                           }) : CupertinoPickerView(
                                         key: const Key('State-Picker-2'),
@@ -474,6 +476,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                           onDone: (index) {
                                             setState(() => value = index);
                                             _defaultState = defaultState;
+                                            _stateController.text= defaultState;
                                             Navigator.pop(context);
                                           }),
                                       Visibility(
