@@ -400,6 +400,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                           onDone: (index) {
                                             setState(() => value = index);
                                             _defaultCountry = countries[index];
+                                            if(_defaultCountry != defaultCountry) _defaultState = defaultState;
                                             Navigator.pop(context);
                                           }),
                             const SizedBox(
@@ -455,7 +456,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                   flex: 2,
                                   child: Column(
                                     children: [
-                                      CupertinoPickerView(
+                                      (_defaultCountry == defaultCountry) ? CupertinoPickerView(
                                         key: const Key('State-Picker'),
                                           errorText: stateErrorText,
                                           cupertinoPickerItems:(_defaultCountry == 'United States') ? _states : ["State"],
@@ -463,6 +464,16 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                           onDone: (index) {
                                             setState(() => value = index);
                                             _defaultState = _states[index];
+                                            Navigator.pop(context);
+                                          }) : CupertinoPickerView(
+                                        key: const Key('State-Picker-2'),
+                                          errorText: stateErrorText,
+                                          looping: false,
+                                          cupertinoPickerItems:const ["State"],
+                                          cupertinoPickervalue: _defaultState,
+                                          onDone: (index) {
+                                            setState(() => value = index);
+                                            _defaultState = defaultState;
                                             Navigator.pop(context);
                                           }),
                                       Visibility(
