@@ -260,7 +260,7 @@ class _CollectionPageState extends State<CollectionPage> {
                                           color: Palette.current.white)),
                               Text(
                                   collectionList[index - 1].forSale
-                                      ? '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(collectionList[index - 1].saleInfo.minPrice!)}'
+                                      ? '${S.of(context).from}: ${decimalDigitsLastSalePrice(collectionList[index - 1].saleInfo.minPrice!)}'
                                       : '${S.of(context).last_sale}: ${decimalDigitsLastSalePrice(collectionList[index - 1].saleInfo.lastSale!)}',
                                   overflow: TextOverflow.fade,
                                   style: Theme.of(context)

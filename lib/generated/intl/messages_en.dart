@@ -169,6 +169,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "forgot_password_email_description":
             MessageLookupByLibrary.simpleMessage(
                 "Enter your email to reset your password."),
+        "from": MessageLookupByLibrary.simpleMessage("FROM"),
         "gamed": MessageLookupByLibrary.simpleMessage("Gamed"),
         "get_an_email":
             MessageLookupByLibrary.simpleMessage("Didn’t get an email?"),

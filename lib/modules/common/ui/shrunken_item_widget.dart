@@ -138,7 +138,7 @@ class ShrunkenItemWidget extends StatelessWidget {
                   color: Palette.current.white)),
           Text(
               model.forSale
-                  ? '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(model.saleInfo.minPrice!)}'
+                  ? '${S.of(context).from}: ${decimalDigitsLastSalePrice(model.saleInfo.minPrice!)}'
                   : '${S.of(context).last_sale}: ${decimalDigitsLastSalePrice(model.saleInfo.lastSale!)}',
               overflow: TextOverflow.fade,
               maxLines: 1,
