@@ -4,6 +4,7 @@ import '../../../../generated/l10n.dart';
 import '../../../common/ui/list_item_preview_rating_ui.dart';
 import '../../../common/ui/rating_ui.dart';
 import '../../../common/utils/palette.dart';
+import '../../../common/utils/utils.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
 import '../../../models/profile/profile_model.dart';
@@ -23,17 +24,50 @@ class _FooterListItemPageState extends State<FooterListItemPage> {
   double rating = 4;
   @override
   Widget build(BuildContext context) {
+    String? profileURL;
+    String? defaultImage;
+
+    ProfileModel profileData =
+        getIt<PreferenceRepositoryService>().profileData();
+
+    if (profileData.useAvatar != 'CUSTOM') {
+      var data = imagesList
+          .where((avatar) => (avatar["id"].contains(profileData.useAvatar)));
+
+      defaultImage = data.first['url'];
+    } else {
+      profileURL = profileData!.avatarUrl ??
+          'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Franklin.png?alt=media&token=c1073f88-74c2-44c8-a287-fbe0caebf878';
+    }
+
     return Row(
       children: [
         Expanded(
           flex: 1,
           child: Align(
             alignment: Alignment.centerLeft,
-            child: Image.asset(
-              "assets/images/Avatar.png",
-              scale: 3,
+            child: SizedBox(
+              height: 40,
+              width: 40,
+              child: widget.addList ?? false
+                  ? CircleAvatar(
+                      backgroundColor: Colors.transparent,
+                      backgroundImage:
+                          const AssetImage('assets/images/Avatar.png'),
+                      foregroundImage: profileURL != null
+                          ? NetworkImage('$profileURL')
+                          : NetworkImage('$defaultImage'),
+                      radius: 75,
+                    )
+                  : Image.asset(
+                      "assets/images/Avatar.png",
+                      scale: 3,
+                    ),
             ),
           ),
+        ),
+        const SizedBox(
+          width: 10.0,
         ),
         Expanded(
             flex: 8,
