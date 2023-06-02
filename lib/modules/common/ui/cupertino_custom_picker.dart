@@ -115,7 +115,7 @@ class _CupertinoPickerViewState extends State<CupertinoPickerView> {
   Widget _buildCupertinoPicker() {
     return CupertinoPicker(
       scrollController: FixedExtentScrollController(
-        initialItem: items.indexOf(widget.cupertinoPickervalue)),
+        initialItem: 0),
        backgroundColor: Colors.white,
        itemExtent: 50, //height of each item
        looping: widget.looping ?? true,
