@@ -21,6 +21,8 @@ const filterNotApplied = -1;
 const maxCharactersForGridViewTitle = 25;
 const maxCharactersForGridViewDesc = 22;
 const defaultPageSize = 20;
+const String defaultCountry = "United States";
+const String defaultState = "State";
 
 const countriesCode = [
   "US",
