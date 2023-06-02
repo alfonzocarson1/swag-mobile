@@ -20,6 +20,11 @@ class ChatService extends IChatService {
       fromJson: (json)=> json['channelUrl'],
     );
   }
+  
+  @override
+  Future<void> bringAdminToChat() async {
+      
+  }
 }
 
 

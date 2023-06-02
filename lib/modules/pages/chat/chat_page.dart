@@ -5,12 +5,14 @@ import 'package:swagapp/generated/l10n.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sendbird_sdk/sendbird_sdk.dart';
 import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
+import 'package:swagapp/modules/common/assets/icons.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/models/chat/chat_data.dart';
 import 'package:swagapp/modules/models/chat/sendbird_channel_data.dart';
 
 import 'widgets/chat_input.dart';
 import 'widgets/chat_messages.dart';
+import 'widgets/chat_popup_menu.dart';
 
 class ChatPage extends StatefulWidget {
 
@@ -70,6 +72,7 @@ class _ChatPageState extends State<ChatPage> with ChannelEventHandler {
           ),
           onPressed: ()=> Navigator.pop(context),
         ),
+        actions: const <Widget> [ ChatPopupMenu() ],
       ),
       body: _Body(
         chatData: this.widget.chatData!,
