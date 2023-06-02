@@ -270,7 +270,7 @@ class _HeadWidgetState extends State<HeadWidget> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                     widget.sale
-                        ? '${S.of(context).from}: ${decimalDigitsLastSalePrice(widget.lastSale.minPrice!)} - ${decimalDigitsLastSalePrice(widget.lastSale.maxPrice!)}'
+                        ? '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(widget.lastSale.minPrice!)} - ${decimalDigitsLastSalePrice(widget.lastSale.maxPrice!)}'
                         : '${S.of(context).last_sale}: ${decimalDigitsLastSalePrice(widget.lastSale.lastSale!)}',
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                         letterSpacing: 0.0224,
