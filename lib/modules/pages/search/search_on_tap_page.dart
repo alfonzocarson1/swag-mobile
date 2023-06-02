@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:swagapp/generated/l10n.dart';
+import 'package:swagapp/modules/blocs/search_bloc.dart/search_bloc.dart';
 import 'package:swagapp/modules/common/ui/pushed_header.dart';
 import 'package:swagapp/modules/common/ui/search_input.dart';
 import 'package:swagapp/modules/common/utils/custom_route_animations.dart';
@@ -11,6 +12,7 @@ import 'package:swagapp/modules/pages/search/search_result/search_result_page.da
 
 import '../../common/utils/tab_wrapper.dart';
 import '../../common/utils/utils.dart';
+import '../../di/injector.dart';
 
 class SearchOnTapPage extends StatefulWidget {
   static const name = '/searchOnTap';
@@ -136,6 +138,7 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
   }
 
   Future<void> goToResultPage({int? index}) async {
+    getIt<SearchBloc>().saveSearchlocally(widget._textEditingController.text);
     initFilterAndSortsWithBloc(context, selectedProductNumber: index);
 
     await initFiltersAndSorts();
