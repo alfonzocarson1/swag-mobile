@@ -1,8 +1,13 @@
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:swagapp/modules/common/assets/images.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:swagapp/modules/common/utils/context_service.dart';
+import 'package:swagapp/modules/di/injector.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 abstract class LocalNotificationsService {
 
@@ -71,6 +76,31 @@ abstract class LocalNotificationsService {
     File file = File(filePath);
     await file.writeAsBytes(response.bodyBytes);
     return filePath;
+  }
+
+  static void showInAppAllert(String message, BuildContext context) {
+
+    showTopSnackBar(
+      Overlay.of(context),
+      animationDuration: const Duration(milliseconds: 250),
+      curve: Curves.easeInOutQuad,
+      CustomSnackBar.info(
+        icon: const Padding(
+          padding: EdgeInsets.only(left: 20),
+          child: Image(
+            width: 20,
+            image: AssetImage(AppImages.favorite),
+          ),
+        ),
+        iconPositionLeft: 0,
+        iconRotationAngle: 0,
+        textAlign: TextAlign.start,
+        backgroundColor: Colors.black,
+        messagePadding: const EdgeInsets.only(left: 55),
+        textStyle: const TextStyle(color: Colors.white),
+        message: message,
+      ),
+    );
   }
 }
 

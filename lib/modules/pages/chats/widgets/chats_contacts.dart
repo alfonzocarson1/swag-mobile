@@ -1,11 +1,11 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:swagapp/modules/pages/chat/chat_page.dart';
 import 'package:swagapp/modules/common/assets/images.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/models/chat/chat_data.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:swagapp/modules/models/chat/sendbird_channel_data.dart';
-import 'package:swagapp/modules/pages/chat/chat_page.dart';
 
 class ChatsContact extends StatelessWidget {
 
@@ -26,15 +26,9 @@ class ChatsContact extends StatelessWidget {
     SendBirdChannelData channelData = this.getChannelData();
     
     return ListTile(            
-      leading: CircleAvatar(
-        backgroundColor: (hasUreadMessages) 
-        ? Palette.current.primaryNeonPink
-        : Colors.transparent,
-        maxRadius: 18,
-        child: Image.asset(
-          AppImages.avatar,
-          scale: 3,
-        ),
+      leading: _Avatar(
+        hasUreadMessages: hasUreadMessages, 
+        chatData: this.chatData,
       ),
       title: Text(
         channelData.listingProductName,
@@ -65,11 +59,58 @@ class ChatsContact extends StatelessWidget {
 
   SendBirdChannelData  getChannelData() {
 
-    String stringData = json.encode(this.chatData.channel.data!.replaceAll("'", '"'));
-    String formatedData = stringData.replaceAll('\\', "");
-    Map<String, dynamic> data  = json.decode(formatedData.substring(1, formatedData.length - 1));
+    if(this.chatData.channel.data!.isNotEmpty) {
 
-    return SendBirdChannelData.fromJson(data);
+      String stringData = json.encode(this.chatData.channel.data!.replaceAll("'", '"'));
+      String formatedData = stringData.replaceAll('\\', "");
+      Map<String, dynamic> data  = json.decode(formatedData.substring(1, formatedData.length - 1));
+
+      return SendBirdChannelData.fromJson(data);
+    }
+    else return SendBirdChannelData(topicId: '', listingProductName: '');
   } 
+}
+
+class _Avatar extends StatelessWidget {
+  
+  const _Avatar({
+    super.key,
+    required this.hasUreadMessages,
+    required this.chatData,
+  });
+
+  final bool hasUreadMessages;
+  final ChatData chatData;
+
+  @override
+  Widget build(BuildContext context) {
+
+    bool isCoverChannelNull = this.chatData.channel.coverUrl == null;
+
+    return CircleAvatar(
+      backgroundColor: (this.hasUreadMessages) 
+      ? Palette.current.primaryNeonPink
+      : Colors.transparent,
+      maxRadius: 22,
+      child: (isCoverChannelNull) 
+      ? Image.asset(
+          AppImages.avatar,
+          scale: 2.5,
+        )
+      : Container(
+          margin: const EdgeInsets.all(2),
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(100),
+            child: CachedNetworkImage(
+              fit: BoxFit.cover,
+              imageUrl: this.chatData.channel.coverUrl!,
+            ),  
+          ),
+        )
+    );
+  }
 }
 

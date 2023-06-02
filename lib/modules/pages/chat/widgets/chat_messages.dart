@@ -85,12 +85,12 @@ class _ChatMessagesState extends State<ChatMessages> {
       BaseMessage message = this.widget.chatData.messages.toList()[i];
       bool isMyMessage = (message.sender?.userId == userSendbirdiId);
 
+      items.add(this.addDateSeparator(i, message));
+
       items.add(_Message(
         isMyMessage: isMyMessage,
         message: message,
       ));      
-
-      items.add(this.addDateSeparator(i, message));
     }
 
     return items;
@@ -109,8 +109,7 @@ class _ChatMessagesState extends State<ChatMessages> {
       ? ChatlDateSeparator(date: createdAt)
       : const SizedBox.shrink();
     }
-    else if (this.widget.chatData.messages.isEmpty) return ChatlDateSeparator(date: createdAt);
-    else return const SizedBox.shrink();
+    else return ChatlDateSeparator(date: createdAt);
   }
 
   void updateItems(ChatBloc chatBloc, String userSendbirdiId) {

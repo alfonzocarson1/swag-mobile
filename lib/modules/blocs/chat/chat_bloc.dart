@@ -240,4 +240,6 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       ));
     }
   }
+
+  Future<void> bringAdminToChat() async => await this.service.bringAdminToChat();
 }

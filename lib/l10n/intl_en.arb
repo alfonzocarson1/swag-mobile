@@ -222,6 +222,7 @@
     "chatLoadingFile": "Loading File...",
     "chatToday": "Today",
     "chatMessageFrom": "New message from {sender}",
+    "chatSwaggAdmin": "Swagg Admin",
 
     "chatsHeader": "ALERTS & Notifications",
     "chatsUnreadMessages": "{chatsNumber} Unread"

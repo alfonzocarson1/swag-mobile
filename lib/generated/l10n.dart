@@ -2230,6 +2230,16 @@ class S {
     );
   }
 
+  /// `Swagg Admin`
+  String get chatSwaggAdmin {
+    return Intl.message(
+      'Swagg Admin',
+      name: 'chatSwaggAdmin',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `ALERTS & Notifications`
   String get chatsHeader {
     return Intl.message(
