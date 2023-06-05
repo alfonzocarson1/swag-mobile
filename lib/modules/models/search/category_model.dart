@@ -5,7 +5,7 @@ part 'category_model.g.dart';
 
 @freezed
 class CategoryModel with _$CategoryModel {
-@JsonSerializable()
+  @JsonSerializable()
   const factory CategoryModel({
     required final String catalogCategoryId,
     required final String categoryName,

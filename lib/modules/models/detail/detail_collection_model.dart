@@ -5,7 +5,7 @@ part 'detail_collection_model.g.dart';
 
 @freezed
 class DetailCollectionModel with _$DetailCollectionModel {
-@JsonSerializable()
+  @JsonSerializable()
   const factory DetailCollectionModel(
       {required final String profileCollectionItemId,
       required final String catalogItemId,

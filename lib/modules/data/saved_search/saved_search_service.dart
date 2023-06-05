@@ -1,3 +1,6 @@
+
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:swagapp/modules/data/saved_search/i_saved_search_service.dart';
 import 'package:swagapp/modules/models/saved_searches/saved_search.dart';
@@ -43,12 +46,12 @@ class SavedSearchService implements ISavedSearchService {
 
 
      try {
-       await apiService.getEndpointData(
-        endpoint: Endpoint.savedSearches,
-        method: RequestMethod.post,
-        body: search.toJson(),
-        needBearer: isAuthenticatedUser,
-      );
+       final response = await apiService.getEndpointData(
+      endpoint: Endpoint.savedSearches,
+      method: RequestMethod.post,
+      body: search.toJson(),
+      needBearer: isAuthenticatedUser,
+    );
      }
      catch(e){
       debugPrint(e.toString());

@@ -7,7 +7,7 @@ part 'profile_model.g.dart';
 
 @freezed
 class ProfileModel with _$ProfileModel {
-@JsonSerializable()
+  @JsonSerializable()
   const factory ProfileModel({
     required final String accountId,
     required final String username,

@@ -34,7 +34,7 @@ class TransactionHistory extends StatefulWidget {
   final int? available;
   final bool favorite;
   final String itemId;
-  final Function(bool) addFavorite;
+  Function(bool) addFavorite;
 
   static Route route(
           String urlImage,

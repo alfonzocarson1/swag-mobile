@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/pages/add/collection/select_item_page.dart';
 
 import '../../../../generated/l10n.dart';
+import '../../../blocs/collection_bloc/collection_bloc.dart';
 import '../../../blocs/search_bloc.dart/search_bloc.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
