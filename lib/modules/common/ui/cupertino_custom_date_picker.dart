@@ -7,6 +7,7 @@ import '../utils/palette.dart';
 import '../utils/utils.dart';
 
 class CupertinoDatePickerView extends StatefulWidget {
+  
   CupertinoDatePickerView(
       {Key? key,
       required this.cupertinoDatePickervalue,
@@ -14,9 +15,9 @@ class CupertinoDatePickerView extends StatefulWidget {
       this.errorText})
       : super(key: key);
 
-  final DateTime cupertinoDatePickervalue;
-  Function(DateTime) onDone;
-  String? errorText;
+  final DateTime? cupertinoDatePickervalue;
+  final Function(DateTime) onDone;
+  final String? errorText;
 
   @override
   State<CupertinoDatePickerView> createState() =>

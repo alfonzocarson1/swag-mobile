@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swagapp/modules/common/assets/icons.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../blocs/buy_sale_listing_bloc/buy_sale_listing_bloc.dart';
@@ -33,16 +34,15 @@ class BuyForSale extends StatefulWidget {
       required this.saleHistoryList,
       });
 
-  String catalogItemId;
-  String catalogItemName;
-  DetailSaleInfoModel catalogItemPrice;
-  String urlImage;
-  bool favorite;
-  bool sale;
+  final String catalogItemId;
+  final String catalogItemName;
+  final DetailSaleInfoModel catalogItemPrice;
+  final String urlImage;
+  final bool favorite;
+  final bool sale;
   final int? available;
-  Function(bool) addFavorite;
-  List<SalesHistoryModel> saleHistoryList;
-
+  final Function(bool) addFavorite;
+  final List<SalesHistoryModel> saleHistoryList;
   static Route route(
           String catalogItemId,
           String catalogItemName,
@@ -254,7 +254,7 @@ class _BuyForSaleState extends State<BuyForSale> {
                                                   height: 50,
                                                 ),
                                                 Image.asset(
-                                                  "assets/images/trending-up.png",
+                                                  AppIcons.trendingUp,
                                                   height: 20,
                                                   width: 20,
                                                 ),

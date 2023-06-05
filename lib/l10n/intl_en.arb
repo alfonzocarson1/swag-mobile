@@ -220,6 +220,21 @@
     "empty_favorite": "TAP THE SKULL ICON NEXT TO ANY ITEM TO SAVE TO YOUR FAVORITES.",
     "empty_listing": "YOU DON’T HAVE ANY LISTINGS. ALL YOUR LISTINGS WILL APPEAR HERE.",
     "empty_sold": "YOU HAVEN’T SOLD ANY ITEMS YET. ALL YOUR SOLD ITEMS WILL APPEAR HERE.",
+
+    "chatChat": "Chat",
+    "chatModeratorName": "SWAG",
+    "chatInputHintText": "Enter message",
+    "chatNoMessages": "No previous messages",
+    "chatTyping": "Typing...",
+    "chatErrorFile": "Error loading the file",
+    "chatLoadingFile": "Loading File...",
+    "chatToday": "Today",
+    "chatMessageFrom": "New message from {sender}",
+    "chatSwaggAdmin": "Swagg Admin",
+
+    "chatsHeader": "ALERTS & Notifications",
+    "chatsUnreadMessages": "{chatsNumber} Unread",
+    
     "collection_value": "COLLECTION VALUE:",
     "shop_by_category_title": "SHOP BY CATEGORY",
     "See_All": "See All",

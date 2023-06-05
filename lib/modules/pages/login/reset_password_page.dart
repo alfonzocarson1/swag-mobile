@@ -23,7 +23,7 @@ class ResetPasswordPage extends StatefulWidget {
     required this.email,
   }) : super(key: key);
 
-  String email;
+  final String email;
 
   static Route route(email) => PageRoutes.material(
         settings: const RouteSettings(name: name),

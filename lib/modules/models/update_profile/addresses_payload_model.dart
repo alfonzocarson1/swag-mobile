@@ -5,7 +5,7 @@ part 'addresses_payload_model.g.dart';
 
 @freezed
 class AddressesPayloadModel with _$AddressesPayloadModel {
-  @JsonSerializable(includeIfNull: false)
+@JsonSerializable(includeIfNull: false)
   const factory AddressesPayloadModel({
     final String? addressId,
     final String? addressType,
