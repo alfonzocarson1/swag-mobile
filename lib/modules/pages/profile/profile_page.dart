@@ -172,7 +172,7 @@ class _ProfilePageState extends State<ProfilePage>
                     .headlineMedium!
                     .copyWith(
                         fontFamily: "KnockoutCustom",
-                        fontSize: 20,
+                        fontSize: 21,
                         letterSpacing: 1.1,
                         fontWeight: FontWeight.w300),
                 labelStyle: Theme.of(context)
@@ -181,7 +181,7 @@ class _ProfilePageState extends State<ProfilePage>
                     .copyWith(
                         fontFamily: "KnockoutCustom",
                         fontSize: 21,
-                        letterSpacing: 1.0,
+                        letterSpacing: 1.1,
                         fontWeight: FontWeight.w300),
                 tabs: [
                   Tab(

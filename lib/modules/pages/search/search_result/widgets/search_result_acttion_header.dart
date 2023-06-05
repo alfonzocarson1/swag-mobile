@@ -4,6 +4,10 @@ import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/blocs/search_bloc.dart/search_bloc.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 
+import '../../../../data/shared_preferences/shared_preferences_service.dart';
+import '../../../../di/injector.dart';
+import '../../../login/create_account_page.dart';
+
 class SearchResultActionHeader extends StatefulWidget {
 
   final String searchParam;
@@ -19,10 +23,21 @@ class SearchResultActionHeader extends StatefulWidget {
 
 class _SearchResultActionHeaderState extends State<SearchResultActionHeader> {
   bool savedSearch = false;
+  bool isLogged = false;
+
+  @override
+  void initState() {
+    isLogged = getIt<PreferenceRepositoryService>().isLogged();
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
 
+    
+
+  
     return SizedBox(
       height: 50,
       child: Padding(
@@ -50,11 +65,17 @@ class _SearchResultActionHeaderState extends State<SearchResultActionHeader> {
                 ),
               ),
               onPressed: () async {
-                setState(() {
+                if(isLogged == true){
+                        setState(() {
                   savedSearch = true;
-                });                
-                
+                });           
                 await context.read<SearchBloc>().saveSearchWithFilters(this.widget.searchParam);
+                }
+                else{
+                  Navigator.of(context, rootNavigator: true)
+                                  .push(CreateAccountPage.route());
+                }
+          
               }, 
             ),
             Text(

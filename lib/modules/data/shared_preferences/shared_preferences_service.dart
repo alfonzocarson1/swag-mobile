@@ -248,6 +248,14 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
     await this._prefs.setStringList(_searchesWithFilters, searchesWithFilters);
   }
 
+   @override
+  removeRecentSearches(int searchesQuantity)async {
+    List<String> list = getRecentSearchesWithFilters();  
+      list.removeRange(0, searchesQuantity+1);
+      await this._prefs.setStringList(_searchesWithFilters, list);
+    
+  }
+
   @override
   bool forgotPasswordFlow() {
     final returnPage = _prefs.getBool(_forgotPasswordFlow);
@@ -370,4 +378,6 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   Future<void> setPageFromExplore(int value) async {
     await _prefs.setInt(_pageFromExplore, value);
   }
+  
+ 
 }
