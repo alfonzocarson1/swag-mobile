@@ -6,6 +6,8 @@ import 'package:swagapp/modules/models/saved_searches/saved_search.dart';
 import 'package:swagapp/modules/pages/search/search_result/search_result_page.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
+import '../../common/utils/utils.dart';
+import '../../data/secure_storage/storage_repository_service.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/search/search_request_payload_model.dart';

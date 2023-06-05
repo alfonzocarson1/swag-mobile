@@ -9,7 +9,7 @@ import 'popup_image_guidelines.dart';
 class AddPhotoWidget extends StatefulWidget {
   AddPhotoWidget({super.key, this.addPhoto});
 
-  final Function()? addPhoto;
+  Function()? addPhoto;
 
   @override
   State<AddPhotoWidget> createState() => _AddPhotoWidgetState();

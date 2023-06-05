@@ -42,18 +42,20 @@ class ListItemPreviewPage extends StatefulWidget {
       this.imgUrls,
       required this.onClose});
 
-  final List<File> imgList;
-  final bool isUpdate;
-  final String itemName;
-  final double itemPrice;
-  final String itemCondition;
-  final String itemDescription;
-  final String profileCollectionItemId;
-  final String catalogItemId;
-  final String? productItemId;
-  final String? profileId;
-  final List<String>? imgUrls;
-  final Function() onClose;
+  List<File> imgList;
+
+  bool isUpdate;
+
+  String itemName;
+  double itemPrice;
+  String itemCondition;
+  String itemDescription;
+  String profileCollectionItemId;
+  String catalogItemId;
+  String? productItemId;
+  String? profileId;
+  List<String>? imgUrls;
+  Function() onClose;
 
   static Route route(
           {isUpdate,
@@ -227,7 +229,7 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                                     )),
                           ),
                           const SizedBox(height: 30),
-                          const FooterListItemPage(addList: true),
+                          FooterListItemPage(addList: true),
                           const SizedBox(height: 30),
                           PrimaryButton(
                             title: S.of(context).post_listing_btn,

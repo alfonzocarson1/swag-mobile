@@ -72,17 +72,6 @@ abstract class PreferenceRepositoryInt {
   List<String> getTypes();
   Future<void> saveTypes(List<String> types);
 
-  String getUserSendBirdId();
-  Future<void> saveUserSendBirdId(String userId);
-
-  String getUserSendBirdToken();
-  Future<void> saveUserSendBirdToken(String token);
-
-  String getFirebaseDeviceToken();
-  Future<void> saveFirebaseDeviceToken(String token);
-
-  String getCurrentPageName();
-  Future<void> saveCurrentPageName(String pageName);
   Future<void> setPageFromExplore(int value);
   int getPageFromExplore();
 }

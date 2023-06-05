@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 
-class PushedHeader extends StatefulWidget implements PreferredSizeWidget {
+import '../../blocs/collection_bloc/collection_bloc.dart';
 
+class PushedHeader extends StatefulWidget implements PreferredSizeWidget {
   static const _defaultActions = <Widget>[];
   final List<Widget> actions;
   final bool showBackButton;
-  final Widget? customWidget;
-  final Widget? title;
-  final double height;
-  final bool isDarkBackground;
-  final Widget? suffixIconButton;
+  Widget? customWidget = Container();
+  Widget? title;
+  double height;
+  bool isDarkBackground;
+  Widget? suffixIconButton;
 
   PushedHeader(
       {Key? key,

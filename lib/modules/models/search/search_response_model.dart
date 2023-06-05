@@ -5,7 +5,7 @@ part 'search_response_model.g.dart';
 
 @freezed
 class SearchResponseModel with _$SearchResponseModel {
-@JsonSerializable()
+  @JsonSerializable()
   const factory SearchResponseModel({
     required final List<CatalogItemModel> catalogList,
     @Default([]) final List<String> recentList,

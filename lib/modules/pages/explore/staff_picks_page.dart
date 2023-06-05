@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_rich_text/simple_rich_text.dart';
-import 'package:swagapp/modules/models/explore/explore_item_model.dart';
 
 import '../../../generated/l10n.dart';
 import '../../common/ui/clickable_text.dart';
 import '../../common/utils/palette.dart';
 import '../../cubits/explore/get_explore_cubit.dart';
+import '../../models/explore/explore_item_model.dart';
 import '../../models/search/catalog_item_model.dart';
 import '../search/search_result/search_result_page.dart';
 import 'slide_horizontal_widget.dart';
