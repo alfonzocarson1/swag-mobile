@@ -35,7 +35,7 @@ class _AddPhotoWidgetState extends State<AddPhotoWidget> {
                   style: Theme.of(context).textTheme.displayLarge!.copyWith(
                       letterSpacing: 1,
                       fontWeight: FontWeight.w300,
-                      fontFamily: "Knockout",
+                      fontFamily: "KnockoutCustom",
                       fontSize: 30,
                       color: Palette.current.primaryNeonGreen)),
             ),
@@ -72,7 +72,7 @@ class _AddPhotoWidgetState extends State<AddPhotoWidget> {
                                   .textTheme
                                   .bodyLarge!
                                   .copyWith(
-                                      fontFamily: "Knockout",
+                                      fontFamily: "KnockoutCustom",
                                       fontSize: 25,
                                       letterSpacing: 1,
                                       fontWeight: FontWeight.w300,

@@ -9,6 +9,7 @@ import '../../common/ui/refresh_widget.dart';
 import '../../common/ui/simple_loader.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
+import '../../common/utils/utils.dart';
 import '../../cubits/favorites/get_favorites_cubit.dart';
 import '../../di/injector.dart';
 import '../../models/detail/detail_item_model.dart';
@@ -191,11 +192,13 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                 .copyWith(
                                     letterSpacing: 1,
                                     fontWeight: FontWeight.w300,
-                                    fontFamily: "Knockout",
+                                    fontFamily: "KnockoutCustom",
                                     fontSize: 24,
                                     color: Palette.current.white)),
                         Text(
-                            '${S.of(context).last_sale} ${favoriteList[index].saleInfo.lastSale}',
+                            favoriteList[index].forSale
+                                ? '${S.of(context).from}: ${decimalDigitsLastSalePrice(favoriteList[index].saleInfo.minPrice!)}'
+                                : '${S.of(context).last_sale}: ${decimalDigitsLastSalePrice(favoriteList[index].saleInfo.lastSale!)}',
                             overflow: TextOverflow.fade,
                             style: Theme.of(context)
                                 .textTheme

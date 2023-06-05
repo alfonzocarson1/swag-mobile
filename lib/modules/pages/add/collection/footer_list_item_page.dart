@@ -11,16 +11,21 @@ import 'package:swagapp/modules/pages/chat/chat_page.dart';
 import '../../../../generated/l10n.dart';
 import '../../../common/ui/list_item_preview_rating_ui.dart';
 import '../../../common/utils/palette.dart';
+import '../../../data/shared_preferences/shared_preferences_service.dart';
+import '../../../di/injector.dart';
+import '../../../models/profile/profile_model.dart';
 
 class FooterListItemPage extends StatefulWidget {
 
   final bool showChatButton;
   final String productItemId;
+  final bool? addList;
 
   const FooterListItemPage({
     super.key, 
     this.showChatButton = false, 
     this.productItemId = '',
+    this.addList = false,
   });
 
   @override
@@ -29,6 +34,7 @@ class FooterListItemPage extends StatefulWidget {
 
 class _FooterListItemPageState extends State<FooterListItemPage> {
   
+  ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
   double rating = 4;
 
   @override
@@ -56,7 +62,10 @@ class _FooterListItemPageState extends State<FooterListItemPage> {
             [
               Align(
                 alignment: Alignment.centerLeft,
-                child: Text(S.of(context).verify_name,
+                child: Text(
+                  (this.widget.addList ?? false)
+                  ? '@${profileData.username.toUpperCase()}'
+                  : S.of(context).verify_name,
                   style: Theme.of(context).textTheme.bodySmall!.copyWith(
                     fontWeight: FontWeight.w300,
                     fontSize: 14,

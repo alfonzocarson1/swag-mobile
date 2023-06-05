@@ -4,16 +4,19 @@ part 'sale_history_model.freezed.dart';
 part 'sale_history_model.g.dart';
 
 @freezed
-@JsonSerializable()
 class SalesHistoryModel with _$SalesHistoryModel {
+@JsonSerializable()
   const factory SalesHistoryModel(
       {required final String salesPriceHistoryId,
-      required final String productItemId,
+      @Default('productItemId Null') String productItemId,
       required final String productItemName,
       required final double productItemPrice,
-      required final String productItemImage,
+      @Default('productItemImage Null') String productItemImage,
       required final double lastSale,
       required final String condition,
+      @Default('catalogItemId Null') String catalogItemId,
+      @Default('profileCollectionItemId Null') String profileCollectionItemId,
+      @Default('sku Null') String sku,
       required final String updatedDate,
       @Default(Priority.defaul) Priority priority}) = _SalesHistoryModel;
 

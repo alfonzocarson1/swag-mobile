@@ -20,6 +20,7 @@ ListingForSaleModel _$ListingForSaleModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ListingForSaleModel {
+  String? get accountId => throw _privateConstructorUsedError;
   String? get productItemId => throw _privateConstructorUsedError;
   String? get productItemName => throw _privateConstructorUsedError;
   double? get productItemPrice => throw _privateConstructorUsedError;
@@ -32,7 +33,9 @@ mixin _$ListingForSaleModel {
   double? get lastSale => throw _privateConstructorUsedError;
   bool? get forSale => throw _privateConstructorUsedError;
   bool? get sold => throw _privateConstructorUsedError;
+  String? get removedReason => throw _privateConstructorUsedError;
   bool? get isDeleted => throw _privateConstructorUsedError;
+  String? get status => throw _privateConstructorUsedError;
   String? get listingItemsAction => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -48,7 +51,8 @@ abstract class $ListingForSaleModelCopyWith<$Res> {
       _$ListingForSaleModelCopyWithImpl<$Res, ListingForSaleModel>;
   @useResult
   $Res call(
-      {String? productItemId,
+      {String? accountId,
+      String? productItemId,
       String? productItemName,
       double? productItemPrice,
       dynamic productItemImageUrls,
@@ -60,7 +64,9 @@ abstract class $ListingForSaleModelCopyWith<$Res> {
       double? lastSale,
       bool? forSale,
       bool? sold,
+      String? removedReason,
       bool? isDeleted,
+      String? status,
       String? listingItemsAction});
 }
 
@@ -77,6 +83,7 @@ class _$ListingForSaleModelCopyWithImpl<$Res, $Val extends ListingForSaleModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? accountId = freezed,
     Object? productItemId = freezed,
     Object? productItemName = freezed,
     Object? productItemPrice = freezed,
@@ -89,10 +96,16 @@ class _$ListingForSaleModelCopyWithImpl<$Res, $Val extends ListingForSaleModel>
     Object? lastSale = freezed,
     Object? forSale = freezed,
     Object? sold = freezed,
+    Object? removedReason = freezed,
     Object? isDeleted = freezed,
+    Object? status = freezed,
     Object? listingItemsAction = freezed,
   }) {
     return _then(_value.copyWith(
+      accountId: freezed == accountId
+          ? _value.accountId
+          : accountId // ignore: cast_nullable_to_non_nullable
+              as String?,
       productItemId: freezed == productItemId
           ? _value.productItemId
           : productItemId // ignore: cast_nullable_to_non_nullable
@@ -141,10 +154,18 @@ class _$ListingForSaleModelCopyWithImpl<$Res, $Val extends ListingForSaleModel>
           ? _value.sold
           : sold // ignore: cast_nullable_to_non_nullable
               as bool?,
+      removedReason: freezed == removedReason
+          ? _value.removedReason
+          : removedReason // ignore: cast_nullable_to_non_nullable
+              as String?,
       isDeleted: freezed == isDeleted
           ? _value.isDeleted
           : isDeleted // ignore: cast_nullable_to_non_nullable
               as bool?,
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
       listingItemsAction: freezed == listingItemsAction
           ? _value.listingItemsAction
           : listingItemsAction // ignore: cast_nullable_to_non_nullable
@@ -162,7 +183,8 @@ abstract class _$$_ListingForSaleModelCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? productItemId,
+      {String? accountId,
+      String? productItemId,
       String? productItemName,
       double? productItemPrice,
       dynamic productItemImageUrls,
@@ -174,7 +196,9 @@ abstract class _$$_ListingForSaleModelCopyWith<$Res>
       double? lastSale,
       bool? forSale,
       bool? sold,
+      String? removedReason,
       bool? isDeleted,
+      String? status,
       String? listingItemsAction});
 }
 
@@ -189,6 +213,7 @@ class __$$_ListingForSaleModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? accountId = freezed,
     Object? productItemId = freezed,
     Object? productItemName = freezed,
     Object? productItemPrice = freezed,
@@ -201,10 +226,16 @@ class __$$_ListingForSaleModelCopyWithImpl<$Res>
     Object? lastSale = freezed,
     Object? forSale = freezed,
     Object? sold = freezed,
+    Object? removedReason = freezed,
     Object? isDeleted = freezed,
+    Object? status = freezed,
     Object? listingItemsAction = freezed,
   }) {
     return _then(_$_ListingForSaleModel(
+      accountId: freezed == accountId
+          ? _value.accountId
+          : accountId // ignore: cast_nullable_to_non_nullable
+              as String?,
       productItemId: freezed == productItemId
           ? _value.productItemId
           : productItemId // ignore: cast_nullable_to_non_nullable
@@ -253,10 +284,18 @@ class __$$_ListingForSaleModelCopyWithImpl<$Res>
           ? _value.sold
           : sold // ignore: cast_nullable_to_non_nullable
               as bool?,
+      removedReason: freezed == removedReason
+          ? _value.removedReason
+          : removedReason // ignore: cast_nullable_to_non_nullable
+              as String?,
       isDeleted: freezed == isDeleted
           ? _value.isDeleted
           : isDeleted // ignore: cast_nullable_to_non_nullable
               as bool?,
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
       listingItemsAction: freezed == listingItemsAction
           ? _value.listingItemsAction
           : listingItemsAction // ignore: cast_nullable_to_non_nullable
@@ -270,7 +309,8 @@ class __$$_ListingForSaleModelCopyWithImpl<$Res>
 @JsonSerializable(includeIfNull: false)
 class _$_ListingForSaleModel implements _ListingForSaleModel {
   const _$_ListingForSaleModel(
-      {this.productItemId,
+      {this.accountId,
+      this.productItemId,
       this.productItemName,
       this.productItemPrice,
       this.productItemImageUrls,
@@ -282,12 +322,16 @@ class _$_ListingForSaleModel implements _ListingForSaleModel {
       this.lastSale,
       this.forSale,
       this.sold,
+      this.removedReason,
       this.isDeleted,
+      this.status,
       this.listingItemsAction});
 
   factory _$_ListingForSaleModel.fromJson(Map<String, dynamic> json) =>
       _$$_ListingForSaleModelFromJson(json);
 
+  @override
+  final String? accountId;
   @override
   final String? productItemId;
   @override
@@ -313,13 +357,17 @@ class _$_ListingForSaleModel implements _ListingForSaleModel {
   @override
   final bool? sold;
   @override
+  final String? removedReason;
+  @override
   final bool? isDeleted;
+  @override
+  final String? status;
   @override
   final String? listingItemsAction;
 
   @override
   String toString() {
-    return 'ListingForSaleModel(productItemId: $productItemId, productItemName: $productItemName, productItemPrice: $productItemPrice, productItemImageUrls: $productItemImageUrls, productItemDescription: $productItemDescription, condition: $condition, profileId: $profileId, catalogItemId: $catalogItemId, profileCollectionItemId: $profileCollectionItemId, lastSale: $lastSale, forSale: $forSale, sold: $sold, isDeleted: $isDeleted, listingItemsAction: $listingItemsAction)';
+    return 'ListingForSaleModel(accountId: $accountId, productItemId: $productItemId, productItemName: $productItemName, productItemPrice: $productItemPrice, productItemImageUrls: $productItemImageUrls, productItemDescription: $productItemDescription, condition: $condition, profileId: $profileId, catalogItemId: $catalogItemId, profileCollectionItemId: $profileCollectionItemId, lastSale: $lastSale, forSale: $forSale, sold: $sold, removedReason: $removedReason, isDeleted: $isDeleted, status: $status, listingItemsAction: $listingItemsAction)';
   }
 
   @override
@@ -327,6 +375,8 @@ class _$_ListingForSaleModel implements _ListingForSaleModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ListingForSaleModel &&
+            (identical(other.accountId, accountId) ||
+                other.accountId == accountId) &&
             (identical(other.productItemId, productItemId) ||
                 other.productItemId == productItemId) &&
             (identical(other.productItemName, productItemName) ||
@@ -350,8 +400,11 @@ class _$_ListingForSaleModel implements _ListingForSaleModel {
                 other.lastSale == lastSale) &&
             (identical(other.forSale, forSale) || other.forSale == forSale) &&
             (identical(other.sold, sold) || other.sold == sold) &&
+            (identical(other.removedReason, removedReason) ||
+                other.removedReason == removedReason) &&
             (identical(other.isDeleted, isDeleted) ||
                 other.isDeleted == isDeleted) &&
+            (identical(other.status, status) || other.status == status) &&
             (identical(other.listingItemsAction, listingItemsAction) ||
                 other.listingItemsAction == listingItemsAction));
   }
@@ -360,6 +413,7 @@ class _$_ListingForSaleModel implements _ListingForSaleModel {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      accountId,
       productItemId,
       productItemName,
       productItemPrice,
@@ -372,7 +426,9 @@ class _$_ListingForSaleModel implements _ListingForSaleModel {
       lastSale,
       forSale,
       sold,
+      removedReason,
       isDeleted,
+      status,
       listingItemsAction);
 
   @JsonKey(ignore: true)
@@ -392,7 +448,8 @@ class _$_ListingForSaleModel implements _ListingForSaleModel {
 
 abstract class _ListingForSaleModel implements ListingForSaleModel {
   const factory _ListingForSaleModel(
-      {final String? productItemId,
+      {final String? accountId,
+      final String? productItemId,
       final String? productItemName,
       final double? productItemPrice,
       final dynamic productItemImageUrls,
@@ -404,12 +461,16 @@ abstract class _ListingForSaleModel implements ListingForSaleModel {
       final double? lastSale,
       final bool? forSale,
       final bool? sold,
+      final String? removedReason,
       final bool? isDeleted,
+      final String? status,
       final String? listingItemsAction}) = _$_ListingForSaleModel;
 
   factory _ListingForSaleModel.fromJson(Map<String, dynamic> json) =
       _$_ListingForSaleModel.fromJson;
 
+  @override
+  String? get accountId;
   @override
   String? get productItemId;
   @override
@@ -435,7 +496,11 @@ abstract class _ListingForSaleModel implements ListingForSaleModel {
   @override
   bool? get sold;
   @override
+  String? get removedReason;
+  @override
   bool? get isDeleted;
+  @override
+  String? get status;
   @override
   String? get listingItemsAction;
   @override

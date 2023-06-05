@@ -13,6 +13,9 @@ import 'package:swagapp/modules/pages/search/search_on_tap_page.dart';
 import 'package:badges/badges.dart' as badges;
 
 import '../../../../common/utils/tab_wrapper.dart';
+import '../../../../cubits/paginated_search/paginated_search_cubit.dart';
+import '../../../../models/search/filter_model.dart';
+import '../../../../models/search/search_request_payload_model.dart';
 
 class SearchResultField extends StatefulWidget {
   final String searchParam;
@@ -37,7 +40,6 @@ class _SearchResultFieldState extends State<SearchResultField> {
           child: InkWell(
             onTap: () async {
               this.widget.textEditingController.text = '';
-              Navigator.pop(context);
               Navigator.pop(context);
             },
             child: Icon(
@@ -74,7 +76,7 @@ class _SearchResultFieldState extends State<SearchResultField> {
                     onPressed: () async {
                       await this.setIsForSale(context, !state.model.isForSale);
                       if (!mounted) return;
-                      performSearch(context: context, tab: SearchTab.all);
+                      callApi(SearchTab.all);
                     },
                     icon: Image.asset(
                       "assets/icons/ForSale.png",
@@ -146,4 +148,33 @@ class _SearchResultFieldState extends State<SearchResultField> {
             preference.copyWith(isForSale: isForSale)));
     await getIt<PreferenceRepositoryService>().saveIsForSale(isForSale);
   }
+
+
+  getTabId(SearchTab tab) async {
+    String categoryId = await SearchTabWrapper(tab).toStringCustom() ?? "";
+    Future.delayed(const Duration(milliseconds: 500));
+    return categoryId;
+  }
+
+  callApi(SearchTab? tab) async {
+    String categoryId = "";
+    FilterModel filters = await getCurrentFilterModel();
+    if (tab != null) {
+      categoryId = await getTabId(tab);
+    } 
+    getIt<PaginatedSearchCubit>().loadResults(
+        searchModel: SearchRequestPayloadModel(
+          categoryId: (tab == SearchTab.all || tab == null || tab == SearchTab.whatsHot)
+              ? null : categoryId,
+          searchParams: (tab == SearchTab.all || tab == null)
+              ? [widget.textEditingController.text]
+              : null,
+          filters: FilterModel(
+            sortBy: filters.sortBy,
+            forSale: filters.forSale,
+          )
+        ),
+        searchTab: tab ?? SearchTab.all
+        );
+  } 
 }

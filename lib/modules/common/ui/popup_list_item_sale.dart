@@ -70,7 +70,7 @@ class _PopUpListItemSaleState extends State<PopUpListItemSale> {
                                   .textTheme
                                   .displayMedium!
                                   .copyWith(
-                                    fontFamily: "Knockout",
+                                    fontFamily: "KnockoutCustom",
                                     fontSize: 44,
                                     fontWeight: FontWeight.w300,
                                     color: Palette.current.primaryNeonGreen,
@@ -167,7 +167,7 @@ class _PopUpListItemSaleState extends State<PopUpListItemSale> {
                         if (collectionSelected != null) {
                           Navigator.pop(context);
                           Navigator.of(context, rootNavigator: true).push(
-                              ListForSalePage.route(
+                              ListForSalePage.route((){},
                                   collectionSelected, widget.catalogItemName));
                         }
                       },

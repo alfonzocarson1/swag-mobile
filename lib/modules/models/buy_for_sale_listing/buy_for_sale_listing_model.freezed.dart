@@ -29,10 +29,12 @@ mixin _$BuyForSaleListingModel {
   String? get condition => throw _privateConstructorUsedError;
   String? get profileId => throw _privateConstructorUsedError;
   String? get catalogItemId => throw _privateConstructorUsedError;
+  String? get profileCollectionItemId => throw _privateConstructorUsedError;
   double? get lastSale => throw _privateConstructorUsedError;
   bool? get forSale => throw _privateConstructorUsedError;
   bool? get sold => throw _privateConstructorUsedError;
   bool? get isDeleted => throw _privateConstructorUsedError;
+  String? get status => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -55,10 +57,12 @@ abstract class $BuyForSaleListingModelCopyWith<$Res> {
       String? condition,
       String? profileId,
       String? catalogItemId,
+      String? profileCollectionItemId,
       double? lastSale,
       bool? forSale,
       bool? sold,
-      bool? isDeleted});
+      bool? isDeleted,
+      String? status});
 }
 
 /// @nodoc
@@ -83,10 +87,12 @@ class _$BuyForSaleListingModelCopyWithImpl<$Res,
     Object? condition = freezed,
     Object? profileId = freezed,
     Object? catalogItemId = freezed,
+    Object? profileCollectionItemId = freezed,
     Object? lastSale = freezed,
     Object? forSale = freezed,
     Object? sold = freezed,
     Object? isDeleted = freezed,
+    Object? status = freezed,
   }) {
     return _then(_value.copyWith(
       productItemId: freezed == productItemId
@@ -121,6 +127,10 @@ class _$BuyForSaleListingModelCopyWithImpl<$Res,
           ? _value.catalogItemId
           : catalogItemId // ignore: cast_nullable_to_non_nullable
               as String?,
+      profileCollectionItemId: freezed == profileCollectionItemId
+          ? _value.profileCollectionItemId
+          : profileCollectionItemId // ignore: cast_nullable_to_non_nullable
+              as String?,
       lastSale: freezed == lastSale
           ? _value.lastSale
           : lastSale // ignore: cast_nullable_to_non_nullable
@@ -137,6 +147,10 @@ class _$BuyForSaleListingModelCopyWithImpl<$Res,
           ? _value.isDeleted
           : isDeleted // ignore: cast_nullable_to_non_nullable
               as bool?,
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -158,10 +172,12 @@ abstract class _$$_BuyForSaleListingModelCopyWith<$Res>
       String? condition,
       String? profileId,
       String? catalogItemId,
+      String? profileCollectionItemId,
       double? lastSale,
       bool? forSale,
       bool? sold,
-      bool? isDeleted});
+      bool? isDeleted,
+      String? status});
 }
 
 /// @nodoc
@@ -184,10 +200,12 @@ class __$$_BuyForSaleListingModelCopyWithImpl<$Res>
     Object? condition = freezed,
     Object? profileId = freezed,
     Object? catalogItemId = freezed,
+    Object? profileCollectionItemId = freezed,
     Object? lastSale = freezed,
     Object? forSale = freezed,
     Object? sold = freezed,
     Object? isDeleted = freezed,
+    Object? status = freezed,
   }) {
     return _then(_$_BuyForSaleListingModel(
       productItemId: freezed == productItemId
@@ -222,6 +240,10 @@ class __$$_BuyForSaleListingModelCopyWithImpl<$Res>
           ? _value.catalogItemId
           : catalogItemId // ignore: cast_nullable_to_non_nullable
               as String?,
+      profileCollectionItemId: freezed == profileCollectionItemId
+          ? _value.profileCollectionItemId
+          : profileCollectionItemId // ignore: cast_nullable_to_non_nullable
+              as String?,
       lastSale: freezed == lastSale
           ? _value.lastSale
           : lastSale // ignore: cast_nullable_to_non_nullable
@@ -238,6 +260,10 @@ class __$$_BuyForSaleListingModelCopyWithImpl<$Res>
           ? _value.isDeleted
           : isDeleted // ignore: cast_nullable_to_non_nullable
               as bool?,
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -255,10 +281,12 @@ class _$_BuyForSaleListingModel implements _BuyForSaleListingModel {
       this.condition,
       this.profileId,
       this.catalogItemId,
+      this.profileCollectionItemId,
       this.lastSale,
       this.forSale,
       this.sold,
-      this.isDeleted})
+      this.isDeleted,
+      this.status})
       : _productItemImageUrls = productItemImageUrls;
 
   factory _$_BuyForSaleListingModel.fromJson(Map<String, dynamic> json) =>
@@ -288,6 +316,8 @@ class _$_BuyForSaleListingModel implements _BuyForSaleListingModel {
   @override
   final String? catalogItemId;
   @override
+  final String? profileCollectionItemId;
+  @override
   final double? lastSale;
   @override
   final bool? forSale;
@@ -295,10 +325,12 @@ class _$_BuyForSaleListingModel implements _BuyForSaleListingModel {
   final bool? sold;
   @override
   final bool? isDeleted;
+  @override
+  final String? status;
 
   @override
   String toString() {
-    return 'BuyForSaleListingModel(productItemId: $productItemId, productItemName: $productItemName, productItemPrice: $productItemPrice, productItemImageUrls: $productItemImageUrls, productItemDescription: $productItemDescription, condition: $condition, profileId: $profileId, catalogItemId: $catalogItemId, lastSale: $lastSale, forSale: $forSale, sold: $sold, isDeleted: $isDeleted)';
+    return 'BuyForSaleListingModel(productItemId: $productItemId, productItemName: $productItemName, productItemPrice: $productItemPrice, productItemImageUrls: $productItemImageUrls, productItemDescription: $productItemDescription, condition: $condition, profileId: $profileId, catalogItemId: $catalogItemId, profileCollectionItemId: $profileCollectionItemId, lastSale: $lastSale, forSale: $forSale, sold: $sold, isDeleted: $isDeleted, status: $status)';
   }
 
   @override
@@ -322,12 +354,16 @@ class _$_BuyForSaleListingModel implements _BuyForSaleListingModel {
                 other.profileId == profileId) &&
             (identical(other.catalogItemId, catalogItemId) ||
                 other.catalogItemId == catalogItemId) &&
+            (identical(
+                    other.profileCollectionItemId, profileCollectionItemId) ||
+                other.profileCollectionItemId == profileCollectionItemId) &&
             (identical(other.lastSale, lastSale) ||
                 other.lastSale == lastSale) &&
             (identical(other.forSale, forSale) || other.forSale == forSale) &&
             (identical(other.sold, sold) || other.sold == sold) &&
             (identical(other.isDeleted, isDeleted) ||
-                other.isDeleted == isDeleted));
+                other.isDeleted == isDeleted) &&
+            (identical(other.status, status) || other.status == status));
   }
 
   @JsonKey(ignore: true)
@@ -342,10 +378,12 @@ class _$_BuyForSaleListingModel implements _BuyForSaleListingModel {
       condition,
       profileId,
       catalogItemId,
+      profileCollectionItemId,
       lastSale,
       forSale,
       sold,
-      isDeleted);
+      isDeleted,
+      status);
 
   @JsonKey(ignore: true)
   @override
@@ -372,10 +410,12 @@ abstract class _BuyForSaleListingModel implements BuyForSaleListingModel {
       final String? condition,
       final String? profileId,
       final String? catalogItemId,
+      final String? profileCollectionItemId,
       final double? lastSale,
       final bool? forSale,
       final bool? sold,
-      final bool? isDeleted}) = _$_BuyForSaleListingModel;
+      final bool? isDeleted,
+      final String? status}) = _$_BuyForSaleListingModel;
 
   factory _BuyForSaleListingModel.fromJson(Map<String, dynamic> json) =
       _$_BuyForSaleListingModel.fromJson;
@@ -397,6 +437,8 @@ abstract class _BuyForSaleListingModel implements BuyForSaleListingModel {
   @override
   String? get catalogItemId;
   @override
+  String? get profileCollectionItemId;
+  @override
   double? get lastSale;
   @override
   bool? get forSale;
@@ -404,6 +446,8 @@ abstract class _BuyForSaleListingModel implements BuyForSaleListingModel {
   bool? get sold;
   @override
   bool? get isDeleted;
+  @override
+  String? get status;
   @override
   @JsonKey(ignore: true)
   _$$_BuyForSaleListingModelCopyWith<_$_BuyForSaleListingModel> get copyWith =>

@@ -31,12 +31,21 @@ class _HomePage extends State<HomePage> {
   final PersistentTabController _controller = PersistentTabController(initialIndex: 0);
   int indexTap = 0;
 
-  final List<Widget> widgetsChildren = [
-    const ExplorePage(),
-    const SearchPage(),
-    const AlertPage(),
-    const ProfilePage()
-  ];
+  List<Widget> widgetsChildren = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    widgetsChildren = [
+      ExplorePage(pageFromExplore: () {
+        onTapTapped(1);
+      }),
+      const SearchPage(),
+      const AlertPage(),
+      const ProfilePage()
+    ];
+  }
 
   void onTapTapped(int index) {
 

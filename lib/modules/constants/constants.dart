@@ -1,5 +1,9 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
 import '../data/shared_preferences/shared_preferences_service.dart';
 import '../di/injector.dart';
+import '../models/overlay_buton/overlay_button_model.dart';
 import '../models/search/category_model.dart';
 
 const String hostProd = "dev.core-api.app.net";
@@ -18,8 +22,10 @@ const filterNotApplied = -1;
 const maxCharactersForGridViewTitle = 25;
 const maxCharactersForGridViewDesc = 22;
 const defaultPageSize = 20;
+const String defaultCountry = "United States";
+const String defaultState = "State";
 
-const countries = [
+const countriesCode = [
   "US",
   "CA",
   "GB",
@@ -33,7 +39,49 @@ const countries = [
   "KR",
 ];
 
-enum FilterType { sortBy, condition, price, releaseDate, product, collection, theme, type }
+const countries = [
+'Australia',
+'Canada',
+'China',
+'Germany',
+'Hong Kong',
+'Japan',
+'Korea',
+'Singapore',
+'Sweden',
+'United Kingdom',
+'United States',
+];
+
+const stateCodes = [
+  'AA', 'AE', 'AK', 'AL', 'AP', 'AR', 'AS', 'AZ', 'CA', 'CO', 
+  'CT', 'DC', 'DE', 'FL', 'GA', 'GU', 'HI', 'IA', 'ID', 'IL', 
+  'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI', 'MN', 'MO', 
+  'MP', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 
+  'NY', 'OH', 'OK', 'OR', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 
+  'TX', 'UM', 'UT', 'VA', 'VI', 'VT', 'WA', 'WI', 'WV', 'WY'
+];
+
+const itemConditions = [
+    'Condition',
+    'Sealed',
+    'Displayed',
+    'Gamed',
+  ];
+
+ 
+
+const List<CustomOverlayItemModel> editListingDropDown = [
+  CustomOverlayItemModel(imagePath: 'assets/icons/editWhite.png', label: 'Edit listing'),
+  CustomOverlayItemModel(imagePath: 'assets/icons/xCircle.png', label: 'Remove listing'),
+];
+
+const List<CustomOverlayItemModel>  reportListingDropDown = [
+  CustomOverlayItemModel(imagePath: 'assets/icons/BlockUserWhite.png', label: 'Block user'),
+  CustomOverlayItemModel(imagePath: 'assets/icons/ReportUserWhite.png', label: 'Report User'),
+];
+
+enum FilterType { sortBy, condition, price, releaseDate, category, collection, theme, type }
 
 enum ReleaseDate {
   y2018,
@@ -43,6 +91,14 @@ enum ReleaseDate {
   y2022,
   y2023,
 }
+
+
+ 
+enum EditingListingStatus {
+  editing,
+  listed,
+  removed,
+} 
 
 class ReleaseDateWrapper {
   final ReleaseDate type;

@@ -29,7 +29,9 @@ mixin _$ProfileModel {
   String get email => throw _privateConstructorUsedError;
   List<AddressesPayloadModel>? get addresses =>
       throw _privateConstructorUsedError;
+  double get collectionValue => throw _privateConstructorUsedError;
   bool get accountVerified => throw _privateConstructorUsedError;
+  bool get emailVerified => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -52,7 +54,9 @@ abstract class $ProfileModelCopyWith<$Res> {
       String phoneNumber,
       String email,
       List<AddressesPayloadModel>? addresses,
-      bool accountVerified});
+      double collectionValue,
+      bool accountVerified,
+      bool emailVerified});
 }
 
 /// @nodoc
@@ -76,7 +80,9 @@ class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
     Object? phoneNumber = null,
     Object? email = null,
     Object? addresses = freezed,
+    Object? collectionValue = null,
     Object? accountVerified = null,
+    Object? emailVerified = null,
   }) {
     return _then(_value.copyWith(
       accountId: null == accountId
@@ -111,9 +117,17 @@ class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
           ? _value.addresses
           : addresses // ignore: cast_nullable_to_non_nullable
               as List<AddressesPayloadModel>?,
+      collectionValue: null == collectionValue
+          ? _value.collectionValue
+          : collectionValue // ignore: cast_nullable_to_non_nullable
+              as double,
       accountVerified: null == accountVerified
           ? _value.accountVerified
           : accountVerified // ignore: cast_nullable_to_non_nullable
+              as bool,
+      emailVerified: null == emailVerified
+          ? _value.emailVerified
+          : emailVerified // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
   }
@@ -136,7 +150,9 @@ abstract class _$$_ProfileModelCopyWith<$Res>
       String phoneNumber,
       String email,
       List<AddressesPayloadModel>? addresses,
-      bool accountVerified});
+      double collectionValue,
+      bool accountVerified,
+      bool emailVerified});
 }
 
 /// @nodoc
@@ -158,7 +174,9 @@ class __$$_ProfileModelCopyWithImpl<$Res>
     Object? phoneNumber = null,
     Object? email = null,
     Object? addresses = freezed,
+    Object? collectionValue = null,
     Object? accountVerified = null,
+    Object? emailVerified = null,
   }) {
     return _then(_$_ProfileModel(
       accountId: null == accountId
@@ -193,9 +211,17 @@ class __$$_ProfileModelCopyWithImpl<$Res>
           ? _value._addresses
           : addresses // ignore: cast_nullable_to_non_nullable
               as List<AddressesPayloadModel>?,
+      collectionValue: null == collectionValue
+          ? _value.collectionValue
+          : collectionValue // ignore: cast_nullable_to_non_nullable
+              as double,
       accountVerified: null == accountVerified
           ? _value.accountVerified
           : accountVerified // ignore: cast_nullable_to_non_nullable
+              as bool,
+      emailVerified: null == emailVerified
+          ? _value.emailVerified
+          : emailVerified // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -214,7 +240,9 @@ class _$_ProfileModel implements _ProfileModel {
       required this.phoneNumber,
       required this.email,
       final List<AddressesPayloadModel>? addresses,
-      required this.accountVerified})
+      required this.collectionValue,
+      required this.accountVerified,
+      required this.emailVerified})
       : _addresses = addresses;
 
   factory _$_ProfileModel.fromJson(Map<String, dynamic> json) =>
@@ -245,11 +273,15 @@ class _$_ProfileModel implements _ProfileModel {
   }
 
   @override
+  final double collectionValue;
+  @override
   final bool accountVerified;
+  @override
+  final bool emailVerified;
 
   @override
   String toString() {
-    return 'ProfileModel(accountId: $accountId, username: $username, useAvatar: $useAvatar, avatarUrl: $avatarUrl, listingsRating: $listingsRating, phoneNumber: $phoneNumber, email: $email, addresses: $addresses, accountVerified: $accountVerified)';
+    return 'ProfileModel(accountId: $accountId, username: $username, useAvatar: $useAvatar, avatarUrl: $avatarUrl, listingsRating: $listingsRating, phoneNumber: $phoneNumber, email: $email, addresses: $addresses, collectionValue: $collectionValue, accountVerified: $accountVerified, emailVerified: $emailVerified)';
   }
 
   @override
@@ -272,8 +304,12 @@ class _$_ProfileModel implements _ProfileModel {
             (identical(other.email, email) || other.email == email) &&
             const DeepCollectionEquality()
                 .equals(other._addresses, _addresses) &&
+            (identical(other.collectionValue, collectionValue) ||
+                other.collectionValue == collectionValue) &&
             (identical(other.accountVerified, accountVerified) ||
-                other.accountVerified == accountVerified));
+                other.accountVerified == accountVerified) &&
+            (identical(other.emailVerified, emailVerified) ||
+                other.emailVerified == emailVerified));
   }
 
   @JsonKey(ignore: true)
@@ -288,7 +324,9 @@ class _$_ProfileModel implements _ProfileModel {
       phoneNumber,
       email,
       const DeepCollectionEquality().hash(_addresses),
-      accountVerified);
+      collectionValue,
+      accountVerified,
+      emailVerified);
 
   @JsonKey(ignore: true)
   @override
@@ -314,7 +352,9 @@ abstract class _ProfileModel implements ProfileModel {
       required final String phoneNumber,
       required final String email,
       final List<AddressesPayloadModel>? addresses,
-      required final bool accountVerified}) = _$_ProfileModel;
+      required final double collectionValue,
+      required final bool accountVerified,
+      required final bool emailVerified}) = _$_ProfileModel;
 
   factory _ProfileModel.fromJson(Map<String, dynamic> json) =
       _$_ProfileModel.fromJson;
@@ -336,7 +376,11 @@ abstract class _ProfileModel implements ProfileModel {
   @override
   List<AddressesPayloadModel>? get addresses;
   @override
+  double get collectionValue;
+  @override
   bool get accountVerified;
+  @override
+  bool get emailVerified;
   @override
   @JsonKey(ignore: true)
   _$$_ProfileModelCopyWith<_$_ProfileModel> get copyWith =>

@@ -6,6 +6,7 @@ import 'package:swagapp/modules/models/filters/dynamic_filters.dart';
 import '../../constants/constants.dart';
 import '../../models/profile/profile_model.dart';
 import '../../models/search/category_model.dart';
+import '../../models/settings/peer_to_peer_payments_get_model.dart';
 import 'i_shared_preferences.dart';
 
 class PreferenceRepositoryService implements PreferenceRepositoryInt {
@@ -28,6 +29,8 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   static const String _searchesWithFilters = 'searchesWithFilters';
   static const String _forgotPasswordFlow = 'forgotPasswordFlow';
   static const String _profileData = 'profileData';
+  static const String _paymentData = 'paymentData';
+
   static const String _dynamicFilters = 'dynamicFilters';
   static const String _collection = 'collection';
   static const String _themes = 'themes';
@@ -36,6 +39,7 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   static const String _userSendBirdToken = 'userSendBirdToken';
   static const String _firebaseDeviceToken = 'firebaseDeviceToken';
   static const String _currentPageName = 'currentPageName';
+  static const String _pageFromExplore = 'pageFromExplore';
 
   late SharedPreferences _prefs;
   @override
@@ -229,15 +233,17 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
 
   @override
   List<String> getRecentSearchesWithFilters() {
-    List<String> searchesWithFilters = this._prefs.getStringList(_searchesWithFilters) ?? [];
+    List<String> searchesWithFilters =
+        this._prefs.getStringList(_searchesWithFilters) ?? [];
     return searchesWithFilters;
   }
 
   @override
-  Future<void> saveRecentSearchesWithFilters( {
+  Future<void> saveRecentSearchesWithFilters({
     required String searchPayload,
   }) async {
-    List<String> searchesWithFilters = this._prefs.getStringList(_searchesWithFilters) ?? [];
+    List<String> searchesWithFilters =
+        this._prefs.getStringList(_searchesWithFilters) ?? [];
     searchesWithFilters.add(searchPayload);
     await this._prefs.setStringList(_searchesWithFilters, searchesWithFilters);
   }
@@ -265,24 +271,38 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   }
 
   @override
+  Future<void> savePaymentData(PeerToPeerPaymentsGetModel paymentData) async {
+    await _prefs.setString(_paymentData, jsonEncode(paymentData));
+  }
+
+  @override
+  PeerToPeerPaymentsGetModel paymanetData() {
+    final paymentData = _prefs.getString(_paymentData);
+
+    return PeerToPeerPaymentsGetModel.fromJson(json.decode(paymentData ?? ''));
+  }
+
+  @override
   DynamicFilters? getDynamicFilters() {
-
     String dynamicFiltersString = this._prefs.getString(_dynamicFilters) ?? '';
-    Map<String, dynamic>? dynamicFiltersJson = (dynamicFiltersString.isNotEmpty) 
-    ? json.decode(dynamicFiltersString)
-    : null;
+    Map<String, dynamic>? dynamicFiltersJson = (dynamicFiltersString.isNotEmpty)
+        ? json.decode(dynamicFiltersString)
+        : null;
 
-    return (dynamicFiltersJson != null) ? DynamicFilters.fromJson(dynamicFiltersJson) : null;
+    return (dynamicFiltersJson != null)
+        ? DynamicFilters.fromJson(dynamicFiltersJson)
+        : null;
   }
 
   @override
   Future<void> saveDynamicFilters(DynamicFilters dynamicFilters) async {
-    
-    await this._prefs.setString(_dynamicFilters, json.encode(dynamicFilters.toJson()));
+    await this
+        ._prefs
+        .setString(_dynamicFilters, json.encode(dynamicFilters.toJson()));
   }
 
   @override
-  List<String> getCollection()=> this._prefs.getStringList(_collection) ?? [];
+  List<String> getCollection() => this._prefs.getStringList(_collection) ?? [];
 
   @override
   Future<void> saveCollection(List<String> collections) async {
@@ -290,7 +310,7 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   }
 
   @override
-  List<String> getThemes()=> this._prefs.getStringList(_themes) ?? [];
+  List<String> getThemes() => this._prefs.getStringList(_themes) ?? [];
 
   @override
   Future<void> saveThemes(List<String> themes) async {
@@ -298,7 +318,7 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   }
 
   @override
-  List<String> getTypes()=> this._prefs.getStringList(_types) ?? [];
+  List<String> getTypes() => this._prefs.getStringList(_types) ?? [];
 
   @override
   Future<void> saveTypes(List<String> types) async {
@@ -340,4 +360,14 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
     await this._prefs.setString(_currentPageName, pageName);
   }
 
+  @override
+  int getPageFromExplore() {
+    final pageFromExplore = _prefs.getInt(_pageFromExplore);
+    return pageFromExplore ?? defaultInt;
+  }
+
+  @override
+  Future<void> setPageFromExplore(int value) async {
+    await _prefs.setInt(_pageFromExplore, value);
+  }
 }

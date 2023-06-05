@@ -1,18 +1,27 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
+import 'package:swagapp/modules/cubits/profile/get_profile_cubit.dart';
 
 import '../../../../generated/l10n.dart';
+import '../../../blocs/detail_bloc/detail_bloc.dart';
 import '../../../blocs/listing_bloc/listing_bloc.dart';
 import '../../../common/ui/loading.dart';
 import '../../../common/ui/multi_image_slide.dart';
 import '../../../common/ui/primary_button.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
+import '../../../common/utils/utils.dart';
+import '../../../constants/constants.dart';
+import '../../../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
+import '../../../di/injector.dart';
+import '../../../models/detail/detail_collection_model.dart';
 import '../../../models/listing_for_sale/listing_for_sale_model.dart';
+import '../../../models/overlay_buton/overlay_button_model.dart';
+
 import 'footer_list_item_page.dart';
 
 class ListItemPreviewPage extends StatefulWidget {
@@ -20,6 +29,7 @@ class ListItemPreviewPage extends StatefulWidget {
 
   ListItemPreviewPage(
       {super.key,
+      required this.isUpdate,
       required this.imgList,
       required this.itemName,
       required this.itemPrice,
@@ -27,23 +37,43 @@ class ListItemPreviewPage extends StatefulWidget {
       required this.itemDescription,
       required this.profileCollectionItemId,
       required this.catalogItemId,
+      this.profileId,
+      this.productItemId,
+      this.imgUrls,
       required this.onClose});
 
-  final List<XFile> imgList;
+  final List<File> imgList;
+  final bool isUpdate;
   final String itemName;
   final double itemPrice;
   final String itemCondition;
   final String itemDescription;
   final String profileCollectionItemId;
   final String catalogItemId;
+  final String? productItemId;
+  final String? profileId;
+  final List<String>? imgUrls;
   final Function() onClose;
 
-  static Route route(imgList, itemName, itemPrice, itemCondition,
-          itemDescription, profileCollectionItemId, catalogItemId, onClose) =>
+  static Route route(
+          {isUpdate,
+          productItemId,
+          imgList,
+          imgUrls,
+          itemName,
+          itemPrice,
+          itemCondition,
+          itemDescription,
+          profileCollectionItemId,
+          catalogItemId,
+          onClose}) =>
       PageRoutes.material(
         settings: const RouteSettings(name: name),
         builder: (context) => ListItemPreviewPage(
+            isUpdate: isUpdate,
+            productItemId: productItemId,
             imgList: imgList,
+            imgUrls: imgUrls,
             itemName: itemName,
             itemPrice: itemPrice,
             itemCondition: itemCondition,
@@ -58,8 +88,32 @@ class ListItemPreviewPage extends StatefulWidget {
 }
 
 class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
+  String profileId = "";
+  List<CustomOverlayItemModel> items = editListingDropDown;
+  late DetailCollectionModel collectionModel;
+
+  @override
+  void initState() {
+    super.initState();
+    getProfileData();
+  }
+
+  getProfileData() async {
+    var tempProfile =
+        await getIt<ProfileCubit>().profileService.privateProfile();
+    profileId = tempProfile.accountId;
+  }
+
   @override
   Widget build(BuildContext context) {
+    collectionModel = DetailCollectionModel(
+        profileCollectionItemId: 'profileCollectionItemId',
+        catalogItemId: 'catalogItemId',
+        purchaseDate: '',
+        purchasePrice: widget.itemPrice,
+        itemCondition: 'itemCondition',
+        itemSource: '');
+
     return Scaffold(
         extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: true,
@@ -71,8 +125,10 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                     return null;
                   },
                   loadedListingSuccess: (state) {
-                    widget.onClose();
+                    BlocProvider.of<DetailBloc>(context)
+                        .add(DetailEvent.getDetailItem(widget.catalogItemId));
                     Loading.hide(context);
+                    widget.onClose();
                     Navigator.pop(context);
                     return null;
                   },
@@ -91,7 +147,7 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
     return Container(
       constraints: BoxConstraints(
           minHeight: MediaQuery.of(context).size.height * 0.9,
-          maxHeight: MediaQuery.of(context).size.height * 0.9),
+          maxHeight: MediaQuery.of(context).size.height * 1),
       child: Stack(
         children: [
           LayoutBuilder(builder: (context, viewportConstraints) {
@@ -124,40 +180,16 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                                           .copyWith(
                                               letterSpacing: 1,
                                               fontWeight: FontWeight.w300,
-                                              fontFamily: "Knockout",
+                                              fontFamily: "KnockoutCustom",
                                               fontSize: 30,
                                               color: Palette.current.white))),
-                              Expanded(
-                                  flex: 2,
-                                  child: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: IconButton(
-                                      icon: Image.asset(
-                                        "assets/images/share.png",
-                                        scale: 3.5,
-                                      ),
-                                      onPressed: () async {},
-                                    ),
-                                  )),
-                              Expanded(
-                                  flex: 1,
-                                  child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: IconButton(
-                                      icon: Image.asset(
-                                        "assets/images/more-horizontal.png",
-                                        scale: 3.5,
-                                      ),
-                                      onPressed: () async {},
-                                    ),
-                                  ))
                             ],
                           ),
                           const SizedBox(height: 10),
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                                "${S.of(context).for_sale}: \$${widget.itemPrice}",
+                                "${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(widget.itemPrice.toString())}",
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall!
@@ -180,7 +212,9 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                                             Palette.current.primaryNeonPink)),
                           ),
                           const SizedBox(height: 10),
-                          Padding(
+                          Container(
+                            height:
+                                MediaQuery.of(context).devicePixelRatio * 70,
                             padding: const EdgeInsets.only(right: 50.0),
                             child: Text(widget.itemDescription,
                                 style: Theme.of(context)
@@ -193,28 +227,55 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                                     )),
                           ),
                           const SizedBox(height: 30),
-                          const FooterListItemPage(),
+                          const FooterListItemPage(addList: true),
                           const SizedBox(height: 30),
                           PrimaryButton(
                             title: S.of(context).post_listing_btn,
                             onPressed: () {
-                              context.read<ListingBloc>().add(
-                                  ListingEvent.createListing(
-                                      ListingForSaleModel(
-                                          productItemName: widget.itemName,
-                                          productItemPrice: widget.itemPrice,
-                                          productItemDescription:
-                                              widget.itemDescription,
-                                          sold: false,
-                                          condition: widget.itemCondition
-                                              .toUpperCase(),
-                                          listingItemsAction: "ADD",
-                                          forSale: true,
-                                          lastSale: widget.itemPrice,
-                                          catalogItemId: widget.catalogItemId,
-                                          profileCollectionItemId:
-                                              widget.profileCollectionItemId),
-                                      widget.imgList));
+                              if (widget.isUpdate == false) {
+                                context.read<ListingBloc>().add(
+                                    ListingEvent.createListing(
+                                        ListingForSaleModel(
+                                            productItemName: widget.itemName,
+                                            productItemPrice: widget.itemPrice,
+                                            productItemDescription:
+                                                widget.itemDescription,
+                                            sold: false,
+                                            condition: widget.itemCondition
+                                                .toUpperCase(),
+                                            listingItemsAction: "ADD",
+                                            forSale: true,
+                                            lastSale: widget.itemPrice,
+                                            catalogItemId: widget.catalogItemId,
+                                            profileCollectionItemId:
+                                                widget.profileCollectionItemId),
+                                        widget.imgList));
+                              } else {
+                                getIt<ListingProfileCubit>().updateListing(
+                                  ListingForSaleModel(
+                                    productItemId: widget.productItemId,
+                                    productItemName: widget.itemName,
+                                    productItemPrice: widget.itemPrice,
+                                    productItemDescription:
+                                        widget.itemDescription,
+                                    sold: false,
+                                    condition:
+                                        widget.itemCondition.toUpperCase(),
+                                    listingItemsAction: "ADD",
+                                    forSale: true,
+                                    lastSale: widget.itemPrice,
+                                    catalogItemId: widget.catalogItemId,
+                                    profileCollectionItemId:
+                                        widget.profileCollectionItemId,
+                                    status: 'Listed',
+                                  ),
+                                  widget.imgList,
+                                  widget.imgUrls ?? [],
+                                );
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                              }
                             },
                             type: PrimaryButtonType.green,
                           ),

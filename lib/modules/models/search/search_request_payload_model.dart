@@ -7,14 +7,16 @@ part 'search_request_payload_model.freezed.dart';
 part 'search_request_payload_model.g.dart';
 
 @freezed
-@JsonSerializable()
 class SearchRequestPayloadModel with _$SearchRequestPayloadModel {
+@JsonSerializable()
   const factory SearchRequestPayloadModel({
     required final FilterModel filters,
     @Default(null) final List<String>? searchParams,
     @Default(defaultPageSize) final int pageSize,
     @Default(null) final String? categoryId,
     @Default(false) final bool? whatsHotFlag,
+    @Default(false) final bool? staffPicksFlag,
+    @Default(false) final bool? unicornFlag,
   }) = _SearchRequestPayloadModel;
 
   factory SearchRequestPayloadModel.fromJson(Map<String, dynamic> json) =>

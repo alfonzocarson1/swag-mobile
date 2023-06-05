@@ -1,6 +1,11 @@
+import 'dart:convert';
+
+import 'package:csc_picker/model/select_status_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/common/utils/tab_wrapper.dart';
 import 'package:swagapp/modules/models/shared_preferences/shared_preference_model.dart';
 
@@ -27,6 +32,14 @@ bool isValidUsername(String username) {
   return RegExp(r"^.{4,20}$").hasMatch(username);
 }
 
+bool isValidCashAppTag(String cashAppTag) {
+  return RegExp(r"^(?=.*[a-zA-Z])[^\s]{1,20}$").hasMatch(cashAppTag);
+}
+
+bool isValidVenmoUser(String venmoUser) {
+  return RegExp(r"^[-_a-zA-Z0-9]{5,10}$").hasMatch(venmoUser);
+}
+
 bool isValidNumberDot(String number) {
   return RegExp(r"^[0-9]+\.[0-9][0-9]$").hasMatch(number);
 }
@@ -43,6 +56,42 @@ String formatDate(String dateTime) {
   return formatted;
 }
 
+String decimalDigitsLastSalePrice(String lastSale) {
+  if (lastSale != "N/A") {
+    var decimalDigitsLastSalePrice = lastSale.split('.');
+    var oCcy = NumberFormat.currency(
+        locale: 'en_US', customPattern: '#,###', decimalDigits: 3);
+
+    if (decimalDigitsLastSalePrice[0][0] == "\$") {
+      decimalDigitsLastSalePrice[0] =
+          decimalDigitsLastSalePrice[0].toString().split('\$').join('');
+    }
+
+    if (decimalDigitsLastSalePrice[0].length > 3) {
+      var thousandDigits =
+          oCcy.format(int.parse(decimalDigitsLastSalePrice[0].toString()));
+
+      var splitThousandDigits = thousandDigits.split('.');
+
+      var lastPrice =
+          '\$${splitThousandDigits[0]}.${decimalDigitsLastSalePrice[1].length == 1 ? '${decimalDigitsLastSalePrice[1]}0' : decimalDigitsLastSalePrice[1]}';
+
+      return lastPrice;
+    } else {
+      var addDecimalLastSalePrice =
+          decimalDigitsLastSalePrice[1].length == 1 ? '${lastSale}0' : lastSale;
+
+      if (addDecimalLastSalePrice[0] != '\$') {
+        addDecimalLastSalePrice = '\$$addDecimalLastSalePrice';
+      }
+
+      return addDecimalLastSalePrice;
+    }
+  } else {
+    return lastSale;
+  }
+}
+
 bool isTokenValid(String? token) {
   return token != null && token != defaultString;
 }
@@ -53,21 +102,6 @@ Future<void> performSearch({
   String? searchParam,
   SearchRequestPayloadModel? searchWithFilters,
 }) async {
-  final sharedPref = getIt<PreferenceRepositoryService>();
-  final conditionList = sharedPref.getCondition().map(int.parse).toList();
-  final releaseList = sharedPref.getReleaseDate().map(int.parse).toList();
-  final priceList = sharedPref.getPrice().map(int.parse).toList();
-  final productList = sharedPref.getProduct().map(int.parse).toList();
-
-  updateSelectedFiltersAndSortsNumber(
-    context, [
-    sharedPref.isForSale(),
-    conditionList.isNotEmpty,
-    releaseList.isNotEmpty,
-    priceList.isNotEmpty,
-    productList.isNotEmpty
-  ]);
-
   SearchRequestPayloadModel payload = (searchWithFilters != null)
       ? searchWithFilters
       : SearchRequestPayloadModel(
@@ -77,6 +111,8 @@ Future<void> performSearch({
               : await SearchTabWrapper(tab).toStringCustom(),
           filters: await getCurrentFilterModel(),
         );
+
+  updateSelectedFiltersAndSortsNumber(context, tab: tab);
 
   context
       .read<SearchBloc>()
@@ -93,36 +129,83 @@ Future<FilterModel> getCurrentFilterModel() async {
   List<String> theme = sharedPref.getThemes();
   List<String> type = sharedPref.getTypes();
   bool isForSale = sharedPref.isForSale();
+  int sortBy = sharedPref.getSortBy();
 
   return FilterModel(
     forSale: isForSale,
-    sortBy: sharedPref.getSortBy(),
-    priceRanges: sharedPref.getPrice().isEmpty || sharedPref.getPrice().length == Price.values.length
-      ? null
-      : getPriceRangeList(priceList),
-    releaseYears: sharedPref.getReleaseDate().isEmpty || sharedPref.getReleaseDate().length == ReleaseDate.values.length
-      ? null
-      : getReleaseYearsList(releaseList),
-    conditions: sharedPref.getCondition().isEmpty || sharedPref.getCondition().length == Condition.values.length
-      ? null
-      : getConditionStringList(conditionList),
-    productType: sharedPref.getProduct().isEmpty || sharedPref.getProduct().length == Product.values.length
-      ? null
-      : await getProductStringList(productList),
+    sortBy: sortBy,
+    priceRanges: sharedPref.getPrice().isEmpty ||
+            sharedPref.getPrice().length == Price.values.length
+        ? null
+        : getPriceRangeList(priceList),
+    releaseYears: sharedPref.getReleaseDate().isEmpty ||
+            sharedPref.getReleaseDate().length == ReleaseDate.values.length
+        ? null
+        : getReleaseYearsList(releaseList),
+    conditions: sharedPref.getCondition().isEmpty ||
+            sharedPref.getCondition().length == Condition.values.length
+        ? null
+        : getConditionStringList(conditionList),
+    productType: sharedPref.getProduct().isEmpty ||
+            sharedPref.getProduct().length == Product.values.length
+        ? null
+        : await getProductStringList(productList),
     collection: collection.isEmpty ? null : collection,
     theme: theme.isEmpty ? null : theme,
     type: type.isEmpty ? null : type,
   );
 }
 
-void updateSelectedFiltersAndSortsNumber(
-    BuildContext context, List<bool> list) {
+clearFilters(BuildContext context) {
   final preference = context.read<SharedPreferencesBloc>().state.model;
 
   context.read<SharedPreferencesBloc>().add(
       SharedPreferencesEvent.setPreference(preference.copyWith(
+          isForSale: false,
+          collection: [],
+          condition: [],
+          isListView: true,
+          price: [],
+          product: [],
+          releaseDate: [],
+          theme: [],
+          sortBy: 0,
+          type: [],
+          filtersAndSortsSelected: 0)));
+}
+
+void updateSelectedFiltersAndSortsNumber(BuildContext context,
+    {SearchTab? tab}) {
+  final sharedPref = getIt<PreferenceRepositoryService>();
+  final sortBy = sharedPref.getSortBy();
+  final preference = context.read<SharedPreferencesBloc>().state.model;
+  final conditionList = sharedPref.getCondition().map(int.parse).toList();
+  final releaseList = sharedPref.getReleaseDate().map(int.parse).toList();
+  final priceList = sharedPref.getPrice().map(int.parse).toList();
+  final categorylist = sharedPref.getProduct().map(int.parse).toList();
+  final typeList = sharedPref.getTypes();
+  final collectionList = sharedPref.getCollection();
+  final themeList = sharedPref.getThemes();
+
+  List<bool> list = [
+    sharedPref.isForSale(),
+    sortBy != 0,
+    conditionList.isNotEmpty,
+    releaseList.isNotEmpty,
+    priceList.isNotEmpty,
+    categorylist.isNotEmpty,
+    typeList.isNotEmpty,
+    collectionList.isNotEmpty,
+    themeList.isNotEmpty,
+  ];
+
+  context.read<SharedPreferencesBloc>().add(
+      SharedPreferencesEvent.setPreference(preference.copyWith(
           isForSale: list[0],
-          filtersAndSortsSelected: list.where((c) => c).length)));
+          filtersAndSortsSelected:
+              (tab == null || tab == SearchTab.whatsHot || tab == SearchTab.all)
+                  ? list.where((c) => c).length
+                  : list.where((c) => c).length - 1)));
 }
 
 List<int> getPriceRangeList(List<int> priceList) {
@@ -140,11 +223,15 @@ List<int> getPriceRangeList(List<int> priceList) {
     list.addAll(range.map(int.parse).toList());
   }
 
-  var maximumNumber =
-      list.reduce((value, element) => value > element ? value : element);
-  var minimumNumber =
-      list.reduce((value, element) => value < element ? value : element);
-  return [minimumNumber, maximumNumber];
+  if (list.length != 1) {
+    var maximumNumber =
+        list.reduce((value, element) => value > element ? value : element);
+    var minimumNumber =
+        list.reduce((value, element) => value < element ? value : element);
+    return [minimumNumber, maximumNumber];
+  } else {
+    return [list.reduce((value, element) => value > element ? value : element)];
+  }
 }
 
 List<int> getReleaseYearsList(List<int> releaseList) {
@@ -192,6 +279,9 @@ Future<void> initFiltersAndSorts({int selectedProductNumber = 0}) async {
   await getIt<PreferenceRepositoryService>().setPrice([]);
   await getIt<PreferenceRepositoryService>().setReleaseDate([]);
   await getIt<PreferenceRepositoryService>().setProduct(selectedProduct);
+  await getIt<PreferenceRepositoryService>().saveCollection([]);
+  await getIt<PreferenceRepositoryService>().saveThemes([]);
+  await getIt<PreferenceRepositoryService>().saveTypes([]);
 }
 
 void initUtilsPreference() =>
@@ -202,19 +292,101 @@ void initFilterAndSortsWithBloc(BuildContext context,
   context.read<SharedPreferencesBloc>().add(
         SharedPreferencesEvent.setPreference(
           SharedPreferenceModel(
-            isListView: true,
-            isForSale: false,
-            sortBy: defaultInt,
-            condition: [],
-            price: [],
-            product:
-                (selectedProductNumber != null && selectedProductNumber != 0)
-                    ? [selectedProductNumber - 1]
-                    : [],
-            releaseDate: [],
-          ),
+              isListView: true,
+              isForSale: false,
+              sortBy: 0,
+              condition: [],
+              price: [],
+              product:
+                  (selectedProductNumber != null && selectedProductNumber != 0)
+                      ? [selectedProductNumber - 1]
+                      : [],
+              releaseDate: [],
+              collection: [],
+              theme: [],
+              type: []),
         ),
       );
+}
+
+Widget selectSettings(
+    BuildContext context,
+    String iconUrl,
+    String title,
+    String subTitle,
+    Function()? onTap,
+    Widget trailing,
+    Widget? customSubTitle) {
+  return InkWell(
+    onTap: onTap,
+    splashColor: Palette.current.primaryNero,
+    child: ListTile(
+      leading: Image.asset(
+        iconUrl,
+        scale: 3,
+      ),
+      title: Text(title,
+          style: Theme.of(context).textTheme.bodySmall!.copyWith(
+              fontWeight: FontWeight.w400,
+              color: Palette.current.primaryWhiteSmoke,
+              fontSize: 16)),
+      subtitle: (subTitle.isEmpty && customSubTitle == null)
+          ? null
+          : customSubTitle ??
+              Text(subTitle,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall!
+                      .copyWith(color: Palette.current.grey, fontSize: 14)),
+      trailing: trailing,
+    ),
+  );
+}
+
+String toCamelCase(String input) {
+  if (input.isEmpty) {
+    return input;
+  }
+
+  List<String> words = input.split(RegExp(r'\s+|-|_'));
+
+  for (int i = 1; i < words.length; i++) {
+    String word = words[i];
+    if (word.isNotEmpty) {
+      words[i] = word[0].toUpperCase() + word.substring(1);
+    }
+  }
+
+  return words.join();}
+
+final _states = ['State'];
+
+Future<dynamic> getCountryJson() async {
+  var res = await rootBundle
+      .loadString('packages/csc_picker/lib/assets/country.json');
+  return jsonDecode(res);
+}
+
+///get states from json response
+Future<List<String?>> getStates(String country) async {
+  _states.clear();
+  var response = await getCountryJson();
+
+  var takeState = response
+      .map((map) => Country.fromJson(map))
+      .where((item) => item.name == country)
+      .map((item) => item.state)
+      .toList();
+  var states = takeState as List;
+
+  for (var f in states) {
+    var name = f.map((item) => item.name).toList();
+    for (var stateName in name) {
+      _states.add(stateName.toString());
+    }
+  }
+  _states.sort((a, b) => a.compareTo(b));
+  return _states;
 }
 
 List<dynamic> imagesList = [

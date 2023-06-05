@@ -228,7 +228,7 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
                 .headlineMedium!
                 .copyWith(
                     fontFamily: "KnockoutCustom",
-                    fontSize: 21,
+                    fontSize: 20,
                     letterSpacing: 1.1,
                     fontWeight: FontWeight.w300),
             labelStyle: Theme.of(context).textTheme.headlineMedium!.copyWith(

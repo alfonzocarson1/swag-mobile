@@ -9,6 +9,7 @@ part of 'listing_for_sale_model.dart';
 _$_ListingForSaleModel _$$_ListingForSaleModelFromJson(
         Map<String, dynamic> json) =>
     _$_ListingForSaleModel(
+      accountId: json['accountId'] as String?,
       productItemId: json['productItemId'] as String?,
       productItemName: json['productItemName'] as String?,
       productItemPrice: (json['productItemPrice'] as num?)?.toDouble(),
@@ -21,7 +22,9 @@ _$_ListingForSaleModel _$$_ListingForSaleModelFromJson(
       lastSale: (json['lastSale'] as num?)?.toDouble(),
       forSale: json['forSale'] as bool?,
       sold: json['sold'] as bool?,
+      removedReason: json['removedReason'] as String?,
       isDeleted: json['isDeleted'] as bool?,
+      status: json['status'] as String?,
       listingItemsAction: json['listingItemsAction'] as String?,
     );
 
@@ -35,6 +38,7 @@ Map<String, dynamic> _$$_ListingForSaleModelToJson(
     }
   }
 
+  writeNotNull('accountId', instance.accountId);
   writeNotNull('productItemId', instance.productItemId);
   writeNotNull('productItemName', instance.productItemName);
   writeNotNull('productItemPrice', instance.productItemPrice);
@@ -47,7 +51,9 @@ Map<String, dynamic> _$$_ListingForSaleModelToJson(
   writeNotNull('lastSale', instance.lastSale);
   writeNotNull('forSale', instance.forSale);
   writeNotNull('sold', instance.sold);
+  writeNotNull('removedReason', instance.removedReason);
   writeNotNull('isDeleted', instance.isDeleted);
+  writeNotNull('status', instance.status);
   writeNotNull('listingItemsAction', instance.listingItemsAction);
   return val;
 }

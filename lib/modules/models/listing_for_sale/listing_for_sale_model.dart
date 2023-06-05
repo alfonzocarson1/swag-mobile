@@ -4,10 +4,12 @@ part 'listing_for_sale_model.freezed.dart';
 part 'listing_for_sale_model.g.dart';
 
 @freezed
-@JsonSerializable(includeIfNull: false)
 class ListingForSaleModel with _$ListingForSaleModel {
+@JsonSerializable(includeIfNull: false)
   const factory ListingForSaleModel(
-      {final String? productItemId,
+      {
+      final String? accountId,
+      final String? productItemId,
       final String? productItemName,
       final double? productItemPrice,
       final dynamic productItemImageUrls,
@@ -19,7 +21,9 @@ class ListingForSaleModel with _$ListingForSaleModel {
       final double? lastSale,
       final bool? forSale,
       final bool? sold,
+      final String? removedReason,
       final bool? isDeleted,
+      final String? status,
       final String? listingItemsAction}) = _ListingForSaleModel;
 
   factory ListingForSaleModel.fromJson(Map<String, dynamic> json) =>

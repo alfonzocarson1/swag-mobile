@@ -1,15 +1,17 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../search/catalog_item_model.dart';
+
 part 'explore_item_model.freezed.dart';
 part 'explore_item_model.g.dart';
 
 @freezed
-@JsonSerializable()
-class ExploreItemModel with _$ExploreItemModel {
-  const factory ExploreItemModel({
-    required final String image,
-  }) = _ExploreItemModel;
+class ListExploreItemModel with _$ListExploreItemModel {
+  @JsonSerializable()
+  const factory ListExploreItemModel({
+    required final List<CatalogItemModel> exploreList,
+  }) = _ListExploreItemModel;
 
-  factory ExploreItemModel.fromJson(Map<String, dynamic> json) =>
-      _$ExploreItemModelFromJson(json);
+  factory ListExploreItemModel.fromJson(Map<String, dynamic> json) =>
+      _$ListExploreItemModelFromJson(json);
 }

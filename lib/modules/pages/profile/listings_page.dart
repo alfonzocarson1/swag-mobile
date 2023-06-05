@@ -1,6 +1,12 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:swagapp/modules/models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
+import 'package:swagapp/modules/pages/add/buy/preview_buy_for_sale.dart';
+
 
 import '../../../generated/l10n.dart';
 import '../../blocs/listing_bloc/listing_bloc.dart';
@@ -8,6 +14,7 @@ import '../../common/ui/refresh_widget.dart';
 import '../../common/ui/simple_loader.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
+import '../../common/utils/utils.dart';
 import '../../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
 import '../../di/injector.dart';
 import '../../models/listing_for_sale/listing_for_sale_model.dart';
@@ -27,11 +34,18 @@ class ListingsPage extends StatefulWidget {
 }
 
 class _ListingsPageState extends State<ListingsPage> {
+  List<File> tempFiles = [];
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     loadList();
+  }
+
+    @override
+  void dispose() {
+    super.dispose(); 
   }
 
   Future loadList() async {
@@ -77,38 +91,62 @@ class _ListingsPageState extends State<ListingsPage> {
                 ),
                 itemCount: listingList.length,
                 itemBuilder: (_, index) {
+                  ListingForSaleModel listItem = listingList[index];
+                  var catalogItemId = listingList[index].catalogItemId;
+                  var imageUrls = listingList[index].productItemImageUrls ?? [];
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Stack(
                         children: [
-                          SizedBox(
-                            height: MediaQuery.of(context).size.width * 0.38,
-                            child: ClipRRect(
-                              child: CachedNetworkImage(
-                                fit: BoxFit.fitHeight,
-                                imageUrl: listingList[index]
-                                        .productItemImageUrls[0] ??
-                                    'assets/images/Avatar.png',
-                                placeholder: (context, url) => SizedBox(
-                                  height: 200,
-                                  child: Center(
-                                    child: CircularProgressIndicator(
-                                      color: Palette.current.primaryNeonGreen,
-                                      backgroundColor: Colors.white,
+                          GestureDetector(
+                            onTap: () {
+                              if(catalogItemId != null){
+                                Navigator.of(context, rootNavigator: true).push(
+                                MaterialPageRoute(builder: (context) => 
+                                  BuyPreviewPage(dataItem: 
+                                  BuyForSaleListingModel(
+                                    profileId: listItem.profileId,
+                                    catalogItemId: listItem.catalogItemId,
+                                    productItemId: listItem.productItemId,
+                                    productItemImageUrls: listItem.productItemImageUrls ?? [],
+                                    productItemName: listItem.productItemName,
+                                    productItemDescription: listItem.productItemDescription,
+                                    productItemPrice:listItem.productItemPrice?? 0.0,
+                                    condition: listItem.condition,
+                                    lastSale: listItem.lastSale,
+                                    ))
+                                  ));
+                              }                              
+                            },
+                            child: SizedBox(
+                              height: MediaQuery.of(context).size.width * 0.37,
+                              child: ClipRRect(
+                                child: CachedNetworkImage(
+                                  fit: BoxFit.fitHeight,
+                                  imageUrl: (imageUrls.isNotEmpty)? listingList[index]
+                                          .productItemImageUrls[0]:
+                                      'assets/images/Avatar.png',
+                                  placeholder: (context, url) => SizedBox(
+                                    height: 200,
+                                    child: Center(
+                                      child: CircularProgressIndicator(
+                                        color: Palette.current.primaryNeonGreen,
+                                        backgroundColor: Colors.white,
+                                      ),
                                     ),
                                   ),
+                                  errorWidget: (context, url, error) =>
+                                      Image.asset(
+                                          "assets/images/ProfilePhoto.png"),
                                 ),
-                                errorWidget: (context, url, error) =>
-                                    Image.asset(
-                                        "assets/images/ProfilePhoto.png"),
                               ),
                             ),
                           ),
                         ],
                       ),
                       const SizedBox(
-                        height: 5,
+                        height: 5
                       ),
                       Text(listingList[index].productItemName ?? '',
                           maxLines: 1,
@@ -119,11 +157,11 @@ class _ListingsPageState extends State<ListingsPage> {
                               .copyWith(
                                   letterSpacing: 1,
                                   fontWeight: FontWeight.w300,
-                                  fontFamily: "Knockout",
+                                  fontFamily: "KnockoutCustom",
                                   fontSize: 24,
                                   color: Palette.current.white)),
                       Text(
-                          '${S.of(context).last_sale} \$${listingList[index].lastSale}',
+                          '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(listingList[index].lastSale.toString())}',
                           overflow: TextOverflow.fade,
                           style: Theme.of(context)
                               .textTheme
@@ -177,4 +215,7 @@ class _ListingsPageState extends State<ListingsPage> {
   void makeCall() {
     context.read<ListingBloc>().add(const ListingEvent.getListingItem());
   }
+
+
 }
+

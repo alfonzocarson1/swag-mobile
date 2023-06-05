@@ -2,22 +2,20 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_rich_text/simple_rich_text.dart';
-import 'package:swagapp/modules/common/assets/icons.dart';
-import 'package:swagapp/modules/common/ui/custom_outline_button.dart';
 
 import '../../../generated/l10n.dart';
 import '../../blocs/favorite_bloc/favorite_bloc.dart';
 import '../../blocs/favorite_bloc/favorite_item_bloc.dart';
-import '../../blocs/sale_history/sale_history_bloc.dart';
 import '../../common/ui/clickable_text.dart';
 import '../../common/utils/palette.dart';
+import '../../common/utils/utils.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/detail/detail_sale_info_model.dart';
+import '../../models/detail/sale_history_model.dart';
 import '../../models/favorite/favorite_item_model.dart';
 import '../../models/favorite/favorite_model.dart';
 import '../login/create_account_page.dart';
-import 'transaction_history_page.dart';
 
 class HeadWidget extends StatefulWidget {
   HeadWidget(
@@ -30,9 +28,10 @@ class HeadWidget extends StatefulWidget {
       required this.sale,
       required this.favorite,
       this.available,
-      this.saleHistory,
+      required this.saleHistory,
       required this.itemId,
       this.profileFavoriteItemId,
+      this.saleHistoryNavigation,
       required this.addFavorite});
 
   final String urlImage;
@@ -43,10 +42,11 @@ class HeadWidget extends StatefulWidget {
   final bool sale;
   final bool favorite;
   final int? available;
-  final List<dynamic>? saleHistory;
+  final List<SalesHistoryModel> saleHistory;
   final String itemId;
   final String? profileFavoriteItemId;
   final Function(bool) addFavorite;
+  final Function? saleHistoryNavigation;
   @override
   State<HeadWidget> createState() => _HeadWidgetState();
 }
@@ -60,6 +60,7 @@ class _HeadWidgetState extends State<HeadWidget> {
   bool isLogged = false;
   bool favorite = false;
   String? profileFavoriteItemId;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -68,15 +69,7 @@ class _HeadWidgetState extends State<HeadWidget> {
     favoriteBloc = getIt<FavoriteBloc>();
     favorite = widget.favorite;
 
-    //TODO: For test the ticket remove comment
-    // context.read<SalesHistoryBloc>().add(SalesHistoryEvent.getSalesHistory(
-    //     'a434e065-6bc6-490e-9e26-ea1b348b0003'));
-
     isLogged = getIt<PreferenceRepositoryService>().isLogged();
-
-    context
-        .read<SalesHistoryBloc>()
-        .add(SalesHistoryEvent.getSalesHistory(widget.itemId));
   }
 
   onChangeFavoriteAnimation(int index) async {
@@ -201,9 +194,9 @@ class _HeadWidgetState extends State<HeadWidget> {
                                 .textTheme
                                 .displayLarge!
                                 .copyWith(
-                                    letterSpacing: 1,
+                                    letterSpacing: 0.54,
                                     fontWeight: FontWeight.w300,
-                                    fontFamily: "Knockout",
+                                    fontFamily: "KnockoutCustom",
                                     fontSize: 30,
                                     color: Palette.current.white)),
                       )),
@@ -278,68 +271,70 @@ class _HeadWidgetState extends State<HeadWidget> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                     widget.sale
-                        ? '${S.of(context).for_sale} ${widget.lastSale.minPrice} - ${widget.lastSale.maxPrice}'
-                        : '${S.of(context).last_sale} ${widget.lastSale.lastSale}',
+                        ? '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(widget.lastSale.minPrice!)} - ${decimalDigitsLastSalePrice(widget.lastSale.maxPrice!)}'
+                        : '${S.of(context).last_sale}: ${decimalDigitsLastSalePrice(widget.lastSale.lastSale!)}',
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        letterSpacing: 0.0224,
                         fontWeight: FontWeight.w300,
                         color: Palette.current.primaryNeonGreen)),
               ),
-              BlocBuilder<SalesHistoryBloc, SalesHistoryState>(
-                  builder: (context, usernameState) {
-                return usernameState.maybeMap(
-                    orElse: () => Container(),
-                    loadedSalesHistory: (state) {
-                      if (state.detaSalesHistoryList[0].saleHistoryList!
-                              .isNotEmpty &&
-                          widget.saleHistory != null) {
-                        return Column(
-                          children: [
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                if (isLogged) {
-                                  Navigator.of(context, rootNavigator: true)
-                                      .push(TransactionHistory.route(
-                                          widget.urlImage,
-                                          widget.catalogItemName!,
-                                          widget.lastSale,
-                                          false,
-                                          3,
-                                          favorite,
-                                          widget.itemId, (val) {
-                                    setState(() {
-                                      if (val) {
-                                        favorite = true;
-                                        widget.addFavorite(true);
-                                      } else {
-                                        widget.addFavorite(false);
-                                        favorite = false;
-                                      }
-                                    });
-                                  }));
-                                } else {
-                                  Navigator.of(context, rootNavigator: true)
-                                      .push(CreateAccountPage.route());
-                                }
-                              },
-                              child: Center(
-                                child: CustomOutlineButton(
-                                  text: S.of(context).sales_history, 
-                                  iconPath: AppIcons.trendingUp,
-                                  width: MediaQuery.of(context).size.width,
-                                  onTap: (){}, 
-                                ),
-                              ),
-                            ),
-                          ],
-                        );
-                      } else {
-                        return Container();
-                      }
-                    });
-              }),
+              (widget.saleHistory.isNotEmpty)
+                  ? Column(
+                      children: [
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            if (isLogged &&
+                                widget.saleHistoryNavigation != null) {
+                              widget.saleHistoryNavigation!();
+                            } else {
+                              Navigator.of(context, rootNavigator: true)
+                                  .push(CreateAccountPage.route());
+                            }
+                          },
+                          child: Center(
+                            child: Container(
+                                height: 60,
+                                width: MediaQuery.of(context).size.width,
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color:
+                                            Palette.current.primaryNeonGreen),
+                                    color: Colors.transparent),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    const SizedBox(
+                                      height: 50,
+                                    ),
+                                    Image.asset(
+                                      "assets/images/trending-up.png",
+                                      height: 20,
+                                      width: 20,
+                                    ),
+                                    const SizedBox(
+                                      width: 15,
+                                    ),
+                                    Text(S.of(context).sales_history,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge!
+                                            .copyWith(
+                                                fontFamily: "KnockoutCustom",
+                                                fontSize: 25,
+                                                letterSpacing: 1.2,
+                                                fontWeight: FontWeight.w300,
+                                                color: Palette.current.white)),
+                                  ],
+                                )),
+                          ),
+                        ),
+                      ],
+                    )
+                  : const SizedBox.shrink(),
               Visibility(
                   visible: widget.catalogItemDescription != null,
                   child: Column(
@@ -362,8 +357,8 @@ class _HeadWidgetState extends State<HeadWidget> {
                         child: Text(widget.catalogItemDescriptionShort ?? '',
                             style:
                                 Theme.of(context).textTheme.bodySmall!.copyWith(
-                                      fontSize: 15,
-                                      letterSpacing: 0.3,
+                                      fontSize: 16,
+                                      letterSpacing: 0.24,
                                       color: Palette.current.primaryWhiteSmoke,
                                     )),
                       ),

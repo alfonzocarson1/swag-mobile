@@ -26,16 +26,25 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "See_All": MessageLookupByLibrary.simpleMessage("See All"),
         "a_to_z": MessageLookupByLibrary.simpleMessage("A to Z"),
         "access_photos": MessageLookupByLibrary.simpleMessage("CHOOSE PHOTO"),
         "accessories": MessageLookupByLibrary.simpleMessage("Accesories"),
+        "account_sub_title":
+            MessageLookupByLibrary.simpleMessage("Billing, shipping, payment"),
+        "account_title": MessageLookupByLibrary.simpleMessage("Account"),
         "acquired": MessageLookupByLibrary.simpleMessage("Acquired:"),
+        "active": MessageLookupByLibrary.simpleMessage("Active"),
+        "add_address_title": MessageLookupByLibrary.simpleMessage(
+            "Please enter and confirm your shipping information."),
         "add_collection":
             MessageLookupByLibrary.simpleMessage("ADD TO COLLECTION"),
         "add_collection_title":
             MessageLookupByLibrary.simpleMessage("ADD TO YOUR COLLECTION"),
         "add_multi_collection_btn":
             MessageLookupByLibrary.simpleMessage("ADD ANOTHER"),
+        "add_new_address":
+            MessageLookupByLibrary.simpleMessage("Add New Address"),
         "add_new_item": MessageLookupByLibrary.simpleMessage("ADD NEW ITEM"),
         "add_photos": MessageLookupByLibrary.simpleMessage("ADD PHOTOS"),
         "add_to_wall_collection_subtitle": MessageLookupByLibrary.simpleMessage(
@@ -59,6 +68,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "buy_for": MessageLookupByLibrary.simpleMessage("BUY FOR"),
         "camera": MessageLookupByLibrary.simpleMessage("TAKE PHOTO"),
         "cancel": MessageLookupByLibrary.simpleMessage("CANCEL"),
+        "cash_app": MessageLookupByLibrary.simpleMessage("CashApp"),
+        "cash_app_sub_title": MessageLookupByLibrary.simpleMessage(
+            "Please enter and confirm your \nCashApp cashtag"),
+        "category": MessageLookupByLibrary.simpleMessage("category"),
         "chatChat": MessageLookupByLibrary.simpleMessage("Chat"),
         "chatErrorFile":
             MessageLookupByLibrary.simpleMessage("Error loading the file"),
@@ -84,12 +97,27 @@ class MessageLookup extends MessageLookupByLibrary {
         "code_not_entered_message":
             MessageLookupByLibrary.simpleMessage("Please enter code."),
         "collection": MessageLookupByLibrary.simpleMessage("Collection"),
+        "collection_listed": MessageLookupByLibrary.simpleMessage(
+            "Collection item(s) already listed"),
         "collection_message": MessageLookupByLibrary.simpleMessage(
             "This cover is not in your collection, buy it now before it’s too late"),
+        "collection_value":
+            MessageLookupByLibrary.simpleMessage("COLLECTION VALUE:"),
         "collections": MessageLookupByLibrary.simpleMessage("collections"),
+        "communications_sub_title": MessageLookupByLibrary.simpleMessage(
+            "Manage notifications and blocking"),
+        "communications_title":
+            MessageLookupByLibrary.simpleMessage("Communications"),
+        "complete_purchase_sub_title": MessageLookupByLibrary.simpleMessage(
+            "We will connect you with the seller to complete this purchase. Please select how you like to pay for this item? "),
+        "complete_purchase_title":
+            MessageLookupByLibrary.simpleMessage("Complete Purchase"),
         "condition": MessageLookupByLibrary.simpleMessage("Condition"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
+        "contact_us_sub_title": MessageLookupByLibrary.simpleMessage(
+            "Get in touch with Swag support"),
+        "contact_us_title": MessageLookupByLibrary.simpleMessage("Contact Us"),
         "country": MessageLookupByLibrary.simpleMessage("Country"),
         "create_account":
             MessageLookupByLibrary.simpleMessage("Create Account"),
@@ -102,20 +130,24 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Item was gifted"),
         "delete_collection_razon_3":
             MessageLookupByLibrary.simpleMessage("Other"),
+        "delete_collection_reason_4":
+            MessageLookupByLibrary.simpleMessage("Changed my mind"),
         "delete_photo": MessageLookupByLibrary.simpleMessage("DELETE PHOTO"),
         "delete_photo_descrption": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to delete this photo?"),
+        "detail": MessageLookupByLibrary.simpleMessage("DETAILS"),
         "didnt_get_email":
             MessageLookupByLibrary.simpleMessage("Didn’t get an email? "),
         "displayed": MessageLookupByLibrary.simpleMessage("Displayed"),
         "displayed_gamed":
             MessageLookupByLibrary.simpleMessage("DISPLAYED/GAMED:"),
         "displayed_gamed_item_four": MessageLookupByLibrary.simpleMessage(
-            "•  Minimum of 4 photos Max of 6"),
+            "•  Minimum of 4, Maximum of 6"),
         "displayed_gamed_item_three":
             MessageLookupByLibrary.simpleMessage("•  Bottom of item"),
         "dont_have_account":
             MessageLookupByLibrary.simpleMessage("Don’t have an account? "),
+        "edit_address": MessageLookupByLibrary.simpleMessage("Edit Address"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "email_taken": MessageLookupByLibrary.simpleMessage(
             "An account is already associated with this email"),
@@ -127,6 +159,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "YOU DON’T HAVE ANY LISTINGS. ALL YOUR LISTINGS WILL APPEAR HERE."),
         "empty_password":
             MessageLookupByLibrary.simpleMessage("Invalid password"),
+        "empty_search_result":
+            MessageLookupByLibrary.simpleMessage("NO ITEMS MATCH YOUR SEARCH!"),
         "empty_sold": MessageLookupByLibrary.simpleMessage(
             "YOU HAVEN’T SOLD ANY ITEMS YET. ALL YOUR SOLD ITEMS WILL APPEAR HERE."),
         "empty_text": MessageLookupByLibrary.simpleMessage("No items yet"),
@@ -137,6 +171,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "It looks like you already have this item in your collection. Are you sure you want to add another one?"),
         "existing_item_to_collection_error_title":
             MessageLookupByLibrary.simpleMessage("Are you sure"),
+        "expired": MessageLookupByLibrary.simpleMessage("Expired"),
         "explore_as_guest":
             MessageLookupByLibrary.simpleMessage("EXPLORE AS GUEST"),
         "field_empty":
@@ -155,16 +190,21 @@ class MessageLookup extends MessageLookupByLibrary {
         "forgot_password_email_description":
             MessageLookupByLibrary.simpleMessage(
                 "Enter your email to reset your password."),
+        "from": MessageLookupByLibrary.simpleMessage("FROM"),
         "gamed": MessageLookupByLibrary.simpleMessage("Gamed"),
         "get_an_email":
             MessageLookupByLibrary.simpleMessage("Didn’t get an email?"),
         "headcovers": MessageLookupByLibrary.simpleMessage("Headcovers"),
+        "help_center_sub_title": MessageLookupByLibrary.simpleMessage(
+            "See our FAQS, Terms and Privacy"),
+        "help_center_title":
+            MessageLookupByLibrary.simpleMessage("Help Center"),
         "i_do_not_know":
             MessageLookupByLibrary.simpleMessage("I DON’T KNOW/ NOT LISTED"),
         "image_guidelines":
             MessageLookupByLibrary.simpleMessage("IMAGE GUIDELINES"),
         "image_guidelines_description": MessageLookupByLibrary.simpleMessage(
-            "Please include the following images based on item condition. All photos must include a post-it with username and date."),
+            "Include the following images with your listing. Photos MUST include a physical note with username and date."),
         "import_late": MessageLookupByLibrary.simpleMessage(
             "*You’ll be able to make updates later."),
         "incorrect_code": MessageLookupByLibrary.simpleMessage(
@@ -181,6 +221,12 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please provide as much information as you can about the product and how you acquired it. Be sure to include the following:"),
         "info_guideline_popup_title":
             MessageLookupByLibrary.simpleMessage("INFO GUIDELINES"),
+        "input_cash_app": MessageLookupByLibrary.simpleMessage("\$cashtag"),
+        "input_cash_app_ivalid": MessageLookupByLibrary.simpleMessage(
+            "Must 20 characters or less, min 1 letter, no spaces"),
+        "input_venmo": MessageLookupByLibrary.simpleMessage("@Venmo username"),
+        "input_venmo_ivalid": MessageLookupByLibrary.simpleMessage(
+            "Must be 5-10 characters, no spaces or special characters except - or _"),
         "invadlidEmail": MessageLookupByLibrary.simpleMessage(
             "Incorrect email. Please try again."),
         "invalid_email": MessageLookupByLibrary.simpleMessage(
@@ -193,6 +239,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Username must be between 4-20 characters"),
         "ist_item_popup_btn":
             MessageLookupByLibrary.simpleMessage("CREATE LISTING"),
+        "kyc_title": MessageLookupByLibrary.simpleMessage("KYC"),
         "last_name": MessageLookupByLibrary.simpleMessage("Last Name"),
         "last_sale": MessageLookupByLibrary.simpleMessage("LAST SALE"),
         "less_than": MessageLookupByLibrary.simpleMessage("Less than \$111"),
@@ -214,19 +261,35 @@ class MessageLookup extends MessageLookupByLibrary {
         "n_a": MessageLookupByLibrary.simpleMessage("N/A"),
         "new_password": MessageLookupByLibrary.simpleMessage("New Password"),
         "next_btn": MessageLookupByLibrary.simpleMessage("NEXT"),
+        "nft_wallet_sub_title":
+            MessageLookupByLibrary.simpleMessage("Connect your OpenSea Wallet"),
+        "nft_wallet_title": MessageLookupByLibrary.simpleMessage("NFT Wallet"),
         "no_match_password":
             MessageLookupByLibrary.simpleMessage("Password doesn’t match"),
+        "notification_already_requested": MessageLookupByLibrary.simpleMessage(
+            "You have already requested to be notified.  We will notify you when item is listed for sale."),
+        "notify_availability": MessageLookupByLibrary.simpleMessage(
+            "You will be notified when this item is available."),
         "notify_available":
             MessageLookupByLibrary.simpleMessage("NOTIFY ME WHEN AVAILABLE"),
         "paid": MessageLookupByLibrary.simpleMessage("Paid:"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "password_helper": MessageLookupByLibrary.simpleMessage(
             "At least 8 characters, 1 uppercase, 1 number & 1 symbol"),
+        "payPal": MessageLookupByLibrary.simpleMessage("PayPal"),
+        "payPal_sub_title": MessageLookupByLibrary.simpleMessage(
+            "Please enter and confirm your PayPal email"),
+        "payment_types": MessageLookupByLibrary.simpleMessage("Payment Type"),
+        "peer_to_peer_payment_options_sub_title":
+            MessageLookupByLibrary.simpleMessage("Venmo, CashApp, PayPal"),
+        "peer_to_peer_payment_options_title":
+            MessageLookupByLibrary.simpleMessage(
+                "Peer to Peer Payment Options"),
         "phone": MessageLookupByLibrary.simpleMessage("Phone"),
         "phone_taken": MessageLookupByLibrary.simpleMessage(
             "An account is already associated with this phone number"),
         "photo_condition_four": MessageLookupByLibrary.simpleMessage(
-            "• Minimum of 4 photos maximum of 6"),
+            "• Minimum of 4, Maximum of 6"),
         "photo_condition_one": MessageLookupByLibrary.simpleMessage(
             "• The tag on the inside of the headcover"),
         "photo_condition_three":
@@ -237,10 +300,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("NO, I\'LL DO THIS LATER"),
         "popup_btn_yes": MessageLookupByLibrary.simpleMessage("IMPORT MY INFO"),
         "popup_description": MessageLookupByLibrary.simpleMessage(
-            "It looks like you have an account on swag.golf. After you verify your email you will be able to  import your information into the Swag app."),
+            "It looks like you have an account on Swag.Golf. After you verify your email you will be able to  import your information into the Swag app."),
         "popup_title": MessageLookupByLibrary.simpleMessage("WELCOME @"),
         "post_listing_btn":
             MessageLookupByLibrary.simpleMessage("POST LISTING"),
+        "premium_member_title":
+            MessageLookupByLibrary.simpleMessage("PREMIUM MEMBER"),
+        "premium_memberatomic_drop_payments_sub_title":
+            MessageLookupByLibrary.simpleMessage("Manage Cards"),
+        "premium_memberatomic_drop_payments_title":
+            MessageLookupByLibrary.simpleMessage("Atomic Drop Payments"),
         "preview_listing":
             MessageLookupByLibrary.simpleMessage("PREVIEW LISTING"),
         "price": MessageLookupByLibrary.simpleMessage("PRICE"),
@@ -253,9 +322,15 @@ class MessageLookup extends MessageLookupByLibrary {
             "cannot enter more than 2 decimal places"),
         "privacy_policy_text":
             MessageLookupByLibrary.simpleMessage("Privacy Policy"),
-        "product": MessageLookupByLibrary.simpleMessage("product"),
+        "profile_sub_title": MessageLookupByLibrary.simpleMessage(
+            "Username, email, password, phone"),
+        "profile_title": MessageLookupByLibrary.simpleMessage("Profile"),
         "purchase_price":
             MessageLookupByLibrary.simpleMessage("Purchase Price"),
+        "purchase_sub_title":
+            MessageLookupByLibrary.simpleMessage("Atomic Drops purchases"),
+        "purchase_title":
+            MessageLookupByLibrary.simpleMessage("Purchase History"),
         "putters": MessageLookupByLibrary.simpleMessage("Putters"),
         "rarity_score": MessageLookupByLibrary.simpleMessage("RARITY SCORE"),
         "razon_remove_btn": MessageLookupByLibrary.simpleMessage("SUBMIT"),
@@ -272,12 +347,17 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Release Date - Oldest"),
         "released": MessageLookupByLibrary.simpleMessage("Released:"),
         "released_type": MessageLookupByLibrary.simpleMessage("Release Type:"),
+        "remove_address": MessageLookupByLibrary.simpleMessage("Remove"),
         "remove_collection_btn":
             MessageLookupByLibrary.simpleMessage("REMOVE FROM COLLECTION"),
         "remove_item": MessageLookupByLibrary.simpleMessage("REMOVE ITEM"),
         "remove_item_btn": MessageLookupByLibrary.simpleMessage("REMOVE"),
         "remove_item_subtitle": MessageLookupByLibrary.simpleMessage(
             "Please select the item you would like to remove from your collection."),
+        "remove_listing":
+            MessageLookupByLibrary.simpleMessage("REMOVE LISTING"),
+        "remove_listing_subtitle": MessageLookupByLibrary.simpleMessage(
+            "Please select the reason you are removing this listing."),
         "required_field":
             MessageLookupByLibrary.simpleMessage("Required field"),
         "resend_email": MessageLookupByLibrary.simpleMessage("Resend Email"),
@@ -290,20 +370,28 @@ class MessageLookup extends MessageLookupByLibrary {
         "retail": MessageLookupByLibrary.simpleMessage("Retail:"),
         "sale_data": MessageLookupByLibrary.simpleMessage("SALE DATE"),
         "sales_history": MessageLookupByLibrary.simpleMessage("SALES HISTORY"),
+        "save_address": MessageLookupByLibrary.simpleMessage(
+            "Save address to your account"),
+        "save_btn": MessageLookupByLibrary.simpleMessage("SAVE"),
         "save_search": MessageLookupByLibrary.simpleMessage("Save Search"),
         "saved_searches":
             MessageLookupByLibrary.simpleMessage("SAVED SEARCHES"),
         "sealed": MessageLookupByLibrary.simpleMessage("Sealed"),
+        "sealed_item_four": MessageLookupByLibrary.simpleMessage(
+            "•  Minimum of 3, Maximum of 6"),
         "sealed_item_one":
             MessageLookupByLibrary.simpleMessage("•  Front of item"),
-        "sealed_item_three": MessageLookupByLibrary.simpleMessage(
-            "•  Minimum of 3 photos Max of 6"),
+        "sealed_item_three":
+            MessageLookupByLibrary.simpleMessage("•  Tagged picture"),
         "sealed_item_two":
             MessageLookupByLibrary.simpleMessage("•  Back of item"),
         "search_hint": MessageLookupByLibrary.simpleMessage(
             "Search name, style, color etc"),
         "second_address":
             MessageLookupByLibrary.simpleMessage("Address 2 (optional)"),
+        "security_sub_title":
+            MessageLookupByLibrary.simpleMessage("Two-Step verification"),
+        "security_title": MessageLookupByLibrary.simpleMessage("Security"),
         "see_info":
             MessageLookupByLibrary.simpleMessage("ⓘ  See info guidelines"),
         "see_photo_guidelines":
@@ -315,11 +403,21 @@ class MessageLookup extends MessageLookupByLibrary {
         "selected": MessageLookupByLibrary.simpleMessage("Selected"),
         "sell_for": MessageLookupByLibrary.simpleMessage("SELL FOR"),
         "send_info": MessageLookupByLibrary.simpleMessage("SEND INFO"),
+        "settings": MessageLookupByLibrary.simpleMessage("SETTINGS"),
+        "shipped_input_title": MessageLookupByLibrary.simpleMessage(
+            "Please confirm or update your shipping address for this item to be shipped."),
+        "shipping_address_title":
+            MessageLookupByLibrary.simpleMessage("Shipping Address"),
+        "shop_by_category_title":
+            MessageLookupByLibrary.simpleMessage("SHOP BY CATEGORY"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Sign In"),
         "similar_items": MessageLookupByLibrary.simpleMessage("SIMILAR ITEMS"),
         "sort": MessageLookupByLibrary.simpleMessage("Sort:"),
         "sort_by": MessageLookupByLibrary.simpleMessage("sort by"),
+        "staff_picks": MessageLookupByLibrary.simpleMessage("STAFF PICKS"),
         "state": MessageLookupByLibrary.simpleMessage("State"),
+        "subscription_title":
+            MessageLookupByLibrary.simpleMessage("Subscription"),
         "subtitle_welcome":
             MessageLookupByLibrary.simpleMessage("Let’s create your profile!"),
         "tab_collection": MessageLookupByLibrary.simpleMessage("COLLECTION"),
@@ -340,9 +438,14 @@ class MessageLookup extends MessageLookupByLibrary {
             "Your password has been successfully reset"),
         "total_mode": MessageLookupByLibrary.simpleMessage("Total Made:"),
         "type": MessageLookupByLibrary.simpleMessage("type"),
+        "unicorn_covers":
+            MessageLookupByLibrary.simpleMessage("UNICORN COVERS"),
         "username": MessageLookupByLibrary.simpleMessage("@username"),
         "username_taken":
             MessageLookupByLibrary.simpleMessage("This username is taken "),
+        "venmo": MessageLookupByLibrary.simpleMessage("Venmo"),
+        "venmo_sub_title": MessageLookupByLibrary.simpleMessage(
+            "Please enter and confirm your \nVenmo username."),
         "verify_email": MessageLookupByLibrary.simpleMessage("VERIFY EMAIL"),
         "verify_email_description": MessageLookupByLibrary.simpleMessage(
             "You must verify your email before you can import your data. Check your inbox for the email."),

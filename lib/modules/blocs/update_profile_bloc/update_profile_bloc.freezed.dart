@@ -22,6 +22,9 @@ mixin _$UpdateProfileEvent {
     required TResult Function(
             Uint8List bytes, String imageTopic, String topicId)
         updateAvatar,
+    required TResult Function() importData,
+    required TResult Function() askEmailVerification,
+    required TResult Function() closeVerifyEmailModal,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -29,6 +32,9 @@ mixin _$UpdateProfileEvent {
     TResult? Function(UpdateProfilePayloadModel model)? update,
     TResult? Function(Uint8List bytes, String imageTopic, String topicId)?
         updateAvatar,
+    TResult? Function()? importData,
+    TResult? Function()? askEmailVerification,
+    TResult? Function()? closeVerifyEmailModal,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -36,6 +42,9 @@ mixin _$UpdateProfileEvent {
     TResult Function(UpdateProfilePayloadModel model)? update,
     TResult Function(Uint8List bytes, String imageTopic, String topicId)?
         updateAvatar,
+    TResult Function()? importData,
+    TResult Function()? askEmailVerification,
+    TResult Function()? closeVerifyEmailModal,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -43,18 +52,28 @@ mixin _$UpdateProfileEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_UpdateProfileEvent value) update,
     required TResult Function(_UpdateAvatarEvent value) updateAvatar,
+    required TResult Function(_importDataEvent value) importData,
+    required TResult Function(_AskEmailVerification value) askEmailVerification,
+    required TResult Function(_CloseVerifyEmailModal value)
+        closeVerifyEmailModal,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_UpdateProfileEvent value)? update,
     TResult? Function(_UpdateAvatarEvent value)? updateAvatar,
+    TResult? Function(_importDataEvent value)? importData,
+    TResult? Function(_AskEmailVerification value)? askEmailVerification,
+    TResult? Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_UpdateProfileEvent value)? update,
     TResult Function(_UpdateAvatarEvent value)? updateAvatar,
+    TResult Function(_importDataEvent value)? importData,
+    TResult Function(_AskEmailVerification value)? askEmailVerification,
+    TResult Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -157,6 +176,9 @@ class _$_UpdateProfileEvent implements _UpdateProfileEvent {
     required TResult Function(
             Uint8List bytes, String imageTopic, String topicId)
         updateAvatar,
+    required TResult Function() importData,
+    required TResult Function() askEmailVerification,
+    required TResult Function() closeVerifyEmailModal,
   }) {
     return update(model);
   }
@@ -167,6 +189,9 @@ class _$_UpdateProfileEvent implements _UpdateProfileEvent {
     TResult? Function(UpdateProfilePayloadModel model)? update,
     TResult? Function(Uint8List bytes, String imageTopic, String topicId)?
         updateAvatar,
+    TResult? Function()? importData,
+    TResult? Function()? askEmailVerification,
+    TResult? Function()? closeVerifyEmailModal,
   }) {
     return update?.call(model);
   }
@@ -177,6 +202,9 @@ class _$_UpdateProfileEvent implements _UpdateProfileEvent {
     TResult Function(UpdateProfilePayloadModel model)? update,
     TResult Function(Uint8List bytes, String imageTopic, String topicId)?
         updateAvatar,
+    TResult Function()? importData,
+    TResult Function()? askEmailVerification,
+    TResult Function()? closeVerifyEmailModal,
     required TResult orElse(),
   }) {
     if (update != null) {
@@ -190,6 +218,10 @@ class _$_UpdateProfileEvent implements _UpdateProfileEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_UpdateProfileEvent value) update,
     required TResult Function(_UpdateAvatarEvent value) updateAvatar,
+    required TResult Function(_importDataEvent value) importData,
+    required TResult Function(_AskEmailVerification value) askEmailVerification,
+    required TResult Function(_CloseVerifyEmailModal value)
+        closeVerifyEmailModal,
   }) {
     return update(this);
   }
@@ -199,6 +231,9 @@ class _$_UpdateProfileEvent implements _UpdateProfileEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_UpdateProfileEvent value)? update,
     TResult? Function(_UpdateAvatarEvent value)? updateAvatar,
+    TResult? Function(_importDataEvent value)? importData,
+    TResult? Function(_AskEmailVerification value)? askEmailVerification,
+    TResult? Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
   }) {
     return update?.call(this);
   }
@@ -208,6 +243,9 @@ class _$_UpdateProfileEvent implements _UpdateProfileEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_UpdateProfileEvent value)? update,
     TResult Function(_UpdateAvatarEvent value)? updateAvatar,
+    TResult Function(_importDataEvent value)? importData,
+    TResult Function(_AskEmailVerification value)? askEmailVerification,
+    TResult Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
     required TResult orElse(),
   }) {
     if (update != null) {
@@ -314,6 +352,9 @@ class _$_UpdateAvatarEvent implements _UpdateAvatarEvent {
     required TResult Function(
             Uint8List bytes, String imageTopic, String topicId)
         updateAvatar,
+    required TResult Function() importData,
+    required TResult Function() askEmailVerification,
+    required TResult Function() closeVerifyEmailModal,
   }) {
     return updateAvatar(bytes, imageTopic, topicId);
   }
@@ -324,6 +365,9 @@ class _$_UpdateAvatarEvent implements _UpdateAvatarEvent {
     TResult? Function(UpdateProfilePayloadModel model)? update,
     TResult? Function(Uint8List bytes, String imageTopic, String topicId)?
         updateAvatar,
+    TResult? Function()? importData,
+    TResult? Function()? askEmailVerification,
+    TResult? Function()? closeVerifyEmailModal,
   }) {
     return updateAvatar?.call(bytes, imageTopic, topicId);
   }
@@ -334,6 +378,9 @@ class _$_UpdateAvatarEvent implements _UpdateAvatarEvent {
     TResult Function(UpdateProfilePayloadModel model)? update,
     TResult Function(Uint8List bytes, String imageTopic, String topicId)?
         updateAvatar,
+    TResult Function()? importData,
+    TResult Function()? askEmailVerification,
+    TResult Function()? closeVerifyEmailModal,
     required TResult orElse(),
   }) {
     if (updateAvatar != null) {
@@ -347,6 +394,10 @@ class _$_UpdateAvatarEvent implements _UpdateAvatarEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_UpdateProfileEvent value) update,
     required TResult Function(_UpdateAvatarEvent value) updateAvatar,
+    required TResult Function(_importDataEvent value) importData,
+    required TResult Function(_AskEmailVerification value) askEmailVerification,
+    required TResult Function(_CloseVerifyEmailModal value)
+        closeVerifyEmailModal,
   }) {
     return updateAvatar(this);
   }
@@ -356,6 +407,9 @@ class _$_UpdateAvatarEvent implements _UpdateAvatarEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_UpdateProfileEvent value)? update,
     TResult? Function(_UpdateAvatarEvent value)? updateAvatar,
+    TResult? Function(_importDataEvent value)? importData,
+    TResult? Function(_AskEmailVerification value)? askEmailVerification,
+    TResult? Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
   }) {
     return updateAvatar?.call(this);
   }
@@ -365,6 +419,9 @@ class _$_UpdateAvatarEvent implements _UpdateAvatarEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_UpdateProfileEvent value)? update,
     TResult Function(_UpdateAvatarEvent value)? updateAvatar,
+    TResult Function(_importDataEvent value)? importData,
+    TResult Function(_AskEmailVerification value)? askEmailVerification,
+    TResult Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
     required TResult orElse(),
   }) {
     if (updateAvatar != null) {
@@ -387,6 +444,381 @@ abstract class _UpdateAvatarEvent implements UpdateProfileEvent {
 }
 
 /// @nodoc
+abstract class _$$_importDataEventCopyWith<$Res> {
+  factory _$$_importDataEventCopyWith(
+          _$_importDataEvent value, $Res Function(_$_importDataEvent) then) =
+      __$$_importDataEventCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_importDataEventCopyWithImpl<$Res>
+    extends _$UpdateProfileEventCopyWithImpl<$Res, _$_importDataEvent>
+    implements _$$_importDataEventCopyWith<$Res> {
+  __$$_importDataEventCopyWithImpl(
+      _$_importDataEvent _value, $Res Function(_$_importDataEvent) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_importDataEvent implements _importDataEvent {
+  const _$_importDataEvent();
+
+  @override
+  String toString() {
+    return 'UpdateProfileEvent.importData()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_importDataEvent);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(UpdateProfilePayloadModel model) update,
+    required TResult Function(
+            Uint8List bytes, String imageTopic, String topicId)
+        updateAvatar,
+    required TResult Function() importData,
+    required TResult Function() askEmailVerification,
+    required TResult Function() closeVerifyEmailModal,
+  }) {
+    return importData();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(UpdateProfilePayloadModel model)? update,
+    TResult? Function(Uint8List bytes, String imageTopic, String topicId)?
+        updateAvatar,
+    TResult? Function()? importData,
+    TResult? Function()? askEmailVerification,
+    TResult? Function()? closeVerifyEmailModal,
+  }) {
+    return importData?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(UpdateProfilePayloadModel model)? update,
+    TResult Function(Uint8List bytes, String imageTopic, String topicId)?
+        updateAvatar,
+    TResult Function()? importData,
+    TResult Function()? askEmailVerification,
+    TResult Function()? closeVerifyEmailModal,
+    required TResult orElse(),
+  }) {
+    if (importData != null) {
+      return importData();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_UpdateProfileEvent value) update,
+    required TResult Function(_UpdateAvatarEvent value) updateAvatar,
+    required TResult Function(_importDataEvent value) importData,
+    required TResult Function(_AskEmailVerification value) askEmailVerification,
+    required TResult Function(_CloseVerifyEmailModal value)
+        closeVerifyEmailModal,
+  }) {
+    return importData(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_UpdateProfileEvent value)? update,
+    TResult? Function(_UpdateAvatarEvent value)? updateAvatar,
+    TResult? Function(_importDataEvent value)? importData,
+    TResult? Function(_AskEmailVerification value)? askEmailVerification,
+    TResult? Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
+  }) {
+    return importData?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_UpdateProfileEvent value)? update,
+    TResult Function(_UpdateAvatarEvent value)? updateAvatar,
+    TResult Function(_importDataEvent value)? importData,
+    TResult Function(_AskEmailVerification value)? askEmailVerification,
+    TResult Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
+    required TResult orElse(),
+  }) {
+    if (importData != null) {
+      return importData(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _importDataEvent implements UpdateProfileEvent {
+  const factory _importDataEvent() = _$_importDataEvent;
+}
+
+/// @nodoc
+abstract class _$$_AskEmailVerificationCopyWith<$Res> {
+  factory _$$_AskEmailVerificationCopyWith(_$_AskEmailVerification value,
+          $Res Function(_$_AskEmailVerification) then) =
+      __$$_AskEmailVerificationCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_AskEmailVerificationCopyWithImpl<$Res>
+    extends _$UpdateProfileEventCopyWithImpl<$Res, _$_AskEmailVerification>
+    implements _$$_AskEmailVerificationCopyWith<$Res> {
+  __$$_AskEmailVerificationCopyWithImpl(_$_AskEmailVerification _value,
+      $Res Function(_$_AskEmailVerification) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_AskEmailVerification implements _AskEmailVerification {
+  const _$_AskEmailVerification();
+
+  @override
+  String toString() {
+    return 'UpdateProfileEvent.askEmailVerification()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_AskEmailVerification);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(UpdateProfilePayloadModel model) update,
+    required TResult Function(
+            Uint8List bytes, String imageTopic, String topicId)
+        updateAvatar,
+    required TResult Function() importData,
+    required TResult Function() askEmailVerification,
+    required TResult Function() closeVerifyEmailModal,
+  }) {
+    return askEmailVerification();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(UpdateProfilePayloadModel model)? update,
+    TResult? Function(Uint8List bytes, String imageTopic, String topicId)?
+        updateAvatar,
+    TResult? Function()? importData,
+    TResult? Function()? askEmailVerification,
+    TResult? Function()? closeVerifyEmailModal,
+  }) {
+    return askEmailVerification?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(UpdateProfilePayloadModel model)? update,
+    TResult Function(Uint8List bytes, String imageTopic, String topicId)?
+        updateAvatar,
+    TResult Function()? importData,
+    TResult Function()? askEmailVerification,
+    TResult Function()? closeVerifyEmailModal,
+    required TResult orElse(),
+  }) {
+    if (askEmailVerification != null) {
+      return askEmailVerification();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_UpdateProfileEvent value) update,
+    required TResult Function(_UpdateAvatarEvent value) updateAvatar,
+    required TResult Function(_importDataEvent value) importData,
+    required TResult Function(_AskEmailVerification value) askEmailVerification,
+    required TResult Function(_CloseVerifyEmailModal value)
+        closeVerifyEmailModal,
+  }) {
+    return askEmailVerification(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_UpdateProfileEvent value)? update,
+    TResult? Function(_UpdateAvatarEvent value)? updateAvatar,
+    TResult? Function(_importDataEvent value)? importData,
+    TResult? Function(_AskEmailVerification value)? askEmailVerification,
+    TResult? Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
+  }) {
+    return askEmailVerification?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_UpdateProfileEvent value)? update,
+    TResult Function(_UpdateAvatarEvent value)? updateAvatar,
+    TResult Function(_importDataEvent value)? importData,
+    TResult Function(_AskEmailVerification value)? askEmailVerification,
+    TResult Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
+    required TResult orElse(),
+  }) {
+    if (askEmailVerification != null) {
+      return askEmailVerification(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _AskEmailVerification implements UpdateProfileEvent {
+  const factory _AskEmailVerification() = _$_AskEmailVerification;
+}
+
+/// @nodoc
+abstract class _$$_CloseVerifyEmailModalCopyWith<$Res> {
+  factory _$$_CloseVerifyEmailModalCopyWith(_$_CloseVerifyEmailModal value,
+          $Res Function(_$_CloseVerifyEmailModal) then) =
+      __$$_CloseVerifyEmailModalCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_CloseVerifyEmailModalCopyWithImpl<$Res>
+    extends _$UpdateProfileEventCopyWithImpl<$Res, _$_CloseVerifyEmailModal>
+    implements _$$_CloseVerifyEmailModalCopyWith<$Res> {
+  __$$_CloseVerifyEmailModalCopyWithImpl(_$_CloseVerifyEmailModal _value,
+      $Res Function(_$_CloseVerifyEmailModal) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_CloseVerifyEmailModal implements _CloseVerifyEmailModal {
+  const _$_CloseVerifyEmailModal();
+
+  @override
+  String toString() {
+    return 'UpdateProfileEvent.closeVerifyEmailModal()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_CloseVerifyEmailModal);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(UpdateProfilePayloadModel model) update,
+    required TResult Function(
+            Uint8List bytes, String imageTopic, String topicId)
+        updateAvatar,
+    required TResult Function() importData,
+    required TResult Function() askEmailVerification,
+    required TResult Function() closeVerifyEmailModal,
+  }) {
+    return closeVerifyEmailModal();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(UpdateProfilePayloadModel model)? update,
+    TResult? Function(Uint8List bytes, String imageTopic, String topicId)?
+        updateAvatar,
+    TResult? Function()? importData,
+    TResult? Function()? askEmailVerification,
+    TResult? Function()? closeVerifyEmailModal,
+  }) {
+    return closeVerifyEmailModal?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(UpdateProfilePayloadModel model)? update,
+    TResult Function(Uint8List bytes, String imageTopic, String topicId)?
+        updateAvatar,
+    TResult Function()? importData,
+    TResult Function()? askEmailVerification,
+    TResult Function()? closeVerifyEmailModal,
+    required TResult orElse(),
+  }) {
+    if (closeVerifyEmailModal != null) {
+      return closeVerifyEmailModal();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_UpdateProfileEvent value) update,
+    required TResult Function(_UpdateAvatarEvent value) updateAvatar,
+    required TResult Function(_importDataEvent value) importData,
+    required TResult Function(_AskEmailVerification value) askEmailVerification,
+    required TResult Function(_CloseVerifyEmailModal value)
+        closeVerifyEmailModal,
+  }) {
+    return closeVerifyEmailModal(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_UpdateProfileEvent value)? update,
+    TResult? Function(_UpdateAvatarEvent value)? updateAvatar,
+    TResult? Function(_importDataEvent value)? importData,
+    TResult? Function(_AskEmailVerification value)? askEmailVerification,
+    TResult? Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
+  }) {
+    return closeVerifyEmailModal?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_UpdateProfileEvent value)? update,
+    TResult Function(_UpdateAvatarEvent value)? updateAvatar,
+    TResult Function(_importDataEvent value)? importData,
+    TResult Function(_AskEmailVerification value)? askEmailVerification,
+    TResult Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
+    required TResult orElse(),
+  }) {
+    if (closeVerifyEmailModal != null) {
+      return closeVerifyEmailModal(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CloseVerifyEmailModal implements UpdateProfileEvent {
+  const factory _CloseVerifyEmailModal() = _$_CloseVerifyEmailModal;
+}
+
+/// @nodoc
 mixin _$UpdateProfileState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
@@ -396,6 +828,9 @@ mixin _$UpdateProfileState {
     required TResult Function(UpdateAvatarModel successAvatarList)
         loadedAvatarSuccess,
     required TResult Function() updated,
+    required TResult Function(bool verificationSent) verificationEmailSent,
+    required TResult Function(bool modalClosed) verifyEmailModalClosed,
+    required TResult Function(bool emailVerified) dataImported,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -405,6 +840,9 @@ mixin _$UpdateProfileState {
     TResult? Function(UpdateProfileModel successList)? loadedSuccess,
     TResult? Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
     TResult? Function()? updated,
+    TResult? Function(bool verificationSent)? verificationEmailSent,
+    TResult? Function(bool modalClosed)? verifyEmailModalClosed,
+    TResult? Function(bool emailVerified)? dataImported,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -414,6 +852,9 @@ mixin _$UpdateProfileState {
     TResult Function(UpdateProfileModel successList)? loadedSuccess,
     TResult Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
     TResult Function()? updated,
+    TResult Function(bool verificationSent)? verificationEmailSent,
+    TResult Function(bool modalClosed)? verifyEmailModalClosed,
+    TResult Function(bool emailVerified)? dataImported,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -424,6 +865,11 @@ mixin _$UpdateProfileState {
     required TResult Function(LoadedSuccess value) loadedSuccess,
     required TResult Function(LoadedAvatarSuccess value) loadedAvatarSuccess,
     required TResult Function(Updated value) updated,
+    required TResult Function(VerificationEmailSent value)
+        verificationEmailSent,
+    required TResult Function(VerifyEmailModalClosed value)
+        verifyEmailModalClosed,
+    required TResult Function(DataImported value) dataImported,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -433,6 +879,9 @@ mixin _$UpdateProfileState {
     TResult? Function(LoadedSuccess value)? loadedSuccess,
     TResult? Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
     TResult? Function(Updated value)? updated,
+    TResult? Function(VerificationEmailSent value)? verificationEmailSent,
+    TResult? Function(VerifyEmailModalClosed value)? verifyEmailModalClosed,
+    TResult? Function(DataImported value)? dataImported,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -442,6 +891,9 @@ mixin _$UpdateProfileState {
     TResult Function(LoadedSuccess value)? loadedSuccess,
     TResult Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
     TResult Function(Updated value)? updated,
+    TResult Function(VerificationEmailSent value)? verificationEmailSent,
+    TResult Function(VerifyEmailModalClosed value)? verifyEmailModalClosed,
+    TResult Function(DataImported value)? dataImported,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -512,6 +964,9 @@ class _$_InitialUpdateProfileState extends _InitialUpdateProfileState {
     required TResult Function(UpdateAvatarModel successAvatarList)
         loadedAvatarSuccess,
     required TResult Function() updated,
+    required TResult Function(bool verificationSent) verificationEmailSent,
+    required TResult Function(bool modalClosed) verifyEmailModalClosed,
+    required TResult Function(bool emailVerified) dataImported,
   }) {
     return initial();
   }
@@ -524,6 +979,9 @@ class _$_InitialUpdateProfileState extends _InitialUpdateProfileState {
     TResult? Function(UpdateProfileModel successList)? loadedSuccess,
     TResult? Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
     TResult? Function()? updated,
+    TResult? Function(bool verificationSent)? verificationEmailSent,
+    TResult? Function(bool modalClosed)? verifyEmailModalClosed,
+    TResult? Function(bool emailVerified)? dataImported,
   }) {
     return initial?.call();
   }
@@ -536,6 +994,9 @@ class _$_InitialUpdateProfileState extends _InitialUpdateProfileState {
     TResult Function(UpdateProfileModel successList)? loadedSuccess,
     TResult Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
     TResult Function()? updated,
+    TResult Function(bool verificationSent)? verificationEmailSent,
+    TResult Function(bool modalClosed)? verifyEmailModalClosed,
+    TResult Function(bool emailVerified)? dataImported,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -552,6 +1013,11 @@ class _$_InitialUpdateProfileState extends _InitialUpdateProfileState {
     required TResult Function(LoadedSuccess value) loadedSuccess,
     required TResult Function(LoadedAvatarSuccess value) loadedAvatarSuccess,
     required TResult Function(Updated value) updated,
+    required TResult Function(VerificationEmailSent value)
+        verificationEmailSent,
+    required TResult Function(VerifyEmailModalClosed value)
+        verifyEmailModalClosed,
+    required TResult Function(DataImported value) dataImported,
   }) {
     return initial(this);
   }
@@ -564,6 +1030,9 @@ class _$_InitialUpdateProfileState extends _InitialUpdateProfileState {
     TResult? Function(LoadedSuccess value)? loadedSuccess,
     TResult? Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
     TResult? Function(Updated value)? updated,
+    TResult? Function(VerificationEmailSent value)? verificationEmailSent,
+    TResult? Function(VerifyEmailModalClosed value)? verifyEmailModalClosed,
+    TResult? Function(DataImported value)? dataImported,
   }) {
     return initial?.call(this);
   }
@@ -576,6 +1045,9 @@ class _$_InitialUpdateProfileState extends _InitialUpdateProfileState {
     TResult Function(LoadedSuccess value)? loadedSuccess,
     TResult Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
     TResult Function(Updated value)? updated,
+    TResult Function(VerificationEmailSent value)? verificationEmailSent,
+    TResult Function(VerifyEmailModalClosed value)? verifyEmailModalClosed,
+    TResult Function(DataImported value)? dataImported,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -662,6 +1134,9 @@ class _$_ErrorUpdateProfileState extends _ErrorUpdateProfileState {
     required TResult Function(UpdateAvatarModel successAvatarList)
         loadedAvatarSuccess,
     required TResult Function() updated,
+    required TResult Function(bool verificationSent) verificationEmailSent,
+    required TResult Function(bool modalClosed) verifyEmailModalClosed,
+    required TResult Function(bool emailVerified) dataImported,
   }) {
     return error(message);
   }
@@ -674,6 +1149,9 @@ class _$_ErrorUpdateProfileState extends _ErrorUpdateProfileState {
     TResult? Function(UpdateProfileModel successList)? loadedSuccess,
     TResult? Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
     TResult? Function()? updated,
+    TResult? Function(bool verificationSent)? verificationEmailSent,
+    TResult? Function(bool modalClosed)? verifyEmailModalClosed,
+    TResult? Function(bool emailVerified)? dataImported,
   }) {
     return error?.call(message);
   }
@@ -686,6 +1164,9 @@ class _$_ErrorUpdateProfileState extends _ErrorUpdateProfileState {
     TResult Function(UpdateProfileModel successList)? loadedSuccess,
     TResult Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
     TResult Function()? updated,
+    TResult Function(bool verificationSent)? verificationEmailSent,
+    TResult Function(bool modalClosed)? verifyEmailModalClosed,
+    TResult Function(bool emailVerified)? dataImported,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -702,6 +1183,11 @@ class _$_ErrorUpdateProfileState extends _ErrorUpdateProfileState {
     required TResult Function(LoadedSuccess value) loadedSuccess,
     required TResult Function(LoadedAvatarSuccess value) loadedAvatarSuccess,
     required TResult Function(Updated value) updated,
+    required TResult Function(VerificationEmailSent value)
+        verificationEmailSent,
+    required TResult Function(VerifyEmailModalClosed value)
+        verifyEmailModalClosed,
+    required TResult Function(DataImported value) dataImported,
   }) {
     return error(this);
   }
@@ -714,6 +1200,9 @@ class _$_ErrorUpdateProfileState extends _ErrorUpdateProfileState {
     TResult? Function(LoadedSuccess value)? loadedSuccess,
     TResult? Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
     TResult? Function(Updated value)? updated,
+    TResult? Function(VerificationEmailSent value)? verificationEmailSent,
+    TResult? Function(VerifyEmailModalClosed value)? verifyEmailModalClosed,
+    TResult? Function(DataImported value)? dataImported,
   }) {
     return error?.call(this);
   }
@@ -726,6 +1215,9 @@ class _$_ErrorUpdateProfileState extends _ErrorUpdateProfileState {
     TResult Function(LoadedSuccess value)? loadedSuccess,
     TResult Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
     TResult Function(Updated value)? updated,
+    TResult Function(VerificationEmailSent value)? verificationEmailSent,
+    TResult Function(VerifyEmailModalClosed value)? verifyEmailModalClosed,
+    TResult Function(DataImported value)? dataImported,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -827,6 +1319,9 @@ class _$LoadedSuccess extends LoadedSuccess {
     required TResult Function(UpdateAvatarModel successAvatarList)
         loadedAvatarSuccess,
     required TResult Function() updated,
+    required TResult Function(bool verificationSent) verificationEmailSent,
+    required TResult Function(bool modalClosed) verifyEmailModalClosed,
+    required TResult Function(bool emailVerified) dataImported,
   }) {
     return loadedSuccess(successList);
   }
@@ -839,6 +1334,9 @@ class _$LoadedSuccess extends LoadedSuccess {
     TResult? Function(UpdateProfileModel successList)? loadedSuccess,
     TResult? Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
     TResult? Function()? updated,
+    TResult? Function(bool verificationSent)? verificationEmailSent,
+    TResult? Function(bool modalClosed)? verifyEmailModalClosed,
+    TResult? Function(bool emailVerified)? dataImported,
   }) {
     return loadedSuccess?.call(successList);
   }
@@ -851,6 +1349,9 @@ class _$LoadedSuccess extends LoadedSuccess {
     TResult Function(UpdateProfileModel successList)? loadedSuccess,
     TResult Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
     TResult Function()? updated,
+    TResult Function(bool verificationSent)? verificationEmailSent,
+    TResult Function(bool modalClosed)? verifyEmailModalClosed,
+    TResult Function(bool emailVerified)? dataImported,
     required TResult orElse(),
   }) {
     if (loadedSuccess != null) {
@@ -867,6 +1368,11 @@ class _$LoadedSuccess extends LoadedSuccess {
     required TResult Function(LoadedSuccess value) loadedSuccess,
     required TResult Function(LoadedAvatarSuccess value) loadedAvatarSuccess,
     required TResult Function(Updated value) updated,
+    required TResult Function(VerificationEmailSent value)
+        verificationEmailSent,
+    required TResult Function(VerifyEmailModalClosed value)
+        verifyEmailModalClosed,
+    required TResult Function(DataImported value) dataImported,
   }) {
     return loadedSuccess(this);
   }
@@ -879,6 +1385,9 @@ class _$LoadedSuccess extends LoadedSuccess {
     TResult? Function(LoadedSuccess value)? loadedSuccess,
     TResult? Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
     TResult? Function(Updated value)? updated,
+    TResult? Function(VerificationEmailSent value)? verificationEmailSent,
+    TResult? Function(VerifyEmailModalClosed value)? verifyEmailModalClosed,
+    TResult? Function(DataImported value)? dataImported,
   }) {
     return loadedSuccess?.call(this);
   }
@@ -891,6 +1400,9 @@ class _$LoadedSuccess extends LoadedSuccess {
     TResult Function(LoadedSuccess value)? loadedSuccess,
     TResult Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
     TResult Function(Updated value)? updated,
+    TResult Function(VerificationEmailSent value)? verificationEmailSent,
+    TResult Function(VerifyEmailModalClosed value)? verifyEmailModalClosed,
+    TResult Function(DataImported value)? dataImported,
     required TResult orElse(),
   }) {
     if (loadedSuccess != null) {
@@ -992,6 +1504,9 @@ class _$LoadedAvatarSuccess extends LoadedAvatarSuccess {
     required TResult Function(UpdateAvatarModel successAvatarList)
         loadedAvatarSuccess,
     required TResult Function() updated,
+    required TResult Function(bool verificationSent) verificationEmailSent,
+    required TResult Function(bool modalClosed) verifyEmailModalClosed,
+    required TResult Function(bool emailVerified) dataImported,
   }) {
     return loadedAvatarSuccess(successAvatarList);
   }
@@ -1004,6 +1519,9 @@ class _$LoadedAvatarSuccess extends LoadedAvatarSuccess {
     TResult? Function(UpdateProfileModel successList)? loadedSuccess,
     TResult? Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
     TResult? Function()? updated,
+    TResult? Function(bool verificationSent)? verificationEmailSent,
+    TResult? Function(bool modalClosed)? verifyEmailModalClosed,
+    TResult? Function(bool emailVerified)? dataImported,
   }) {
     return loadedAvatarSuccess?.call(successAvatarList);
   }
@@ -1016,6 +1534,9 @@ class _$LoadedAvatarSuccess extends LoadedAvatarSuccess {
     TResult Function(UpdateProfileModel successList)? loadedSuccess,
     TResult Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
     TResult Function()? updated,
+    TResult Function(bool verificationSent)? verificationEmailSent,
+    TResult Function(bool modalClosed)? verifyEmailModalClosed,
+    TResult Function(bool emailVerified)? dataImported,
     required TResult orElse(),
   }) {
     if (loadedAvatarSuccess != null) {
@@ -1032,6 +1553,11 @@ class _$LoadedAvatarSuccess extends LoadedAvatarSuccess {
     required TResult Function(LoadedSuccess value) loadedSuccess,
     required TResult Function(LoadedAvatarSuccess value) loadedAvatarSuccess,
     required TResult Function(Updated value) updated,
+    required TResult Function(VerificationEmailSent value)
+        verificationEmailSent,
+    required TResult Function(VerifyEmailModalClosed value)
+        verifyEmailModalClosed,
+    required TResult Function(DataImported value) dataImported,
   }) {
     return loadedAvatarSuccess(this);
   }
@@ -1044,6 +1570,9 @@ class _$LoadedAvatarSuccess extends LoadedAvatarSuccess {
     TResult? Function(LoadedSuccess value)? loadedSuccess,
     TResult? Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
     TResult? Function(Updated value)? updated,
+    TResult? Function(VerificationEmailSent value)? verificationEmailSent,
+    TResult? Function(VerifyEmailModalClosed value)? verifyEmailModalClosed,
+    TResult? Function(DataImported value)? dataImported,
   }) {
     return loadedAvatarSuccess?.call(this);
   }
@@ -1056,6 +1585,9 @@ class _$LoadedAvatarSuccess extends LoadedAvatarSuccess {
     TResult Function(LoadedSuccess value)? loadedSuccess,
     TResult Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
     TResult Function(Updated value)? updated,
+    TResult Function(VerificationEmailSent value)? verificationEmailSent,
+    TResult Function(VerifyEmailModalClosed value)? verifyEmailModalClosed,
+    TResult Function(DataImported value)? dataImported,
     required TResult orElse(),
   }) {
     if (loadedAvatarSuccess != null) {
@@ -1118,6 +1650,9 @@ class _$Updated extends Updated {
     required TResult Function(UpdateAvatarModel successAvatarList)
         loadedAvatarSuccess,
     required TResult Function() updated,
+    required TResult Function(bool verificationSent) verificationEmailSent,
+    required TResult Function(bool modalClosed) verifyEmailModalClosed,
+    required TResult Function(bool emailVerified) dataImported,
   }) {
     return updated();
   }
@@ -1130,6 +1665,9 @@ class _$Updated extends Updated {
     TResult? Function(UpdateProfileModel successList)? loadedSuccess,
     TResult? Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
     TResult? Function()? updated,
+    TResult? Function(bool verificationSent)? verificationEmailSent,
+    TResult? Function(bool modalClosed)? verifyEmailModalClosed,
+    TResult? Function(bool emailVerified)? dataImported,
   }) {
     return updated?.call();
   }
@@ -1142,6 +1680,9 @@ class _$Updated extends Updated {
     TResult Function(UpdateProfileModel successList)? loadedSuccess,
     TResult Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
     TResult Function()? updated,
+    TResult Function(bool verificationSent)? verificationEmailSent,
+    TResult Function(bool modalClosed)? verifyEmailModalClosed,
+    TResult Function(bool emailVerified)? dataImported,
     required TResult orElse(),
   }) {
     if (updated != null) {
@@ -1158,6 +1699,11 @@ class _$Updated extends Updated {
     required TResult Function(LoadedSuccess value) loadedSuccess,
     required TResult Function(LoadedAvatarSuccess value) loadedAvatarSuccess,
     required TResult Function(Updated value) updated,
+    required TResult Function(VerificationEmailSent value)
+        verificationEmailSent,
+    required TResult Function(VerifyEmailModalClosed value)
+        verifyEmailModalClosed,
+    required TResult Function(DataImported value) dataImported,
   }) {
     return updated(this);
   }
@@ -1170,6 +1716,9 @@ class _$Updated extends Updated {
     TResult? Function(LoadedSuccess value)? loadedSuccess,
     TResult? Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
     TResult? Function(Updated value)? updated,
+    TResult? Function(VerificationEmailSent value)? verificationEmailSent,
+    TResult? Function(VerifyEmailModalClosed value)? verifyEmailModalClosed,
+    TResult? Function(DataImported value)? dataImported,
   }) {
     return updated?.call(this);
   }
@@ -1182,6 +1731,9 @@ class _$Updated extends Updated {
     TResult Function(LoadedSuccess value)? loadedSuccess,
     TResult Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
     TResult Function(Updated value)? updated,
+    TResult Function(VerificationEmailSent value)? verificationEmailSent,
+    TResult Function(VerifyEmailModalClosed value)? verifyEmailModalClosed,
+    TResult Function(DataImported value)? dataImported,
     required TResult orElse(),
   }) {
     if (updated != null) {
@@ -1194,4 +1746,530 @@ class _$Updated extends Updated {
 abstract class Updated extends UpdateProfileState {
   factory Updated() = _$Updated;
   Updated._() : super._();
+}
+
+/// @nodoc
+abstract class _$$VerificationEmailSentCopyWith<$Res> {
+  factory _$$VerificationEmailSentCopyWith(_$VerificationEmailSent value,
+          $Res Function(_$VerificationEmailSent) then) =
+      __$$VerificationEmailSentCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool verificationSent});
+}
+
+/// @nodoc
+class __$$VerificationEmailSentCopyWithImpl<$Res>
+    extends _$UpdateProfileStateCopyWithImpl<$Res, _$VerificationEmailSent>
+    implements _$$VerificationEmailSentCopyWith<$Res> {
+  __$$VerificationEmailSentCopyWithImpl(_$VerificationEmailSent _value,
+      $Res Function(_$VerificationEmailSent) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? verificationSent = null,
+  }) {
+    return _then(_$VerificationEmailSent(
+      null == verificationSent
+          ? _value.verificationSent
+          : verificationSent // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$VerificationEmailSent extends VerificationEmailSent {
+  _$VerificationEmailSent(this.verificationSent) : super._();
+
+  @override
+  final bool verificationSent;
+
+  @override
+  String toString() {
+    return 'UpdateProfileState.verificationEmailSent(verificationSent: $verificationSent)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$VerificationEmailSent &&
+            (identical(other.verificationSent, verificationSent) ||
+                other.verificationSent == verificationSent));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, verificationSent);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$VerificationEmailSentCopyWith<_$VerificationEmailSent> get copyWith =>
+      __$$VerificationEmailSentCopyWithImpl<_$VerificationEmailSent>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(String message) error,
+    required TResult Function(UpdateProfileModel successList) loadedSuccess,
+    required TResult Function(UpdateAvatarModel successAvatarList)
+        loadedAvatarSuccess,
+    required TResult Function() updated,
+    required TResult Function(bool verificationSent) verificationEmailSent,
+    required TResult Function(bool modalClosed) verifyEmailModalClosed,
+    required TResult Function(bool emailVerified) dataImported,
+  }) {
+    return verificationEmailSent(verificationSent);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(String message)? error,
+    TResult? Function(UpdateProfileModel successList)? loadedSuccess,
+    TResult? Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
+    TResult? Function()? updated,
+    TResult? Function(bool verificationSent)? verificationEmailSent,
+    TResult? Function(bool modalClosed)? verifyEmailModalClosed,
+    TResult? Function(bool emailVerified)? dataImported,
+  }) {
+    return verificationEmailSent?.call(verificationSent);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(String message)? error,
+    TResult Function(UpdateProfileModel successList)? loadedSuccess,
+    TResult Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
+    TResult Function()? updated,
+    TResult Function(bool verificationSent)? verificationEmailSent,
+    TResult Function(bool modalClosed)? verifyEmailModalClosed,
+    TResult Function(bool emailVerified)? dataImported,
+    required TResult orElse(),
+  }) {
+    if (verificationEmailSent != null) {
+      return verificationEmailSent(verificationSent);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_InitialUpdateProfileState value) initial,
+    required TResult Function(_ErrorUpdateProfileState value) error,
+    required TResult Function(LoadedSuccess value) loadedSuccess,
+    required TResult Function(LoadedAvatarSuccess value) loadedAvatarSuccess,
+    required TResult Function(Updated value) updated,
+    required TResult Function(VerificationEmailSent value)
+        verificationEmailSent,
+    required TResult Function(VerifyEmailModalClosed value)
+        verifyEmailModalClosed,
+    required TResult Function(DataImported value) dataImported,
+  }) {
+    return verificationEmailSent(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_InitialUpdateProfileState value)? initial,
+    TResult? Function(_ErrorUpdateProfileState value)? error,
+    TResult? Function(LoadedSuccess value)? loadedSuccess,
+    TResult? Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
+    TResult? Function(Updated value)? updated,
+    TResult? Function(VerificationEmailSent value)? verificationEmailSent,
+    TResult? Function(VerifyEmailModalClosed value)? verifyEmailModalClosed,
+    TResult? Function(DataImported value)? dataImported,
+  }) {
+    return verificationEmailSent?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_InitialUpdateProfileState value)? initial,
+    TResult Function(_ErrorUpdateProfileState value)? error,
+    TResult Function(LoadedSuccess value)? loadedSuccess,
+    TResult Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
+    TResult Function(Updated value)? updated,
+    TResult Function(VerificationEmailSent value)? verificationEmailSent,
+    TResult Function(VerifyEmailModalClosed value)? verifyEmailModalClosed,
+    TResult Function(DataImported value)? dataImported,
+    required TResult orElse(),
+  }) {
+    if (verificationEmailSent != null) {
+      return verificationEmailSent(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class VerificationEmailSent extends UpdateProfileState {
+  factory VerificationEmailSent(final bool verificationSent) =
+      _$VerificationEmailSent;
+  VerificationEmailSent._() : super._();
+
+  bool get verificationSent;
+  @JsonKey(ignore: true)
+  _$$VerificationEmailSentCopyWith<_$VerificationEmailSent> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$VerifyEmailModalClosedCopyWith<$Res> {
+  factory _$$VerifyEmailModalClosedCopyWith(_$VerifyEmailModalClosed value,
+          $Res Function(_$VerifyEmailModalClosed) then) =
+      __$$VerifyEmailModalClosedCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool modalClosed});
+}
+
+/// @nodoc
+class __$$VerifyEmailModalClosedCopyWithImpl<$Res>
+    extends _$UpdateProfileStateCopyWithImpl<$Res, _$VerifyEmailModalClosed>
+    implements _$$VerifyEmailModalClosedCopyWith<$Res> {
+  __$$VerifyEmailModalClosedCopyWithImpl(_$VerifyEmailModalClosed _value,
+      $Res Function(_$VerifyEmailModalClosed) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? modalClosed = null,
+  }) {
+    return _then(_$VerifyEmailModalClosed(
+      null == modalClosed
+          ? _value.modalClosed
+          : modalClosed // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$VerifyEmailModalClosed extends VerifyEmailModalClosed {
+  _$VerifyEmailModalClosed(this.modalClosed) : super._();
+
+  @override
+  final bool modalClosed;
+
+  @override
+  String toString() {
+    return 'UpdateProfileState.verifyEmailModalClosed(modalClosed: $modalClosed)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$VerifyEmailModalClosed &&
+            (identical(other.modalClosed, modalClosed) ||
+                other.modalClosed == modalClosed));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, modalClosed);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$VerifyEmailModalClosedCopyWith<_$VerifyEmailModalClosed> get copyWith =>
+      __$$VerifyEmailModalClosedCopyWithImpl<_$VerifyEmailModalClosed>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(String message) error,
+    required TResult Function(UpdateProfileModel successList) loadedSuccess,
+    required TResult Function(UpdateAvatarModel successAvatarList)
+        loadedAvatarSuccess,
+    required TResult Function() updated,
+    required TResult Function(bool verificationSent) verificationEmailSent,
+    required TResult Function(bool modalClosed) verifyEmailModalClosed,
+    required TResult Function(bool emailVerified) dataImported,
+  }) {
+    return verifyEmailModalClosed(modalClosed);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(String message)? error,
+    TResult? Function(UpdateProfileModel successList)? loadedSuccess,
+    TResult? Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
+    TResult? Function()? updated,
+    TResult? Function(bool verificationSent)? verificationEmailSent,
+    TResult? Function(bool modalClosed)? verifyEmailModalClosed,
+    TResult? Function(bool emailVerified)? dataImported,
+  }) {
+    return verifyEmailModalClosed?.call(modalClosed);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(String message)? error,
+    TResult Function(UpdateProfileModel successList)? loadedSuccess,
+    TResult Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
+    TResult Function()? updated,
+    TResult Function(bool verificationSent)? verificationEmailSent,
+    TResult Function(bool modalClosed)? verifyEmailModalClosed,
+    TResult Function(bool emailVerified)? dataImported,
+    required TResult orElse(),
+  }) {
+    if (verifyEmailModalClosed != null) {
+      return verifyEmailModalClosed(modalClosed);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_InitialUpdateProfileState value) initial,
+    required TResult Function(_ErrorUpdateProfileState value) error,
+    required TResult Function(LoadedSuccess value) loadedSuccess,
+    required TResult Function(LoadedAvatarSuccess value) loadedAvatarSuccess,
+    required TResult Function(Updated value) updated,
+    required TResult Function(VerificationEmailSent value)
+        verificationEmailSent,
+    required TResult Function(VerifyEmailModalClosed value)
+        verifyEmailModalClosed,
+    required TResult Function(DataImported value) dataImported,
+  }) {
+    return verifyEmailModalClosed(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_InitialUpdateProfileState value)? initial,
+    TResult? Function(_ErrorUpdateProfileState value)? error,
+    TResult? Function(LoadedSuccess value)? loadedSuccess,
+    TResult? Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
+    TResult? Function(Updated value)? updated,
+    TResult? Function(VerificationEmailSent value)? verificationEmailSent,
+    TResult? Function(VerifyEmailModalClosed value)? verifyEmailModalClosed,
+    TResult? Function(DataImported value)? dataImported,
+  }) {
+    return verifyEmailModalClosed?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_InitialUpdateProfileState value)? initial,
+    TResult Function(_ErrorUpdateProfileState value)? error,
+    TResult Function(LoadedSuccess value)? loadedSuccess,
+    TResult Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
+    TResult Function(Updated value)? updated,
+    TResult Function(VerificationEmailSent value)? verificationEmailSent,
+    TResult Function(VerifyEmailModalClosed value)? verifyEmailModalClosed,
+    TResult Function(DataImported value)? dataImported,
+    required TResult orElse(),
+  }) {
+    if (verifyEmailModalClosed != null) {
+      return verifyEmailModalClosed(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class VerifyEmailModalClosed extends UpdateProfileState {
+  factory VerifyEmailModalClosed(final bool modalClosed) =
+      _$VerifyEmailModalClosed;
+  VerifyEmailModalClosed._() : super._();
+
+  bool get modalClosed;
+  @JsonKey(ignore: true)
+  _$$VerifyEmailModalClosedCopyWith<_$VerifyEmailModalClosed> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$DataImportedCopyWith<$Res> {
+  factory _$$DataImportedCopyWith(
+          _$DataImported value, $Res Function(_$DataImported) then) =
+      __$$DataImportedCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool emailVerified});
+}
+
+/// @nodoc
+class __$$DataImportedCopyWithImpl<$Res>
+    extends _$UpdateProfileStateCopyWithImpl<$Res, _$DataImported>
+    implements _$$DataImportedCopyWith<$Res> {
+  __$$DataImportedCopyWithImpl(
+      _$DataImported _value, $Res Function(_$DataImported) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? emailVerified = null,
+  }) {
+    return _then(_$DataImported(
+      null == emailVerified
+          ? _value.emailVerified
+          : emailVerified // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DataImported extends DataImported {
+  _$DataImported(this.emailVerified) : super._();
+
+  @override
+  final bool emailVerified;
+
+  @override
+  String toString() {
+    return 'UpdateProfileState.dataImported(emailVerified: $emailVerified)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DataImported &&
+            (identical(other.emailVerified, emailVerified) ||
+                other.emailVerified == emailVerified));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, emailVerified);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DataImportedCopyWith<_$DataImported> get copyWith =>
+      __$$DataImportedCopyWithImpl<_$DataImported>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(String message) error,
+    required TResult Function(UpdateProfileModel successList) loadedSuccess,
+    required TResult Function(UpdateAvatarModel successAvatarList)
+        loadedAvatarSuccess,
+    required TResult Function() updated,
+    required TResult Function(bool verificationSent) verificationEmailSent,
+    required TResult Function(bool modalClosed) verifyEmailModalClosed,
+    required TResult Function(bool emailVerified) dataImported,
+  }) {
+    return dataImported(emailVerified);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(String message)? error,
+    TResult? Function(UpdateProfileModel successList)? loadedSuccess,
+    TResult? Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
+    TResult? Function()? updated,
+    TResult? Function(bool verificationSent)? verificationEmailSent,
+    TResult? Function(bool modalClosed)? verifyEmailModalClosed,
+    TResult? Function(bool emailVerified)? dataImported,
+  }) {
+    return dataImported?.call(emailVerified);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(String message)? error,
+    TResult Function(UpdateProfileModel successList)? loadedSuccess,
+    TResult Function(UpdateAvatarModel successAvatarList)? loadedAvatarSuccess,
+    TResult Function()? updated,
+    TResult Function(bool verificationSent)? verificationEmailSent,
+    TResult Function(bool modalClosed)? verifyEmailModalClosed,
+    TResult Function(bool emailVerified)? dataImported,
+    required TResult orElse(),
+  }) {
+    if (dataImported != null) {
+      return dataImported(emailVerified);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_InitialUpdateProfileState value) initial,
+    required TResult Function(_ErrorUpdateProfileState value) error,
+    required TResult Function(LoadedSuccess value) loadedSuccess,
+    required TResult Function(LoadedAvatarSuccess value) loadedAvatarSuccess,
+    required TResult Function(Updated value) updated,
+    required TResult Function(VerificationEmailSent value)
+        verificationEmailSent,
+    required TResult Function(VerifyEmailModalClosed value)
+        verifyEmailModalClosed,
+    required TResult Function(DataImported value) dataImported,
+  }) {
+    return dataImported(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_InitialUpdateProfileState value)? initial,
+    TResult? Function(_ErrorUpdateProfileState value)? error,
+    TResult? Function(LoadedSuccess value)? loadedSuccess,
+    TResult? Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
+    TResult? Function(Updated value)? updated,
+    TResult? Function(VerificationEmailSent value)? verificationEmailSent,
+    TResult? Function(VerifyEmailModalClosed value)? verifyEmailModalClosed,
+    TResult? Function(DataImported value)? dataImported,
+  }) {
+    return dataImported?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_InitialUpdateProfileState value)? initial,
+    TResult Function(_ErrorUpdateProfileState value)? error,
+    TResult Function(LoadedSuccess value)? loadedSuccess,
+    TResult Function(LoadedAvatarSuccess value)? loadedAvatarSuccess,
+    TResult Function(Updated value)? updated,
+    TResult Function(VerificationEmailSent value)? verificationEmailSent,
+    TResult Function(VerifyEmailModalClosed value)? verifyEmailModalClosed,
+    TResult Function(DataImported value)? dataImported,
+    required TResult orElse(),
+  }) {
+    if (dataImported != null) {
+      return dataImported(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class DataImported extends UpdateProfileState {
+  factory DataImported(final bool emailVerified) = _$DataImported;
+  DataImported._() : super._();
+
+  bool get emailVerified;
+  @JsonKey(ignore: true)
+  _$$DataImportedCopyWith<_$DataImported> get copyWith =>
+      throw _privateConstructorUsedError;
 }

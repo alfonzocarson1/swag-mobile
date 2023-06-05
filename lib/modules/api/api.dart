@@ -4,6 +4,7 @@ import 'package:swagapp/modules/constants/constants.dart';
 
 enum Endpoint {
   isUsernameAvailable,
+  isPhoneAvailable,
   createNewAccount,
   catalogItemDetail,
   publicCatalogItemDetail,
@@ -15,12 +16,14 @@ enum Endpoint {
   updateProfile,
   updateAvatar,
   requestPasswordResetCode,
+  requestEmailVerification,
   requestIsvalidCode,
   changePassword,
   addCollection,
   buyForSaleListing,
   createListingForSale,
   uploadImageListingForSale,
+  updateImages,
   favoriteFlow,
   savedSearches,
   deleteSearch,
@@ -29,6 +32,10 @@ enum Endpoint {
   filtersAvailable,
   listingsProfile,
   chat,
+  explorePage,
+  notifyAvailability,
+  profileNotifyStatus,
+  peerToPeerPayments
 }
 
 class API {
@@ -48,6 +55,7 @@ class API {
   static final Map<Endpoint, String> _paths = {
     Endpoint.isUsernameAvailable:
         'api/public/v1/account/isUsernameAvailable/%s',
+    Endpoint.isPhoneAvailable: 'api/public/v1/account/isPhoneInUse/%s',
     Endpoint.createNewAccount: 'api/public/v1/account/createNewAccount',
     Endpoint.catalogItemDetail: 'api/v1/catalog/catalogItemDetail/%s',
     Endpoint.publicCatalogItemDetail:
@@ -61,6 +69,8 @@ class API {
     Endpoint.updateAvatar: 'api/v1/image/%s',
     Endpoint.requestPasswordResetCode:
         'api/public/v1/account/requestPasswordResetCode/%s',
+    Endpoint.requestEmailVerification:
+        'api/v1/account/requestEmailVerification',
     Endpoint.requestIsvalidCode:
         'api/public/v1/account/requestPasswordResetCode/isvalid/%s',
     Endpoint.changePassword: 'api/public/v1/account/passwordChangeRequest',
@@ -68,6 +78,7 @@ class API {
     Endpoint.buyForSaleListing: "api/v1/listing/forSale/%s",
     Endpoint.createListingForSale: "api/v1/listing/listingItem",
     Endpoint.uploadImageListingForSale: 'api/v1/image/listing/%s',
+    Endpoint.updateImages: 'api/v1/image/updateImages',
     Endpoint.favoriteFlow: 'api/v1/profile/favoriteItems',
     Endpoint.savedSearches: "api/v1/catalog/searches/",
     Endpoint.deleteSearch: "api/v1/catalog/searches/%s",
@@ -76,5 +87,9 @@ class API {
     Endpoint.filtersAvailable: 'api/public/v1/catalog/filtersAvailable/',
     Endpoint.listingsProfile: 'api/public/v1/listing/productItems/profile/%s',
     Endpoint.chat: 'api/v1/listing/%s/chat',
+    Endpoint.explorePage: 'api/public/v1/catalog/search/0',
+    Endpoint.notifyAvailability: 'api/v1/notification/notifyAvailability',
+    Endpoint.profileNotifyStatus: 'api/v1/notification/notifyAvailability/profile',
+    Endpoint.peerToPeerPayments: 'api/v1/profile/settings/peerToPeerPayments',
   };
 }

@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/common/ui/loading.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
+import 'package:swagapp/modules/models/detail/sale_history_model.dart';
+import 'package:swagapp/modules/pages/detail/transaction_history_page.dart';
 import '../../blocs/detail_bloc/detail_bloc.dart';
 import '../../blocs/sale_history/sale_history_bloc.dart';
 import '../../common/ui/custom_app_bar.dart';
@@ -13,12 +15,12 @@ import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/detail/detail_item_model.dart';
 
+import '../../models/detail/sale_list_history_model.dart';
 import '../add/collection/add_collection_page.dart';
 import '../login/create_account_page.dart';
 import 'intem_head.dart';
 import 'item_collection.dart';
 import 'item_rarity.dart';
-import 'item_switched.dart';
 
 class ItemDetailPage extends StatefulWidget {
   static const name = '/ItemDetail';
@@ -39,7 +41,7 @@ class ItemDetailPage extends StatefulWidget {
 }
 
 class _ItemDetailPageState extends State<ItemDetailPage> {
-  late final ScrollController? _scrollController =
+  late final ScrollController _scrollController =
       PrimaryScrollController.of(context);
 
   int? _collectionLen;
@@ -48,20 +50,31 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
   bool isFirstState = true;
   bool isLogged = false;
   List<DetailItemModel>? dataDetailClone;
+  SalesHistoryListModel saleHistoryModel =
+      const SalesHistoryListModel(saleHistoryList: []);
+  List<SalesHistoryModel> saleHistoryList = [];
+
   @override
   void initState() {
-    // TODO: implement initState
+    getSalesHistory();
     super.initState();
     isFirstState = true;
-
     isLogged = getIt<PreferenceRepositoryService>().isLogged();
+
     context
         .read<DetailBloc>()
         .add(DetailEvent.getDetailItem(widget.catalogItemId));
   }
 
+  getSalesHistory() async {
+    saleHistoryModel = await getIt<SalesHistoryBloc>()
+        .salesHistoryService
+        .salesHistory(widget.catalogItemId);
+  }
+
   @override
   Widget build(BuildContext context) {
+    saleHistoryList = saleHistoryModel.saleHistoryList ?? [];
     return Scaffold(
         backgroundColor: Palette.current.black,
         resizeToAvoidBottomInset: true,
@@ -163,7 +176,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
         return Future.delayed(const Duration(milliseconds: 1500));
       },
       child: dataDetail.isNotEmpty
-          ? _dataDetail(dataDetail, _scrollController!)
+          ? _dataDetail(dataDetail, _scrollController)
           : ListView.builder(
               padding: EdgeInsets.zero,
               itemBuilder: (_, index) => SizedBox(
@@ -211,6 +224,8 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                                 dataDetail[index].copyWith(inFavorites: val);
                           });
                         },
+                        saleHistoryNavigation: () =>
+                            navigationCallback(dataDetail[index]),
                         profileFavoriteItemId:
                             dataDetail[index].profileFavoriteItemId,
                         urlImage: dataDetail[index].catalogItemImage,
@@ -223,7 +238,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                         sale: dataDetail[index].forSale,
                         favorite: dataDetail[index].inFavorites,
                         available: dataDetail[index].numberAvailable,
-                        saleHistory: const [],
+                        saleHistory: saleHistoryList,
                         itemId: dataDetail[index].catalogItemId),
                     RarityWidget(
                         rarity: dataDetail[index].rarityScore,
@@ -239,6 +254,10 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                               dataDetail[index].copyWith(inFavorites: val);
                         });
                       },
+                      saleHistoryList: saleHistoryList,
+                      salesHistoryNavigation: (saleHistoryList.isNotEmpty)
+                          ? () => navigationCallback(dataDetail[index])
+                          : null,
                       sale: dataDetail[index].forSale,
                       dataCollection: dataDetail[index].collectionItems,
                       lastSale: dataDetail[index].saleInfo,
@@ -251,7 +270,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                   ],
                 ),
               ),
-              const ItemSwitched()
+              // const ItemSwitched()
             ],
           );
         });
@@ -265,5 +284,25 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
     context
         .read<DetailBloc>()
         .add(DetailEvent.getDetailItem(widget.catalogItemId));
+  }
+
+  void navigationCallback(DetailItemModel model) {
+    Navigator.of(context, rootNavigator: true).push(TransactionHistory.route(
+        model.catalogItemImage,
+        model.catalogItemName,
+        model.saleInfo,
+        false,
+        3,
+        false,
+        model.catalogItemId,
+        saleHistoryList, (val) {
+      setState(() {
+        if (val) {
+          widget.addFavorite(true);
+        } else {
+          widget.addFavorite(false);
+        }
+      });
+    }));
   }
 }

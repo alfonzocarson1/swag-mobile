@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../../generated/l10n.dart';
 import '../utils/palette.dart';
@@ -8,11 +9,15 @@ import '../utils/utils.dart';
 class CupertinoDatePickerView extends StatefulWidget {
   
   CupertinoDatePickerView(
-      {Key? key, required this.cupertinoDatePickervalue, required this.onDone})
+      {Key? key,
+      required this.cupertinoDatePickervalue,
+      required this.onDone,
+      this.errorText})
       : super(key: key);
 
   final DateTime? cupertinoDatePickervalue;
   final Function(DateTime) onDone;
+  final String? errorText;
 
   @override
   State<CupertinoDatePickerView> createState() =>
@@ -20,9 +25,20 @@ class CupertinoDatePickerView extends StatefulWidget {
 }
 
 class _CupertinoDatePickerViewState extends State<CupertinoDatePickerView> {
-  DateTime selectDate = DateTime.now();
+  DateTime selectDate = DateTime.now().subtract(const Duration(hours: 1));
 
-  DateTime minimumDate = DateTime.now();
+  DateTime maximumDate = DateTime.now().subtract(const Duration(hours: 1));
+  DateTime mindate = DateTime(2018, 4, 1);
+
+  bool initMessage = true;
+
+  var myFormat = DateFormat('d-MM-yyyy');
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +62,9 @@ class _CupertinoDatePickerViewState extends State<CupertinoDatePickerView> {
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                       border: Border.all(
-                        color: Colors.white,
+                        color: widget.errorText != null
+                            ? Palette.current.primaryNeonPink
+                            : Colors.white,
                       ),
                       color: Colors.transparent),
                   padding: const EdgeInsets.only(bottom: 6),
@@ -62,7 +80,7 @@ class _CupertinoDatePickerViewState extends State<CupertinoDatePickerView> {
                           Expanded(
                               flex: 1,
                               child: Text(
-                                widget.cupertinoDatePickervalue == null
+                                initMessage
                                     ? S.of(context).date_purchased
                                     : formatDate(widget.cupertinoDatePickervalue
                                         .toString()),
@@ -88,6 +106,17 @@ class _CupertinoDatePickerViewState extends State<CupertinoDatePickerView> {
                     ),
                   ),
                 ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    widget.errorText ?? '',
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(color: Palette.current.primaryNeonPink),
+                  ),
+                )
               ],
             ),
           )
@@ -121,6 +150,7 @@ class _CupertinoDatePickerViewState extends State<CupertinoDatePickerView> {
                         ),
                         CupertinoButton(
                           onPressed: () {
+                            initMessage = false;
                             widget.onDone(selectDate);
                           },
                           padding: const EdgeInsets.symmetric(
@@ -135,9 +165,10 @@ class _CupertinoDatePickerViewState extends State<CupertinoDatePickerView> {
                   SizedBox(
                     height: 400,
                     child: CupertinoDatePicker(
-                        minimumDate: minimumDate,
+                        minimumDate: mindate,
+                        maximumDate: maximumDate,
                         mode: CupertinoDatePickerMode.date,
-                        initialDateTime: widget.cupertinoDatePickervalue,
+                        initialDateTime: selectDate,
                         onDateTimeChanged: (val) {
                           setState(() {
                             selectDate = val;

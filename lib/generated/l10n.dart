@@ -310,10 +310,10 @@ class S {
     );
   }
 
-  /// `It looks like you have an account on swag.golf. After you verify your email you will be able to  import your information into the Swag app.`
+  /// `It looks like you have an account on Swag.Golf. After you verify your email you will be able to  import your information into the Swag app.`
   String get popup_description {
     return Intl.message(
-      'It looks like you have an account on swag.golf. After you verify your email you will be able to  import your information into the Swag app.',
+      'It looks like you have an account on Swag.Golf. After you verify your email you will be able to  import your information into the Swag app.',
       name: 'popup_description',
       desc: '',
       args: [],
@@ -705,6 +705,16 @@ class S {
     return Intl.message(
       'No items yet',
       name: 'empty_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `NO ITEMS MATCH YOUR SEARCH!`
+  String get empty_search_result {
+    return Intl.message(
+      'NO ITEMS MATCH YOUR SEARCH!',
+      name: 'empty_search_result',
       desc: '',
       args: [],
     );
@@ -1200,10 +1210,10 @@ class S {
     );
   }
 
-  /// `• Minimum of 4 photos maximum of 6`
+  /// `• Minimum of 4, Maximum of 6`
   String get photo_condition_four {
     return Intl.message(
-      '• Minimum of 4 photos maximum of 6',
+      '• Minimum of 4, Maximum of 6',
       name: 'photo_condition_four',
       desc: '',
       args: [],
@@ -1225,6 +1235,16 @@ class S {
     return Intl.message(
       'SELECT ITEM',
       name: 'select_item',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `DETAILS`
+  String get detail {
+    return Intl.message(
+      'DETAILS',
+      name: 'detail',
       desc: '',
       args: [],
     );
@@ -1370,11 +1390,11 @@ class S {
     );
   }
 
-  /// `product`
-  String get product {
+  /// `category`
+  String get category {
     return Intl.message(
-      'product',
-      name: 'product',
+      'category',
+      name: 'category',
       desc: '',
       args: [],
     );
@@ -1650,10 +1670,10 @@ class S {
     );
   }
 
-  /// `Please include the following images based on item condition. All photos must include a post-it with username and date.`
+  /// `Include the following images with your listing. Photos MUST include a physical note with username and date.`
   String get image_guidelines_description {
     return Intl.message(
-      'Please include the following images based on item condition. All photos must include a post-it with username and date.',
+      'Include the following images with your listing. Photos MUST include a physical note with username and date.',
       name: 'image_guidelines_description',
       desc: '',
       args: [],
@@ -1690,11 +1710,21 @@ class S {
     );
   }
 
-  /// `•  Minimum of 3 photos Max of 6`
+  /// `•  Tagged picture`
   String get sealed_item_three {
     return Intl.message(
-      '•  Minimum of 3 photos Max of 6',
+      '•  Tagged picture',
       name: 'sealed_item_three',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `•  Minimum of 3, Maximum of 6`
+  String get sealed_item_four {
+    return Intl.message(
+      '•  Minimum of 3, Maximum of 6',
+      name: 'sealed_item_four',
       desc: '',
       args: [],
     );
@@ -1710,10 +1740,10 @@ class S {
     );
   }
 
-  /// `•  Minimum of 4 photos Max of 6`
+  /// `•  Minimum of 4, Maximum of 6`
   String get displayed_gamed_item_four {
     return Intl.message(
-      '•  Minimum of 4 photos Max of 6',
+      '•  Minimum of 4, Maximum of 6',
       name: 'displayed_gamed_item_four',
       desc: '',
       args: [],
@@ -1960,6 +1990,16 @@ class S {
     );
   }
 
+  /// `Changed my mind`
+  String get delete_collection_reason_4 {
+    return Intl.message(
+      'Changed my mind',
+      name: 'delete_collection_reason_4',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `REMOVE ITEM`
   String get remove_item {
     return Intl.message(
@@ -2025,6 +2065,26 @@ class S {
     return Intl.message(
       'REMOVE ITEM',
       name: 'alert_remove_btn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `REMOVE LISTING`
+  String get remove_listing {
+    return Intl.message(
+      'REMOVE LISTING',
+      name: 'remove_listing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select the reason you are removing this listing.`
+  String get remove_listing_subtitle {
+    return Intl.message(
+      'Please select the reason you are removing this listing.',
+      name: 'remove_listing_subtitle',
       desc: '',
       args: [],
     );
@@ -2257,6 +2317,566 @@ class S {
       name: 'chatsUnreadMessages',
       desc: '',
       args: [chatsNumber],
+    );
+  }
+
+  /// `COLLECTION VALUE:`
+  String get collection_value {
+    return Intl.message(
+      'COLLECTION VALUE:',
+      name: 'collection_value',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SHOP BY CATEGORY`
+  String get shop_by_category_title {
+    return Intl.message(
+      'SHOP BY CATEGORY',
+      name: 'shop_by_category_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `See All`
+  String get See_All {
+    return Intl.message(
+      'See All',
+      name: 'See_All',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `STAFF PICKS`
+  String get staff_picks {
+    return Intl.message(
+      'STAFF PICKS',
+      name: 'staff_picks',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `UNICORN COVERS`
+  String get unicorn_covers {
+    return Intl.message(
+      'UNICORN COVERS',
+      name: 'unicorn_covers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You will be notified when this item is available.`
+  String get notify_availability {
+    return Intl.message(
+      'You will be notified when this item is available.',
+      name: 'notify_availability',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You have already requested to be notified.  We will notify you when item is listed for sale.`
+  String get notification_already_requested {
+    return Intl.message(
+      'You have already requested to be notified.  We will notify you when item is listed for sale.',
+      name: 'notification_already_requested',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Collection item(s) already listed`
+  String get collection_listed {
+    return Intl.message(
+      'Collection item(s) already listed',
+      name: 'collection_listed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SETTINGS`
+  String get settings {
+    return Intl.message(
+      'SETTINGS',
+      name: 'settings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Account`
+  String get account_title {
+    return Intl.message(
+      'Account',
+      name: 'account_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Billing, shipping, payment`
+  String get account_sub_title {
+    return Intl.message(
+      'Billing, shipping, payment',
+      name: 'account_sub_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Profile`
+  String get profile_title {
+    return Intl.message(
+      'Profile',
+      name: 'profile_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Username, email, password, phone`
+  String get profile_sub_title {
+    return Intl.message(
+      'Username, email, password, phone',
+      name: 'profile_sub_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Purchase History`
+  String get purchase_title {
+    return Intl.message(
+      'Purchase History',
+      name: 'purchase_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Atomic Drops purchases`
+  String get purchase_sub_title {
+    return Intl.message(
+      'Atomic Drops purchases',
+      name: 'purchase_sub_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Security`
+  String get security_title {
+    return Intl.message(
+      'Security',
+      name: 'security_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Two-Step verification`
+  String get security_sub_title {
+    return Intl.message(
+      'Two-Step verification',
+      name: 'security_sub_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `NFT Wallet`
+  String get nft_wallet_title {
+    return Intl.message(
+      'NFT Wallet',
+      name: 'nft_wallet_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Connect your OpenSea Wallet`
+  String get nft_wallet_sub_title {
+    return Intl.message(
+      'Connect your OpenSea Wallet',
+      name: 'nft_wallet_sub_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Communications`
+  String get communications_title {
+    return Intl.message(
+      'Communications',
+      name: 'communications_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Manage notifications and blocking`
+  String get communications_sub_title {
+    return Intl.message(
+      'Manage notifications and blocking',
+      name: 'communications_sub_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Contact Us`
+  String get contact_us_title {
+    return Intl.message(
+      'Contact Us',
+      name: 'contact_us_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Get in touch with Swag support`
+  String get contact_us_sub_title {
+    return Intl.message(
+      'Get in touch with Swag support',
+      name: 'contact_us_sub_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Help Center`
+  String get help_center_title {
+    return Intl.message(
+      'Help Center',
+      name: 'help_center_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `See our FAQS, Terms and Privacy`
+  String get help_center_sub_title {
+    return Intl.message(
+      'See our FAQS, Terms and Privacy',
+      name: 'help_center_sub_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `PREMIUM MEMBER`
+  String get premium_member_title {
+    return Intl.message(
+      'PREMIUM MEMBER',
+      name: 'premium_member_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Atomic Drop Payments`
+  String get premium_memberatomic_drop_payments_title {
+    return Intl.message(
+      'Atomic Drop Payments',
+      name: 'premium_memberatomic_drop_payments_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Manage Cards`
+  String get premium_memberatomic_drop_payments_sub_title {
+    return Intl.message(
+      'Manage Cards',
+      name: 'premium_memberatomic_drop_payments_sub_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shipping Address`
+  String get shipping_address_title {
+    return Intl.message(
+      'Shipping Address',
+      name: 'shipping_address_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Peer to Peer Payment Options`
+  String get peer_to_peer_payment_options_title {
+    return Intl.message(
+      'Peer to Peer Payment Options',
+      name: 'peer_to_peer_payment_options_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Venmo, CashApp, PayPal`
+  String get peer_to_peer_payment_options_sub_title {
+    return Intl.message(
+      'Venmo, CashApp, PayPal',
+      name: 'peer_to_peer_payment_options_sub_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `KYC`
+  String get kyc_title {
+    return Intl.message(
+      'KYC',
+      name: 'kyc_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Subscription`
+  String get subscription_title {
+    return Intl.message(
+      'Subscription',
+      name: 'subscription_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Active`
+  String get active {
+    return Intl.message(
+      'Active',
+      name: 'active',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Expired`
+  String get expired {
+    return Intl.message(
+      'Expired',
+      name: 'expired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add New Address`
+  String get add_new_address {
+    return Intl.message(
+      'Add New Address',
+      name: 'add_new_address',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove`
+  String get remove_address {
+    return Intl.message(
+      'Remove',
+      name: 'remove_address',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit Address`
+  String get edit_address {
+    return Intl.message(
+      'Edit Address',
+      name: 'edit_address',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Venmo`
+  String get venmo {
+    return Intl.message(
+      'Venmo',
+      name: 'venmo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CashApp`
+  String get cash_app {
+    return Intl.message(
+      'CashApp',
+      name: 'cash_app',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `PayPal`
+  String get payPal {
+    return Intl.message(
+      'PayPal',
+      name: 'payPal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SAVE`
+  String get save_btn {
+    return Intl.message(
+      'SAVE',
+      name: 'save_btn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter and confirm your \nVenmo username.`
+  String get venmo_sub_title {
+    return Intl.message(
+      'Please enter and confirm your \nVenmo username.',
+      name: 'venmo_sub_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter and confirm your PayPal email`
+  String get payPal_sub_title {
+    return Intl.message(
+      'Please enter and confirm your PayPal email',
+      name: 'payPal_sub_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter and confirm your \nCashApp cashtag`
+  String get cash_app_sub_title {
+    return Intl.message(
+      'Please enter and confirm your \nCashApp cashtag',
+      name: 'cash_app_sub_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `@Venmo username`
+  String get input_venmo {
+    return Intl.message(
+      '@Venmo username',
+      name: 'input_venmo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `$cashtag`
+  String get input_cash_app {
+    return Intl.message(
+      '\$cashtag',
+      name: 'input_cash_app',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Must 20 characters or less, min 1 letter, no spaces`
+  String get input_cash_app_ivalid {
+    return Intl.message(
+      'Must 20 characters or less, min 1 letter, no spaces',
+      name: 'input_cash_app_ivalid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Must be 5-10 characters, no spaces or special characters except - or _`
+  String get input_venmo_ivalid {
+    return Intl.message(
+      'Must be 5-10 characters, no spaces or special characters except - or _',
+      name: 'input_venmo_ivalid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Complete Purchase`
+  String get complete_purchase_title {
+    return Intl.message(
+      'Complete Purchase',
+      name: 'complete_purchase_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We will connect you with the seller to complete this purchase. Please select how you like to pay for this item? `
+  String get complete_purchase_sub_title {
+    return Intl.message(
+      'We will connect you with the seller to complete this purchase. Please select how you like to pay for this item? ',
+      name: 'complete_purchase_sub_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payment Type`
+  String get payment_types {
+    return Intl.message(
+      'Payment Type',
+      name: 'payment_types',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please confirm or update your shipping address for this item to be shipped.`
+  String get shipped_input_title {
+    return Intl.message(
+      'Please confirm or update your shipping address for this item to be shipped.',
+      name: 'shipped_input_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save address to your account`
+  String get save_address {
+    return Intl.message(
+      'Save address to your account',
+      name: 'save_address',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter and confirm your shipping information.`
+  String get add_address_title {
+    return Intl.message(
+      'Please enter and confirm your shipping information.',
+      name: 'add_address_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `FROM`
+  String get from {
+    return Intl.message(
+      'FROM',
+      name: 'from',
+      desc: '',
+      args: [],
     );
   }
 }

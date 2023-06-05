@@ -10,9 +10,16 @@ import '../../blocs/update_profile_bloc/update_profile_bloc.dart';
 import '../../common/ui/cupertino_custom_picker.dart';
 import '../../common/ui/custom_text_form_field.dart';
 import '../../common/ui/account_info_head.dart';
+import '../../common/ui/dynamic_toast_messages.dart';
 import '../../common/ui/loading.dart';
+import '../../common/ui/popup_screen.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/size_helper.dart';
+import '../../common/utils/utils.dart';
+import '../../constants/constants.dart';
+import '../../data/secure_storage/storage_repository_service.dart';
+import '../../data/shared_preferences/shared_preferences_service.dart';
+import '../../di/injector.dart';
 import '../../models/update_profile/addresses_payload_model.dart';
 import '../../models/update_profile/update_profile_payload_model.dart';
 
@@ -40,7 +47,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
 
   final FocusNode _countryNode = FocusNode();
   final _countryController = TextEditingController();
-  Color _countryBorder = Palette.current.primaryWhiteSmoke;
+  Color countryBorder = Palette.current.primaryWhiteSmoke;
 
   final FocusNode _firstAddressNode = FocusNode();
   final _firstAddressController = TextEditingController();
@@ -69,29 +76,22 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   String? cityErrorText;
   String? stateErrorText;
   String? zipErrorText;
+  String firstName = '';
+  String lastName = '';
+  String address1 = '';
+  String address2 = '';
+  bool hasImportableData = false;
+  bool verificationEmailSent = false;
 
   late ResponsiveDesign responsiveDesign;
 
-  String _defaultCountry = 'Country';
-  String _defaultState = 'State';
-  var countries = [
-    'Country',
-    'Country 1',
-    'Country 2',
-    'Country 3',
-    'Country 4',
-  ];
-
-  var states = [
-    'State',
-    'State 1',
-    'State 2',
-    'State 3',
-    'State 4',
-  ];
+  String _defaultCountry = 'United States';
+  String _defaultState = 'State'; 
+  List<String> _states = ['State'];
   int value = 0;
 
   bool updateAllFlow = false;
+  late String userName;
 
   @override
   void dispose() {
@@ -104,9 +104,23 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
     super.dispose();
   }
 
+  void _getStates(String country) async {
+    _states = ['State'];
+    _defaultState ='State';
+    var responseSatate = await getStates(country);
+    _states.addAll(responseSatate as Iterable<String>);
+    setState(() {
+  
+    });
+  }
+
   @override
   void initState() {
     super.initState();
+
+    hasImportableData =
+        getIt<PreferenceRepositoryService>().hasImportableData();
+
     _firstNameNode.addListener(() {
       setState(() {
         _firstNameBorder = _firstNameNode.hasFocus
@@ -125,7 +139,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
 
     _countryNode.addListener(() {
       setState(() {
-        _countryBorder = _countryNode.hasFocus
+        countryBorder = _countryNode.hasFocus
             ? Palette.current.primaryNeonGreen
             : Palette.current.primaryWhiteSmoke;
       });
@@ -170,10 +184,27 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
             : Palette.current.primaryWhiteSmoke;
       });
     });
+    _getStates(_defaultCountry);
+  }
+
+  getStoredInfo() async {
+    userName = (getIt<PreferenceRepositoryService>().profileData().username);
+    firstName = (await getIt<StorageRepositoryService>().getFirstName() ?? '');
+    lastName = (await getIt<StorageRepositoryService>().getLastName() ?? '');
+    var addresses = (await getIt<StorageRepositoryService>().getAddresses());
+    if (addresses.isNotEmpty) {
+      address1 = addresses[0] ?? '';
+      address2 = addresses[1] ?? '';
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    getStoredInfo();
+
+    if (firstName == '' || lastName == '') {
+      showPopUp(username: userName);
+    }
     responsiveDesign = ResponsiveDesign(context);
     return Scaffold(
         extendBodyBehindAppBar: true,
@@ -185,28 +216,77 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                   orElse: () {
                     return null;
                   },
+                  verifyEmailModalClosed: (modalClosed) {
+                      Future.delayed(const Duration(seconds: 1),
+                          (() => showPopUp(username: userName)));
+                      return null;
+                  } ,
+                  verificationEmailSent: (verificationSent) {
+                    if (verificationSent) {
+                      Navigator.of(context).pop();
+
+                      Future.delayed(const Duration(seconds: 3),
+                          (() => showPopUp(username: userName)));
+
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          duration: const Duration(seconds: 5),
+                          behavior: SnackBarBehavior.floating,
+                          margin: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).size.height / 1.3,
+                          ),
+                          backgroundColor: Colors.transparent,
+                          content: ToastMessage(
+                            message: S.of(context).toast_message_create_account,
+                          ),
+                          dismissDirection: DismissDirection.none));
+                    }
+                    return null;
+                  },
+                  dataImported: (emailVerified) {
+                    if (emailVerified) {
+                      Navigator.of(context).pop();
+                      setState(() {
+                       // getStoredInfo();
+                        _firstNameController.text = firstName;
+                        _lastNameController.text = lastName;
+                        _defaultCountry = _defaultCountry;
+                        _firstAddressController.text = address1;
+                        _secondAddressController.text = address2;
+                        _cityController.text = '';
+                        _defaultState = _defaultState;
+                        _zipController.text = '';
+                        updateAllFlow = false;
+                      });
+                    } else {
+                      Navigator.of(context).pop();
+                      Future.delayed(
+                          const Duration(seconds: 1), (() => showPopUp()));
+                    }
+                    return null;
+                  },
                   updated: () {
+                    showPopUp(username: userName);
                     if (updateAllFlow) {
                       setState(() {
                         _firstNameController.text = '';
                         _lastNameController.text = '';
-                        _defaultCountry = 'Country';
+                        _defaultCountry = _defaultCountry;
                         _firstAddressController.text = '';
                         _secondAddressController.text = '';
                         _cityController.text = '';
-                        _defaultState = 'State';
+                        _defaultState = _defaultState;
                         _zipController.text = '';
                         updateAllFlow = false;
                       });
                       Navigator.of(context, rootNavigator: true).pop();
                     }
-
                     Loading.hide(context);
-
                     return null;
                   },
                   initial: () {
+                    
                     return Loading.show(context);
+                    
                   },
                   error: (message) => {
                     updateAllFlow = false,
@@ -215,7 +295,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                   },
                 ),
             child: _getBody()));
-  }
+  }  
 
   GestureDetector _getBody() {
     return GestureDetector(
@@ -250,7 +330,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
               ),
               Text(S.of(context).title_welcome,
                   style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                        fontFamily: "Knockout",
+                        fontFamily: "KnockoutCustom",
                         fontSize: 50,
                         wordSpacing: 1,
                         fontWeight: FontWeight.w300,
@@ -313,24 +393,17 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                             const SizedBox(
                               height: 20,
                             ),
-                            CustomTextFormField(
-                                borderColor: _countryBorder,
-                                autofocus: false,
-                                labelText: S.of(context).country,
-                                errorText: countryErrorText,
-                                dropdownForm: true,
-                                dropdownFormItems: countries,
-                                dropdownvalue: _defaultCountry,
-                                dropdownOnChanged: (String? newValue) {
-                                  setState(() {
-                                    setState(() {
-                                      _defaultCountry = newValue!;
-                                    });
-                                  });
-                                },
-                                focusNode: _countryNode,
-                                controller: _countryController,
-                                inputType: TextInputType.text),
+                            CupertinoPickerView(
+                                          errorText: stateErrorText,
+                                          cupertinoPickerItems: countries,
+                                          cupertinoPickervalue: _defaultCountry,
+                                          onDone: (index) {
+                                            setState(() => value = index);
+                                            _defaultCountry = countries[index];
+                                            _countryController.text = _defaultCountry;
+                                            if(_defaultCountry != defaultCountry) _defaultState = defaultState;
+                                            Navigator.pop(context);
+                                          }),
                             const SizedBox(
                               height: 20,
                             ),
@@ -384,13 +457,26 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                   flex: 2,
                                   child: Column(
                                     children: [
-                                      CupertinoPickerView(
+                                      (_defaultCountry == defaultCountry) ? CupertinoPickerView(
+                                        key: const Key('State-Picker'),
                                           errorText: stateErrorText,
-                                          cupertinoPickerItems: states,
+                                          cupertinoPickerItems: stateCodes,
                                           cupertinoPickervalue: _defaultState,
                                           onDone: (index) {
                                             setState(() => value = index);
-                                            _defaultState = states[index];
+                                            _defaultState = stateCodes[index];
+                                            stateController.text = _defaultState;
+                                            Navigator.pop(context);
+                                          }) : CupertinoPickerView(
+                                        key: const Key('State-Picker-2'),
+                                          errorText: stateErrorText,
+                                          looping: false,
+                                          cupertinoPickerItems:const ["State"],
+                                          cupertinoPickervalue: _defaultState,
+                                          onDone: (index) {
+                                            setState(() => value = index);
+                                            _defaultState = defaultState;
+                                            stateController.text= defaultState;
                                             Navigator.pop(context);
                                           }),
                                       Visibility(
@@ -423,11 +509,11 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                   child: Column(
                                     children: [
                                       CustomTextFormField(
-                                        inputType: const TextInputType
-                                            .numberWithOptions(
-                                          decimal: true,
-                                          signed: false,
-                                        ),
+                                        inputType: TextInputType.text,
+                                        inputFormatters: [
+                                          FilteringTextInputFormatter.allow(
+                                              RegExp(r'[a-zA-Z0-9 ]')),
+                                        ],
                                         borderColor: _zipBorder,
                                         autofocus: false,
                                         errorText: zipErrorText,
@@ -530,5 +616,26 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
         _cityController.text.isNotEmpty &&
         _defaultState != 'State' &&
         _zipController.text.isNotEmpty;
+  }
+
+  void showPopUp({String? username}) {
+    Future.delayed(
+      const Duration(milliseconds: 500),
+      () {
+        if (hasImportableData && username != null) {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) => PopUp(name: username),
+          );
+        } else if (hasImportableData && username == null) {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) => const PopUp(),
+          );
+        }
+      },
+    );
   }
 }

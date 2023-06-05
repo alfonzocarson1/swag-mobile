@@ -26,6 +26,8 @@ mixin _$SearchRequestPayloadModel {
   int get pageSize => throw _privateConstructorUsedError;
   String? get categoryId => throw _privateConstructorUsedError;
   bool? get whatsHotFlag => throw _privateConstructorUsedError;
+  bool? get staffPicksFlag => throw _privateConstructorUsedError;
+  bool? get unicornFlag => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -44,7 +46,9 @@ abstract class $SearchRequestPayloadModelCopyWith<$Res> {
       List<String>? searchParams,
       int pageSize,
       String? categoryId,
-      bool? whatsHotFlag});
+      bool? whatsHotFlag,
+      bool? staffPicksFlag,
+      bool? unicornFlag});
 
   $FilterModelCopyWith<$Res> get filters;
 }
@@ -68,6 +72,8 @@ class _$SearchRequestPayloadModelCopyWithImpl<$Res,
     Object? pageSize = null,
     Object? categoryId = freezed,
     Object? whatsHotFlag = freezed,
+    Object? staffPicksFlag = freezed,
+    Object? unicornFlag = freezed,
   }) {
     return _then(_value.copyWith(
       filters: null == filters
@@ -89,6 +95,14 @@ class _$SearchRequestPayloadModelCopyWithImpl<$Res,
       whatsHotFlag: freezed == whatsHotFlag
           ? _value.whatsHotFlag
           : whatsHotFlag // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      staffPicksFlag: freezed == staffPicksFlag
+          ? _value.staffPicksFlag
+          : staffPicksFlag // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      unicornFlag: freezed == unicornFlag
+          ? _value.unicornFlag
+          : unicornFlag // ignore: cast_nullable_to_non_nullable
               as bool?,
     ) as $Val);
   }
@@ -116,7 +130,9 @@ abstract class _$$_SearchRequestPayloadModelCopyWith<$Res>
       List<String>? searchParams,
       int pageSize,
       String? categoryId,
-      bool? whatsHotFlag});
+      bool? whatsHotFlag,
+      bool? staffPicksFlag,
+      bool? unicornFlag});
 
   @override
   $FilterModelCopyWith<$Res> get filters;
@@ -140,6 +156,8 @@ class __$$_SearchRequestPayloadModelCopyWithImpl<$Res>
     Object? pageSize = null,
     Object? categoryId = freezed,
     Object? whatsHotFlag = freezed,
+    Object? staffPicksFlag = freezed,
+    Object? unicornFlag = freezed,
   }) {
     return _then(_$_SearchRequestPayloadModel(
       filters: null == filters
@@ -162,6 +180,14 @@ class __$$_SearchRequestPayloadModelCopyWithImpl<$Res>
           ? _value.whatsHotFlag
           : whatsHotFlag // ignore: cast_nullable_to_non_nullable
               as bool?,
+      staffPicksFlag: freezed == staffPicksFlag
+          ? _value.staffPicksFlag
+          : staffPicksFlag // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      unicornFlag: freezed == unicornFlag
+          ? _value.unicornFlag
+          : unicornFlag // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -175,7 +201,9 @@ class _$_SearchRequestPayloadModel implements _SearchRequestPayloadModel {
       final List<String>? searchParams = null,
       this.pageSize = defaultPageSize,
       this.categoryId = null,
-      this.whatsHotFlag = false})
+      this.whatsHotFlag = false,
+      this.staffPicksFlag = false,
+      this.unicornFlag = false})
       : _searchParams = searchParams;
 
   factory _$_SearchRequestPayloadModel.fromJson(Map<String, dynamic> json) =>
@@ -203,10 +231,16 @@ class _$_SearchRequestPayloadModel implements _SearchRequestPayloadModel {
   @override
   @JsonKey()
   final bool? whatsHotFlag;
+  @override
+  @JsonKey()
+  final bool? staffPicksFlag;
+  @override
+  @JsonKey()
+  final bool? unicornFlag;
 
   @override
   String toString() {
-    return 'SearchRequestPayloadModel(filters: $filters, searchParams: $searchParams, pageSize: $pageSize, categoryId: $categoryId, whatsHotFlag: $whatsHotFlag)';
+    return 'SearchRequestPayloadModel(filters: $filters, searchParams: $searchParams, pageSize: $pageSize, categoryId: $categoryId, whatsHotFlag: $whatsHotFlag, staffPicksFlag: $staffPicksFlag, unicornFlag: $unicornFlag)';
   }
 
   @override
@@ -222,7 +256,11 @@ class _$_SearchRequestPayloadModel implements _SearchRequestPayloadModel {
             (identical(other.categoryId, categoryId) ||
                 other.categoryId == categoryId) &&
             (identical(other.whatsHotFlag, whatsHotFlag) ||
-                other.whatsHotFlag == whatsHotFlag));
+                other.whatsHotFlag == whatsHotFlag) &&
+            (identical(other.staffPicksFlag, staffPicksFlag) ||
+                other.staffPicksFlag == staffPicksFlag) &&
+            (identical(other.unicornFlag, unicornFlag) ||
+                other.unicornFlag == unicornFlag));
   }
 
   @JsonKey(ignore: true)
@@ -233,7 +271,9 @@ class _$_SearchRequestPayloadModel implements _SearchRequestPayloadModel {
       const DeepCollectionEquality().hash(_searchParams),
       pageSize,
       categoryId,
-      whatsHotFlag);
+      whatsHotFlag,
+      staffPicksFlag,
+      unicornFlag);
 
   @JsonKey(ignore: true)
   @override
@@ -256,7 +296,9 @@ abstract class _SearchRequestPayloadModel implements SearchRequestPayloadModel {
       final List<String>? searchParams,
       final int pageSize,
       final String? categoryId,
-      final bool? whatsHotFlag}) = _$_SearchRequestPayloadModel;
+      final bool? whatsHotFlag,
+      final bool? staffPicksFlag,
+      final bool? unicornFlag}) = _$_SearchRequestPayloadModel;
 
   factory _SearchRequestPayloadModel.fromJson(Map<String, dynamic> json) =
       _$_SearchRequestPayloadModel.fromJson;
@@ -271,6 +313,10 @@ abstract class _SearchRequestPayloadModel implements SearchRequestPayloadModel {
   String? get categoryId;
   @override
   bool? get whatsHotFlag;
+  @override
+  bool? get staffPicksFlag;
+  @override
+  bool? get unicornFlag;
   @override
   @JsonKey(ignore: true)
   _$$_SearchRequestPayloadModelCopyWith<_$_SearchRequestPayloadModel>

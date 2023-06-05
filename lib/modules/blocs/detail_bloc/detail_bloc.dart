@@ -4,7 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../common/utils/handling_errors.dart';
+import '../../cubits/catalog_detail/catalog_detail_cubit.dart';
 import '../../data/detail/i_detail_service.dart';
+import '../../di/injector.dart';
 import '../../models/detail/detail_item_model.dart';
 
 part 'detail_bloc.freezed.dart';
@@ -33,6 +35,7 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
     try {
       DetailItemModel responseBody = await detailService.itemDetail(itemId);
 
+      getIt<CatalogDetailCubit>().getBuyListingItem(itemId);
       yield DetailState.loadedDetailItems(detaItemlList: [responseBody]);
     } catch (e) {
       yield DetailState.error(HandlingErrors().getError(e));

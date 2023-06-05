@@ -6,8 +6,8 @@ part 'profile_model.freezed.dart';
 part 'profile_model.g.dart';
 
 @freezed
-@JsonSerializable()
 class ProfileModel with _$ProfileModel {
+@JsonSerializable()
   const factory ProfileModel({
     required final String accountId,
     required final String username,
@@ -17,7 +17,9 @@ class ProfileModel with _$ProfileModel {
     required final String phoneNumber,
     required final String email,
     List<AddressesPayloadModel>? addresses,
+    required final double collectionValue,
     required final bool accountVerified,
+    required final bool emailVerified,
   }) = _ProfileModel;
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) =>

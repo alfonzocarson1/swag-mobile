@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import '../../api/api.dart';
@@ -33,15 +34,20 @@ class ListingService extends IListingService {
   @override
   Future<UpdateAvatarModel> uploadListingImage(
       Uint8List bytes, String topicId) async {
-    UpdateAvatarModel response = await apiService.getEndpointData(
-      endpoint: Endpoint.uploadImageListingForSale,
-      method: RequestMethod.multipart,
-      dynamicParam: topicId,
-      needBearer: true,
-      bytes: bytes,
-      fromJson: (json) => UpdateAvatarModel.fromJson(json),
-    );
-    return response;
+    try {
+  UpdateAvatarModel response = await apiService.getEndpointData(
+    endpoint: Endpoint.uploadImageListingForSale,
+    method: RequestMethod.multipart,
+    dynamicParam: topicId,
+    needBearer: true,
+    bytes: bytes,
+    fromJson: (json) => UpdateAvatarModel.fromJson(json),
+  );
+  return response;
+} on Exception catch (e) {
+  throw(e);
+}
+    
   }
 
   @override
@@ -59,5 +65,40 @@ class ListingService extends IListingService {
       fromJson: (json) => ListingForSaleProfileResponseModel.fromJson(json),
     );
     return response;
+  }
+  
+  @override
+  Future<ListingForSaleModel> updateListing(ListingForSaleModel model)async{
+     ListingForSaleModel response = await apiService.getEndpointData(
+      endpoint: Endpoint.createListingForSale,
+      method: RequestMethod.put,
+      body: model.toJson(),
+      needBearer: true,
+      fromJson: (json) => ListingForSaleModel.fromJson(json),
+    );
+    return response;
+  }
+  
+  @override
+  Future<ListingForSaleModel> removeListingItem(ListingForSaleModel model) async {
+    ListingForSaleModel response = await apiService.getEndpointData(
+      endpoint: Endpoint.createListingForSale,
+      method: RequestMethod.delete,
+      body: model.toJson(),
+      needBearer: true,
+      fromJson: (json) => ListingForSaleModel.fromJson(json),
+    );
+     return response;
+  }
+  
+  @override
+  Future<void> updateImages(List<String> imageUrls) async {
+   
+    String response = await apiService.updateImageEndpoint(
+      endpoint: Endpoint.updateImages,
+      method: RequestMethod.post,
+      body: imageUrls,
+      needBearer: true,
+    );
   }
 }

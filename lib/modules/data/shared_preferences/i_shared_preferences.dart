@@ -3,6 +3,7 @@ import 'package:swagapp/modules/models/filters/dynamic_filters.dart';
 
 import '../../models/profile/profile_model.dart';
 import '../../models/search/category_model.dart';
+import '../../models/settings/peer_to_peer_payments_get_model.dart';
 
 abstract class PreferenceRepositoryInt {
   SharedPreferences get prefs;
@@ -55,6 +56,9 @@ abstract class PreferenceRepositoryInt {
   ProfileModel profileData();
   Future<void> saveProfileData(ProfileModel value);
 
+  PeerToPeerPaymentsGetModel paymanetData();
+  Future<void> savePaymentData(PeerToPeerPaymentsGetModel value);
+
   DynamicFilters? getDynamicFilters();
   Future<void> saveDynamicFilters(DynamicFilters dynamicFilters);
 
@@ -78,4 +82,6 @@ abstract class PreferenceRepositoryInt {
 
   String getCurrentPageName();
   Future<void> saveCurrentPageName(String pageName);
+  Future<void> setPageFromExplore(int value);
+  int getPageFromExplore();
 }

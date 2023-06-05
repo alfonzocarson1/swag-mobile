@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../generated/l10n.dart';
 import '../../common/utils/palette.dart';
+import '../../common/utils/utils.dart';
 
 class RarityWidget extends StatefulWidget {
   const RarityWidget(
@@ -30,18 +31,18 @@ class _RarityWidgetState extends State<RarityWidget> {
         Padding(
           padding: const EdgeInsets.only(left: 20),
           child: Row(children: <Widget>[
-            Text("${S.of(context).rarity_score}: ",
+            Text(S.of(context).detail,
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
                     letterSpacing: 1,
                     fontWeight: FontWeight.w300,
-                    fontFamily: "Knockout",
+                    fontFamily: "KnockoutCustom",
                     fontSize: 33,
-                    color: Palette.current.white)),
+                    color: Palette.current.primaryNeonGreen)),
             Text(widget.rarity ?? '',
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
                     letterSpacing: 1,
                     fontWeight: FontWeight.w300,
-                    fontFamily: "Knockout",
+                    fontFamily: "KnockoutCustom",
                     fontSize: 30,
                     color: Palette.current.primaryNeonPink)),
             const SizedBox(
@@ -82,11 +83,12 @@ class _RarityWidgetState extends State<RarityWidget> {
                           fontSize: 15,
                           color: Palette.current.primaryWhiteSmoke,
                         )),
-                trailing: Text("${widget.totalMade}",
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 15,
-                          color: Palette.current.primaryWhiteSmoke,
-                        )),
+                trailing:
+                    Text(widget.totalMade == null ? '?' : "${widget.totalMade}",
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                              fontSize: 15,
+                              color: Palette.current.primaryWhiteSmoke,
+                            )),
               ),
               ListTile(
                 visualDensity: const VisualDensity(vertical: -4),
@@ -96,7 +98,7 @@ class _RarityWidgetState extends State<RarityWidget> {
                           fontSize: 15,
                           color: Palette.current.primaryWhiteSmoke,
                         )),
-                trailing: Text(widget.retail ?? '',
+                trailing: Text('\$${widget.retail}',
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           fontSize: 15,
                           color: Palette.current.primaryWhiteSmoke,

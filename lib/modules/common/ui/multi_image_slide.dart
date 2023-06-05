@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:swagapp/modules/common/ui/popup_delete_photo_verify.dart';
 
 import '../../../generated/l10n.dart';
@@ -11,7 +10,7 @@ class MultiImageSlide extends StatefulWidget {
       {Key? key, required this.imgList, this.addPhoto, this.onRemove})
       : super(key: key);
 
-  final List<XFile> imgList;
+  final List<File> imgList;
   final Function()? addPhoto;
   final Function(int)? onRemove;
   @override
@@ -96,7 +95,7 @@ class _MultiImageSlideState extends State<MultiImageSlide> {
                                       .copyWith(
                                           letterSpacing: 1,
                                           fontWeight: FontWeight.w300,
-                                          fontFamily: "Knockout",
+                                          fontFamily: "KnockoutCustom",
                                           fontSize: 30,
                                           color: Palette
                                               .current.primaryNeonGreen)),
@@ -138,7 +137,8 @@ class _MultiImageSlideState extends State<MultiImageSlide> {
                                                   .textTheme
                                                   .bodyLarge!
                                                   .copyWith(
-                                                      fontFamily: "Knockout",
+                                                      fontFamily:
+                                                          "KnockoutCustom",
                                                       fontSize: 25,
                                                       letterSpacing: 1,
                                                       fontWeight:
@@ -194,7 +194,7 @@ class _MultiImageSlideState extends State<MultiImageSlide> {
                     });
               },
               icon: Image.asset(
-                "assets/icons/x.png",
+                "assets/icons/trash.png",
                 scale: 3,
               ),
             ),

@@ -8,4 +8,5 @@ abstract class IUpdateProfileService {
   Future<UpdateProfileModel> updateProfile(UpdateProfilePayloadModel model);
   Future<UpdateAvatarModel> updateAvatar(
       Uint8List bytes, String imageTopic, String topicId);
+  Future<bool> requestEmailVerification();
 }

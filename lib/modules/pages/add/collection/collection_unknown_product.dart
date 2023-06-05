@@ -38,7 +38,7 @@ class CollectionUnknownProductPage extends StatefulWidget {
 
 class _CollectionUnknownProductPageState
     extends State<CollectionUnknownProductPage> {
-  DateTime? _defaultDateTime;
+  DateTime _defaultDateTime = DateTime.now();
 
   final FocusNode _purchaseNode = FocusNode();
   final _purchaseController = TextEditingController();
@@ -163,7 +163,7 @@ class _CollectionUnknownProductPageState
                                             .textTheme
                                             .displayMedium!
                                             .copyWith(
-                                              fontFamily: "Knockout",
+                                              fontFamily: "KnockoutCustom",
                                               fontSize: 44,
                                               fontWeight: FontWeight.w300,
                                               color: Palette
@@ -199,7 +199,7 @@ class _CollectionUnknownProductPageState
                                             .textTheme
                                             .displayMedium!
                                             .copyWith(
-                                              fontFamily: "Knockout",
+                                              fontFamily: "KnockoutCustom",
                                               fontSize: 25,
                                               fontWeight: FontWeight.w300,
                                               color: Palette
@@ -328,7 +328,7 @@ class _CollectionUnknownProductPageState
                                                       .bodyLarge!
                                                       .copyWith(
                                                           fontFamily:
-                                                              "Knockout",
+                                                              "KnockoutCustom",
                                                           fontSize: 25,
                                                           letterSpacing: 1,
                                                           fontWeight:

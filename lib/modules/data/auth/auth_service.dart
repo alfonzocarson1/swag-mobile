@@ -1,5 +1,5 @@
 import 'package:swagapp/modules/constants/constants.dart';
-import 'package:swagapp/modules/models/auth/generic_response_model.dart';
+import 'package:swagapp/modules/models/auth/create_account_response_model.dart';
 import 'package:swagapp/modules/pages/login/create_account_page.dart';
 
 import '../../api/api.dart';
@@ -19,25 +19,25 @@ class AuthService extends IAuthService {
   Stream<String?> subscribeToAuthChanges() => Stream.value(null);
 
   @override
-  Future<GenericResponseModel> authenticate(
+  Future<CreateAccountResponseModel> authenticate(
       String email, String password) async {
     final response = await apiService.getEndpointData(
       endpoint: Endpoint.login,
       method: RequestMethod.post,
       body: {"password": password, "email": email, "deviceId": defaultString},
-      fromJson: (json) => GenericResponseModel.fromJson(json),
+      fromJson: (json) => CreateAccountResponseModel.fromJson(json),
     );
     return response;
   }
 
   @override
-  Future<GenericResponseModel> createAccount(
+  Future<CreateAccountResponseModel> createAccount(
       CreateAccountPayloadModel model) async {
     final response = await apiService.getEndpointData(
       endpoint: Endpoint.createNewAccount,
       method: RequestMethod.post,
       body: model.toJson(),
-      fromJson: (json) => GenericResponseModel.fromJson(json),
+      fromJson: (json) => CreateAccountResponseModel.fromJson(json),
     );
     return response;
   }
@@ -54,6 +54,18 @@ class AuthService extends IAuthService {
       fromJson: (json) => json,
     );
     return response.parseBool();
+  }
+
+  @override
+  Future<bool> isPhoneAvailable(String phone) async {
+    dynamic response = await apiService.getEndpointData(
+      endpoint: Endpoint.isPhoneAvailable,
+      method: RequestMethod.get,
+      dynamicParam: phone,
+      fromJson: (json) => json,
+    );
+
+    return response['response'];
   }
 
   @override
@@ -116,5 +128,16 @@ class AuthService extends IAuthService {
       fromJson: (json) => ProfileModel.fromJson(json),
     );
     return response;
+  }
+
+  @override
+  Future<bool> requestEmailVerification() async {
+    String response = await apiService.getEndpointData(
+      endpoint: Endpoint.requestEmailVerification,
+      method: RequestMethod.post,
+      needBearer: true,
+      fromJson: (json) => json,
+    );
+    return response.parseBool();
   }
 }

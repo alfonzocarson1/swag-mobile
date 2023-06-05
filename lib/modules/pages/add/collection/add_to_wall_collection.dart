@@ -69,7 +69,7 @@ class _AddToWallCollectionState extends State<AddToWallCollection> {
                                               .textTheme
                                               .displayMedium!
                                               .copyWith(
-                                                fontFamily: "Knockout",
+                                                fontFamily: "KnockoutCustom",
                                                 fontSize: 44,
                                                 fontWeight: FontWeight.w300,
                                                 color: Palette
@@ -127,6 +127,9 @@ class _AddToWallCollectionState extends State<AddToWallCollection> {
                               'assets/images/headcover.png',
                               fit: BoxFit.cover,
                             ),
+                          ),
+                          const SizedBox(
+                            height: 10,
                           ),
                           GestureDetector(
                             onTap: () {

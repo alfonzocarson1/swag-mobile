@@ -17,6 +17,8 @@ _$_SearchRequestPayloadModel _$$_SearchRequestPayloadModelFromJson(
       pageSize: json['pageSize'] as int? ?? defaultPageSize,
       categoryId: json['categoryId'] as String? ?? null,
       whatsHotFlag: json['whatsHotFlag'] as bool? ?? false,
+      staffPicksFlag: json['staffPicksFlag'] as bool? ?? false,
+      unicornFlag: json['unicornFlag'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$_SearchRequestPayloadModelToJson(
@@ -27,4 +29,6 @@ Map<String, dynamic> _$$_SearchRequestPayloadModelToJson(
       'pageSize': instance.pageSize,
       'categoryId': instance.categoryId,
       'whatsHotFlag': instance.whatsHotFlag,
+      'staffPicksFlag': instance.staffPicksFlag,
+      'unicornFlag': instance.unicornFlag,
     };

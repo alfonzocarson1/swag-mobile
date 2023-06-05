@@ -5,8 +5,8 @@ part 'shared_preference_model.freezed.dart';
 part 'shared_preference_model.g.dart';
 
 @freezed
-@JsonSerializable()
 class SharedPreferenceModel with _$SharedPreferenceModel {
+@JsonSerializable()
 
   const factory SharedPreferenceModel({
     @Default(true) final bool isListView,

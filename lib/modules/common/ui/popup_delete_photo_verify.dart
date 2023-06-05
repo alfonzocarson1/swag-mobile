@@ -49,7 +49,7 @@ class _PopUpDeletePhotoVerifyState extends State<PopUpDeletePhotoVerify> {
                                   .textTheme
                                   .displayMedium!
                                   .copyWith(
-                                    fontFamily: "Knockout",
+                                    fontFamily: "KnockoutCustom",
                                     fontSize: 44,
                                     fontWeight: FontWeight.w300,
                                     color: Palette.current.primaryNeonGreen,

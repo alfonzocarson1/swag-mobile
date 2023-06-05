@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,23 +20,28 @@ import '../../../common/ui/pushed_header.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
 
+import '../../../common/utils/utils.dart';
 import '../../../models/detail/detail_collection_model.dart';
 import 'list_item_preview_page.dart';
+
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 class ListForSalePage extends StatefulWidget {
   static const name = '/ListForSalePage';
 
   ListForSalePage(
-      {super.key, this.collectionData, required this.catalogItemName});
+      {super.key, this.collectionData, required this.catalogItemName, this.salesHistoryNavigation});
 
   final DetailCollectionModel? collectionData;
   final String catalogItemName;
+  final VoidCallback? salesHistoryNavigation;
 
   static Route route(
-          DetailCollectionModel? collectionData, String catalogItemName) =>
+      VoidCallback? salesHistoryNavigation, DetailCollectionModel? collectionData, String catalogItemName) =>
       PageRoutes.slideUp(
         settings: const RouteSettings(name: name),
         builder: (context) => ListForSalePage(
+          salesHistoryNavigation: salesHistoryNavigation,
             collectionData: collectionData, catalogItemName: catalogItemName),
       );
 
@@ -45,11 +51,11 @@ class ListForSalePage extends StatefulWidget {
 
 class _ListForSalePageState extends State<ListForSalePage> {
   final ImagePicker imagePicker = ImagePicker();
-  List<XFile> imageFileList = [];
+  List<File> imageFileList = [];
 
   bool isPostListing = false;
   final FocusNode _listPriceItemNode = FocusNode();
-  var _listPriceItemController = TextEditingController();
+  final _listPriceItemController = TextEditingController();
   Color _listPriceItemBorder = Palette.current.primaryWhiteSmoke;
 
   final FocusNode _conditionNode = FocusNode();
@@ -111,6 +117,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       extendBodyBehindAppBar: true,
       backgroundColor: Palette.current.primaryEerieBlack,
       appBar: PushedHeader(
@@ -177,7 +184,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                               .textTheme
                                               .displayMedium!
                                               .copyWith(
-                                                fontFamily: "Knockout",
+                                                fontFamily: "KnockoutCustom",
                                                 fontSize: 30,
                                                 fontWeight: FontWeight.w300,
                                                 color: Palette.current.white,
@@ -189,7 +196,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                     Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                          "${S.of(context).for_sale}: \$$_price",
+                                          "${S.of(context).for_sale}:  ${decimalDigitsLastSalePrice(_price.toString())}",
                                           textAlign: TextAlign.left,
                                           overflow: TextOverflow.fade,
                                           style: Theme.of(context)
@@ -232,7 +239,6 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                         _price = 0.0;
                                       });
                                     }
-
                                     String newValue = value
                                         .replaceAll(',', '')
                                         .replaceAll('.', '');
@@ -371,21 +377,25 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                             });
                                       } else {
                                         Navigator.of(context, rootNavigator: true)
-                                            .push(ListItemPreviewPage.route(
-                                                imageFileList,
-                                                widget.catalogItemName,
-                                                _price,
-                                                _defaultCondition,
-                                                _listDescriptionItemController
+                                            .push(
+                                              ListItemPreviewPage.route(
+                                              isUpdate: false,
+                                              catalogItemId: widget.collectionData!
+                                                    .catalogItemId,
+                                              imgList:imageFileList,                                             
+                                              itemCondition: _defaultCondition,
+                                              itemDescription:  _listDescriptionItemController
                                                     .text
                                                     .toString(),
-                                                widget.collectionData!
-                                                    .profileCollectionItemId,
-                                                widget.collectionData!
-                                                    .catalogItemId, () {
+                                              itemName:widget.catalogItemName ,
+                                              itemPrice: _price ,
+                  
+                                              profileCollectionItemId:  widget.collectionData!
+                                                    .profileCollectionItemId,                                                    
+                                              onClose:() {
                                           Navigator.pop(context);
-                                        }));
-                                      }
+                                      }),);
+                                            }                                     
                                     }
                                   },
                                   type: PrimaryButtonType.green,
@@ -430,10 +440,10 @@ class _ListForSalePageState extends State<ListForSalePage> {
   Future<void> selectImages() async {
     // Pick an image
     try {
-      final List<XFile> selectedImages = await imagePicker.pickMultiImage();
-
+      final List<XFile> selectedImages =
+          await ImagePicker().pickMultiImage(imageQuality: 80);
       if ((selectedImages.length + imageFileList.length) <= 6) {
-        imageFileList.addAll(selectedImages);
+        scaleDownXFile(selectedImages);
       } else {
         showDialog(
             context: context,
@@ -447,5 +457,28 @@ class _ListForSalePageState extends State<ListForSalePage> {
     } catch (e) {
       log("Image picker: $e");
     }
+  }
+
+  Future<void> scaleDownXFile(List<XFile> xFiles,
+      {int maxWidth = 800, int maxHeight = 800, int quality = 75}) async {
+    for (final image in xFiles) {
+      final index = xFiles.indexOf(image);
+
+      final filePath = xFiles[index].path;
+      final bytes = await xFiles[index].readAsBytes();
+
+      final compressedBytes = await FlutterImageCompress.compressWithList(
+        bytes,
+        minHeight: maxHeight,
+        minWidth: maxWidth,
+        quality: quality,
+      );
+
+      final file = File(filePath);
+      await file.writeAsBytes(compressedBytes);
+
+      imageFileList.add(file);
+    }
+    setState(() {});
   }
 }

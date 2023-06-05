@@ -24,7 +24,8 @@ class FilterCategoryPage extends StatefulWidget {
       this.categoryId,
       this.searchParam,
       this.tab,
-      this.isMultipleSelection = false})
+      this.isMultipleSelection = false,
+      this.updateFilters})
       : super(key: key);
   static const name = '/filterCategory';
   final FilterType filterType;
@@ -32,21 +33,24 @@ class FilterCategoryPage extends StatefulWidget {
   final SearchTab? tab;
   final bool isMultipleSelection;
   final String? categoryId;
+  final VoidCallback? updateFilters;
 
   static Route route(
-    BuildContext context, 
+    BuildContext context,
     String categoryId,
     FilterType filterType, {
-      String? searchParam,
-      SearchTab? tab,
-      bool isMultipleSelection = false
-    }) =>
+    String? searchParam,
+    SearchTab? tab,
+    bool isMultipleSelection = false,
+    VoidCallback? updateFilters,
+  }) =>
       PageRoutes.modalBottomSheet(
         isScrollControlled: true,
         enableDrag: false,
         isDismissible: false,
         settings: const RouteSettings(name: name),
         builder: (context) => FilterCategoryPage(
+          updateFilters: updateFilters,
           categoryId: categoryId,
           filterType: filterType,
           searchParam: searchParam,
@@ -63,7 +67,7 @@ class FilterCategoryPage extends StatefulWidget {
 class _FilterCategoryPageState extends State<FilterCategoryPage> {
   final FocusNode _focusNode = FocusNode();
   List<int> checkBoxIndexes = [];
-  FilterModel filters =  FilterModel();
+  FilterModel filters = FilterModel();
 
   @override
   void initState() {
@@ -83,7 +87,7 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
       onWillPop: () {
         performSearch(
           context: context,
-          searchParam: widget.searchParam, 
+          searchParam: widget.searchParam,
           tab: widget.tab,
         );
         return Future.value(true);
@@ -110,9 +114,12 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
                     padding: const EdgeInsets.only(right: 0.0),
                     child: IconButton(
                         onPressed: () {
+                          if (widget.updateFilters != null) {
+                            widget.updateFilters!();
+                          }
                           performSearch(
                             context: context,
-                            searchParam: widget.searchParam, 
+                            searchParam: widget.searchParam,
                             tab: widget.tab,
                           );
                           Navigator.pop(context);
@@ -133,7 +140,7 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
                               .textTheme
                               .headlineMedium!
                               .copyWith(
-                                  fontFamily: "Knockout",
+                                  fontFamily: "KnockoutCustom",
                                   fontSize: 30,
                                   fontWeight: FontWeight.w300,
                                   letterSpacing: 1.0,
@@ -209,17 +216,18 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
                     Checkbox(
                       checkColor: Palette.current.black,
                       value: checkBoxIndexes.contains(index),
-                      onChanged: (bool? value)=> this.onChangedItem(value, index),
+                      onChanged: (bool? value) =>
+                          this.onChangedItem(value, index),
                       side: BorderSide(color: Palette.current.darkGray),
                     ),
                     Expanded(
                       child: Text(
                         title,
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          color: checkBoxIndexes.contains(index)
-                          ? Palette.current.primaryNeonGreen
-                          : Palette.current.darkGray,
-                        ),
+                              color: checkBoxIndexes.contains(index)
+                                  ? Palette.current.primaryNeonGreen
+                                  : Palette.current.darkGray,
+                            ),
                       ),
                     ),
                   ],
@@ -237,7 +245,6 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
   }
 
   void onChangedItem(bool? value, int index) {
-
     setState(() {
       if (value ?? false) {
         if (value!) {
@@ -256,68 +263,68 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
       } else if (widget.isMultipleSelection) {
         checkBoxIndexes.remove(index);
       }
-
       this.setValueByType(widget.filterType);
     });
   }
 
   void initFor(FilterType type) {
-
-    
-    DynamicFilters dynamicFilters = getIt<PreferenceRepositoryService>().getDynamicFilters()!;
+    DynamicFilters dynamicFilters =
+        getIt<PreferenceRepositoryService>().getDynamicFilters()!;
 
     switch (type) {
-      case FilterType.product:
+      case FilterType.category:
         checkBoxIndexes = getIt<PreferenceRepositoryService>()
-          .getProduct()
-          .map(int.parse)
-          .toList();
+            .getProduct()
+            .map(int.parse)
+            .toList();
         break;
       case FilterType.condition:
         checkBoxIndexes = getIt<PreferenceRepositoryService>()
-          .getCondition()
-          .map(int.parse)
-          .toList();
+            .getCondition()
+            .map(int.parse)
+            .toList();
         break;
       case FilterType.price:
         checkBoxIndexes = getIt<PreferenceRepositoryService>()
-          .getPrice()
-          .map(int.parse)
-          .toList();
+            .getPrice()
+            .map(int.parse)
+            .toList();
         break;
       case FilterType.sortBy:
         checkBoxIndexes.add(getIt<PreferenceRepositoryService>().getSortBy());
         break;
       case FilterType.releaseDate:
         checkBoxIndexes = getIt<PreferenceRepositoryService>()
-          .getReleaseDate()
-          .map(int.parse)
-          .toList();
-          break;
+            .getReleaseDate()
+            .map(int.parse)
+            .toList();
+        break;
       case FilterType.collection:
-
-        List<String> selectedFilters = getIt<PreferenceRepositoryService>().getCollection();
-        this.checkBoxIndexes = this.getDynamicFiltersIndex(selectedFilters, dynamicFilters.collections);
+        List<String> selectedFilters =
+            getIt<PreferenceRepositoryService>().getCollection();
+        this.checkBoxIndexes = this.getDynamicFiltersIndex(
+            selectedFilters, dynamicFilters.collections);
         break;
       case FilterType.theme:
-
-        List<String> selectedFilters = getIt<PreferenceRepositoryService>().getThemes();
-        this.checkBoxIndexes = this.getDynamicFiltersIndex(selectedFilters, dynamicFilters.themes);
+        List<String> selectedFilters =
+            getIt<PreferenceRepositoryService>().getThemes();
+        this.checkBoxIndexes =
+            this.getDynamicFiltersIndex(selectedFilters, dynamicFilters.themes);
         break;
       case FilterType.type:
-
-        List<String> selectedFilters = getIt<PreferenceRepositoryService>().getTypes();
-        this.checkBoxIndexes = this.getDynamicFiltersIndex(selectedFilters, dynamicFilters.types);
+        List<String> selectedFilters =
+            getIt<PreferenceRepositoryService>().getTypes();
+        this.checkBoxIndexes =
+            this.getDynamicFiltersIndex(selectedFilters, dynamicFilters.types);
         break;
     }
   }
 
-  List<int> getDynamicFiltersIndex(List<String> selectedFilters, List<String> dynamicFilters) {
-
+  List<int> getDynamicFiltersIndex(
+      List<String> selectedFilters, List<String> dynamicFilters) {
     List<int> indexes = [];
 
     for (int i = 0; i < selectedFilters.length; i++) {
-      
       indexes.add(dynamicFilters.indexOf(selectedFilters[i]));
     }
 
@@ -325,70 +332,91 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
   }
 
   String getPageTitle(FilterType type) {
-    
     switch (type) {
-      case FilterType.product: return S.of(context).product.toUpperCase();
-      case FilterType.condition: return S.of(context).condition.toUpperCase();
-      case FilterType.price: return S.of(context).price.toUpperCase();
-      case FilterType.sortBy: return S.of(context).sort_by.toUpperCase();
-      case FilterType.releaseDate: return S.of(context).release_date.toUpperCase();
-      case FilterType.collection: return S.current.collection.toUpperCase();
-      case FilterType.theme: return S.current.theme.toUpperCase();
-      case FilterType.type: return S.current.type.toUpperCase();
+      case FilterType.category:
+        return S.of(context).category.toUpperCase();
+      case FilterType.condition:
+        return S.of(context).condition.toUpperCase();
+      case FilterType.price:
+        return S.of(context).price.toUpperCase();
+      case FilterType.sortBy:
+        return S.of(context).sort_by.toUpperCase();
+      case FilterType.releaseDate:
+        return S.of(context).release_date.toUpperCase();
+      case FilterType.collection:
+        return S.current.collection.toUpperCase();
+      case FilterType.theme:
+        return S.current.theme.toUpperCase();
+      case FilterType.type:
+        return S.current.type.toUpperCase();
     }
   }
 
   void setValueByType(FilterType type) {
-
-    SharedPreferenceModel preference = context.read<SharedPreferencesBloc>().state.model;
+    SharedPreferenceModel preference =
+        context.read<SharedPreferencesBloc>().state.model;
     List<int> newList = List.from(this.checkBoxIndexes);
-    
+
     switch (type) {
-      case FilterType.product:
+      case FilterType.category:
         return this.setFilterValues(preference.copyWith(product: newList));
       case FilterType.condition:
         return this.setFilterValues(preference.copyWith(condition: newList));
       case FilterType.price:
         return this.setFilterValues(preference.copyWith(price: newList));
       case FilterType.sortBy:
-        return this.setFilterValues(preference.copyWith(sortBy: checkBoxIndexes[0]));
-      case FilterType.releaseDate:       
+        return this
+            .setFilterValues(preference.copyWith(sortBy: checkBoxIndexes[0]));
+      case FilterType.releaseDate:
         return this.setFilterValues(preference.copyWith(releaseDate: newList));
       case FilterType.collection:
-        return this.setFilterValues(preference.copyWith(collection: this.getSelectedDynamicFiltersById(type)));
+        return this.setFilterValues(preference.copyWith(
+            collection: this.getSelectedDynamicFiltersById(type)));
       case FilterType.theme:
-        return this.setFilterValues(preference.copyWith(theme: this.getSelectedDynamicFiltersById(type)));
+        return this.setFilterValues(preference.copyWith(
+            theme: this.getSelectedDynamicFiltersById(type)));
       case FilterType.type:
-        return this.setFilterValues(preference.copyWith(type: this.getSelectedDynamicFiltersById(type)));
+        return this.setFilterValues(preference.copyWith(
+            type: this.getSelectedDynamicFiltersById(type)));
     }
   }
 
-  void setFilterValues(SharedPreferenceModel preference){
-    
-    context.read<SharedPreferencesBloc>().add(SharedPreferencesEvent.setPreference(preference));
+  void setFilterValues(SharedPreferenceModel preference) {
+    context
+        .read<SharedPreferencesBloc>()
+        .add(SharedPreferencesEvent.setPreference(preference));
   }
 
   List<String> getSelectedDynamicFiltersById(FilterType type) {
-
     List<String> items = [];
-    DynamicFilters dynamicFilters = getIt<PreferenceRepositoryService>().getDynamicFilters()!;
-    
-    switch (type) {
-      
-      case FilterType.sortBy: break;
-      case FilterType.condition: break;
-      case FilterType.price: break;
-      case FilterType.releaseDate: break;
-      case FilterType.product: break;
-      case FilterType.collection: 
+    DynamicFilters dynamicFilters =
+        getIt<PreferenceRepositoryService>().getDynamicFilters()!;
 
-        this.checkBoxIndexes.forEach((int index)=> items.add(dynamicFilters.collections[index]));
+    switch (type) {
+      case FilterType.sortBy:
         break;
-      case FilterType.theme: 
-        this.checkBoxIndexes.forEach((int index)=> items.add(dynamicFilters.themes[index]));
+      case FilterType.condition:
         break;
-      case FilterType.type: 
-        this.checkBoxIndexes.forEach((int index)=> items.add(dynamicFilters.types[index]));
+      case FilterType.price:
+        break;
+      case FilterType.releaseDate:
+        break;
+      case FilterType.category:
+        break;
+      case FilterType.collection:
+        for (var index in this.checkBoxIndexes) {
+          items.add(dynamicFilters.collections[index]);
+        }
+        break;
+      case FilterType.theme:
+        for (var index in this.checkBoxIndexes) {
+          items.add(dynamicFilters.themes[index]);
+        }
+        break;
+      case FilterType.type:
+        for (var index in this.checkBoxIndexes) {
+          items.add(dynamicFilters.types[index]);
+        }
         break;
     }
 
@@ -396,16 +424,18 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
   }
 
   Widget getItemListFor(FilterType type) {
+    DynamicFilters? dynamicFilters =
+        getIt<PreferenceRepositoryService>().getDynamicFilters();
 
-    DynamicFilters? dynamicFilters = getIt<PreferenceRepositoryService>().getDynamicFilters();
-    
     switch (type) {
-      case FilterType.product:
+      case FilterType.category:
         return Column(
           children: [
-            _filterItem(context, S.of(context).headcovers, Product.headcovers.index),
+            _filterItem(
+                context, S.of(context).headcovers, Product.headcovers.index),
             _filterItem(context, S.of(context).putters, Product.putters.index),
-            _filterItem(context, S.of(context).accessories, Product.accessories.index),
+            _filterItem(
+                context, S.of(context).accessories, Product.accessories.index),
           ],
         );
       case FilterType.condition:
@@ -455,56 +485,62 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
           ],
         );
       case FilterType.collection:
-
-        return (dynamicFilters != null) 
-        ? Column(children: this.getDynamicFiltersItems(dynamicFilters.collections))
-        : const SizedBox.shrink();
+        return (dynamicFilters != null)
+            ? Column(
+                children:
+                    this.getDynamicFiltersItems(dynamicFilters.collections))
+            : const SizedBox.shrink();
 
       case FilterType.theme:
-
-        return (dynamicFilters != null) 
-        ? Column(children: this.getDynamicFiltersItems(dynamicFilters.themes))
-        : const SizedBox.shrink();
+        return (dynamicFilters != null)
+            ? Column(
+                children: this.getDynamicFiltersItems(dynamicFilters.themes))
+            : const SizedBox.shrink();
       case FilterType.type:
-
-        return (dynamicFilters != null) 
-        ? Column(children: this.getDynamicFiltersItems(dynamicFilters.types))
-        : const SizedBox.shrink();
+        return (dynamicFilters != null)
+            ? Column(
+                children: this.getDynamicFiltersItems(dynamicFilters.types))
+            : const SizedBox.shrink();
     }
   }
 
   List<Widget> getDynamicFiltersItems(List<String> filters) {
-
     List<Widget> items = [];
-
-    if(filters.isNotEmpty) {
-
+    if (filters.isNotEmpty) {
       for (int i = 0; i < filters.length; i++) {
-
         items.add(this._filterItem(context, filters[i], i));
       }
     }
 
-    return items; 
+    return items;
   }
-  
- void apiCall() async  {
-   filters = await getCurrentFilterModel();
+
+  void apiCall() async {
+    filters = await getCurrentFilterModel();
     getIt<PaginatedSearchCubit>().loadResults(
-                  searchModel: SearchRequestPayloadModel(
-                    categoryId: (widget.tab == SearchTab.all || widget.tab == null) ? null : widget.categoryId,
-                    whatsHotFlag:(widget.tab == SearchTab.whatsHot) ? true : false,
-                    searchParams: (widget.tab == SearchTab.all || widget.tab == null) ? [widget.searchParam ?? ""] : null ,
-                    filters:  FilterModel(
-                      sortBy: filters.sortBy,
-                      theme: filters.theme,
-                      type: filters.type,
-                      conditions: filters.conditions,
-                      collection: filters.collection,
-                      forSale: filters.forSale ,
-                      productType: filters.productType,
-                    ),
-                  ),
-                  searchTab: widget.tab ?? SearchTab.all);
+        searchModel: SearchRequestPayloadModel(
+          categoryId: (widget.tab == SearchTab.all ||
+                  widget.tab == null ||
+                  widget.tab == SearchTab.whatsHot)
+              ? null
+              : widget.categoryId,
+          whatsHotFlag: (widget.tab == SearchTab.whatsHot) ? true : false,
+          staffPicksFlag: null,
+          unicornFlag: null,
+          searchParams: (widget.tab == SearchTab.all || widget.tab == null)
+              ? [widget.searchParam ?? ""]
+              : null,
+          filters: FilterModel(
+              sortBy: filters.sortBy,
+              theme: filters.theme,
+              type: filters.type,
+              conditions: filters.conditions,
+              collection: filters.collection,
+              forSale: filters.forSale,
+              productType: filters.productType,
+              priceRanges: filters.priceRanges,
+              releaseYears: filters.releaseYears),
+        ),
+        searchTab: widget.tab ?? SearchTab.all);
   }
 }

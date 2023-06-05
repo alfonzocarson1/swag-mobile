@@ -4,7 +4,10 @@ import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 
 import '../../../generated/l10n.dart';
+import '../../blocs/update_profile_bloc/update_profile_bloc.dart';
+import '../../di/injector.dart';
 import 'clickable_text.dart';
+import 'dynamic_toast_messages.dart';
 
 class PopUp extends StatefulWidget {
   const PopUp({super.key, this.name});
@@ -22,6 +25,8 @@ class _PopUpState extends State<PopUp> {
 
   @override
   Widget build(BuildContext context) {
+    String? tempName = widget.name;
+
     return Center(
       child: Dialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
@@ -35,7 +40,7 @@ class _PopUpState extends State<PopUp> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    widget.name != null
+                    tempName != null
                         ? Column(
                             children: [
                               const SizedBox(
@@ -51,7 +56,7 @@ class _PopUpState extends State<PopUp> {
                                         .textTheme
                                         .displayMedium!
                                         .copyWith(
-                                          fontFamily: "Knockout",
+                                          fontFamily: "KnockoutCustom",
                                           fontSize: 44,
                                           fontWeight: FontWeight.w300,
                                           color:
@@ -84,7 +89,7 @@ class _PopUpState extends State<PopUp> {
                                         .textTheme
                                         .displayMedium!
                                         .copyWith(
-                                          fontFamily: "Knockout",
+                                          fontFamily: "KnockoutCustom",
                                           fontSize: 44,
                                           fontWeight: FontWeight.w300,
                                           color:
@@ -107,14 +112,15 @@ class _PopUpState extends State<PopUp> {
                     const SizedBox(
                       height: 30,
                     ),
-                    widget.name != null
+                    tempName != null
                         ? Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               PrimaryButton(
                                 title: S.of(context).popup_btn_yes,
                                 onPressed: () {
-                                  Navigator.pop(context);
+                                  getIt<UpdateProfileBloc>().add(
+                                      const UpdateProfileEvent.importData());
                                 },
                                 type: PrimaryButtonType.green,
                               ),
@@ -157,7 +163,11 @@ class _PopUpState extends State<PopUp> {
                               ),
                               PrimaryButton(
                                 title: S.of(context).resend_verification_email,
-                                onPressed: () {},
+                                onPressed: () {
+                                  getIt<UpdateProfileBloc>().add(
+                                      const UpdateProfileEvent
+                                          .askEmailVerification());
+                                },
                                 type: PrimaryButtonType.green,
                               ),
                             ],
@@ -176,6 +186,8 @@ class _PopUpState extends State<PopUp> {
                 iconSize: 30,
                 color: Palette.current.primaryNeonGreen,
                 onPressed: () {
+                  getIt<UpdateProfileBloc>().add(
+                                      const UpdateProfileEvent.closeVerifyEmailModal());
                   Navigator.of(context).pop();
                 },
                 icon: const Icon(

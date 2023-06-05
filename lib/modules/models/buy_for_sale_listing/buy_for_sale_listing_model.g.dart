@@ -17,10 +17,12 @@ _$_BuyForSaleListingModel _$$_BuyForSaleListingModelFromJson(
       condition: json['condition'] as String?,
       profileId: json['profileId'] as String?,
       catalogItemId: json['catalogItemId'] as String?,
+      profileCollectionItemId: json['profileCollectionItemId'] as String?,
       lastSale: (json['lastSale'] as num?)?.toDouble(),
       forSale: json['forSale'] as bool?,
       sold: json['sold'] as bool?,
       isDeleted: json['isDeleted'] as bool?,
+      status: json['status'] as String?,
     );
 
 Map<String, dynamic> _$$_BuyForSaleListingModelToJson(
@@ -34,8 +36,10 @@ Map<String, dynamic> _$$_BuyForSaleListingModelToJson(
       'condition': instance.condition,
       'profileId': instance.profileId,
       'catalogItemId': instance.catalogItemId,
+      'profileCollectionItemId': instance.profileCollectionItemId,
       'lastSale': instance.lastSale,
       'forSale': instance.forSale,
       'sold': instance.sold,
       'isDeleted': instance.isDeleted,
+      'status': instance.status,
     };

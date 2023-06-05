@@ -11,8 +11,10 @@ import '../../../common/ui/custom_app_bar.dart';
 import '../../../common/ui/loading.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
+import '../../../common/utils/utils.dart';
 import '../../../models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
 import '../../../models/detail/detail_sale_info_model.dart';
+import '../../../models/detail/sale_history_model.dart';
 import '../../detail/transaction_history_page.dart';
 import 'preview_buy_for_sale.dart';
 
@@ -28,7 +30,9 @@ class BuyForSale extends StatefulWidget {
       required this.favorite,
       required this.sale,
       this.available,
-      required this.addFavorite});
+      required this.addFavorite,
+      required this.saleHistoryList,
+      });
 
   final String catalogItemId;
   final String catalogItemName;
@@ -38,6 +42,7 @@ class BuyForSale extends StatefulWidget {
   final bool sale;
   final int? available;
   final Function(bool) addFavorite;
+  final List<SalesHistoryModel> saleHistoryList;
   static Route route(
           String catalogItemId,
           String catalogItemName,
@@ -46,6 +51,7 @@ class BuyForSale extends StatefulWidget {
           bool favorite,
           bool sale,
           int available,
+          List<SalesHistoryModel> saleHistoryList,
           Function(bool) addFavorite) =>
       PageRoutes.material(
         settings: const RouteSettings(name: name),
@@ -57,7 +63,9 @@ class BuyForSale extends StatefulWidget {
             favorite: favorite,
             sale: sale,
             available: available,
-            addFavorite: addFavorite),
+            addFavorite: addFavorite,
+            saleHistoryList: saleHistoryList,
+            ),
       );
 
   @override
@@ -192,25 +200,18 @@ class _BuyForSaleState extends State<BuyForSale> {
                               .copyWith(
                                   letterSpacing: 1,
                                   fontWeight: FontWeight.w300,
-                                  fontFamily: "Knockout",
+                                  fontFamily: "KnockoutCustom",
                                   fontSize: 30,
                                   color: Palette.current.white)),
                       Text(
-                          '${S.of(context).last_sale} ${widget.catalogItemPrice.lastSale}',
+                          '${S.of(context).last_sale} ${decimalDigitsLastSalePrice(widget.catalogItemPrice.lastSale.toString())} ',
                           style: Theme.of(context)
                               .textTheme
                               .bodySmall!
                               .copyWith(
                                   fontWeight: FontWeight.w300,
                                   color: Palette.current.primaryNeonGreen)),
-                      BlocBuilder<SalesHistoryBloc, SalesHistoryState>(
-                          builder: (context, usernameState) {
-                        return usernameState.maybeMap(
-                            orElse: () => Container(),
-                            loadedSalesHistory: (state) {
-                              if (state.detaSalesHistoryList[0].saleHistoryList!
-                                  .isNotEmpty) {
-                                return Column(
+                   (widget.saleHistoryList.isNotEmpty) ?  Column(
                                   children: [
                                     const SizedBox(
                                       height: 20,
@@ -226,7 +227,9 @@ class _BuyForSaleState extends State<BuyForSale> {
                                                 widget.sale,
                                                 widget.available ?? 0,
                                                 widget.favorite,
-                                                widget.catalogItemId, (val) {
+                                                widget.catalogItemId, 
+                                                widget.saleHistoryList,
+                                                (val) {
                                           widget.addFavorite(val);
                                         }));
                                       },
@@ -265,7 +268,7 @@ class _BuyForSaleState extends State<BuyForSale> {
                                                         .bodyLarge!
                                                         .copyWith(
                                                             fontFamily:
-                                                                "Knockout",
+                                                                "KnockoutCustom",
                                                             fontSize: 25,
                                                             letterSpacing: 1,
                                                             fontWeight:
@@ -278,12 +281,7 @@ class _BuyForSaleState extends State<BuyForSale> {
                                       ),
                                     ),
                                   ],
-                                );
-                              } else {
-                                return Container();
-                              }
-                            });
-                      }),
+                                ):const SizedBox.shrink(),
                     ],
                   ),
                 ),
@@ -311,7 +309,7 @@ class _BuyForSaleState extends State<BuyForSale> {
                                 .copyWith(
                                     letterSpacing: 1,
                                     fontWeight: FontWeight.w300,
-                                    fontFamily: "Knockout",
+                                    fontFamily: "KnockoutCustom",
                                     fontSize: 27,
                                     color: Palette.current.white)),
                         const SizedBox(
@@ -391,14 +389,14 @@ class _BuyForSaleState extends State<BuyForSale> {
                                       Align(
                                         alignment: Alignment.centerLeft,
                                         child: Text(
-                                            "\$${dataListingSale[index].lastSale}",
+                                            "${decimalDigitsLastSalePrice(dataListingSale[index].lastSale.toString())}  ",
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .displayLarge!
                                                 .copyWith(
                                                     letterSpacing: 1,
                                                     fontWeight: FontWeight.w300,
-                                                    fontFamily: "Knockout",
+                                                    fontFamily: "KnockoutCustom",
                                                     fontSize: 27,
                                                     color: Palette.current
                                                         .primaryNeonGreen)),

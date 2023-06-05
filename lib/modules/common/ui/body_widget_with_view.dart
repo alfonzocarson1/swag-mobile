@@ -9,6 +9,7 @@ import '../../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
 
 import '../../di/injector.dart';
 import '../../models/search/catalog_item_model.dart';
+import '../utils/palette.dart';
 import '../utils/tab_wrapper.dart';
 
 class BodyWidgetWithView extends StatefulWidget {
@@ -58,7 +59,12 @@ class _BodyWidgetWithViewState extends State<BodyWidgetWithView> {
 
     return RefreshIndicator(
       onRefresh: () async {
+        if(widget.tab != SearchTab.all){
         getIt<PaginatedSearchCubit>().refreshResults();
+        }
+        else{
+          getIt<PaginatedSearchCubit>().refreshResults(params: widget.searchParams);
+        }
         return Future.delayed(const Duration(milliseconds: 1500));
       }, 
       child: BlocBuilder<SharedPreferencesBloc, SharedPreferencesState>(
@@ -102,13 +108,23 @@ class _BodyWidgetWithViewState extends State<BodyWidgetWithView> {
       : ListView.builder(
           itemBuilder: (_, index) => SizedBox(
             height: MediaQuery.of(context).size.height * 0.7,
-            child: Center(
-              child: Text(
-                S.of(context).empty_text,
-                style: TextStyle(
-                  fontSize: 24, 
-                  color: Colors.black.withOpacity(0.50),
-                ),
+            child: Center(         
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                 SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.04,
+                  child: Image.asset("assets/images/UnFavorite.png")),
+                  const SizedBox(height: 18,),
+                  Text(
+                    S.of(context).empty_search_result,
+                    style: TextStyle(
+                      fontFamily: "KnockoutCustom",
+                      fontSize: 30, 
+                      color: Palette.current.darkGray,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),

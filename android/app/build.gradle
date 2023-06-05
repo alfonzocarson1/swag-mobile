@@ -31,6 +31,10 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> development
 android {
     compileSdkVersion 33
     ndkVersion flutter.ndkVersion
@@ -83,8 +87,25 @@ android {
             resValue "string", "app_name", "Swag"
         }
 
+        signingConfigs {
+         release {
+             if (System.getenv()["CI"]) { // CI=true is exported by Codemagic
+                 storeFile file(System.getenv()["CM_KEYSTORE_PATH"])
+                 storePassword System.getenv()["CM_KEYSTORE_PASSWORD"]
+                 keyAlias System.getenv()["CM_KEY_ALIAS"]
+                 keyPassword System.getenv()["CM_KEY_PASSWORD"]
+             } else {
+                 keyAlias keystoreProperties['keyAlias']
+                 keyPassword keystoreProperties['keyPassword']
+                 storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+                 storePassword keystoreProperties['storePassword']
+             }
+         }
+     }
+
     }
 
+<<<<<<< HEAD
    signingConfigs {
        release {
            keyAlias keystoreProperties['keyAlias']
@@ -93,6 +114,23 @@ android {
            storePassword keystoreProperties['storePassword']
        }
    }
+=======
+     signingConfigs {
+         release {
+             if (System.getenv()["CI"]) { // CI=true is exported by Codemagic
+                 storeFile file(System.getenv()["CM_KEYSTORE_PATH"])
+                 storePassword System.getenv()["CM_KEYSTORE_PASSWORD"]
+                 keyAlias System.getenv()["CM_KEY_ALIAS"]
+                 keyPassword System.getenv()["CM_KEY_PASSWORD"]
+             } else {
+                 keyAlias keystoreProperties['keyAlias']
+                 keyPassword keystoreProperties['keyPassword']
+                 storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+                 storePassword keystoreProperties['storePassword']
+             }
+         }
+     }
+>>>>>>> development
    buildTypes {
        release {
            signingConfig signingConfigs.release

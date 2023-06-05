@@ -4,8 +4,8 @@ part 'add_collection_items_payload_model.freezed.dart';
 part 'add_collection_items_payload_model.g.dart';
 
 @freezed
-@JsonSerializable(includeIfNull: false)
 class AddCollectionItemPayloadModel with _$AddCollectionItemPayloadModel {
+@JsonSerializable(includeIfNull: false)
   const factory AddCollectionItemPayloadModel({
     final String? profileCollectionItemId,
     final String? catalogItemId,
