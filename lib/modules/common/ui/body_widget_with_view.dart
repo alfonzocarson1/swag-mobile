@@ -60,10 +60,10 @@ class _BodyWidgetWithViewState extends State<BodyWidgetWithView> {
     return RefreshIndicator(
       onRefresh: () async {
         if(widget.tab != SearchTab.all){
-        getIt<PaginatedSearchCubit>().refreshResults();
+        getIt<PaginatedSearchCubit>().refreshResults(searchTab: widget.tab);
         }
         else{
-          getIt<PaginatedSearchCubit>().refreshResults(params: widget.searchParams);
+          getIt<PaginatedSearchCubit>().refreshResults(searchTab: widget.tab,params: widget.searchParams);
         }
         return Future.delayed(const Duration(milliseconds: 1500));
       }, 
