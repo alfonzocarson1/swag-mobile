@@ -17,6 +17,7 @@ import '../../common/utils/custom_route_animations.dart';
 import '../../data/secure_storage/storage_repository_service.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
+import '../home/home_page.dart';
 
 class SignInPage extends StatefulWidget {
   static const name = '/SignIn';

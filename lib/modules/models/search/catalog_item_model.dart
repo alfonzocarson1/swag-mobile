@@ -8,7 +8,7 @@ part 'catalog_item_model.g.dart';
 
 @freezed
 class CatalogItemModel with _$CatalogItemModel {
-@JsonSerializable()
+  @JsonSerializable()
   const factory CatalogItemModel({
     required final String catalogItemId,
     required final String catalogItemName,

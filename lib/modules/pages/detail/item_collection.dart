@@ -50,9 +50,10 @@ class CollectionWidget extends StatefulWidget {
   final String catalogItemName;
   final bool favorite;
   final String urlImage;
-  final Function(bool) addFavorite;
-  final VoidCallback? salesHistoryNavigation;
-  final List<SalesHistoryModel> saleHistoryList;
+  Function(bool) addFavorite;
+  VoidCallback? salesHistoryNavigation;
+  List<SalesHistoryModel> saleHistoryList;
+
   @override
   State<CollectionWidget> createState() => _CollectionWidgetState();
 }

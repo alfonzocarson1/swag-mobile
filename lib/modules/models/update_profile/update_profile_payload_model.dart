@@ -7,7 +7,7 @@ part 'update_profile_payload_model.g.dart';
 
 @freezed
 class UpdateProfilePayloadModel with _$UpdateProfilePayloadModel {
-@JsonSerializable(includeIfNull: false)
+  @JsonSerializable(includeIfNull: false)
   const factory UpdateProfilePayloadModel({
     final String? accountId,
     final String? phoneNumber,
