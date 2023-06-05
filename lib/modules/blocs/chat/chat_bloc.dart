@@ -8,7 +8,6 @@ import 'package:swagapp/modules/constants/constants.dart';
 import 'package:swagapp/modules/models/chat/chat_data.dart';
 import 'package:cached_video_player/cached_video_player.dart';
 import 'package:swagapp/modules/data/chat/ichat_service.dart';
-import 'package:swagapp/modules/common/utils/context_service.dart';
 import 'package:swagapp/modules/services/local_notifications_service.dart';
 import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
 

@@ -1,15 +1,14 @@
 import 'dart:io';
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:swagapp/generated/l10n.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:swagapp/modules/di/injector.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:swagapp/modules/common/utils/context_service.dart';
 import 'package:swagapp/modules/enums/notification_type.dart';
+import 'package:swagapp/modules/common/utils/context_service.dart';
 import 'package:swagapp/modules/models/chat/sendbird_push_payload.dart';
-import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
 import 'package:swagapp/modules/services/local_notifications_service.dart';
+import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
 
 abstract class PushNotificationsService {
 
@@ -26,11 +25,12 @@ abstract class PushNotificationsService {
     ? await FirebaseMessaging.instance.getToken()
     : await FirebaseMessaging.instance.getAPNSToken();
     await getIt<PreferenceRepositoryService>().saveFirebaseDeviceToken(token ?? '');
+
     await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-     alert: false, 
-     badge: false,
-     sound: false,
-   );
+      alert: false, 
+      badge: false,
+      sound: false,
+    );
 
     FirebaseMessaging.onBackgroundMessage((RemoteMessage message)=> _onBackgroundHandler(message));
     FirebaseMessaging.onMessage.listen((RemoteMessage message)=> _onMessageHandler(message));
@@ -69,7 +69,7 @@ abstract class PushNotificationsService {
       if(data['title'].contains(NotificationType.notifyMe.textValue)) {
 
       }
-      else _onSendBirdMessageReceived(data['data']);
+      // else _onSendBirdMessageReceived(data['data']);
     });
   }
 
@@ -92,5 +92,6 @@ abstract class PushNotificationsService {
   }
 
   static closeStreams()=> _notificationStreamController.close();
+
 }
 
