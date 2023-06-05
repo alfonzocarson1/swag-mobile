@@ -2759,6 +2759,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Accepted Payment Types`
+  String get accepted_payment_types {
+    return Intl.message(
+      'Accepted Payment Types',
+      name: 'accepted_payment_types',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Setup Payment`
+  String get setup_payment {
+    return Intl.message(
+      'Setup Payment',
+      name: 'setup_payment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You must setup at least one form of payment before you can list an item. `
+  String get setup_payment_sub_title {
+    return Intl.message(
+      'You must setup at least one form of payment before you can list an item. ',
+      name: 'setup_payment_sub_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payment Types Accepted`
+  String get payment_types_accepted {
+    return Intl.message(
+      'Payment Types Accepted',
+      name: 'payment_types_accepted',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

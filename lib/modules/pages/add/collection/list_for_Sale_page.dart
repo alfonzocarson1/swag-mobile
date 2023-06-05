@@ -25,23 +25,30 @@ import 'list_item_preview_page.dart';
 
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 
+import 'widgets/multi_pyment.dart';
+import 'widgets/payment_setup_error.dart';
+
 class ListForSalePage extends StatefulWidget {
   static const name = '/ListForSalePage';
 
   ListForSalePage(
-      {super.key, this.collectionData, required this.catalogItemName, this.salesHistoryNavigation});
+      {super.key,
+      this.collectionData,
+      required this.catalogItemName,
+      this.salesHistoryNavigation});
 
   DetailCollectionModel? collectionData;
   String catalogItemName;
   VoidCallback? salesHistoryNavigation;
 
-  static Route route(
-      VoidCallback? salesHistoryNavigation, DetailCollectionModel? collectionData, String catalogItemName) =>
+  static Route route(VoidCallback? salesHistoryNavigation,
+          DetailCollectionModel? collectionData, String catalogItemName) =>
       PageRoutes.slideUp(
         settings: const RouteSettings(name: name),
         builder: (context) => ListForSalePage(
-          salesHistoryNavigation: salesHistoryNavigation,
-            collectionData: collectionData, catalogItemName: catalogItemName),
+            salesHistoryNavigation: salesHistoryNavigation,
+            collectionData: collectionData,
+            catalogItemName: catalogItemName),
       );
 
   @override
@@ -61,11 +68,18 @@ class _ListForSalePageState extends State<ListForSalePage> {
   final _conditionController = TextEditingController();
   Color _conditionBorder = Palette.current.primaryWhiteSmoke;
 
+  final FocusNode _paymentNode = FocusNode();
+  final _paymentController = TextEditingController();
+  Color _paymentBorder = Palette.current.primaryWhiteSmoke;
+
   final _listDescriptionItemController = TextEditingController();
 
   String? listPriceItemErrorText;
   String? conditionErrorText;
   String? descriptionErrorText;
+  String? paymentErrorText;
+
+  List<String> _selectedPayments = [];
 
   String? _defaultCondition;
 
@@ -111,12 +125,19 @@ class _ListForSalePageState extends State<ListForSalePage> {
             : Palette.current.primaryWhiteSmoke;
       });
     });
+
+    _paymentNode.addListener(() {
+      setState(() {
+        _paymentBorder = _paymentNode.hasFocus
+            ? Palette.current.primaryNeonGreen
+            : Palette.current.primaryWhiteSmoke;
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       extendBodyBehindAppBar: true,
       backgroundColor: Palette.current.primaryEerieBlack,
       appBar: PushedHeader(
@@ -138,6 +159,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
         onTap: () {
           _listPriceItemNode.unfocus();
           _conditionNode.unfocus();
+          _paymentNode.unfocus();
         },
         child: Container(
           decoration: BoxDecoration(
@@ -223,13 +245,16 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                 CustomTextFormField(
                                   suffix: GestureDetector(
                                     onTap: widget.salesHistoryNavigation,
-                                    child: (widget.salesHistoryNavigation != null) ? Image.asset(
-                                      'assets/images/trending-up.png',
-                                      width: 20,
-                                      height: 20,
-                                      scale: 3,
-                                      color: Palette.current.blackSmoke,
-                                    ) : const SizedBox.shrink(),
+                                    child: (widget.salesHistoryNavigation !=
+                                            null)
+                                        ? Image.asset(
+                                            'assets/images/trending-up.png',
+                                            width: 20,
+                                            height: 20,
+                                            scale: 3,
+                                            color: Palette.current.blackSmoke,
+                                          )
+                                        : const SizedBox.shrink(),
                                   ),
                                   inputFormatters: <TextInputFormatter>[
                                     FilteringTextInputFormatter.digitsOnly
@@ -299,6 +324,21 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                     focusNode: _conditionNode,
                                     controller: _conditionController,
                                     inputType: TextInputType.text),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                MultiCheckboxDropdown(
+                                  helperText:
+                                      'You must select at least one form of payment. You can manage these payment types in your settings.',
+                                  borderColor: _paymentBorder,
+                                  errorText: paymentErrorText,
+                                  focusNode: _paymentNode,
+                                  onPaymentChange: (List<String> value) {
+                                    setState(() {
+                                      _selectedPayments = value;
+                                    });
+                                  },
+                                ),
                                 const SizedBox(
                                   height: 20,
                                 ),
@@ -378,26 +418,32 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                               return const PopUpImageGuideline();
                                             });
                                       } else {
-                                        Navigator.of(context, rootNavigator: true)
+                                        Navigator.of(context,
+                                                rootNavigator: true)
                                             .push(
-                                              ListItemPreviewPage.route(
+                                          ListItemPreviewPage.route(
                                               isUpdate: false,
-                                              catalogItemId: widget.collectionData!
-                                                    .catalogItemId,
-                                              imgList:imageFileList,                                             
+                                              catalogItemId: widget
+                                                  .collectionData!
+                                                  .catalogItemId,
+                                              imgList: imageFileList,
                                               itemCondition: _defaultCondition,
-                                              itemDescription:  _listDescriptionItemController
-                                                    .text
-                                                    .toString(),
-                                              itemName:widget.catalogItemName ,
-                                              itemPrice: _price ,
-                  
-                                              profileCollectionItemId:  widget.collectionData!
-                                                    .profileCollectionItemId,                                                    
-                                              onClose:() {
-                                          Navigator.pop(context);
-                                      }),);
-                                            }                                     
+                                              itemDescription:
+                                                  _listDescriptionItemController
+                                                      .text
+                                                      .toString(),
+                                              itemName: widget.catalogItemName,
+                                              itemPrice: _price,
+                                              profileCollectionItemId: widget
+                                                  .collectionData!
+                                                  .profileCollectionItemId,
+                                              onClose: () {
+                                                Navigator.pop(context);
+                                              },
+                                              paymentAccepted:
+                                                  _selectedPayments),
+                                        );
+                                      }
                                     }
                                   },
                                   type: PrimaryButtonType.green,
@@ -419,6 +465,9 @@ class _ListForSalePageState extends State<ListForSalePage> {
 
   void showErrors() {
     setState(() {
+      paymentErrorText =
+          (_selectedPayments.isNotEmpty) ? null : S.of(context).required_field;
+
       listPriceItemErrorText = _listPriceItemController.text.isNotEmpty
           ? null
           : S.of(context).required_field;

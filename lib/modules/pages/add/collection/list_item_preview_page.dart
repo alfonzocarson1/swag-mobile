@@ -17,11 +17,14 @@ import '../../../common/utils/palette.dart';
 import '../../../common/utils/utils.dart';
 import '../../../constants/constants.dart';
 import '../../../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
+import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
 import '../../../models/detail/detail_collection_model.dart';
 import '../../../models/listing_for_sale/listing_for_sale_model.dart';
 import '../../../models/overlay_buton/overlay_button_model.dart';
 
+import '../../../models/settings/peer_to_peer_payments_get_model.dart';
+import '../../../models/settings/peer_to_peer_payments_model.dart';
 import 'footer_list_item_page.dart';
 
 class ListItemPreviewPage extends StatefulWidget {
@@ -40,6 +43,7 @@ class ListItemPreviewPage extends StatefulWidget {
       this.profileId,
       this.productItemId,
       this.imgUrls,
+      required this.paymentAccepted,
       required this.onClose});
 
   List<File> imgList;
@@ -55,6 +59,7 @@ class ListItemPreviewPage extends StatefulWidget {
   String? productItemId;
   String? profileId;
   List<String>? imgUrls;
+  List<String> paymentAccepted;
   Function() onClose;
 
   static Route route(
@@ -68,6 +73,7 @@ class ListItemPreviewPage extends StatefulWidget {
           itemDescription,
           profileCollectionItemId,
           catalogItemId,
+          paymentAccepted,
           onClose}) =>
       PageRoutes.material(
         settings: const RouteSettings(name: name),
@@ -82,6 +88,7 @@ class ListItemPreviewPage extends StatefulWidget {
             itemDescription: itemDescription,
             profileCollectionItemId: profileCollectionItemId,
             catalogItemId: catalogItemId,
+            paymentAccepted: paymentAccepted,
             onClose: onClose),
       );
 
@@ -93,7 +100,8 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
   String profileId = "";
   List<CustomOverlayItemModel> items = editListingDropDown;
   late DetailCollectionModel collectionModel;
-
+  PeerToPeerPaymentsGetModel paymentData =
+      getIt<PreferenceRepositoryService>().paymanetData();
   @override
   void initState() {
     super.initState();
@@ -201,6 +209,56 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                                             Palette.current.primaryNeonGreen)),
                           ),
                           const SizedBox(height: 10),
+                          Row(
+                            children: [
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                    "${S.of(context).payment_types_accepted}:",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(
+                                            fontWeight: FontWeight.w400,
+                                            color: Palette
+                                                .current.primaryWhiteSmoke)),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Visibility(
+                                visible:
+                                    widget.paymentAccepted.contains('Venmo'),
+                                child: Image.asset(
+                                  'assets/icons/venmo_icon.png',
+                                  scale: 4,
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Visibility(
+                                visible:
+                                    widget.paymentAccepted.contains('Cashapp'),
+                                child: Image.asset(
+                                  'assets/icons/cash_app_icon.png',
+                                  scale: 4,
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Visibility(
+                                visible:
+                                    widget.paymentAccepted.contains('PayPal'),
+                                child: Image.asset(
+                                  'assets/icons/pay_pal_icon.png',
+                                  scale: 4,
+                                ),
+                              )
+                            ],
+                          ),
+                          const SizedBox(height: 10),
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
@@ -250,7 +308,32 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                                             lastSale: widget.itemPrice,
                                             catalogItemId: widget.catalogItemId,
                                             profileCollectionItemId:
-                                                widget.profileCollectionItemId),
+                                                widget.profileCollectionItemId,
+                                            peerToPeerPaymentOptions:
+                                                PeerToPeerPaymentsModel(
+                                              venmoUser: widget.paymentAccepted
+                                                      .contains('Venmo')
+                                                  ? paymentData
+                                                          .peerToPeerPayments!
+                                                          .venmoUser ??
+                                                      ''
+                                                  : null,
+                                              cashTag: widget.paymentAccepted
+                                                      .contains('Cashapp')
+                                                  ? paymentData
+                                                          .peerToPeerPayments!
+                                                          .cashTag ??
+                                                      ''
+                                                  : null,
+                                              payPalEmail: widget
+                                                      .paymentAccepted
+                                                      .contains('PayPal')
+                                                  ? paymentData
+                                                          .peerToPeerPayments!
+                                                          .payPalEmail ??
+                                                      ''
+                                                  : null,
+                                            )),
                                         widget.imgList));
                               } else {
                                 getIt<ListingProfileCubit>().updateListing(

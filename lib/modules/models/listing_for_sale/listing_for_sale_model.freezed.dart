@@ -36,6 +36,8 @@ mixin _$ListingForSaleModel {
   String? get removedReason => throw _privateConstructorUsedError;
   bool? get isDeleted => throw _privateConstructorUsedError;
   String? get status => throw _privateConstructorUsedError;
+  PeerToPeerPaymentsModel? get peerToPeerPaymentOptions =>
+      throw _privateConstructorUsedError;
   String? get listingItemsAction => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -67,7 +69,10 @@ abstract class $ListingForSaleModelCopyWith<$Res> {
       String? removedReason,
       bool? isDeleted,
       String? status,
+      PeerToPeerPaymentsModel? peerToPeerPaymentOptions,
       String? listingItemsAction});
+
+  $PeerToPeerPaymentsModelCopyWith<$Res>? get peerToPeerPaymentOptions;
 }
 
 /// @nodoc
@@ -99,6 +104,7 @@ class _$ListingForSaleModelCopyWithImpl<$Res, $Val extends ListingForSaleModel>
     Object? removedReason = freezed,
     Object? isDeleted = freezed,
     Object? status = freezed,
+    Object? peerToPeerPaymentOptions = freezed,
     Object? listingItemsAction = freezed,
   }) {
     return _then(_value.copyWith(
@@ -166,11 +172,28 @@ class _$ListingForSaleModelCopyWithImpl<$Res, $Val extends ListingForSaleModel>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String?,
+      peerToPeerPaymentOptions: freezed == peerToPeerPaymentOptions
+          ? _value.peerToPeerPaymentOptions
+          : peerToPeerPaymentOptions // ignore: cast_nullable_to_non_nullable
+              as PeerToPeerPaymentsModel?,
       listingItemsAction: freezed == listingItemsAction
           ? _value.listingItemsAction
           : listingItemsAction // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PeerToPeerPaymentsModelCopyWith<$Res>? get peerToPeerPaymentOptions {
+    if (_value.peerToPeerPaymentOptions == null) {
+      return null;
+    }
+
+    return $PeerToPeerPaymentsModelCopyWith<$Res>(
+        _value.peerToPeerPaymentOptions!, (value) {
+      return _then(_value.copyWith(peerToPeerPaymentOptions: value) as $Val);
+    });
   }
 }
 
@@ -199,7 +222,11 @@ abstract class _$$_ListingForSaleModelCopyWith<$Res>
       String? removedReason,
       bool? isDeleted,
       String? status,
+      PeerToPeerPaymentsModel? peerToPeerPaymentOptions,
       String? listingItemsAction});
+
+  @override
+  $PeerToPeerPaymentsModelCopyWith<$Res>? get peerToPeerPaymentOptions;
 }
 
 /// @nodoc
@@ -229,6 +256,7 @@ class __$$_ListingForSaleModelCopyWithImpl<$Res>
     Object? removedReason = freezed,
     Object? isDeleted = freezed,
     Object? status = freezed,
+    Object? peerToPeerPaymentOptions = freezed,
     Object? listingItemsAction = freezed,
   }) {
     return _then(_$_ListingForSaleModel(
@@ -296,6 +324,10 @@ class __$$_ListingForSaleModelCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String?,
+      peerToPeerPaymentOptions: freezed == peerToPeerPaymentOptions
+          ? _value.peerToPeerPaymentOptions
+          : peerToPeerPaymentOptions // ignore: cast_nullable_to_non_nullable
+              as PeerToPeerPaymentsModel?,
       listingItemsAction: freezed == listingItemsAction
           ? _value.listingItemsAction
           : listingItemsAction // ignore: cast_nullable_to_non_nullable
@@ -325,6 +357,7 @@ class _$_ListingForSaleModel implements _ListingForSaleModel {
       this.removedReason,
       this.isDeleted,
       this.status,
+      this.peerToPeerPaymentOptions,
       this.listingItemsAction});
 
   factory _$_ListingForSaleModel.fromJson(Map<String, dynamic> json) =>
@@ -363,11 +396,13 @@ class _$_ListingForSaleModel implements _ListingForSaleModel {
   @override
   final String? status;
   @override
+  final PeerToPeerPaymentsModel? peerToPeerPaymentOptions;
+  @override
   final String? listingItemsAction;
 
   @override
   String toString() {
-    return 'ListingForSaleModel(accountId: $accountId, productItemId: $productItemId, productItemName: $productItemName, productItemPrice: $productItemPrice, productItemImageUrls: $productItemImageUrls, productItemDescription: $productItemDescription, condition: $condition, profileId: $profileId, catalogItemId: $catalogItemId, profileCollectionItemId: $profileCollectionItemId, lastSale: $lastSale, forSale: $forSale, sold: $sold, removedReason: $removedReason, isDeleted: $isDeleted, status: $status, listingItemsAction: $listingItemsAction)';
+    return 'ListingForSaleModel(accountId: $accountId, productItemId: $productItemId, productItemName: $productItemName, productItemPrice: $productItemPrice, productItemImageUrls: $productItemImageUrls, productItemDescription: $productItemDescription, condition: $condition, profileId: $profileId, catalogItemId: $catalogItemId, profileCollectionItemId: $profileCollectionItemId, lastSale: $lastSale, forSale: $forSale, sold: $sold, removedReason: $removedReason, isDeleted: $isDeleted, status: $status, peerToPeerPaymentOptions: $peerToPeerPaymentOptions, listingItemsAction: $listingItemsAction)';
   }
 
   @override
@@ -405,6 +440,9 @@ class _$_ListingForSaleModel implements _ListingForSaleModel {
             (identical(other.isDeleted, isDeleted) ||
                 other.isDeleted == isDeleted) &&
             (identical(other.status, status) || other.status == status) &&
+            (identical(
+                    other.peerToPeerPaymentOptions, peerToPeerPaymentOptions) ||
+                other.peerToPeerPaymentOptions == peerToPeerPaymentOptions) &&
             (identical(other.listingItemsAction, listingItemsAction) ||
                 other.listingItemsAction == listingItemsAction));
   }
@@ -429,6 +467,7 @@ class _$_ListingForSaleModel implements _ListingForSaleModel {
       removedReason,
       isDeleted,
       status,
+      peerToPeerPaymentOptions,
       listingItemsAction);
 
   @JsonKey(ignore: true)
@@ -464,6 +503,7 @@ abstract class _ListingForSaleModel implements ListingForSaleModel {
       final String? removedReason,
       final bool? isDeleted,
       final String? status,
+      final PeerToPeerPaymentsModel? peerToPeerPaymentOptions,
       final String? listingItemsAction}) = _$_ListingForSaleModel;
 
   factory _ListingForSaleModel.fromJson(Map<String, dynamic> json) =
@@ -501,6 +541,8 @@ abstract class _ListingForSaleModel implements ListingForSaleModel {
   bool? get isDeleted;
   @override
   String? get status;
+  @override
+  PeerToPeerPaymentsModel? get peerToPeerPaymentOptions;
   @override
   String? get listingItemsAction;
   @override

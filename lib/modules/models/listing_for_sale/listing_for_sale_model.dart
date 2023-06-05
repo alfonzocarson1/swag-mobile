@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../settings/peer_to_peer_payments_model.dart';
+
 part 'listing_for_sale_model.freezed.dart';
 part 'listing_for_sale_model.g.dart';
 
@@ -7,8 +9,7 @@ part 'listing_for_sale_model.g.dart';
 class ListingForSaleModel with _$ListingForSaleModel {
   @JsonSerializable(includeIfNull: false)
   const factory ListingForSaleModel(
-      {
-      final String? accountId,
+      {final String? accountId,
       final String? productItemId,
       final String? productItemName,
       final double? productItemPrice,
@@ -24,6 +25,7 @@ class ListingForSaleModel with _$ListingForSaleModel {
       final String? removedReason,
       final bool? isDeleted,
       final String? status,
+      final PeerToPeerPaymentsModel? peerToPeerPaymentOptions,
       final String? listingItemsAction}) = _ListingForSaleModel;
 
   factory ListingForSaleModel.fromJson(Map<String, dynamic> json) =>
