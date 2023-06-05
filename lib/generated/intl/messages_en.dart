@@ -24,6 +24,8 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "See_All": MessageLookupByLibrary.simpleMessage("See All"),
         "a_to_z": MessageLookupByLibrary.simpleMessage("A to Z"),
+        "accepted_payment_types":
+            MessageLookupByLibrary.simpleMessage("Accepted Payment Types"),
         "access_photos": MessageLookupByLibrary.simpleMessage("CHOOSE PHOTO"),
         "accessories": MessageLookupByLibrary.simpleMessage("Accesories"),
         "account_sub_title":
@@ -259,6 +261,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "payPal_sub_title": MessageLookupByLibrary.simpleMessage(
             "Please enter and confirm your PayPal email"),
         "payment_types": MessageLookupByLibrary.simpleMessage("Payment Type"),
+        "payment_types_accepted":
+            MessageLookupByLibrary.simpleMessage("Payment Types Accepted"),
         "peer_to_peer_payment_options_sub_title":
             MessageLookupByLibrary.simpleMessage("Venmo, CashApp, PayPal"),
         "peer_to_peer_payment_options_title":
@@ -383,6 +387,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "sell_for": MessageLookupByLibrary.simpleMessage("SELL FOR"),
         "send_info": MessageLookupByLibrary.simpleMessage("SEND INFO"),
         "settings": MessageLookupByLibrary.simpleMessage("SETTINGS"),
+        "setup_payment": MessageLookupByLibrary.simpleMessage("Setup Payment"),
+        "setup_payment_sub_title": MessageLookupByLibrary.simpleMessage(
+            "You must setup at least one form of payment before you can list an item. "),
         "shipped_input_title": MessageLookupByLibrary.simpleMessage(
             "Please confirm or update your shipping address for this item to be shipped."),
         "shipping_address_title":
