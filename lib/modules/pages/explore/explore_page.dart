@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sendbird_sdk/sendbird_sdk.dart';
+import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
+import 'package:swagapp/modules/common/utils/context_service.dart';
 
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/data/filters/filters_service.dart';
+import 'package:swagapp/modules/models/chat/chat_data.dart';
 import 'package:swagapp/modules/models/filters/dynamic_filters.dart';
-
 import ' shop_by_category_page.dart';
 
 import '../../common/ui/custom_app_bar.dart';
@@ -14,7 +18,6 @@ import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 
 import '../../models/explore/explore_payload_model.dart';
-import '../../models/profile/profile_model.dart';
 import 'account_info.dart';
 import 'staff_picks_page.dart';
 import 'unicorn_covers_page.dart';
@@ -36,34 +39,29 @@ class ExplorePage extends StatefulWidget {
   State<ExplorePage> createState() => _ExplorePageState();
 }
 
-class _ExplorePageState extends State<ExplorePage> {
+class _ExplorePageState extends State<ExplorePage> with ChannelEventHandler {
   bool _isLogged = false;
   bool _hasJustSignedUp = false;
 
-  late final ScrollController? _scrollController =
-      PrimaryScrollController.of(context);
+  late final ScrollController? scrollController = PrimaryScrollController.of(context);
 
   @override
   void initState() {
-    getIt<PeerToPeerPaymentsCubit>().getPyments();
 
-    getIt<ExploreCubit>()
-        .getUnicorn(const ExploreRequestPayloadModel(unicornFlag: true));
-    getIt<ExploreCubit>()
-        .getWhatsHot(const ExploreRequestPayloadModel(whatsHotFlag: true));
-
-    getIt<ExploreCubit>()
-        .getStaff(const ExploreRequestPayloadModel(staffPicksFlag: true));
-
+    this.initSendBirdApp();
     this.loadDynamicFilters();
-    this._isLogged = getIt<PreferenceRepositoryService>().isLogged();
-    this._hasJustSignedUp =
-        getIt<PreferenceRepositoryService>().hasJustSignedUp();
+    context.read<ChatBloc>().sendBirdSdk.addChannelEventHandler('identifier', this);
 
-    if (!_isLogged) {
-      getIt<PreferenceRepositoryService>().saveloginAfterGuest(true);
-    }
-    if (_isLogged && _hasJustSignedUp) {
+    getIt<PeerToPeerPaymentsCubit>().getPyments();
+    getIt<ExploreCubit>().getUnicorn(const ExploreRequestPayloadModel(unicornFlag: true));
+    getIt<ExploreCubit>().getWhatsHot(const ExploreRequestPayloadModel(whatsHotFlag: true));
+    getIt<ExploreCubit>().getStaff(const ExploreRequestPayloadModel(staffPicksFlag: true));
+    
+    this._isLogged = getIt<PreferenceRepositoryService>().isLogged();
+    this._hasJustSignedUp = getIt<PreferenceRepositoryService>().hasJustSignedUp();
+    if (!this._isLogged) getIt<PreferenceRepositoryService>().saveloginAfterGuest(true);
+
+    if (this._isLogged && this._hasJustSignedUp) {
       getIt<PreferenceRepositoryService>().saveHasJustSignedUp(false);
     }
     super.initState();
@@ -71,6 +69,7 @@ class _ExplorePageState extends State<ExplorePage> {
 
   @override
   Widget build(BuildContext context) {
+    
     getIt<PreferenceRepositoryService>().setPageFromExplore(0);
 
     return Scaffold(
@@ -125,11 +124,38 @@ class _ExplorePageState extends State<ExplorePage> {
   }
 
   void loadDynamicFilters() {
+
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      DynamicFilters dynamicFilters =
-          await getIt<FiltersService>().getDynamicFilters();
-      await getIt<PreferenceRepositoryService>()
-          .saveDynamicFilters(dynamicFilters);
+
+      DynamicFilters dynamicFilters = await getIt<FiltersService>().getDynamicFilters();
+      await getIt<PreferenceRepositoryService>().saveDynamicFilters(dynamicFilters);
     });
+  }
+
+  void initSendBirdApp() {
+    
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+
+      ChatBloc chatBloc = context.read<ChatBloc>();
+
+      await chatBloc.initSendBirdApp();
+      await chatBloc.getChannels();
+    });
+  }
+
+  @override
+  void onMessageReceived(BaseChannel channel, BaseMessage message) async {
+
+    ChatBloc chatBloc = context.read<ChatBloc>();
+    ChatData chatData = chatBloc.state.chats.firstWhere((ChatData chat) {
+      return chat.channel.channelUrl == channel.channelUrl;
+    });
+
+    await chatBloc.receiveMessage(
+      chatData: chatData, 
+      message: message,
+    );
+
+    super.onMessageReceived(channel, message);
   }
 }

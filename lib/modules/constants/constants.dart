@@ -12,6 +12,7 @@ const String hostQa = "dev.core-api.app.net";
 const tokenPath = 'auth/realms/app/protocol/openid-connect/token';
 const termsAndConditionsUrl = "https://swag.golf/pages/termsandconditions";
 const termsAndConditionsBasePath = "https://swag.golf";
+const String sendBirdAppId = "3A0E70A8-4861-44C2-ABC0-B7E13C776BEF";
 
 const successResponse = "0";
 

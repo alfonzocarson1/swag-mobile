@@ -47,7 +47,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
 
   final FocusNode _countryNode = FocusNode();
   final _countryController = TextEditingController();
-  Color _countryBorder = Palette.current.primaryWhiteSmoke;
+  Color countryBorder = Palette.current.primaryWhiteSmoke;
 
   final FocusNode _firstAddressNode = FocusNode();
   final _firstAddressController = TextEditingController();
@@ -62,8 +62,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   Color _cityBorder = Palette.current.primaryWhiteSmoke;
 
   final FocusNode _stateNode = FocusNode();
-  final _stateController = TextEditingController();
-  Color _stateBorder = Palette.current.primaryWhiteSmoke;
+  final stateController = TextEditingController();
+  Color stateBorder = Palette.current.primaryWhiteSmoke;
 
   final FocusNode _zipNode = FocusNode();
   final _zipController = TextEditingController();
@@ -83,7 +83,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   bool hasImportableData = false;
   bool verificationEmailSent = false;
 
-  late ResponsiveDesign _responsiveDesign;
+  late ResponsiveDesign responsiveDesign;
 
   String _defaultCountry = 'United States';
   String _defaultState = 'State'; 
@@ -139,7 +139,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
 
     _countryNode.addListener(() {
       setState(() {
-        _countryBorder = _countryNode.hasFocus
+        countryBorder = _countryNode.hasFocus
             ? Palette.current.primaryNeonGreen
             : Palette.current.primaryWhiteSmoke;
       });
@@ -171,7 +171,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
 
     _stateNode.addListener(() {
       setState(() {
-        _stateBorder = _stateNode.hasFocus
+        stateBorder = _stateNode.hasFocus
             ? Palette.current.primaryNeonGreen
             : Palette.current.primaryWhiteSmoke;
       });
@@ -205,7 +205,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
     if (firstName == '' || lastName == '') {
       showPopUp(username: userName);
     }
-    _responsiveDesign = ResponsiveDesign(context);
+    responsiveDesign = ResponsiveDesign(context);
     return Scaffold(
         extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: true,
@@ -465,7 +465,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                           onDone: (index) {
                                             setState(() => value = index);
                                             _defaultState = stateCodes[index];
-                                            _stateController.text = _defaultState;
+                                            stateController.text = _defaultState;
                                             Navigator.pop(context);
                                           }) : CupertinoPickerView(
                                         key: const Key('State-Picker-2'),
@@ -476,7 +476,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                           onDone: (index) {
                                             setState(() => value = index);
                                             _defaultState = defaultState;
-                                            _stateController.text= defaultState;
+                                            stateController.text= defaultState;
                                             Navigator.pop(context);
                                           }),
                                       Visibility(

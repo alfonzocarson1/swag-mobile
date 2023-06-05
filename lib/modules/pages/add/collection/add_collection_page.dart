@@ -26,9 +26,9 @@ class AddCollection extends StatefulWidget {
       required this.catalogItemId,
       required this.pathImage,
       required this.itemName});
-  String catalogItemId;
-  String pathImage;
-  String itemName;
+  final String catalogItemId;
+  final String pathImage;
+  final String itemName;
 
   static Route route(final BuildContext context, String catalogItemId,
           String pathImage, String itemName) =>

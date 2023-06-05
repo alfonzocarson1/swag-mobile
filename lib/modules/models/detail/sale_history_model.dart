@@ -5,7 +5,7 @@ part 'sale_history_model.g.dart';
 
 @freezed
 class SalesHistoryModel with _$SalesHistoryModel {
-  @JsonSerializable()
+@JsonSerializable()
   const factory SalesHistoryModel(
       {required final String salesPriceHistoryId,
       @Default('productItemId Null') String productItemId,

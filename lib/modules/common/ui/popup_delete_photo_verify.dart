@@ -7,7 +7,7 @@ import '../../../generated/l10n.dart';
 class PopUpDeletePhotoVerify extends StatefulWidget {
   PopUpDeletePhotoVerify({super.key, this.removePhoto});
 
-  Function(bool)? removePhoto;
+  final Function(bool)? removePhoto;
 
   @override
   State<PopUpDeletePhotoVerify> createState() => _PopUpDeletePhotoVerifyState();

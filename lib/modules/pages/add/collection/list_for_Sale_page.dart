@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:swagapp/modules/common/assets/icons.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../common/ui/add_photo_list_item.dart';
@@ -31,9 +32,9 @@ class ListForSalePage extends StatefulWidget {
   ListForSalePage(
       {super.key, this.collectionData, required this.catalogItemName, this.salesHistoryNavigation});
 
-  DetailCollectionModel? collectionData;
-  String catalogItemName;
-  VoidCallback? salesHistoryNavigation;
+  final DetailCollectionModel? collectionData;
+  final String catalogItemName;
+  final VoidCallback? salesHistoryNavigation;
 
   static Route route(
       VoidCallback? salesHistoryNavigation, DetailCollectionModel? collectionData, String catalogItemName) =>
@@ -221,15 +222,12 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                   height: 5,
                                 ),
                                 CustomTextFormField(
-                                  suffix: GestureDetector(
-                                    onTap: widget.salesHistoryNavigation,
-                                    child: (widget.salesHistoryNavigation != null) ? Image.asset(
-                                      'assets/images/trending-up.png',
-                                      width: 20,
-                                      height: 20,
-                                      scale: 3,
-                                      color: Palette.current.blackSmoke,
-                                    ) : const SizedBox.shrink(),
+                                  suffix: Image.asset(
+                                    AppIcons.trendingUp,
+                                    width: 20,
+                                    height: 20,
+                                    scale: 3,
+                                    color: Palette.current.blackSmoke,
                                   ),
                                   inputFormatters: <TextInputFormatter>[
                                     FilteringTextInputFormatter.digitsOnly

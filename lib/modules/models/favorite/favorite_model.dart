@@ -7,7 +7,7 @@ part 'favorite_model.g.dart';
 
 @freezed
 class FavoriteModel with _$FavoriteModel {
-  @JsonSerializable(includeIfNull: false)
+@JsonSerializable(includeIfNull: false)
   const factory FavoriteModel({
     final String? favoritesItemAction,
     final String? accountId,

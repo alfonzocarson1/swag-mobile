@@ -7,7 +7,7 @@ part 'sale_list_history_model.g.dart';
 
 @freezed
 class SalesHistoryListModel with _$SalesHistoryListModel {
-  @JsonSerializable()
+@JsonSerializable()
   const factory SalesHistoryListModel({
     @required List<SalesHistoryModel>? saleHistoryList,
   }) = _SalesHistoryListModel;

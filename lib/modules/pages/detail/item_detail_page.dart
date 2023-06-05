@@ -21,7 +21,6 @@ import '../login/create_account_page.dart';
 import 'intem_head.dart';
 import 'item_collection.dart';
 import 'item_rarity.dart';
-import 'item_switched.dart';
 
 class ItemDetailPage extends StatefulWidget {
   static const name = '/ItemDetail';
