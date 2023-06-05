@@ -49,6 +49,7 @@ abstract class PreferenceRepositoryInt {
 
   List<String> getRecentSearchesWithFilters();
   Future<void> saveRecentSearchesWithFilters({required String searchPayload});
+  removeRecentSearches(int searchesQuantity);
 
   bool forgotPasswordFlow();
   Future<void> saveForgotPasswordFlow(bool value);
