@@ -40,7 +40,7 @@ class _AppState extends State<App> with ChannelEventHandler {
   @override
   Widget build(BuildContext context) {
 
-    return MultiBlocProvider(
+    return MultiBlocProvider(        
         providers: AppBlocs.blocs(context),
         child: MaterialApp(
           navigatorKey: getIt<ContextService>().rootNavigatorKey,

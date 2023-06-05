@@ -1,4 +1,5 @@
 enum NotificationType {
+  
   notifyMe('notify_me'),
   sendBird('');
 
