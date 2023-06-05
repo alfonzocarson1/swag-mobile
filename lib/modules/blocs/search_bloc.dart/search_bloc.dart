@@ -195,8 +195,17 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
     String payloadAsJson = json.encode(payload.toJson());
 
+    List<String> recentSearches = getIt<PreferenceRepositoryService>().getRecentSearchesWithFilters();
+
     PreferenceRepositoryService sharedPref = getIt<PreferenceRepositoryService>();
-    sharedPref.saveRecentSearchesWithFilters(searchPayload: payloadAsJson);
+    if(recentSearches.length < 10){
+      sharedPref.saveRecentSearchesWithFilters(searchPayload: payloadAsJson);
+    }
+    else{
+      sharedPref.removeRecentSearches(recentSearches.length-10);
+      sharedPref.saveRecentSearchesWithFilters(searchPayload: payloadAsJson);
+    }
+    
   }
 
   Future<void> saveSearchWithFilters(String searchParam) async {
