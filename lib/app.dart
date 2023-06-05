@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:sendbird_sdk/sendbird_sdk.dart';
 import 'package:swagapp/modules/blocs/blocs.dart';
 import 'package:swagapp/modules/pages/login/landing_page.dart';
 import 'package:swagapp/modules/services/push_notifications_service.dart';
@@ -23,7 +24,7 @@ class App extends StatefulWidget {
   State<App> createState() => _AppState();
 }
 
-class _AppState extends State<App> {
+class _AppState extends State<App> with ChannelEventHandler {
 
   @override
   void initState() {
@@ -38,6 +39,7 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
+
     return MultiBlocProvider(
         providers: AppBlocs.blocs(context),
         child: MaterialApp(
@@ -77,29 +79,36 @@ class _AppState extends State<App> {
               return null;
             }),
           ),
-          builder: (context, child) => MediaQuery(
-            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-            child: BlocBuilder<AuthBloc, AuthState>(
-              builder: (context, authState) => authState.maybeMap(
-                  orElse: () => child!,
-                  unauthenticated: (_) => MultiBlocProvider(
-                        providers: [
-                          BlocProvider<SoldBloc>(
-                              create: (context) => getIt<SoldBloc>()),
-                        ],
-                        child: child!,
-                      ),
-                  authenticated: (_) => RepositoryProvider.value(
-                        value: _homeNavigatorKey,
-                        child: MultiBlocProvider(
-                          providers: [
-                            BlocProvider<SoldBloc>(
-                                create: (context) => getIt<SoldBloc>()),
-                          ],
-                          child: child!,
-                        ),
-                      )),
-            ),
+          builder: (context, child) => Overlay(
+            initialEntries: [
+              OverlayEntry(builder: (BuildContext context) {
+
+                return MediaQuery(
+                  data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+                  child: BlocBuilder<AuthBloc, AuthState>(
+                    builder: (context, authState) => authState.maybeMap(
+                        orElse: () => child!,
+                        unauthenticated: (_) => MultiBlocProvider(
+                              providers: [
+                                BlocProvider<SoldBloc>(
+                                    create: (context) => getIt<SoldBloc>()),
+                              ],
+                              child: child!,
+                            ),
+                        authenticated: (_) => RepositoryProvider.value(
+                              value: _homeNavigatorKey,
+                              child: MultiBlocProvider(
+                                providers: [
+                                  BlocProvider<SoldBloc>(
+                                      create: (context) => getIt<SoldBloc>()),
+                                ],
+                                child: child!,
+                              ),
+                            )),
+                  ),
+                );
+              }), 
+            ],
           ),
         ));
   }

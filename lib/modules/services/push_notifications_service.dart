@@ -51,7 +51,7 @@ abstract class PushNotificationsService {
 
   static requestPermissions() async {
 
-    NotificationSettings settings = await messaging.requestPermission(
+    await messaging.requestPermission(
       alert: true,
       announcement: false,
       badge: true,
@@ -83,7 +83,6 @@ abstract class PushNotificationsService {
 
       LocalNotificationsService.showInAppAllert(
         '${payload.sender.name} ${payload.message}',
-        context,
       );
     } 
     catch (e) {

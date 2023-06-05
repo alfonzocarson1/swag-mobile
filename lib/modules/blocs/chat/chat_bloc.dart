@@ -1,13 +1,15 @@
 import 'dart:io';
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sendbird_sdk/sendbird_sdk.dart';
 import 'package:swagapp/modules/di/injector.dart';
 import 'package:swagapp/modules/constants/constants.dart';
 import 'package:swagapp/modules/models/chat/chat_data.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:cached_video_player/cached_video_player.dart';
 import 'package:swagapp/modules/data/chat/ichat_service.dart';
+import 'package:swagapp/modules/common/utils/context_service.dart';
+import 'package:swagapp/modules/services/local_notifications_service.dart';
 import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
 
 part 'chat_event.dart';
@@ -201,13 +203,23 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     }
   }
 
-  Future<void> receiveMessage(ChatData chatData, BaseMessage message) async {
-
+  Future<void> receiveMessage({
+    required ChatData chatData, 
+    required BaseMessage message,
+  }) async {
+    
     this.add(ChatUpdateMessageEvent(
       chatData: chatData, 
       message: message, 
       chats: this.state.chats,
     ));
+
+    Member member = chatData.channel.members.firstWhere((Member member) {
+      return member.userId != this.state.myUser!.userId;
+    });
+
+    String alertMessage = '@${member.nickname} ${message.message}';
+    LocalNotificationsService.showInAppAllert(alertMessage);
   }
 
   Future<void> updateChatReadStatus(ChatData updateChatData) async {

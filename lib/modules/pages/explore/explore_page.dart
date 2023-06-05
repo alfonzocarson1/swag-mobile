@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sendbird_sdk/sendbird_sdk.dart';
 import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
+import 'package:swagapp/modules/common/utils/context_service.dart';
 
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/data/filters/filters_service.dart';
+import 'package:swagapp/modules/models/chat/chat_data.dart';
 import 'package:swagapp/modules/models/filters/dynamic_filters.dart';
 import ' shop_by_category_page.dart';
 
@@ -36,7 +39,7 @@ class ExplorePage extends StatefulWidget {
   State<ExplorePage> createState() => _ExplorePageState();
 }
 
-class _ExplorePageState extends State<ExplorePage> {
+class _ExplorePageState extends State<ExplorePage> with ChannelEventHandler {
   bool _isLogged = false;
   bool _hasJustSignedUp = false;
 
@@ -47,6 +50,7 @@ class _ExplorePageState extends State<ExplorePage> {
 
     this.initSendBirdApp();
     this.loadDynamicFilters();
+    context.read<ChatBloc>().sendBirdSdk.addChannelEventHandler('identifier', this);
 
     getIt<PeerToPeerPaymentsCubit>().getPyments();
     getIt<ExploreCubit>().getUnicorn(const ExploreRequestPayloadModel(unicornFlag: true));
@@ -65,6 +69,7 @@ class _ExplorePageState extends State<ExplorePage> {
 
   @override
   Widget build(BuildContext context) {
+    
     getIt<PreferenceRepositoryService>().setPageFromExplore(0);
 
     return Scaffold(
@@ -136,5 +141,21 @@ class _ExplorePageState extends State<ExplorePage> {
       await chatBloc.initSendBirdApp();
       await chatBloc.getChannels();
     });
+  }
+
+  @override
+  void onMessageReceived(BaseChannel channel, BaseMessage message) async {
+
+    ChatBloc chatBloc = context.read<ChatBloc>();
+    ChatData chatData = chatBloc.state.chats.firstWhere((ChatData chat) {
+      return chat.channel.channelUrl == channel.channelUrl;
+    });
+
+    await chatBloc.receiveMessage(
+      chatData: chatData, 
+      message: message,
+    );
+
+    super.onMessageReceived(channel, message);
   }
 }

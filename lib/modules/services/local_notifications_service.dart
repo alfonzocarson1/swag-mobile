@@ -2,12 +2,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
-import 'package:swagapp/modules/common/assets/images.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:swagapp/modules/common/utils/context_service.dart';
 import 'package:swagapp/modules/di/injector.dart';
-import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
+import 'package:swagapp/modules/common/assets/images.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 abstract class LocalNotificationsService {
 
@@ -61,7 +61,10 @@ abstract class LocalNotificationsService {
         importance: Importance.max,
         icon: AppImages.avatar2,  
       ),
-      iOS: DarwinNotificationDetails(attachments: attachments),
+      iOS: DarwinNotificationDetails(
+        attachments: attachments,
+        sound: '',
+      ),
     );
   }
 
@@ -78,10 +81,13 @@ abstract class LocalNotificationsService {
     return filePath;
   }
 
-  static void showInAppAllert(String message, BuildContext context) {
+  static void showInAppAllert(String message) {
+      
+    BuildContext cosa = getIt<ContextService>().rootNavigatorKey.currentContext!;
+    OverlayState overlayState = Overlay.of(cosa);
 
-    showTopSnackBar(
-      Overlay.of(context),
+    showTopSnackBar(      
+      overlayState,
       animationDuration: const Duration(milliseconds: 250),
       curve: Curves.easeInOutQuad,
       CustomSnackBar.info(
@@ -96,7 +102,7 @@ abstract class LocalNotificationsService {
         iconRotationAngle: 0,
         textAlign: TextAlign.start,
         backgroundColor: Colors.black,
-        messagePadding: const EdgeInsets.only(left: 55),
+        messagePadding: const EdgeInsets.only(left: 50, right: 30),
         textStyle: const TextStyle(color: Colors.white),
         message: message,
       ),
