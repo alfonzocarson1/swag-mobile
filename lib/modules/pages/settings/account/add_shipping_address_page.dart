@@ -18,6 +18,7 @@ import '../../../common/utils/palette.dart';
 import 'package:csc_picker/csc_picker.dart';
 
 import '../../../common/utils/utils.dart';
+import '../../../constants/constants.dart';
 import '../../../cubits/profile/get_profile_cubit.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
@@ -72,9 +73,7 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
 
   String _defaultCountry = 'United States';
   String _defaultState = 'State';
-
-  var countries = ['United States'];
-  final _states = ['State'];
+  List<String> _states = ['State'];
 
   int value = 0;
 
@@ -127,17 +126,18 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
             : Palette.current.primaryWhiteSmoke;
       });
     });
-    _getStates();
+    _getStates(_defaultCountry);
+
     // TODO: implement initState
     super.initState();
   }
 
-  void _getStates() async {
-    var responseSatate = await getStates('United States');
-
-    setState(() {
-      _states.addAll(responseSatate as Iterable<String>);
-    });
+  void _getStates(String country) async {
+    _states = ['State'];
+    _defaultState = 'State';
+    var responseSatate = await getStates(country);
+    _states.addAll(responseSatate as Iterable<String>);
+    setState(() {});
   }
 
   GestureDetector _getBody() {
@@ -177,24 +177,19 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
                         const SizedBox(
                           height: 20,
                         ),
-                        CustomTextFormField(
-                            borderColor: _countryBorder,
-                            autofocus: false,
-                            labelText: S.of(context).country,
-                            errorText: countryErrorText,
-                            dropdownForm: true,
-                            dropdownFormItems: countries,
-                            dropdownvalue: _defaultCountry,
-                            dropdownOnChanged: (String? newValue) {
-                              setState(() {
-                                setState(() {
-                                  _defaultCountry = newValue!;
-                                });
-                              });
-                            },
-                            focusNode: _countryNode,
-                            controller: _countryController,
-                            inputType: TextInputType.text),
+                        CupertinoPickerView(
+                            errorText: stateErrorText,
+                            cupertinoPickerItems: countries,
+                            cupertinoPickervalue: _defaultCountry,
+                            onDone: (index) {
+                              setState(() => value = index);
+                              _defaultCountry = countries[index];
+                              _countryController.text = _defaultCountry;
+                              if (_defaultCountry != defaultCountry) {
+                                _defaultState = defaultState;
+                              }
+                              Navigator.pop(context);
+                            }),
                         const SizedBox(
                           height: 20,
                         ),
@@ -248,15 +243,32 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
                               flex: 2,
                               child: Column(
                                 children: [
-                                  CupertinoPickerView(
-                                      errorText: stateErrorText,
-                                      cupertinoPickerItems: _states,
-                                      cupertinoPickervalue: _defaultState,
-                                      onDone: (index) {
-                                        setState(() => value = index);
-                                        _defaultState = _states[index];
-                                        Navigator.pop(context);
-                                      }),
+                                  (_defaultCountry == defaultCountry)
+                                      ? CupertinoPickerView(
+                                          key: const Key('State-Picker'),
+                                          errorText: stateErrorText,
+                                          cupertinoPickerItems: stateCodes,
+                                          cupertinoPickervalue: _defaultState,
+                                          onDone: (index) {
+                                            setState(() => value = index);
+                                            _defaultState = stateCodes[index];
+                                            _stateController.text =
+                                                _defaultState;
+                                            Navigator.pop(context);
+                                          })
+                                      : CupertinoPickerView(
+                                          key: const Key('State-Picker-2'),
+                                          errorText: stateErrorText,
+                                          looping: false,
+                                          cupertinoPickerItems: const ["State"],
+                                          cupertinoPickervalue: _defaultState,
+                                          onDone: (index) {
+                                            setState(() => value = index);
+                                            _defaultState = defaultState;
+                                            _stateController.text =
+                                                defaultState;
+                                            Navigator.pop(context);
+                                          }),
                                   Visibility(
                                       visible: stateErrorText != null,
                                       child: Align(
