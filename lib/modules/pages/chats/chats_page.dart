@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sendbird_sdk/sendbird_sdk.dart';
 import 'package:swagapp/generated/l10n.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
@@ -9,22 +8,9 @@ import 'package:swagapp/modules/models/chat/chat_data.dart';
 
 import 'widgets/chats_contacts.dart';
 
-class ChatsPage extends StatefulWidget {
+class ChatsPage extends StatelessWidget {
 
   const ChatsPage({super.key});
-
-  @override
-  State<ChatsPage> createState() => _ChatsPageState();
-}
-
-class _ChatsPageState extends State<ChatsPage> with ChannelEventHandler {
-
-  @override
-  void initState() {
-    
-    context.read<ChatBloc>().sendBirdSdk.addChannelEventHandler('chats', this);
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,18 +51,6 @@ class _ChatsPageState extends State<ChatsPage> with ChannelEventHandler {
         separatorBuilder: (BuildContext context, int index)=> Divider(color: Colors.grey[800]),
       ),
     );
-  }
-
-  @override
-  void onMessageReceived(BaseChannel channel, BaseMessage message) async {
-
-    ChatBloc chatBloc = context.read<ChatBloc>();
-    ChatData chatData = chatBloc.state.chats.firstWhere((ChatData chat){
-      return chat.channel.channelUrl == channel.channelUrl;
-    });
-
-    context.read<ChatBloc>().receiveMessage(chatData, message);
-    super.onMessageReceived(channel, message);
   }
 }
 

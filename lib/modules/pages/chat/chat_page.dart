@@ -5,7 +5,6 @@ import 'package:swagapp/generated/l10n.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sendbird_sdk/sendbird_sdk.dart';
 import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
-import 'package:swagapp/modules/common/assets/icons.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/models/chat/chat_data.dart';
 import 'package:swagapp/modules/models/chat/sendbird_channel_data.dart';
@@ -27,7 +26,7 @@ class ChatPage extends StatefulWidget {
   State<ChatPage> createState() => _ChatPageState();
 }
 
-class _ChatPageState extends State<ChatPage> with ChannelEventHandler {
+class _ChatPageState extends State<ChatPage> {
 
   late ScrollController scrollController;
   late bool isTyping;
@@ -36,7 +35,6 @@ class _ChatPageState extends State<ChatPage> with ChannelEventHandler {
   void initState() {
 
     this.updateChatData();
-    context.read<ChatBloc>().sendBirdSdk.addChannelEventHandler('identifier', this);
 
     this.isTyping = false;
     this.scrollController = ScrollController();
@@ -90,23 +88,6 @@ class _ChatPageState extends State<ChatPage> with ChannelEventHandler {
 
     return SendBirdChannelData.fromJson(data);
   } 
-
-  @override
-  void onTypingStatusUpdated(GroupChannel channel) {
-
-    setState(()=> this.isTyping = channel.isTyping);
-    super.onTypingStatusUpdated(channel);
-  }
-
-  @override
-  void onMessageReceived(BaseChannel channel, BaseMessage message) async {
-
-    ChatBloc chatBloc = context.read<ChatBloc>();
-
-    await chatBloc.receiveMessage(this.widget.chatData!, message);
-    await chatBloc.updateChatReadStatus(this.widget.chatData!);
-    super.onMessageReceived(channel, message);
-  }
 
   void updateChatData() {
 
