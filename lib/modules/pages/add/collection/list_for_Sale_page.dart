@@ -205,6 +205,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                               .textTheme
                                               .displayMedium!
                                               .copyWith(
+                                                letterSpacing: 1,
                                                 fontFamily: "KnockoutCustom",
                                                 fontSize: 30,
                                                 fontWeight: FontWeight.w300,

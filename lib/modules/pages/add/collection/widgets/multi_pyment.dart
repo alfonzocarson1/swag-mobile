@@ -150,6 +150,7 @@ class _MultiCheckboxDropdownState extends State<MultiCheckboxDropdown> {
                         counterText: "",
                         labelStyle:
                             Theme.of(context).textTheme.bodySmall!.copyWith(
+                              letterSpacing: 0.05,
                                   fontFamily: "Ringside",
                                   color: Palette.current.primaryNero,
                                 ),
@@ -392,7 +393,9 @@ class _MultiCheckboxDropdownState extends State<MultiCheckboxDropdown> {
             style: Theme.of(context)
                 .textTheme
                 .labelSmall!
-                .copyWith(color: Palette.current.primaryWhiteSmoke),
+                .copyWith(
+                  letterSpacing: 0.02,
+                  color: Palette.current.primaryWhiteSmoke),
           ),
         )
       ],
