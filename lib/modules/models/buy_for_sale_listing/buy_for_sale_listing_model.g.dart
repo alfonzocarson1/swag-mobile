@@ -23,6 +23,10 @@ _$_BuyForSaleListingModel _$$_BuyForSaleListingModelFromJson(
       sold: json['sold'] as bool?,
       isDeleted: json['isDeleted'] as bool?,
       status: json['status'] as String?,
+      peerToPeerPaymentOptions: json['peerToPeerPaymentOptions'] == null
+          ? null
+          : PeerToPeerPaymentsModel.fromJson(
+              json['peerToPeerPaymentOptions'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_BuyForSaleListingModelToJson(
@@ -42,4 +46,5 @@ Map<String, dynamic> _$$_BuyForSaleListingModelToJson(
       'sold': instance.sold,
       'isDeleted': instance.isDeleted,
       'status': instance.status,
+      'peerToPeerPaymentOptions': instance.peerToPeerPaymentOptions,
     };
