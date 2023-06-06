@@ -95,8 +95,8 @@ class PaginatedSearchCubit extends Cubit<PaginatedSearchState> {
     model = SearchRequestPayloadModel(
       searchParams: (params !=null ) ? [params] : null,
       whatsHotFlag: (searchTab == SearchTab.whatsHot) ? true : false,
-      staffPicksFlag: null,
-      unicornFlag: null,
+      staffPicksFlag: false,
+      unicornFlag: false,
       categoryId: (searchTab == SearchTab.whatsHot) ? null : tabId,
       filters: currentfilters,
     );
