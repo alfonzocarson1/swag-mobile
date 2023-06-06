@@ -244,6 +244,66 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                       .primaryNeonGreen)),
                                     ),
                                     const SizedBox(height: 10),
+                                    Row(
+                                      children: [
+                                        Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                              "${S.of(context).payment_types_accepted}:",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color: Palette.current
+                                                          .primaryWhiteSmoke)),
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Visibility(
+                                          visible: widget
+                                                  .dataItem
+                                                  .peerToPeerPaymentOptions!
+                                                  .venmoUser !=
+                                              null,
+                                          child: Image.asset(
+                                            'assets/icons/venmo_icon.png',
+                                            scale: 4,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Visibility(
+                                          visible: widget
+                                                  .dataItem
+                                                  .peerToPeerPaymentOptions!
+                                                  .cashTag !=
+                                              null,
+                                          child: Image.asset(
+                                            'assets/icons/cash_app_icon.png',
+                                            scale: 4,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Visibility(
+                                          visible: widget
+                                                  .dataItem
+                                                  .peerToPeerPaymentOptions!
+                                                  .payPalEmail !=
+                                              null,
+                                          child: Image.asset(
+                                            'assets/icons/pay_pal_icon.png',
+                                            scale: 4,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    const SizedBox(height: 10),
                                     Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
@@ -295,7 +355,10 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                             false,
                                                         builder: (BuildContext
                                                                 context) =>
-                                                            const BuyerCompletePurchasePopUp(),
+                                                            BuyerCompletePurchasePopUp(
+                                                                payments: widget
+                                                                    .dataItem
+                                                                    .peerToPeerPaymentOptions!),
                                                       );
                                                     },
                                                     type:
