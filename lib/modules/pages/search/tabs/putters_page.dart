@@ -66,6 +66,7 @@ class _PuttersPageState extends State<PuttersPage> {
     getIt<PaginatedSearchCubit>().loadResults(
         searchModel: SearchRequestPayloadModel(
           categoryId: await getTabId(),
+          whatsHotFlag: false,
           filters: FilterModel(
             productType: tab != SearchTab.putters ? [categoryId] : null,
           ),
