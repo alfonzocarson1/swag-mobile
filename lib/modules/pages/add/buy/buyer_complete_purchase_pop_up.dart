@@ -9,15 +9,20 @@ import '../../../common/ui/clickable_text.dart';
 import '../../../common/ui/cupertino_custom_picker.dart';
 import '../../../common/ui/custom_text_form_field.dart';
 import '../../../common/utils/utils.dart';
+import '../../../constants/constants.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
 import '../../../models/profile/profile_model.dart';
 import '../../../models/settings/peer_to_peer_payments_get_model.dart';
+import '../../../models/settings/peer_to_peer_payments_model.dart';
 import '../../../models/update_profile/addresses_payload_model.dart';
 
 class BuyerCompletePurchasePopUp extends StatefulWidget {
-  const BuyerCompletePurchasePopUp({super.key, this.name});
+  const BuyerCompletePurchasePopUp(
+      {super.key, this.name, required this.payments});
   final String? name;
+
+  final PeerToPeerPaymentsModel payments;
 
   @override
   State<BuyerCompletePurchasePopUp> createState() =>
@@ -54,10 +59,11 @@ class _BuyerCompletePurchasePopUpState
   Color _zipBorder = Palette.current.primaryWhiteSmoke;
 
   String _defaultPaymentType = 'Payment Type';
-  String _defaultShippedAddress = 'Shiped Address';
-  String _defaultAddress = 'Calle 11 Cra 9';
-  String _defaultCity = 'Miami';
+
+  String _defaultCountry = 'United States';
+  List<String> _states = ['State'];
   String _defaultState = 'State';
+
   bool checkBoxValue = false;
 
   late AddressesPayloadModel newCollectionList;
@@ -66,7 +72,7 @@ class _BuyerCompletePurchasePopUpState
 
   var paymentTypes = ['Payment Type'];
 
-  var shippedAddress = ['Shiped Address'];
+  var shippedAddress = [];
 
   String? paymentTypeErrorText;
   String? shippedAddressErrorText;
@@ -75,20 +81,23 @@ class _BuyerCompletePurchasePopUpState
   String? stateErrorText;
   String? zipErrorText;
 
-  final _states = ['State'];
+  final TextEditingController _firstAddressController = TextEditingController();
+  String? _selectedItem;
+
+  bool _showDropdown = false;
 
   int value = 0;
 
   @override
   void initState() {
-    if (paymentData.peerToPeerPayments!.venmoUser != null) {
+    if (widget.payments.venmoUser != null) {
       paymentTypes.add('Venmo');
     }
-    if (paymentData.peerToPeerPayments!.cashTag != null) {
+    if (widget.payments.cashTag != null) {
       paymentTypes.add('Cashapp');
     }
 
-    if (paymentData.peerToPeerPayments!.payPalEmail != null) {
+    if (widget.payments.payPalEmail != null) {
       paymentTypes.add('PayPal');
     }
     for (final address in profileData.addresses!) {
@@ -96,12 +105,31 @@ class _BuyerCompletePurchasePopUpState
       shippedAddress.add('${profileData.addresses![index].address1}');
     }
 
+    var peerToPeerPaymentsJson = widget.payments.toJson();
+
+    if (peerToPeerPaymentsJson.length == 1) {
+      paymentTypes.remove('Payment Type');
+      if (peerToPeerPaymentsJson.keys.first.contains('payPalEmail')) {
+        _defaultPaymentType = 'PayPal';
+      }
+
+      if (peerToPeerPaymentsJson.keys.first.contains('cashTag')) {
+        _defaultPaymentType = 'Cashapp';
+      }
+
+      if (peerToPeerPaymentsJson.keys.first.contains('venmoUser')) {
+        _defaultPaymentType = 'Venmo';
+      }
+    }
+
     setState(() {
       addresses = profileData.addresses!;
     });
 
-    _defaultShippedAddress = shippedAddress[1];
-    _addressController.text = shippedAddress[1];
+    _selectedItem = shippedAddress[0];
+    _firstAddressController.text = _selectedItem ?? '';
+
+    _addressController.text = addresses[0].address2 ?? '';
     _cityController.text = '${profileData.addresses![0].city}';
     _zipController.text = '${profileData.addresses![0].postalCode}';
     _defaultState = '${profileData.addresses![0].state}';
@@ -153,15 +181,15 @@ class _BuyerCompletePurchasePopUpState
             : Palette.current.primaryWhiteSmoke;
       });
     });
-    _getStates();
+    _getStates(_defaultCountry);
     super.initState();
   }
 
-  void _getStates() async {
-    var responseSatate = await getStates('United States');
-    setState(() {
-      _states.addAll(responseSatate as Iterable<String>);
-    });
+  void _getStates(String country) async {
+    _states = ['State'];
+    var responseSatate = await getStates(country);
+    _states.addAll(responseSatate as Iterable<String>);
+    setState(() {});
   }
 
   @override
@@ -178,6 +206,9 @@ class _BuyerCompletePurchasePopUpState
             _cityNode.unfocus();
             _stateNode.unfocus();
             _zipNode.unfocus();
+            setState(() {
+              _showDropdown = false;
+            });
           },
           child: SingleChildScrollView(
             physics: const ClampingScrollPhysics(),
@@ -260,42 +291,190 @@ class _BuyerCompletePurchasePopUpState
                             const SizedBox(
                               height: 10,
                             ),
-                            CustomTextFormField(
-                                borderColor: _shippedAddressBorder,
-                                autofocus: false,
-                                labelText: S.of(context).payment_types,
-                                errorText: shippedAddressErrorText,
-                                dropdownForm: true,
-                                dropdownFormItems: shippedAddress,
-                                dropdownvalue: _defaultShippedAddress,
-                                dropdownOnChanged: (String? newValue) {
-                                  setState(() {
-                                    setState(() {
-                                      _defaultShippedAddress = newValue!;
+                            Stack(
+                              children: [
+                                SizedBox(
+                                  height: _showDropdown ? 200 : 100,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.transparent,
+                                            border: Border.all(
+                                                color: Palette.current.white)),
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsets.only(bottom: 6),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                height: 55,
+                                                decoration: BoxDecoration(
+                                                    color: Palette.current
+                                                        .primaryWhiteSmoke),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 16, top: 4),
+                                                  child: InputDecorator(
+                                                    decoration: InputDecoration(
+                                                      suffixIcon: IconButton(
+                                                        icon: Image.asset(
+                                                          'assets/images/IconDropdow.png',
+                                                          width: 20,
+                                                          height: 20,
+                                                        ),
+                                                        onPressed: () {
+                                                          setState(() {
+                                                            _showDropdown =
+                                                                !_showDropdown;
+                                                          });
+                                                        },
+                                                      ),
+                                                    ),
+                                                    child: TextFormField(
+                                                      controller:
+                                                          _firstAddressController,
+                                                      decoration:
+                                                          const InputDecoration(
+                                                        border:
+                                                            InputBorder.none,
+                                                      ),
+                                                      onTap: () {},
+                                                      onChanged:
+                                                          (String value) {
+                                                        setState(() {
+                                                          value = value
+                                                              .toLowerCase();
+                                                        });
+                                                        if (value.length > 30) {
+                                                          value = value.substring(
+                                                              0,
+                                                              30); // Truncar el texto a 30 caracteres
+                                                          _firstAddressController
+                                                                  .value =
+                                                              TextEditingValue(
+                                                            text: value,
+                                                            selection: TextSelection
+                                                                .collapsed(
+                                                                    offset: value
+                                                                        .length),
+                                                          );
+                                                        }
+                                                        setState(() {
+                                                          _selectedItem = value;
+                                                          _firstAddressController
+                                                              .text = value;
+                                                          _firstAddressController
+                                                                  .selection =
+                                                              TextSelection
+                                                                  .fromPosition(
+                                                            TextPosition(
+                                                                offset:
+                                                                    _firstAddressController
+                                                                        .text
+                                                                        .length),
+                                                          );
+                                                        });
+                                                      },
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                if (_showDropdown)
+                                  Positioned(
+                                    top: 0,
+                                    left: 0,
+                                    right: 0,
+                                    bottom: 0,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          _showDropdown = false;
+                                        });
+                                      },
+                                      child: Container(
+                                        color: Colors.transparent,
+                                      ),
+                                    ),
+                                  ),
+                                if (_showDropdown)
+                                  Positioned(
+                                    top: 30,
+                                    left: 0,
+                                    right: 0,
+                                    bottom: 0,
+                                    child: Material(
+                                      elevation: 4.0,
+                                      child: SizedBox(
+                                        height: 200.0,
+                                        child: ListView.builder(
+                                          itemCount: shippedAddress.length,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            final String option =
+                                                shippedAddress.elementAt(index);
+                                            return GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  _selectedItem = option;
+                                                  _firstAddressController.text =
+                                                      option;
+                                                  _showDropdown = false;
 
-                                      AddressesPayloadModel? targetAddress =
-                                          addresses.firstWhere((address) =>
-                                              address.address1 ==
-                                              _defaultShippedAddress);
+                                                  setState(() {
+                                                    AddressesPayloadModel?
+                                                        targetAddress =
+                                                        addresses.firstWhere(
+                                                            (address) =>
+                                                                address
+                                                                    .address1 ==
+                                                                _selectedItem);
 
-                                      setState(() {
-                                        _addressController.text =
-                                            '${targetAddress.address1}';
-                                        _cityController.text =
-                                            '${targetAddress.city}';
-                                        _zipController.text =
-                                            '${targetAddress.postalCode}';
-                                        _defaultState =
-                                            '${targetAddress.state}';
-                                      });
-                                    });
-                                  });
-                                },
-                                focusNode: _paymentTypeNode,
-                                controller: _shippedAddressController,
-                                inputType: TextInputType.text),
+                                                    setState(() {
+                                                      _addressController.text =
+                                                          '${targetAddress.address2}';
+                                                      _cityController.text =
+                                                          '${targetAddress.city}';
+                                                      _zipController.text =
+                                                          '${targetAddress.postalCode}';
+                                                      _defaultState =
+                                                          '${targetAddress.state}';
+                                                    });
+                                                  });
+
+                                                  _firstAddressController
+                                                          .selection =
+                                                      TextSelection
+                                                          .fromPosition(
+                                                              TextPosition(
+                                                                  offset: option
+                                                                      .length));
+                                                });
+                                              },
+                                              child: ListTile(
+                                                title: Text(option),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                              ],
+                            ),
                             const SizedBox(
-                              height: 10,
+                              height: 2,
                             ),
                             CustomTextFormField(
                                 inputFormatters: [
@@ -304,7 +483,7 @@ class _BuyerCompletePurchasePopUpState
                                 ],
                                 borderColor: _addressBorder,
                                 autofocus: false,
-                                labelText: 'Address',
+                                labelText: 'Address 2',
                                 errorText: addressErrorText,
                                 focusNode: _addressNode,
                                 controller: _addressController,
@@ -334,12 +513,15 @@ class _BuyerCompletePurchasePopUpState
                                   child: Column(
                                     children: [
                                       CupertinoPickerView(
+                                          key: const Key('State-Picker'),
                                           errorText: stateErrorText,
-                                          cupertinoPickerItems: _states,
+                                          cupertinoPickerItems: stateCodes,
                                           cupertinoPickervalue: _defaultState,
                                           onDone: (index) {
                                             setState(() => value = index);
-                                            _defaultState = _states[index];
+                                            _defaultState = stateCodes[index];
+                                            _stateController.text =
+                                                _defaultState;
                                             Navigator.pop(context);
                                           }),
                                       Visibility(
