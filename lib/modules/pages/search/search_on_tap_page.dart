@@ -221,6 +221,8 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
         child: Align(
           alignment: Alignment.centerLeft,
           child: TabBar(
+            dividerColor: Colors.transparent,
+            indicatorColor: Palette.current.primaryNeonGreen,
             isScrollable: true,
             controller: _tabController,
             labelColor: Palette.current.primaryNeonGreen,
@@ -231,13 +233,13 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
                 .headlineMedium!
                 .copyWith(
                     fontFamily: "KnockoutCustom",
-                    fontSize: 20,
+                    fontSize: 21,
                     letterSpacing: 1.1,
                     fontWeight: FontWeight.w300),
             labelStyle: Theme.of(context).textTheme.headlineMedium!.copyWith(
                 fontFamily: "KnockoutCustom",
                 fontSize: 21,
-                letterSpacing: 1.0,
+                letterSpacing: 1.1,
                 fontWeight: FontWeight.w300),
             onTap: (index) {
               setState(() {});
