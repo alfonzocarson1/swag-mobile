@@ -31,16 +31,12 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 
-<<<<<<< HEAD
 
-=======
->>>>>>> d22b2e5 (Push notifications integrated with Firebase done and missing fix Sendbird notifications)
 android {
     compileSdkVersion 33
     ndkVersion flutter.ndkVersion
 
     compileOptions {
-        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -105,7 +101,6 @@ android {
 
     }
 
-<<<<<<< HEAD
      signingConfigs {
          release {
              if (System.getenv()["CI"]) { // CI=true is exported by Codemagic
@@ -121,16 +116,6 @@ android {
              }
          }
      }
-=======
-   signingConfigs {
-       release {
-           keyAlias keystoreProperties['keyAlias']
-           keyPassword keystoreProperties['keyPassword']
-           storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
-           storePassword keystoreProperties['storePassword']
-       }
-   }
->>>>>>> d22b2e5 (Push notifications integrated with Firebase done and missing fix Sendbird notifications)
    buildTypes {
        release {
            signingConfig signingConfigs.release
