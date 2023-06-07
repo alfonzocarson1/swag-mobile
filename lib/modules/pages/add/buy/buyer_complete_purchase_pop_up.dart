@@ -75,6 +75,7 @@ class _BuyerCompletePurchasePopUpState
   var shippedAddress = [];
 
   String? paymentTypeErrorText;
+  String? firstShippedAddressErrorText;
   String? shippedAddressErrorText;
   String? addressErrorText;
   String? cityErrorText;
@@ -302,7 +303,13 @@ class _BuyerCompletePurchasePopUpState
                                         decoration: BoxDecoration(
                                             color: Colors.transparent,
                                             border: Border.all(
-                                                color: Palette.current.white)),
+                                                width: 0.5,
+                                                color:
+                                                    firstShippedAddressErrorText != null
+                                                        ? Palette.current
+                                                            .primaryNeonPink
+                                                        : Palette
+                                                            .current.grey)),
                                         child: Padding(
                                           padding:
                                               const EdgeInsets.only(bottom: 6),
@@ -384,10 +391,36 @@ class _BuyerCompletePurchasePopUpState
                                                   ),
                                                 ),
                                               ),
+                                              Container(
+                                                height:
+                                                    firstShippedAddressErrorText !=
+                                                            null
+                                                        ? 1.5
+                                                        : 0,
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                color: Palette
+                                                    .current.primaryNeonPink,
+                                              )
                                             ],
                                           ),
                                         ),
                                       ),
+                                      firstShippedAddressErrorText != null
+                                          ? Align(
+                                              alignment: Alignment.bottomLeft,
+                                              child: Text(
+                                                S.of(context).required_field,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodySmall!
+                                                    .copyWith(
+                                                        color: Palette.current
+                                                            .primaryNeonPink),
+                                              ),
+                                            )
+                                          : Container(),
                                     ],
                                   ),
                                 ),
@@ -621,7 +654,10 @@ class _BuyerCompletePurchasePopUpState
                             PrimaryButton(
                               title:
                                   S.of(context).razon_remove_btn.toUpperCase(),
-                              onPressed: () {},
+                              onPressed: () {
+                                showErrors();
+                                if (areFieldsValid()) {}
+                              },
                               type: PrimaryButtonType.green,
                             ),
                             const SizedBox(
@@ -654,5 +690,27 @@ class _BuyerCompletePurchasePopUpState
         ),
       ),
     );
+  }
+
+  void showErrors() {
+    setState(() {
+      paymentTypeErrorText = (_defaultPaymentType != 'Payment Type')
+          ? null
+          : S.of(context).required_field;
+
+      firstShippedAddressErrorText = _firstAddressController.text.isNotEmpty
+          ? null
+          : S.of(context).required_field;
+
+      cityErrorText =
+          _cityController.text.isNotEmpty ? null : S.of(context).required_field;
+
+      zipErrorText =
+          _zipController.text.isNotEmpty ? null : S.of(context).required_field;
+    });
+  }
+
+  bool areFieldsValid() {
+    return true;
   }
 }
