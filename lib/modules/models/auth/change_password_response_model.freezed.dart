@@ -102,6 +102,7 @@ class __$$_ChangePasswordResponseModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 @JsonSerializable()
 class _$_ChangePasswordResponseModel implements _ChangePasswordResponseModel {
   const _$_ChangePasswordResponseModel({required this.token});

@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-<<<<<<< HEAD
-import 'package:swagapp/generated/l10n.dart';
-=======
 import 'package:sendbird_sdk/sendbird_sdk.dart';
->>>>>>> 28098c8 (App alert added and missing page validations)
 import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
 import 'package:swagapp/modules/common/utils/context_service.dart';
 
@@ -55,15 +51,6 @@ class _ExplorePageState extends State<ExplorePage> with ChannelEventHandler {
 
     this.initSendBirdApp();
     this.loadDynamicFilters();
-<<<<<<< HEAD
-=======
-    context.read<ChatBloc>().sendBirdSdk.addChannelEventHandler('identifier', this);
-
-    getIt<PeerToPeerPaymentsCubit>().getPyments();
-    getIt<ExploreCubit>().getUnicorn(const ExploreRequestPayloadModel(unicornFlag: true));
-    getIt<ExploreCubit>().getWhatsHot(const ExploreRequestPayloadModel(whatsHotFlag: true));
-    getIt<ExploreCubit>().getStaff(const ExploreRequestPayloadModel(staffPicksFlag: true));
->>>>>>> 28098c8 (App alert added and missing page validations)
     
     this._isLogged = getIt<PreferenceRepositoryService>().isLogged();
     this._hasJustSignedUp =

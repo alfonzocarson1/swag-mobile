@@ -137,7 +137,8 @@ class __$$_AddCollectionModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(includeIfNull: false)
 class _$_AddCollectionModel implements _AddCollectionModel {
   const _$_AddCollectionModel(
       {this.accountId,

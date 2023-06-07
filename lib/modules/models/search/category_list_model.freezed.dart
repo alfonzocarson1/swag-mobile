@@ -95,6 +95,7 @@ class __$$_CategoryListModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 @JsonSerializable()
 class _$_CategoryListModel implements _CategoryListModel {
   const _$_CategoryListModel({final List<CategoryModel>? categoryList})

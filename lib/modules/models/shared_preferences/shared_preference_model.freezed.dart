@@ -229,6 +229,7 @@ class __$$_SharedPreferenceModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 @JsonSerializable()
 class _$_SharedPreferenceModel implements _SharedPreferenceModel {
   const _$_SharedPreferenceModel(

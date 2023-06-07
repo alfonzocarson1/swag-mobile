@@ -216,7 +216,8 @@ class __$$_AddressesPayloadModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(includeIfNull: false)
 class _$_AddressesPayloadModel implements _AddressesPayloadModel {
   const _$_AddressesPayloadModel(
       {this.addressId,

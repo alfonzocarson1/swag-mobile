@@ -109,6 +109,7 @@ class __$$_SearchTabsResponseModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 @JsonSerializable()
 class _$_SearchTabsResponseModel implements _SearchTabsResponseModel {
   const _$_SearchTabsResponseModel(

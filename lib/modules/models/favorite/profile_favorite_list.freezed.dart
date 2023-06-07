@@ -102,6 +102,7 @@ class __$$_ListFavoriteProfileResponseModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 @JsonSerializable()
 class _$_ListFavoriteProfileResponseModel
     implements _ListFavoriteProfileResponseModel {

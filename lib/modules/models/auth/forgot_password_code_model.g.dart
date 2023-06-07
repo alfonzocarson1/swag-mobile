@@ -6,16 +6,16 @@ part of 'forgot_password_code_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ForgotPasswordCodeModel _$ForgotPasswordCodeModelFromJson(
+_$_ForgotPasswordCodeModel _$$_ForgotPasswordCodeModelFromJson(
         Map<String, dynamic> json) =>
-    ForgotPasswordCodeModel(
+    _$_ForgotPasswordCodeModel(
       statusCode: json['statusCode'] as String?,
       statusMessage: json['statusMessage'] as String?,
       response: json['response'] as bool?,
     );
 
-Map<String, dynamic> _$ForgotPasswordCodeModelToJson(
-    ForgotPasswordCodeModel instance) {
+Map<String, dynamic> _$$_ForgotPasswordCodeModelToJson(
+    _$_ForgotPasswordCodeModel instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -29,19 +29,3 @@ Map<String, dynamic> _$ForgotPasswordCodeModelToJson(
   writeNotNull('response', instance.response);
   return val;
 }
-
-_$_ForgotPasswordCodeModel _$$_ForgotPasswordCodeModelFromJson(
-        Map<String, dynamic> json) =>
-    _$_ForgotPasswordCodeModel(
-      statusCode: json['statusCode'] as String?,
-      statusMessage: json['statusMessage'] as String?,
-      response: json['response'] as bool?,
-    );
-
-Map<String, dynamic> _$$_ForgotPasswordCodeModelToJson(
-        _$_ForgotPasswordCodeModel instance) =>
-    <String, dynamic>{
-      'statusCode': instance.statusCode,
-      'statusMessage': instance.statusMessage,
-      'response': instance.response,
-    };

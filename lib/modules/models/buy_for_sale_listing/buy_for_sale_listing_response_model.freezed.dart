@@ -103,6 +103,7 @@ class __$$_BuyForSaleListingResponseModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 @JsonSerializable()
 class _$_BuyForSaleListingResponseModel
     implements _BuyForSaleListingResponseModel {

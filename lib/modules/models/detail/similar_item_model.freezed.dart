@@ -136,6 +136,7 @@ class __$$_SimilarItemModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 @JsonSerializable()
 class _$_SimilarItemModel implements _SimilarItemModel {
   const _$_SimilarItemModel(

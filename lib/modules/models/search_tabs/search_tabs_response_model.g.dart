@@ -6,24 +6,6 @@ part of 'search_tabs_response_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-SearchTabsResponseModel _$SearchTabsResponseModelFromJson(
-        Map<String, dynamic> json) =>
-    SearchTabsResponseModel(
-      catalogList: (json['catalogList'] as List<dynamic>)
-          .map((e) => CatalogItemModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      recentList: (json['recentList'] as List<dynamic>)
-          .map((e) => e as String)
-          .toList(),
-    );
-
-Map<String, dynamic> _$SearchTabsResponseModelToJson(
-        SearchTabsResponseModel instance) =>
-    <String, dynamic>{
-      'catalogList': instance.catalogList,
-      'recentList': instance.recentList,
-    };
-
 _$_SearchTabsResponseModel _$$_SearchTabsResponseModelFromJson(
         Map<String, dynamic> json) =>
     _$_SearchTabsResponseModel(

@@ -6,26 +6,6 @@ part of 'generic_response_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-GenericResponseModel _$GenericResponseModelFromJson(
-        Map<String, dynamic> json) =>
-    GenericResponseModel(
-      errorCode: json['errorCode'] as String,
-      errorMessage: json['errorMessage'] as String,
-      token: json['token'] as String,
-      accountId: json['accountId'] as String,
-      hasImportableData: json['hasImportableData'] as bool,
-    );
-
-Map<String, dynamic> _$GenericResponseModelToJson(
-        GenericResponseModel instance) =>
-    <String, dynamic>{
-      'errorCode': instance.errorCode,
-      'errorMessage': instance.errorMessage,
-      'token': instance.token,
-      'accountId': instance.accountId,
-      'hasImportableData': instance.hasImportableData,
-    };
-
 _$_GenericResponseModel _$$_GenericResponseModelFromJson(
         Map<String, dynamic> json) =>
     _$_GenericResponseModel(

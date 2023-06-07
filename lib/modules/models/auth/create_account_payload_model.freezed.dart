@@ -167,6 +167,7 @@ class __$$_CreateAccountPayloadModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 @JsonSerializable()
 class _$_CreateAccountPayloadModel implements _CreateAccountPayloadModel {
   const _$_CreateAccountPayloadModel(

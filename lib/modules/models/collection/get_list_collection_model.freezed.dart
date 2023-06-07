@@ -104,6 +104,7 @@ class __$$_ListCollectionProfileResponseModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 @JsonSerializable()
 class _$_ListCollectionProfileResponseModel
     implements _ListCollectionProfileResponseModel {

@@ -169,7 +169,8 @@ class __$$_AddCollectionItemPayloadModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(includeIfNull: false)
 class _$_AddCollectionItemPayloadModel
     implements _AddCollectionItemPayloadModel {
   const _$_AddCollectionItemPayloadModel(

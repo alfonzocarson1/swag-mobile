@@ -124,7 +124,8 @@ class __$$_FavoriteModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(includeIfNull: false)
 class _$_FavoriteModel implements _FavoriteModel {
   const _$_FavoriteModel(
       {this.favoritesItemAction,

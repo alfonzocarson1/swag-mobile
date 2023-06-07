@@ -6,38 +6,6 @@ part of 'catalog_item_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-CatalogItemModel _$CatalogItemModelFromJson(Map<String, dynamic> json) =>
-    CatalogItemModel(
-      catalogItemId: json['catalogItemId'] as String,
-      catalogItemName: json['catalogItemName'] as String,
-      catalogItemImage: json['catalogItemImage'] as String,
-      numberAvailable: json['numberAvailable'] as int,
-      saleInfo: DetailSaleInfoModel.fromJson(
-          json['saleInfo'] as Map<String, dynamic>),
-      forSale: json['forSale'] as bool,
-      inFavorites: json['inFavorites'] as bool,
-      inCollection: json['inCollection'] as bool,
-      profileFavoriteItemId: json['profileFavoriteItemId'] as String?,
-      collectionItems: (json['collectionItems'] as List<dynamic>?)
-          ?.map(
-              (e) => DetailCollectionModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
-
-Map<String, dynamic> _$CatalogItemModelToJson(CatalogItemModel instance) =>
-    <String, dynamic>{
-      'catalogItemId': instance.catalogItemId,
-      'catalogItemName': instance.catalogItemName,
-      'catalogItemImage': instance.catalogItemImage,
-      'numberAvailable': instance.numberAvailable,
-      'saleInfo': instance.saleInfo,
-      'forSale': instance.forSale,
-      'inFavorites': instance.inFavorites,
-      'inCollection': instance.inCollection,
-      'profileFavoriteItemId': instance.profileFavoriteItemId,
-      'collectionItems': instance.collectionItems,
-    };
-
 _$_CatalogItemModel _$$_CatalogItemModelFromJson(Map<String, dynamic> json) =>
     _$_CatalogItemModel(
       catalogItemId: json['catalogItemId'] as String,

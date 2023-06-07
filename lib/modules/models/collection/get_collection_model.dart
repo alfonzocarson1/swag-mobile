@@ -7,8 +7,8 @@ part 'get_collection_model.freezed.dart';
 part 'get_collection_model.g.dart';
 
 @freezed
-@JsonSerializable()
 class GetCollectionModel with _$GetCollectionModel {
+@JsonSerializable()
   const factory GetCollectionModel({
     required final String catalogItemId,
     required final String catalogItemName,

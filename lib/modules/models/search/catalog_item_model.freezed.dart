@@ -228,6 +228,7 @@ class __$$_CatalogItemModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 @JsonSerializable()
 class _$_CatalogItemModel implements _CatalogItemModel {
   const _$_CatalogItemModel(

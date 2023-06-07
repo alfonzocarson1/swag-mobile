@@ -106,7 +106,8 @@ class __$$_FavoriteItemModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(includeIfNull: false)
 class _$_FavoriteItemModel implements _FavoriteItemModel {
   const _$_FavoriteItemModel({this.profileFavoriteItemId, this.catalogItemId});
 

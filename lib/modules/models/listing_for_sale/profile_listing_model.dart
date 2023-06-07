@@ -6,9 +6,9 @@ part 'profile_listing_model.freezed.dart';
 part 'profile_listing_model.g.dart';
 
 @freezed
-@JsonSerializable()
 class ListingForSaleProfileResponseModel
     with _$ListingForSaleProfileResponseModel {
+@JsonSerializable()
   const factory ListingForSaleProfileResponseModel({
     required List<ListingForSaleModel> listForSale,
   }) = _ListingForSaleProfileResponseModel;

@@ -150,6 +150,7 @@ class __$$_GenericResponseModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 @JsonSerializable()
 class _$_GenericResponseModel implements _GenericResponseModel {
   const _$_GenericResponseModel(

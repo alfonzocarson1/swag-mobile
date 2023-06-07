@@ -136,6 +136,7 @@ class __$$_DetailSaleInfoModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 @JsonSerializable()
 class _$_DetailSaleInfoModel implements _DetailSaleInfoModel {
   const _$_DetailSaleInfoModel(
