@@ -57,7 +57,7 @@ class _PopUpImageGuidelineState extends State<PopUpImageGuideline> {
                                   )),
                         ),
                         const SizedBox(
-                          height: 24,
+                          height: 18,
                         ),
                         Align(
                           alignment: Alignment.centerLeft,
@@ -75,7 +75,7 @@ class _PopUpImageGuidelineState extends State<PopUpImageGuideline> {
                           ),
                         ),
                         const SizedBox(
-                          height: 22,
+                          height: 18,
                         ),
                         Align(
                           alignment: Alignment.centerLeft,
@@ -92,7 +92,7 @@ class _PopUpImageGuidelineState extends State<PopUpImageGuideline> {
                                   )),
                         ),
                         const SizedBox(
-                          height: 20,
+                          height: 12,
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 10),
@@ -112,7 +112,7 @@ class _PopUpImageGuidelineState extends State<PopUpImageGuideline> {
                                         )),
                               ),
                               const SizedBox(
-                                height: 7,
+                                height: 4,
                               ),
                               Align(
                                 alignment: Alignment.centerLeft,
@@ -128,7 +128,7 @@ class _PopUpImageGuidelineState extends State<PopUpImageGuideline> {
                                         )),
                               ),
                               const SizedBox(
-                                height: 7,
+                                height: 4,
                               ),
                               Align(
                                 alignment: Alignment.centerLeft,
@@ -144,7 +144,7 @@ class _PopUpImageGuidelineState extends State<PopUpImageGuideline> {
                                         )),
                               ),
                                const SizedBox(
-                                height: 7,
+                                height: 4,
                               ),
                               Align(
                                 alignment: Alignment.centerLeft,
@@ -181,7 +181,7 @@ class _PopUpImageGuidelineState extends State<PopUpImageGuideline> {
                                   )),
                         ),
                         const SizedBox(
-                          height: 20,
+                          height: 12,
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 10),
@@ -201,7 +201,7 @@ class _PopUpImageGuidelineState extends State<PopUpImageGuideline> {
                                         )),
                               ),
                               const SizedBox(
-                                height: 7,
+                                height: 4,
                               ),
                               Align(
                                 alignment: Alignment.centerLeft,
@@ -217,7 +217,7 @@ class _PopUpImageGuidelineState extends State<PopUpImageGuideline> {
                                         )),
                               ),
                               const SizedBox(
-                                height: 7,
+                                height: 4,
                               ),
                               Align(
                                 alignment: Alignment.centerLeft,
@@ -234,7 +234,7 @@ class _PopUpImageGuidelineState extends State<PopUpImageGuideline> {
                                         )),
                               ),
                               const SizedBox(
-                                height: 7,
+                                height: 4,
                               ),
                               Align(
                                 alignment: Alignment.centerLeft,
@@ -250,7 +250,7 @@ class _PopUpImageGuidelineState extends State<PopUpImageGuideline> {
                                         )),
                               ),
                               const SizedBox(
-                                height: 7,
+                                height: 4,
                               ),
                               Align(
                                 alignment: Alignment.centerLeft,
