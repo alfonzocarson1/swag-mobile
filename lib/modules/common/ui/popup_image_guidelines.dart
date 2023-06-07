@@ -19,16 +19,18 @@ class _PopUpImageGuidelineState extends State<PopUpImageGuideline> {
 
   @override
   Widget build(BuildContext context) {
+    double deviceRatio = MediaQuery.of(context).size.aspectRatio;
+
     return Center(
       child: Dialog(
-        insetPadding: const EdgeInsets.all(20),
+        insetPadding: const EdgeInsets.all(40),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
         child: Stack(
           children: [
             Container(
               color: Palette.current.blackSmoke,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
+                padding: const EdgeInsets.symmetric(horizontal: 31),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -47,6 +49,7 @@ class _PopUpImageGuidelineState extends State<PopUpImageGuideline> {
                                   .textTheme
                                   .displayMedium!
                                   .copyWith(
+                                    letterSpacing: 1.2,
                                     fontFamily: "KnockoutCustom",
                                     fontSize: 44,
                                     fontWeight: FontWeight.w300,
@@ -54,23 +57,25 @@ class _PopUpImageGuidelineState extends State<PopUpImageGuideline> {
                                   )),
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 24,
                         ),
                         Align(
                           alignment: Alignment.centerLeft,
-                          child: Text(
-                              S.of(context).image_guidelines_description,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                    fontSize: 15,
-                                    letterSpacing: 0.3,
-                                    color: Palette.current.primaryWhiteSmoke,
-                                  )),
+                          child: SizedBox(
+                            width: deviceRatio * 550,
+                            child: Text(
+                                S.of(context).image_guidelines_description,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(                                    
+                                      letterSpacing: 0.3,
+                                      color: Palette.current.primaryWhiteSmoke,
+                                    )),
+                          ),
                         ),
                         const SizedBox(
-                          height: 20,
+                          height: 22,
                         ),
                         Align(
                           alignment: Alignment.centerLeft,
@@ -100,7 +105,7 @@ class _PopUpImageGuidelineState extends State<PopUpImageGuideline> {
                                         .textTheme
                                         .bodySmall!
                                         .copyWith(
-                                          fontSize: 14,
+                                          fontSize: 16,
                                           letterSpacing: 0.3,
                                           color:
                                               Palette.current.primaryWhiteSmoke,
@@ -116,7 +121,7 @@ class _PopUpImageGuidelineState extends State<PopUpImageGuideline> {
                                         .textTheme
                                         .bodySmall!
                                         .copyWith(
-                                          fontSize: 14,
+                                          fontSize: 16,
                                           letterSpacing: 0.3,
                                           color:
                                               Palette.current.primaryWhiteSmoke,
@@ -132,7 +137,7 @@ class _PopUpImageGuidelineState extends State<PopUpImageGuideline> {
                                         .textTheme
                                         .bodySmall!
                                         .copyWith(
-                                          fontSize: 14,
+                                          fontSize: 16,
                                           letterSpacing: 0.3,
                                           color:
                                               Palette.current.primaryWhiteSmoke,
@@ -148,7 +153,7 @@ class _PopUpImageGuidelineState extends State<PopUpImageGuideline> {
                                         .textTheme
                                         .bodySmall!
                                         .copyWith(
-                                          fontSize: 14,
+                                          fontSize: 16,
                                           letterSpacing: 0.3,
                                           color:
                                               Palette.current.primaryWhiteSmoke,
@@ -158,7 +163,7 @@ class _PopUpImageGuidelineState extends State<PopUpImageGuideline> {
                           ),
                         ),
                         const SizedBox(
-                          height: 20,
+                          height: 22,
                         ),
                         Align(
                           alignment: Alignment.centerLeft,
@@ -189,7 +194,7 @@ class _PopUpImageGuidelineState extends State<PopUpImageGuideline> {
                                         .textTheme
                                         .bodySmall!
                                         .copyWith(
-                                          fontSize: 14,
+                                          fontSize: 16,
                                           letterSpacing: 0.3,
                                           color:
                                               Palette.current.primaryWhiteSmoke,
@@ -205,7 +210,7 @@ class _PopUpImageGuidelineState extends State<PopUpImageGuideline> {
                                         .textTheme
                                         .bodySmall!
                                         .copyWith(
-                                          fontSize: 14,
+                                          fontSize: 16,
                                           letterSpacing: 0.3,
                                           color:
                                               Palette.current.primaryWhiteSmoke,
@@ -222,7 +227,7 @@ class _PopUpImageGuidelineState extends State<PopUpImageGuideline> {
                                         .textTheme
                                         .bodySmall!
                                         .copyWith(
-                                          fontSize: 14,
+                                          fontSize: 16,
                                           letterSpacing: 0.3,
                                           color:
                                               Palette.current.primaryWhiteSmoke,
@@ -238,7 +243,7 @@ class _PopUpImageGuidelineState extends State<PopUpImageGuideline> {
                                         .textTheme
                                         .bodySmall!
                                         .copyWith(
-                                          fontSize: 14,
+                                          fontSize: 16,
                                           letterSpacing: 0.3,
                                           color:
                                               Palette.current.primaryWhiteSmoke,
@@ -255,7 +260,7 @@ class _PopUpImageGuidelineState extends State<PopUpImageGuideline> {
                                         .textTheme
                                         .bodySmall!
                                         .copyWith(
-                                          fontSize: 14,
+                                          fontSize: 16,
                                           letterSpacing: 0.3,
                                           color:
                                               Palette.current.primaryWhiteSmoke,
