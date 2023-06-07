@@ -283,7 +283,8 @@
     "accepted_payment_types": "Accepted Payment Types",
     "setup_payment": "Setup Payment",
     "setup_payment_sub_title": "You must setup at least one form of payment before you can list an item. ",
-    "payment_types_accepted": "Payment Types Accepted"
+    "payment_types_accepted": "Payment Types Accepted",
+    "help_payment": "You must select at least one form of payment. You can manage these payment types in your settings."
     
 
 

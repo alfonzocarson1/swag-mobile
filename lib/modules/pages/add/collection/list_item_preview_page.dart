@@ -239,7 +239,7 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                               ),
                               Visibility(
                                 visible:
-                                    widget.paymentAccepted.contains('Cashapp'),
+                                    widget.paymentAccepted.contains('CashApp'),
                                 child: Image.asset(
                                   'assets/icons/cash_app_icon.png',
                                   scale: 4,
@@ -319,7 +319,7 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                                                       ''
                                                   : null,
                                               cashTag: widget.paymentAccepted
-                                                      .contains('Cashapp')
+                                                      .contains('CashApp')
                                                   ? paymentData
                                                           .peerToPeerPayments!
                                                           .cashTag ??
