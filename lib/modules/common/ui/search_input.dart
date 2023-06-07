@@ -132,7 +132,7 @@ class _SearchInputState extends State<SearchInput> {
                 .textTheme
                 .bodySmall!
                 .copyWith(
-                  letterSpacing: 0.015,
+                  letterSpacing: 0.2,
                   color: Palette.current.darkGray),
             isEnabled: widget.enabled,
             helperText: widget.hint,
