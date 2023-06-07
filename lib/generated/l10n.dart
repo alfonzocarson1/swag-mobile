@@ -2799,6 +2799,16 @@ class S {
       args: [],
     );
   }
+
+  /// `You must select at least one form of payment. You can manage these payment types in your settings.`
+  String get help_payment {
+    return Intl.message(
+      'You must select at least one form of payment. You can manage these payment types in your settings.',
+      name: 'help_payment',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -180,6 +180,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "See our FAQS, Terms and Privacy"),
         "help_center_title":
             MessageLookupByLibrary.simpleMessage("Help Center"),
+        "help_payment": MessageLookupByLibrary.simpleMessage(
+            "You must select at least one form of payment. You can manage these payment types in your settings."),
         "i_do_not_know":
             MessageLookupByLibrary.simpleMessage("I DON’T KNOW/ NOT LISTED"),
         "image_guidelines":
