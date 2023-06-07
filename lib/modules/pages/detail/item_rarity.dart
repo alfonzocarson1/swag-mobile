@@ -66,12 +66,12 @@ class _RarityWidgetState extends State<RarityWidget> {
                 dense: true,
                 leading: Text(S.of(context).released,
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 15,
+                          fontSize: 16,
                           color: Palette.current.primaryWhiteSmoke,
                         )),
                 trailing: Text(widget.released ?? '',
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 15,
+                          fontSize: 16,
                           color: Palette.current.primaryWhiteSmoke,
                         )),
               ),
@@ -80,13 +80,13 @@ class _RarityWidgetState extends State<RarityWidget> {
                 visualDensity: const VisualDensity(vertical: -4),
                 leading: Text(S.of(context).total_mode,
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 15,
+                          fontSize: 16,
                           color: Palette.current.primaryWhiteSmoke,
                         )),
                 trailing:
                     Text(widget.totalMade == null ? '?' : "${widget.totalMade}",
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                              fontSize: 15,
+                              fontSize: 16,
                               color: Palette.current.primaryWhiteSmoke,
                             )),
               ),
@@ -95,12 +95,12 @@ class _RarityWidgetState extends State<RarityWidget> {
                 dense: true,
                 leading: Text(S.of(context).retail,
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 15,
+                          fontSize: 16,
                           color: Palette.current.primaryWhiteSmoke,
                         )),
                 trailing: Text('\$${widget.retail}',
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 15,
+                          fontSize: 16,
                           color: Palette.current.primaryWhiteSmoke,
                         )),
               ),
@@ -109,12 +109,12 @@ class _RarityWidgetState extends State<RarityWidget> {
                 dense: true,
                 leading: Text(S.of(context).available,
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 15,
+                          fontSize: 16,
                           color: Palette.current.primaryWhiteSmoke,
                         )),
                 trailing: Text("${widget.available}",
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 15,
+                          fontSize: 16,
                           color: Palette.current.blueNeon,
                         )),
               )

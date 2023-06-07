@@ -98,6 +98,8 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                 child: Stack(
                   children: [
                     LayoutBuilder(builder: (context, viewportConstraints) {
+                      String productItemName = widget.dataItem.productItemName ?? "";
+                      String productCondition = widget.dataItem.condition ??  "";
                       return SingleChildScrollView(
                         physics: const ClampingScrollPhysics(),
                         reverse: false,
@@ -123,12 +125,12 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                         Expanded(
                                             flex: 6,
                                             child: Text(
-                                                '${widget.dataItem.productItemName}',
+                                                productItemName.toUpperCase(),
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .displayLarge!
                                                     .copyWith(
-                                                        letterSpacing: 1,
+                                                        letterSpacing: 0.018,
                                                         fontWeight:
                                                             FontWeight.w300,
                                                         fontFamily:
@@ -239,6 +241,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                               .textTheme
                                               .bodySmall!
                                               .copyWith(
+                                                
                                                   fontWeight: FontWeight.w300,
                                                   color: Palette.current
                                                       .primaryNeonGreen)),
@@ -307,12 +310,13 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                     Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                          "Condition: ${widget.dataItem.condition}",
+                                          "Condition: ${productCondition.capitalize()}",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodySmall!
                                               .copyWith(
                                                   fontWeight: FontWeight.w300,
+                                                  letterSpacing: 0.02,
                                                   color: Palette.current
                                                       .primaryNeonPink)),
                                     ),
@@ -329,8 +333,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                               .textTheme
                                               .bodySmall!
                                               .copyWith(
-                                                fontSize: 15,
-                                                letterSpacing: 0.3,
+                                                letterSpacing: 0.02,
                                                 color: Palette
                                                     .current.primaryWhiteSmoke,
                                               )),

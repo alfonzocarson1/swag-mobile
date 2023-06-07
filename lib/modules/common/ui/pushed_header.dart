@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 
-import '../../blocs/collection_bloc/collection_bloc.dart';
 
 class PushedHeader extends StatefulWidget implements PreferredSizeWidget {
   static const _defaultActions = <Widget>[];
@@ -45,8 +43,10 @@ class _PushedHeaderState extends State<PushedHeader>
     return PreferredSize(
       preferredSize: const Size.fromHeight(22),
       child: AppBar(
+        scrolledUnderElevation: 0.0,
+        backgroundColor: Palette.current.primaryNero,
         systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: Palette.current.black,
+          statusBarColor: Palette.current.primaryNero,
           statusBarIconBrightness: Brightness.light, // For Android (dark icons)
           statusBarBrightness: Brightness.dark, // For iOS (dark icons)
         ),
