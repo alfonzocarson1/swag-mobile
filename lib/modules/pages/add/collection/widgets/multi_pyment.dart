@@ -324,207 +324,6 @@ class _MultiCheckboxDropdownState extends State<MultiCheckboxDropdown> {
                                                       fontSize: 14,
                                                       color: Palette
                                                           .current.blackSmoke,
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.transparent,
-            border: widget.borderColor != null
-                ? Border.all(
-                    color: widget.errorText != null
-                        ? Palette.current.primaryNeonPink
-                        : widget.borderColor!,
-                  )
-                : null,
-          ),
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 6),
-            child: Column(
-              children: [
-                Container(
-                  height: 55,
-                  decoration:
-                      BoxDecoration(color: Palette.current.primaryWhiteSmoke),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 16, top: 4),
-                    child: TextFormField(
-                      autofocus: false,
-                      readOnly: true,
-                      controller: _textEditingController,
-                      decoration: InputDecoration(
-                        counterText: "",
-                        labelStyle:
-                            Theme.of(context).textTheme.bodySmall!.copyWith(
-                              letterSpacing: 0.05,
-                                  fontFamily: "Ringside",
-                                  color: Palette.current.primaryNero,
-                                ),
-                        contentPadding: const EdgeInsets.only(top: 8),
-                        border: InputBorder.none,
-                        labelText: S.of(context).accepted_payment_types,
-                      ),
-                      onTap: () async {
-                        PeerToPeerPaymentsGetModel paymentDataNew =
-                            getIt<PreferenceRepositoryService>().paymanetData();
-                        if ((paymentDataNew.peerToPeerPayments != null) &&
-                            (paymentData.peerToPeerPayments !=
-                                paymentDataNew.peerToPeerPayments)) {
-                          setState(() {
-                            paymentData = getIt<PreferenceRepositoryService>()
-                                .paymanetData();
-                            _items = [];
-                            setUpPaymentList();
-                          });
-                        }
-
-                        if (paymentData.peerToPeerPayments == null) {
-                          showDialog(
-                              context: context,
-                              barrierDismissible: false,
-                              builder: (BuildContext context) {
-                                return PaymentSetupError();
-                              });
-                        } else {
-                          List<int> tempSelectedIndices = List<int>.from(
-                              _selectedItems
-                                  .asMap()
-                                  .entries
-                                  .where((entry) => entry.value)
-                                  .map((entry) => entry.key));
-
-                          await showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return StatefulBuilder(
-                                builder: (BuildContext context,
-                                    StateSetter setState) {
-                                  return Dialog(
-                                    insetPadding: const EdgeInsets.all(20),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(0)),
-                                    child: Stack(
-                                      children: [
-                                        Container(
-                                          color: Palette.current.blackSmoke,
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 20),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.stretch,
-                                              children: [
-                                                const SizedBox(
-                                                  height: 40,
-                                                ),
-                                                Align(
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  child: Text(
-                                                      S
-                                                          .of(context)
-                                                          .accepted_payment_types
-                                                          .toUpperCase(),
-                                                      textAlign: TextAlign.left,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .displayMedium!
-                                                          .copyWith(
-                                                            fontFamily:
-                                                                "KnockoutCustom",
-                                                            fontSize: 40,
-                                                            fontWeight:
-                                                                FontWeight.w300,
-                                                            color: Palette
-                                                                .current
-                                                                .primaryNeonGreen,
-                                                          )),
-                                                ),
-                                                const SizedBox(
-                                                  height: 10,
-                                                ),
-                                                Align(
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  child: SizedBox(
-                                                    child: ListView.builder(
-                                                      shrinkWrap: true,
-                                                      itemCount: _items.length,
-                                                      itemBuilder:
-                                                          (BuildContext context,
-                                                              int index) {
-                                                        return Theme(
-                                                          data: ThemeData(
-                                                            unselectedWidgetColor:
-                                                                Palette.current
-                                                                    .primaryWhiteSmoke,
-                                                            checkboxTheme:
-                                                                CheckboxThemeData(
-                                                              fillColor: MaterialStateProperty
-                                                                  .resolveWith<
-                                                                      Color>((Set<
-                                                                          MaterialState>
-                                                                      states) {
-                                                                if (states.contains(
-                                                                    MaterialState
-                                                                        .selected)) {
-                                                                  return Palette
-                                                                      .current
-                                                                      .primaryNeonGreen; // Color de fondo cuando está seleccionado
-                                                                }
-                                                                return Palette
-                                                                    .current
-                                                                    .primaryWhiteSmoke;
-                                                              }),
-                                                            ),
-                                                          ),
-                                                          child:
-                                                              CheckboxListTile(
-                                                            contentPadding:
-                                                                EdgeInsets.zero,
-                                                            controlAffinity:
-                                                                ListTileControlAffinity
-                                                                    .leading,
-                                                            title: Text(
-                                                                _items[index],
-                                                                style: Theme.of(
-                                                                        context)
-                                                                    .textTheme
-                                                                    .bodySmall!
-                                                                    .copyWith(
-                                                                      fontSize:
-                                                                          14,
-                                                                      letterSpacing:
-                                                                          0.3,
-                                                                      color: Palette
-                                                                          .current
-                                                                          .primaryWhiteSmoke,
-                                                                    )),
-                                                            value:
-                                                                tempSelectedIndices
-                                                                    .contains(
-                                                                        index),
-                                                            onChanged:
-                                                                (bool? value) {
-                                                              if (value !=
-                                                                  null) {
-                                                                setState(() {
-                                                                  if (value) {
-                                                                    tempSelectedIndices
-                                                                        .add(
-                                                                            index);
-                                                                  } else {
-                                                                    tempSelectedIndices
-                                                                        .remove(
-                                                                            index);
-                                                                  }
-                                                                });
-                                                                _handleSelection(
-                                                                    index,
-                                                                    value);
-                                                              }
-                                                            },
-                                                          ),
-                                                        );
-                                                      },
                                                     ),
                                               )
                                             : SizedBox(
@@ -807,18 +606,18 @@ class _MultiCheckboxDropdownState extends State<MultiCheckboxDropdown> {
                     .copyWith(color: Palette.current.primaryNeonPink),
               )
             : Container(),
-        Padding(
-          padding: const EdgeInsets.only(left: 10.0, top: 10.0),
-          child: Text(
-            widget.helperText!,
-            style: Theme.of(context)
-                .textTheme
-                .labelSmall!
-                .copyWith(
-                  letterSpacing: 0.02,
-                  color: Palette.current.primaryWhiteSmoke),
-          ),
-        )
+        !_showDropdown
+            ? Padding(
+                padding: const EdgeInsets.only(left: 10.0, top: 10.0),
+                child: Text(
+                  widget.helperText!,
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelSmall!
+                      .copyWith(color: Palette.current.primaryWhiteSmoke),
+                ),
+              )
+            : Container()
       ],
     );
   }
