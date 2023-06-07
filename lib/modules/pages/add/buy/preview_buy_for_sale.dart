@@ -340,7 +340,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                             widget.dataItem.profileId)
                                         ? Column(
                                             children: [
-                                              FooterListItemPage(),
+                                              FooterListItemPage(productItemId: this.widget.dataItem.productItemId ?? ''),
                                               const SizedBox(height: 30),
                                               Visibility(
                                                   visible:

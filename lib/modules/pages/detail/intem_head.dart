@@ -313,7 +313,7 @@ class _HeadWidgetState extends State<HeadWidget> {
                                       height: 50,
                                     ),
                                     Image.asset(
-                                      "assets/images/trending-up.png",
+                                      AppIcons.trendingUp,
                                       height: 20,
                                       width: 20,
                                     ),
