@@ -57,7 +57,7 @@ class _PopUpImageGuidelineState extends State<PopUpImageGuideline> {
                                   )),
                         ),
                         const SizedBox(
-                          height: 18,
+                          height: 14,
                         ),
                         Align(
                           alignment: Alignment.centerLeft,
