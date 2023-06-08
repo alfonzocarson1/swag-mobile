@@ -13,13 +13,9 @@ import ' shop_by_category_page.dart';
 
 import '../../common/ui/custom_app_bar.dart';
 import '../../common/utils/custom_route_animations.dart';
-import '../../cubits/explore/get_explore_cubit.dart';
-import '../../cubits/peer_to_peer_payments/peer_to_peer_payments_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 
-import '../../models/explore/explore_payload_model.dart';
-import '../../models/profile/profile_model.dart';
 import 'account_info.dart';
 import 'staff_picks_page.dart';
 import 'unicorn_covers_page.dart';
@@ -51,6 +47,7 @@ class _ExplorePageState extends State<ExplorePage> with ChannelEventHandler {
 
     this.initSendBirdApp();
     this.loadDynamicFilters();
+    context.read<ChatBloc>().sendBirdSdk.addChannelEventHandler('identifier', this);
     
     this._isLogged = getIt<PreferenceRepositoryService>().isLogged();
     this._hasJustSignedUp =
