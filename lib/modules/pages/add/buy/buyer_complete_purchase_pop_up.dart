@@ -10,8 +10,10 @@ import '../../../common/ui/cupertino_custom_picker.dart';
 import '../../../common/ui/custom_text_form_field.dart';
 import '../../../common/utils/utils.dart';
 import '../../../constants/constants.dart';
+import '../../../cubits/buy/buy_cubit.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
+import '../../../models/buy_for_sale_listing/buy_a_listing_model.dart';
 import '../../../models/profile/profile_model.dart';
 import '../../../models/settings/peer_to_peer_payments_get_model.dart';
 import '../../../models/settings/peer_to_peer_payments_model.dart';
@@ -656,7 +658,23 @@ class _BuyerCompletePurchasePopUpState
                                   S.of(context).razon_remove_btn.toUpperCase(),
                               onPressed: () {
                                 showErrors();
-                                if (areFieldsValid()) {}
+                                if (areFieldsValid()) {
+                                  // getIt<BuyCubit>().buyListItem(
+                                  //     BuyASaleListingModel(
+                                  //         saveAddress: false,
+                                  //         productItemId:
+                                  //             'cad9f76a-729e-45a1-8d1c-8b11bb467622',
+                                  //         address: AddressesPayloadModel(
+                                  //             addressType: 'SHIPPING',
+                                  //             address1: 'sadasd',
+                                  //             address2: '',
+                                  //             city: 'sdfds',
+                                  //             state: 'sdfsdf',
+                                  //             postalCode: '234234'),
+                                  //         profilePeerToPeerPayment:
+                                  //             PeerToPeerPaymentsModel(
+                                  //                 venmoUser: 'sebash0210')));
+                                }
                               },
                               type: PrimaryButtonType.green,
                             ),

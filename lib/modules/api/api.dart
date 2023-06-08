@@ -35,7 +35,8 @@ enum Endpoint {
   notifyAvailability,
   profileNotifyStatus,
   peerToPeerPayments,
-  getListingDetail
+  getListingDetail,
+  purchaseListing
 }
 
 class API {
@@ -92,5 +93,6 @@ class API {
         'api/v1/notification/notifyAvailability/profile',
     Endpoint.peerToPeerPayments: 'api/v1/profile/settings/peerToPeerPayments',
     Endpoint.getListingDetail: 'api/public/v1/listing/listingDetail/%s',
+    Endpoint.purchaseListing: 'api/v1/buyFlow/submitPurchase'
   };
 }
