@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../common/utils/palette.dart';
 
 class CarouselWithDotsPage extends StatefulWidget {
-  List<String> imgList;
+  final List<String> imgList;
 
   CarouselWithDotsPage({super.key, required this.imgList});
 

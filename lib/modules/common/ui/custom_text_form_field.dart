@@ -35,7 +35,7 @@ class CustomTextFormField extends StatefulWidget {
   final Function(String)? onChanged;
   final Function(String)? onSubmitted;
   final List<TextInputFormatter>? inputFormatters;
-  Widget? suffix;
+  final Widget? suffix;
   final int? maxLength;
   final TextStyle? style;
   final String? errorText;
@@ -45,7 +45,7 @@ class CustomTextFormField extends StatefulWidget {
   final bool autofocus;
   final bool dropdownForm;
   final List<String>? dropdownFormItems;
-  void Function(String?)? dropdownOnChanged;
+  final void Function(String?)? dropdownOnChanged;
   final String? dropdownvalue;
 
   @override

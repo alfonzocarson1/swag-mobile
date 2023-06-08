@@ -284,12 +284,22 @@
     "setup_payment": "Setup Payment",
     "setup_payment_sub_title": "You must setup at least one form of payment before you can list an item. ",
     "payment_types_accepted": "Payment Types Accepted",
-    "help_payment": "You must select at least one form of payment. You can manage these payment types in your settings."
+    "help_payment": "You must select at least one form of payment. You can manage these payment types in your settings.",
     
 
+    "chatChat": "Chat",
+    "chatModeratorName": "SWAG",
+    "chatInputHintText": "Enter message",
+    "chatNoMessages": "No previous messages",
+    "chatTyping": "Typing...",
+    "chatErrorFile": "Error loading the file",
+    "chatLoadingFile": "Loading File...",
+    "chatToday": "Today",
+    "chatMessageFrom": "New message from {sender}",
+    "chatSwaggAdmin": "Swagg Admin",
+
+    "chatsHeader": "ALERTS & Notifications",
+    "chatsUnreadMessages": "{chatsNumber} Unread"
 
     
-   
-    
-
 }

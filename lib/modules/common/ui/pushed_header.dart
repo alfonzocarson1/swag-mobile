@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 
-
 class PushedHeader extends StatefulWidget implements PreferredSizeWidget {
+
   static const _defaultActions = <Widget>[];
   final List<Widget> actions;
   final bool showBackButton;
-  Widget? customWidget = Container();
-  Widget? title;
-  double height;
-  bool isDarkBackground;
-  Widget? suffixIconButton;
+  final Widget? customWidget;
+  final Widget? title;
+  final double height;
+  final bool isDarkBackground;
+  final Widget? suffixIconButton;
 
   PushedHeader(
       {Key? key,

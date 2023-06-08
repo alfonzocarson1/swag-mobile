@@ -7,7 +7,7 @@ part 'add_collection_model.g.dart';
 
 @freezed
 class AddCollectionModel with _$AddCollectionModel {
-  @JsonSerializable(includeIfNull: false)
+@JsonSerializable(includeIfNull: false)
   const factory AddCollectionModel({
     final String? accountId,
     final String? collectionItemsAction,

@@ -8,7 +8,7 @@ part 'get_list_collection_model.g.dart';
 @freezed
 class ListCollectionProfileResponseModel
     with _$ListCollectionProfileResponseModel {
-  @JsonSerializable()
+@JsonSerializable()
   const factory ListCollectionProfileResponseModel({
     required List<GetCollectionModel> collectionList,
   }) = _ListCollectionProfileResponseModel;
