@@ -217,7 +217,7 @@ class _AddCollectionState extends State<AddCollection> {
                                         .textTheme
                                         .displayLarge!
                                         .copyWith(
-                                            letterSpacing: 1,
+                                            letterSpacing: 0.018,
                                             fontWeight: FontWeight.w300,
                                             fontFamily: "KnockoutCustom",
                                             fontSize: 30,
@@ -252,12 +252,12 @@ class _AddCollectionState extends State<AddCollection> {
                             children: [
                               Align(
                                 alignment: Alignment.centerLeft,
-                                child: Text(widget.itemName,
+                                child: Text(widget.itemName.toUpperCase(),
                                     style: Theme.of(context)
                                         .textTheme
                                         .displayLarge!
                                         .copyWith(
-                                            letterSpacing: 1,
+                                            letterSpacing: 0.018,
                                             fontWeight: FontWeight.w300,
                                             fontFamily: "KnockoutCustom",
                                             fontSize: 30,
@@ -290,6 +290,10 @@ class _AddCollectionState extends State<AddCollection> {
                                 autofocus: false,
                                 errorText: purchaseErrorText,
                                 labelText: S.of(context).purchase_price,
+                                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          fontWeight: FontWeight.w300,
+                          letterSpacing: 0.05,
+                          color: Palette.current.primaryNero),
                                 focusNode: _purchaseNode,
                                 controller: _purchaseController,
                                 inputType:

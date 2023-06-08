@@ -193,13 +193,13 @@ class _BuyForSaleState extends State<BuyForSale> {
                       const SizedBox(
                         height: 5,
                       ),
-                      Text(widget.catalogItemName,
+                      Text(widget.catalogItemName.toUpperCase(),
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context)
                               .textTheme
                               .displayLarge!
                               .copyWith(
-                                  letterSpacing: 1,
+                                  letterSpacing: 0.018,
                                   fontWeight: FontWeight.w300,
                                   fontFamily: "KnockoutCustom",
                                   fontSize: 30,
@@ -210,12 +210,13 @@ class _BuyForSaleState extends State<BuyForSale> {
                               .textTheme
                               .bodySmall!
                               .copyWith(
+                                letterSpacing: 0.014,
                                   fontWeight: FontWeight.w300,
                                   color: Palette.current.primaryNeonGreen)),
                    (widget.saleHistoryList.isNotEmpty) ?  Column(
                                   children: [
                                     const SizedBox(
-                                      height: 20,
+                                      height: 28,
                                     ),
                                     GestureDetector(
                                       onTap: () {
@@ -308,10 +309,10 @@ class _BuyForSaleState extends State<BuyForSale> {
                                 .textTheme
                                 .displayLarge!
                                 .copyWith(
-                                    letterSpacing: 1,
+                                    letterSpacing: 0.018,
                                     fontWeight: FontWeight.w300,
                                     fontFamily: "KnockoutCustom",
-                                    fontSize: 27,
+                                    fontSize: 30,
                                     color: Palette.current.white)),
                         const SizedBox(
                           width: 10,
@@ -326,7 +327,7 @@ class _BuyForSaleState extends State<BuyForSale> {
                 ),
               ),
               const SizedBox(
-                height: 10,
+                height: 30,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -351,17 +352,16 @@ class _BuyForSaleState extends State<BuyForSale> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Expanded(
-                                flex: 4,
-                                child: SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.width * 0.38,
+                                flex: 3,
+                                child: SizedBox(                   
+                                  height:MediaQuery.of(context).size.width * 0.32,
                                   child: ClipRRect(
-                                    child: CachedNetworkImage(
-                                      fit: BoxFit.fitHeight,
+                                    child: CachedNetworkImage(                                
+                                      fit: BoxFit.cover,
                                       imageUrl: dataListingSale[index]
                                           .productItemImageUrls[0],
                                       placeholder: (context, url) => SizedBox(
-                                        height: 200,
+                                          height:MediaQuery.of(context).size.width * 0.32,
                                         child: Center(
                                           child: CircularProgressIndicator(
                                             color: Palette
@@ -395,10 +395,10 @@ class _BuyForSaleState extends State<BuyForSale> {
                                                 .textTheme
                                                 .displayLarge!
                                                 .copyWith(
-                                                    letterSpacing: 1,
+                                                    letterSpacing: 0.015,
                                                     fontWeight: FontWeight.w300,
                                                     fontFamily: "KnockoutCustom",
-                                                    fontSize: 27,
+                                                    fontSize: 30,
                                                     color: Palette.current
                                                         .primaryNeonGreen)),
                                       ),

@@ -206,6 +206,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                               .textTheme
                                               .displayMedium!
                                               .copyWith(
+                                                letterSpacing: 1,
                                                 fontFamily: "KnockoutCustom",
                                                 fontSize: 30,
                                                 fontWeight: FontWeight.w300,
@@ -337,6 +338,9 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                   onPaymentChange: (List<String> value) {
                                     setState(() {
                                       _selectedPayments = value;
+                                      if (_selectedPayments.isNotEmpty) {
+                                        paymentErrorText = null;
+                                      }
                                     });
                                   },
                                 ),
@@ -486,7 +490,8 @@ class _ListForSalePageState extends State<ListForSalePage> {
   bool areFieldsValid() {
     return _listPriceItemController.text.isNotEmpty &&
         _defaultCondition != 'Condition' &&
-        _listDescriptionItemController.text.isNotEmpty;
+        _listDescriptionItemController.text.isNotEmpty &&
+        _selectedPayments.isNotEmpty;
   }
 
   Future<void> selectImages() async {

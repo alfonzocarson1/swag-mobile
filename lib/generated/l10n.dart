@@ -1680,10 +1680,10 @@ class S {
     );
   }
 
-  /// `DISPLAYED/GAMED:`
+  /// `DISPLAYED /GAMED:`
   String get displayed_gamed {
     return Intl.message(
-      'DISPLAYED/GAMED:',
+      'DISPLAYED /GAMED:',
       name: 'displayed_gamed',
       desc: '',
       args: [],
@@ -2795,6 +2795,16 @@ class S {
     return Intl.message(
       'Payment Types Accepted',
       name: 'payment_types_accepted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You must select at least one form of payment. You can manage these payment types in your settings.`
+  String get help_payment {
+    return Intl.message(
+      'You must select at least one form of payment. You can manage these payment types in your settings.',
+      name: 'help_payment',
       desc: '',
       args: [],
     );

@@ -90,40 +90,23 @@ class _FooterListItemPageState extends State<FooterListItemPage> {
           width: 10.0,
         ),
         Expanded(
-          flex: 8,
-          child: Column(
-            children: <Widget> 
-            [
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  this.widget.addList ?? false
-                  ? '@${profileData.username.toUpperCase()}'
-                  : S.of(context).verify_name,
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                    fontWeight: FontWeight.w300,
-                    fontSize: 14,
-                    color: Palette.current.white,
-                  ),
+            flex: 8,
+            child: Column(
+              children: [
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                      widget.addList ?? false
+                          ? '@${profileData.username.toUpperCase()}'
+                          : S.of(context).verify_name,
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          fontWeight: FontWeight.w300,
+                          letterSpacing: 0.05,
+                          fontSize: 14,
+                          color: Palette.current.white)),
                 ),
-              ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: StarRatingListItemPreview(
-                  rating: rating,
-                  onRatingChanged: (rating) => setState(() => this.rating = rating),
-                ),
-              ),
-            ],
-          ),
-        ),
-        const Spacer(),
-        CustomOutlineButton(
-          padding: 20,
-          iconPath: AppIcons.chat,
-          text: S.current.chatChat.toUpperCase(), 
-          onTap: ()=> this.onTapChat(chatBloc), 
-        )
+              ],
+            ))
       ],
     );
   }

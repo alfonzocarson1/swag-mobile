@@ -43,8 +43,10 @@ class _PushedHeaderState extends State<PushedHeader>
     return PreferredSize(
       preferredSize: const Size.fromHeight(22),
       child: AppBar(
+        scrolledUnderElevation: 0.0,
+        backgroundColor: Palette.current.primaryNero,
         systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: Palette.current.black,
+          statusBarColor: Palette.current.primaryNero,
           statusBarIconBrightness: Brightness.light, // For Android (dark icons)
           statusBarBrightness: Brightness.dark, // For iOS (dark icons)
         ),

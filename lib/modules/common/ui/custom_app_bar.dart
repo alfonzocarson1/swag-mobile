@@ -25,6 +25,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   AppBar build(BuildContext context) {
     return AppBar(
+      scrolledUnderElevation: 0.0,
       backgroundColor: color, //<-- SEE HERE
       systemOverlayStyle: SystemUiOverlayStyle(
         statusBarColor: Palette.current.black,
