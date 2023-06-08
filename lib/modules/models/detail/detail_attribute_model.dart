@@ -5,7 +5,7 @@ part 'detail_attribute_model.g.dart';
 
 @freezed
 class DetailAttributeModel with _$DetailAttributeModel {
-  @JsonSerializable()
+@JsonSerializable()
   const factory DetailAttributeModel(
       {required final String catalogItemColor,
       required final String catalogItemLimit,

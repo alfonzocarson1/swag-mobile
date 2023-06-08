@@ -90,7 +90,7 @@ class PaginatedSearchCubit extends Cubit<PaginatedSearchState> {
 
   Future<void> refreshResults({String? params, required SearchTab searchTab}) async {
     var currentfilters = await getCurrentFilterModel();
-    var tabId = model.categoryId;
+    var tabId = await SearchTabWrapper(searchTab).toStringCustom() ?? "";
     pageCountMap.update(searchTab, (value) => 0);
     model = SearchRequestPayloadModel(
       searchParams: (params !=null ) ? [params] : null,

@@ -35,7 +35,7 @@ class CustomTextFormField extends StatefulWidget {
   final Function(String)? onChanged;
   final Function(String)? onSubmitted;
   final List<TextInputFormatter>? inputFormatters;
-  Widget? suffix;
+  final Widget? suffix;
   final int? maxLength;
   final TextStyle? style;
   final String? errorText;
@@ -45,7 +45,7 @@ class CustomTextFormField extends StatefulWidget {
   final bool autofocus;
   final bool dropdownForm;
   final List<String>? dropdownFormItems;
-  void Function(String?)? dropdownOnChanged;
+  final void Function(String?)? dropdownOnChanged;
   final String? dropdownvalue;
 
   @override
@@ -106,7 +106,12 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                                   widget.dropdownFormItems?.map((String items) {
                                 return DropdownMenuItem(
                                   value: items,
-                                  child: Text(items),
+                                  child: Text(items, style: Theme.of(context).textTheme.bodySmall!.copyWith(
+
+                          letterSpacing: 0.05,
+                          color: Palette.current.primaryNero
+                          ),
+                          ),
                                 );
                               }).toList(),
                             ),
@@ -168,6 +173,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                                       .bodySmall!
                                       .copyWith(
                                         fontFamily: "Ringside",
+                                        letterSpacing: 0.05,                             
                                         color: Palette.current.primaryNero,
                                       ),
                                   contentPadding: const EdgeInsets.only(top: 8),

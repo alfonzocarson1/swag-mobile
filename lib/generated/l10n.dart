@@ -1680,10 +1680,10 @@ class S {
     );
   }
 
-  /// `DISPLAYED/GAMED:`
+  /// `DISPLAYED /GAMED:`
   String get displayed_gamed {
     return Intl.message(
-      'DISPLAYED/GAMED:',
+      'DISPLAYED /GAMED:',
       name: 'displayed_gamed',
       desc: '',
       args: [],
@@ -2837,6 +2837,126 @@ class S {
       name: 'cancel_sale_btn',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `Chat`
+  String get chatChat {
+    return Intl.message(
+      'Chat',
+      name: 'chatChat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SWAG`
+  String get chatModeratorName {
+    return Intl.message(
+      'SWAG',
+      name: 'chatModeratorName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter message`
+  String get chatInputHintText {
+    return Intl.message(
+      'Enter message',
+      name: 'chatInputHintText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No previous messages`
+  String get chatNoMessages {
+    return Intl.message(
+      'No previous messages',
+      name: 'chatNoMessages',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Typing...`
+  String get chatTyping {
+    return Intl.message(
+      'Typing...',
+      name: 'chatTyping',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error loading the file`
+  String get chatErrorFile {
+    return Intl.message(
+      'Error loading the file',
+      name: 'chatErrorFile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Loading File...`
+  String get chatLoadingFile {
+    return Intl.message(
+      'Loading File...',
+      name: 'chatLoadingFile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Today`
+  String get chatToday {
+    return Intl.message(
+      'Today',
+      name: 'chatToday',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New message from {sender}`
+  String chatMessageFrom(Object sender) {
+    return Intl.message(
+      'New message from $sender',
+      name: 'chatMessageFrom',
+      desc: '',
+      args: [sender],
+    );
+  }
+
+  /// `Swagg Admin`
+  String get chatSwaggAdmin {
+    return Intl.message(
+      'Swagg Admin',
+      name: 'chatSwaggAdmin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ALERTS & Notifications`
+  String get chatsHeader {
+    return Intl.message(
+      'ALERTS & Notifications',
+      name: 'chatsHeader',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{chatsNumber} Unread`
+  String chatsUnreadMessages(Object chatsNumber) {
+    return Intl.message(
+      '$chatsNumber Unread',
+      name: 'chatsUnreadMessages',
+      desc: '',
+      args: [chatsNumber],
     );
   }
 }

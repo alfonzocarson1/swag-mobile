@@ -735,6 +735,7 @@ class _PhoneSection extends StatefulWidget {
 }
 
 class __PhoneSectionState extends State<_PhoneSection> {
+  
   String initialCountry = 'US';
   PhoneNumber initialNumber = PhoneNumber(isoCode: 'US');
   PhoneNumber choseNumber = PhoneNumber(isoCode: 'US');

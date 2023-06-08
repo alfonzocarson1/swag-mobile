@@ -156,7 +156,7 @@ class _CollectionPageState extends State<CollectionPage> {
                                     width: MediaQuery.of(context).size.width *
                                         0.45,
                                     height: MediaQuery.of(context).size.width *
-                                        0.38,
+                                        0.37,
                                     child: ClipRRect(
                                       child: CachedNetworkImage(
                                         fit: BoxFit.cover,

@@ -7,6 +7,7 @@ import '../utils/palette.dart';
 import '../utils/utils.dart';
 
 class CupertinoDatePickerView extends StatefulWidget {
+  
   CupertinoDatePickerView(
       {Key? key,
       required this.cupertinoDatePickervalue,
@@ -83,9 +84,10 @@ class _CupertinoDatePickerViewState extends State<CupertinoDatePickerView> {
                                     ? S.of(context).date_purchased
                                     : formatDate(widget.cupertinoDatePickervalue
                                         .toString()),
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                ),
+                                style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(color: Palette.current.primaryNero, letterSpacing: 0.05, fontWeight: FontWeight.w300),
                               )),
                           Expanded(
                             flex: 1,

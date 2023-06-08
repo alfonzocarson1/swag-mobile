@@ -5,7 +5,7 @@ part 'create_account_payload_model.g.dart';
 
 @freezed
 class CreateAccountPayloadModel with _$CreateAccountPayloadModel {
-  @JsonSerializable()
+@JsonSerializable()
   const factory CreateAccountPayloadModel({
     required final String email,
     required final String phoneNumber,

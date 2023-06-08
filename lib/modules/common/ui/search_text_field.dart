@@ -32,8 +32,8 @@ class SearchTextField extends StatefulWidget {
   final Function(String)? onChanged;
   final Function(String)? onSubmitted;
   final List<TextInputFormatter>? inputFormatters;
-  Widget? suffixIcon;
-  Widget? prefixIcon;
+  final Widget? suffixIcon;
+  final Widget? prefixIcon;
   final int? maxLength;
   final TextStyle? style;
   final String? errorText;
