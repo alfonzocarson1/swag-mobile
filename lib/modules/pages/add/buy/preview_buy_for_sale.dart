@@ -11,11 +11,13 @@ import 'package:swagapp/modules/models/profile/profile_model.dart';
 import 'package:swagapp/modules/models/ui_models/checkbox_model.dart';
 import '../../../../generated/l10n.dart';
 import '../../../blocs/sale_history/sale_history_bloc.dart';
+import '../../../common/ui/loading.dart';
 import '../../../common/ui/primary_button.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
 import '../../../constants/constants.dart';
-import '../../../cubits/profile/get_profile_cubit.dart';
+import '../../../cubits/buy/buy_cubit.dart';
+import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
 import '../../../common/utils/utils.dart';
 import '../../../models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
@@ -44,15 +46,22 @@ class BuyPreviewPage extends StatefulWidget {
 }
 
 class _BuyPreviewPageState extends State<BuyPreviewPage> {
+  ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
+
   List<CustomOverlayItemModel> overlayItems = [];
   late DetailCollectionModel collectionModel;
   List<File> tempFiles = [];
   late SalesHistoryListModel salesHistoryList;
 
+  BuyForSaleListingModel listData =
+      const BuyForSaleListingModel(productItemImageUrls: ['']);
+
   @override
   void initState() {
     getSalesHistory();
     super.initState();
+
+    getIt<BuyCubit>().getListDetailItem(widget.dataItem.productItemId ?? '');
   }
 
   @override
@@ -69,349 +78,409 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
 
   @override
   Widget build(BuildContext context) {
-    
-    collectionModel = DetailCollectionModel(
-        profileCollectionItemId: widget.dataItem.productItemId ?? '',
-        catalogItemId: widget.dataItem.catalogItemId ?? '',
-        description: widget.dataItem.productItemDescription,
-        purchaseDate: '',
-        purchasePrice: widget.dataItem.lastSale ?? 0.0,
-        itemCondition: widget.dataItem.condition ?? 'condition',
-        itemSource: '');
-
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      resizeToAvoidBottomInset: true,
-      backgroundColor: Palette.current.primaryEerieBlack,
-      appBar: CustomAppBar(),
-      body: BlocBuilder<ProfileCubit, ProfileCubitState>(
-        builder: (context, state) {
-          return state.maybeWhen(
-            initial: () => Container(),
-            loadedProfileData: (ProfileModel profileBuildData) {
-              (profileBuildData.accountId == widget.dataItem.profileId)
-                  ? overlayItems = editListingDropDown
-                  : overlayItems = reportListingDropDown;
-              return Container(
-                constraints: BoxConstraints(
-                    minHeight: MediaQuery.of(context).size.height * 0.9,
-                    maxHeight: MediaQuery.of(context).size.height),
-                child: Stack(
-                  children: [
-                    LayoutBuilder(builder: (context, viewportConstraints) {
-                      String productItemName = widget.dataItem.productItemName ?? "";
-                      String productCondition = widget.dataItem.condition ??  "";
-                      return SingleChildScrollView(
-                        physics: const ClampingScrollPhysics(),
-                        reverse: false,
-                        child: ConstrainedBox(
-                          constraints: BoxConstraints(
-                            minHeight: viewportConstraints.maxHeight,
-                          ),
-                          child: Column(
-                            children: [
-                              MultiImageSlideBuyPreview(
-                                imgList: widget.dataItem.productItemImageUrls,
+        extendBodyBehindAppBar: true,
+        resizeToAvoidBottomInset: true,
+        backgroundColor: Palette.current.primaryEerieBlack,
+        appBar: CustomAppBar(),
+        body: BlocListener<BuyCubit, BuyStateCubit>(
+            listener: (context, state) => state.maybeWhen(
+                  orElse: () {
+                    return null;
+                  },
+                  loading: (bool loadin) {
+                    return loadin
+                        ? Loading.show(context)
+                        : Loading.hide(context);
+                  },
+                  loadedListDetailItem:
+                      (BuyForSaleListingModel listDataResponse) {
+                    setState(() {
+                      listData = listDataResponse;
+                      (profileData.accountId == listData.profileId)
+                          ? overlayItems = editListingDropDown
+                          : overlayItems = reportListingDropDown;
+                    });
+                    return null;
+                  },
+                ),
+            child: listData.productItemId == null
+                ? Container()
+                : Container(
+                    constraints: BoxConstraints(
+                        minHeight: MediaQuery.of(context).size.height * 0.9,
+                        maxHeight: MediaQuery.of(context).size.height),
+                    child: Stack(
+                      children: [
+                        LayoutBuilder(builder: (context, viewportConstraints) {
+                          return SingleChildScrollView(
+                            physics: const ClampingScrollPhysics(),
+                            reverse: false,
+                            child: ConstrainedBox(
+                              constraints: BoxConstraints(
+                                minHeight: viewportConstraints.maxHeight,
                               ),
-                              const SizedBox(height: 4),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
-                                child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: [
-                                    Row(
+                              child: Column(
+                                children: [
+                                  MultiImageSlideBuyPreview(
+                                    imgList: listData.productItemImageUrls,
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.stretch,
                                       children: [
-                                        Expanded(
-                                            flex: 6,
-                                            child: Text(
-                                                productItemName.toUpperCase(),
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .displayLarge!
-                                                    .copyWith(
-                                                        letterSpacing: 0.018,
-                                                        fontWeight:
-                                                            FontWeight.w300,
-                                                        fontFamily:
-                                                            "KnockoutCustom",
-                                                        fontSize: 30,
-                                                        color: Palette
-                                                            .current.white))),
-                                        Expanded(
-                                            flex: 2,
-                                            child: Align(
-                                              alignment: Alignment.centerRight,
-                                              child: IconButton(
-                                                icon: Image.asset(
-                                                  "assets/images/share.png",
-                                                  scale: 3.5,
-                                                ),
-                                                onPressed: () async {},
-                                              ),
-                                            )),
-                                        Expanded(
-                                            flex: 1,
-                                            child: Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: CustomOverlayButton(
-                                                icon: Image.asset(
-                                                  "assets/images/more-horizontal.png",
-                                                  scale: 2,
-                                                ),
-                                                items: overlayItems,
-                                                onItemSelected: (String value) {
-                                                  if (value ==
-                                                      editListingDropDown[0]
-                                                          .label) {
-                                                    getIt<ListingProfileCubit>()
-                                                        .listingService
-                                                        .updateListing(
-                                                            ListingForSaleModel(
-                                                          productItemId: widget
-                                                              .dataItem
-                                                              .productItemId,
-                                                          forSale: true,
-                                                          sold: false,
-                                                          status: 'Editing',
-                                                        ));
-                                                    Navigator.of(context,
-                                                            rootNavigator: true)
-                                                        .push(EditListForSalePage.route(
-                                                            collectionModel,
-                                                            widget.dataItem
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                                flex: 6,
+                                                child: Text(
+                                                    '${listData.productItemName}',
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .displayLarge!
+                                                        .copyWith(
+                                                            letterSpacing: 1,
+                                                            fontWeight:
+                                                                FontWeight.w300,
+                                                            fontFamily:
+                                                                "KnockoutCustom",
+                                                            fontSize: 30,
+                                                            color: Palette
+                                                                .current
+                                                                .white))),
+                                            Expanded(
+                                                flex: 2,
+                                                child: Align(
+                                                  alignment:
+                                                      Alignment.centerRight,
+                                                  child: IconButton(
+                                                    icon: Image.asset(
+                                                      "assets/images/share.png",
+                                                      scale: 3.5,
+                                                    ),
+                                                    onPressed: () async {},
+                                                  ),
+                                                )),
+                                            Expanded(
+                                                flex: 1,
+                                                child: Align(
+                                                  alignment:
+                                                      Alignment.centerLeft,
+                                                  child: CustomOverlayButton(
+                                                    icon: Image.asset(
+                                                      "assets/images/more-horizontal.png",
+                                                      scale: 2,
+                                                    ),
+                                                    items: overlayItems,
+                                                    onItemSelected:
+                                                        (String value) {
+                                                      if (value ==
+                                                          editListingDropDown[0]
+                                                              .label) {
+                                                        getIt<ListingProfileCubit>()
+                                                            .listingService
+                                                            .updateListing(
+                                                                ListingForSaleModel(
+                                                              productItemId:
+                                                                  listData
+                                                                      .productItemId,
+                                                              forSale: true,
+                                                              sold: false,
+                                                              status: 'Editing',
+                                                            ));
+                                                        Navigator.of(context, rootNavigator: true).push(EditListForSalePage.route(
+                                                            DetailCollectionModel(
+                                                                profileCollectionItemId:
+                                                                    listData.productItemId ??
+                                                                        '',
+                                                                catalogItemId:
+                                                                    listData.catalogItemId ??
+                                                                        '',
+                                                                description:
+                                                                    listData
+                                                                        .productItemDescription,
+                                                                purchaseDate:
+                                                                    '',
+                                                                purchasePrice:
+                                                                    listData.lastSale ??
+                                                                        0.0,
+                                                                itemCondition: listData
+                                                                        .condition ??
+                                                                    'condition',
+                                                                itemSource: ''),
+                                                            listData
                                                                 .productItemId,
-                                                            widget.dataItem
-                                                                    .productItemName ??
+                                                            listData.productItemName ??
                                                                 '',
-                                                            widget.dataItem
+                                                            listData
                                                                 .productItemImageUrls,
                                                             salesHistoryList));
-                                                  } else if (value ==
-                                                      editListingDropDown[1]
-                                                          .label) {
-                                                    showDialog(
-                                                        context: context,
-                                                        barrierDismissible:
-                                                            false,
-                                                        builder: (BuildContext
-                                                            context) {
-                                                          return GeneralDeletePopup(
-                                                            title: S
-                                                                .of(context)
-                                                                .remove_listing,
-                                                            message: S
-                                                                .of(context)
-                                                                .remove_listing_subtitle,
-                                                            options: [
-                                                              CheckboxModel(
-                                                                  title: S
-                                                                      .of(context)
-                                                                      .delete_collection_razon_1),
-                                                              CheckboxModel(
-                                                                  title: S
-                                                                      .of(context)
-                                                                      .delete_collection_razon_2),
-                                                              CheckboxModel(
-                                                                  title: S
-                                                                      .of(context)
-                                                                      .delete_collection_reason_4),
-                                                              CheckboxModel(
-                                                                  title: S
-                                                                      .of(context)
-                                                                      .delete_collection_razon_3),
-                                                            ],
-                                                            model:
-                                                                widget.dataItem,
-                                                            onSubmit: () {},
-                                                          );
-                                                        });
-                                                  }
-                                                },
-                                              ),
-                                            ))
-                                      ],
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                          '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(widget.dataItem.lastSale.toString())} ',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall!
-                                              .copyWith(
-                                                
-                                                  fontWeight: FontWeight.w300,
-                                                  color: Palette.current
-                                                      .primaryNeonGreen)),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Row(
-                                      children: [
+                                                      } else if (value ==
+                                                          editListingDropDown[1]
+                                                              .label) {
+                                                        showDialog(
+                                                            context: context,
+                                                            barrierDismissible:
+                                                                false,
+                                                            builder:
+                                                                (BuildContext
+                                                                    context) {
+                                                              return GeneralDeletePopup(
+                                                                title: S
+                                                                    .of(context)
+                                                                    .remove_listing,
+                                                                message: S
+                                                                    .of(context)
+                                                                    .remove_listing_subtitle,
+                                                                options: [
+                                                                  CheckboxModel(
+                                                                      title: S
+                                                                          .of(context)
+                                                                          .delete_collection_razon_1),
+                                                                  CheckboxModel(
+                                                                      title: S
+                                                                          .of(context)
+                                                                          .delete_collection_razon_2),
+                                                                  CheckboxModel(
+                                                                      title: S
+                                                                          .of(context)
+                                                                          .delete_collection_reason_4),
+                                                                  CheckboxModel(
+                                                                      title: S
+                                                                          .of(context)
+                                                                          .delete_collection_razon_3),
+                                                                ],
+                                                                model: listData,
+                                                                onSubmit: () {},
+                                                              );
+                                                            });
+                                                      }
+                                                    },
+                                                  ),
+                                                ))
+                                          ],
+                                        ),
+                                        const SizedBox(height: 10),
                                         Align(
                                           alignment: Alignment.centerLeft,
                                           child: Text(
-                                              "${S.of(context).payment_types_accepted}:",
+                                              '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(listData.lastSale.toString())} ',
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodySmall!
                                                   .copyWith(
                                                       fontWeight:
-                                                          FontWeight.w400,
+                                                          FontWeight.w300,
                                                       color: Palette.current
-                                                          .primaryWhiteSmoke)),
+                                                          .primaryNeonGreen)),
                                         ),
-                                        const SizedBox(
-                                          width: 10,
+                                        const SizedBox(height: 10),
+                                        Row(
+                                          children: [
+                                            Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Text(
+                                                  "${S.of(context).payment_types_accepted}:",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall!
+                                                      .copyWith(
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          color: Palette.current
+                                                              .primaryWhiteSmoke)),
+                                            ),
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            Visibility(
+                                              visible: listData
+                                                      .peerToPeerPaymentOptions!
+                                                      .venmoUser !=
+                                                  null,
+                                              child: Image.asset(
+                                                'assets/icons/venmo_icon.png',
+                                                scale: 4,
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            Visibility(
+                                              visible: listData
+                                                      .peerToPeerPaymentOptions!
+                                                      .cashTag !=
+                                                  null,
+                                              child: Image.asset(
+                                                'assets/icons/cash_app_icon.png',
+                                                scale: 4,
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            Visibility(
+                                              visible: listData
+                                                      .peerToPeerPaymentOptions!
+                                                      .payPalEmail !=
+                                                  null,
+                                              child: Image.asset(
+                                                'assets/icons/pay_pal_icon.png',
+                                                scale: 4,
+                                              ),
+                                            )
+                                          ],
                                         ),
-                                        Visibility(
-                                          visible: widget
-                                                  .dataItem
-                                                  .peerToPeerPaymentOptions!
-                                                  .venmoUser !=
-                                              null,
-                                          child: Image.asset(
-                                            'assets/icons/venmo_icon.png',
-                                            scale: 4,
-                                          ),
+                                        const SizedBox(height: 10),
+                                        Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                              "Condition: ${listData.condition}",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.w300,
+                                                      color: Palette.current
+                                                          .primaryNeonPink)),
                                         ),
-                                        const SizedBox(
-                                          width: 10,
+                                        const SizedBox(height: 10),
+                                        Container(
+                                          height: MediaQuery.of(context)
+                                                  .devicePixelRatio *
+                                              70,
+                                          padding: const EdgeInsets.only(
+                                              right: 50.0),
+                                          child: Text(
+                                              '${listData.productItemDescription}',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall!
+                                                  .copyWith(
+                                                    fontSize: 15,
+                                                    letterSpacing: 0.3,
+                                                    color: Palette.current
+                                                        .primaryWhiteSmoke,
+                                                  )),
                                         ),
-                                        Visibility(
-                                          visible: widget
-                                                  .dataItem
-                                                  .peerToPeerPaymentOptions!
-                                                  .cashTag !=
-                                              null,
-                                          child: Image.asset(
-                                            'assets/icons/cash_app_icon.png',
-                                            scale: 4,
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Visibility(
-                                          visible: widget
-                                                  .dataItem
-                                                  .peerToPeerPaymentOptions!
-                                                  .payPalEmail !=
-                                              null,
-                                          child: Image.asset(
-                                            'assets/icons/pay_pal_icon.png',
-                                            scale: 4,
-                                          ),
-                                        )
+                                        (profileData.accountId !=
+                                                listData.profileId)
+                                            ? Column(
+                                                children: [
+                                                  FooterListItemPage(
+                                                      productItemId: this
+                                                              .widget
+                                                              .dataItem
+                                                              .productItemId ??
+                                                          ''),
+                                                  const SizedBox(height: 30),
+                                                  Visibility(
+                                                      visible:
+                                                          listData.status ==
+                                                              'listed',
+                                                      child: PrimaryButton(
+                                                        title:
+                                                            '${S.of(context).buy_for}  ${decimalDigitsLastSalePrice(listData.lastSale.toString())}',
+                                                        onPressed: () {
+                                                          showDialog(
+                                                            context: context,
+                                                            barrierDismissible:
+                                                                false,
+                                                            builder: (BuildContext
+                                                                    context) =>
+                                                                BuyerCompletePurchasePopUp(
+                                                              payments: listData
+                                                                  .peerToPeerPaymentOptions!,
+                                                              productItemId:
+                                                                  listData
+                                                                      .productItemId,
+                                                            ),
+                                                          );
+                                                        },
+                                                        type: PrimaryButtonType
+                                                            .green,
+                                                      )),
+                                                  Visibility(
+                                                      visible: listData
+                                                              .status ==
+                                                          'pendingSellerConfirmation',
+                                                      child: PrimaryButton(
+                                                        title: S
+                                                            .of(context)
+                                                            .sale_pending_btn
+                                                            .toUpperCase(),
+                                                        onPressed: () {},
+                                                        type: PrimaryButtonType
+                                                            .grey,
+                                                      )),
+                                                  const SizedBox(height: 30),
+                                                ],
+                                              )
+                                            : Column(
+                                                children: [
+                                                  FooterListItemPage(
+                                                      productItemId: this
+                                                              .widget
+                                                              .dataItem
+                                                              .productItemId ??
+                                                          ''),
+                                                  const SizedBox(height: 30),
+                                                  Visibility(
+                                                    visible: listData.status ==
+                                                        'listed',
+                                                    child: PrimaryButton(
+                                                      title:
+                                                          '${S.of(context).buy_for}  ${decimalDigitsLastSalePrice(listData.lastSale.toString())}',
+                                                      onPressed: null,
+                                                      type: PrimaryButtonType
+                                                          .grey,
+                                                    ),
+                                                  ),
+                                                  Visibility(
+                                                      visible: listData
+                                                              .status ==
+                                                          'pendingSellerConfirmation',
+                                                      child: PrimaryButton(
+                                                        title: S
+                                                            .of(context)
+                                                            .complete_sale_btn
+                                                            .toUpperCase(),
+                                                        onPressed: () {},
+                                                        type: PrimaryButtonType
+                                                            .green,
+                                                      )),
+                                                  const SizedBox(height: 20),
+                                                  Visibility(
+                                                      visible: listData
+                                                              .status ==
+                                                          'pendingSellerConfirmation',
+                                                      child: PrimaryButton(
+                                                        title: S
+                                                            .of(context)
+                                                            .cancel_sale_btn
+                                                            .toUpperCase(),
+                                                        onPressed: () {},
+                                                        type: PrimaryButtonType
+                                                            .pink,
+                                                      )),
+                                                  const SizedBox(height: 30),
+                                                ],
+                                              ),
                                       ],
                                     ),
-                                    const SizedBox(height: 10),
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                          "Condition: ${productCondition.capitalize()}",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall!
-                                              .copyWith(
-                                                  fontWeight: FontWeight.w300,
-                                                  letterSpacing: 0.02,
-                                                  color: Palette.current
-                                                      .primaryNeonPink)),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Container(
-                                      height: MediaQuery.of(context)
-                                              .devicePixelRatio *
-                                          70,
-                                      padding:
-                                          const EdgeInsets.only(right: 50.0),
-                                      child: Text(
-                                          '${widget.dataItem.productItemDescription}',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall!
-                                              .copyWith(
-                                                letterSpacing: 0.02,
-                                                color: Palette
-                                                    .current.primaryWhiteSmoke,
-                                              )),
-                                    ),
-                                    (profileBuildData.accountId !=
-                                            widget.dataItem.profileId)
-                                        ? Column(
-                                            children: [
-                                              FooterListItemPage(productItemId: this.widget.dataItem.productItemId ?? ''),
-                                              const SizedBox(height: 30),
-                                              Visibility(
-                                                  visible:
-                                                      widget.dataItem.status ==
-                                                          'listed',
-                                                  child: PrimaryButton(
-                                                    title:
-                                                        '${S.of(context).buy_for}  ${decimalDigitsLastSalePrice(widget.dataItem.lastSale.toString())}',
-                                                    onPressed: () {
-                                                      showDialog(
-                                                        context: context,
-                                                        barrierDismissible:
-                                                            false,
-                                                        builder: (BuildContext
-                                                                context) =>
-                                                            BuyerCompletePurchasePopUp(
-                                                                payments: widget
-                                                                    .dataItem
-                                                                    .peerToPeerPaymentOptions!),
-                                                      );
-                                                    },
-                                                    type:
-                                                        PrimaryButtonType.green,
-                                                  )),
-                                              Visibility(
-                                                  visible:
-                                                      widget.dataItem.status !=
-                                                          'listed',
-                                                  child: PrimaryButton(
-                                                    title:
-                                                        '${S.of(context).buy_for}  ${decimalDigitsLastSalePrice(widget.dataItem.lastSale.toString())}',
-                                                    onPressed: () {},
-                                                    type:
-                                                        PrimaryButtonType.green,
-                                                  )),
-                                            ],
-                                          )
-                                        : Column(
-                                            children: [
-                                              FooterListItemPage(productItemId: this.widget.dataItem.productItemId ?? ''),
-                                              const SizedBox(height: 30),
-                                              PrimaryButton(
-                                                title:
-                                                    '${S.of(context).buy_for}  ${decimalDigitsLastSalePrice(widget.dataItem.lastSale.toString())}',
-                                                onPressed: null,
-                                                type: PrimaryButtonType.grey,
-                                              ),
-                                            ],
-                                          ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
-                      );
-                    })
-                  ],
-                ),
-              );
-            },
-            orElse: () => Container(),
-          );
-        },
-      ),
-    );
+                            ),
+                          );
+                        })
+                      ],
+                    ),
+                  )));
   }
 }
-
-// 03141d4f-e39e-4d84-b7cc-7706f94d52a3
-

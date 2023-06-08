@@ -9,6 +9,7 @@ import 'generated/l10n.dart';
 
 import 'modules/blocs/auth_bloc/auth_bloc.dart';
 import 'modules/blocs/sold_bloc/sold_bloc.dart';
+
 import 'modules/pages/home/home_page.dart';
 import 'modules/common/utils/context_service.dart';
 import 'modules/common/utils/palette.dart';
@@ -17,7 +18,6 @@ import 'modules/di/injector.dart';
 import 'modules/pages/splash/splash_page.dart';
 
 class App extends StatefulWidget {
-
   App({Key? key}) : super(key: key);
 
   @override
@@ -25,10 +25,8 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> with ChannelEventHandler {
-
   @override
   void initState() {
-    
     PushNotificationsService.listenPushNotifications();
     super.initState();
   }
@@ -39,8 +37,7 @@ class _AppState extends State<App> with ChannelEventHandler {
 
   @override
   Widget build(BuildContext context) {
-
-    return MultiBlocProvider(        
+    return MultiBlocProvider(
         providers: AppBlocs.blocs(context),
         child: MaterialApp(
           navigatorKey: getIt<ContextService>().rootNavigatorKey,
@@ -82,7 +79,6 @@ class _AppState extends State<App> with ChannelEventHandler {
           builder: (context, child) => Overlay(
             initialEntries: [
               OverlayEntry(builder: (BuildContext context) {
-
                 return MediaQuery(
                   data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
                   child: BlocBuilder<AuthBloc, AuthState>(
@@ -107,7 +103,7 @@ class _AppState extends State<App> with ChannelEventHandler {
                             )),
                   ),
                 );
-              }), 
+              }),
             ],
           ),
         ));

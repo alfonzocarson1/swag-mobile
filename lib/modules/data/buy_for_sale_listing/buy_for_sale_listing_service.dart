@@ -1,5 +1,8 @@
 import '../../api/api.dart';
 import '../../api/api_service.dart';
+import '../../models/buy_for_sale_listing/buy_a_listing_model.dart';
+import '../../models/buy_for_sale_listing/buy_a_listing_response_model.dart';
+import '../../models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
 import '../../models/buy_for_sale_listing/buy_for_sale_listing_response_model.dart';
 import 'i_buy_for_sale_listing_service.dart';
 
@@ -21,6 +24,31 @@ class BuyForSaleListingService extends IBuyForSaleListingService {
         dynamicParam: catalogItemId,
         jsonKey: "saledItemdList",
         fromJson: (json) => BuyForSaleListingResponseModel.fromJson(json));
+    return response;
+  }
+
+  @override
+  Future<BuyForSaleListingModel> buyAForSaleListing(
+      String productItemId) async {
+    BuyForSaleListingModel response = await apiService.getEndpointData(
+        endpoint: Endpoint.getListingDetail,
+        method: RequestMethod.get,
+        needBearer: true,
+        dynamicParam: productItemId,
+        fromJson: (json) => BuyForSaleListingModel.fromJson(json));
+    return response;
+  }
+
+  @override
+  Future<BuyASaleListingResponseModel> buyAListing(
+      BuyASaleListingModel buyAListing) async {
+    BuyASaleListingResponseModel response = await apiService.getEndpointData(
+      endpoint: Endpoint.purchaseListing,
+      method: RequestMethod.post,
+      needBearer: true,
+      fromJson: (json) => BuyASaleListingResponseModel.fromJson(json),
+      body: buyAListing.toJson(),
+    );
     return response;
   }
 }

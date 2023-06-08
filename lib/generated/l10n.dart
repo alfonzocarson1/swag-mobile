@@ -2810,6 +2810,36 @@ class S {
     );
   }
 
+  /// `Sale pending for any user`
+  String get sale_pending_btn {
+    return Intl.message(
+      'Sale pending for any user',
+      name: 'sale_pending_btn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `COMPLETE SALE`
+  String get complete_sale_btn {
+    return Intl.message(
+      'COMPLETE SALE',
+      name: 'complete_sale_btn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CANCEL SALE`
+  String get cancel_sale_btn {
+    return Intl.message(
+      'CANCEL SALE',
+      name: 'cancel_sale_btn',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Chat`
   String get chatChat {
     return Intl.message(
