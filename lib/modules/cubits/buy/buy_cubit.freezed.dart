@@ -20,8 +20,11 @@ mixin _$BuyStateCubit {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(bool isFirstFetch) loading,
+    required TResult Function() updateItem,
     required TResult Function(BuyForSaleListingModel detaItemlList)
         loadedListDetailItem,
+    required TResult Function(BuyASaleListingResponseModel buyItemlList)
+        loadedBuyLisItem,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -29,8 +32,11 @@ mixin _$BuyStateCubit {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(bool isFirstFetch)? loading,
+    TResult? Function()? updateItem,
     TResult? Function(BuyForSaleListingModel detaItemlList)?
         loadedListDetailItem,
+    TResult? Function(BuyASaleListingResponseModel buyItemlList)?
+        loadedBuyLisItem,
     TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -38,34 +44,43 @@ mixin _$BuyStateCubit {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(bool isFirstFetch)? loading,
+    TResult Function()? updateItem,
     TResult Function(BuyForSaleListingModel detaItemlList)?
         loadedListDetailItem,
+    TResult Function(BuyASaleListingResponseModel buyItemlList)?
+        loadedBuyLisItem,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
+    required TResult Function(Initial value) initial,
     required TResult Function(loading_page value) loading,
+    required TResult Function(UpdateItem value) updateItem,
     required TResult Function(LoadedListDetailItemState value)
         loadedListDetailItem,
+    required TResult Function(LoadedBuyListItemState value) loadedBuyLisItem,
     required TResult Function(ErrorBuyStateCubit value) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
+    TResult? Function(Initial value)? initial,
     TResult? Function(loading_page value)? loading,
+    TResult? Function(UpdateItem value)? updateItem,
     TResult? Function(LoadedListDetailItemState value)? loadedListDetailItem,
+    TResult? Function(LoadedBuyListItemState value)? loadedBuyLisItem,
     TResult? Function(ErrorBuyStateCubit value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
+    TResult Function(Initial value)? initial,
     TResult Function(loading_page value)? loading,
+    TResult Function(UpdateItem value)? updateItem,
     TResult Function(LoadedListDetailItemState value)? loadedListDetailItem,
+    TResult Function(LoadedBuyListItemState value)? loadedBuyLisItem,
     TResult Function(ErrorBuyStateCubit value)? error,
     required TResult orElse(),
   }) =>
@@ -91,24 +106,23 @@ class _$BuyStateCubitCopyWithImpl<$Res, $Val extends BuyStateCubit>
 }
 
 /// @nodoc
-abstract class _$$_InitialCopyWith<$Res> {
-  factory _$$_InitialCopyWith(
-          _$_Initial value, $Res Function(_$_Initial) then) =
-      __$$_InitialCopyWithImpl<$Res>;
+abstract class _$$InitialCopyWith<$Res> {
+  factory _$$InitialCopyWith(_$Initial value, $Res Function(_$Initial) then) =
+      __$$InitialCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_InitialCopyWithImpl<$Res>
-    extends _$BuyStateCubitCopyWithImpl<$Res, _$_Initial>
-    implements _$$_InitialCopyWith<$Res> {
-  __$$_InitialCopyWithImpl(_$_Initial _value, $Res Function(_$_Initial) _then)
+class __$$InitialCopyWithImpl<$Res>
+    extends _$BuyStateCubitCopyWithImpl<$Res, _$Initial>
+    implements _$$InitialCopyWith<$Res> {
+  __$$InitialCopyWithImpl(_$Initial _value, $Res Function(_$Initial) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_Initial implements _Initial {
-  const _$_Initial();
+class _$Initial implements Initial {
+  const _$Initial();
 
   @override
   String toString() {
@@ -118,7 +132,7 @@ class _$_Initial implements _Initial {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Initial);
+        (other.runtimeType == runtimeType && other is _$Initial);
   }
 
   @override
@@ -129,8 +143,11 @@ class _$_Initial implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(bool isFirstFetch) loading,
+    required TResult Function() updateItem,
     required TResult Function(BuyForSaleListingModel detaItemlList)
         loadedListDetailItem,
+    required TResult Function(BuyASaleListingResponseModel buyItemlList)
+        loadedBuyLisItem,
     required TResult Function(String message) error,
   }) {
     return initial();
@@ -141,8 +158,11 @@ class _$_Initial implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(bool isFirstFetch)? loading,
+    TResult? Function()? updateItem,
     TResult? Function(BuyForSaleListingModel detaItemlList)?
         loadedListDetailItem,
+    TResult? Function(BuyASaleListingResponseModel buyItemlList)?
+        loadedBuyLisItem,
     TResult? Function(String message)? error,
   }) {
     return initial?.call();
@@ -153,8 +173,11 @@ class _$_Initial implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(bool isFirstFetch)? loading,
+    TResult Function()? updateItem,
     TResult Function(BuyForSaleListingModel detaItemlList)?
         loadedListDetailItem,
+    TResult Function(BuyASaleListingResponseModel buyItemlList)?
+        loadedBuyLisItem,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -167,10 +190,12 @@ class _$_Initial implements _Initial {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
+    required TResult Function(Initial value) initial,
     required TResult Function(loading_page value) loading,
+    required TResult Function(UpdateItem value) updateItem,
     required TResult Function(LoadedListDetailItemState value)
         loadedListDetailItem,
+    required TResult Function(LoadedBuyListItemState value) loadedBuyLisItem,
     required TResult Function(ErrorBuyStateCubit value) error,
   }) {
     return initial(this);
@@ -179,9 +204,11 @@ class _$_Initial implements _Initial {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
+    TResult? Function(Initial value)? initial,
     TResult? Function(loading_page value)? loading,
+    TResult? Function(UpdateItem value)? updateItem,
     TResult? Function(LoadedListDetailItemState value)? loadedListDetailItem,
+    TResult? Function(LoadedBuyListItemState value)? loadedBuyLisItem,
     TResult? Function(ErrorBuyStateCubit value)? error,
   }) {
     return initial?.call(this);
@@ -190,9 +217,11 @@ class _$_Initial implements _Initial {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
+    TResult Function(Initial value)? initial,
     TResult Function(loading_page value)? loading,
+    TResult Function(UpdateItem value)? updateItem,
     TResult Function(LoadedListDetailItemState value)? loadedListDetailItem,
+    TResult Function(LoadedBuyListItemState value)? loadedBuyLisItem,
     TResult Function(ErrorBuyStateCubit value)? error,
     required TResult orElse(),
   }) {
@@ -203,8 +232,8 @@ class _$_Initial implements _Initial {
   }
 }
 
-abstract class _Initial implements BuyStateCubit {
-  const factory _Initial() = _$_Initial;
+abstract class Initial implements BuyStateCubit {
+  const factory Initial() = _$Initial;
 }
 
 /// @nodoc
@@ -275,8 +304,11 @@ class _$loading_page implements loading_page {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(bool isFirstFetch) loading,
+    required TResult Function() updateItem,
     required TResult Function(BuyForSaleListingModel detaItemlList)
         loadedListDetailItem,
+    required TResult Function(BuyASaleListingResponseModel buyItemlList)
+        loadedBuyLisItem,
     required TResult Function(String message) error,
   }) {
     return loading(isFirstFetch);
@@ -287,8 +319,11 @@ class _$loading_page implements loading_page {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(bool isFirstFetch)? loading,
+    TResult? Function()? updateItem,
     TResult? Function(BuyForSaleListingModel detaItemlList)?
         loadedListDetailItem,
+    TResult? Function(BuyASaleListingResponseModel buyItemlList)?
+        loadedBuyLisItem,
     TResult? Function(String message)? error,
   }) {
     return loading?.call(isFirstFetch);
@@ -299,8 +334,11 @@ class _$loading_page implements loading_page {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(bool isFirstFetch)? loading,
+    TResult Function()? updateItem,
     TResult Function(BuyForSaleListingModel detaItemlList)?
         loadedListDetailItem,
+    TResult Function(BuyASaleListingResponseModel buyItemlList)?
+        loadedBuyLisItem,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -313,10 +351,12 @@ class _$loading_page implements loading_page {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
+    required TResult Function(Initial value) initial,
     required TResult Function(loading_page value) loading,
+    required TResult Function(UpdateItem value) updateItem,
     required TResult Function(LoadedListDetailItemState value)
         loadedListDetailItem,
+    required TResult Function(LoadedBuyListItemState value) loadedBuyLisItem,
     required TResult Function(ErrorBuyStateCubit value) error,
   }) {
     return loading(this);
@@ -325,9 +365,11 @@ class _$loading_page implements loading_page {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
+    TResult? Function(Initial value)? initial,
     TResult? Function(loading_page value)? loading,
+    TResult? Function(UpdateItem value)? updateItem,
     TResult? Function(LoadedListDetailItemState value)? loadedListDetailItem,
+    TResult? Function(LoadedBuyListItemState value)? loadedBuyLisItem,
     TResult? Function(ErrorBuyStateCubit value)? error,
   }) {
     return loading?.call(this);
@@ -336,9 +378,11 @@ class _$loading_page implements loading_page {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
+    TResult Function(Initial value)? initial,
     TResult Function(loading_page value)? loading,
+    TResult Function(UpdateItem value)? updateItem,
     TResult Function(LoadedListDetailItemState value)? loadedListDetailItem,
+    TResult Function(LoadedBuyListItemState value)? loadedBuyLisItem,
     TResult Function(ErrorBuyStateCubit value)? error,
     required TResult orElse(),
   }) {
@@ -356,6 +400,139 @@ abstract class loading_page implements BuyStateCubit {
   @JsonKey(ignore: true)
   _$$loading_pageCopyWith<_$loading_page> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$UpdateItemCopyWith<$Res> {
+  factory _$$UpdateItemCopyWith(
+          _$UpdateItem value, $Res Function(_$UpdateItem) then) =
+      __$$UpdateItemCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$UpdateItemCopyWithImpl<$Res>
+    extends _$BuyStateCubitCopyWithImpl<$Res, _$UpdateItem>
+    implements _$$UpdateItemCopyWith<$Res> {
+  __$$UpdateItemCopyWithImpl(
+      _$UpdateItem _value, $Res Function(_$UpdateItem) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$UpdateItem implements UpdateItem {
+  _$UpdateItem();
+
+  @override
+  String toString() {
+    return 'BuyStateCubit.updateItem()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$UpdateItem);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(bool isFirstFetch) loading,
+    required TResult Function() updateItem,
+    required TResult Function(BuyForSaleListingModel detaItemlList)
+        loadedListDetailItem,
+    required TResult Function(BuyASaleListingResponseModel buyItemlList)
+        loadedBuyLisItem,
+    required TResult Function(String message) error,
+  }) {
+    return updateItem();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(bool isFirstFetch)? loading,
+    TResult? Function()? updateItem,
+    TResult? Function(BuyForSaleListingModel detaItemlList)?
+        loadedListDetailItem,
+    TResult? Function(BuyASaleListingResponseModel buyItemlList)?
+        loadedBuyLisItem,
+    TResult? Function(String message)? error,
+  }) {
+    return updateItem?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(bool isFirstFetch)? loading,
+    TResult Function()? updateItem,
+    TResult Function(BuyForSaleListingModel detaItemlList)?
+        loadedListDetailItem,
+    TResult Function(BuyASaleListingResponseModel buyItemlList)?
+        loadedBuyLisItem,
+    TResult Function(String message)? error,
+    required TResult orElse(),
+  }) {
+    if (updateItem != null) {
+      return updateItem();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Initial value) initial,
+    required TResult Function(loading_page value) loading,
+    required TResult Function(UpdateItem value) updateItem,
+    required TResult Function(LoadedListDetailItemState value)
+        loadedListDetailItem,
+    required TResult Function(LoadedBuyListItemState value) loadedBuyLisItem,
+    required TResult Function(ErrorBuyStateCubit value) error,
+  }) {
+    return updateItem(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Initial value)? initial,
+    TResult? Function(loading_page value)? loading,
+    TResult? Function(UpdateItem value)? updateItem,
+    TResult? Function(LoadedListDetailItemState value)? loadedListDetailItem,
+    TResult? Function(LoadedBuyListItemState value)? loadedBuyLisItem,
+    TResult? Function(ErrorBuyStateCubit value)? error,
+  }) {
+    return updateItem?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Initial value)? initial,
+    TResult Function(loading_page value)? loading,
+    TResult Function(UpdateItem value)? updateItem,
+    TResult Function(LoadedListDetailItemState value)? loadedListDetailItem,
+    TResult Function(LoadedBuyListItemState value)? loadedBuyLisItem,
+    TResult Function(ErrorBuyStateCubit value)? error,
+    required TResult orElse(),
+  }) {
+    if (updateItem != null) {
+      return updateItem(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UpdateItem implements BuyStateCubit {
+  factory UpdateItem() = _$UpdateItem;
 }
 
 /// @nodoc
@@ -437,8 +614,11 @@ class _$LoadedListDetailItemState implements LoadedListDetailItemState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(bool isFirstFetch) loading,
+    required TResult Function() updateItem,
     required TResult Function(BuyForSaleListingModel detaItemlList)
         loadedListDetailItem,
+    required TResult Function(BuyASaleListingResponseModel buyItemlList)
+        loadedBuyLisItem,
     required TResult Function(String message) error,
   }) {
     return loadedListDetailItem(detaItemlList);
@@ -449,8 +629,11 @@ class _$LoadedListDetailItemState implements LoadedListDetailItemState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(bool isFirstFetch)? loading,
+    TResult? Function()? updateItem,
     TResult? Function(BuyForSaleListingModel detaItemlList)?
         loadedListDetailItem,
+    TResult? Function(BuyASaleListingResponseModel buyItemlList)?
+        loadedBuyLisItem,
     TResult? Function(String message)? error,
   }) {
     return loadedListDetailItem?.call(detaItemlList);
@@ -461,8 +644,11 @@ class _$LoadedListDetailItemState implements LoadedListDetailItemState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(bool isFirstFetch)? loading,
+    TResult Function()? updateItem,
     TResult Function(BuyForSaleListingModel detaItemlList)?
         loadedListDetailItem,
+    TResult Function(BuyASaleListingResponseModel buyItemlList)?
+        loadedBuyLisItem,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -475,10 +661,12 @@ class _$LoadedListDetailItemState implements LoadedListDetailItemState {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
+    required TResult Function(Initial value) initial,
     required TResult Function(loading_page value) loading,
+    required TResult Function(UpdateItem value) updateItem,
     required TResult Function(LoadedListDetailItemState value)
         loadedListDetailItem,
+    required TResult Function(LoadedBuyListItemState value) loadedBuyLisItem,
     required TResult Function(ErrorBuyStateCubit value) error,
   }) {
     return loadedListDetailItem(this);
@@ -487,9 +675,11 @@ class _$LoadedListDetailItemState implements LoadedListDetailItemState {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
+    TResult? Function(Initial value)? initial,
     TResult? Function(loading_page value)? loading,
+    TResult? Function(UpdateItem value)? updateItem,
     TResult? Function(LoadedListDetailItemState value)? loadedListDetailItem,
+    TResult? Function(LoadedBuyListItemState value)? loadedBuyLisItem,
     TResult? Function(ErrorBuyStateCubit value)? error,
   }) {
     return loadedListDetailItem?.call(this);
@@ -498,9 +688,11 @@ class _$LoadedListDetailItemState implements LoadedListDetailItemState {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
+    TResult Function(Initial value)? initial,
     TResult Function(loading_page value)? loading,
+    TResult Function(UpdateItem value)? updateItem,
     TResult Function(LoadedListDetailItemState value)? loadedListDetailItem,
+    TResult Function(LoadedBuyListItemState value)? loadedBuyLisItem,
     TResult Function(ErrorBuyStateCubit value)? error,
     required TResult orElse(),
   }) {
@@ -519,6 +711,185 @@ abstract class LoadedListDetailItemState implements BuyStateCubit {
   @JsonKey(ignore: true)
   _$$LoadedListDetailItemStateCopyWith<_$LoadedListDetailItemState>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$LoadedBuyListItemStateCopyWith<$Res> {
+  factory _$$LoadedBuyListItemStateCopyWith(_$LoadedBuyListItemState value,
+          $Res Function(_$LoadedBuyListItemState) then) =
+      __$$LoadedBuyListItemStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({BuyASaleListingResponseModel buyItemlList});
+
+  $BuyASaleListingResponseModelCopyWith<$Res> get buyItemlList;
+}
+
+/// @nodoc
+class __$$LoadedBuyListItemStateCopyWithImpl<$Res>
+    extends _$BuyStateCubitCopyWithImpl<$Res, _$LoadedBuyListItemState>
+    implements _$$LoadedBuyListItemStateCopyWith<$Res> {
+  __$$LoadedBuyListItemStateCopyWithImpl(_$LoadedBuyListItemState _value,
+      $Res Function(_$LoadedBuyListItemState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? buyItemlList = null,
+  }) {
+    return _then(_$LoadedBuyListItemState(
+      null == buyItemlList
+          ? _value.buyItemlList
+          : buyItemlList // ignore: cast_nullable_to_non_nullable
+              as BuyASaleListingResponseModel,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $BuyASaleListingResponseModelCopyWith<$Res> get buyItemlList {
+    return $BuyASaleListingResponseModelCopyWith<$Res>(_value.buyItemlList,
+        (value) {
+      return _then(_value.copyWith(buyItemlList: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$LoadedBuyListItemState implements LoadedBuyListItemState {
+  _$LoadedBuyListItemState(this.buyItemlList);
+
+  @override
+  final BuyASaleListingResponseModel buyItemlList;
+
+  @override
+  String toString() {
+    return 'BuyStateCubit.loadedBuyLisItem(buyItemlList: $buyItemlList)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LoadedBuyListItemState &&
+            (identical(other.buyItemlList, buyItemlList) ||
+                other.buyItemlList == buyItemlList));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, buyItemlList);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LoadedBuyListItemStateCopyWith<_$LoadedBuyListItemState> get copyWith =>
+      __$$LoadedBuyListItemStateCopyWithImpl<_$LoadedBuyListItemState>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(bool isFirstFetch) loading,
+    required TResult Function() updateItem,
+    required TResult Function(BuyForSaleListingModel detaItemlList)
+        loadedListDetailItem,
+    required TResult Function(BuyASaleListingResponseModel buyItemlList)
+        loadedBuyLisItem,
+    required TResult Function(String message) error,
+  }) {
+    return loadedBuyLisItem(buyItemlList);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(bool isFirstFetch)? loading,
+    TResult? Function()? updateItem,
+    TResult? Function(BuyForSaleListingModel detaItemlList)?
+        loadedListDetailItem,
+    TResult? Function(BuyASaleListingResponseModel buyItemlList)?
+        loadedBuyLisItem,
+    TResult? Function(String message)? error,
+  }) {
+    return loadedBuyLisItem?.call(buyItemlList);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(bool isFirstFetch)? loading,
+    TResult Function()? updateItem,
+    TResult Function(BuyForSaleListingModel detaItemlList)?
+        loadedListDetailItem,
+    TResult Function(BuyASaleListingResponseModel buyItemlList)?
+        loadedBuyLisItem,
+    TResult Function(String message)? error,
+    required TResult orElse(),
+  }) {
+    if (loadedBuyLisItem != null) {
+      return loadedBuyLisItem(buyItemlList);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Initial value) initial,
+    required TResult Function(loading_page value) loading,
+    required TResult Function(UpdateItem value) updateItem,
+    required TResult Function(LoadedListDetailItemState value)
+        loadedListDetailItem,
+    required TResult Function(LoadedBuyListItemState value) loadedBuyLisItem,
+    required TResult Function(ErrorBuyStateCubit value) error,
+  }) {
+    return loadedBuyLisItem(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Initial value)? initial,
+    TResult? Function(loading_page value)? loading,
+    TResult? Function(UpdateItem value)? updateItem,
+    TResult? Function(LoadedListDetailItemState value)? loadedListDetailItem,
+    TResult? Function(LoadedBuyListItemState value)? loadedBuyLisItem,
+    TResult? Function(ErrorBuyStateCubit value)? error,
+  }) {
+    return loadedBuyLisItem?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Initial value)? initial,
+    TResult Function(loading_page value)? loading,
+    TResult Function(UpdateItem value)? updateItem,
+    TResult Function(LoadedListDetailItemState value)? loadedListDetailItem,
+    TResult Function(LoadedBuyListItemState value)? loadedBuyLisItem,
+    TResult Function(ErrorBuyStateCubit value)? error,
+    required TResult orElse(),
+  }) {
+    if (loadedBuyLisItem != null) {
+      return loadedBuyLisItem(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class LoadedBuyListItemState implements BuyStateCubit {
+  factory LoadedBuyListItemState(
+          final BuyASaleListingResponseModel buyItemlList) =
+      _$LoadedBuyListItemState;
+
+  BuyASaleListingResponseModel get buyItemlList;
+  @JsonKey(ignore: true)
+  _$$LoadedBuyListItemStateCopyWith<_$LoadedBuyListItemState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -588,8 +959,11 @@ class _$ErrorBuyStateCubit implements ErrorBuyStateCubit {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(bool isFirstFetch) loading,
+    required TResult Function() updateItem,
     required TResult Function(BuyForSaleListingModel detaItemlList)
         loadedListDetailItem,
+    required TResult Function(BuyASaleListingResponseModel buyItemlList)
+        loadedBuyLisItem,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -600,8 +974,11 @@ class _$ErrorBuyStateCubit implements ErrorBuyStateCubit {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(bool isFirstFetch)? loading,
+    TResult? Function()? updateItem,
     TResult? Function(BuyForSaleListingModel detaItemlList)?
         loadedListDetailItem,
+    TResult? Function(BuyASaleListingResponseModel buyItemlList)?
+        loadedBuyLisItem,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -612,8 +989,11 @@ class _$ErrorBuyStateCubit implements ErrorBuyStateCubit {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(bool isFirstFetch)? loading,
+    TResult Function()? updateItem,
     TResult Function(BuyForSaleListingModel detaItemlList)?
         loadedListDetailItem,
+    TResult Function(BuyASaleListingResponseModel buyItemlList)?
+        loadedBuyLisItem,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -626,10 +1006,12 @@ class _$ErrorBuyStateCubit implements ErrorBuyStateCubit {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
+    required TResult Function(Initial value) initial,
     required TResult Function(loading_page value) loading,
+    required TResult Function(UpdateItem value) updateItem,
     required TResult Function(LoadedListDetailItemState value)
         loadedListDetailItem,
+    required TResult Function(LoadedBuyListItemState value) loadedBuyLisItem,
     required TResult Function(ErrorBuyStateCubit value) error,
   }) {
     return error(this);
@@ -638,9 +1020,11 @@ class _$ErrorBuyStateCubit implements ErrorBuyStateCubit {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
+    TResult? Function(Initial value)? initial,
     TResult? Function(loading_page value)? loading,
+    TResult? Function(UpdateItem value)? updateItem,
     TResult? Function(LoadedListDetailItemState value)? loadedListDetailItem,
+    TResult? Function(LoadedBuyListItemState value)? loadedBuyLisItem,
     TResult? Function(ErrorBuyStateCubit value)? error,
   }) {
     return error?.call(this);
@@ -649,9 +1033,11 @@ class _$ErrorBuyStateCubit implements ErrorBuyStateCubit {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
+    TResult Function(Initial value)? initial,
     TResult Function(loading_page value)? loading,
+    TResult Function(UpdateItem value)? updateItem,
     TResult Function(LoadedListDetailItemState value)? loadedListDetailItem,
+    TResult Function(LoadedBuyListItemState value)? loadedBuyLisItem,
     TResult Function(ErrorBuyStateCubit value)? error,
     required TResult orElse(),
   }) {

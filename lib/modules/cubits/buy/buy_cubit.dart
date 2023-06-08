@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../common/utils/handling_errors.dart';
@@ -15,14 +16,13 @@ class BuyCubit extends Cubit<BuyStateCubit> {
   BuyCubit(this.buyService) : super(const BuyStateCubit.initial());
 
   Future<void> getListDetailItem(String productItemId) async {
-    emit(
-      const _Initial(),
-    );
     try {
+      await Future.delayed(const Duration(seconds: 0));
+      emit(const loading_page(isFirstFetch: true));
       BuyForSaleListingModel responseBody =
           await buyService.buyAForSaleListing(productItemId);
-
       emit(BuyStateCubit.loadedListDetailItem(responseBody));
+      emit(const loading_page(isFirstFetch: false));
     } catch (error) {
       emit(
         ErrorBuyStateCubit(HandlingErrors().getError(error)),
@@ -32,9 +32,9 @@ class BuyCubit extends Cubit<BuyStateCubit> {
 
   Future<void> buyListItem(BuyASaleListingModel buyAListing) async {
     try {
-      await buyService.buyAListing(buyAListing);
-
-      // emit(BuyStateCubit.loadedBuyListItem(responseBody));
+      BuyASaleListingResponseModel responseBody =
+          await buyService.buyAListing(buyAListing);
+      emit(BuyStateCubit.loadedBuyLisItem(responseBody));
     } catch (error) {
       emit(
         ErrorBuyStateCubit(HandlingErrors().getError(error)),

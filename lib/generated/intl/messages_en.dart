@@ -66,6 +66,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "buy_for": MessageLookupByLibrary.simpleMessage("BUY FOR"),
         "camera": MessageLookupByLibrary.simpleMessage("TAKE PHOTO"),
         "cancel": MessageLookupByLibrary.simpleMessage("CANCEL"),
+        "cancel_sale_btn": MessageLookupByLibrary.simpleMessage("CANCEL SALE"),
         "cash_app": MessageLookupByLibrary.simpleMessage("CashApp"),
         "cash_app_sub_title": MessageLookupByLibrary.simpleMessage(
             "Please enter and confirm your \nCashApp cashtag"),
@@ -93,6 +94,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "We will connect you with the seller to complete this purchase. Please select how you like to pay for this item? "),
         "complete_purchase_title":
             MessageLookupByLibrary.simpleMessage("Complete Purchase"),
+        "complete_sale_btn":
+            MessageLookupByLibrary.simpleMessage("COMPLETE SALE"),
         "condition": MessageLookupByLibrary.simpleMessage("Condition"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
@@ -354,6 +357,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please enter and confirm your new password below."),
         "retail": MessageLookupByLibrary.simpleMessage("Retail:"),
         "sale_data": MessageLookupByLibrary.simpleMessage("SALE DATE"),
+        "sale_pending_btn":
+            MessageLookupByLibrary.simpleMessage("Sale pending for any user"),
         "sales_history": MessageLookupByLibrary.simpleMessage("SALES HISTORY"),
         "save_address": MessageLookupByLibrary.simpleMessage(
             "Save address to your account"),

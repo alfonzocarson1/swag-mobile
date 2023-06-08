@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../common/ui/image_dialog.dart';
 import '../../../common/utils/palette.dart';
 
+// ignore: must_be_immutable
 class MultiImageSlideBuyPreview extends StatefulWidget {
   MultiImageSlideBuyPreview({Key? key, required this.imgList})
       : super(key: key);
