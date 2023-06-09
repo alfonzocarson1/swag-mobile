@@ -103,8 +103,10 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                       if (listData.submitPurchaseInfo != null) {
                         if (listData.submitPurchaseInfo!.avatarBuyer !=
                             'CUSTOM') {
-                          var data = imagesList.where((avatar) =>
-                              (avatar["id"].contains(profileData.useAvatar)));
+                          var data = imagesList.where((avatar) => (avatar["id"]
+                              .contains(
+                                  listData.submitPurchaseInfo!.avatarBuyer ??
+                                      profileData.useAvatar)));
 
                           defaultImage = data.first['url'];
                         } else {
@@ -130,8 +132,8 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                     child: Stack(
                       children: [
                         LayoutBuilder(builder: (context, viewportConstraints) {
-
-                          String productItemName = listData.productItemName ?? "";                          
+                          String productItemName =
+                              listData.productItemName ?? "";
                           String condition = listData.condition ?? "";
 
                           return SingleChildScrollView(
@@ -159,7 +161,8 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                             Expanded(
                                                 flex: 6,
                                                 child: Text(
-                                                    productItemName.toUpperCase(),
+                                                    productItemName
+                                                        .toUpperCase(),
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .displayLarge!
@@ -466,7 +469,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                               padding: const EdgeInsets
                                                                       .symmetric(
                                                                   horizontal:
-                                                                      10,
+                                                                      15,
                                                                   vertical: 20),
                                                               width:
                                                                   MediaQuery.of(
@@ -532,6 +535,41 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                                       ))
                                                                 ],
                                                               ),
+                                                            ),
+                                                            const SizedBox(
+                                                              height: 3,
+                                                            ),
+                                                            RichText(
+                                                              text: TextSpan(
+                                                                  children: [
+                                                                    TextSpan(
+                                                                        text:
+                                                                            '@${listData.submitPurchaseInfo!.userNameBuyer} will paying using ',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontSize:
+                                                                              12,
+                                                                          color: Palette
+                                                                              .current
+                                                                              .darkGray,
+                                                                        )),
+                                                                    TextSpan(
+                                                                        text: listData.submitPurchaseInfo!.profilePeerToPeerPayment!.cashTag !=
+                                                                                null
+                                                                            ? 'CashApp'
+                                                                            : listData.submitPurchaseInfo!.profilePeerToPeerPayment!.venmoUser != null
+                                                                                ? 'Venmo'
+                                                                                : listData.submitPurchaseInfo!.profilePeerToPeerPayment!.payPalEmail != null
+                                                                                    ? 'PayPal'
+                                                                                    : '',
+                                                                        style: TextStyle(
+                                                                          fontSize:
+                                                                              12,
+                                                                          color: Palette
+                                                                              .current
+                                                                              .blueNeon,
+                                                                        )),
+                                                                  ]),
                                                             ),
                                                             const SizedBox(
                                                                 height: 30),
