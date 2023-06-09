@@ -6,7 +6,7 @@ class AuthStateCubit with _$AuthStateCubit {
   const factory AuthStateCubit.loading({@Default(false) bool isFirstFetch}) =
       loading_search;
 
-  const factory AuthStateCubit.isPhoneAvailable(bool isPhoneAvailable) =
+  const factory AuthStateCubit.isPhoneAvailable(dynamic isPhoneAvailable) =
       IsPhoneAvailable;
 
   factory AuthStateCubit.error(final String message) = ErrorAuthStateCubit;

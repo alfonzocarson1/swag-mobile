@@ -57,15 +57,14 @@ class AuthService extends IAuthService {
   }
 
   @override
-  Future<bool> isPhoneAvailable(String phone) async {
+  Future<dynamic> isPhoneAvailable(String phone) async {
     dynamic response = await apiService.getEndpointData(
       endpoint: Endpoint.isPhoneAvailable,
       method: RequestMethod.get,
       dynamicParam: phone,
       fromJson: (json) => json,
     );
-
-    return response['response'];
+    return response;
   }
 
   @override

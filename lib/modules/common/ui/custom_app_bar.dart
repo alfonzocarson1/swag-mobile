@@ -76,7 +76,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           onPressed: onRoute ??
               () {
-                Navigator.of(context, rootNavigator: true).pop();
+                Navigator.of(context).pop();
               }),
     );
   }
