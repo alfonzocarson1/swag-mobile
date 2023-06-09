@@ -113,6 +113,10 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                     child: Stack(
                       children: [
                         LayoutBuilder(builder: (context, viewportConstraints) {
+
+                          String productItemName = listData.productItemName ?? "";                          
+                          String condition = listData.condition ?? "";
+
                           return SingleChildScrollView(
                             physics: const ClampingScrollPhysics(),
                             reverse: false,
@@ -138,7 +142,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                             Expanded(
                                                 flex: 6,
                                                 child: Text(
-                                                    '${listData.productItemName}',
+                                                    productItemName.toUpperCase(),
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .displayLarge!
@@ -278,7 +282,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                       color: Palette.current
                                                           .primaryNeonGreen)),
                                         ),
-                                        const SizedBox(height: 10),
+                                        const SizedBox(height: 14),
                                         Row(
                                           children: [
                                             Align(
@@ -290,7 +294,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                       .bodySmall!
                                                       .copyWith(
                                                           fontWeight:
-                                                              FontWeight.w400,
+                                                              FontWeight.w300,
                                                           color: Palette.current
                                                               .primaryWhiteSmoke)),
                                             ),
@@ -335,11 +339,11 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                             )
                                           ],
                                         ),
-                                        const SizedBox(height: 10),
+                                        const SizedBox(height: 23),
                                         Align(
                                           alignment: Alignment.centerLeft,
                                           child: Text(
-                                              "Condition: ${listData.condition}",
+                                              "Condition: ${condition.capitalize()}",
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodySmall!

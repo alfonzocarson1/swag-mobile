@@ -1680,10 +1680,10 @@ class S {
     );
   }
 
-  /// `DISPLAYED/GAMED:`
+  /// `DISPLAYED /GAMED:`
   String get displayed_gamed {
     return Intl.message(
-      'DISPLAYED/GAMED:',
+      'DISPLAYED /GAMED:',
       name: 'displayed_gamed',
       desc: '',
       args: [],
