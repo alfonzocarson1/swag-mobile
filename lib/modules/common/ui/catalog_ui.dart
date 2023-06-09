@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../generated/l10n.dart';
 import '../../blocs/favorite_bloc/favorite_item_bloc.dart';
-import '../../cubits/profile/get_profile_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/favorite/favorite_item_model.dart';
@@ -37,22 +36,15 @@ class _CatalogPageState extends State<CatalogPage> {
   int? indexFavorite;
   bool isLogged = false;
   int indexList = 0;
-  String accountId="";
 
   List<CatalogItemModel> catalogList = [];
 
   @override
   void initState() {
-    getProfileData();
     catalogList = [...widget.catalogItems];
     super.initState();
-    isLogged = getIt<PreferenceRepositoryService>().isLogged();
-  }
 
-    getProfileData() async {
-    var tempProfile =
-        await getIt<ProfileCubit>().profileService.privateProfile();
-    accountId = tempProfile.accountId;
+    isLogged = getIt<PreferenceRepositoryService>().isLogged();
   }
 
   onChangeFavoriteAnimation(int index) async {
@@ -315,11 +307,10 @@ class _CatalogPageState extends State<CatalogPage> {
                                                 .add(FavoriteItemEvent
                                                     .removeFavoriteItem(
                                                         FavoriteModel(
-                                                          accountId: accountId,
                                                             favoritesItemAction:
                                                                 "DELETE",
                                                             profileFavoriteItems: [
-                                                  FavoriteItemModel(                                                    
+                                                  FavoriteItemModel(
                                                       profileFavoriteItemId:
                                                           catalogList[index]
                                                               .profileFavoriteItemId,
@@ -339,7 +330,6 @@ class _CatalogPageState extends State<CatalogPage> {
                                                     context)
                                                 .add(FavoriteItemEvent
                                                     .addFavoriteItem(FavoriteModel(
-                                                      accountId: accountId,
                                                         favoritesItemAction:
                                                             "ADD",
                                                         profileFavoriteItems: [

@@ -9,7 +9,7 @@ class MultiImageSlideBuyPreview extends StatefulWidget {
   MultiImageSlideBuyPreview({Key? key, required this.imgList})
       : super(key: key);
 
- final List<dynamic> imgList;
+  List<dynamic> imgList;
 
   @override
   State<MultiImageSlideBuyPreview> createState() =>

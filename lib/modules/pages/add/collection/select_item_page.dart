@@ -1,7 +1,7 @@
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:swagapp/modules/pages/add/collection/widgets/item_page_grid_body.dart';
+import 'package:swagapp/modules/models/search/catalog_item_model.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../blocs/search_bloc.dart/search_bloc.dart';
@@ -12,11 +12,11 @@ import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
 import '../../../common/utils/size_helper.dart';
 import '../../../common/utils/tab_wrapper.dart';
-
+import '../../../common/utils/utils.dart';
 import '../../../models/search/filter_model.dart';
 import '../../../models/search/search_request_payload_model.dart';
 import '../../search/search_on_tap_page.dart';
-
+import 'add_collection_page.dart';
 
 class SelectItemPage extends StatefulWidget {
   static const name = '/SelectItemPage';
@@ -34,8 +34,7 @@ class SelectItemPage extends StatefulWidget {
 }
 
 class _SelectItemPageState extends State<SelectItemPage> {
-
-  late ResponsiveDesign responsiveDesign;
+  late ResponsiveDesign _responsiveDesign;
   final TextEditingController _textEditingController = TextEditingController();
 
   @override
@@ -49,9 +48,8 @@ class _SelectItemPageState extends State<SelectItemPage> {
 
   @override
   Widget build(BuildContext context) {
-    responsiveDesign = ResponsiveDesign(context);
+    _responsiveDesign = ResponsiveDesign(context);
     return Scaffold(
-        
         appBar: PushedHeader(
           showBackButton: true,
           title: Align(
@@ -102,15 +100,128 @@ class _SelectItemPageState extends State<SelectItemPage> {
                     ));
               },
               result: (state) {
-                return ItemPageGridBody(
-                     catalogList: state.result[SearchTab.values[widget.page]] ?? [],);
+                return _getBody(
+                    state.result[SearchTab.values[widget.page]] ?? []);
               },
             );
           },
         ));
   }
 
-
+  Widget _getBody(List<CatalogItemModel> catalogList) {
+    return RefreshIndicator(
+      onRefresh: () async {
+        makeCall();
+        return Future.delayed(const Duration(milliseconds: 1500));
+      },
+      child: catalogList.isNotEmpty
+          ? Stack(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                      top: 20, left: 20, right: 20, bottom: 70),
+                  child: GridView.builder(
+                    shrinkWrap: true,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 12.0,
+                      mainAxisSpacing: 12.0,
+                      mainAxisExtent: 215,
+                    ),
+                    itemCount: catalogList.length,
+                    itemBuilder: (_, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.of(context, rootNavigator: true).push(
+                              AddCollection.route(
+                                  context,
+                                  catalogList[index].catalogItemId,
+                                  catalogList[index].catalogItemImage,
+                                  catalogList[index].catalogItemName));
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Stack(
+                              children: [
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.width * 0.40,
+                                  child: ClipRRect(
+                                    child: CachedNetworkImage(
+                                      fit: BoxFit.fitHeight,
+                                      imageUrl:
+                                          catalogList[index].catalogItemImage,
+                                      placeholder: (context, url) => SizedBox(
+                                        height: 200,
+                                        child: Center(
+                                          child: CircularProgressIndicator(
+                                            color: Palette
+                                                .current.primaryNeonGreen,
+                                            backgroundColor: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                      errorWidget: (context, url, error) =>
+                                          Image.asset(
+                                              "assets/images/ProfilePhoto.png"),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(catalogList[index].catalogItemName,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayLarge!
+                                    .copyWith(
+                                        letterSpacing: 1,
+                                        fontWeight: FontWeight.w300,
+                                        fontFamily: "KnockoutCustom",
+                                        fontSize: 24,
+                                        color: Palette.current.white)),
+                            Text(
+                                catalogList[index].forSale
+                                    ? '${S.of(context).for_sale} ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.minPrice.toString())}'
+                                    : '${S.of(context).last_sale}  ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.lastSale.toString())}',
+                                overflow: TextOverflow.fade,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(
+                                        fontWeight: FontWeight.w300,
+                                        fontSize: 13,
+                                        color:
+                                            Palette.current.primaryNeonGreen)),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            )
+          : ListView.builder(
+              itemBuilder: (_, index) => SizedBox(
+                height: MediaQuery.of(context).size.height * 0.7,
+                child: Center(
+                  child: Text(
+                    S.of(context).empty_text,
+                    style: TextStyle(
+                        fontSize: 24, color: Colors.black.withOpacity(0.50)),
+                  ),
+                ),
+              ),
+              itemCount: 1,
+            ),
+    );
+  }
 
   void makeCall() {
     context.read<SearchBloc>().add(const SearchEvent.performSearch(

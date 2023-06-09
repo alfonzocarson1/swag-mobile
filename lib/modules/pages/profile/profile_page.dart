@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:swagapp/modules/pages/chats/chats_page.dart';
+import 'package:intl/intl.dart';
 import 'package:swagapp/modules/pages/profile/sold_page.dart';
 
 import '../../../generated/l10n.dart';
@@ -79,11 +79,7 @@ class _ProfilePageState extends State<ProfilePage>
         leading: Padding(
           padding: const EdgeInsets.only(left: 10),
           child: IconButton(
-            icon: Image.asset('assets/images/Message.png'), 
-            onPressed: ()=> Navigator.of(context, rootNavigator: true).push(
-              MaterialPageRoute(builder:(context)=> const ChatsPage()),
-            ),
-          ),
+              icon: Image.asset('assets/images/Message.png'), onPressed: () {}),
         ),
       ),
       backgroundColor: Palette.current.primaryNero,
@@ -148,8 +144,6 @@ class _ProfilePageState extends State<ProfilePage>
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TabBar(
-                   dividerColor: Colors.transparent,
-          indicatorColor: Palette.current.primaryNeonGreen,
                 controller: _tabController,
                 indicator: UnderlineTabIndicator(
                     borderSide: BorderSide(

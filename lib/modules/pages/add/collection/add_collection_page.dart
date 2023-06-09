@@ -26,9 +26,9 @@ class AddCollection extends StatefulWidget {
       required this.catalogItemId,
       required this.pathImage,
       required this.itemName});
-  final String catalogItemId;
-  final String pathImage;
-  final String itemName;
+  String catalogItemId;
+  String pathImage;
+  String itemName;
 
   static Route route(final BuildContext context, String catalogItemId,
           String pathImage, String itemName) =>
@@ -217,7 +217,7 @@ class _AddCollectionState extends State<AddCollection> {
                                         .textTheme
                                         .displayLarge!
                                         .copyWith(
-                                            letterSpacing: 0.018,
+                                            letterSpacing: 1,
                                             fontWeight: FontWeight.w300,
                                             fontFamily: "KnockoutCustom",
                                             fontSize: 30,
@@ -252,12 +252,12 @@ class _AddCollectionState extends State<AddCollection> {
                             children: [
                               Align(
                                 alignment: Alignment.centerLeft,
-                                child: Text(widget.itemName.toUpperCase(),
+                                child: Text(widget.itemName,
                                     style: Theme.of(context)
                                         .textTheme
                                         .displayLarge!
                                         .copyWith(
-                                            letterSpacing: 0.018,
+                                            letterSpacing: 1,
                                             fontWeight: FontWeight.w300,
                                             fontFamily: "KnockoutCustom",
                                             fontSize: 30,
@@ -290,10 +290,6 @@ class _AddCollectionState extends State<AddCollection> {
                                 autofocus: false,
                                 errorText: purchaseErrorText,
                                 labelText: S.of(context).purchase_price,
-                                style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontWeight: FontWeight.w300,
-                          letterSpacing: 0.05,
-                          color: Palette.current.primaryNero),
                                 focusNode: _purchaseNode,
                                 controller: _purchaseController,
                                 inputType:

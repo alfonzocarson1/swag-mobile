@@ -56,12 +56,6 @@ String formatDate(String dateTime) {
   return formatted;
 }
 
-extension StringExtension on String {
-    String capitalize() {
-      return "${this[0].toUpperCase()}${this.substring(1).toLowerCase()}";
-    }
-}
-
 String decimalDigitsLastSalePrice(String lastSale) {
   if (lastSale != "N/A") {
     var decimalDigitsLastSalePrice = lastSale.split('.');

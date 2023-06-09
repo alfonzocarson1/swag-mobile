@@ -2,8 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_rich_text/simple_rich_text.dart';
-import 'package:swagapp/modules/common/assets/icons.dart';
-import 'package:swagapp/modules/common/ui/custom_outline_button.dart';
 
 import '../../../generated/l10n.dart';
 import '../../blocs/favorite_bloc/favorite_bloc.dart';
@@ -55,7 +53,7 @@ class HeadWidget extends StatefulWidget {
 
 class _HeadWidgetState extends State<HeadWidget> {
   bool _viewMore = false;
-  late FavoriteBloc favoriteBloc;
+  late FavoriteBloc _favoriteBloc;
   double animateFavorite = 0.0;
   bool isSkullVisible = true;
   int? indexFavorite;
@@ -68,7 +66,7 @@ class _HeadWidgetState extends State<HeadWidget> {
     // TODO: implement initState
     super.initState();
     profileFavoriteItemId = widget.profileFavoriteItemId;
-    favoriteBloc = getIt<FavoriteBloc>();
+    _favoriteBloc = getIt<FavoriteBloc>();
     favorite = widget.favorite;
 
     isLogged = getIt<PreferenceRepositoryService>().isLogged();
@@ -96,8 +94,7 @@ class _HeadWidgetState extends State<HeadWidget> {
 
   @override
   Widget build(BuildContext context) {
-
-    favoriteBloc = getIt<FavoriteBloc>();
+    _favoriteBloc = getIt<FavoriteBloc>();
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -276,8 +273,6 @@ class _HeadWidgetState extends State<HeadWidget> {
                         ? '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(widget.lastSale.minPrice!)} - ${decimalDigitsLastSalePrice(widget.lastSale.maxPrice!)}'
                         : '${S.of(context).last_sale}: ${decimalDigitsLastSalePrice(widget.lastSale.lastSale!)}',
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        fontSize: 16,
-                        
                         letterSpacing: 0.0224,
                         fontWeight: FontWeight.w300,
                         color: Palette.current.primaryNeonGreen)),
@@ -315,7 +310,7 @@ class _HeadWidgetState extends State<HeadWidget> {
                                       height: 50,
                                     ),
                                     Image.asset(
-                                      AppIcons.trendingUp,
+                                      "assets/images/trending-up.png",
                                       height: 20,
                                       width: 20,
                                     ),
@@ -351,7 +346,7 @@ class _HeadWidgetState extends State<HeadWidget> {
                         child: Text(widget.catalogItemDescription ?? '',
                             style:
                                 Theme.of(context).textTheme.bodySmall!.copyWith(
-                                      fontSize: 16,
+                                      fontSize: 15,
                                       letterSpacing: 0.3,
                                       color: Palette.current.primaryWhiteSmoke,
                                     )),

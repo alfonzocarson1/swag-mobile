@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:swagapp/modules/common/ui/simple_loader.dart';
+import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/cubits/saved_search/saved_searches_cubit.dart';
 import 'package:swagapp/modules/models/saved_searches/search_values.dart';
 import 'package:swagapp/modules/pages/search/saved_searches/widgets/saved_search_item.dart';

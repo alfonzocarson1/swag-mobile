@@ -5,7 +5,7 @@ part 'detail_sale_info_model.g.dart';
 
 @freezed
 class DetailSaleInfoModel with _$DetailSaleInfoModel {
-@JsonSerializable()
+  @JsonSerializable()
   const factory DetailSaleInfoModel({
     final String? minPrice,
     final String? maxPrice,

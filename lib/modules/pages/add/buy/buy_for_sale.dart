@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:swagapp/modules/common/assets/icons.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../blocs/buy_sale_listing_bloc/buy_sale_listing_bloc.dart';
@@ -34,12 +33,12 @@ class BuyForSale extends StatefulWidget {
     required this.saleHistoryList,
   });
 
-  final String catalogItemId;
-  final String catalogItemName;
-  final DetailSaleInfoModel catalogItemPrice;
-  final String urlImage;
-  final bool favorite;
-  final bool sale;
+  String catalogItemId;
+  String catalogItemName;
+  DetailSaleInfoModel catalogItemPrice;
+  String urlImage;
+  bool favorite;
+  bool sale;
   final int? available;
   Function(bool) addFavorite;
   List<SalesHistoryModel> saleHistoryList;
@@ -193,13 +192,13 @@ class _BuyForSaleState extends State<BuyForSale> {
                       const SizedBox(
                         height: 5,
                       ),
-                      Text(widget.catalogItemName.toUpperCase(),
+                      Text(widget.catalogItemName,
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context)
                               .textTheme
                               .displayLarge!
                               .copyWith(
-                                  letterSpacing: 0.018,
+                                  letterSpacing: 1,
                                   fontWeight: FontWeight.w300,
                                   fontFamily: "KnockoutCustom",
                                   fontSize: 30,
@@ -210,14 +209,13 @@ class _BuyForSaleState extends State<BuyForSale> {
                               .textTheme
                               .bodySmall!
                               .copyWith(
-                                  letterSpacing: 0.014,
                                   fontWeight: FontWeight.w300,
                                   color: Palette.current.primaryNeonGreen)),
                       (widget.saleHistoryList.isNotEmpty)
                           ? Column(
                               children: [
                                 const SizedBox(
-                                  height: 28,
+                                  height: 20,
                                 ),
                                 GestureDetector(
                                   onTap: () {
@@ -254,7 +252,7 @@ class _BuyForSaleState extends State<BuyForSale> {
                                               height: 50,
                                             ),
                                             Image.asset(
-                                              AppIcons.trendingUp,
+                                              "assets/images/trending-up.png",
                                               height: 20,
                                               width: 20,
                                             ),
@@ -306,10 +304,10 @@ class _BuyForSaleState extends State<BuyForSale> {
                                 .textTheme
                                 .displayLarge!
                                 .copyWith(
-                                    letterSpacing: 0.018,
+                                    letterSpacing: 1,
                                     fontWeight: FontWeight.w300,
                                     fontFamily: "KnockoutCustom",
-                                    fontSize: 30,
+                                    fontSize: 27,
                                     color: Palette.current.white)),
                         const SizedBox(
                           width: 10,
@@ -324,7 +322,7 @@ class _BuyForSaleState extends State<BuyForSale> {
                 ),
               ),
               const SizedBox(
-                height: 30,
+                height: 10,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -349,19 +347,17 @@ class _BuyForSaleState extends State<BuyForSale> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Expanded(
-                                flex: 3,
+                                flex: 4,
                                 child: SizedBox(
                                   height:
-                                      MediaQuery.of(context).size.width * 0.32,
+                                      MediaQuery.of(context).size.width * 0.38,
                                   child: ClipRRect(
                                     child: CachedNetworkImage(
-                                      fit: BoxFit.cover,
+                                      fit: BoxFit.fitHeight,
                                       imageUrl: dataListingSale[index]
                                           .productItemImageUrls[0],
                                       placeholder: (context, url) => SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.width *
-                                                0.32,
+                                        height: 200,
                                         child: Center(
                                           child: CircularProgressIndicator(
                                             color: Palette
@@ -395,11 +391,11 @@ class _BuyForSaleState extends State<BuyForSale> {
                                                 .textTheme
                                                 .displayLarge!
                                                 .copyWith(
-                                                    letterSpacing: 0.015,
+                                                    letterSpacing: 1,
                                                     fontWeight: FontWeight.w300,
                                                     fontFamily:
                                                         "KnockoutCustom",
-                                                    fontSize: 30,
+                                                    fontSize: 27,
                                                     color: Palette.current
                                                         .primaryNeonGreen)),
                                       ),
