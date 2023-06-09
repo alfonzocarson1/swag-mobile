@@ -2810,10 +2810,10 @@ class S {
     );
   }
 
-  /// `Sale pending for any user`
+  /// `Sale pending`
   String get sale_pending_btn {
     return Intl.message(
-      'Sale pending for any user',
+      'Sale pending',
       name: 'sale_pending_btn',
       desc: '',
       args: [],

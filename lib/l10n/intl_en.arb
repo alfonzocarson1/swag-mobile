@@ -285,7 +285,7 @@
     "setup_payment_sub_title": "You must setup at least one form of payment before you can list an item. ",
     "payment_types_accepted": "Payment Types Accepted",
     "help_payment": "You must select at least one form of payment. You can manage these payment types in your settings.",
-    "sale_pending_btn": "Sale pending for any user",
+    "sale_pending_btn": "Sale pending",
     "complete_sale_btn": "COMPLETE SALE",
     "cancel_sale_btn": "CANCEL SALE"
     

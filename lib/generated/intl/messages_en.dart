@@ -358,7 +358,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "retail": MessageLookupByLibrary.simpleMessage("Retail:"),
         "sale_data": MessageLookupByLibrary.simpleMessage("SALE DATE"),
         "sale_pending_btn":
-            MessageLookupByLibrary.simpleMessage("Sale pending for any user"),
+            MessageLookupByLibrary.simpleMessage("Sale pending"),
         "sales_history": MessageLookupByLibrary.simpleMessage("SALES HISTORY"),
         "save_address": MessageLookupByLibrary.simpleMessage(
             "Save address to your account"),
