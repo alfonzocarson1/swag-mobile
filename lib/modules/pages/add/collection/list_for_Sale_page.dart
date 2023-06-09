@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:swagapp/modules/common/assets/icons.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../common/ui/add_photo_list_item.dart';
@@ -206,7 +205,6 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                               .textTheme
                                               .displayMedium!
                                               .copyWith(
-                                                letterSpacing: 1,
                                                 fontFamily: "KnockoutCustom",
                                                 fontSize: 30,
                                                 fontWeight: FontWeight.w300,
@@ -250,7 +248,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                     child: (widget.salesHistoryNavigation !=
                                             null)
                                         ? Image.asset(
-                                            AppIcons.trendingUp,
+                                            'assets/images/trending-up.png',
                                             width: 20,
                                             height: 20,
                                             scale: 3,

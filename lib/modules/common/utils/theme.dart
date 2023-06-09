@@ -191,7 +191,6 @@ TextTheme _textTheme(Palette palette) {
       height: 21 / 15,
     ),
     bodySmall: TextStyle(
-      letterSpacing: 0.015,
       fontFamily: 'RingsideRegular',
       color: palette.black,
       fontWeight: FontWeight.w300,

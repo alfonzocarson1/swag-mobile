@@ -20,10 +20,6 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(sender) => "New message from ${sender}";
-
-  static String m1(chatsNumber) => "${chatsNumber} Unread";
-
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "See_All": MessageLookupByLibrary.simpleMessage("See All"),
@@ -75,23 +71,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "cash_app_sub_title": MessageLookupByLibrary.simpleMessage(
             "Please enter and confirm your \nCashApp cashtag"),
         "category": MessageLookupByLibrary.simpleMessage("category"),
-        "chatChat": MessageLookupByLibrary.simpleMessage("Chat"),
-        "chatErrorFile":
-            MessageLookupByLibrary.simpleMessage("Error loading the file"),
-        "chatInputHintText":
-            MessageLookupByLibrary.simpleMessage("Enter message"),
-        "chatLoadingFile":
-            MessageLookupByLibrary.simpleMessage("Loading File..."),
-        "chatMessageFrom": m0,
-        "chatModeratorName": MessageLookupByLibrary.simpleMessage("SWAG"),
-        "chatNoMessages":
-            MessageLookupByLibrary.simpleMessage("No previous messages"),
-        "chatSwaggAdmin": MessageLookupByLibrary.simpleMessage("Swagg Admin"),
-        "chatToday": MessageLookupByLibrary.simpleMessage("Today"),
-        "chatTyping": MessageLookupByLibrary.simpleMessage("Typing..."),
-        "chatsHeader":
-            MessageLookupByLibrary.simpleMessage("ALERTS & Notifications"),
-        "chatsUnreadMessages": m1,
         "city": MessageLookupByLibrary.simpleMessage("City"),
         "clear_all": MessageLookupByLibrary.simpleMessage("Clear All"),
         "code": MessageLookupByLibrary.simpleMessage("Code"),
@@ -145,7 +124,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Didn’t get an email? "),
         "displayed": MessageLookupByLibrary.simpleMessage("Displayed"),
         "displayed_gamed":
-            MessageLookupByLibrary.simpleMessage("DISPLAYED /GAMED:"),
+            MessageLookupByLibrary.simpleMessage("DISPLAYED/GAMED:"),
         "displayed_gamed_item_four": MessageLookupByLibrary.simpleMessage(
             "•  Minimum of 4, Maximum of 6"),
         "displayed_gamed_item_three":

@@ -274,8 +274,6 @@ class _SearchPageState extends State<SearchPage>
     return Padding(
       padding: const EdgeInsets.only(top: 10, left: 0, right: 0),
       child: TabBar(
-        dividerColor: Colors.transparent,
-          indicatorColor: Palette.current.primaryNeonGreen,
           labelPadding: const EdgeInsets.all(0),
           controller: _tabController,
           labelColor: Palette.current.primaryNeonGreen,

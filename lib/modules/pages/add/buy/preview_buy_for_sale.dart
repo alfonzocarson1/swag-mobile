@@ -372,12 +372,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                 listData.profileId)
                                             ? Column(
                                                 children: [
-                                                  FooterListItemPage(
-                                                      productItemId: this
-                                                              .widget
-                                                              .dataItem
-                                                              .productItemId ??
-                                                          ''),
+                                                  FooterListItemPage(),
                                                   const SizedBox(height: 30),
                                                   Visibility(
                                                       visible:
@@ -423,12 +418,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                               )
                                             : Column(
                                                 children: [
-                                                  FooterListItemPage(
-                                                      productItemId: this
-                                                              .widget
-                                                              .dataItem
-                                                              .productItemId ??
-                                                          ''),
+                                                  FooterListItemPage(),
                                                   const SizedBox(height: 30),
                                                   Visibility(
                                                     visible: listData.status ==

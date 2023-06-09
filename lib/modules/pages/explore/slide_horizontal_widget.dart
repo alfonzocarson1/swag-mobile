@@ -48,91 +48,82 @@ class HorizontalSlideWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.width * 0.38,
-            width: MediaQuery.of(context).size.width * 0.80,
-            child: Stack(
-              fit: StackFit.loose,
-              children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.width * 0.37,
-                  width: MediaQuery.of(context).size.width * 0.50,
-                  child: ClipRRect(
-                    child: CachedNetworkImage(
-                      fit: BoxFit.fitHeight,
-                      imageUrl: pathImage,
-                      placeholder: (context, url) => SizedBox(
-                        height: 170,
-                        child: Center(
-                          child: CircularProgressIndicator(
-                            color: Palette.current.primaryNeonGreen,
-                            backgroundColor: Colors.white,
-                          ),
+          Stack(
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.width * 0.38,
+                child: ClipRRect(
+                  child: CachedNetworkImage(
+                    fit: BoxFit.fitHeight,
+                    imageUrl: pathImage,
+                    placeholder: (context, url) => SizedBox(
+                      height: 200,
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: Palette.current.primaryNeonGreen,
+                          backgroundColor: Colors.white,
                         ),
                       ),
-                      errorWidget: (context, url, error) =>
-                          Image.asset("assets/images/ProfilePhoto.png"),
                     ),
+                    errorWidget: (context, url, error) =>
+                        Image.asset("assets/images/ProfilePhoto.png"),
                   ),
                 ),
-                Positioned(
-                    top: 5,
-                    right: 5,
-                    
-                    child: CircleAvatar(
-                      radius: 15,
-                      backgroundColor: Palette.current.blackSmoke,
-                      child: IconButton(
-                        focusColor: Palette.current.blackSmoke,
-                        icon: Icon(
-                          size: 15.0,
-                          Icons.add,
-                          color: Palette.current.white,
+              ),
+              Positioned(
+                  top: 5,
+                  right: 5,
+                  child: CircleAvatar(
+                    radius: 15,
+                    backgroundColor: Palette.current.blackSmoke,
+                    child: IconButton(
+                      focusColor: Palette.current.blackSmoke,
+                      icon: Icon(
+                        size: 15.0,
+                        Icons.add,
+                        color: Palette.current.white,
+                      ),
+                      onPressed: () {
+                        if (isLogged) {
+                          Navigator.of(context, rootNavigator: true).push(
+                              AddCollection.route(
+                                  context, catalogItemId, pathImage, title));
+                        } else {
+                          Navigator.of(context, rootNavigator: true)
+                              .push(CreateAccountPage.route());
+                        }
+                      },
+                    ),
+                  )),
+              Positioned(
+                bottom: 0,
+                right: 0,
+                child: Visibility(
+                    visible: forSale,
+                    child: Container(
+                      height: 30,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        color: Palette.current.primaryNeonPink,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                              '''$numberAvailable ${S.of(context).for_sale}''',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w400,
+                                      color: Palette.current.white)),
                         ),
-                        onPressed: () {
-                          if (isLogged) {
-                            Navigator.of(context, rootNavigator: true).push(
-                                AddCollection.route(
-                                    context, catalogItemId, pathImage, title));
-                          } else {
-                            Navigator.of(context, rootNavigator: true)
-                                .push(CreateAccountPage.route());
-                          }
-                        },
                       ),
                     )),
-                Positioned(
-                  bottom: 0,
-                  right: 0,
-                  child: Visibility(
-                      visible: forSale,
-                      child: Container(
-                        height: 30,
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                          color: Palette.current.primaryNeonPink,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Align(
-                            alignment: Alignment.centerRight,
-                            child: Text(
-                                '''$numberAvailable ${S.of(context).for_sale}''',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                                    .copyWith(
-                                      fontStyle: FontStyle.normal,
-                                      fontFamily:"RingsideRegular",
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w400,
-                                        color: Palette.current.white)),
-                          ),
-                        ),
-                      )),
-                )
-              ],
-            ),
+              )
+            ],
           ),
           const SizedBox(
             height: 5,
@@ -141,10 +132,10 @@ class HorizontalSlideWidget extends StatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                  letterSpacing: 0.18,
+                  letterSpacing: 1,
                   fontWeight: FontWeight.w300,
                   fontFamily: "KnockoutCustom",
-                  fontSize: 21,
+                  fontSize: 24,
                   color: Palette.current.white)),
           Text(
               forSale

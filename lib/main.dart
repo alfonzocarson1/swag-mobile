@@ -1,8 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:swagapp/modules/services/local_notifications_service.dart';
-import 'package:swagapp/modules/services/push_notifications_service.dart';
 import 'app.dart';
 import 'modules/api/app_config.dart';
 import 'modules/common/utils/utils.dart';
@@ -52,10 +50,6 @@ Future<void> _handleFlavorConfig() async {
   });
 }
 
-Future<void> _runApp() async {
-
-  WidgetsFlutterBinding.ensureInitialized();
-  await PushNotificationsService.initializeApp();
-  await LocalNotificationsService.initializeApp();
+void _runApp() {
   return runApp(App());
 }

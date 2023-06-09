@@ -9,7 +9,7 @@ import 'popup_image_guidelines.dart';
 class AddPhotoWidget extends StatefulWidget {
   AddPhotoWidget({super.key, this.addPhoto});
 
-  final Function()? addPhoto;
+  Function()? addPhoto;
 
   @override
   State<AddPhotoWidget> createState() => _AddPhotoWidgetState();
@@ -33,7 +33,7 @@ class _AddPhotoWidgetState extends State<AddPhotoWidget> {
               alignment: Alignment.topCenter,
               child: Text(S.of(context).list_item_for_sale,
                   style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                      letterSpacing: 0.8,
+                      letterSpacing: 1,
                       fontWeight: FontWeight.w300,
                       fontFamily: "KnockoutCustom",
                       fontSize: 30,
@@ -50,7 +50,7 @@ class _AddPhotoWidgetState extends State<AddPhotoWidget> {
                 child: Center(
                   child: Container(
                       height: 60,
-                      width: MediaQuery.of(context).size.width * 0.45,
+                      width: MediaQuery.of(context).size.width / 2,
                       decoration: BoxDecoration(
                           border: Border.all(
                               color: Palette.current.primaryNeonGreen),
@@ -73,7 +73,7 @@ class _AddPhotoWidgetState extends State<AddPhotoWidget> {
                                   .bodyLarge!
                                   .copyWith(
                                       fontFamily: "KnockoutCustom",
-                                      fontSize: 20,
+                                      fontSize: 25,
                                       letterSpacing: 1,
                                       fontWeight: FontWeight.w300,
                                       color: Palette.current.white)),
@@ -92,7 +92,6 @@ class _AddPhotoWidgetState extends State<AddPhotoWidget> {
                     S.of(context).see_photo_guidelines,
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                         fontSize: 14,
-                        letterSpacing: 0.015,
                         color: Palette.current.grey,
                         fontWeight: FontWeight.w300),
                   ),

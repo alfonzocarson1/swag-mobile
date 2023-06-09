@@ -62,8 +62,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   Color _cityBorder = Palette.current.primaryWhiteSmoke;
 
   final FocusNode _stateNode = FocusNode();
-  final stateController = TextEditingController();
-  Color stateBorder = Palette.current.primaryWhiteSmoke;
+  final _stateController = TextEditingController();
+  Color _stateBorder = Palette.current.primaryWhiteSmoke;
 
   final FocusNode _zipNode = FocusNode();
   final _zipController = TextEditingController();
@@ -83,7 +83,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   bool hasImportableData = false;
   bool verificationEmailSent = false;
 
-  late ResponsiveDesign responsiveDesign;
+  late ResponsiveDesign _responsiveDesign;
 
   String _defaultCountry = 'United States';
   String _defaultState = 'State'; 
@@ -171,7 +171,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
 
     _stateNode.addListener(() {
       setState(() {
-        stateBorder = _stateNode.hasFocus
+        _stateBorder = _stateNode.hasFocus
             ? Palette.current.primaryNeonGreen
             : Palette.current.primaryWhiteSmoke;
       });
@@ -205,7 +205,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
     if (firstName == '' || lastName == '') {
       showPopUp(username: userName);
     }
-    responsiveDesign = ResponsiveDesign(context);
+    _responsiveDesign = ResponsiveDesign(context);
     return Scaffold(
         extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: true,
@@ -465,7 +465,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                           onDone: (index) {
                                             setState(() => value = index);
                                             _defaultState = stateCodes[index];
-                                            stateController.text = _defaultState;
+                                            _stateController.text = _defaultState;
                                             Navigator.pop(context);
                                           }) : CupertinoPickerView(
                                         key: const Key('State-Picker-2'),
@@ -476,7 +476,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                           onDone: (index) {
                                             setState(() => value = index);
                                             _defaultState = defaultState;
-                                            stateController.text= defaultState;
+                                            _stateController.text= defaultState;
                                             Navigator.pop(context);
                                           }),
                                       Visibility(
