@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:swagapp/modules/common/assets/icons.dart';
 import 'package:swagapp/modules/models/detail/detail_sale_info_model.dart';
 import 'package:swagapp/modules/models/detail/sale_history_model.dart';
 import 'package:swagapp/modules/pages/add/collection/widgets/slider_custom_widget.dart';
@@ -272,7 +273,7 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
                                 }
                               },
                               child: Image.asset(
-                                      'assets/images/trending-up.png',
+                                      AppIcons.trendingUp,
                                       width: 20,
                                       height: 20,
                                       scale: 3,
