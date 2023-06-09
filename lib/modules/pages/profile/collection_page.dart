@@ -246,7 +246,7 @@ class _CollectionPageState extends State<CollectionPage> {
                               const SizedBox(
                                 height: 5,
                               ),
-                              Text(collectionList[index - 1].catalogItemName,
+                              Text(collectionList[index - 1].catalogItemName.toUpperCase(),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: Theme.of(context)
@@ -256,7 +256,7 @@ class _CollectionPageState extends State<CollectionPage> {
                                           letterSpacing: 1,
                                           fontWeight: FontWeight.w300,
                                           fontFamily: "KnockoutCustom",
-                                          fontSize: 24,
+                                          fontSize: 21,
                                           color: Palette.current.white)),
                               Text(
                                   collectionList[index - 1].forSale
