@@ -287,7 +287,8 @@
     "help_payment": "You must select at least one form of payment. You can manage these payment types in your settings.",
     "sale_pending_btn": "Sale pending",
     "complete_sale_btn": "COMPLETE SALE",
-    "cancel_sale_btn": "CANCEL SALE"
+    "cancel_sale_btn": "CANCEL SALE",
+    "seller_buy_message": "has agreed to purchase your Golden King Cover"
     
 
 

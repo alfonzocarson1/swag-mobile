@@ -27,24 +27,37 @@ _$_BuyForSaleListingModel _$$_BuyForSaleListingModelFromJson(
           ? null
           : PeerToPeerPaymentsModel.fromJson(
               json['peerToPeerPaymentOptions'] as Map<String, dynamic>),
+      submitPurchaseInfo: json['submitPurchaseInfo'] == null
+          ? null
+          : BuyUserForSaleListingModel.fromJson(
+              json['submitPurchaseInfo'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_BuyForSaleListingModelToJson(
-        _$_BuyForSaleListingModel instance) =>
-    <String, dynamic>{
-      'productItemId': instance.productItemId,
-      'productItemName': instance.productItemName,
-      'productItemPrice': instance.productItemPrice,
-      'productItemImageUrls': instance.productItemImageUrls,
-      'productItemDescription': instance.productItemDescription,
-      'condition': instance.condition,
-      'profileId': instance.profileId,
-      'catalogItemId': instance.catalogItemId,
-      'profileCollectionItemId': instance.profileCollectionItemId,
-      'lastSale': instance.lastSale,
-      'forSale': instance.forSale,
-      'sold': instance.sold,
-      'isDeleted': instance.isDeleted,
-      'status': instance.status,
-      'peerToPeerPaymentOptions': instance.peerToPeerPaymentOptions,
-    };
+    _$_BuyForSaleListingModel instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('productItemId', instance.productItemId);
+  writeNotNull('productItemName', instance.productItemName);
+  writeNotNull('productItemPrice', instance.productItemPrice);
+  val['productItemImageUrls'] = instance.productItemImageUrls;
+  writeNotNull('productItemDescription', instance.productItemDescription);
+  writeNotNull('condition', instance.condition);
+  writeNotNull('profileId', instance.profileId);
+  writeNotNull('catalogItemId', instance.catalogItemId);
+  writeNotNull('profileCollectionItemId', instance.profileCollectionItemId);
+  writeNotNull('lastSale', instance.lastSale);
+  writeNotNull('forSale', instance.forSale);
+  writeNotNull('sold', instance.sold);
+  writeNotNull('isDeleted', instance.isDeleted);
+  writeNotNull('status', instance.status);
+  writeNotNull('peerToPeerPaymentOptions', instance.peerToPeerPaymentOptions);
+  writeNotNull('submitPurchaseInfo', instance.submitPurchaseInfo);
+  return val;
+}

@@ -720,6 +720,8 @@ class _BuyerCompletePurchasePopUpState
                                               saveAddress: checkBoxValue,
                                               productItemId:
                                                   widget.productItemId,
+                                              userNameBuyer:
+                                                  profileData.username,
                                               address: AddressesPayloadModel(
                                                   addressType: 'SHIPPING',
                                                   address1:

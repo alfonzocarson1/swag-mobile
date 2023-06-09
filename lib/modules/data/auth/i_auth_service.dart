@@ -13,7 +13,7 @@ abstract class IAuthService {
       CreateAccountPayloadModel model);
   Future<void> logOut();
   Future<bool> isUsernameAvailable(String username);
-  Future<bool> isPhoneAvailable(String phone);
+  Future<dynamic> isPhoneAvailable(String phone);
   Future<void> requestPasswordResetCode(String email);
   Future<ForgotPasswordCodeModel> sendCode(String code);
   Future<ForgotPasswordCodeModel> validEmail(String email);

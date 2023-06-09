@@ -53,7 +53,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
   final _confirmPasswordController = TextEditingController();
   Color _confirmPasswordBorder = Palette.current.primaryWhiteSmoke;
   String? confirmPasswordErrorText;
-  bool isPhoneValid = false;
+  bool isPhoneValid = true;
   bool isPhoneInUse = false;
   bool isEmptyPhone = false;
   bool isEmptyUserName = false;
@@ -280,9 +280,8 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                             _phoneController,
                                             _phoneNode,
                                             phoneErrorText,
-                                            _phoneBorder,
-                                            (isPhoneValidParam, phoneNumber) {
-                                          isPhoneValid = isPhoneValidParam;
+                                            _phoneBorder, (phoneNumber) {
+                                          isPhoneValid = true;
                                           currentPhoneNumber = phoneNumber;
                                           setPhoneErrorText(
                                               isPhoneValid, false);
@@ -290,7 +289,13 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                     isPhoneAvailable: (state) {
                                       Future.delayed(Duration.zero, () {
                                         setState(() {
-                                          isPhoneInUse = state.isPhoneAvailable;
+                                          isPhoneValid = (state
+                                                      .isPhoneAvailable !=
+                                                  '202' ||
+                                              state.isPhoneAvailable == '204');
+                                          isPhoneInUse =
+                                              state.isPhoneAvailable == '204';
+
                                           setPhoneErrorText(
                                               isPhoneValid, isPhoneInUse);
                                         });
@@ -300,11 +305,14 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                           _phoneController,
                                           _phoneNode,
                                           phoneErrorText,
-                                          _phoneBorder,
-                                          (isPhoneValidParam, phoneNumber) {
-                                        isPhoneValid = isPhoneValidParam;
+                                          _phoneBorder, (phoneNumber) {
+                                        isPhoneValid = isPhoneValid =
+                                            (state.isPhoneAvailable != '202' ||
+                                                state.isPhoneAvailable ==
+                                                    '204');
                                         currentPhoneNumber = phoneNumber;
-                                        isPhoneInUse = state.isPhoneAvailable;
+                                        isPhoneInUse =
+                                            state.isPhoneAvailable == '204';
                                         setPhoneErrorText(
                                             isPhoneValid, isPhoneInUse);
                                       });
@@ -643,7 +651,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
         phoneErrorText = S.of(context).required_field;
         isEmptyPhone = _phoneController.text.isEmpty;
       } else {
-        phoneErrorText =
+        phoneErrorText = phoneErrorText =
             (isPhoneValid && !isPhoneInUse) || _phoneController.text.isEmpty
                 ? null
                 : (isPhoneValid && isPhoneInUse)
@@ -723,7 +731,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
 class _PhoneSection extends StatefulWidget {
   final TextEditingController phoneController;
   final FocusNode? focusPhone;
-  final Function(bool, PhoneNumber) notifyIsPhoneValid;
+  final Function(PhoneNumber) notifyIsPhoneValid;
   final String? errorText;
   final Color? borderColor;
 
@@ -786,12 +794,14 @@ class __PhoneSectionState extends State<_PhoneSection> {
                     choseNumber = nbr;
                   },
                   onInputValidated: (bool value) {
-                    if (value) {
-                      getIt<AuthCubit>().loadResultsPhoneAvailable(
-                          choseNumber.phoneNumber ?? '');
-                    }
                     setState(() {
-                      widget.notifyIsPhoneValid(value, choseNumber);
+                      if (value) {
+                        getIt<AuthCubit>().loadResultsPhoneAvailable(
+                            choseNumber.phoneNumber ?? '');
+                        widget.notifyIsPhoneValid(choseNumber);
+                      } else {
+                        getIt<AuthCubit>().resetPhoneAvailable();
+                      }
                     });
                   },
                   selectorConfig: const SelectorConfig(

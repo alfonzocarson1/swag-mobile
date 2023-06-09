@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../settings/peer_to_peer_payments_get_model.dart';
 import '../settings/peer_to_peer_payments_model.dart';
+import 'buy_user_for_sale_listing_model.dart';
 
 part 'buy_for_sale_listing_model.freezed.dart';
 part 'buy_for_sale_listing_model.g.dart';
@@ -25,6 +26,7 @@ class BuyForSaleListingModel with _$BuyForSaleListingModel {
     final bool? isDeleted,
     final String? status,
     final PeerToPeerPaymentsModel? peerToPeerPaymentOptions,
+    final BuyUserForSaleListingModel? submitPurchaseInfo,
   }) = _BuyForSaleListingModel;
 
   factory BuyForSaleListingModel.fromJson(Map<String, dynamic> json) =>

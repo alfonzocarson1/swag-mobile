@@ -2839,6 +2839,16 @@ class S {
       args: [],
     );
   }
+
+  /// `has agreed to purchase your Golden King Cover`
+  String get seller_buy_message {
+    return Intl.message(
+      'has agreed to purchase your Golden King Cover',
+      name: 'seller_buy_message',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

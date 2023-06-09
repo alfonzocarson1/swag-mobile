@@ -16,8 +16,22 @@ class AuthCubit extends Cubit<AuthStateCubit> {
       const _Initial(),
     );
     try {
-      bool responseBody = await authService.isPhoneAvailable(phone);
-      emit(AuthStateCubit.isPhoneAvailable(responseBody));
+      dynamic responseBody = await authService.isPhoneAvailable(phone);
+
+      emit(AuthStateCubit.isPhoneAvailable(responseBody['errorCode']));
+    } catch (error) {
+      emit(
+        ErrorAuthStateCubit(HandlingErrors().getError(error)),
+      );
+    }
+  }
+
+  Future<void> resetPhoneAvailable() async {
+    emit(
+      const _Initial(),
+    );
+    try {
+      emit(const AuthStateCubit.isPhoneAvailable(200));
     } catch (error) {
       emit(
         ErrorAuthStateCubit(HandlingErrors().getError(error)),

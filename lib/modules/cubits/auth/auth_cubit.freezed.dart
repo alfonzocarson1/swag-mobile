@@ -20,7 +20,7 @@ mixin _$AuthStateCubit {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(bool isFirstFetch) loading,
-    required TResult Function(bool isPhoneAvailable) isPhoneAvailable,
+    required TResult Function(dynamic isPhoneAvailable) isPhoneAvailable,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ mixin _$AuthStateCubit {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(bool isFirstFetch)? loading,
-    TResult? Function(bool isPhoneAvailable)? isPhoneAvailable,
+    TResult? Function(dynamic isPhoneAvailable)? isPhoneAvailable,
     TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ mixin _$AuthStateCubit {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(bool isFirstFetch)? loading,
-    TResult Function(bool isPhoneAvailable)? isPhoneAvailable,
+    TResult Function(dynamic isPhoneAvailable)? isPhoneAvailable,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
@@ -125,7 +125,7 @@ class _$_Initial implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(bool isFirstFetch) loading,
-    required TResult Function(bool isPhoneAvailable) isPhoneAvailable,
+    required TResult Function(dynamic isPhoneAvailable) isPhoneAvailable,
     required TResult Function(String message) error,
   }) {
     return initial();
@@ -136,7 +136,7 @@ class _$_Initial implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(bool isFirstFetch)? loading,
-    TResult? Function(bool isPhoneAvailable)? isPhoneAvailable,
+    TResult? Function(dynamic isPhoneAvailable)? isPhoneAvailable,
     TResult? Function(String message)? error,
   }) {
     return initial?.call();
@@ -147,7 +147,7 @@ class _$_Initial implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(bool isFirstFetch)? loading,
-    TResult Function(bool isPhoneAvailable)? isPhoneAvailable,
+    TResult Function(dynamic isPhoneAvailable)? isPhoneAvailable,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -267,7 +267,7 @@ class _$loading_search implements loading_search {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(bool isFirstFetch) loading,
-    required TResult Function(bool isPhoneAvailable) isPhoneAvailable,
+    required TResult Function(dynamic isPhoneAvailable) isPhoneAvailable,
     required TResult Function(String message) error,
   }) {
     return loading(isFirstFetch);
@@ -278,7 +278,7 @@ class _$loading_search implements loading_search {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(bool isFirstFetch)? loading,
-    TResult? Function(bool isPhoneAvailable)? isPhoneAvailable,
+    TResult? Function(dynamic isPhoneAvailable)? isPhoneAvailable,
     TResult? Function(String message)? error,
   }) {
     return loading?.call(isFirstFetch);
@@ -289,7 +289,7 @@ class _$loading_search implements loading_search {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(bool isFirstFetch)? loading,
-    TResult Function(bool isPhoneAvailable)? isPhoneAvailable,
+    TResult Function(dynamic isPhoneAvailable)? isPhoneAvailable,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -352,7 +352,7 @@ abstract class _$$IsPhoneAvailableCopyWith<$Res> {
           _$IsPhoneAvailable value, $Res Function(_$IsPhoneAvailable) then) =
       __$$IsPhoneAvailableCopyWithImpl<$Res>;
   @useResult
-  $Res call({bool isPhoneAvailable});
+  $Res call({dynamic isPhoneAvailable});
 }
 
 /// @nodoc
@@ -366,13 +366,13 @@ class __$$IsPhoneAvailableCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isPhoneAvailable = null,
+    Object? isPhoneAvailable = freezed,
   }) {
     return _then(_$IsPhoneAvailable(
-      null == isPhoneAvailable
+      freezed == isPhoneAvailable
           ? _value.isPhoneAvailable
           : isPhoneAvailable // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as dynamic,
     ));
   }
 }
@@ -383,7 +383,7 @@ class _$IsPhoneAvailable implements IsPhoneAvailable {
   const _$IsPhoneAvailable(this.isPhoneAvailable);
 
   @override
-  final bool isPhoneAvailable;
+  final dynamic isPhoneAvailable;
 
   @override
   String toString() {
@@ -395,12 +395,13 @@ class _$IsPhoneAvailable implements IsPhoneAvailable {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$IsPhoneAvailable &&
-            (identical(other.isPhoneAvailable, isPhoneAvailable) ||
-                other.isPhoneAvailable == isPhoneAvailable));
+            const DeepCollectionEquality()
+                .equals(other.isPhoneAvailable, isPhoneAvailable));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isPhoneAvailable);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(isPhoneAvailable));
 
   @JsonKey(ignore: true)
   @override
@@ -413,7 +414,7 @@ class _$IsPhoneAvailable implements IsPhoneAvailable {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(bool isFirstFetch) loading,
-    required TResult Function(bool isPhoneAvailable) isPhoneAvailable,
+    required TResult Function(dynamic isPhoneAvailable) isPhoneAvailable,
     required TResult Function(String message) error,
   }) {
     return isPhoneAvailable(this.isPhoneAvailable);
@@ -424,7 +425,7 @@ class _$IsPhoneAvailable implements IsPhoneAvailable {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(bool isFirstFetch)? loading,
-    TResult? Function(bool isPhoneAvailable)? isPhoneAvailable,
+    TResult? Function(dynamic isPhoneAvailable)? isPhoneAvailable,
     TResult? Function(String message)? error,
   }) {
     return isPhoneAvailable?.call(this.isPhoneAvailable);
@@ -435,7 +436,7 @@ class _$IsPhoneAvailable implements IsPhoneAvailable {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(bool isFirstFetch)? loading,
-    TResult Function(bool isPhoneAvailable)? isPhoneAvailable,
+    TResult Function(dynamic isPhoneAvailable)? isPhoneAvailable,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -484,10 +485,10 @@ class _$IsPhoneAvailable implements IsPhoneAvailable {
 }
 
 abstract class IsPhoneAvailable implements AuthStateCubit {
-  const factory IsPhoneAvailable(final bool isPhoneAvailable) =
+  const factory IsPhoneAvailable(final dynamic isPhoneAvailable) =
       _$IsPhoneAvailable;
 
-  bool get isPhoneAvailable;
+  dynamic get isPhoneAvailable;
   @JsonKey(ignore: true)
   _$$IsPhoneAvailableCopyWith<_$IsPhoneAvailable> get copyWith =>
       throw _privateConstructorUsedError;
@@ -560,7 +561,7 @@ class _$ErrorAuthStateCubit implements ErrorAuthStateCubit {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(bool isFirstFetch) loading,
-    required TResult Function(bool isPhoneAvailable) isPhoneAvailable,
+    required TResult Function(dynamic isPhoneAvailable) isPhoneAvailable,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -571,7 +572,7 @@ class _$ErrorAuthStateCubit implements ErrorAuthStateCubit {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(bool isFirstFetch)? loading,
-    TResult? Function(bool isPhoneAvailable)? isPhoneAvailable,
+    TResult? Function(dynamic isPhoneAvailable)? isPhoneAvailable,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -582,7 +583,7 @@ class _$ErrorAuthStateCubit implements ErrorAuthStateCubit {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(bool isFirstFetch)? loading,
-    TResult Function(bool isPhoneAvailable)? isPhoneAvailable,
+    TResult Function(dynamic isPhoneAvailable)? isPhoneAvailable,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {

@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'buy_a_listing_model.dart';
+part of 'buy_user_for_sale_listing_model.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,35 +14,37 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-BuyASaleListingModel _$BuyASaleListingModelFromJson(Map<String, dynamic> json) {
-  return _BuyASaleListingModel.fromJson(json);
+BuyUserForSaleListingModel _$BuyUserForSaleListingModelFromJson(
+    Map<String, dynamic> json) {
+  return _BuyUserForSaleListingModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$BuyASaleListingModel {
-  bool? get saveAddress => throw _privateConstructorUsedError;
-  String? get productItemId => throw _privateConstructorUsedError;
+mixin _$BuyUserForSaleListingModel {
   String? get userNameBuyer => throw _privateConstructorUsedError;
+  String? get avatarBuyer => throw _privateConstructorUsedError;
+  String? get avatarBuyerUrl => throw _privateConstructorUsedError;
   AddressesPayloadModel? get address => throw _privateConstructorUsedError;
   PeerToPeerPaymentsModel? get profilePeerToPeerPayment =>
       throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $BuyASaleListingModelCopyWith<BuyASaleListingModel> get copyWith =>
-      throw _privateConstructorUsedError;
+  $BuyUserForSaleListingModelCopyWith<BuyUserForSaleListingModel>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $BuyASaleListingModelCopyWith<$Res> {
-  factory $BuyASaleListingModelCopyWith(BuyASaleListingModel value,
-          $Res Function(BuyASaleListingModel) then) =
-      _$BuyASaleListingModelCopyWithImpl<$Res, BuyASaleListingModel>;
+abstract class $BuyUserForSaleListingModelCopyWith<$Res> {
+  factory $BuyUserForSaleListingModelCopyWith(BuyUserForSaleListingModel value,
+          $Res Function(BuyUserForSaleListingModel) then) =
+      _$BuyUserForSaleListingModelCopyWithImpl<$Res,
+          BuyUserForSaleListingModel>;
   @useResult
   $Res call(
-      {bool? saveAddress,
-      String? productItemId,
-      String? userNameBuyer,
+      {String? userNameBuyer,
+      String? avatarBuyer,
+      String? avatarBuyerUrl,
       AddressesPayloadModel? address,
       PeerToPeerPaymentsModel? profilePeerToPeerPayment});
 
@@ -51,10 +53,10 @@ abstract class $BuyASaleListingModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$BuyASaleListingModelCopyWithImpl<$Res,
-        $Val extends BuyASaleListingModel>
-    implements $BuyASaleListingModelCopyWith<$Res> {
-  _$BuyASaleListingModelCopyWithImpl(this._value, this._then);
+class _$BuyUserForSaleListingModelCopyWithImpl<$Res,
+        $Val extends BuyUserForSaleListingModel>
+    implements $BuyUserForSaleListingModelCopyWith<$Res> {
+  _$BuyUserForSaleListingModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -64,24 +66,24 @@ class _$BuyASaleListingModelCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? saveAddress = freezed,
-    Object? productItemId = freezed,
     Object? userNameBuyer = freezed,
+    Object? avatarBuyer = freezed,
+    Object? avatarBuyerUrl = freezed,
     Object? address = freezed,
     Object? profilePeerToPeerPayment = freezed,
   }) {
     return _then(_value.copyWith(
-      saveAddress: freezed == saveAddress
-          ? _value.saveAddress
-          : saveAddress // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      productItemId: freezed == productItemId
-          ? _value.productItemId
-          : productItemId // ignore: cast_nullable_to_non_nullable
-              as String?,
       userNameBuyer: freezed == userNameBuyer
           ? _value.userNameBuyer
           : userNameBuyer // ignore: cast_nullable_to_non_nullable
+              as String?,
+      avatarBuyer: freezed == avatarBuyer
+          ? _value.avatarBuyer
+          : avatarBuyer // ignore: cast_nullable_to_non_nullable
+              as String?,
+      avatarBuyerUrl: freezed == avatarBuyerUrl
+          ? _value.avatarBuyerUrl
+          : avatarBuyerUrl // ignore: cast_nullable_to_non_nullable
               as String?,
       address: freezed == address
           ? _value.address
@@ -121,17 +123,18 @@ class _$BuyASaleListingModelCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_BuyASaleListingModelCopyWith<$Res>
-    implements $BuyASaleListingModelCopyWith<$Res> {
-  factory _$$_BuyASaleListingModelCopyWith(_$_BuyASaleListingModel value,
-          $Res Function(_$_BuyASaleListingModel) then) =
-      __$$_BuyASaleListingModelCopyWithImpl<$Res>;
+abstract class _$$_BuyUserForSaleListingModelCopyWith<$Res>
+    implements $BuyUserForSaleListingModelCopyWith<$Res> {
+  factory _$$_BuyUserForSaleListingModelCopyWith(
+          _$_BuyUserForSaleListingModel value,
+          $Res Function(_$_BuyUserForSaleListingModel) then) =
+      __$$_BuyUserForSaleListingModelCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {bool? saveAddress,
-      String? productItemId,
-      String? userNameBuyer,
+      {String? userNameBuyer,
+      String? avatarBuyer,
+      String? avatarBuyerUrl,
       AddressesPayloadModel? address,
       PeerToPeerPaymentsModel? profilePeerToPeerPayment});
 
@@ -142,34 +145,36 @@ abstract class _$$_BuyASaleListingModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_BuyASaleListingModelCopyWithImpl<$Res>
-    extends _$BuyASaleListingModelCopyWithImpl<$Res, _$_BuyASaleListingModel>
-    implements _$$_BuyASaleListingModelCopyWith<$Res> {
-  __$$_BuyASaleListingModelCopyWithImpl(_$_BuyASaleListingModel _value,
-      $Res Function(_$_BuyASaleListingModel) _then)
+class __$$_BuyUserForSaleListingModelCopyWithImpl<$Res>
+    extends _$BuyUserForSaleListingModelCopyWithImpl<$Res,
+        _$_BuyUserForSaleListingModel>
+    implements _$$_BuyUserForSaleListingModelCopyWith<$Res> {
+  __$$_BuyUserForSaleListingModelCopyWithImpl(
+      _$_BuyUserForSaleListingModel _value,
+      $Res Function(_$_BuyUserForSaleListingModel) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? saveAddress = freezed,
-    Object? productItemId = freezed,
     Object? userNameBuyer = freezed,
+    Object? avatarBuyer = freezed,
+    Object? avatarBuyerUrl = freezed,
     Object? address = freezed,
     Object? profilePeerToPeerPayment = freezed,
   }) {
-    return _then(_$_BuyASaleListingModel(
-      saveAddress: freezed == saveAddress
-          ? _value.saveAddress
-          : saveAddress // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      productItemId: freezed == productItemId
-          ? _value.productItemId
-          : productItemId // ignore: cast_nullable_to_non_nullable
-              as String?,
+    return _then(_$_BuyUserForSaleListingModel(
       userNameBuyer: freezed == userNameBuyer
           ? _value.userNameBuyer
           : userNameBuyer // ignore: cast_nullable_to_non_nullable
+              as String?,
+      avatarBuyer: freezed == avatarBuyer
+          ? _value.avatarBuyer
+          : avatarBuyer // ignore: cast_nullable_to_non_nullable
+              as String?,
+      avatarBuyerUrl: freezed == avatarBuyerUrl
+          ? _value.avatarBuyerUrl
+          : avatarBuyerUrl // ignore: cast_nullable_to_non_nullable
               as String?,
       address: freezed == address
           ? _value.address
@@ -185,24 +190,24 @@ class __$$_BuyASaleListingModelCopyWithImpl<$Res>
 
 /// @nodoc
 
-@JsonSerializable()
-class _$_BuyASaleListingModel implements _BuyASaleListingModel {
-  const _$_BuyASaleListingModel(
-      {this.saveAddress,
-      this.productItemId,
-      this.userNameBuyer,
+@JsonSerializable(includeIfNull: false)
+class _$_BuyUserForSaleListingModel implements _BuyUserForSaleListingModel {
+  const _$_BuyUserForSaleListingModel(
+      {this.userNameBuyer,
+      this.avatarBuyer,
+      this.avatarBuyerUrl,
       this.address,
       this.profilePeerToPeerPayment});
 
-  factory _$_BuyASaleListingModel.fromJson(Map<String, dynamic> json) =>
-      _$$_BuyASaleListingModelFromJson(json);
+  factory _$_BuyUserForSaleListingModel.fromJson(Map<String, dynamic> json) =>
+      _$$_BuyUserForSaleListingModelFromJson(json);
 
   @override
-  final bool? saveAddress;
-  @override
-  final String? productItemId;
-  @override
   final String? userNameBuyer;
+  @override
+  final String? avatarBuyer;
+  @override
+  final String? avatarBuyerUrl;
   @override
   final AddressesPayloadModel? address;
   @override
@@ -210,20 +215,20 @@ class _$_BuyASaleListingModel implements _BuyASaleListingModel {
 
   @override
   String toString() {
-    return 'BuyASaleListingModel(saveAddress: $saveAddress, productItemId: $productItemId, userNameBuyer: $userNameBuyer, address: $address, profilePeerToPeerPayment: $profilePeerToPeerPayment)';
+    return 'BuyUserForSaleListingModel(userNameBuyer: $userNameBuyer, avatarBuyer: $avatarBuyer, avatarBuyerUrl: $avatarBuyerUrl, address: $address, profilePeerToPeerPayment: $profilePeerToPeerPayment)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_BuyASaleListingModel &&
-            (identical(other.saveAddress, saveAddress) ||
-                other.saveAddress == saveAddress) &&
-            (identical(other.productItemId, productItemId) ||
-                other.productItemId == productItemId) &&
+            other is _$_BuyUserForSaleListingModel &&
             (identical(other.userNameBuyer, userNameBuyer) ||
                 other.userNameBuyer == userNameBuyer) &&
+            (identical(other.avatarBuyer, avatarBuyer) ||
+                other.avatarBuyer == avatarBuyer) &&
+            (identical(other.avatarBuyerUrl, avatarBuyerUrl) ||
+                other.avatarBuyerUrl == avatarBuyerUrl) &&
             (identical(other.address, address) || other.address == address) &&
             (identical(
                     other.profilePeerToPeerPayment, profilePeerToPeerPayment) ||
@@ -232,48 +237,49 @@ class _$_BuyASaleListingModel implements _BuyASaleListingModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, saveAddress, productItemId,
-      userNameBuyer, address, profilePeerToPeerPayment);
+  int get hashCode => Object.hash(runtimeType, userNameBuyer, avatarBuyer,
+      avatarBuyerUrl, address, profilePeerToPeerPayment);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_BuyASaleListingModelCopyWith<_$_BuyASaleListingModel> get copyWith =>
-      __$$_BuyASaleListingModelCopyWithImpl<_$_BuyASaleListingModel>(
-          this, _$identity);
+  _$$_BuyUserForSaleListingModelCopyWith<_$_BuyUserForSaleListingModel>
+      get copyWith => __$$_BuyUserForSaleListingModelCopyWithImpl<
+          _$_BuyUserForSaleListingModel>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_BuyASaleListingModelToJson(
+    return _$$_BuyUserForSaleListingModelToJson(
       this,
     );
   }
 }
 
-abstract class _BuyASaleListingModel implements BuyASaleListingModel {
-  const factory _BuyASaleListingModel(
-          {final bool? saveAddress,
-          final String? productItemId,
-          final String? userNameBuyer,
+abstract class _BuyUserForSaleListingModel
+    implements BuyUserForSaleListingModel {
+  const factory _BuyUserForSaleListingModel(
+          {final String? userNameBuyer,
+          final String? avatarBuyer,
+          final String? avatarBuyerUrl,
           final AddressesPayloadModel? address,
           final PeerToPeerPaymentsModel? profilePeerToPeerPayment}) =
-      _$_BuyASaleListingModel;
+      _$_BuyUserForSaleListingModel;
 
-  factory _BuyASaleListingModel.fromJson(Map<String, dynamic> json) =
-      _$_BuyASaleListingModel.fromJson;
+  factory _BuyUserForSaleListingModel.fromJson(Map<String, dynamic> json) =
+      _$_BuyUserForSaleListingModel.fromJson;
 
-  @override
-  bool? get saveAddress;
-  @override
-  String? get productItemId;
   @override
   String? get userNameBuyer;
+  @override
+  String? get avatarBuyer;
+  @override
+  String? get avatarBuyerUrl;
   @override
   AddressesPayloadModel? get address;
   @override
   PeerToPeerPaymentsModel? get profilePeerToPeerPayment;
   @override
   @JsonKey(ignore: true)
-  _$$_BuyASaleListingModelCopyWith<_$_BuyASaleListingModel> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$_BuyUserForSaleListingModelCopyWith<_$_BuyUserForSaleListingModel>
+      get copyWith => throw _privateConstructorUsedError;
 }
