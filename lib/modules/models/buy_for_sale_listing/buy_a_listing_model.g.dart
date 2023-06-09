@@ -11,6 +11,7 @@ _$_BuyASaleListingModel _$$_BuyASaleListingModelFromJson(
     _$_BuyASaleListingModel(
       saveAddress: json['saveAddress'] as bool?,
       productItemId: json['productItemId'] as String?,
+      userNameBuyer: json['userNameBuyer'] as String?,
       address: json['address'] == null
           ? null
           : AddressesPayloadModel.fromJson(
@@ -26,6 +27,7 @@ Map<String, dynamic> _$$_BuyASaleListingModelToJson(
     <String, dynamic>{
       'saveAddress': instance.saveAddress,
       'productItemId': instance.productItemId,
+      'userNameBuyer': instance.userNameBuyer,
       'address': instance.address,
       'profilePeerToPeerPayment': instance.profilePeerToPeerPayment,
     };

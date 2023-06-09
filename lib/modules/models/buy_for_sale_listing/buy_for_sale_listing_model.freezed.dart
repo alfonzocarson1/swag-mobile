@@ -37,6 +37,8 @@ mixin _$BuyForSaleListingModel {
   String? get status => throw _privateConstructorUsedError;
   PeerToPeerPaymentsModel? get peerToPeerPaymentOptions =>
       throw _privateConstructorUsedError;
+  BuyUserForSaleListingModel? get submitPurchaseInfo =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -65,9 +67,11 @@ abstract class $BuyForSaleListingModelCopyWith<$Res> {
       bool? sold,
       bool? isDeleted,
       String? status,
-      PeerToPeerPaymentsModel? peerToPeerPaymentOptions});
+      PeerToPeerPaymentsModel? peerToPeerPaymentOptions,
+      BuyUserForSaleListingModel? submitPurchaseInfo});
 
   $PeerToPeerPaymentsModelCopyWith<$Res>? get peerToPeerPaymentOptions;
+  $BuyUserForSaleListingModelCopyWith<$Res>? get submitPurchaseInfo;
 }
 
 /// @nodoc
@@ -99,6 +103,7 @@ class _$BuyForSaleListingModelCopyWithImpl<$Res,
     Object? isDeleted = freezed,
     Object? status = freezed,
     Object? peerToPeerPaymentOptions = freezed,
+    Object? submitPurchaseInfo = freezed,
   }) {
     return _then(_value.copyWith(
       productItemId: freezed == productItemId
@@ -161,6 +166,10 @@ class _$BuyForSaleListingModelCopyWithImpl<$Res,
           ? _value.peerToPeerPaymentOptions
           : peerToPeerPaymentOptions // ignore: cast_nullable_to_non_nullable
               as PeerToPeerPaymentsModel?,
+      submitPurchaseInfo: freezed == submitPurchaseInfo
+          ? _value.submitPurchaseInfo
+          : submitPurchaseInfo // ignore: cast_nullable_to_non_nullable
+              as BuyUserForSaleListingModel?,
     ) as $Val);
   }
 
@@ -174,6 +183,19 @@ class _$BuyForSaleListingModelCopyWithImpl<$Res,
     return $PeerToPeerPaymentsModelCopyWith<$Res>(
         _value.peerToPeerPaymentOptions!, (value) {
       return _then(_value.copyWith(peerToPeerPaymentOptions: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $BuyUserForSaleListingModelCopyWith<$Res>? get submitPurchaseInfo {
+    if (_value.submitPurchaseInfo == null) {
+      return null;
+    }
+
+    return $BuyUserForSaleListingModelCopyWith<$Res>(_value.submitPurchaseInfo!,
+        (value) {
+      return _then(_value.copyWith(submitPurchaseInfo: value) as $Val);
     });
   }
 }
@@ -201,10 +223,13 @@ abstract class _$$_BuyForSaleListingModelCopyWith<$Res>
       bool? sold,
       bool? isDeleted,
       String? status,
-      PeerToPeerPaymentsModel? peerToPeerPaymentOptions});
+      PeerToPeerPaymentsModel? peerToPeerPaymentOptions,
+      BuyUserForSaleListingModel? submitPurchaseInfo});
 
   @override
   $PeerToPeerPaymentsModelCopyWith<$Res>? get peerToPeerPaymentOptions;
+  @override
+  $BuyUserForSaleListingModelCopyWith<$Res>? get submitPurchaseInfo;
 }
 
 /// @nodoc
@@ -234,6 +259,7 @@ class __$$_BuyForSaleListingModelCopyWithImpl<$Res>
     Object? isDeleted = freezed,
     Object? status = freezed,
     Object? peerToPeerPaymentOptions = freezed,
+    Object? submitPurchaseInfo = freezed,
   }) {
     return _then(_$_BuyForSaleListingModel(
       productItemId: freezed == productItemId
@@ -296,13 +322,17 @@ class __$$_BuyForSaleListingModelCopyWithImpl<$Res>
           ? _value.peerToPeerPaymentOptions
           : peerToPeerPaymentOptions // ignore: cast_nullable_to_non_nullable
               as PeerToPeerPaymentsModel?,
+      submitPurchaseInfo: freezed == submitPurchaseInfo
+          ? _value.submitPurchaseInfo
+          : submitPurchaseInfo // ignore: cast_nullable_to_non_nullable
+              as BuyUserForSaleListingModel?,
     ));
   }
 }
 
 /// @nodoc
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class _$_BuyForSaleListingModel implements _BuyForSaleListingModel {
   const _$_BuyForSaleListingModel(
       {this.productItemId,
@@ -319,7 +349,8 @@ class _$_BuyForSaleListingModel implements _BuyForSaleListingModel {
       this.sold,
       this.isDeleted,
       this.status,
-      this.peerToPeerPaymentOptions})
+      this.peerToPeerPaymentOptions,
+      this.submitPurchaseInfo})
       : _productItemImageUrls = productItemImageUrls;
 
   factory _$_BuyForSaleListingModel.fromJson(Map<String, dynamic> json) =>
@@ -362,10 +393,12 @@ class _$_BuyForSaleListingModel implements _BuyForSaleListingModel {
   final String? status;
   @override
   final PeerToPeerPaymentsModel? peerToPeerPaymentOptions;
+  @override
+  final BuyUserForSaleListingModel? submitPurchaseInfo;
 
   @override
   String toString() {
-    return 'BuyForSaleListingModel(productItemId: $productItemId, productItemName: $productItemName, productItemPrice: $productItemPrice, productItemImageUrls: $productItemImageUrls, productItemDescription: $productItemDescription, condition: $condition, profileId: $profileId, catalogItemId: $catalogItemId, profileCollectionItemId: $profileCollectionItemId, lastSale: $lastSale, forSale: $forSale, sold: $sold, isDeleted: $isDeleted, status: $status, peerToPeerPaymentOptions: $peerToPeerPaymentOptions)';
+    return 'BuyForSaleListingModel(productItemId: $productItemId, productItemName: $productItemName, productItemPrice: $productItemPrice, productItemImageUrls: $productItemImageUrls, productItemDescription: $productItemDescription, condition: $condition, profileId: $profileId, catalogItemId: $catalogItemId, profileCollectionItemId: $profileCollectionItemId, lastSale: $lastSale, forSale: $forSale, sold: $sold, isDeleted: $isDeleted, status: $status, peerToPeerPaymentOptions: $peerToPeerPaymentOptions, submitPurchaseInfo: $submitPurchaseInfo)';
   }
 
   @override
@@ -401,7 +434,9 @@ class _$_BuyForSaleListingModel implements _BuyForSaleListingModel {
             (identical(other.status, status) || other.status == status) &&
             (identical(
                     other.peerToPeerPaymentOptions, peerToPeerPaymentOptions) ||
-                other.peerToPeerPaymentOptions == peerToPeerPaymentOptions));
+                other.peerToPeerPaymentOptions == peerToPeerPaymentOptions) &&
+            (identical(other.submitPurchaseInfo, submitPurchaseInfo) ||
+                other.submitPurchaseInfo == submitPurchaseInfo));
   }
 
   @JsonKey(ignore: true)
@@ -422,7 +457,8 @@ class _$_BuyForSaleListingModel implements _BuyForSaleListingModel {
       sold,
       isDeleted,
       status,
-      peerToPeerPaymentOptions);
+      peerToPeerPaymentOptions,
+      submitPurchaseInfo);
 
   @JsonKey(ignore: true)
   @override
@@ -455,7 +491,8 @@ abstract class _BuyForSaleListingModel implements BuyForSaleListingModel {
           final bool? sold,
           final bool? isDeleted,
           final String? status,
-          final PeerToPeerPaymentsModel? peerToPeerPaymentOptions}) =
+          final PeerToPeerPaymentsModel? peerToPeerPaymentOptions,
+          final BuyUserForSaleListingModel? submitPurchaseInfo}) =
       _$_BuyForSaleListingModel;
 
   factory _BuyForSaleListingModel.fromJson(Map<String, dynamic> json) =
@@ -491,6 +528,8 @@ abstract class _BuyForSaleListingModel implements BuyForSaleListingModel {
   String? get status;
   @override
   PeerToPeerPaymentsModel? get peerToPeerPaymentOptions;
+  @override
+  BuyUserForSaleListingModel? get submitPurchaseInfo;
   @override
   @JsonKey(ignore: true)
   _$$_BuyForSaleListingModelCopyWith<_$_BuyForSaleListingModel> get copyWith =>

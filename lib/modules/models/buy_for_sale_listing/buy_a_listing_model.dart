@@ -12,6 +12,7 @@ class BuyASaleListingModel with _$BuyASaleListingModel {
   const factory BuyASaleListingModel({
     final bool? saveAddress,
     final String? productItemId,
+    final String? userNameBuyer,
     final AddressesPayloadModel? address,
     final PeerToPeerPaymentsModel? profilePeerToPeerPayment,
   }) = _BuyASaleListingModel;

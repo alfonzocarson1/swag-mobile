@@ -52,6 +52,8 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
   late DetailCollectionModel collectionModel;
   List<File> tempFiles = [];
   late SalesHistoryListModel salesHistoryList;
+  String? profileURL;
+  String? defaultImage;
 
   BuyForSaleListingModel listData =
       const BuyForSaleListingModel(productItemImageUrls: ['']);
@@ -97,6 +99,23 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                       (BuyForSaleListingModel listDataResponse) {
                     setState(() {
                       listData = listDataResponse;
+
+                      if (listData.submitPurchaseInfo != null) {
+                        if (listData.submitPurchaseInfo!.avatarBuyer !=
+                            'CUSTOM') {
+                          var data = imagesList.where((avatar) => (avatar["id"]
+                              .contains(
+                                  listData.submitPurchaseInfo!.avatarBuyer ??
+                                      profileData.useAvatar)));
+
+                          defaultImage = data.first['url'];
+                        } else {
+                          profileURL = listData
+                                  .submitPurchaseInfo!.avatarBuyerUrl ??
+                              'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Franklin.png?alt=media&token=c1073f88-74c2-44c8-a287-fbe0caebf878';
+                        }
+                      }
+
                       (profileData.accountId == listData.profileId)
                           ? overlayItems = editListingDropDown
                           : overlayItems = reportListingDropDown;
@@ -113,8 +132,8 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                     child: Stack(
                       children: [
                         LayoutBuilder(builder: (context, viewportConstraints) {
-
-                          String productItemName = listData.productItemName ?? "";                          
+                          String productItemName =
+                              listData.productItemName ?? "";
                           String condition = listData.condition ?? "";
 
                           return SingleChildScrollView(
@@ -142,7 +161,8 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                             Expanded(
                                                 flex: 6,
                                                 child: Text(
-                                                    productItemName.toUpperCase(),
+                                                    productItemName
+                                                        .toUpperCase(),
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .displayLarge!
@@ -425,48 +445,172 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                               )
                                             : Column(
                                                 children: [
-                                                  FooterListItemPage(
-                                                    productItemId: this.widget.dataItem.productItemId ?? '', 
-                                                    showChatButton: true,
-                                                  ),
-                                                  const SizedBox(height: 30),
                                                   Visibility(
                                                     visible: listData.status ==
                                                         'listed',
-                                                    child: PrimaryButton(
-                                                      title:
-                                                          '${S.of(context).buy_for}  ${decimalDigitsLastSalePrice(listData.lastSale.toString())}',
-                                                      onPressed: null,
-                                                      type: PrimaryButtonType
-                                                          .grey,
+                                                    child: Column(
+                                                      children: [
+                                                        FooterListItemPage(
+                                                          productItemId: this.widget.dataItem.productItemId ?? '', 
+                                                          showChatButton: true,
+                                                        ),
+                                                        const SizedBox(
+                                                            height: 30),
+                                                        PrimaryButton(
+                                                          title:
+                                                              '${S.of(context).buy_for}  ${decimalDigitsLastSalePrice(listData.lastSale.toString())}',
+                                                          onPressed: null,
+                                                          type:
+                                                              PrimaryButtonType
+                                                                  .grey,
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
+                                                  listData.submitPurchaseInfo !=
+                                                          null
+                                                      ? Column(
+                                                          children: [
+                                                            Container(
+                                                              padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      15,
+                                                                  vertical: 20),
+                                                              width:
+                                                                  MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width,
+                                                              decoration: BoxDecoration(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              5),
+                                                                  border: Border.all(
+                                                                      color: Palette
+                                                                          .current
+                                                                          .primaryNeonGreen),
+                                                                  color: Colors
+                                                                      .transparent),
+                                                              child: Row(
+                                                                children: [
+                                                                  Expanded(
+                                                                    flex: 1,
+                                                                    child:
+                                                                        Align(
+                                                                      alignment:
+                                                                          Alignment
+                                                                              .centerLeft,
+                                                                      child:
+                                                                          SizedBox(
+                                                                        height:
+                                                                            40,
+                                                                        width:
+                                                                            40,
+                                                                        child:
+                                                                            CircleAvatar(
+                                                                          backgroundColor:
+                                                                              Colors.transparent,
+                                                                          backgroundImage:
+                                                                              const AssetImage('assets/images/Avatar.png'),
+                                                                          foregroundImage: profileURL != null
+                                                                              ? NetworkImage('$profileURL')
+                                                                              : NetworkImage('$defaultImage'),
+                                                                          radius:
+                                                                              75,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  const SizedBox(
+                                                                    width: 10.0,
+                                                                  ),
+                                                                  Expanded(
+                                                                      flex: 8,
+                                                                      child:
+                                                                          Column(
+                                                                        children: [
+                                                                          Align(
+                                                                            alignment:
+                                                                                Alignment.centerLeft,
+                                                                            child:
+                                                                                Text('@${listData.submitPurchaseInfo!.userNameBuyer} ${S.of(context).seller_buy_message}', style: Theme.of(context).textTheme.bodySmall!.copyWith(fontWeight: FontWeight.w400, fontSize: 14.0, color: Palette.current.primaryWhiteSmoke)),
+                                                                          ),
+                                                                        ],
+                                                                      ))
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            const SizedBox(
+                                                              height: 3,
+                                                            ),
+                                                            RichText(
+                                                              text: TextSpan(
+                                                                  children: [
+                                                                    TextSpan(
+                                                                        text:
+                                                                            '@${listData.submitPurchaseInfo!.userNameBuyer} will paying using ',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontSize:
+                                                                              12,
+                                                                          color: Palette
+                                                                              .current
+                                                                              .darkGray,
+                                                                        )),
+                                                                    TextSpan(
+                                                                        text: listData.submitPurchaseInfo!.profilePeerToPeerPayment!.cashTag !=
+                                                                                null
+                                                                            ? 'CashApp'
+                                                                            : listData.submitPurchaseInfo!.profilePeerToPeerPayment!.venmoUser != null
+                                                                                ? 'Venmo'
+                                                                                : listData.submitPurchaseInfo!.profilePeerToPeerPayment!.payPalEmail != null
+                                                                                    ? 'PayPal'
+                                                                                    : '',
+                                                                        style: TextStyle(
+                                                                          fontSize:
+                                                                              12,
+                                                                          color: Palette
+                                                                              .current
+                                                                              .blueNeon,
+                                                                        )),
+                                                                  ]),
+                                                            ),
+                                                            const SizedBox(
+                                                                height: 30),
+                                                          ],
+                                                        )
+                                                      : Container(),
                                                   Visibility(
                                                       visible: listData
                                                               .status ==
                                                           'pendingSellerConfirmation',
-                                                      child: PrimaryButton(
-                                                        title: S
-                                                            .of(context)
-                                                            .complete_sale_btn
-                                                            .toUpperCase(),
-                                                        onPressed: () {},
-                                                        type: PrimaryButtonType
-                                                            .green,
-                                                      )),
-                                                  const SizedBox(height: 20),
-                                                  Visibility(
-                                                      visible: listData
-                                                              .status ==
-                                                          'pendingSellerConfirmation',
-                                                      child: PrimaryButton(
-                                                        title: S
-                                                            .of(context)
-                                                            .cancel_sale_btn
-                                                            .toUpperCase(),
-                                                        onPressed: () {},
-                                                        type: PrimaryButtonType
-                                                            .pink,
+                                                      child: Column(
+                                                        children: [
+                                                          PrimaryButton(
+                                                            title: S
+                                                                .of(context)
+                                                                .complete_sale_btn
+                                                                .toUpperCase(),
+                                                            onPressed: () {},
+                                                            type:
+                                                                PrimaryButtonType
+                                                                    .green,
+                                                          ),
+                                                          const SizedBox(
+                                                              height: 20),
+                                                          PrimaryButton(
+                                                            title: S
+                                                                .of(context)
+                                                                .cancel_sale_btn
+                                                                .toUpperCase(),
+                                                            onPressed: () {},
+                                                            type:
+                                                                PrimaryButtonType
+                                                                    .pink,
+                                                          )
+                                                        ],
                                                       )),
                                                   const SizedBox(height: 30),
                                                 ],

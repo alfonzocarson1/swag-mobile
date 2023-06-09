@@ -2840,6 +2840,16 @@ class S {
     );
   }
 
+  /// `has agreed to purchase your Golden King Cover`
+  String get seller_buy_message {
+    return Intl.message(
+      'has agreed to purchase your Golden King Cover',
+      name: 'seller_buy_message',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Chat`
   String get chatChat {
     return Intl.message(
