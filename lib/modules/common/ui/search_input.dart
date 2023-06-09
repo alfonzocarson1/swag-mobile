@@ -131,7 +131,9 @@ class _SearchInputState extends State<SearchInput> {
             style: Theme.of(context)
                 .textTheme
                 .bodySmall!
-                .copyWith(color: Palette.current.darkGray),
+                .copyWith(
+                  letterSpacing: 0.2,
+                  color: Palette.current.darkGray),
             isEnabled: widget.enabled,
             helperText: widget.hint,
             controller: _textEditingController,

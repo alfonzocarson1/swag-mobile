@@ -82,7 +82,7 @@ class _SoldPageState extends State<SoldPage> {
                       Stack(
                         children: [
                           SizedBox(
-                            height: MediaQuery.of(context).size.width * 0.38,
+                            height: MediaQuery.of(context).size.width * 0.37,
                             child: ClipRRect(
                               child: CachedNetworkImage(
                                 fit: BoxFit.fitHeight,
@@ -107,7 +107,7 @@ class _SoldPageState extends State<SoldPage> {
                       const SizedBox(
                         height: 5,
                       ),
-                      Text(soldList[index].catalogItemName,
+                      Text(soldList[index].catalogItemName.toUpperCase(),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context)
@@ -117,7 +117,7 @@ class _SoldPageState extends State<SoldPage> {
                                   letterSpacing: 1,
                                   fontWeight: FontWeight.w300,
                                   fontFamily: "KnockoutCustom",
-                                  fontSize: 24,
+                                  fontSize: 21,
                                   color: Palette.current.white)),
                       Text(
                           soldList[index].forSale

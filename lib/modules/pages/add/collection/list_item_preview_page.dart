@@ -173,7 +173,7 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                     MultiImageSlide(
                       imgList: widget.imgList,
                     ),
-                    const SizedBox(height: 4),
+                    const SizedBox(height: 20),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Column(
@@ -183,12 +183,12 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                             children: [
                               Expanded(
                                   flex: 6,
-                                  child: Text(widget.itemName,
+                                  child: Text(widget.itemName.toUpperCase(),
                                       style: Theme.of(context)
                                           .textTheme
                                           .displayLarge!
                                           .copyWith(
-                                              letterSpacing: 1,
+                                              letterSpacing: 0.8,
                                               fontWeight: FontWeight.w300,
                                               fontFamily: "KnockoutCustom",
                                               fontSize: 30,
@@ -208,7 +208,7 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                                         color:
                                             Palette.current.primaryNeonGreen)),
                           ),
-                          const SizedBox(height: 10),
+                          const SizedBox(height: 24),
                           Row(
                             children: [
                               Align(
@@ -219,7 +219,8 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                                         .textTheme
                                         .bodySmall!
                                         .copyWith(
-                                            fontWeight: FontWeight.w400,
+                                            fontWeight: FontWeight.w300,
+                                            letterSpacing: 0.3,
                                             color: Palette
                                                 .current.primaryWhiteSmoke)),
                               ),
@@ -258,7 +259,7 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                               )
                             ],
                           ),
-                          const SizedBox(height: 10),
+                          const SizedBox(height: 23),
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
@@ -271,17 +272,18 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                                         color:
                                             Palette.current.primaryNeonPink)),
                           ),
-                          const SizedBox(height: 10),
+                          const SizedBox(height: 17),
                           Container(
                             height:
-                                MediaQuery.of(context).devicePixelRatio * 70,
+                                MediaQuery.of(context).devicePixelRatio * 50
+                                ,
                             padding: const EdgeInsets.only(right: 50.0),
                             child: Text(widget.itemDescription,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall!
                                     .copyWith(
-                                      fontSize: 15,
+                                      fontSize: 16,
                                       letterSpacing: 0.3,
                                       color: Palette.current.primaryWhiteSmoke,
                                     )),

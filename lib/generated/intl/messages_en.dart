@@ -145,7 +145,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Didn’t get an email? "),
         "displayed": MessageLookupByLibrary.simpleMessage("Displayed"),
         "displayed_gamed":
-            MessageLookupByLibrary.simpleMessage("DISPLAYED/GAMED:"),
+            MessageLookupByLibrary.simpleMessage("DISPLAYED /GAMED:"),
         "displayed_gamed_item_four": MessageLookupByLibrary.simpleMessage(
             "•  Minimum of 4, Maximum of 6"),
         "displayed_gamed_item_three":

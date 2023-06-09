@@ -94,6 +94,7 @@ class _ListingsPageState extends State<ListingsPage> {
                   ListingForSaleModel listItem = listingList[index];
                   var catalogItemId = listingList[index].catalogItemId;
                   var imageUrls = listingList[index].productItemImageUrls ?? [];
+                  var productItemName = listingList[index].productItemName ?? "";
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -148,7 +149,7 @@ class _ListingsPageState extends State<ListingsPage> {
                       const SizedBox(
                         height: 5
                       ),
-                      Text(listingList[index].productItemName ?? '',
+                      Text(productItemName.toUpperCase(),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context)
@@ -158,7 +159,7 @@ class _ListingsPageState extends State<ListingsPage> {
                                   letterSpacing: 1,
                                   fontWeight: FontWeight.w300,
                                   fontFamily: "KnockoutCustom",
-                                  fontSize: 24,
+                                  fontSize: 21,
                                   color: Palette.current.white)),
                       Text(
                           '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(listingList[index].lastSale.toString())}',
