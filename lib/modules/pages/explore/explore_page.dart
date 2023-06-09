@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sendbird_sdk/sendbird_sdk.dart';
+import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
 
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/data/filters/filters_service.dart';
+import 'package:swagapp/modules/models/chat/chat_data.dart';
 import 'package:swagapp/modules/models/filters/dynamic_filters.dart';
 
 import ' shop_by_category_page.dart';
@@ -14,7 +18,6 @@ import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 
 import '../../models/explore/explore_payload_model.dart';
-import '../../models/profile/profile_model.dart';
 import 'account_info.dart';
 import 'staff_picks_page.dart';
 import 'unicorn_covers_page.dart';
@@ -36,7 +39,7 @@ class ExplorePage extends StatefulWidget {
   State<ExplorePage> createState() => _ExplorePageState();
 }
 
-class _ExplorePageState extends State<ExplorePage> {
+class _ExplorePageState extends State<ExplorePage> with ChannelEventHandler {
   bool _isLogged = false;
   bool _hasJustSignedUp = false;
 
@@ -45,6 +48,11 @@ class _ExplorePageState extends State<ExplorePage> {
 
   @override
   void initState() {
+
+    this.initSendBirdApp();
+    this.loadDynamicFilters();
+    context.read<ChatBloc>().sendBirdSdk.addChannelEventHandler('identifier', this);
+
     getIt<PeerToPeerPaymentsCubit>().getPyments();
 
     getIt<ExploreCubit>()
@@ -55,7 +63,6 @@ class _ExplorePageState extends State<ExplorePage> {
     getIt<ExploreCubit>()
         .getStaff(const ExploreRequestPayloadModel(staffPicksFlag: true));
 
-    this.loadDynamicFilters();
     this._isLogged = getIt<PreferenceRepositoryService>().isLogged();
     this._hasJustSignedUp =
         getIt<PreferenceRepositoryService>().hasJustSignedUp();
@@ -131,5 +138,32 @@ class _ExplorePageState extends State<ExplorePage> {
       await getIt<PreferenceRepositoryService>()
           .saveDynamicFilters(dynamicFilters);
     });
+  }
+
+  void initSendBirdApp() {
+    
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+
+      ChatBloc chatBloc = context.read<ChatBloc>();
+
+      await chatBloc.initSendBirdApp();
+      await chatBloc.getChannels();
+    });
+  }
+
+  @override
+  void onMessageReceived(BaseChannel channel, BaseMessage message) async {
+
+    ChatBloc chatBloc = context.read<ChatBloc>();
+    ChatData chatData = chatBloc.state.chats.firstWhere((ChatData chat) {
+      return chat.channel.channelUrl == channel.channelUrl;
+    });
+
+    await chatBloc.receiveMessage(
+      chatData: chatData, 
+      message: message,
+    );
+
+    super.onMessageReceived(channel, message);
   }
 }

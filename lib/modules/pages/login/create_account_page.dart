@@ -458,6 +458,8 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                 title:
                                     S.of(context).create_account.toUpperCase(),
                                 onPressed: () {
+                                  
+                                  String deviceId = getIt<PreferenceRepositoryService>().getFirebaseDeviceToken();
                                   showErrors();
                                   if (areFieldsValid()) {
                                     context.read<AuthBloc>().add(AuthEvent
@@ -469,7 +471,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                             userName: _usernameController.text,
                                             termsOfServiceAccepted:
                                                 checkBoxValue,
-                                            deviceId: defaultString)));
+                                            deviceId: deviceId)));
                                   }
                                 },
                                 type: PrimaryButtonType.green,

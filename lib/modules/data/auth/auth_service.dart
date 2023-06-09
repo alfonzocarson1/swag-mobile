@@ -1,4 +1,3 @@
-import 'package:swagapp/modules/constants/constants.dart';
 import 'package:swagapp/modules/models/auth/create_account_response_model.dart';
 import 'package:swagapp/modules/pages/login/create_account_page.dart';
 
@@ -20,11 +19,11 @@ class AuthService extends IAuthService {
 
   @override
   Future<CreateAccountResponseModel> authenticate(
-      String email, String password) async {
+      String email, String password, String deviceId) async {
     final response = await apiService.getEndpointData(
       endpoint: Endpoint.login,
       method: RequestMethod.post,
-      body: {"password": password, "email": email, "deviceId": defaultString},
+      body: {"password": password, "email": email, "deviceId": deviceId},
       fromJson: (json) => CreateAccountResponseModel.fromJson(json),
     );
     return response;

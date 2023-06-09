@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
+import 'package:swagapp/modules/common/assets/icons.dart';
+import 'package:swagapp/modules/common/ui/custom_outline_button.dart';
+import 'package:swagapp/modules/common/ui/loading.dart';
+import 'package:swagapp/modules/models/chat/chat_data.dart';
+import 'package:swagapp/modules/pages/chat/chat_page.dart';
 
 import '../../../../generated/l10n.dart';
-import '../../../common/ui/list_item_preview_rating_ui.dart';
-import '../../../common/ui/rating_ui.dart';
 import '../../../common/utils/palette.dart';
 import '../../../common/utils/utils.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
@@ -10,9 +15,16 @@ import '../../../di/injector.dart';
 import '../../../models/profile/profile_model.dart';
 
 class FooterListItemPage extends StatefulWidget {
-  FooterListItemPage({super.key, this.addList});
 
-  bool? addList = false;
+  FooterListItemPage({super.key, 
+    this.addList, 
+    required this.showChatButton, 
+    required this.productItemId,
+  });
+
+  final bool showChatButton;
+  final String productItemId;
+  final bool? addList;
 
   @override
   State<FooterListItemPage> createState() => _FooterListItemPageState();
@@ -24,6 +36,8 @@ class _FooterListItemPageState extends State<FooterListItemPage> {
   double rating = 4;
   @override
   Widget build(BuildContext context) {
+
+    ChatBloc chatBloc = context.read<ChatBloc>();
     String? profileURL;
     String? defaultImage;
 
@@ -93,8 +107,32 @@ class _FooterListItemPageState extends State<FooterListItemPage> {
                 //   ),
                 // ),
               ],
-            ))
+            )),
+
+        const Spacer(),
+        CustomOutlineButton(
+          padding: 20,
+          iconPath: AppIcons.chat,
+          text: S.current.chatChat.toUpperCase(), 
+          onTap: ()=> this.onTapChat(chatBloc), 
+        ),
       ],
     );
+  }
+
+  Future<void> onTapChat(ChatBloc chatBloc) async {
+
+    try {
+
+      Loading.show(context);
+      await Future.delayed(const Duration(milliseconds: 500));
+      ChatData? chatData = await chatBloc.startNewChat(this.widget.productItemId);
+      Loading.hide(context);
+
+      await Navigator.of(context, rootNavigator: true).push(
+        MaterialPageRoute(builder: (BuildContext context)=> ChatPage(chatData: chatData)),
+      );        
+    } 
+    catch (e) { Loading.hide(context); }
   }
 }

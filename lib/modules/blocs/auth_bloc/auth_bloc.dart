@@ -90,6 +90,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           .savehasImportableData(response.hasImportableData);
       getIt<PreferenceRepositoryService>().saveAccountId(response.accountId);
 
+      getIt<PreferenceRepositoryService>().saveUserSendBirdId('c62b8700-a7e9-49d3-93a2-ae5219fd1d9d');
+      getIt<PreferenceRepositoryService>().saveUserSendBirdToken('9260e655bdbc50a65796fed280743b121c3de8e8');
+
       if (response.errorCode == successResponse) {
         yield const AuthState.authenticated();
       } else {
@@ -101,9 +104,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Stream<AuthState> _authenticate(String email, String password) async* {
+
     yield const AuthState.logging();
     try {
-      var response = await authService.authenticate(email, password);
+      
+      String deviceId = getIt<PreferenceRepositoryService>().getFirebaseDeviceToken();
+      var response = await authService.authenticate(email, password, deviceId);
+
+      getIt<PreferenceRepositoryService>().saveUserSendBirdId('c62b8700-a7e9-49d3-93a2-ae5219fd1d9d');
+      getIt<PreferenceRepositoryService>().saveUserSendBirdToken('9260e655bdbc50a65796fed280743b121c3de8e8');
+
       getIt<StorageRepositoryService>().saveToken(response.token);
       if (response.errorCode == successResponse ||
           response.errorCode == defaultString) {

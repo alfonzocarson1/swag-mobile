@@ -287,12 +287,19 @@
     "help_payment": "You must select at least one form of payment. You can manage these payment types in your settings.",
     "sale_pending_btn": "Sale pending",
     "complete_sale_btn": "COMPLETE SALE",
-    "cancel_sale_btn": "CANCEL SALE"
-    
+    "cancel_sale_btn": "CANCEL SALE",
 
+    "chatChat": "Chat",
+    "chatModeratorName": "SWAG",
+    "chatInputHintText": "Enter message",
+    "chatNoMessages": "No previous messages",
+    "chatTyping": "Typing...",
+    "chatErrorFile": "Error loading the file",
+    "chatLoadingFile": "Loading File...",
+    "chatToday": "Today",
+    "chatMessageFrom": "New message from {sender}",
+    "chatSwaggAdmin": "Swagg Admin",
 
-    
-   
-    
-
+    "chatsHeader": "ALERTS & Notifications",
+    "chatsUnreadMessages": "{chatsNumber} Unread"
 }
