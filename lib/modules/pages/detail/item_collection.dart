@@ -258,7 +258,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                           letterSpacing: 1,
                           fontWeight: FontWeight.w300,
                           fontFamily: "KnockoutCustom",
-                          fontSize: 27,
+                          fontSize: 28,
                           color: Palette.current.primaryNeonGreen)),
                   const SizedBox(
                     width: 10,
@@ -284,19 +284,19 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                               TextSpan(
                                   text: 'This item is not in your collection. ',
                                   style: TextStyle(
-                                    fontSize: 15,
+                                    fontSize: 16,
                                     color: Palette.current.primaryWhiteSmoke,
                                   )),
                               TextSpan(
                                   text: 'Select to be notified ',
                                   style: TextStyle(
-                                    fontSize: 15,
+                                    fontSize: 16,
                                     color: Palette.current.blueNeon,
                                   )),
                               TextSpan(
                                   text: 'when one becomes available.',
                                   style: TextStyle(
-                                    fontSize: 15,
+                                    fontSize: 16,
                                     color: Palette.current.primaryWhiteSmoke,
                                   ))
                             ]),
@@ -337,7 +337,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                               .textTheme
                                               .bodySmall!
                                               .copyWith(
-                                                fontSize: 15,
+                                                fontSize: 16,
                                                 color: Palette
                                                     .current.primaryWhiteSmoke,
                                               )),
@@ -350,7 +350,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                               .textTheme
                                               .bodySmall!
                                               .copyWith(
-                                                fontSize: 15,
+                                                fontSize: 16,
                                                 color: Palette
                                                     .current.primaryWhiteSmoke,
                                               )),
@@ -364,7 +364,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                               .textTheme
                                               .bodySmall!
                                               .copyWith(
-                                                fontSize: 15,
+                                                fontSize: 16,
                                                 color: Palette
                                                     .current.primaryWhiteSmoke,
                                               )),
@@ -377,7 +377,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                               .textTheme
                                               .bodySmall!
                                               .copyWith(
-                                                fontSize: 15,
+                                                fontSize: 16,
                                                 color: Palette
                                                     .current.primaryNeonGreen,
                                               )),
@@ -392,7 +392,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                               .textTheme
                                               .bodySmall!
                                               .copyWith(
-                                                fontSize: 15,
+                                                fontSize: 16,
                                                 color: Palette
                                                     .current.primaryWhiteSmoke,
                                               )),
@@ -402,7 +402,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                               .textTheme
                                               .bodySmall!
                                               .copyWith(
-                                                fontSize: 15,
+                                                fontSize: 16,
                                                 color: Palette
                                                     .current.primaryNeonPink,
                                               )),

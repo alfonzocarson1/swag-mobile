@@ -144,6 +144,8 @@ class _ProfilePageState extends State<ProfilePage>
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TabBar(
+                   dividerColor: Colors.transparent,
+          indicatorColor: Palette.current.primaryNeonGreen,
                 controller: _tabController,
                 indicator: UnderlineTabIndicator(
                     borderSide: BorderSide(

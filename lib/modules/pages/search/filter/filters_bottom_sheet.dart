@@ -145,6 +145,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                     ),
                     child: Column(
                       children: [
+                       const SizedBox(height: 20,),
                         _filterItem(
                           context,
                           S.of(context).view.toUpperCase(),
@@ -333,7 +334,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const SizedBox(
-          height: 20,
+          height: 79,
         ),
         Padding(
           padding: const EdgeInsets.only(left: 20, right: 20),
