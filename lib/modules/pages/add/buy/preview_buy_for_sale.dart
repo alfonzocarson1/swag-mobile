@@ -28,17 +28,22 @@ import '../collection/footer_list_item_page.dart';
 import '../collection/widgets/custom_overlay_button.dart';
 import 'buyer_complete_purchase_pop_up.dart';
 import 'multi_image_slide_buy_preview.dart';
+import 'package:share_plus/share_plus.dart';
 
 class BuyPreviewPage extends StatefulWidget {
   static const name = '/BuyPreviewPage';
 
-  const BuyPreviewPage({super.key, required this.dataItem});
+  const BuyPreviewPage({super.key, required this.dataItem, this.catalogItmId});
 
   final BuyForSaleListingModel dataItem;
+  final String? catalogItmId;
 
-  static Route route(BuyForSaleListingModel dataItem) => PageRoutes.material(
+  static Route route(
+          {required BuyForSaleListingModel dataItem, String? catalogItmId}) =>
+      PageRoutes.material(
         settings: const RouteSettings(name: name),
-        builder: (context) => BuyPreviewPage(dataItem: dataItem),
+        builder: (context) =>
+            BuyPreviewPage(dataItem: dataItem, catalogItmId: catalogItmId),
       );
 
   @override
@@ -186,7 +191,11 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                       "assets/images/share.png",
                                                       scale: 3.5,
                                                     ),
-                                                    onPressed: () async {},
+                                                    onPressed: () async {
+                                                      Share.share(
+                                                        'https://swagapp.com/products/${widget.catalogItmId}',
+                                                      );
+                                                    },
                                                   ),
                                                 )),
                                             Expanded(
