@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:swagapp/generated/l10n.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
 import 'package:swagapp/modules/common/assets/icons.dart';
+import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
 import 'package:swagapp/modules/common/utils/palette.dart'; 
+import 'package:swagapp/modules/models/chat/chat_data.dart';
+import 'package:swagapp/modules/common/ui/popup_swag_admin.dart';
 
 class ChatPopupMenu extends StatelessWidget {
 
-  const ChatPopupMenu({super.key});
+  final ChatData chatData;
+
+  const ChatPopupMenu({super.key, 
+  required this.chatData,
+});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +21,6 @@ class ChatPopupMenu extends StatelessWidget {
     ChatBloc chatBloc = context.watch<ChatBloc>();
 
     return PopupMenuButton(
-      onSelected: (_) async => await chatBloc.bringAdminToChat(),
       color: Colors.black,
       padding: const EdgeInsets.only(right: 10),
       shape: const RoundedRectangleBorder(
@@ -27,8 +32,13 @@ class ChatPopupMenu extends StatelessWidget {
         color: Palette.current.primaryNeonGreen,
       ),
       position: PopupMenuPosition.under,
-      itemBuilder: (BuildContext context) => [
+      itemBuilder: (_) => [
         PopupMenuItem(
+          onTap: () async => await this.onTap(
+            chatBloc: chatBloc, 
+            context: context, 
+            channeUrl: this.chatData.channel.channelUrl,
+          ),
           padding: EdgeInsets.zero,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -41,7 +51,7 @@ class ChatPopupMenu extends StatelessWidget {
               const SizedBox(width: 10),
               Text(
                 S.current.chatSwaggAdmin,
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
             ],
           ),
@@ -50,9 +60,17 @@ class ChatPopupMenu extends StatelessWidget {
     );
   }
 
-  Future<void> onTap(ChatBloc chatBloc) async {
+  Future<void> onTap({
+    required ChatBloc chatBloc, 
+    required BuildContext context, 
+    required String channeUrl,
+  }) async {
 
-    await chatBloc.bringAdminToChat();
+    await Future.delayed(const Duration(milliseconds: 0));
+
+    await showDialog(
+      context: context, 
+      builder: (BuildContext context)=> PopupSwaggAdmin(channelUrl: channeUrl),
+    );
   }
 }
-

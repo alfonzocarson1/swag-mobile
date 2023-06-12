@@ -169,7 +169,7 @@ class _CatalogPageState extends State<CatalogPage> {
                                     barrierDismissible: false,
                                     builder: (BuildContext context) {
                                       return PopUpAddExisitingItemCollection(
-                                          onAdd: () => Navigator.of(context,
+                                          onAdd: () => Navigator.of(context, 
                                                   rootNavigator: true)
                                               .push(AddCollection.route(
                                                   context,

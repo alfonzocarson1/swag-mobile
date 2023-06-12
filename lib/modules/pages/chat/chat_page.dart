@@ -69,7 +69,7 @@ class _ChatPageState extends State<ChatPage> {
           ),
           onPressed: ()=> Navigator.pop(context),
         ),
-        actions: const <Widget> [ ChatPopupMenu() ],
+        actions: <Widget> [ ChatPopupMenu(chatData: this.widget.chatData!) ],
       ),
       body: _Body(
         chatData: this.widget.chatData!,

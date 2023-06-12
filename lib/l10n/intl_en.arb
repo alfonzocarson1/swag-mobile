@@ -301,6 +301,9 @@
     "chatToday": "Today",
     "chatMessageFrom": "New message from {sender}",
     "chatSwaggAdmin": "Swagg Admin",
+    "chatAddSwagAdmin": "Add Swag Admin",
+    "chatAddSwagAdminContent": "Are you sure you would like to add a swag member to the chat? The admin will be able to see the complete chat history to help settle any disputes. ",
+    "chatAddSwagAdminButton": "Add Swag Member",
 
     "chatsHeader": "ALERTS & Notifications",
     "chatsUnreadMessages": "{chatsNumber} Unread"
