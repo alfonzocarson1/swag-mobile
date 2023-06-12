@@ -289,7 +289,11 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                                     )),
                           ),
                           const SizedBox(height: 30),
-                          FooterListItemPage(addList: true),
+                          FooterListItemPage(
+                            addList: true, 
+                            productItemId: this.widget.productItemId ?? '', 
+                            showChatButton: true,
+                          ),
                           const SizedBox(height: 30),
                           PrimaryButton(
                             title: S.of(context).post_listing_btn,

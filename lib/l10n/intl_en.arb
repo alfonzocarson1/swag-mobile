@@ -288,12 +288,20 @@
     "sale_pending_btn": "Sale pending",
     "complete_sale_btn": "COMPLETE SALE",
     "cancel_sale_btn": "CANCEL SALE",
-    "seller_buy_message": "has agreed to purchase your Golden King Cover"
+    "seller_buy_message": "has agreed to purchase your Golden King Cover",
     
 
+    "chatChat": "Chat",
+    "chatModeratorName": "SWAG",
+    "chatInputHintText": "Enter message",
+    "chatNoMessages": "No previous messages",
+    "chatTyping": "Typing...",
+    "chatErrorFile": "Error loading the file",
+    "chatLoadingFile": "Loading File...",
+    "chatToday": "Today",
+    "chatMessageFrom": "New message from {sender}",
+    "chatSwaggAdmin": "Swagg Admin",
 
-    
-   
-    
-
+    "chatsHeader": "ALERTS & Notifications",
+    "chatsUnreadMessages": "{chatsNumber} Unread"
 }

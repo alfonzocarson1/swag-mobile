@@ -74,4 +74,13 @@ abstract class PreferenceRepositoryInt {
 
   Future<void> setPageFromExplore(int value);
   int getPageFromExplore();
+
+  String getUserSendBirdId();
+  Future<void> saveUserSendBirdId(String userId);
+
+  String getUserSendBirdToken();
+  Future<void> saveUserSendBirdToken(String token);
+
+  String getFirebaseDeviceToken();
+  Future<void> saveFirebaseDeviceToken(String token);
 }
