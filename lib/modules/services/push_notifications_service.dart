@@ -19,18 +19,21 @@ abstract class PushNotificationsService {
 
   static Future<void> initializeApp() async {
 
-    await Firebase.initializeApp();
-    await requestPermissions();
-    token = (Platform.isIOS) 
-    ? await FirebaseMessaging.instance.getAPNSToken()
-    : await FirebaseMessaging.instance.getToken();
-    await getIt<PreferenceRepositoryService>().saveFirebaseDeviceToken(token ?? '');
+    if(Platform.isIOS) {
 
-    await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-      alert: false, 
-      badge: false,
-      sound: false,
-    );
+      await Firebase.initializeApp();
+      await requestPermissions();
+      token = (Platform.isIOS) 
+      ? await FirebaseMessaging.instance.getAPNSToken()
+      : await FirebaseMessaging.instance.getToken();
+      await getIt<PreferenceRepositoryService>().saveFirebaseDeviceToken(token ?? '');
+
+      await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+        alert: false, 
+        badge: false,
+        sound: false,
+      );
+    }
 
     FirebaseMessaging.onBackgroundMessage((RemoteMessage message)=> _onBackgroundHandler(message));
     FirebaseMessaging.onMessage.listen((RemoteMessage message)=> _onMessageHandler(message));
