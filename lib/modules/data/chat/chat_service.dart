@@ -22,8 +22,18 @@ class ChatService extends IChatService {
   }
   
   @override
-  Future<void> bringAdminToChat() async {
-      
+  Future<void> bringAdminToChat(String chatUrl) async {
+    
+    await apiService.getEndpointData(
+      endpoint: Endpoint.addAdminOnChat,
+      needBearer: true,
+      method: RequestMethod.post,
+      dynamicParam: chatUrl,
+      fromJson: (json){
+
+        print('');
+      },
+    );
   }
 }
 

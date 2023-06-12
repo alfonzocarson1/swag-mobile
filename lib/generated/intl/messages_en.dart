@@ -75,6 +75,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "cash_app_sub_title": MessageLookupByLibrary.simpleMessage(
             "Please enter and confirm your \nCashApp cashtag"),
         "category": MessageLookupByLibrary.simpleMessage("category"),
+        "chatAddSwagAdmin":
+            MessageLookupByLibrary.simpleMessage("Add Swag Admin"),
+        "chatAddSwagAdminButton":
+            MessageLookupByLibrary.simpleMessage("Add Swag Member"),
+        "chatAddSwagAdminContent": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you would like to add a swag member to the chat? The admin will be able to see the complete chat history to help settle any disputes. "),
         "chatChat": MessageLookupByLibrary.simpleMessage("Chat"),
         "chatErrorFile":
             MessageLookupByLibrary.simpleMessage("Error loading the file"),

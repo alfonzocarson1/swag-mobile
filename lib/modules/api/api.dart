@@ -38,6 +38,7 @@ enum Endpoint {
   getListingDetail,
   purchaseListing,
   chat,
+  addAdminOnChat,
 }
 
 class API {
@@ -96,5 +97,6 @@ class API {
     Endpoint.getListingDetail: 'api/public/v1/listing/listingDetail/%s',
     Endpoint.purchaseListing: 'api/v1/buyFlow/submitPurchase',
     Endpoint.chat: 'api/v1/listing/%s/chat',
+    Endpoint.addAdminOnChat: 'api/v1/chat/requestadmin/%s',
   };
 }

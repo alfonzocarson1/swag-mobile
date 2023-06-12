@@ -2950,6 +2950,36 @@ class S {
     );
   }
 
+  /// `Add Swag Admin`
+  String get chatAddSwagAdmin {
+    return Intl.message(
+      'Add Swag Admin',
+      name: 'chatAddSwagAdmin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you would like to add a swag member to the chat? The admin will be able to see the complete chat history to help settle any disputes. `
+  String get chatAddSwagAdminContent {
+    return Intl.message(
+      'Are you sure you would like to add a swag member to the chat? The admin will be able to see the complete chat history to help settle any disputes. ',
+      name: 'chatAddSwagAdminContent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Swag Member`
+  String get chatAddSwagAdminButton {
+    return Intl.message(
+      'Add Swag Member',
+      name: 'chatAddSwagAdminButton',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `ALERTS & Notifications`
   String get chatsHeader {
     return Intl.message(
