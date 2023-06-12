@@ -33,11 +33,11 @@ abstract class PushNotificationsService {
         badge: false,
         sound: false,
       );
-    }
 
-    FirebaseMessaging.onBackgroundMessage((RemoteMessage message)=> _onBackgroundHandler(message));
-    FirebaseMessaging.onMessage.listen((RemoteMessage message)=> _onMessageHandler(message));
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message)=> _onOpenHandler(message));
+      FirebaseMessaging.onBackgroundMessage((RemoteMessage message)=> _onBackgroundHandler(message));
+      FirebaseMessaging.onMessage.listen((RemoteMessage message)=> _onMessageHandler(message));
+      FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message)=> _onOpenHandler(message));
+    }
   }
 
   static Future<void> _onBackgroundHandler(RemoteMessage message) async {
