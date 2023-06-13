@@ -342,7 +342,7 @@ class _BuyForSaleState extends State<BuyForSale> {
                       (index) => GestureDetector(
                         onTap: () {
                           Navigator.of(context, rootNavigator: true).push(
-                              BuyPreviewPage.route(dataListingSale[index]));
+                              BuyPreviewPage.route(dataItem:dataListingSale[index], catalogItmId: widget.catalogItemId));
                         },
                         child: Container(
                           margin: const EdgeInsets.only(bottom: 28),
