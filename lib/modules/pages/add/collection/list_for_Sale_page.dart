@@ -21,7 +21,10 @@ import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
 
 import '../../../common/utils/utils.dart';
+import '../../../data/shared_preferences/shared_preferences_service.dart';
+import '../../../di/injector.dart';
 import '../../../models/detail/detail_collection_model.dart';
+import '../../../models/settings/peer_to_peer_payments_get_model.dart';
 import 'list_item_preview_page.dart';
 
 import 'package:flutter_image_compress/flutter_image_compress.dart';
@@ -58,6 +61,8 @@ class ListForSalePage extends StatefulWidget {
 
 class _ListForSalePageState extends State<ListForSalePage> {
   final ImagePicker imagePicker = ImagePicker();
+  PeerToPeerPaymentsGetModel paymentData =
+      getIt<PreferenceRepositoryService>().paymanetData();
   List<File> imageFileList = [];
 
   bool isPostListing = false;
@@ -108,6 +113,36 @@ class _ListForSalePageState extends State<ListForSalePage> {
   @override
   void initState() {
     super.initState();
+
+    if (paymentData.peerToPeerPayments != null) {
+      var peerToPeerPaymentsJson = paymentData.peerToPeerPayments!.toJson();
+
+      if (peerToPeerPaymentsJson.length == 1) {
+        if (paymentData.peerToPeerPayments!
+            .toJson()
+            .keys
+            .first
+            .contains('payPalEmail')) {
+          _selectedPayments.add('PayPal');
+        }
+
+        if (paymentData.peerToPeerPayments!
+            .toJson()
+            .keys
+            .first
+            .contains('cashTag')) {
+          _selectedPayments.add('CashApp');
+        }
+
+        if (paymentData.peerToPeerPayments!
+            .toJson()
+            .keys
+            .first
+            .contains('venmoUser')) {
+          _selectedPayments.add('Venmo');
+        }
+      }
+    }
 
     _defaultCondition = widget.collectionData!.itemCondition;
 
