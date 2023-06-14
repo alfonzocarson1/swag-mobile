@@ -61,8 +61,8 @@ class _FavoritesPageState extends State<FavoritesPage> {
           itemCount: 1,
         ),
         loadedProfileFavorites:
-            (List<ListFavoriteProfileResponseModel> profileFavoriteList) {
-          favoritesList = [...profileFavoriteList.first.favoriteList];
+            (ListFavoriteProfileResponseModel profileFavoriteList) {
+          favoritesList = [...profileFavoriteList.favoriteList];
 
           return _getBody(favoritesList);
         },
