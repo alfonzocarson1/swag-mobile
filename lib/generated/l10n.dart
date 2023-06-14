@@ -2840,10 +2840,10 @@ class S {
     );
   }
 
-  /// `has agreed to purchase your Golden King Cover`
+  /// `has agreed to purchase your`
   String get seller_buy_message {
     return Intl.message(
-      'has agreed to purchase your Golden King Cover',
+      'has agreed to purchase your',
       name: 'seller_buy_message',
       desc: '',
       args: [],

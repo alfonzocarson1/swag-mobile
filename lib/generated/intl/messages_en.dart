@@ -419,8 +419,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "select_item": MessageLookupByLibrary.simpleMessage("SELECT ITEM"),
         "selected": MessageLookupByLibrary.simpleMessage("Selected"),
         "sell_for": MessageLookupByLibrary.simpleMessage("SELL FOR"),
-        "seller_buy_message": MessageLookupByLibrary.simpleMessage(
-            "has agreed to purchase your Golden King Cover"),
+        "seller_buy_message":
+            MessageLookupByLibrary.simpleMessage("has agreed to purchase your"),
         "send_info": MessageLookupByLibrary.simpleMessage("SEND INFO"),
         "settings": MessageLookupByLibrary.simpleMessage("SETTINGS"),
         "setup_payment": MessageLookupByLibrary.simpleMessage("Setup Payment"),

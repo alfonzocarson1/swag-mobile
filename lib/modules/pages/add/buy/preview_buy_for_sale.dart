@@ -406,7 +406,11 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                             ? Column(
                                                 children: [
                                                   FooterListItemPage(
-                                                    productItemId: this.widget.dataItem.productItemId ?? '', 
+                                                    productItemId: this
+                                                            .widget
+                                                            .dataItem
+                                                            .productItemId ??
+                                                        '',
                                                     showChatButton: true,
                                                   ),
                                                   const SizedBox(height: 30),
@@ -460,7 +464,11 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                     child: Column(
                                                       children: [
                                                         FooterListItemPage(
-                                                          productItemId: this.widget.dataItem.productItemId ?? '', 
+                                                          productItemId: this
+                                                                  .widget
+                                                                  .dataItem
+                                                                  .productItemId ??
+                                                              '',
                                                           showChatButton: true,
                                                         ),
                                                         const SizedBox(
@@ -544,7 +552,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                                             alignment:
                                                                                 Alignment.centerLeft,
                                                                             child:
-                                                                                Text('@${listData.submitPurchaseInfo!.userNameBuyer} ${S.of(context).seller_buy_message}', style: Theme.of(context).textTheme.bodySmall!.copyWith(fontWeight: FontWeight.w400, fontSize: 14.0, color: Palette.current.primaryWhiteSmoke)),
+                                                                                Text('@${listData.submitPurchaseInfo!.userNameBuyer} ${S.of(context).seller_buy_message} ${listData.productItemName}', style: Theme.of(context).textTheme.bodySmall!.copyWith(fontWeight: FontWeight.w400, fontSize: 14.0, color: Palette.current.primaryWhiteSmoke)),
                                                                           ),
                                                                         ],
                                                                       ))
