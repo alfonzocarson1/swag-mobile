@@ -2980,6 +2980,26 @@ class S {
     );
   }
 
+  /// `Item sold`
+  String get chatBannerItemSold {
+    return Intl.message(
+      'Item sold',
+      name: 'chatBannerItemSold',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{userName}will paying using `
+  String chatBannerWillPay(Object userName) {
+    return Intl.message(
+      '${userName}will paying using ',
+      name: 'chatBannerWillPay',
+      desc: '',
+      args: [userName],
+    );
+  }
+
   /// `ALERTS & Notifications`
   String get chatsHeader {
     return Intl.message(

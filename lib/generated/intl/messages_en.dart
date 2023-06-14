@@ -20,9 +20,11 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(sender) => "New message from ${sender}";
+  static String m0(userName) => "${userName}will paying using ";
 
-  static String m1(chatsNumber) => "${chatsNumber} Unread";
+  static String m1(sender) => "New message from ${sender}";
+
+  static String m2(chatsNumber) => "${chatsNumber} Unread";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -81,6 +83,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Add Swag Member"),
         "chatAddSwagAdminContent": MessageLookupByLibrary.simpleMessage(
             "Are you sure you would like to add a swag member to the chat? The admin will be able to see the complete chat history to help settle any disputes. "),
+        "chatBannerItemSold": MessageLookupByLibrary.simpleMessage("Item sold"),
+        "chatBannerWillPay": m0,
         "chatChat": MessageLookupByLibrary.simpleMessage("Chat"),
         "chatErrorFile":
             MessageLookupByLibrary.simpleMessage("Error loading the file"),
@@ -88,7 +92,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter message"),
         "chatLoadingFile":
             MessageLookupByLibrary.simpleMessage("Loading File..."),
-        "chatMessageFrom": m0,
+        "chatMessageFrom": m1,
         "chatModeratorName": MessageLookupByLibrary.simpleMessage("SWAG"),
         "chatNoMessages":
             MessageLookupByLibrary.simpleMessage("No previous messages"),
@@ -97,7 +101,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "chatTyping": MessageLookupByLibrary.simpleMessage("Typing..."),
         "chatsHeader":
             MessageLookupByLibrary.simpleMessage("ALERTS & Notifications"),
-        "chatsUnreadMessages": m1,
+        "chatsUnreadMessages": m2,
         "city": MessageLookupByLibrary.simpleMessage("City"),
         "clear_all": MessageLookupByLibrary.simpleMessage("Clear All"),
         "code": MessageLookupByLibrary.simpleMessage("Code"),

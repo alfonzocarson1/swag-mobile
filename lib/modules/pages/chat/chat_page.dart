@@ -56,7 +56,7 @@ class _ChatPageState extends State<ChatPage> {
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle.light,
         backgroundColor: Palette.current.blackAppbarBlackground,
-        title: AppBarTitle(
+        title: _AppBarTitle(
           chatName: channelData.listingProductName, 
           isTyping: isTyping,
         ),
@@ -133,12 +133,12 @@ class _Body extends StatelessWidget {
   }
 }
 
-class AppBarTitle extends StatelessWidget {
+class _AppBarTitle extends StatelessWidget {
 
   final String chatName;
   final bool isTyping;
 
-  const AppBarTitle({
+  const _AppBarTitle({
     super.key,
     required this.chatName,
     required this.isTyping,
@@ -156,10 +156,10 @@ class AppBarTitle extends StatelessWidget {
         [
           Text(
             this.chatName,
-            style: TextStyle(
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(
               fontSize: 20,
-              fontWeight: FontWeight.bold,
               color: Palette.current.white,
+              fontWeight: FontWeight.normal,
             ),
           ),
           (this.isTyping) 

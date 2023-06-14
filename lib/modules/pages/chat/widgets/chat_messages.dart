@@ -9,6 +9,7 @@ import 'package:swagapp/modules/common/assets/images.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/models/chat/chat_data.dart';
 import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
+import 'package:swagapp/modules/pages/chat/widgets/chat_commence_banner.dart';
 
 import 'chat_date_separator.dart';
 import 'chat_message_content.dart';
@@ -55,20 +56,28 @@ class _ChatMessagesState extends State<ChatMessages> {
     ChatBloc chatBloc = context.watch<ChatBloc>();
     this.updateItems(chatBloc, userSendbirdiId);
 
-    return AnimatedList(
-      key: this.listKey,
-      reverse: true,
-      initialItemCount: this.items.reversed.length,
-      controller: this.widget.scrollController,
-      physics: const RangeMaintainingScrollPhysics(),
-      padding: const EdgeInsets.only(top: 20, bottom: 5),
-      itemBuilder: (BuildContext context, int index, Animation<double> animation) {  
+    // return AnimatedList(
+    //   key: this.listKey,
+    //   reverse: true,
+    //   initialItemCount: this.items.reversed.length,
+    //   controller: this.widget.scrollController,
+    //   physics: const RangeMaintainingScrollPhysics(),
+    //   padding: const EdgeInsets.only(top: 20, bottom: 5),
+    //   itemBuilder: (BuildContext context, int index, Animation<double> animation) {  
 
-        return SizeTransition(
-          sizeFactor: animation,
-          child: this.items[index],
-        );
-      },
+    //     return SizeTransition(
+    //       sizeFactor: animation,
+    //       child: this.items[index],
+    //     );
+    //   },
+    // );
+
+    return ListView(
+      children: const <Widget>
+      [
+        SizedBox(height: 30),
+        ChatCommenceBanner()
+      ],
     );
   }
 
