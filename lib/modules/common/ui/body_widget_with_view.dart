@@ -82,6 +82,7 @@ class _BodyWidgetWithViewState extends State<BodyWidgetWithView> {
     return catalogList.isNotEmpty
       ? isListView
         ? CatalogPage(
+          tab: widget.tab,
             catalogItems: catalogList, 
             scrollController: this._scrollController,
           )
