@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swagapp/modules/cubits/paginated_search/paginated_search_cubit.dart';
 
 import '../../../generated/l10n.dart';
 import '../../blocs/favorite_bloc/favorite_item_bloc.dart';
@@ -13,6 +14,7 @@ import '../../pages/add/collection/add_collection_page.dart';
 import '../../pages/detail/item_detail_page.dart';
 import '../../pages/login/create_account_page.dart';
 import '../utils/palette.dart';
+import '../utils/tab_wrapper.dart';
 import '../utils/utils.dart';
 import 'popup_add_exisiting_item_collection.dart';
 
@@ -20,11 +22,12 @@ class CatalogPage extends StatefulWidget {
   const CatalogPage({
     super.key,
     required this.catalogItems,
-    required this.scrollController,
+    required this.scrollController, this.tab,
   });
 
   final List<CatalogItemModel> catalogItems;
   final ScrollController scrollController;
+  final SearchTab? tab;
 
   @override
   State<CatalogPage> createState() => _CatalogPageState();
@@ -41,6 +44,7 @@ class _CatalogPageState extends State<CatalogPage> {
 
   @override
   void initState() {
+    var lista2= widget.catalogItems;
     catalogList = [...widget.catalogItems];
     super.initState();
 
@@ -75,6 +79,9 @@ class _CatalogPageState extends State<CatalogPage> {
 
   @override
   Widget build(BuildContext context) {
+    // setState(() {
+    //    catalogList = [...widget.catalogItems];
+    // });
     return ListView.separated(
         controller: this.widget.scrollController,
         separatorBuilder: (context, index) => const Padding(
@@ -105,36 +112,36 @@ class _CatalogPageState extends State<CatalogPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                BlocBuilder<FavoriteItemBloc, FavoriteItemState>(
-                    builder: (context, favoriteItemState) {
-                  return favoriteItemState.maybeMap(
-                      orElse: () => Container(),
-                      removedFavoriteItem: (state) {
-                        if (catalogList[indexList].profileFavoriteItemId !=
-                            null) {
-                          catalogList[indexList] = catalogList[indexList]
-                              .copyWith(inFavorites: false);
+                // BlocBuilder<FavoriteItemBloc, FavoriteItemState>(
+                //     builder: (context, favoriteItemState) {
+                //   return favoriteItemState.maybeMap(
+                //       orElse: () => Container(),
+                //       removedFavoriteItem: (state) {
+                //         if (catalogList[indexList].profileFavoriteItemId !=
+                //             null) {
+                //           catalogList[indexList] = catalogList[indexList]
+                //               .copyWith(inFavorites: false);
 
-                          catalogList[indexList] = catalogList[indexList]
-                              .copyWith(profileFavoriteItemId: null);
-                        }
+                //           catalogList[indexList] = catalogList[indexList]
+                //               .copyWith(profileFavoriteItemId: null);
+                //         }
 
-                        return Container();
-                      },
-                      loadedFavoriteItem: (state) {
-                        if (catalogList[indexList].profileFavoriteItemId ==
-                            null) {
-                          catalogList[indexList] = catalogList[indexList]
-                              .copyWith(
-                                  profileFavoriteItemId: state
-                                      .dataFavoriteItem
-                                      .profileFavoriteItems![0]
-                                      .profileFavoriteItemId);
-                        }
+                //         return Container();
+                //       },
+                //       loadedFavoriteItem: (state) {
+                //         if (catalogList[indexList].profileFavoriteItemId ==
+                //             null) {
+                //           catalogList[indexList] = catalogList[indexList]
+                //               .copyWith(
+                //                   profileFavoriteItemId: state
+                //                       .dataFavoriteItem
+                //                       .profileFavoriteItems![0]
+                //                       .profileFavoriteItemId);
+                //         }
 
-                        return Container();
-                      });
-                }),
+                //         return Container();
+                //       });
+                // }),
                 Stack(
                   children: [
                     CachedNetworkImage(
@@ -298,10 +305,11 @@ class _CatalogPageState extends State<CatalogPage> {
                                           : "assets/images/UnFavorite.png",
                                       scale: 3.5,
                                     ),
-                                    onPressed: () async {
+                                    onPressed: () async {                                  
                                       setState(() {
                                         if (isLogged) {
                                           if (catalogList[index].inFavorites) {
+                                           
                                             BlocProvider.of<FavoriteItemBloc>(
                                                     context)
                                                 .add(FavoriteItemEvent
@@ -325,7 +333,9 @@ class _CatalogPageState extends State<CatalogPage> {
                                             setState(() {
                                               indexList = index;
                                             });
+                                             getIt<PaginatedSearchCubit>().refreshResults(searchTab: widget.tab ?? SearchTab.all);
                                           } else {
+                                          
                                             BlocProvider.of<FavoriteItemBloc>(
                                                     context)
                                                 .add(FavoriteItemEvent
@@ -346,6 +356,7 @@ class _CatalogPageState extends State<CatalogPage> {
                                               indexList = index;
                                             });
                                             onChangeFavoriteAnimation(index);
+                                            getIt<PaginatedSearchCubit>().refreshResults(searchTab: widget.tab ?? SearchTab.all);
                                           }
                                         } else {
                                           Navigator.of(context,
