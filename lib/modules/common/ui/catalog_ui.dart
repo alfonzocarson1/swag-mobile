@@ -61,6 +61,7 @@ class _CatalogPageState extends State<CatalogPage> {
       setState(() {
         isSkullVisible = false;
         animateFavorite = 0.0;
+      //  getIt<PaginatedSearchCubit>().refreshResults(searchTab: widget.tab ?? SearchTab.all);
       });
 
       Future.delayed(const Duration(milliseconds: 200), () {
@@ -69,6 +70,7 @@ class _CatalogPageState extends State<CatalogPage> {
         });
       });
     });
+    
   }
 
   @override
@@ -333,7 +335,7 @@ class _CatalogPageState extends State<CatalogPage> {
                                             setState(() {
                                               indexList = index;
                                             });
-                                             getIt<PaginatedSearchCubit>().refreshResults(searchTab: widget.tab ?? SearchTab.all);
+                                             //getIt<PaginatedSearchCubit>().refreshResults(searchTab: widget.tab ?? SearchTab.all);
                                           } else {
                                           
                                             BlocProvider.of<FavoriteItemBloc>(
@@ -356,7 +358,7 @@ class _CatalogPageState extends State<CatalogPage> {
                                               indexList = index;
                                             });
                                             onChangeFavoriteAnimation(index);
-                                            getIt<PaginatedSearchCubit>().refreshResults(searchTab: widget.tab ?? SearchTab.all);
+                                            
                                           }
                                         } else {
                                           Navigator.of(context,
