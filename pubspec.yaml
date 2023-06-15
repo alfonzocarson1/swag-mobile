@@ -38,6 +38,7 @@ dependencies:
   firebase_messaging: ^14.5.0
   flutter_local_notifications: ^14.0.0+1
   firebase_core: ^2.13.1
+  firebase_crashlytics: ^3.3.3
 
 # UI
   loading_indicator: ^3.1.0

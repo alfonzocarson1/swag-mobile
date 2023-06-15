@@ -41,7 +41,7 @@ abstract class PushNotificationsService {
         FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message)=> _onOpenHandler(message));
     } 
     catch (e) {
-    print(e);
+      print(e);
     }
 
     // }
