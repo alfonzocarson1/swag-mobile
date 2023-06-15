@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swagapp/modules/models/auth/create_account_response_model.dart';
+import 'package:swagapp/modules/models/profile/profile_model.dart';
 import 'package:swagapp/modules/models/update_profile/addresses_payload_model.dart';
 
 import '../../common/utils/handling_errors.dart';
@@ -69,8 +70,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Stream<AuthState> _createAccount(CreateAccountPayloadModel model) async* {
+
     yield const AuthState.logging();
     try {
+      
       CreateAccountResponseModel response = await authService.createAccount(model);
       List<AddressesPayloadModel>? addresses = response.addresses;
 
@@ -104,8 +107,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       
       String deviceId = getIt<PreferenceRepositoryService>().getFirebaseDeviceToken();
       CreateAccountResponseModel response = await authService.authenticate(email, password, deviceId);
+      ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
 
-      getIt<PreferenceRepositoryService>().saveUserSendBirdId(response.accountId);
+      getIt<PreferenceRepositoryService>().saveUserSendBirdId(profileData.accountId);
       getIt<StorageRepositoryService>().saveToken(response.token);
 
       if (response.errorCode == successResponse ||
@@ -113,7 +117,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         getIt<ProfileCubit>().loadProfileResults();
         yield const AuthState.authenticated();
       } else {
-        yield AuthState.error(HandlingErrors().getError(response.errorCode));
+        yield AuthState.error(HandlingErrors().getError(response.errorCode)); 
       }
     } catch (e) {
       yield AuthState.error(HandlingErrors().getError(e));
