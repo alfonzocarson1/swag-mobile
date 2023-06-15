@@ -70,10 +70,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Stream<AuthState> _createAccount(CreateAccountPayloadModel model) async* {
-
     yield const AuthState.logging();
     try {
-      
       CreateAccountResponseModel response = await authService.createAccount(model);
       List<AddressesPayloadModel>? addresses = response.addresses;
 
@@ -88,7 +86,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       getIt<PreferenceRepositoryService>().savehasImportableData(response.hasImportableData);
       getIt<PreferenceRepositoryService>().saveAccountId(response.accountId);
       getIt<PreferenceRepositoryService>().saveUserSendBirdId(response.accountId);
-      
 
       if (response.errorCode == successResponse) {
         yield const AuthState.authenticated();
@@ -110,14 +107,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
 
       getIt<PreferenceRepositoryService>().saveUserSendBirdId(profileData.accountId);
-      getIt<StorageRepositoryService>().saveToken(response.token);
 
+      getIt<StorageRepositoryService>().saveToken(response.token);
       if (response.errorCode == successResponse ||
           response.errorCode == defaultString) {
         getIt<ProfileCubit>().loadProfileResults();
         yield const AuthState.authenticated();
       } else {
-        yield AuthState.error(HandlingErrors().getError(response.errorCode)); 
+        yield AuthState.error(HandlingErrors().getError(response.errorCode));
       }
     } catch (e) {
       yield AuthState.error(HandlingErrors().getError(e));
