@@ -96,12 +96,14 @@ class _HeadWidgetState extends State<HeadWidget> {
     refreshResults();
   }
 
-  refreshResults(){
-     getIt<PaginatedSearchCubit>().refreshResults(searchTab: SearchTab.all);
+  refreshResults() {
+    getIt<PaginatedSearchCubit>().refreshResults(searchTab: SearchTab.all);
     getIt<PaginatedSearchCubit>().refreshResults(searchTab: SearchTab.whatsHot);
-    getIt<PaginatedSearchCubit>().refreshResults(searchTab: SearchTab.headcovers);
+    getIt<PaginatedSearchCubit>()
+        .refreshResults(searchTab: SearchTab.headcovers);
     getIt<PaginatedSearchCubit>().refreshResults(searchTab: SearchTab.putters);
-    getIt<PaginatedSearchCubit>().refreshResults(searchTab: SearchTab.accessories);
+    getIt<PaginatedSearchCubit>()
+        .refreshResults(searchTab: SearchTab.accessories);
   }
 
   @override
@@ -283,11 +285,12 @@ class _HeadWidgetState extends State<HeadWidget> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                     widget.sale
-                        ? '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(widget.lastSale.minPrice!)} - ${decimalDigitsLastSalePrice(widget.lastSale.maxPrice!)}'
+                        ? (widget.available! > 1)
+                            ? '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(widget.lastSale.minPrice!)} - ${decimalDigitsLastSalePrice(widget.lastSale.maxPrice!)}'
+                            : '${S.of(context).from}: ${decimalDigitsLastSalePrice(widget.lastSale.minPrice!)}'
                         : '${S.of(context).last_sale}: ${decimalDigitsLastSalePrice(widget.lastSale.lastSale!)}',
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                         fontSize: 16,
-                        
                         letterSpacing: 0.0224,
                         fontWeight: FontWeight.w300,
                         color: Palette.current.primaryNeonGreen)),

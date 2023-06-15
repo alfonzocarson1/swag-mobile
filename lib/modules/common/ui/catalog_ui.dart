@@ -22,7 +22,8 @@ class CatalogPage extends StatefulWidget {
   const CatalogPage({
     super.key,
     required this.catalogItems,
-    required this.scrollController, this.tab,
+    required this.scrollController,
+    this.tab,
   });
 
   final List<CatalogItemModel> catalogItems;
@@ -67,7 +68,6 @@ class _CatalogPageState extends State<CatalogPage> {
         });
       });
     });
-    
   }
 
   @override
@@ -142,7 +142,7 @@ class _CatalogPageState extends State<CatalogPage> {
                                     barrierDismissible: false,
                                     builder: (BuildContext context) {
                                       return PopUpAddExisitingItemCollection(
-                                          onAdd: () => Navigator.of(context, 
+                                          onAdd: () => Navigator.of(context,
                                                   rootNavigator: true)
                                               .push(AddCollection.route(
                                                   context,
@@ -271,11 +271,10 @@ class _CatalogPageState extends State<CatalogPage> {
                                           : "assets/images/UnFavorite.png",
                                       scale: 3.5,
                                     ),
-                                    onPressed: () async {                                  
+                                    onPressed: () async {
                                       setState(() {
                                         if (isLogged) {
                                           if (catalogList[index].inFavorites) {
-                                           
                                             BlocProvider.of<FavoriteItemBloc>(
                                                     context)
                                                 .add(FavoriteItemEvent
@@ -300,7 +299,6 @@ class _CatalogPageState extends State<CatalogPage> {
                                               indexList = index;
                                             });
                                           } else {
-                                          
                                             BlocProvider.of<FavoriteItemBloc>(
                                                     context)
                                                 .add(FavoriteItemEvent
@@ -320,7 +318,7 @@ class _CatalogPageState extends State<CatalogPage> {
                                             setState(() {
                                               indexList = index;
                                             });
-                                            onChangeFavoriteAnimation(index);                                            
+                                            onChangeFavoriteAnimation(index);
                                           }
                                         } else {
                                           Navigator.of(context,
@@ -341,13 +339,15 @@ class _CatalogPageState extends State<CatalogPage> {
                     children: [
                       Text(
                           catalogList[index].forSale
-                              ? '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.minPrice!)} - ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.maxPrice!)}'
+                              ? (catalogList[index].numberAvailable > 1)
+                                  ? '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.minPrice!)} - ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.maxPrice!)}'
+                                  : '${S.of(context).from}: ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.minPrice!)}'
                               : '${S.of(context).last_sale}: ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.lastSale!)}',
                           style: Theme.of(context)
                               .textTheme
                               .bodySmall!
                               .copyWith(
-                                letterSpacing: 0.0244,
+                                  letterSpacing: 0.0244,
                                   fontWeight: FontWeight.w300,
                                   color: Palette.current.primaryNeonGreen))
                     ],
