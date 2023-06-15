@@ -77,7 +77,7 @@ class _WhatsHotPageState extends State<WhatsHotPage> {
 
   @override
   Widget build(BuildContext context) {
-
+    callApi();
     return Scaffold(
         backgroundColor: Palette.current.primaryNero,
         body: BlocBuilder<PaginatedSearchCubit, PaginatedSearchState>(
