@@ -342,7 +342,7 @@ class _BuyForSaleState extends State<BuyForSale> {
                               BuyPreviewPage.route(
                                   productItemId:
                                       dataListingSale[index].productItemId,
-                                  catalogItmId: widget.catalogItemId));
+                                  ));
                         },
                         child: Container(
                           margin: const EdgeInsets.only(bottom: 28),

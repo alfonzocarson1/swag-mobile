@@ -108,8 +108,7 @@ class _ListingsPageState extends State<ListingsPage> {
                                         builder: (context) => BuyPreviewPage(
                                             productItemId:
                                                 listItem.productItemId,
-                                            catalogItmId:
-                                                listItem.catalogItemId)));
+                                           )));
                               }
                             },
                             child: SizedBox(
