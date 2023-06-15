@@ -43,6 +43,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       String userId = getIt<PreferenceRepositoryService>().getUserSendBirdId();
       String userToken = getIt<PreferenceRepositoryService>().getUserSendBirdToken();
 
+      print('object');
+
       User user = await this._sendbirdSdk.connect(
         userId,
         accessToken: userToken,
@@ -255,4 +257,10 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   }
 
   Future<void> bringAdminToChat(String chatUrl) async => await this.service.bringAdminToChat(chatUrl);
+
+  Future<void> getUserSendBirdToken() async {
+
+    String sendBirdToken = await this.service.getUserSendBirdToken();
+    await getIt<PreferenceRepositoryService>().saveUserSendBirdToken(sendBirdToken);
+  }
 }

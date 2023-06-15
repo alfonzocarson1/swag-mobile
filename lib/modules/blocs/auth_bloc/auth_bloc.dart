@@ -71,27 +71,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Stream<AuthState> _createAccount(CreateAccountPayloadModel model) async* {
     yield const AuthState.logging();
     try {
-      CreateAccountResponseModel response =
-          await authService.createAccount(model);
+      CreateAccountResponseModel response = await authService.createAccount(model);
       List<AddressesPayloadModel>? addresses = response.addresses;
 
       getIt<StorageRepositoryService>().saveToken(response.token);
 
       if (response.hasImportableData && addresses!.isNotEmpty) {
-        getIt<StorageRepositoryService>()
-            .saveFirstName(addresses[0].firstName ?? '');
-        getIt<StorageRepositoryService>()
-            .saveLastName(addresses[0].lastName ?? '');
-        getIt<StorageRepositoryService>().saveAddresses(
-            [addresses[0].address1 ?? '', addresses[0].address2 ?? '']);
+        getIt<StorageRepositoryService>().saveFirstName(addresses[0].firstName ?? '');
+        getIt<StorageRepositoryService>().saveLastName(addresses[0].lastName ?? '');
+        getIt<StorageRepositoryService>().saveAddresses([addresses[0].address1 ?? '', addresses[0].address2 ?? '']);
       }
 
-      getIt<PreferenceRepositoryService>()
-          .savehasImportableData(response.hasImportableData);
+      getIt<PreferenceRepositoryService>().savehasImportableData(response.hasImportableData);
       getIt<PreferenceRepositoryService>().saveAccountId(response.accountId);
-
-      getIt<PreferenceRepositoryService>().saveUserSendBirdId('c62b8700-a7e9-49d3-93a2-ae5219fd1d9d');
-      getIt<PreferenceRepositoryService>().saveUserSendBirdToken('9260e655bdbc50a65796fed280743b121c3de8e8');
+      getIt<PreferenceRepositoryService>().saveUserSendBirdId(response.accountId);
+      
 
       if (response.errorCode == successResponse) {
         yield const AuthState.authenticated();
@@ -109,12 +103,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       
       String deviceId = getIt<PreferenceRepositoryService>().getFirebaseDeviceToken();
-      var response = await authService.authenticate(email, password, deviceId);
+      CreateAccountResponseModel response = await authService.authenticate(email, password, deviceId);
 
-      getIt<PreferenceRepositoryService>().saveUserSendBirdId('c62b8700-a7e9-49d3-93a2-ae5219fd1d9d');
-      getIt<PreferenceRepositoryService>().saveUserSendBirdToken('9260e655bdbc50a65796fed280743b121c3de8e8');
-
+      getIt<PreferenceRepositoryService>().saveUserSendBirdId(response.accountId);
       getIt<StorageRepositoryService>().saveToken(response.token);
+
       if (response.errorCode == successResponse ||
           response.errorCode == defaultString) {
         getIt<ProfileCubit>().loadProfileResults();

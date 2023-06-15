@@ -34,13 +34,13 @@ class ChatService extends IChatService {
   }
   
   @override
-  Future<void> refreshChatAuth() async {
+  Future<String> getUserSendBirdToken() async {
     
-    await apiService.getEndpointData(
+    return await apiService.getEndpointData(
       needBearer: true,
       method: RequestMethod.get,
       endpoint: Endpoint.refreshChatAuth,
-      fromJson: (json){},
+      fromJson: (json)=> json['token'],
     );
   }
 }
