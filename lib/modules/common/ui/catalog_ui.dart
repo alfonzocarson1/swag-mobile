@@ -44,10 +44,8 @@ class _CatalogPageState extends State<CatalogPage> {
 
   @override
   void initState() {
-    var lista2= widget.catalogItems;
     catalogList = [...widget.catalogItems];
     super.initState();
-
     isLogged = getIt<PreferenceRepositoryService>().isLogged();
   }
 
@@ -61,7 +59,6 @@ class _CatalogPageState extends State<CatalogPage> {
       setState(() {
         isSkullVisible = false;
         animateFavorite = 0.0;
-      //  getIt<PaginatedSearchCubit>().refreshResults(searchTab: widget.tab ?? SearchTab.all);
       });
 
       Future.delayed(const Duration(milliseconds: 200), () {
@@ -81,9 +78,6 @@ class _CatalogPageState extends State<CatalogPage> {
 
   @override
   Widget build(BuildContext context) {
-    // setState(() {
-    //    catalogList = [...widget.catalogItems];
-    // });
     return ListView.separated(
         controller: this.widget.scrollController,
         separatorBuilder: (context, index) => const Padding(
@@ -114,36 +108,6 @@ class _CatalogPageState extends State<CatalogPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                // BlocBuilder<FavoriteItemBloc, FavoriteItemState>(
-                //     builder: (context, favoriteItemState) {
-                //   return favoriteItemState.maybeMap(
-                //       orElse: () => Container(),
-                //       removedFavoriteItem: (state) {
-                //         if (catalogList[indexList].profileFavoriteItemId !=
-                //             null) {
-                //           catalogList[indexList] = catalogList[indexList]
-                //               .copyWith(inFavorites: false);
-
-                //           catalogList[indexList] = catalogList[indexList]
-                //               .copyWith(profileFavoriteItemId: null);
-                //         }
-
-                //         return Container();
-                //       },
-                //       loadedFavoriteItem: (state) {
-                //         if (catalogList[indexList].profileFavoriteItemId ==
-                //             null) {
-                //           catalogList[indexList] = catalogList[indexList]
-                //               .copyWith(
-                //                   profileFavoriteItemId: state
-                //                       .dataFavoriteItem
-                //                       .profileFavoriteItems![0]
-                //                       .profileFavoriteItemId);
-                //         }
-
-                //         return Container();
-                //       });
-                // }),
                 Stack(
                   children: [
                     CachedNetworkImage(
@@ -335,7 +299,6 @@ class _CatalogPageState extends State<CatalogPage> {
                                             setState(() {
                                               indexList = index;
                                             });
-                                             //getIt<PaginatedSearchCubit>().refreshResults(searchTab: widget.tab ?? SearchTab.all);
                                           } else {
                                           
                                             BlocProvider.of<FavoriteItemBloc>(
@@ -357,8 +320,7 @@ class _CatalogPageState extends State<CatalogPage> {
                                             setState(() {
                                               indexList = index;
                                             });
-                                            onChangeFavoriteAnimation(index);
-                                            
+                                            onChangeFavoriteAnimation(index);                                            
                                           }
                                         } else {
                                           Navigator.of(context,
