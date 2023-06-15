@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swagapp/modules/cubits/paginated_search/paginated_search_cubit.dart';
 
 import '../../../generated/l10n.dart';
 import '../../blocs/favorite_bloc/favorite_item_bloc.dart';
@@ -13,6 +14,7 @@ import '../../pages/add/collection/add_collection_page.dart';
 import '../../pages/detail/item_detail_page.dart';
 import '../../pages/login/create_account_page.dart';
 import '../utils/palette.dart';
+import '../utils/tab_wrapper.dart';
 import '../utils/utils.dart';
 import 'popup_add_exisiting_item_collection.dart';
 
@@ -21,10 +23,12 @@ class CatalogPage extends StatefulWidget {
     super.key,
     required this.catalogItems,
     required this.scrollController,
+    this.tab,
   });
 
   final List<CatalogItemModel> catalogItems;
   final ScrollController scrollController;
+  final SearchTab? tab;
 
   @override
   State<CatalogPage> createState() => _CatalogPageState();
@@ -43,7 +47,6 @@ class _CatalogPageState extends State<CatalogPage> {
   void initState() {
     catalogList = [...widget.catalogItems];
     super.initState();
-
     isLogged = getIt<PreferenceRepositoryService>().isLogged();
   }
 
@@ -105,36 +108,6 @@ class _CatalogPageState extends State<CatalogPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                BlocBuilder<FavoriteItemBloc, FavoriteItemState>(
-                    builder: (context, favoriteItemState) {
-                  return favoriteItemState.maybeMap(
-                      orElse: () => Container(),
-                      removedFavoriteItem: (state) {
-                        if (catalogList[indexList].profileFavoriteItemId !=
-                            null) {
-                          catalogList[indexList] = catalogList[indexList]
-                              .copyWith(inFavorites: false);
-
-                          catalogList[indexList] = catalogList[indexList]
-                              .copyWith(profileFavoriteItemId: null);
-                        }
-
-                        return Container();
-                      },
-                      loadedFavoriteItem: (state) {
-                        if (catalogList[indexList].profileFavoriteItemId ==
-                            null) {
-                          catalogList[indexList] = catalogList[indexList]
-                              .copyWith(
-                                  profileFavoriteItemId: state
-                                      .dataFavoriteItem
-                                      .profileFavoriteItems![0]
-                                      .profileFavoriteItemId);
-                        }
-
-                        return Container();
-                      });
-                }),
                 Stack(
                   children: [
                     CachedNetworkImage(
@@ -169,7 +142,7 @@ class _CatalogPageState extends State<CatalogPage> {
                                     barrierDismissible: false,
                                     builder: (BuildContext context) {
                                       return PopUpAddExisitingItemCollection(
-                                          onAdd: () => Navigator.of(context, 
+                                          onAdd: () => Navigator.of(context,
                                                   rootNavigator: true)
                                               .push(AddCollection.route(
                                                   context,
@@ -366,13 +339,15 @@ class _CatalogPageState extends State<CatalogPage> {
                     children: [
                       Text(
                           catalogList[index].forSale
-                              ? '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.minPrice!)} - ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.maxPrice!)}'
+                              ? (catalogList[index].numberAvailable > 1)
+                                  ? '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.minPrice!)} - ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.maxPrice!)}'
+                                  : '${S.of(context).from}: ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.minPrice!)}'
                               : '${S.of(context).last_sale}: ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.lastSale!)}',
                           style: Theme.of(context)
                               .textTheme
                               .bodySmall!
                               .copyWith(
-                                letterSpacing: 0.0244,
+                                  letterSpacing: 0.0244,
                                   fontWeight: FontWeight.w300,
                                   color: Palette.current.primaryNeonGreen))
                     ],

@@ -7,7 +7,7 @@ class FavoriteCubitState with _$FavoriteCubitState {
       {@Default(false) bool isFirstFetch}) = loading_search;
 
   factory FavoriteCubitState.loadedProfileFavorites({
-    required final List<ListFavoriteProfileResponseModel> profileFavoriteList,
+    required final ListFavoriteProfileResponseModel profileFavoriteList,
   }) = LoadedFavoritesState;
 
   factory FavoriteCubitState.loadedFavoriteItem(

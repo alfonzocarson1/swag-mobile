@@ -78,7 +78,7 @@ class _AccessoriesPageState extends State<AccessoriesPage> {
   @override
   Widget build(BuildContext context) {
 
-     
+     callApi();
     return Scaffold(
         backgroundColor: Palette.current.primaryNero,
         body: BlocBuilder<PaginatedSearchCubit, PaginatedSearchState>(
