@@ -76,7 +76,8 @@ class _PuttersPageState extends State<PuttersPage> {
 
   @override
   Widget build(BuildContext context) {
-
+    
+    callApi();
     return Scaffold(
       backgroundColor: Palette.current.primaryNero,
       body: BlocBuilder<PaginatedSearchCubit, PaginatedSearchState>(

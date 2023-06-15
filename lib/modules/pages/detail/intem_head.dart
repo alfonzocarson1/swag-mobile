@@ -9,7 +9,9 @@ import '../../blocs/favorite_bloc/favorite_bloc.dart';
 import '../../blocs/favorite_bloc/favorite_item_bloc.dart';
 import '../../common/ui/clickable_text.dart';
 import '../../common/utils/palette.dart';
+import '../../common/utils/tab_wrapper.dart';
 import '../../common/utils/utils.dart';
+import '../../cubits/paginated_search/paginated_search_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/detail/detail_sale_info_model.dart';
@@ -91,6 +93,15 @@ class _HeadWidgetState extends State<HeadWidget> {
         });
       });
     });
+    refreshResults();
+  }
+
+  refreshResults(){
+     getIt<PaginatedSearchCubit>().refreshResults(searchTab: SearchTab.all);
+    getIt<PaginatedSearchCubit>().refreshResults(searchTab: SearchTab.whatsHot);
+    getIt<PaginatedSearchCubit>().refreshResults(searchTab: SearchTab.headcovers);
+    getIt<PaginatedSearchCubit>().refreshResults(searchTab: SearchTab.putters);
+    getIt<PaginatedSearchCubit>().refreshResults(searchTab: SearchTab.accessories);
   }
 
   @override
@@ -251,6 +262,7 @@ class _HeadWidgetState extends State<HeadWidget> {
                                               ])));
                                           widget.addFavorite(false);
                                           favorite = false;
+                                          refreshResults();
                                         }
                                       });
                                     } else {
