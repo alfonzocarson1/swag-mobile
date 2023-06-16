@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -14,12 +17,57 @@ import 'modules/common/utils/theme.dart';
 import 'modules/di/injector.dart';
 import 'modules/pages/splash/splash_page.dart';
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
+
+  App({Key? key}) : super(key: key);
+
+  @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
   final GlobalKey<NavigatorState> _homeNavigatorKey = GlobalKey<NavigatorState>(
     debugLabel: 'home_page_tab',
   );
+  late AppLinks _appLinks;
+  StreamSubscription<Uri>? _linkSubscription;
 
-  App({Key? key}) : super(key: key);
+    @override
+  void initState() {
+    super.initState();
+
+    initDeepLinks();
+  }
+
+  @override
+  void dispose() {
+    _linkSubscription?.cancel();
+
+    super.dispose();
+  }
+
+   Future<void> initDeepLinks() async {
+    _appLinks = AppLinks();
+
+    // Check initial link if app was in cold state (terminated)
+    final appLink = await _appLinks.getInitialAppLink();
+    if (appLink != null) {
+      print('getInitialAppLink: $appLink');
+      openAppLink(appLink);
+    }
+
+    // Handle link when app is in warm state (front or background)
+    _linkSubscription = _appLinks.uriLinkStream.listen((uri) {
+      print('onAppLink: $uri');
+      openAppLink(uri);
+    });
+  }
+
+    void openAppLink(Uri uri) {
+      var uriFragment = uri;
+      print(uriFragment);
+    //_homeNavigatorKey.currentState?.pushNamed(uri.fragment);
+  }
 
   @override
   Widget build(BuildContext context) {
