@@ -7,7 +7,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:swagapp/modules/models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
 import 'package:swagapp/modules/pages/add/buy/preview_buy_for_sale.dart';
 
-
 import '../../../generated/l10n.dart';
 import '../../blocs/listing_bloc/listing_bloc.dart';
 import '../../common/ui/refresh_widget.dart';
@@ -43,9 +42,9 @@ class _ListingsPageState extends State<ListingsPage> {
     loadList();
   }
 
-    @override
+  @override
   void dispose() {
-    super.dispose(); 
+    super.dispose();
   }
 
   Future loadList() async {
@@ -94,7 +93,8 @@ class _ListingsPageState extends State<ListingsPage> {
                   ListingForSaleModel listItem = listingList[index];
                   var catalogItemId = listingList[index].catalogItemId;
                   var imageUrls = listingList[index].productItemImageUrls ?? [];
-                  var productItemName = listingList[index].productItemName ?? "";
+                  var productItemName =
+                      listingList[index].productItemName ?? "";
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -102,32 +102,24 @@ class _ListingsPageState extends State<ListingsPage> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              if(catalogItemId != null){
+                              if (catalogItemId != null) {
                                 Navigator.of(context, rootNavigator: true).push(
-                                MaterialPageRoute(builder: (context) => 
-                                  BuyPreviewPage(dataItem: 
-                                  BuyForSaleListingModel(
-                                    profileId: listItem.profileId,
-                                    catalogItemId: listItem.catalogItemId,
-                                    productItemId: listItem.productItemId,
-                                    productItemImageUrls: listItem.productItemImageUrls ?? [],
-                                    productItemName: listItem.productItemName,
-                                    productItemDescription: listItem.productItemDescription,
-                                    productItemPrice:listItem.productItemPrice?? 0.0,
-                                    condition: listItem.condition,
-                                    lastSale: listItem.lastSale,
-                                    ))
-                                  ));
-                              }                              
+                                    MaterialPageRoute(
+                                        builder: (context) => BuyPreviewPage(
+                                            productItemId:
+                                                listItem.productItemId,
+                                           )));
+                              }
                             },
                             child: SizedBox(
                               height: MediaQuery.of(context).size.width * 0.37,
                               child: ClipRRect(
                                 child: CachedNetworkImage(
                                   fit: BoxFit.fitHeight,
-                                  imageUrl: (imageUrls.isNotEmpty)? listingList[index]
-                                          .productItemImageUrls[0]:
-                                      'assets/images/Avatar.png',
+                                  imageUrl: (imageUrls.isNotEmpty)
+                                      ? listingList[index]
+                                          .productItemImageUrls[0]
+                                      : 'assets/images/Avatar.png',
                                   placeholder: (context, url) => SizedBox(
                                     height: 200,
                                     child: Center(
@@ -146,9 +138,7 @@ class _ListingsPageState extends State<ListingsPage> {
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 5
-                      ),
+                      const SizedBox(height: 5),
                       Text(productItemName.toUpperCase(),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -216,7 +206,4 @@ class _ListingsPageState extends State<ListingsPage> {
   void makeCall() {
     context.read<ListingBloc>().add(const ListingEvent.getListingItem());
   }
-
-
 }
-

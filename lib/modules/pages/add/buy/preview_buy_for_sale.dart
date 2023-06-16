@@ -33,17 +33,16 @@ import 'package:share_plus/share_plus.dart';
 class BuyPreviewPage extends StatefulWidget {
   static const name = '/BuyPreviewPage';
 
-  const BuyPreviewPage({super.key, required this.dataItem, this.catalogItmId});
+  const BuyPreviewPage({super.key, this.productItemId});
 
-  final BuyForSaleListingModel dataItem;
-  final String? catalogItmId;
 
-  static Route route(
-          {required BuyForSaleListingModel dataItem, String? catalogItmId}) =>
+  final String? productItemId;
+
+  static Route route({String? productItemId}) =>
       PageRoutes.material(
         settings: const RouteSettings(name: name),
-        builder: (context) =>
-            BuyPreviewPage(dataItem: dataItem, catalogItmId: catalogItmId),
+        builder: (context) => BuyPreviewPage(
+            productItemId: productItemId),
       );
 
   @override
@@ -65,10 +64,8 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
 
   @override
   void initState() {
-    getSalesHistory();
-    super.initState();
-
-    getIt<BuyCubit>().getListDetailItem(widget.dataItem.productItemId ?? '');
+    getIt<BuyCubit>().getListDetailItem(widget.productItemId ?? '');  
+    super.initState();    
   }
 
   @override
@@ -77,7 +74,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
   }
 
   getSalesHistory() async {
-    var catalogItemId = widget.dataItem.catalogItemId;
+    var catalogItemId = listData.catalogItemId;
     salesHistoryList = await getIt<SalesHistoryBloc>()
         .salesHistoryService
         .salesHistory(catalogItemId ?? "");
@@ -104,6 +101,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                       (BuyForSaleListingModel listDataResponse) {
                     setState(() {
                       listData = listDataResponse;
+                      getSalesHistory();
 
                       if (listData.submitPurchaseInfo != null) {
                         if (listData.submitPurchaseInfo!.avatarBuyer !=
@@ -193,7 +191,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                     ),
                                                     onPressed: () async {
                                                       Share.share(
-                                                        'https://swagapp.com/products/${widget.catalogItmId}',
+                                                        'https://swagapp.com/products/${listData.catalogItemId}',
                                                       );
                                                     },
                                                   ),
@@ -407,8 +405,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                 children: [
                                                   FooterListItemPage(
                                                     productItemId: this
-                                                            .widget
-                                                            .dataItem
+                                                            .listData
                                                             .productItemId ??
                                                         '',
                                                     showChatButton: true,
@@ -465,8 +462,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                       children: [
                                                         FooterListItemPage(
                                                           productItemId: this
-                                                                  .widget
-                                                                  .dataItem
+                                                                  .listData
                                                                   .productItemId ??
                                                               '',
                                                           showChatButton: true,
