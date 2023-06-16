@@ -101,7 +101,7 @@ class _CatalogPageState extends State<CatalogPage> {
                         .copyWith(profileFavoriteItemId: null);
                   }
                 });
-              }));
+              }, widget.tab));
             },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -227,111 +227,95 @@ class _CatalogPageState extends State<CatalogPage> {
                 const SizedBox(
                   height: 6,
                 ),
-                Row(
-                  children: [
-                    Expanded(
-                        flex: 5,
-                        child: Column(
-                          children: [
-                            Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20.0),
-                                child: Align(
-                                  alignment: Alignment.bottomLeft,
-                                  child: Text(
-                                      overflow: TextOverflow.ellipsis,
-                                      catalogList[index]
-                                          .catalogItemName
-                                          .toUpperCase(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displayLarge!
-                                          .copyWith(
-                                              letterSpacing: 0.54,
-                                              fontWeight: FontWeight.w300,
-                                              fontFamily: "KnockoutCustom",
-                                              fontSize: 30,
-                                              color: Palette.current.white)),
-                                )),
-                          ],
-                        )),
-                    Expanded(
-                        flex: 2,
-                        child: Column(
-                          children: [
-                            Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 12.0),
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: IconButton(
-                                    icon: Image.asset(
-                                      catalogList[index].inFavorites
-                                          ? "assets/images/Favorite.png"
-                                          : "assets/images/UnFavorite.png",
-                                      scale: 3.5,
-                                    ),
-                                    onPressed: () async {
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                          flex: 5,
+                          child: Align(
+                            alignment: Alignment.bottomLeft,
+                            child: Text(
+                                catalogList[index]
+                                    .catalogItemName
+                                    .toUpperCase(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayLarge!
+                                    .copyWith(
+                                        letterSpacing: 0.54,
+                                        fontWeight: FontWeight.w300,
+                                        fontFamily: "KnockoutCustom",
+                                        fontSize: 30,
+                                        color: Palette.current.white)),
+                          )),
+                      Expanded(
+                          flex: 2,
+                          child: Align(
+                            alignment: Alignment.topRight,
+                            child: IconButton(
+                              icon: Image.asset(
+                                catalogList[index].inFavorites
+                                    ? "assets/images/Favorite.png"
+                                    : "assets/images/UnFavorite.png",
+                                scale: 3.5,
+                              ),
+                              onPressed: () async {
+                                setState(() {
+                                  if (isLogged) {
+                                    if (catalogList[index].inFavorites) {
+                                      BlocProvider.of<FavoriteItemBloc>(context)
+                                          .add(FavoriteItemEvent
+                                              .removeFavoriteItem(FavoriteModel(
+                                                  favoritesItemAction: "DELETE",
+                                                  profileFavoriteItems: [
+                                            FavoriteItemModel(
+                                                profileFavoriteItemId:
+                                                    catalogList[index]
+                                                        .profileFavoriteItemId,
+                                                catalogItemId:
+                                                    catalogList[index]
+                                                        .catalogItemId)
+                                          ])));
+                                      catalogList[index] = catalogList[index]
+                                          .copyWith(inFavorites: false);
+
                                       setState(() {
-                                        if (isLogged) {
-                                          if (catalogList[index].inFavorites) {
-                                            BlocProvider.of<FavoriteItemBloc>(
-                                                    context)
-                                                .add(FavoriteItemEvent
-                                                    .removeFavoriteItem(
-                                                        FavoriteModel(
-                                                            favoritesItemAction:
-                                                                "DELETE",
-                                                            profileFavoriteItems: [
-                                                  FavoriteItemModel(
-                                                      profileFavoriteItemId:
-                                                          catalogList[index]
-                                                              .profileFavoriteItemId,
-                                                      catalogItemId:
-                                                          catalogList[index]
-                                                              .catalogItemId)
-                                                ])));
-                                            catalogList[index] =
-                                                catalogList[index].copyWith(
-                                                    inFavorites: false);
-
-                                            setState(() {
-                                              indexList = index;
-                                            });
-                                          } else {
-                                            BlocProvider.of<FavoriteItemBloc>(
-                                                    context)
-                                                .add(FavoriteItemEvent
-                                                    .addFavoriteItem(FavoriteModel(
-                                                        favoritesItemAction:
-                                                            "ADD",
-                                                        profileFavoriteItems: [
-                                                  FavoriteItemModel(
-                                                      catalogItemId:
-                                                          catalogList[index]
-                                                              .catalogItemId)
-                                                ])));
-                                            catalogList[index] =
-                                                catalogList[index].copyWith(
-                                                    inFavorites: true);
-
-                                            setState(() {
-                                              indexList = index;
-                                            });
-                                            onChangeFavoriteAnimation(index);
-                                          }
-                                        } else {
-                                          Navigator.of(context,
-                                                  rootNavigator: true)
-                                              .push(CreateAccountPage.route());
-                                        }
+                                        indexList = index;
                                       });
-                                    },
-                                  ),
-                                )),
-                          ],
-                        ))
-                  ],
+                                    } else {
+                                      BlocProvider.of<FavoriteItemBloc>(context)
+                                          .add(
+                                              FavoriteItemEvent.addFavoriteItem(
+                                                  FavoriteModel(
+                                                      favoritesItemAction:
+                                                          "ADD",
+                                                      profileFavoriteItems: [
+                                            FavoriteItemModel(
+                                                catalogItemId:
+                                                    catalogList[index]
+                                                        .catalogItemId)
+                                          ])));
+                                      catalogList[index] = catalogList[index]
+                                          .copyWith(inFavorites: true);
+
+                                      setState(() {
+                                        indexList = index;
+                                      });
+                                      onChangeFavoriteAnimation(index);
+                                    }
+                                  } else {
+                                    Navigator.of(context, rootNavigator: true)
+                                        .push(CreateAccountPage.route());
+                                  }
+                                });
+                              },
+                            ),
+                          ))
+                    ],
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
