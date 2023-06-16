@@ -2999,6 +2999,26 @@ class S {
       args: [chatsNumber],
     );
   }
+
+  /// `ALERTS & NOTIFICATIONS`
+  String get alert_center_title {
+    return Intl.message(
+      'ALERTS & NOTIFICATIONS',
+      name: 'alert_center_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unread`
+  String get unread {
+    return Intl.message(
+      'Unread',
+      name: 'unread',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

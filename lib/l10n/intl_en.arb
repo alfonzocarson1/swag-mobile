@@ -306,5 +306,9 @@
     "chatAddSwagAdminButton": "Add Swag Member",
 
     "chatsHeader": "ALERTS & Notifications",
-    "chatsUnreadMessages": "{chatsNumber} Unread"
+    "chatsUnreadMessages": "{chatsNumber} Unread",
+
+    "alert_center_title": "ALERTS & NOTIFICATIONS",
+    "unread": "Unread"
+
 }
