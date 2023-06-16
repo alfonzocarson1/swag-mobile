@@ -341,7 +341,7 @@ class _CatalogPageState extends State<CatalogPage> {
                           catalogList[index].forSale
                               ? (catalogList[index].numberAvailable > 1)
                                   ? '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.minPrice!)} - ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.maxPrice!)}'
-                                  : '${S.of(context).from}: ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.minPrice!)}'
+                                  : '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.minPrice!)}'
                               : '${S.of(context).last_sale}: ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.lastSale!)}',
                           style: Theme.of(context)
                               .textTheme
