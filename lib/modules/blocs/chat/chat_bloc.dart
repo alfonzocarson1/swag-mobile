@@ -64,6 +64,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       type: (Platform.isIOS) ? PushTokenType.apns : PushTokenType.fcm, 
       token: firebaseToken,
     );
+
+    print('object');
   }
 
   Future<void> getChannels() async {

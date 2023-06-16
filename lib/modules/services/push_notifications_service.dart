@@ -1,11 +1,13 @@
 import 'dart:io';
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:swagapp/modules/di/injector.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:swagapp/modules/enums/notification_type.dart';
 import 'package:swagapp/modules/common/utils/context_service.dart';
+import 'package:swagapp/modules/models/chat/sendbird_push_message.dart';
 import 'package:swagapp/modules/models/chat/sendbird_push_payload.dart';
 import 'package:swagapp/modules/services/local_notifications_service.dart';
 import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
@@ -32,13 +34,25 @@ abstract class PushNotificationsService {
       sound: false,
     );
 
-    FirebaseMessaging.onBackgroundMessage((RemoteMessage message)=> _onBackgroundHandler(message));
+    FirebaseMessaging.onBackgroundMessage(_onBackgroundHandler);    
     FirebaseMessaging.onMessage.listen((RemoteMessage message)=> _onMessageHandler(message));
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message)=> _onOpenHandler(message));
   }
 
   static Future<void> _onBackgroundHandler(RemoteMessage message) async {
+
     _notificationStreamController.add(message.data);
+    Map<String, dynamic> messageData = json.decode(message.data['sendbird']);
+    SendBirdPushMessage baseMessage = SendBirdPushMessage.fromJson(messageData);
+
+    if(Platform.isAndroid) {
+
+      await LocalNotificationsService.showNotification(
+        title: baseMessage.recipient.name, 
+        body: baseMessage.message, 
+        payload: null,
+      );
+    }
   }
 
   static Future<void> _onMessageHandler(RemoteMessage message) async {
@@ -94,4 +108,3 @@ abstract class PushNotificationsService {
   static closeStreams()=> _notificationStreamController.close();
 
 }
-
