@@ -146,6 +146,7 @@ class _ExplorePageState extends State<ExplorePage> with ChannelEventHandler {
 
       ChatBloc chatBloc = context.read<ChatBloc>();
 
+      await chatBloc.getUserSendBirdToken();
       await chatBloc.initSendBirdApp();
       await chatBloc.getChannels();
     });
