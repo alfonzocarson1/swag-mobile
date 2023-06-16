@@ -56,6 +56,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "aditional_listing_detail": MessageLookupByLibrary.simpleMessage(
             "Additional listing details..."),
         "agree_to": MessageLookupByLibrary.simpleMessage("I agree to Swag’s "),
+        "alert_center_title":
+            MessageLookupByLibrary.simpleMessage("ALERTS & NOTIFICATIONS"),
         "alert_remove_btn": MessageLookupByLibrary.simpleMessage("REMOVE ITEM"),
         "alert_remove_subtitle": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to remove this item from you collection? This item is also listed for sale. Removing the item from your collection will also remove the listing."),
@@ -462,6 +464,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "type": MessageLookupByLibrary.simpleMessage("type"),
         "unicorn_covers":
             MessageLookupByLibrary.simpleMessage("UNICORN COVERS"),
+        "unread": MessageLookupByLibrary.simpleMessage("Unread"),
         "username": MessageLookupByLibrary.simpleMessage("@username"),
         "username_taken":
             MessageLookupByLibrary.simpleMessage("This username is taken "),
