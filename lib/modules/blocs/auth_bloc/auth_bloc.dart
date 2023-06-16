@@ -104,6 +104,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       
       String deviceId = getIt<PreferenceRepositoryService>().getFirebaseDeviceToken();
       CreateAccountResponseModel response = await authService.authenticate(email, password, deviceId);
+      getIt<StorageRepositoryService>().saveToken(response.token);
 
       if (response.errorCode == successResponse ||
           response.errorCode == defaultString) {
@@ -111,7 +112,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         await getIt<ProfileCubit>().loadProfileResults();
         ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
         getIt<PreferenceRepositoryService>().saveUserSendBirdId(profileData.accountId);
-        getIt<StorageRepositoryService>().saveToken(response.token);
+        
 
         yield const AuthState.authenticated();
       } else {
