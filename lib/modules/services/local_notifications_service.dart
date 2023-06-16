@@ -59,7 +59,7 @@ abstract class LocalNotificationsService {
         'channelId', 
         'channelName',   
         importance: Importance.max,
-        icon: AppImages.avatar2,  
+        // icon: AppImages.avatar2,  
       ),
       iOS: DarwinNotificationDetails(
         attachments: attachments,
