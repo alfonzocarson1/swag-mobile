@@ -17,6 +17,28 @@
       android:hardwareAccelerated="true"
       android:windowSoftInputMode="adjustResize"
     >
+
+               <!-- Deep Links -->
+       <intent-filter>
+         <action android:name="android.intent.action.VIEW" />
+         <category android:name="android.intent.category.DEFAULT" />
+         <category android:name="android.intent.category.BROWSABLE" />
+         <!-- Accepts URIs that begin with YOUR_SCHEME://YOUR_HOST -->        
+         <data android:scheme="sample" android:host="swagapp.com" />
+         <data
+           android:scheme="https"
+           android:host="swagapp.com" />
+       </intent-filter>
+
+       <!-- App Links -->
+       <intent-filter android:autoVerify="true">
+         <action android:name="android.intent.action.VIEW" />
+         <category android:name="android.intent.category.DEFAULT" />
+         <category android:name="android.intent.category.BROWSABLE" />
+         <!-- Accepts URIs that begin with https://YOUR_HOST -->
+         <data android:scheme="https" android:host="www.swagapp.com" android:pathPrefix="/product" />   
+       </intent-filter>
+       
             <!-- Specifies an Android theme to apply to this Activity as soon as
                  the Android process has started. This theme is visible to the user
                  while the Flutter UI initializes. After that, this theme continues
@@ -34,28 +56,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-
-               <!-- Deep Links -->
-       <intent-filter>
-         <action android:name="android.intent.action.VIEW" />
-         <category android:name="android.intent.category.DEFAULT" />
-         <category android:name="android.intent.category.BROWSABLE" />
-         <!-- Accepts URIs that begin with YOUR_SCHEME://YOUR_HOST -->
-         <data
-           android:scheme="https"
-           android:host="swagapp.com" />
-       </intent-filter>
-
-       <!-- App Links -->
-       <intent-filter android:autoVerify="true">
-         <action android:name="android.intent.action.VIEW" />
-         <category android:name="android.intent.category.DEFAULT" />
-         <category android:name="android.intent.category.BROWSABLE" />
-         <!-- Accepts URIs that begin with https://YOUR_HOST -->
-         <data
-           android:scheme="https"
-           android:host="swagapp.com" />
-       </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
