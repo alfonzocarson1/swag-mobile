@@ -155,16 +155,6 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
             child: _getBody()));
   }
 
-  refreshResults() {
-    getIt<PaginatedSearchCubit>().refreshResults(searchTab: SearchTab.all);
-    getIt<PaginatedSearchCubit>().refreshResults(searchTab: SearchTab.whatsHot);
-    getIt<PaginatedSearchCubit>()
-        .refreshResults(searchTab: SearchTab.headcovers);
-    getIt<PaginatedSearchCubit>().refreshResults(searchTab: SearchTab.putters);
-    getIt<PaginatedSearchCubit>()
-        .refreshResults(searchTab: SearchTab.accessories);
-  }
-
   Widget _getBody() {
     return Container(
       constraints: BoxConstraints(
@@ -205,6 +195,7 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                                               fontFamily: "KnockoutCustom",
                                               fontSize: 30,
                                               color: Palette.current.white))),
+                              Expanded(flex: 2, child: Container()),
                             ],
                           ),
                           const SizedBox(height: 10),
@@ -352,7 +343,6 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                                                   : null,
                                             )),
                                         widget.imgList));
-                                refreshResults();
                               } else {
                                 getIt<ListingProfileCubit>().updateListing(
                                   ListingForSaleModel(

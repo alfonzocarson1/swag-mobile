@@ -144,7 +144,8 @@ class _CollectionPageState extends State<CollectionPage> {
                             Navigator.of(context, rootNavigator: true).push(
                                 ItemDetailPage.route(
                                     collectionList[index - 1].catalogItemId,
-                                    (val) {}));
+                                    (val) {},
+                                    null));
                           },
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -246,7 +247,10 @@ class _CollectionPageState extends State<CollectionPage> {
                               const SizedBox(
                                 height: 5,
                               ),
-                              Text(collectionList[index - 1].catalogItemName.toUpperCase(),
+                              Text(
+                                  collectionList[index - 1]
+                                      .catalogItemName
+                                      .toUpperCase(),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: Theme.of(context)
