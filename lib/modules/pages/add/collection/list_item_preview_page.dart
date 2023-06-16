@@ -14,9 +14,11 @@ import '../../../common/ui/multi_image_slide.dart';
 import '../../../common/ui/primary_button.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
+import '../../../common/utils/tab_wrapper.dart';
 import '../../../common/utils/utils.dart';
 import '../../../constants/constants.dart';
 import '../../../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
+import '../../../cubits/paginated_search/paginated_search_cubit.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
 import '../../../models/detail/detail_collection_model.dart';
@@ -153,6 +155,16 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
             child: _getBody()));
   }
 
+  refreshResults() {
+    getIt<PaginatedSearchCubit>().refreshResults(searchTab: SearchTab.all);
+    getIt<PaginatedSearchCubit>().refreshResults(searchTab: SearchTab.whatsHot);
+    getIt<PaginatedSearchCubit>()
+        .refreshResults(searchTab: SearchTab.headcovers);
+    getIt<PaginatedSearchCubit>().refreshResults(searchTab: SearchTab.putters);
+    getIt<PaginatedSearchCubit>()
+        .refreshResults(searchTab: SearchTab.accessories);
+  }
+
   Widget _getBody() {
     return Container(
       constraints: BoxConstraints(
@@ -275,8 +287,7 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                           const SizedBox(height: 17),
                           Container(
                             height:
-                                MediaQuery.of(context).devicePixelRatio * 50
-                                ,
+                                MediaQuery.of(context).devicePixelRatio * 50,
                             padding: const EdgeInsets.only(right: 50.0),
                             child: Text(widget.itemDescription,
                                 style: Theme.of(context)
@@ -290,8 +301,8 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                           ),
                           const SizedBox(height: 30),
                           FooterListItemPage(
-                            addList: true, 
-                            productItemId: this.widget.productItemId ?? '', 
+                            addList: true,
+                            productItemId: this.widget.productItemId ?? '',
                             showChatButton: true,
                           ),
                           const SizedBox(height: 30),
@@ -341,6 +352,7 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                                                   : null,
                                             )),
                                         widget.imgList));
+                                refreshResults();
                               } else {
                                 getIt<ListingProfileCubit>().updateListing(
                                   ListingForSaleModel(
@@ -363,6 +375,7 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                                   widget.imgList,
                                   widget.imgUrls ?? [],
                                 );
+
                                 Navigator.of(context).pop();
                                 Navigator.of(context).pop();
                                 Navigator.of(context).pop();
