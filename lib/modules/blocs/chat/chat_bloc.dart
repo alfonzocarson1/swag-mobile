@@ -43,8 +43,6 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       String userId = getIt<PreferenceRepositoryService>().getUserSendBirdId();
       String userToken = getIt<PreferenceRepositoryService>().getUserSendBirdToken();
 
-      print('object');
-
       User user = await this._sendbirdSdk.connect(
         userId,
         accessToken: userToken,

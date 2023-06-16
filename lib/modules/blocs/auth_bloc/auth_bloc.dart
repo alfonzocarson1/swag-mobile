@@ -104,14 +104,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       
       String deviceId = getIt<PreferenceRepositoryService>().getFirebaseDeviceToken();
       CreateAccountResponseModel response = await authService.authenticate(email, password, deviceId);
-      ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
 
-      getIt<PreferenceRepositoryService>().saveUserSendBirdId(profileData.accountId);
-
-      getIt<StorageRepositoryService>().saveToken(response.token);
       if (response.errorCode == successResponse ||
           response.errorCode == defaultString) {
-        getIt<ProfileCubit>().loadProfileResults();
+
+        await getIt<ProfileCubit>().loadProfileResults();
+        ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
+        getIt<PreferenceRepositoryService>().saveUserSendBirdId(profileData.accountId);
+        getIt<StorageRepositoryService>().saveToken(response.token);
+
         yield const AuthState.authenticated();
       } else {
         yield AuthState.error(HandlingErrors().getError(response.errorCode));
