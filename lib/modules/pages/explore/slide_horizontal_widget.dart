@@ -43,7 +43,7 @@ class HorizontalSlideWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.of(context, rootNavigator: true)
-            .push(ItemDetailPage.route(catalogItemId, (val) {}));
+            .push(ItemDetailPage.route(catalogItemId, (val) {}, null));
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,7 +78,6 @@ class HorizontalSlideWidget extends StatelessWidget {
                 Positioned(
                     top: 5,
                     right: 5,
-                    
                     child: CircleAvatar(
                       radius: 15,
                       backgroundColor: Palette.current.blackSmoke,
@@ -122,8 +121,8 @@ class HorizontalSlideWidget extends StatelessWidget {
                                     .textTheme
                                     .bodySmall!
                                     .copyWith(
-                                      fontStyle: FontStyle.normal,
-                                      fontFamily:"RingsideRegular",
+                                        fontStyle: FontStyle.normal,
+                                        fontFamily: "RingsideRegular",
                                         fontSize: 13,
                                         fontWeight: FontWeight.w400,
                                         color: Palette.current.white)),

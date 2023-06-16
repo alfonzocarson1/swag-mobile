@@ -35,14 +35,11 @@ class BuyPreviewPage extends StatefulWidget {
 
   const BuyPreviewPage({super.key, this.productItemId});
 
-
   final String? productItemId;
 
-  static Route route({String? productItemId}) =>
-      PageRoutes.material(
+  static Route route({String? productItemId}) => PageRoutes.material(
         settings: const RouteSettings(name: name),
-        builder: (context) => BuyPreviewPage(
-            productItemId: productItemId),
+        builder: (context) => BuyPreviewPage(productItemId: productItemId),
       );
 
   @override
@@ -64,8 +61,8 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
 
   @override
   void initState() {
-    getIt<BuyCubit>().getListDetailItem(widget.productItemId ?? '');  
-    super.initState();    
+    getIt<BuyCubit>().getListDetailItem(widget.productItemId ?? '');
+    super.initState();
   }
 
   @override
@@ -160,6 +157,10 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                           CrossAxisAlignment.stretch,
                                       children: [
                                         Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Expanded(
                                                 flex: 6,

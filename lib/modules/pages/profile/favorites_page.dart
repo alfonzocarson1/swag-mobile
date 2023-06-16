@@ -72,12 +72,14 @@ class _FavoritesPageState extends State<FavoritesPage> {
     });
   }
 
-  refreshResults(){
-     getIt<PaginatedSearchCubit>().refreshResults(searchTab: SearchTab.all);
+  refreshResults() {
+    getIt<PaginatedSearchCubit>().refreshResults(searchTab: SearchTab.all);
     getIt<PaginatedSearchCubit>().refreshResults(searchTab: SearchTab.whatsHot);
-    getIt<PaginatedSearchCubit>().refreshResults(searchTab: SearchTab.headcovers);
+    getIt<PaginatedSearchCubit>()
+        .refreshResults(searchTab: SearchTab.headcovers);
     getIt<PaginatedSearchCubit>().refreshResults(searchTab: SearchTab.putters);
-    getIt<PaginatedSearchCubit>().refreshResults(searchTab: SearchTab.accessories);
+    getIt<PaginatedSearchCubit>()
+        .refreshResults(searchTab: SearchTab.accessories);
   }
 
   Widget _getBody(List<DetailItemModel> favoriteList) {
@@ -101,7 +103,9 @@ class _FavoritesPageState extends State<FavoritesPage> {
                     onTap: () {
                       Navigator.of(context, rootNavigator: true).push(
                           ItemDetailPage.route(
-                              favoriteList[index].catalogItemId, (val) {}));
+                              favoriteList[index].catalogItemId,
+                              (val) {},
+                              null));
                     },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
