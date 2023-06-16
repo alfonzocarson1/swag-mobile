@@ -531,41 +531,73 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                 const SizedBox(
                   height: 20,
                 ),
-                (!widget.sale || notifyAvailabilityFlagBTN)
+                (widget.sale && !isLogged)
                     ? SizedBox(
                         width: MediaQuery.of(context).size.width,
                         child: PrimaryButton(
-                          title: S.of(context).notify_available,
+                          title:
+                              '${S.of(context).buy_for} ${decimalDigitsLastSalePrice(widget.lastSale.minPrice!)}',
                           onPressed: () {
-                            if (isLogged &&
-                                notifyAvailabilityFlagBTN &&
-                                buttonEnable &&
-                                !itemInNotifyList) {
-                              buttonEnable = false;
-                              setState(() {});
-                              getIt<CatalogDetailCubit>()
-                                  .notifyAvailability(widget.catalogId);
-                              showToastMessage(
-                                  S.of(context).notify_availability);
-                            } else if (isLogged &&
-                                buttonEnable == false &&
-                                !itemInNotifyList) {
-                              showToastMessage(
-                                  S.of(context).notification_already_requested);
-                            } else if (!notifyAvailabilityFlagBTN &&
-                                buttonEnable &&
-                                itemInNotifyList) {
-                              showToastMessage(
-                                  S.of(context).notification_already_requested);
-                            } else if (!isLogged) {
+                            if (isLogged) {
+                              Navigator.of(context, rootNavigator: true)
+                                  .push(BuyForSale.route(
+                                widget.catalogId,
+                                widget.catalogItemName,
+                                widget.lastSale,
+                                widget.urlImage,
+                                widget.favorite,
+                                widget.sale,
+                                widget.available ?? 0,
+                                widget.saleHistoryList,
+                                (val) {
+                                  widget.addFavorite(val);
+                                },
+                              ));
+                            } else {
                               Navigator.of(context, rootNavigator: true)
                                   .push(CreateAccountPage.route());
                             }
                           },
-                          type: PrimaryButtonType.primaryEerieBlack,
+                          type: PrimaryButtonType.green,
                         ),
                       )
-                    : Container()
+                    : (!widget.sale || notifyAvailabilityFlagBTN)
+                        ? SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            child: PrimaryButton(
+                              title: S.of(context).notify_available,
+                              onPressed: () {
+                                if (isLogged &&
+                                    notifyAvailabilityFlagBTN &&
+                                    buttonEnable &&
+                                    !itemInNotifyList) {
+                                  buttonEnable = false;
+                                  setState(() {});
+                                  getIt<CatalogDetailCubit>()
+                                      .notifyAvailability(widget.catalogId);
+                                  showToastMessage(
+                                      S.of(context).notify_availability);
+                                } else if (isLogged &&
+                                    buttonEnable == false &&
+                                    !itemInNotifyList) {
+                                  showToastMessage(S
+                                      .of(context)
+                                      .notification_already_requested);
+                                } else if (!notifyAvailabilityFlagBTN &&
+                                    buttonEnable &&
+                                    itemInNotifyList) {
+                                  showToastMessage(S
+                                      .of(context)
+                                      .notification_already_requested);
+                                } else if (!isLogged) {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(CreateAccountPage.route());
+                                }
+                              },
+                              type: PrimaryButtonType.primaryEerieBlack,
+                            ),
+                          )
+                        : Container()
               ],
             ))
       ],
