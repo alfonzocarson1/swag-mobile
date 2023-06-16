@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "851150978303",
+    "project_id": "afterdrop-ffab2",
+    "storage_bucket": "afterdrop-ffab2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:851150978303:android:cf02c56441c251f87720ca",
+        "android_client_info": {
+          "package_name": "golf.swag.dev.swaggolf"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "851150978303-hlhncpffddkngo7f0rfl94kjjuafjro1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "golf.swag.dev.swaggolf",
+            "certificate_hash": "1517ac63ed58c37fb3ed510104a5c5a3a421d036"
+          }
+        },
+        {
+          "client_id": "851150978303-f7v0t4u57122i7ntdnm4vnuv5gng5ki8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQsuWO0MFJYx-GIVaI2x9W-4Gx3-aOFLE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "851150978303-f7v0t4u57122i7ntdnm4vnuv5gng5ki8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "851150978303-mdhrjvt7mq77k0bia2028ug0o8bcg4e2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "golf.swag.dev.swaggolf"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
