@@ -125,14 +125,10 @@ class _CatalogPageState extends State<CatalogPage> {
                           Image.asset("assets/images/ProfilePhoto.png"),
                     ),
                     Positioned(
-                        top: 0,
-                        right: 0,
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.add,
-                            color: Palette.current.grey,
-                          ),
-                          onPressed: () {
+                        top: 10,
+                        right: 10,
+                        child: GestureDetector(
+                          onTap: () {
                             if (isLogged) {
                               if (catalogList[index]
                                   .collectionItems!
@@ -167,6 +163,20 @@ class _CatalogPageState extends State<CatalogPage> {
                                   .push(CreateAccountPage.route());
                             }
                           },
+                          child: Container(
+                            height: 35,
+                            width: 35,
+                            padding: const EdgeInsets.all(7.5),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(90.0),
+                                color: Palette.current.blackSmoke),
+                            child: Image.asset(
+                              width: 24,
+                              height: 24,
+                              'assets/images/plus.png',
+                              color: Palette.current.white,
+                            ),
+                          ),
                         )),
                     Visibility(
                       visible: isSkullVisible,

@@ -67,7 +67,7 @@ class _ProfilePageState extends State<ProfilePage>
             child: IconButton(
               icon: Image.asset(
                 'assets/images/Setting.png',
-                scale: 2,
+                scale: 2.5,
               ),
               onPressed: () {
                 Navigator.of(context, rootNavigator: true)
@@ -80,11 +80,13 @@ class _ProfilePageState extends State<ProfilePage>
         leading: Padding(
           padding: const EdgeInsets.only(left: 10),
           child: IconButton(
-            icon: Image.asset('assets/images/Message.png'), 
-            onPressed: ()=> Navigator.of(context, rootNavigator: true).push(
-              MaterialPageRoute(builder:(context)=> const ChatsPage()),
-            )
-          ),
+              icon: Image.asset(
+                'assets/images/Message.png',
+                scale: 2.5,
+              ),
+              onPressed: () => Navigator.of(context, rootNavigator: true).push(
+                    MaterialPageRoute(builder: (context) => const ChatsPage()),
+                  )),
         ),
       ),
       backgroundColor: Palette.current.primaryNero,
@@ -149,8 +151,8 @@ class _ProfilePageState extends State<ProfilePage>
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TabBar(
-                   dividerColor: Colors.transparent,
-          indicatorColor: Palette.current.primaryNeonGreen,
+                dividerColor: Colors.transparent,
+                indicatorColor: Palette.current.primaryNeonGreen,
                 controller: _tabController,
                 indicator: UnderlineTabIndicator(
                     borderSide: BorderSide(

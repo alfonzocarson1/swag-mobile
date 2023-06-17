@@ -37,7 +37,7 @@ bool isValidCashAppTag(String cashAppTag) {
 }
 
 bool isValidVenmoUser(String venmoUser) {
-  return RegExp(r"^[-_a-zA-Z0-9]{5,10}$").hasMatch(venmoUser);
+  return RegExp(r"^[-_a-zA-Z0-9]{5,30}$").hasMatch(venmoUser);
 }
 
 bool isValidNumberDot(String number) {
@@ -57,9 +57,9 @@ String formatDate(String dateTime) {
 }
 
 extension StringExtension on String {
-    String capitalize() {
-      return "${this[0].toUpperCase()}${this.substring(1).toLowerCase()}";
-    }
+  String capitalize() {
+    return "${this[0].toUpperCase()}${this.substring(1).toLowerCase()}";
+  }
 }
 
 String decimalDigitsLastSalePrice(String lastSale) {
@@ -363,7 +363,8 @@ String toCamelCase(String input) {
     }
   }
 
-  return words.join();}
+  return words.join();
+}
 
 final _states = ['State'];
 
