@@ -36,9 +36,9 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>TEXT PENDING.</string>
+	<string>Allow Camera</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>TEXT PENDING.</string>
+	<string>Allow access to photos</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UIBackgroundModes</key>
