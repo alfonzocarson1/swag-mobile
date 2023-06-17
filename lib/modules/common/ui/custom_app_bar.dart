@@ -37,35 +37,26 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(title ?? ""),
       actions: actions
           ? <Widget>[
-              collections != null
-                  ? collections != 0
-                      ? Padding(
-                          padding: const EdgeInsets.only(right: 15, top: 10),
-                          child: GestureDetector(
-                            onTap: onAction,
-                            child: Text(
-                              "${collections}X",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayLarge!
-                                  .copyWith(
-                                      letterSpacing: 1,
-                                      fontWeight: FontWeight.w300,
-                                      fontFamily: "KnockoutCustom",
-                                      fontSize: 30,
-                                      color: Palette.current.primaryNeonGreen),
-                            ),
-                          ),
-                        )
-                      : IconButton(
-                          icon: Icon(
-                            Icons.add,
-                            color: Palette.current.gray4,
-                            size: 20,
-                          ),
-                          onPressed: onAction,
-                        )
-                  : Container()
+              Padding(
+                padding: const EdgeInsets.only(right: 20),
+                child: GestureDetector(
+                  onTap: onAction,
+                  child: Container(
+                    height: 35,
+                    width: 35,
+                    padding: const EdgeInsets.all(7.5),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(90.0),
+                        color: Palette.current.blackSmoke),
+                    child: Image.asset(
+                      width: 24,
+                      height: 24,
+                      'assets/images/plus.png',
+                      color: Palette.current.white,
+                    ),
+                  ),
+                ),
+              )
             ]
           : null,
       automaticallyImplyLeading: false,

@@ -2200,10 +2200,10 @@ class S {
     );
   }
 
-  /// `COLLECTION VALUE:`
+  /// `ESTIMATED COLLECTION VALUE:`
   String get collection_value {
     return Intl.message(
-      'COLLECTION VALUE:',
+      'ESTIMATED COLLECTION VALUE:',
       name: 'collection_value',
       desc: '',
       args: [],

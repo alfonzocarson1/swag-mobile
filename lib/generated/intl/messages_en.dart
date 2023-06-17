@@ -113,7 +113,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "collection_message": MessageLookupByLibrary.simpleMessage(
             "This cover is not in your collection, buy it now before it’s too late"),
         "collection_value":
-            MessageLookupByLibrary.simpleMessage("COLLECTION VALUE:"),
+            MessageLookupByLibrary.simpleMessage("ESTIMATED COLLECTION VALUE:"),
         "collections": MessageLookupByLibrary.simpleMessage("collections"),
         "communications_sub_title": MessageLookupByLibrary.simpleMessage(
             "Manage notifications and blocking"),
