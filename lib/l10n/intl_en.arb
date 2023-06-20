@@ -310,7 +310,18 @@
 
     "alert_center_title": "ALERTS & NOTIFICATIONS",
     "unread": "Unread",
+    "pending_sale_btn": "Pending Sale",
 
-    "pending_sale_btn": "Pending Sale"
+    "paywall_title":"Upgrade your subscription to see the full sales history plus much more!",
+    "paywall_condition1":"Unlimited listings ",
+    "paywall_condition2":"See items price history",
+    "paywall_condition3":"Track your portfolio value",
+    "paywall_condition4":"Make offers on items",
+    "paywall_condition5":"Verified user badge",
+    "paywall_price_per_year":"$99.99 per year",
+    "paywall_price_per_month":"($8.30 per month)",
+    "paywall_or_price_month":"OR $9.99 per month",
+    "paywall_discount":"SAVE 20%",
+    "paywall_free_trial":"GET 30 Days free"    
 
 }
