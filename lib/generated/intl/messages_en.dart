@@ -97,8 +97,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "chatSwaggAdmin": MessageLookupByLibrary.simpleMessage("Swagg Admin"),
         "chatToday": MessageLookupByLibrary.simpleMessage("Today"),
         "chatTyping": MessageLookupByLibrary.simpleMessage("Typing..."),
-        "chatsHeader":
-            MessageLookupByLibrary.simpleMessage("ALERTS & Notifications"),
+        "chatsHeader": MessageLookupByLibrary.simpleMessage("Chat"),
         "chatsUnreadMessages": m1,
         "city": MessageLookupByLibrary.simpleMessage("City"),
         "clear_all": MessageLookupByLibrary.simpleMessage("Clear All"),

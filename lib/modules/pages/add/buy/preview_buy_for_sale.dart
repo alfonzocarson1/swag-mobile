@@ -192,7 +192,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                     ),
                                                     onPressed: () async {
                                                       Share.share(
-                                                        'https://swagapp.com/products/${listData.catalogItemId}',
+                                                        '$shareListingUrl${listData.catalogItemId}',
                                                       );
                                                     },
                                                   ),
