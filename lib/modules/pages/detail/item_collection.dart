@@ -434,8 +434,11 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                     ? SizedBox(
                         width: MediaQuery.of(context).size.width,
                         child: PrimaryButton(
-                          title:
-                              '${S.of(context).buy_for} ${decimalDigitsLastSalePrice(widget.lastSale.minPrice!)}',
+                          title: widget.sale
+                              ? widget.available! > 1
+                                  ? '${S.of(context).buy_for} ${decimalDigitsLastSalePrice(widget.lastSale.minPrice!)} - ${decimalDigitsLastSalePrice(widget.lastSale.maxPrice!)}'
+                                  : '${S.of(context).buy_for} ${decimalDigitsLastSalePrice(widget.lastSale.minPrice!)}'
+                              : '${S.of(context).buy_for} ${decimalDigitsLastSalePrice(widget.lastSale.minPrice!)}',
                           onPressed: () {
                             if (isLogged) {
                               Navigator.of(context, rootNavigator: true)
@@ -535,8 +538,11 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                     ? SizedBox(
                         width: MediaQuery.of(context).size.width,
                         child: PrimaryButton(
-                          title:
-                              '${S.of(context).buy_for} ${decimalDigitsLastSalePrice(widget.lastSale.minPrice!)}',
+                          title: widget.sale
+                              ? widget.available! > 1
+                                  ? '${S.of(context).buy_for} ${decimalDigitsLastSalePrice(widget.lastSale.minPrice!)} - ${decimalDigitsLastSalePrice(widget.lastSale.maxPrice!)}'
+                                  : '${S.of(context).buy_for} ${decimalDigitsLastSalePrice(widget.lastSale.minPrice!)}'
+                              : '${S.of(context).buy_for} ${decimalDigitsLastSalePrice(widget.lastSale.minPrice!)}',
                           onPressed: () {
                             if (isLogged) {
                               Navigator.of(context, rootNavigator: true)
@@ -597,7 +603,10 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                               type: PrimaryButtonType.primaryEerieBlack,
                             ),
                           )
-                        : Container()
+                        : Container(),
+                const SizedBox(
+                  height: 50,
+                )
               ],
             ))
       ],

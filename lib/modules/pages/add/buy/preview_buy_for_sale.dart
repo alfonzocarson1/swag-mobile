@@ -607,10 +607,45 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                                 .of(context)
                                                                 .complete_sale_btn
                                                                 .toUpperCase(),
-                                                            onPressed: () {},
+                                                            onPressed: () {
+                                                              getIt<BuyCubit>()
+                                                                  .acceptPurchase(
+                                                                      listData.productItemId ??
+                                                                          '');
+                                                            },
                                                             type:
                                                                 PrimaryButtonType
                                                                     .green,
+                                                          ),
+                                                          const SizedBox(
+                                                              height: 20),
+                                                          PrimaryButton(
+                                                            title: S
+                                                                .of(context)
+                                                                .cancel_sale_btn
+                                                                .toUpperCase(),
+                                                            onPressed: () {},
+                                                            type:
+                                                                PrimaryButtonType
+                                                                    .pink,
+                                                          )
+                                                        ],
+                                                      )),
+                                                  Visibility(
+                                                      visible:
+                                                          listData.status ==
+                                                              'pendingPayment',
+                                                      child: Column(
+                                                        children: [
+                                                          PrimaryButton(
+                                                            title: S
+                                                                .of(context)
+                                                                .pending_sale_btn
+                                                                .toUpperCase(),
+                                                            onPressed: null,
+                                                            type:
+                                                                PrimaryButtonType
+                                                                    .grey,
                                                           ),
                                                           const SizedBox(
                                                               height: 20),

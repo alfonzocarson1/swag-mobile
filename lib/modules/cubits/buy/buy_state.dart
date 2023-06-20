@@ -14,5 +14,9 @@ class BuyStateCubit with _$BuyStateCubit {
   factory BuyStateCubit.loadedBuyLisItem(
       BuyASaleListingResponseModel buyItemlList) = LoadedBuyListItemState;
 
+  factory BuyStateCubit.acceptPurchaseRequest(
+          AcceptPurchaseResponseModel acceptPurchaseResponse) =
+      AcceptPurchaseRequestState;
+
   factory BuyStateCubit.error(final String message) = ErrorBuyStateCubit;
 }

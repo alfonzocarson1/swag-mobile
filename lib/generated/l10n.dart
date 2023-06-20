@@ -3019,6 +3019,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Pending Sale`
+  String get pending_sale_btn {
+    return Intl.message(
+      'Pending Sale',
+      name: 'pending_sale_btn',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
