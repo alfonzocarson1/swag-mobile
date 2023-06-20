@@ -241,7 +241,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Must 20 characters or less, min 1 letter, no spaces"),
         "input_venmo": MessageLookupByLibrary.simpleMessage("@Venmo username"),
         "input_venmo_ivalid": MessageLookupByLibrary.simpleMessage(
-            "Must be 5-10 characters, no spaces or special characters except - or _"),
+            "Must be 5-30 characters, no spaces or special characters except - or _"),
         "invadlidEmail": MessageLookupByLibrary.simpleMessage(
             "Incorrect email. Please try again."),
         "invalid_email": MessageLookupByLibrary.simpleMessage(

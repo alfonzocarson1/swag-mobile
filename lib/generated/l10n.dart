@@ -2680,10 +2680,10 @@ class S {
     );
   }
 
-  /// `Must be 5-10 characters, no spaces or special characters except - or _`
+  /// `Must be 5-30 characters, no spaces or special characters except - or _`
   String get input_venmo_ivalid {
     return Intl.message(
-      'Must be 5-10 characters, no spaces or special characters except - or _',
+      'Must be 5-30 characters, no spaces or special characters except - or _',
       name: 'input_venmo_ivalid',
       desc: '',
       args: [],
