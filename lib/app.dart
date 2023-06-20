@@ -66,7 +66,7 @@ class _AppState extends State<App> {
     void openAppLink(Uri uri) {
       var uriFragment = uri;
       print(uriFragment);
-    //_homeNavigatorKey.currentState?.pushNamed(uri.fragment);
+      //_homeNavigatorKey.currentState?.pushNamed("");
   }
 
   @override
