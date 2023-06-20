@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:swagapp/modules/common/ui/paywall_widget.dart';
 
 import '../../../generated/l10n.dart';
 import '../../models/detail/sale_history_model.dart';
@@ -248,6 +249,7 @@ class _CustomDataTableState extends State<CustomDataTable> {
                                                 .current.primaryNeonGreen)))),
                           ]))
                       .toList()),
+                      PayWallWidget(),
             ],
           ),
         ),
