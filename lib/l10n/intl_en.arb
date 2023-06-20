@@ -305,7 +305,7 @@
     "chatAddSwagAdminContent": "Are you sure you would like to add a swag member to the chat? The admin will be able to see the complete chat history to help settle any disputes. ",
     "chatAddSwagAdminButton": "Add Swag Member",
 
-    "chatsHeader": "ALERTS & Notifications",
+    "chatsHeader": "Chat",
     "chatsUnreadMessages": "{chatsNumber} Unread",
 
     "alert_center_title": "ALERTS & NOTIFICATIONS",
