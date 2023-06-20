@@ -4,6 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../common/utils/handling_errors.dart';
 import '../../data/buy_for_sale_listing/i_buy_for_sale_listing_service.dart';
+import '../../di/injector.dart';
 import '../../models/buy_for_sale_listing/buy_a_listing_accept_purchase_response_model.dart';
 import '../../models/buy_for_sale_listing/buy_a_listing_model.dart';
 import '../../models/buy_for_sale_listing/buy_a_listing_response_model.dart';
@@ -47,6 +48,8 @@ class BuyCubit extends Cubit<BuyStateCubit> {
     try {
       AcceptPurchaseResponseModel responseBody =
           await buyService.acceptPurchaseRequest(productItemId);
+
+      getIt<BuyCubit>().getListDetailItem(productItemId);
       emit(BuyStateCubit.acceptPurchaseRequest(responseBody));
     } catch (error) {
       emit(

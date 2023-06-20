@@ -301,6 +301,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "peer_to_peer_payment_options_title":
             MessageLookupByLibrary.simpleMessage(
                 "Peer to Peer Payment Options"),
+        "pending_sale_btn":
+            MessageLookupByLibrary.simpleMessage("Pending Sale"),
         "phone": MessageLookupByLibrary.simpleMessage("Phone"),
         "phone_taken": MessageLookupByLibrary.simpleMessage(
             "An account is already associated with this phone number"),

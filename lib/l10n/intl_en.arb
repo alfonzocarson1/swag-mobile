@@ -309,6 +309,8 @@
     "chatsUnreadMessages": "{chatsNumber} Unread",
 
     "alert_center_title": "ALERTS & NOTIFICATIONS",
-    "unread": "Unread"
+    "unread": "Unread",
+
+    "pending_sale_btn": "Pending Sale"
 
 }
