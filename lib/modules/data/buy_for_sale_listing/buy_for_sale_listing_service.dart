@@ -1,5 +1,6 @@
 import '../../api/api.dart';
 import '../../api/api_service.dart';
+import '../../models/buy_for_sale_listing/buy_a_listing_accept_purchase_response_model.dart';
 import '../../models/buy_for_sale_listing/buy_a_listing_model.dart';
 import '../../models/buy_for_sale_listing/buy_a_listing_response_model.dart';
 import '../../models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
@@ -49,6 +50,18 @@ class BuyForSaleListingService extends IBuyForSaleListingService {
       fromJson: (json) => BuyASaleListingResponseModel.fromJson(json),
       body: buyAListing.toJson(),
     );
+    return response;
+  }
+
+  @override
+  Future<AcceptPurchaseResponseModel> acceptPurchaseRequest(
+      String productItemId) async {
+    AcceptPurchaseResponseModel response = await apiService.getEndpointData(
+        endpoint: Endpoint.acceptPurchaseRequest,
+        method: RequestMethod.post,
+        needBearer: true,
+        dynamicParam: productItemId,
+        fromJson: (json) => AcceptPurchaseResponseModel.fromJson(json));
     return response;
   }
 }
