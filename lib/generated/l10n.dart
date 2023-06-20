@@ -2980,10 +2980,10 @@ class S {
     );
   }
 
-  /// `ALERTS & Notifications`
+  /// `Chat`
   String get chatsHeader {
     return Intl.message(
-      'ALERTS & Notifications',
+      'Chat',
       name: 'chatsHeader',
       desc: '',
       args: [],
