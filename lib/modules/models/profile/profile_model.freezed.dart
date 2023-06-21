@@ -32,8 +32,8 @@ mixin _$ProfileModel {
   double get collectionValue => throw _privateConstructorUsedError;
   bool get accountVerified => throw _privateConstructorUsedError;
   bool get emailVerified => throw _privateConstructorUsedError;
-  String? get hasActiveSubscription => throw _privateConstructorUsedError;
-  String? get hasUsedFreeTrial => throw _privateConstructorUsedError;
+  bool? get hasActiveSubscription => throw _privateConstructorUsedError;
+  bool? get hasUsedFreeTrial => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -59,8 +59,8 @@ abstract class $ProfileModelCopyWith<$Res> {
       double collectionValue,
       bool accountVerified,
       bool emailVerified,
-      String? hasActiveSubscription,
-      String? hasUsedFreeTrial});
+      bool? hasActiveSubscription,
+      bool? hasUsedFreeTrial});
 }
 
 /// @nodoc
@@ -138,11 +138,11 @@ class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
       hasActiveSubscription: freezed == hasActiveSubscription
           ? _value.hasActiveSubscription
           : hasActiveSubscription // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as bool?,
       hasUsedFreeTrial: freezed == hasUsedFreeTrial
           ? _value.hasUsedFreeTrial
           : hasUsedFreeTrial // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as bool?,
     ) as $Val);
   }
 }
@@ -167,8 +167,8 @@ abstract class _$$_ProfileModelCopyWith<$Res>
       double collectionValue,
       bool accountVerified,
       bool emailVerified,
-      String? hasActiveSubscription,
-      String? hasUsedFreeTrial});
+      bool? hasActiveSubscription,
+      bool? hasUsedFreeTrial});
 }
 
 /// @nodoc
@@ -244,11 +244,11 @@ class __$$_ProfileModelCopyWithImpl<$Res>
       hasActiveSubscription: freezed == hasActiveSubscription
           ? _value.hasActiveSubscription
           : hasActiveSubscription // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as bool?,
       hasUsedFreeTrial: freezed == hasUsedFreeTrial
           ? _value.hasUsedFreeTrial
           : hasUsedFreeTrial // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as bool?,
     ));
   }
 }
@@ -307,9 +307,9 @@ class _$_ProfileModel implements _ProfileModel {
   @override
   final bool emailVerified;
   @override
-  final String? hasActiveSubscription;
+  final bool? hasActiveSubscription;
   @override
-  final String? hasUsedFreeTrial;
+  final bool? hasUsedFreeTrial;
 
   @override
   String toString() {
@@ -393,8 +393,8 @@ abstract class _ProfileModel implements ProfileModel {
       required final double collectionValue,
       required final bool accountVerified,
       required final bool emailVerified,
-      final String? hasActiveSubscription,
-      final String? hasUsedFreeTrial}) = _$_ProfileModel;
+      final bool? hasActiveSubscription,
+      final bool? hasUsedFreeTrial}) = _$_ProfileModel;
 
   factory _ProfileModel.fromJson(Map<String, dynamic> json) =
       _$_ProfileModel.fromJson;
@@ -422,9 +422,9 @@ abstract class _ProfileModel implements ProfileModel {
   @override
   bool get emailVerified;
   @override
-  String? get hasActiveSubscription;
+  bool? get hasActiveSubscription;
   @override
-  String? get hasUsedFreeTrial;
+  bool? get hasUsedFreeTrial;
   @override
   @JsonKey(ignore: true)
   _$$_ProfileModelCopyWith<_$_ProfileModel> get copyWith =>

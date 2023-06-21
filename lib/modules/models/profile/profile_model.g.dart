@@ -22,8 +22,8 @@ _$_ProfileModel _$$_ProfileModelFromJson(Map<String, dynamic> json) =>
       collectionValue: (json['collectionValue'] as num).toDouble(),
       accountVerified: json['accountVerified'] as bool,
       emailVerified: json['emailVerified'] as bool,
-      hasActiveSubscription: json['hasActiveSubscription'] as String?,
-      hasUsedFreeTrial: json['hasUsedFreeTrial'] as String?,
+      hasActiveSubscription: json['hasActiveSubscription'] as bool?,
+      hasUsedFreeTrial: json['hasUsedFreeTrial'] as bool?,
     );
 
 Map<String, dynamic> _$$_ProfileModelToJson(_$_ProfileModel instance) =>
