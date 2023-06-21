@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:swagapp/modules/common/ui/discount_container_widget.dart';
+import 'package:swagapp/modules/common/ui/primary_button.dart';
 
 import '../../../generated/l10n.dart';
 import '../utils/palette.dart';
@@ -21,8 +22,8 @@ class PayWallWidget extends StatelessWidget {
     ];
 
     return  SizedBox(
-      width: MediaQuery.of(context).size.width,  // the width you want
-      height: MediaQuery.of(context).size.height * 0.6,  // the height you want
+      width: MediaQuery.of(context).size.width,  
+      height: MediaQuery.of(context).size.height * 0.65,  
       child: ClipRect(
       child: BackdropFilter(
     
@@ -45,8 +46,9 @@ class PayWallWidget extends StatelessWidget {
                 itemCount: payWallConditionList.length,
                 itemBuilder: (BuildContext context, int index){
                   return Container(     
-                    height: 20,                  
-                    margin:  const EdgeInsets.symmetric(vertical: 10),
+                    height: 
+                    20,                  
+                    margin:  const EdgeInsets.symmetric(vertical: 5),
                     child: ListTile(
                       contentPadding: const EdgeInsets.symmetric(horizontal: 90.0),
                       minVerticalPadding: 0,          
@@ -68,7 +70,18 @@ class PayWallWidget extends StatelessWidget {
                 const SizedBox(
                   height: 40,
                 ),
-               const DiscountContainerWidget(),              
+               const DiscountContainerWidget(),
+               const SizedBox(height: 20),
+               Text(S.of(context).paywall_or_price_month.toUpperCase(),
+               style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                            letterSpacing: 1,
+                            fontWeight: FontWeight.w300,
+                            fontFamily: "KnockoutCustom",
+                            fontSize: 25,
+                            color: Palette.current.primaryNeonGreen),
+               ),
+               const SizedBox(height: 35),
+               PrimaryButton(title: S.of(context).paywall_free_trial.toUpperCase(), onPressed: (){}, type: PrimaryButtonType.green)              
             ],      
           ),
         ),
