@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:swagapp/generated/l10n.dart';
 
 import '../utils/palette.dart';
 
@@ -8,20 +9,8 @@ class DiscountContainerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
-      Container(
-        height: MediaQuery.of(context).size.height * 0.03,
-        width: MediaQuery.of(context).size.width * 0.18,
-        color: Palette.current.primaryNeonGreen,
-      ),
-      Container(
-        height: 97,
-        decoration: BoxDecoration(
-            border: Border.all(
-          color: Palette.current.primaryNeonGreen,
-        )),
-      ),
-      Positioned(
-        top: 10,
+            Positioned(
+        top: 15,
           left: -5,
           child: CustomPaint(
             painter: CustomTriangle(Palette.current.primaryNeonGreen, 'right'),
@@ -29,13 +18,59 @@ class DiscountContainerWidget extends StatelessWidget {
                 const Size(45, 35), // this is the bounding size of the painter
           )),
       Positioned(
-        top: 8,
+        top:13,
           left: 33,
           child: CustomPaint(
             painter: CustomTriangle(Palette.current.primaryNeonGreen, 'left'),
             size:
                 const Size(45, 35), // this is the bounding size of the painter
           )),
+      Container(        
+        padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
+        height: MediaQuery.of(context).size.height * 0.035,
+        width: MediaQuery.of(context).size.width * 0.181,
+        color: Palette.current.primaryNeonGreen,
+        child: Text(S.of(context).paywall_discount, 
+        textAlign: TextAlign.center,
+        style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                  fontFamily: "KnockoutCustom",
+                  fontSize: 20,
+                  letterSpacing: 1,
+                  fontWeight: FontWeight.w400,
+                  color: Palette.current.black),
+      )),
+      Container(
+        padding:const EdgeInsets.only(top: 10),
+        height: MediaQuery.of(context).size.height * 0.12,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+            border: Border.all(
+          color: Palette.current.primaryNeonGreen,
+        )),
+        child: Column(
+          children: [
+            Text(S.of(context).paywall_price_per_year.toUpperCase(),
+        textAlign: TextAlign.center,
+        style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                  fontFamily: "KnockoutCustom",
+                  fontSize: 44,
+                  letterSpacing: 1,
+                  fontWeight: FontWeight.w400,
+                  color: Palette.current.primaryWhiteSmoke),
+        ),
+        Text(S.of(context).paywall_price_per_month.toUpperCase(),
+        textAlign: TextAlign.center,
+        style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                  fontFamily: "KnockoutCustom",
+                  fontSize: 22,
+                  letterSpacing: 1,
+                  fontWeight: FontWeight.w400,
+                  color: Palette.current.darkGray),
+        )
+          ],
+        )
+      ),
+
     ]);
   }
 }
