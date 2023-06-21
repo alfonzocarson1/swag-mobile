@@ -439,9 +439,11 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                             .green,
                                                       )),
                                                   Visibility(
-                                                      visible: listData
-                                                              .status ==
-                                                          'pendingSellerConfirmation',
+                                                      visible: (listData
+                                                                  .status ==
+                                                              'pendingSellerConfirmation' ||
+                                                          listData.status ==
+                                                              'pendingPayment'),
                                                       child: PrimaryButton(
                                                         title: S
                                                             .of(context)
