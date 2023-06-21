@@ -20,6 +20,8 @@ class ProfileModel with _$ProfileModel {
     required final double collectionValue,
     required final bool accountVerified,
     required final bool emailVerified,
+    final String? hasActiveSubscription,
+    final String? hasUsedFreeTrial,
   }) = _ProfileModel;
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) =>
