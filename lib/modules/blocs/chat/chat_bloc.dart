@@ -132,7 +132,9 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         return newChat;
       }      
     } 
-    catch (e) { throw Exception('Error loading channel'); }
+    catch (e) { 
+      throw Exception('Error loading channel'); 
+    }
   }
 
   Future<void> sendMessage({

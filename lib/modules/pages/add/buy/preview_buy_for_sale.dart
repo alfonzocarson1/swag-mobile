@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 import 'package:swagapp/modules/common/ui/general_delete_popup.dart';
 import 'package:swagapp/modules/cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
@@ -599,9 +600,10 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                         )
                                                       : Container(),
                                                   Visibility(
-                                                      visible: listData
-                                                              .status ==
-                                                          'pendingSellerConfirmation',
+                                                      // visible: listData
+                                                      //         .status ==
+                                                      //     'pendingSellerConfirmation',
+                                                      visible: true,
                                                       child: Column(
                                                         children: [
                                                           PrimaryButton(
@@ -609,11 +611,12 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                                 .of(context)
                                                                 .complete_sale_btn
                                                                 .toUpperCase(),
-                                                            onPressed: () {
-                                                              getIt<BuyCubit>()
-                                                                  .acceptPurchase(
-                                                                      listData.productItemId ??
-                                                                          '');
+                                                            onPressed: () async {
+
+                                                              String channelUrl = await getIt<BuyCubit>().acceptPurchase(listData.productItemId ??'');
+                                                              await context.read<ChatBloc>().startNewChat(channelUrl);
+
+                                                              print('Funciona');
                                                             },
                                                             type:
                                                                 PrimaryButtonType
