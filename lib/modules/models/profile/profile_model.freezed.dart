@@ -32,6 +32,8 @@ mixin _$ProfileModel {
   double get collectionValue => throw _privateConstructorUsedError;
   bool get accountVerified => throw _privateConstructorUsedError;
   bool get emailVerified => throw _privateConstructorUsedError;
+  bool? get hasActiveSubscription => throw _privateConstructorUsedError;
+  bool? get hasUsedFreeTrial => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -56,7 +58,9 @@ abstract class $ProfileModelCopyWith<$Res> {
       List<AddressesPayloadModel>? addresses,
       double collectionValue,
       bool accountVerified,
-      bool emailVerified});
+      bool emailVerified,
+      bool? hasActiveSubscription,
+      bool? hasUsedFreeTrial});
 }
 
 /// @nodoc
@@ -83,6 +87,8 @@ class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
     Object? collectionValue = null,
     Object? accountVerified = null,
     Object? emailVerified = null,
+    Object? hasActiveSubscription = freezed,
+    Object? hasUsedFreeTrial = freezed,
   }) {
     return _then(_value.copyWith(
       accountId: null == accountId
@@ -129,6 +135,14 @@ class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
           ? _value.emailVerified
           : emailVerified // ignore: cast_nullable_to_non_nullable
               as bool,
+      hasActiveSubscription: freezed == hasActiveSubscription
+          ? _value.hasActiveSubscription
+          : hasActiveSubscription // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      hasUsedFreeTrial: freezed == hasUsedFreeTrial
+          ? _value.hasUsedFreeTrial
+          : hasUsedFreeTrial // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 }
@@ -152,7 +166,9 @@ abstract class _$$_ProfileModelCopyWith<$Res>
       List<AddressesPayloadModel>? addresses,
       double collectionValue,
       bool accountVerified,
-      bool emailVerified});
+      bool emailVerified,
+      bool? hasActiveSubscription,
+      bool? hasUsedFreeTrial});
 }
 
 /// @nodoc
@@ -177,6 +193,8 @@ class __$$_ProfileModelCopyWithImpl<$Res>
     Object? collectionValue = null,
     Object? accountVerified = null,
     Object? emailVerified = null,
+    Object? hasActiveSubscription = freezed,
+    Object? hasUsedFreeTrial = freezed,
   }) {
     return _then(_$_ProfileModel(
       accountId: null == accountId
@@ -223,6 +241,14 @@ class __$$_ProfileModelCopyWithImpl<$Res>
           ? _value.emailVerified
           : emailVerified // ignore: cast_nullable_to_non_nullable
               as bool,
+      hasActiveSubscription: freezed == hasActiveSubscription
+          ? _value.hasActiveSubscription
+          : hasActiveSubscription // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      hasUsedFreeTrial: freezed == hasUsedFreeTrial
+          ? _value.hasUsedFreeTrial
+          : hasUsedFreeTrial // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -242,7 +268,9 @@ class _$_ProfileModel implements _ProfileModel {
       final List<AddressesPayloadModel>? addresses,
       required this.collectionValue,
       required this.accountVerified,
-      required this.emailVerified})
+      required this.emailVerified,
+      this.hasActiveSubscription,
+      this.hasUsedFreeTrial})
       : _addresses = addresses;
 
   factory _$_ProfileModel.fromJson(Map<String, dynamic> json) =>
@@ -278,10 +306,14 @@ class _$_ProfileModel implements _ProfileModel {
   final bool accountVerified;
   @override
   final bool emailVerified;
+  @override
+  final bool? hasActiveSubscription;
+  @override
+  final bool? hasUsedFreeTrial;
 
   @override
   String toString() {
-    return 'ProfileModel(accountId: $accountId, username: $username, useAvatar: $useAvatar, avatarUrl: $avatarUrl, listingsRating: $listingsRating, phoneNumber: $phoneNumber, email: $email, addresses: $addresses, collectionValue: $collectionValue, accountVerified: $accountVerified, emailVerified: $emailVerified)';
+    return 'ProfileModel(accountId: $accountId, username: $username, useAvatar: $useAvatar, avatarUrl: $avatarUrl, listingsRating: $listingsRating, phoneNumber: $phoneNumber, email: $email, addresses: $addresses, collectionValue: $collectionValue, accountVerified: $accountVerified, emailVerified: $emailVerified, hasActiveSubscription: $hasActiveSubscription, hasUsedFreeTrial: $hasUsedFreeTrial)';
   }
 
   @override
@@ -309,7 +341,11 @@ class _$_ProfileModel implements _ProfileModel {
             (identical(other.accountVerified, accountVerified) ||
                 other.accountVerified == accountVerified) &&
             (identical(other.emailVerified, emailVerified) ||
-                other.emailVerified == emailVerified));
+                other.emailVerified == emailVerified) &&
+            (identical(other.hasActiveSubscription, hasActiveSubscription) ||
+                other.hasActiveSubscription == hasActiveSubscription) &&
+            (identical(other.hasUsedFreeTrial, hasUsedFreeTrial) ||
+                other.hasUsedFreeTrial == hasUsedFreeTrial));
   }
 
   @JsonKey(ignore: true)
@@ -326,7 +362,9 @@ class _$_ProfileModel implements _ProfileModel {
       const DeepCollectionEquality().hash(_addresses),
       collectionValue,
       accountVerified,
-      emailVerified);
+      emailVerified,
+      hasActiveSubscription,
+      hasUsedFreeTrial);
 
   @JsonKey(ignore: true)
   @override
@@ -354,7 +392,9 @@ abstract class _ProfileModel implements ProfileModel {
       final List<AddressesPayloadModel>? addresses,
       required final double collectionValue,
       required final bool accountVerified,
-      required final bool emailVerified}) = _$_ProfileModel;
+      required final bool emailVerified,
+      final bool? hasActiveSubscription,
+      final bool? hasUsedFreeTrial}) = _$_ProfileModel;
 
   factory _ProfileModel.fromJson(Map<String, dynamic> json) =
       _$_ProfileModel.fromJson;
@@ -381,6 +421,10 @@ abstract class _ProfileModel implements ProfileModel {
   bool get accountVerified;
   @override
   bool get emailVerified;
+  @override
+  bool? get hasActiveSubscription;
+  @override
+  bool? get hasUsedFreeTrial;
   @override
   @JsonKey(ignore: true)
   _$$_ProfileModelCopyWith<_$_ProfileModel> get copyWith =>

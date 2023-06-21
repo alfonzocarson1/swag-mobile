@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:swagapp/modules/common/ui/paywall_widget.dart';
+import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
 
 import '../../../generated/l10n.dart';
+import '../../cubits/profile/get_profile_cubit.dart';
+import '../../di/injector.dart';
 import '../../models/detail/sale_history_model.dart';
 import '../utils/palette.dart';
 import '../utils/utils.dart';
@@ -22,12 +26,15 @@ class _CustomDataTableState extends State<CustomDataTable> {
   late bool _ascendingDate;
   late bool _ascendingCondition;
   late bool _ascendingPrice;
+  bool hasActiveSubscription = false;
 
   var histories = <SalesHistoryModel>[];
 
+
   @override
   void initState() {
-    // TODO: implement initState
+    getIt<ProfileCubit>().loadProfileResults();
+    getProfileData();
     super.initState();
 
     setState(() {
@@ -52,11 +59,16 @@ class _CustomDataTableState extends State<CustomDataTable> {
     });
   }
 
+  getProfileData() async{
+    var profileData =await getIt<PreferenceRepositoryService>().profileData();
+    hasActiveSubscription = profileData.hasActiveSubscription ?? false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: SingleChildScrollView(
-        padding: EdgeInsets.all(0),
+        padding: const EdgeInsets.all(0),
         scrollDirection: Axis.vertical,
         child: Theme(
           data: Theme.of(context).copyWith(
@@ -248,6 +260,7 @@ class _CustomDataTableState extends State<CustomDataTable> {
                                                 .current.primaryNeonGreen)))),
                           ]))
                       .toList()),
+                      (hasActiveSubscription) ? const SizedBox.shrink() : const PayWallWidget()
             ],
           ),
         ),
