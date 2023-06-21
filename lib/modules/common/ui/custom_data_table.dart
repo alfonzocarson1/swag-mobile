@@ -57,7 +57,7 @@ class _CustomDataTableState extends State<CustomDataTable> {
   Widget build(BuildContext context) {
     return Expanded(
       child: SingleChildScrollView(
-        padding: EdgeInsets.all(0),
+        padding: const EdgeInsets.all(0),
         scrollDirection: Axis.vertical,
         child: Theme(
           data: Theme.of(context).copyWith(
