@@ -39,6 +39,8 @@ enum Endpoint {
   purchaseListing,
   chat,
   addAdminOnChat,
+  refreshChatAuth,
+  acceptPurchaseRequest
 }
 
 class API {
@@ -95,8 +97,10 @@ class API {
         'api/v1/notification/notifyAvailability/profile',
     Endpoint.peerToPeerPayments: 'api/v1/profile/settings/peerToPeerPayments',
     Endpoint.getListingDetail: 'api/public/v1/listing/listingDetail/%s',
-    Endpoint.purchaseListing: 'api/v1/buyFlow/submitPurchase',
+    Endpoint.purchaseListing: 'api/v1/buyFlow/purchaseRequest',
     Endpoint.chat: 'api/v1/listing/%s/chat',
     Endpoint.addAdminOnChat: 'api/v1/chat/requestadmin/%s',
+    Endpoint.refreshChatAuth: 'api/v1/chat/token',
+    Endpoint.acceptPurchaseRequest: 'api/v1/buyFlow/acceptPurchaseRequest/%s',
   };
 }

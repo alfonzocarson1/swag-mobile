@@ -9,7 +9,9 @@ import '../../blocs/favorite_bloc/favorite_bloc.dart';
 import '../../blocs/favorite_bloc/favorite_item_bloc.dart';
 import '../../common/ui/clickable_text.dart';
 import '../../common/utils/palette.dart';
+import '../../common/utils/tab_wrapper.dart';
 import '../../common/utils/utils.dart';
+import '../../cubits/paginated_search/paginated_search_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/detail/detail_sale_info_model.dart';
@@ -91,6 +93,17 @@ class _HeadWidgetState extends State<HeadWidget> {
         });
       });
     });
+    refreshResults();
+  }
+
+  refreshResults() {
+    getIt<PaginatedSearchCubit>().refreshResults(searchTab: SearchTab.all);
+    getIt<PaginatedSearchCubit>().refreshResults(searchTab: SearchTab.whatsHot);
+    getIt<PaginatedSearchCubit>()
+        .refreshResults(searchTab: SearchTab.headcovers);
+    getIt<PaginatedSearchCubit>().refreshResults(searchTab: SearchTab.putters);
+    getIt<PaginatedSearchCubit>()
+        .refreshResults(searchTab: SearchTab.accessories);
   }
 
   @override
@@ -183,13 +196,14 @@ class _HeadWidgetState extends State<HeadWidget> {
           child: Column(
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
                       flex: 5,
                       child: Align(
                         alignment: Alignment.bottomLeft,
                         child: Text(widget.catalogItemName?.toUpperCase() ?? '',
-                            overflow: TextOverflow.ellipsis,
                             style: Theme.of(context)
                                 .textTheme
                                 .displayLarge!
@@ -202,65 +216,52 @@ class _HeadWidgetState extends State<HeadWidget> {
                       )),
                   Expanded(
                       flex: 2,
-                      child: Column(
-                        children: [
-                          Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 12.0),
-                              child: Align(
-                                alignment: Alignment.centerRight,
-                                child: IconButton(
-                                  icon: Image.asset(
-                                    favorite
-                                        ? "assets/images/Favorite.png"
-                                        : "assets/images/UnFavorite.png",
-                                    scale: 3.5,
-                                  ),
-                                  onPressed: () async {
-                                    if (isLogged) {
-                                      setState(() {
-                                        if (!favorite) {
-                                          BlocProvider.of<FavoriteItemBloc>(
-                                                  context)
-                                              .add(FavoriteItemEvent
-                                                  .addFavoriteItem(FavoriteModel(
-                                                      favoritesItemAction:
-                                                          "ADD",
-                                                      profileFavoriteItems: [
-                                                FavoriteItemModel(
-                                                    catalogItemId:
-                                                        widget.itemId)
-                                              ])));
-                                          favorite = true;
-                                          widget.addFavorite(true);
-                                          onChangeFavoriteAnimation(0);
-                                        } else {
-                                          BlocProvider.of<FavoriteItemBloc>(
-                                                  context)
-                                              .add(FavoriteItemEvent
-                                                  .removeFavoriteItem(
-                                                      FavoriteModel(
-                                                          favoritesItemAction:
-                                                              "DELETE",
-                                                          profileFavoriteItems: [
-                                                FavoriteItemModel(
-                                                    profileFavoriteItemId:
-                                                        profileFavoriteItemId,
-                                                    catalogItemId:
-                                                        widget.itemId)
-                                              ])));
-                                          widget.addFavorite(false);
-                                          favorite = false;
-                                        }
-                                      });
-                                    } else {
-                                      Navigator.of(context, rootNavigator: true)
-                                          .push(CreateAccountPage.route());
-                                    }
-                                  },
-                                ),
-                              )),
-                        ],
+                      child: Align(
+                        alignment: Alignment.topRight,
+                        child: IconButton(
+                          icon: Image.asset(
+                            favorite
+                                ? "assets/images/Favorite.png"
+                                : "assets/images/UnFavorite.png",
+                            scale: 3.5,
+                          ),
+                          onPressed: () async {
+                            if (isLogged) {
+                              setState(() {
+                                if (!favorite) {
+                                  BlocProvider.of<FavoriteItemBloc>(context)
+                                      .add(FavoriteItemEvent.addFavoriteItem(
+                                          FavoriteModel(
+                                              favoritesItemAction: "ADD",
+                                              profileFavoriteItems: [
+                                        FavoriteItemModel(
+                                            catalogItemId: widget.itemId)
+                                      ])));
+                                  favorite = true;
+                                  widget.addFavorite(true);
+                                  onChangeFavoriteAnimation(0);
+                                } else {
+                                  BlocProvider.of<FavoriteItemBloc>(context)
+                                      .add(FavoriteItemEvent.removeFavoriteItem(
+                                          FavoriteModel(
+                                              favoritesItemAction: "DELETE",
+                                              profileFavoriteItems: [
+                                        FavoriteItemModel(
+                                            profileFavoriteItemId:
+                                                profileFavoriteItemId,
+                                            catalogItemId: widget.itemId)
+                                      ])));
+                                  widget.addFavorite(false);
+                                  favorite = false;
+                                  refreshResults();
+                                }
+                              });
+                            } else {
+                              Navigator.of(context, rootNavigator: true)
+                                  .push(CreateAccountPage.route());
+                            }
+                          },
+                        ),
                       ))
                 ],
               ),
@@ -271,11 +272,12 @@ class _HeadWidgetState extends State<HeadWidget> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                     widget.sale
-                        ? '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(widget.lastSale.minPrice!)} - ${decimalDigitsLastSalePrice(widget.lastSale.maxPrice!)}'
+                        ? (widget.available! > 1)
+                            ? '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(widget.lastSale.minPrice!)} - ${decimalDigitsLastSalePrice(widget.lastSale.maxPrice!)}'
+                            : '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(widget.lastSale.minPrice!)}'
                         : '${S.of(context).last_sale}: ${decimalDigitsLastSalePrice(widget.lastSale.lastSale!)}',
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                         fontSize: 16,
-                        
                         letterSpacing: 0.0224,
                         fontWeight: FontWeight.w300,
                         color: Palette.current.primaryNeonGreen)),

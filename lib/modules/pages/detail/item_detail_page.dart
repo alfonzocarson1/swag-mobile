@@ -11,6 +11,8 @@ import '../../common/ui/custom_app_bar.dart';
 import '../../common/ui/popup_add_exisiting_item_collection.dart';
 import '../../common/utils/custom_route_animations.dart';
 
+import '../../common/utils/tab_wrapper.dart';
+import '../../cubits/paginated_search/paginated_search_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/detail/detail_item_model.dart';
@@ -26,15 +28,20 @@ import 'item_switched.dart';
 class ItemDetailPage extends StatefulWidget {
   static const name = '/ItemDetail';
   const ItemDetailPage(
-      {Key? key, required this.catalogItemId, required this.addFavorite})
+      {Key? key,
+      required this.catalogItemId,
+      required this.addFavorite,
+      this.tab})
       : super(key: key);
   final String catalogItemId;
   final Function(bool) addFavorite;
-  static Route route(String catalogItemId, Function(bool) addFavorite) =>
+  final SearchTab? tab;
+  static Route route(
+          String catalogItemId, Function(bool) addFavorite, SearchTab? tab) =>
       PageRoutes.material(
         settings: const RouteSettings(name: name),
         builder: (context) => ItemDetailPage(
-            catalogItemId: catalogItemId, addFavorite: addFavorite),
+            catalogItemId: catalogItemId, addFavorite: addFavorite, tab: tab),
       );
 
   @override
@@ -81,6 +88,11 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
         resizeToAvoidBottomInset: true,
         appBar: CustomAppBar(
           onRoute: () {
+            if (widget.tab != null) {
+              getIt<PaginatedSearchCubit>()
+                  .refreshResults(searchTab: widget.tab ?? SearchTab.whatsHot);
+            }
+
             Navigator.of(context, rootNavigator: true).pop();
           },
           onAction: () {

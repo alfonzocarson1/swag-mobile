@@ -20,7 +20,7 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(userName) => "${userName}will paying using ";
+  static String m0(userName) => "${userName} will paying using";
 
   static String m1(sender) => "New message from ${sender}";
 
@@ -58,6 +58,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "aditional_listing_detail": MessageLookupByLibrary.simpleMessage(
             "Additional listing details..."),
         "agree_to": MessageLookupByLibrary.simpleMessage("I agree to Swag’s "),
+        "alert_center_title":
+            MessageLookupByLibrary.simpleMessage("ALERTS & NOTIFICATIONS"),
         "alert_remove_btn": MessageLookupByLibrary.simpleMessage("REMOVE ITEM"),
         "alert_remove_subtitle": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to remove this item from you collection? This item is also listed for sale. Removing the item from your collection will also remove the listing."),
@@ -99,8 +101,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "chatSwaggAdmin": MessageLookupByLibrary.simpleMessage("Swagg Admin"),
         "chatToday": MessageLookupByLibrary.simpleMessage("Today"),
         "chatTyping": MessageLookupByLibrary.simpleMessage("Typing..."),
-        "chatsHeader":
-            MessageLookupByLibrary.simpleMessage("ALERTS & Notifications"),
+        "chatsHeader": MessageLookupByLibrary.simpleMessage("Chat"),
         "chatsUnreadMessages": m2,
         "city": MessageLookupByLibrary.simpleMessage("City"),
         "clear_all": MessageLookupByLibrary.simpleMessage("Clear All"),
@@ -115,7 +116,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "collection_message": MessageLookupByLibrary.simpleMessage(
             "This cover is not in your collection, buy it now before it’s too late"),
         "collection_value":
-            MessageLookupByLibrary.simpleMessage("COLLECTION VALUE:"),
+            MessageLookupByLibrary.simpleMessage("ESTIMATED COLLECTION VALUE:"),
         "collections": MessageLookupByLibrary.simpleMessage("collections"),
         "communications_sub_title": MessageLookupByLibrary.simpleMessage(
             "Manage notifications and blocking"),
@@ -243,7 +244,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Must 20 characters or less, min 1 letter, no spaces"),
         "input_venmo": MessageLookupByLibrary.simpleMessage("@Venmo username"),
         "input_venmo_ivalid": MessageLookupByLibrary.simpleMessage(
-            "Must be 5-10 characters, no spaces or special characters except - or _"),
+            "Must be 5-30 characters, no spaces or special characters except - or _"),
         "invadlidEmail": MessageLookupByLibrary.simpleMessage(
             "Incorrect email. Please try again."),
         "invalid_email": MessageLookupByLibrary.simpleMessage(
@@ -304,6 +305,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "peer_to_peer_payment_options_title":
             MessageLookupByLibrary.simpleMessage(
                 "Peer to Peer Payment Options"),
+        "pending_sale_btn":
+            MessageLookupByLibrary.simpleMessage("Pending Sale"),
         "phone": MessageLookupByLibrary.simpleMessage("Phone"),
         "phone_taken": MessageLookupByLibrary.simpleMessage(
             "An account is already associated with this phone number"),
@@ -466,6 +469,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "type": MessageLookupByLibrary.simpleMessage("type"),
         "unicorn_covers":
             MessageLookupByLibrary.simpleMessage("UNICORN COVERS"),
+        "unread": MessageLookupByLibrary.simpleMessage("Unread"),
         "username": MessageLookupByLibrary.simpleMessage("@username"),
         "username_taken":
             MessageLookupByLibrary.simpleMessage("This username is taken "),

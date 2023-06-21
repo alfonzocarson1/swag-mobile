@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swagapp/modules/models/auth/create_account_response_model.dart';
+import 'package:swagapp/modules/models/profile/profile_model.dart';
 import 'package:swagapp/modules/models/update_profile/addresses_payload_model.dart';
 
 import '../../common/utils/handling_errors.dart';
@@ -71,27 +72,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Stream<AuthState> _createAccount(CreateAccountPayloadModel model) async* {
     yield const AuthState.logging();
     try {
-      CreateAccountResponseModel response =
-          await authService.createAccount(model);
+      CreateAccountResponseModel response = await authService.createAccount(model);
       List<AddressesPayloadModel>? addresses = response.addresses;
 
       getIt<StorageRepositoryService>().saveToken(response.token);
 
       if (response.hasImportableData && addresses!.isNotEmpty) {
-        getIt<StorageRepositoryService>()
-            .saveFirstName(addresses[0].firstName ?? '');
-        getIt<StorageRepositoryService>()
-            .saveLastName(addresses[0].lastName ?? '');
-        getIt<StorageRepositoryService>().saveAddresses(
-            [addresses[0].address1 ?? '', addresses[0].address2 ?? '']);
+        getIt<StorageRepositoryService>().saveFirstName(addresses[0].firstName ?? '');
+        getIt<StorageRepositoryService>().saveLastName(addresses[0].lastName ?? '');
+        getIt<StorageRepositoryService>().saveAddresses([addresses[0].address1 ?? '', addresses[0].address2 ?? '']);
       }
 
-      getIt<PreferenceRepositoryService>()
-          .savehasImportableData(response.hasImportableData);
+      getIt<PreferenceRepositoryService>().savehasImportableData(response.hasImportableData);
       getIt<PreferenceRepositoryService>().saveAccountId(response.accountId);
-
-      getIt<PreferenceRepositoryService>().saveUserSendBirdId('c62b8700-a7e9-49d3-93a2-ae5219fd1d9d');
-      getIt<PreferenceRepositoryService>().saveUserSendBirdToken('9260e655bdbc50a65796fed280743b121c3de8e8');
+      getIt<PreferenceRepositoryService>().saveUserSendBirdId(response.accountId);
 
       if (response.errorCode == successResponse) {
         yield const AuthState.authenticated();
@@ -109,15 +103,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       
       String deviceId = getIt<PreferenceRepositoryService>().getFirebaseDeviceToken();
-      var response = await authService.authenticate(email, password, deviceId);
-
-      getIt<PreferenceRepositoryService>().saveUserSendBirdId('c62b8700-a7e9-49d3-93a2-ae5219fd1d9d');
-      getIt<PreferenceRepositoryService>().saveUserSendBirdToken('9260e655bdbc50a65796fed280743b121c3de8e8');
-
+      CreateAccountResponseModel response = await authService.authenticate(email, password, deviceId);
       getIt<StorageRepositoryService>().saveToken(response.token);
+
       if (response.errorCode == successResponse ||
           response.errorCode == defaultString) {
-        getIt<ProfileCubit>().loadProfileResults();
+
+        await getIt<ProfileCubit>().loadProfileResults();
+        ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
+        getIt<PreferenceRepositoryService>().saveUserSendBirdId(profileData.accountId);
+        
+
         yield const AuthState.authenticated();
       } else {
         yield AuthState.error(HandlingErrors().getError(response.errorCode));

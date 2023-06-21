@@ -29,10 +29,18 @@ class ChatService extends IChatService {
       needBearer: true,
       method: RequestMethod.post,
       dynamicParam: chatUrl,
-      fromJson: (json){
-
-        print('');
-      },
+      fromJson: (json){},
+    );
+  }
+  
+  @override
+  Future<String> getUserSendBirdToken() async {
+    
+    return await apiService.getEndpointData(
+      needBearer: true,
+      method: RequestMethod.get,
+      endpoint: Endpoint.refreshChatAuth,
+      fromJson: (json)=> json['token'],
     );
   }
 }

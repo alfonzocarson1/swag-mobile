@@ -36,9 +36,9 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>TEXT PENDING.</string>
+	<string>Allow Camera</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>TEXT PENDING.</string>
+	<string>Allow access to photos</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UIBackgroundModes</key>
@@ -65,7 +65,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<key>UIViewControllerBasedStatusBarAppearance</key>	
 	<false/>
 </dict>
 </plist>

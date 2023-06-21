@@ -22,7 +22,7 @@ class FavoriteProfileCubit extends Cubit<FavoriteCubitState> {
       ListFavoriteProfileResponseModel response =
           await favoriteService.getFavorites();
 
-      emit(LoadedFavoritesState(profileFavoriteList: [response]));
+      emit(LoadedFavoritesState(profileFavoriteList: response));
     } catch (error) {
       emit(
         ErrorFavoriteState(HandlingErrors().getError(error)),

@@ -21,7 +21,7 @@ mixin _$FavoriteCubitState {
     required TResult Function() initial,
     required TResult Function(bool isFirstFetch) loading,
     required TResult Function(
-            List<ListFavoriteProfileResponseModel> profileFavoriteList)
+            ListFavoriteProfileResponseModel profileFavoriteList)
         loadedProfileFavorites,
     required TResult Function(FavoriteModel dataFavoriteItem)
         loadedFavoriteItem,
@@ -34,8 +34,7 @@ mixin _$FavoriteCubitState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(bool isFirstFetch)? loading,
-    TResult? Function(
-            List<ListFavoriteProfileResponseModel> profileFavoriteList)?
+    TResult? Function(ListFavoriteProfileResponseModel profileFavoriteList)?
         loadedProfileFavorites,
     TResult? Function(FavoriteModel dataFavoriteItem)? loadedFavoriteItem,
     TResult? Function(FavoriteModel dataFavoriteItem)? removedFavoriteItem,
@@ -46,8 +45,7 @@ mixin _$FavoriteCubitState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(bool isFirstFetch)? loading,
-    TResult Function(
-            List<ListFavoriteProfileResponseModel> profileFavoriteList)?
+    TResult Function(ListFavoriteProfileResponseModel profileFavoriteList)?
         loadedProfileFavorites,
     TResult Function(FavoriteModel dataFavoriteItem)? loadedFavoriteItem,
     TResult Function(FavoriteModel dataFavoriteItem)? removedFavoriteItem,
@@ -148,7 +146,7 @@ class _$_Initial implements _Initial {
     required TResult Function() initial,
     required TResult Function(bool isFirstFetch) loading,
     required TResult Function(
-            List<ListFavoriteProfileResponseModel> profileFavoriteList)
+            ListFavoriteProfileResponseModel profileFavoriteList)
         loadedProfileFavorites,
     required TResult Function(FavoriteModel dataFavoriteItem)
         loadedFavoriteItem,
@@ -164,8 +162,7 @@ class _$_Initial implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(bool isFirstFetch)? loading,
-    TResult? Function(
-            List<ListFavoriteProfileResponseModel> profileFavoriteList)?
+    TResult? Function(ListFavoriteProfileResponseModel profileFavoriteList)?
         loadedProfileFavorites,
     TResult? Function(FavoriteModel dataFavoriteItem)? loadedFavoriteItem,
     TResult? Function(FavoriteModel dataFavoriteItem)? removedFavoriteItem,
@@ -179,8 +176,7 @@ class _$_Initial implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(bool isFirstFetch)? loading,
-    TResult Function(
-            List<ListFavoriteProfileResponseModel> profileFavoriteList)?
+    TResult Function(ListFavoriteProfileResponseModel profileFavoriteList)?
         loadedProfileFavorites,
     TResult Function(FavoriteModel dataFavoriteItem)? loadedFavoriteItem,
     TResult Function(FavoriteModel dataFavoriteItem)? removedFavoriteItem,
@@ -312,7 +308,7 @@ class _$loading_search implements loading_search {
     required TResult Function() initial,
     required TResult Function(bool isFirstFetch) loading,
     required TResult Function(
-            List<ListFavoriteProfileResponseModel> profileFavoriteList)
+            ListFavoriteProfileResponseModel profileFavoriteList)
         loadedProfileFavorites,
     required TResult Function(FavoriteModel dataFavoriteItem)
         loadedFavoriteItem,
@@ -328,8 +324,7 @@ class _$loading_search implements loading_search {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(bool isFirstFetch)? loading,
-    TResult? Function(
-            List<ListFavoriteProfileResponseModel> profileFavoriteList)?
+    TResult? Function(ListFavoriteProfileResponseModel profileFavoriteList)?
         loadedProfileFavorites,
     TResult? Function(FavoriteModel dataFavoriteItem)? loadedFavoriteItem,
     TResult? Function(FavoriteModel dataFavoriteItem)? removedFavoriteItem,
@@ -343,8 +338,7 @@ class _$loading_search implements loading_search {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(bool isFirstFetch)? loading,
-    TResult Function(
-            List<ListFavoriteProfileResponseModel> profileFavoriteList)?
+    TResult Function(ListFavoriteProfileResponseModel profileFavoriteList)?
         loadedProfileFavorites,
     TResult Function(FavoriteModel dataFavoriteItem)? loadedFavoriteItem,
     TResult Function(FavoriteModel dataFavoriteItem)? removedFavoriteItem,
@@ -418,7 +412,9 @@ abstract class _$$LoadedFavoritesStateCopyWith<$Res> {
           $Res Function(_$LoadedFavoritesState) then) =
       __$$LoadedFavoritesStateCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<ListFavoriteProfileResponseModel> profileFavoriteList});
+  $Res call({ListFavoriteProfileResponseModel profileFavoriteList});
+
+  $ListFavoriteProfileResponseModelCopyWith<$Res> get profileFavoriteList;
 }
 
 /// @nodoc
@@ -436,29 +432,29 @@ class __$$LoadedFavoritesStateCopyWithImpl<$Res>
   }) {
     return _then(_$LoadedFavoritesState(
       profileFavoriteList: null == profileFavoriteList
-          ? _value._profileFavoriteList
+          ? _value.profileFavoriteList
           : profileFavoriteList // ignore: cast_nullable_to_non_nullable
-              as List<ListFavoriteProfileResponseModel>,
+              as ListFavoriteProfileResponseModel,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ListFavoriteProfileResponseModelCopyWith<$Res> get profileFavoriteList {
+    return $ListFavoriteProfileResponseModelCopyWith<$Res>(
+        _value.profileFavoriteList, (value) {
+      return _then(_value.copyWith(profileFavoriteList: value));
+    });
   }
 }
 
 /// @nodoc
 
 class _$LoadedFavoritesState implements LoadedFavoritesState {
-  _$LoadedFavoritesState(
-      {required final List<ListFavoriteProfileResponseModel>
-          profileFavoriteList})
-      : _profileFavoriteList = profileFavoriteList;
+  _$LoadedFavoritesState({required this.profileFavoriteList});
 
-  final List<ListFavoriteProfileResponseModel> _profileFavoriteList;
   @override
-  List<ListFavoriteProfileResponseModel> get profileFavoriteList {
-    if (_profileFavoriteList is EqualUnmodifiableListView)
-      return _profileFavoriteList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_profileFavoriteList);
-  }
+  final ListFavoriteProfileResponseModel profileFavoriteList;
 
   @override
   String toString() {
@@ -470,13 +466,12 @@ class _$LoadedFavoritesState implements LoadedFavoritesState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LoadedFavoritesState &&
-            const DeepCollectionEquality()
-                .equals(other._profileFavoriteList, _profileFavoriteList));
+            (identical(other.profileFavoriteList, profileFavoriteList) ||
+                other.profileFavoriteList == profileFavoriteList));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_profileFavoriteList));
+  int get hashCode => Object.hash(runtimeType, profileFavoriteList);
 
   @JsonKey(ignore: true)
   @override
@@ -491,7 +486,7 @@ class _$LoadedFavoritesState implements LoadedFavoritesState {
     required TResult Function() initial,
     required TResult Function(bool isFirstFetch) loading,
     required TResult Function(
-            List<ListFavoriteProfileResponseModel> profileFavoriteList)
+            ListFavoriteProfileResponseModel profileFavoriteList)
         loadedProfileFavorites,
     required TResult Function(FavoriteModel dataFavoriteItem)
         loadedFavoriteItem,
@@ -507,8 +502,7 @@ class _$LoadedFavoritesState implements LoadedFavoritesState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(bool isFirstFetch)? loading,
-    TResult? Function(
-            List<ListFavoriteProfileResponseModel> profileFavoriteList)?
+    TResult? Function(ListFavoriteProfileResponseModel profileFavoriteList)?
         loadedProfileFavorites,
     TResult? Function(FavoriteModel dataFavoriteItem)? loadedFavoriteItem,
     TResult? Function(FavoriteModel dataFavoriteItem)? removedFavoriteItem,
@@ -522,8 +516,7 @@ class _$LoadedFavoritesState implements LoadedFavoritesState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(bool isFirstFetch)? loading,
-    TResult Function(
-            List<ListFavoriteProfileResponseModel> profileFavoriteList)?
+    TResult Function(ListFavoriteProfileResponseModel profileFavoriteList)?
         loadedProfileFavorites,
     TResult Function(FavoriteModel dataFavoriteItem)? loadedFavoriteItem,
     TResult Function(FavoriteModel dataFavoriteItem)? removedFavoriteItem,
@@ -584,10 +577,10 @@ class _$LoadedFavoritesState implements LoadedFavoritesState {
 
 abstract class LoadedFavoritesState implements FavoriteCubitState {
   factory LoadedFavoritesState(
-      {required final List<ListFavoriteProfileResponseModel>
+      {required final ListFavoriteProfileResponseModel
           profileFavoriteList}) = _$LoadedFavoritesState;
 
-  List<ListFavoriteProfileResponseModel> get profileFavoriteList;
+  ListFavoriteProfileResponseModel get profileFavoriteList;
   @JsonKey(ignore: true)
   _$$LoadedFavoritesStateCopyWith<_$LoadedFavoritesState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -672,7 +665,7 @@ class _$LoadedFavoriteItemState implements LoadedFavoriteItemState {
     required TResult Function() initial,
     required TResult Function(bool isFirstFetch) loading,
     required TResult Function(
-            List<ListFavoriteProfileResponseModel> profileFavoriteList)
+            ListFavoriteProfileResponseModel profileFavoriteList)
         loadedProfileFavorites,
     required TResult Function(FavoriteModel dataFavoriteItem)
         loadedFavoriteItem,
@@ -688,8 +681,7 @@ class _$LoadedFavoriteItemState implements LoadedFavoriteItemState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(bool isFirstFetch)? loading,
-    TResult? Function(
-            List<ListFavoriteProfileResponseModel> profileFavoriteList)?
+    TResult? Function(ListFavoriteProfileResponseModel profileFavoriteList)?
         loadedProfileFavorites,
     TResult? Function(FavoriteModel dataFavoriteItem)? loadedFavoriteItem,
     TResult? Function(FavoriteModel dataFavoriteItem)? removedFavoriteItem,
@@ -703,8 +695,7 @@ class _$LoadedFavoriteItemState implements LoadedFavoriteItemState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(bool isFirstFetch)? loading,
-    TResult Function(
-            List<ListFavoriteProfileResponseModel> profileFavoriteList)?
+    TResult Function(ListFavoriteProfileResponseModel profileFavoriteList)?
         loadedProfileFavorites,
     TResult Function(FavoriteModel dataFavoriteItem)? loadedFavoriteItem,
     TResult Function(FavoriteModel dataFavoriteItem)? removedFavoriteItem,
@@ -853,7 +844,7 @@ class _$RemovedFavoriteItemState implements RemovedFavoriteItemState {
     required TResult Function() initial,
     required TResult Function(bool isFirstFetch) loading,
     required TResult Function(
-            List<ListFavoriteProfileResponseModel> profileFavoriteList)
+            ListFavoriteProfileResponseModel profileFavoriteList)
         loadedProfileFavorites,
     required TResult Function(FavoriteModel dataFavoriteItem)
         loadedFavoriteItem,
@@ -869,8 +860,7 @@ class _$RemovedFavoriteItemState implements RemovedFavoriteItemState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(bool isFirstFetch)? loading,
-    TResult? Function(
-            List<ListFavoriteProfileResponseModel> profileFavoriteList)?
+    TResult? Function(ListFavoriteProfileResponseModel profileFavoriteList)?
         loadedProfileFavorites,
     TResult? Function(FavoriteModel dataFavoriteItem)? loadedFavoriteItem,
     TResult? Function(FavoriteModel dataFavoriteItem)? removedFavoriteItem,
@@ -884,8 +874,7 @@ class _$RemovedFavoriteItemState implements RemovedFavoriteItemState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(bool isFirstFetch)? loading,
-    TResult Function(
-            List<ListFavoriteProfileResponseModel> profileFavoriteList)?
+    TResult Function(ListFavoriteProfileResponseModel profileFavoriteList)?
         loadedProfileFavorites,
     TResult Function(FavoriteModel dataFavoriteItem)? loadedFavoriteItem,
     TResult Function(FavoriteModel dataFavoriteItem)? removedFavoriteItem,
@@ -1022,7 +1011,7 @@ class _$ErrorFavoriteState implements ErrorFavoriteState {
     required TResult Function() initial,
     required TResult Function(bool isFirstFetch) loading,
     required TResult Function(
-            List<ListFavoriteProfileResponseModel> profileFavoriteList)
+            ListFavoriteProfileResponseModel profileFavoriteList)
         loadedProfileFavorites,
     required TResult Function(FavoriteModel dataFavoriteItem)
         loadedFavoriteItem,
@@ -1038,8 +1027,7 @@ class _$ErrorFavoriteState implements ErrorFavoriteState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(bool isFirstFetch)? loading,
-    TResult? Function(
-            List<ListFavoriteProfileResponseModel> profileFavoriteList)?
+    TResult? Function(ListFavoriteProfileResponseModel profileFavoriteList)?
         loadedProfileFavorites,
     TResult? Function(FavoriteModel dataFavoriteItem)? loadedFavoriteItem,
     TResult? Function(FavoriteModel dataFavoriteItem)? removedFavoriteItem,
@@ -1053,8 +1041,7 @@ class _$ErrorFavoriteState implements ErrorFavoriteState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(bool isFirstFetch)? loading,
-    TResult Function(
-            List<ListFavoriteProfileResponseModel> profileFavoriteList)?
+    TResult Function(ListFavoriteProfileResponseModel profileFavoriteList)?
         loadedProfileFavorites,
     TResult Function(FavoriteModel dataFavoriteItem)? loadedFavoriteItem,
     TResult Function(FavoriteModel dataFavoriteItem)? removedFavoriteItem,

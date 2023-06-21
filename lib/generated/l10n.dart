@@ -2200,10 +2200,10 @@ class S {
     );
   }
 
-  /// `COLLECTION VALUE:`
+  /// `ESTIMATED COLLECTION VALUE:`
   String get collection_value {
     return Intl.message(
-      'COLLECTION VALUE:',
+      'ESTIMATED COLLECTION VALUE:',
       name: 'collection_value',
       desc: '',
       args: [],
@@ -2680,10 +2680,10 @@ class S {
     );
   }
 
-  /// `Must be 5-10 characters, no spaces or special characters except - or _`
+  /// `Must be 5-30 characters, no spaces or special characters except - or _`
   String get input_venmo_ivalid {
     return Intl.message(
-      'Must be 5-10 characters, no spaces or special characters except - or _',
+      'Must be 5-30 characters, no spaces or special characters except - or _',
       name: 'input_venmo_ivalid',
       desc: '',
       args: [],
@@ -2990,20 +2990,20 @@ class S {
     );
   }
 
-  /// `{userName}will paying using `
+  /// `{userName} will paying using`
   String chatBannerWillPay(Object userName) {
     return Intl.message(
-      '${userName}will paying using ',
+      '$userName will paying using',
       name: 'chatBannerWillPay',
       desc: '',
       args: [userName],
     );
   }
 
-  /// `ALERTS & Notifications`
+  /// `Chat`
   String get chatsHeader {
     return Intl.message(
-      'ALERTS & Notifications',
+      'Chat',
       name: 'chatsHeader',
       desc: '',
       args: [],
@@ -3017,6 +3017,36 @@ class S {
       name: 'chatsUnreadMessages',
       desc: '',
       args: [chatsNumber],
+    );
+  }
+
+  /// `ALERTS & NOTIFICATIONS`
+  String get alert_center_title {
+    return Intl.message(
+      'ALERTS & NOTIFICATIONS',
+      name: 'alert_center_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unread`
+  String get unread {
+    return Intl.message(
+      'Unread',
+      name: 'unread',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pending Sale`
+  String get pending_sale_btn {
+    return Intl.message(
+      'Pending Sale',
+      name: 'pending_sale_btn',
+      desc: '',
+      args: [],
     );
   }
 }

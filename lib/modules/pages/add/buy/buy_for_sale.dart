@@ -210,80 +210,77 @@ class _BuyForSaleState extends State<BuyForSale> {
                               .textTheme
                               .bodySmall!
                               .copyWith(
-                                letterSpacing: 0.014,
+                                  letterSpacing: 0.014,
                                   fontWeight: FontWeight.w300,
                                   color: Palette.current.primaryNeonGreen)),
-                   (widget.saleHistoryList.isNotEmpty) ?  Column(
-                                  children: [
-                                    const SizedBox(
-                                      height: 28,
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .push(TransactionHistory.route(
-                                                widget.urlImage,
-                                                widget.catalogItemName,
-                                                widget.catalogItemPrice,
-                                                widget.sale,
-                                                widget.available ?? 0,
-                                                widget.favorite,
-                                                widget.catalogItemId, 
-                                                widget.saleHistoryList,
-                                                (val) {
-                                          widget.addFavorite(val);
-                                        }));
-                                      },
-                                      child: Center(
-                                        child: Container(
-                                            height: 60,
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: Palette.current
-                                                        .primaryNeonGreen),
-                                                color: Colors.transparent),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                const SizedBox(
-                                                  height: 50,
-                                                ),
-                                                Image.asset(
-                                                  AppIcons.trendingUp,
-                                                  height: 20,
-                                                  width: 20,
-                                                ),
-                                                const SizedBox(
-                                                  width: 15,
-                                                ),
-                                                Text(
-                                                    S.of(context).sales_history,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyLarge!
-                                                        .copyWith(
-                                                            fontFamily:
-                                                                "KnockoutCustom",
-                                                            fontSize: 25,
-                                                            letterSpacing: 1,
-                                                            fontWeight:
-                                                                FontWeight.w300,
-                                                            color: Palette
-                                                                .current
-                                                                .white)),
-                                              ],
-                                            )),
-                                      ),
-                                    ),
-                                  ],
-                                ):const SizedBox.shrink(),
+                      (widget.saleHistoryList.isNotEmpty)
+                          ? Column(
+                              children: [
+                                const SizedBox(
+                                  height: 28,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context, rootNavigator: true)
+                                        .push(TransactionHistory.route(
+                                            widget.urlImage,
+                                            widget.catalogItemName,
+                                            widget.catalogItemPrice,
+                                            widget.sale,
+                                            widget.available ?? 0,
+                                            widget.favorite,
+                                            widget.catalogItemId,
+                                            widget.saleHistoryList, (val) {
+                                      widget.addFavorite(val);
+                                    }));
+                                  },
+                                  child: Center(
+                                    child: Container(
+                                        height: 60,
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: Palette
+                                                    .current.primaryNeonGreen),
+                                            color: Colors.transparent),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            const SizedBox(
+                                              height: 50,
+                                            ),
+                                            Image.asset(
+                                              AppIcons.trendingUp,
+                                              height: 20,
+                                              width: 20,
+                                            ),
+                                            const SizedBox(
+                                              width: 15,
+                                            ),
+                                            Text(S.of(context).sales_history,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyLarge!
+                                                    .copyWith(
+                                                        fontFamily:
+                                                            "KnockoutCustom",
+                                                        fontSize: 25,
+                                                        letterSpacing: 1,
+                                                        fontWeight:
+                                                            FontWeight.w300,
+                                                        color: Palette
+                                                            .current.white)),
+                                          ],
+                                        )),
+                                  ),
+                                ),
+                              ],
+                            )
+                          : const SizedBox.shrink(),
                     ],
                   ),
                 ),
@@ -342,7 +339,10 @@ class _BuyForSaleState extends State<BuyForSale> {
                       (index) => GestureDetector(
                         onTap: () {
                           Navigator.of(context, rootNavigator: true).push(
-                              BuyPreviewPage.route(dataItem:dataListingSale[index], catalogItmId: widget.catalogItemId));
+                              BuyPreviewPage.route(
+                                  productItemId:
+                                      dataListingSale[index].productItemId,
+                                  ));
                         },
                         child: Container(
                           margin: const EdgeInsets.only(bottom: 28),
@@ -353,15 +353,18 @@ class _BuyForSaleState extends State<BuyForSale> {
                             children: [
                               Expanded(
                                 flex: 3,
-                                child: SizedBox(                   
-                                  height:MediaQuery.of(context).size.width * 0.32,
+                                child: SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.width * 0.32,
                                   child: ClipRRect(
-                                    child: CachedNetworkImage(                                
+                                    child: CachedNetworkImage(
                                       fit: BoxFit.cover,
                                       imageUrl: dataListingSale[index]
                                           .productItemImageUrls[0],
                                       placeholder: (context, url) => SizedBox(
-                                          height:MediaQuery.of(context).size.width * 0.32,
+                                        height:
+                                            MediaQuery.of(context).size.width *
+                                                0.32,
                                         child: Center(
                                           child: CircularProgressIndicator(
                                             color: Palette
@@ -397,7 +400,8 @@ class _BuyForSaleState extends State<BuyForSale> {
                                                 .copyWith(
                                                     letterSpacing: 0.015,
                                                     fontWeight: FontWeight.w300,
-                                                    fontFamily: "KnockoutCustom",
+                                                    fontFamily:
+                                                        "KnockoutCustom",
                                                     fontSize: 30,
                                                     color: Palette.current
                                                         .primaryNeonGreen)),

@@ -64,6 +64,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       type: (Platform.isIOS) ? PushTokenType.apns : PushTokenType.fcm, 
       token: firebaseToken,
     );
+
+    print('object');
   }
 
   Future<void> getChannels() async {
@@ -255,4 +257,10 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   }
 
   Future<void> bringAdminToChat(String chatUrl) async => await this.service.bringAdminToChat(chatUrl);
+
+  Future<void> getUserSendBirdToken() async {
+      
+    String sendBirdToken = await this.service.getUserSendBirdToken();
+    await getIt<PreferenceRepositoryService>().saveUserSendBirdToken(sendBirdToken);
+  }
 }

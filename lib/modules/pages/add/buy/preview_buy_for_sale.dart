@@ -33,17 +33,13 @@ import 'package:share_plus/share_plus.dart';
 class BuyPreviewPage extends StatefulWidget {
   static const name = '/BuyPreviewPage';
 
-  const BuyPreviewPage({super.key, required this.dataItem, this.catalogItmId});
+  const BuyPreviewPage({super.key, this.productItemId});
 
-  final BuyForSaleListingModel dataItem;
-  final String? catalogItmId;
+  final String? productItemId;
 
-  static Route route(
-          {required BuyForSaleListingModel dataItem, String? catalogItmId}) =>
-      PageRoutes.material(
+  static Route route({String? productItemId}) => PageRoutes.material(
         settings: const RouteSettings(name: name),
-        builder: (context) =>
-            BuyPreviewPage(dataItem: dataItem, catalogItmId: catalogItmId),
+        builder: (context) => BuyPreviewPage(productItemId: productItemId),
       );
 
   @override
@@ -65,10 +61,8 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
 
   @override
   void initState() {
-    getSalesHistory();
+    getIt<BuyCubit>().getListDetailItem(widget.productItemId ?? '');
     super.initState();
-
-    getIt<BuyCubit>().getListDetailItem(widget.dataItem.productItemId ?? '');
   }
 
   @override
@@ -77,7 +71,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
   }
 
   getSalesHistory() async {
-    var catalogItemId = widget.dataItem.catalogItemId;
+    var catalogItemId = listData.catalogItemId;
     salesHistoryList = await getIt<SalesHistoryBloc>()
         .salesHistoryService
         .salesHistory(catalogItemId ?? "");
@@ -104,6 +98,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                       (BuyForSaleListingModel listDataResponse) {
                     setState(() {
                       listData = listDataResponse;
+                      getSalesHistory();
 
                       if (listData.submitPurchaseInfo != null) {
                         if (listData.submitPurchaseInfo!.avatarBuyer !=
@@ -162,6 +157,10 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                           CrossAxisAlignment.stretch,
                                       children: [
                                         Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Expanded(
                                                 flex: 6,
@@ -193,7 +192,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                     ),
                                                     onPressed: () async {
                                                       Share.share(
-                                                        'https://swagapp.com/products/${widget.catalogItmId}',
+                                                        '$shareListingUrl${listData.catalogItemId}',
                                                       );
                                                     },
                                                   ),
@@ -407,8 +406,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                 children: [
                                                   FooterListItemPage(
                                                     productItemId: this
-                                                            .widget
-                                                            .dataItem
+                                                            .listData
                                                             .productItemId ??
                                                         '',
                                                     showChatButton: true,
@@ -441,9 +439,11 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                             .green,
                                                       )),
                                                   Visibility(
-                                                      visible: listData
-                                                              .status ==
-                                                          'pendingSellerConfirmation',
+                                                      visible: (listData
+                                                                  .status ==
+                                                              'pendingSellerConfirmation' ||
+                                                          listData.status ==
+                                                              'pendingPayment'),
                                                       child: PrimaryButton(
                                                         title: S
                                                             .of(context)
@@ -465,8 +465,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                       children: [
                                                         FooterListItemPage(
                                                           productItemId: this
-                                                                  .widget
-                                                                  .dataItem
+                                                                  .listData
                                                                   .productItemId ??
                                                               '',
                                                           showChatButton: true,
@@ -610,10 +609,45 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                                 .of(context)
                                                                 .complete_sale_btn
                                                                 .toUpperCase(),
-                                                            onPressed: () {},
+                                                            onPressed: () {
+                                                              getIt<BuyCubit>()
+                                                                  .acceptPurchase(
+                                                                      listData.productItemId ??
+                                                                          '');
+                                                            },
                                                             type:
                                                                 PrimaryButtonType
                                                                     .green,
+                                                          ),
+                                                          const SizedBox(
+                                                              height: 20),
+                                                          PrimaryButton(
+                                                            title: S
+                                                                .of(context)
+                                                                .cancel_sale_btn
+                                                                .toUpperCase(),
+                                                            onPressed: () {},
+                                                            type:
+                                                                PrimaryButtonType
+                                                                    .pink,
+                                                          )
+                                                        ],
+                                                      )),
+                                                  Visibility(
+                                                      visible:
+                                                          listData.status ==
+                                                              'pendingPayment',
+                                                      child: Column(
+                                                        children: [
+                                                          PrimaryButton(
+                                                            title: S
+                                                                .of(context)
+                                                                .pending_sale_btn
+                                                                .toUpperCase(),
+                                                            onPressed: null,
+                                                            type:
+                                                                PrimaryButtonType
+                                                                    .grey,
                                                           ),
                                                           const SizedBox(
                                                               height: 20),

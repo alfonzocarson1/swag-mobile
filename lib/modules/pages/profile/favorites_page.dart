@@ -9,8 +9,10 @@ import '../../common/ui/refresh_widget.dart';
 import '../../common/ui/simple_loader.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
+import '../../common/utils/tab_wrapper.dart';
 import '../../common/utils/utils.dart';
 import '../../cubits/favorites/get_favorites_cubit.dart';
+import '../../cubits/paginated_search/paginated_search_cubit.dart';
 import '../../di/injector.dart';
 import '../../models/detail/detail_item_model.dart';
 import '../../models/favorite/favorite_item_model.dart';
@@ -61,13 +63,23 @@ class _FavoritesPageState extends State<FavoritesPage> {
           itemCount: 1,
         ),
         loadedProfileFavorites:
-            (List<ListFavoriteProfileResponseModel> profileFavoriteList) {
-          favoritesList = [...profileFavoriteList.first.favoriteList];
+            (ListFavoriteProfileResponseModel profileFavoriteList) {
+          favoritesList = [...profileFavoriteList.favoriteList];
 
           return _getBody(favoritesList);
         },
       );
     });
+  }
+
+  refreshResults() {
+    getIt<PaginatedSearchCubit>().refreshResults(searchTab: SearchTab.all);
+    getIt<PaginatedSearchCubit>().refreshResults(searchTab: SearchTab.whatsHot);
+    getIt<PaginatedSearchCubit>()
+        .refreshResults(searchTab: SearchTab.headcovers);
+    getIt<PaginatedSearchCubit>().refreshResults(searchTab: SearchTab.putters);
+    getIt<PaginatedSearchCubit>()
+        .refreshResults(searchTab: SearchTab.accessories);
   }
 
   Widget _getBody(List<DetailItemModel> favoriteList) {
@@ -91,7 +103,9 @@ class _FavoritesPageState extends State<FavoritesPage> {
                     onTap: () {
                       Navigator.of(context, rootNavigator: true).push(
                           ItemDetailPage.route(
-                              favoriteList[index].catalogItemId, (val) {}));
+                              favoriteList[index].catalogItemId,
+                              (val) {},
+                              null));
                     },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -145,6 +159,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                                   .catalogItemId)
                                         ])));
                                   });
+                                  refreshResults();
                                 },
                               ),
                             ),
