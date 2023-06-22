@@ -67,8 +67,8 @@ class PayWallWidget extends StatelessWidget {
                   );
                 }
                 ),
-                const SizedBox(
-                  height: 40,
+                 SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.016,
                 ),
                const DiscountContainerWidget(),
                const SizedBox(height: 20),
