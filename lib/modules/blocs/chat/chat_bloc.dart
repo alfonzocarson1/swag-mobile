@@ -205,7 +205,9 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
               this.add(ChatLoadinFileEvent(false));
             }
-            else throw Exception();
+            else {
+              throw Exception();
+            }
           },
         );
 
