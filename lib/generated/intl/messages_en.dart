@@ -299,6 +299,27 @@ class MessageLookup extends MessageLookupByLibrary {
         "payment_types": MessageLookupByLibrary.simpleMessage("Payment Type"),
         "payment_types_accepted":
             MessageLookupByLibrary.simpleMessage("Payment Types Accepted"),
+        "paywall_condition1":
+            MessageLookupByLibrary.simpleMessage("Unlimited listings "),
+        "paywall_condition2":
+            MessageLookupByLibrary.simpleMessage("See items price history"),
+        "paywall_condition3":
+            MessageLookupByLibrary.simpleMessage("Track your portfolio value"),
+        "paywall_condition4":
+            MessageLookupByLibrary.simpleMessage("Make offers on items"),
+        "paywall_condition5":
+            MessageLookupByLibrary.simpleMessage("Verified user badge"),
+        "paywall_discount": MessageLookupByLibrary.simpleMessage("SAVE 20%"),
+        "paywall_free_trial":
+            MessageLookupByLibrary.simpleMessage("GET 30 Days free"),
+        "paywall_or_price_month":
+            MessageLookupByLibrary.simpleMessage("OR \$9.99 per month"),
+        "paywall_price_per_month":
+            MessageLookupByLibrary.simpleMessage("(\$8.30 per month)"),
+        "paywall_price_per_year":
+            MessageLookupByLibrary.simpleMessage("\$99.99 per year"),
+        "paywall_title": MessageLookupByLibrary.simpleMessage(
+            "Upgrade your subscription to see the full sales history plus much more!"),
         "peer_to_peer_payment_options_sub_title":
             MessageLookupByLibrary.simpleMessage("Venmo, CashApp, PayPal"),
         "peer_to_peer_payment_options_title":

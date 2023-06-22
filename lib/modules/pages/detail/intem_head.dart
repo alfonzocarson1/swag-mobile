@@ -134,20 +134,24 @@ class _HeadWidgetState extends State<HeadWidget> {
                   return Container();
                 });
           }),
-          CachedNetworkImage(
-            fit: BoxFit.cover,
-            imageUrl: widget.urlImage,
-            placeholder: (context, url) => SizedBox(
-              height: 360,
-              child: Center(
-                child: CircularProgressIndicator(
-                  color: Palette.current.primaryNeonGreen,
-                  backgroundColor: Colors.white,
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height *0.35,
+            child: CachedNetworkImage(
+              fit: BoxFit.cover,
+              imageUrl: widget.urlImage,
+              placeholder: (context, url) => SizedBox(
+                height: 360,
+                child: Center(
+                  child: CircularProgressIndicator(
+                    color: Palette.current.primaryNeonGreen,
+                    backgroundColor: Colors.white,
+                  ),
                 ),
               ),
+              errorWidget: (context, url, error) =>
+                  Image.asset("assets/images/ProfilePhoto.png"),
             ),
-            errorWidget: (context, url, error) =>
-                Image.asset("assets/images/ProfilePhoto.png"),
           ),
           Visibility(
             visible: isSkullVisible,

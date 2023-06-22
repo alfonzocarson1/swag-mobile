@@ -3059,6 +3059,116 @@ class S {
       args: [],
     );
   }
+
+  /// `Upgrade your subscription to see the full sales history plus much more!`
+  String get paywall_title {
+    return Intl.message(
+      'Upgrade your subscription to see the full sales history plus much more!',
+      name: 'paywall_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unlimited listings `
+  String get paywall_condition1 {
+    return Intl.message(
+      'Unlimited listings ',
+      name: 'paywall_condition1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `See items price history`
+  String get paywall_condition2 {
+    return Intl.message(
+      'See items price history',
+      name: 'paywall_condition2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Track your portfolio value`
+  String get paywall_condition3 {
+    return Intl.message(
+      'Track your portfolio value',
+      name: 'paywall_condition3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Make offers on items`
+  String get paywall_condition4 {
+    return Intl.message(
+      'Make offers on items',
+      name: 'paywall_condition4',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Verified user badge`
+  String get paywall_condition5 {
+    return Intl.message(
+      'Verified user badge',
+      name: 'paywall_condition5',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `$99.99 per year`
+  String get paywall_price_per_year {
+    return Intl.message(
+      '\$99.99 per year',
+      name: 'paywall_price_per_year',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `($8.30 per month)`
+  String get paywall_price_per_month {
+    return Intl.message(
+      '(\$8.30 per month)',
+      name: 'paywall_price_per_month',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `OR $9.99 per month`
+  String get paywall_or_price_month {
+    return Intl.message(
+      'OR \$9.99 per month',
+      name: 'paywall_or_price_month',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SAVE 20%`
+  String get paywall_discount {
+    return Intl.message(
+      'SAVE 20%',
+      name: 'paywall_discount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `GET 30 Days free`
+  String get paywall_free_trial {
+    return Intl.message(
+      'GET 30 Days free',
+      name: 'paywall_free_trial',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
