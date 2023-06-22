@@ -1,11 +1,18 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:sendbird_sdk/sendbird_sdk.dart';
+import 'package:swagapp/modules/common/utils/utils.dart';
+import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
+import 'package:swagapp/modules/models/profile/profile_model.dart';
 import 'package:swagapp/modules/pages/chat/chat_page.dart';
 import 'package:swagapp/modules/common/assets/images.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/models/chat/chat_data.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:swagapp/modules/models/chat/sendbird_channel_data.dart';
+
+import '../../../constants/constants.dart';
+import '../../../di/injector.dart';
 
 class ChatsContact extends StatelessWidget {
 
@@ -20,18 +27,23 @@ class ChatsContact extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ProfileModel userProfile = getIt<PreferenceRepositoryService>().profileData();
+    String userName = userProfile.username;
 
     int unreadMessages = this.chatData.channel.unreadMessageCount;
     bool hasUreadMessages = unreadMessages > 0;
     SendBirdChannelData channelData = this.getChannelData();
-    
+    List<Member> chatMembers = this.chatData.channel.members;
+    Member seller = chatMembers.where((Member member) => member.nickname != userName && member.nickname != swagBotNickName).toList().first;
+
+        
     return ListTile(            
       leading: _Avatar(
         hasUreadMessages: hasUreadMessages, 
         chatData: this.chatData,
       ),
       title: Text(
-        channelData.listingProductName,
+        '@${seller.nickname.capitalize()} - ${channelData.listingProductName}',
         style: Theme.of(context).textTheme.bodySmall!.copyWith(
           fontWeight: (hasUreadMessages) ? FontWeight.w300 : FontWeight.w300,
           fontSize: 20,
@@ -67,7 +79,9 @@ class ChatsContact extends StatelessWidget {
 
       return SendBirdChannelData.fromJson(data);
     }
-    else return SendBirdChannelData(topicId: '', listingProductName: '');
+    else {
+      return SendBirdChannelData(topicId: '', listingProductName: '');
+    }
   } 
 }
 
