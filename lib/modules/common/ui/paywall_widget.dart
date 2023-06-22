@@ -23,7 +23,7 @@ class PayWallWidget extends StatelessWidget {
 
     return  SizedBox(
       width: MediaQuery.of(context).size.width,  
-      height: MediaQuery.of(context).size.height * 0.65,  
+      height: MediaQuery.of(context).size.height,  
       child: ClipRect(
       child: BackdropFilter(
     
@@ -50,7 +50,7 @@ class PayWallWidget extends StatelessWidget {
                     20,                  
                     margin:  const EdgeInsets.symmetric(vertical: 5),
                     child: ListTile(
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 90.0),
+                      contentPadding:  EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width * 0.12)),
                       minVerticalPadding: 0,          
                       leading: SizedBox(
                         height: 20,
