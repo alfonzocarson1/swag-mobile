@@ -6,24 +6,29 @@ import '../utils/palette.dart';
 
 class DiscountContainerWidget extends StatelessWidget {
   const DiscountContainerWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
+  double triangleWidth =MediaQuery.of(context).size.width * 0.1;
+  double triangleHeigth =MediaQuery.of(context).size.height*0.04; 
+  double  triangleTopPosition = MediaQuery.of(context).size.width * 0.0215;
+
     return Stack(children: [
             Positioned(
-        top: 15,
-          left: -5,
+        top: triangleTopPosition,
+          left: MediaQuery.of(context).size.width * -0.01,
           child: CustomPaint(
             painter: CustomTriangle(Palette.current.primaryNeonGreen, 'right'),
             size:
-                const Size(45, 35), // this is the bounding size of the painter
+                 Size(triangleWidth, triangleHeigth), // this is the bounding size of the painter
           )),
       Positioned(
-        top:13,
-          left: 33,
+        top:triangleTopPosition,
+          left: MediaQuery.of(context).size.width * 0.081,
           child: CustomPaint(
             painter: CustomTriangle(Palette.current.primaryNeonGreen, 'left'),
             size:
-                const Size(45, 35), // this is the bounding size of the painter
+                 Size(triangleWidth, triangleHeigth), // this is the bounding size of the painter
           )),
       Container(        
         padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
