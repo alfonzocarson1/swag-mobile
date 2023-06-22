@@ -312,6 +312,10 @@
     "unread": "Unread",
     "pending_sale_btn": "Pending Sale",
 
+
+    "cancel_sale": "CANCEL SALE",
+    "cancel_sale_description": "Please select the reason you are canceling this sale.",
+    "reason_required": "Reason required",
     "paywall_title":"Upgrade your subscription to see the full sales history plus much more!",
     "paywall_condition1":"Unlimited listings ",
     "paywall_condition2":"See items price history",

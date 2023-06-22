@@ -3030,6 +3030,36 @@ class S {
     );
   }
 
+  /// `CANCEL SALE`
+  String get cancel_sale {
+    return Intl.message(
+      'CANCEL SALE',
+      name: 'cancel_sale',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select the reason you are canceling this sale.`
+  String get cancel_sale_description {
+    return Intl.message(
+      'Please select the reason you are canceling this sale.',
+      name: 'cancel_sale_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reason required`
+  String get reason_required {
+    return Intl.message(
+      'Reason required',
+      name: 'reason_required',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Upgrade your subscription to see the full sales history plus much more!`
   String get paywall_title {
     return Intl.message(

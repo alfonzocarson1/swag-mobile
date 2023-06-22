@@ -72,7 +72,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "buy_for": MessageLookupByLibrary.simpleMessage("BUY FOR"),
         "camera": MessageLookupByLibrary.simpleMessage("TAKE PHOTO"),
         "cancel": MessageLookupByLibrary.simpleMessage("CANCEL"),
+        "cancel_sale": MessageLookupByLibrary.simpleMessage("CANCEL SALE"),
         "cancel_sale_btn": MessageLookupByLibrary.simpleMessage("CANCEL SALE"),
+        "cancel_sale_description": MessageLookupByLibrary.simpleMessage(
+            "Please select the reason you are canceling this sale."),
         "cash_app": MessageLookupByLibrary.simpleMessage("CashApp"),
         "cash_app_sub_title": MessageLookupByLibrary.simpleMessage(
             "Please enter and confirm your \nCashApp cashtag"),
@@ -375,6 +378,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "razon_remove_btn": MessageLookupByLibrary.simpleMessage("SUBMIT"),
         "razon_remove_subtitle": MessageLookupByLibrary.simpleMessage(
             "Please select the reason you are removing this item."),
+        "reason_required":
+            MessageLookupByLibrary.simpleMessage("Reason required"),
         "receive_offer":
             MessageLookupByLibrary.simpleMessage("RECEIVE OFFERS ON THIS ITEM"),
         "recent_searches":
