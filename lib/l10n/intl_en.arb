@@ -311,6 +311,9 @@
     "alert_center_title": "ALERTS & NOTIFICATIONS",
     "unread": "Unread",
 
-    "pending_sale_btn": "Pending Sale"
+    "pending_sale_btn": "Pending Sale",
+    "cancel_sale": "CANCEL SALE",
+    "cancel_sale_description": "Please select the reason you are canceling this sale.",
+    "reason_required": "Reason required"
 
 }

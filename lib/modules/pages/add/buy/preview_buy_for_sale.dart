@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sendbird_sdk/sendbird_sdk.dart';
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 import 'package:swagapp/modules/common/ui/general_delete_popup.dart';
 import 'package:swagapp/modules/cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
@@ -10,6 +12,7 @@ import 'package:swagapp/modules/models/listing_for_sale/listing_for_sale_model.d
 import 'package:swagapp/modules/models/profile/profile_model.dart';
 import 'package:swagapp/modules/models/ui_models/checkbox_model.dart';
 import '../../../../generated/l10n.dart';
+import '../../../blocs/chat/chat_bloc.dart';
 import '../../../blocs/sale_history/sale_history_bloc.dart';
 import '../../../common/ui/loading.dart';
 import '../../../common/ui/primary_button.dart';
@@ -29,6 +32,8 @@ import '../collection/widgets/custom_overlay_button.dart';
 import 'buyer_complete_purchase_pop_up.dart';
 import 'multi_image_slide_buy_preview.dart';
 import 'package:share_plus/share_plus.dart';
+
+import 'seller_cancel_purchase_pop_up.dart';
 
 class BuyPreviewPage extends StatefulWidget {
   static const name = '/BuyPreviewPage';
@@ -65,6 +70,8 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
     super.initState();
   }
 
+  String? listingChatId;
+
   @override
   void dispose() {
     super.dispose();
@@ -79,6 +86,11 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
 
   @override
   Widget build(BuildContext context) {
+    Future.delayed(Duration.zero, () {
+      setState(() {
+        context.read<ChatBloc>();
+      });
+    });
     return Scaffold(
         extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: true,
@@ -483,8 +495,10 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                       ],
                                                     ),
                                                   ),
-                                                  listData.submitPurchaseInfo !=
-                                                          null
+                                                  (listData.submitPurchaseInfo !=
+                                                              null &&
+                                                          listData.status !=
+                                                              'listed')
                                                       ? Column(
                                                           children: [
                                                             Container(
@@ -626,7 +640,87 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                                 .of(context)
                                                                 .cancel_sale_btn
                                                                 .toUpperCase(),
-                                                            onPressed: () {},
+                                                            onPressed: () {
+                                                              setState(() {
+                                                                ChatBloc
+                                                                    chatBloc =
+                                                                    context.read<
+                                                                        ChatBloc>();
+
+                                                                for (int i = 0;
+                                                                    i <
+                                                                        chatBloc
+                                                                            .state
+                                                                            .chats
+                                                                            .length;
+                                                                    i++) {
+                                                                  if (chatBloc
+                                                                      .state
+                                                                      .chats[i]
+                                                                      .channel
+                                                                      .data!
+                                                                      .isNotEmpty) {
+                                                                    String jsonString = chatBloc
+                                                                        .state
+                                                                        .chats[
+                                                                            i]
+                                                                        .channel
+                                                                        .data!;
+
+                                                                    jsonString =
+                                                                        jsonString.replaceAll(
+                                                                            "'",
+                                                                            '"');
+
+                                                                    Map<String,
+                                                                            dynamic>
+                                                                        json =
+                                                                        jsonDecode(
+                                                                            jsonString);
+
+                                                                    String
+                                                                        productItemId =
+                                                                        json[
+                                                                            'productItemId'];
+
+                                                                    if (listData
+                                                                            .productItemId ==
+                                                                        productItemId) {
+                                                                      setState(
+                                                                          () {
+                                                                        if (!chatBloc
+                                                                            .state
+                                                                            .chats[i]
+                                                                            .channel
+                                                                            .isFrozen) {
+                                                                          setState(
+                                                                              () {
+                                                                            listingChatId =
+                                                                                chatBloc.state.chats[i].channel.channelUrl;
+                                                                          });
+                                                                        }
+                                                                      });
+
+                                                                      break;
+                                                                    }
+                                                                  }
+                                                                }
+                                                              });
+
+                                                              showDialog(
+                                                                  context:
+                                                                      context,
+                                                                  barrierDismissible:
+                                                                      false,
+                                                                  builder: (BuildContext
+                                                                          context) =>
+                                                                      SellerCancelPurchasePopUp(
+                                                                        productItemId:
+                                                                            listData.productItemId,
+                                                                        listingChatId:
+                                                                            listingChatId,
+                                                                      ));
+                                                            },
                                                             type:
                                                                 PrimaryButtonType
                                                                     .pink,
@@ -656,7 +750,88 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                                 .of(context)
                                                                 .cancel_sale_btn
                                                                 .toUpperCase(),
-                                                            onPressed: () {},
+                                                            onPressed: () {
+                                                              setState(() {
+                                                                ChatBloc
+                                                                    chatBloc =
+                                                                    context.read<
+                                                                        ChatBloc>();
+
+                                                                for (int i = 0;
+                                                                    i <
+                                                                        chatBloc
+                                                                            .state
+                                                                            .chats
+                                                                            .length;
+                                                                    i++) {
+                                                                  if (chatBloc
+                                                                      .state
+                                                                      .chats[i]
+                                                                      .channel
+                                                                      .data!
+                                                                      .isNotEmpty) {
+                                                                    String jsonString = chatBloc
+                                                                        .state
+                                                                        .chats[
+                                                                            i]
+                                                                        .channel
+                                                                        .data!;
+
+                                                                    jsonString =
+                                                                        jsonString.replaceAll(
+                                                                            "'",
+                                                                            '"');
+
+                                                                    Map<String,
+                                                                            dynamic>
+                                                                        json =
+                                                                        jsonDecode(
+                                                                            jsonString);
+
+                                                                    String
+                                                                        productItemId =
+                                                                        json[
+                                                                            'productItemId'];
+
+                                                                    if (listData
+                                                                            .productItemId ==
+                                                                        productItemId) {
+                                                                      if (!chatBloc
+                                                                          .state
+                                                                          .chats[
+                                                                              i]
+                                                                          .channel
+                                                                          .isFrozen) {
+                                                                        setState(
+                                                                            () {
+                                                                          listingChatId = chatBloc
+                                                                              .state
+                                                                              .chats[i]
+                                                                              .channel
+                                                                              .channelUrl;
+                                                                        });
+                                                                      }
+
+                                                                      break;
+                                                                    }
+                                                                  }
+                                                                }
+                                                              });
+
+                                                              showDialog(
+                                                                  context:
+                                                                      context,
+                                                                  barrierDismissible:
+                                                                      false,
+                                                                  builder: (BuildContext
+                                                                          context) =>
+                                                                      SellerCancelPurchasePopUp(
+                                                                        productItemId:
+                                                                            listData.productItemId,
+                                                                        listingChatId:
+                                                                            listingChatId,
+                                                                      ));
+                                                            },
                                                             type:
                                                                 PrimaryButtonType
                                                                     .pink,

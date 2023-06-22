@@ -18,5 +18,9 @@ class BuyStateCubit with _$BuyStateCubit {
           AcceptPurchaseResponseModel acceptPurchaseResponse) =
       AcceptPurchaseRequestState;
 
+  factory BuyStateCubit.dataCancelPurchaseRequest(
+          CancelPurchaseResponseModel cancelPurchaseResponse) =
+      CancelPurchaseRequestState;
+
   factory BuyStateCubit.error(final String message) = ErrorBuyStateCubit;
 }

@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../common/utils/handling_errors.dart';
@@ -9,6 +8,8 @@ import '../../models/buy_for_sale_listing/buy_a_listing_accept_purchase_response
 import '../../models/buy_for_sale_listing/buy_a_listing_model.dart';
 import '../../models/buy_for_sale_listing/buy_a_listing_response_model.dart';
 import '../../models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
+import '../../models/buy_for_sale_listing/cancel_purchase_request_model.dart';
+import '../../models/buy_for_sale_listing/cancel_purchase_response_model.dart';
 
 part 'buy_state.dart';
 part 'buy_cubit.freezed.dart';
@@ -51,6 +52,18 @@ class BuyCubit extends Cubit<BuyStateCubit> {
 
       getIt<BuyCubit>().getListDetailItem(productItemId);
       emit(BuyStateCubit.acceptPurchaseRequest(responseBody));
+    } catch (error) {
+      emit(
+        ErrorBuyStateCubit(HandlingErrors().getError(error)),
+      );
+    }
+  }
+
+  Future<void> cancelPurchase(CancelPurchaseRequestModel model) async {
+    try {
+      CancelPurchaseResponseModel responseBody =
+          await buyService.cancelPurchaseRequest(model);
+      emit(BuyStateCubit.dataCancelPurchaseRequest(responseBody));
     } catch (error) {
       emit(
         ErrorBuyStateCubit(HandlingErrors().getError(error)),
