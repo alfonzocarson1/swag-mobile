@@ -9,9 +9,9 @@ class DiscountContainerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  double triangleWidth =MediaQuery.of(context).size.width * 0.11;
+  double triangleWidth =MediaQuery.of(context).size.width * 0.0985;
   double triangleHeigth =MediaQuery.of(context).size.height*0.042; 
-  double  triangleTopPosition = MediaQuery.of(context).size.width * 0.0215;
+  double  triangleTopPosition = MediaQuery.of(context).size.width * 0.025;
 
     return Stack(children: [
             Positioned(
@@ -33,19 +33,19 @@ class DiscountContainerWidget extends StatelessWidget {
       Container(        
         padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
         height: MediaQuery.of(context).size.height * 0.035,
-        width: MediaQuery.of(context).size.width * 0.181,
+        width: MediaQuery.of(context).size.width * 0.17,
         color: Palette.current.primaryNeonGreen,
         child: Text(S.of(context).paywall_discount, 
         textAlign: TextAlign.center,
         style: Theme.of(context).textTheme.displayMedium!.copyWith(
                   fontFamily: "KnockoutCustom",
-                  fontSize: 20,
+                  fontSize: 18,
                   letterSpacing: 1,
                   fontWeight: FontWeight.w400,
                   color: Palette.current.black),
       )),
       Container(
-        padding:const EdgeInsets.only(top: 10),
+        padding:const EdgeInsets.fromLTRB(25, 10, 0, 0),
         height: MediaQuery.of(context).size.height * 0.12,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
