@@ -9,8 +9,8 @@ class DiscountContainerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  double triangleWidth =MediaQuery.of(context).size.width * 0.1;
-  double triangleHeigth =MediaQuery.of(context).size.height*0.04; 
+  double triangleWidth =MediaQuery.of(context).size.width * 0.11;
+  double triangleHeigth =MediaQuery.of(context).size.height*0.042; 
   double  triangleTopPosition = MediaQuery.of(context).size.width * 0.0215;
 
     return Stack(children: [
@@ -24,14 +24,14 @@ class DiscountContainerWidget extends StatelessWidget {
           )),
       Positioned(
         top:triangleTopPosition,
-          left: MediaQuery.of(context).size.width * 0.081,
+          left: MediaQuery.of(context).size.width * 0.071,
           child: CustomPaint(
             painter: CustomTriangle(Palette.current.primaryNeonGreen, 'left'),
             size:
                  Size(triangleWidth, triangleHeigth), // this is the bounding size of the painter
           )),
       Container(        
-        padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
+        padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
         height: MediaQuery.of(context).size.height * 0.035,
         width: MediaQuery.of(context).size.width * 0.181,
         color: Palette.current.primaryNeonGreen,
