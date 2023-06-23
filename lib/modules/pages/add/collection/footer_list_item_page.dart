@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sendbird_sdk/core/models/member.dart';
 import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
 import 'package:swagapp/modules/common/assets/icons.dart';
 import 'package:swagapp/modules/common/ui/custom_outline_button.dart';
@@ -10,6 +11,7 @@ import 'package:swagapp/modules/pages/chat/chat_page.dart';
 import '../../../../generated/l10n.dart';
 import '../../../common/utils/palette.dart';
 import '../../../common/utils/utils.dart';
+import '../../../constants/constants.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
 import '../../../models/profile/profile_model.dart';
@@ -29,9 +31,10 @@ class FooterListItemPage extends StatefulWidget {
   @override
   State<FooterListItemPage> createState() => _FooterListItemPageState();
 }
-
+String userName= "";
 class _FooterListItemPageState extends State<FooterListItemPage> {
   ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
+  
 
   double rating = 4;
   @override
@@ -43,6 +46,7 @@ class _FooterListItemPageState extends State<FooterListItemPage> {
 
     ProfileModel profileData =
         getIt<PreferenceRepositoryService>().profileData();
+    userName = profileData.username;
 
     if (profileData.useAvatar != 'CUSTOM') {
       var data = imagesList
@@ -120,10 +124,12 @@ class _FooterListItemPageState extends State<FooterListItemPage> {
       Loading.show(context);
       await Future.delayed(const Duration(milliseconds: 500));
       ChatData? chatData = await chatBloc.startNewChat(this.widget.productItemId);
+      List<Member> chatMembers = chatData.channel.members;
+      Member seller = chatMembers.where((Member member) => member.nickname != userName && member.nickname != swagBotNickName).toList().first;
       Loading.hide(context);
 
       await Navigator.of(context, rootNavigator: true).push(
-        MaterialPageRoute(builder: (BuildContext context)=> ChatPage(chatData: chatData)),
+        MaterialPageRoute(builder: (BuildContext context)=> ChatPage(chatData: chatData, userName: userName, sellerNickName: seller.nickname)),
       );        
     } 
     catch (e) { Loading.hide(context); }
