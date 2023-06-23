@@ -629,11 +629,13 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                             onPressed: () async {
 
                                                               String channelUrl = await getIt<BuyCubit>().acceptPurchase(listData.productItemId ??'');
-                                                              ChatData chadData = await context.read<ChatBloc>().startNewChat(channelUrl);
+                                                              ChatData chatData = await context.read<ChatBloc>().startNewChat(channelUrl);
+                                                              List<Member> chatMembers = chatData.channel.members;
+                                                              Member seller = chatMembers.where((Member member) => member.nickname != userName && member.nickname != swagBotNickName).toList().first;
                                                               
                                                               Navigator.push(
                                                                 context, 
-                                                                MaterialPageRoute(builder: (BuildContext context)=> ChatPage(chatData: chadData)),
+                                                                MaterialPageRoute(builder: (BuildContext context)=> ChatPage(chatData: chatData,)),
                                                               );
                                                             },
                                                             type:
