@@ -85,7 +85,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "buy_for": MessageLookupByLibrary.simpleMessage("BUY FOR"),
         "camera": MessageLookupByLibrary.simpleMessage("TAKE PHOTO"),
         "cancel": MessageLookupByLibrary.simpleMessage("CANCEL"),
+        "cancel_sale": MessageLookupByLibrary.simpleMessage("CANCEL SALE"),
         "cancel_sale_btn": MessageLookupByLibrary.simpleMessage("CANCEL SALE"),
+        "cancel_sale_description": MessageLookupByLibrary.simpleMessage(
+            "Please select the reason you are canceling this sale."),
         "cash_app": MessageLookupByLibrary.simpleMessage("CashApp"),
         "cash_app_sub_title": MessageLookupByLibrary.simpleMessage(
             "Please enter and confirm your \nCashApp cashtag"),
@@ -326,6 +329,27 @@ class MessageLookup extends MessageLookupByLibrary {
         "paymetCashApp": MessageLookupByLibrary.simpleMessage("CashApp"),
         "paymetPaypal": MessageLookupByLibrary.simpleMessage("PayPal"),
         "paymetVenmo": MessageLookupByLibrary.simpleMessage("Venmo"),
+        "paywall_condition1":
+            MessageLookupByLibrary.simpleMessage("Unlimited listings "),
+        "paywall_condition2":
+            MessageLookupByLibrary.simpleMessage("See items price history"),
+        "paywall_condition3":
+            MessageLookupByLibrary.simpleMessage("Track your portfolio value"),
+        "paywall_condition4":
+            MessageLookupByLibrary.simpleMessage("Make offers on items"),
+        "paywall_condition5":
+            MessageLookupByLibrary.simpleMessage("Verified user badge"),
+        "paywall_discount": MessageLookupByLibrary.simpleMessage("SAVE 20%"),
+        "paywall_free_trial":
+            MessageLookupByLibrary.simpleMessage("GET 30 Days free"),
+        "paywall_or_price_month":
+            MessageLookupByLibrary.simpleMessage("OR \$9.99 per month"),
+        "paywall_price_per_month":
+            MessageLookupByLibrary.simpleMessage("(\$8.30 per month)"),
+        "paywall_price_per_year":
+            MessageLookupByLibrary.simpleMessage("\$99.99 per year"),
+        "paywall_title": MessageLookupByLibrary.simpleMessage(
+            "Upgrade your subscription to see the full sales history plus much more!"),
         "peer_to_peer_payment_options_sub_title":
             MessageLookupByLibrary.simpleMessage("Venmo, CashApp, PayPal"),
         "peer_to_peer_payment_options_title":
@@ -384,6 +408,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "razon_remove_btn": MessageLookupByLibrary.simpleMessage("SUBMIT"),
         "razon_remove_subtitle": MessageLookupByLibrary.simpleMessage(
             "Please select the reason you are removing this item."),
+        "reason_required":
+            MessageLookupByLibrary.simpleMessage("Reason required"),
         "receive_offer":
             MessageLookupByLibrary.simpleMessage("RECEIVE OFFERS ON THIS ITEM"),
         "recent_searches":
