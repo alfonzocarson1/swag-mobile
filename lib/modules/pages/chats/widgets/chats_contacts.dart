@@ -63,7 +63,7 @@ class ChatsContact extends StatelessWidget {
       onTap: ()=> Navigator.push(
         context, 
         MaterialPageRoute(
-          builder: (BuildContext context)=> ChatPage(chatData: this.chatData, userName: userName, sellerNickName: seller.nickname),
+          builder: (BuildContext context)=> ChatPage(chatData: this.chatData),
         ),
       ),
     );

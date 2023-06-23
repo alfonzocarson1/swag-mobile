@@ -124,12 +124,11 @@ class _FooterListItemPageState extends State<FooterListItemPage> {
       Loading.show(context);
       await Future.delayed(const Duration(milliseconds: 500));
       ChatData? chatData = await chatBloc.startNewChat(this.widget.productItemId);
-      List<Member> chatMembers = chatData.channel.members;
-      Member seller = chatMembers.where((Member member) => member.nickname != userName && member.nickname != swagBotNickName).toList().first;
+    
       Loading.hide(context);
 
       await Navigator.of(context, rootNavigator: true).push(
-        MaterialPageRoute(builder: (BuildContext context)=> ChatPage(chatData: chatData, userName: userName, sellerNickName: seller.nickname)),
+        MaterialPageRoute(builder: (BuildContext context)=> ChatPage(chatData: chatData)),
       );        
     } 
     catch (e) { Loading.hide(context); }
