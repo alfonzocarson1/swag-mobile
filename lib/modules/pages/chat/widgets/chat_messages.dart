@@ -121,7 +121,10 @@ class _ChatMessagesState extends State<ChatMessages> {
       bool isMyUserBuyer = messageData.payload.userNameBuyer == profileData.username;
 
       return (isMyUserBuyer) 
-      ? ChatCardMessage(messageData: messageData)
+      ? ChatCardMessage(
+          messageData: messageData,
+          chatData: this.widget.chatData,
+        )
       : _Message(
           isMyMessage: false,
           message: message,
