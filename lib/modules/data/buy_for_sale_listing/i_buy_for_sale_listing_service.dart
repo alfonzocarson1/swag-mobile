@@ -20,7 +20,7 @@ abstract class IBuyForSaleListingService {
   Future<CancelPurchaseResponseModel> cancelPurchaseRequest(
       CancelPurchaseRequestModel model);
 
-  Future<BuyForSaleListingModel> updateListingStatus(
+  Future<CancelPurchaseResponseModel> updateListingStatus(
       UpdatePurchaseStatusRequestModel model);
 
   Future<BuyASaleListingResponseModel> buyAListing(

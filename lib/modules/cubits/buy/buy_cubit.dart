@@ -75,7 +75,7 @@ class BuyCubit extends Cubit<BuyStateCubit> {
   Future<void> updateListingStatus(
       UpdatePurchaseStatusRequestModel model) async {
     try {
-      BuyForSaleListingModel responseBody =
+      CancelPurchaseResponseModel responseBody =
           await buyService.updateListingStatus(model);
       emit(BuyStateCubit.loadedListUpdateStatus(responseBody));
     } catch (error) {

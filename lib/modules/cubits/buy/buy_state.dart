@@ -23,7 +23,8 @@ class BuyStateCubit with _$BuyStateCubit {
       CancelPurchaseRequestState;
 
   factory BuyStateCubit.loadedListUpdateStatus(
-      BuyForSaleListingModel detaUpdatedItemlList) = LoadedListUpdateStatus;
+          CancelPurchaseResponseModel detaUpdatedItemlList) =
+      LoadedListUpdateStatus;
 
   factory BuyStateCubit.error(final String message) = ErrorBuyStateCubit;
 }

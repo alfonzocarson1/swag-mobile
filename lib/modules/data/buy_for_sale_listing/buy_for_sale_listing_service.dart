@@ -82,13 +82,13 @@ class BuyForSaleListingService extends IBuyForSaleListingService {
   }
 
   @override
-  Future<BuyForSaleListingModel> updateListingStatus(
+  Future<CancelPurchaseResponseModel> updateListingStatus(
       UpdatePurchaseStatusRequestModel model) async {
-    BuyForSaleListingModel response = await apiService.getEndpointData(
+    CancelPurchaseResponseModel response = await apiService.getEndpointData(
       endpoint: Endpoint.updateListingStatus,
       method: RequestMethod.post,
       needBearer: true,
-      fromJson: (json) => BuyForSaleListingModel.fromJson(json),
+      fromJson: (json) => CancelPurchaseResponseModel.fromJson(json),
       body: model.toJson(),
     );
     return response;
