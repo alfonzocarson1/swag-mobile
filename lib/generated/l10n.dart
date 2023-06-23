@@ -3092,6 +3092,16 @@ class S {
     );
   }
 
+  /// `You can use this chat to adjust any information necessary to complete the sale. If you need 3rd party assistance click the icon above and request an admin to join the chat. NOTE: If payment is not received in 12 hours the listings can be cancelled `
+  String get chatCommenceMessage {
+    return Intl.message(
+      'You can use this chat to adjust any information necessary to complete the sale. If you need 3rd party assistance click the icon above and request an admin to join the chat. NOTE: If payment is not received in 12 hours the listings can be cancelled ',
+      name: 'chatCommenceMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Chat`
   String get chatsHeader {
     return Intl.message(

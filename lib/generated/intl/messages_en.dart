@@ -117,6 +117,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "chatCardPaymetInformation":
             MessageLookupByLibrary.simpleMessage("Payment Information"),
         "chatChat": MessageLookupByLibrary.simpleMessage("Chat"),
+        "chatCommenceMessage": MessageLookupByLibrary.simpleMessage(
+            "You can use this chat to adjust any information necessary to complete the sale. If you need 3rd party assistance click the icon above and request an admin to join the chat. NOTE: If payment is not received in 12 hours the listings can be cancelled "),
         "chatErrorFile":
             MessageLookupByLibrary.simpleMessage("Error loading the file"),
         "chatInputHintText":
