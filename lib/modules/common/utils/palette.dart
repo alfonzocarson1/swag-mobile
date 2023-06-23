@@ -66,6 +66,8 @@ abstract class Palette {
   final Color blackAppbarBlackground;
   final Color blackChatBlackground;
   final Color greyMessage;
+  final Color greyMessageCard;
+  final Color purple;
 
   const Palette({
     required this.black,
@@ -98,7 +100,9 @@ abstract class Palette {
     required this.brightness,
     required this.blackAppbarBlackground,    
     required this.blackChatBlackground,
-    required this.greyMessage,
+    required this.greyMessage,  
+    required this.greyMessageCard,
+    required this.purple,
   });
 
   static Palette current = LightPalette();
@@ -138,5 +142,7 @@ class LightPalette extends Palette {
           blackAppbarBlackground: const Color(0xFF2C2C2C),
           blackChatBlackground: const Color(0xFF161616),
           greyMessage: const Color(0xFF393939),
+          greyMessageCard: const Color(0xFF2c2c2c),
+          purple: const Color(0xFFc2a9fa),
         );
 }

@@ -46,17 +46,17 @@ class BuyCubit extends Cubit<BuyStateCubit> {
     }
   }
 
-  Future<void> acceptPurchase(String productItemId) async {
+  Future<String> acceptPurchase(String productItemId) async {
     try {
       AcceptPurchaseResponseModel responseBody =
           await buyService.acceptPurchaseRequest(productItemId);
 
       getIt<BuyCubit>().getListDetailItem(productItemId);
       emit(BuyStateCubit.acceptPurchaseRequest(responseBody));
+      return responseBody.channelUrl ?? '';
     } catch (error) {
-      emit(
-        ErrorBuyStateCubit(HandlingErrors().getError(error)),
-      );
+      emit(ErrorBuyStateCubit(HandlingErrors().getError(error)));
+      throw Exception(error);
     }
   }
 

@@ -5,6 +5,7 @@ import 'package:swagapp/generated/l10n.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
+import 'package:swagapp/modules/common/utils/sendbird_utils.dart';
 import 'package:swagapp/modules/models/chat/chat_data.dart';
 import 'package:swagapp/modules/models/chat/sendbird_channel_data.dart';
 
@@ -56,7 +57,7 @@ class _ChatPageState extends State<ChatPage> {
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle.light,
         backgroundColor: Palette.current.blackAppbarBlackground,
-        title: AppBarTitle(
+        title: _AppBarTitle(
           chatName: channelData.listingProductName, 
           isTyping: isTyping,
         ),
@@ -81,10 +82,7 @@ class _ChatPageState extends State<ChatPage> {
 
   SendBirdChannelData  getChannelData() {
 
-    String stringData = json.encode(this.widget.chatData!.channel.data!.replaceAll("'", '"'));
-    String formatedData = stringData.replaceAll('\\', "");
-    Map<String, dynamic> data  = json.decode(formatedData.substring(1, formatedData.length - 1));
-
+    Map<String, dynamic> data  = SendBirdUtils.getFormatedData(this.widget.chatData!.channel.data!);
     return SendBirdChannelData.fromJson(data);
   } 
 
@@ -133,12 +131,12 @@ class _Body extends StatelessWidget {
   }
 }
 
-class AppBarTitle extends StatelessWidget {
+class _AppBarTitle extends StatelessWidget {
 
   final String chatName;
   final bool isTyping;
 
-  const AppBarTitle({
+  const _AppBarTitle({
     super.key,
     required this.chatName,
     required this.isTyping,
@@ -156,10 +154,10 @@ class AppBarTitle extends StatelessWidget {
         [
           Text(
             this.chatName,
-            style: TextStyle(
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(
               fontSize: 20,
-              fontWeight: FontWeight.bold,
               color: Palette.current.white,
+              fontWeight: FontWeight.normal,
             ),
           ),
           (this.isTyping) 

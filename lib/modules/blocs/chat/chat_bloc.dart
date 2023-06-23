@@ -81,15 +81,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
     for (int i = 0; i < channels.length; i++) {      
 
-      PreviousMessageListQuery query = PreviousMessageListQuery(
-        channelType: channels[i].channelType,
-        channelUrl: channels[i].channelUrl,
-      );
-
-      query.limit = 100;
-      query.messageTypeFilter = MessageTypeFilter.all;
-
-      List<BaseMessage> messages = await query.loadNext();
+      List<BaseMessage> messages = await this._getMessagesByChannel(channels[i]);
 
       chatsData.add(ChatData(
         messages: messages, 
@@ -100,16 +92,19 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     this.add(ChatAddChatsEvent(chatsData));
   }
 
-  Future<ChatData> startNewChat(String listingId) async {
+  Future<ChatData> startNewChat(String value) async {
     
     try {
 
-      String channelUrl = await this.service.loadChannel(listingId);
+      bool isChannelUrl = value.contains('sendbird');
+      String channelUrl = (isChannelUrl) ? value : await this.service.loadChannel(value);
       GroupChannel newChannel = await GroupChannel.getChannel(channelUrl);
 
       bool chatExists = this.state.chats.any((ChatData chatData) {
         return chatData.channel.channelUrl == newChannel.channelUrl;
       });
+
+      List<BaseMessage> messages = await this._getMessagesByChannel(newChannel);
 
       if(chatExists) {
 
@@ -120,7 +115,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       else {
 
         ChatData newChat = ChatData(
-          messages: [], 
+          messages: messages, 
           channel: newChannel,
         );
 
@@ -132,7 +127,26 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         return newChat;
       }      
     } 
-    catch (e) { throw Exception('Error loading channel'); }
+    catch (e) { 
+      throw Exception('Error loading channel'); 
+    }
+  }
+
+  Future<List<BaseMessage>> _getMessagesByChannel(GroupChannel channel) async {
+
+    List<BaseMessage> messages = [];
+
+    PreviousMessageListQuery query = PreviousMessageListQuery(
+      channelType: channel.channelType,
+      channelUrl: channel.channelUrl,
+    );
+
+    query.limit = 100;
+    query.messageTypeFilter = MessageTypeFilter.all;
+
+    messages = await query.loadNext();
+
+    return messages;
   }
 
   Future<void> sendMessage({

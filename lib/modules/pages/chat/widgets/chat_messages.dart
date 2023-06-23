@@ -8,8 +8,14 @@ import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
 import 'package:swagapp/modules/common/assets/images.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/models/chat/chat_data.dart';
+import 'package:swagapp/modules/models/chat/channel_data.dart';
+import 'package:swagapp/modules/models/chat/message_data.dart';
+import 'package:swagapp/modules/common/utils/sendbird_utils.dart';
+import 'package:swagapp/modules/models/profile/profile_model.dart';
+import 'package:swagapp/modules/pages/chat/widgets/chat_commence_banner.dart';
 import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
 
+import 'chat_card_message.dart';
 import 'chat_date_separator.dart';
 import 'chat_message_content.dart';
 import 'chat_loading_file_message.dart';
@@ -72,28 +78,64 @@ class _ChatMessagesState extends State<ChatMessages> {
     );
   }
 
+  ChannelData getChannelData(String channelDataJson) {
+
+    Map<String, dynamic> channelDataJson = SendBirdUtils.getFormatedData(this.widget.chatData.channel.data!);
+    ChannelData channelData = ChannelData.fromJson(channelDataJson);
+
+    return channelData;
+  }
+
   List<Widget> getChatItems(String userSendbirdiId, ChatBloc chatBloc) {
 
     List<Widget> items = [];
+
+    (this.widget.chatData.channel.data?.isNotEmpty ?? false)
+    ? items.add(ChatCommenceBanner(
+        channelData: this.getChannelData(this.widget.chatData.channel.data!),
+      ))
+    : null;
     
     (chatBloc.state.isLoadingFile)
     ? items.add(const ChatLoadingFileMessage())
-    : null;    
+    : null;
 
     for (int i = 0; i < this.widget.chatData.messages.length; i++) {
       
       BaseMessage message = this.widget.chatData.messages.toList()[i];
-      bool isMyMessage = (message.sender?.userId == userSendbirdiId);
-
       items.add(this.addDateSeparator(i, message));
-
-      items.add(_Message(
-        isMyMessage: isMyMessage,
-        message: message,
-      ));      
+      items.add(this.getChatItem(message));
     }
 
     return items;
+  }
+
+  Widget getChatItem(BaseMessage message) {
+
+    if(message.data?.isNotEmpty ?? false) {
+
+      Map<String, dynamic> messageDataJson = SendBirdUtils.getFormatedData(message.data!);
+      MessageData messageData = MessageData.fromJson(messageDataJson);
+      ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
+
+      bool isMyUserBuyer = messageData.payload.userNameBuyer == profileData.username;
+
+      return (isMyUserBuyer) 
+      ? ChatCardMessage(messageData: messageData)
+      : _Message(
+          isMyMessage: false,
+          message: message,
+        );
+    }
+    else {
+
+      bool isMyMessage = (message.sender?.userId == userSendbirdiId);
+
+      return _Message(
+        isMyMessage: isMyMessage,
+        message: message,
+      );
+    }
   }
 
   Widget addDateSeparator(int index, BaseMessage message) {

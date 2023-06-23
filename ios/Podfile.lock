@@ -1,4 +1,6 @@
 PODS:
+  - app_links (0.0.1):
+    - Flutter
   - cached_video_player (0.0.2):
     - Flutter
     - KTVHTTPCache (~> 2.0.0)
@@ -195,14 +197,13 @@ PODS:
   - sqflite (0.0.3):
     - Flutter
     - FMDB (>= 2.7.5)
-  - uni_links (0.0.1):
-    - Flutter
   - url_launcher_ios (0.0.1):
     - Flutter
   - webview_flutter_wkwebview (0.0.1):
     - Flutter
 
 DEPENDENCIES:
+  - app_links (from `.symlinks/plugins/app_links/ios`)
   - cached_video_player (from `.symlinks/plugins/cached_video_player/ios`)
   - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - Firebase/Analytics
@@ -219,7 +220,6 @@ DEPENDENCIES:
   - share_plus (from `.symlinks/plugins/share_plus/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
-  - uni_links (from `.symlinks/plugins/uni_links/ios`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
   - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/ios`)
 
@@ -252,6 +252,8 @@ SPEC REPOS:
     - SDWebImageWebPCoder
 
 EXTERNAL SOURCES:
+  app_links:
+    :path: ".symlinks/plugins/app_links/ios"
   cached_video_player:
     :path: ".symlinks/plugins/cached_video_player/ios"
   connectivity_plus:
@@ -282,14 +284,13 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
   sqflite:
     :path: ".symlinks/plugins/sqflite/ios"
-  uni_links:
-    :path: ".symlinks/plugins/uni_links/ios"
   url_launcher_ios:
     :path: ".symlinks/plugins/url_launcher_ios/ios"
   webview_flutter_wkwebview:
     :path: ".symlinks/plugins/webview_flutter_wkwebview/ios"
 
 SPEC CHECKSUMS:
+  app_links: 5ef33d0d295a89d9d16bb81b0e3b0d5f70d6c875
   cached_video_player: 9f225ed1c46bda0fe287b8288742329d441e2cc5
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   connectivity_plus: 07c49e96d7fc92bc9920617b83238c4d178b446a
@@ -330,7 +331,6 @@ SPEC CHECKSUMS:
   share_plus: 599aa54e4ea31d4b4c0e9c911bcc26c55e791028
   shared_preferences_foundation: e2dae3258e06f44cc55f49d42024fd8dd03c590c
   sqflite: 31f7eba61e3074736dff8807a9b41581e4f7f15a
-  uni_links: d97da20c7701486ba192624d99bffaaffcfc298a
   url_launcher_ios: 08a3dfac5fb39e8759aeb0abbd5d9480f30fc8b4
   webview_flutter_wkwebview: 2e2d318f21a5e036e2c3f26171342e95908bd60a
 
