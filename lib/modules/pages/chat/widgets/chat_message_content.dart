@@ -3,8 +3,12 @@ import 'package:swagapp/generated/l10n.dart';
 import 'package:sendbird_sdk/sendbird_sdk.dart';
 import 'package:swagapp/modules/common/assets/images.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
+import 'package:swagapp/modules/common/utils/sendbird_utils.dart';
+import 'package:swagapp/modules/common/utils/utils.dart';
+import 'package:swagapp/modules/enums/chat_message_data_type.dart';
 import 'package:swagapp/modules/enums/chat_message_type.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:swagapp/modules/models/chat/message_data.dart';
 import 'package:swagapp/modules/pages/media_viewer/media_viewer_page.dart';
 
 import 'chat_message_video_content.dart';
@@ -22,7 +26,7 @@ class ChatMessageContent extends StatelessWidget {
     required this.isMyMessage, 
   });
 
-  @override
+  @override 
   Widget build(BuildContext context) {
 
     return Column(
@@ -72,9 +76,8 @@ class _ContentState extends State<_Content> with AutomaticKeepAliveClientMixin {
     super.build(context);
     bool isFile = (this.widget.message is FileMessage);
     bool isImage = (isFile) ? this.verifyIfFileIsImage() : false;
-
     String fileUrl = (isFile) ? (this.widget.message as FileMessage).secureUrl! : '';
-
+    
     return GestureDetector(
       child: Container(
         width: (this.widget.isMyMessage) ? null : double.infinity,
@@ -85,18 +88,18 @@ class _ContentState extends State<_Content> with AutomaticKeepAliveClientMixin {
           borderRadius: BorderRadius.circular(20),
         ),
         margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
         child: (isFile) 
         ? (isImage) 
           ? _MessageImage(url: fileUrl)
           : ChatMessageVideoContent(url: fileUrl)
         : Text(
-          this.widget.message.message,
-          style: TextStyle(
-            fontSize: 16, 
-            color: (!this.widget.isMyMessage) ? Colors.white : Colors.black,
+            this.getMessageText(),
+            style: TextStyle(
+              fontSize: 16, 
+              color: (!this.widget.isMyMessage) ? Colors.white : Colors.black,
+            ),
           ),
-        ),
       ),
       onTap: ()=> (!isImage)
       ? Navigator.push(
@@ -105,6 +108,48 @@ class _ContentState extends State<_Content> with AutomaticKeepAliveClientMixin {
         )) 
       : (){},
     );
+  }
+
+  String getMessageText() {
+
+    if(this.widget.message.data?.isNotEmpty ?? false) {
+
+      Map<String, dynamic> messageDataJson = SendBirdUtils.getFormatedData(this.widget.message.data!);
+      MessageData messageData = MessageData.fromJson(messageDataJson);
+
+      return (messageData.type != ChatMessageDataType.message.textValue)      
+      ? S.current.chatCardConfirmPaymentSeller(
+          messageData.payload.userNameBuyer,
+          messageData.payload.userNameSeller,
+          getPaymentMehotd(messageData.payload.paymentMethod),
+          decimalDigitsLastSalePrice(messageData.payload.listingPrice.toString()),
+          getPaymentMehotdUser(messageData.payload.paymentMethod)
+        )
+      : S.current.chatCommenceMessage;
+    }
+    else return this.widget.message.message;
+  } 
+
+    String getPaymentMehotd(PaymentMethod paymentMethod) {
+
+    return (paymentMethod.payPalEmail.isEmpty) 
+    ? (paymentMethod.venmoUser.isEmpty)
+      ? (paymentMethod.cashTag.isEmpty) 
+        ? ''
+        : S.current.paymetCashApp
+      : S.current.paymetVenmo
+    : S.current.paymetPaypal;
+  }
+
+  String getPaymentMehotdUser(PaymentMethod paymentMethod) {
+
+    return (paymentMethod.payPalEmail.isEmpty) 
+    ? (paymentMethod.venmoUser.isEmpty)
+      ? (paymentMethod.cashTag.isEmpty) 
+        ? ''
+        : paymentMethod.cashTag
+      : paymentMethod.venmoUser
+    : paymentMethod.payPalEmail;
   }
 
   bool verifyIfFileIsImage() {

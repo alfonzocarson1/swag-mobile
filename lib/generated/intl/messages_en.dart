@@ -20,9 +20,25 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(sender) => "New message from ${sender}";
+  static String m0(userName) =>
+      "@${userName} has agreed to purchase your Golden King Cover";
 
-  static String m1(chatsNumber) => "${chatsNumber} Unread";
+  static String m1(userName) => "@${userName} will paying using ";
+
+  static String m2(
+          sellerUserName, myUserName, paymnetMethod, rate, paymentUser) =>
+      "@${sellerUserName} here is ${myUserName}\'s ${paymnetMethod}\'s information to send payment - ${rate} \n\n${paymentUser}\n\nOnce payment is made please click the confirmation button below";
+
+  static String m3(
+          sellerUserName, myUserName, paymnetMethod, rate, paymentUser) =>
+      "@${sellerUserName} here is ${myUserName}\'s ${paymnetMethod}\'s information to send payment - ${rate} \n\n${paymentUser}";
+
+  static String m4(buyerUserName) =>
+      "@${buyerUserName} indicated he made payment. Please check your venmo and click the button below to confirm payment was received";
+
+  static String m5(sender) => "New message from ${sender}";
+
+  static String m6(chatsNumber) => "${chatsNumber} Unread";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -86,22 +102,39 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Add Swag Member"),
         "chatAddSwagAdminContent": MessageLookupByLibrary.simpleMessage(
             "Are you sure you would like to add a swag member to the chat? The admin will be able to see the complete chat history to help settle any disputes. "),
+        "chatBannerItemSold": MessageLookupByLibrary.simpleMessage("Item sold"),
+        "chatBannerTitle": m0,
+        "chatBannerWillPay": m1,
+        "chatCardButtonPaymentReceived":
+            MessageLookupByLibrary.simpleMessage("Payment Received"),
+        "chatCardButtonPaymentSent":
+            MessageLookupByLibrary.simpleMessage("Payment Sent"),
+        "chatCardButtonShipmentSent":
+            MessageLookupByLibrary.simpleMessage("Shipment Sent"),
+        "chatCardConfirmPaymentBuyer": m2,
+        "chatCardConfirmPaymentSeller": m3,
+        "chatCardPaymentReceivedSeller": m4,
+        "chatCardPaymetInformation":
+            MessageLookupByLibrary.simpleMessage("Payment Information"),
         "chatChat": MessageLookupByLibrary.simpleMessage("Chat"),
+        "chatCommenceMessage": MessageLookupByLibrary.simpleMessage(
+            "You can use this chat to adjust any information necessary to complete the sale. If you need 3rd party assistance click the icon above and request an admin to join the chat. NOTE: If payment is not received in 12 hours the listings can be cancelled "),
         "chatErrorFile":
             MessageLookupByLibrary.simpleMessage("Error loading the file"),
         "chatInputHintText":
             MessageLookupByLibrary.simpleMessage("Enter message"),
         "chatLoadingFile":
             MessageLookupByLibrary.simpleMessage("Loading File..."),
-        "chatMessageFrom": m0,
+        "chatMessageFrom": m5,
         "chatModeratorName": MessageLookupByLibrary.simpleMessage("SWAG"),
         "chatNoMessages":
             MessageLookupByLibrary.simpleMessage("No previous messages"),
+        "chatSwagg": MessageLookupByLibrary.simpleMessage("SWAGG"),
         "chatSwaggAdmin": MessageLookupByLibrary.simpleMessage("Swagg Admin"),
         "chatToday": MessageLookupByLibrary.simpleMessage("Today"),
         "chatTyping": MessageLookupByLibrary.simpleMessage("Typing..."),
         "chatsHeader": MessageLookupByLibrary.simpleMessage("Chat"),
-        "chatsUnreadMessages": m1,
+        "chatsUnreadMessages": m6,
         "city": MessageLookupByLibrary.simpleMessage("City"),
         "clear_all": MessageLookupByLibrary.simpleMessage("Clear All"),
         "code": MessageLookupByLibrary.simpleMessage("Code"),
@@ -299,6 +332,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "payment_types": MessageLookupByLibrary.simpleMessage("Payment Type"),
         "payment_types_accepted":
             MessageLookupByLibrary.simpleMessage("Payment Types Accepted"),
+        "paymetCashApp": MessageLookupByLibrary.simpleMessage("CashApp"),
+        "paymetPaypal": MessageLookupByLibrary.simpleMessage("PayPal"),
+        "paymetVenmo": MessageLookupByLibrary.simpleMessage("Venmo"),
         "paywall_condition1":
             MessageLookupByLibrary.simpleMessage("Unlimited listings "),
         "paywall_condition2":

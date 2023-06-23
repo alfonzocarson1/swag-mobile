@@ -2950,6 +2950,16 @@ class S {
     );
   }
 
+  /// `SWAGG`
+  String get chatSwagg {
+    return Intl.message(
+      'SWAGG',
+      name: 'chatSwagg',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Add Swag Admin`
   String get chatAddSwagAdmin {
     return Intl.message(
@@ -2975,6 +2985,118 @@ class S {
     return Intl.message(
       'Add Swag Member',
       name: 'chatAddSwagAdminButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Item sold`
+  String get chatBannerItemSold {
+    return Intl.message(
+      'Item sold',
+      name: 'chatBannerItemSold',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `@{userName} will paying using `
+  String chatBannerWillPay(Object userName) {
+    return Intl.message(
+      '@$userName will paying using ',
+      name: 'chatBannerWillPay',
+      desc: '',
+      args: [userName],
+    );
+  }
+
+  /// `@{userName} has agreed to purchase your Golden King Cover`
+  String chatBannerTitle(Object userName) {
+    return Intl.message(
+      '@$userName has agreed to purchase your Golden King Cover',
+      name: 'chatBannerTitle',
+      desc: '',
+      args: [userName],
+    );
+  }
+
+  /// `@{sellerUserName} here is {myUserName}'s {paymnetMethod}'s information to send payment - {rate} \n\n{paymentUser}\n\nOnce payment is made please click the confirmation button below`
+  String chatCardConfirmPaymentBuyer(Object sellerUserName, Object myUserName,
+      Object paymnetMethod, Object rate, Object paymentUser) {
+    return Intl.message(
+      '@$sellerUserName here is $myUserName\'s $paymnetMethod\'s information to send payment - $rate \n\n$paymentUser\n\nOnce payment is made please click the confirmation button below',
+      name: 'chatCardConfirmPaymentBuyer',
+      desc: '',
+      args: [sellerUserName, myUserName, paymnetMethod, rate, paymentUser],
+    );
+  }
+
+  /// `@{sellerUserName} here is {myUserName}'s {paymnetMethod}'s information to send payment - {rate} \n\n{paymentUser}`
+  String chatCardConfirmPaymentSeller(Object sellerUserName, Object myUserName,
+      Object paymnetMethod, Object rate, Object paymentUser) {
+    return Intl.message(
+      '@$sellerUserName here is $myUserName\'s $paymnetMethod\'s information to send payment - $rate \n\n$paymentUser',
+      name: 'chatCardConfirmPaymentSeller',
+      desc: '',
+      args: [sellerUserName, myUserName, paymnetMethod, rate, paymentUser],
+    );
+  }
+
+  /// `@{buyerUserName} indicated he made payment. Please check your venmo and click the button below to confirm payment was received`
+  String chatCardPaymentReceivedSeller(Object buyerUserName) {
+    return Intl.message(
+      '@$buyerUserName indicated he made payment. Please check your venmo and click the button below to confirm payment was received',
+      name: 'chatCardPaymentReceivedSeller',
+      desc: '',
+      args: [buyerUserName],
+    );
+  }
+
+  /// `Payment Information`
+  String get chatCardPaymetInformation {
+    return Intl.message(
+      'Payment Information',
+      name: 'chatCardPaymetInformation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payment Sent`
+  String get chatCardButtonPaymentSent {
+    return Intl.message(
+      'Payment Sent',
+      name: 'chatCardButtonPaymentSent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payment Received`
+  String get chatCardButtonPaymentReceived {
+    return Intl.message(
+      'Payment Received',
+      name: 'chatCardButtonPaymentReceived',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shipment Sent`
+  String get chatCardButtonShipmentSent {
+    return Intl.message(
+      'Shipment Sent',
+      name: 'chatCardButtonShipmentSent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You can use this chat to adjust any information necessary to complete the sale. If you need 3rd party assistance click the icon above and request an admin to join the chat. NOTE: If payment is not received in 12 hours the listings can be cancelled `
+  String get chatCommenceMessage {
+    return Intl.message(
+      'You can use this chat to adjust any information necessary to complete the sale. If you need 3rd party assistance click the icon above and request an admin to join the chat. NOTE: If payment is not received in 12 hours the listings can be cancelled ',
+      name: 'chatCommenceMessage',
       desc: '',
       args: [],
     );
@@ -3025,6 +3147,36 @@ class S {
     return Intl.message(
       'Pending Sale',
       name: 'pending_sale_btn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `PayPal`
+  String get paymetPaypal {
+    return Intl.message(
+      'PayPal',
+      name: 'paymetPaypal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Venmo`
+  String get paymetVenmo {
+    return Intl.message(
+      'Venmo',
+      name: 'paymetVenmo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CashApp`
+  String get paymetCashApp {
+    return Intl.message(
+      'CashApp',
+      name: 'paymetCashApp',
       desc: '',
       args: [],
     );

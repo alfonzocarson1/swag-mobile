@@ -7,9 +7,16 @@ import 'package:swagapp/modules/di/injector.dart';
 import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
 import 'package:swagapp/modules/common/assets/images.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
+import 'package:swagapp/modules/enums/chat_message_data_type.dart';
 import 'package:swagapp/modules/models/chat/chat_data.dart';
+import 'package:swagapp/modules/models/chat/channel_data.dart';
+import 'package:swagapp/modules/models/chat/message_data.dart';
+import 'package:swagapp/modules/common/utils/sendbird_utils.dart';
+import 'package:swagapp/modules/models/profile/profile_model.dart';
+import 'package:swagapp/modules/pages/chat/widgets/chat_commence_banner.dart';
 import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
 
+import 'chat_card_message.dart';
 import 'chat_date_separator.dart';
 import 'chat_message_content.dart';
 import 'chat_loading_file_message.dart';
@@ -72,28 +79,79 @@ class _ChatMessagesState extends State<ChatMessages> {
     );
   }
 
+  ChannelData getChannelData(String channelDataJson) {
+
+    Map<String, dynamic> channelDataJson = SendBirdUtils.getFormatedData(this.widget.chatData.channel.data!);
+    ChannelData channelData = ChannelData.fromJson(channelDataJson);
+
+    return channelData;
+  }
+
   List<Widget> getChatItems(String userSendbirdiId, ChatBloc chatBloc) {
 
     List<Widget> items = [];
+
+    (this.widget.chatData.channel.data?.isNotEmpty ?? false)
+    ? items.add(ChatCommenceBanner(
+        channelData: this.getChannelData(this.widget.chatData.channel.data!),
+      ))
+    : null;
     
     (chatBloc.state.isLoadingFile)
     ? items.add(const ChatLoadingFileMessage())
-    : null;    
+    : null;
 
     for (int i = 0; i < this.widget.chatData.messages.length; i++) {
       
       BaseMessage message = this.widget.chatData.messages.toList()[i];
-      bool isMyMessage = (message.sender?.userId == userSendbirdiId);
-
       items.add(this.addDateSeparator(i, message));
-
-      items.add(_Message(
-        isMyMessage: isMyMessage,
-        message: message,
-      ));      
+      items.add(this.getChatItem(message));
     }
 
     return items;
+  }
+
+  Widget getChatItem(BaseMessage message) {
+
+     bool isMyMessage = (message.sender?.userId == userSendbirdiId);
+
+    if(message.data?.isNotEmpty ?? false) {
+
+      Map<String, dynamic> messageDataJson = SendBirdUtils.getFormatedData(message.data!);
+      MessageData messageData = MessageData.fromJson(messageDataJson);
+      ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
+      bool isMyUserBuyer = messageData.payload.userNameBuyer == profileData.username;
+      bool showConfirmMessage = (messageData.type == ChatMessageDataType.confirmPaidSend.textValue); 
+      bool showReceivedMessage = (messageData.type == ChatMessageDataType.confirmPaymentReceived.textValue); 
+      bool isMessage = (messageData.type == ChatMessageDataType.message.textValue); 
+
+      return (isMessage) 
+      ? _Message(
+          isMyMessage: isMyMessage,
+          message: message,
+        )
+      : (isMyUserBuyer) 
+        ? (showReceivedMessage)
+          ? const SizedBox.shrink() 
+          : ChatCardMessage(
+              messageData: messageData,
+              chatData: this.widget.chatData,
+            )
+        : (showConfirmMessage) 
+          ? _Message(
+              isMyMessage: false,
+              message: message,
+            )
+          : ChatCardMessage(
+              messageData: messageData,
+              chatData: this.widget.chatData,
+            );
+    }
+    else return _Message(
+      isMyMessage: isMyMessage,
+      message: message,
+    );
+    
   }
 
   Widget addDateSeparator(int index, BaseMessage message) {
@@ -117,26 +175,16 @@ class _ChatMessagesState extends State<ChatMessages> {
     if(this.widget.chatData.messages.length > this.previousMessagesLengh) {
 
       BaseMessage message = this.widget.chatData.messages.last;
-      bool isMyMessage = (message.sender?.userId == userSendbirdiId);
       this.previousMessagesLengh = this.widget.chatData.messages.length;
-      this.addItem(message, isMyMessage);
+      this.addItem(message);
     }
   }
 
-  void addItem(BaseMessage message, bool isMyMessage) async {
+  void addItem(BaseMessage message) async {
 
-    this.items.insert(
-      0, 
-      _Message(
-        message: message, 
-        isMyMessage: isMyMessage,
-      ),
-    );
-
-    this.listKey.currentState!.insertItem(
-      0,
-      duration: const Duration(milliseconds: 300),
-    );
+    Widget item = this.getChatItem(message);
+    this.items.insert(0, item,);
+    this.listKey.currentState!.insertItem(0,duration: const Duration(milliseconds: 300));
   }
 }
 
@@ -149,7 +197,6 @@ class _Message extends StatelessWidget {
     super.key,
     required this.message, 
     required this.isMyMessage,
-
   });
 
   @override

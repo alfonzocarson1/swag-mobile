@@ -3,14 +3,17 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
 import 'package:sendbird_sdk/sendbird_sdk.dart';
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 import 'package:swagapp/modules/common/ui/general_delete_popup.dart';
 import 'package:swagapp/modules/cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
+import 'package:swagapp/modules/models/chat/chat_data.dart';
 import 'package:swagapp/modules/models/detail/sale_list_history_model.dart';
 import 'package:swagapp/modules/models/listing_for_sale/listing_for_sale_model.dart';
 import 'package:swagapp/modules/models/profile/profile_model.dart';
 import 'package:swagapp/modules/models/ui_models/checkbox_model.dart';
+import 'package:swagapp/modules/pages/chat/chat_page.dart';
 import '../../../../generated/l10n.dart';
 import '../../../blocs/chat/chat_bloc.dart';
 import '../../../blocs/sale_history/sale_history_bloc.dart';
@@ -623,11 +626,15 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                                 .of(context)
                                                                 .complete_sale_btn
                                                                 .toUpperCase(),
-                                                            onPressed: () {
-                                                              getIt<BuyCubit>()
-                                                                  .acceptPurchase(
-                                                                      listData.productItemId ??
-                                                                          '');
+                                                            onPressed: () async {
+
+                                                              String channelUrl = await getIt<BuyCubit>().acceptPurchase(listData.productItemId ??'');
+                                                              ChatData chadData = await context.read<ChatBloc>().startNewChat(channelUrl);
+                                                              
+                                                              Navigator.push(
+                                                                context, 
+                                                                MaterialPageRoute(builder: (BuildContext context)=> ChatPage(chatData: chadData)),
+                                                              );
                                                             },
                                                             type:
                                                                 PrimaryButtonType
