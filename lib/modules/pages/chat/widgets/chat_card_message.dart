@@ -7,27 +7,28 @@ import 'package:swagapp/modules/models/chat/chat_data.dart';
 import 'package:swagapp/modules/models/chat/message_data.dart';
 import 'package:swagapp/modules/enums/chat_message_data_type.dart';
 
-class ChatCardMessage extends StatelessWidget {
+import '../../../cubits/buy/buy_cubit.dart';
+import '../../../di/injector.dart';
+import '../../../models/buy_for_sale_listing/update_purchase_status_request.dart';
 
+class ChatCardMessage extends StatelessWidget {
   final MessageData messageData;
   final ChatData chatData;
 
   const ChatCardMessage({
-    super.key, 
-    required this.messageData, 
+    super.key,
+    required this.messageData,
     required this.chatData,
   });
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
-        children: <Widget>
-        [
+        children: <Widget>[
           _CardTopBar(sender: S.current.chatSwagg),
-          const SizedBox(height: 5),          
+          const SizedBox(height: 5),
           _CardContent(
             messageData: this.messageData,
             chatData: this.chatData,
@@ -36,23 +37,21 @@ class ChatCardMessage extends StatelessWidget {
         ],
       ),
     );
-
   }
 }
 
 class _CardContent extends StatelessWidget {
-
   final ChatData chatData;
   final MessageData messageData;
 
   const _CardContent({
-    super.key, 
-    required this.messageData, required this.chatData,
+    super.key,
+    required this.messageData,
+    required this.chatData,
   });
 
   @override
   Widget build(BuildContext context) {
-
     String contentText = this.getContentText();
     String buttonText = this.getButtonText();
 
@@ -65,8 +64,7 @@ class _CardContent extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>
-        [
+        children: <Widget>[
           _CardTitle(title: S.current.chatCardPaymetInformation),
           const SizedBox(height: 5),
           Text(
@@ -76,7 +74,7 @@ class _CardContent extends StatelessWidget {
           const SizedBox(height: 10),
           _CardButton(
             text: buttonText,
-            onTap: ()=> this.onTapButton(),
+            onTap: () => this.onTapButton(),
           ),
         ],
       ),
@@ -84,121 +82,118 @@ class _CardContent extends StatelessWidget {
   }
 
   String getContentText() {
-
-    if(this.messageData.type == ChatMessageDataType.confirmPaidSend.textValue) {
-
+    if (this.messageData.type ==
+        ChatMessageDataType.confirmPaidSend.textValue) {
       return S.current.chatCardConfirmPaymentBuyer(
-        this.messageData.payload.userNameBuyer,
-        this.messageData.payload.userNameSeller,
-        this.getPaymentMehotd(this.messageData.payload.paymentMethod),
-        decimalDigitsLastSalePrice(this.messageData.payload.listingPrice.toString()),
-        this.getPaymentMehotdUser(this.messageData.payload.paymentMethod)
-      );
+          this.messageData.payload.userNameBuyer,
+          this.messageData.payload.userNameSeller,
+          this.getPaymentMehotd(this.messageData.payload.paymentMethod),
+          decimalDigitsLastSalePrice(
+              this.messageData.payload.listingPrice.toString()),
+          this.getPaymentMehotdUser(this.messageData.payload.paymentMethod));
     }
-    if(this.messageData.type == ChatMessageDataType.confirmPaymentReceived.textValue) {
-      return S.current.chatCardPaymentReceivedSeller(this.messageData.payload.userNameBuyer);
+    if (this.messageData.type ==
+        ChatMessageDataType.confirmPaymentReceived.textValue) {
+      return S.current.chatCardPaymentReceivedSeller(
+          this.messageData.payload.userNameBuyer);
     }
 
     return '';
   }
 
   String getPaymentMehotd(PaymentMethod paymentMethod) {
-
-    return (paymentMethod.payPalEmail.isEmpty) 
-    ? (paymentMethod.venmoUser.isEmpty)
-      ? (paymentMethod.cashTag.isEmpty) 
-        ? ''
-        : S.current.paymetCashApp
-      : S.current.paymetVenmo
-    : S.current.paymetPaypal;
+    return (paymentMethod.payPalEmail.isEmpty)
+        ? (paymentMethod.venmoUser.isEmpty)
+            ? (paymentMethod.cashTag.isEmpty)
+                ? ''
+                : S.current.paymetCashApp
+            : S.current.paymetVenmo
+        : S.current.paymetPaypal;
   }
 
   String getPaymentMehotdUser(PaymentMethod paymentMethod) {
-
-    return (paymentMethod.payPalEmail.isEmpty) 
-    ? (paymentMethod.venmoUser.isEmpty)
-      ? (paymentMethod.cashTag.isEmpty) 
-        ? ''
-        : paymentMethod.cashTag
-      : paymentMethod.venmoUser
-    : paymentMethod.payPalEmail;
+    return (paymentMethod.payPalEmail.isEmpty)
+        ? (paymentMethod.venmoUser.isEmpty)
+            ? (paymentMethod.cashTag.isEmpty)
+                ? ''
+                : paymentMethod.cashTag
+            : paymentMethod.venmoUser
+        : paymentMethod.payPalEmail;
   }
-  
+
   String getButtonText() {
-
-    if(this.messageData.type == ChatMessageDataType.confirmPaidSend.textValue) {
-
+    if (this.messageData.type ==
+        ChatMessageDataType.confirmPaidSend.textValue) {
       return S.current.chatCardButtonPaymentSent;
-    }
-    else if(this.messageData.type == ChatMessageDataType.confirmPaymentReceived.textValue) {
-
+    } else if (this.messageData.type ==
+        ChatMessageDataType.confirmPaymentReceived.textValue) {
       return S.current.chatCardButtonPaymentReceived;
-    }
-    else if(this.messageData.type == ChatMessageDataType.confirmShip.textValue) {
-
+    } else if (this.messageData.type ==
+        ChatMessageDataType.confirmShip.textValue) {
       return S.current.chatCardButtonShipmentSent;
-    }
-    else return '';
+    } else
+      return '';
   }
 
   void onTapButton() {
-
-    if(this.messageData.type == ChatMessageDataType.confirmPaidSend.textValue) {
-
-
-    }
-    else if(this.messageData.type == ChatMessageDataType.confirmPaymentReceived.textValue) {}
-    else if(this.messageData.type == ChatMessageDataType.confirmShip.textValue) {}
+    if (this.messageData.type ==
+        ChatMessageDataType.confirmPaidSend.textValue) {
+      getIt<BuyCubit>().updateListingStatus(UpdatePurchaseStatusRequestModel(
+          listingStatus: 'PAID',
+          productItemId: this.messageData.payload.productId,
+          listingChatId: this.chatData.channel.channelUrl));
+    } else if (this.messageData.type ==
+        ChatMessageDataType.confirmPaymentReceived.textValue) {
+      getIt<BuyCubit>().updateListingStatus(UpdatePurchaseStatusRequestModel(
+          listingStatus: 'PAYMENT_RECEIVED',
+          productItemId: this.messageData.payload.productId,
+          listingChatId: this.chatData.channel.channelUrl));
+    } else if (this.messageData.type ==
+        ChatMessageDataType.confirmShip.textValue) {}
   }
 }
 
 class _CardTitle extends StatelessWidget {
-
   final String title;
 
   const _CardTitle({
-    super.key, 
+    super.key,
     required this.title,
   });
 
   @override
   Widget build(BuildContext context) {
-
     return Text(
       this.title,
       style: Theme.of(context).textTheme.bodySmall!.copyWith(
-        fontSize: 18,
-        color: Palette.current.white,
-        fontWeight: FontWeight.normal,
-      ),
+            fontSize: 18,
+            color: Palette.current.white,
+            fontWeight: FontWeight.normal,
+          ),
     );
   }
 }
 
-
 class _CardTopBar extends StatelessWidget {
-  
   final String sender;
 
   const _CardTopBar({
-    super.key, 
+    super.key,
     required this.sender,
   });
 
   @override
   Widget build(BuildContext context) {
-
     DateTime createdAt = DateTime.now();
     DateFormat dateFormat = DateFormat().add_jm();
     String createdAtFormated = dateFormat.format(createdAt);
 
     return Row(
-      children: <Widget>
-      [
+      children: <Widget>[
         Text(
           this.sender,
           style: TextStyle(
-            fontSize: 14,              
+            fontSize: 14,
             fontWeight: FontWeight.lerp(FontWeight.w300, FontWeight.w400, 0.5),
             color: Palette.current.grey,
           ),
@@ -218,19 +213,17 @@ class _CardTopBar extends StatelessWidget {
 }
 
 class _CardButton extends StatelessWidget {
-
   final String text;
   final Function() onTap;
 
   const _CardButton({
-    super.key, 
-    required this.text, 
+    super.key,
+    required this.text,
     required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-
     return GestureDetector(
       onTap: this.onTap,
       child: Container(
@@ -238,16 +231,15 @@ class _CardButton extends StatelessWidget {
         alignment: Alignment.center,
         padding: const EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
-          color: Palette.current.greyMessage,
-          borderRadius: BorderRadius.circular(8)
-        ),
+            color: Palette.current.greyMessage,
+            borderRadius: BorderRadius.circular(8)),
         child: Text(
           this.text,
           style: Theme.of(context).textTheme.bodySmall!.copyWith(
-            fontSize: 16,
-            color: Palette.current.purple,
-            fontWeight: FontWeight.normal,
-          ),
+                fontSize: 16,
+                color: Palette.current.purple,
+                fontWeight: FontWeight.normal,
+              ),
         ),
       ),
     );

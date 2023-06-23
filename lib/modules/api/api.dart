@@ -41,7 +41,8 @@ enum Endpoint {
   addAdminOnChat,
   refreshChatAuth,
   acceptPurchaseRequest,
-  cancelPurchaseRequest
+  cancelPurchaseRequest,
+  updateListingStatus
 }
 
 class API {
@@ -104,5 +105,6 @@ class API {
     Endpoint.refreshChatAuth: 'api/v1/chat/token',
     Endpoint.acceptPurchaseRequest: 'api/v1/buyFlow/acceptPurchaseRequest/%s',
     Endpoint.cancelPurchaseRequest: 'api/v1/buyFlow/cancelPurchaseRequest',
+    Endpoint.updateListingStatus: 'api/v1/buyFlow/changeStatusListing/chat',
   };
 }

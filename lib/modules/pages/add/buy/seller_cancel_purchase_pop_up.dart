@@ -377,7 +377,7 @@ class _SellerCancelPurchasePopUpState extends State<SellerCancelPurchasePopUp> {
                                                     _selectedCheckboxIndex == 4,
                                                 onChanged: (value) {
                                                   _handleCheckboxValueChanged(
-                                                      4, null);
+                                                      4, 'Other');
                                                 },
                                                 activeColor: Palette
                                                     .current.primaryNeonGreen,
@@ -507,11 +507,10 @@ class _SellerCancelPurchasePopUpState extends State<SellerCancelPurchasePopUp> {
       if (_selectedCheckboxIndex == 4 &&
           _textFieldController.value.text.isNotEmpty) {
         cancelReason = _textFieldController.value.text;
-
         cancelReasonError = null;
       } else if (_selectedCheckboxIndex == 4 &&
           _textFieldController.value.text.isEmpty) {
-        cancelReasonError = S.of(context).reason_required;
+        cancelReasonError = null;
       } else if (cancelReason == null) {
         cancelReasonError = S.of(context).reason_required;
       } else {

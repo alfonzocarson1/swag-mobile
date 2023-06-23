@@ -7,6 +7,7 @@ import '../../models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
 import '../../models/buy_for_sale_listing/buy_for_sale_listing_response_model.dart';
 import '../../models/buy_for_sale_listing/cancel_purchase_request_model.dart';
 import '../../models/buy_for_sale_listing/cancel_purchase_response_model.dart';
+import '../../models/buy_for_sale_listing/update_purchase_status_request.dart';
 import 'i_buy_for_sale_listing_service.dart';
 
 class BuyForSaleListingService extends IBuyForSaleListingService {
@@ -72,6 +73,19 @@ class BuyForSaleListingService extends IBuyForSaleListingService {
       CancelPurchaseRequestModel model) async {
     CancelPurchaseResponseModel response = await apiService.getEndpointData(
       endpoint: Endpoint.cancelPurchaseRequest,
+      method: RequestMethod.post,
+      needBearer: true,
+      fromJson: (json) => CancelPurchaseResponseModel.fromJson(json),
+      body: model.toJson(),
+    );
+    return response;
+  }
+
+  @override
+  Future<CancelPurchaseResponseModel> updateListingStatus(
+      UpdatePurchaseStatusRequestModel model) async {
+    CancelPurchaseResponseModel response = await apiService.getEndpointData(
+      endpoint: Endpoint.updateListingStatus,
       method: RequestMethod.post,
       needBearer: true,
       fromJson: (json) => CancelPurchaseResponseModel.fromJson(json),
