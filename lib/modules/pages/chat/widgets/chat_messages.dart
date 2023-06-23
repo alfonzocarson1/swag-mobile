@@ -168,26 +168,16 @@ class _ChatMessagesState extends State<ChatMessages> {
     if(this.widget.chatData.messages.length > this.previousMessagesLengh) {
 
       BaseMessage message = this.widget.chatData.messages.last;
-      bool isMyMessage = (message.sender?.userId == userSendbirdiId);
       this.previousMessagesLengh = this.widget.chatData.messages.length;
-      this.addItem(message, isMyMessage);
+      this.addItem(message);
     }
   }
 
-  void addItem(BaseMessage message, bool isMyMessage) async {
+  void addItem(BaseMessage message) async {
 
-    this.items.insert(
-      0, 
-      _Message(
-        message: message, 
-        isMyMessage: isMyMessage,
-      ),
-    );
-
-    this.listKey.currentState!.insertItem(
-      0,
-      duration: const Duration(milliseconds: 300),
-    );
+    Widget item = this.getChatItem(message);
+    this.items.insert(0, item,);
+    this.listKey.currentState!.insertItem(0,duration: const Duration(milliseconds: 300));
   }
 }
 
