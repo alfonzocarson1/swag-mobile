@@ -33,9 +33,12 @@ class MessageLookup extends MessageLookupByLibrary {
           sellerUserName, myUserName, paymnetMethod, rate, paymentUser) =>
       "@${sellerUserName} here is ${myUserName}\'s ${paymnetMethod}\'s information to send payment - ${rate} \n\n${paymentUser}";
 
-  static String m4(sender) => "New message from ${sender}";
+  static String m4(buyerUserName) =>
+      "@${buyerUserName} indicated he made payment. Please check your venmo and click the button below to confirm payment was received";
 
-  static String m5(chatsNumber) => "${chatsNumber} Unread";
+  static String m5(sender) => "New message from ${sender}";
+
+  static String m6(chatsNumber) => "${chatsNumber} Unread";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -110,6 +113,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Shipment Sent"),
         "chatCardConfirmPaymentBuyer": m2,
         "chatCardConfirmPaymentSeller": m3,
+        "chatCardPaymentReceivedSeller": m4,
         "chatCardPaymetInformation":
             MessageLookupByLibrary.simpleMessage("Payment Information"),
         "chatChat": MessageLookupByLibrary.simpleMessage("Chat"),
@@ -119,7 +123,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter message"),
         "chatLoadingFile":
             MessageLookupByLibrary.simpleMessage("Loading File..."),
-        "chatMessageFrom": m4,
+        "chatMessageFrom": m5,
         "chatModeratorName": MessageLookupByLibrary.simpleMessage("SWAG"),
         "chatNoMessages":
             MessageLookupByLibrary.simpleMessage("No previous messages"),
@@ -128,7 +132,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "chatToday": MessageLookupByLibrary.simpleMessage("Today"),
         "chatTyping": MessageLookupByLibrary.simpleMessage("Typing..."),
         "chatsHeader": MessageLookupByLibrary.simpleMessage("Chat"),
-        "chatsUnreadMessages": m5,
+        "chatsUnreadMessages": m6,
         "city": MessageLookupByLibrary.simpleMessage("City"),
         "clear_all": MessageLookupByLibrary.simpleMessage("Clear All"),
         "code": MessageLookupByLibrary.simpleMessage("Code"),

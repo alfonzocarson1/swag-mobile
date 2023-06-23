@@ -95,6 +95,9 @@ class _CardContent extends StatelessWidget {
         this.getPaymentMehotdUser(this.messageData.payload.paymentMethod)
       );
     }
+    if(this.messageData.type == ChatMessageDataType.confirmPaymentReceived.textValue) {
+      return S.current.chatCardPaymentReceivedSeller(this.messageData.payload.userNameBuyer);
+    }
 
     return '';
   }

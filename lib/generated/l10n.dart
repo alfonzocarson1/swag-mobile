@@ -3042,6 +3042,16 @@ class S {
     );
   }
 
+  /// `@{buyerUserName} indicated he made payment. Please check your venmo and click the button below to confirm payment was received`
+  String chatCardPaymentReceivedSeller(Object buyerUserName) {
+    return Intl.message(
+      '@$buyerUserName indicated he made payment. Please check your venmo and click the button below to confirm payment was received',
+      name: 'chatCardPaymentReceivedSeller',
+      desc: '',
+      args: [buyerUserName],
+    );
+  }
+
   /// `Payment Information`
   String get chatCardPaymetInformation {
     return Intl.message(

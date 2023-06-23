@@ -130,10 +130,13 @@ class _ChatMessagesState extends State<ChatMessages> {
             chatData: this.widget.chatData,
           )
       : (showConfirmMessage) 
-        ? const SizedBox.shrink()
-        : _Message(
+        ? _Message(
             isMyMessage: false,
             message: message,
+          )
+        : ChatCardMessage(
+            messageData: messageData,
+            chatData: this.widget.chatData,
           );
     }
     else {
