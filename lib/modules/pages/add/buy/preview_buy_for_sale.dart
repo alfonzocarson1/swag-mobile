@@ -616,10 +616,9 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                         )
                                                       : Container(),
                                                   Visibility(
-                                                      // visible: listData
-                                                      //         .status ==
-                                                      //     'pendingSellerConfirmation',
-                                                      visible: true,
+                                                      visible: listData
+                                                              .status ==
+                                                          'pendingSellerConfirmation',
                                                       child: Column(
                                                         children: [
                                                           PrimaryButton(
