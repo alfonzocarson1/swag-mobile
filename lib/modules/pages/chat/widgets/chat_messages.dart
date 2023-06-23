@@ -7,6 +7,7 @@ import 'package:swagapp/modules/di/injector.dart';
 import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
 import 'package:swagapp/modules/common/assets/images.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
+import 'package:swagapp/modules/enums/chat_message_data_type.dart';
 import 'package:swagapp/modules/models/chat/chat_data.dart';
 import 'package:swagapp/modules/models/chat/channel_data.dart';
 import 'package:swagapp/modules/models/chat/message_data.dart';
@@ -117,18 +118,23 @@ class _ChatMessagesState extends State<ChatMessages> {
       Map<String, dynamic> messageDataJson = SendBirdUtils.getFormatedData(message.data!);
       MessageData messageData = MessageData.fromJson(messageDataJson);
       ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
-
       bool isMyUserBuyer = messageData.payload.userNameBuyer == profileData.username;
+      bool showConfirmMessage = (messageData.type == ChatMessageDataType.confirmPaidSend.textValue); 
+      bool showReceivedMessage = (messageData.type == ChatMessageDataType.confirmPaymentReceived.textValue); 
 
       return (isMyUserBuyer) 
-      ? ChatCardMessage(
-          messageData: messageData,
-          chatData: this.widget.chatData,
-        )
-      : _Message(
-          isMyMessage: false,
-          message: message,
-        );
+      ? (showReceivedMessage)
+        ? const SizedBox.shrink() 
+        : ChatCardMessage(
+            messageData: messageData,
+            chatData: this.widget.chatData,
+          )
+      : (showConfirmMessage) 
+        ? const SizedBox.shrink()
+        : _Message(
+            isMyMessage: false,
+            message: message,
+          );
     }
     else {
 
