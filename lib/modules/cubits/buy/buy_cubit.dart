@@ -10,6 +10,7 @@ import '../../models/buy_for_sale_listing/buy_a_listing_response_model.dart';
 import '../../models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
 import '../../models/buy_for_sale_listing/cancel_purchase_request_model.dart';
 import '../../models/buy_for_sale_listing/cancel_purchase_response_model.dart';
+import '../../models/buy_for_sale_listing/update_purchase_status_request.dart';
 
 part 'buy_state.dart';
 part 'buy_cubit.freezed.dart';
@@ -64,6 +65,19 @@ class BuyCubit extends Cubit<BuyStateCubit> {
       CancelPurchaseResponseModel responseBody =
           await buyService.cancelPurchaseRequest(model);
       emit(BuyStateCubit.dataCancelPurchaseRequest(responseBody));
+    } catch (error) {
+      emit(
+        ErrorBuyStateCubit(HandlingErrors().getError(error)),
+      );
+    }
+  }
+
+  Future<void> updateListingStatus(
+      UpdatePurchaseStatusRequestModel model) async {
+    try {
+      BuyForSaleListingModel responseBody =
+          await buyService.updateListingStatus(model);
+      emit(BuyStateCubit.loadedListUpdateStatus(responseBody));
     } catch (error) {
       emit(
         ErrorBuyStateCubit(HandlingErrors().getError(error)),
