@@ -76,7 +76,7 @@ class _CardContent extends StatelessWidget {
           const SizedBox(height: 10),
           _CardButton(
             text: buttonText,
-            onTap: (){},
+            onTap: ()=> this.onTapButton(),
           ),
         ],
       ),
