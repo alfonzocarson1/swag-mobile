@@ -5,6 +5,7 @@ import 'package:swagapp/modules/common/assets/images.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/common/utils/sendbird_utils.dart';
 import 'package:swagapp/modules/common/utils/utils.dart';
+import 'package:swagapp/modules/enums/chat_message_data_type.dart';
 import 'package:swagapp/modules/enums/chat_message_type.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:swagapp/modules/models/chat/message_data.dart';
@@ -87,7 +88,7 @@ class _ContentState extends State<_Content> with AutomaticKeepAliveClientMixin {
           borderRadius: BorderRadius.circular(20),
         ),
         margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
         child: (isFile) 
         ? (isImage) 
           ? _MessageImage(url: fileUrl)
@@ -116,7 +117,7 @@ class _ContentState extends State<_Content> with AutomaticKeepAliveClientMixin {
       Map<String, dynamic> messageDataJson = SendBirdUtils.getFormatedData(this.widget.message.data!);
       MessageData messageData = MessageData.fromJson(messageDataJson);
 
-      return  (messageData.type != ChatMessageType.text.textValue)      
+      return (messageData.type != ChatMessageDataType.message.textValue)      
       ? S.current.chatCardConfirmPaymentSeller(
           messageData.payload.userNameBuyer,
           messageData.payload.userNameSeller,
@@ -124,7 +125,7 @@ class _ContentState extends State<_Content> with AutomaticKeepAliveClientMixin {
           decimalDigitsLastSalePrice(messageData.payload.listingPrice.toString()),
           getPaymentMehotdUser(messageData.payload.paymentMethod)
         )
-      : this.widget.message.message;
+      : S.current.chatCommenceMessage;
     }
     else return this.widget.message.message;
   } 

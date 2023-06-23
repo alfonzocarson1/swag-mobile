@@ -113,6 +113,8 @@ class _ChatMessagesState extends State<ChatMessages> {
 
   Widget getChatItem(BaseMessage message) {
 
+     bool isMyMessage = (message.sender?.userId == userSendbirdiId);
+
     if(message.data?.isNotEmpty ?? false) {
 
       Map<String, dynamic> messageDataJson = SendBirdUtils.getFormatedData(message.data!);
@@ -121,33 +123,35 @@ class _ChatMessagesState extends State<ChatMessages> {
       bool isMyUserBuyer = messageData.payload.userNameBuyer == profileData.username;
       bool showConfirmMessage = (messageData.type == ChatMessageDataType.confirmPaidSend.textValue); 
       bool showReceivedMessage = (messageData.type == ChatMessageDataType.confirmPaymentReceived.textValue); 
+      bool isMessage = (messageData.type == ChatMessageDataType.message.textValue); 
 
-      return (isMyUserBuyer) 
-      ? (showReceivedMessage)
-        ? const SizedBox.shrink() 
-        : ChatCardMessage(
-            messageData: messageData,
-            chatData: this.widget.chatData,
-          )
-      : (showConfirmMessage) 
-        ? _Message(
-            isMyMessage: false,
-            message: message,
-          )
-        : ChatCardMessage(
-            messageData: messageData,
-            chatData: this.widget.chatData,
-          );
+      return (isMessage) 
+      ? _Message(
+          isMyMessage: isMyMessage,
+          message: message,
+        )
+      : (isMyUserBuyer) 
+        ? (showReceivedMessage)
+          ? const SizedBox.shrink() 
+          : ChatCardMessage(
+              messageData: messageData,
+              chatData: this.widget.chatData,
+            )
+        : (showConfirmMessage) 
+          ? _Message(
+              isMyMessage: false,
+              message: message,
+            )
+          : ChatCardMessage(
+              messageData: messageData,
+              chatData: this.widget.chatData,
+            );
     }
-    else {
-
-      bool isMyMessage = (message.sender?.userId == userSendbirdiId);
-
-      return _Message(
-        isMyMessage: isMyMessage,
-        message: message,
-      );
-    }
+    else return _Message(
+      isMyMessage: isMyMessage,
+      message: message,
+    );
+    
   }
 
   Widget addDateSeparator(int index, BaseMessage message) {
@@ -193,7 +197,6 @@ class _Message extends StatelessWidget {
     super.key,
     required this.message, 
     required this.isMyMessage,
-
   });
 
   @override
