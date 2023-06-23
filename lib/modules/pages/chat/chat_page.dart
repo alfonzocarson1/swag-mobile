@@ -6,9 +6,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/common/utils/sendbird_utils.dart';
+import 'package:swagapp/modules/common/utils/utils.dart';
 import 'package:swagapp/modules/models/chat/chat_data.dart';
 import 'package:swagapp/modules/models/chat/sendbird_channel_data.dart';
 
+import '../../common/utils/sendbird_utils.dart';
 import 'widgets/chat_input.dart';
 import 'widgets/chat_messages.dart';
 import 'widgets/chat_popup_menu.dart';
@@ -16,10 +18,14 @@ import 'widgets/chat_popup_menu.dart';
 class ChatPage extends StatefulWidget {
 
   final ChatData? chatData;
+  final String userName;
+  final String sellerNickName;
 
   const ChatPage({
     super.key, 
-    this.chatData, 
+    this.chatData,
+    required this.userName,
+    required this.sellerNickName   
   });
 
   @override
@@ -58,7 +64,7 @@ class _ChatPageState extends State<ChatPage> {
         systemOverlayStyle: SystemUiOverlayStyle.light,
         backgroundColor: Palette.current.blackAppbarBlackground,
         title: _AppBarTitle(
-          chatName: channelData.listingProductName, 
+          chatName: '${widget.userName.capitalize()}, ${widget.sellerNickName.capitalize()} and SWAG', 
           isTyping: isTyping,
         ),
         centerTitle: false,
