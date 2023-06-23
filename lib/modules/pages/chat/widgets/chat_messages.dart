@@ -120,12 +120,15 @@ class _ChatMessagesState extends State<ChatMessages> {
       ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
       bool isMyUserBuyer = messageData.payload.userNameBuyer == profileData.username;
       bool showConfirmMessage = (messageData.type == ChatMessageDataType.confirmPaidSend.textValue); 
+      bool showReceivedMessage = (messageData.type == ChatMessageDataType.confirmPaymentReceived.textValue); 
 
       return (isMyUserBuyer) 
-      ? ChatCardMessage(
-          messageData: messageData,
-          chatData: this.widget.chatData,
-        )
+      ? (showReceivedMessage)
+        ? const SizedBox.shrink() 
+        : ChatCardMessage(
+            messageData: messageData,
+            chatData: this.widget.chatData,
+          )
       : (showConfirmMessage) 
         ? const SizedBox.shrink()
         : _Message(
