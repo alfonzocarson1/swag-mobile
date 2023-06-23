@@ -3,16 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/common/utils/utils.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
+import 'package:swagapp/modules/models/chat/chat_data.dart';
 import 'package:swagapp/modules/models/chat/message_data.dart';
 import 'package:swagapp/modules/enums/chat_message_data_type.dart';
 
 class ChatCardMessage extends StatelessWidget {
 
   final MessageData messageData;
+  final ChatData chatData;
 
   const ChatCardMessage({
     super.key, 
-    required this.messageData,
+    required this.messageData, 
+    required this.chatData,
   });
 
   @override
@@ -25,7 +28,10 @@ class ChatCardMessage extends StatelessWidget {
         [
           _CardTopBar(sender: S.current.chatSwagg),
           const SizedBox(height: 5),          
-          _CardContent(messageData: this.messageData),
+          _CardContent(
+            messageData: this.messageData,
+            chatData: this.chatData,
+          ),
           const SizedBox(height: 5),
         ],
       ),
@@ -36,11 +42,12 @@ class ChatCardMessage extends StatelessWidget {
 
 class _CardContent extends StatelessWidget {
 
+  final ChatData chatData;
   final MessageData messageData;
 
   const _CardContent({
     super.key, 
-    required this.messageData,
+    required this.messageData, required this.chatData,
   });
 
   @override
@@ -135,7 +142,7 @@ class _CardContent extends StatelessWidget {
 
     if(this.messageData.type == ChatMessageDataType.confirmPaidSend.textValue) {
 
-      
+
     }
     else if(this.messageData.type == ChatMessageDataType.confirmPaymentReceived.textValue) {}
     else if(this.messageData.type == ChatMessageDataType.confirmShip.textValue) {}
