@@ -76,7 +76,7 @@ class _CardContent extends StatelessWidget {
           const SizedBox(height: 10),
           _CardButton(
             text: buttonText,
-            onTap: (){},
+            onTap: ()=> this.onTapButton(),
           ),
         ],
       ),
@@ -94,6 +94,9 @@ class _CardContent extends StatelessWidget {
         decimalDigitsLastSalePrice(this.messageData.payload.listingPrice.toString()),
         this.getPaymentMehotdUser(this.messageData.payload.paymentMethod)
       );
+    }
+    if(this.messageData.type == ChatMessageDataType.confirmPaymentReceived.textValue) {
+      return S.current.chatCardPaymentReceivedSeller(this.messageData.payload.userNameBuyer);
     }
 
     return '';

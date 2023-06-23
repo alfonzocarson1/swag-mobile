@@ -310,6 +310,7 @@
     "chatBannerTitle": "@{userName} has agreed to purchase your Golden King Cover",
     "chatCardConfirmPaymentBuyer": "@{sellerUserName} here is {myUserName}'s {paymnetMethod}'s information to send payment - {rate} \n\n{paymentUser}\n\nOnce payment is made please click the confirmation button below",
     "chatCardConfirmPaymentSeller": "@{sellerUserName} here is {myUserName}'s {paymnetMethod}'s information to send payment - {rate} \n\n{paymentUser}",
+    "chatCardPaymentReceivedSeller": "@{buyerUserName} indicated he made payment. Please check your venmo and click the button below to confirm payment was received",
     "chatCardPaymetInformation": "Payment Information",
     "chatCardButtonPaymentSent": "Payment Sent",
     "chatCardButtonPaymentReceived": "Payment Received",
