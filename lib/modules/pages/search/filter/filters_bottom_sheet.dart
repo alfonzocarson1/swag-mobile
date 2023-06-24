@@ -545,7 +545,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                   widget.tab == SearchTab.whatsHot)
               ? null
               : this.categoryId,
-          whatsHotFlag: (widget.tab == SearchTab.whatsHot) ? true : false,
+          whatsHotFlag: (widget.tab == SearchTab.whatsHot) ? true : null,
           staffPicksFlag: null,
           unicornFlag: null,
           searchParams: (widget.tab == SearchTab.all || widget.tab == null)

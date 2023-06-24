@@ -524,7 +524,7 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
                   widget.tab == SearchTab.whatsHot)
               ? null
               : widget.categoryId,
-          whatsHotFlag: (widget.tab == SearchTab.whatsHot) ? true : false,
+          whatsHotFlag: (widget.tab == SearchTab.whatsHot) ? true : null,
           staffPicksFlag: null,
           unicornFlag: null,
           searchParams: (widget.tab == SearchTab.all || widget.tab == null)
