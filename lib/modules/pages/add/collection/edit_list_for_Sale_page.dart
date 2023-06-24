@@ -32,13 +32,14 @@ import 'list_item_preview_page.dart';
 class EditListForSalePage extends StatefulWidget {
   static const name = '/ListForSalePage';
 
-  const EditListForSalePage(
-      {super.key,
-      this.collectionData,
-      this.productItemId,
-      required this.catalogItemName,
-      this.imageUrls, required this.salesHistoryListModel,
-      });
+  const EditListForSalePage({
+    super.key,
+    this.collectionData,
+    this.productItemId,
+    required this.catalogItemName,
+    this.imageUrls,
+    required this.salesHistoryListModel,
+  });
 
   final DetailCollectionModel? collectionData;
   final String? productItemId;
@@ -47,18 +48,20 @@ class EditListForSalePage extends StatefulWidget {
   final SalesHistoryListModel salesHistoryListModel;
 
   static Route route(
-          DetailCollectionModel? collectionData,
-          String? productItemId,
-          String catalogItemName,
-          List<dynamic>? imageUrls,
-          SalesHistoryListModel salesHistoryListModel,)=>
+    DetailCollectionModel? collectionData,
+    String? productItemId,
+    String catalogItemName,
+    List<dynamic>? imageUrls,
+    SalesHistoryListModel salesHistoryListModel,
+  ) =>
       PageRoutes.slideUp(
         settings: const RouteSettings(name: name),
         builder: (context) => EditListForSalePage(
           productItemId: productItemId,
           collectionData: collectionData,
           catalogItemName: catalogItemName,
-          imageUrls: imageUrls, salesHistoryListModel: salesHistoryListModel,
+          imageUrls: imageUrls,
+          salesHistoryListModel: salesHistoryListModel,
         ),
       );
 
@@ -103,12 +106,13 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
 
   @override
   void initState() {
+
     super.initState();
-     isLogged = getIt<PreferenceRepositoryService>().isLogged();
-    
-     
+    isLogged = getIt<PreferenceRepositoryService>().isLogged();
+
     if (widget.collectionData != null) {
       _price = widget.collectionData?.purchasePrice ?? 0.0;
+      _listPriceItemController.value = TextEditingValue(text: _price.toString());
       _listDescriptionItemController.text =
           widget.collectionData?.description ?? '';
       _defaultCondition =
@@ -155,11 +159,12 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
   @override
   Widget build(BuildContext context) {
     var tempImageUrls2 = widget.imageUrls;
-    if(tempImageUrls2 !=null){
+    if (tempImageUrls2 != null) {
       imageUrls = tempImageUrls2.whereType<String>().toList();
     }
-    List<SalesHistoryModel> saleHistoryList = widget.salesHistoryListModel.saleHistoryList ?? [];
-         
+    List<SalesHistoryModel> saleHistoryList =
+        widget.salesHistoryListModel.saleHistoryList ?? [];      
+
     return WillPopScope(
       onWillPop: () async {
         _onWillPop(context);
@@ -257,31 +262,35 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
                               ),
                               Column(
                                 children: [
-                                  CustomTextFormField(
-                                    suffix: (saleHistoryList.isNotEmpty) ? 
-                                                      Column(
-                          children: [
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                if (isLogged) {               
-                                } else {
-                                  Navigator.of(context, rootNavigator: true)
-                                      .push(CreateAccountPage.route());
-                                }
-                              },
-                              child: Image.asset(
-                                      AppIcons.trendingUp,
-                                      width: 20,
-                                      height: 20,
-                                      scale: 3,
-                                      color: Palette.current.blackSmoke,
-                                    ),
-                            ),
-                          ],
-                        ): const SizedBox.shrink(),                                  
+                                  CustomTextFormField(                                    
+                                    suffix: (saleHistoryList.isNotEmpty)
+                                        ? Column(
+                                            children: [
+                                              const SizedBox(
+                                                height: 20,
+                                              ),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  if (isLogged) {
+                                                  } else {
+                                                    Navigator.of(context,
+                                                            rootNavigator: true)
+                                                        .push(CreateAccountPage
+                                                            .route());
+                                                  }
+                                                },
+                                                child: Image.asset(
+                                                  AppIcons.trendingUp,
+                                                  width: 20,
+                                                  height: 20,
+                                                  scale: 3,
+                                                  color: Palette
+                                                      .current.blackSmoke,
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        : const SizedBox.shrink(),
                                     inputFormatters: <TextInputFormatter>[
                                       FilteringTextInputFormatter.digitsOnly
                                     ],
