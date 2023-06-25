@@ -42,11 +42,13 @@ class _ChatMessagesState extends State<ChatMessages> {
   late String userSendbirdiId; 
   late int previousMessagesLengh;
   late GlobalKey<AnimatedListState> listKey;
+  String channelDataString = "";
 
   @override
   void initState() {
 
     ChatBloc chatBloc = context.read<ChatBloc>();
+    channelDataString = this.widget.chatData.channel.data ?? "";
 
     this.listKey = GlobalKey<AnimatedListState>();
     this.previousMessagesLengh = this.widget.chatData.messages.length;
@@ -81,7 +83,7 @@ class _ChatMessagesState extends State<ChatMessages> {
 
   ChannelData getChannelData(String channelDataJson) {
 
-    Map<String, dynamic> channelDataJson = SendBirdUtils.getFormatedData(this.widget.chatData.channel.data!);
+    Map<String, dynamic> channelDataJson = SendBirdUtils.getFormatedData(channelDataString);
     ChannelData channelData = ChannelData.fromJson(channelDataJson);
 
     return channelData;
@@ -89,11 +91,12 @@ class _ChatMessagesState extends State<ChatMessages> {
 
   List<Widget> getChatItems(String userSendbirdiId, ChatBloc chatBloc) {
 
-    List<Widget> items = [];
+    List<Widget> items = [];    
 
-    (this.widget.chatData.channel.data?.isNotEmpty ?? false)
+    
+    (channelDataString.isNotEmpty)
     ? items.add(ChatCommenceBanner(
-        channelData: this.getChannelData(this.widget.chatData.channel.data!),
+        channelData: this.getChannelData(channelDataString),
       ))
     : null;
     
@@ -147,10 +150,12 @@ class _ChatMessagesState extends State<ChatMessages> {
               chatData: this.widget.chatData,
             );
     }
-    else return _Message(
+    else {
+      return _Message(
       isMyMessage: isMyMessage,
       message: message,
     );
+    }
     
   }
 
