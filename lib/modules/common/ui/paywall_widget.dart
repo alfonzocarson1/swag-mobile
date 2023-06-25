@@ -1,17 +1,91 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:swagapp/modules/common/ui/discount_container_widget.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 
 import '../../../generated/l10n.dart';
 import '../utils/palette.dart';
 
-class PayWallWidget extends StatelessWidget {
+class PayWallWidget extends StatefulWidget {
   const PayWallWidget({super.key});
 
   @override
+  State<PayWallWidget> createState() => _PayWallWidgetState();
+
+}
+
+
+
+class _PayWallWidgetState extends State<PayWallWidget> {
+
+  late StreamSubscription<List<PurchaseDetails>> _subscription;
+  List<String> _notFoundIds = <String>[];
+InAppPurchase _iap = InAppPurchase.instance;
+  List<ProductDetails> _products = [];
+  List<PurchaseDetails> _purchases = [];
+
+
+   @override
+  void initState() {
+      _subscription = _iap.purchaseStream.listen((purchases) {
+      _purchases.addAll(purchases);
+      _handlePurchaseUpdates(purchases);
+    }); 
+    _getProducts();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+    super.dispose();
+  }
+
+  Future<void> _getProducts() async {
+    const Set<String> _kIds = {'SwagSandboxtest1'};  // Replace 'your_product_id' with your product id.
+    final ProductDetailsResponse response = await _iap.queryProductDetails(_kIds);
+    if (response.notFoundIDs.isNotEmpty) {
+      // Handle the error if any of the products are not found.
+    }
+    setState(() {
+      _products = response.productDetails;
+    });
+  }
+
+  void _handlePurchaseUpdates(List<PurchaseDetails> purchases) {
+    purchases.forEach((purchase) {
+      switch (purchase.status) {
+        case PurchaseStatus.pending:
+          // Handle this accordingly in your application.
+          break;
+        case PurchaseStatus.error:
+          // Handle the error, an error occurred during the purchase.
+          break;
+        case PurchaseStatus.purchased:
+        case PurchaseStatus.restored:
+          // Deliver the product in your application, then call
+          // completePurchase.
+          if (purchase.pendingCompletePurchase) {
+            _iap.completePurchase(purchase);
+          }
+          break;
+      }
+    });
+  }
+
+  void _buyProduct(ProductDetails prod) {
+    final PurchaseParam purchaseParam = PurchaseParam(productDetails: prod);
+    _iap.buyConsumable(purchaseParam: purchaseParam);
+  }
+
+
+  @override
   Widget build(BuildContext context) {
+
+  
     
     List<String> payWallConditionList =[
       S.of(context).paywall_condition1,
