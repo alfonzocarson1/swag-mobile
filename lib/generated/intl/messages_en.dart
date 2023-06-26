@@ -45,7 +45,10 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m7(sender) => "New message from ${sender}";
 
-  static String m8(chatsNumber) => "${chatsNumber} Unread";
+  static String m8(sellerUserName, trackingNumber) =>
+      "@${sellerUserName} has ship the item. Here is the tracking number\n\n${trackingNumber}";
+
+  static String m9(chatsNumber) => "${chatsNumber} Unread";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -142,12 +145,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "chatModeratorName": MessageLookupByLibrary.simpleMessage("SWAG"),
         "chatNoMessages":
             MessageLookupByLibrary.simpleMessage("No previous messages"),
+        "chatShippedMessage": m8,
         "chatSwagg": MessageLookupByLibrary.simpleMessage("SWAGG"),
         "chatSwaggAdmin": MessageLookupByLibrary.simpleMessage("Swagg Admin"),
         "chatToday": MessageLookupByLibrary.simpleMessage("Today"),
         "chatTyping": MessageLookupByLibrary.simpleMessage("Typing..."),
         "chatsHeader": MessageLookupByLibrary.simpleMessage("Chat"),
-        "chatsUnreadMessages": m8,
+        "chatsUnreadMessages": m9,
         "city": MessageLookupByLibrary.simpleMessage("City"),
         "clear_all": MessageLookupByLibrary.simpleMessage("Clear All"),
         "code": MessageLookupByLibrary.simpleMessage("Code"),

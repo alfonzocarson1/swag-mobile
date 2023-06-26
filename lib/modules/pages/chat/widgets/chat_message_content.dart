@@ -119,6 +119,7 @@ class _ContentState extends State<_Content> with AutomaticKeepAliveClientMixin {
 
       if(messageData.type != ChatMessageDataType.message.textValue && 
          messageData.type != ChatMessageDataType.paymentReceived.textValue &&
+         messageData.type != ChatMessageDataType.shipped.textValue &&
          messageData.type != ChatMessageDataType.confirmShip.textValue) {
         
         return S.current.chatCardConfirmPaymentSeller(
@@ -144,7 +145,13 @@ class _ContentState extends State<_Content> with AutomaticKeepAliveClientMixin {
           messageData.payload.address.postalCode,
         );
       }
-      else return this.widget.message.message;
+      else if (messageData.type == ChatMessageDataType.shipped.textValue) {
+        return S.current.chatShippedMessage(
+          messageData.payload.userNameSeller,
+          messageData.payload.trackingNumber,          
+        );
+      }
+      else return S.current.chatCommenceMessage;
     }
     else return this.widget.message.message;
   } 

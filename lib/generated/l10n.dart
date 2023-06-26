@@ -3143,6 +3143,16 @@ class S {
     );
   }
 
+  /// `@{sellerUserName} has ship the item. Here is the tracking number\n\n{trackingNumber}`
+  String chatShippedMessage(Object sellerUserName, Object trackingNumber) {
+    return Intl.message(
+      '@$sellerUserName has ship the item. Here is the tracking number\n\n$trackingNumber',
+      name: 'chatShippedMessage',
+      desc: '',
+      args: [sellerUserName, trackingNumber],
+    );
+  }
+
   /// `Chat`
   String get chatsHeader {
     return Intl.message(
