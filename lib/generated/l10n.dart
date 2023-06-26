@@ -3102,6 +3102,16 @@ class S {
     );
   }
 
+  /// `@{sellerUserName} has confirmed that payment has been received`
+  String chatConfirmPaymentMessage(Object sellerUserName) {
+    return Intl.message(
+      '@$sellerUserName has confirmed that payment has been received',
+      name: 'chatConfirmPaymentMessage',
+      desc: '',
+      args: [sellerUserName],
+    );
+  }
+
   /// `Chat`
   String get chatsHeader {
     return Intl.message(

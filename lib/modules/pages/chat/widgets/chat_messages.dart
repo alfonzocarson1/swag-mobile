@@ -116,7 +116,7 @@ class _ChatMessagesState extends State<ChatMessages> {
 
   Widget getChatItem(BaseMessage message) {
 
-     bool isMyMessage = (message.sender?.userId == userSendbirdiId);
+    bool isMyMessage = (message.sender?.userId == userSendbirdiId);
 
     if(message.data?.isNotEmpty ?? false) {
 
@@ -126,7 +126,15 @@ class _ChatMessagesState extends State<ChatMessages> {
       bool isMyUserBuyer = messageData.payload.userNameBuyer == profileData.username;
       bool showConfirmMessage = (messageData.type == ChatMessageDataType.confirmPaidSend.textValue); 
       bool showReceivedMessage = (messageData.type == ChatMessageDataType.confirmPaymentReceived.textValue); 
+      bool isPaymentReceived = (messageData.type == ChatMessageDataType.paymentReceived.textValue); 
       bool isMessage = (messageData.type == ChatMessageDataType.message.textValue); 
+
+      if(isPaymentReceived) {
+        return _Message(
+          message: message, 
+          isMyMessage: isMyMessage,
+        );
+      }
 
       return (isMessage) 
       ? _Message(
@@ -152,9 +160,9 @@ class _ChatMessagesState extends State<ChatMessages> {
     }
     else {
       return _Message(
-      isMyMessage: isMyMessage,
-      message: message,
-    );
+        isMyMessage: isMyMessage,
+        message: message,
+      );
     }
     
   }

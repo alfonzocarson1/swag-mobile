@@ -117,15 +117,22 @@ class _ContentState extends State<_Content> with AutomaticKeepAliveClientMixin {
       Map<String, dynamic> messageDataJson = SendBirdUtils.getFormatedData(this.widget.message.data!);
       MessageData messageData = MessageData.fromJson(messageDataJson);
 
-      return (messageData.type != ChatMessageDataType.message.textValue)      
-      ? S.current.chatCardConfirmPaymentSeller(
+      if(messageData.type != ChatMessageDataType.message.textValue && 
+         messageData.type != ChatMessageDataType.paymentReceived.textValue) {
+        
+        return S.current.chatCardConfirmPaymentSeller(
           messageData.payload.userNameBuyer,
           messageData.payload.userNameSeller,
           getPaymentMehotd(messageData.payload.paymentMethod),
           decimalDigitsLastSalePrice(messageData.payload.listingPrice.toString()),
           getPaymentMehotdUser(messageData.payload.paymentMethod)
-        )
-      : S.current.chatCommenceMessage;
+        );
+      }
+      else if (messageData.type == ChatMessageDataType.paymentReceived.textValue) {
+
+        return S.current.chatConfirmPaymentMessage(messageData.payload.userNameSeller);
+      }
+      else return this.widget.message.message;
     }
     else return this.widget.message.message;
   } 
