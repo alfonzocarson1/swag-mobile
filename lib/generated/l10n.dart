@@ -3122,34 +3122,44 @@ class S {
     );
   }
 
-  /// `@{sellerUserName} has confirmed that payment has been received`
+  /// `{sellerUserName} has confirmed that payment has been received`
   String chatConfirmPaymentMessage(Object sellerUserName) {
     return Intl.message(
-      '@$sellerUserName has confirmed that payment has been received',
+      '$sellerUserName has confirmed that payment has been received',
       name: 'chatConfirmPaymentMessage',
       desc: '',
       args: [sellerUserName],
     );
   }
 
-  /// `@{sellerUserName} here is the shipping address to ship this item\n\n{buyerUserName}\n{address}, {city}, {state} {zipCode}`
+  /// `{sellerUserName} here is the shipping address to ship this item\n\n{buyerUserName}\n{address}, {city}, {state} {zipCode}`
   String chatConfirmShipMessage(Object sellerUserName, Object buyerUserName,
       Object address, Object city, Object state, Object zipCode) {
     return Intl.message(
-      '@$sellerUserName here is the shipping address to ship this item\n\n$buyerUserName\n$address, $city, $state $zipCode',
+      '$sellerUserName here is the shipping address to ship this item\n\n$buyerUserName\n$address, $city, $state $zipCode',
       name: 'chatConfirmShipMessage',
       desc: '',
       args: [sellerUserName, buyerUserName, address, city, state, zipCode],
     );
   }
 
-  /// `@{sellerUserName} has ship the item. Here is the tracking number\n\n{trackingNumber}`
+  /// `{sellerUserName} has ship the item. Here is the tracking number\n\n{trackingNumber}`
   String chatShippedMessage(Object sellerUserName, Object trackingNumber) {
     return Intl.message(
-      '@$sellerUserName has ship the item. Here is the tracking number\n\n$trackingNumber',
+      '$sellerUserName has ship the item. Here is the tracking number\n\n$trackingNumber',
       name: 'chatShippedMessage',
       desc: '',
       args: [sellerUserName, trackingNumber],
+    );
+  }
+
+  /// `The seller has chosen to \ncanceled this transaction.`
+  String get chatCancelPurchaseMessage {
+    return Intl.message(
+      'The seller has chosen to \ncanceled this transaction.',
+      name: 'chatCancelPurchaseMessage',
+      desc: '',
+      args: [],
     );
   }
 
