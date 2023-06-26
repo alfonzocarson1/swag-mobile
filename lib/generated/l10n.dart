@@ -3062,6 +3062,26 @@ class S {
     );
   }
 
+  /// `Shipping Information`
+  String get chatCardShippingInformation {
+    return Intl.message(
+      'Shipping Information',
+      name: 'chatCardShippingInformation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add tracking number here`
+  String get chatCardShippingInformationInputHint {
+    return Intl.message(
+      'Add tracking number here',
+      name: 'chatCardShippingInformationInputHint',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Payment Sent`
   String get chatCardButtonPaymentSent {
     return Intl.message(
@@ -3109,6 +3129,17 @@ class S {
       name: 'chatConfirmPaymentMessage',
       desc: '',
       args: [sellerUserName],
+    );
+  }
+
+  /// `@{sellerUserName} here is the shipping address to ship this item\n\n{buyerUserName}\n{address}, {city}, {state} {zipCode}`
+  String chatConfirmShipMessage(Object sellerUserName, Object buyerUserName,
+      Object address, Object city, Object state, Object zipCode) {
+    return Intl.message(
+      '@$sellerUserName here is the shipping address to ship this item\n\n$buyerUserName\n$address, $city, $state $zipCode',
+      name: 'chatConfirmShipMessage',
+      desc: '',
+      args: [sellerUserName, buyerUserName, address, city, state, zipCode],
     );
   }
 

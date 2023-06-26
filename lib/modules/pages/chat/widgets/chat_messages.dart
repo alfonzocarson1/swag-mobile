@@ -126,14 +126,25 @@ class _ChatMessagesState extends State<ChatMessages> {
       bool isMyUserBuyer = messageData.payload.userNameBuyer == profileData.username;
       bool showConfirmMessage = (messageData.type == ChatMessageDataType.confirmPaidSend.textValue); 
       bool showReceivedMessage = (messageData.type == ChatMessageDataType.confirmPaymentReceived.textValue); 
-      bool isPaymentReceived = (messageData.type == ChatMessageDataType.paymentReceived.textValue); 
       bool isMessage = (messageData.type == ChatMessageDataType.message.textValue); 
 
-      if(isPaymentReceived) {
+      if(messageData.type == ChatMessageDataType.paymentReceived.textValue) {
         return _Message(
           message: message, 
           isMyMessage: isMyMessage,
         );
+      }
+      else if(messageData.type == ChatMessageDataType.confirmShip.textValue) {
+        
+        return (isMyUserBuyer) 
+        ? _Message(
+            message: message, 
+            isMyMessage: isMyMessage,
+          )
+        : ChatCardMessage(
+            messageData: messageData, 
+            chatData: this.widget.chatData,
+          );
       }
 
       return (isMessage) 
