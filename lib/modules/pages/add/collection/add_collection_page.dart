@@ -39,7 +39,7 @@ class AddCollection extends StatefulWidget {
         height: 0.8,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-              topRight: Radius.circular(26), topLeft: Radius.circular(26)),
+              topRight: Radius.circular(15), topLeft: Radius.circular(15)),
         ),
         settings: const RouteSettings(name: name),
         builder: (context) => AddCollection(
@@ -168,7 +168,7 @@ class _AddCollectionState extends State<AddCollection> {
         decoration: BoxDecoration(
           color: Palette.current.primaryEerieBlack,
           borderRadius: const BorderRadius.only(
-              topRight: Radius.circular(26), topLeft: Radius.circular(26)),
+              topRight: Radius.circular(14), topLeft: Radius.circular(14)),
         ),
         constraints: BoxConstraints(
             minHeight: MediaQuery.of(context).size.height * 0.9,
@@ -189,8 +189,8 @@ class _AddCollectionState extends State<AddCollection> {
                           children: [
                             ClipRRect(
                               borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(26),
-                                  topRight: Radius.circular(26)),
+                                  topLeft: Radius.circular(15),
+                                  topRight: Radius.circular(15)),
                               child: CachedNetworkImage(
                                 fit: BoxFit.cover,
                                 imageUrl: widget.pathImage,
@@ -226,20 +226,31 @@ class _AddCollectionState extends State<AddCollection> {
                               ),
                             ),
                             Positioned(
-                              right: 5,
-                              top: 7,
-                              child: IconButton(
-                                iconSize: 30,
-                                color: Palette.current.primaryNeonGreen,
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                icon: const Icon(
-                                  Icons.clear_outlined,
-                                  size: 20,
-                                ),
-                              ),
-                            )
+                                right: 20,
+                                top: 15,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Container(
+                                    height: 30,
+                                    width: 30,
+                                    padding: const EdgeInsets.all(7.5),
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(90.0),
+                                        color: Palette.current.blackSmoke),
+                                    child: Transform.rotate(
+                                      angle: 0.8,
+                                      child: Image.asset(
+                                        width: 24,
+                                        height: 24,
+                                        'assets/images/plus.png',
+                                        color: Palette.current.white,
+                                      ),
+                                    ),
+                                  ),
+                                ))
                           ],
                         ),
                         const SizedBox(
@@ -290,10 +301,13 @@ class _AddCollectionState extends State<AddCollection> {
                                 autofocus: false,
                                 errorText: purchaseErrorText,
                                 labelText: S.of(context).purchase_price,
-                                style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontWeight: FontWeight.w300,
-                          letterSpacing: 0.05,
-                          color: Palette.current.primaryNero),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(
+                                        fontWeight: FontWeight.w300,
+                                        letterSpacing: 0.05,
+                                        color: Palette.current.primaryNero),
                                 focusNode: _purchaseNode,
                                 controller: _purchaseController,
                                 inputType:
