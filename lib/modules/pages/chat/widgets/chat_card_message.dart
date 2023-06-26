@@ -42,7 +42,6 @@ class ChatCardMessage extends StatelessWidget {
 }
 
 class _CardContent extends StatefulWidget {
-
   final ChatData chatData;
   final MessageData messageData;
 
@@ -57,22 +56,19 @@ class _CardContent extends StatefulWidget {
 }
 
 class _CardContentState extends State<_CardContent> {
-
-  late String trackingCode;
+  String? trackingCode;
 
   @override
   void initState() {
-
-    this.trackingCode = '';
-    super.initState();    
-  } 
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    
     String contentText = this.getContentText();
     String buttonText = this.getButtonText();
-    bool showInput = this.widget.messageData.type == ChatMessageDataType.confirmShip.textValue;
+    bool showInput = this.widget.messageData.type ==
+        ChatMessageDataType.confirmShip.textValue;
 
     return Container(
       width: double.infinity,
@@ -91,11 +87,11 @@ class _CardContentState extends State<_CardContent> {
             style: const TextStyle(color: Colors.white),
           ),
           (showInput) ? const SizedBox(height: 10) : const SizedBox.shrink(),
-          (showInput) 
-          ? ChatCardMessageInput(
-              onSaved: (String value)=> this.onChangeInput(value),
-            )
-          : const SizedBox.shrink(),
+          (showInput)
+              ? ChatCardMessageInput(
+                  onSaved: (String value) => this.onChangeInput(value),
+                )
+              : const SizedBox.shrink(),
           const SizedBox(height: 10),
           _CardButton(
             text: buttonText,
@@ -106,7 +102,7 @@ class _CardContentState extends State<_CardContent> {
     );
   }
 
-  void onChangeInput(String value)=> setState(()=> this.trackingCode = value);
+  void onChangeInput(String value) => setState(() => this.trackingCode = value);
 
   String getContentText() {
     if (this.widget.messageData.type ==
@@ -117,7 +113,8 @@ class _CardContentState extends State<_CardContent> {
           this.getPaymentMehotd(this.widget.messageData.payload.paymentMethod),
           decimalDigitsLastSalePrice(
               this.widget.messageData.payload.listingPrice.toString()),
-          this.getPaymentMehotdUser(this.widget.messageData.payload.paymentMethod));
+          this.getPaymentMehotdUser(
+              this.widget.messageData.payload.paymentMethod));
     }
     if (this.widget.messageData.type ==
         ChatMessageDataType.confirmPaymentReceived.textValue) {
@@ -125,9 +122,8 @@ class _CardContentState extends State<_CardContent> {
           this.widget.messageData.payload.userNameBuyer);
     }
 
-    if(this.widget.messageData.type ==
+    if (this.widget.messageData.type ==
         ChatMessageDataType.confirmShip.textValue) {
-
       return S.current.chatConfirmShipMessage(
         this.widget.messageData.payload.userNameSeller,
         this.widget.messageData.payload.userNameBuyer,
@@ -189,21 +185,24 @@ class _CardContentState extends State<_CardContent> {
           productItemId: this.widget.messageData.payload.productId,
           listingChatId: this.widget.chatData.channel.channelUrl));
     } else if (this.widget.messageData.type ==
-        ChatMessageDataType.confirmShip.textValue) {}
+        ChatMessageDataType.confirmShip.textValue) {
+      getIt<BuyCubit>().updateListingStatus(UpdatePurchaseStatusRequestModel(
+          listingStatus: 'SHIPPED',
+          productItemId: this.widget.messageData.payload.productId,
+          listingChatId: this.widget.chatData.channel.channelUrl,
+          numberTracking: this.trackingCode));
+    }
   }
 
   String getCardTitle() {
-
     if (this.widget.messageData.type ==
         ChatMessageDataType.confirmPaymentReceived.textValue) {
       return S.current.chatCardPaymetInformation;
-    }
-    else if (this.widget.messageData.type ==
+    } else if (this.widget.messageData.type ==
         ChatMessageDataType.confirmShip.textValue) {
       return S.current.chatCardShippingInformation;
-    }
-    else return '';
-
+    } else
+      return '';
   }
 }
 
