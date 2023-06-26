@@ -92,7 +92,6 @@ class _ChatMessagesState extends State<ChatMessages> {
   List<Widget> getChatItems(String userSendbirdiId, ChatBloc chatBloc) {
 
     List<Widget> items = [];    
-
     
     (channelDataString.isNotEmpty)
     ? items.add(ChatCommenceBanner(
@@ -126,9 +125,11 @@ class _ChatMessagesState extends State<ChatMessages> {
       bool isMyUserBuyer = messageData.payload.userNameBuyer == profileData.username;
       bool showConfirmMessage = (messageData.type == ChatMessageDataType.confirmPaidSend.textValue); 
       bool showReceivedMessage = (messageData.type == ChatMessageDataType.confirmPaymentReceived.textValue); 
-      bool isMessage = (messageData.type == ChatMessageDataType.message.textValue); 
 
-      if(messageData.type == ChatMessageDataType.paymentReceived.textValue) {
+      if(messageData.type == ChatMessageDataType.paymentReceived.textValue ||
+         messageData.type == ChatMessageDataType.message.textValue ||
+         messageData.type == ChatMessageDataType.shipped.textValue) {
+
         return _Message(
           message: message, 
           isMyMessage: isMyMessage,
@@ -147,27 +148,22 @@ class _ChatMessagesState extends State<ChatMessages> {
           );
       }
 
-      return (isMessage) 
-      ? _Message(
-          isMyMessage: isMyMessage,
-          message: message,
-        )
-      : (isMyUserBuyer) 
-        ? (showReceivedMessage)
-          ? const SizedBox.shrink() 
-          : ChatCardMessage(
-              messageData: messageData,
-              chatData: this.widget.chatData,
-            )
-        : (showConfirmMessage) 
-          ? _Message(
-              isMyMessage: false,
-              message: message,
-            )
-          : ChatCardMessage(
-              messageData: messageData,
-              chatData: this.widget.chatData,
-            );
+      return (isMyUserBuyer) 
+      ? (showReceivedMessage)
+        ? const SizedBox.shrink() 
+        : ChatCardMessage(
+            messageData: messageData,
+            chatData: this.widget.chatData,
+          )
+      : (showConfirmMessage) 
+        ? _Message(
+            isMyMessage: false,
+            message: message,
+          )
+        : ChatCardMessage(
+            messageData: messageData,
+            chatData: this.widget.chatData,
+          );
     }
     else {
       return _Message(

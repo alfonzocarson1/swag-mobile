@@ -22,15 +22,18 @@ class MessageData {
 }
 
 class Payload {
+
   Address address;
   String productId;
   PaymentMethod paymentMethod;
   String userNameSeller;
   String userNameBuyer;
+  String trackingNumber;
   double listingPrice;
 
   Payload({
     required this.address,
+    required this.trackingNumber,
     required this.productId,
     required this.paymentMethod,
     required this.userNameSeller,
@@ -40,6 +43,7 @@ class Payload {
 
   factory Payload.fromJson(Map<String, dynamic> json) => Payload(
     address: Address.fromJson(json["address"]),
+    trackingNumber: (json.containsKey('trackingNumber')) ? json["trackingNumber"] : '',
     productId: json["productId"],
     paymentMethod: PaymentMethod.fromJson(json["PaymentMethod"]),
     userNameSeller: json["userNameSeller"],
