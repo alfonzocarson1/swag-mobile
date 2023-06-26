@@ -37,16 +37,16 @@ class MessageLookup extends MessageLookupByLibrary {
       "@${buyerUserName} indicated he made payment. Please check your venmo and click the button below to confirm payment was received";
 
   static String m5(sellerUserName) =>
-      "@${sellerUserName} has confirmed that payment has been received";
+      "${sellerUserName} has confirmed that payment has been received";
 
   static String m6(
           sellerUserName, buyerUserName, address, city, state, zipCode) =>
-      "@${sellerUserName} here is the shipping address to ship this item\n\n${buyerUserName}\n${address}, ${city}, ${state} ${zipCode}";
+      "${sellerUserName} here is the shipping address to ship this item\n\n${buyerUserName}\n${address}, ${city}, ${state} ${zipCode}";
 
   static String m7(sender) => "New message from ${sender}";
 
   static String m8(sellerUserName, trackingNumber) =>
-      "@${sellerUserName} has ship the item. Here is the tracking number\n\n${trackingNumber}";
+      "${sellerUserName} has ship the item. Here is the tracking number\n\n${trackingNumber}";
 
   static String m9(chatsNumber) => "${chatsNumber} Unread";
 
@@ -115,6 +115,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "chatBannerItemSold": MessageLookupByLibrary.simpleMessage("Item sold"),
         "chatBannerTitle": m0,
         "chatBannerWillPay": m1,
+        "chatCancelPurchaseMessage": MessageLookupByLibrary.simpleMessage(
+            "The seller has chosen to \ncanceled this transaction."),
         "chatCardButtonPaymentReceived":
             MessageLookupByLibrary.simpleMessage("Payment Received"),
         "chatCardButtonPaymentSent":
