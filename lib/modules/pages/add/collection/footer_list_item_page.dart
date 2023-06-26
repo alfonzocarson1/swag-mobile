@@ -107,12 +107,13 @@ class _FooterListItemPageState extends State<FooterListItemPage> {
             )),
 
         const Spacer(),
+        (widget.showChatButton == true) ?
         CustomOutlineButton(
           padding: 20,
           iconPath: AppIcons.chat,
           text: S.current.chatChat.toUpperCase(), 
           onTap: ()=> this.onTapChat(chatBloc), 
-        ),
+        ):const SizedBox.shrink(),
       ],
     );
   }
