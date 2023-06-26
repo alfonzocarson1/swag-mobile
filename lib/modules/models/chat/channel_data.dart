@@ -24,12 +24,12 @@ class ChannelData {
 
   factory ChannelData.fromJson(Map<String, dynamic> json) => ChannelData(
     listingProductName: json["listingProductName"],
-    listingImageUrl: json["listingImageUrl"],
-    buyerUsername: json["buyerUsername"],
+    listingImageUrl: json.containsKey('listingImageUrl') ? json["listingImageUrl"] : '',
+    buyerUsername: json.containsKey('buyerUsername') ? json["buyerUsername"] : '',
     price: json["price"],
     productItemId: json["productItemId"],
-    paymentMethod: PaymentMethod.fromJson(json["paymentMethod"]),
-    buyerAccountId: json["buyerAccountId"],
+    paymentMethod: json.containsKey('paymentMethod') ? PaymentMethod.fromJson(json["paymentMethod"]) : PaymentMethod(),
+    buyerAccountId: json.containsKey('buyerUsername') ? json["buyerAccountId"] : '',
   );
 
   static ChannelData channelDataFromJson(String str) => ChannelData.fromJson(json.decode(str));
