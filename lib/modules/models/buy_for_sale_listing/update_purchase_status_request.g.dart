@@ -12,6 +12,7 @@ _$_UpdatePurchaseStatusRequestModel
           listingStatus: json['listingStatus'] as String?,
           productItemId: json['productItemId'] as String?,
           listingChatId: json['listingChatId'] as String?,
+          numberTracking: json['numberTracking'] as String?,
         );
 
 Map<String, dynamic> _$$_UpdatePurchaseStatusRequestModelToJson(
@@ -20,4 +21,5 @@ Map<String, dynamic> _$$_UpdatePurchaseStatusRequestModelToJson(
       'listingStatus': instance.listingStatus,
       'productItemId': instance.productItemId,
       'listingChatId': instance.listingChatId,
+      'numberTracking': instance.numberTracking,
     };
