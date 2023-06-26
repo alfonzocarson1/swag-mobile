@@ -118,7 +118,8 @@ class _ContentState extends State<_Content> with AutomaticKeepAliveClientMixin {
       MessageData messageData = MessageData.fromJson(messageDataJson);
 
       if(messageData.type != ChatMessageDataType.message.textValue && 
-         messageData.type != ChatMessageDataType.paymentReceived.textValue) {
+         messageData.type != ChatMessageDataType.paymentReceived.textValue &&
+         messageData.type != ChatMessageDataType.confirmShip.textValue) {
         
         return S.current.chatCardConfirmPaymentSeller(
           messageData.payload.userNameBuyer,
@@ -131,6 +132,17 @@ class _ContentState extends State<_Content> with AutomaticKeepAliveClientMixin {
       else if (messageData.type == ChatMessageDataType.paymentReceived.textValue) {
 
         return S.current.chatConfirmPaymentMessage(messageData.payload.userNameSeller);
+      }
+      else if (messageData.type == ChatMessageDataType.confirmShip.textValue) {
+
+        return S.current.chatConfirmShipMessage(
+          messageData.payload.userNameSeller,
+          messageData.payload.userNameBuyer,
+          messageData.payload.address.address1,
+          messageData.payload.address.city,
+          messageData.payload.address.state,
+          messageData.payload.address.postalCode,
+        );
       }
       else return this.widget.message.message;
     }
