@@ -398,9 +398,6 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                         ),
                                         const SizedBox(height: 10),
                                         Container(
-                                          height: MediaQuery.of(context)
-                                                  .devicePixelRatio *
-                                              70,
                                           padding: const EdgeInsets.only(
                                               right: 50.0),
                                           child: Text(
@@ -415,6 +412,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                         .primaryWhiteSmoke,
                                                   )),
                                         ),
+                                        const SizedBox(height: 30),
                                         (profileData.accountId !=
                                                 listData.profileId)
                                             ? Column(
@@ -627,16 +625,29 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                                 .of(context)
                                                                 .complete_sale_btn
                                                                 .toUpperCase(),
-                                                            onPressed: () async {
+                                                            onPressed:
+                                                                () async {
+                                                              String channelUrl = await getIt<
+                                                                      BuyCubit>()
+                                                                  .acceptPurchase(
+                                                                      listData.productItemId ??
+                                                                          '');
+                                                              ChatData
+                                                                  chadData =
+                                                                  await context
+                                                                      .read<
+                                                                          ChatBloc>()
+                                                                      .startNewChat(
+                                                                          channelUrl);
 
-                                                              String channelUrl = await getIt<BuyCubit>().acceptPurchase(listData.productItemId ??'');
-                                                              ChatData chatData = await context.read<ChatBloc>().startNewChat(channelUrl);
-                                                              List<Member> chatMembers = chatData.channel.members;
-                                                              Member seller = chatMembers.where((Member member) => member.nickname != userName && member.nickname != swagBotNickName).toList().first;
-                                                              
                                                               Navigator.push(
-                                                                context, 
-                                                                MaterialPageRoute(builder: (BuildContext context)=> ChatPage(chatData: chatData,)),
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder: (BuildContext
+                                                                            context) =>
+                                                                        ChatPage(
+                                                                            chatData:
+                                                                                chadData)),
                                                               );
                                                             },
                                                             type:
