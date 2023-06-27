@@ -21,14 +21,11 @@ import 'widgets/chat_messages.dart';
 import 'widgets/chat_popup_menu.dart';
 
 class ChatPage extends StatefulWidget {
-
   final ChatData chatData;
 
-
   const ChatPage({
-    super.key, 
+    super.key,
     required this.chatData,
-
   });
 
   @override
@@ -36,13 +33,11 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
-
   late ScrollController scrollController;
   late bool isTyping;
 
   @override
   void initState() {
-
     this.updateChatData();
 
     this.isTyping = false;
@@ -52,26 +47,30 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   void dispose() {
-
     this.scrollController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    
-    ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
+    ProfileModel profileData =
+        getIt<PreferenceRepositoryService>().profileData();
     String userName = profileData.username;
     SendBirdChannelData channelData = this.getChannelData();
     List<Member> chatMembers = widget.chatData.channel.members;
-    Member seller = chatMembers.where((Member member) => member.nickname != userName && member.nickname != swagBotNickName).toList().first;
+    Member seller = chatMembers
+        .where((Member member) =>
+            member.nickname != userName && member.nickname != swagBotNickName)
+        .toList()
+        .first;
 
     return Scaffold(
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle.light,
         backgroundColor: Palette.current.blackAppbarBlackground,
         title: _AppBarTitle(
-          chatName: '${userName.capitalize()}, ${seller.nickname.capitalize()} and SWAG', 
+          chatName:
+              '${userName.capitalize()}, ${seller.nickname.capitalize()} and SWAG',
           isTyping: isTyping,
         ),
         centerTitle: false,
@@ -81,9 +80,9 @@ class _ChatPageState extends State<ChatPage> {
             color: Palette.current.primaryNeonGreen,
             size: 24,
           ),
-          onPressed: ()=> Navigator.pop(context),
+          onPressed: () => Navigator.pop(context),
         ),
-        actions: <Widget> [ ChatPopupMenu(chatData: this.widget.chatData!) ],
+        actions: <Widget>[ChatPopupMenu(chatData: this.widget.chatData!)],
       ),
       body: _Body(
         chatData: this.widget.chatData!,
@@ -93,46 +92,44 @@ class _ChatPageState extends State<ChatPage> {
     );
   }
 
-  SendBirdChannelData  getChannelData() {
-
-    Map<String, dynamic> data  = SendBirdUtils.getFormatedData(this.widget.chatData!.channel.data!);
+  SendBirdChannelData getChannelData() {
+    Map<String, dynamic> data =
+        SendBirdUtils.getFormatedData(this.widget.chatData!.channel.data!);
     return SendBirdChannelData.fromJson(data);
-  } 
+  }
 
   void updateChatData() {
-
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async { 
-      await context.read<ChatBloc>().updateChatReadStatus(this.widget.chatData!);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      await context
+          .read<ChatBloc>()
+          .updateChatReadStatus(this.widget.chatData!);
     });
   }
 }
 
 class _Body extends StatelessWidget {
-
   final ChatData chatData;
   final ScrollController scrollController;
 
   const _Body({
-    super.key, 
-    required this.chatData, 
-    required this.scrollController, 
+    super.key,
+    required this.chatData,
+    required this.scrollController,
   });
 
   @override
   Widget build(BuildContext context) {
-
     context.watch<ChatBloc>();
 
     return Column(
-      children: <Widget> 
-      [          
+      children: <Widget>[
         Flexible(
-          child: (this.chatData.messages.isNotEmpty) 
-          ? ChatMessages(
-              chatData: this.chatData,
-              scrollController: this.scrollController,
-            )
-          : Center(child: Text(S.current.chatNoMessages)),
+          child: (this.chatData.messages.isNotEmpty)
+              ? ChatMessages(
+                  chatData: this.chatData,
+                  scrollController: this.scrollController,
+                )
+              : Center(child: Text(S.current.chatNoMessages)),
         ),
         ChatChatInput(
           chatData: this.chatData,
@@ -145,7 +142,6 @@ class _Body extends StatelessWidget {
 }
 
 class _AppBarTitle extends StatelessWidget {
-
   final String chatName;
   final bool isTyping;
 
@@ -157,31 +153,29 @@ class _AppBarTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return SizedBox(
       height: 45,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center ,
-        children: <Widget>
-        [
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
           Text(
             this.chatName,
             style: Theme.of(context).textTheme.bodySmall!.copyWith(
-              fontSize: 20,
-              color: Palette.current.white,
-              fontWeight: FontWeight.normal,
-            ),
+                  fontSize: 20,
+                  color: Palette.current.white,
+                  fontWeight: FontWeight.normal,
+                ),
           ),
-          (this.isTyping) 
-          ? Text(
-              S.current.chatTyping,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 12,
-              ),
-            )
-          : const SizedBox.shrink(),
+          (this.isTyping)
+              ? Text(
+                  S.current.chatTyping,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                  ),
+                )
+              : const SizedBox.shrink(),
         ],
       ),
     );

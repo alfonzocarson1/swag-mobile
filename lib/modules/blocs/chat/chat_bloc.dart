@@ -15,87 +15,103 @@ part 'chat_event.dart';
 part 'chat_state.dart';
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
-
   late SendbirdSdk _sendbirdSdk;
   final IChatService service;
 
   ChatBloc(this.service) : super(ChatState()) {
-
     this._sendbirdSdk = SendbirdSdk(appId: sendBirdAppId);
 
-    on<ChatSetMyUser>((event, emit)=> emit(this.state.copyWith(myUser: event.user)));
-    on<ChatAddChatsEvent>((event, emit)=> emit(this.state.copyWith(chats: event.chats)));
-    on<ChatAddChatEvent>((event, emit)=> emit(this.state.copyWith(chats: event.getChats())));
-    on<ChatUpdateMessageEvent>((event, emit)=> emit(this.state.copyWith(chats: event.getUpdatedChats())));
-    on<ChatLoadinFileEvent>((event, emit)=> emit(this.state.copyWith(isLoadingFile: event.isLoadingFile)));
+    on<ChatSetMyUser>(
+        (event, emit) => emit(this.state.copyWith(myUser: event.user)));
+    on<ChatAddChatsEvent>(
+        (event, emit) => emit(this.state.copyWith(chats: event.chats)));
+    on<ChatAddChatEvent>(
+        (event, emit) => emit(this.state.copyWith(chats: event.getChats())));
+    on<ChatUpdateMessageEvent>((event, emit) =>
+        emit(this.state.copyWith(chats: event.getUpdatedChats())));
+    on<ChatLoadinFileEvent>((event, emit) =>
+        emit(this.state.copyWith(isLoadingFile: event.isLoadingFile)));
 
     on<ChatAddMessageVideoController>((event, emit) {
-      emit(this.state.copyWith(videoChatControllers: event.updatedControllers()));
+      emit(this
+          .state
+          .copyWith(videoChatControllers: event.updatedControllers()));
     });
   }
 
   SendbirdSdk get sendBirdSdk => this._sendbirdSdk;
 
   Future<void> initSendBirdApp() async {
-
     try {
-
       String userId = getIt<PreferenceRepositoryService>().getUserSendBirdId();
-      String userToken = getIt<PreferenceRepositoryService>().getUserSendBirdToken();
+      String userToken =
+          getIt<PreferenceRepositoryService>().getUserSendBirdToken();
 
       User user = await this._sendbirdSdk.connect(
-        userId,
-        accessToken: userToken,
-      );
+            userId,
+            accessToken: userToken,
+          );
 
       await this.initSendBirdPushNotifications();
       this.add(ChatSetMyUser(user));
-    } 
-    catch (e) { 
-      throw Exception('Error loading my user'); 
+    } catch (e) {
+      throw Exception('Error loading my user');
     }
   }
 
   Future<void> initSendBirdPushNotifications() async {
-
-    String firebaseToken = getIt<PreferenceRepositoryService>().getFirebaseDeviceToken();
+    String firebaseToken =
+        getIt<PreferenceRepositoryService>().getFirebaseDeviceToken();
 
     await this._sendbirdSdk.registerPushToken(
-      type: (Platform.isIOS) ? PushTokenType.apns : PushTokenType.fcm, 
-      token: firebaseToken,
-    );
+          type: (Platform.isIOS) ? PushTokenType.apns : PushTokenType.fcm,
+          token: firebaseToken,
+        );
+  }
+
+  // Get the list of chats
+  Future<List<GroupChannel>> getChatList() async {
+    GroupChannelListQuery query = GroupChannelListQuery();
+    query.includeEmptyChannel = true; // Include empty channels in the list
+
+    try {
+      List<GroupChannel> channels = await query.loadNext();
+      print(channels.first.channelUrl);
+      await this._loadPreviousMessages(channels);
+      return channels;
+    } catch (error) {
+      print('Error while loading the chat list: $error');
+      return [];
+    }
   }
 
   Future<void> getChannels() async {
-
     GroupChannelListQuery query = GroupChannelListQuery()..limit = 100;
     List<GroupChannel> channels = await query.loadNext();
     await this._loadPreviousMessages(channels);
   }
 
   Future<void> _loadPreviousMessages(List<GroupChannel> channels) async {
-
     List<ChatData> chatsData = [];
 
-    for (int i = 0; i < channels.length; i++) {      
-
-      List<BaseMessage> messages = await this._getMessagesByChannel(channels[i]);
+    for (int i = 0; i < channels.length; i++) {
+      List<BaseMessage> messages =
+          await this._getMessagesByChannel(channels[i]);
 
       chatsData.add(ChatData(
-        messages: messages, 
+        messages: messages,
         channel: channels[i],
       ));
-    }
 
-    this.add(ChatAddChatsEvent(chatsData));
+      this.add(ChatAddChatsEvent(chatsData));
+    }
   }
 
   Future<ChatData> startNewChat(String value) async {
-    
     try {
-
       bool isChannelUrl = value.contains('sendbird');
-      String channelUrl = (isChannelUrl) ? value : await this.service.loadChannel(value);
+      String channelUrl =
+          (isChannelUrl) ? value : await this.service.loadChannel(value);
       GroupChannel newChannel = await GroupChannel.getChannel(channelUrl);
 
       bool chatExists = this.state.chats.any((ChatData chatData) {
@@ -104,16 +120,13 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
       List<BaseMessage> messages = await this._getMessagesByChannel(newChannel);
 
-      if(chatExists) {
-
+      if (chatExists) {
         return this.state.chats.firstWhere((ChatData chatData) {
           return chatData.channel.channelUrl == newChannel.channelUrl;
         });
-      }
-      else {
-
+      } else {
         ChatData newChat = ChatData(
-          messages: messages, 
+          messages: messages,
           channel: newChannel,
         );
 
@@ -123,15 +136,13 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         ));
 
         return newChat;
-      }      
-    } 
-    catch (e) { 
-      throw Exception('Error loading channel'); 
+      }
+    } catch (e) {
+      throw Exception('Error loading channel');
     }
   }
 
   Future<List<BaseMessage>> _getMessagesByChannel(GroupChannel channel) async {
-
     List<BaseMessage> messages = [];
 
     PreviousMessageListQuery query = PreviousMessageListQuery(
@@ -148,86 +159,73 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   }
 
   Future<void> sendMessage({
-    required String message, 
+    required String message,
     required ChatData chatData,
   }) async {
-
     UserMessageParams params = UserMessageParams(message: message);
 
     try {
-      
       chatData.channel.sendUserMessage(
-        params, 
+        params,
         onCompleted: (UserMessage message, Error? error) async {
-
-          if(error == null) {
-
+          if (error == null) {
             this.add(ChatUpdateMessageEvent(
-              chatData: chatData, 
-              message: message, 
+              chatData: chatData,
+              message: message,
               chats: this.state.chats,
             ));
-          }
-          else throw Exception();
+          } else
+            throw Exception();
         },
       );
-    } 
-    catch (e) { throw Exception('There was an error sending a message'); }
+    } catch (e) {
+      throw Exception('There was an error sending a message');
+    }
   }
 
   Future<void> sendFileMessage({
     required ChatData chatData,
   }) async {
-
     ImagePicker picker = ImagePicker();
     XFile? image = await picker.pickVideo(source: ImageSource.gallery);
 
-    if(image != null) {
-
+    if (image != null) {
       FileMessageParams params = FileMessageParams.withFile(File(image.path));
       params.pushOption = PushNotificationDeliveryOption.normal;
 
       try {
-        
         this.add(ChatLoadinFileEvent(true));
 
         chatData.channel.sendFileMessage(
-          params, 
+          params,
           onCompleted: (FileMessage message, Error? error) async {
-
-            if(error == null) {
-
+            if (error == null) {
               this.add(ChatUpdateMessageEvent(
-                chatData: chatData, 
-                message: message, 
+                chatData: chatData,
+                message: message,
                 chats: this.state.chats,
               ));
 
               this.add(ChatLoadinFileEvent(false));
-            }
-            else {
+            } else {
               throw Exception();
             }
           },
         );
-
-      } 
-      catch (e) { 
-
+      } catch (e) {
         this.add(ChatLoadinFileEvent(false));
-        throw Exception('There was an error sending a message'); 
+        throw Exception('There was an error sending a message');
       }
     }
   }
 
   Future<void> receiveMessage({
-    required ChatData chatData, 
+    required ChatData chatData,
     required BaseMessage message,
   }) async {
-    
     this.add(ChatUpdateMessageEvent(
-      chatData: chatData, 
-      message: message, 
+      chatData: chatData,
+      message: message,
       chats: this.state.chats,
     ));
 
@@ -240,41 +238,37 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   }
 
   Future<void> updateChatReadStatus(ChatData updateChatData) async {
-
-    for (ChatData chatData in this.state.chats) { 
-
-      if(chatData.channel.channelUrl == updateChatData.channel.channelUrl) {
+    for (ChatData chatData in this.state.chats) {
+      if (chatData.channel.channelUrl == updateChatData.channel.channelUrl) {
         await chatData.channel.markAsRead();
         this.add(ChatAddChatsEvent(this.state.chats));
-        break;        
+        break;
       }
     }
   }
 
   void addMessageVideoController(CachedVideoPlayerController newController) {
-
     bool isNotController = this.state.videoChatControllers.any((controller) {
-
       String url1 = controller.dataSource.substring(0, 50);
       String url2 = newController.dataSource.substring(0, 50);
 
       return url1 == url2;
     });
 
-    if(!isNotController) {
-
+    if (!isNotController) {
       this.add(ChatAddMessageVideoController(
-        newController: newController, 
+        newController: newController,
         controllers: this.state.videoChatControllers,
       ));
     }
   }
 
-  Future<void> bringAdminToChat(String chatUrl) async => await this.service.bringAdminToChat(chatUrl);
+  Future<void> bringAdminToChat(String chatUrl) async =>
+      await this.service.bringAdminToChat(chatUrl);
 
   Future<void> getUserSendBirdToken() async {
-      
     String sendBirdToken = await this.service.getUserSendBirdToken();
-    await getIt<PreferenceRepositoryService>().saveUserSendBirdToken(sendBirdToken);
+    await getIt<PreferenceRepositoryService>()
+        .saveUserSendBirdToken(sendBirdToken);
   }
 }

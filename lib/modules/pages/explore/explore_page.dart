@@ -48,10 +48,12 @@ class _ExplorePageState extends State<ExplorePage> with ChannelEventHandler {
 
   @override
   void initState() {
-
     this.initSendBirdApp();
     this.loadDynamicFilters();
-    context.read<ChatBloc>().sendBirdSdk.addChannelEventHandler('identifier', this);
+    context
+        .read<ChatBloc>()
+        .sendBirdSdk
+        .addChannelEventHandler('identifier', this);
 
     getIt<PeerToPeerPaymentsCubit>().getPyments();
 
@@ -141,9 +143,7 @@ class _ExplorePageState extends State<ExplorePage> with ChannelEventHandler {
   }
 
   void initSendBirdApp() {
-    
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-
       ChatBloc chatBloc = context.read<ChatBloc>();
 
       await chatBloc.getUserSendBirdToken();
@@ -154,17 +154,23 @@ class _ExplorePageState extends State<ExplorePage> with ChannelEventHandler {
 
   @override
   void onMessageReceived(BaseChannel channel, BaseMessage message) async {
-
     ChatBloc chatBloc = context.read<ChatBloc>();
     ChatData chatData = chatBloc.state.chats.firstWhere((ChatData chat) {
       return chat.channel.channelUrl == channel.channelUrl;
     });
 
     await chatBloc.receiveMessage(
-      chatData: chatData, 
+      chatData: chatData,
       message: message,
     );
 
     super.onMessageReceived(channel, message);
+  }
+
+  @override
+  void onChannelMemberCountChanged(List<GroupChannel> channels) {
+    // ChatBloc chatBloc = context.read<ChatBloc>();
+    // chatBloc.getChatList();
+    super.onChannelMemberCountChanged(channels);
   }
 }
