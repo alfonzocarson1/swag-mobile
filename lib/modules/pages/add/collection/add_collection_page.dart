@@ -16,6 +16,8 @@ import '../../../common/ui/primary_button.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
 
+import '../../../data/shared_preferences/shared_preferences_service.dart';
+import '../../../di/injector.dart';
 import '../../../models/collection/add_collection_items_payload_model.dart';
 import '../../../models/collection/add_collection_model.dart';
 
@@ -142,8 +144,19 @@ class _AddCollectionState extends State<AddCollection> {
               loadedCollectionSuccess: (state) {
                 BlocProvider.of<DetailBloc>(context)
                     .add(DetailEvent.getDetailItem(widget.catalogItemId));
-                Navigator.of(context, rootNavigator: true).pop();
-                Loading.hide(context);
+                if (getIt<PreferenceRepositoryService>()
+                    .backProfileCollection()) {
+                  getIt<PreferenceRepositoryService>()
+                      .saveBackProfileCollection(false);
+                  Navigator.of(context, rootNavigator: true).pop();
+                  Navigator.of(context, rootNavigator: true).pop();
+                  Navigator.of(context, rootNavigator: true).pop();
+                  Loading.hide(context);
+                } else {
+                  Navigator.of(context, rootNavigator: true).pop();
+                  Loading.hide(context);
+                }
+
                 return null;
               },
               initial: () {
