@@ -312,10 +312,17 @@
     "chatCardConfirmPaymentSeller": "@{sellerUserName} here is {myUserName}'s {paymnetMethod}'s information to send payment - {rate} \n\n{paymentUser}",
     "chatCardPaymentReceivedSeller": "@{buyerUserName} indicated he made payment. Please check your venmo and click the button below to confirm payment was received",
     "chatCardPaymetInformation": "Payment Information",
+    "chatCardShippingInformation": "Shipping Information",
+    "chatCardShippingInformationInputHint": "Add tracking number here",
     "chatCardButtonPaymentSent": "Payment Sent",
     "chatCardButtonPaymentReceived": "Payment Received",
     "chatCardButtonShipmentSent": "Shipment Sent",
     "chatCommenceMessage": "You can use this chat to adjust any information necessary to complete the sale. If you need 3rd party assistance click the icon above and request an admin to join the chat. NOTE: If payment is not received in 12 hours the listings can be cancelled ",
+    "chatConfirmPaymentMessage": "{sellerUserName} has confirmed that payment has been received",
+    "chatConfirmShipMessage": "{sellerUserName} here is the shipping address to ship this item\n\n{buyerUserName}\n{address}, {city}, {state} {zipCode}",
+    "chatShippedMessage": "{sellerUserName} has ship the item. Here is the tracking number\n\n{trackingNumber}",
+    "chatCancelPurchaseMessage": "The seller has chosen to \ncanceled this transaction.",
+
 
     "chatsHeader": "Chat",
     "chatsUnreadMessages": "{chatsNumber} Unread",

@@ -24,6 +24,7 @@ mixin _$UpdatePurchaseStatusRequestModel {
   String? get listingStatus => throw _privateConstructorUsedError;
   String? get productItemId => throw _privateConstructorUsedError;
   String? get listingChatId => throw _privateConstructorUsedError;
+  String? get numberTracking => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -40,7 +41,10 @@ abstract class $UpdatePurchaseStatusRequestModelCopyWith<$Res> {
           UpdatePurchaseStatusRequestModel>;
   @useResult
   $Res call(
-      {String? listingStatus, String? productItemId, String? listingChatId});
+      {String? listingStatus,
+      String? productItemId,
+      String? listingChatId,
+      String? numberTracking});
 }
 
 /// @nodoc
@@ -60,6 +64,7 @@ class _$UpdatePurchaseStatusRequestModelCopyWithImpl<$Res,
     Object? listingStatus = freezed,
     Object? productItemId = freezed,
     Object? listingChatId = freezed,
+    Object? numberTracking = freezed,
   }) {
     return _then(_value.copyWith(
       listingStatus: freezed == listingStatus
@@ -73,6 +78,10 @@ class _$UpdatePurchaseStatusRequestModelCopyWithImpl<$Res,
       listingChatId: freezed == listingChatId
           ? _value.listingChatId
           : listingChatId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      numberTracking: freezed == numberTracking
+          ? _value.numberTracking
+          : numberTracking // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -88,7 +97,10 @@ abstract class _$$_UpdatePurchaseStatusRequestModelCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? listingStatus, String? productItemId, String? listingChatId});
+      {String? listingStatus,
+      String? productItemId,
+      String? listingChatId,
+      String? numberTracking});
 }
 
 /// @nodoc
@@ -107,6 +119,7 @@ class __$$_UpdatePurchaseStatusRequestModelCopyWithImpl<$Res>
     Object? listingStatus = freezed,
     Object? productItemId = freezed,
     Object? listingChatId = freezed,
+    Object? numberTracking = freezed,
   }) {
     return _then(_$_UpdatePurchaseStatusRequestModel(
       listingStatus: freezed == listingStatus
@@ -121,6 +134,10 @@ class __$$_UpdatePurchaseStatusRequestModelCopyWithImpl<$Res>
           ? _value.listingChatId
           : listingChatId // ignore: cast_nullable_to_non_nullable
               as String?,
+      numberTracking: freezed == numberTracking
+          ? _value.numberTracking
+          : numberTracking // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -131,7 +148,10 @@ class __$$_UpdatePurchaseStatusRequestModelCopyWithImpl<$Res>
 class _$_UpdatePurchaseStatusRequestModel
     implements _UpdatePurchaseStatusRequestModel {
   const _$_UpdatePurchaseStatusRequestModel(
-      {this.listingStatus, this.productItemId, this.listingChatId});
+      {this.listingStatus,
+      this.productItemId,
+      this.listingChatId,
+      this.numberTracking});
 
   factory _$_UpdatePurchaseStatusRequestModel.fromJson(
           Map<String, dynamic> json) =>
@@ -143,10 +163,12 @@ class _$_UpdatePurchaseStatusRequestModel
   final String? productItemId;
   @override
   final String? listingChatId;
+  @override
+  final String? numberTracking;
 
   @override
   String toString() {
-    return 'UpdatePurchaseStatusRequestModel(listingStatus: $listingStatus, productItemId: $productItemId, listingChatId: $listingChatId)';
+    return 'UpdatePurchaseStatusRequestModel(listingStatus: $listingStatus, productItemId: $productItemId, listingChatId: $listingChatId, numberTracking: $numberTracking)';
   }
 
   @override
@@ -159,13 +181,15 @@ class _$_UpdatePurchaseStatusRequestModel
             (identical(other.productItemId, productItemId) ||
                 other.productItemId == productItemId) &&
             (identical(other.listingChatId, listingChatId) ||
-                other.listingChatId == listingChatId));
+                other.listingChatId == listingChatId) &&
+            (identical(other.numberTracking, numberTracking) ||
+                other.numberTracking == numberTracking));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, listingStatus, productItemId, listingChatId);
+  int get hashCode => Object.hash(
+      runtimeType, listingStatus, productItemId, listingChatId, numberTracking);
 
   @JsonKey(ignore: true)
   @override
@@ -188,7 +212,8 @@ abstract class _UpdatePurchaseStatusRequestModel
   const factory _UpdatePurchaseStatusRequestModel(
       {final String? listingStatus,
       final String? productItemId,
-      final String? listingChatId}) = _$_UpdatePurchaseStatusRequestModel;
+      final String? listingChatId,
+      final String? numberTracking}) = _$_UpdatePurchaseStatusRequestModel;
 
   factory _UpdatePurchaseStatusRequestModel.fromJson(
       Map<String, dynamic> json) = _$_UpdatePurchaseStatusRequestModel.fromJson;
@@ -199,6 +224,8 @@ abstract class _UpdatePurchaseStatusRequestModel
   String? get productItemId;
   @override
   String? get listingChatId;
+  @override
+  String? get numberTracking;
   @override
   @JsonKey(ignore: true)
   _$$_UpdatePurchaseStatusRequestModelCopyWith<

@@ -1,25 +1,34 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:sendbird_sdk/core/models/member.dart';
 import 'package:swagapp/generated/l10n.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/common/utils/sendbird_utils.dart';
+import 'package:swagapp/modules/common/utils/utils.dart';
 import 'package:swagapp/modules/models/chat/chat_data.dart';
 import 'package:swagapp/modules/models/chat/sendbird_channel_data.dart';
 
+import '../../common/utils/sendbird_utils.dart';
+import '../../constants/constants.dart';
+import '../../data/shared_preferences/shared_preferences_service.dart';
+import '../../di/injector.dart';
+import '../../models/profile/profile_model.dart';
 import 'widgets/chat_input.dart';
 import 'widgets/chat_messages.dart';
 import 'widgets/chat_popup_menu.dart';
 
 class ChatPage extends StatefulWidget {
 
-  final ChatData? chatData;
+  final ChatData chatData;
+
 
   const ChatPage({
     super.key, 
-    this.chatData, 
+    required this.chatData,
+
   });
 
   @override
@@ -50,15 +59,19 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
-
+    
+    ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
+    String userName = profileData.username;
     SendBirdChannelData channelData = this.getChannelData();
+    List<Member> chatMembers = widget.chatData.channel.members;
+    Member seller = chatMembers.where((Member member) => member.nickname != userName && member.nickname != swagBotNickName).toList().first;
 
     return Scaffold(
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle.light,
         backgroundColor: Palette.current.blackAppbarBlackground,
         title: _AppBarTitle(
-          chatName: channelData.listingProductName, 
+          chatName: '${userName.capitalize()}, ${seller.nickname.capitalize()} and SWAG', 
           isTyping: isTyping,
         ),
         centerTitle: false,

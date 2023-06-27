@@ -22,14 +22,13 @@ import 'chat_message_content.dart';
 import 'chat_loading_file_message.dart';
 
 class ChatMessages extends StatefulWidget {
-
   final ChatData chatData;
   final ScrollController scrollController;
 
   const ChatMessages({
-    super.key,    
+    super.key,
     required this.chatData,
-    required this.scrollController, 
+    required this.scrollController,
   });
 
   @override
@@ -37,28 +36,28 @@ class ChatMessages extends StatefulWidget {
 }
 
 class _ChatMessagesState extends State<ChatMessages> {
-
   late List<Widget> items;
-  late String userSendbirdiId; 
+  late String userSendbirdiId;
   late int previousMessagesLengh;
   late GlobalKey<AnimatedListState> listKey;
+  String channelDataString = "";
 
   @override
   void initState() {
-
     ChatBloc chatBloc = context.read<ChatBloc>();
+    channelDataString = this.widget.chatData.channel.data ?? "";
 
     this.listKey = GlobalKey<AnimatedListState>();
     this.previousMessagesLengh = this.widget.chatData.messages.length;
-    this.userSendbirdiId = getIt<PreferenceRepositoryService>().getUserSendBirdId();
+    this.userSendbirdiId =
+        getIt<PreferenceRepositoryService>().getUserSendBirdId();
     this.items = this.getChatItems(userSendbirdiId, chatBloc).reversed.toList();
 
     super.initState();
   }
-  
+
   @override
   Widget build(BuildContext context) {
-
     ChatBloc chatBloc = context.watch<ChatBloc>();
     this.updateItems(chatBloc, userSendbirdiId);
 
@@ -69,8 +68,8 @@ class _ChatMessagesState extends State<ChatMessages> {
       controller: this.widget.scrollController,
       physics: const RangeMaintainingScrollPhysics(),
       padding: const EdgeInsets.only(top: 20, bottom: 5),
-      itemBuilder: (BuildContext context, int index, Animation<double> animation) {  
-
+      itemBuilder:
+          (BuildContext context, int index, Animation<double> animation) {
         return SizeTransition(
           sizeFactor: animation,
           child: this.items[index],
@@ -80,29 +79,27 @@ class _ChatMessagesState extends State<ChatMessages> {
   }
 
   ChannelData getChannelData(String channelDataJson) {
-
-    Map<String, dynamic> channelDataJson = SendBirdUtils.getFormatedData(this.widget.chatData.channel.data!);
+    Map<String, dynamic> channelDataJson =
+        SendBirdUtils.getFormatedData(channelDataString);
     ChannelData channelData = ChannelData.fromJson(channelDataJson);
 
     return channelData;
   }
 
   List<Widget> getChatItems(String userSendbirdiId, ChatBloc chatBloc) {
-
     List<Widget> items = [];
 
-    (this.widget.chatData.channel.data?.isNotEmpty ?? false)
-    ? items.add(ChatCommenceBanner(
-        channelData: this.getChannelData(this.widget.chatData.channel.data!),
-      ))
-    : null;
-    
+    (channelDataString.isNotEmpty)
+        ? items.add(ChatCommenceBanner(
+            channelData: this.getChannelData(channelDataString),
+          ))
+        : null;
+
     (chatBloc.state.isLoadingFile)
-    ? items.add(const ChatLoadingFileMessage())
-    : null;
+        ? items.add(const ChatLoadingFileMessage())
+        : null;
 
     for (int i = 0; i < this.widget.chatData.messages.length; i++) {
-      
       BaseMessage message = this.widget.chatData.messages.toList()[i];
       items.add(this.addDateSeparator(i, message));
       items.add(this.getChatItem(message));
@@ -112,68 +109,84 @@ class _ChatMessagesState extends State<ChatMessages> {
   }
 
   Widget getChatItem(BaseMessage message) {
+    bool isMyMessage = (message.sender?.userId == userSendbirdiId);
 
-     bool isMyMessage = (message.sender?.userId == userSendbirdiId);
-
-    if(message.data?.isNotEmpty ?? false) {
-
-      Map<String, dynamic> messageDataJson = SendBirdUtils.getFormatedData(message.data!);
+    if (message.data?.isNotEmpty ?? false) {
+      Map<String, dynamic> messageDataJson =
+          SendBirdUtils.getFormatedData(message.data!);
       MessageData messageData = MessageData.fromJson(messageDataJson);
-      ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
-      bool isMyUserBuyer = messageData.payload.userNameBuyer == profileData.username;
-      bool showConfirmMessage = (messageData.type == ChatMessageDataType.confirmPaidSend.textValue); 
-      bool showReceivedMessage = (messageData.type == ChatMessageDataType.confirmPaymentReceived.textValue); 
-      bool isMessage = (messageData.type == ChatMessageDataType.message.textValue); 
+      ProfileModel profileData =
+          getIt<PreferenceRepositoryService>().profileData();
+      bool isMyUserBuyer =
+          messageData.payload.userNameBuyer == profileData.username;
+      bool showConfirmMessage =
+          (messageData.type == ChatMessageDataType.confirmPaidSend.textValue);
+      bool showReceivedMessage = (messageData.type ==
+          ChatMessageDataType.confirmPaymentReceived.textValue);
 
-      return (isMessage) 
-      ? _Message(
-          isMyMessage: isMyMessage,
+      if (messageData.type == ChatMessageDataType.paymentReceived.textValue ||
+          messageData.type == ChatMessageDataType.message.textValue ||
+          messageData.type == ChatMessageDataType.shipped.textValue ||
+          messageData.type == ChatMessageDataType.saleCanceled.textValue) {
+        return _Message(
           message: message,
-        )
-      : (isMyUserBuyer) 
-        ? (showReceivedMessage)
-          ? const SizedBox.shrink() 
-          : ChatCardMessage(
-              messageData: messageData,
-              chatData: this.widget.chatData,
-            )
-        : (showConfirmMessage) 
-          ? _Message(
-              isMyMessage: false,
-              message: message,
-            )
-          : ChatCardMessage(
-              messageData: messageData,
-              chatData: this.widget.chatData,
-            );
+          isMyMessage: isMyMessage,
+        );
+      } else if (messageData.type ==
+          ChatMessageDataType.confirmShip.textValue) {
+        return (isMyUserBuyer)
+            ? _Message(
+                message: message,
+                isMyMessage: isMyMessage,
+              )
+            : ChatCardMessage(
+                messageData: messageData,
+                chatData: this.widget.chatData,
+              );
+      }
+
+      return (isMyUserBuyer)
+          ? (showReceivedMessage)
+              ? const SizedBox.shrink()
+              : ChatCardMessage(
+                  messageData: messageData,
+                  chatData: this.widget.chatData,
+                )
+          : (showConfirmMessage)
+              ? _Message(
+                  isMyMessage: false,
+                  message: message,
+                )
+              : ChatCardMessage(
+                  messageData: messageData,
+                  chatData: this.widget.chatData,
+                );
+    } else {
+      return _Message(
+        isMyMessage: isMyMessage,
+        message: message,
+      );
     }
-    else return _Message(
-      isMyMessage: isMyMessage,
-      message: message,
-    );
-    
   }
 
   Widget addDateSeparator(int index, BaseMessage message) {
-
     DateTime createdAt = DateTime.fromMillisecondsSinceEpoch(message.createdAt);
 
-    if(index > 0) {
-
-      BaseMessage previousMessage = this.widget.chatData.messages.toList()[index - 1];
-      DateTime previousCreatedAt = DateTime.fromMillisecondsSinceEpoch(previousMessage.createdAt);
+    if (index > 0) {
+      BaseMessage previousMessage =
+          this.widget.chatData.messages.toList()[index - 1];
+      DateTime previousCreatedAt =
+          DateTime.fromMillisecondsSinceEpoch(previousMessage.createdAt);
 
       return (createdAt.day != previousCreatedAt.day)
-      ? ChatlDateSeparator(date: createdAt)
-      : const SizedBox.shrink();
-    }
-    else return ChatlDateSeparator(date: createdAt);
+          ? ChatlDateSeparator(date: createdAt)
+          : const SizedBox.shrink();
+    } else
+      return ChatlDateSeparator(date: createdAt);
   }
 
   void updateItems(ChatBloc chatBloc, String userSendbirdiId) {
-
-    if(this.widget.chatData.messages.length > this.previousMessagesLengh) {
-
+    if (this.widget.chatData.messages.length > this.previousMessagesLengh) {
       BaseMessage message = this.widget.chatData.messages.last;
       this.previousMessagesLengh = this.widget.chatData.messages.length;
       this.addItem(message);
@@ -181,28 +194,32 @@ class _ChatMessagesState extends State<ChatMessages> {
   }
 
   void addItem(BaseMessage message) async {
-
     Widget item = this.getChatItem(message);
-    this.items.insert(0, item,);
-    this.listKey.currentState!.insertItem(0,duration: const Duration(milliseconds: 300));
+    this.items.insert(
+          0,
+          item,
+        );
+    this
+        .listKey
+        .currentState!
+        .insertItem(0, duration: const Duration(milliseconds: 300));
   }
 }
 
 class _Message extends StatelessWidget {
-  
   final BaseMessage message;
   final bool isMyMessage;
 
   const _Message({
     super.key,
-    required this.message, 
+    required this.message,
     required this.isMyMessage,
   });
 
   @override
   Widget build(BuildContext context) {
-
-    String nickName = this.message.sender?.nickname ?? S.current.chatModeratorName;
+    String nickName =
+        this.message.sender?.nickname ?? S.current.chatModeratorName;
     DateTime createdAt = DateTime.fromMillisecondsSinceEpoch(message.createdAt);
     DateFormat dateFormat = DateFormat().add_jm();
     String createdAtFormated = dateFormat.format(createdAt);
@@ -210,42 +227,41 @@ class _Message extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 5),
       child: Row(
-        mainAxisAlignment: (this.isMyMessage) 
-        ? MainAxisAlignment.end 
-        : MainAxisAlignment.start,
+        mainAxisAlignment: (this.isMyMessage)
+            ? MainAxisAlignment.end
+            : MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.end,
-        children: <Widget>
-        [
-          (this.isMyMessage) 
-          ? Flexible(child: Container())
-          : const SizedBox.shrink(),
-    
-          (this.isMyMessage) 
-          ? Flexible(child: _MessageCreatedAt(createdAtFormated: createdAtFormated))
-          : const SizedBox.shrink(),
-    
-          (this.isMyMessage) 
-          ? const SizedBox.shrink()
-          : const Flexible(child: _MessageAvatar()),
-    
-          (this.isMyMessage) 
-          ? ChatMessageContent(
-              isMyMessage: this.isMyMessage,
-              nickName: nickName, 
-              message: message,
-            )
-          : Flexible(
-              flex: 6,
-              child: ChatMessageContent(
-                isMyMessage: this.isMyMessage,
-                nickName: nickName, 
-                message: message,
-              ),
-            ),
-    
-          (this.isMyMessage) 
-          ? const SizedBox.shrink()
-          : Flexible(child: _MessageCreatedAt(createdAtFormated: createdAtFormated)),
+        children: <Widget>[
+          (this.isMyMessage)
+              ? Flexible(child: Container())
+              : const SizedBox.shrink(),
+          (this.isMyMessage)
+              ? Flexible(
+                  child:
+                      _MessageCreatedAt(createdAtFormated: createdAtFormated))
+              : const SizedBox.shrink(),
+          (this.isMyMessage)
+              ? const SizedBox.shrink()
+              : const Flexible(child: _MessageAvatar()),
+          (this.isMyMessage)
+              ? ChatMessageContent(
+                  isMyMessage: this.isMyMessage,
+                  nickName: nickName,
+                  message: message,
+                )
+              : Flexible(
+                  flex: 6,
+                  child: ChatMessageContent(
+                    isMyMessage: this.isMyMessage,
+                    nickName: nickName,
+                    message: message,
+                  ),
+                ),
+          (this.isMyMessage)
+              ? const SizedBox.shrink()
+              : Flexible(
+                  child:
+                      _MessageCreatedAt(createdAtFormated: createdAtFormated)),
         ],
       ),
     );
@@ -253,7 +269,6 @@ class _Message extends StatelessWidget {
 }
 
 class _MessageCreatedAt extends StatelessWidget {
-
   final String createdAtFormated;
 
   const _MessageCreatedAt({
@@ -263,7 +278,6 @@ class _MessageCreatedAt extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return Container(
       margin: const EdgeInsets.only(bottom: 5),
       child: Text(
@@ -279,12 +293,10 @@ class _MessageCreatedAt extends StatelessWidget {
 }
 
 class _MessageAvatar extends StatelessWidget {
-
   const _MessageAvatar({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     double imageWidth = 35;
 
     return Container(
@@ -296,4 +308,3 @@ class _MessageAvatar extends StatelessWidget {
     );
   }
 }
-

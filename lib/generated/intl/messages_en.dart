@@ -36,9 +36,19 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m4(buyerUserName) =>
       "@${buyerUserName} indicated he made payment. Please check your venmo and click the button below to confirm payment was received";
 
-  static String m5(sender) => "New message from ${sender}";
+  static String m5(sellerUserName) =>
+      "${sellerUserName} has confirmed that payment has been received";
 
-  static String m6(chatsNumber) => "${chatsNumber} Unread";
+  static String m6(
+          sellerUserName, buyerUserName, address, city, state, zipCode) =>
+      "${sellerUserName} here is the shipping address to ship this item\n\n${buyerUserName}\n${address}, ${city}, ${state} ${zipCode}";
+
+  static String m7(sender) => "New message from ${sender}";
+
+  static String m8(sellerUserName, trackingNumber) =>
+      "${sellerUserName} has ship the item. Here is the tracking number\n\n${trackingNumber}";
+
+  static String m9(chatsNumber) => "${chatsNumber} Unread";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -105,6 +115,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "chatBannerItemSold": MessageLookupByLibrary.simpleMessage("Item sold"),
         "chatBannerTitle": m0,
         "chatBannerWillPay": m1,
+        "chatCancelPurchaseMessage": MessageLookupByLibrary.simpleMessage(
+            "The seller has chosen to \ncanceled this transaction."),
         "chatCardButtonPaymentReceived":
             MessageLookupByLibrary.simpleMessage("Payment Received"),
         "chatCardButtonPaymentSent":
@@ -116,25 +128,32 @@ class MessageLookup extends MessageLookupByLibrary {
         "chatCardPaymentReceivedSeller": m4,
         "chatCardPaymetInformation":
             MessageLookupByLibrary.simpleMessage("Payment Information"),
+        "chatCardShippingInformation":
+            MessageLookupByLibrary.simpleMessage("Shipping Information"),
+        "chatCardShippingInformationInputHint":
+            MessageLookupByLibrary.simpleMessage("Add tracking number here"),
         "chatChat": MessageLookupByLibrary.simpleMessage("Chat"),
         "chatCommenceMessage": MessageLookupByLibrary.simpleMessage(
             "You can use this chat to adjust any information necessary to complete the sale. If you need 3rd party assistance click the icon above and request an admin to join the chat. NOTE: If payment is not received in 12 hours the listings can be cancelled "),
+        "chatConfirmPaymentMessage": m5,
+        "chatConfirmShipMessage": m6,
         "chatErrorFile":
             MessageLookupByLibrary.simpleMessage("Error loading the file"),
         "chatInputHintText":
             MessageLookupByLibrary.simpleMessage("Enter message"),
         "chatLoadingFile":
             MessageLookupByLibrary.simpleMessage("Loading File..."),
-        "chatMessageFrom": m5,
+        "chatMessageFrom": m7,
         "chatModeratorName": MessageLookupByLibrary.simpleMessage("SWAG"),
         "chatNoMessages":
             MessageLookupByLibrary.simpleMessage("No previous messages"),
+        "chatShippedMessage": m8,
         "chatSwagg": MessageLookupByLibrary.simpleMessage("SWAGG"),
         "chatSwaggAdmin": MessageLookupByLibrary.simpleMessage("Swagg Admin"),
         "chatToday": MessageLookupByLibrary.simpleMessage("Today"),
         "chatTyping": MessageLookupByLibrary.simpleMessage("Typing..."),
         "chatsHeader": MessageLookupByLibrary.simpleMessage("Chat"),
-        "chatsUnreadMessages": m6,
+        "chatsUnreadMessages": m9,
         "city": MessageLookupByLibrary.simpleMessage("City"),
         "clear_all": MessageLookupByLibrary.simpleMessage("Clear All"),
         "code": MessageLookupByLibrary.simpleMessage("Code"),

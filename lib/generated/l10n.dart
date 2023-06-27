@@ -3062,6 +3062,26 @@ class S {
     );
   }
 
+  /// `Shipping Information`
+  String get chatCardShippingInformation {
+    return Intl.message(
+      'Shipping Information',
+      name: 'chatCardShippingInformation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add tracking number here`
+  String get chatCardShippingInformationInputHint {
+    return Intl.message(
+      'Add tracking number here',
+      name: 'chatCardShippingInformationInputHint',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Payment Sent`
   String get chatCardButtonPaymentSent {
     return Intl.message(
@@ -3097,6 +3117,47 @@ class S {
     return Intl.message(
       'You can use this chat to adjust any information necessary to complete the sale. If you need 3rd party assistance click the icon above and request an admin to join the chat. NOTE: If payment is not received in 12 hours the listings can be cancelled ',
       name: 'chatCommenceMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{sellerUserName} has confirmed that payment has been received`
+  String chatConfirmPaymentMessage(Object sellerUserName) {
+    return Intl.message(
+      '$sellerUserName has confirmed that payment has been received',
+      name: 'chatConfirmPaymentMessage',
+      desc: '',
+      args: [sellerUserName],
+    );
+  }
+
+  /// `{sellerUserName} here is the shipping address to ship this item\n\n{buyerUserName}\n{address}, {city}, {state} {zipCode}`
+  String chatConfirmShipMessage(Object sellerUserName, Object buyerUserName,
+      Object address, Object city, Object state, Object zipCode) {
+    return Intl.message(
+      '$sellerUserName here is the shipping address to ship this item\n\n$buyerUserName\n$address, $city, $state $zipCode',
+      name: 'chatConfirmShipMessage',
+      desc: '',
+      args: [sellerUserName, buyerUserName, address, city, state, zipCode],
+    );
+  }
+
+  /// `{sellerUserName} has ship the item. Here is the tracking number\n\n{trackingNumber}`
+  String chatShippedMessage(Object sellerUserName, Object trackingNumber) {
+    return Intl.message(
+      '$sellerUserName has ship the item. Here is the tracking number\n\n$trackingNumber',
+      name: 'chatShippedMessage',
+      desc: '',
+      args: [sellerUserName, trackingNumber],
+    );
+  }
+
+  /// `The seller has chosen to \ncanceled this transaction.`
+  String get chatCancelPurchaseMessage {
+    return Intl.message(
+      'The seller has chosen to \ncanceled this transaction.',
+      name: 'chatCancelPurchaseMessage',
       desc: '',
       args: [],
     );

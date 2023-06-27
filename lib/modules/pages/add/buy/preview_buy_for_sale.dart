@@ -481,7 +481,8 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                                   .listData
                                                                   .productItemId ??
                                                               '',
-                                                          showChatButton: true,
+                                                          showChatButton:  (profileData.accountId !=
+                                                listData.profileId) ? true: false,
                                                         ),
                                                         const SizedBox(
                                                             height: 30),

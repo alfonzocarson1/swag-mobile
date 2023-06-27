@@ -10,6 +10,7 @@ import 'package:swagapp/modules/enums/chat_message_data_type.dart';
 import '../../../cubits/buy/buy_cubit.dart';
 import '../../../di/injector.dart';
 import '../../../models/buy_for_sale_listing/update_purchase_status_request.dart';
+import 'chat_card_message_input.dart';
 
 class ChatCardMessage extends StatelessWidget {
   final MessageData messageData;
@@ -40,7 +41,7 @@ class ChatCardMessage extends StatelessWidget {
   }
 }
 
-class _CardContent extends StatelessWidget {
+class _CardContent extends StatefulWidget {
   final ChatData chatData;
   final MessageData messageData;
 
@@ -51,9 +52,23 @@ class _CardContent extends StatelessWidget {
   });
 
   @override
+  State<_CardContent> createState() => _CardContentState();
+}
+
+class _CardContentState extends State<_CardContent> {
+  String? trackingCode;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     String contentText = this.getContentText();
     String buttonText = this.getButtonText();
+    bool showInput = this.widget.messageData.type ==
+        ChatMessageDataType.confirmShip.textValue;
 
     return Container(
       width: double.infinity,
@@ -65,12 +80,18 @@ class _CardContent extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _CardTitle(title: S.current.chatCardPaymetInformation),
+          _CardTitle(title: this.getCardTitle()),
           const SizedBox(height: 5),
           Text(
             contentText,
             style: const TextStyle(color: Colors.white),
           ),
+          (showInput) ? const SizedBox(height: 10) : const SizedBox.shrink(),
+          (showInput)
+              ? ChatCardMessageInput(
+                  onSaved: (String value) => this.onChangeInput(value),
+                )
+              : const SizedBox.shrink(),
           const SizedBox(height: 10),
           _CardButton(
             text: buttonText,
@@ -81,21 +102,36 @@ class _CardContent extends StatelessWidget {
     );
   }
 
+  void onChangeInput(String value) => setState(() => this.trackingCode = value);
+
   String getContentText() {
-    if (this.messageData.type ==
+    if (this.widget.messageData.type ==
         ChatMessageDataType.confirmPaidSend.textValue) {
       return S.current.chatCardConfirmPaymentBuyer(
-          this.messageData.payload.userNameBuyer,
-          this.messageData.payload.userNameSeller,
-          this.getPaymentMehotd(this.messageData.payload.paymentMethod),
+          this.widget.messageData.payload.userNameBuyer,
+          this.widget.messageData.payload.userNameSeller,
+          this.getPaymentMehotd(this.widget.messageData.payload.paymentMethod),
           decimalDigitsLastSalePrice(
-              this.messageData.payload.listingPrice.toString()),
-          this.getPaymentMehotdUser(this.messageData.payload.paymentMethod));
+              this.widget.messageData.payload.listingPrice.toString()),
+          this.getPaymentMehotdUser(
+              this.widget.messageData.payload.paymentMethod));
     }
-    if (this.messageData.type ==
+    if (this.widget.messageData.type ==
         ChatMessageDataType.confirmPaymentReceived.textValue) {
       return S.current.chatCardPaymentReceivedSeller(
-          this.messageData.payload.userNameBuyer);
+          this.widget.messageData.payload.userNameBuyer);
+    }
+
+    if (this.widget.messageData.type ==
+        ChatMessageDataType.confirmShip.textValue) {
+      return S.current.chatConfirmShipMessage(
+        this.widget.messageData.payload.userNameSeller,
+        this.widget.messageData.payload.userNameBuyer,
+        this.widget.messageData.payload.address.address1,
+        this.widget.messageData.payload.address.city,
+        this.widget.messageData.payload.address.state,
+        this.widget.messageData.payload.address.postalCode,
+      );
     }
 
     return '';
@@ -122,13 +158,13 @@ class _CardContent extends StatelessWidget {
   }
 
   String getButtonText() {
-    if (this.messageData.type ==
+    if (this.widget.messageData.type ==
         ChatMessageDataType.confirmPaidSend.textValue) {
       return S.current.chatCardButtonPaymentSent;
-    } else if (this.messageData.type ==
+    } else if (this.widget.messageData.type ==
         ChatMessageDataType.confirmPaymentReceived.textValue) {
       return S.current.chatCardButtonPaymentReceived;
-    } else if (this.messageData.type ==
+    } else if (this.widget.messageData.type ==
         ChatMessageDataType.confirmShip.textValue) {
       return S.current.chatCardButtonShipmentSent;
     } else
@@ -136,20 +172,37 @@ class _CardContent extends StatelessWidget {
   }
 
   void onTapButton() {
-    if (this.messageData.type ==
+    if (this.widget.messageData.type ==
         ChatMessageDataType.confirmPaidSend.textValue) {
       getIt<BuyCubit>().updateListingStatus(UpdatePurchaseStatusRequestModel(
           listingStatus: 'PAID',
-          productItemId: this.messageData.payload.productId,
-          listingChatId: this.chatData.channel.channelUrl));
-    } else if (this.messageData.type ==
+          productItemId: this.widget.messageData.payload.productId,
+          listingChatId: this.widget.chatData.channel.channelUrl));
+    } else if (this.widget.messageData.type ==
         ChatMessageDataType.confirmPaymentReceived.textValue) {
       getIt<BuyCubit>().updateListingStatus(UpdatePurchaseStatusRequestModel(
           listingStatus: 'PAYMENT_RECEIVED',
-          productItemId: this.messageData.payload.productId,
-          listingChatId: this.chatData.channel.channelUrl));
-    } else if (this.messageData.type ==
-        ChatMessageDataType.confirmShip.textValue) {}
+          productItemId: this.widget.messageData.payload.productId,
+          listingChatId: this.widget.chatData.channel.channelUrl));
+    } else if (this.widget.messageData.type ==
+        ChatMessageDataType.confirmShip.textValue) {
+      getIt<BuyCubit>().updateListingStatus(UpdatePurchaseStatusRequestModel(
+          listingStatus: 'SHIPPED',
+          productItemId: this.widget.messageData.payload.productId,
+          listingChatId: this.widget.chatData.channel.channelUrl,
+          numberTracking: this.trackingCode));
+    }
+  }
+
+  String getCardTitle() {
+    if (this.widget.messageData.type ==
+        ChatMessageDataType.confirmPaymentReceived.textValue) {
+      return S.current.chatCardPaymetInformation;
+    } else if (this.widget.messageData.type ==
+        ChatMessageDataType.confirmShip.textValue) {
+      return S.current.chatCardShippingInformation;
+    } else
+      return '';
   }
 }
 
