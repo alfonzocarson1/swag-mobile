@@ -69,7 +69,8 @@ class _ItemPageGridBodyState extends State<ItemPageGridBody> {
                                 children: [
                                   ClipRRect(
                                     child: CachedNetworkImage(
-                                       width: MediaQuery.of(context).size.width * 0.45,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.45,
                                       fit: BoxFit.cover,
                                       imageUrl: widget
                                           .catalogList[index].catalogItemImage,
@@ -94,28 +95,40 @@ class _ItemPageGridBodyState extends State<ItemPageGridBody> {
                                     ),
                                   ),
                                   Positioned(
-                                    top: MediaQuery.of(context).size.width *
-                                                0.02,
-                                     right: MediaQuery.of(context).size.width *
-                                                0.02,
-                                      child: FloatingActionButton(
-                                          backgroundColor:
-                                              Palette.current.primaryNero,
-                                          mini: true,
-                                          shape: const CircleBorder(),
-                                          child: Icon(
-                                            Icons.add,
-                                            color: Palette
-                                                .current.primaryWhiteSmoke,
+                                      top: MediaQuery.of(context).size.width *
+                                          0.02,
+                                      right: MediaQuery.of(context).size.width *
+                                          0.02,
+                                      child: InkWell(
+                                        onTap: () {
+                                          Navigator.of(context,
+                                                  rootNavigator: true)
+                                              .push(AddCollection.route(
+                                                  context,
+                                                  widget.catalogList[index]
+                                                      .catalogItemId,
+                                                  widget.catalogList[index]
+                                                      .catalogItemImage,
+                                                  widget.catalogList[index]
+                                                      .catalogItemName));
+                                        },
+                                        child: Container(
+                                          height: 30,
+                                          width: 30,
+                                          padding: const EdgeInsets.all(7.0),
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(90.0),
+                                              color:
+                                                  Palette.current.blackSmoke),
+                                          child: Image.asset(
+                                            width: 27,
+                                            height: 27,
+                                            'assets/images/plus.png',
+                                            color: Palette.current.white,
                                           ),
-                                          onPressed: () {
-                                             Navigator.of(context, rootNavigator: true).push(
-                              AddCollection.route(
-                                  context,
-                                  widget.catalogList[index].catalogItemId,
-                                  widget.catalogList[index].catalogItemImage,
-                                  widget.catalogList[index].catalogItemName));
-                                          }))
+                                        ),
+                                      ))
                                 ],
                               ),
                             ),
