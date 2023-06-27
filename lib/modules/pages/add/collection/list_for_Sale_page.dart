@@ -178,17 +178,29 @@ class _ListForSalePageState extends State<ListForSalePage> {
       backgroundColor: Palette.current.primaryEerieBlack,
       appBar: PushedHeader(
         showBackButton: false,
-        suffixIconButton: IconButton(
-          iconSize: 30,
-          color: Palette.current.primaryNeonGreen,
-          onPressed: () {
-            Navigator.pop(context);
+        suffixIconButton: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pop();
           },
-          icon: const Icon(
-            Icons.clear_outlined,
-            size: 25,
+          child: Container(
+            height: 30,
+            width: 30,
+            padding: const EdgeInsets.all(7.5),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(90.0),
+                color: Palette.current.primaryNero),
+            child: Transform.rotate(
+              angle: 0.8,
+              child: Image.asset(
+                width: 24,
+                height: 24,
+                'assets/images/plus.png',
+                color: Palette.current.white,
+              ),
+            ),
           ),
         ),
+        backgroundColor: Colors.transparent,
         height: 55,
       ),
       body: GestureDetector(

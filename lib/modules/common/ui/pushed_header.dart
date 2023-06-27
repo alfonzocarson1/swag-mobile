@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 
-
 class PushedHeader extends StatefulWidget implements PreferredSizeWidget {
   static const _defaultActions = <Widget>[];
   final List<Widget> actions;
@@ -12,6 +11,7 @@ class PushedHeader extends StatefulWidget implements PreferredSizeWidget {
   double height;
   bool isDarkBackground;
   Widget? suffixIconButton;
+  Color? backgroundColor;
 
   PushedHeader(
       {Key? key,
@@ -21,7 +21,8 @@ class PushedHeader extends StatefulWidget implements PreferredSizeWidget {
       this.title,
       this.height = 55, //125, 180
       this.isDarkBackground = false,
-      this.suffixIconButton})
+      this.suffixIconButton,
+      this.backgroundColor})
       : super(key: key);
 
   @override
@@ -44,7 +45,7 @@ class _PushedHeaderState extends State<PushedHeader>
       preferredSize: const Size.fromHeight(22),
       child: AppBar(
         scrolledUnderElevation: 0.0,
-        backgroundColor: Palette.current.primaryNero,
+        backgroundColor: widget.backgroundColor ?? Palette.current.primaryNero,
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: Palette.current.primaryNero,
           statusBarIconBrightness: Brightness.light, // For Android (dark icons)

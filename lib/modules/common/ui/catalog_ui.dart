@@ -164,15 +164,15 @@ class _CatalogPageState extends State<CatalogPage> {
                             }
                           },
                           child: Container(
-                            height: 35,
-                            width: 35,
-                            padding: const EdgeInsets.all(7.5),
+                            height: 30,
+                            width: 30,
+                            padding: const EdgeInsets.all(7.0),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(90.0),
                                 color: Palette.current.blackSmoke),
                             child: Image.asset(
-                              width: 24,
-                              height: 24,
+                              width: 27,
+                              height: 27,
                               'assets/images/plus.png',
                               color: Palette.current.white,
                             ),

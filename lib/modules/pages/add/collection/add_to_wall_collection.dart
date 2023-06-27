@@ -8,6 +8,8 @@ import '../../../blocs/search_bloc.dart/search_bloc.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
 import '../../../common/utils/tab_wrapper.dart';
+import '../../../data/shared_preferences/shared_preferences_service.dart';
+import '../../../di/injector.dart';
 import '../../../models/search/filter_model.dart';
 import '../../../models/search/search_request_payload_model.dart';
 
@@ -121,6 +123,8 @@ class _AddToWallCollectionState extends State<AddToWallCollection> {
                           ),
                           GestureDetector(
                             onTap: () {
+                              getIt<PreferenceRepositoryService>()
+                                  .saveBackProfileCollection(true);
                               Navigator.of(context, rootNavigator: true)
                                   .push(SelectItemPage.route(1));
                             },
@@ -134,6 +138,8 @@ class _AddToWallCollectionState extends State<AddToWallCollection> {
                           ),
                           GestureDetector(
                             onTap: () {
+                              getIt<PreferenceRepositoryService>()
+                                  .saveBackProfileCollection(true);
                               Navigator.of(context, rootNavigator: true)
                                   .push(SelectItemPage.route(2));
                             },
@@ -147,6 +153,8 @@ class _AddToWallCollectionState extends State<AddToWallCollection> {
                           ),
                           GestureDetector(
                             onTap: () {
+                              getIt<PreferenceRepositoryService>()
+                                  .saveBackProfileCollection(true);
                               Navigator.of(context, rootNavigator: true)
                                   .push(SelectItemPage.route(3));
                             },

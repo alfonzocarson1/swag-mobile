@@ -42,8 +42,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 child: GestureDetector(
                   onTap: onAction,
                   child: Container(
-                    height: 35,
-                    width: 35,
+                    height: 30,
+                    width: 30,
                     padding: const EdgeInsets.all(7.5),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(90.0),
@@ -60,16 +60,28 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             ]
           : null,
       automaticallyImplyLeading: false,
-      leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Palette.current.primaryNeonGreen,
-            size: 24,
+      leading: InkWell(
+        onTap: onRoute ??
+            () {
+              Navigator.of(context).pop();
+            },
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Container(
+            width: 20,
+            height: 20,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Palette.current.blackSmoke,
+            ),
+            child: Icon(
+              Icons.arrow_back,
+              color: Palette.current.white,
+              size: 18,
+            ),
           ),
-          onPressed: onRoute ??
-              () {
-                Navigator.of(context).pop();
-              }),
+        ),
+      ),
     );
   }
 

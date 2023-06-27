@@ -277,8 +277,6 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                           ),
                           const SizedBox(height: 17),
                           Container(
-                            height:
-                                MediaQuery.of(context).devicePixelRatio * 50,
                             padding: const EdgeInsets.only(right: 50.0),
                             child: Text(widget.itemDescription,
                                 style: Theme.of(context)

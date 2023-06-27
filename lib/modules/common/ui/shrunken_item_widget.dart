@@ -53,14 +53,10 @@ class ShrunkenItemWidget extends StatelessWidget {
                 ),
               ),
               Positioned(
-                  top: 0,
-                  right: 0,
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.add,
-                      color: Palette.current.grey,
-                    ),
-                    onPressed: () {
+                  top: 10,
+                  right: 10,
+                  child: InkWell(
+                    onTap: () {
                       if (isLogged) {
                         if (model.collectionItems!.isNotEmpty) {
                           showDialog(
@@ -89,6 +85,20 @@ class ShrunkenItemWidget extends StatelessWidget {
                             .push(CreateAccountPage.route());
                       }
                     },
+                    child: Container(
+                      height: 30,
+                      width: 30,
+                      padding: const EdgeInsets.all(7.0),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(90.0),
+                          color: Palette.current.blackSmoke),
+                      child: Image.asset(
+                        width: 27,
+                        height: 27,
+                        'assets/images/plus.png',
+                        color: Palette.current.white,
+                      ),
+                    ),
                   )),
               Positioned(
                 bottom: 0,
