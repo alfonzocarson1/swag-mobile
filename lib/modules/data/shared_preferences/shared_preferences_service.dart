@@ -40,6 +40,8 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   static const String _userSendBirdToken = 'userSendBirdToken';
   static const String _firebaseDeviceToken = 'firebaseDeviceToken';
 
+  static const String _backProfileCollection = 'backProfileCollection';
+
   late SharedPreferences _prefs;
   @override
   SharedPreferences get prefs => _prefs;
@@ -58,6 +60,17 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   @override
   Future<void> saveIsLogged(bool value) async {
     await _prefs.setBool(_logged, value);
+  }
+
+  @override
+  bool backProfileCollection() {
+    final backProfileCollection = _prefs.getBool(_backProfileCollection);
+    return backProfileCollection ?? false;
+  }
+
+  @override
+  Future<void> saveBackProfileCollection(bool value) async {
+    await _prefs.setBool(_backProfileCollection, value);
   }
 
   @override
@@ -247,12 +260,11 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
     await this._prefs.setStringList(_searchesWithFilters, searchesWithFilters);
   }
 
-   @override
-  removeRecentSearches(int searchesQuantity)async {
-    List<String> list = getRecentSearchesWithFilters();  
-      list.removeRange(0, searchesQuantity+1);
-      await this._prefs.setStringList(_searchesWithFilters, list);
-    
+  @override
+  removeRecentSearches(int searchesQuantity) async {
+    List<String> list = getRecentSearchesWithFilters();
+    list.removeRange(0, searchesQuantity + 1);
+    await this._prefs.setStringList(_searchesWithFilters, list);
   }
 
   @override
@@ -342,9 +354,9 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   Future<void> setPageFromExplore(int value) async {
     await _prefs.setInt(_pageFromExplore, value);
   }
-  
+
   @override
-  String getUserSendBirdId()=> this._prefs.getString(_userSendBirdId) ?? '';
+  String getUserSendBirdId() => this._prefs.getString(_userSendBirdId) ?? '';
 
   @override
   Future<void> saveUserSendBirdId(String userId) async {
@@ -352,7 +364,8 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   }
 
   @override
-  String getUserSendBirdToken()=> this._prefs.getString(_userSendBirdToken) ?? '';
+  String getUserSendBirdToken() =>
+      this._prefs.getString(_userSendBirdToken) ?? '';
 
   @override
   Future<void> saveUserSendBirdToken(String token) async {
@@ -360,11 +373,11 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   }
 
   @override
-  String getFirebaseDeviceToken()=> this._prefs.getString(_firebaseDeviceToken) ?? '';
+  String getFirebaseDeviceToken() =>
+      this._prefs.getString(_firebaseDeviceToken) ?? '';
 
   @override
   Future<void> saveFirebaseDeviceToken(String token) async {
     await this._prefs.setString(_firebaseDeviceToken, token);
   }
- 
 }

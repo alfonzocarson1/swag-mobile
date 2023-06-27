@@ -11,6 +11,8 @@ abstract class PreferenceRepositoryInt {
 
   bool isLogged();
   Future<void> saveIsLogged(bool value);
+  bool backProfileCollection();
+  Future<void> saveBackProfileCollection(bool value);
   bool hasJustSignedUp();
   Future<void> saveHasJustSignedUp(bool value);
   List<String> getRecentSearches();
