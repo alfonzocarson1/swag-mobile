@@ -89,11 +89,6 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration.zero, () {
-      setState(() {
-        context.read<ChatBloc>();
-      });
-    });
     return Scaffold(
         extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: true,
@@ -481,8 +476,12 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                                   .listData
                                                                   .productItemId ??
                                                               '',
-                                                          showChatButton:  (profileData.accountId !=
-                                                listData.profileId) ? true: false,
+                                                          showChatButton: (profileData
+                                                                      .accountId !=
+                                                                  listData
+                                                                      .profileId)
+                                                              ? true
+                                                              : false,
                                                         ),
                                                         const SizedBox(
                                                             height: 30),
@@ -639,6 +638,13 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                                           ChatBloc>()
                                                                       .startNewChat(
                                                                           channelUrl);
+
+                                                              ChatBloc
+                                                                  chatBloc =
+                                                                  context.read<
+                                                                      ChatBloc>();
+                                                              chatBloc
+                                                                  .getChatList();
 
                                                               Navigator.push(
                                                                 context,
