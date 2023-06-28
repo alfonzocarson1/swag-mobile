@@ -71,9 +71,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
   // Get the list of chats
   Future<List<GroupChannel>> getChatList() async {
-    GroupChannelListQuery query = GroupChannelListQuery();
-    query.includeEmptyChannel = true; // Include empty channels in the list
-
+    GroupChannelListQuery query = GroupChannelListQuery()..limit = 100;
     try {
       List<GroupChannel> channels = await query.loadNext();
       print(channels.first.channelUrl);
