@@ -25,7 +25,7 @@ class CustomTextFormField extends StatefulWidget {
       this.dropdownForm = false,
       this.dropdownFormItems,
       this.dropdownOnChanged,
-      this.dropdownvalue})
+      this.dropdownvalue, this.textCapitalization})
       : super(key: key);
   final String labelText;
   final FocusNode focusNode;
@@ -47,6 +47,7 @@ class CustomTextFormField extends StatefulWidget {
   final List<String>? dropdownFormItems;
   void Function(String?)? dropdownOnChanged;
   final String? dropdownvalue;
+  final TextCapitalization? textCapitalization;
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
@@ -150,6 +151,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                           child: Padding(
                             padding: const EdgeInsets.only(left: 16, top: 4),
                             child: TextField(
+                              textCapitalization: widget.textCapitalization ?? TextCapitalization.none,
                               enabled: widget.isEnabled,
                               autofocus: widget.autofocus,
                               maxLength: widget.maxLength,

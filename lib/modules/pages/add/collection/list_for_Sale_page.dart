@@ -95,6 +95,8 @@ class _ListForSalePageState extends State<ListForSalePage> {
 
   bool validPrice = false;
 
+  var _listDescriptionInitValue = '';
+
   var Conditions = [
     'Condition',
     'Sealed',
@@ -113,7 +115,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
   @override
   void initState() {
     super.initState();
-
+    
     if (paymentData.peerToPeerPayments != null) {
       var peerToPeerPaymentsJson = paymentData.peerToPeerPayments!.toJson();
 
@@ -406,6 +408,34 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                     keyboardType: TextInputType.text,
                                     maxLength: 140,
                                     maxLines: 6,
+                                    onChanged: (value) {
+                                      if (value.length >
+                                          _listDescriptionInitValue.length) {
+                                        final text = value;
+                                        if (text.endsWith('.') ||
+                                            text.endsWith('!') ||
+                                            text.endsWith('?')) {
+                                          final newText = '$text ';
+                                          _listDescriptionItemController.value =
+                                              _listDescriptionItemController
+                                                  .value
+                                                  .copyWith(
+                                            text: newText,
+                                            selection: TextSelection.collapsed(
+                                                offset: newText.length),
+                                          );
+                                          setState(() {
+                                            _listDescriptionInitValue = value;
+                                          });
+                                        }
+                                      } else {
+                                        setState(() {
+                                          _listDescriptionInitValue = value;
+                                        });
+                                      }
+                                    },
+                                    textCapitalization:
+                                        TextCapitalization.sentences,
                                     style: TextStyle(
                                         fontSize: 16.0,
                                         color:

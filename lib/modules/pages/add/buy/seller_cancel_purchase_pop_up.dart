@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
@@ -38,6 +37,8 @@ class _SellerCancelPurchasePopUpState extends State<SellerCancelPurchasePopUp> {
   TextEditingController _textFieldController = TextEditingController();
   String? cancelReason;
   String? cancelReasonError;
+
+  var initialText = '';
 
   void _handleCheckboxValueChanged(int index, String? cancelReasonCheckBox) {
     setState(() {
@@ -415,7 +416,34 @@ class _SellerCancelPurchasePopUpState extends State<SellerCancelPurchasePopUp> {
                                     child: TextField(
                                       keyboardType: TextInputType.text,
                                       controller: _textFieldController,
+                                      textCapitalization:
+                                          TextCapitalization.sentences,
                                       maxLines: 6,
+                                      onChanged: (value) {
+                                        if (value.length > initialText.length) {
+                                          final text = value;
+                                          if (text.endsWith('.') ||
+                                              text.endsWith('!') ||
+                                              text.endsWith('?')) {
+                                            final newText = '$text ';
+                                            _textFieldController.value =
+                                                _textFieldController.value
+                                                    .copyWith(
+                                              text: newText,
+                                              selection:
+                                                  TextSelection.collapsed(
+                                                      offset: newText.length),
+                                            );
+                                            setState(() {
+                                              initialText = value;
+                                            });
+                                          }
+                                        } else {
+                                          setState(() {
+                                            initialText = value;
+                                          });
+                                        }
+                                      },
                                       style: TextStyle(
                                           fontSize: 16.0,
                                           color: Palette

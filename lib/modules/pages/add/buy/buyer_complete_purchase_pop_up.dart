@@ -529,6 +529,7 @@ class _BuyerCompletePurchasePopUpState
                                       FilteringTextInputFormatter.allow(
                                           RegExp("^.{0,50}\$")),
                                     ],
+                                    textCapitalization: TextCapitalization.words,
                                     borderColor: _addressBorder,
                                     autofocus: false,
                                     labelText: 'Address 2',
@@ -550,6 +551,7 @@ class _BuyerCompletePurchasePopUpState
                                     errorText: cityErrorText,
                                     focusNode: _cityNode,
                                     controller: _cityController,
+                                    textCapitalization: TextCapitalization.words,
                                     inputType: TextInputType.text),
                                 const SizedBox(
                                   height: 10,
@@ -618,6 +620,7 @@ class _BuyerCompletePurchasePopUpState
                                             labelText: S.of(context).zip,
                                             focusNode: _zipNode,
                                             controller: _zipController,
+                                            textCapitalization: TextCapitalization.words,
                                           ),
                                           Visibility(
                                               visible: stateErrorText != null &&
