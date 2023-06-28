@@ -241,3 +241,6 @@ class ProductWrapper {
     }
   }
 }
+
+  String annualSubscriptionId = "TEST_Swag_App_Premium_Annual";
+  String monthlySubscriptionId = "TEST_Swag_App_Premium_Monthly";
