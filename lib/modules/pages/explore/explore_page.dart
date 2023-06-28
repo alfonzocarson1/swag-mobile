@@ -167,12 +167,12 @@ class _ExplorePageState extends State<ExplorePage> with ChannelEventHandler {
     super.onMessageReceived(channel, message);
   }
 
-  @override
-  void onChannelMemberCountChanged(List<GroupChannel> channels) {
-    ChatBloc chatBloc = context.read<ChatBloc>();
-    chatBloc.getChatList();
-    super.onChannelMemberCountChanged(channels);
-  }
+  // @override
+  // void onChannelMemberCountChanged(List<GroupChannel> channels) {
+  //   ChatBloc chatBloc = context.read<ChatBloc>();
+  //   chatBloc.getChatList();
+  //   super.onChannelMemberCountChanged(channels);
+  // }
 
   // @override
   // void onChannelChanged(BaseChannel channel) {
