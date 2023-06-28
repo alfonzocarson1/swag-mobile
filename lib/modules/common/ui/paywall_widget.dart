@@ -7,10 +7,12 @@ import 'package:swagapp/modules/common/ui/discount_container_widget.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 
 import '../../../generated/l10n.dart';
+import '../../constants/constants.dart';
 import '../utils/palette.dart';
 
 class PayWallWidget extends StatefulWidget {
-  const PayWallWidget({super.key});
+  const PayWallWidget({super.key, required this.hasUsedFreeTrial});
+final bool hasUsedFreeTrial;
 
   @override
   State<PayWallWidget> createState() => _PayWallWidgetState();
@@ -18,15 +20,14 @@ class PayWallWidget extends StatefulWidget {
 }
 
 
-
 class _PayWallWidgetState extends State<PayWallWidget> {
 
   late StreamSubscription<List<PurchaseDetails>> _subscription;
-  List<String> _notFoundIds = <String>[];
-InAppPurchase _iap = InAppPurchase.instance;
-  List<ProductDetails> _products = [];
-  List<PurchaseDetails> _purchases = [];
-
+  final List<String> _notFoundIds = <String>[];
+  final InAppPurchase _iap = InAppPurchase.instance;
+   List<ProductDetails> _purchaseableProducts = [];
+  final List<PurchaseDetails> _purchases = [];
+  
 
    @override
   void initState() {
@@ -34,6 +35,7 @@ InAppPurchase _iap = InAppPurchase.instance;
       _purchases.addAll(purchases);
       _handlePurchaseUpdates(purchases);
     }); 
+
     _getProducts();
     super.initState();
   }
@@ -44,14 +46,27 @@ InAppPurchase _iap = InAppPurchase.instance;
     super.dispose();
   }
 
+  purchaseStoreStatus() async{
+    final bool available = await InAppPurchase.instance.isAvailable();
+if (!available) {
+    print("store not available");
+}
+  }
+
   Future<void> _getProducts() async {
-    const Set<String> _kIds = {'SwagSandboxtest1'};  // Replace 'your_product_id' with your product id.
+    final bool available = await _iap.isAvailable();
+    if (!available) {
+    print("store not available");
+
+    
+    }
+    Set<String> _kIds = {annualSubscriptionId, monthlySubscriptionId};  
     final ProductDetailsResponse response = await _iap.queryProductDetails(_kIds);
     if (response.notFoundIDs.isNotEmpty) {
       // Handle the error if any of the products are not found.
     }
     setState(() {
-      _products = response.productDetails;
+      _purchaseableProducts = response.productDetails;
     });
   }
 
@@ -59,12 +74,17 @@ InAppPurchase _iap = InAppPurchase.instance;
     purchases.forEach((purchase) {
       switch (purchase.status) {
         case PurchaseStatus.pending:
-          // Handle this accordingly in your application.
+         showPopup();
           break;
         case PurchaseStatus.error:
           // Handle the error, an error occurred during the purchase.
           break;
         case PurchaseStatus.purchased:
+        if (purchase.pendingCompletePurchase) {
+    showPopup();
+  }
+          debugPrint(purchase.productID);
+         break;
         case PurchaseStatus.restored:
           // Deliver the product in your application, then call
           // completePurchase.
@@ -72,8 +92,40 @@ InAppPurchase _iap = InAppPurchase.instance;
             _iap.completePurchase(purchase);
           }
           break;
+        case PurchaseStatus.canceled:
+          // TODO: Handle this case.
+          break;
       }
     });
+  }
+  
+  Future showPopup(){
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Pending Purchase'),
+            content: Text('There is a pending purchase for this product. Would you like to complete or cancel this purchase?'),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Complete Purchase'),
+                onPressed: () async {
+                  await InAppPurchase.instance.completePurchase(_purchaseableProducts[0] as PurchaseDetails);
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: Text('Cancel Purchase'),
+                onPressed: () {
+                  // As of September 2021, the `in_app_purchase` package doesn't provide a direct way to cancel a purchase.
+                  // Depending on the platform and payment method, the cancellation may need to be done outside the app.
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
   }
 
   void _buyProduct(ProductDetails prod) {
@@ -83,9 +135,7 @@ InAppPurchase _iap = InAppPurchase.instance;
 
 
   @override
-  Widget build(BuildContext context) {
-
-  
+  Widget build(BuildContext context) {  
     
     List<String> payWallConditionList =[
       S.of(context).paywall_condition1,
@@ -94,7 +144,6 @@ InAppPurchase _iap = InAppPurchase.instance;
       S.of(context).paywall_condition4,
       S.of(context).paywall_condition5,
     ];
-
     return  SizedBox(
       width: MediaQuery.of(context).size.width,  
       height: MediaQuery.of(context).size.height,  
@@ -142,7 +191,7 @@ InAppPurchase _iap = InAppPurchase.instance;
                 }
                 ),
                  SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.016,
+                  height: MediaQuery.of(context).size.height * 0.03,
                 ),
                const DiscountContainerWidget(),
                const SizedBox(height: 20),
@@ -155,7 +204,12 @@ InAppPurchase _iap = InAppPurchase.instance;
                             color: Palette.current.primaryNeonGreen),
                ),
                const SizedBox(height: 35),
-               PrimaryButton(title: S.of(context).paywall_free_trial.toUpperCase(), onPressed: (){}, type: PrimaryButtonType.green)              
+               PrimaryButton(
+                title: (widget.hasUsedFreeTrial) ? S.of(context).paywall_sign_up_premium.toUpperCase() :S.of(context).paywall_free_trial.toUpperCase(), 
+                onPressed: (){
+                  _buyProduct(_purchaseableProducts[0]);
+               }, 
+               type: PrimaryButtonType.green)              
             ],      
           ),
         ),
