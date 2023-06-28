@@ -110,7 +110,8 @@ class _InputState extends State<_Input> {
               minLines: 1,
               keyboardType: TextInputType.multiline,
               controller: this.textEditingController,
-              focusNode: this.focusNode,                      
+              focusNode: this.focusNode,    
+              textCapitalization: TextCapitalization.words,                  
               style: const TextStyle(
                 fontSize: 14,
                 color: Colors.white,

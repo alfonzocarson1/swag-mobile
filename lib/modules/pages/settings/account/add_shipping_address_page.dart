@@ -198,6 +198,7 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
                               FilteringTextInputFormatter.allow(
                                   RegExp("^.{0,50}\$")),
                             ],
+                            textCapitalization: TextCapitalization.words,
                             borderColor: _firstAddressBorder,
                             autofocus: false,
                             labelText: S.of(context).first_address,
@@ -213,6 +214,7 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
                               FilteringTextInputFormatter.allow(
                                   RegExp("^.{0,50}\$")),
                             ],
+                            textCapitalization: TextCapitalization.words,
                             borderColor: _secondAddressBorder,
                             autofocus: false,
                             labelText: S.of(context).second_address,
@@ -227,6 +229,7 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
                               FilteringTextInputFormatter.allow(
                                   RegExp("^.{0,50}\$")),
                             ],
+                            textCapitalization: TextCapitalization.words,
                             borderColor: _cityBorder,
                             autofocus: false,
                             errorText: cityErrorText,
@@ -299,11 +302,12 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
                               child: Column(
                                 children: [
                                   CustomTextFormField(
-                                    inputType:
-                                        const TextInputType.numberWithOptions(
-                                      decimal: true,
-                                      signed: false,
-                                    ),
+                                     inputType: TextInputType.text,
+                                        inputFormatters: [
+                                          FilteringTextInputFormatter.allow(
+                                              RegExp(r'[a-zA-Z0-9 ]')),
+                                        ],
+                                     textCapitalization: TextCapitalization.characters,   
                                     borderColor: _zipBorder,
                                     autofocus: false,
                                     errorText: zipErrorText,

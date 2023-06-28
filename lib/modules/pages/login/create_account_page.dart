@@ -115,7 +115,12 @@ class _CreateAccountState extends State<CreateAccountPage> {
             : Palette.current.primaryWhiteSmoke;
       });
     });
-    _phoneNode.addListener(() {
+   _phoneNode.addListener(() {
+      if (_phoneBorder == Palette.current.primaryNeonGreen) {
+        phoneErrorText = isValidPhone(currentPhoneNumber.toString())
+            ? null
+            : S.of(context).invalid_phone_format;
+      }
       setState(() {
         _phoneBorder = _phoneNode.hasFocus
             ? Palette.current.primaryNeonGreen
