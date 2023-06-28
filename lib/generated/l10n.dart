@@ -3321,6 +3321,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Sign up for Premium`
+  String get paywall_sign_up_premium {
+    return Intl.message(
+      'Sign up for Premium',
+      name: 'paywall_sign_up_premium',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
