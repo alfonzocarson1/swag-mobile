@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:swagapp/generated/l10n.dart';
+import 'package:swagapp/modules/api/api_service.dart';
 import 'package:swagapp/modules/blocs/auth_bloc/username_bloc.dart';
 import 'package:swagapp/modules/common/ui/clickable_text.dart';
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
@@ -13,6 +14,7 @@ import 'package:swagapp/modules/pages/explore/account_info.dart';
 import 'package:swagapp/modules/pages/login/sign_in_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../api/api.dart';
 import '../../blocs/auth_bloc/auth_bloc.dart';
 import '../../common/ui/custom_text_form_field.dart';
 import '../../common/ui/dynamic_toast_messages.dart';
@@ -24,6 +26,7 @@ import '../../cubits/profile/get_profile_cubit.dart';
 import '../../data/secure_storage/storage_repository_service.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
+import '../../models/auth/forgot_password_code_model.dart';
 
 class CreateAccountPage extends StatefulWidget {
   static const name = '/CreateAccount';
@@ -59,6 +62,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
   bool isEmptyUserName = false;
   bool isEmptyEmail = false;
   PhoneNumber? currentPhoneNumber;
+  bool ismailavailable = true;
 
   final FocusNode _phoneNode = FocusNode();
   final _phoneController = TextEditingController();
@@ -87,7 +91,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
   @override
   void initState() {
     super.initState();
-    _emailNode.addListener(() {
+    _emailNode.addListener(() async {
       setState(() {
         _emailBorder = _emailNode.hasFocus
             ? Palette.current.primaryNeonGreen
@@ -262,12 +266,39 @@ class _CreateAccountState extends State<CreateAccountPage> {
                               BlocBuilder<AuthBloc, AuthState>(
                                   builder: (context, authState) {
                                 return authState.maybeMap(orElse: () {
-                                  return _getEmailField(context, true);
+                                  return _getEmailField(
+                                    context,
+                                    isEmailAvailable: ismailavailable,
+                                    onSubmitted: (e) async {
+                                      final x = await checkIfEmailIsInUse(e);
+                                      setState(() {
+                                        ismailavailable = x;
+                                      });
+                                    },
+                                  );
                                 }, error: (state) {
                                   if (state.message == '203') {
-                                    return _getEmailField(context, false);
+                                    return _getEmailField(
+                                      context,
+                                      isEmailAvailable: ismailavailable,
+                                      onSubmitted: (e) async {
+                                        final x = await checkIfEmailIsInUse(e);
+                                        setState(() {
+                                          ismailavailable = x;
+                                        });
+                                      },
+                                    );
                                   }
-                                  return _getEmailField(context, true);
+                                  return _getEmailField(
+                                    context,
+                                    isEmailAvailable: ismailavailable,
+                                    onSubmitted: (e) async {
+                                      final x = await checkIfEmailIsInUse(e);
+                                      setState(() {
+                                        ismailavailable = x;
+                                      });
+                                    },
+                                  );
                                 });
                               }),
                               const SizedBox(
@@ -466,8 +497,9 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                 title:
                                     S.of(context).create_account.toUpperCase(),
                                 onPressed: () {
-                                  
-                                  String deviceId = getIt<PreferenceRepositoryService>().getFirebaseDeviceToken();
+                                  String deviceId =
+                                      getIt<PreferenceRepositoryService>()
+                                          .getFirebaseDeviceToken();
                                   showErrors();
                                   if (areFieldsValid()) {
                                     context.read<AuthBloc>().add(AuthEvent
@@ -537,8 +569,20 @@ class _CreateAccountState extends State<CreateAccountPage> {
         ]));
   }
 
-  CustomTextFormField _getEmailField(
-      BuildContext context, bool isEmailAvailable) {
+  Future<bool> checkIfEmailIsInUse(String email) async {
+    final APIService apiService = APIService();
+    final response = await apiService.getEndpointData(
+      endpoint: Endpoint.isEmailInUse,
+      method: RequestMethod.get,
+      dynamicParam: email,
+      fromJson: (json) => ForgotPasswordCodeModel.fromJson(json),
+    );
+    var response1 = response as ForgotPasswordCodeModel;
+    return !response1.response!;
+  }
+
+  CustomTextFormField _getEmailField(BuildContext context,
+      {bool isEmailAvailable = false, Function(String)? onSubmitted}) {
     setEmailErrorText(
       isValidEmail(_emailController.text),
       isEmailAvailable,
@@ -551,13 +595,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
         labelText: S.of(context).email,
         focusNode: _emailNode,
         controller: _emailController,
-        onChanged: (value) {
-          if (value.isNotEmpty) {
-            setState(() {
-              isEmptyEmail = false;
-            });
-          }
-        },
+        onSubmitted: onSubmitted,
         inputType: TextInputType.emailAddress);
   }
 
