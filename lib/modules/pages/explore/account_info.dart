@@ -368,6 +368,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                   FilteringTextInputFormatter.allow(
                                       RegExp('[a-zA-Z ]')),
                                 ],
+                                textCapitalization: TextCapitalization.words,
                                 errorText: nameErrorText,
                                 borderColor: _firstNameBorder,
                                 autofocus: false,
@@ -383,6 +384,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                   FilteringTextInputFormatter.allow(
                                       RegExp('[a-zA-Z ]')),
                                 ],
+                                    textCapitalization: TextCapitalization.words,
                                 errorText: lastNameErrorText,
                                 borderColor: _lastNameBorder,
                                 autofocus: false,
@@ -412,6 +414,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                   FilteringTextInputFormatter.allow(
                                       RegExp("^.{0,50}\$")),
                                 ],
+                                    textCapitalization: TextCapitalization.words,
                                 borderColor: _firstAddressBorder,
                                 autofocus: false,
                                 labelText: S.of(context).first_address,
@@ -427,6 +430,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                   FilteringTextInputFormatter.allow(
                                       RegExp("^.{0,50}\$")),
                                 ],
+                                    textCapitalization: TextCapitalization.words,
                                 borderColor: _secondAddressBorder,
                                 autofocus: false,
                                 labelText: S.of(context).second_address,
@@ -441,6 +445,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                   FilteringTextInputFormatter.allow(
                                       RegExp("^.{0,50}\$")),
                                 ],
+                                    textCapitalization: TextCapitalization.words,
                                 borderColor: _cityBorder,
                                 autofocus: false,
                                 errorText: cityErrorText,
@@ -514,6 +519,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                           FilteringTextInputFormatter.allow(
                                               RegExp(r'[a-zA-Z0-9 ]')),
                                         ],
+                                        textCapitalization: TextCapitalization.characters,
                                         borderColor: _zipBorder,
                                         autofocus: false,
                                         errorText: zipErrorText,

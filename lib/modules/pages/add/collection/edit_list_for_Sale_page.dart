@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -97,6 +98,8 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
   bool validPrice = false;
   late SalesHistoryListModel saleHistoryModel;
 
+  var _listDescriptionInitValue = '';
+
   @override
   void dispose() {
     _listPriceItemNode.dispose();
@@ -106,13 +109,12 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
 
   @override
   void initState() {
-
     super.initState();
     isLogged = getIt<PreferenceRepositoryService>().isLogged();
-
     if (widget.collectionData != null) {
       _price = widget.collectionData?.purchasePrice ?? 0.0;
-      _listPriceItemController.value = TextEditingValue(text: _price.toString());
+      _listPriceItemController.value =
+          TextEditingValue(text: _price.toString());
       _listDescriptionItemController.text =
           widget.collectionData?.description ?? '';
       _defaultCondition =
@@ -163,7 +165,7 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
       imageUrls = tempImageUrls2.whereType<String>().toList();
     }
     List<SalesHistoryModel> saleHistoryList =
-        widget.salesHistoryListModel.saleHistoryList ?? [];      
+        widget.salesHistoryListModel.saleHistoryList ?? [];
 
     return WillPopScope(
       onWillPop: () async {
@@ -262,7 +264,7 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
                               ),
                               Column(
                                 children: [
-                                  CustomTextFormField(                                    
+                                  CustomTextFormField(
                                     suffix: (saleHistoryList.isNotEmpty)
                                         ? Column(
                                             children: [
@@ -380,6 +382,34 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
                                       keyboardType: TextInputType.text,
                                       maxLength: 140,
                                       maxLines: 6,
+                                      textCapitalization:
+                                          TextCapitalization.sentences,
+                                    onChanged: (value) {
+                                      if (value.length >
+                                          _listDescriptionInitValue.length) {
+                                        final text = value;
+                                        if (text.endsWith('.') ||
+                                            text.endsWith('!') ||
+                                            text.endsWith('?')) {
+                                          final newText = '$text ';
+                                          _listDescriptionItemController.value =
+                                              _listDescriptionItemController
+                                                  .value
+                                                  .copyWith(
+                                            text: newText,
+                                            selection: TextSelection.collapsed(
+                                                offset: newText.length),
+                                          );
+                                          setState(() {
+                                            _listDescriptionInitValue = value;
+                                          });
+                                        }
+                                      } else {
+                                        setState(() {
+                                          _listDescriptionInitValue = value;
+                                        });
+                                      }
+                                    },
                                       style: TextStyle(
                                           fontSize: 16.0,
                                           color: Palette

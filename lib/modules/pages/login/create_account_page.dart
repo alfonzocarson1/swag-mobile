@@ -115,7 +115,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
             : Palette.current.primaryWhiteSmoke;
       });
     });
-    _phoneNode.addListener(() {
+   _phoneNode.addListener(() {
       setState(() {
         _phoneBorder = _phoneNode.hasFocus
             ? Palette.current.primaryNeonGreen
