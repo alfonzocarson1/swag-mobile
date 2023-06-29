@@ -41,6 +41,7 @@ mixin _$DetailItemModel {
       throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  String dateFormat(String dateStr) => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $DetailItemModelCopyWith<DetailItemModel> get copyWith =>
       throw _privateConstructorUsedError;
@@ -358,6 +359,14 @@ class _$_DetailItemModel implements _DetailItemModel {
 
   factory _$_DetailItemModel.fromJson(Map<String, dynamic> json) =>
       _$$_DetailItemModelFromJson(json);
+
+String dateFormat(String dateStr) {
+  final DateFormat displayFormater = DateFormat('dd/MM/yyyy');
+  final DateFormat serverFormater = DateFormat('MM/dd/yyyy');
+  final DateTime displayDate = displayFormater.parse(dateStr);
+  final String formatted = serverFormater.format(displayDate);
+  return formatted;
+}
 
   @override
   final String catalogItemId;
