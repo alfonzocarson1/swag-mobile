@@ -373,6 +373,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("(\$8.30 per month)"),
         "paywall_price_per_year":
             MessageLookupByLibrary.simpleMessage("\$99.99 per year"),
+        "paywall_sign_up_premium":
+            MessageLookupByLibrary.simpleMessage("Sign up for Premium"),
         "paywall_title": MessageLookupByLibrary.simpleMessage(
             "Upgrade your subscription to see the full sales history plus much more!"),
         "peer_to_peer_payment_options_sub_title":

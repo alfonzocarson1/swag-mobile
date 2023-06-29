@@ -27,6 +27,7 @@ class _CustomDataTableState extends State<CustomDataTable> {
   late bool _ascendingCondition;
   late bool _ascendingPrice;
   bool hasActiveSubscription = false;
+  bool hasUsedFreeTrial = false;
 
   var histories = <SalesHistoryModel>[];
 
@@ -62,6 +63,7 @@ class _CustomDataTableState extends State<CustomDataTable> {
   getProfileData() async{
     var profileData =await getIt<PreferenceRepositoryService>().profileData();
     hasActiveSubscription = profileData.hasActiveSubscription ?? false;
+    hasActiveSubscription = profileData.hasUsedFreeTrial ?? false;
   }
 
   @override
@@ -263,7 +265,7 @@ class _CustomDataTableState extends State<CustomDataTable> {
                                                   .current.primaryNeonGreen)))),
                             ]))
                         .toList()),
-                        (hasActiveSubscription) ? const SizedBox.shrink() : const PayWallWidget()
+                        (hasActiveSubscription) ? const SizedBox.shrink() :  PayWallWidget(hasUsedFreeTrial: hasActiveSubscription,)
               ],
             ),
           ),
