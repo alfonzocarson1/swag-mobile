@@ -60,16 +60,6 @@ class S {
     );
   }
 
-  /// `SWAG`
-  String get swag_title {
-    return Intl.message(
-      'SWAG',
-      name: 'swag_title',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `EXPLORE AS GUEST`
   String get explore_as_guest {
     return Intl.message(
@@ -3398,6 +3388,36 @@ class S {
     return Intl.message(
       'Sign up for Premium',
       name: 'paywall_sign_up_premium',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SWAG`
+  String get paywall_splash_title {
+    return Intl.message(
+      'SWAG',
+      name: 'paywall_splash_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `BECOME A MEMBER`
+  String get paywall_splash_subtitle {
+    return Intl.message(
+      'BECOME A MEMBER',
+      name: 'paywall_splash_subtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Swag Premium`
+  String get paywall_splash_premium_subtitle {
+    return Intl.message(
+      'Swag Premium',
+      name: 'paywall_splash_premium_subtitle',
       desc: '',
       args: [],
     );

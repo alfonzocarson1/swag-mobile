@@ -1,6 +1,5 @@
 {
     "app_name": "Swag Golf",
-    "swag_title":"SWAG",
     "explore_as_guest": "EXPLORE AS GUEST",
     "create_account": "Create Account",
     "sign_in": "Sign In",
@@ -350,6 +349,10 @@
     "paywall_or_price_month":"OR $9.99 per month",
     "paywall_discount":"SAVE 20%",
     "paywall_free_trial":"GET 30 Days free",
-    "paywall_sign_up_premium": "Sign up for Premium"    
+    "paywall_sign_up_premium": "Sign up for Premium",
+    
+    "paywall_splash_title":"SWAG",
+    "paywall_splash_subtitle":"BECOME A MEMBER",
+    "paywall_splash_premium_subtitle":"Swag Premium"    
 
 }

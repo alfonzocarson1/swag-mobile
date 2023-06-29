@@ -375,6 +375,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("\$99.99 per year"),
         "paywall_sign_up_premium":
             MessageLookupByLibrary.simpleMessage("Sign up for Premium"),
+        "paywall_splash_premium_subtitle":
+            MessageLookupByLibrary.simpleMessage("Swag Premium"),
+        "paywall_splash_subtitle":
+            MessageLookupByLibrary.simpleMessage("BECOME A MEMBER"),
+        "paywall_splash_title": MessageLookupByLibrary.simpleMessage("SWAG"),
         "paywall_title": MessageLookupByLibrary.simpleMessage(
             "Upgrade your subscription to see the full sales history plus much more!"),
         "peer_to_peer_payment_options_sub_title":
@@ -528,7 +533,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Subscription"),
         "subtitle_welcome":
             MessageLookupByLibrary.simpleMessage("Let’s create your profile!"),
-        "swag_title": MessageLookupByLibrary.simpleMessage("SWAG"),
         "tab_collection": MessageLookupByLibrary.simpleMessage("COLLECTION"),
         "tab_favorites": MessageLookupByLibrary.simpleMessage("FAVORITES"),
         "tab_listings": MessageLookupByLibrary.simpleMessage("LISTINGS"),
