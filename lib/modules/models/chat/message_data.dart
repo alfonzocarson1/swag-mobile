@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 class MessageData {
-
   String topicId;
   Payload payload;
   String type;
@@ -13,16 +12,16 @@ class MessageData {
   });
 
   factory MessageData.fromJson(Map<String, dynamic> json) => MessageData(
-    topicId: json["topicId"],
-    payload: Payload.fromJson(json["payload"]),
-    type: json["type"],
-  );
+        topicId: json["topicId"],
+        payload: Payload.fromJson(json["payload"]),
+        type: json["type"],
+      );
 
-  MessageData messageDataFromJson(String str) => MessageData.fromJson(json.decode(str));
+  MessageData messageDataFromJson(String str) =>
+      MessageData.fromJson(json.decode(str));
 }
 
 class Payload {
-
   Address address;
   String productId;
   PaymentMethod paymentMethod;
@@ -30,6 +29,7 @@ class Payload {
   String userNameBuyer;
   String trackingNumber;
   double listingPrice;
+  String listingStatus;
 
   Payload({
     required this.address,
@@ -39,21 +39,23 @@ class Payload {
     required this.userNameSeller,
     required this.userNameBuyer,
     required this.listingPrice,
+    required this.listingStatus,
   });
 
   factory Payload.fromJson(Map<String, dynamic> json) => Payload(
-    address: Address.fromJson(json["address"]),
-    trackingNumber: (json.containsKey('trackingNumber')) ? json["trackingNumber"] : '',
-    productId: json["productId"],
-    paymentMethod: PaymentMethod.fromJson(json["PaymentMethod"]),
-    userNameSeller: json["userNameSeller"],
-    userNameBuyer: json["userNameBuyer"],
-    listingPrice: json["listingPrice"],
-  );
+        address: Address.fromJson(json["address"]),
+        trackingNumber:
+            (json.containsKey('trackingNumber')) ? json["trackingNumber"] : '',
+        productId: json["productId"],
+        paymentMethod: PaymentMethod.fromJson(json["PaymentMethod"]),
+        userNameSeller: json["userNameSeller"],
+        userNameBuyer: json["userNameBuyer"],
+        listingPrice: json["listingPrice"],
+        listingStatus: json["listingStatus"],
+      );
 }
 
 class Address {
-
   String addressType;
   String? firstName;
   String? lastName;
@@ -62,7 +64,7 @@ class Address {
   String address2;
   String city;
   String state;
-  String postalCode;  
+  String postalCode;
 
   Address({
     this.firstName,
@@ -73,37 +75,37 @@ class Address {
     required this.address2,
     required this.city,
     required this.state,
-    required this.postalCode,    
+    required this.postalCode,
   });
 
   factory Address.fromJson(Map<String, dynamic> json) => Address(
-    addressType: json["addressType"],
-    firstName: json["firstName"],
-    lastName: json["lastName"],
-    country: json["country"],
-    address1: json["address1"],
-    address2: json["address2"],
-    city: json["city"],
-    state: json["state"],
-    postalCode: json["postalCode"],    
-  );
+        addressType: json["addressType"],
+        firstName: json["firstName"],
+        lastName: json["lastName"],
+        country: json["country"],
+        address1: json["address1"],
+        address2: json["address2"],
+        city: json["city"],
+        state: json["state"],
+        postalCode: json["postalCode"],
+      );
 }
 
 class PaymentMethod {
-
   final String payPalEmail;
   final String cashTag;
   final String venmoUser;
 
   PaymentMethod({
-    this.cashTag ='', 
-    this.venmoUser ='', 
+    this.cashTag = '',
+    this.venmoUser = '',
     this.payPalEmail = '',
   });
 
   factory PaymentMethod.fromJson(Map<String, dynamic> json) => PaymentMethod(
-    payPalEmail: (json.containsKey('payPalEmail')) ? json["payPalEmail"] : '',
-    venmoUser:  (json.containsKey('venmoUser')) ? json["venmoUser"] : '',
-    cashTag: (json.containsKey('cashTag')) ? json["cashTag"] : '',
-  );
+        payPalEmail:
+            (json.containsKey('payPalEmail')) ? json["payPalEmail"] : '',
+        venmoUser: (json.containsKey('venmoUser')) ? json["venmoUser"] : '',
+        cashTag: (json.containsKey('cashTag')) ? json["cashTag"] : '',
+      );
 }

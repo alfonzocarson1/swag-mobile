@@ -639,13 +639,6 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                                       .startNewChat(
                                                                           channelUrl);
 
-                                                              // ChatBloc
-                                                              //     chatBloc =
-                                                              //     context.read<
-                                                              //         ChatBloc>();
-                                                              // chatBloc
-                                                              //     .getChatList();
-
                                                               Navigator.push(
                                                                 context,
                                                                 MaterialPageRoute(

@@ -46,6 +46,8 @@ class _ExplorePageState extends State<ExplorePage> with ChannelEventHandler {
   late final ScrollController? _scrollController =
       PrimaryScrollController.of(context);
 
+  String chatUrl = '';
+
   @override
   void initState() {
     this.initSendBirdApp();
@@ -167,17 +169,14 @@ class _ExplorePageState extends State<ExplorePage> with ChannelEventHandler {
     super.onMessageReceived(channel, message);
   }
 
-  // @override
-  // void onChannelMemberCountChanged(List<GroupChannel> channels) {
-  //   ChatBloc chatBloc = context.read<ChatBloc>();
-  //   chatBloc.getChatList();
-  //   super.onChannelMemberCountChanged(channels);
-  // }
-
-  // @override
-  // void onChannelChanged(BaseChannel channel) {
-  //   ChatBloc chatBloc = context.read<ChatBloc>();
-  //   chatBloc.getChatList();
-  //   super.onChannelChanged(channel);
-  // }
+  @override
+  void onChannelMemberCountChanged(List<GroupChannel> channels) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      if (this.chatUrl != channels[0].channelUrl) {
+        this.chatUrl = channels[0].channelUrl;
+        await context.read<ChatBloc>().updateChatList(channels[0].channelUrl);
+      }
+    });
+    super.onChannelMemberCountChanged(channels);
+  }
 }
