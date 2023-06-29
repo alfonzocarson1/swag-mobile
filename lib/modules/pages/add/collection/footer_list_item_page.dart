@@ -17,10 +17,10 @@ import '../../../di/injector.dart';
 import '../../../models/profile/profile_model.dart';
 
 class FooterListItemPage extends StatefulWidget {
-
-  FooterListItemPage({super.key, 
-    this.addList, 
-    required this.showChatButton, 
+  FooterListItemPage({
+    super.key,
+    this.addList,
+    required this.showChatButton,
     required this.productItemId,
   });
 
@@ -31,15 +31,15 @@ class FooterListItemPage extends StatefulWidget {
   @override
   State<FooterListItemPage> createState() => _FooterListItemPageState();
 }
-String userName= "";
+
+String userName = "";
+
 class _FooterListItemPageState extends State<FooterListItemPage> {
   ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
-  
 
   double rating = 4;
   @override
   Widget build(BuildContext context) {
-
     ChatBloc chatBloc = context.read<ChatBloc>();
     String? profileURL;
     String? defaultImage;
@@ -105,33 +105,34 @@ class _FooterListItemPageState extends State<FooterListItemPage> {
                 ),
               ],
             )),
-
         const Spacer(),
-        (widget.showChatButton == true) ?
-        CustomOutlineButton(
-          padding: 20,
-          iconPath: AppIcons.chat,
-          text: S.current.chatChat.toUpperCase(), 
-          onTap: ()=> this.onTapChat(chatBloc), 
-        ):const SizedBox.shrink(),
+        (widget.showChatButton == true)
+            ? CustomOutlineButton(
+                padding: 20,
+                iconPath: AppIcons.chat,
+                text: S.current.chatChat.toUpperCase(),
+                onTap: () => this.onTapChat(chatBloc),
+              )
+            : const SizedBox.shrink(),
       ],
     );
   }
 
   Future<void> onTapChat(ChatBloc chatBloc) async {
-
     try {
-
       Loading.show(context);
       await Future.delayed(const Duration(milliseconds: 500));
-      ChatData? chatData = await chatBloc.startNewChat(this.widget.productItemId);
-    
+      ChatData? chatData =
+          await chatBloc.startNewChat(this.widget.productItemId, false);
+
       Loading.hide(context);
 
       await Navigator.of(context, rootNavigator: true).push(
-        MaterialPageRoute(builder: (BuildContext context)=> ChatPage(chatData: chatData)),
-      );        
-    } 
-    catch (e) { Loading.hide(context); }
+        MaterialPageRoute(
+            builder: (BuildContext context) => ChatPage(chatData: chatData)),
+      );
+    } catch (e) {
+      Loading.hide(context);
+    }
   }
 }
