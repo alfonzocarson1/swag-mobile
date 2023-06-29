@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:intl/intl.dart';
 
 part 'sale_history_model.freezed.dart';
 part 'sale_history_model.g.dart';
@@ -22,6 +23,14 @@ class SalesHistoryModel with _$SalesHistoryModel {
 
   factory SalesHistoryModel.fromJson(Map<String, dynamic> json) =>
       _$SalesHistoryModelFromJson(json);
+
+  String dateFormat(String dateStr) {
+    final DateFormat displayFormater = DateFormat('dd/MM/yyyy');
+    final DateFormat serverFormater = DateFormat('MM/dd/yyyy');
+    final DateTime displayDate = displayFormater.parse(dateStr);
+    final String formatted = serverFormater.format(displayDate);
+    return formatted;
+  }
 }
 
 enum Priority { first, second, third, defaul }

@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:intl/intl.dart';
 
 import 'detail_collection_model.dart';
 import 'detail_sale_info_model.dart';
@@ -8,6 +9,7 @@ part 'detail_item_model.g.dart';
 
 @freezed
 class DetailItemModel with _$DetailItemModel {
+  const DetailItemModel._();
   @JsonSerializable(includeIfNull: false)
   const factory DetailItemModel({
     required final String catalogItemId,
@@ -32,4 +34,5 @@ class DetailItemModel with _$DetailItemModel {
 
   factory DetailItemModel.fromJson(Map<String, dynamic> json) =>
       _$DetailItemModelFromJson(json);
+
 }
