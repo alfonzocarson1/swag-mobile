@@ -55,7 +55,7 @@ class _SettingsPageState extends State<SettingsPage> {
           // ),
         ],
       ),
-      backgroundColor: Palette.current.primaryEerieBlack,
+      backgroundColor: Palette.current.primaryNero,
       body: Column(
         children: [
           Expanded(
