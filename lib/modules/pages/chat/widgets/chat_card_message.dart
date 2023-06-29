@@ -9,6 +9,7 @@ import 'package:swagapp/modules/enums/chat_message_data_type.dart';
 
 import '../../../cubits/buy/buy_cubit.dart';
 import '../../../di/injector.dart';
+import '../../../enums/listing_status_data.dart';
 import '../../../models/buy_for_sale_listing/update_purchase_status_request.dart';
 import 'chat_card_message_input.dart';
 
@@ -173,19 +174,25 @@ class _CardContentState extends State<_CardContent> {
 
   void onTapButton() {
     if (this.widget.messageData.type ==
-        ChatMessageDataType.confirmPaidSend.textValue) {
+            ChatMessageDataType.confirmPaidSend.textValue &&
+        this.widget.messageData.payload.listingStatus ==
+            ListingStatusDataType.pendingPayment.textValue) {
       getIt<BuyCubit>().updateListingStatus(UpdatePurchaseStatusRequestModel(
           listingStatus: 'PAID',
           productItemId: this.widget.messageData.payload.productId,
           listingChatId: this.widget.chatData.channel.channelUrl));
     } else if (this.widget.messageData.type ==
-        ChatMessageDataType.confirmPaymentReceived.textValue) {
+            ChatMessageDataType.confirmPaymentReceived.textValue &&
+        this.widget.messageData.payload.listingStatus ==
+            ListingStatusDataType.paid.textValue) {
       getIt<BuyCubit>().updateListingStatus(UpdatePurchaseStatusRequestModel(
           listingStatus: 'PAYMENT_RECEIVED',
           productItemId: this.widget.messageData.payload.productId,
           listingChatId: this.widget.chatData.channel.channelUrl));
     } else if (this.widget.messageData.type ==
-        ChatMessageDataType.confirmShip.textValue) {
+            ChatMessageDataType.confirmShip.textValue &&
+        this.widget.messageData.payload.listingStatus ==
+            ListingStatusDataType.paymentReceived.textValue) {
       getIt<BuyCubit>().updateListingStatus(UpdatePurchaseStatusRequestModel(
           listingStatus: 'SHIPPED',
           productItemId: this.widget.messageData.payload.productId,
