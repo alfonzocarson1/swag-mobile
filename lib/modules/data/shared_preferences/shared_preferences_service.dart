@@ -41,6 +41,7 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   static const String _firebaseDeviceToken = 'firebaseDeviceToken';
 
   static const String _backProfileCollection = 'backProfileCollection';
+  static const String _onChatPage = 'onChatPage';
 
   late SharedPreferences _prefs;
   @override
@@ -60,6 +61,17 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   @override
   Future<void> saveIsLogged(bool value) async {
     await _prefs.setBool(_logged, value);
+  }
+
+  @override
+  bool onChatPage() {
+    final onChatPage = _prefs.getBool(_onChatPage);
+    return onChatPage ?? false;
+  }
+
+  @override
+  Future<void> saveOnChatPage(bool value) async {
+    await _prefs.setBool(_onChatPage, value);
   }
 
   @override

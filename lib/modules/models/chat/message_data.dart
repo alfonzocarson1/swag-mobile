@@ -30,17 +30,18 @@ class Payload {
   String trackingNumber;
   double listingPrice;
   String listingStatus;
+  String listingName;
 
-  Payload({
-    required this.address,
-    required this.trackingNumber,
-    required this.productId,
-    required this.paymentMethod,
-    required this.userNameSeller,
-    required this.userNameBuyer,
-    required this.listingPrice,
-    required this.listingStatus,
-  });
+  Payload(
+      {required this.address,
+      required this.trackingNumber,
+      required this.productId,
+      required this.paymentMethod,
+      required this.userNameSeller,
+      required this.userNameBuyer,
+      required this.listingPrice,
+      required this.listingStatus,
+      required this.listingName});
 
   factory Payload.fromJson(Map<String, dynamic> json) => Payload(
         address: Address.fromJson(json["address"]),
@@ -52,6 +53,7 @@ class Payload {
         userNameBuyer: json["userNameBuyer"],
         listingPrice: json["listingPrice"],
         listingStatus: json["listingStatus"],
+        listingName: json["listingName"],
       );
 }
 
