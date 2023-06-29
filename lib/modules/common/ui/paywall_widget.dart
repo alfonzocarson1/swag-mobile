@@ -193,21 +193,26 @@ if (!available) {
                  SizedBox(
                   height: MediaQuery.of(context).size.height * 0.03,
                 ),
-               const DiscountContainerWidget(),
+               GestureDetector(
+                onTap:() => _buyProduct(_purchaseableProducts[0]),
+                child: const DiscountContainerWidget()),
                const SizedBox(height: 20),
-               Text(S.of(context).paywall_or_price_month.toUpperCase(),
-               style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                            letterSpacing: 1,
-                            fontWeight: FontWeight.w300,
-                            fontFamily: "KnockoutCustom",
-                            fontSize: 25,
-                            color: Palette.current.primaryNeonGreen),
+               GestureDetector(
+                onTap: () =>  _buyProduct(_purchaseableProducts[1]),
+                 child: Text(S.of(context).paywall_or_price_month.toUpperCase(),
+                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                              letterSpacing: 1,
+                              fontWeight: FontWeight.w300,
+                              fontFamily: "KnockoutCustom",
+                              fontSize: 25,
+                              color: Palette.current.primaryNeonGreen),
+                 ),
                ),
                const SizedBox(height: 35),
                PrimaryButton(
                 title: (widget.hasUsedFreeTrial) ? S.of(context).paywall_sign_up_premium.toUpperCase() :S.of(context).paywall_free_trial.toUpperCase(), 
                 onPressed: (){
-                  _buyProduct(_purchaseableProducts[0]);
+                  _buyProduct(_purchaseableProducts[1]);
                }, 
                type: PrimaryButtonType.green)              
             ],      
