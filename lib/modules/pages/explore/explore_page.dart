@@ -174,7 +174,9 @@ class _ExplorePageState extends State<ExplorePage> with ChannelEventHandler {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       if (this.chatUrl != channels[0].channelUrl) {
         this.chatUrl = channels[0].channelUrl;
-        await context.read<ChatBloc>().updateChatList(channels[0].channelUrl);
+        await context
+            .read<ChatBloc>()
+            .startNewChat(channels[0].channelUrl, true);
       }
     });
     super.onChannelMemberCountChanged(channels);
