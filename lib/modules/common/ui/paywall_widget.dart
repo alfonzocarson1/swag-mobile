@@ -33,12 +33,20 @@ class _PayWallWidgetState extends State<PayWallWidget> {
    @override
   void initState() {
       _subscription = _iap.purchaseStream.listen((purchases) {
+        //completePurchases(purchases);
       _purchases.addAll(purchases);
       _handlePurchaseUpdates(purchases);
+      
     }); 
 
     _getProducts();
     super.initState();
+  }
+
+  completePurchases(List<PurchaseDetails> purchases){
+    purchases.forEach((purchase){
+    _iap.completePurchase(purchase);
+    });
   }
 
   @override
@@ -58,7 +66,6 @@ if (!available) {
     final bool available = await _iap.isAvailable();
     if (!available) {
     print("store not available");
-
     
     }
     Set<String> _kIds = {annualSubscriptionId, monthlySubscriptionId};  
@@ -72,21 +79,25 @@ if (!available) {
   }
 
   void _handlePurchaseUpdates(List<PurchaseDetails> purchases) {
+    
     purchases.forEach((purchase) {
       switch (purchase.status) {
+        
         case PurchaseStatus.pending:
          showPopup();
           break;
         case PurchaseStatus.error:
-          // Handle the error, an error occurred during the purchase.
+          _iap.completePurchase(purchase);
           break;
         case PurchaseStatus.purchased:
         debugPrint('Purchase was successful. Product ID: ${purchase.productID}');
+        // TODO send to backend transactionID
+        //TODO send to backend userID
+         InAppPurchase.instance.completePurchase(purchase);
    if (purchase.pendingCompletePurchase)  {
          _iap.completePurchase(purchase);
-        }
-        widget.removePaywall();
-         
+          widget.removePaywall();
+        }             
          break;
         case PurchaseStatus.restored:
           // Deliver the product in your application, then call
