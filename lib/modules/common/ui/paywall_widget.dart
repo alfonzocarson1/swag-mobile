@@ -11,8 +11,9 @@ import '../../constants/constants.dart';
 import '../utils/palette.dart';
 
 class PayWallWidget extends StatefulWidget {
-  const PayWallWidget({super.key, required this.hasUsedFreeTrial});
+  const PayWallWidget({super.key, required this.hasUsedFreeTrial, required this.removePaywall});
 final bool hasUsedFreeTrial;
+final Function removePaywall;
 
   @override
   State<PayWallWidget> createState() => _PayWallWidgetState();
@@ -80,16 +81,19 @@ if (!available) {
           // Handle the error, an error occurred during the purchase.
           break;
         case PurchaseStatus.purchased:
-        if (purchase.pendingCompletePurchase) {
-    showPopup();
-  }
-          debugPrint(purchase.productID);
+        debugPrint('Purchase was successful. Product ID: ${purchase.productID}');
+   if (purchase.pendingCompletePurchase)  {
+         _iap.completePurchase(purchase);
+        }
+        widget.removePaywall();
+         
          break;
         case PurchaseStatus.restored:
           // Deliver the product in your application, then call
           // completePurchase.
           if (purchase.pendingCompletePurchase) {
             _iap.completePurchase(purchase);
+            widget.removePaywall();
           }
           break;
         case PurchaseStatus.canceled:
@@ -213,6 +217,7 @@ if (!available) {
                 title: (widget.hasUsedFreeTrial) ? S.of(context).paywall_sign_up_premium.toUpperCase() :S.of(context).paywall_free_trial.toUpperCase(), 
                 onPressed: (){
                   _buyProduct(_purchaseableProducts[1]);
+
                }, 
                type: PrimaryButtonType.green)              
             ],      

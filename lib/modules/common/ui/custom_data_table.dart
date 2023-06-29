@@ -66,6 +66,13 @@ class _CustomDataTableState extends State<CustomDataTable> {
     hasActiveSubscription = profileData.hasUsedFreeTrial ?? false;
   }
 
+  removePaywall(){
+    hasActiveSubscription = true;
+    setState(() {
+      
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     debugPrint(MediaQuery.of(context).size.height.toString());
@@ -265,7 +272,7 @@ class _CustomDataTableState extends State<CustomDataTable> {
                                                   .current.primaryNeonGreen)))),
                             ]))
                         .toList()),
-                        (hasActiveSubscription) ? const SizedBox.shrink() :  PayWallWidget(hasUsedFreeTrial: hasActiveSubscription,)
+                        (hasActiveSubscription) ? const SizedBox.shrink() :  PayWallWidget(hasUsedFreeTrial: hasActiveSubscription, removePaywall: removePaywall,)
               ],
             ),
           ),
