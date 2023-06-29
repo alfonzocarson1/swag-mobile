@@ -60,6 +60,16 @@ class S {
     );
   }
 
+  /// `SWAG`
+  String get swag_title {
+    return Intl.message(
+      'SWAG',
+      name: 'swag_title',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `EXPLORE AS GUEST`
   String get explore_as_guest {
     return Intl.message(

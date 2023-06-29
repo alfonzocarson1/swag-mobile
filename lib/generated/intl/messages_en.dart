@@ -528,6 +528,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Subscription"),
         "subtitle_welcome":
             MessageLookupByLibrary.simpleMessage("Let’s create your profile!"),
+        "swag_title": MessageLookupByLibrary.simpleMessage("SWAG"),
         "tab_collection": MessageLookupByLibrary.simpleMessage("COLLECTION"),
         "tab_favorites": MessageLookupByLibrary.simpleMessage("FAVORITES"),
         "tab_listings": MessageLookupByLibrary.simpleMessage("LISTINGS"),
