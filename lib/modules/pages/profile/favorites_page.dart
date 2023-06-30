@@ -47,6 +47,11 @@ class _FavoritesPageState extends State<FavoritesPage> {
     getIt<FavoriteProfileCubit>().loadResults();
   }
 
+  String showForSaleLabel(
+      {required BuildContext context, required int? length}) {
+    return length == 1 ? S.of(context).for_sale : S.of(context).from;
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<FavoriteProfileCubit, FavoriteCubitState>(
@@ -212,7 +217,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                     color: Palette.current.white)),
                         Text(
                             favoriteList[index].forSale
-                                ? '${S.of(context).from}: ${decimalDigitsLastSalePrice(favoriteList[index].saleInfo.minPrice!)}'
+                                ? '${showForSaleLabel(context: context, length: favoriteList[index].numberAvailable)}: ${decimalDigitsLastSalePrice(favoriteList[index].saleInfo.minPrice!)}'
                                 : '${S.of(context).last_sale}: ${decimalDigitsLastSalePrice(favoriteList[index].saleInfo.lastSale!)}',
                             overflow: TextOverflow.fade,
                             style: Theme.of(context)
