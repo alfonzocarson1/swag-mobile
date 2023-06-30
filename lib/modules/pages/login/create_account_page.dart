@@ -92,6 +92,13 @@ class _CreateAccountState extends State<CreateAccountPage> {
   void initState() {
     super.initState();
     _emailNode.addListener(() async {
+      if (_emailBorder == Palette.current.primaryNeonGreen) {
+        final isEmailTaken = await checkIfEmailIsInUse(_emailController.text);
+        setState(() {
+          ismailavailable = !isEmailTaken;
+        });
+      }
+
       setState(() {
         _emailBorder = _emailNode.hasFocus
             ? Palette.current.primaryNeonGreen
@@ -270,9 +277,10 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                     context,
                                     isEmailAvailable: ismailavailable,
                                     onSubmitted: (e) async {
-                                      final x = await checkIfEmailIsInUse(e);
+                                      final isEmailTaken =
+                                          await checkIfEmailIsInUse(e);
                                       setState(() {
-                                        ismailavailable = x;
+                                        ismailavailable = !isEmailTaken;
                                       });
                                     },
                                   );
@@ -282,9 +290,10 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                       context,
                                       isEmailAvailable: ismailavailable,
                                       onSubmitted: (e) async {
-                                        final x = await checkIfEmailIsInUse(e);
+                                        final isEmailTaken =
+                                            await checkIfEmailIsInUse(e);
                                         setState(() {
-                                          ismailavailable = x;
+                                          ismailavailable = !isEmailTaken;
                                         });
                                       },
                                     );
@@ -293,9 +302,10 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                     context,
                                     isEmailAvailable: ismailavailable,
                                     onSubmitted: (e) async {
-                                      final x = await checkIfEmailIsInUse(e);
+                                      final isEmailTaken =
+                                          await checkIfEmailIsInUse(e);
                                       setState(() {
-                                        ismailavailable = x;
+                                        ismailavailable = !isEmailTaken;
                                       });
                                     },
                                   );
@@ -570,15 +580,21 @@ class _CreateAccountState extends State<CreateAccountPage> {
   }
 
   Future<bool> checkIfEmailIsInUse(String email) async {
+    var result = false;
     final APIService apiService = APIService();
-    final response = await apiService.getEndpointData(
-      endpoint: Endpoint.isEmailInUse,
-      method: RequestMethod.get,
-      dynamicParam: email,
-      fromJson: (json) => ForgotPasswordCodeModel.fromJson(json),
-    );
-    var response1 = response as ForgotPasswordCodeModel;
-    return !response1.response!;
+    try {
+      final response = await apiService.getEndpointData(
+        endpoint: Endpoint.isEmailInUse,
+        method: RequestMethod.get,
+        dynamicParam: email,
+        fromJson: (json) => ForgotPasswordCodeModel.fromJson(json),
+      );
+      var response1 = response as ForgotPasswordCodeModel;
+      result = response1.response!;
+    } catch (e) {
+      debugPrint("email checking failed$e");
+    }
+    return result;
   }
 
   CustomTextFormField _getEmailField(BuildContext context,
