@@ -112,6 +112,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
               });
             },
             favorite: favorite,
+            isFromSaleHistory: false,
             urlImage: widget.urlImage,
             catalogItemName: widget.catalogItemName,
             lastSale: widget.lastSale,

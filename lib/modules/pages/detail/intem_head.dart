@@ -35,6 +35,7 @@ class HeadWidget extends StatefulWidget {
       required this.itemId,
       this.profileFavoriteItemId,
       this.saleHistoryNavigation,
+       required this.isFromSaleHistory,
       required this.addFavorite});
 
   final String urlImage;
@@ -44,6 +45,7 @@ class HeadWidget extends StatefulWidget {
   final String? catalogItemDescriptionShort;
   final bool sale;
   final bool favorite;
+  final bool isFromSaleHistory;
   final int? available;
   final List<SalesHistoryModel> saleHistory;
   final String itemId;
@@ -218,6 +220,7 @@ class _HeadWidgetState extends State<HeadWidget> {
                                     fontSize: 30,
                                     color: Palette.current.white)),
                       )),
+                  widget.isFromSaleHistory ?
                   Expanded(
                       flex: 2,
                       child: Align(
@@ -266,7 +269,7 @@ class _HeadWidgetState extends State<HeadWidget> {
                             }
                           },
                         ),
-                      ))
+                      )) : Container()
                 ],
               ),
               const SizedBox(
