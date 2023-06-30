@@ -3,8 +3,6 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:swagapp/modules/models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
 import 'package:swagapp/modules/pages/add/buy/preview_buy_for_sale.dart';
 
 import '../../../generated/l10n.dart';
@@ -77,94 +75,94 @@ class _ListingsPageState extends State<ListingsPage> {
     return listingList.isNotEmpty
         ? RefreshWidget(
             onRefresh: loadList,
-            child: Padding(
+            child: GridView.builder(
               padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
-              child: GridView.builder(
-                physics: const ScrollPhysics(),
-                shrinkWrap: true,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 12.0,
-                  mainAxisSpacing: 12.0,
-                  mainAxisExtent: 215,
-                ),
-                itemCount: listingList.length,
-                itemBuilder: (_, index) {
-                  ListingForSaleModel listItem = listingList[index];
-                  var catalogItemId = listingList[index].catalogItemId;
-                  var imageUrls = listingList[index].productItemImageUrls ?? [];
-                  var productItemName =
-                      listingList[index].productItemName ?? "";
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Stack(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              if (catalogItemId != null) {
-                                Navigator.of(context, rootNavigator: true).push(
-                                    MaterialPageRoute(
-                                        builder: (context) => BuyPreviewPage(
-                                            productItemId:
-                                                listItem.productItemId,
-                                           )));
-                              }
-                            },
-                            child: SizedBox(
-                              height: MediaQuery.of(context).size.width * 0.37,
-                              child: ClipRRect(
-                                child: CachedNetworkImage(
-                                  fit: BoxFit.fitHeight,
-                                  imageUrl: (imageUrls.isNotEmpty)
-                                      ? listingList[index]
-                                          .productItemImageUrls[0]
-                                      : 'assets/images/Avatar.png',
-                                  placeholder: (context, url) => SizedBox(
-                                    height: 200,
-                                    child: Center(
-                                      child: CircularProgressIndicator(
-                                        color: Palette.current.primaryNeonGreen,
-                                        backgroundColor: Colors.white,
-                                      ),
+              physics: const ScrollPhysics(),
+              shrinkWrap: true,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 19.0,
+                mainAxisSpacing: 12.0,
+                mainAxisExtent: 215,
+              ),
+              itemCount: listingList.length,
+              itemBuilder: (_, index) {
+                ListingForSaleModel listItem = listingList[index];
+                var catalogItemId = listingList[index].catalogItemId;
+                var imageUrls = listingList[index].productItemImageUrls ?? [];
+                var productItemName =
+                    listingList[index].productItemName ?? "";
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Stack(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            if (catalogItemId != null) {
+                              Navigator.of(context, rootNavigator: true).push(
+                                  MaterialPageRoute(
+                                      builder: (context) => BuyPreviewPage(
+                                          productItemId:
+                                              listItem.productItemId,
+                                         )));
+                            }
+                          },
+                          child: SizedBox(
+                            height: MediaQuery.of(context).size.width * 0.37,
+                            width: MediaQuery.of(context).size.width *
+                                0.45,
+                            child: ClipRRect(
+                              child: CachedNetworkImage(
+                                fit: BoxFit.cover,
+                                imageUrl: (imageUrls.isNotEmpty)
+                                    ? listingList[index]
+                                        .productItemImageUrls[0]
+                                    : 'assets/images/Avatar.png',
+                                placeholder: (context, url) => SizedBox(
+                                  height: 200,
+                                  child: Center(
+                                    child: CircularProgressIndicator(
+                                      color: Palette.current.primaryNeonGreen,
+                                      backgroundColor: Colors.white,
                                     ),
                                   ),
-                                  errorWidget: (context, url, error) =>
-                                      Image.asset(
-                                          "assets/images/ProfilePhoto.png"),
                                 ),
+                                errorWidget: (context, url, error) =>
+                                    Image.asset(
+                                        "assets/images/ProfilePhoto.png"),
                               ),
                             ),
                           ),
-                        ],
-                      ),
-                      const SizedBox(height: 5),
-                      Text(productItemName.toUpperCase(),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayLarge!
-                              .copyWith(
-                                  letterSpacing: 1,
-                                  fontWeight: FontWeight.w300,
-                                  fontFamily: "KnockoutCustom",
-                                  fontSize: 21,
-                                  color: Palette.current.white)),
-                      Text(
-                          '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(listingList[index].lastSale.toString())}',
-                          overflow: TextOverflow.fade,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(
-                                  fontWeight: FontWeight.w300,
-                                  fontSize: 13,
-                                  color: Palette.current.primaryNeonGreen)),
-                    ],
-                  );
-                },
-              ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 5),
+                    Text(productItemName.toUpperCase(),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayLarge!
+                            .copyWith(
+                                letterSpacing: 1,
+                                fontWeight: FontWeight.w300,
+                                fontFamily: "KnockoutCustom",
+                                fontSize: 21,
+                                color: Palette.current.white)),
+                    Text(
+                        '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(listingList[index].lastSale.toString())}',
+                        overflow: TextOverflow.fade,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodySmall!
+                            .copyWith(
+                                fontWeight: FontWeight.w300,
+                                fontSize: 13,
+                                color: Palette.current.primaryNeonGreen)),
+                  ],
+                );
+              },
             ),
           )
         : ListView.builder(

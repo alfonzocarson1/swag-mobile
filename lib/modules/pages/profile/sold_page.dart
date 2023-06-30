@@ -64,78 +64,76 @@ class _SoldPageState extends State<SoldPage> {
         return Future.delayed(const Duration(milliseconds: 1500));
       },
       child: soldList.isNotEmpty
-          ? Padding(
-              padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
-              child: GridView.builder(
-                shrinkWrap: true,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 12.0,
-                  mainAxisSpacing: 12.0,
-                  mainAxisExtent: 215,
-                ),
-                itemCount: soldList.length,
-                itemBuilder: (_, index) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+          ? GridView.builder(
+            padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+            shrinkWrap: true,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 19.0,
+              mainAxisSpacing: 12.0,
+              mainAxisExtent: 215,
+            ),
+            itemCount: soldList.length,
+            itemBuilder: (_, index) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Stack(
                     children: [
-                      Stack(
-                        children: [
-                          SizedBox(
-                            height: MediaQuery.of(context).size.width * 0.37,
-                            child: ClipRRect(
-                              child: CachedNetworkImage(
-                                fit: BoxFit.fitHeight,
-                                imageUrl: soldList[index].catalogItemImage,
-                                placeholder: (context, url) => SizedBox(
-                                  height: 200,
-                                  child: Center(
-                                    child: CircularProgressIndicator(
-                                      color: Palette.current.primaryNeonGreen,
-                                      backgroundColor: Colors.white,
-                                    ),
-                                  ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.width * 0.37,
+                        child: ClipRRect(
+                          child: CachedNetworkImage(
+                            fit: BoxFit.cover,
+                            imageUrl: soldList[index].catalogItemImage,
+                            placeholder: (context, url) => SizedBox(
+                              height: 200,
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  color: Palette.current.primaryNeonGreen,
+                                  backgroundColor: Colors.white,
                                 ),
-                                errorWidget: (context, url, error) =>
-                                    Image.asset(
-                                        "assets/images/ProfilePhoto.png"),
                               ),
                             ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Text(soldList[index].catalogItemName.toUpperCase(),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayLarge!
-                              .copyWith(
-                                  letterSpacing: 1,
-                                  fontWeight: FontWeight.w300,
-                                  fontFamily: "KnockoutCustom",
-                                  fontSize: 21,
-                                  color: Palette.current.white)),
-                      Text(
-                          soldList[index].forSale
-                              ? '${S.of(context).for_sale} ${soldList[index].saleInfo.minPrice} - ${soldList[index].saleInfo.maxPrice}'
-                              : '${S.of(context).last_sale} ${soldList[index].saleInfo.lastSale}',
-                          overflow: TextOverflow.fade,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(
-                                  fontWeight: FontWeight.w300,
-                                  fontSize: 13,
-                                  color: Palette.current.primaryNeonGreen)),
+                            errorWidget: (context, url, error) =>
+                                Image.asset(
+                                    "assets/images/ProfilePhoto.png"),
+                          ),
+                        ),
+                      )
                     ],
-                  );
-                },
-              ),
-            )
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(soldList[index].catalogItemName.toUpperCase(),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayLarge!
+                          .copyWith(
+                              letterSpacing: 1,
+                              fontWeight: FontWeight.w300,
+                              fontFamily: "KnockoutCustom",
+                              fontSize: 21,
+                              color: Palette.current.white)),
+                  Text(
+                      soldList[index].forSale
+                          ? '${S.of(context).for_sale} ${soldList[index].saleInfo.minPrice} - ${soldList[index].saleInfo.maxPrice}'
+                          : '${S.of(context).last_sale} ${soldList[index].saleInfo.lastSale}',
+                      overflow: TextOverflow.fade,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall!
+                          .copyWith(
+                              fontWeight: FontWeight.w300,
+                              fontSize: 13,
+                              color: Palette.current.primaryNeonGreen)),
+                ],
+              );
+            },
+          )
           : ListView.builder(
               itemBuilder: (_, index) => SizedBox(
                 height: MediaQuery.of(context).size.height * 0.30,
