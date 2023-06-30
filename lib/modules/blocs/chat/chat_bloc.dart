@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,9 @@ import 'package:cached_video_player/cached_video_player.dart';
 import 'package:swagapp/modules/data/chat/ichat_service.dart';
 import 'package:swagapp/modules/services/local_notifications_service.dart';
 import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
+
+import '../../enums/chat_message_data_type.dart';
+import '../../models/profile/profile_model.dart';
 
 part 'chat_event.dart';
 part 'chat_state.dart';
@@ -152,6 +156,15 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
                 channel: newChannel,
               ));
 
+          ChatData chatDataFirst = this.state.chats.firstWhere((ChatData chat) {
+            return chat.channel.channelUrl == value;
+          });
+
+          await this.receiveFirstMessage(
+            chatData: chatDataFirst,
+            message: messages[0],
+          );
+
           this.add(ChatAddChatsEvent(this.state.chats));
         }
 
@@ -249,12 +262,70 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       chats: this.state.chats,
     ));
 
+    ProfileModel userProfile =
+        getIt<PreferenceRepositoryService>().profileData();
+    String userName = userProfile.username;
+
+    String jsonString = message.data ?? '';
+
+    jsonString = jsonString.replaceAll("'", '"');
+
+    String jsonStringWithQuotes = "'$jsonString'";
+
+    jsonStringWithQuotes = jsonString.replaceAll("None", '""');
+
+    Map<String, dynamic> json = jsonDecode(jsonStringWithQuotes);
+
     Member member = chatData.channel.members.firstWhere((Member member) {
       return member.userId != this.state.myUser!.userId;
     });
 
-    String alertMessage = '@${member.nickname} ${message.message}';
-    LocalNotificationsService.showInAppAllert(alertMessage);
+    if (userName == json['payload']['userNameSeller'] &&
+        json['type'] == ChatMessageDataType.confirmPaymentReceived.textValue) {
+      String alertMessage =
+          'Payment made ${json['payload']['listingName']} \nNew message from @Swag';
+      LocalNotificationsService.showInAppAllert(alertMessage);
+    }
+
+    if (userName == json['payload']['userNameBuyer'] &&
+        json['type'] == ChatMessageDataType.paymentReceived.textValue) {
+      String alertMessage =
+          'Payment received ${json['payload']['listingName']} \nNew message from @Swag';
+      LocalNotificationsService.showInAppAllert(alertMessage);
+    }
+
+    if (userName == json['payload']['userNameBuyer'] &&
+        json['type'] == ChatMessageDataType.saleCanceled.textValue) {
+      String alertMessage =
+          'Sale cancelled ${json['payload']['listingName']} \n${json['payload']['userNameSeller']} has cancelled the sale';
+      LocalNotificationsService.showInAppAllert(alertMessage);
+    }
+  }
+
+  Future<void> receiveFirstMessage({
+    required ChatData chatData,
+    required BaseMessage message,
+  }) async {
+    ProfileModel userProfile =
+        getIt<PreferenceRepositoryService>().profileData();
+    String userName = userProfile.username;
+
+    String jsonString = message.data ?? '';
+
+    jsonString = jsonString.replaceAll("'", '"');
+
+    String jsonStringWithQuotes = "'$jsonString'";
+
+    jsonStringWithQuotes = jsonString.replaceAll("None", '""');
+
+    Map<String, dynamic> json = jsonDecode(jsonStringWithQuotes);
+
+    if (userName == json['payload']['userNameBuyer'] &&
+        json['type'] == ChatMessageDataType.message.textValue) {
+      String alertMessage =
+          'Payment details ${json['payload']['listingName']} \nNew message from @Swag';
+      LocalNotificationsService.showInAppAllert(alertMessage);
+    }
   }
 
   Future<void> updateChatReadStatus(ChatData updateChatData) async {
