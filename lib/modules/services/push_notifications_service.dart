@@ -13,43 +13,45 @@ import 'package:swagapp/modules/services/local_notifications_service.dart';
 import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
 
 abstract class PushNotificationsService {
-
   static FirebaseMessaging messaging = FirebaseMessaging.instance;
-  static String?  token;
-  static StreamController<Map<String, dynamic>> _notificationStreamController = StreamController.broadcast();
-  static Stream<Map<String, dynamic>> get notificationStreamController => _notificationStreamController.stream;
+  static String? token;
+  static StreamController<Map<String, dynamic>> _notificationStreamController =
+      StreamController.broadcast();
+  static Stream<Map<String, dynamic>> get notificationStreamController =>
+      _notificationStreamController.stream;
 
   static Future<void> initializeApp() async {
-      
     await Firebase.initializeApp();
     await requestPermissions();
-    token = (Platform.isIOS) 
-    ? await FirebaseMessaging.instance.getAPNSToken()
-    : await FirebaseMessaging.instance.getToken();
-    await getIt<PreferenceRepositoryService>().saveFirebaseDeviceToken(token ?? '');
+    token = (Platform.isIOS)
+        ? await FirebaseMessaging.instance.getAPNSToken()
+        : await FirebaseMessaging.instance.getToken();
+    await getIt<PreferenceRepositoryService>()
+        .saveFirebaseDeviceToken(token ?? '');
 
-    await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-      alert: false, 
-      badge: false,
-      sound: false,
+    await FirebaseMessaging.instance
+        .setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
     );
 
-    FirebaseMessaging.onBackgroundMessage(_onBackgroundHandler);    
-    FirebaseMessaging.onMessage.listen((RemoteMessage message)=> _onMessageHandler(message));
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message)=> _onOpenHandler(message));
+    FirebaseMessaging.onBackgroundMessage(_onBackgroundHandler);
+    FirebaseMessaging.onMessage
+        .listen((RemoteMessage message) => _onMessageHandler(message));
+    FirebaseMessaging.onMessageOpenedApp
+        .listen((RemoteMessage message) => _onOpenHandler(message));
   }
 
   static Future<void> _onBackgroundHandler(RemoteMessage message) async {
-
     _notificationStreamController.add(message.data);
     Map<String, dynamic> messageData = json.decode(message.data['sendbird']);
     SendBirdPushMessage baseMessage = SendBirdPushMessage.fromJson(messageData);
 
-    if(Platform.isAndroid) {
-
+    if (Platform.isAndroid) {
       await LocalNotificationsService.showNotification(
-        title: baseMessage.recipient.name, 
-        body: baseMessage.message, 
+        title: baseMessage.recipient.name,
+        body: baseMessage.message,
         payload: null,
       );
     }
@@ -64,7 +66,6 @@ abstract class PushNotificationsService {
   }
 
   static requestPermissions() async {
-
     await messaging.requestPermission(
       alert: true,
       announcement: false,
@@ -77,34 +78,27 @@ abstract class PushNotificationsService {
   }
 
   static void listenPushNotifications() {
-
-    notificationStreamController.listen((Map<String, dynamic> data) { 
-      
-      if(data['title'].contains(NotificationType.notifyMe.textValue)) {
-
-      }
+    notificationStreamController.listen((Map<String, dynamic> data) {
+      if (data['title'].contains(NotificationType.notifyMe.textValue)) {}
       // else _onSendBirdMessageReceived(data['data']);
     });
   }
 
-  static void _onSendBirdMessageReceived(Map<String, dynamic> data) async{
-
-    BuildContext context = getIt<ContextService>().rootNavigatorKey.currentContext!;
+  static void _onSendBirdMessageReceived(Map<String, dynamic> data) async {
+    BuildContext context =
+        getIt<ContextService>().rootNavigatorKey.currentContext!;
 
     try {
-      
       SendBirdPushPayload payload = SendBirdPushPayload.fromJson(data);
 
       LocalNotificationsService.showInAppAllert(
         '${payload.sender.name} ${payload.message}',
       );
-    } 
-    catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+    } catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
     }
-    
   }
 
-  static closeStreams()=> _notificationStreamController.close();
-
+  static closeStreams() => _notificationStreamController.close();
 }
