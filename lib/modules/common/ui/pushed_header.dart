@@ -47,7 +47,7 @@ class _PushedHeaderState extends State<PushedHeader>
         scrolledUnderElevation: 0.0,
         backgroundColor: widget.backgroundColor ?? Palette.current.primaryNero,
         systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: Palette.current.primaryNero,
+          statusBarColor: Colors.transparent,
           statusBarIconBrightness: Brightness.light, // For Android (dark icons)
           statusBarBrightness: Brightness.dark, // For iOS (dark icons)
         ),
