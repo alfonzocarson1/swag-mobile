@@ -136,8 +136,8 @@ class ShrunkenItemWidget extends StatelessWidget {
           ),
           Text(
               model.catalogItemName.length >= maxCharactersForGridViewTitle
-                  ? '${model.catalogItemName.substring(0, maxCharactersForGridViewTitle)}...'
-                  : model.catalogItemName,
+                  ? '${model.catalogItemName.substring(0, maxCharactersForGridViewTitle)}...'.toUpperCase()
+                  : model.catalogItemName.toUpperCase(),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.displayLarge!.copyWith(
