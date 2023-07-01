@@ -249,6 +249,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                         catalogItemDescriptionShort:
                             dataDetail[index].catalogItemDescriptionShort,
                         sale: dataDetail[index].forSale,
+                        isFromSaleHistory: true,
                         favorite: dataDetail[index].inFavorites,
                         available: dataDetail[index].numberAvailable,
                         saleHistory: saleHistoryList,
