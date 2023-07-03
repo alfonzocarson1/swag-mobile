@@ -143,7 +143,7 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
 
     await initFiltersAndSorts();
     if (!mounted || widget._textEditingController.text.isEmpty) return;
-
+    Navigator.of(context).pop();
     PersistentNavBarNavigator.pushNewScreen(
       context,
       screen: SearchResultPage(searchParam: widget._textEditingController.text),
