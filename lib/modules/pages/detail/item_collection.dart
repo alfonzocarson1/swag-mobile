@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:swagapp/modules/common/ui/paywall_splash_screen.dart';
 import 'package:swagapp/modules/data/detail/i_detail_service.dart';
 import 'package:swagapp/modules/models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
 
@@ -573,28 +574,61 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                             child: PrimaryButton(
                               title: S.of(context).notify_available,
                               onPressed: () {
+                                bool hasActiveSubscription =  profileData?.hasActiveSubscription ?? false;  
                                 if (isLogged &&
                                     notifyAvailabilityFlagBTN &&
                                     buttonEnable &&
-                                    !itemInNotifyList) {
+                                    !itemInNotifyList) {                                                                          
                                   buttonEnable = false;
-                                  setState(() {});
+                                  if (hasActiveSubscription == true){
+                                      setState(() {});
                                   getIt<CatalogDetailCubit>()
                                       .notifyAvailability(widget.catalogId);
                                   showToastMessage(
                                       S.of(context).notify_availability);
+                                  }
+                                  else{
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) => PaywallSplashScreen(
+                                          hasUsedFreeTrial: false, 
+                                          removePaywall: (){},
+                                          )
+                                        ));                                     
+                                  }                                
                                 } else if (isLogged &&
                                     buttonEnable == false &&
                                     !itemInNotifyList) {
-                                  showToastMessage(S
+                                       if (hasActiveSubscription == true){
+                                        showToastMessage(S
                                       .of(context)
                                       .notification_already_requested);
+                                       }else{
+                                        Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) => PaywallSplashScreen(
+                                          hasUsedFreeTrial: false, 
+                                          removePaywall: (){},
+                                          )
+                                        ));  
+                                       }                                  
                                 } else if (!notifyAvailabilityFlagBTN &&
                                     buttonEnable &&
                                     itemInNotifyList) {
-                                  showToastMessage(S
+                                      if(hasActiveSubscription == true){
+                                         showToastMessage(S
                                       .of(context)
                                       .notification_already_requested);
+                                      }
+                                      else{
+                                         Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) => PaywallSplashScreen(
+                                          hasUsedFreeTrial: false, 
+                                          removePaywall: (){},
+                                          )
+                                        ));
+                                      }                                 
                                 } else if (!isLogged) {
                                   Navigator.of(context, rootNavigator: true)
                                       .push(CreateAccountPage.route());

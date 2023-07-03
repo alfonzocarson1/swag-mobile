@@ -3392,6 +3392,96 @@ class S {
       args: [],
     );
   }
+
+  /// `SWAG`
+  String get paywall_splash_title {
+    return Intl.message(
+      'SWAG',
+      name: 'paywall_splash_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `BECOME A MEMBER`
+  String get paywall_splash_subtitle {
+    return Intl.message(
+      'BECOME A MEMBER',
+      name: 'paywall_splash_subtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Swag Premium`
+  String get paywall_splash_premium_subtitle {
+    return Intl.message(
+      'Swag Premium',
+      name: 'paywall_splash_premium_subtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `List items for sale`
+  String get paywall_splash_condition1 {
+    return Intl.message(
+      'List items for sale',
+      name: 'paywall_splash_condition1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Increase odds on hitting drops`
+  String get paywall_splash_condition2 {
+    return Intl.message(
+      'Increase odds on hitting drops',
+      name: 'paywall_splash_condition2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `See product sales history`
+  String get paywall_splash_condition3 {
+    return Intl.message(
+      'See product sales history',
+      name: 'paywall_splash_condition3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Track your collection value`
+  String get paywall_splash_condition4 {
+    return Intl.message(
+      'Track your collection value',
+      name: 'paywall_splash_condition4',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Get notified when items are listed`
+  String get paywall_splash_condition5 {
+    return Intl.message(
+      'Get notified when items are listed',
+      name: 'paywall_splash_condition5',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No thanks`
+  String get paywall_splash_decline {
+    return Intl.message(
+      'No thanks',
+      name: 'paywall_splash_decline',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

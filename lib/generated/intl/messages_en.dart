@@ -375,6 +375,23 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("\$99.99 per year"),
         "paywall_sign_up_premium":
             MessageLookupByLibrary.simpleMessage("Sign up for Premium"),
+        "paywall_splash_condition1":
+            MessageLookupByLibrary.simpleMessage("List items for sale"),
+        "paywall_splash_condition2": MessageLookupByLibrary.simpleMessage(
+            "Increase odds on hitting drops"),
+        "paywall_splash_condition3":
+            MessageLookupByLibrary.simpleMessage("See product sales history"),
+        "paywall_splash_condition4":
+            MessageLookupByLibrary.simpleMessage("Track your collection value"),
+        "paywall_splash_condition5": MessageLookupByLibrary.simpleMessage(
+            "Get notified when items are listed"),
+        "paywall_splash_decline":
+            MessageLookupByLibrary.simpleMessage("No thanks"),
+        "paywall_splash_premium_subtitle":
+            MessageLookupByLibrary.simpleMessage("Swag Premium"),
+        "paywall_splash_subtitle":
+            MessageLookupByLibrary.simpleMessage("BECOME A MEMBER"),
+        "paywall_splash_title": MessageLookupByLibrary.simpleMessage("SWAG"),
         "paywall_title": MessageLookupByLibrary.simpleMessage(
             "Upgrade your subscription to see the full sales history plus much more!"),
         "peer_to_peer_payment_options_sub_title":
