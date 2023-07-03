@@ -556,6 +556,42 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                     Navigator.of(context, rootNavigator: true)
                                         .push(SignInPage.route());
                                   }),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 30),
+                                child: ClickableText(
+                                    title: RichText(
+                                      maxLines: 1,
+                                      softWrap: false,
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.center,
+                                      text: TextSpan(children: [
+                                        TextSpan(
+                                          text: S.of(context).problems_creating_an_account,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                            color: Palette
+                                                .current.white,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: S.of(context).contact_us,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                            fontWeight: FontWeight.w400,
+                                            color: Palette
+                                                .current.primaryWhiteSmoke,
+                                          ),
+                                        ),
+                                      ]),
+                                    ),
+                                    onPressed: () {
+
+                                    }),
+                              )
                             ],
                           ),
                         ),

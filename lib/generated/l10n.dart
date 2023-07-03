@@ -140,6 +140,16 @@ class S {
     );
   }
 
+  /// `Problems creating an account? `
+  String get problems_creating_an_account {
+    return Intl.message(
+      'Problems creating an account? ',
+      name: 'problems_creating_an_account',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Contact us`
   String get contact_us {
     return Intl.message(

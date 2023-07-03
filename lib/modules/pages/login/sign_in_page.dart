@@ -46,9 +46,9 @@ class _SignInPageState extends State<SignInPage> {
   String? emailErrorText;
   String? passwordlErrorText;
 
-  final  _subjectController =
-  TextEditingController(text: 'the Subject');
-  final  _bodyController = TextEditingController(
+  final _subjectController =
+      TextEditingController(text: 'User problem signing into the Swag App');
+  final _bodyController = TextEditingController(
       text: '''  <em>the body has <code>HTML</code></em> <br><br><br>
   <strong>Some Apps like Gmail might ignore it</strong>
   ''');
@@ -58,7 +58,7 @@ class _SignInPageState extends State<SignInPage> {
       final bool canSend = await FlutterMailer.canSendMail();
       if (!canSend) {
         const SnackBar snackbar =
-        SnackBar(content: Text('no Email App Available'));
+            SnackBar(content: Text('no Email App Available'));
         ScaffoldMessenger.of(context).showSnackBar(snackbar);
         return;
       }
@@ -67,10 +67,8 @@ class _SignInPageState extends State<SignInPage> {
     final MailOptions mailOptions = MailOptions(
       body: _bodyController.text,
       subject: _subjectController.text,
-      recipients: <String>['example@example.com'],
+      recipients: <String>['app@swag.golf'],
       isHTML: true,
-      ccRecipients: <String>['third@example.com'],
-
     );
 
     String platformResponse;
@@ -97,9 +95,7 @@ class _SignInPageState extends State<SignInPage> {
     } on PlatformException catch (error) {
       platformResponse = error.toString();
       print(error);
-      if (!mounted) {
-        return;
-      }
+
       await showDialog<void>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
@@ -111,7 +107,7 @@ class _SignInPageState extends State<SignInPage> {
             children: <Widget>[
               Text(
                 'Message',
-                style: Theme.of(context).textTheme.subtitle1,
+                style: Theme.of(context).textTheme.bodyMedium,
               ),
               Text(error.message ?? 'unknown error'),
             ],
@@ -122,9 +118,6 @@ class _SignInPageState extends State<SignInPage> {
       );
     } catch (error) {
       platformResponse = error.toString();
-    }
-    if (!mounted) {
-      return;
     }
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(platformResponse),
@@ -224,177 +217,184 @@ class _SignInPageState extends State<SignInPage> {
                         constraints: BoxConstraints(
                           minHeight: viewportConstraints.maxHeight,
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: SafeArea(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                Image.asset(
-                                  'assets/images/logo.png',
-                                  width: 125,
-                                  height: 51,
-                                ),
-                                const SizedBox(
-                                  height: 30,
-                                ),
-                                BlocBuilder<AuthBloc, AuthState>(
-                                    builder: (context, usernameState) {
-                                  return usernameState.maybeMap(
-                                    orElse: () => Container(),
-                                    error: (error) => Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          S
-                                              .of(context)
-                                              .incorrect_email_or_password,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall!
-                                              .copyWith(
+                        child: IntrinsicHeight(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: SafeArea(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Image.asset(
+                                    'assets/images/logo.png',
+                                    width: 125,
+                                    height: 51,
+                                  ),
+                                  const SizedBox(
+                                    height: 30,
+                                  ),
+                                  BlocBuilder<AuthBloc, AuthState>(
+                                      builder: (context, usernameState) {
+                                    return usernameState.maybeMap(
+                                      orElse: () => Container(),
+                                      error: (error) => Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            S
+                                                .of(context)
+                                                .incorrect_email_or_password,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall!
+                                                .copyWith(
+                                                    color: Palette.current
+                                                        .primaryNeonPink),
+                                          ),
+                                          const SizedBox(
+                                            height: 15,
+                                          )
+                                        ],
+                                      ),
+                                    );
+                                  }),
+                                  CustomTextFormField(
+                                      borderColor: _emailBorder,
+                                      errorText: emailErrorText,
+                                      autofocus: false,
+                                      labelText: S.of(context).email,
+                                      focusNode: _emailNode,
+                                      controller: _emailController,
+                                      inputType: TextInputType.emailAddress),
+                                  const SizedBox(
+                                    height: 16,
+                                  ),
+                                  CustomTextFormField(
+                                      borderColor: _passwordBorder,
+                                      errorText: passwordlErrorText,
+                                      autofocus: false,
+                                      labelText: S.of(context).password,
+                                      focusNode: _passwordNode,
+                                      controller: _passwordController,
+                                      secure: true,
+                                      inputType: TextInputType.text),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  ClickableText(
+                                      title: Text(
+                                        S.of(context).forgot_password,
+                                        textAlign: TextAlign.right,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(
+                                                color: Palette
+                                                    .current.primaryNeonGreen,
+                                                fontWeight: FontWeight.w300),
+                                      ),
+                                      onPressed: () {
+                                        getIt<PreferenceRepositoryService>()
+                                            .saveForgotPasswordFlow(true);
+                                        Navigator.of(context,
+                                                rootNavigator: true)
+                                            .push(ForgotPasswordPage.route());
+                                      }),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  PrimaryButton(
+                                    title: S.of(context).sign_in.toUpperCase(),
+                                    onPressed: () {
+                                      showErrors();
+                                      if (areFieldsValid()) {
+                                        getIt<AuthBloc>().add(
+                                            AuthEvent.authenticate(
+                                                _emailController.text,
+                                                _passwordController.text));
+                                      }
+                                    },
+                                    type: PrimaryButtonType.green,
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  ClickableText(
+                                      title: RichText(
+                                        maxLines: 1,
+                                        softWrap: false,
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.center,
+                                        text: TextSpan(children: [
+                                          TextSpan(
+                                            text:
+                                                S.of(context).dont_have_account,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall!
+                                                .copyWith(
                                                   color: Palette
-                                                      .current.primaryNeonPink),
-                                        ),
-                                        const SizedBox(
-                                          height: 15,
-                                        )
-                                      ],
-                                    ),
-                                  );
-                                }),
-                                CustomTextFormField(
-                                    borderColor: _emailBorder,
-                                    errorText: emailErrorText,
-                                    autofocus: false,
-                                    labelText: S.of(context).email,
-                                    focusNode: _emailNode,
-                                    controller: _emailController,
-                                    inputType: TextInputType.emailAddress),
-                                const SizedBox(
-                                  height: 16,
-                                ),
-                                CustomTextFormField(
-                                    borderColor: _passwordBorder,
-                                    errorText: passwordlErrorText,
-                                    autofocus: false,
-                                    labelText: S.of(context).password,
-                                    focusNode: _passwordNode,
-                                    controller: _passwordController,
-                                    secure: true,
-                                    inputType: TextInputType.text),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                ClickableText(
-                                    title: Text(
-                                      S.of(context).forgot_password,
-                                      textAlign: TextAlign.right,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                              color: Palette
-                                                  .current.primaryNeonGreen,
-                                              fontWeight: FontWeight.w300),
-                                    ),
-                                    onPressed: () {
-                                      getIt<PreferenceRepositoryService>()
-                                          .saveForgotPasswordFlow(true);
-                                      Navigator.of(context, rootNavigator: true)
-                                          .push(ForgotPasswordPage.route());
-                                    }),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                PrimaryButton(
-                                  title: S.of(context).sign_in.toUpperCase(),
-                                  onPressed: () {
-                                    showErrors();
-                                    if (areFieldsValid()) {
-                                      getIt<AuthBloc>().add(
-                                          AuthEvent.authenticate(
-                                              _emailController.text,
-                                              _passwordController.text));
-                                    }
-                                  },
-                                  type: PrimaryButtonType.green,
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                ClickableText(
-                                    title: RichText(
-                                      maxLines: 1,
-                                      softWrap: false,
-                                      overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.center,
-                                      text: TextSpan(children: [
-                                        TextSpan(
-                                          text: S.of(context).dont_have_account,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall!
-                                              .copyWith(
-                                                color: Palette
-                                                    .current.primaryNeonGreen,
-                                              ),
-                                        ),
-                                        TextSpan(
-                                          text: S.of(context).create_account,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall!
-                                              .copyWith(
-                                                fontWeight: FontWeight.w400,
-                                                color: Palette
-                                                    .current.primaryNeonGreen,
-                                              ),
-                                        ),
-                                      ]),
-                                    ),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                      Navigator.of(context, rootNavigator: true)
-                                          .push(CreateAccountPage.route());
-                                    }),
-                                const SizedBox(height: 221,),
-                                ClickableText(
-                                    title: RichText(
-                                      maxLines: 1,
-                                      softWrap: false,
-                                      overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.center,
-                                      text: TextSpan(children: [
-                                        TextSpan(
-                                          text: S.of(context).problems_signing_in,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall!
-                                              .copyWith(
-                                            color: Palette
-                                                .current.primaryWhiteSmoke,
+                                                      .current.primaryNeonGreen,
+                                                ),
                                           ),
-                                        ),
-                                        TextSpan(
-                                          text: S.of(context).contact_us,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall!
-                                              .copyWith(
-                                            fontWeight: FontWeight.w400,
-                                            color: Palette
-                                                .current.primaryWhiteSmoke,
+                                          TextSpan(
+                                            text: S.of(context).create_account,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall!
+                                                .copyWith(
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Palette
+                                                      .current.primaryNeonGreen,
+                                                ),
                                           ),
-                                        ),
-                                      ]),
-                                    ),
-                                    onPressed: () {
-                                      send(context);
-                                    }),
-                              ],
+                                        ]),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                        Navigator.of(context,
+                                                rootNavigator: true)
+                                            .push(CreateAccountPage.route());
+                                      }),
+                                  const Spacer(),
+                                  ClickableText(
+                                      title: RichText(
+                                        maxLines: 1,
+                                        softWrap: false,
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.center,
+                                        text: TextSpan(children: [
+                                          TextSpan(
+                                            text: S
+                                                .of(context)
+                                                .problems_signing_in,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall!
+                                                .copyWith(
+                                                  color: Palette.current
+                                                      .primaryWhiteSmoke,
+                                                ),
+                                          ),
+                                          TextSpan(
+                                            text: S.of(context).contact_us,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall!
+                                                .copyWith(
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Palette.current
+                                                      .primaryWhiteSmoke,
+                                                ),
+                                          ),
+                                        ]),
+                                      ),
+                                      onPressed: () {
+                                        send(context);
+                                      })
+                                ],
+                              ),
                             ),
                           ),
                         ),
