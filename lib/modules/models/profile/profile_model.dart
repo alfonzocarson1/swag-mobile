@@ -22,6 +22,8 @@ class ProfileModel with _$ProfileModel {
     required final bool emailVerified,
     final bool? hasActiveSubscription,
     final bool? hasUsedFreeTrial,
+    final bool? kycverified
+
   }) = _ProfileModel;
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) =>
