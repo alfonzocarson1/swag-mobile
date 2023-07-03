@@ -130,6 +130,26 @@ class S {
     );
   }
 
+  /// `Problems signing in? `
+  String get problems_signing_in {
+    return Intl.message(
+      'Problems signing in? ',
+      name: 'dont_have_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Contact us`
+  String get contact_us {
+    return Intl.message(
+      'Contact us',
+      name: 'contact_us',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Invalid email address format`
   String get invalid_email {
     return Intl.message(

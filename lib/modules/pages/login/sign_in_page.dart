@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_mailer/flutter_mailer.dart';
 import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/common/ui/clickable_text.dart';
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
@@ -41,6 +45,91 @@ class _SignInPageState extends State<SignInPage> {
   Color _passwordBorder = Palette.current.primaryWhiteSmoke;
   String? emailErrorText;
   String? passwordlErrorText;
+
+  final  _subjectController =
+  TextEditingController(text: 'the Subject');
+  final  _bodyController = TextEditingController(
+      text: '''  <em>the body has <code>HTML</code></em> <br><br><br>
+  <strong>Some Apps like Gmail might ignore it</strong>
+  ''');
+
+  Future<void> send(BuildContext context) async {
+    if (Platform.isIOS) {
+      final bool canSend = await FlutterMailer.canSendMail();
+      if (!canSend) {
+        const SnackBar snackbar =
+        SnackBar(content: Text('no Email App Available'));
+        ScaffoldMessenger.of(context).showSnackBar(snackbar);
+        return;
+      }
+    }
+
+    final MailOptions mailOptions = MailOptions(
+      body: _bodyController.text,
+      subject: _subjectController.text,
+      recipients: <String>['example@example.com'],
+      isHTML: true,
+      ccRecipients: <String>['third@example.com'],
+
+    );
+
+    String platformResponse;
+
+    try {
+      final MailerResponse response = await FlutterMailer.send(mailOptions);
+      switch (response) {
+        case MailerResponse.saved:
+          platformResponse = 'mail was saved to draft';
+          break;
+        case MailerResponse.sent:
+          platformResponse = 'mail was sent';
+          break;
+        case MailerResponse.cancelled:
+          platformResponse = 'mail was cancelled';
+          break;
+        case MailerResponse.android:
+          platformResponse = 'intent was success';
+          break;
+        default:
+          platformResponse = 'unknown';
+          break;
+      }
+    } on PlatformException catch (error) {
+      platformResponse = error.toString();
+      print(error);
+      if (!mounted) {
+        return;
+      }
+      await showDialog<void>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+          content: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text(
+                'Message',
+                style: Theme.of(context).textTheme.subtitle1,
+              ),
+              Text(error.message ?? 'unknown error'),
+            ],
+          ),
+          contentPadding: const EdgeInsets.all(26),
+          title: Text(error.code),
+        ),
+      );
+    } catch (error) {
+      platformResponse = error.toString();
+    }
+    if (!mounted) {
+      return;
+    }
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(platformResponse),
+    ));
+  }
 
   @override
   void dispose() {
@@ -270,6 +359,40 @@ class _SignInPageState extends State<SignInPage> {
                                       Navigator.pop(context);
                                       Navigator.of(context, rootNavigator: true)
                                           .push(CreateAccountPage.route());
+                                    }),
+                                const SizedBox(height: 221,),
+                                ClickableText(
+                                    title: RichText(
+                                      maxLines: 1,
+                                      softWrap: false,
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.center,
+                                      text: TextSpan(children: [
+                                        TextSpan(
+                                          text: S.of(context).problems_signing_in,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                            color: Palette
+                                                .current.primaryWhiteSmoke,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: S.of(context).contact_us,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                            fontWeight: FontWeight.w400,
+                                            color: Palette
+                                                .current.primaryWhiteSmoke,
+                                          ),
+                                        ),
+                                      ]),
+                                    ),
+                                    onPressed: () {
+                                      send(context);
                                     }),
                               ],
                             ),
