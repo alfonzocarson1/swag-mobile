@@ -126,28 +126,34 @@ class _AccountPageState extends State<AccountPage> {
                           ),
                         ),
                         //Todo This will be implemented in the future
-                        // selectSettings(
-                        //     context,
-                        //     'assets/icons/KYC_icon.png',
-                        //     S.of(context).kyc_title,
-                        //     profileData.username,
-                        //     () {},
-                        //     Text('Verified',
-                        //         style: Theme.of(context)
-                        //             .textTheme
-                        //             .displayLarge!
-                        //             .copyWith(
-                        //                 fontWeight: FontWeight.w300,
-                        //                 fontSize: 16,
-                        //                 color:
-                        //                     Palette.current.primaryNeonGreen)),
-                        //     null),
-                        // SizedBox(
-                        //   height: 0.2,
-                        //   child: Container(
-                        //     color: Palette.current.grey,
-                        //   ),
-                        // ),
+                        selectSettings(
+                            context,
+                            'assets/icons/KYC_icon.png',
+                            S.of(context).kyc_title,
+                            profileData.kycverified!
+                                ? profileData.username
+                                : '',
+                            () {},
+                            Text(
+                                profileData.kycverified!
+                                    ? 'Verified'
+                                    : 'Unverified',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayLarge!
+                                    .copyWith(
+                                        fontWeight: FontWeight.w300,
+                                        fontSize: 16,
+                                        color: profileData.kycverified!
+                                            ? Palette.current.primaryNeonGreen
+                                            : Palette.current.red)),
+                            null),
+                        SizedBox(
+                          height: 0.2,
+                          child: Container(
+                            color: Palette.current.grey,
+                          ),
+                        ),
                         // selectSettings(
                         //     context,
                         //     'assets/icons/atomic_drop_payments_icon.png',

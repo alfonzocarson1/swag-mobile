@@ -34,6 +34,7 @@ mixin _$ProfileModel {
   bool get emailVerified => throw _privateConstructorUsedError;
   bool? get hasActiveSubscription => throw _privateConstructorUsedError;
   bool? get hasUsedFreeTrial => throw _privateConstructorUsedError;
+  bool? get kycverified => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -60,7 +61,8 @@ abstract class $ProfileModelCopyWith<$Res> {
       bool accountVerified,
       bool emailVerified,
       bool? hasActiveSubscription,
-      bool? hasUsedFreeTrial});
+      bool? hasUsedFreeTrial,
+      bool? kycverified});
 }
 
 /// @nodoc
@@ -89,6 +91,7 @@ class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
     Object? emailVerified = null,
     Object? hasActiveSubscription = freezed,
     Object? hasUsedFreeTrial = freezed,
+    Object? kycverified = freezed,
   }) {
     return _then(_value.copyWith(
       accountId: null == accountId
@@ -143,6 +146,10 @@ class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
           ? _value.hasUsedFreeTrial
           : hasUsedFreeTrial // ignore: cast_nullable_to_non_nullable
               as bool?,
+      kycverified: freezed == kycverified
+          ? _value.kycverified
+          : kycverified // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 }
@@ -168,7 +175,8 @@ abstract class _$$_ProfileModelCopyWith<$Res>
       bool accountVerified,
       bool emailVerified,
       bool? hasActiveSubscription,
-      bool? hasUsedFreeTrial});
+      bool? hasUsedFreeTrial,
+      bool? kycverified});
 }
 
 /// @nodoc
@@ -195,6 +203,7 @@ class __$$_ProfileModelCopyWithImpl<$Res>
     Object? emailVerified = null,
     Object? hasActiveSubscription = freezed,
     Object? hasUsedFreeTrial = freezed,
+    Object? kycverified = freezed,
   }) {
     return _then(_$_ProfileModel(
       accountId: null == accountId
@@ -249,6 +258,10 @@ class __$$_ProfileModelCopyWithImpl<$Res>
           ? _value.hasUsedFreeTrial
           : hasUsedFreeTrial // ignore: cast_nullable_to_non_nullable
               as bool?,
+      kycverified: freezed == kycverified
+          ? _value.kycverified
+          : kycverified // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -270,7 +283,8 @@ class _$_ProfileModel implements _ProfileModel {
       required this.accountVerified,
       required this.emailVerified,
       this.hasActiveSubscription,
-      this.hasUsedFreeTrial})
+      this.hasUsedFreeTrial,
+      this.kycverified})
       : _addresses = addresses;
 
   factory _$_ProfileModel.fromJson(Map<String, dynamic> json) =>
@@ -310,10 +324,12 @@ class _$_ProfileModel implements _ProfileModel {
   final bool? hasActiveSubscription;
   @override
   final bool? hasUsedFreeTrial;
+  @override
+  final bool? kycverified;
 
   @override
   String toString() {
-    return 'ProfileModel(accountId: $accountId, username: $username, useAvatar: $useAvatar, avatarUrl: $avatarUrl, listingsRating: $listingsRating, phoneNumber: $phoneNumber, email: $email, addresses: $addresses, collectionValue: $collectionValue, accountVerified: $accountVerified, emailVerified: $emailVerified, hasActiveSubscription: $hasActiveSubscription, hasUsedFreeTrial: $hasUsedFreeTrial)';
+    return 'ProfileModel(accountId: $accountId, username: $username, useAvatar: $useAvatar, avatarUrl: $avatarUrl, listingsRating: $listingsRating, phoneNumber: $phoneNumber, email: $email, addresses: $addresses, collectionValue: $collectionValue, accountVerified: $accountVerified, emailVerified: $emailVerified, hasActiveSubscription: $hasActiveSubscription, hasUsedFreeTrial: $hasUsedFreeTrial, kycverified: $kycverified)';
   }
 
   @override
@@ -345,7 +361,9 @@ class _$_ProfileModel implements _ProfileModel {
             (identical(other.hasActiveSubscription, hasActiveSubscription) ||
                 other.hasActiveSubscription == hasActiveSubscription) &&
             (identical(other.hasUsedFreeTrial, hasUsedFreeTrial) ||
-                other.hasUsedFreeTrial == hasUsedFreeTrial));
+                other.hasUsedFreeTrial == hasUsedFreeTrial) &&
+            (identical(other.kycverified, kycverified) ||
+                other.kycverified == kycverified));
   }
 
   @JsonKey(ignore: true)
@@ -364,7 +382,8 @@ class _$_ProfileModel implements _ProfileModel {
       accountVerified,
       emailVerified,
       hasActiveSubscription,
-      hasUsedFreeTrial);
+      hasUsedFreeTrial,
+      kycverified);
 
   @JsonKey(ignore: true)
   @override
@@ -394,7 +413,8 @@ abstract class _ProfileModel implements ProfileModel {
       required final bool accountVerified,
       required final bool emailVerified,
       final bool? hasActiveSubscription,
-      final bool? hasUsedFreeTrial}) = _$_ProfileModel;
+      final bool? hasUsedFreeTrial,
+      final bool? kycverified}) = _$_ProfileModel;
 
   factory _ProfileModel.fromJson(Map<String, dynamic> json) =
       _$_ProfileModel.fromJson;
@@ -425,6 +445,8 @@ abstract class _ProfileModel implements ProfileModel {
   bool? get hasActiveSubscription;
   @override
   bool? get hasUsedFreeTrial;
+  @override
+  bool? get kycverified;
   @override
   @JsonKey(ignore: true)
   _$$_ProfileModelCopyWith<_$_ProfileModel> get copyWith =>
