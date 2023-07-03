@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:csc_picker/model/select_status_model.dart';
 import 'package:flutter/material.dart';
@@ -443,3 +444,10 @@ List<dynamic> imagesList = [
         'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/HotDog.png?alt=media&token=ca2732fc-e230-4e85-b892-1bcc018ccc6d'
   },
 ];
+
+
+T getRandomElement<T>(List<T> list) {
+  final random = Random();
+  final randomIndex = random.nextInt(list.length);
+  return list[randomIndex];
+}
