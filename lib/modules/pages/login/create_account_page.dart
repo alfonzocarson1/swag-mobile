@@ -126,7 +126,13 @@ class _CreateAccountState extends State<CreateAccountPage> {
             : Palette.current.primaryWhiteSmoke;
       });
     });
-   _phoneNode.addListener(() {
+    _phoneNode.addListener(() {
+      if (_phoneBorder == Palette.current.primaryNeonGreen) {
+            getIt<AuthCubit>()
+              .loadResultsPhoneAvailable("${currentPhoneNumber!.dialCode}${_phoneController.text}");
+          setPhoneErrorText(isPhoneValid, isPhoneInUse);
+      }
+
       setState(() {
         _phoneBorder = _phoneNode.hasFocus
             ? Palette.current.primaryNeonGreen
@@ -848,6 +854,7 @@ class __PhoneSectionState extends State<_PhoneSection> {
                               color: Palette.current.primaryWhiteSmoke))),
                   onInputChanged: (PhoneNumber nbr) {
                     choseNumber = nbr;
+                    widget.notifyIsPhoneValid(nbr);
                   },
                   onInputValidated: (bool value) {
                     setState(() {
@@ -876,8 +883,15 @@ class __PhoneSectionState extends State<_PhoneSection> {
                   textFieldController: widget.phoneController,
                   formatInput: true,
                   keyboardType: TextInputType.phone,
+                  onSubmit: () {
+                    getIt<AuthCubit>().loadResultsPhoneAvailable(
+                        choseNumber.phoneNumber ?? '');
+                    widget.notifyIsPhoneValid(choseNumber);
+                  },
                   onSaved: (PhoneNumber number) {
-                    print("onSaved");
+                    getIt<AuthCubit>().loadResultsPhoneAvailable(
+                        choseNumber.phoneNumber ?? '');
+                    widget.notifyIsPhoneValid(choseNumber);
                   },
                 ),
               ),
