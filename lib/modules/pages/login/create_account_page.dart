@@ -92,6 +92,13 @@ class _CreateAccountState extends State<CreateAccountPage> {
   void initState() {
     super.initState();
     _emailNode.addListener(() async {
+      if (_emailBorder == Palette.current.primaryNeonGreen) {
+        final isEmailTaken = await checkIfEmailIsInUse(_emailController.text);
+        setState(() {
+          ismailavailable = !isEmailTaken;
+        });
+      }
+
       setState(() {
         _emailBorder = _emailNode.hasFocus
             ? Palette.current.primaryNeonGreen
@@ -119,7 +126,13 @@ class _CreateAccountState extends State<CreateAccountPage> {
             : Palette.current.primaryWhiteSmoke;
       });
     });
-   _phoneNode.addListener(() {
+    _phoneNode.addListener(() {
+      if (_phoneBorder == Palette.current.primaryNeonGreen) {
+            getIt<AuthCubit>()
+              .loadResultsPhoneAvailable("${currentPhoneNumber!.dialCode}${_phoneController.text}");
+          setPhoneErrorText(isPhoneValid, isPhoneInUse);
+      }
+
       setState(() {
         _phoneBorder = _phoneNode.hasFocus
             ? Palette.current.primaryNeonGreen
@@ -270,9 +283,10 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                     context,
                                     isEmailAvailable: ismailavailable,
                                     onSubmitted: (e) async {
-                                      final x = await checkIfEmailIsInUse(e);
+                                      final isEmailTaken =
+                                          await checkIfEmailIsInUse(e);
                                       setState(() {
-                                        ismailavailable = x;
+                                        ismailavailable = !isEmailTaken;
                                       });
                                     },
                                   );
@@ -282,9 +296,10 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                       context,
                                       isEmailAvailable: ismailavailable,
                                       onSubmitted: (e) async {
-                                        final x = await checkIfEmailIsInUse(e);
+                                        final isEmailTaken =
+                                            await checkIfEmailIsInUse(e);
                                         setState(() {
-                                          ismailavailable = x;
+                                          ismailavailable = !isEmailTaken;
                                         });
                                       },
                                     );
@@ -293,9 +308,10 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                     context,
                                     isEmailAvailable: ismailavailable,
                                     onSubmitted: (e) async {
-                                      final x = await checkIfEmailIsInUse(e);
+                                      final isEmailTaken =
+                                          await checkIfEmailIsInUse(e);
                                       setState(() {
-                                        ismailavailable = x;
+                                        ismailavailable = !isEmailTaken;
                                       });
                                     },
                                   );
@@ -570,15 +586,21 @@ class _CreateAccountState extends State<CreateAccountPage> {
   }
 
   Future<bool> checkIfEmailIsInUse(String email) async {
+    var result = false;
     final APIService apiService = APIService();
-    final response = await apiService.getEndpointData(
-      endpoint: Endpoint.isEmailInUse,
-      method: RequestMethod.get,
-      dynamicParam: email,
-      fromJson: (json) => ForgotPasswordCodeModel.fromJson(json),
-    );
-    var response1 = response as ForgotPasswordCodeModel;
-    return !response1.response!;
+    try {
+      final response = await apiService.getEndpointData(
+        endpoint: Endpoint.isEmailInUse,
+        method: RequestMethod.get,
+        dynamicParam: email,
+        fromJson: (json) => ForgotPasswordCodeModel.fromJson(json),
+      );
+      var response1 = response as ForgotPasswordCodeModel;
+      result = response1.response!;
+    } catch (e) {
+      debugPrint("email checking failed$e");
+    }
+    return result;
   }
 
   CustomTextFormField _getEmailField(BuildContext context,
@@ -832,6 +854,7 @@ class __PhoneSectionState extends State<_PhoneSection> {
                               color: Palette.current.primaryWhiteSmoke))),
                   onInputChanged: (PhoneNumber nbr) {
                     choseNumber = nbr;
+                    widget.notifyIsPhoneValid(nbr);
                   },
                   onInputValidated: (bool value) {
                     setState(() {
@@ -860,8 +883,15 @@ class __PhoneSectionState extends State<_PhoneSection> {
                   textFieldController: widget.phoneController,
                   formatInput: true,
                   keyboardType: TextInputType.phone,
+                  onSubmit: () {
+                    getIt<AuthCubit>().loadResultsPhoneAvailable(
+                        choseNumber.phoneNumber ?? '');
+                    widget.notifyIsPhoneValid(choseNumber);
+                  },
                   onSaved: (PhoneNumber number) {
-                    print("onSaved");
+                    getIt<AuthCubit>().loadResultsPhoneAvailable(
+                        choseNumber.phoneNumber ?? '');
+                    widget.notifyIsPhoneValid(choseNumber);
                   },
                 ),
               ),
