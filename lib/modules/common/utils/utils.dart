@@ -17,6 +17,14 @@ import '../../di/injector.dart';
 import '../../models/search/filter_model.dart';
 import '../../models/search/search_request_payload_model.dart';
 
+String dateFormat(String dateStr) {
+  final DateFormat displayFormater = DateFormat('dd/MM/yyyy');
+  final DateFormat serverFormater = DateFormat('MM/dd/yyyy');
+  final DateTime displayDate = displayFormater.parse(dateStr);
+  final String formatted = serverFormater.format(displayDate);
+  return formatted;
+}
+
 bool isValidEmail(String email) {
   return RegExp(
           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
