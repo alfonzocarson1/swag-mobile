@@ -42,7 +42,8 @@ enum Endpoint {
   refreshChatAuth,
   acceptPurchaseRequest,
   cancelPurchaseRequest,
-  updateListingStatus
+  updateListingStatus,
+  purchaseHistory,
 }
 
 class API {
@@ -106,5 +107,6 @@ class API {
     Endpoint.acceptPurchaseRequest: 'api/v1/buyFlow/acceptPurchaseRequest/%s',
     Endpoint.cancelPurchaseRequest: 'api/v1/buyFlow/cancelPurchaseRequest',
     Endpoint.updateListingStatus: 'api/v1/buyFlow/changeStatusListing/chat',
+    Endpoint.purchaseHistory: 'api/v1/profile/settings/purchaseHistory',
   };
 }

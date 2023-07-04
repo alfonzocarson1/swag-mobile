@@ -290,6 +290,8 @@
     "cancel_sale_btn": "CANCEL SALE",
     "seller_buy_message": "has agreed to purchase your",
     
+    "no_purchase_history_yet": "No Purchase History yet",
+    "items_purchased": "{number} Items",
 
     "chatChat": "Chat",
     "chatModeratorName": "SWAG",

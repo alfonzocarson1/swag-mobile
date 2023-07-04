@@ -2850,6 +2850,26 @@ class S {
     );
   }
 
+  /// `No Purchase History yet`
+  String get no_purchase_history_yet {
+    return Intl.message(
+      'No Purchase History yet',
+      name: 'no_purchase_history_yet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{number} Items`
+  String items_purchased(Object number) {
+    return Intl.message(
+      '$number Items',
+      name: 'items_purchased',
+      desc: '',
+      args: [number],
+    );
+  }
+
   /// `Chat`
   String get chatChat {
     return Intl.message(
