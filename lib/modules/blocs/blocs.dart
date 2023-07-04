@@ -19,6 +19,7 @@ import 'package:swagapp/modules/cubits/page_from_explore/page_from_explore_cubit
 import 'package:swagapp/modules/cubits/paginated_search/paginated_search_cubit.dart';
 import 'package:swagapp/modules/cubits/peer_to_peer_payments/peer_to_peer_payments_cubit.dart';
 import 'package:swagapp/modules/cubits/profile/get_profile_cubit.dart';
+import 'package:swagapp/modules/cubits/purchase_history/purchase_history_cubit.dart';
 import 'package:swagapp/modules/cubits/saved_search/saved_searches_cubit.dart';
 import 'package:swagapp/modules/data/chat/chat_service.dart';
 import 'package:swagapp/modules/di/injector.dart';
@@ -67,6 +68,7 @@ abstract class AppBlocs {
     BlocProvider<FavoriteItemBloc>(create: (context) => getIt<FavoriteItemBloc>()),
     BlocProvider<BuySaleListingBloc>(create: (context) => getIt<BuySaleListingBloc>()),
     BlocProvider<SharedPreferencesBloc>(create: (_) => getIt<SharedPreferencesBloc>()),
+    BlocProvider<PurchaseHistoryCubit>(create: (_) => getIt<PurchaseHistoryCubit>()),
   ];
 }
 
