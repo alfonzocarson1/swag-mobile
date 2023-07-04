@@ -1840,6 +1840,16 @@ class S {
     );
   }
 
+  /// `Please select an item to list`
+  String get list_item_popup_please_select {
+    return Intl.message(
+      'Please select an item to list',
+      name: 'list_item_popup_please_select',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `POST LISTING`
   String get post_listing_btn {
     return Intl.message(
