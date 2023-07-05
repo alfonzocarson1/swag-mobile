@@ -47,6 +47,11 @@ class _FavoritesPageState extends State<FavoritesPage> {
     getIt<FavoriteProfileCubit>().loadResults();
   }
 
+  String showForSaleLabel(
+      {required BuildContext context, required int? length}) {
+    return length == 1 ? S.of(context).for_sale : S.of(context).from;
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<FavoriteProfileCubit, FavoriteCubitState>(
@@ -86,148 +91,147 @@ class _FavoritesPageState extends State<FavoritesPage> {
     return favoriteList.isNotEmpty
         ? RefreshWidget(
             onRefresh: loadList,
-            child: GridView.builder(
+            child: Padding(
               padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
-              physics: const ScrollPhysics(),
-              shrinkWrap: true,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 19.0,
-                mainAxisSpacing: 12.0,
-                mainAxisExtent: 215,
-              ),
-              itemCount: favoriteList.length,
-              itemBuilder: (_, index) {
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.of(context, rootNavigator: true).push(
-                        ItemDetailPage.route(
-                            favoriteList[index].catalogItemId,
-                            (val) {},
-                            null));
-                  },
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Stack(
-                        children: [
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width *
-                                0.45,
-                            height: MediaQuery.of(context).size.width *
-                                0.37,
-                            child: ClipRRect(
-                              child: CachedNetworkImage(
-                                fit: BoxFit.cover,
-                                imageUrl:
-                                    favoriteList[index].catalogItemImage,
-                                placeholder: (context, url) => SizedBox(
-                                  height: 200,
-                                  child: Center(
-                                    child: CircularProgressIndicator(
-                                      color: Palette.current.primaryNeonGreen,
-                                      backgroundColor: Colors.white,
+              child: GridView.builder(
+                physics: const ScrollPhysics(),
+                shrinkWrap: true,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 19.0,
+                  mainAxisSpacing: 12.0,
+                  mainAxisExtent: 215,
+                ),
+                itemCount: favoriteList.length,
+                itemBuilder: (_, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.of(context, rootNavigator: true).push(
+                          ItemDetailPage.route(
+                              favoriteList[index].catalogItemId,
+                              (val) {},
+                              null));
+                    },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Stack(
+                          children: [
+                            SizedBox(
+                              height: MediaQuery.of(context).size.width * 0.37,
+                              child: ClipRRect(
+                                child: CachedNetworkImage(
+                                  fit: BoxFit.fitHeight,
+                                  imageUrl:
+                                      favoriteList[index].catalogItemImage,
+                                  placeholder: (context, url) => SizedBox(
+                                    height: 200,
+                                    child: Center(
+                                      child: CircularProgressIndicator(
+                                        color: Palette.current.primaryNeonGreen,
+                                        backgroundColor: Colors.white,
+                                      ),
                                     ),
                                   ),
+                                  errorWidget: (context, url, error) =>
+                                      Image.asset(
+                                          "assets/images/ProfilePhoto.png"),
                                 ),
-                                errorWidget: (context, url, error) =>
-                                    Image.asset(
-                                        "assets/images/ProfilePhoto.png"),
                               ),
                             ),
-                          ),
-                          Positioned(
-                            top: 0,
-                            right: 0,
-                            child: IconButton(
-                              icon: Image.asset(
-                                favoriteList[index].inFavorites
-                                    ? "assets/images/Favorite.png"
-                                    : "assets/images/UnFavorite.png",
-                                scale: 3.5,
+                            Positioned(
+                              top: 0,
+                              right: 0,
+                              child: IconButton(
+                                icon: Image.asset(
+                                  favoriteList[index].inFavorites
+                                      ? "assets/images/Favorite.png"
+                                      : "assets/images/UnFavorite.png",
+                                  scale: 3.5,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    BlocProvider.of<FavoriteItemBloc>(context)
+                                        .add(FavoriteItemEvent
+                                            .removeFavoriteItem(FavoriteModel(
+                                                favoritesItemAction: "DELETE",
+                                                profileFavoriteItems: [
+                                          FavoriteItemModel(
+                                              profileFavoriteItemId:
+                                                  favoriteList[index]
+                                                      .profileFavoriteItemId,
+                                              catalogItemId: favoriteList[index]
+                                                  .catalogItemId)
+                                        ])));
+                                  });
+                                  refreshResults();
+                                },
                               ),
-                              onPressed: () {
-                                setState(() {
-                                  BlocProvider.of<FavoriteItemBloc>(context)
-                                      .add(FavoriteItemEvent
-                                          .removeFavoriteItem(FavoriteModel(
-                                              favoritesItemAction: "DELETE",
-                                              profileFavoriteItems: [
-                                        FavoriteItemModel(
-                                            profileFavoriteItemId:
-                                                favoriteList[index]
-                                                    .profileFavoriteItemId,
-                                            catalogItemId: favoriteList[index]
-                                                .catalogItemId)
-                                      ])));
-                                });
-                                refreshResults();
-                              },
                             ),
-                          ),
-                          Positioned(
-                            bottom: 0,
-                            right: 0,
-                            child: Visibility(
-                                visible: favoriteList[index].forSale,
-                                child: Container(
-                                  height: 30,
-                                  width: MediaQuery.of(context).size.width,
-                                  decoration: BoxDecoration(
-                                    color: Palette.current.primaryNeonPink,
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20),
-                                    child: Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Text(
-                                          '''${favoriteList[index].numberAvailable} ${S.of(context).for_sale}''',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall!
-                                              .copyWith(
-                                                  fontSize: 13,
-                                                  fontWeight: FontWeight.w400,
-                                                  color:
-                                                      Palette.current.white)),
+                            Positioned(
+                              bottom: 0,
+                              right: 0,
+                              child: Visibility(
+                                  visible: favoriteList[index].forSale,
+                                  child: Container(
+                                    height: 30,
+                                    width: MediaQuery.of(context).size.width,
+                                    decoration: BoxDecoration(
+                                      color: Palette.current.primaryNeonPink,
                                     ),
-                                  ),
-                                )),
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Text(favoriteList[index].catalogItemName.toUpperCase(),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayLarge!
-                              .copyWith(
-                                  letterSpacing: 1,
-                                  fontWeight: FontWeight.w300,
-                                  fontFamily: "KnockoutCustom",
-                                  fontSize: 21,
-                                  color: Palette.current.white)),
-                      Text(
-                          favoriteList[index].forSale
-                              ? '${S.of(context).from}: ${decimalDigitsLastSalePrice(favoriteList[index].saleInfo.minPrice!)}'
-                              : '${S.of(context).last_sale}: ${decimalDigitsLastSalePrice(favoriteList[index].saleInfo.lastSale!)}',
-                          overflow: TextOverflow.fade,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(
-                                  fontWeight: FontWeight.w300,
-                                  fontSize: 13,
-                                  color: Palette.current.primaryNeonGreen)),
-                    ],
-                  ),
-                );
-              },
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20),
+                                      child: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Text(
+                                            '''${favoriteList[index].numberAvailable} ${S.of(context).for_sale}''',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall!
+                                                .copyWith(
+                                                    fontSize: 13,
+                                                    fontWeight: FontWeight.w400,
+                                                    color:
+                                                        Palette.current.white)),
+                                      ),
+                                    ),
+                                  )),
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(favoriteList[index].catalogItemName.toUpperCase(),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayLarge!
+                                .copyWith(
+                                    letterSpacing: 1,
+                                    fontWeight: FontWeight.w300,
+                                    fontFamily: "KnockoutCustom",
+                                    fontSize: 21,
+                                    color: Palette.current.white)),
+                        Text(
+                            favoriteList[index].forSale
+                                ? '${showForSaleLabel(context: context, length: favoriteList[index].numberAvailable)}: ${decimalDigitsLastSalePrice(favoriteList[index].saleInfo.minPrice!)}'
+                                : '${S.of(context).last_sale}: ${decimalDigitsLastSalePrice(favoriteList[index].saleInfo.lastSale!)}',
+                            overflow: TextOverflow.fade,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(
+                                    fontWeight: FontWeight.w300,
+                                    fontSize: 13,
+                                    color: Palette.current.primaryNeonGreen)),
+                      ],
+                    ),
+                  );
+                },
+              ),
             ),
           )
         : ListView.builder(
