@@ -3493,20 +3493,30 @@ class S {
     );
   }
 
-  /// `Problems signing in?`
+  /// `User problem signing into the Swag App`
+  String get user_problem_signing_into_the_swag_app {
+    return Intl.message(
+      'User problem signing into the Swag App',
+      name: 'user_problem_signing_into_the_swag_app',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Problems signing in? `
   String get problems_signing_in {
     return Intl.message(
-      'Problems signing in?',
+      'Problems signing in? ',
       name: 'problems_signing_in',
       desc: '',
       args: [],
     );
   }
 
-  /// `Problems creating account?`
+  /// `Problems creating account? `
   String get problems_creating_an_account {
     return Intl.message(
-      'Problems creating account?',
+      'Problems creating account? ',
       name: 'problems_creating_an_account',
       desc: '',
       args: [],

@@ -1,14 +1,13 @@
-import 'dart:io';
+
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_mailer/flutter_mailer.dart';
 import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/common/ui/clickable_text.dart';
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
+import 'package:swagapp/modules/common/utils/send_mail_contact.dart';
 import 'package:swagapp/modules/common/utils/utils.dart';
 
 import 'package:swagapp/modules/pages/login/create_account_page.dart';
@@ -24,6 +23,7 @@ import '../../di/injector.dart';
 
 class SignInPage extends StatefulWidget {
   static const name = '/SignIn';
+
   const SignInPage({Key? key}) : super(key: key);
 
   static Route route() => PageRoutes.material(
@@ -44,76 +44,6 @@ class _SignInPageState extends State<SignInPage> {
   Color _passwordBorder = Palette.current.primaryWhiteSmoke;
   String? emailErrorText;
   String? passwordlErrorText;
-
-  Future<void> send(BuildContext context) async {
-    if (Platform.isIOS) {
-      final bool canSend = await FlutterMailer.canSendMail();
-      if (!canSend) {
-        const SnackBar snackbar =
-            SnackBar(content: Text('No Email App Available'));
-        ScaffoldMessenger.of(context).showSnackBar(snackbar);
-        return;
-      }
-    }
-
-    final MailOptions mailOptions = MailOptions(
-      body: '',
-      subject: S.of(context).user_problem_creating_account_in_the_swag_app,
-      recipients: <String>['app@swag.golf'],
-    );
-
-    String platformResponse;
-
-    try {
-      final MailerResponse response = await FlutterMailer.send(mailOptions);
-      switch (response) {
-        case MailerResponse.saved:
-          platformResponse = 'mail was saved to draft';
-          break;
-        case MailerResponse.sent:
-          platformResponse = 'mail was sent';
-          break;
-        case MailerResponse.cancelled:
-          platformResponse = 'mail was cancelled';
-          break;
-        case MailerResponse.android:
-          platformResponse = 'intent was success';
-          break;
-        default:
-          platformResponse = 'unknown';
-          break;
-      }
-    } on PlatformException catch (error) {
-      platformResponse = error.toString();
-      print(error);
-
-      await showDialog<void>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-          content: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Text(
-                'Message',
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-              Text(error.message ?? 'unknown error'),
-            ],
-          ),
-          contentPadding: const EdgeInsets.all(26),
-          title: Text(error.code),
-        ),
-      );
-    } catch (error) {
-      platformResponse = error.toString();
-    }
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(platformResponse),
-    ));
-  }
 
   @override
   void dispose() {
@@ -382,7 +312,12 @@ class _SignInPageState extends State<SignInPage> {
                                         ]),
                                       ),
                                       onPressed: () {
-                                        send(context);
+                                        SendMailContact.send(
+                                          context: context,
+                                          subject: S
+                                              .of(context)
+                                              .user_problem_creating_account_in_the_swag_app,
+                                        );
                                       })
                                 ],
                               ),

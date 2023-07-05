@@ -440,9 +440,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "privacy_policy_text":
             MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "problems_creating_an_account":
-            MessageLookupByLibrary.simpleMessage("Problems creating account?"),
+            MessageLookupByLibrary.simpleMessage("Problems creating account? "),
         "problems_signing_in":
-            MessageLookupByLibrary.simpleMessage("Problems signing in?"),
+            MessageLookupByLibrary.simpleMessage("Problems signing in? "),
         "profile_sub_title": MessageLookupByLibrary.simpleMessage(
             "Username, email, password, phone"),
         "profile_title": MessageLookupByLibrary.simpleMessage("Profile"),
@@ -574,6 +574,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "user_problem_creating_account_in_the_swag_app":
             MessageLookupByLibrary.simpleMessage(
                 "User problem creating account in the Swag App"),
+        "user_problem_signing_into_the_swag_app":
+            MessageLookupByLibrary.simpleMessage(
+                "User problem signing into the Swag App"),
         "username": MessageLookupByLibrary.simpleMessage("@username"),
         "username_taken":
             MessageLookupByLibrary.simpleMessage("This username is taken "),
