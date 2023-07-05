@@ -90,7 +90,7 @@ class _CollectionPageState extends State<CollectionPage> {
                 shrinkWrap: true,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  crossAxisSpacing: 17.0,
+                  crossAxisSpacing: 19.0,
                   mainAxisSpacing: 12.0,
                   mainAxisExtent: 215,
                 ),

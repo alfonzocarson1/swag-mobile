@@ -50,6 +50,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m9(chatsNumber) => "${chatsNumber} Unread";
 
+  static String m10(number) => "${number} Items";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "See_All": MessageLookupByLibrary.simpleMessage("See All"),
@@ -308,6 +310,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Username must be between 4-20 characters"),
         "ist_item_popup_btn":
             MessageLookupByLibrary.simpleMessage("CREATE LISTING"),
+        "items_purchased": m10,
         "kyc_title": MessageLookupByLibrary.simpleMessage("KYC"),
         "last_name": MessageLookupByLibrary.simpleMessage("Last Name"),
         "last_sale": MessageLookupByLibrary.simpleMessage("LAST SALE"),
@@ -335,6 +338,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "nft_wallet_title": MessageLookupByLibrary.simpleMessage("NFT Wallet"),
         "no_match_password":
             MessageLookupByLibrary.simpleMessage("Password doesn’t match"),
+        "no_purchase_history_yet":
+            MessageLookupByLibrary.simpleMessage("No Purchase History yet"),
         "notification_already_requested": MessageLookupByLibrary.simpleMessage(
             "You have already requested to be notified.  We will notify you when item is listed for sale."),
         "notify_availability": MessageLookupByLibrary.simpleMessage(
@@ -375,6 +380,23 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("\$99.99 per year"),
         "paywall_sign_up_premium":
             MessageLookupByLibrary.simpleMessage("Sign up for Premium"),
+        "paywall_splash_condition1":
+            MessageLookupByLibrary.simpleMessage("List items for sale"),
+        "paywall_splash_condition2": MessageLookupByLibrary.simpleMessage(
+            "Increase odds on hitting drops"),
+        "paywall_splash_condition3":
+            MessageLookupByLibrary.simpleMessage("See product sales history"),
+        "paywall_splash_condition4":
+            MessageLookupByLibrary.simpleMessage("Track your collection value"),
+        "paywall_splash_condition5": MessageLookupByLibrary.simpleMessage(
+            "Get notified when items are listed"),
+        "paywall_splash_decline":
+            MessageLookupByLibrary.simpleMessage("No thanks"),
+        "paywall_splash_premium_subtitle":
+            MessageLookupByLibrary.simpleMessage("Swag Premium"),
+        "paywall_splash_subtitle":
+            MessageLookupByLibrary.simpleMessage("BECOME A MEMBER"),
+        "paywall_splash_title": MessageLookupByLibrary.simpleMessage("SWAG"),
         "paywall_title": MessageLookupByLibrary.simpleMessage(
             "Upgrade your subscription to see the full sales history plus much more!"),
         "peer_to_peer_payment_options_sub_title":

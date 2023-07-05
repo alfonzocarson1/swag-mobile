@@ -290,6 +290,8 @@
     "cancel_sale_btn": "CANCEL SALE",
     "seller_buy_message": "has agreed to purchase your",
     
+    "no_purchase_history_yet": "No Purchase History yet",
+    "items_purchased": "{number} Items",
 
     "chatChat": "Chat",
     "chatModeratorName": "SWAG",
@@ -349,6 +351,16 @@
     "paywall_or_price_month":"OR $9.99 per month",
     "paywall_discount":"SAVE 20%",
     "paywall_free_trial":"GET 30 Days free",
-    "paywall_sign_up_premium": "Sign up for Premium"    
+    "paywall_sign_up_premium": "Sign up for Premium",
+    
+    "paywall_splash_title":"SWAG",
+    "paywall_splash_subtitle":"BECOME A MEMBER",
+    "paywall_splash_premium_subtitle":"Swag Premium",
+    "paywall_splash_condition1":"List items for sale",
+    "paywall_splash_condition2":"Increase odds on hitting drops",
+    "paywall_splash_condition3":"See product sales history",
+    "paywall_splash_condition4":"Track your collection value",
+    "paywall_splash_condition5": "Get notified when items are listed",
+    "paywall_splash_decline":"No thanks"   
 
 }

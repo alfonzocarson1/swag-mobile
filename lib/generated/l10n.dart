@@ -2850,6 +2850,26 @@ class S {
     );
   }
 
+  /// `No Purchase History yet`
+  String get no_purchase_history_yet {
+    return Intl.message(
+      'No Purchase History yet',
+      name: 'no_purchase_history_yet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{number} Items`
+  String items_purchased(Object number) {
+    return Intl.message(
+      '$number Items',
+      name: 'items_purchased',
+      desc: '',
+      args: [number],
+    );
+  }
+
   /// `Chat`
   String get chatChat {
     return Intl.message(
@@ -3388,6 +3408,96 @@ class S {
     return Intl.message(
       'Sign up for Premium',
       name: 'paywall_sign_up_premium',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SWAG`
+  String get paywall_splash_title {
+    return Intl.message(
+      'SWAG',
+      name: 'paywall_splash_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `BECOME A MEMBER`
+  String get paywall_splash_subtitle {
+    return Intl.message(
+      'BECOME A MEMBER',
+      name: 'paywall_splash_subtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Swag Premium`
+  String get paywall_splash_premium_subtitle {
+    return Intl.message(
+      'Swag Premium',
+      name: 'paywall_splash_premium_subtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `List items for sale`
+  String get paywall_splash_condition1 {
+    return Intl.message(
+      'List items for sale',
+      name: 'paywall_splash_condition1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Increase odds on hitting drops`
+  String get paywall_splash_condition2 {
+    return Intl.message(
+      'Increase odds on hitting drops',
+      name: 'paywall_splash_condition2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `See product sales history`
+  String get paywall_splash_condition3 {
+    return Intl.message(
+      'See product sales history',
+      name: 'paywall_splash_condition3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Track your collection value`
+  String get paywall_splash_condition4 {
+    return Intl.message(
+      'Track your collection value',
+      name: 'paywall_splash_condition4',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Get notified when items are listed`
+  String get paywall_splash_condition5 {
+    return Intl.message(
+      'Get notified when items are listed',
+      name: 'paywall_splash_condition5',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No thanks`
+  String get paywall_splash_decline {
+    return Intl.message(
+      'No thanks',
+      name: 'paywall_splash_decline',
       desc: '',
       args: [],
     );

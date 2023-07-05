@@ -98,7 +98,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                 shrinkWrap: true,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  crossAxisSpacing: 12.0,
+                  crossAxisSpacing: 19.0,
                   mainAxisSpacing: 12.0,
                   mainAxisExtent: 215,
                 ),

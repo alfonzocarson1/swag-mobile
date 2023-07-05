@@ -29,11 +29,15 @@ import '../../../models/update_profile/update_profile_payload_model.dart';
 class AddShippingAddressPage extends StatefulWidget {
   static const name = '/AddShippingAddressPage';
 
-  const AddShippingAddressPage({super.key});
+  AddShippingAddressPage({super.key, this.address});
 
-  static Route route() => PageRoutes.material(
+  AddressesPayloadModel? address;
+
+  static Route route(AddressesPayloadModel? address) => PageRoutes.material(
         settings: const RouteSettings(name: name),
-        builder: (context) => const AddShippingAddressPage(),
+        builder: (context) => AddShippingAddressPage(
+          address: address,
+        ),
       );
 
   @override
@@ -76,6 +80,23 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
   List<String> _states = ['State'];
 
   int value = 0;
+
+  populateInitialData() {
+    if (widget.address != null) {
+      final addressesPayloadModel = widget.address;
+      setState(() {
+        _defaultCountry = addressesPayloadModel!.country!;
+        _defaultState = addressesPayloadModel.state!;
+      });
+
+      _countryController.text = addressesPayloadModel!.country!;
+      _firstAddressController.text = addressesPayloadModel.address1!;
+      _secondAddressController.text = addressesPayloadModel.address2!;
+      _cityController.text = addressesPayloadModel.city!;
+      _stateController.text = addressesPayloadModel.state!;
+      _zipController.text = addressesPayloadModel.postalCode!;
+    }
+  }
 
   @override
   void initState() {
@@ -127,7 +148,7 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
       });
     });
     _getStates(_defaultCountry);
-
+    populateInitialData();
     // TODO: implement initState
     super.initState();
   }
@@ -302,12 +323,13 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
                               child: Column(
                                 children: [
                                   CustomTextFormField(
-                                     inputType: TextInputType.text,
-                                        inputFormatters: [
-                                          FilteringTextInputFormatter.allow(
-                                              RegExp(r'[a-zA-Z0-9 ]')),
-                                        ],
-                                     textCapitalization: TextCapitalization.characters,   
+                                    inputType: TextInputType.text,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                          RegExp(r'[a-zA-Z0-9 ]')),
+                                    ],
+                                    textCapitalization:
+                                        TextCapitalization.characters,
                                     borderColor: _zipBorder,
                                     autofocus: false,
                                     errorText: zipErrorText,
@@ -337,14 +359,26 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
                               context.read<UpdateProfileBloc>().add(
                                       UpdateProfileEvent.update(
                                           UpdateProfilePayloadModel(addresses: [
-                                    AddressesPayloadModel(
-                                        addressType: "SHIPPING",
-                                        country: _defaultCountry,
-                                        address1: _firstAddressController.text,
-                                        address2: _secondAddressController.text,
-                                        city: _cityController.text,
-                                        state: _defaultState,
-                                        postalCode: _zipController.text),
+                                    widget.address != null
+                                        ? widget.address!.copyWith(
+                                            country: _defaultCountry,
+                                            address1:
+                                                _firstAddressController.text,
+                                            address2:
+                                                _secondAddressController.text,
+                                            city: _cityController.text,
+                                            state: _defaultState,
+                                            postalCode: _zipController.text)
+                                        : AddressesPayloadModel(
+                                            addressType: "SHIPPING",
+                                            country: _defaultCountry,
+                                            address1:
+                                                _firstAddressController.text,
+                                            address2:
+                                                _secondAddressController.text,
+                                            city: _cityController.text,
+                                            state: _defaultState,
+                                            postalCode: _zipController.text),
                                   ])));
                             }
                           },
@@ -418,7 +452,10 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
           _cityController.text.isNotEmpty ? null : S.of(context).required_field;
 
       stateErrorText =
-          _defaultState != 'State' ? null : S.of(context).required_field;
+          (_defaultCountry == 'United States' && _defaultState != 'State') ||
+                  _defaultCountry != 'United States'
+              ? null
+              : S.of(context).required_field;
 
       zipErrorText =
           _zipController.text.isNotEmpty ? null : S.of(context).required_field;
@@ -426,10 +463,17 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
   }
 
   bool areFieldsValid() {
+    if (_defaultCountry == 'United States') {
+      return _defaultCountry != 'Country' &&
+          _firstAddressController.text.isNotEmpty &&
+          _cityController.text.isNotEmpty &&
+          _defaultState != 'State' &&
+          _zipController.text.isNotEmpty;
+    }
     return _defaultCountry != 'Country' &&
         _firstAddressController.text.isNotEmpty &&
         _cityController.text.isNotEmpty &&
-        _defaultState != 'State' &&
+        _defaultState == 'State' &&
         _zipController.text.isNotEmpty;
   }
 }

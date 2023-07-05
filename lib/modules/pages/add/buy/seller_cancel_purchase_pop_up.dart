@@ -57,6 +57,7 @@ class _SellerCancelPurchasePopUpState extends State<SellerCancelPurchasePopUp> {
               dataCancelPurchaseRequest:
                   (CancelPurchaseResponseModel cancelPurchaseResponse) {
                 Navigator.of(context).pop();
+                Navigator.of(context).pop();
                 getIt<BuyCubit>().getListDetailItem(widget.productItemId ?? '');
                 return null;
               },
