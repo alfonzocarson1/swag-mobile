@@ -7,6 +7,7 @@ import 'package:swagapp/modules/common/utils/palette.dart';
 import '../../../generated/l10n.dart';
 import '../../models/detail/detail_collection_model.dart';
 import '../../pages/add/collection/list_for_sale_page.dart';
+import 'dynamic_toast_messages.dart';
 
 class PopUpListItemSale extends StatefulWidget {
   const PopUpListItemSale(
@@ -27,6 +28,7 @@ class _PopUpListItemSaleState extends State<PopUpListItemSale> {
 
   List _selecteCategorys = [];
   DetailCollectionModel? collectionSelected;
+  bool _showErrorPleaseSelectOne = false;
 
   void _onCollectionSelected(
       bool selected, DetailCollectionModel collectionData) {
@@ -36,6 +38,7 @@ class _PopUpListItemSaleState extends State<PopUpListItemSale> {
         _selecteCategorys.add(collectionData.profileCollectionItemId);
 
         collectionSelected = collectionData;
+        _showErrorPleaseSelectOne = false;
       });
     }
   }
@@ -158,6 +161,24 @@ class _PopUpListItemSaleState extends State<PopUpListItemSale> {
                         )
                       ],
                     ),
+                    AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 300),
+                      child: !_showErrorPleaseSelectOne
+                          ? const SizedBox()
+                          : Text(
+                              S.of(context).list_item_popup_please_select,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(
+                                    fontSize: 14,
+                                    letterSpacing: 0.3,
+                                    fontWeight: FontWeight.w300,
+                                    color: Palette.current.primaryNeonPink,
+                                  ),
+                              textAlign: TextAlign.center,
+                            ),
+                    ),
                     const SizedBox(
                       height: 30,
                     ),
@@ -167,8 +188,12 @@ class _PopUpListItemSaleState extends State<PopUpListItemSale> {
                         if (collectionSelected != null) {
                           Navigator.pop(context);
                           Navigator.of(context, rootNavigator: true).push(
-                              ListForSalePage.route((){},
-                                  collectionSelected, widget.catalogItemName));
+                              ListForSalePage.route(() {}, collectionSelected,
+                                  widget.catalogItemName));
+                        } else {
+                          setState(() {
+                            _showErrorPleaseSelectOne = true;
+                          });
                         }
                       },
                       type: PrimaryButtonType.green,

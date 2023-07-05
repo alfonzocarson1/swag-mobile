@@ -321,6 +321,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("LIST ITEM FOR SALE"),
         "list_item_popup_desc": MessageLookupByLibrary.simpleMessage(
             "Please select the item you would like to list for sale."),
+        "list_item_popup_please_select": MessageLookupByLibrary.simpleMessage(
+            "Please select an item to list"),
         "list_item_popup_title":
             MessageLookupByLibrary.simpleMessage("LIST ITEM"),
         "list_price_input": MessageLookupByLibrary.simpleMessage("List Price"),
