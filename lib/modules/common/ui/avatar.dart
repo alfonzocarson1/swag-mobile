@@ -41,10 +41,10 @@ class _AvatarPageState extends State<AvatarPage> {
         defaultImage = getRandomElement(avatars).url;
       });
     } else if (profileData.useAvatar != 'CUSTOM') {
-      var avatarMoede = avatars
+      var avatarModel = avatars
           .where((avatar) => (avatar.id.contains(profileData.useAvatar))).first;
       setState(() {
-        defaultImage = avatarMoede.url;
+        defaultImage = avatarModel.url;
       });
     } else {
       setState(() {
