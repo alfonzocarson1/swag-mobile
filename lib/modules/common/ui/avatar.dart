@@ -21,7 +21,7 @@ class _AvatarPageState extends State<AvatarPage> {
   ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
 
   String defaultImage = '';
-  var avators = [];
+  var avatars = [];
 
  
 
@@ -33,22 +33,22 @@ class _AvatarPageState extends State<AvatarPage> {
 
   getProfileAvatar() {
     for (var map in imagesList) {
-      avators.add(AvatorModel.fromJson(map));
+      avatars.add(AvatorModel.fromJson(map));
     }
     profileData = getIt<PreferenceRepositoryService>().profileData();
     if (widget.isFirstUse && profileData.useAvatar == 'AVATAR1') {
       setState(() {
-        defaultImage = getRandomElement(avators).url;
+        defaultImage = getRandomElement(avatars).url;
       });
     } else if (profileData.useAvatar != 'CUSTOM') {
-      var vatorMoedl = avators
+      var avatarMoede = avatars
           .where((avatar) => (avatar.id.contains(profileData.useAvatar))).first;
       setState(() {
-        defaultImage = vatorMoedl.url;
+        defaultImage = avatarMoede.url;
       });
     } else {
       setState(() {
-        defaultImage = profileData.avatarUrl ?? getRandomElement(avators).url;
+        defaultImage = profileData.avatarUrl ?? getRandomElement(avatars).url;
       });
     }
   }
