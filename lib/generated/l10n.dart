@@ -130,36 +130,6 @@ class S {
     );
   }
 
-  /// `Problems signing in? `
-  String get problems_signing_in {
-    return Intl.message(
-      'Problems signing in? ',
-      name: 'dont_have_account',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Problems creating an account? `
-  String get problems_creating_an_account {
-    return Intl.message(
-      'Problems creating an account? ',
-      name: 'problems_creating_an_account',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Contact us`
-  String get contact_us {
-    return Intl.message(
-      'Contact us',
-      name: 'contact_us',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Invalid email address format`
   String get invalid_email {
     return Intl.message(
@@ -3508,6 +3478,46 @@ class S {
     return Intl.message(
       'No thanks',
       name: 'paywall_splash_decline',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User problem creating account in the Swag App`
+  String get user_problem_creating_account_in_the_swag_app {
+    return Intl.message(
+      'User problem creating account in the Swag App',
+      name: 'user_problem_creating_account_in_the_swag_app',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Problems signing in?`
+  String get problems_signing_in {
+    return Intl.message(
+      'Problems signing in?',
+      name: 'problems_signing_in',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Problems creating account?`
+  String get problems_creating_an_account {
+    return Intl.message(
+      'Problems creating account?',
+      name: 'problems_creating_an_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Contact us`
+  String get contact_us {
+    return Intl.message(
+      'Contact us',
+      name: 'contact_us',
       desc: '',
       args: [],
     );

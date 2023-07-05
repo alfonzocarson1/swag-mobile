@@ -21,7 +21,6 @@ import '../../common/utils/custom_route_animations.dart';
 import '../../data/secure_storage/storage_repository_service.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
-import '../home/home_page.dart';
 
 class SignInPage extends StatefulWidget {
   static const name = '/SignIn';
@@ -46,29 +45,21 @@ class _SignInPageState extends State<SignInPage> {
   String? emailErrorText;
   String? passwordlErrorText;
 
-  final _subjectController =
-      TextEditingController(text: 'User problem signing into the Swag App');
-  final _bodyController = TextEditingController(
-      text: '''  <em>the body has <code>HTML</code></em> <br><br><br>
-  <strong>Some Apps like Gmail might ignore it</strong>
-  ''');
-
   Future<void> send(BuildContext context) async {
     if (Platform.isIOS) {
       final bool canSend = await FlutterMailer.canSendMail();
       if (!canSend) {
         const SnackBar snackbar =
-            SnackBar(content: Text('no Email App Available'));
+            SnackBar(content: Text('No Email App Available'));
         ScaffoldMessenger.of(context).showSnackBar(snackbar);
         return;
       }
     }
 
     final MailOptions mailOptions = MailOptions(
-      body: _bodyController.text,
-      subject: _subjectController.text,
+      body: '',
+      subject: S.of(context).user_problem_creating_account_in_the_swag_app,
       recipients: <String>['app@swag.golf'],
-      isHTML: true,
     );
 
     String platformResponse;

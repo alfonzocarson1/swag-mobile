@@ -182,6 +182,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "condition": MessageLookupByLibrary.simpleMessage("Condition"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
+        "contact_us": MessageLookupByLibrary.simpleMessage("Contact us"),
         "contact_us_sub_title": MessageLookupByLibrary.simpleMessage(
             "Get in touch with Swag support"),
         "contact_us_title": MessageLookupByLibrary.simpleMessage("Contact Us"),
@@ -438,6 +439,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "cannot enter more than 2 decimal places"),
         "privacy_policy_text":
             MessageLookupByLibrary.simpleMessage("Privacy Policy"),
+        "problems_creating_an_account":
+            MessageLookupByLibrary.simpleMessage("Problems creating account?"),
+        "problems_signing_in":
+            MessageLookupByLibrary.simpleMessage("Problems signing in?"),
         "profile_sub_title": MessageLookupByLibrary.simpleMessage(
             "Username, email, password, phone"),
         "profile_title": MessageLookupByLibrary.simpleMessage("Profile"),
@@ -566,6 +571,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "unicorn_covers":
             MessageLookupByLibrary.simpleMessage("UNICORN COVERS"),
         "unread": MessageLookupByLibrary.simpleMessage("Unread"),
+        "user_problem_creating_account_in_the_swag_app":
+            MessageLookupByLibrary.simpleMessage(
+                "User problem creating account in the Swag App"),
         "username": MessageLookupByLibrary.simpleMessage("@username"),
         "username_taken":
             MessageLookupByLibrary.simpleMessage("This username is taken "),
