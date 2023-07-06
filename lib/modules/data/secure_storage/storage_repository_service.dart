@@ -10,6 +10,10 @@ class StorageRepositoryService implements StorageRepositoryInt {
   static const String _firtsName = 'firstName';
   static const String _lastName = 'lastName';
   static const String _addresses = 'addresses';
+  static const String _city = 'city';
+  static const String _country = 'country';
+  static const String _state = 'state';
+  static const String _zip = 'zip';
 
   late FlutterSecureStorage _storage;
 
@@ -76,15 +80,14 @@ class StorageRepositoryService implements StorageRepositoryInt {
   Future<void> saveAddresses(List<String> addresses) async {
     await _storage.write(key: _addresses, value: jsonEncode(addresses));
   }
-  
+
   @override
   Future<List<String?>> getAddresses() async {
-    try{
+    try {
       final String? addresses = await storage.read(key: _addresses);
       List<dynamic> decodedAddresses = jsonDecode(addresses!);
       return decodedAddresses.cast<String?>();
-    }
-    catch(e){
+    } catch (e) {
       final List<String> emptyList = [];
       return emptyList;
     }
@@ -94,13 +97,12 @@ class StorageRepositoryService implements StorageRepositoryInt {
   Future<void> saveFirstName(String firstName) async {
     await _storage.write(key: _firtsName, value: firstName);
   }
-  
+
   @override
-  Future<String?> getFirstName() async{
-    try{      
+  Future<String?> getFirstName() async {
+    try {
       return await storage.read(key: _firtsName);
-    }
-    catch(e){
+    } catch (e) {
       //TODO: implement error management
       return '';
     }
@@ -110,16 +112,70 @@ class StorageRepositoryService implements StorageRepositoryInt {
   Future<void> saveLastName(String lastName) async {
     await _storage.write(key: _lastName, value: lastName);
   }
-  
+
   @override
   Future<String?> getLastName() async {
-    try{      
+    try {
       return await storage.read(key: _lastName);
-    }
-    catch(e){
+    } catch (e) {
       //TODO: implement error management
       return '';
     }
-  } 
+  }
 
+  @override
+  Future<String?> getCity() async {
+    try {
+      return await storage.read(key: _city);
+    } catch (e) {
+      return '';
+    }
+  }
+
+  @override
+  Future<String?> getCountry() async {
+    try {
+      return await storage.read(key: _country);
+    } catch (e) {
+      return '';
+    }
+  }
+
+  @override
+  Future<void> saveCity(String city) async {
+    await _storage.write(key: _city, value: city);
+  }
+
+  @override
+  Future<void> saveCountry(String country) async {
+    await _storage.write(key: _country, value: country);
+  }
+
+  @override
+  Future<String?> getState() async {
+    try {
+      return await storage.read(key: _state);
+    } catch (e) {
+      return '';
+    }
+  }
+
+  @override
+  Future<String?> getZip() async {
+    try {
+      return await storage.read(key: _zip);
+    } catch (e) {
+      return '';
+    }
+  }
+
+  @override
+  Future<void> saveState(String state) async {
+    await _storage.write(key: _state, value: state);
+  }
+
+  @override
+  Future<void> saveZip(String zip) async {
+    await _storage.write(key: _zip, value: zip);
+  }
 }

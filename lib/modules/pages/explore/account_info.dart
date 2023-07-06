@@ -86,7 +86,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   late ResponsiveDesign _responsiveDesign;
 
   String _defaultCountry = 'United States';
-  String _defaultState = 'State'; 
+  String _defaultState = 'State';
   List<String> _states = ['State'];
   int value = 0;
 
@@ -106,12 +106,10 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
 
   void _getStates(String country) async {
     _states = ['State'];
-    _defaultState ='State';
+    _defaultState = 'State';
     var responseSatate = await getStates(country);
     _states.addAll(responseSatate as Iterable<String>);
-    setState(() {
-  
-    });
+    setState(() {});
   }
 
   @override
@@ -191,7 +189,15 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
     userName = (getIt<PreferenceRepositoryService>().profileData().username);
     firstName = (await getIt<StorageRepositoryService>().getFirstName() ?? '');
     lastName = (await getIt<StorageRepositoryService>().getLastName() ?? '');
+    _defaultCountry =
+        (await getIt<StorageRepositoryService>().getCountry() ?? '');
+    _defaultState = (await getIt<StorageRepositoryService>().getState() ?? '');
+    _cityController.text =
+        (await getIt<StorageRepositoryService>().getCity() ?? '');
+    _zipController.text =
+        (await getIt<StorageRepositoryService>().getZip() ?? '');
     var addresses = (await getIt<StorageRepositoryService>().getAddresses());
+
     if (addresses.isNotEmpty) {
       address1 = addresses[0] ?? '';
       address2 = addresses[1] ?? '';
@@ -217,10 +223,10 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                     return null;
                   },
                   verifyEmailModalClosed: (modalClosed) {
-                      Future.delayed(const Duration(seconds: 1),
-                          (() => showPopUp(username: userName)));
-                      return null;
-                  } ,
+                    Future.delayed(const Duration(seconds: 1),
+                        (() => showPopUp(username: userName)));
+                    return null;
+                  },
                   verificationEmailSent: (verificationSent) {
                     if (verificationSent) {
                       Navigator.of(context).pop();
@@ -246,7 +252,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                     if (emailVerified) {
                       Navigator.of(context).pop();
                       setState(() {
-                       // getStoredInfo();
+                        // getStoredInfo();
                         _firstNameController.text = firstName;
                         _lastNameController.text = lastName;
                         _defaultCountry = _defaultCountry;
@@ -284,9 +290,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                     return null;
                   },
                   initial: () {
-                    
                     return Loading.show(context);
-                    
                   },
                   error: (message) => {
                     updateAllFlow = false,
@@ -295,7 +299,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                   },
                 ),
             child: _getBody()));
-  }  
+  }
 
   GestureDetector _getBody() {
     return GestureDetector(
@@ -384,7 +388,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                   FilteringTextInputFormatter.allow(
                                       RegExp('[a-zA-Z ]')),
                                 ],
-                                    textCapitalization: TextCapitalization.words,
+                                textCapitalization: TextCapitalization.words,
                                 errorText: lastNameErrorText,
                                 borderColor: _lastNameBorder,
                                 autofocus: false,
@@ -396,16 +400,17 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                               height: 20,
                             ),
                             CupertinoPickerView(
-                                          errorText: stateErrorText,
-                                          cupertinoPickerItems: countries,
-                                          cupertinoPickervalue: _defaultCountry,
-                                          onDone: (index) {
-                                            setState(() => value = index);
-                                            _defaultCountry = countries[index];
-                                            _countryController.text = _defaultCountry;
-                                            if(_defaultCountry != defaultCountry) _defaultState = defaultState;
-                                            Navigator.pop(context);
-                                          }),
+                                errorText: stateErrorText,
+                                cupertinoPickerItems: countries,
+                                cupertinoPickervalue: _defaultCountry,
+                                onDone: (index) {
+                                  setState(() => value = index);
+                                  _defaultCountry = countries[index];
+                                  _countryController.text = _defaultCountry;
+                                  if (_defaultCountry != defaultCountry)
+                                    _defaultState = defaultState;
+                                  Navigator.pop(context);
+                                }),
                             const SizedBox(
                               height: 20,
                             ),
@@ -414,7 +419,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                   FilteringTextInputFormatter.allow(
                                       RegExp("^.{0,50}\$")),
                                 ],
-                                    textCapitalization: TextCapitalization.words,
+                                textCapitalization: TextCapitalization.words,
                                 borderColor: _firstAddressBorder,
                                 autofocus: false,
                                 labelText: S.of(context).first_address,
@@ -430,7 +435,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                   FilteringTextInputFormatter.allow(
                                       RegExp("^.{0,50}\$")),
                                 ],
-                                    textCapitalization: TextCapitalization.words,
+                                textCapitalization: TextCapitalization.words,
                                 borderColor: _secondAddressBorder,
                                 autofocus: false,
                                 labelText: S.of(context).second_address,
@@ -445,7 +450,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                   FilteringTextInputFormatter.allow(
                                       RegExp("^.{0,50}\$")),
                                 ],
-                                    textCapitalization: TextCapitalization.words,
+                                textCapitalization: TextCapitalization.words,
                                 borderColor: _cityBorder,
                                 autofocus: false,
                                 errorText: cityErrorText,
@@ -462,28 +467,37 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                   flex: 2,
                                   child: Column(
                                     children: [
-                                      (_defaultCountry == defaultCountry) ? CupertinoPickerView(
-                                        key: const Key('State-Picker'),
-                                          errorText: stateErrorText,
-                                          cupertinoPickerItems: stateCodes,
-                                          cupertinoPickervalue: _defaultState,
-                                          onDone: (index) {
-                                            setState(() => value = index);
-                                            _defaultState = stateCodes[index];
-                                            _stateController.text = _defaultState;
-                                            Navigator.pop(context);
-                                          }) : CupertinoPickerView(
-                                        key: const Key('State-Picker-2'),
-                                          errorText: stateErrorText,
-                                          looping: false,
-                                          cupertinoPickerItems:const ["State"],
-                                          cupertinoPickervalue: _defaultState,
-                                          onDone: (index) {
-                                            setState(() => value = index);
-                                            _defaultState = defaultState;
-                                            _stateController.text= defaultState;
-                                            Navigator.pop(context);
-                                          }),
+                                      (_defaultCountry == defaultCountry)
+                                          ? CupertinoPickerView(
+                                              key: const Key('State-Picker'),
+                                              errorText: stateErrorText,
+                                              cupertinoPickerItems: stateCodes,
+                                              cupertinoPickervalue:
+                                                  _defaultState,
+                                              onDone: (index) {
+                                                setState(() => value = index);
+                                                _defaultState =
+                                                    stateCodes[index];
+                                                _stateController.text =
+                                                    _defaultState;
+                                                Navigator.pop(context);
+                                              })
+                                          : CupertinoPickerView(
+                                              key: const Key('State-Picker-2'),
+                                              errorText: stateErrorText,
+                                              looping: false,
+                                              cupertinoPickerItems: const [
+                                                "State"
+                                              ],
+                                              cupertinoPickervalue:
+                                                  _defaultState,
+                                              onDone: (index) {
+                                                setState(() => value = index);
+                                                _defaultState = defaultState;
+                                                _stateController.text =
+                                                    defaultState;
+                                                Navigator.pop(context);
+                                              }),
                                       Visibility(
                                           visible: stateErrorText != null,
                                           child: Align(
@@ -519,7 +533,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                           FilteringTextInputFormatter.allow(
                                               RegExp(r'[a-zA-Z0-9 ]')),
                                         ],
-                                        textCapitalization: TextCapitalization.characters,
+                                        textCapitalization:
+                                            TextCapitalization.characters,
                                         borderColor: _zipBorder,
                                         autofocus: false,
                                         errorText: zipErrorText,

@@ -80,6 +80,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (response.hasImportableData && addresses!.isNotEmpty) {
         getIt<StorageRepositoryService>().saveFirstName(addresses[0].firstName ?? '');
         getIt<StorageRepositoryService>().saveLastName(addresses[0].lastName ?? '');
+        getIt<StorageRepositoryService>().saveCity(addresses[0].city ?? '');
+        getIt<StorageRepositoryService>().saveCountry(addresses[0].country ?? 'United States');
+        getIt<StorageRepositoryService>().saveState(addresses[0].state ?? '');
+        getIt<StorageRepositoryService>().saveZip(addresses[0].postalCode ?? '');
         getIt<StorageRepositoryService>().saveAddresses([addresses[0].address1 ?? '', addresses[0].address2 ?? '']);
       }
 
