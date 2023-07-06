@@ -22,11 +22,15 @@ class FooterListItemPage extends StatefulWidget {
     this.addList,
     required this.showChatButton,
     required this.productItemId,
+    this.username,
+    this.avatar,
   });
 
   final bool showChatButton;
   final String productItemId;
   final bool? addList;
+  final String? username;
+  final String? avatar;
 
   @override
   State<FooterListItemPage> createState() => _FooterListItemPageState();
@@ -77,10 +81,18 @@ class _FooterListItemPageState extends State<FooterListItemPage> {
                           : NetworkImage('$defaultImage'),
                       radius: 75,
                     )
-                  : Image.asset(
-                      "assets/images/Avatar.png",
-                      scale: 3,
-                    ),
+                  : widget.avatar == null
+                      ? Image.asset(
+                          "assets/images/Avatar.png",
+                          scale: 3,
+                        )
+                      : CircleAvatar(
+                          backgroundColor: Colors.transparent,
+                          backgroundImage:
+                              const AssetImage('assets/images/Avatar.png'),
+                          foregroundImage: NetworkImage(widget.avatar!),
+                          radius: 75,
+                        ),
             ),
           ),
         ),
@@ -96,7 +108,7 @@ class _FooterListItemPageState extends State<FooterListItemPage> {
                   child: Text(
                       widget.addList ?? false
                           ? '@${profileData.username.toUpperCase()}'
-                          : S.of(context).verify_name,
+                          : (widget.username ?? "NULL"),
                       style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           fontWeight: FontWeight.w300,
                           letterSpacing: 0.05,
