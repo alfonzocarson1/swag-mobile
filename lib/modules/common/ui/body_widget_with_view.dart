@@ -88,8 +88,8 @@ class _BodyWidgetWithViewState extends State<BodyWidgetWithView> {
           )
         : Padding(
             padding: const EdgeInsets.only(
-              top: 0, 
-              bottom: 0, 
+              top: 0,
+              bottom: 0,
               left: 16, 
               right: 0,
             ),
@@ -98,8 +98,8 @@ class _BodyWidgetWithViewState extends State<BodyWidgetWithView> {
               shrinkWrap: true,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                crossAxisSpacing: 0.0,
-                mainAxisSpacing: 0.0,
+                crossAxisSpacing: 10.0,
+                mainAxisSpacing: 10.0,
                 mainAxisExtent: 215,
               ),
               itemCount: catalogList.length,
