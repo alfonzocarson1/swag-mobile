@@ -1,13 +1,16 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:swagapp/modules/common/assets/images.dart';
 import 'package:swagapp/modules/common/ui/avatar.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
+import 'package:swagapp/modules/common/ui/simple_loader.dart';
 
 import '../../../generated/l10n.dart';
 import '../../constants/constants.dart';
+import '../../cubits/paywall/paywall_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/profile/profile_model.dart';
@@ -37,99 +40,16 @@ class PaywallSplashScreen extends StatefulWidget {
 
 class _PaywallSplashScreenState extends State<PaywallSplashScreen> {
   ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
-  late StreamSubscription<List<PurchaseDetails>> _subscription;
-  final List<String> _notFoundIds = <String>[];
-  final InAppPurchase _iap = InAppPurchase.instance;
-  List<ProductDetails> _purchaseableProducts = [];
-  final List<PurchaseDetails> _purchases = [];
 
-     @override
+  @override
   void initState() {
-      _subscription = _iap.purchaseStream.listen((purchases) {
-        //completePurchases(purchases);
-      _purchases.addAll(purchases);
-      _handlePurchaseUpdates(purchases);
-      
-    }); 
-    _getProducts();
     super.initState();
-  }
-
-  completePurchases(List<PurchaseDetails> purchases){
-    purchases.forEach((purchase){
-    _iap.completePurchase(purchase);
-    });
   }
 
   @override
   void dispose() {
-    _subscription.cancel();
     super.dispose();
   }
-
-  purchaseStoreStatus() async{
-    final bool available = await InAppPurchase.instance.isAvailable();
-if (!available) {
-    print("store not available");
-}
-  }
-
-  Future<void> _getProducts() async {
-    final bool available = await _iap.isAvailable();
-    if (!available) {
-    print("store not available");
-    
-    }
-    Set<String> _kIds = {annualSubscriptionId, monthlySubscriptionId};  
-    final ProductDetailsResponse response = await _iap.queryProductDetails(_kIds);
-    if (response.notFoundIDs.isNotEmpty) {
-      // Handle the error if any of the products are not found.
-    }
-    setState(() {
-      _purchaseableProducts = response.productDetails;
-    });
-  }
-
-  void _handlePurchaseUpdates(List<PurchaseDetails> purchases) {
-    
-    purchases.forEach((purchase) {
-      switch (purchase.status) {
-        
-        case PurchaseStatus.pending:
-
-          break;
-        case PurchaseStatus.error:
-          _iap.completePurchase(purchase);
-          break;
-        case PurchaseStatus.purchased:
-        debugPrint('Purchase was successful. Product ID: ${purchase.productID}');
-        // TODO send to backend transactionID
-        //TODO send to backend userID
-         InAppPurchase.instance.completePurchase(purchase);
-   if (purchase.pendingCompletePurchase)  {
-         _iap.completePurchase(purchase);
-          widget.removePaywall();
-        }             
-         break;
-        case PurchaseStatus.restored:
-          // Deliver the product in your application, then call
-          // completePurchase.
-          if (purchase.pendingCompletePurchase) {
-            _iap.completePurchase(purchase);
-            widget.removePaywall();
-          }
-          break;
-        case PurchaseStatus.canceled:
-          // TODO: Handle this case.
-          break;
-      }
-    });
-  }
-   void _buyProduct(ProductDetails prod) {
-    final PurchaseParam purchaseParam = PurchaseParam(productDetails: prod);
-    _iap.buyConsumable(purchaseParam: purchaseParam);
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +64,6 @@ if (!available) {
       S.of(context).paywall_splash_condition5,
     ];
 
-  
     return Scaffold(
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
@@ -189,9 +108,9 @@ if (!available) {
                       fontSize: 33,
                       letterSpacing: 1.0,
                       fontWeight: FontWeight.w300,
-                      color: Palette.current.light4)),                 
+                      color: Palette.current.light4)),
               ListView.builder(
-                 padding: EdgeInsets.zero,
+                  padding: EdgeInsets.zero,
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: payWallConditionList.length,
@@ -207,8 +126,8 @@ if (!available) {
                         leading: SizedBox(
                             height: 20,
                             width: 20,
-                            child:
-                                Image.asset('assets/icons/list_green_check.png')),
+                            child: Image.asset(
+                                'assets/icons/list_green_check.png')),
                         title: Text(payWallConditionList[index],
                             style: Theme.of(context)
                                 .textTheme
@@ -223,11 +142,13 @@ if (!available) {
                 height: MediaQuery.of(context).size.height * 0.04,
               ),
               GestureDetector(
-                  onTap: () => _buyProduct(_purchaseableProducts[0]),
+                  onTap: () =>
+                      getIt<PaywallCubit>().startPurchase(annualSubscriptionId),
                   child: const DiscountContainerWidget()),
               const SizedBox(height: 20),
               GestureDetector(
-                onTap: () => _buyProduct(_purchaseableProducts[1]),
+                onTap: () =>
+                    getIt<PaywallCubit>().startPurchase(monthlySubscriptionId),
                 child: Text(
                   S.of(context).paywall_or_price_month.toUpperCase(),
                   style: Theme.of(context).textTheme.displayLarge!.copyWith(
@@ -244,16 +165,36 @@ if (!available) {
                       ? S.of(context).paywall_sign_up_premium.toUpperCase()
                       : S.of(context).paywall_free_trial.toUpperCase(),
                   onPressed: () {
-                    _buyProduct(_purchaseableProducts[1]);
+                    getIt<PaywallCubit>().startPurchase(monthlySubscriptionId);
                   },
                   type: PrimaryButtonType.green),
-                  const SizedBox(height: 35),
-               PrimaryButton(
+              const SizedBox(height: 35),
+              PrimaryButton(
                   title: S.of(context).paywall_splash_decline.toUpperCase(),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
                   type: PrimaryButtonType.grey),
+              BlocListener<PaywallCubit, PaywallCubitState>(
+                listener: (context, state) {
+                  state.maybeWhen(
+                    success: () { 
+                      widget.removePaywall();
+                      Navigator.of(context).pop();
+                      },
+                    orElse: () {},
+                  );
+                },
+                child: BlocBuilder<PaywallCubit, PaywallCubitState>(
+                  builder: (context, state) {
+                    state.maybeWhen(
+                      progress: () => const SimpleLoader(),
+                      orElse: ()=> const SizedBox.shrink(),
+                      );
+                      return Container();
+                  },
+                ),
+              )
             ],
           ),
         ),
