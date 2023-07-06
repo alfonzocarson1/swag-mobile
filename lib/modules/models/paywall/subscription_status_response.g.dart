@@ -11,8 +11,7 @@ _$_PaywallSubscriptionResponse _$$_PaywallSubscriptionResponseFromJson(
     _$_PaywallSubscriptionResponse(
       accountId: json['accountId'] as String,
       profileSubscriptionId: json['profileSubscriptionId'] as String,
-      accountProfileId: json['accountProfileId'] as String,
-      transactionID: json['transactionID'] as String,
+      transactionId: json['transactionId'] as String,
       hasActiveSubscription: json['hasActiveSubscription'] as bool,
       hasUsedFreeTrial: json['hasUsedFreeTrial'] as bool,
       subscriptionDate: json['subscriptionDate'] as String,
@@ -24,8 +23,7 @@ Map<String, dynamic> _$$_PaywallSubscriptionResponseToJson(
     <String, dynamic>{
       'accountId': instance.accountId,
       'profileSubscriptionId': instance.profileSubscriptionId,
-      'accountProfileId': instance.accountProfileId,
-      'transactionID': instance.transactionID,
+      'transactionId': instance.transactionId,
       'hasActiveSubscription': instance.hasActiveSubscription,
       'hasUsedFreeTrial': instance.hasUsedFreeTrial,
       'subscriptionDate': instance.subscriptionDate,

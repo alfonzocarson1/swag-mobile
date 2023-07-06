@@ -23,8 +23,7 @@ PaywallSubscriptionResponse _$PaywallSubscriptionResponseFromJson(
 mixin _$PaywallSubscriptionResponse {
   String get accountId => throw _privateConstructorUsedError;
   String get profileSubscriptionId => throw _privateConstructorUsedError;
-  String get accountProfileId => throw _privateConstructorUsedError;
-  String get transactionID => throw _privateConstructorUsedError;
+  String get transactionId => throw _privateConstructorUsedError;
   bool get hasActiveSubscription => throw _privateConstructorUsedError;
   bool get hasUsedFreeTrial => throw _privateConstructorUsedError;
   String get subscriptionDate => throw _privateConstructorUsedError;
@@ -47,8 +46,7 @@ abstract class $PaywallSubscriptionResponseCopyWith<$Res> {
   $Res call(
       {String accountId,
       String profileSubscriptionId,
-      String accountProfileId,
-      String transactionID,
+      String transactionId,
       bool hasActiveSubscription,
       bool hasUsedFreeTrial,
       String subscriptionDate,
@@ -71,8 +69,7 @@ class _$PaywallSubscriptionResponseCopyWithImpl<$Res,
   $Res call({
     Object? accountId = null,
     Object? profileSubscriptionId = null,
-    Object? accountProfileId = null,
-    Object? transactionID = null,
+    Object? transactionId = null,
     Object? hasActiveSubscription = null,
     Object? hasUsedFreeTrial = null,
     Object? subscriptionDate = null,
@@ -87,13 +84,9 @@ class _$PaywallSubscriptionResponseCopyWithImpl<$Res,
           ? _value.profileSubscriptionId
           : profileSubscriptionId // ignore: cast_nullable_to_non_nullable
               as String,
-      accountProfileId: null == accountProfileId
-          ? _value.accountProfileId
-          : accountProfileId // ignore: cast_nullable_to_non_nullable
-              as String,
-      transactionID: null == transactionID
-          ? _value.transactionID
-          : transactionID // ignore: cast_nullable_to_non_nullable
+      transactionId: null == transactionId
+          ? _value.transactionId
+          : transactionId // ignore: cast_nullable_to_non_nullable
               as String,
       hasActiveSubscription: null == hasActiveSubscription
           ? _value.hasActiveSubscription
@@ -127,8 +120,7 @@ abstract class _$$_PaywallSubscriptionResponseCopyWith<$Res>
   $Res call(
       {String accountId,
       String profileSubscriptionId,
-      String accountProfileId,
-      String transactionID,
+      String transactionId,
       bool hasActiveSubscription,
       bool hasUsedFreeTrial,
       String subscriptionDate,
@@ -150,8 +142,7 @@ class __$$_PaywallSubscriptionResponseCopyWithImpl<$Res>
   $Res call({
     Object? accountId = null,
     Object? profileSubscriptionId = null,
-    Object? accountProfileId = null,
-    Object? transactionID = null,
+    Object? transactionId = null,
     Object? hasActiveSubscription = null,
     Object? hasUsedFreeTrial = null,
     Object? subscriptionDate = null,
@@ -166,13 +157,9 @@ class __$$_PaywallSubscriptionResponseCopyWithImpl<$Res>
           ? _value.profileSubscriptionId
           : profileSubscriptionId // ignore: cast_nullable_to_non_nullable
               as String,
-      accountProfileId: null == accountProfileId
-          ? _value.accountProfileId
-          : accountProfileId // ignore: cast_nullable_to_non_nullable
-              as String,
-      transactionID: null == transactionID
-          ? _value.transactionID
-          : transactionID // ignore: cast_nullable_to_non_nullable
+      transactionId: null == transactionId
+          ? _value.transactionId
+          : transactionId // ignore: cast_nullable_to_non_nullable
               as String,
       hasActiveSubscription: null == hasActiveSubscription
           ? _value.hasActiveSubscription
@@ -201,8 +188,7 @@ class _$_PaywallSubscriptionResponse implements _PaywallSubscriptionResponse {
   const _$_PaywallSubscriptionResponse(
       {required this.accountId,
       required this.profileSubscriptionId,
-      required this.accountProfileId,
-      required this.transactionID,
+      required this.transactionId,
       required this.hasActiveSubscription,
       required this.hasUsedFreeTrial,
       required this.subscriptionDate,
@@ -216,9 +202,7 @@ class _$_PaywallSubscriptionResponse implements _PaywallSubscriptionResponse {
   @override
   final String profileSubscriptionId;
   @override
-  final String accountProfileId;
-  @override
-  final String transactionID;
+  final String transactionId;
   @override
   final bool hasActiveSubscription;
   @override
@@ -230,7 +214,7 @@ class _$_PaywallSubscriptionResponse implements _PaywallSubscriptionResponse {
 
   @override
   String toString() {
-    return 'PaywallSubscriptionResponse(accountId: $accountId, profileSubscriptionId: $profileSubscriptionId, accountProfileId: $accountProfileId, transactionID: $transactionID, hasActiveSubscription: $hasActiveSubscription, hasUsedFreeTrial: $hasUsedFreeTrial, subscriptionDate: $subscriptionDate, isDeleted: $isDeleted)';
+    return 'PaywallSubscriptionResponse(accountId: $accountId, profileSubscriptionId: $profileSubscriptionId, transactionId: $transactionId, hasActiveSubscription: $hasActiveSubscription, hasUsedFreeTrial: $hasUsedFreeTrial, subscriptionDate: $subscriptionDate, isDeleted: $isDeleted)';
   }
 
   @override
@@ -242,10 +226,8 @@ class _$_PaywallSubscriptionResponse implements _PaywallSubscriptionResponse {
                 other.accountId == accountId) &&
             (identical(other.profileSubscriptionId, profileSubscriptionId) ||
                 other.profileSubscriptionId == profileSubscriptionId) &&
-            (identical(other.accountProfileId, accountProfileId) ||
-                other.accountProfileId == accountProfileId) &&
-            (identical(other.transactionID, transactionID) ||
-                other.transactionID == transactionID) &&
+            (identical(other.transactionId, transactionId) ||
+                other.transactionId == transactionId) &&
             (identical(other.hasActiveSubscription, hasActiveSubscription) ||
                 other.hasActiveSubscription == hasActiveSubscription) &&
             (identical(other.hasUsedFreeTrial, hasUsedFreeTrial) ||
@@ -262,8 +244,7 @@ class _$_PaywallSubscriptionResponse implements _PaywallSubscriptionResponse {
       runtimeType,
       accountId,
       profileSubscriptionId,
-      accountProfileId,
-      transactionID,
+      transactionId,
       hasActiveSubscription,
       hasUsedFreeTrial,
       subscriptionDate,
@@ -289,8 +270,7 @@ abstract class _PaywallSubscriptionResponse
   const factory _PaywallSubscriptionResponse(
       {required final String accountId,
       required final String profileSubscriptionId,
-      required final String accountProfileId,
-      required final String transactionID,
+      required final String transactionId,
       required final bool hasActiveSubscription,
       required final bool hasUsedFreeTrial,
       required final String subscriptionDate,
@@ -304,9 +284,7 @@ abstract class _PaywallSubscriptionResponse
   @override
   String get profileSubscriptionId;
   @override
-  String get accountProfileId;
-  @override
-  String get transactionID;
+  String get transactionId;
   @override
   bool get hasActiveSubscription;
   @override

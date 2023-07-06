@@ -9,8 +9,7 @@ class PaywallSubscriptionResponse with _$PaywallSubscriptionResponse {
   const factory PaywallSubscriptionResponse({
     required final String accountId,
     required final String profileSubscriptionId,
-    required final String accountProfileId,
-    required final String transactionID,
+    required final String transactionId,
     required final bool hasActiveSubscription,
     required final bool hasUsedFreeTrial,
     required final String subscriptionDate,
