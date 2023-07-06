@@ -203,8 +203,11 @@ class _CardContentState extends State<_CardContent> {
 
   String getCardTitle() {
     if (this.widget.messageData.type ==
-        ChatMessageDataType.confirmPaymentReceived.textValue) {
+        ChatMessageDataType.confirmPaidSend.textValue) {
       return S.current.chatCardPaymetInformation;
+    } else if (this.widget.messageData.type ==
+        ChatMessageDataType.confirmPaymentReceived.textValue) {
+      return S.current.chatCardPaymetConfirmation;
     } else if (this.widget.messageData.type ==
         ChatMessageDataType.confirmShip.textValue) {
       return S.current.chatCardShippingInformation;
