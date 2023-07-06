@@ -42,6 +42,7 @@ import '../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
 import '../cubits/page_from_explore/page_from_explore_cubit.dart';
 import '../cubits/peer_to_peer_payments/peer_to_peer_payments_cubit.dart';
 import '../cubits/profile/get_profile_cubit.dart';
+import '../cubits/purchase_history_detail/purchase_history_detail_cubit.dart';
 import '../data/auth/auth_service.dart';
 import '../data/buy_for_sale_listing/buy_for_sale_listing_service.dart';
 import '../data/buy_for_sale_listing/i_buy_for_sale_listing_service.dart';
@@ -197,6 +198,8 @@ Future<void> setupAppScope() {
       () => PurchaseHistoryService(APIService()));
   getIt.registerLazySingleton(
       () => PurchaseHistoryCubit(getIt.get()));
+    getIt.registerLazySingleton(
+      () => PurchaseHistoryDetailCubit(getIt.get()));
   
 
   return getIt.allReady();

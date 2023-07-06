@@ -5,6 +5,7 @@ import 'package:swagapp/modules/common/ui/loading.dart';
 import 'package:swagapp/modules/common/utils/custom_route_animations.dart';
 import 'package:swagapp/modules/common/utils/stateful_wrapper.dart';
 import 'package:swagapp/modules/models/purchase_history/purchase_history_model.dart';
+import 'package:swagapp/modules/pages/settings/purchase_history/purchase_history_details/purchase_history_details_page.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../common/ui/pushed_header.dart';
@@ -142,22 +143,26 @@ class _LoadedPurchaseHistory extends StatelessWidget {
     }
     return ListView.builder(
       itemCount: model.purchaseHistory.length,
-      itemBuilder: (context, index) =>
-          _PurchaseHistoryItem(model: model.purchaseHistory[index]),
+      itemBuilder: (context, index) => _PurchaseHistoryItem(
+        model: model.purchaseHistory[index],
+        onTap: (model) => Navigator.of(context, rootNavigator: true)
+            .push(PurchaseHistoryDetailsPage.route(model.purchaseHistoryId!)),
+      ),
     );
   }
 }
 
 class _PurchaseHistoryItem extends StatelessWidget {
   final PurchaseHistoryItemModel model;
-  const _PurchaseHistoryItem({super.key, required this.model});
+  final Function(PurchaseHistoryItemModel model)? onTap;
+  const _PurchaseHistoryItem({super.key, required this.model, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         InkWell(
-          onTap: () {},
+          onTap: () => onTap?.call(model),
           splashColor: Palette.current.primaryNero,
           child: Column(
             children: [

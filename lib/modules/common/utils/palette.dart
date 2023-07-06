@@ -20,6 +20,8 @@ abstract class Palette {
 
   final Color blueNeon;
 
+  final Color neonTeal;
+
   /// Buttons color
   final Color primaryNero;
 
@@ -80,6 +82,7 @@ abstract class Palette {
     required this.chromeYellow,
     required this.primaryNero,
     required this.blueNeon,
+    required this.neonTeal,
     required this.errorColor,
     required this.light1,
     required this.light2,
@@ -98,9 +101,9 @@ abstract class Palette {
     required this.blue,
     required this.red,
     required this.brightness,
-    required this.blackAppbarBlackground,    
+    required this.blackAppbarBlackground,
     required this.blackChatBlackground,
-    required this.greyMessage,  
+    required this.greyMessage,
     required this.greyMessageCard,
     required this.purple,
   });
@@ -111,6 +114,7 @@ abstract class Palette {
 class LightPalette extends Palette {
   LightPalette()
       : super(
+          neonTeal: const Color(0xFF00FFC8),
           blueNeon: const Color(0xFF00FFC8),
           blackSmoke: const Color(0xFF1E1E1E),
           black: const Color(0xFF080808),

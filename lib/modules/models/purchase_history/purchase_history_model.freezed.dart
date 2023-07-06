@@ -392,7 +392,7 @@ PurchaseItemModel _$PurchaseItemModelFromJson(Map<String, dynamic> json) {
 mixin _$PurchaseItemModel {
   String? get purchaseItemTitle => throw _privateConstructorUsedError;
   String? get purchaseItemImage => throw _privateConstructorUsedError;
-  double? get purchaseItemPrice => throw _privateConstructorUsedError;
+  double get purchaseItemPrice => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -409,7 +409,7 @@ abstract class $PurchaseItemModelCopyWith<$Res> {
   $Res call(
       {String? purchaseItemTitle,
       String? purchaseItemImage,
-      double? purchaseItemPrice});
+      double purchaseItemPrice});
 }
 
 /// @nodoc
@@ -427,7 +427,7 @@ class _$PurchaseItemModelCopyWithImpl<$Res, $Val extends PurchaseItemModel>
   $Res call({
     Object? purchaseItemTitle = freezed,
     Object? purchaseItemImage = freezed,
-    Object? purchaseItemPrice = freezed,
+    Object? purchaseItemPrice = null,
   }) {
     return _then(_value.copyWith(
       purchaseItemTitle: freezed == purchaseItemTitle
@@ -438,10 +438,10 @@ class _$PurchaseItemModelCopyWithImpl<$Res, $Val extends PurchaseItemModel>
           ? _value.purchaseItemImage
           : purchaseItemImage // ignore: cast_nullable_to_non_nullable
               as String?,
-      purchaseItemPrice: freezed == purchaseItemPrice
+      purchaseItemPrice: null == purchaseItemPrice
           ? _value.purchaseItemPrice
           : purchaseItemPrice // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as double,
     ) as $Val);
   }
 }
@@ -457,7 +457,7 @@ abstract class _$$_PurchaseItemModelCopyWith<$Res>
   $Res call(
       {String? purchaseItemTitle,
       String? purchaseItemImage,
-      double? purchaseItemPrice});
+      double purchaseItemPrice});
 }
 
 /// @nodoc
@@ -473,7 +473,7 @@ class __$$_PurchaseItemModelCopyWithImpl<$Res>
   $Res call({
     Object? purchaseItemTitle = freezed,
     Object? purchaseItemImage = freezed,
-    Object? purchaseItemPrice = freezed,
+    Object? purchaseItemPrice = null,
   }) {
     return _then(_$_PurchaseItemModel(
       purchaseItemTitle: freezed == purchaseItemTitle
@@ -484,10 +484,10 @@ class __$$_PurchaseItemModelCopyWithImpl<$Res>
           ? _value.purchaseItemImage
           : purchaseItemImage // ignore: cast_nullable_to_non_nullable
               as String?,
-      purchaseItemPrice: freezed == purchaseItemPrice
+      purchaseItemPrice: null == purchaseItemPrice
           ? _value.purchaseItemPrice
           : purchaseItemPrice // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as double,
     ));
   }
 }
@@ -497,7 +497,9 @@ class __$$_PurchaseItemModelCopyWithImpl<$Res>
 @JsonSerializable(includeIfNull: false)
 class _$_PurchaseItemModel implements _PurchaseItemModel {
   const _$_PurchaseItemModel(
-      {this.purchaseItemTitle, this.purchaseItemImage, this.purchaseItemPrice});
+      {this.purchaseItemTitle,
+      this.purchaseItemImage,
+      this.purchaseItemPrice = 0.0});
 
   factory _$_PurchaseItemModel.fromJson(Map<String, dynamic> json) =>
       _$$_PurchaseItemModelFromJson(json);
@@ -507,7 +509,8 @@ class _$_PurchaseItemModel implements _PurchaseItemModel {
   @override
   final String? purchaseItemImage;
   @override
-  final double? purchaseItemPrice;
+  @JsonKey()
+  final double purchaseItemPrice;
 
   @override
   String toString() {
@@ -551,7 +554,7 @@ abstract class _PurchaseItemModel implements PurchaseItemModel {
   const factory _PurchaseItemModel(
       {final String? purchaseItemTitle,
       final String? purchaseItemImage,
-      final double? purchaseItemPrice}) = _$_PurchaseItemModel;
+      final double purchaseItemPrice}) = _$_PurchaseItemModel;
 
   factory _PurchaseItemModel.fromJson(Map<String, dynamic> json) =
       _$_PurchaseItemModel.fromJson;
@@ -561,7 +564,7 @@ abstract class _PurchaseItemModel implements PurchaseItemModel {
   @override
   String? get purchaseItemImage;
   @override
-  double? get purchaseItemPrice;
+  double get purchaseItemPrice;
   @override
   @JsonKey(ignore: true)
   _$$_PurchaseItemModelCopyWith<_$_PurchaseItemModel> get copyWith =>

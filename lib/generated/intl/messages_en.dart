@@ -52,6 +52,14 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m10(number) => "${number} Items";
 
+  static String m11(orderNumber) => "Order number: ${orderNumber}";
+
+  static String m12(totalPrice) => "TOTAL=\$${totalPrice}";
+
+  static String m13(paymentMethod) => "Paid via ${paymentMethod}";
+
+  static String m14(trackingNumber) => "Tracking number:\n${trackingNumber}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "See_All": MessageLookupByLibrary.simpleMessage("See All"),
@@ -448,12 +456,27 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile_sub_title": MessageLookupByLibrary.simpleMessage(
             "Username, email, password, phone"),
         "profile_title": MessageLookupByLibrary.simpleMessage("Profile"),
+        "purchase_history_detail_title":
+            MessageLookupByLibrary.simpleMessage("PURCHASE"),
+        "purchase_item_purchased_from":
+            MessageLookupByLibrary.simpleMessage("Item purchased from"),
+        "purchase_item_shipped":
+            MessageLookupByLibrary.simpleMessage("Item shipped"),
+        "purchase_order_number": m11,
+        "purchase_paid_status": MessageLookupByLibrary.simpleMessage("PAID"),
+        "purchase_payment_card_total": m12,
+        "purchase_payment_card_via": m13,
+        "purchase_pending_shipping":
+            MessageLookupByLibrary.simpleMessage("Pending shipping"),
         "purchase_price":
             MessageLookupByLibrary.simpleMessage("Purchase Price"),
+        "purchase_ship_to": MessageLookupByLibrary.simpleMessage("Ship to:"),
         "purchase_sub_title":
             MessageLookupByLibrary.simpleMessage("Atomic Drops purchases"),
         "purchase_title":
             MessageLookupByLibrary.simpleMessage("Purchase History"),
+        "purchase_total_item": MessageLookupByLibrary.simpleMessage("TOTAL"),
+        "purchase_tracking_number": m14,
         "putters": MessageLookupByLibrary.simpleMessage("Putters"),
         "rarity_score": MessageLookupByLibrary.simpleMessage("RARITY SCORE"),
         "razon_remove_btn": MessageLookupByLibrary.simpleMessage("SUBMIT"),

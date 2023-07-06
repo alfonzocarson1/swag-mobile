@@ -61,7 +61,7 @@ _$_PurchaseItemModel _$$_PurchaseItemModelFromJson(Map<String, dynamic> json) =>
     _$_PurchaseItemModel(
       purchaseItemTitle: json['purchaseItemTitle'] as String?,
       purchaseItemImage: json['purchaseItemImage'] as String?,
-      purchaseItemPrice: (json['purchaseItemPrice'] as num?)?.toDouble(),
+      purchaseItemPrice: (json['purchaseItemPrice'] as num?)?.toDouble() ?? 0.0,
     );
 
 Map<String, dynamic> _$$_PurchaseItemModelToJson(
@@ -76,6 +76,6 @@ Map<String, dynamic> _$$_PurchaseItemModelToJson(
 
   writeNotNull('purchaseItemTitle', instance.purchaseItemTitle);
   writeNotNull('purchaseItemImage', instance.purchaseItemImage);
-  writeNotNull('purchaseItemPrice', instance.purchaseItemPrice);
+  val['purchaseItemPrice'] = instance.purchaseItemPrice;
   return val;
 }

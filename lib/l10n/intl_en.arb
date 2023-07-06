@@ -293,6 +293,17 @@
     
     "no_purchase_history_yet": "No Purchase History yet",
     "items_purchased": "{number} Items",
+    "purchase_history_detail_title": "PURCHASE",
+    "purchase_order_number": "Order number: {orderNumber}",
+    "purchase_total_item": "TOTAL",
+    "purchase_payment_card_total": "TOTAL=${totalPrice}",
+    "purchase_payment_card_via": "Paid via {paymentMethod}",
+    "purchase_ship_to": "Ship to:",
+    "purchase_tracking_number": "Tracking number:\n{trackingNumber}",
+    "purchase_pending_shipping": "Pending shipping",
+    "purchase_item_shipped": "Item shipped",
+    "purchase_item_purchased_from": "Item purchased from",
+    "purchase_paid_status": "PAID",
 
     "chatChat": "Chat",
     "chatModeratorName": "SWAG",

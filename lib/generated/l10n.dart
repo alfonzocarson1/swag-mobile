@@ -2880,6 +2880,116 @@ class S {
     );
   }
 
+  /// `PURCHASE`
+  String get purchase_history_detail_title {
+    return Intl.message(
+      'PURCHASE',
+      name: 'purchase_history_detail_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order number: {orderNumber}`
+  String purchase_order_number(Object orderNumber) {
+    return Intl.message(
+      'Order number: $orderNumber',
+      name: 'purchase_order_number',
+      desc: '',
+      args: [orderNumber],
+    );
+  }
+
+  /// `TOTAL`
+  String get purchase_total_item {
+    return Intl.message(
+      'TOTAL',
+      name: 'purchase_total_item',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `TOTAL=${totalPrice}`
+  String purchase_payment_card_total(Object totalPrice) {
+    return Intl.message(
+      'TOTAL=\$$totalPrice',
+      name: 'purchase_payment_card_total',
+      desc: '',
+      args: [totalPrice],
+    );
+  }
+
+  /// `Paid via {paymentMethod}`
+  String purchase_payment_card_via(Object paymentMethod) {
+    return Intl.message(
+      'Paid via $paymentMethod',
+      name: 'purchase_payment_card_via',
+      desc: '',
+      args: [paymentMethod],
+    );
+  }
+
+  /// `Ship to:`
+  String get purchase_ship_to {
+    return Intl.message(
+      'Ship to:',
+      name: 'purchase_ship_to',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tracking number:\n{trackingNumber}`
+  String purchase_tracking_number(Object trackingNumber) {
+    return Intl.message(
+      'Tracking number:\n$trackingNumber',
+      name: 'purchase_tracking_number',
+      desc: '',
+      args: [trackingNumber],
+    );
+  }
+
+  /// `Pending shipping`
+  String get purchase_pending_shipping {
+    return Intl.message(
+      'Pending shipping',
+      name: 'purchase_pending_shipping',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Item shipped`
+  String get purchase_item_shipped {
+    return Intl.message(
+      'Item shipped',
+      name: 'purchase_item_shipped',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Item purchased from`
+  String get purchase_item_purchased_from {
+    return Intl.message(
+      'Item purchased from',
+      name: 'purchase_item_purchased_from',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `PAID`
+  String get purchase_paid_status {
+    return Intl.message(
+      'PAID',
+      name: 'purchase_paid_status',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Chat`
   String get chatChat {
     return Intl.message(
