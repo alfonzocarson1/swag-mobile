@@ -6,8 +6,10 @@ import '../../../generated/l10n.dart';
 import '../../common/ui/pushed_header.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
+import '../../common/utils/send_mail_contact.dart';
 import '../../cubits/peer_to_peer_payments/peer_to_peer_payments_cubit.dart';
 import '../../di/injector.dart';
+import '../../models/profile/profile_model.dart';
 import 'account/account_page.dart';
 import 'shared_widgetds.dart';
 
@@ -16,8 +18,8 @@ class SettingsPage extends StatefulWidget {
 
   const SettingsPage({super.key});
 
-  static Route route() => PageRoutes.material(
-        settings: const RouteSettings(name: name),
+  static Route route(ProfileModel profile) => PageRoutes.material(
+        settings: RouteSettings(name: name, arguments: profile),
         builder: (context) => const SettingsPage(),
       );
 
@@ -36,6 +38,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final profile = ModalRoute.of(context)?.settings.arguments as ProfileModel;
     return Scaffold(
       appBar: PushedHeader(
         showBackButton: true,
@@ -149,8 +152,16 @@ class _SettingsPageState extends State<SettingsPage> {
                         _selectSettings(
                             'assets/icons/contact_us_icon.png',
                             S.of(context).contact_us_title,
-                            S.of(context).contact_us_sub_title,
-                            () {}),
+                            S.of(context).contact_us_sub_title, () {
+                          SendMailContact.send(
+                            context: context,
+                            subject:
+                                '${S.of(context).swag_app_support_request} ${profile.username}',
+                            body: 'Requester username: ${profile.username}\n'
+                              'Requester account ID: ${profile.accountId}\n'
+                          'Requester email: ${profile.accountVerified}',
+                          );
+                        }),
                         SizedBox(
                           height: 0.2,
                           child: Container(

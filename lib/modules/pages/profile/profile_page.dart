@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:swagapp/modules/pages/chats/chats_page.dart';
 import 'package:swagapp/modules/pages/profile/sold_page.dart';
 
@@ -62,18 +61,24 @@ class _ProfilePageState extends State<ProfilePage>
           statusBarBrightness: Brightness.dark, // For iOS (dark icons)
         ),
         actions: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: IconButton(
-              icon: Image.asset(
-                'assets/images/Setting.png',
-                scale: 2.5,
-              ),
-              onPressed: () {
-                Navigator.of(context, rootNavigator: true)
-                    .push(SettingsPage.route());
-              },
-            ),
+          BlocBuilder<ProfileCubit, ProfileCubitState>(
+            builder: (context, state) {
+              return state.maybeWhen(orElse:  () => Container(), loadedProfileData: (ProfileModel profileBuildData) {
+                return Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: IconButton(
+                    icon: Image.asset(
+                      'assets/images/Setting.png',
+                      scale: 2.5,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context, rootNavigator: true)
+                          .push(SettingsPage.route(profileBuildData));
+                    },
+                  ),
+                );
+              });
+            },
           ),
         ],
         automaticallyImplyLeading: false,

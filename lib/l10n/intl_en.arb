@@ -373,5 +373,6 @@
     "mail_was_sent": "Mail was sent",
     "mail_was_cancelled": "Mail was cancelled",
     "message": "Message",
-    "no_email_app_available": "No email app available"
+    "no_email_app_available": "No email app available",
+    "swag_app_support_request": "Swag app support request"
 }
