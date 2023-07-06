@@ -314,7 +314,7 @@
     "chatCardConfirmPaymentBuyer": "@{sellerUserName} here is {myUserName}'s {paymnetMethod}'s information to send payment - {rate} \n\n{paymentUser}\n\nOnce payment is made please click the confirmation button below",
     "chatCardConfirmPaymentSeller": "@{sellerUserName} here is {myUserName}'s {paymnetMethod}'s information to send payment - {rate} \n\n{paymentUser}",
     "chatCardPaymentReceivedSeller": "@{buyerUserName} indicated he made payment. Please check your venmo and click the button below to confirm payment was received",
-    "chatPaymentSendBuyer": "Payment Confirmation  indicated they made payment",
+    "chatPaymentSendBuyer": "Payment Confirmation @{buyerUserName} indicated they made payment",
 
     "chatCardPaymetInformation": "Payment Information",
     "chatCardPaymetConfirmation": "Payment Confirmation",

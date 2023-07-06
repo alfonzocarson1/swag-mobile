@@ -152,7 +152,8 @@ class _ContentState extends State<_Content> with AutomaticKeepAliveClientMixin {
         return S.current.chatCancelPurchaseMessage;
       } else if (messageData.type ==
           ChatMessageDataType.paymentSend.textValue) {
-        return S.current.chatPaymentSendBuyer;
+        return S.current
+            .chatPaymentSendBuyer(messageData.payload.userNameBuyer);
       } else
         return S.current.chatCommenceMessage;
     } else
