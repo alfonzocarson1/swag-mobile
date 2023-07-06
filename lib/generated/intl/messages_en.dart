@@ -128,6 +128,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "chatCardConfirmPaymentBuyer": m2,
         "chatCardConfirmPaymentSeller": m3,
         "chatCardPaymentReceivedSeller": m4,
+        "chatCardPaymetConfirmation":
+            MessageLookupByLibrary.simpleMessage("Payment Confirmation"),
         "chatCardPaymetInformation":
             MessageLookupByLibrary.simpleMessage("Payment Information"),
         "chatCardShippingInformation":
@@ -149,6 +151,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "chatModeratorName": MessageLookupByLibrary.simpleMessage("SWAG"),
         "chatNoMessages":
             MessageLookupByLibrary.simpleMessage("No previous messages"),
+        "chatPaymentSendBuyer": MessageLookupByLibrary.simpleMessage(
+            "Payment Confirmation  indicated they made payment"),
         "chatShippedMessage": m8,
         "chatSwagg": MessageLookupByLibrary.simpleMessage("SWAGG"),
         "chatSwaggAdmin": MessageLookupByLibrary.simpleMessage("Swagg Admin"),
