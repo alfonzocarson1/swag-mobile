@@ -89,7 +89,8 @@ abstract class AppBlocs {
             create: (_) => getIt<PurchaseHistoryCubit>()),
         BlocProvider<AlertCubit>(create: (context) => getIt<AlertCubit>()),
         BlocProvider<PaywallCubit>(create: (_) => getIt<PaywallCubit>()),
-    BlocProvider<UpdateSubscriptionStatusCubit>(create: (_) => getIt<UpdateSubscriptionStatusCubit>()),
+        BlocProvider<UpdateSubscriptionStatusCubit>(
+            create: (_) => getIt<UpdateSubscriptionStatusCubit>()),
         BlocProvider<PurchaseHistoryDetailCubit>(create: (_) => getIt()),
-  ];
+      ];
 }

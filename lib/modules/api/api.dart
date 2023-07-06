@@ -117,6 +117,7 @@ class API {
     Endpoint.alerts: 'api/v1/notification/alerts',
     Endpoint.readAlert: 'api/v1/notification/alerts/alert/%s',
     Endpoint.paywallSubscription: 'api/v1/account/subscription',
-    Endpoint.purchaseHistoryDetails: 'api/v1/profile/settings/purchaseHistory/purchaseHistoryDetail/%s',
+    Endpoint.purchaseHistoryDetails:
+        'api/v1/profile/settings/purchaseHistory/purchaseHistoryDetail/%s',
   };
 }
