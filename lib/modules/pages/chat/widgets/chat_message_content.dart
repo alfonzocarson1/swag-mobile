@@ -119,7 +119,8 @@ class _ContentState extends State<_Content> with AutomaticKeepAliveClientMixin {
           messageData.type != ChatMessageDataType.paymentReceived.textValue &&
           messageData.type != ChatMessageDataType.shipped.textValue &&
           messageData.type != ChatMessageDataType.confirmShip.textValue &&
-          messageData.type != ChatMessageDataType.saleCanceled.textValue) {
+          messageData.type != ChatMessageDataType.saleCanceled.textValue &&
+          messageData.type != ChatMessageDataType.paymentSend.textValue) {
         return S.current.chatCardConfirmPaymentSeller(
             messageData.payload.userNameBuyer,
             messageData.payload.userNameSeller,
@@ -149,6 +150,9 @@ class _ContentState extends State<_Content> with AutomaticKeepAliveClientMixin {
       } else if (messageData.type ==
           ChatMessageDataType.saleCanceled.textValue) {
         return S.current.chatCancelPurchaseMessage;
+      } else if (messageData.type ==
+          ChatMessageDataType.paymentSend.textValue) {
+        return S.current.chatPaymentSendBuyer;
       } else
         return S.current.chatCommenceMessage;
     } else
