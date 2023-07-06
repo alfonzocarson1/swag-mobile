@@ -418,7 +418,6 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                             .productItemId ??
                                                         '',
                                                     showChatButton: true,
-                                                    addList: true,
                                                   ),
                                                   const SizedBox(height: 30),
                                                   Visibility(
