@@ -117,8 +117,8 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                 ),
                 TextButton(
                   onPressed: () {
-                    initFilterAndSortsWithBloc(context,
-                        selectedProductNumber: widget.tab?.index ?? defaultInt);
+                   initFilterAndSortsWithBloc(context,
+                       selectedProductNumber: widget.tab?.index ?? defaultInt);
                   },
                   style: ButtonStyle(
                       backgroundColor:
@@ -199,10 +199,10 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                           () {},
                           buttons: IconButton(
                             onPressed: () {
+
                               setState(() {
                                 isForSale = !isForSale;
                               });
-                              setIsForSale();
                             },
                             padding: EdgeInsets.zero,
                             constraints: const BoxConstraints(),
@@ -317,11 +317,12 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
             preference.copyWith(isListView: isListView)));
   }
 
-  void setIsForSale() {
+  Future<void> setIsForSale() async {
     final preference = context.read<SharedPreferencesBloc>().state.model;
     context.read<SharedPreferencesBloc>().add(
         SharedPreferencesEvent.setPreference(
             preference.copyWith(isForSale: isForSale)));
+    await getIt<PreferenceRepositoryService>().saveIsForSale(isForSale);
   }
 
   getTabId(SearchTab tab) async {
@@ -341,7 +342,13 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
           child: PrimaryButton(
             title: S.of(context).see_results.toUpperCase(),
             onPressed: () {
+              setIsForSale();
               apiCall();
+              performSearch(
+                context: context,
+                searchParam: widget.searchParam,
+                tab: widget.tab,
+              );
               Navigator.pop(context);
             },
             type: PrimaryButtonType.primaryEerieBlack,

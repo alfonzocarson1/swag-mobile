@@ -194,7 +194,8 @@ class _SearchPageState extends State<SearchPage>
                     onPressed: () async {
                       await setIsForSale(!state.model.isForSale);
                       if (!mounted) return;
-                      callApi(SearchTab.values.elementAt(_tabController.index));
+                      performSearch(context: context, tab: SearchTab.values[_tabController.index]);
+                      await callApi(SearchTab.values.elementAt(_tabController.index));
                     },
                     icon: Image.asset(
                       "assets/icons/ForSale.png",
@@ -321,7 +322,7 @@ callApi(SearchTab? tab) async {
   if (tab != null) {
     categoryId = await getTabId(tab);
   }
-  getIt<PaginatedSearchCubit>().loadResults(
+   getIt<PaginatedSearchCubit>().loadResults(
       searchModel: SearchRequestPayloadModel(
           whatsHotFlag: (tab == SearchTab.whatsHot) ? true : false,
           categoryId:

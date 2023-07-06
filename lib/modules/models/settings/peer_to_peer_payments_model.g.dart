@@ -12,6 +12,8 @@ _$_PeerToPeerPaymentsModel _$$_PeerToPeerPaymentsModelFromJson(
       venmoUser: json['venmoUser'] as String?,
       cashTag: json['cashTag'] as String?,
       payPalEmail: json['payPalEmail'] as String?,
+      accountProfilePeerToPeerPaymentId:
+          json['accountProfilePeerToPeerPaymentId'] as String?,
     );
 
 Map<String, dynamic> _$$_PeerToPeerPaymentsModelToJson(
@@ -27,5 +29,7 @@ Map<String, dynamic> _$$_PeerToPeerPaymentsModelToJson(
   writeNotNull('venmoUser', instance.venmoUser);
   writeNotNull('cashTag', instance.cashTag);
   writeNotNull('payPalEmail', instance.payPalEmail);
+  writeNotNull('accountProfilePeerToPeerPaymentId',
+      instance.accountProfilePeerToPeerPaymentId);
   return val;
 }
