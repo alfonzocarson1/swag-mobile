@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:swagapp/modules/api/api_service.dart';
-import 'package:swagapp/modules/api/paywall_api_service.dart';
 import 'package:swagapp/modules/blocs/search_bloc.dart/search_bloc.dart';
 import 'package:swagapp/modules/common/utils/context_service.dart';
 import 'package:swagapp/modules/cubits/paginated_search/paginated_search_cubit.dart';
