@@ -1,29 +1,36 @@
 
-import 'dart:convert';
-
+import 'package:flutter/material.dart';
 import 'package:swagapp/modules/api/api.dart';
 import 'package:swagapp/modules/api/api_service.dart';
-
 import 'package:swagapp/modules/data/paywall/i_paywall_service.dart';
 import 'package:swagapp/modules/models/paywall/subscription_change_status.dart';
 import 'package:swagapp/modules/models/paywall/subscription_status_response.dart';
-import 'package:http/http.dart' as http;
 
 
-class PaywallService extends IPaywallService{
+class PaywallService extends IPaywallService {
   PaywallService(this.apiService);
 
   final APIService apiService;
 
-
   @override
-  Future<PaywallSubscriptionResponse?> completeSubscription(PaywallSubscriptionRequest request) async {
+  Future<PaywallSubscriptionResponse?> completeSubscription(
+      PaywallSubscriptionRequest request) async {
+
+
     PaywallSubscriptionResponse response = await apiService.getEndpointData(
-      endpoint: Endpoint.paywallSubscription, 
       method: RequestMethod.post,
+      endpoint: Endpoint.paywallSubscription,
       needBearer: true,
-      body: request.toJson(),
-      );
+      body: {
+        "accountId": request.accountId,
+        "transactionId": request.transactionID,
+        "deviceId": request.deviceType
+      },
+      fromJson: (json) => PaywallSubscriptionResponse.fromJson(json),
+    );
+
+    debugPrint(response.toString());
+
     return response;
   }
 }
