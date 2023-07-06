@@ -3082,13 +3082,13 @@ class S {
     );
   }
 
-  /// `Payment Confirmation  indicated they made payment`
-  String get chatPaymentSendBuyer {
+  /// `Payment Confirmation @{buyerUserName} indicated they made payment`
+  String chatPaymentSendBuyer(Object buyerUserName) {
     return Intl.message(
-      'Payment Confirmation  indicated they made payment',
+      'Payment Confirmation @$buyerUserName indicated they made payment',
       name: 'chatPaymentSendBuyer',
       desc: '',
-      args: [],
+      args: [buyerUserName],
     );
   }
 

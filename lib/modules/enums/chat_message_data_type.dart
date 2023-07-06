@@ -1,12 +1,12 @@
 enum ChatMessageDataType {
   confirmPaidSend('confirm_paid_send'),
+  paymentSend('payment_send'),
   confirmPaymentReceived('confirm_payment_received'),
   paymentReceived('payment_received'),
   confirmShip('confirm_ship'),
   shipped('shipped'),
   saleCanceled('sale_canceled'),
-  message('message'),
-  paymentSend('payment_send');
+  message('message');
 
   final String textValue;
 

@@ -143,6 +143,14 @@ class _ChatMessagesState extends State<ChatMessages> {
                 messageData: messageData,
                 chatData: this.widget.chatData,
               );
+      } else if (messageData.type ==
+          ChatMessageDataType.paymentSend.textValue) {
+        return (isMyUserBuyer)
+            ? _Message(
+                message: message,
+                isMyMessage: isMyMessage,
+              )
+            : const SizedBox.shrink();
       }
 
       return (isMyUserBuyer)
