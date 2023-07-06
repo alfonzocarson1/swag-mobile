@@ -3562,6 +3562,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Mail was saved to draft`
+  String get mail_was_saved_to_draft {
+    return Intl.message(
+      'Mail was saved to draft',
+      name: 'mail_was_saved_to_draft',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mail was sent`
+  String get mail_was_sent {
+    return Intl.message(
+      'Mail was sent',
+      name: 'mail_was_sent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mail was cancelled`
+  String get mail_was_cancelled {
+    return Intl.message(
+      'Mail was cancelled',
+      name: 'mail_was_cancelled',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Message`
+  String get message {
+    return Intl.message(
+      'Message',
+      name: 'message',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No email app available`
+  String get no_email_app_available {
+    return Intl.message(
+      'No email app available',
+      name: 'no_email_app_available',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

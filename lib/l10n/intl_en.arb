@@ -368,5 +368,10 @@
     "user_problem_signing_into_the_swag_app": "User problem signing into the Swag App",
     "problems_signing_in": "Problems signing in? ",
     "problems_creating_an_account": "Problems creating account? ",
-    "contact_us": "Contact us"
+    "contact_us": "Contact us",
+    "mail_was_saved_to_draft": "Mail was saved to draft",
+    "mail_was_sent": "Mail was sent",
+    "mail_was_cancelled": "Mail was cancelled",
+    "message": "Message",
+    "no_email_app_available": "No email app available"
 }

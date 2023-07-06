@@ -327,7 +327,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "list_item_popup_title":
             MessageLookupByLibrary.simpleMessage("LIST ITEM"),
         "list_price_input": MessageLookupByLibrary.simpleMessage("List Price"),
+        "mail_was_cancelled":
+            MessageLookupByLibrary.simpleMessage("Mail was cancelled"),
+        "mail_was_saved_to_draft":
+            MessageLookupByLibrary.simpleMessage("Mail was saved to draft"),
+        "mail_was_sent": MessageLookupByLibrary.simpleMessage("Mail was sent"),
         "make_an_offer": MessageLookupByLibrary.simpleMessage("MAKE AN OFFER"),
+        "message": MessageLookupByLibrary.simpleMessage("Message"),
         "multi_collection_subtitle": MessageLookupByLibrary.simpleMessage(
             "It looks like you already have this item in your collection. Are you sure you want to add another?"),
         "multi_collection_title":
@@ -339,6 +345,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "nft_wallet_sub_title":
             MessageLookupByLibrary.simpleMessage("Connect your OpenSea Wallet"),
         "nft_wallet_title": MessageLookupByLibrary.simpleMessage("NFT Wallet"),
+        "no_email_app_available":
+            MessageLookupByLibrary.simpleMessage("No email app available"),
         "no_match_password":
             MessageLookupByLibrary.simpleMessage("Password doesn’t match"),
         "no_purchase_history_yet":
