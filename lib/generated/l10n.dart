@@ -3622,6 +3622,106 @@ class S {
       args: [],
     );
   }
+
+  /// `User problem creating account in the Swag App`
+  String get user_problem_creating_account_in_the_swag_app {
+    return Intl.message(
+      'User problem creating account in the Swag App',
+      name: 'user_problem_creating_account_in_the_swag_app',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User problem signing into the Swag App`
+  String get user_problem_signing_into_the_swag_app {
+    return Intl.message(
+      'User problem signing into the Swag App',
+      name: 'user_problem_signing_into_the_swag_app',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Problems signing in? `
+  String get problems_signing_in {
+    return Intl.message(
+      'Problems signing in? ',
+      name: 'problems_signing_in',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Problems creating account? `
+  String get problems_creating_an_account {
+    return Intl.message(
+      'Problems creating account? ',
+      name: 'problems_creating_an_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Contact us`
+  String get contact_us {
+    return Intl.message(
+      'Contact us',
+      name: 'contact_us',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mail was saved to draft`
+  String get mail_was_saved_to_draft {
+    return Intl.message(
+      'Mail was saved to draft',
+      name: 'mail_was_saved_to_draft',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mail was sent`
+  String get mail_was_sent {
+    return Intl.message(
+      'Mail was sent',
+      name: 'mail_was_sent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mail was cancelled`
+  String get mail_was_cancelled {
+    return Intl.message(
+      'Mail was cancelled',
+      name: 'mail_was_cancelled',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Message`
+  String get message {
+    return Intl.message(
+      'Message',
+      name: 'message',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No email app available`
+  String get no_email_app_available {
+    return Intl.message(
+      'No email app available',
+      name: 'no_email_app_available',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -1,11 +1,19 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/ui/paywall_widget.dart';
+import 'package:swagapp/modules/common/ui/simple_loader.dart';
 import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
 
 import '../../../generated/l10n.dart';
+import '../../cubits/paywall/paywall_cubit.dart';
 import '../../cubits/profile/get_profile_cubit.dart';
+import '../../cubits/subscription_status/update_subscription_status_cubit.dart';
 import '../../di/injector.dart';
 import '../../models/detail/sale_history_model.dart';
+import '../../models/paywall/subscription_change_status.dart';
+import '../../models/profile/profile_model.dart';
 import '../utils/palette.dart';
 import '../utils/utils.dart';
 
@@ -28,9 +36,9 @@ class _CustomDataTableState extends State<CustomDataTable> {
   late bool _ascendingPrice;
   bool hasActiveSubscription = false;
   bool hasUsedFreeTrial = false;
+  late ProfileModel profileData;
 
   var histories = <SalesHistoryModel>[];
-
 
   @override
   void initState() {
@@ -60,17 +68,16 @@ class _CustomDataTableState extends State<CustomDataTable> {
     });
   }
 
-  getProfileData() async{
-    var profileData =await getIt<PreferenceRepositoryService>().profileData();
+  getProfileData() async {
+    profileData = await getIt<PreferenceRepositoryService>().profileData();
     hasActiveSubscription = profileData.hasActiveSubscription ?? false;
-    hasActiveSubscription = profileData.hasUsedFreeTrial ?? false;
+    hasUsedFreeTrial = profileData.hasUsedFreeTrial ?? false;
+    setState(() {});
   }
 
-  removePaywall(){
+  removePaywall() {
     hasActiveSubscription = true;
-    setState(() {
-      
-    });
+    setState(() {});
   }
 
   @override
@@ -83,24 +90,22 @@ class _CustomDataTableState extends State<CustomDataTable> {
         child: Theme(
           data: Theme.of(context).copyWith(
             dividerTheme: const DividerThemeData(
-              color: Colors.transparent,
-      thickness: 0.0),
-            ),
-          child: 
-          SizedBox(
+                color: Colors.transparent, thickness: 0.0),
+          ),
+          child: SizedBox(
             height: MediaQuery.of(context).size.height,
             child: Stack(
               children: [
-                     Container(
-                    height: 50,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(
-                                color: Palette.current.grey, width: 0.5))),
-                  ),
-                DataTable(           
-                  showBottomBorder: false,
+                Container(
+                  height: 50,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                              color: Palette.current.grey, width: 0.5))),
+                ),
+                DataTable(
+                    showBottomBorder: false,
                     dividerThickness: 0,
                     columnSpacing: 50,
                     columns: [
@@ -148,7 +153,6 @@ class _CustomDataTableState extends State<CustomDataTable> {
                               ),
                             ],
                           ),
-                          
                         ),
                       ),
                       DataColumn(
@@ -272,7 +276,33 @@ class _CustomDataTableState extends State<CustomDataTable> {
                                                   .current.primaryNeonGreen)))),
                             ]))
                         .toList()),
-                        (hasActiveSubscription) ? const SizedBox.shrink() :  PayWallWidget(hasUsedFreeTrial: hasActiveSubscription, removePaywall: removePaywall,)
+                BlocBuilder<PaywallCubit, PaywallCubitState>(
+                  builder: (context, state) {
+                    return state.maybeWhen(
+                        initial: () => (hasActiveSubscription)
+                            ? const SizedBox.shrink()
+                            : PayWallWidget(
+                                hasUsedFreeTrial: hasUsedFreeTrial,
+                                removePaywall: removePaywall,
+                              ), 
+                        progress: () => ClipRect(
+                            child: BackdropFilter(
+                                filter:
+                                    ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                                child: const SimpleLoader())),
+                        success: () => const SizedBox.shrink(),
+                        error: (error) {
+                          debugPrint(error);
+                          return Container(); 
+                        },
+                        orElse: () => (hasActiveSubscription)
+                            ? const SizedBox.shrink()
+                            : PayWallWidget(
+                                hasUsedFreeTrial: hasUsedFreeTrial,
+                                removePaywall: removePaywall,
+                              ));
+                  },
+                )
               ],
             ),
           ),

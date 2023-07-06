@@ -11,6 +11,7 @@ class PeerToPeerPaymentsModel with _$PeerToPeerPaymentsModel {
     final String? venmoUser,
     final String? cashTag,
     final String? payPalEmail,
+    final String? accountProfilePeerToPeerPaymentId,
   }) = _PeerToPeerPaymentsModel;
 
   factory PeerToPeerPaymentsModel.fromJson(Map<String, dynamic> json) =>

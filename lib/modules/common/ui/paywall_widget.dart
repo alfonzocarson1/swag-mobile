@@ -3,11 +3,21 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:swagapp/modules/api/api_service.dart';
 import 'package:swagapp/modules/common/ui/discount_container_widget.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
+import 'package:swagapp/modules/common/ui/simple_loader.dart';
+import 'package:swagapp/modules/cubits/paywall/paywall_cubit.dart';
+import 'package:swagapp/modules/cubits/subscription_status/update_subscription_status_cubit.dart';
+import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
+import 'package:swagapp/modules/di/injector.dart';
+import 'package:swagapp/modules/models/paywall/subscription_change_status.dart';
+import 'package:swagapp/modules/models/profile/profile_model.dart';
 
 import '../../../generated/l10n.dart';
+
 import '../../constants/constants.dart';
+
 import '../utils/palette.dart';
 
 class PayWallWidget extends StatefulWidget {
@@ -23,134 +33,17 @@ final Function removePaywall;
 
 class _PayWallWidgetState extends State<PayWallWidget> {
 
-  late StreamSubscription<List<PurchaseDetails>> _subscription;
-  final List<String> _notFoundIds = <String>[];
-  final InAppPurchase _iap = InAppPurchase.instance;
-   List<ProductDetails> _purchaseableProducts = [];
-  final List<PurchaseDetails> _purchases = [];
-  
+  late final ProfileModel profileData;
 
    @override
-  void initState() {
-      _subscription = _iap.purchaseStream.listen((purchases) {
-        //completePurchases(purchases);
-      _purchases.addAll(purchases);
-      _handlePurchaseUpdates(purchases);
-      
-    }); 
-
-    _getProducts();
+  void initState() {  
+    profileData = getIt<PreferenceRepositoryService>().profileData(); 
     super.initState();
   }
-
-  completePurchases(List<PurchaseDetails> purchases){
-    purchases.forEach((purchase){
-    _iap.completePurchase(purchase);
-    });
-  }
-
-  @override
-  void dispose() {
-    _subscription.cancel();
-    super.dispose();
-  }
-
-  purchaseStoreStatus() async{
-    final bool available = await InAppPurchase.instance.isAvailable();
-if (!available) {
-    print("store not available");
-}
-  }
-
-  Future<void> _getProducts() async {
-    final bool available = await _iap.isAvailable();
-    if (!available) {
-    print("store not available");
-    
-    }
-    Set<String> _kIds = {annualSubscriptionId, monthlySubscriptionId};  
-    final ProductDetailsResponse response = await _iap.queryProductDetails(_kIds);
-    if (response.notFoundIDs.isNotEmpty) {
-      // Handle the error if any of the products are not found.
-    }
-    setState(() {
-      _purchaseableProducts = response.productDetails;
-    });
-  }
-
-  void _handlePurchaseUpdates(List<PurchaseDetails> purchases) {
-    
-    purchases.forEach((purchase) {
-      switch (purchase.status) {
-        
-        case PurchaseStatus.pending:
-         showPopup();
-          break;
-        case PurchaseStatus.error:
-          _iap.completePurchase(purchase);
-          break;
-        case PurchaseStatus.purchased:
-        debugPrint('Purchase was successful. Product ID: ${purchase.productID}');
-        // TODO send to backend transactionID
-        //TODO send to backend userID
-         InAppPurchase.instance.completePurchase(purchase);
-   if (purchase.pendingCompletePurchase)  {
-         _iap.completePurchase(purchase);
-          widget.removePaywall();
-        }             
-         break;
-        case PurchaseStatus.restored:
-          // Deliver the product in your application, then call
-          // completePurchase.
-          if (purchase.pendingCompletePurchase) {
-            _iap.completePurchase(purchase);
-            widget.removePaywall();
-          }
-          break;
-        case PurchaseStatus.canceled:
-          // TODO: Handle this case.
-          break;
-      }
-    });
-  }
   
-  Future showPopup(){
-    return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Pending Purchase'),
-            content: Text('There is a pending purchase for this product. Would you like to complete or cancel this purchase?'),
-            actions: <Widget>[
-              TextButton(
-                child: Text('Complete Purchase'),
-                onPressed: () async {
-                  await InAppPurchase.instance.completePurchase(_purchaseableProducts[0] as PurchaseDetails);
-                  Navigator.of(context).pop();
-                },
-              ),
-              TextButton(
-                child: Text('Cancel Purchase'),
-                onPressed: () {
-                  // As of September 2021, the `in_app_purchase` package doesn't provide a direct way to cancel a purchase.
-                  // Depending on the platform and payment method, the cancellation may need to be done outside the app.
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
-  }
-
-  void _buyProduct(ProductDetails prod) {
-    final PurchaseParam purchaseParam = PurchaseParam(productDetails: prod);
-    _iap.buyConsumable(purchaseParam: purchaseParam);
-  }
-
 
   @override
-  Widget build(BuildContext context) {  
+  Widget build(BuildContext context) {       
     
     List<String> payWallConditionList =[
       S.of(context).paywall_condition1,
@@ -159,6 +52,7 @@ if (!available) {
       S.of(context).paywall_condition4,
       S.of(context).paywall_condition5,
     ];
+      
     return  SizedBox(
       width: MediaQuery.of(context).size.width,  
       height: MediaQuery.of(context).size.height,  
@@ -209,11 +103,11 @@ if (!available) {
                   height: MediaQuery.of(context).size.height * 0.03,
                 ),
                GestureDetector(
-                onTap:() => _buyProduct(_purchaseableProducts[0]),
+                onTap:() => getIt<PaywallCubit>().startPurchase(annualSubscriptionId),
                 child: const DiscountContainerWidget()),
                const SizedBox(height: 20),
                GestureDetector(
-                onTap: () =>  _buyProduct(_purchaseableProducts[1]),
+                onTap: () =>  getIt<PaywallCubit>().startPurchase(monthlySubscriptionId),
                  child: Text(S.of(context).paywall_or_price_month.toUpperCase(),
                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
                               letterSpacing: 1,
@@ -227,8 +121,7 @@ if (!available) {
                PrimaryButton(
                 title: (widget.hasUsedFreeTrial) ? S.of(context).paywall_sign_up_premium.toUpperCase() :S.of(context).paywall_free_trial.toUpperCase(), 
                 onPressed: (){
-                  _buyProduct(_purchaseableProducts[1]);
-
+                  getIt<PaywallCubit>().startPurchase(monthlySubscriptionId);
                }, 
                type: PrimaryButtonType.green)              
             ],      

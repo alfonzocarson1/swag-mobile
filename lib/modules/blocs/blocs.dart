@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/blocs/auth_bloc/auth_bloc.dart';
@@ -22,9 +21,12 @@ import 'package:swagapp/modules/cubits/profile/get_profile_cubit.dart';
 import 'package:swagapp/modules/cubits/purchase_history/purchase_history_cubit.dart';
 import 'package:swagapp/modules/cubits/purchase_history_detail/purchase_history_detail_cubit.dart';
 import 'package:swagapp/modules/cubits/saved_search/saved_searches_cubit.dart';
+import 'package:swagapp/modules/cubits/subscription_status/update_subscription_status_cubit.dart';
 import 'package:swagapp/modules/data/chat/chat_service.dart';
 import 'package:swagapp/modules/di/injector.dart';
 
+import '../cubits/alert/alert_cubit.dart';
+import '../cubits/paywall/paywall_cubit.dart';
 import 'buy_sale_listing_bloc/buy_sale_listing_bloc.dart';
 import 'collection_bloc/collection_bloc.dart';
 import 'detail_bloc/detail_bloc.dart';
@@ -37,40 +39,57 @@ import 'shared_preferences_bloc/shared_preferences_bloc.dart';
 import 'sold_bloc/sold_bloc.dart';
 
 abstract class AppBlocs {
-
-  static List<BlocProvider> blocs(BuildContext context)=>  
-  [
-    BlocProvider<ChatBloc>(create: (BuildContext context)=> ChatBloc(getIt<ChatService>())),
-    BlocProvider<AuthBloc>(create: (_) => getIt<AuthBloc>()),
-    BlocProvider<UsernameBloc>(create: (_) => getIt<UsernameBloc>()),
-    // BlocProvider<SignUpBloc>(create: (_) => getIt<SignUpBloc>()),
-    BlocProvider<SearchBloc>(create: (context) => getIt<SearchBloc>()),
-    BlocProvider<SavedSearchesCubit>(create: (context) => getIt<SavedSearchesCubit>()),
-    BlocProvider<PaginatedSearchCubit>(create: (context) => getIt<PaginatedSearchCubit>()),
-    BlocProvider<FavoriteProfileCubit>(create: (context) => getIt<FavoriteProfileCubit>()),
-    BlocProvider<CollectionProfileCubit>(create: (context) => getIt<CollectionProfileCubit>()),
-    BlocProvider<ListingProfileCubit>(create: (context) => getIt<ListingProfileCubit>()),
-    BlocProvider<AuthCubit>(create: (context) => getIt<AuthCubit>()),
-    BlocProvider<CatalogDetailCubit>(create: (context) => getIt<CatalogDetailCubit>()),
-    BlocProvider<PeerToPeerPaymentsCubit>(create: (context) => getIt<PeerToPeerPaymentsCubit>()),
-    BlocProvider<ProfileCubit>(create: (context) => getIt<ProfileCubit>()),
-    BlocProvider<ExploreCubit>(create: (context) => getIt<ExploreCubit>()),
-    BlocProvider<PageFromExploreCubit>(create: (context) => getIt<PageFromExploreCubit>()),
-    BlocProvider<BuyCubit>(create: (context) => getIt<BuyCubit>()),
-    BlocProvider<CategoryBloc>(create: (context) => getIt<CategoryBloc>()),
-    BlocProvider<SalesHistoryBloc>(create: (context) => getIt<SalesHistoryBloc>()),
-    BlocProvider<DetailBloc>(create: (context) => getIt<DetailBloc>()),
-    BlocProvider<FavoriteBloc>(create: (context) => getIt<FavoriteBloc>()),
-    BlocProvider<CollectionBloc>(create: (context) => getIt<CollectionBloc>()),
-    BlocProvider<ListingBloc>(create: (context) => getIt<ListingBloc>()),
-    BlocProvider<ProfileFavoriteBloc>(create: (context) => getIt<ProfileFavoriteBloc>()),
-    BlocProvider<UpdateProfileBloc>(create: (context) => getIt<UpdateProfileBloc>()),
-    BlocProvider<SoldBloc>(create: (context) => getIt<SoldBloc>()),
-    BlocProvider<FavoriteItemBloc>(create: (context) => getIt<FavoriteItemBloc>()),
-    BlocProvider<BuySaleListingBloc>(create: (context) => getIt<BuySaleListingBloc>()),
-    BlocProvider<SharedPreferencesBloc>(create: (_) => getIt<SharedPreferencesBloc>()),
-    BlocProvider<PurchaseHistoryCubit>(create: (_) => getIt<PurchaseHistoryCubit>()),
-    BlocProvider<PurchaseHistoryDetailCubit>(create: (_) => getIt()),
+  static List<BlocProvider> blocs(BuildContext context) => [
+        BlocProvider<ChatBloc>(
+            create: (BuildContext context) => ChatBloc(getIt<ChatService>())),
+        BlocProvider<AuthBloc>(create: (_) => getIt<AuthBloc>()),
+        BlocProvider<UsernameBloc>(create: (_) => getIt<UsernameBloc>()),
+        // BlocProvider<SignUpBloc>(create: (_) => getIt<SignUpBloc>()),
+        BlocProvider<SearchBloc>(create: (context) => getIt<SearchBloc>()),
+        BlocProvider<SavedSearchesCubit>(
+            create: (context) => getIt<SavedSearchesCubit>()),
+        BlocProvider<PaginatedSearchCubit>(
+            create: (context) => getIt<PaginatedSearchCubit>()),
+        BlocProvider<FavoriteProfileCubit>(
+            create: (context) => getIt<FavoriteProfileCubit>()),
+        BlocProvider<CollectionProfileCubit>(
+            create: (context) => getIt<CollectionProfileCubit>()),
+        BlocProvider<ListingProfileCubit>(
+            create: (context) => getIt<ListingProfileCubit>()),
+        BlocProvider<AuthCubit>(create: (context) => getIt<AuthCubit>()),
+        BlocProvider<CatalogDetailCubit>(
+            create: (context) => getIt<CatalogDetailCubit>()),
+        BlocProvider<PeerToPeerPaymentsCubit>(
+            create: (context) => getIt<PeerToPeerPaymentsCubit>()),
+        BlocProvider<ProfileCubit>(create: (context) => getIt<ProfileCubit>()),
+        BlocProvider<ExploreCubit>(create: (context) => getIt<ExploreCubit>()),
+        BlocProvider<PageFromExploreCubit>(
+            create: (context) => getIt<PageFromExploreCubit>()),
+        BlocProvider<BuyCubit>(create: (context) => getIt<BuyCubit>()),
+        BlocProvider<CategoryBloc>(create: (context) => getIt<CategoryBloc>()),
+        BlocProvider<SalesHistoryBloc>(
+            create: (context) => getIt<SalesHistoryBloc>()),
+        BlocProvider<DetailBloc>(create: (context) => getIt<DetailBloc>()),
+        BlocProvider<FavoriteBloc>(create: (context) => getIt<FavoriteBloc>()),
+        BlocProvider<CollectionBloc>(
+            create: (context) => getIt<CollectionBloc>()),
+        BlocProvider<ListingBloc>(create: (context) => getIt<ListingBloc>()),
+        BlocProvider<ProfileFavoriteBloc>(
+            create: (context) => getIt<ProfileFavoriteBloc>()),
+        BlocProvider<UpdateProfileBloc>(
+            create: (context) => getIt<UpdateProfileBloc>()),
+        BlocProvider<SoldBloc>(create: (context) => getIt<SoldBloc>()),
+        BlocProvider<FavoriteItemBloc>(
+            create: (context) => getIt<FavoriteItemBloc>()),
+        BlocProvider<BuySaleListingBloc>(
+            create: (context) => getIt<BuySaleListingBloc>()),
+        BlocProvider<SharedPreferencesBloc>(
+            create: (_) => getIt<SharedPreferencesBloc>()),
+        BlocProvider<PurchaseHistoryCubit>(
+            create: (_) => getIt<PurchaseHistoryCubit>()),
+        BlocProvider<AlertCubit>(create: (context) => getIt<AlertCubit>()),
+        BlocProvider<PaywallCubit>(create: (_) => getIt<PaywallCubit>()),
+    BlocProvider<UpdateSubscriptionStatusCubit>(create: (_) => getIt<UpdateSubscriptionStatusCubit>()),
+        BlocProvider<PurchaseHistoryDetailCubit>(create: (_) => getIt()),
   ];
 }
-

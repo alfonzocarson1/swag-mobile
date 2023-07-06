@@ -8,6 +8,7 @@ import 'package:swagapp/modules/common/ui/clickable_text.dart';
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
+import 'package:swagapp/modules/common/utils/send_mail_contact.dart';
 import 'package:swagapp/modules/common/utils/utils.dart';
 import 'package:swagapp/modules/models/auth/create_account_payload_model.dart';
 import 'package:swagapp/modules/pages/explore/account_info.dart';
@@ -30,6 +31,7 @@ import '../../models/auth/forgot_password_code_model.dart';
 
 class CreateAccountPage extends StatefulWidget {
   static const name = '/CreateAccount';
+
   const CreateAccountPage({Key? key}) : super(key: key);
 
   static Route route() => PageRoutes.material(
@@ -572,6 +574,46 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                     Navigator.of(context, rootNavigator: true)
                                         .push(SignInPage.route());
                                   }),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 30),
+                                child: ClickableText(
+                                    title: RichText(
+                                      maxLines: 1,
+                                      softWrap: false,
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.center,
+                                      text: TextSpan(children: [
+                                        TextSpan(
+                                          text: S
+                                              .of(context)
+                                              .problems_creating_an_account,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                                color: Palette.current.white,
+                                              ),
+                                        ),
+                                        TextSpan(
+                                          text: S.of(context).contact_us,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                                fontWeight: FontWeight.w400,
+                                                color: Palette
+                                                    .current.primaryWhiteSmoke,
+                                              ),
+                                        ),
+                                      ]),
+                                    ),
+                                    onPressed: () {
+                                      SendMailContact.send(
+                                        context: context,
+                                        subject: S.of(context).user_problem_creating_account_in_the_swag_app,
+                                      );
+                                    }),
+                              )
                             ],
                           ),
                         ),
