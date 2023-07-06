@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:sendbird_sdk/sendbird_sdk.dart';
+import 'package:swagapp/modules/common/ui/custom_list_tile.dart';
 import 'package:swagapp/modules/common/utils/utils.dart';
 import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
 import 'package:swagapp/modules/models/profile/profile_model.dart';
@@ -40,17 +41,25 @@ class ChatsContact extends StatelessWidget {
         .toList()
         .first;
 
-    return ListTile(
+    return CustomListTile(
+      titleSpacing: 5,
+      widgetSpacing: 20,
+      trailing: Text('days ago',  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+            fontSize: 14,
+            letterSpacing: 0.3,
+            color: Palette.current.grey,
+            overflow: TextOverflow.ellipsis),),
       leading: _Avatar(
         hasUreadMessages: hasUreadMessages,
         chatData: this.chatData,
       ),
       title: Text(
         '@${seller.nickname.capitalize()} - ${channelData.listingProductName}',
+          overflow: TextOverflow.fade,
         style: Theme.of(context).textTheme.bodySmall!.copyWith(
               fontWeight:
                   (hasUreadMessages) ? FontWeight.w300 : FontWeight.w300,
-              fontSize: 20,
+              fontSize: 16,
               color: (hasUreadMessages) ? Colors.white : Palette.current.grey,
             ),
       ),
@@ -58,7 +67,7 @@ class ChatsContact extends StatelessWidget {
         this.lastMessage,
         maxLines: 1,
         style: Theme.of(context).textTheme.bodySmall!.copyWith(
-            fontSize: 15,
+            fontSize: 14,
             letterSpacing: 0.3,
             color: Palette.current.grey,
             overflow: TextOverflow.ellipsis),
@@ -68,7 +77,7 @@ class ChatsContact extends StatelessWidget {
         MaterialPageRoute(
           builder: (BuildContext context) => ChatPage(chatData: this.chatData),
         ),
-      ),
+      ), 
     );
   }
 
