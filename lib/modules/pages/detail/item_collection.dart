@@ -72,7 +72,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
   List<DetailCollectionModel> newCollectionList = [];
   List<BuyForSaleListingResponseModel> buyForSaleList = [];
   List<DetailCollectionModel> dataCollection = [];
-
+  bool hasActiveSubscription = false;
   List<String> ids = [];
   ProfileNotifyList notificationList =
       const ProfileNotifyList(profileNotificationList: []);
@@ -80,7 +80,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
   @override
   void initState() {
     getNotificationStatus();
-    dataCollection = widget.dataCollection ?? [];
+    dataCollection = widget.dataCollection ?? [];    
     super.initState();
 
     timer = Timer(const Duration(seconds: 1), () {
@@ -104,6 +104,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
     if (isLogged) {
       getIt<ProfileCubit>().loadProfileResults();
       getProfileAvatar();
+       
     }
   }
 
@@ -121,6 +122,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
 
   getProfileAvatar() {
     profileData = getIt<PreferenceRepositoryService>().profileData();
+    hasActiveSubscription =  profileData?.hasActiveSubscription ?? false; 
 
     if (profileData!.useAvatar != 'CUSTOM') {
       var data = imagesList
@@ -181,6 +183,13 @@ class _CollectionWidgetState extends State<CollectionWidget> {
           ],
         ),
         dismissDirection: DismissDirection.none));
+  }
+
+  removePaywall(){
+    hasActiveSubscription = true;
+    setState(() {
+      
+    });
   }
 
   @override
@@ -573,8 +582,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                             width: MediaQuery.of(context).size.width,
                             child: PrimaryButton(
                               title: S.of(context).notify_available,
-                              onPressed: () {
-                                bool hasActiveSubscription =  profileData?.hasActiveSubscription ?? false;  
+                              onPressed: () {                              
                                 if (isLogged &&
                                     notifyAvailabilityFlagBTN &&
                                     buttonEnable &&
@@ -625,7 +633,9 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                       MaterialPageRoute(
                                         builder: (context) => PaywallSplashScreen(
                                           hasUsedFreeTrial: false, 
-                                          removePaywall: (){},
+                                          removePaywall: (){
+                                           removePaywall();
+                                          },
                                           )
                                         ));
                                       }                                 

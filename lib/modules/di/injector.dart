@@ -9,6 +9,8 @@ import 'package:swagapp/modules/cubits/saved_search/saved_searches_cubit.dart';
 import 'package:swagapp/modules/data/auth/i_auth_service.dart';
 import 'package:swagapp/modules/data/chat/chat_service.dart';
 import 'package:swagapp/modules/data/filters/filters_service.dart';
+import 'package:swagapp/modules/data/paywall/i_paywall_service.dart';
+import 'package:swagapp/modules/data/paywall/paywall_service.dart';
 import 'package:swagapp/modules/data/purchase_history/i_purchase_history_service.dart';
 import 'package:swagapp/modules/data/purchase_history/purchase_history_service.dart';
 import 'package:swagapp/modules/data/saved_search/i_saved_search_service.dart';
@@ -41,10 +43,12 @@ import '../cubits/explore/get_explore_cubit.dart';
 import '../cubits/favorites/get_favorites_cubit.dart';
 import '../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
 import '../cubits/page_from_explore/page_from_explore_cubit.dart';
+import '../cubits/paywall/paywall_cubit.dart';
 import '../cubits/peer_to_peer_payments/peer_to_peer_payments_cubit.dart';
 import '../cubits/profile/get_profile_cubit.dart';
 import '../data/alerts/alerts_service.dart';
 import '../data/alerts/i_alerts_service.dart';
+import '../cubits/subscription_status/update_subscription_status_cubit.dart';
 import '../data/auth/auth_service.dart';
 import '../data/buy_for_sale_listing/buy_for_sale_listing_service.dart';
 import '../data/buy_for_sale_listing/i_buy_for_sale_listing_service.dart';
@@ -202,7 +206,17 @@ Future<void> setupAppScope() {
 
   getIt.registerLazySingleton<IPurchaseHistoryService>(
       () => PurchaseHistoryService(APIService()));
-  getIt.registerLazySingleton(() => PurchaseHistoryCubit(getIt.get()));
+  getIt.registerLazySingleton(
+      () => PurchaseHistoryCubit(getIt.get()));
+
+  getIt.registerLazySingleton<IPaywallService>(
+      () => PaywallService(APIService()));
+  
+   getIt.registerLazySingleton<UpdateSubscriptionStatusCubit>(
+      () => UpdateSubscriptionStatusCubit(getIt<IPaywallService>()));
+   
+   getIt.registerLazySingleton<PaywallCubit>(
+      () => PaywallCubit());
 
   return getIt.allReady();
 }

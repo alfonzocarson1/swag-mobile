@@ -45,7 +45,8 @@ enum Endpoint {
   updateListingStatus,
   purchaseHistory,
   alerts,
-  readAlert
+  readAlert,
+  paywallSubscription,
 }
 
 class API {
@@ -112,5 +113,6 @@ class API {
     Endpoint.purchaseHistory: 'api/v1/profile/settings/purchaseHistory',
     Endpoint.alerts: 'api/v1/notification/alerts',
     Endpoint.readAlert: 'api/v1/notification/alerts/alert/%s',
+    Endpoint.paywallSubscription: 'api/v1/account/subscription'
   };
 }
