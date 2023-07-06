@@ -32,7 +32,7 @@ class _ShippingAddressPageState extends State<ShippingAddressPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
           profileData = getIt<PreferenceRepositoryService>().profileData();
         }));
-
+        
     return Scaffold(
       appBar: PushedHeader(
         showBackButton: true,
@@ -75,8 +75,7 @@ class _ShippingAddressPageState extends State<ShippingAddressPage> {
                                             Navigator.of(context,
                                                     rootNavigator: true)
                                                 .push(ShippingAddressDetailPage
-                                                    .route(profileData
-                                                        .addresses![index]));
+                                                    .route(index));
                                           },
                                           Icon(
                                             Icons.arrow_forward_ios_sharp,
@@ -106,7 +105,7 @@ class _ShippingAddressPageState extends State<ShippingAddressPage> {
                         InkWell(
                           onTap: () {
                             Navigator.of(context, rootNavigator: true)
-                                .push(AddShippingAddressPage.route());
+                                .push(AddShippingAddressPage.route(null));
                           },
                           splashColor: Palette.current.primaryNero,
                           child: ListTile(

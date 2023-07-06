@@ -67,7 +67,7 @@ class _MultiImageSlideState extends State<MultiImageSlide> {
                               child: ClipRRect(
                                 child: Image.file(
                                   File(widget.imgList[index].path),
-                                  fit: BoxFit.cover,
+                                  fit: BoxFit.contain,
                                   height: 250,
                                   width: 250,
                                 ),
@@ -130,7 +130,7 @@ class _MultiImageSlideState extends State<MultiImageSlide> {
                                             width: 20,
                                           ),
                                           const SizedBox(
-                                            width: 15,
+                                            width: 12,
                                           ),
                                           Text(S.of(context).add_photos,
                                               style: Theme.of(context)

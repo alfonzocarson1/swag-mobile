@@ -8,21 +8,21 @@ class CupertinoPickerView extends StatefulWidget {
     Key? key,
     this.cupertinoPickerOnChanged,
     this.cupertinoPickervalue,
-      this.cupertinoPickerItems,
-     this.onDone,
-     this.errorText,
-     this.looping,
-   }) : super(key: key);
+    this.cupertinoPickerItems,
+    this.onDone,
+    this.errorText,
+    this.looping,
+  }) : super(key: key);
 
-   void Function(int)? onDone;
-   void Function(int)? cupertinoPickerOnChanged;
-   final String? cupertinoPickervalue;
-   final List<dynamic>? cupertinoPickerItems;
-   final String? errorText;
-   final bool? looping;
-   @override
-   _CupertinoPickerViewState createState() => _CupertinoPickerViewState();
- }
+  void Function(int)? onDone;
+  void Function(int)? cupertinoPickerOnChanged;
+  final String? cupertinoPickervalue;
+  final List<dynamic>? cupertinoPickerItems;
+  final String? errorText;
+  final bool? looping;
+  @override
+  _CupertinoPickerViewState createState() => _CupertinoPickerViewState();
+}
 
 class _CupertinoPickerViewState extends State<CupertinoPickerView> {
   @override
@@ -114,14 +114,14 @@ class _CupertinoPickerViewState extends State<CupertinoPickerView> {
 
   Widget _buildCupertinoPicker() {
     return CupertinoPicker(
-      scrollController: FixedExtentScrollController(
-        initialItem: 0),
-       backgroundColor: Colors.white,
-       itemExtent: 50, //height of each item
-       looping: widget.looping ?? true,
-       onSelectedItemChanged: (value) {
-         setState(() {
-           selectedItemPos = value;
+      scrollController:
+          FixedExtentScrollController(initialItem: selectedItemPos),
+      backgroundColor: Colors.white,
+      itemExtent: 50, //height of each item
+      looping: widget.looping ?? true,
+      onSelectedItemChanged: (value) {
+        setState(() {
+          selectedItemPos = value;
         });
       },
       children: items

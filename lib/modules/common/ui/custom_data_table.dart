@@ -242,7 +242,7 @@ class _CustomDataTableState extends State<CustomDataTable> {
                         .map((history) => DataRow(cells: [
                               DataCell(Align(
                                   alignment: Alignment.centerLeft,
-                                  child: Text(history.dateFormat(history.updatedDate),
+                                  child: Text(dateFormat(history.updatedDate),
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodySmall!

@@ -50,6 +50,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m9(chatsNumber) => "${chatsNumber} Unread";
 
+  static String m10(number) => "${number} Items";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "See_All": MessageLookupByLibrary.simpleMessage("See All"),
@@ -309,6 +311,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Username must be between 4-20 characters"),
         "ist_item_popup_btn":
             MessageLookupByLibrary.simpleMessage("CREATE LISTING"),
+        "items_purchased": m10,
         "kyc_title": MessageLookupByLibrary.simpleMessage("KYC"),
         "last_name": MessageLookupByLibrary.simpleMessage("Last Name"),
         "last_sale": MessageLookupByLibrary.simpleMessage("LAST SALE"),
@@ -319,6 +322,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("LIST ITEM FOR SALE"),
         "list_item_popup_desc": MessageLookupByLibrary.simpleMessage(
             "Please select the item you would like to list for sale."),
+        "list_item_popup_please_select": MessageLookupByLibrary.simpleMessage(
+            "Please select an item to list"),
         "list_item_popup_title":
             MessageLookupByLibrary.simpleMessage("LIST ITEM"),
         "list_price_input": MessageLookupByLibrary.simpleMessage("List Price"),
@@ -336,6 +341,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "nft_wallet_title": MessageLookupByLibrary.simpleMessage("NFT Wallet"),
         "no_match_password":
             MessageLookupByLibrary.simpleMessage("Password doesn’t match"),
+        "no_purchase_history_yet":
+            MessageLookupByLibrary.simpleMessage("No Purchase History yet"),
         "notification_already_requested": MessageLookupByLibrary.simpleMessage(
             "You have already requested to be notified.  We will notify you when item is listed for sale."),
         "notify_availability": MessageLookupByLibrary.simpleMessage(

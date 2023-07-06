@@ -44,6 +44,11 @@ class _CollectionPageState extends State<CollectionPage> {
     getIt<CollectionProfileCubit>().loadResults();
   }
 
+  String showForSaleLabel(
+      {required BuildContext context, required int? length}) {
+    return length == 1 ? S.of(context).for_sale : S.of(context).from;
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CollectionProfileCubit, CollectionCubitState>(
@@ -85,7 +90,7 @@ class _CollectionPageState extends State<CollectionPage> {
                 shrinkWrap: true,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  crossAxisSpacing: 17.0,
+                  crossAxisSpacing: 19.0,
                   mainAxisSpacing: 12.0,
                   mainAxisExtent: 215,
                 ),
@@ -264,7 +269,7 @@ class _CollectionPageState extends State<CollectionPage> {
                                           color: Palette.current.white)),
                               Text(
                                   collectionList[index - 1].forSale
-                                      ? '${S.of(context).from}: ${decimalDigitsLastSalePrice(collectionList[index - 1].saleInfo.minPrice!)}'
+                                      ? '${showForSaleLabel(context: context, length: collectionList[index - 1].numberAvailable)}: ${decimalDigitsLastSalePrice(collectionList[index - 1].saleInfo.minPrice!)}'
                                       : '${S.of(context).last_sale}: ${decimalDigitsLastSalePrice(collectionList[index - 1].saleInfo.lastSale!)}',
                                   overflow: TextOverflow.fade,
                                   style: Theme.of(context)

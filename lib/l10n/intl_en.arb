@@ -184,6 +184,7 @@
     "list_item_popup_title": "LIST ITEM",
     "list_item_popup_desc": "Please select the item you would like to list for sale.",
     "ist_item_popup_btn": "CREATE LISTING",
+    "list_item_popup_please_select": "Please select an item to list",
     "post_listing_btn": "POST LISTING",
     "price_validations_msj": "cannot enter more than 2 decimal places",
     "delete_photo": "DELETE PHOTO",
@@ -290,6 +291,8 @@
     "cancel_sale_btn": "CANCEL SALE",
     "seller_buy_message": "has agreed to purchase your",
     
+    "no_purchase_history_yet": "No Purchase History yet",
+    "items_purchased": "{number} Items",
 
     "chatChat": "Chat",
     "chatModeratorName": "SWAG",

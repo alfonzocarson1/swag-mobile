@@ -13,6 +13,7 @@ import '../../../common/ui/custom_text_form_field.dart';
 
 import '../../../common/ui/loading.dart';
 import '../../../common/ui/primary_button.dart';
+import '../../../common/utils/currency_input_formatter.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
 
@@ -325,42 +326,20 @@ class _AddCollectionState extends State<AddCollection> {
                                 controller: _purchaseController,
                                 inputType:
                                     const TextInputType.numberWithOptions(
-                                  decimal: true,
+                                  decimal: false,
                                   signed: false,
                                 ),
                                 inputFormatters: <TextInputFormatter>[
-                                  FilteringTextInputFormatter.digitsOnly
+                                  FilteringTextInputFormatter.digitsOnly,
+                                  CurrencyTextInputFormatter()
                                 ],
-                                maxLength: 7,
+                                maxLength: 9,
                                 onChanged: (value) {
-                                  if (value == '00') {
-                                    setState(() {
-                                      _price = 0.0;
-                                    });
-                                  }
-                                  String newValue = value
-                                      .replaceAll(',', '')
-                                      .replaceAll('.', '');
-                                  if (value.isEmpty || newValue == '00') {
-                                    _purchaseController.clear();
-                                    isFirst = true;
-                                    return;
-                                  }
-                                  double value1 = double.parse(newValue);
-                                  if (!isFirst) value1 = value1 * 100;
-                                  value = NumberFormat.currency(
-                                          customPattern: '###,###.##')
-                                      .format(value1 / 100);
-                                  _purchaseController.value = TextEditingValue(
-                                    text: value,
-                                    selection: TextSelection.collapsed(
-                                        offset: value.length),
-                                  );
-
                                   setState(() {
                                     String str = _purchaseController.value.text;
                                     String result = str.replaceAll(',', '');
                                     _price = double.parse(result);
+                                    print(_price);
                                   });
                                 },
                               ),

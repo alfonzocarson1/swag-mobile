@@ -1840,6 +1840,16 @@ class S {
     );
   }
 
+  /// `Please select an item to list`
+  String get list_item_popup_please_select {
+    return Intl.message(
+      'Please select an item to list',
+      name: 'list_item_popup_please_select',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `POST LISTING`
   String get post_listing_btn {
     return Intl.message(
@@ -2847,6 +2857,26 @@ class S {
       name: 'seller_buy_message',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `No Purchase History yet`
+  String get no_purchase_history_yet {
+    return Intl.message(
+      'No Purchase History yet',
+      name: 'no_purchase_history_yet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{number} Items`
+  String items_purchased(Object number) {
+    return Intl.message(
+      '$number Items',
+      name: 'items_purchased',
+      desc: '',
+      args: [number],
     );
   }
 

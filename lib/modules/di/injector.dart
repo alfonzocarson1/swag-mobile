@@ -4,10 +4,13 @@ import 'package:swagapp/modules/api/api_service.dart';
 import 'package:swagapp/modules/blocs/search_bloc.dart/search_bloc.dart';
 import 'package:swagapp/modules/common/utils/context_service.dart';
 import 'package:swagapp/modules/cubits/paginated_search/paginated_search_cubit.dart';
+import 'package:swagapp/modules/cubits/purchase_history/purchase_history_cubit.dart';
 import 'package:swagapp/modules/cubits/saved_search/saved_searches_cubit.dart';
 import 'package:swagapp/modules/data/auth/i_auth_service.dart';
 import 'package:swagapp/modules/data/chat/chat_service.dart';
 import 'package:swagapp/modules/data/filters/filters_service.dart';
+import 'package:swagapp/modules/data/purchase_history/i_purchase_history_service.dart';
+import 'package:swagapp/modules/data/purchase_history/purchase_history_service.dart';
 import 'package:swagapp/modules/data/saved_search/i_saved_search_service.dart';
 import 'package:swagapp/modules/data/saved_search/saved_search_service.dart';
 import 'package:swagapp/modules/data/search/i_search_service.dart';
@@ -189,6 +192,12 @@ Future<void> setupAppScope() {
       () => FavoriteService(APIService()));
   getIt.registerLazySingleton<FavoriteItemBloc>(
       () => FavoriteItemBloc(getIt<IFavoriteService>()));
+
+  getIt.registerLazySingleton<IPurchaseHistoryService>(
+      () => PurchaseHistoryService(APIService()));
+  getIt.registerLazySingleton(
+      () => PurchaseHistoryCubit(getIt.get()));
+  
 
   return getIt.allReady();
 }

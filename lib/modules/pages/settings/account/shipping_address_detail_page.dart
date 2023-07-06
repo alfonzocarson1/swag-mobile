@@ -6,19 +6,25 @@ import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
 import '../../../common/utils/utils.dart';
 
+import '../../../data/shared_preferences/shared_preferences_service.dart';
+import '../../../di/injector.dart';
+import '../../../models/profile/profile_model.dart';
 import '../../../models/update_profile/addresses_payload_model.dart';
+import 'add_shipping_address_page.dart';
 
 // ignore: must_be_immutable
 class ShippingAddressDetailPage extends StatefulWidget {
   static const name = '/ShippingAddressDetailPage';
 
-  ShippingAddressDetailPage({super.key, required this.address});
+  ShippingAddressDetailPage({super.key, required this.addressIndex});
 
-  AddressesPayloadModel address;
+  int addressIndex;
 
-  static Route route(AddressesPayloadModel address) => PageRoutes.material(
+  static Route route(int idx) => PageRoutes.material(
         settings: const RouteSettings(name: name),
-        builder: (context) => ShippingAddressDetailPage(address: address),
+        builder: (context) => ShippingAddressDetailPage(
+          addressIndex: idx,
+        ),
       );
 
   @override
@@ -27,8 +33,12 @@ class ShippingAddressDetailPage extends StatefulWidget {
 }
 
 class _ShippingAddressDetailPageState extends State<ShippingAddressDetailPage> {
+  ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
   @override
   Widget build(BuildContext context) {
+     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
+          profileData = getIt<PreferenceRepositoryService>().profileData();
+        }));
     return Scaffold(
       appBar: PushedHeader(
         showBackButton: true,
@@ -60,7 +70,7 @@ class _ShippingAddressDetailPageState extends State<ShippingAddressDetailPage> {
                         selectSettings(
                             context,
                             'assets/icons/shipping_address_icon.png',
-                            '${widget.address.address1}',
+                            '${profileData.addresses![widget.addressIndex].address1}',
                             '',
                             () {},
                             Text(S.of(context).remove_address,
@@ -73,7 +83,7 @@ class _ShippingAddressDetailPageState extends State<ShippingAddressDetailPage> {
                                         color:
                                             Palette.current.primaryNeonPink)),
                             Text(
-                                '${widget.address.city}, ${widget.address.postalCode}',
+                                '${profileData.addresses![widget.addressIndex].city}, ${profileData.addresses![widget.addressIndex].postalCode}',
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall!
@@ -97,7 +107,12 @@ class _ShippingAddressDetailPageState extends State<ShippingAddressDetailPage> {
                                           color:
                                               Palette.current.primaryNeonGreen),
                                 ),
-                                onPressed: () {}),
+                                onPressed: () {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(AddShippingAddressPage.route(
+                                    profileData.addresses![widget.addressIndex],
+                                  ));
+                                }),
                           ),
                         ),
                       ],

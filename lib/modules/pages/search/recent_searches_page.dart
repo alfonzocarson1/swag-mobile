@@ -59,11 +59,14 @@ class _RecentSearchesPageState extends State<RecentSearchesPage> {
   
   Widget _recentItem(BuildContext context, String searchParam) {
     return InkWell(
-      onTap: ()=> PersistentNavBarNavigator.pushNewScreen(
-        context,
-        screen: SearchResultPage(searchParam: searchParam),
-        withNavBar: true,
-      ),
+      onTap: () {
+        Navigator.of(context).pop();
+        PersistentNavBarNavigator.pushNewScreen(
+          context,
+          screen: SearchResultPage(searchParam: searchParam),
+          withNavBar: true,
+        );
+      },
       child: Column(
         children: [
           Ink(

@@ -143,7 +143,7 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
 
     await initFiltersAndSorts();
     if (!mounted || widget._textEditingController.text.isEmpty) return;
-
+    Navigator.of(context).pop();
     PersistentNavBarNavigator.pushNewScreen(
       context,
       screen: SearchResultPage(searchParam: widget._textEditingController.text),
@@ -166,38 +166,48 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
               child: Padding(
                 padding: const EdgeInsets.only(left: 36.0, right: 20),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
-                      child: RichText(
-                        maxLines: 1,
-                        softWrap: false,
-                        overflow: TextOverflow.ellipsis,
-                        text: TextSpan(children: [
-                          TextSpan(
-                              text: '${widget._textEditingController.text} ',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineLarge!
-                                  .copyWith(
-                                      color: Palette.current.primaryWhiteSmoke,
-                                      fontSize: 16)),
-                          TextSpan(
-                            text: "in $category",
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineLarge!
-                                .copyWith(
-                                    color: Palette.current.darkGray,
-                                    fontSize: 16),
+                    Flexible(
+                      child:  Container(
+                        padding: const EdgeInsets.only(right: 0.0),
+                        child: Text(
+                          '${widget._textEditingController.text} ',
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context)
+                          .textTheme
+                          .headlineLarge!
+                              .copyWith(
+                          color: Palette.current.darkGray,
+                          fontSize: 16),
                           ),
-                        ]),
+                        ),
                       ),
-                    ),
-                    const Spacer(),
-                    Icon(
-                      Icons.arrow_forward_ios_sharp,
-                      size: 10,
-                      color: Palette.current.darkGray,
+                     Container(
+                      child:  Text(
+                        "in $category",
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineLarge!
+                            .copyWith(
+                        color: Palette.current.primaryWhiteSmoke,
+                            fontSize: 16))
+                      ),
+                    Spacer(flex: 1),
+                    Container(
+                      width: 50,
+                      height: 50,
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 4.0),
+                          child: Icon(
+                            Icons.arrow_forward_ios_sharp,
+                            size: 10,
+                            color: Palette.current.darkGray,
+                          ),
+                        )
+                      )
                     )
                   ],
                 ),
