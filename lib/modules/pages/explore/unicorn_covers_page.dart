@@ -16,10 +16,9 @@ class UnicornCoversPage extends StatefulWidget {
 
 class _UnicornCoversPageState extends State<UnicornCoversPage> {
   List<CatalogItemModel> unicornListData = [];
-  
+
   @override
   Widget build(BuildContext context) {
-   
     return BlocListener<ExploreCubit, ExploreCubitState>(
         listener: (context, state) => state.maybeWhen(
               orElse: () {
@@ -33,7 +32,9 @@ class _UnicornCoversPageState extends State<UnicornCoversPage> {
                 return null;
               },
             ),
-        child: ExploreCategorySlider(sliderList: unicornListData, sliderText: S.of(context).unicorn_covers,));
-  } 
-  
+        child: ExploreCategorySlider(
+          sliderList: unicornListData,
+          sliderText: S.of(context).unicorn_covers,
+        ));
+  }
 }

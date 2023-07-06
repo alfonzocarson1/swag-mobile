@@ -260,14 +260,6 @@ class _$_SalesHistoryModel implements _SalesHistoryModel {
   factory _$_SalesHistoryModel.fromJson(Map<String, dynamic> json) =>
       _$$_SalesHistoryModelFromJson(json);
 
-  String dateFormat(String dateStr) {
-    final DateFormat displayFormater = DateFormat('dd/MM/yyyy');
-    final DateFormat serverFormater = DateFormat('MM/dd/yyyy');
-    final DateTime displayDate = displayFormater.parse(dateStr);
-    final String formatted = serverFormater.format(displayDate);
-    return formatted;
-  }
-
   @override
   final String salesPriceHistoryId;
   @override

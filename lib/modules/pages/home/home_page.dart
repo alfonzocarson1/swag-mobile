@@ -5,6 +5,7 @@ import 'package:swagapp/modules/di/injector.dart';
 import 'package:swagapp/modules/pages/search/search_page.dart';
 
 import '../../common/utils/custom_route_animations.dart';
+import '../../cubits/alert/alert_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../pages/alert/alert_page.dart';
 import '../../pages/profile/profile_page.dart';
@@ -31,6 +32,8 @@ class _HomePage extends State<HomePage> {
       PersistentTabController(initialIndex: 0);
   int indexTap = 0;
 
+  bool unread = getIt<PreferenceRepositoryService>().unreadAlert();
+
   List<Widget> widgetsChildren = [];
 
   @override
@@ -53,6 +56,8 @@ class _HomePage extends State<HomePage> {
       Navigator.of(context, rootNavigator: true)
           .push(CreateAccountPage.route());
       getIt<PreferenceRepositoryService>().saveReturExploreIsNotLogged(true);
+    } else if (index == 2 && isLogged) {
+      getIt<AlertCubit>().getAlertList();
     }
 
     setState(() {
@@ -73,6 +78,12 @@ class _HomePage extends State<HomePage> {
         getIt<PreferenceRepositoryService>().saveReturExploreIsNotLogged(false);
       });
     }
+
+    Future.delayed(Duration.zero, () {
+      setState(() {
+        this.unread = getIt<PreferenceRepositoryService>().unreadAlert();
+      });
+    });
 
     return SizedBox(
       height: 100,
@@ -97,15 +108,15 @@ class _HomePage extends State<HomePage> {
             onTap: onTapTapped,
             currentIndex: indexTap,
             type: BottomNavigationBarType.fixed,
-            items: const [
-              BottomNavigationBarItem(
+            items: [
+              const BottomNavigationBarItem(
                 icon: ImageIcon(
                   AssetImage('assets/images/server.png'),
                   size: 20,
                 ),
                 label: "Explore",
               ),
-              BottomNavigationBarItem(
+              const BottomNavigationBarItem(
                 icon: ImageIcon(
                   AssetImage('assets/images/Browse.png'),
                   size: 20,
@@ -113,13 +124,34 @@ class _HomePage extends State<HomePage> {
                 label: "Search",
               ),
               BottomNavigationBarItem(
-                icon: ImageIcon(
-                  AssetImage('assets/images/Alerts.png'),
-                  size: 20,
-                ),
+                icon: this.unread
+                    ? Stack(
+                        children: [
+                          const ImageIcon(
+                            AssetImage('assets/images/Alerts.png'),
+                            size: 20,
+                          ),
+                          Positioned(
+                            top: 0,
+                            right: 0,
+                            child: Container(
+                              width: 10,
+                              height: 10,
+                              decoration: BoxDecoration(
+                                color: Palette.current.primaryNeonPink,
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    : const ImageIcon(
+                        AssetImage('assets/images/Alerts.png'),
+                        size: 20,
+                      ),
                 label: "Alerts",
               ),
-              BottomNavigationBarItem(
+              const BottomNavigationBarItem(
                 icon: ImageIcon(
                   AssetImage('assets/images/You.png'),
                   size: 20,

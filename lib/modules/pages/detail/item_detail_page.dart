@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/common/ui/loading.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
+import 'package:swagapp/modules/common/utils/utils.dart';
 import 'package:swagapp/modules/models/detail/sale_history_model.dart';
 import 'package:swagapp/modules/pages/detail/transaction_history_page.dart';
 import '../../blocs/detail_bloc/detail_bloc.dart';
@@ -256,7 +257,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                         itemId: dataDetail[index].catalogItemId),
                     RarityWidget(
                         rarity: dataDetail[index].rarityScore,
-                        released: dataDetail[index].dateFormat(dataDetail[index].released!),
+                        released: dateFormat(dataDetail[index].released!),
                         totalMade: dataDetail[index].totalMade,
                         retail: dataDetail[index].retail,
                         available: dataDetail[index].numberAvailable),

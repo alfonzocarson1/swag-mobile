@@ -41,7 +41,6 @@ mixin _$DetailItemModel {
       throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  String dateFormat(String dateStr) => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $DetailItemModelCopyWith<DetailItemModel> get copyWith =>
       throw _privateConstructorUsedError;
@@ -335,7 +334,7 @@ class __$$_DetailItemModelCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(includeIfNull: false)
-class _$_DetailItemModel implements _DetailItemModel {
+class _$_DetailItemModel extends _DetailItemModel {
   const _$_DetailItemModel(
       {required this.catalogItemId,
       required this.catalogItemName,
@@ -355,18 +354,11 @@ class _$_DetailItemModel implements _DetailItemModel {
       required this.inCollection,
       this.profileFavoriteItemId,
       final List<DetailCollectionModel>? collectionItems})
-      : _collectionItems = collectionItems;
+      : _collectionItems = collectionItems,
+        super._();
 
   factory _$_DetailItemModel.fromJson(Map<String, dynamic> json) =>
       _$$_DetailItemModelFromJson(json);
-
-String dateFormat(String dateStr) {
-  final DateFormat displayFormater = DateFormat('dd/MM/yyyy');
-  final DateFormat serverFormater = DateFormat('MM/dd/yyyy');
-  final DateTime displayDate = displayFormater.parse(dateStr);
-  final String formatted = serverFormater.format(displayDate);
-  return formatted;
-}
 
   @override
   final String catalogItemId;
@@ -497,7 +489,7 @@ String dateFormat(String dateStr) {
   }
 }
 
-abstract class _DetailItemModel implements DetailItemModel {
+abstract class _DetailItemModel extends DetailItemModel {
   const factory _DetailItemModel(
       {required final String catalogItemId,
       required final String catalogItemName,
@@ -517,6 +509,7 @@ abstract class _DetailItemModel implements DetailItemModel {
       required final bool inCollection,
       final String? profileFavoriteItemId,
       final List<DetailCollectionModel>? collectionItems}) = _$_DetailItemModel;
+  const _DetailItemModel._() : super._();
 
   factory _DetailItemModel.fromJson(Map<String, dynamic> json) =
       _$_DetailItemModel.fromJson;

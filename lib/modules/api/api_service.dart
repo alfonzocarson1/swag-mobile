@@ -76,6 +76,7 @@ class APIService {
             headers: baseHeaders,
             body: jsonEncode(body),
           );
+
           break;
         case RequestMethod.delete:
           response = await client.delete(
@@ -177,6 +178,7 @@ class APIService {
             headers: baseHeaders,
             body: jsonEncode(body),
           );
+
           break;
         case RequestMethod.delete:
           response = await client.delete(

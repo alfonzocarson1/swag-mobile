@@ -3,12 +3,14 @@ import 'package:swagapp/modules/pages/explore/update_avatar_bottom_sheet.dart';
 
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
+import '../../models/profile/avator_model.dart';
 import '../../models/profile/profile_model.dart';
 import '../utils/palette.dart';
 import '../utils/utils.dart';
 
 class AvatarPage extends StatefulWidget {
-  const AvatarPage({super.key});
+  const AvatarPage({super.key, this.isFirstUse=false});
+  final bool isFirstUse;
 
   @override
   State<AvatarPage> createState() => _AvatarPageState();
@@ -19,28 +21,36 @@ class _AvatarPageState extends State<AvatarPage> {
   ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
 
   String defaultImage = '';
+  var avatars = [];
+
+ 
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getProfileAvatar();
   }
 
   getProfileAvatar() {
-    setState(() {
-      profileData = getIt<PreferenceRepositoryService>().profileData();
-
-      if (profileData.useAvatar != 'CUSTOM') {
-        var data = imagesList
-            .where((avatar) => (avatar["id"].contains(profileData.useAvatar)));
-
-        defaultImage = data.first['url'];
-      } else {
-        defaultImage = profileData.avatarUrl ??
-            'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Franklin.png?alt=media&token=c1073f88-74c2-44c8-a287-fbe0caebf878';
-      }
-    });
+    for (var map in imagesList) {
+      avatars.add(AvatorModel.fromJson(map));
+    }
+    profileData = getIt<PreferenceRepositoryService>().profileData();
+    if (widget.isFirstUse && profileData.useAvatar == 'AVATAR1') {
+      setState(() {
+        defaultImage = getRandomElement(avatars).url;
+      });
+    } else if (profileData.useAvatar != 'CUSTOM') {
+      var avatarModel = avatars
+          .where((avatar) => (avatar.id.contains(profileData.useAvatar))).first;
+      setState(() {
+        defaultImage = avatarModel.url;
+      });
+    } else {
+      setState(() {
+        defaultImage = profileData.avatarUrl ?? getRandomElement(avatars).url;
+      });
+    }
   }
 
   @override

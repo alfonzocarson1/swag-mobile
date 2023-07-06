@@ -184,6 +184,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "condition": MessageLookupByLibrary.simpleMessage("Condition"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
+        "contact_us": MessageLookupByLibrary.simpleMessage("Contact us"),
         "contact_us_sub_title": MessageLookupByLibrary.simpleMessage(
             "Get in touch with Swag support"),
         "contact_us_title": MessageLookupByLibrary.simpleMessage("Contact Us"),
@@ -321,10 +322,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("LIST ITEM FOR SALE"),
         "list_item_popup_desc": MessageLookupByLibrary.simpleMessage(
             "Please select the item you would like to list for sale."),
+        "list_item_popup_please_select": MessageLookupByLibrary.simpleMessage(
+            "Please select an item to list"),
         "list_item_popup_title":
             MessageLookupByLibrary.simpleMessage("LIST ITEM"),
         "list_price_input": MessageLookupByLibrary.simpleMessage("List Price"),
+        "mail_was_cancelled":
+            MessageLookupByLibrary.simpleMessage("Mail was cancelled"),
+        "mail_was_saved_to_draft":
+            MessageLookupByLibrary.simpleMessage("Mail was saved to draft"),
+        "mail_was_sent": MessageLookupByLibrary.simpleMessage("Mail was sent"),
         "make_an_offer": MessageLookupByLibrary.simpleMessage("MAKE AN OFFER"),
+        "message": MessageLookupByLibrary.simpleMessage("Message"),
         "multi_collection_subtitle": MessageLookupByLibrary.simpleMessage(
             "It looks like you already have this item in your collection. Are you sure you want to add another?"),
         "multi_collection_title":
@@ -336,6 +345,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "nft_wallet_sub_title":
             MessageLookupByLibrary.simpleMessage("Connect your OpenSea Wallet"),
         "nft_wallet_title": MessageLookupByLibrary.simpleMessage("NFT Wallet"),
+        "no_email_app_available":
+            MessageLookupByLibrary.simpleMessage("No email app available"),
         "no_match_password":
             MessageLookupByLibrary.simpleMessage("Password doesn’t match"),
         "no_purchase_history_yet":
@@ -443,6 +454,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "cannot enter more than 2 decimal places"),
         "privacy_policy_text":
             MessageLookupByLibrary.simpleMessage("Privacy Policy"),
+        "problems_creating_an_account":
+            MessageLookupByLibrary.simpleMessage("Problems creating account? "),
+        "problems_signing_in":
+            MessageLookupByLibrary.simpleMessage("Problems signing in? "),
         "profile_sub_title": MessageLookupByLibrary.simpleMessage(
             "Username, email, password, phone"),
         "profile_title": MessageLookupByLibrary.simpleMessage("Profile"),
@@ -571,6 +586,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "unicorn_covers":
             MessageLookupByLibrary.simpleMessage("UNICORN COVERS"),
         "unread": MessageLookupByLibrary.simpleMessage("Unread"),
+        "user_problem_creating_account_in_the_swag_app":
+            MessageLookupByLibrary.simpleMessage(
+                "User problem creating account in the Swag App"),
+        "user_problem_signing_into_the_swag_app":
+            MessageLookupByLibrary.simpleMessage(
+                "User problem signing into the Swag App"),
         "username": MessageLookupByLibrary.simpleMessage("@username"),
         "username_taken":
             MessageLookupByLibrary.simpleMessage("This username is taken "),

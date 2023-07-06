@@ -46,7 +46,7 @@ class DiscountContainerWidget extends StatelessWidget {
       )),
       Container(
         padding:const EdgeInsets.fromLTRB(25, 10, 0, 0),
-        height: MediaQuery.of(context).size.height * 0.12,
+        height: MediaQuery.of(context).size.height * 0.13,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
             border: Border.all(
@@ -81,9 +81,7 @@ class DiscountContainerWidget extends StatelessWidget {
 }
 
 class CustomTriangle extends CustomPainter {
-  @override
-  
- final Color color;
+  final Color color;
  final String direction;
 
   CustomTriangle(this.color, this.direction);
