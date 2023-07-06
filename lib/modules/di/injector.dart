@@ -32,6 +32,7 @@ import '../blocs/sale_history/sale_history_bloc.dart';
 import '../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
 import '../blocs/sold_bloc/sold_bloc.dart';
 import '../blocs/update_profile_bloc/update_profile_bloc.dart';
+import '../cubits/alert/alert_cubit.dart';
 import '../cubits/auth/auth_cubit.dart';
 import '../cubits/buy/buy_cubit.dart';
 import '../cubits/catalog_detail/catalog_detail_cubit.dart';
@@ -42,6 +43,8 @@ import '../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
 import '../cubits/page_from_explore/page_from_explore_cubit.dart';
 import '../cubits/peer_to_peer_payments/peer_to_peer_payments_cubit.dart';
 import '../cubits/profile/get_profile_cubit.dart';
+import '../data/alerts/alerts_service.dart';
+import '../data/alerts/i_alerts_service.dart';
 import '../data/auth/auth_service.dart';
 import '../data/buy_for_sale_listing/buy_for_sale_listing_service.dart';
 import '../data/buy_for_sale_listing/i_buy_for_sale_listing_service.dart';
@@ -135,6 +138,10 @@ Future<void> setupAppScope() {
   getIt.registerLazySingleton<BuyCubit>(
       () => BuyCubit(getIt<IBuyForSaleListingService>()));
 
+  getIt.registerLazySingleton<IAlertService>(() => AlertService(APIService()));
+  getIt.registerLazySingleton<AlertCubit>(
+      () => AlertCubit(getIt<IAlertService>()));
+
   getIt.registerLazySingleton<IUpdateProfileService>(
       () => UpdateProfileService(APIService()));
   getIt.registerLazySingleton<UpdateProfileBloc>(
@@ -195,9 +202,7 @@ Future<void> setupAppScope() {
 
   getIt.registerLazySingleton<IPurchaseHistoryService>(
       () => PurchaseHistoryService(APIService()));
-  getIt.registerLazySingleton(
-      () => PurchaseHistoryCubit(getIt.get()));
-  
+  getIt.registerLazySingleton(() => PurchaseHistoryCubit(getIt.get()));
 
   return getIt.allReady();
 }

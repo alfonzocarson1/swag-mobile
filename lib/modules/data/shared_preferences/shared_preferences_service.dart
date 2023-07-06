@@ -42,6 +42,7 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
 
   static const String _backProfileCollection = 'backProfileCollection';
   static const String _onChatPage = 'onChatPage';
+  static const String _unreadAlert = 'unreadAlert';
 
   late SharedPreferences _prefs;
   @override
@@ -61,6 +62,17 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   @override
   Future<void> saveIsLogged(bool value) async {
     await _prefs.setBool(_logged, value);
+  }
+
+  @override
+  bool unreadAlert() {
+    final unreadAlert = _prefs.getBool(_unreadAlert);
+    return unreadAlert ?? false;
+  }
+
+  @override
+  Future<void> saveIsUnreadAlert(bool value) async {
+    await _prefs.setBool(_unreadAlert, value);
   }
 
   @override
