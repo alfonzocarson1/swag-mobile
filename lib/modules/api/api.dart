@@ -45,7 +45,7 @@ enum Endpoint {
   updateListingStatus,
   purchaseHistory,
   alerts,
-  readAlert
+  readAlert,
   paywallSubscription,
 }
 
