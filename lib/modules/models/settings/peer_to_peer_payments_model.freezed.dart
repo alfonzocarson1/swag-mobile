@@ -24,6 +24,8 @@ mixin _$PeerToPeerPaymentsModel {
   String? get venmoUser => throw _privateConstructorUsedError;
   String? get cashTag => throw _privateConstructorUsedError;
   String? get payPalEmail => throw _privateConstructorUsedError;
+  String? get accountProfilePeerToPeerPaymentId =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,7 +39,11 @@ abstract class $PeerToPeerPaymentsModelCopyWith<$Res> {
           $Res Function(PeerToPeerPaymentsModel) then) =
       _$PeerToPeerPaymentsModelCopyWithImpl<$Res, PeerToPeerPaymentsModel>;
   @useResult
-  $Res call({String? venmoUser, String? cashTag, String? payPalEmail});
+  $Res call(
+      {String? venmoUser,
+      String? cashTag,
+      String? payPalEmail,
+      String? accountProfilePeerToPeerPaymentId});
 }
 
 /// @nodoc
@@ -57,6 +63,7 @@ class _$PeerToPeerPaymentsModelCopyWithImpl<$Res,
     Object? venmoUser = freezed,
     Object? cashTag = freezed,
     Object? payPalEmail = freezed,
+    Object? accountProfilePeerToPeerPaymentId = freezed,
   }) {
     return _then(_value.copyWith(
       venmoUser: freezed == venmoUser
@@ -71,6 +78,11 @@ class _$PeerToPeerPaymentsModelCopyWithImpl<$Res,
           ? _value.payPalEmail
           : payPalEmail // ignore: cast_nullable_to_non_nullable
               as String?,
+      accountProfilePeerToPeerPaymentId: freezed ==
+              accountProfilePeerToPeerPaymentId
+          ? _value.accountProfilePeerToPeerPaymentId
+          : accountProfilePeerToPeerPaymentId // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -83,7 +95,11 @@ abstract class _$$_PeerToPeerPaymentsModelCopyWith<$Res>
       __$$_PeerToPeerPaymentsModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? venmoUser, String? cashTag, String? payPalEmail});
+  $Res call(
+      {String? venmoUser,
+      String? cashTag,
+      String? payPalEmail,
+      String? accountProfilePeerToPeerPaymentId});
 }
 
 /// @nodoc
@@ -101,6 +117,7 @@ class __$$_PeerToPeerPaymentsModelCopyWithImpl<$Res>
     Object? venmoUser = freezed,
     Object? cashTag = freezed,
     Object? payPalEmail = freezed,
+    Object? accountProfilePeerToPeerPaymentId = freezed,
   }) {
     return _then(_$_PeerToPeerPaymentsModel(
       venmoUser: freezed == venmoUser
@@ -115,6 +132,11 @@ class __$$_PeerToPeerPaymentsModelCopyWithImpl<$Res>
           ? _value.payPalEmail
           : payPalEmail // ignore: cast_nullable_to_non_nullable
               as String?,
+      accountProfilePeerToPeerPaymentId: freezed ==
+              accountProfilePeerToPeerPaymentId
+          ? _value.accountProfilePeerToPeerPaymentId
+          : accountProfilePeerToPeerPaymentId // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -124,7 +146,10 @@ class __$$_PeerToPeerPaymentsModelCopyWithImpl<$Res>
 @JsonSerializable(includeIfNull: false)
 class _$_PeerToPeerPaymentsModel implements _PeerToPeerPaymentsModel {
   const _$_PeerToPeerPaymentsModel(
-      {this.venmoUser, this.cashTag, this.payPalEmail});
+      {this.venmoUser,
+      this.cashTag,
+      this.payPalEmail,
+      this.accountProfilePeerToPeerPaymentId});
 
   factory _$_PeerToPeerPaymentsModel.fromJson(Map<String, dynamic> json) =>
       _$$_PeerToPeerPaymentsModelFromJson(json);
@@ -135,10 +160,12 @@ class _$_PeerToPeerPaymentsModel implements _PeerToPeerPaymentsModel {
   final String? cashTag;
   @override
   final String? payPalEmail;
+  @override
+  final String? accountProfilePeerToPeerPaymentId;
 
   @override
   String toString() {
-    return 'PeerToPeerPaymentsModel(venmoUser: $venmoUser, cashTag: $cashTag, payPalEmail: $payPalEmail)';
+    return 'PeerToPeerPaymentsModel(venmoUser: $venmoUser, cashTag: $cashTag, payPalEmail: $payPalEmail, accountProfilePeerToPeerPaymentId: $accountProfilePeerToPeerPaymentId)';
   }
 
   @override
@@ -150,12 +177,17 @@ class _$_PeerToPeerPaymentsModel implements _PeerToPeerPaymentsModel {
                 other.venmoUser == venmoUser) &&
             (identical(other.cashTag, cashTag) || other.cashTag == cashTag) &&
             (identical(other.payPalEmail, payPalEmail) ||
-                other.payPalEmail == payPalEmail));
+                other.payPalEmail == payPalEmail) &&
+            (identical(other.accountProfilePeerToPeerPaymentId,
+                    accountProfilePeerToPeerPaymentId) ||
+                other.accountProfilePeerToPeerPaymentId ==
+                    accountProfilePeerToPeerPaymentId));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, venmoUser, cashTag, payPalEmail);
+  int get hashCode => Object.hash(runtimeType, venmoUser, cashTag, payPalEmail,
+      accountProfilePeerToPeerPaymentId);
 
   @JsonKey(ignore: true)
   @override
@@ -175,9 +207,11 @@ class _$_PeerToPeerPaymentsModel implements _PeerToPeerPaymentsModel {
 
 abstract class _PeerToPeerPaymentsModel implements PeerToPeerPaymentsModel {
   const factory _PeerToPeerPaymentsModel(
-      {final String? venmoUser,
-      final String? cashTag,
-      final String? payPalEmail}) = _$_PeerToPeerPaymentsModel;
+          {final String? venmoUser,
+          final String? cashTag,
+          final String? payPalEmail,
+          final String? accountProfilePeerToPeerPaymentId}) =
+      _$_PeerToPeerPaymentsModel;
 
   factory _PeerToPeerPaymentsModel.fromJson(Map<String, dynamic> json) =
       _$_PeerToPeerPaymentsModel.fromJson;
@@ -188,6 +222,8 @@ abstract class _PeerToPeerPaymentsModel implements PeerToPeerPaymentsModel {
   String? get cashTag;
   @override
   String? get payPalEmail;
+  @override
+  String? get accountProfilePeerToPeerPaymentId;
   @override
   @JsonKey(ignore: true)
   _$$_PeerToPeerPaymentsModelCopyWith<_$_PeerToPeerPaymentsModel>

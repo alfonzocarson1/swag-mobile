@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:swagapp/modules/models/search/catalog_item_model.dart';
+import 'package:swagapp/modules/models/sold/product_item_sold.dart';
 
 import '../../../generated/l10n.dart';
 import '../../blocs/sold_bloc/sold_bloc.dart';
@@ -57,7 +57,7 @@ class _SoldPageState extends State<SoldPage> {
         ));
   }
 
-  Widget _getBody(List<CatalogItemModel> soldList) {
+  Widget _getBody(List<ProductItemSold> soldList) {
     return RefreshIndicator(
       onRefresh: () async {
         makeCall();
@@ -85,7 +85,7 @@ class _SoldPageState extends State<SoldPage> {
                         child: ClipRRect(
                           child: CachedNetworkImage(
                             fit: BoxFit.cover,
-                            imageUrl: soldList[index].catalogItemImage,
+                            imageUrl: soldList[index].productItemImageUrls.first,
                             placeholder: (context, url) => SizedBox(
                               height: 200,
                               child: Center(
@@ -106,7 +106,7 @@ class _SoldPageState extends State<SoldPage> {
                   const SizedBox(
                     height: 5,
                   ),
-                  Text(soldList[index].catalogItemName.toUpperCase(),
+                  Text(soldList[index].productItemName.toUpperCase(),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context)
@@ -119,9 +119,9 @@ class _SoldPageState extends State<SoldPage> {
                               fontSize: 21,
                               color: Palette.current.white)),
                   Text(
-                      soldList[index].forSale
-                          ? '${S.of(context).for_sale} ${soldList[index].saleInfo.minPrice} - ${soldList[index].saleInfo.maxPrice}'
-                          : '${S.of(context).last_sale} ${soldList[index].saleInfo.lastSale}',
+                      soldList[index].forSale ?? false
+                          ? '${S.of(context).last_sale} \$${soldList[index].lastSale}'
+                          : '${S.of(context).from}: \$${soldList[index].productItemPrice}',
                       overflow: TextOverflow.fade,
                       style: Theme.of(context)
                           .textTheme
