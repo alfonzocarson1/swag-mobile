@@ -44,7 +44,8 @@ enum Endpoint {
   cancelPurchaseRequest,
   updateListingStatus,
   purchaseHistory,
-  alerts
+  alerts,
+  readAlert
 }
 
 class API {
@@ -110,5 +111,6 @@ class API {
     Endpoint.updateListingStatus: 'api/v1/buyFlow/changeStatusListing/chat',
     Endpoint.purchaseHistory: 'api/v1/profile/settings/purchaseHistory',
     Endpoint.alerts: 'api/v1/notification/alerts',
+    Endpoint.readAlert: 'api/v1/notification/alerts/alert/%s',
   };
 }

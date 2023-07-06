@@ -15,6 +15,7 @@ class BuyUserForSaleListingModel with _$BuyUserForSaleListingModel {
     final String? avatarBuyerUrl,
     final AddressesPayloadModel? address,
     final PeerToPeerPaymentsModel? profilePeerToPeerPayment,
+    final String? purchaseOrder,
   }) = _BuyUserForSaleListingModel;
 
   factory BuyUserForSaleListingModel.fromJson(Map<String, dynamic> json) =>

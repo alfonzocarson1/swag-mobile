@@ -13,6 +13,8 @@ abstract class PreferenceRepositoryInt {
   Future<void> saveIsLogged(bool value);
   bool onChatPage();
   Future<void> saveOnChatPage(bool value);
+  bool unreadAlert();
+  Future<void> saveIsUnreadAlert(bool value);
   bool backProfileCollection();
   Future<void> saveBackProfileCollection(bool value);
   bool hasJustSignedUp();

@@ -370,7 +370,7 @@ class __$$LoadedAlertListStateCopyWithImpl<$Res>
     Object? listAlert = null,
   }) {
     return _then(_$LoadedAlertListState(
-      listAlert: null == listAlert
+      null == listAlert
           ? _value.listAlert
           : listAlert // ignore: cast_nullable_to_non_nullable
               as AlertResponseModel,
@@ -389,7 +389,7 @@ class __$$LoadedAlertListStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$LoadedAlertListState implements LoadedAlertListState {
-  _$LoadedAlertListState({required this.listAlert});
+  _$LoadedAlertListState(this.listAlert);
 
   @override
   final AlertResponseModel listAlert;
@@ -494,7 +494,7 @@ class _$LoadedAlertListState implements LoadedAlertListState {
 }
 
 abstract class LoadedAlertListState implements AlertStateCubit {
-  factory LoadedAlertListState({required final AlertResponseModel listAlert}) =
+  factory LoadedAlertListState(final AlertResponseModel listAlert) =
       _$LoadedAlertListState;
 
   AlertResponseModel get listAlert;

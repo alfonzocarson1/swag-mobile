@@ -3,6 +3,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../common/utils/handling_errors.dart';
 import '../../data/alerts/i_alerts_service.dart';
+import '../../data/shared_preferences/shared_preferences_service.dart';
+import '../../di/injector.dart';
 import '../../models/alerts/alert_response_model.dart';
 
 part 'alert_state.dart';
@@ -13,10 +15,55 @@ class AlertCubit extends Cubit<AlertStateCubit> {
   AlertCubit(this.alertService) : super(const AlertStateCubit.initial());
 
   Future<void> getAlertList() async {
+    emit(
+      const Initial(),
+    );
     try {
       AlertResponseModel response = await alertService.getAlertsList();
+      int unread = 0;
+      for (var alert in response.alertList) {
+        if (alert.read == false) {
+          unread++;
+        }
+      }
+      if (unread > 0) {
+        getIt<PreferenceRepositoryService>().saveIsUnreadAlert(true);
+      } else {
+        getIt<PreferenceRepositoryService>().saveIsUnreadAlert(false);
+      }
+      emit(LoadedAlertListState(response));
+    } catch (error) {
+      emit(
+        ErrorAlertStateCubit(HandlingErrors().getError(error)),
+      );
+    }
+  }
 
-      emit(LoadedAlertListState(listAlert: response));
+  Future<void> updateAletBadget() async {
+    try {
+      AlertResponseModel response = await alertService.getAlertsList();
+      int unread = 0;
+      for (var alert in response.alertList) {
+        if (alert.read == false) {
+          unread++;
+        }
+      }
+      if (unread > 0) {
+        getIt<PreferenceRepositoryService>().saveIsUnreadAlert(true);
+      } else {
+        getIt<PreferenceRepositoryService>().saveIsUnreadAlert(false);
+      }
+    } catch (error) {
+      emit(
+        ErrorAlertStateCubit(HandlingErrors().getError(error)),
+      );
+    }
+  }
+
+  Future<void> readAlert(String notificationAlertId) async {
+    try {
+      await alertService.readAlert(notificationAlertId);
+      await getIt<AlertCubit>().getAlertList();
     } catch (error) {
       emit(
         ErrorAlertStateCubit(HandlingErrors().getError(error)),

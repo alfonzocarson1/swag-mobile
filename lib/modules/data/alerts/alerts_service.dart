@@ -24,4 +24,16 @@ class AlertService extends IAlertService {
     );
     return response;
   }
+
+  @override
+  Future<dynamic> readAlert(String notificationAlertId) async {
+    dynamic response = await apiService.getEndpointData(
+      endpoint: Endpoint.readAlert,
+      method: RequestMethod.put,
+      dynamicParam: notificationAlertId,
+      needBearer: true,
+      fromJson: (json) => json,
+    );
+    return response;
+  }
 }

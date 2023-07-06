@@ -20,6 +20,7 @@ _$_BuyUserForSaleListingModel _$$_BuyUserForSaleListingModelFromJson(
           ? null
           : PeerToPeerPaymentsModel.fromJson(
               json['profilePeerToPeerPayment'] as Map<String, dynamic>),
+      purchaseOrder: json['purchaseOrder'] as String?,
     );
 
 Map<String, dynamic> _$$_BuyUserForSaleListingModelToJson(
@@ -37,5 +38,6 @@ Map<String, dynamic> _$$_BuyUserForSaleListingModelToJson(
   writeNotNull('avatarBuyerUrl', instance.avatarBuyerUrl);
   writeNotNull('address', instance.address);
   writeNotNull('profilePeerToPeerPayment', instance.profilePeerToPeerPayment);
+  writeNotNull('purchaseOrder', instance.purchaseOrder);
   return val;
 }
