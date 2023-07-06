@@ -4,6 +4,7 @@ import 'package:sendbird_sdk/sendbird_sdk.dart';
 import 'package:swagapp/modules/common/ui/custom_list_tile.dart';
 import 'package:swagapp/modules/common/utils/utils.dart';
 import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
+import 'package:swagapp/modules/enums/chat_type.dart';
 import 'package:swagapp/modules/models/profile/profile_model.dart';
 import 'package:swagapp/modules/pages/chat/chat_page.dart';
 import 'package:swagapp/modules/common/assets/images.dart';
@@ -112,9 +113,9 @@ class _Avatar extends StatelessWidget {
 
     return CircleAvatar(
         backgroundColor: (
-          this.hasUreadMessages)
+          this.chatData.channel.customType == ChatType.listing.textValue)
             ? Palette.current.primaryNeonPink
-            : Colors.transparent,
+            : Palette.current.primaryNeonGreen,
         maxRadius: 22,
         child: (isCoverChannelNull)
             ? Image.asset(
