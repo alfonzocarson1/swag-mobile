@@ -20,10 +20,12 @@ import 'package:swagapp/modules/cubits/peer_to_peer_payments/peer_to_peer_paymen
 import 'package:swagapp/modules/cubits/profile/get_profile_cubit.dart';
 import 'package:swagapp/modules/cubits/purchase_history/purchase_history_cubit.dart';
 import 'package:swagapp/modules/cubits/saved_search/saved_searches_cubit.dart';
+import 'package:swagapp/modules/cubits/subscription_status/update_subscription_status_cubit.dart';
 import 'package:swagapp/modules/data/chat/chat_service.dart';
 import 'package:swagapp/modules/di/injector.dart';
 
 import '../cubits/alert/alert_cubit.dart';
+import '../cubits/paywall/paywall_cubit.dart';
 import 'buy_sale_listing_bloc/buy_sale_listing_bloc.dart';
 import 'collection_bloc/collection_bloc.dart';
 import 'detail_bloc/detail_bloc.dart';
@@ -85,5 +87,7 @@ abstract class AppBlocs {
         BlocProvider<PurchaseHistoryCubit>(
             create: (_) => getIt<PurchaseHistoryCubit>()),
         BlocProvider<AlertCubit>(create: (context) => getIt<AlertCubit>()),
-      ];
+        BlocProvider<PaywallCubit>(create: (_) => getIt<PaywallCubit>()),
+    BlocProvider<UpdateSubscriptionStatusCubit>(create: (_) => getIt<UpdateSubscriptionStatusCubit>()),
+  ];
 }
