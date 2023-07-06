@@ -3082,11 +3082,31 @@ class S {
     );
   }
 
+  /// `Payment Confirmation @{buyerUserName} indicated they made payment`
+  String chatPaymentSendBuyer(Object buyerUserName) {
+    return Intl.message(
+      'Payment Confirmation @$buyerUserName indicated they made payment',
+      name: 'chatPaymentSendBuyer',
+      desc: '',
+      args: [buyerUserName],
+    );
+  }
+
   /// `Payment Information`
   String get chatCardPaymetInformation {
     return Intl.message(
       'Payment Information',
       name: 'chatCardPaymetInformation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payment Confirmation`
+  String get chatCardPaymetConfirmation {
+    return Intl.message(
+      'Payment Confirmation',
+      name: 'chatCardPaymetConfirmation',
       desc: '',
       args: [],
     );

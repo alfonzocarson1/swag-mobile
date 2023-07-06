@@ -45,12 +45,15 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m7(sender) => "New message from ${sender}";
 
-  static String m8(sellerUserName, trackingNumber) =>
+  static String m8(buyerUserName) =>
+      "Payment Confirmation @${buyerUserName} indicated they made payment";
+
+  static String m9(sellerUserName, trackingNumber) =>
       "${sellerUserName} has ship the item. Here is the tracking number\n\n${trackingNumber}";
 
-  static String m9(chatsNumber) => "${chatsNumber} Unread";
+  static String m10(chatsNumber) => "${chatsNumber} Unread";
 
-  static String m10(number) => "${number} Items";
+  static String m11(number) => "${number} Items";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -128,6 +131,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "chatCardConfirmPaymentBuyer": m2,
         "chatCardConfirmPaymentSeller": m3,
         "chatCardPaymentReceivedSeller": m4,
+        "chatCardPaymetConfirmation":
+            MessageLookupByLibrary.simpleMessage("Payment Confirmation"),
         "chatCardPaymetInformation":
             MessageLookupByLibrary.simpleMessage("Payment Information"),
         "chatCardShippingInformation":
@@ -149,13 +154,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "chatModeratorName": MessageLookupByLibrary.simpleMessage("SWAG"),
         "chatNoMessages":
             MessageLookupByLibrary.simpleMessage("No previous messages"),
-        "chatShippedMessage": m8,
+        "chatPaymentSendBuyer": m8,
+        "chatShippedMessage": m9,
         "chatSwagg": MessageLookupByLibrary.simpleMessage("SWAGG"),
         "chatSwaggAdmin": MessageLookupByLibrary.simpleMessage("Swagg Admin"),
         "chatToday": MessageLookupByLibrary.simpleMessage("Today"),
         "chatTyping": MessageLookupByLibrary.simpleMessage("Typing..."),
         "chatsHeader": MessageLookupByLibrary.simpleMessage("Chat"),
-        "chatsUnreadMessages": m9,
+        "chatsUnreadMessages": m10,
         "city": MessageLookupByLibrary.simpleMessage("City"),
         "clear_all": MessageLookupByLibrary.simpleMessage("Clear All"),
         "code": MessageLookupByLibrary.simpleMessage("Code"),
@@ -311,7 +317,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Username must be between 4-20 characters"),
         "ist_item_popup_btn":
             MessageLookupByLibrary.simpleMessage("CREATE LISTING"),
-        "items_purchased": m10,
+        "items_purchased": m11,
         "kyc_title": MessageLookupByLibrary.simpleMessage("KYC"),
         "last_name": MessageLookupByLibrary.simpleMessage("Last Name"),
         "last_sale": MessageLookupByLibrary.simpleMessage("LAST SALE"),

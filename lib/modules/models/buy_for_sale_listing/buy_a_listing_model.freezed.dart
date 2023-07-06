@@ -26,6 +26,7 @@ mixin _$BuyASaleListingModel {
   AddressesPayloadModel? get address => throw _privateConstructorUsedError;
   PeerToPeerPaymentsModel? get profilePeerToPeerPayment =>
       throw _privateConstructorUsedError;
+  String? get purchaseOrder => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -44,7 +45,8 @@ abstract class $BuyASaleListingModelCopyWith<$Res> {
       String? productItemId,
       String? userNameBuyer,
       AddressesPayloadModel? address,
-      PeerToPeerPaymentsModel? profilePeerToPeerPayment});
+      PeerToPeerPaymentsModel? profilePeerToPeerPayment,
+      String? purchaseOrder});
 
   $AddressesPayloadModelCopyWith<$Res>? get address;
   $PeerToPeerPaymentsModelCopyWith<$Res>? get profilePeerToPeerPayment;
@@ -69,6 +71,7 @@ class _$BuyASaleListingModelCopyWithImpl<$Res,
     Object? userNameBuyer = freezed,
     Object? address = freezed,
     Object? profilePeerToPeerPayment = freezed,
+    Object? purchaseOrder = freezed,
   }) {
     return _then(_value.copyWith(
       saveAddress: freezed == saveAddress
@@ -91,6 +94,10 @@ class _$BuyASaleListingModelCopyWithImpl<$Res,
           ? _value.profilePeerToPeerPayment
           : profilePeerToPeerPayment // ignore: cast_nullable_to_non_nullable
               as PeerToPeerPaymentsModel?,
+      purchaseOrder: freezed == purchaseOrder
+          ? _value.purchaseOrder
+          : purchaseOrder // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 
@@ -133,7 +140,8 @@ abstract class _$$_BuyASaleListingModelCopyWith<$Res>
       String? productItemId,
       String? userNameBuyer,
       AddressesPayloadModel? address,
-      PeerToPeerPaymentsModel? profilePeerToPeerPayment});
+      PeerToPeerPaymentsModel? profilePeerToPeerPayment,
+      String? purchaseOrder});
 
   @override
   $AddressesPayloadModelCopyWith<$Res>? get address;
@@ -157,6 +165,7 @@ class __$$_BuyASaleListingModelCopyWithImpl<$Res>
     Object? userNameBuyer = freezed,
     Object? address = freezed,
     Object? profilePeerToPeerPayment = freezed,
+    Object? purchaseOrder = freezed,
   }) {
     return _then(_$_BuyASaleListingModel(
       saveAddress: freezed == saveAddress
@@ -179,6 +188,10 @@ class __$$_BuyASaleListingModelCopyWithImpl<$Res>
           ? _value.profilePeerToPeerPayment
           : profilePeerToPeerPayment // ignore: cast_nullable_to_non_nullable
               as PeerToPeerPaymentsModel?,
+      purchaseOrder: freezed == purchaseOrder
+          ? _value.purchaseOrder
+          : purchaseOrder // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -192,7 +205,8 @@ class _$_BuyASaleListingModel implements _BuyASaleListingModel {
       this.productItemId,
       this.userNameBuyer,
       this.address,
-      this.profilePeerToPeerPayment});
+      this.profilePeerToPeerPayment,
+      this.purchaseOrder});
 
   factory _$_BuyASaleListingModel.fromJson(Map<String, dynamic> json) =>
       _$$_BuyASaleListingModelFromJson(json);
@@ -207,10 +221,12 @@ class _$_BuyASaleListingModel implements _BuyASaleListingModel {
   final AddressesPayloadModel? address;
   @override
   final PeerToPeerPaymentsModel? profilePeerToPeerPayment;
+  @override
+  final String? purchaseOrder;
 
   @override
   String toString() {
-    return 'BuyASaleListingModel(saveAddress: $saveAddress, productItemId: $productItemId, userNameBuyer: $userNameBuyer, address: $address, profilePeerToPeerPayment: $profilePeerToPeerPayment)';
+    return 'BuyASaleListingModel(saveAddress: $saveAddress, productItemId: $productItemId, userNameBuyer: $userNameBuyer, address: $address, profilePeerToPeerPayment: $profilePeerToPeerPayment, purchaseOrder: $purchaseOrder)';
   }
 
   @override
@@ -227,13 +243,15 @@ class _$_BuyASaleListingModel implements _BuyASaleListingModel {
             (identical(other.address, address) || other.address == address) &&
             (identical(
                     other.profilePeerToPeerPayment, profilePeerToPeerPayment) ||
-                other.profilePeerToPeerPayment == profilePeerToPeerPayment));
+                other.profilePeerToPeerPayment == profilePeerToPeerPayment) &&
+            (identical(other.purchaseOrder, purchaseOrder) ||
+                other.purchaseOrder == purchaseOrder));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, saveAddress, productItemId,
-      userNameBuyer, address, profilePeerToPeerPayment);
+      userNameBuyer, address, profilePeerToPeerPayment, purchaseOrder);
 
   @JsonKey(ignore: true)
   @override
@@ -252,12 +270,12 @@ class _$_BuyASaleListingModel implements _BuyASaleListingModel {
 
 abstract class _BuyASaleListingModel implements BuyASaleListingModel {
   const factory _BuyASaleListingModel(
-          {final bool? saveAddress,
-          final String? productItemId,
-          final String? userNameBuyer,
-          final AddressesPayloadModel? address,
-          final PeerToPeerPaymentsModel? profilePeerToPeerPayment}) =
-      _$_BuyASaleListingModel;
+      {final bool? saveAddress,
+      final String? productItemId,
+      final String? userNameBuyer,
+      final AddressesPayloadModel? address,
+      final PeerToPeerPaymentsModel? profilePeerToPeerPayment,
+      final String? purchaseOrder}) = _$_BuyASaleListingModel;
 
   factory _BuyASaleListingModel.fromJson(Map<String, dynamic> json) =
       _$_BuyASaleListingModel.fromJson;
@@ -272,6 +290,8 @@ abstract class _BuyASaleListingModel implements BuyASaleListingModel {
   AddressesPayloadModel? get address;
   @override
   PeerToPeerPaymentsModel? get profilePeerToPeerPayment;
+  @override
+  String? get purchaseOrder;
   @override
   @JsonKey(ignore: true)
   _$$_BuyASaleListingModelCopyWith<_$_BuyASaleListingModel> get copyWith =>

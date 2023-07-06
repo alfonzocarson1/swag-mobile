@@ -64,13 +64,15 @@ class _ChatPageState extends State<ChatPage> {
         .toList()
         .first;
 
+    bool myChatName = (seller.nickname == profileData.username);
+
     return Scaffold(
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle.light,
         backgroundColor: Palette.current.blackAppbarBlackground,
         title: _AppBarTitle(
           chatName:
-              '${userName.capitalize()}, ${seller.nickname.capitalize()} and SWAG',
+              '${myChatName ? userName.capitalize() : seller.nickname.capitalize()}, ${channelData.listingProductName}} ',
           isTyping: isTyping,
         ),
         centerTitle: false,

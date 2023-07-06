@@ -1,6 +1,6 @@
 enum ChatMessageDataType {
-  
   confirmPaidSend('confirm_paid_send'),
+  paymentSend('payment_send'),
   confirmPaymentReceived('confirm_payment_received'),
   paymentReceived('payment_received'),
   confirmShip('confirm_ship'),
@@ -8,7 +8,7 @@ enum ChatMessageDataType {
   saleCanceled('sale_canceled'),
   message('message');
 
-  final String textValue;  
+  final String textValue;
 
   const ChatMessageDataType(this.textValue);
 }
