@@ -44,6 +44,11 @@ class _CollectionPageState extends State<CollectionPage> {
     getIt<CollectionProfileCubit>().loadResults();
   }
 
+  String showForSaleLabel(
+      {required BuildContext context, required int? length}) {
+    return length == 1 ? S.of(context).for_sale : S.of(context).from;
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CollectionProfileCubit, CollectionCubitState>(
@@ -78,178 +83,54 @@ class _CollectionPageState extends State<CollectionPage> {
     return collectionList.isNotEmpty
         ? RefreshWidget(
             onRefresh: loadList,
-            child: GridView.builder(
+            child: Padding(
               padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
-              physics: const ScrollPhysics(),
-              shrinkWrap: true,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 19.0,
-                mainAxisSpacing: 12.0,
-                mainAxisExtent: 215,
-              ),
-              itemCount: collectionList.length + 1,
-              itemBuilder: (_, index) {
-                return index == 0
-                    ? Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: MediaQuery.of(context).size.width * 0.38,
-                            width: MediaQuery.of(context).size.width * 0.40,
-                            color: Colors.black,
-                            child: Stack(
-                              children: [
-                                Positioned.fill(
-                                  child: Align(
-                                    alignment: Alignment.center,
-                                    child: IconButton(
-                                      icon: Image.asset(
-                                        'assets/images/plus.png',
-                                        scale: 3,
-                                      ),
-                                      onPressed: () {
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .push(
-                                                AddToWallCollection.route());
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Text(S.of(context).add_new_item,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayLarge!
-                                  .copyWith(
-                                      letterSpacing: 1,
-                                      fontWeight: FontWeight.w300,
-                                      fontFamily: "KnockoutCustom",
-                                      fontSize: 24,
-                                      color: Palette.current.white)),
-                        ],
-                      )
-                    : GestureDetector(
-                        onTap: () {
-                          Navigator.of(context, rootNavigator: true).push(
-                              ItemDetailPage.route(
-                                  collectionList[index - 1].catalogItemId,
-                                  (val) {},
-                                  null));
-                        },
-                        child: Column(
+              child: GridView.builder(
+                physics: const ScrollPhysics(),
+                shrinkWrap: true,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 19.0,
+                  mainAxisSpacing: 12.0,
+                  mainAxisExtent: 215,
+                ),
+                itemCount: collectionList.length + 1,
+                itemBuilder: (_, index) {
+                  return index == 0
+                      ? Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Stack(
-                              children: [
-                                SizedBox(
-                                  width: MediaQuery.of(context).size.width *
-                                      0.45,
-                                  height: MediaQuery.of(context).size.width *
-                                      0.37,
-                                  child: ClipRRect(
-                                    child: CachedNetworkImage(
-                                      fit: BoxFit.cover,
-                                      imageUrl: collectionList[index - 1]
-                                          .catalogItemImage,
-                                      placeholder: (context, url) => SizedBox(
-                                        height: 200,
-                                        child: Center(
-                                          child: CircularProgressIndicator(
-                                            color: Palette
-                                                .current.primaryNeonGreen,
-                                            backgroundColor: Colors.white,
-                                          ),
+                            Container(
+                              height: MediaQuery.of(context).size.width * 0.38,
+                              width: MediaQuery.of(context).size.width * 0.40,
+                              color: Colors.black,
+                              child: Stack(
+                                children: [
+                                  Positioned.fill(
+                                    child: Align(
+                                      alignment: Alignment.center,
+                                      child: IconButton(
+                                        icon: Image.asset(
+                                          'assets/images/plus.png',
+                                          scale: 3,
                                         ),
-                                      ),
-                                      errorWidget: (context, url, error) =>
-                                          Image.asset(
-                                              "assets/images/ProfilePhoto.png"),
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  top: 7,
-                                  right: 0,
-                                  child: Visibility(
-                                    visible: collectionList[index - 1]
-                                        .collectionItems!
-                                        .isNotEmpty,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 20),
-                                      child: Align(
-                                        alignment: Alignment.centerRight,
-                                        child: Text(
-                                            "${collectionList[index - 1].collectionItems!.length} X",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall!
-                                                .copyWith(
-                                                    fontFamily:
-                                                        "KnockoutCustom",
-                                                    fontSize: 30,
-                                                    fontWeight:
-                                                        FontWeight.w300,
-                                                    color: Palette.current
-                                                        .primaryNeonGreen)),
+                                        onPressed: () {
+                                          Navigator.of(context,
+                                                  rootNavigator: true)
+                                              .push(
+                                                  AddToWallCollection.route());
+                                        },
                                       ),
                                     ),
                                   ),
-                                ),
-                                Positioned(
-                                  bottom: 0,
-                                  right: 0,
-                                  child: Visibility(
-                                      visible:
-                                          collectionList[index - 1].forSale,
-                                      child: Container(
-                                        height: 30,
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        decoration: BoxDecoration(
-                                          color:
-                                              Palette.current.primaryNeonPink,
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 20),
-                                          child: Align(
-                                            alignment: Alignment.centerRight,
-                                            child: Text(
-                                                '''${collectionList[index - 1].numberAvailable} ${S.of(context).for_sale}''',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodySmall!
-                                                    .copyWith(
-                                                        fontSize: 13,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        color: Palette
-                                                            .current.white)),
-                                          ),
-                                        ),
-                                      )),
-                                )
-                              ],
+                                ],
+                              ),
                             ),
                             const SizedBox(
                               height: 5,
                             ),
-                            Text(
-                                collectionList[index - 1]
-                                    .catalogItemName
-                                    .toUpperCase(),
+                            Text(S.of(context).add_new_item,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: Theme.of(context)
@@ -259,25 +140,151 @@ class _CollectionPageState extends State<CollectionPage> {
                                         letterSpacing: 1,
                                         fontWeight: FontWeight.w300,
                                         fontFamily: "KnockoutCustom",
-                                        fontSize: 21,
+                                        fontSize: 24,
                                         color: Palette.current.white)),
-                            Text(
-                                collectionList[index - 1].forSale
-                                    ? '${S.of(context).from}: ${decimalDigitsLastSalePrice(collectionList[index - 1].saleInfo.minPrice!)}'
-                                    : '${S.of(context).last_sale}: ${decimalDigitsLastSalePrice(collectionList[index - 1].saleInfo.lastSale!)}',
-                                overflow: TextOverflow.fade,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                                    .copyWith(
-                                        fontWeight: FontWeight.w300,
-                                        fontSize: 13,
-                                        color: Palette
-                                            .current.primaryNeonGreen)),
                           ],
-                        ),
-                      );
-              },
+                        )
+                      : GestureDetector(
+                          onTap: () {
+                            Navigator.of(context, rootNavigator: true).push(
+                                ItemDetailPage.route(
+                                    collectionList[index - 1].catalogItemId,
+                                    (val) {},
+                                    null));
+                          },
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Stack(
+                                children: [
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.45,
+                                    height: MediaQuery.of(context).size.width *
+                                        0.37,
+                                    child: ClipRRect(
+                                      child: CachedNetworkImage(
+                                        fit: BoxFit.cover,
+                                        imageUrl: collectionList[index - 1]
+                                            .catalogItemImage,
+                                        placeholder: (context, url) => SizedBox(
+                                          height: 200,
+                                          child: Center(
+                                            child: CircularProgressIndicator(
+                                              color: Palette
+                                                  .current.primaryNeonGreen,
+                                              backgroundColor: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                        errorWidget: (context, url, error) =>
+                                            Image.asset(
+                                                "assets/images/ProfilePhoto.png"),
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    top: 7,
+                                    right: 0,
+                                    child: Visibility(
+                                      visible: collectionList[index - 1]
+                                          .collectionItems!
+                                          .isNotEmpty,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20),
+                                        child: Align(
+                                          alignment: Alignment.centerRight,
+                                          child: Text(
+                                              "${collectionList[index - 1].collectionItems!.length} X",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall!
+                                                  .copyWith(
+                                                      fontFamily:
+                                                          "KnockoutCustom",
+                                                      fontSize: 30,
+                                                      fontWeight:
+                                                          FontWeight.w300,
+                                                      color: Palette.current
+                                                          .primaryNeonGreen)),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    bottom: 0,
+                                    right: 0,
+                                    child: Visibility(
+                                        visible:
+                                            collectionList[index - 1].forSale,
+                                        child: Container(
+                                          height: 30,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          decoration: BoxDecoration(
+                                            color:
+                                                Palette.current.primaryNeonPink,
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 20),
+                                            child: Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Text(
+                                                  '''${collectionList[index - 1].numberAvailable} ${S.of(context).for_sale}''',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall!
+                                                      .copyWith(
+                                                          fontSize: 13,
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          color: Palette
+                                                              .current.white)),
+                                            ),
+                                          ),
+                                        )),
+                                  )
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                  collectionList[index - 1]
+                                      .catalogItemName
+                                      .toUpperCase(),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayLarge!
+                                      .copyWith(
+                                          letterSpacing: 1,
+                                          fontWeight: FontWeight.w300,
+                                          fontFamily: "KnockoutCustom",
+                                          fontSize: 21,
+                                          color: Palette.current.white)),
+                              Text(
+                                  collectionList[index - 1].forSale
+                                      ? '${showForSaleLabel(context: context, length: collectionList[index - 1].numberAvailable)}: ${decimalDigitsLastSalePrice(collectionList[index - 1].saleInfo.minPrice!)}'
+                                      : '${S.of(context).last_sale}: ${decimalDigitsLastSalePrice(collectionList[index - 1].saleInfo.lastSale!)}',
+                                  overflow: TextOverflow.fade,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(
+                                          fontWeight: FontWeight.w300,
+                                          fontSize: 13,
+                                          color: Palette
+                                              .current.primaryNeonGreen)),
+                            ],
+                          ),
+                        );
+                },
+              ),
             ),
           )
         : ListView.builder(

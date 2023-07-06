@@ -29,7 +29,7 @@ class _AccountInfoHeaderWidgetState extends State<AccountInfoHeaderWidget> {
     return Center(
       child: Column(
         children: [
-          const AvatarPage(),
+          const AvatarPage(isFirstUse: true,),
           const SizedBox(
             height: 20,
           ),

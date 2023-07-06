@@ -12,6 +12,8 @@ import 'package:swagapp/modules/models/chat/sendbird_push_payload.dart';
 import 'package:swagapp/modules/services/local_notifications_service.dart';
 import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
 
+import '../cubits/alert/alert_cubit.dart';
+
 abstract class PushNotificationsService {
   static FirebaseMessaging messaging = FirebaseMessaging.instance;
   static String? token;

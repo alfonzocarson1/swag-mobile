@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:csc_picker/model/select_status_model.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +15,17 @@ import '../../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
 import '../../constants/constants.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
+import '../../models/profile/profile_model.dart';
 import '../../models/search/filter_model.dart';
 import '../../models/search/search_request_payload_model.dart';
+
+String dateFormat(String dateStr) {
+  final DateFormat displayFormater = DateFormat('dd/MM/yyyy');
+  final DateFormat serverFormater = DateFormat('MM/dd/yyyy');
+  final DateTime displayDate = displayFormater.parse(dateStr);
+  final String formatted = serverFormater.format(displayDate);
+  return formatted;
+}
 
 bool isValidEmail(String email) {
   return RegExp(
@@ -396,6 +406,67 @@ Future<List<String?>> getStates(String country) async {
   return _states;
 }
 
+String alertDays(String dateAlert) {
+  String providedDateString = dateAlert;
+
+  DateTime providedDate = DateTime.parse(providedDateString);
+  DateTime currentDate = DateTime.now();
+
+  // Remove the time zone to have only the date
+  providedDate =
+      DateTime(providedDate.year, providedDate.month, providedDate.day);
+  currentDate = DateTime(currentDate.year, currentDate.month, currentDate.day);
+
+  // Calculate the difference in days
+  int differenceInDays = currentDate.difference(providedDate).inDays;
+
+  // Calculate the difference in weeks
+  double differenceInWeeks = differenceInDays / 7;
+
+  // Calculate the difference in months
+  int differenceInMonths = (currentDate.year - providedDate.year) * 12 +
+      (currentDate.month - providedDate.month);
+
+  if (differenceInDays > 0 && differenceInDays <= 7) {
+    if (differenceInDays == 1) {
+      return '$differenceInDays day ago';
+    } else {
+      return '$differenceInDays days ago';
+    }
+  } else if (differenceInWeeks.round() > 0 && differenceInWeeks.round() <= 4) {
+    if (differenceInWeeks.round() == 1) {
+      return '${differenceInWeeks.round()} week ago';
+    } else {
+      return '${differenceInWeeks.round()} weeks ago';
+    }
+  } else if (differenceInMonths.round() > 0) {
+    if (differenceInMonths.round() == 1) {
+      return '${differenceInMonths.round()} month ago';
+    } else {
+      return '${differenceInMonths.round()} months ago';
+    }
+  } else {
+    return 'today';
+  }
+}
+
+String alertAvatar(String avatarType, String? listingImageUrl) {
+  print(avatarType);
+  print(listingImageUrl);
+
+  if (avatarType != 'CUSTOM') {
+    var data =
+        imagesList.where((avatar) => (avatar["id"].contains(avatarType)));
+
+    String defaultImage = data.first['url'];
+
+    return defaultImage;
+  } else {
+    return listingImageUrl ??
+        'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Franklin.png?alt=media&token=c1073f88-74c2-44c8-a287-fbe0caebf878';
+  }
+}
+
 List<dynamic> imagesList = [
   {
     'id': 'AVATAR1',
@@ -443,3 +514,9 @@ List<dynamic> imagesList = [
         'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/HotDog.png?alt=media&token=ca2732fc-e230-4e85-b892-1bcc018ccc6d'
   },
 ];
+
+T getRandomElement<T>(List<T> list) {
+  final random = Random();
+  final randomIndex = random.nextInt(list.length);
+  return list[randomIndex];
+}
