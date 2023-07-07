@@ -316,7 +316,7 @@ class _SignInPageState extends State<SignInPage> {
                                           context: context,
                                           subject: S
                                               .of(context)
-                                              .user_problem_creating_account_in_the_swag_app,
+                                              .user_problem_signing_into_the_swag_app,
                                         );
                                       })
                                 ],
