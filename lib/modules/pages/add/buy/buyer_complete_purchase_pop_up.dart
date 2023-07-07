@@ -133,6 +133,7 @@ class _BuyerCompletePurchasePopUpState
     _cityController.text = '${profileData.addresses![0].city}';
     _zipController.text = '${profileData.addresses![0].postalCode}';
     _defaultState = '${profileData.addresses![0].state}';
+    _defaultCountry = '${profileData.addresses![0].country}';
 
     _paymentTypeNode.addListener(() {
       setState(() {
@@ -736,6 +737,7 @@ class _BuyerCompletePurchasePopUpState
                                                           .text,
                                                   address2:
                                                       _addressController.text,
+                                                  country: _defaultCountry,
                                                   city: _cityController.text,
                                                   state: _defaultState,
                                                   postalCode:

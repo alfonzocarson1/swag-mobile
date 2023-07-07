@@ -40,8 +40,8 @@ class MessageLookup extends MessageLookupByLibrary {
       "@${sellerUserName} has confirmed that payment has been received";
 
   static String m6(sellerUserName, buyerName, buyerLastName, address, address2,
-          city, state, zipCode) =>
-      "@${sellerUserName} here is the shipping address to ship this item\n\n${buyerName} ${buyerLastName}\n${address}, ${address2}, \n${city}, ${state} ${zipCode}";
+          city, state, zipCode, country) =>
+      "@${sellerUserName} here is the shipping address to ship this item\n\n${buyerName} ${buyerLastName}\n${address}, ${address2}, \n${city}, ${state}, ${zipCode}, ${country}";
 
   static String m7(sender) => "New message from ${sender}";
 

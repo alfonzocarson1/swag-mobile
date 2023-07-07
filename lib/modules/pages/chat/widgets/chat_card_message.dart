@@ -135,7 +135,8 @@ class _CardContentState extends State<_CardContent> {
           this.widget.messageData.payload.address.address2,
           this.widget.messageData.payload.address.city,
           this.widget.messageData.payload.address.state,
-          this.widget.messageData.payload.address.postalCode);
+          this.widget.messageData.payload.address.postalCode,
+          this.widget.messageData.payload.address.country ?? '');
     }
 
     return '';
@@ -200,7 +201,7 @@ class _CardContentState extends State<_CardContent> {
           listingStatus: 'SHIPPED',
           productItemId: this.widget.messageData.payload.productId,
           listingChatId: this.widget.chatData.channel.channelUrl,
-          numberTracking: this.trackingCode));
+          numberTracking: this.trackingCode ?? ''));
     }
   }
 
