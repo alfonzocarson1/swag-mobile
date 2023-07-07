@@ -62,28 +62,30 @@ class _MultiImageSlideState extends State<MultiImageSlide> {
                         onPanCancel: () {},
                         child: SizedBox(
                           height: 260,
-                          child: Stack(children: [
-                            Positioned.fill(
-                              child: ClipRRect(
-                                child: Image.file(
-                                  File(widget.imgList[index].path),
+                        child: Stack(children: [
+                          Positioned.fill(
+                            child: ClipRRect(
+                              child: Image.file(
+                                File(widget.imgList[index].path),
                                   fit: BoxFit.contain,
                                   height: 250,
                                   width: 250,
-                                ),
                               ),
                             ),
-                          ]),
+                          ),
+                        ]),
                         ),
                       )
                     : Stack(
                         children: [
-                          ClipRRect(
-                              child: Image.asset(
-                            "assets/images/bagAddList.png",
-                            fit: BoxFit.cover,
-                            height: 500,
-                          )),
+                          Positioned.fill(
+                            child: ClipRRect(
+                                child: Image.asset(
+                              "assets/images/bagAddList.png",
+                              fit: BoxFit.cover,
+                              height: 500,
+                            )),
+                          ),
                           Positioned.fill(
                             top: 60,
                             child: Align(
