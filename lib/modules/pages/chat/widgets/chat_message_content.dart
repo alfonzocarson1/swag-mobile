@@ -136,15 +136,15 @@ class _ContentState extends State<_Content> with AutomaticKeepAliveClientMixin {
       } else if (messageData.type ==
           ChatMessageDataType.confirmShip.textValue) {
         return S.current.chatConfirmShipMessage(
-          messageData.payload.userNameSeller,
-          messageData.payload.nameBuyer ?? '',
-          messageData.payload.lastNameBuyer ?? '',
-          messageData.payload.address.address1,
-          messageData.payload.address.address2,
-          messageData.payload.address.city,
-          messageData.payload.address.state,
-          messageData.payload.address.postalCode,
-        );
+            messageData.payload.userNameSeller,
+            messageData.payload.nameBuyer ?? '',
+            messageData.payload.lastNameBuyer ?? '',
+            messageData.payload.address.address1,
+            messageData.payload.address.address2,
+            messageData.payload.address.city,
+            messageData.payload.address.state,
+            messageData.payload.address.postalCode,
+            messageData.payload.address.country ?? '');
       } else if (messageData.type == ChatMessageDataType.shipped.textValue) {
         return S.current.chatShippedMessage(
           messageData.payload.userNameSeller,
