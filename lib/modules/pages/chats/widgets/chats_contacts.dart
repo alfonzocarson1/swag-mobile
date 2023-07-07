@@ -12,6 +12,7 @@ import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/models/chat/chat_data.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:swagapp/modules/models/chat/sendbird_channel_data.dart';
+import 'package:swagapp/modules/pages/chats/widgets/time_Stamp_converter.dart';
 
 import '../../../constants/constants.dart';
 import '../../../di/injector.dart';
@@ -41,11 +42,12 @@ class ChatsContact extends StatelessWidget {
             member.nickname != userName && member.nickname != swagBotNickName)
         .toList()
         .first;
+    String lastActivityTimeStamp = TimeStampConverter().calculateTime(this.chatData.channel.lastMessage?.createdAt ?? 0);
 
     return CustomListTile(
       titleSpacing: 5,
       widgetSpacing: 20,
-      trailing: Text('days ago',  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+      trailing: Text(lastActivityTimeStamp,  style: Theme.of(context).textTheme.bodySmall!.copyWith(
             fontSize: 14,
             letterSpacing: 0.3,
             color: Palette.current.grey,
