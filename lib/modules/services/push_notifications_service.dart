@@ -47,13 +47,12 @@ abstract class PushNotificationsService {
 
   static Future<void> _onBackgroundHandler(RemoteMessage message) async {
     _notificationStreamController.add(message.data);
-    Map<String, dynamic> messageData = json.decode(message.data['sendbird']);
-    SendBirdPushMessage baseMessage = SendBirdPushMessage.fromJson(messageData);
-
+    // Map<String, dynamic> messageData = json.decode(message.data['sendbird']);
+    // SendBirdPushMessage baseMessage = SendBirdPushMessage.fromJson(messageData);
     if (Platform.isAndroid) {
       await LocalNotificationsService.showNotification(
-        title: baseMessage.recipient.name,
-        body: baseMessage.message,
+        title: message.data['title'],
+        body: message.data['body'],
         payload: null,
       );
     }
@@ -61,10 +60,24 @@ abstract class PushNotificationsService {
 
   static Future<void> _onMessageHandler(RemoteMessage message) async {
     _notificationStreamController.add(message.data);
+    if (Platform.isAndroid) {
+      await LocalNotificationsService.showNotification(
+        title: message.data['title'],
+        body: message.data['body'],
+        payload: null,
+      );
+    }
   }
 
   static Future<void> _onOpenHandler(RemoteMessage message) async {
     _notificationStreamController.add(message.data);
+    if (Platform.isAndroid) {
+      await LocalNotificationsService.showNotification(
+        title: message.data['title'],
+        body: message.data['body'],
+        payload: null,
+      );
+    }
   }
 
   static requestPermissions() async {
