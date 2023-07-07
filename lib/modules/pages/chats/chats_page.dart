@@ -26,17 +26,33 @@ class _ChatsPageState extends State<ChatsPage> {
     super.initState();
   }
 
+  sortChannelsList(List chatList) {
+    chatList.sort((a, b) {
+      int compare;
+
+      if (a.channel.lastMessage == null && b.channel.lastMessage == null) {
+        compare = 0;
+      } else if (a.channel.lastMessage == null) {
+        compare = 1;
+      } else if (b.channel.lastMessage == null) {
+        compare = -1;
+      } else {
+        compare = b.channel.lastMessage.createdAt
+            .compareTo(a.channel.lastMessage.createdAt);
+      }
+
+      if (compare != 0) return compare;
+      return a.channel.channelUrl.compareTo(b.channel.channelUrl);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     ChatBloc chatBloc = context.watch<ChatBloc>();
+
     List chatList = chatBloc.state.chats;
-    chatList.sort((a, b) {
-      int compare = b.channel.lastMessage.createdAt
-          .compareTo(a.channel.lastMessage.createdAt);
-      if (compare != 0) return compare;
-      return a.channel.url.compareTo(
-          b.channel.url); // Replace `url` with your chosen attribute.
-    });
+    sortChannelsList(chatList);
+
     return Scaffold(
       appBar: AppBar(
         title: const _AppBarTitle(),
