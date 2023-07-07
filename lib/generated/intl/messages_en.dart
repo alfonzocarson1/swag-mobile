@@ -55,13 +55,13 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m11(number) => "${number} Items";
 
-  static String m11(orderNumber) => "Order number: ${orderNumber}";
+  static String m12(orderNumber) => "Order number: ${orderNumber}";
 
-  static String m12(totalPrice) => "TOTAL=\$${totalPrice}";
+  static String m13(totalPrice) => "TOTAL=\$${totalPrice}";
 
-  static String m13(paymentMethod) => "Paid via ${paymentMethod}";
+  static String m14(paymentMethod) => "Paid via ${paymentMethod}";
 
-  static String m14(trackingNumber) => "Tracking number:\n${trackingNumber}";
+  static String m15(trackingNumber) => "Tracking number:\n${trackingNumber}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -481,10 +481,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Item purchased from"),
         "purchase_item_shipped":
             MessageLookupByLibrary.simpleMessage("Item shipped"),
-        "purchase_order_number": m11,
+        "purchase_order_number": m12,
         "purchase_paid_status": MessageLookupByLibrary.simpleMessage("PAID"),
-        "purchase_payment_card_total": m12,
-        "purchase_payment_card_via": m13,
+        "purchase_payment_card_total": m13,
+        "purchase_payment_card_via": m14,
         "purchase_pending_shipping":
             MessageLookupByLibrary.simpleMessage("Pending shipping"),
         "purchase_price":
@@ -495,7 +495,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "purchase_title":
             MessageLookupByLibrary.simpleMessage("Purchase History"),
         "purchase_total_item": MessageLookupByLibrary.simpleMessage("TOTAL"),
-        "purchase_tracking_number": m14,
+        "purchase_tracking_number": m15,
         "putters": MessageLookupByLibrary.simpleMessage("Putters"),
         "rarity_score": MessageLookupByLibrary.simpleMessage("RARITY SCORE"),
         "razon_remove_btn": MessageLookupByLibrary.simpleMessage("SUBMIT"),
