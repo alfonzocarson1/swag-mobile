@@ -339,7 +339,6 @@ class _AddCollectionState extends State<AddCollection> {
                                     String str = _purchaseController.value.text;
                                     String result = str.replaceAll(',', '');
                                     _price = double.parse(result);
-                                    print(_price);
                                   });
                                 },
                               ),
