@@ -126,13 +126,13 @@ class _CardContentState extends State<_CardContent> {
     if (this.widget.messageData.type ==
         ChatMessageDataType.confirmShip.textValue) {
       return S.current.chatConfirmShipMessage(
-        this.widget.messageData.payload.userNameSeller,
-        this.widget.messageData.payload.userNameBuyer,
-        this.widget.messageData.payload.address.address1,
-        this.widget.messageData.payload.address.city,
-        this.widget.messageData.payload.address.state,
-        this.widget.messageData.payload.address.postalCode,
-      );
+          this.widget.messageData.payload.userNameSeller,
+          this.widget.messageData.payload.nameBuyer ?? '',
+          this.widget.messageData.payload.lastNameBuyer ?? '',
+          this.widget.messageData.payload.address.address1,
+          this.widget.messageData.payload.address.city,
+          this.widget.messageData.payload.address.state,
+          this.widget.messageData.payload.address.postalCode);
     }
 
     return '';

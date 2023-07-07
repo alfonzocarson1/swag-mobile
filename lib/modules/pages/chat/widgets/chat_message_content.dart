@@ -137,7 +137,8 @@ class _ContentState extends State<_Content> with AutomaticKeepAliveClientMixin {
           ChatMessageDataType.confirmShip.textValue) {
         return S.current.chatConfirmShipMessage(
           messageData.payload.userNameSeller,
-          messageData.payload.userNameBuyer,
+          messageData.payload.nameBuyer ?? '',
+          messageData.payload.lastNameBuyer ?? '',
           messageData.payload.address.address1,
           messageData.payload.address.city,
           messageData.payload.address.state,

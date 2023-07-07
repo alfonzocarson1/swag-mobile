@@ -39,9 +39,9 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m5(sellerUserName) =>
       "@${sellerUserName} has confirmed that payment has been received";
 
-  static String m6(
-          sellerUserName, buyerUserName, address, city, state, zipCode) =>
-      "@${sellerUserName} here is the shipping address to ship this item\n\n@${buyerUserName}\n${address}, ${city}, ${state} ${zipCode}";
+  static String m6(sellerUserName, buyerName, buyerLastName, address, city,
+          state, zipCode) =>
+      "@${sellerUserName} here is the shipping address to ship this item\n\n${buyerName} ${buyerLastName}\n${address}, ${city}, ${state} ${zipCode}";
 
   static String m7(sender) => "New message from ${sender}";
 

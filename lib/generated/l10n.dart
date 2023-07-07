@@ -3182,14 +3182,28 @@ class S {
     );
   }
 
-  /// `@{sellerUserName} here is the shipping address to ship this item\n\n@{buyerUserName}\n{address}, {city}, {state} {zipCode}`
-  String chatConfirmShipMessage(Object sellerUserName, Object buyerUserName,
-      Object address, Object city, Object state, Object zipCode) {
+  /// `@{sellerUserName} here is the shipping address to ship this item\n\n{buyerName} {buyerLastName}\n{address}, {city}, {state} {zipCode}`
+  String chatConfirmShipMessage(
+      Object sellerUserName,
+      Object buyerName,
+      Object buyerLastName,
+      Object address,
+      Object city,
+      Object state,
+      Object zipCode) {
     return Intl.message(
-      '@$sellerUserName here is the shipping address to ship this item\n\n@$buyerUserName\n$address, $city, $state $zipCode',
+      '@$sellerUserName here is the shipping address to ship this item\n\n$buyerName $buyerLastName\n$address, $city, $state $zipCode',
       name: 'chatConfirmShipMessage',
       desc: '',
-      args: [sellerUserName, buyerUserName, address, city, state, zipCode],
+      args: [
+        sellerUserName,
+        buyerName,
+        buyerLastName,
+        address,
+        city,
+        state,
+        zipCode
+      ],
     );
   }
 
