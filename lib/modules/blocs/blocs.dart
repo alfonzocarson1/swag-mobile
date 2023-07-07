@@ -27,6 +27,7 @@ import 'package:swagapp/modules/di/injector.dart';
 
 import '../cubits/alert/alert_cubit.dart';
 import '../cubits/paywall/paywall_cubit.dart';
+import '../cubits/sold/get_sold_cubit.dart';
 import 'buy_sale_listing_bloc/buy_sale_listing_bloc.dart';
 import 'collection_bloc/collection_bloc.dart';
 import 'detail_bloc/detail_bloc.dart';
@@ -78,7 +79,6 @@ abstract class AppBlocs {
             create: (context) => getIt<ProfileFavoriteBloc>()),
         BlocProvider<UpdateProfileBloc>(
             create: (context) => getIt<UpdateProfileBloc>()),
-        BlocProvider<SoldBloc>(create: (context) => getIt<SoldBloc>()),
         BlocProvider<FavoriteItemBloc>(
             create: (context) => getIt<FavoriteItemBloc>()),
         BlocProvider<BuySaleListingBloc>(
@@ -88,6 +88,8 @@ abstract class AppBlocs {
         BlocProvider<PurchaseHistoryCubit>(
             create: (_) => getIt<PurchaseHistoryCubit>()),
         BlocProvider<AlertCubit>(create: (context) => getIt<AlertCubit>()),
+        BlocProvider<SoldProfileCubit>(
+            create: (context) => getIt<SoldProfileCubit>()),
         BlocProvider<PaywallCubit>(create: (_) => getIt<PaywallCubit>()),
         BlocProvider<UpdateSubscriptionStatusCubit>(
             create: (_) => getIt<UpdateSubscriptionStatusCubit>()),

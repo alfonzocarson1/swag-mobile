@@ -77,8 +77,8 @@ class _ListingsPageState extends State<ListingsPage> {
             onRefresh: loadList,
             child: GridView.builder(
               padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
-              physics: const ScrollPhysics(),
               shrinkWrap: true,
+              physics: const ScrollPhysics(),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 crossAxisSpacing: 19.0,
@@ -90,8 +90,7 @@ class _ListingsPageState extends State<ListingsPage> {
                 ListingForSaleModel listItem = listingList[index];
                 var catalogItemId = listingList[index].catalogItemId;
                 var imageUrls = listingList[index].productItemImageUrls ?? [];
-                var productItemName =
-                    listingList[index].productItemName ?? "";
+                var productItemName = listingList[index].productItemName ?? "";
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -100,24 +99,22 @@ class _ListingsPageState extends State<ListingsPage> {
                         GestureDetector(
                           onTap: () {
                             if (catalogItemId != null) {
-                              Navigator.of(context, rootNavigator: true).push(
-                                  MaterialPageRoute(
+                              Navigator.of(context, rootNavigator: true)
+                                  .push(MaterialPageRoute(
                                       builder: (context) => BuyPreviewPage(
-                                          productItemId:
-                                              listItem.productItemId,
-                                         )));
+                                            productItemId:
+                                                listItem.productItemId,
+                                          )));
                             }
                           },
                           child: SizedBox(
                             height: MediaQuery.of(context).size.width * 0.37,
-                            width: MediaQuery.of(context).size.width *
-                                0.45,
+                            width: MediaQuery.of(context).size.width * 0.45,
                             child: ClipRRect(
                               child: CachedNetworkImage(
                                 fit: BoxFit.cover,
                                 imageUrl: (imageUrls.isNotEmpty)
-                                    ? listingList[index]
-                                        .productItemImageUrls[0]
+                                    ? listingList[index].productItemImageUrls[0]
                                     : 'assets/images/Avatar.png',
                                 placeholder: (context, url) => SizedBox(
                                   height: 200,
@@ -153,13 +150,10 @@ class _ListingsPageState extends State<ListingsPage> {
                     Text(
                         '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(listingList[index].lastSale.toString())}',
                         overflow: TextOverflow.fade,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall!
-                            .copyWith(
-                                fontWeight: FontWeight.w300,
-                                fontSize: 13,
-                                color: Palette.current.primaryNeonGreen)),
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            fontWeight: FontWeight.w300,
+                            fontSize: 13,
+                            color: Palette.current.primaryNeonGreen)),
                   ],
                 );
               },

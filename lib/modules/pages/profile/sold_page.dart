@@ -6,8 +6,12 @@ import 'package:swagapp/modules/models/sold/product_item_sold.dart';
 import '../../../generated/l10n.dart';
 import '../../blocs/sold_bloc/sold_bloc.dart';
 import '../../common/ui/loading.dart';
+import '../../common/ui/refresh_widget.dart';
+import '../../common/ui/simple_loader.dart';
 import '../../common/utils/palette.dart';
 import '../../common/utils/size_helper.dart';
+import '../../cubits/sold/get_sold_cubit.dart';
+import '../../di/injector.dart';
 
 class SoldPage extends StatefulWidget {
   const SoldPage({super.key});
@@ -20,123 +24,111 @@ class _SoldPageState extends State<SoldPage> {
   late ResponsiveDesign _responsiveDesign;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadList();
+  }
+
+  Future loadList() async {
+    getIt<SoldProfileCubit>().loadSoldList();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    _responsiveDesign = ResponsiveDesign(context);
-    return Scaffold(
-        backgroundColor: Palette.current.primaryNero,
-        body: BlocConsumer<SoldBloc, SoldState>(
-          listener: (context, state) => state.maybeWhen(
-            orElse: () => {Loading.hide(context)},
-            error: (message) => {
-              Loading.hide(context),
-              // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
-            },
-            initial: () {
-              return Loading.show(context);
-            },
+    return BlocBuilder<SoldProfileCubit, SoldCubitState>(
+        builder: (context, state) {
+      return state.maybeWhen(
+        orElse: () {
+          return Container();
+        },
+        initial: () => ListView.builder(
+          itemBuilder: (_, index) => SizedBox(
+            height: MediaQuery.of(context).size.height * 0.5,
+            child: const Center(child: SimpleLoader()),
           ),
-          builder: (context, state) {
-            return state.maybeMap(
-              orElse: () => const Center(),
-              error: (_) {
-                return RefreshIndicator(
-                    onRefresh: () async {
-                      makeCall();
-                      return Future.delayed(const Duration(milliseconds: 1500));
-                    },
-                    child: ListView.builder(
-                      itemBuilder: (_, index) => Container(),
-                      itemCount: 0,
-                    ));
-              },
-              loadedSoldItems: (state) {
-                return _getBody(state.dataSoldList);
-              },
-            );
-          },
-        ));
+          itemCount: 1,
+        ),
+        loadedSoldItems: (List<ProductItemSold> dataSoldList) {
+          return _getBody(dataSoldList);
+        },
+      );
+    });
   }
 
   Widget _getBody(List<ProductItemSold> soldList) {
-    return RefreshIndicator(
-      onRefresh: () async {
-        makeCall();
-        return Future.delayed(const Duration(milliseconds: 1500));
-      },
+    return RefreshWidget(
+      onRefresh: loadList,
       child: soldList.isNotEmpty
           ? GridView.builder(
-            padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
-            shrinkWrap: true,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 19.0,
-              mainAxisSpacing: 12.0,
-              mainAxisExtent: 215,
-            ),
-            itemCount: soldList.length,
-            itemBuilder: (_, index) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Stack(
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width *
-                            0.45,
-                        height: MediaQuery.of(context).size.width *
-                            0.37,
-                        child: ClipRRect(
-                          child: CachedNetworkImage(
-                            fit: BoxFit.cover,
-                            imageUrl: soldList[index].productItemImageUrls.first,
-                            placeholder: (context, url) => SizedBox(
-                              height: 200,
-                              child: Center(
-                                child: CircularProgressIndicator(
-                                  color: Palette.current.primaryNeonGreen,
-                                  backgroundColor: Colors.white,
+              padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+              shrinkWrap: true,
+              physics: const ScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 19.0,
+                mainAxisSpacing: 12.0,
+                mainAxisExtent: 215,
+              ),
+              itemCount: soldList.length,
+              itemBuilder: (_, index) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Stack(
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.45,
+                          height: MediaQuery.of(context).size.width * 0.37,
+                          child: ClipRRect(
+                            child: CachedNetworkImage(
+                              fit: BoxFit.cover,
+                              imageUrl:
+                                  soldList[index].productItemImageUrls.first,
+                              placeholder: (context, url) => SizedBox(
+                                height: 200,
+                                child: Center(
+                                  child: CircularProgressIndicator(
+                                    color: Palette.current.primaryNeonGreen,
+                                    backgroundColor: Colors.white,
+                                  ),
                                 ),
                               ),
+                              errorWidget: (context, url, error) =>
+                                  Image.asset("assets/images/ProfilePhoto.png"),
                             ),
-                            errorWidget: (context, url, error) =>
-                                Image.asset(
-                                    "assets/images/ProfilePhoto.png"),
                           ),
-                        ),
-                      )
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Text(soldList[index].productItemName.toUpperCase(),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayLarge!
-                          .copyWith(
-                              letterSpacing: 1,
-                              fontWeight: FontWeight.w300,
-                              fontFamily: "KnockoutCustom",
-                              fontSize: 21,
-                              color: Palette.current.white)),
-                  Text(
-                      soldList[index].forSale ?? false
-                          ? '${S.of(context).last_sale} \$${soldList[index].lastSale}'
-                          : '${S.of(context).from}: \$${soldList[index].productItemPrice}',
-                      overflow: TextOverflow.fade,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall!
-                          .copyWith(
-                              fontWeight: FontWeight.w300,
-                              fontSize: 13,
-                              color: Palette.current.primaryNeonGreen)),
-                ],
-              );
-            },
-          )
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Text(soldList[index].productItemName.toUpperCase(),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayLarge!
+                            .copyWith(
+                                letterSpacing: 1,
+                                fontWeight: FontWeight.w300,
+                                fontFamily: "KnockoutCustom",
+                                fontSize: 21,
+                                color: Palette.current.white)),
+                    Text(
+                        soldList[index].forSale ?? false
+                            ? '${S.of(context).last_sale} \$${soldList[index].lastSale}'
+                            : '${S.of(context).from}: \$${soldList[index].productItemPrice}',
+                        overflow: TextOverflow.fade,
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            fontWeight: FontWeight.w300,
+                            fontSize: 13,
+                            color: Palette.current.primaryNeonGreen)),
+                  ],
+                );
+              },
+            )
           : ListView.builder(
               itemBuilder: (_, index) => SizedBox(
                 height: MediaQuery.of(context).size.height * 0.30,

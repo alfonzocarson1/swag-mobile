@@ -199,7 +199,7 @@ class __$$_PurchaseHistoryDetailModelCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable()
-class _$_PurchaseHistoryDetailModel implements _PurchaseHistoryDetailModel {
+class _$_PurchaseHistoryDetailModel extends _PurchaseHistoryDetailModel {
   const _$_PurchaseHistoryDetailModel(
       {this.purchaseHistoryId,
       this.purchasePaymentMethod,
@@ -208,7 +208,8 @@ class _$_PurchaseHistoryDetailModel implements _PurchaseHistoryDetailModel {
       required this.purchaseShippingInfo,
       this.sourcePurchase,
       this.purchaseDate})
-      : _purchaseItems = purchaseItems;
+      : _purchaseItems = purchaseItems,
+        super._();
 
   factory _$_PurchaseHistoryDetailModel.fromJson(Map<String, dynamic> json) =>
       _$$_PurchaseHistoryDetailModelFromJson(json);
@@ -288,8 +289,7 @@ class _$_PurchaseHistoryDetailModel implements _PurchaseHistoryDetailModel {
   }
 }
 
-abstract class _PurchaseHistoryDetailModel
-    implements PurchaseHistoryDetailModel {
+abstract class _PurchaseHistoryDetailModel extends PurchaseHistoryDetailModel {
   const factory _PurchaseHistoryDetailModel(
       {final String? purchaseHistoryId,
       final String? purchasePaymentMethod,
@@ -298,6 +298,7 @@ abstract class _PurchaseHistoryDetailModel
       required final PurchaseHistoryDetailShippingModel purchaseShippingInfo,
       final String? sourcePurchase,
       final String? purchaseDate}) = _$_PurchaseHistoryDetailModel;
+  const _PurchaseHistoryDetailModel._() : super._();
 
   factory _PurchaseHistoryDetailModel.fromJson(Map<String, dynamic> json) =
       _$_PurchaseHistoryDetailModel.fromJson;

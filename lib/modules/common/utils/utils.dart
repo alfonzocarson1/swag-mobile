@@ -451,9 +451,6 @@ String alertDays(String dateAlert) {
 }
 
 String alertAvatar(String avatarType, String? listingImageUrl) {
-  print(avatarType);
-  print(listingImageUrl);
-
   if (avatarType != 'CUSTOM') {
     var data =
         imagesList.where((avatar) => (avatar["id"].contains(avatarType)));
