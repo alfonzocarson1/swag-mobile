@@ -109,6 +109,42 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     }
   }
 
+  Future<ChatData> startNewChatPeerToPeer(String value) async {
+    try {
+      bool isChannelUrl = value.contains('sendbird');
+      String channelUrl =
+          (isChannelUrl) ? value : await this.service.loadChannel(value);
+      GroupChannel newChannel = await GroupChannel.getChannel(channelUrl);
+
+      bool chatExists = this.state.chats.any((ChatData chatData) {
+        return chatData.channel.channelUrl == newChannel.channelUrl;
+      });
+
+      List<BaseMessage> messages = await this._getMessagesByChannel(newChannel);
+
+      if (chatExists) {
+        return this.state.chats.firstWhere((ChatData chatData) {
+          return chatData.channel.channelUrl == newChannel.channelUrl;
+        });
+      } else {
+        ChatData newChat = ChatData(
+          messages: messages,
+          channel: newChannel,
+        );
+
+        this.add(ChatAddChatEvent(
+          currentChats: this.state.chats,
+          newChat: newChat,
+        ));
+        this.add(ChatAddChatsEvent(this.state.chats));
+
+        return newChat;
+      }
+    } catch (e) {
+      throw Exception('Error loading channel');
+    }
+  }
+
   Future<ChatData> startNewChat(String value, bool flag) async {
     try {
       bool isChannelUrl = value.contains('sendbird');
