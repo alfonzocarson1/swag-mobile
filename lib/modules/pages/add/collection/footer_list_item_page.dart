@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sendbird_sdk/core/channel/group/group_channel.dart';
 import 'package:sendbird_sdk/core/models/member.dart';
 import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
 import 'package:swagapp/modules/common/assets/icons.dart';
@@ -15,6 +18,8 @@ import '../../../constants/constants.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
 import '../../../models/profile/profile_model.dart';
+
+ List<ChatData> chatList=[]; 
 
 class FooterListItemPage extends StatefulWidget {
   FooterListItemPage({
@@ -47,6 +52,7 @@ class _FooterListItemPageState extends State<FooterListItemPage> {
     ChatBloc chatBloc = context.read<ChatBloc>();
     String? profileURL;
     String? defaultImage;
+    chatList = chatBloc.state.chats;
 
     ProfileModel profileData =
         getIt<PreferenceRepositoryService>().profileData();
@@ -61,6 +67,8 @@ class _FooterListItemPageState extends State<FooterListItemPage> {
       profileURL = profileData!.avatarUrl ??
           'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Franklin.png?alt=media&token=c1073f88-74c2-44c8-a287-fbe0caebf878';
     }
+
+
 
     return Row(
       children: [
@@ -130,12 +138,46 @@ class _FooterListItemPageState extends State<FooterListItemPage> {
     );
   }
 
+ChatData isUserInAnyChannel(String userId, List<ChatData> chatList) {
+  String channelUrl = "";
+  late ChatData existingChatData;
+  for (var chatData in chatList) {
+    for (var member in chatData.channel.members) {
+     try {
+        String formattedData = chatData.channel.data!.replaceAll("'", "\"");
+        Map<String, dynamic> dataMap = jsonDecode(formattedData);      
+      for (var member in chatData.channel.members) {
+        if (member.nickname == userId && dataMap['productItemId'] == this.widget.productItemId) {
+          channelUrl = chatData.channel.channelUrl;
+          existingChatData = chatData;
+          return chatData;
+        }
+      }
+    } catch (e) {
+      print("Error parsing channel data: $e");
+    }
+    }
+  }  
+  return ChatData(messages: [], channel: GroupChannel(channelUrl: ""));
+}
+
   Future<void> onTapChat(ChatBloc chatBloc) async {
+    debugPrint(chatList.toString());
+    late ChatData chatData;
     try {
       Loading.show(context);
       await Future.delayed(const Duration(milliseconds: 500));
-      ChatData? chatData =
-          await chatBloc.startNewChat(this.widget.productItemId, false);
+      
+      ChatData existingChat = isUserInAnyChannel(userName, chatList);
+
+      if(existingChat.messages.isNotEmpty){
+        debugPrint("existe canal");
+        chatData = existingChat;
+      }else{
+        chatData =
+          await chatBloc.startNewChat(this.widget.productItemId, true);
+      }
+      
 
       Loading.hide(context);
 
