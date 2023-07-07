@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/common/utils/tab_wrapper.dart';
+import 'package:swagapp/modules/models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
 import 'package:swagapp/modules/models/shared_preferences/shared_preference_model.dart';
 
 import '../../blocs/search_bloc.dart/search_bloc.dart';
@@ -133,6 +134,17 @@ Future<void> performSearch({
   context
       .read<SearchBloc>()
       .add(SearchEvent.performSearch(payload, tab ?? SearchTab.all));
+}
+
+List<BuyForSaleListingModel> filteredCondition(List<BuyForSaleListingModel> model, FilterModel filters) {
+  if(filters.conditions != null) {
+    List<BuyForSaleListingModel> filteredArr = model.where((model) {
+      return filters.conditions!.any((filterItem) => model.condition == filterItem);
+    }).toList();
+
+    return filteredArr;
+  }
+  return model;
 }
 
 Future<FilterModel> getCurrentFilterModel() async {
