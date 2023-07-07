@@ -81,7 +81,10 @@ class _SoldPageState extends State<SoldPage> {
                   Stack(
                     children: [
                       SizedBox(
-                        height: MediaQuery.of(context).size.width * 0.37,
+                        width: MediaQuery.of(context).size.width *
+                            0.45,
+                        height: MediaQuery.of(context).size.width *
+                            0.37,
                         child: ClipRRect(
                           child: CachedNetworkImage(
                             fit: BoxFit.cover,
