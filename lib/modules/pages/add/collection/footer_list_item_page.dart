@@ -175,7 +175,7 @@ ChatData isUserInAnyChannel(String userId, List<ChatData> chatList) {
         chatData = existingChat;
       }else{
         chatData =
-          await chatBloc.startNewChat(this.widget.productItemId, true);
+          await chatBloc.startNewChat(this.widget.productItemId, false);
       }
       
 
