@@ -27,6 +27,8 @@ import '../add/buy/buy_for_sale.dart';
 import '../add/collection/list_for_sale_page.dart';
 import '../login/create_account_page.dart';
 
+late bool hasActiveSubscription;
+
 class CollectionWidget extends StatefulWidget {
   CollectionWidget({
     super.key,
@@ -72,7 +74,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
   List<DetailCollectionModel> newCollectionList = [];
   List<BuyForSaleListingResponseModel> buyForSaleList = [];
   List<DetailCollectionModel> dataCollection = [];
-  bool hasActiveSubscription = false;
+  
   List<String> ids = [];
   ProfileNotifyList notificationList =
       const ProfileNotifyList(profileNotificationList: []);
@@ -103,9 +105,9 @@ class _CollectionWidgetState extends State<CollectionWidget> {
     isLogged = getIt<PreferenceRepositoryService>().isLogged();
     if (isLogged) {
       getIt<ProfileCubit>().loadProfileResults();
-      getProfileAvatar();
-       
+      getProfileAvatar();       
     }
+    hasActiveSubscription =  profileData?.hasActiveSubscription ?? false; 
   }
 
   @override
@@ -121,8 +123,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
   }
 
   getProfileAvatar() {
-    profileData = getIt<PreferenceRepositoryService>().profileData();
-    hasActiveSubscription =  profileData?.hasActiveSubscription ?? false; 
+    profileData = getIt<PreferenceRepositoryService>().profileData();    
 
     if (profileData!.useAvatar != 'CUSTOM') {
       var data = imagesList
@@ -186,7 +187,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
   }
 
   removePaywall(){
-    hasActiveSubscription = true;
+    hasActiveSubscription = true;  
     setState(() {
       
     });
@@ -600,7 +601,9 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                       MaterialPageRoute(
                                         builder: (context) => PaywallSplashScreen(
                                           hasUsedFreeTrial: false, 
-                                          removePaywall: (){},
+                                          removePaywall: (){
+                                            removePaywall();
+                                          },
                                           )
                                         ));                                     
                                   }                                
@@ -616,7 +619,9 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                       MaterialPageRoute(
                                         builder: (context) => PaywallSplashScreen(
                                           hasUsedFreeTrial: false, 
-                                          removePaywall: (){},
+                                          removePaywall: (){
+                                            removePaywall();
+                                          },
                                           )
                                         ));  
                                        }                                  
