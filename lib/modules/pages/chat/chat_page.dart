@@ -72,7 +72,7 @@ class _ChatPageState extends State<ChatPage> {
         backgroundColor: Palette.current.blackAppbarBlackground,
         title: _AppBarTitle(
           chatName:
-              '${myChatName ? userName.capitalize() : seller.nickname.capitalize()}, ${channelData.listingProductName}} ',
+              '${myChatName ? userName.capitalize() : seller.nickname.capitalize()}, ${channelData.listingProductName}',
           isTyping: isTyping,
         ),
         centerTitle: false,

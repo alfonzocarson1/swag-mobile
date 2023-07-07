@@ -2980,10 +2980,10 @@ class S {
     );
   }
 
-  /// `SWAGG`
+  /// `SWAG`
   String get chatSwagg {
     return Intl.message(
-      'SWAGG',
+      'SWAG',
       name: 'chatSwagg',
       desc: '',
       args: [],
@@ -3050,22 +3050,22 @@ class S {
     );
   }
 
-  /// `@{sellerUserName} here is {myUserName}'s {paymnetMethod}'s information to send payment - {rate} \n\n{paymentUser}\n\nOnce payment is made please click the confirmation button below`
+  /// `@{sellerUserName} here is @{myUserName}'s {paymnetMethod}'s information to send payment - {rate} \n\n{paymentUser}\n\nOnce payment is made please click the confirmation button below`
   String chatCardConfirmPaymentBuyer(Object sellerUserName, Object myUserName,
       Object paymnetMethod, Object rate, Object paymentUser) {
     return Intl.message(
-      '@$sellerUserName here is $myUserName\'s $paymnetMethod\'s information to send payment - $rate \n\n$paymentUser\n\nOnce payment is made please click the confirmation button below',
+      '@$sellerUserName here is @$myUserName\'s $paymnetMethod\'s information to send payment - $rate \n\n$paymentUser\n\nOnce payment is made please click the confirmation button below',
       name: 'chatCardConfirmPaymentBuyer',
       desc: '',
       args: [sellerUserName, myUserName, paymnetMethod, rate, paymentUser],
     );
   }
 
-  /// `@{sellerUserName} here is {myUserName}'s {paymnetMethod}'s information to send payment - {rate} \n\n{paymentUser}`
+  /// `@{sellerUserName} here is @{myUserName}'s {paymnetMethod}'s information to send payment - {rate} \n\n{paymentUser}`
   String chatCardConfirmPaymentSeller(Object sellerUserName, Object myUserName,
       Object paymnetMethod, Object rate, Object paymentUser) {
     return Intl.message(
-      '@$sellerUserName here is $myUserName\'s $paymnetMethod\'s information to send payment - $rate \n\n$paymentUser',
+      '@$sellerUserName here is @$myUserName\'s $paymnetMethod\'s information to send payment - $rate \n\n$paymentUser',
       name: 'chatCardConfirmPaymentSeller',
       desc: '',
       args: [sellerUserName, myUserName, paymnetMethod, rate, paymentUser],
@@ -3172,31 +3172,31 @@ class S {
     );
   }
 
-  /// `{sellerUserName} has confirmed that payment has been received`
+  /// `@{sellerUserName} has confirmed that payment has been received`
   String chatConfirmPaymentMessage(Object sellerUserName) {
     return Intl.message(
-      '$sellerUserName has confirmed that payment has been received',
+      '@$sellerUserName has confirmed that payment has been received',
       name: 'chatConfirmPaymentMessage',
       desc: '',
       args: [sellerUserName],
     );
   }
 
-  /// `{sellerUserName} here is the shipping address to ship this item\n\n{buyerUserName}\n{address}, {city}, {state} {zipCode}`
+  /// `@{sellerUserName} here is the shipping address to ship this item\n\n@{buyerUserName}\n{address}, {city}, {state} {zipCode}`
   String chatConfirmShipMessage(Object sellerUserName, Object buyerUserName,
       Object address, Object city, Object state, Object zipCode) {
     return Intl.message(
-      '$sellerUserName here is the shipping address to ship this item\n\n$buyerUserName\n$address, $city, $state $zipCode',
+      '@$sellerUserName here is the shipping address to ship this item\n\n@$buyerUserName\n$address, $city, $state $zipCode',
       name: 'chatConfirmShipMessage',
       desc: '',
       args: [sellerUserName, buyerUserName, address, city, state, zipCode],
     );
   }
 
-  /// `{sellerUserName} has ship the item. Here is the tracking number\n\n{trackingNumber}`
+  /// `@{sellerUserName} has ship the item. Here is the tracking number\n\n{trackingNumber}`
   String chatShippedMessage(Object sellerUserName, Object trackingNumber) {
     return Intl.message(
-      '$sellerUserName has ship the item. Here is the tracking number\n\n$trackingNumber',
+      '@$sellerUserName has ship the item. Here is the tracking number\n\n$trackingNumber',
       name: 'chatShippedMessage',
       desc: '',
       args: [sellerUserName, trackingNumber],

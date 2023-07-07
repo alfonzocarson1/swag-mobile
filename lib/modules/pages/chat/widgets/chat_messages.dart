@@ -228,6 +228,7 @@ class _Message extends StatelessWidget {
   Widget build(BuildContext context) {
     String nickName =
         this.message.sender?.nickname ?? S.current.chatModeratorName;
+
     DateTime createdAt = DateTime.fromMillisecondsSinceEpoch(message.createdAt);
     DateFormat dateFormat = DateFormat().add_jm();
     String createdAtFormated = dateFormat.format(createdAt);
