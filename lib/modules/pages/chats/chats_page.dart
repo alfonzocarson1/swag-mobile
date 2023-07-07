@@ -27,7 +27,12 @@ class _ChatsPageState extends State<ChatsPage> {
   @override
   Widget build(BuildContext context) {
     ChatBloc chatBloc = context.watch<ChatBloc>();
-
+    List chatList =chatBloc.state.chats;
+    chatList.sort((a, b) {
+  int compare = b.channel.lastMessage.createdAt.compareTo(a.channel.lastMessage.createdAt);
+  if (compare != 0) return compare;
+  return a.channel.url.compareTo(b.channel.url); // Replace `url` with your chosen attribute.
+});
     return Scaffold(
       appBar: AppBar(
         title: const _AppBarTitle(),
@@ -46,7 +51,7 @@ class _ChatsPageState extends State<ChatsPage> {
       body: ListView.separated(
         padding: const EdgeInsets.symmetric(vertical: 20),
         physics: const BouncingScrollPhysics(),
-        itemCount: chatBloc.state.chats.length,
+        itemCount: chatList.length,
         itemBuilder: (BuildContext context, int index) {
           ChatData chatData = chatBloc.state.chats[index];
           String lastMessage = (chatData.messages.isNotEmpty)
