@@ -49,10 +49,12 @@ abstract class PushNotificationsService {
     _notificationStreamController.add(message.data);
     // Map<String, dynamic> messageData = json.decode(message.data['sendbird']);
     // SendBirdPushMessage baseMessage = SendBirdPushMessage.fromJson(messageData);
+    var json = jsonDecode(message.data['sendbird']);
+
     if (Platform.isAndroid) {
       await LocalNotificationsService.showNotification(
-        title: message.notification!.title ?? '',
-        body: message.notification!.body ?? '',
+        title: json['push_title'],
+        body: json['message'],
         payload: null,
       );
     }
@@ -60,10 +62,12 @@ abstract class PushNotificationsService {
 
   static Future<void> _onMessageHandler(RemoteMessage message) async {
     _notificationStreamController.add(message.data);
+    var json = jsonDecode(message.data['sendbird']);
+
     if (Platform.isAndroid) {
       await LocalNotificationsService.showNotification(
-        title: message.notification!.title ?? '',
-        body: message.notification!.body ?? '',
+        title: json['push_title'],
+        body: json['message'],
         payload: null,
       );
     }
@@ -71,10 +75,12 @@ abstract class PushNotificationsService {
 
   static Future<void> _onOpenHandler(RemoteMessage message) async {
     _notificationStreamController.add(message.data);
+    var json = jsonDecode(message.data['sendbird']);
+
     if (Platform.isAndroid) {
       await LocalNotificationsService.showNotification(
-        title: message.notification!.title ?? '',
-        body: message.notification!.body ?? '',
+        title: json['push_title'],
+        body: json['message'],
         payload: null,
       );
     }

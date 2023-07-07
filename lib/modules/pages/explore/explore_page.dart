@@ -14,6 +14,7 @@ import '../../common/ui/custom_app_bar.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../cubits/alert/alert_cubit.dart';
 import '../../cubits/explore/get_explore_cubit.dart';
+import '../../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
 import '../../cubits/peer_to_peer_payments/peer_to_peer_payments_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
@@ -162,6 +163,8 @@ class _ExplorePageState extends State<ExplorePage> with ChannelEventHandler {
     ChatData chatData = chatBloc.state.chats.firstWhere((ChatData chat) {
       return chat.channel.channelUrl == channel.channelUrl;
     });
+
+    getIt<ListingProfileCubit>().loadResults();
 
     await chatBloc.receiveMessage(
       chatData: chatData,

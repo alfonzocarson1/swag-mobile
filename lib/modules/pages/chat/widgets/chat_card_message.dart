@@ -8,6 +8,7 @@ import 'package:swagapp/modules/models/chat/message_data.dart';
 import 'package:swagapp/modules/enums/chat_message_data_type.dart';
 
 import '../../../cubits/buy/buy_cubit.dart';
+import '../../../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
 import '../../../di/injector.dart';
 import '../../../enums/listing_status_data.dart';
 import '../../../models/buy_for_sale_listing/update_purchase_status_request.dart';
@@ -120,19 +121,21 @@ class _CardContentState extends State<_CardContent> {
     if (this.widget.messageData.type ==
         ChatMessageDataType.confirmPaymentReceived.textValue) {
       return S.current.chatCardPaymentReceivedSeller(
-          this.widget.messageData.payload.userNameBuyer);
+          this.widget.messageData.payload.userNameBuyer,
+          this.getPaymentMehotd(this.widget.messageData.payload.paymentMethod));
     }
 
     if (this.widget.messageData.type ==
         ChatMessageDataType.confirmShip.textValue) {
       return S.current.chatConfirmShipMessage(
-        this.widget.messageData.payload.userNameSeller,
-        this.widget.messageData.payload.userNameBuyer,
-        this.widget.messageData.payload.address.address1,
-        this.widget.messageData.payload.address.city,
-        this.widget.messageData.payload.address.state,
-        this.widget.messageData.payload.address.postalCode,
-      );
+          this.widget.messageData.payload.userNameSeller,
+          this.widget.messageData.payload.nameBuyer ?? '',
+          this.widget.messageData.payload.lastNameBuyer ?? '',
+          this.widget.messageData.payload.address.address1,
+          this.widget.messageData.payload.address.address2,
+          this.widget.messageData.payload.address.city,
+          this.widget.messageData.payload.address.state,
+          this.widget.messageData.payload.address.postalCode);
     }
 
     return '';

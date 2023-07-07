@@ -33,15 +33,15 @@ class MessageLookup extends MessageLookupByLibrary {
           sellerUserName, myUserName, paymnetMethod, rate, paymentUser) =>
       "@${sellerUserName} here is @${myUserName}\'s ${paymnetMethod}\'s information to send payment - ${rate} \n\n${paymentUser}";
 
-  static String m4(buyerUserName) =>
-      "@${buyerUserName} indicated he made payment. Please check your venmo and click the button below to confirm payment was received";
+  static String m4(buyerUserName, paymnetMethod) =>
+      "@${buyerUserName} indicated he made payment. Please check your ${paymnetMethod} account and click the button below to confirm payment was received";
 
   static String m5(sellerUserName) =>
       "@${sellerUserName} has confirmed that payment has been received";
 
-  static String m6(
-          sellerUserName, buyerUserName, address, city, state, zipCode) =>
-      "@${sellerUserName} here is the shipping address to ship this item\n\n@${buyerUserName}\n${address}, ${city}, ${state} ${zipCode}";
+  static String m6(sellerUserName, buyerName, buyerLastName, address, address2,
+          city, state, zipCode) =>
+      "@${sellerUserName} here is the shipping address to ship this item\n\n${buyerName} ${buyerLastName}\n${address}, ${address2}, \n${city}, ${state} ${zipCode}";
 
   static String m7(sender) => "New message from ${sender}";
 
