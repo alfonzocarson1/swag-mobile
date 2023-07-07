@@ -529,7 +529,8 @@ class _BuyerCompletePurchasePopUpState
                                       FilteringTextInputFormatter.allow(
                                           RegExp("^.{0,50}\$")),
                                     ],
-                                    textCapitalization: TextCapitalization.words,
+                                    textCapitalization:
+                                        TextCapitalization.words,
                                     borderColor: _addressBorder,
                                     autofocus: false,
                                     labelText: 'Address 2',
@@ -551,7 +552,8 @@ class _BuyerCompletePurchasePopUpState
                                     errorText: cityErrorText,
                                     focusNode: _cityNode,
                                     controller: _cityController,
-                                    textCapitalization: TextCapitalization.words,
+                                    textCapitalization:
+                                        TextCapitalization.words,
                                     inputType: TextInputType.text),
                                 const SizedBox(
                                   height: 10,
@@ -574,6 +576,7 @@ class _BuyerCompletePurchasePopUpState
                                                     stateCodes[index];
                                                 _stateController.text =
                                                     _defaultState;
+                                                print(_stateController.text);
                                                 Navigator.pop(context);
                                               }),
                                           Visibility(
@@ -620,7 +623,8 @@ class _BuyerCompletePurchasePopUpState
                                             labelText: S.of(context).zip,
                                             focusNode: _zipNode,
                                             controller: _zipController,
-                                            textCapitalization: TextCapitalization.words,
+                                            textCapitalization:
+                                                TextCapitalization.words,
                                           ),
                                           Visibility(
                                               visible: stateErrorText != null &&
@@ -733,7 +737,7 @@ class _BuyerCompletePurchasePopUpState
                                                   address2:
                                                       _addressController.text,
                                                   city: _cityController.text,
-                                                  state: _stateController.text,
+                                                  state: _defaultState,
                                                   postalCode:
                                                       _zipController.text),
                                               profilePeerToPeerPayment:

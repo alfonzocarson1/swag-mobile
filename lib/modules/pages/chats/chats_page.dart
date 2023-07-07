@@ -6,6 +6,8 @@ import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/models/chat/chat_data.dart';
 
+import '../../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
+import '../../di/injector.dart';
 import 'widgets/chats_contacts.dart';
 
 class ChatsPage extends StatefulWidget {
@@ -27,25 +29,29 @@ class _ChatsPageState extends State<ChatsPage> {
   @override
   Widget build(BuildContext context) {
     ChatBloc chatBloc = context.watch<ChatBloc>();
-    List chatList =chatBloc.state.chats;
+    List chatList = chatBloc.state.chats;
     chatList.sort((a, b) {
-  int compare = b.channel.lastMessage.createdAt.compareTo(a.channel.lastMessage.createdAt);
-  if (compare != 0) return compare;
-  return a.channel.url.compareTo(b.channel.url); // Replace `url` with your chosen attribute.
-});
+      int compare = b.channel.lastMessage.createdAt
+          .compareTo(a.channel.lastMessage.createdAt);
+      if (compare != 0) return compare;
+      return a.channel.url.compareTo(
+          b.channel.url); // Replace `url` with your chosen attribute.
+    });
     return Scaffold(
       appBar: AppBar(
         title: const _AppBarTitle(),
         systemOverlayStyle: SystemUiOverlayStyle.light,
         backgroundColor: Colors.transparent,
         leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Palette.current.primaryNeonGreen,
-            size: 24,
-          ),
-          onPressed: () => Navigator.pop(context),
-        ),
+            icon: Icon(
+              Icons.arrow_back,
+              color: Palette.current.primaryNeonGreen,
+              size: 24,
+            ),
+            onPressed: () {
+              getIt<ListingProfileCubit>().loadResults();
+              Navigator.pop(context);
+            }),
       ),
       backgroundColor: Palette.current.blackAppbarBlackground,
       body: ListView.separated(

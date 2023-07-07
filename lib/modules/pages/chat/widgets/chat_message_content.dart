@@ -140,6 +140,7 @@ class _ContentState extends State<_Content> with AutomaticKeepAliveClientMixin {
           messageData.payload.nameBuyer ?? '',
           messageData.payload.lastNameBuyer ?? '',
           messageData.payload.address.address1,
+          messageData.payload.address.address2,
           messageData.payload.address.city,
           messageData.payload.address.state,
           messageData.payload.address.postalCode,

@@ -3072,13 +3072,14 @@ class S {
     );
   }
 
-  /// `@{buyerUserName} indicated he made payment. Please check your venmo and click the button below to confirm payment was received`
-  String chatCardPaymentReceivedSeller(Object buyerUserName) {
+  /// `@{buyerUserName} indicated he made payment. Please check your {paymnetMethod} account and click the button below to confirm payment was received`
+  String chatCardPaymentReceivedSeller(
+      Object buyerUserName, Object paymnetMethod) {
     return Intl.message(
-      '@$buyerUserName indicated he made payment. Please check your venmo and click the button below to confirm payment was received',
+      '@$buyerUserName indicated he made payment. Please check your $paymnetMethod account and click the button below to confirm payment was received',
       name: 'chatCardPaymentReceivedSeller',
       desc: '',
-      args: [buyerUserName],
+      args: [buyerUserName, paymnetMethod],
     );
   }
 
@@ -3182,17 +3183,18 @@ class S {
     );
   }
 
-  /// `@{sellerUserName} here is the shipping address to ship this item\n\n{buyerName} {buyerLastName}\n{address}, {city}, {state} {zipCode}`
+  /// `@{sellerUserName} here is the shipping address to ship this item\n\n{buyerName} {buyerLastName}\n{address}, {address2}, \n{city}, {state} {zipCode}`
   String chatConfirmShipMessage(
       Object sellerUserName,
       Object buyerName,
       Object buyerLastName,
       Object address,
+      Object address2,
       Object city,
       Object state,
       Object zipCode) {
     return Intl.message(
-      '@$sellerUserName here is the shipping address to ship this item\n\n$buyerName $buyerLastName\n$address, $city, $state $zipCode',
+      '@$sellerUserName here is the shipping address to ship this item\n\n$buyerName $buyerLastName\n$address, $address2, \n$city, $state $zipCode',
       name: 'chatConfirmShipMessage',
       desc: '',
       args: [
@@ -3200,6 +3202,7 @@ class S {
         buyerName,
         buyerLastName,
         address,
+        address2,
         city,
         state,
         zipCode
