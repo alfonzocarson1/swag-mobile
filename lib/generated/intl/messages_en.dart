@@ -27,21 +27,21 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m2(
           sellerUserName, myUserName, paymnetMethod, rate, paymentUser) =>
-      "@${sellerUserName} here is ${myUserName}\'s ${paymnetMethod}\'s information to send payment - ${rate} \n\n${paymentUser}\n\nOnce payment is made please click the confirmation button below";
+      "@${sellerUserName} here is @${myUserName}\'s ${paymnetMethod}\'s information to send payment - ${rate} \n\n${paymentUser}\n\nOnce payment is made please click the confirmation button below";
 
   static String m3(
           sellerUserName, myUserName, paymnetMethod, rate, paymentUser) =>
-      "@${sellerUserName} here is ${myUserName}\'s ${paymnetMethod}\'s information to send payment - ${rate} \n\n${paymentUser}";
+      "@${sellerUserName} here is @${myUserName}\'s ${paymnetMethod}\'s information to send payment - ${rate} \n\n${paymentUser}";
 
   static String m4(buyerUserName) =>
       "@${buyerUserName} indicated he made payment. Please check your venmo and click the button below to confirm payment was received";
 
   static String m5(sellerUserName) =>
-      "${sellerUserName} has confirmed that payment has been received";
+      "@${sellerUserName} has confirmed that payment has been received";
 
   static String m6(
           sellerUserName, buyerUserName, address, city, state, zipCode) =>
-      "${sellerUserName} here is the shipping address to ship this item\n\n${buyerUserName}\n${address}, ${city}, ${state} ${zipCode}";
+      "@${sellerUserName} here is the shipping address to ship this item\n\n@${buyerUserName}\n${address}, ${city}, ${state} ${zipCode}";
 
   static String m7(sender) => "New message from ${sender}";
 
@@ -49,7 +49,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Payment Confirmation @${buyerUserName} indicated they made payment";
 
   static String m9(sellerUserName, trackingNumber) =>
-      "${sellerUserName} has ship the item. Here is the tracking number\n\n${trackingNumber}";
+      "@${sellerUserName} has ship the item. Here is the tracking number\n\n${trackingNumber}";
 
   static String m10(chatsNumber) => "${chatsNumber} Unread";
 
@@ -156,7 +156,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No previous messages"),
         "chatPaymentSendBuyer": m8,
         "chatShippedMessage": m9,
-        "chatSwagg": MessageLookupByLibrary.simpleMessage("SWAGG"),
+        "chatSwagg": MessageLookupByLibrary.simpleMessage("SWAG"),
         "chatSwaggAdmin": MessageLookupByLibrary.simpleMessage("Swagg Admin"),
         "chatToday": MessageLookupByLibrary.simpleMessage("Today"),
         "chatTyping": MessageLookupByLibrary.simpleMessage("Typing..."),

@@ -11,6 +11,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:swagapp/modules/models/chat/message_data.dart';
 import 'package:swagapp/modules/pages/media_viewer/media_viewer_page.dart';
 
+import '../../../constants/constants.dart';
 import 'chat_message_video_content.dart';
 
 class ChatMessageContent extends StatelessWidget {
@@ -35,7 +36,7 @@ class ChatMessageContent extends StatelessWidget {
                 margin: const EdgeInsets.symmetric(horizontal: 10),
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Text(
-                  nickName,
+                  nickName != swagBotNickName ? nickName : S.current.chatSwagg,
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight:

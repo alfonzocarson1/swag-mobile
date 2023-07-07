@@ -43,48 +43,113 @@ const countriesCode = [
 ];
 
 const countries = [
-'Australia',
-'Canada',
-'China',
-'Germany',
-'Hong Kong',
-'Japan',
-'Korea',
-'Singapore',
-'Sweden',
-'United Kingdom',
-'United States',
+  'Australia',
+  'Canada',
+  'China',
+  'Germany',
+  'Hong Kong',
+  'Japan',
+  'Korea',
+  'Singapore',
+  'Sweden',
+  'United Kingdom',
+  'United States',
 ];
 
 const stateCodes = [
-  'AA', 'AE', 'AK', 'AL', 'AP', 'AR', 'AS', 'AZ', 'CA', 'CO', 
-  'CT', 'DC', 'DE', 'FL', 'GA', 'GU', 'HI', 'IA', 'ID', 'IL', 
-  'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI', 'MN', 'MO', 
-  'MP', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 
-  'NY', 'OH', 'OK', 'OR', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 
-  'TX', 'UM', 'UT', 'VA', 'VI', 'VT', 'WA', 'WI', 'WV', 'WY'
+  'AA',
+  'AE',
+  'AK',
+  'AL',
+  'AP',
+  'AR',
+  'AS',
+  'AZ',
+  'CA',
+  'CO',
+  'CT',
+  'DC',
+  'DE',
+  'FL',
+  'GA',
+  'GU',
+  'HI',
+  'IA',
+  'ID',
+  'IL',
+  'IN',
+  'KS',
+  'KY',
+  'LA',
+  'MA',
+  'MD',
+  'ME',
+  'MI',
+  'MN',
+  'MO',
+  'MP',
+  'MS',
+  'MT',
+  'NC',
+  'ND',
+  'NE',
+  'NH',
+  'NJ',
+  'NM',
+  'NV',
+  'NY',
+  'OH',
+  'OK',
+  'OR',
+  'PA',
+  'PR',
+  'RI',
+  'SC',
+  'SD',
+  'TN',
+  'TX',
+  'UM',
+  'UT',
+  'VA',
+  'VI',
+  'VT',
+  'WA',
+  'WI',
+  'WV',
+  'WY'
 ];
 
 const itemConditions = [
-    'Condition',
-    'Sealed',
-    'Displayed',
-    'Gamed',
-  ];
-
- 
+  'Condition',
+  'Sealed',
+  'Displayed',
+  'Gamed',
+];
 
 const List<CustomOverlayItemModel> editListingDropDown = [
-  CustomOverlayItemModel(imagePath: 'assets/icons/editWhite.png', label: 'Edit listing'),
-  CustomOverlayItemModel(imagePath: 'assets/icons/xCircle.png', label: 'Remove listing'),
+  CustomOverlayItemModel(
+      imagePath: 'assets/icons/editWhite.png', label: 'Edit listing'),
+  CustomOverlayItemModel(
+      imagePath: 'assets/icons/xCircle.png', label: 'Remove listing'),
 ];
 
-const List<CustomOverlayItemModel>  reportListingDropDown = [
-  CustomOverlayItemModel(imagePath: 'assets/icons/BlockUserWhite.png', label: 'Block user'),
-  CustomOverlayItemModel(imagePath: 'assets/icons/ReportUserWhite.png', label: 'Report User'),
+const List<CustomOverlayItemModel> reportListingDropDown = [
+  CustomOverlayItemModel(
+      imagePath: 'assets/icons/BlockUserWhite.png', label: 'Block user'),
+  CustomOverlayItemModel(
+      imagePath: 'assets/icons/ReportUserWhite.png', label: 'Report User'),
 ];
 
-enum FilterType { sortBy, condition, price, releaseDate, category, collection, theme, type }
+enum FilterType {
+  sortBy,
+  condition,
+  price,
+  releaseDate,
+  category,
+  collection,
+  theme,
+  type
+}
 
 enum ReleaseDate {
   y2018,
@@ -95,13 +160,11 @@ enum ReleaseDate {
   y2023,
 }
 
-
- 
 enum EditingListingStatus {
   editing,
   listed,
   removed,
-} 
+}
 
 class ReleaseDateWrapper {
   final ReleaseDate type;
@@ -244,5 +307,5 @@ class ProductWrapper {
   }
 }
 
-  String annualSubscriptionId = "TEST_Swag_App_Premium_Annual";
-  String monthlySubscriptionId = "TEST_Swag_App_Premium_Monthly";
+String annualSubscriptionId = "TEST_Swag_App_Premium_Annual";
+String monthlySubscriptionId = "TEST_Swag_App_Premium_Monthly";
