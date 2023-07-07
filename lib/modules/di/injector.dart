@@ -46,9 +46,10 @@ import '../cubits/page_from_explore/page_from_explore_cubit.dart';
 import '../cubits/paywall/paywall_cubit.dart';
 import '../cubits/peer_to_peer_payments/peer_to_peer_payments_cubit.dart';
 import '../cubits/profile/get_profile_cubit.dart';
+import '../cubits/purchase_history_detail/purchase_history_detail_cubit.dart';
+import '../cubits/subscription_status/update_subscription_status_cubit.dart';
 import '../data/alerts/alerts_service.dart';
 import '../data/alerts/i_alerts_service.dart';
-import '../cubits/subscription_status/update_subscription_status_cubit.dart';
 import '../data/auth/auth_service.dart';
 import '../data/buy_for_sale_listing/buy_for_sale_listing_service.dart';
 import '../data/buy_for_sale_listing/i_buy_for_sale_listing_service.dart';
@@ -206,17 +207,16 @@ Future<void> setupAppScope() {
 
   getIt.registerLazySingleton<IPurchaseHistoryService>(
       () => PurchaseHistoryService(APIService()));
-  getIt.registerLazySingleton(
-      () => PurchaseHistoryCubit(getIt.get()));
+  getIt.registerLazySingleton(() => PurchaseHistoryCubit(getIt.get()));
 
   getIt.registerLazySingleton<IPaywallService>(
       () => PaywallService(APIService()));
-  
-   getIt.registerLazySingleton<UpdateSubscriptionStatusCubit>(
+  getIt.registerLazySingleton(() => PurchaseHistoryDetailCubit(getIt.get()));
+
+  getIt.registerLazySingleton<UpdateSubscriptionStatusCubit>(
       () => UpdateSubscriptionStatusCubit(getIt<IPaywallService>()));
-   
-   getIt.registerLazySingleton<PaywallCubit>(
-      () => PaywallCubit());
+
+  getIt.registerLazySingleton<PaywallCubit>(() => PaywallCubit());
 
   return getIt.allReady();
 }
