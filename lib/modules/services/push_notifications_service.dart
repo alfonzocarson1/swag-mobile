@@ -51,8 +51,8 @@ abstract class PushNotificationsService {
     // SendBirdPushMessage baseMessage = SendBirdPushMessage.fromJson(messageData);
     if (Platform.isAndroid) {
       await LocalNotificationsService.showNotification(
-        title: message.data['title'],
-        body: message.data['body'],
+        title: message.notification!.title ?? '',
+        body: message.notification!.body ?? '',
         payload: null,
       );
     }
@@ -62,8 +62,8 @@ abstract class PushNotificationsService {
     _notificationStreamController.add(message.data);
     if (Platform.isAndroid) {
       await LocalNotificationsService.showNotification(
-        title: message.data['title'],
-        body: message.data['body'],
+        title: message.notification!.title ?? '',
+        body: message.notification!.body ?? '',
         payload: null,
       );
     }
@@ -73,8 +73,8 @@ abstract class PushNotificationsService {
     _notificationStreamController.add(message.data);
     if (Platform.isAndroid) {
       await LocalNotificationsService.showNotification(
-        title: message.data['title'],
-        body: message.data['body'],
+        title: message.notification!.title ?? '',
+        body: message.notification!.body ?? '',
         payload: null,
       );
     }
