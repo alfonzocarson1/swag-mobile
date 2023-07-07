@@ -158,8 +158,8 @@ class _SettingsPageState extends State<SettingsPage> {
                             subject:
                                 '${S.of(context).swag_app_support_request} ${profile.username}',
                             body: 'Requester username: ${profile.username}\n'
-                              'Requester account ID: ${profile.accountId}\n'
-                          'Requester email: ${profile.accountVerified}',
+                                'Requester account ID: ${profile.accountId}\n'
+                                'Requester email: ${profile.email}\n',
                           );
                         }),
                         SizedBox(
