@@ -58,7 +58,7 @@ class ChatsContact extends StatelessWidget {
       ),
       title: Text(
         '@${seller.nickname.capitalize()} - ${channelData.listingProductName}',
-          overflow: TextOverflow.fade,
+          overflow: TextOverflow.ellipsis,
         style: Theme.of(context).textTheme.bodySmall!.copyWith(
               fontWeight:
                   (hasUreadMessages) ? FontWeight.w300 : FontWeight.w300,
