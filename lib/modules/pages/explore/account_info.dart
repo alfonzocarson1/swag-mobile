@@ -185,23 +185,22 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
       });
     });
     _getStates(_defaultCountry);
-     getStoredInfo();
-      if (firstName == '' || lastName == '') {
-        showPopUp(username: userName);
-      }
+    getStoredInfo();
+    if (firstName == '' || lastName == '') {
+      showPopUp(username: userName);
+    }
   }
 
   getStoredInfo() async {
     userName = (getIt<PreferenceRepositoryService>().profileData().username);
     firstName = (await getIt<StorageRepositoryService>().getFirstName() ?? '');
     lastName = (await getIt<StorageRepositoryService>().getLastName() ?? '');
-    _defaultCountry =
-        (await getIt<StorageRepositoryService>().getCountry() ?? 'United States');
-    _defaultState = (await getIt<StorageRepositoryService>().getState() ?? 'State');
-    city =
-        (await getIt<StorageRepositoryService>().getCity() ?? '');
-    zipp =
-        (await getIt<StorageRepositoryService>().getZip() ?? '');
+    _defaultCountry = (await getIt<StorageRepositoryService>().getCountry() ??
+        'United States');
+    _defaultState =
+        (await getIt<StorageRepositoryService>().getState() ?? 'State');
+    city = (await getIt<StorageRepositoryService>().getCity() ?? '');
+    zipp = (await getIt<StorageRepositoryService>().getZip() ?? '');
     var addresses = (await getIt<StorageRepositoryService>().getAddresses());
 
     if (addresses.isNotEmpty) {
@@ -622,12 +621,21 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
       cityErrorText =
           _cityController.text.isNotEmpty ? null : S.of(context).required_field;
 
-      stateErrorText =
-          _defaultState != 'State' ? null : S.of(context).required_field;
+      stateErrorText = validateState() ? null : S.of(context).required_field;
 
       zipErrorText =
           _zipController.text.isNotEmpty ? null : S.of(context).required_field;
     });
+  }
+
+  bool validateState() {
+    if (_defaultCountry == 'United States' && _defaultState == 'State') {
+      return false;
+    }
+    if (_defaultCountry != 'United States' && _defaultState == 'State') {
+      return true;
+    }
+    return false;
   }
 
   bool areFieldsValid() {
@@ -636,7 +644,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
         _defaultCountry != 'Country' &&
         _firstAddressController.text.isNotEmpty &&
         _cityController.text.isNotEmpty &&
-        _defaultState != 'State' &&
+        validateState() &&
         _zipController.text.isNotEmpty;
   }
 
