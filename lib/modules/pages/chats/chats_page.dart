@@ -39,8 +39,7 @@ class _ChatsPageState extends State<ChatsPage> {
   }
   
   if (compare != 0) return compare;
-  return a.channel.url.compareTo(b.channel.url); // Replace `url` with your chosen attribute.
-});
+return a.channel.channelUrl.compareTo(b.channel.channelUrl);});
   }
 
   @override
@@ -48,7 +47,7 @@ class _ChatsPageState extends State<ChatsPage> {
     ChatBloc chatBloc = context.watch<ChatBloc>();
     List chatList =chatBloc.state.chats;
     sortChannelsList(chatList);
-
+  
     return Scaffold(
       appBar: AppBar(
         title: const _AppBarTitle(),
