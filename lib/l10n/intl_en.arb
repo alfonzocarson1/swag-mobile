@@ -269,6 +269,11 @@
     "payPal_sub_title": "Please enter and confirm your PayPal email",
     "cash_app_sub_title": "Please enter and confirm your \nCashApp cashtag",
 
+    "nft_wallet_page_title": "NFT WALLET",
+    "nft_wallet_connect": "Connect",
+    "nft_wallet_wallet": "Wallet",
+    "nft_wallet_add_wallet": "Add New Wallet",
+
     "input_venmo": "@Venmo username",
     "input_cash_app": "$cashtag",
     "input_cash_app_ivalid": "Must 20 characters or less, min 1 letter, no spaces",
