@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/assets/icons.dart';
+import 'package:swagapp/modules/models/search/filter_model.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../blocs/buy_sale_listing_bloc/buy_sale_listing_bloc.dart';
@@ -76,7 +77,7 @@ class BuyForSale extends StatefulWidget {
 class _BuyForSaleState extends State<BuyForSale> {
   late final ScrollController? _scrollController =
       PrimaryScrollController.of(context);
-
+  FilterModel filters = FilterModel();
   @override
   void initState() {
     // TODO: implement initState
@@ -85,6 +86,13 @@ class _BuyForSaleState extends State<BuyForSale> {
     context
         .read<BuySaleListingBloc>()
         .add(BuySaleListingEvent.getBuyListingItem(widget.catalogItemId));
+  }
+
+  @override
+  void didChangeDependencies() async {
+    filters = await getCurrentFilterModel();
+    setState(() {});
+    super.didChangeDependencies();
   }
 
   @override
@@ -131,7 +139,8 @@ class _BuyForSaleState extends State<BuyForSale> {
                     ));
               },
               loadedSaledItems: (state) {
-                return _getBody(state.saledItemdList[0].saledItemdList);
+                List<BuyForSaleListingModel> model = List.from(state.saledItemdList[0].saledItemdList);
+                return _getBody(filteredCondition(model, filters));
               },
             );
           },
