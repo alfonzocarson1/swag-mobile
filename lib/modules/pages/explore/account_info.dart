@@ -80,6 +80,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   String lastName = '';
   String address1 = '';
   String address2 = '';
+  String city = '';
+  String zipp = '';
   bool hasImportableData = false;
   bool verificationEmailSent = false;
 
@@ -183,6 +185,10 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
       });
     });
     _getStates(_defaultCountry);
+     getStoredInfo();
+      if (firstName == '' || lastName == '') {
+        showPopUp(username: userName);
+      }
   }
 
   getStoredInfo() async {
@@ -190,11 +196,11 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
     firstName = (await getIt<StorageRepositoryService>().getFirstName() ?? '');
     lastName = (await getIt<StorageRepositoryService>().getLastName() ?? '');
     _defaultCountry =
-        (await getIt<StorageRepositoryService>().getCountry() ?? '');
-    _defaultState = (await getIt<StorageRepositoryService>().getState() ?? '');
-    _cityController.text =
+        (await getIt<StorageRepositoryService>().getCountry() ?? 'United States');
+    _defaultState = (await getIt<StorageRepositoryService>().getState() ?? 'State');
+    city =
         (await getIt<StorageRepositoryService>().getCity() ?? '');
-    _zipController.text =
+    zipp =
         (await getIt<StorageRepositoryService>().getZip() ?? '');
     var addresses = (await getIt<StorageRepositoryService>().getAddresses());
 
@@ -206,11 +212,6 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
 
   @override
   Widget build(BuildContext context) {
-    getStoredInfo();
-
-    if (firstName == '' || lastName == '') {
-      showPopUp(username: userName);
-    }
     _responsiveDesign = ResponsiveDesign(context);
     return Scaffold(
         extendBodyBehindAppBar: true,
@@ -258,9 +259,9 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                         _defaultCountry = _defaultCountry;
                         _firstAddressController.text = address1;
                         _secondAddressController.text = address2;
-                        _cityController.text = '';
+                        _cityController.text = city;
                         _defaultState = _defaultState;
-                        _zipController.text = '';
+                        _zipController.text = zipp;
                         updateAllFlow = false;
                       });
                     } else {
