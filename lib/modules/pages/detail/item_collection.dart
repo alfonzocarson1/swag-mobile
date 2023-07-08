@@ -201,6 +201,18 @@ class _CollectionWidgetState extends State<CollectionWidget> {
       });
     }
 
+    showPaywallSplashScreen(){
+        Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) => PaywallSplashScreen(
+                                          hasUsedFreeTrial: false, 
+                                          removePaywall: (){
+                                            removePaywall();
+                                          },
+                                          )
+                                        )); 
+    }
+
     return Column(
       children: [
         BlocBuilder<CatalogDetailCubit, CatalogDetailState>(
@@ -485,6 +497,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                           title: S.of(context).list_for_sale_btn,
                           onPressed: () {
                             if (isLogged) {
+                            if( hasActiveSubscription){
                               (newCollectionList.isNotEmpty &&
                                       (newCollectionList.length > 1))
                                   ? showDialog(
@@ -508,9 +521,12 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                       : showToastMessage(
                                           S.of(context).collection_listed);
                             } else {
-                              Navigator.of(context, rootNavigator: true)
-                                  .push(CreateAccountPage.route());
+                              showPaywallSplashScreen();
                             }
+                            }else{
+                              Navigator.of(context, rootNavigator: true)
+                                      .push(CreateAccountPage.route());
+                            }                              
                           },
                           type: PrimaryButtonType.black,
                         ),
@@ -597,15 +613,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                       S.of(context).notify_availability);
                                   }
                                   else{
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) => PaywallSplashScreen(
-                                          hasUsedFreeTrial: false, 
-                                          removePaywall: (){
-                                            removePaywall();
-                                          },
-                                          )
-                                        ));                                     
+                                    showPaywallSplashScreen();                                    
                                   }                                
                                 } else if (isLogged &&
                                     buttonEnable == false &&
@@ -615,15 +623,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                       .of(context)
                                       .notification_already_requested);
                                        }else{
-                                        Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) => PaywallSplashScreen(
-                                          hasUsedFreeTrial: false, 
-                                          removePaywall: (){
-                                            removePaywall();
-                                          },
-                                          )
-                                        ));  
+                                        showPaywallSplashScreen(); 
                                        }                                  
                                 } else if (!notifyAvailabilityFlagBTN &&
                                     buttonEnable &&
