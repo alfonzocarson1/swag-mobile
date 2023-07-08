@@ -22,7 +22,10 @@ BuyASaleListingResponseModel _$BuyASaleListingResponseModelFromJson(
 /// @nodoc
 mixin _$BuyASaleListingResponseModel {
   bool get response => throw _privateConstructorUsedError;
-  String get shortMessage => throw _privateConstructorUsedError;
+  String? get shortMessage => throw _privateConstructorUsedError;
+  String? get channelUrl => throw _privateConstructorUsedError;
+  String? get errorCode => throw _privateConstructorUsedError;
+  String? get errorMessage => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -38,7 +41,12 @@ abstract class $BuyASaleListingResponseModelCopyWith<$Res> {
       _$BuyASaleListingResponseModelCopyWithImpl<$Res,
           BuyASaleListingResponseModel>;
   @useResult
-  $Res call({bool response, String shortMessage});
+  $Res call(
+      {bool response,
+      String? shortMessage,
+      String? channelUrl,
+      String? errorCode,
+      String? errorMessage});
 }
 
 /// @nodoc
@@ -56,17 +64,32 @@ class _$BuyASaleListingResponseModelCopyWithImpl<$Res,
   @override
   $Res call({
     Object? response = null,
-    Object? shortMessage = null,
+    Object? shortMessage = freezed,
+    Object? channelUrl = freezed,
+    Object? errorCode = freezed,
+    Object? errorMessage = freezed,
   }) {
     return _then(_value.copyWith(
       response: null == response
           ? _value.response
           : response // ignore: cast_nullable_to_non_nullable
               as bool,
-      shortMessage: null == shortMessage
+      shortMessage: freezed == shortMessage
           ? _value.shortMessage
           : shortMessage // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      channelUrl: freezed == channelUrl
+          ? _value.channelUrl
+          : channelUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      errorCode: freezed == errorCode
+          ? _value.errorCode
+          : errorCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      errorMessage: freezed == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -80,7 +103,12 @@ abstract class _$$_BuyASaleListingResponseModelCopyWith<$Res>
       __$$_BuyASaleListingResponseModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool response, String shortMessage});
+  $Res call(
+      {bool response,
+      String? shortMessage,
+      String? channelUrl,
+      String? errorCode,
+      String? errorMessage});
 }
 
 /// @nodoc
@@ -97,39 +125,65 @@ class __$$_BuyASaleListingResponseModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? response = null,
-    Object? shortMessage = null,
+    Object? shortMessage = freezed,
+    Object? channelUrl = freezed,
+    Object? errorCode = freezed,
+    Object? errorMessage = freezed,
   }) {
     return _then(_$_BuyASaleListingResponseModel(
       response: null == response
           ? _value.response
           : response // ignore: cast_nullable_to_non_nullable
               as bool,
-      shortMessage: null == shortMessage
+      shortMessage: freezed == shortMessage
           ? _value.shortMessage
           : shortMessage // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      channelUrl: freezed == channelUrl
+          ? _value.channelUrl
+          : channelUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      errorCode: freezed == errorCode
+          ? _value.errorCode
+          : errorCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      errorMessage: freezed == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class _$_BuyASaleListingResponseModel implements _BuyASaleListingResponseModel {
   const _$_BuyASaleListingResponseModel(
-      {required this.response, required this.shortMessage});
+      {this.response = false,
+      this.shortMessage,
+      this.channelUrl,
+      this.errorCode,
+      this.errorMessage});
 
   factory _$_BuyASaleListingResponseModel.fromJson(Map<String, dynamic> json) =>
       _$$_BuyASaleListingResponseModelFromJson(json);
 
   @override
+  @JsonKey()
   final bool response;
   @override
-  final String shortMessage;
+  final String? shortMessage;
+  @override
+  final String? channelUrl;
+  @override
+  final String? errorCode;
+  @override
+  final String? errorMessage;
 
   @override
   String toString() {
-    return 'BuyASaleListingResponseModel(response: $response, shortMessage: $shortMessage)';
+    return 'BuyASaleListingResponseModel(response: $response, shortMessage: $shortMessage, channelUrl: $channelUrl, errorCode: $errorCode, errorMessage: $errorMessage)';
   }
 
   @override
@@ -140,12 +194,19 @@ class _$_BuyASaleListingResponseModel implements _BuyASaleListingResponseModel {
             (identical(other.response, response) ||
                 other.response == response) &&
             (identical(other.shortMessage, shortMessage) ||
-                other.shortMessage == shortMessage));
+                other.shortMessage == shortMessage) &&
+            (identical(other.channelUrl, channelUrl) ||
+                other.channelUrl == channelUrl) &&
+            (identical(other.errorCode, errorCode) ||
+                other.errorCode == errorCode) &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, response, shortMessage);
+  int get hashCode => Object.hash(
+      runtimeType, response, shortMessage, channelUrl, errorCode, errorMessage);
 
   @JsonKey(ignore: true)
   @override
@@ -165,8 +226,11 @@ class _$_BuyASaleListingResponseModel implements _BuyASaleListingResponseModel {
 abstract class _BuyASaleListingResponseModel
     implements BuyASaleListingResponseModel {
   const factory _BuyASaleListingResponseModel(
-      {required final bool response,
-      required final String shortMessage}) = _$_BuyASaleListingResponseModel;
+      {final bool response,
+      final String? shortMessage,
+      final String? channelUrl,
+      final String? errorCode,
+      final String? errorMessage}) = _$_BuyASaleListingResponseModel;
 
   factory _BuyASaleListingResponseModel.fromJson(Map<String, dynamic> json) =
       _$_BuyASaleListingResponseModel.fromJson;
@@ -174,7 +238,13 @@ abstract class _BuyASaleListingResponseModel
   @override
   bool get response;
   @override
-  String get shortMessage;
+  String? get shortMessage;
+  @override
+  String? get channelUrl;
+  @override
+  String? get errorCode;
+  @override
+  String? get errorMessage;
   @override
   @JsonKey(ignore: true)
   _$$_BuyASaleListingResponseModelCopyWith<_$_BuyASaleListingResponseModel>

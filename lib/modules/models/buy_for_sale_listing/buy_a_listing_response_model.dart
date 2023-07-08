@@ -5,10 +5,13 @@ part 'buy_a_listing_response_model.g.dart';
 
 @freezed
 class BuyASaleListingResponseModel with _$BuyASaleListingResponseModel {
-  @JsonSerializable()
+  @JsonSerializable(includeIfNull: false)
   const factory BuyASaleListingResponseModel({
-    required final bool response,
-    required final String shortMessage,
+    @Default(false) final bool response,
+    final String? shortMessage,
+    final String? channelUrl,
+    final String? errorCode,
+    final String? errorMessage,
   }) = _BuyASaleListingResponseModel;
 
   factory BuyASaleListingResponseModel.fromJson(Map<String, dynamic> json) =>
