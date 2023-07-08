@@ -4,6 +4,7 @@ import 'package:swagapp/modules/common/ui/popup_delete_photo_verify.dart';
 
 import '../../../generated/l10n.dart';
 import '../utils/palette.dart';
+import 'image_dialog.dart';
 
 class MultiImageSlide extends StatefulWidget {
   MultiImageSlide(
@@ -50,112 +51,28 @@ class _MultiImageSlideState extends State<MultiImageSlide> {
               setState(() {});
             },
             itemBuilder: (_, index) {
-              return AnimatedBuilder(
-                animation: pageController,
-                builder: (ctx, child) {
-                  return child!;
-                },
-                child: (index < widget.imgList.length)
-                    ? GestureDetector(
-                        onTap: () {},
-                        onPanDown: (d) {},
-                        onPanCancel: () {},
-                        child: SizedBox(
-                          height: 260,
-                        child: Stack(children: [
-                          Positioned.fill(
-                            child: ClipRRect(
-                              child: Image.file(
-                                File(widget.imgList[index].path),
-                                  fit: BoxFit.contain,
-                                  height: 250,
-                                  width: 250,
-                              ),
-                            ),
+              return (index < widget.imgList.length)
+                  ? GestureDetector(
+                      onTap: () {
+                        showDialog(
+                            useSafeArea: true,
+                            barrierColor: Palette.current.blackSmoke,
+                            context: context,
+                            builder: (_) => ImageDialog(
+                                  imgList: widget.imgList,
+                                  page: pageNo,
+                                ));
+                      },
+                      child: Stack(children: [
+                        Positioned.fill(
+                          child: Image.file(
+                            File(widget.imgList[index].path),
+                            fit: BoxFit.cover,
                           ),
-                        ]),
                         ),
-                      )
-                    : Stack(
-                        children: [
-                          Positioned.fill(
-                            child: ClipRRect(
-                                child: Image.asset(
-                              "assets/images/bagAddList.png",
-                              fit: BoxFit.cover,
-                              height: 500,
-                            )),
-                          ),
-                          Positioned.fill(
-                            top: 60,
-                            child: Align(
-                              alignment: Alignment.topCenter,
-                              child: Text(S.of(context).list_item_for_sale,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displayLarge!
-                                      .copyWith(
-                                          letterSpacing: 1,
-                                          fontWeight: FontWeight.w300,
-                                          fontFamily: "KnockoutCustom",
-                                          fontSize: 30,
-                                          color: Palette
-                                              .current.primaryNeonGreen)),
-                            ),
-                          ),
-                          Positioned.fill(
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: GestureDetector(
-                                onTap: () {
-                                  widget.addPhoto!();
-                                },
-                                child: Center(
-                                  child: Container(
-                                      height: 60,
-                                      width:
-                                          MediaQuery.of(context).size.width / 2,
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: Palette
-                                                  .current.primaryNeonGreen),
-                                          color: Palette.current.blackSmoke),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Image.asset(
-                                            "assets/icons/camera.png",
-                                            height: 20,
-                                            width: 20,
-                                          ),
-                                          const SizedBox(
-                                            width: 12,
-                                          ),
-                                          Text(S.of(context).add_photos,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyLarge!
-                                                  .copyWith(
-                                                      fontFamily:
-                                                          "KnockoutCustom",
-                                                      fontSize: 25,
-                                                      letterSpacing: 1,
-                                                      fontWeight:
-                                                          FontWeight.w300,
-                                                      color: Palette
-                                                          .current.white)),
-                                        ],
-                                      )),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-              );
+                      ]),
+                    )
+                  : _AddNewImageWidget(widget: widget);
             },
             itemCount: widget.onRemove != null
                 ? (widget.imgList.length == 6)
@@ -269,6 +186,87 @@ class _MultiImageSlideState extends State<MultiImageSlide> {
                 ),
               ),
             ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _AddNewImageWidget extends StatelessWidget {
+  const _AddNewImageWidget({
+    super.key,
+    required this.widget,
+  });
+
+  final MultiImageSlide widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: ClipRRect(
+              child: Image.asset(
+            "assets/images/bagAddList.png",
+            fit: BoxFit.cover,
+            height: 500,
+          )),
+        ),
+        Positioned.fill(
+          top: 60,
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: Text(S.of(context).list_item_for_sale,
+                style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                    letterSpacing: 1,
+                    fontWeight: FontWeight.w300,
+                    fontFamily: "KnockoutCustom",
+                    fontSize: 30,
+                    color: Palette.current.primaryNeonGreen)),
+          ),
+        ),
+        Positioned.fill(
+          child: Align(
+            alignment: Alignment.center,
+            child: GestureDetector(
+              onTap: () {
+                widget.addPhoto!();
+              },
+              child: Center(
+                child: Container(
+                    height: 60,
+                    width: MediaQuery.of(context).size.width / 2,
+                    decoration: BoxDecoration(
+                        border:
+                            Border.all(color: Palette.current.primaryNeonGreen),
+                        color: Palette.current.blackSmoke),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          "assets/icons/camera.png",
+                          height: 20,
+                          width: 20,
+                        ),
+                        const SizedBox(
+                          width: 12,
+                        ),
+                        Text(S.of(context).add_photos,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge!
+                                .copyWith(
+                                    fontFamily: "KnockoutCustom",
+                                    fontSize: 25,
+                                    letterSpacing: 1,
+                                    fontWeight: FontWeight.w300,
+                                    color: Palette.current.white)),
+                      ],
+                    )),
+              ),
+            ),
           ),
         ),
       ],
