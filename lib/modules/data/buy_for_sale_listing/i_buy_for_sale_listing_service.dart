@@ -14,8 +14,8 @@ abstract class IBuyForSaleListingService {
 
   Future<BuyForSaleListingModel> buyAForSaleListing(String productItemId);
 
-  Future<AcceptPurchaseResponseModel> acceptPurchaseRequest(
-      String productItemId);
+  Future<CancelPurchaseResponseModel> acceptPurchaseRequest(
+      UpdatePurchaseStatusRequestModel model);
 
   Future<CancelPurchaseResponseModel> cancelPurchaseRequest(
       CancelPurchaseRequestModel model);

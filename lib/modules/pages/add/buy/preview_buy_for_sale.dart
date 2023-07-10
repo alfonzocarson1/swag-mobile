@@ -636,29 +636,29 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                                 .toUpperCase(),
                                                             onPressed:
                                                                 () async {
-                                                              String channelUrl = await getIt<
-                                                                      BuyCubit>()
-                                                                  .acceptPurchase(
-                                                                      listData.productItemId ??
-                                                                          '');
-                                                              ChatData
-                                                                  chadData =
-                                                                  await context
-                                                                      .read<
-                                                                          ChatBloc>()
-                                                                      .startNewChat(
-                                                                          channelUrl,
-                                                                          false);
+                                                              // String channelUrl = await getIt<
+                                                              //         BuyCubit>()
+                                                              //     .acceptPurchase(
+                                                              //         listData.productItemId ??
+                                                              //             '');
+                                                              // ChatData
+                                                              //     chadData =
+                                                              //     await context
+                                                              //         .read<
+                                                              //             ChatBloc>()
+                                                              //         .startNewChat(
+                                                              //             channelUrl,
+                                                              //             false);
 
-                                                              Navigator.push(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                    builder: (BuildContext
-                                                                            context) =>
-                                                                        ChatPage(
-                                                                            chatData:
-                                                                                chadData)),
-                                                              );
+                                                              // Navigator.push(
+                                                              //   context,
+                                                              //   MaterialPageRoute(
+                                                              //       builder: (BuildContext
+                                                              //               context) =>
+                                                              //           ChatPage(
+                                                              //               chatData:
+                                                              //                   chadData)),
+                                                              // );
                                                             },
                                                             type:
                                                                 PrimaryButtonType

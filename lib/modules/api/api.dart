@@ -49,6 +49,7 @@ enum Endpoint {
   readAlert,
   paywallSubscription,
   purchaseHistoryDetails,
+  completeSale,
 }
 
 class API {
@@ -119,5 +120,6 @@ class API {
     Endpoint.paywallSubscription: 'api/v1/account/subscription',
     Endpoint.purchaseHistoryDetails:
         'api/v1/profile/settings/purchaseHistory/purchaseHistoryDetail/%s',
+    Endpoint.completeSale: 'api/v1/buyFlow/acceptPurchaseRequest',
   };
 }
