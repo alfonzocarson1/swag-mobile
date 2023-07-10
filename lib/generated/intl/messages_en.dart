@@ -356,9 +356,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "n_a": MessageLookupByLibrary.simpleMessage("N/A"),
         "new_password": MessageLookupByLibrary.simpleMessage("New Password"),
         "next_btn": MessageLookupByLibrary.simpleMessage("NEXT"),
+        "nft_wallet_add_wallet":
+            MessageLookupByLibrary.simpleMessage("Add New Wallet"),
+        "nft_wallet_connect": MessageLookupByLibrary.simpleMessage("Connect"),
+        "nft_wallet_page_title":
+            MessageLookupByLibrary.simpleMessage("NFT WALLET"),
         "nft_wallet_sub_title":
             MessageLookupByLibrary.simpleMessage("Connect your OpenSea Wallet"),
         "nft_wallet_title": MessageLookupByLibrary.simpleMessage("NFT Wallet"),
+        "nft_wallet_wallet": MessageLookupByLibrary.simpleMessage("Wallet"),
         "no_email_app_available":
             MessageLookupByLibrary.simpleMessage("No email app available"),
         "no_match_password":

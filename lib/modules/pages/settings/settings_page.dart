@@ -11,6 +11,7 @@ import '../../cubits/peer_to_peer_payments/peer_to_peer_payments_cubit.dart';
 import '../../di/injector.dart';
 import '../../models/profile/profile_model.dart';
 import 'account/account_page.dart';
+import 'nft_wallet/nft_wallet_page.dart';
 import 'shared_widgetds.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -128,10 +129,16 @@ class _SettingsPageState extends State<SettingsPage> {
                           ),
                         ),
                         _selectSettings(
-                            'assets/icons/nft_wallet_icon.png',
-                            S.of(context).nft_wallet_title,
-                            S.of(context).nft_wallet_sub_title,
-                            () {}),
+                          'assets/icons/nft_wallet_icon.png',
+                          S.of(context).nft_wallet_title,
+                          S.of(context).nft_wallet_sub_title,
+                          () {
+                            Navigator.of(
+                              context,
+                              rootNavigator: true,
+                            ).push(NftWalletPage.route());
+                          },
+                        ),
                         SizedBox(
                           height: 0.2,
                           child: Container(
