@@ -90,17 +90,17 @@ class _BodyWidgetWithViewState extends State<BodyWidgetWithView> {
             padding: const EdgeInsets.only(
               top: 0,
               bottom: 0,
-              left: 16, 
-              right: 0,
+              left: 15,
+              right: 15,
             ),
             child: GridView.builder(
               physics: const ScrollPhysics(),
               shrinkWrap: true,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                crossAxisSpacing: 10.0,
+                crossAxisSpacing: 15.0,
                 mainAxisSpacing: 10.0,
-                mainAxisExtent: 215,
+                mainAxisExtent: 250,
               ),
               itemCount: catalogList.length,
               itemBuilder: (_, index) => ShrunkenItemWidget(model: catalogList[index]),

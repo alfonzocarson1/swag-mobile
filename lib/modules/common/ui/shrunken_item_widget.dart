@@ -28,12 +28,12 @@ class ShrunkenItemWidget extends StatelessWidget {
             .push(ItemDetailPage.route(model.catalogItemId, (val) {}, null));
       },
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Stack(
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.width * 0.41,
+                height: MediaQuery.of(context).size.width * 0.46,
                 child: ClipRRect(
                   child: CachedNetworkImage(
                     fit: BoxFit.fitHeight,
@@ -124,7 +124,7 @@ class ShrunkenItemWidget extends StatelessWidget {
                                       fontSize: 14,
                                       fontFamily: 'Ringside',
                                       fontWeight: FontWeight.bold,
-                                      color: Palette.current.white)),
+                                      color: Palette.current.black)),
                         ),
                       ),
                     )),
@@ -132,30 +132,44 @@ class ShrunkenItemWidget extends StatelessWidget {
             ],
           ),
           const SizedBox(
-            height: 5,
+            height: 6,
           ),
-          Text(
-              model.catalogItemName.length >= maxCharactersForGridViewTitle
-                  ? '${model.catalogItemName.substring(0, maxCharactersForGridViewTitle)}...'.toUpperCase()
-                  : model.catalogItemName.toUpperCase(),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                  letterSpacing: 1,
-                  fontWeight: FontWeight.w300,
-                  fontFamily: "KnockoutCustom",
-                  fontSize: 24,
-                  color: Palette.current.white)),
-          Text(
-              model.forSale
-                  ? '${model.numberAvailable == 1 ? S.of(context).for_sale : S.of(context).from} : ${decimalDigitsLastSalePrice(model.saleInfo.minPrice!)}'
-                  : '${S.of(context).last_sale}: ${decimalDigitsLastSalePrice(model.saleInfo.lastSale!)}',
-              overflow: TextOverflow.fade,
-              maxLines: 1,
-              style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  fontWeight: FontWeight.w300,
-                  fontSize: 13,
-                  color: Palette.current.primaryNeonGreen)),
+          Padding(padding: const EdgeInsets.only(left: 4),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Container(
+                    width: (MediaQuery.of(context).size.width * 0.46) - 30,
+                  child: Text(
+                      model.catalogItemName.length >= maxCharactersForGridViewTitle
+                          ? '${model.catalogItemName.substring(0, maxCharactersForGridViewTitle)}...'.toUpperCase()
+                          : model.catalogItemName.toUpperCase(),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                          letterSpacing: 1,
+                          fontWeight: FontWeight.w300,
+                          fontFamily: "KnockoutCustom",
+                          fontSize: 24,
+                          color: Palette.current.white))
+                  )
+                ),
+              ),
+              const SizedBox(height: 6),
+              Padding(padding: const EdgeInsets.only(left: 4),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                      model.forSale
+                          ? '${model.numberAvailable == 1 ? S.of(context).for_sale : S.of(context).from} : ${decimalDigitsLastSalePrice(model.saleInfo.minPrice!)}'
+                          : '${S.of(context).last_sale}: ${decimalDigitsLastSalePrice(model.saleInfo.lastSale!)}',
+                      overflow: TextOverflow.fade,
+                      maxLines: 1,
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          fontWeight: FontWeight.w300,
+                          fontSize: 13,
+                          color: Palette.current.primaryNeonGreen)),
+                ),
+              ),
         ],
       ),
     );
