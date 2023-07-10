@@ -17,7 +17,14 @@ class CurrencyTextInputFormatter extends TextInputFormatter {
       double newNumber = 0;
       if ((!newValue.text.contains(".")) && oldValue.text.contains('.')) {
         String tempString = newValue.text.replaceAll(f.symbols.GROUP_SEP, '');
-        tempString = "${tempString.substring(0, tempString.length - 2)}.${tempString.substring(tempString.length - 2)}";
+        var first = tempString.substring(0, tempString.length - 2);
+        if (first.isNotEmpty &&
+            first[first.length - 1] == '0' &&
+            oldValue.text.contains('.') &&
+            oldValue.selection.baseOffset > oldValue.text.indexOf('.')) {
+          first = first.substring(0, first.length - 1);
+        }
+        tempString = "$first.${tempString.substring(tempString.length - 2)}";
         newNumber = double.parse(tempString);
       } else {
         newNumber = double.parse(newValue.text
@@ -60,7 +67,6 @@ class CurrencyTextInputFormatter extends TextInputFormatter {
           }
         }
       }
-      print(newString);
       return TextEditingValue(
         text: newString,
         selection: TextSelection.collapsed(
