@@ -3761,6 +3761,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Swag app support request`
+  String get swag_app_support_request {
+    return Intl.message(
+      'Swag app support request',
+      name: 'swag_app_support_request',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
