@@ -234,7 +234,7 @@ class _CatalogPageState extends State<CatalogPage> {
                   ],
                 ),
                 const SizedBox(
-                  height: 6,
+                  height: 10,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -242,24 +242,52 @@ class _CatalogPageState extends State<CatalogPage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                          flex: 5,
-                          child: Align(
-                            alignment: Alignment.bottomLeft,
-                            child: Text(
-                                catalogList[index]
-                                    .catalogItemName
-                                    .toUpperCase(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displayLarge!
-                                    .copyWith(
+                      Flexible(
+                        flex: 5,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+
+                              child: Align(
+                                alignment: Alignment.bottomLeft,
+                                child: Text(
+                                    catalogList[index]
+                                        .catalogItemName
+                                        .toUpperCase(),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displayLarge!
+                                        .copyWith(
                                         letterSpacing: 0.54,
                                         fontWeight: FontWeight.w300,
                                         fontFamily: "KnockoutCustom",
                                         fontSize: 30,
                                         color: Palette.current.white)),
-                          )),
+                              )),
+                          const SizedBox(height: 10),
+                          Padding(
+                           padding: const EdgeInsets.symmetric(horizontal: 0.0),
+                            child: Row(
+                              children: [
+                                Text(
+                                    catalogList[index].forSale
+                                        ? (catalogList[index].numberAvailable > 1)
+                                        ? '${S.of(context).from}: ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.minPrice!)} - ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.maxPrice!)}'
+                                        : '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.minPrice!)}'
+                                        : '${S.of(context).last_sale}: ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.lastSale!)}',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(
+                                        letterSpacing: 0.0244,
+                                        fontWeight: FontWeight.w300,
+                                        color: Palette.current.primaryNeonGreen))
+                              ],
+                            ),
+                          ),
+                        ],
+                      )),
                       Expanded(
                           flex: 2,
                           child: Align(
@@ -323,26 +351,6 @@ class _CatalogPageState extends State<CatalogPage> {
                               },
                             ),
                           ))
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Row(
-                    children: [
-                      Text(
-                          catalogList[index].forSale
-                              ? (catalogList[index].numberAvailable > 1)
-                                  ? '${S.of(context).from}: ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.minPrice!)} - ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.maxPrice!)}'
-                                  : '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.minPrice!)}'
-                              : '${S.of(context).last_sale}: ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.lastSale!)}',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(
-                                  letterSpacing: 0.0244,
-                                  fontWeight: FontWeight.w300,
-                                  color: Palette.current.primaryNeonGreen))
                     ],
                   ),
                 ),
