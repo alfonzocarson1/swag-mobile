@@ -12,6 +12,9 @@ import 'modules/data/shared_preferences/shared_preferences_service.dart';
 import 'modules/di/injector.dart';
 
 Future<void> main() async {
+  if (kReleaseMode) {
+    debugPrint = (String? message, {int? wrapWidth}) {};
+  }
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
