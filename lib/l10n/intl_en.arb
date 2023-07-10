@@ -341,7 +341,7 @@
     "chatCardButtonShipmentSent": "Shipment Sent",
     "chatCommenceMessage": "You can use this chat to adjust any information necessary to complete the sale. If you need 3rd party assistance click the icon above and request an admin to join the chat. NOTE: If payment is not received in 12 hours the listings can be cancelled ",
     "chatConfirmPaymentMessage": "@{sellerUserName} has confirmed that payment has been received",
-    "chatConfirmShipMessage": "@{sellerUserName} here is the shipping address to ship this item\n\n{buyerName} {buyerLastName}\n{address}, {address2}, \n{city}, {state}, {zipCode}, {country}",
+    "chatConfirmShipMessage": "@{sellerUserName} here is the shipping address to ship this item\n\n{buyerName} {buyerLastName}\n{address}, {address2} \n{city}, {state}, {zipCode}, {country}",
     "chatShippedMessage": "@{sellerUserName} has ship the item. Here is the tracking number\n\n{trackingNumber}",
     "chatCancelPurchaseMessage": "The seller has chosen to \ncanceled this transaction.",
 

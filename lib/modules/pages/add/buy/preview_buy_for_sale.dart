@@ -27,6 +27,7 @@ import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
 import '../../../common/utils/utils.dart';
 import '../../../models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
+import '../../../models/buy_for_sale_listing/update_purchase_status_request.dart';
 import '../../../models/detail/detail_collection_model.dart';
 import '../../../models/overlay_buton/overlay_button_model.dart';
 import '../collection/edit_list_for_Sale_page.dart';
@@ -636,18 +637,82 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                                 .toUpperCase(),
                                                             onPressed:
                                                                 () async {
-                                                              String channelUrl = await getIt<
-                                                                      BuyCubit>()
-                                                                  .acceptPurchase(
-                                                                      listData.productItemId ??
-                                                                          '');
+                                                              ChatBloc
+                                                                  chatBloc =
+                                                                  context.read<
+                                                                      ChatBloc>();
+
+                                                              for (int i = 0;
+                                                                  i <
+                                                                      chatBloc
+                                                                          .state
+                                                                          .chats
+                                                                          .length;
+                                                                  i++) {
+                                                                if (chatBloc
+                                                                    .state
+                                                                    .chats[i]
+                                                                    .channel
+                                                                    .data!
+                                                                    .isNotEmpty) {
+                                                                  String
+                                                                      jsonString =
+                                                                      chatBloc
+                                                                          .state
+                                                                          .chats[
+                                                                              i]
+                                                                          .channel
+                                                                          .data!;
+
+                                                                  jsonString = jsonString
+                                                                      .replaceAll(
+                                                                          "'",
+                                                                          '"');
+
+                                                                  Map<String,
+                                                                          dynamic>
+                                                                      json =
+                                                                      jsonDecode(
+                                                                          jsonString);
+
+                                                                  String
+                                                                      productItemId =
+                                                                      json[
+                                                                          'productItemId'];
+
+                                                                  if (listData
+                                                                          .productItemId ==
+                                                                      productItemId) {
+                                                                    setState(
+                                                                        () {
+                                                                      listingChatId = chatBloc
+                                                                          .state
+                                                                          .chats[
+                                                                              i]
+                                                                          .channel
+                                                                          .channelUrl;
+                                                                    });
+
+                                                                    break;
+                                                                  }
+                                                                }
+                                                              }
+
+                                                              await getIt<BuyCubit>().acceptPurchase(UpdatePurchaseStatusRequestModel(
+                                                                  productItemId:
+                                                                      listData
+                                                                          .productItemId,
+                                                                  listingChatId:
+                                                                      listingChatId));
+
                                                               ChatData
                                                                   chadData =
                                                                   await context
                                                                       .read<
                                                                           ChatBloc>()
                                                                       .startNewChat(
-                                                                          channelUrl,
+                                                                          listingChatId ??
+                                                                              '',
                                                                           false);
 
                                                               Navigator.push(
@@ -719,17 +784,11 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                                         productItemId) {
                                                                       setState(
                                                                           () {
-                                                                        if (!chatBloc
+                                                                        listingChatId = chatBloc
                                                                             .state
                                                                             .chats[i]
                                                                             .channel
-                                                                            .isFrozen) {
-                                                                          setState(
-                                                                              () {
-                                                                            listingChatId =
-                                                                                chatBloc.state.chats[i].channel.channelUrl;
-                                                                          });
-                                                                        }
+                                                                            .channelUrl;
                                                                       });
 
                                                                       break;
@@ -827,22 +886,14 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                                     if (listData
                                                                             .productItemId ==
                                                                         productItemId) {
-                                                                      if (!chatBloc
-                                                                          .state
-                                                                          .chats[
-                                                                              i]
-                                                                          .channel
-                                                                          .isFrozen) {
-                                                                        setState(
-                                                                            () {
-                                                                          listingChatId = chatBloc
-                                                                              .state
-                                                                              .chats[i]
-                                                                              .channel
-                                                                              .channelUrl;
-                                                                        });
-                                                                      }
-
+                                                                      setState(
+                                                                          () {
+                                                                        listingChatId = chatBloc
+                                                                            .state
+                                                                            .chats[i]
+                                                                            .channel
+                                                                            .channelUrl;
+                                                                      });
                                                                       break;
                                                                     }
                                                                   }

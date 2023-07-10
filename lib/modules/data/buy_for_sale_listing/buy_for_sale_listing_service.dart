@@ -57,14 +57,15 @@ class BuyForSaleListingService extends IBuyForSaleListingService {
   }
 
   @override
-  Future<AcceptPurchaseResponseModel> acceptPurchaseRequest(
-      String productItemId) async {
-    AcceptPurchaseResponseModel response = await apiService.getEndpointData(
-        endpoint: Endpoint.acceptPurchaseRequest,
-        method: RequestMethod.post,
-        needBearer: true,
-        dynamicParam: productItemId,
-        fromJson: (json) => AcceptPurchaseResponseModel.fromJson(json));
+  Future<CancelPurchaseResponseModel> acceptPurchaseRequest(
+      UpdatePurchaseStatusRequestModel model) async {
+    CancelPurchaseResponseModel response = await apiService.getEndpointData(
+      endpoint: Endpoint.completeSale,
+      method: RequestMethod.post,
+      needBearer: true,
+      fromJson: (json) => CancelPurchaseResponseModel.fromJson(json),
+      body: model.toJson(),
+    );
     return response;
   }
 
