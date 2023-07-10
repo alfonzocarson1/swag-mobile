@@ -784,17 +784,11 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                                         productItemId) {
                                                                       setState(
                                                                           () {
-                                                                        if (!chatBloc
+                                                                        listingChatId = chatBloc
                                                                             .state
                                                                             .chats[i]
                                                                             .channel
-                                                                            .isFrozen) {
-                                                                          setState(
-                                                                              () {
-                                                                            listingChatId =
-                                                                                chatBloc.state.chats[i].channel.channelUrl;
-                                                                          });
-                                                                        }
+                                                                            .channelUrl;
                                                                       });
 
                                                                       break;
@@ -892,22 +886,14 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                                     if (listData
                                                                             .productItemId ==
                                                                         productItemId) {
-                                                                      if (!chatBloc
-                                                                          .state
-                                                                          .chats[
-                                                                              i]
-                                                                          .channel
-                                                                          .isFrozen) {
-                                                                        setState(
-                                                                            () {
-                                                                          listingChatId = chatBloc
-                                                                              .state
-                                                                              .chats[i]
-                                                                              .channel
-                                                                              .channelUrl;
-                                                                        });
-                                                                      }
-
+                                                                      setState(
+                                                                          () {
+                                                                        listingChatId = chatBloc
+                                                                            .state
+                                                                            .chats[i]
+                                                                            .channel
+                                                                            .channelUrl;
+                                                                      });
                                                                       break;
                                                                     }
                                                                   }

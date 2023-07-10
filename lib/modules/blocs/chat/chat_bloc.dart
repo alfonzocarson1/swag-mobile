@@ -336,6 +336,13 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           'Sale cancelled ${json['payload']['listingName']} \n${json['payload']['userNameSeller']} has cancelled the sale';
       LocalNotificationsService.showInAppAllert(alertMessage);
     }
+
+    if (userName == json['payload']['userNameBuyer'] &&
+        json['type'] == ChatMessageDataType.confirmPaidSend.textValue) {
+      String alertMessage =
+          'Payment details ${json['payload']['listingName']} \nNew message from @Swag';
+      LocalNotificationsService.showInAppAllert(alertMessage);
+    }
   }
 
   Future<void> receiveFirstMessage({
@@ -356,12 +363,9 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
     Map<String, dynamic> json = jsonDecode(jsonStringWithQuotes);
 
-    if (userName == json['payload']['userNameBuyer'] &&
-        json['type'] == ChatMessageDataType.message.textValue) {
-      String alertMessage =
-          'Payment details ${json['payload']['listingName']} \nNew message from @Swag';
-      LocalNotificationsService.showInAppAllert(alertMessage);
-    }
+    String alertMessage =
+        'Pending sale ${json['payload']['listingName']} \nNew message from @Swag';
+    LocalNotificationsService.showInAppAllert(alertMessage);
   }
 
   Future<void> updateChatReadStatus(ChatData updateChatData) async {
