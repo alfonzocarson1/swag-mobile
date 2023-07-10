@@ -629,13 +629,13 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   }
 
   bool validateState() {
-    if (_defaultCountry == 'United States' && _defaultState == 'State') {
+    if (_defaultCountry == 'United States' && _defaultState != 'State') {
+      return true;
+    } else if (_defaultCountry != 'United States' && _defaultState == 'State') {
+      return true;
+    } else {
       return false;
     }
-    if (_defaultCountry != 'United States' && _defaultState == 'State') {
-      return true;
-    }
-    return false;
   }
 
   bool areFieldsValid() {
