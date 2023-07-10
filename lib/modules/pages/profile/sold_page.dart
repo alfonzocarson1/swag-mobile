@@ -5,7 +5,6 @@ import 'package:swagapp/modules/models/sold/product_item_sold.dart';
 
 import '../../../generated/l10n.dart';
 import '../../blocs/sold_bloc/sold_bloc.dart';
-import '../../common/ui/loading.dart';
 import '../../common/ui/refresh_widget.dart';
 import '../../common/ui/simple_loader.dart';
 import '../../common/utils/palette.dart';
@@ -130,6 +129,7 @@ class _SoldPageState extends State<SoldPage> {
               },
             )
           : ListView.builder(
+              shrinkWrap: true,
               itemBuilder: (_, index) => SizedBox(
                 height: MediaQuery.of(context).size.height * 0.30,
                 child: Padding(

@@ -40,9 +40,6 @@ class SendMailContact {
         case MailerResponse.sent:
           platformResponse = S.of(context).mail_was_sent;
           break;
-        case MailerResponse.cancelled:
-          platformResponse = S.of(context).mail_was_cancelled;
-          break;
         default:
           platformResponse = '';
           break;
