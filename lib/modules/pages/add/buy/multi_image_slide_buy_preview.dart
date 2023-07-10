@@ -47,53 +47,34 @@ class _MultiImageSlideBuyPreviewState extends State<MultiImageSlideBuyPreview> {
               setState(() {});
             },
             itemBuilder: (_, index) {
-              return AnimatedBuilder(
-                  animation: pageController,
-                  builder: (ctx, child) {
-                    return child!;
-                  },
+              return Stack(children: [
+                Positioned.fill(
                   child: GestureDetector(
-                    onTap: () {},
-                    onPanDown: (d) {},
-                    onPanCancel: () {},
-                    child: SizedBox(
-                      height: 400,
-                      child: Stack(children: [
-                        Positioned.fill(
-                          child: GestureDetector(
-                            onTap: () {
-                              showDialog(
-                                  useSafeArea: true,
-                                  barrierColor: Palette.current.blackSmoke,
-                                  context: context,
-                                  builder: (_) => ImageDialog(
-                                        imgList: widget.imgList,
-                                        page: pageNo,
-                                      ));
-                            },
-                            child: ClipRRect(
-                              child: CachedNetworkImage(
-                                fit: BoxFit.fitHeight,
-                                imageUrl: widget.imgList[index],
-                                placeholder: (context, url) => SizedBox(
-                                  height: 200,
-                                  child: Center(
-                                    child: CircularProgressIndicator(
-                                      color: Palette.current.primaryNeonGreen,
-                                      backgroundColor: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                                errorWidget: (context, url, error) =>
-                                    Image.asset(
-                                        "assets/images/ProfilePhoto.png"),
-                              ),
-                            ),
-                          ),
+                    onTap: () {
+                      showDialog(
+                          useSafeArea: true,
+                          barrierColor: Palette.current.blackSmoke,
+                          context: context,
+                          builder: (_) => ImageDialog(
+                                imgList: widget.imgList,
+                                page: pageNo,
+                              ));
+                    },
+                    child: CachedNetworkImage(
+                      fit: BoxFit.cover,
+                      imageUrl: widget.imgList[index],
+                      placeholder: (context, url) => Center(
+                        child: CircularProgressIndicator(
+                          color: Palette.current.primaryNeonGreen,
+                          backgroundColor: Colors.white,
                         ),
-                      ]),
+                      ),
+                      errorWidget: (context, url, error) =>
+                          Image.asset("assets/images/ProfilePhoto.png"),
                     ),
-                  ));
+                  ),
+                ),
+              ]);
             },
             itemCount: widget.imgList.length,
           ),
