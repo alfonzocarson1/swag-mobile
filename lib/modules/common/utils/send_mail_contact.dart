@@ -8,8 +8,11 @@ import 'package:flutter_mailer/flutter_mailer.dart';
 import '../../../generated/l10n.dart';
 
 class SendMailContact {
-  static Future<void> send(
-      {required BuildContext context, required String subject}) async {
+  static Future<void> send({
+    required BuildContext context,
+    required String subject,
+    String body = '',
+  }) async {
     if (Platform.isIOS) {
       final bool canSend = await FlutterMailer.canSendMail();
       if (!canSend) {
@@ -21,7 +24,7 @@ class SendMailContact {
     }
 
     final MailOptions mailOptions = MailOptions(
-      body: '',
+      body: body,
       subject: subject,
       recipients: <String>['app@swag.golf'],
     );
@@ -36,9 +39,6 @@ class SendMailContact {
           break;
         case MailerResponse.sent:
           platformResponse = S.of(context).mail_was_sent;
-          break;
-        case MailerResponse.cancelled:
-          platformResponse = S.of(context).mail_was_cancelled;
           break;
         default:
           platformResponse = '';

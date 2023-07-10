@@ -356,9 +356,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "n_a": MessageLookupByLibrary.simpleMessage("N/A"),
         "new_password": MessageLookupByLibrary.simpleMessage("New Password"),
         "next_btn": MessageLookupByLibrary.simpleMessage("NEXT"),
+        "nft_wallet_add_wallet":
+            MessageLookupByLibrary.simpleMessage("Add New Wallet"),
+        "nft_wallet_connect": MessageLookupByLibrary.simpleMessage("Connect"),
+        "nft_wallet_page_title":
+            MessageLookupByLibrary.simpleMessage("NFT WALLET"),
         "nft_wallet_sub_title":
             MessageLookupByLibrary.simpleMessage("Connect your OpenSea Wallet"),
         "nft_wallet_title": MessageLookupByLibrary.simpleMessage("NFT Wallet"),
+        "nft_wallet_wallet": MessageLookupByLibrary.simpleMessage("Wallet"),
         "no_email_app_available":
             MessageLookupByLibrary.simpleMessage("No email app available"),
         "no_match_password":
@@ -594,6 +600,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Subscription"),
         "subtitle_welcome":
             MessageLookupByLibrary.simpleMessage("Let’s create your profile!"),
+        "swag_app_support_request":
+            MessageLookupByLibrary.simpleMessage("Swag app support request"),
         "tab_collection": MessageLookupByLibrary.simpleMessage("COLLECTION"),
         "tab_favorites": MessageLookupByLibrary.simpleMessage("FAVORITES"),
         "tab_listings": MessageLookupByLibrary.simpleMessage("LISTINGS"),

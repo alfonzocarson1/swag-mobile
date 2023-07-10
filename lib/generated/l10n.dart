@@ -2660,6 +2660,46 @@ class S {
     );
   }
 
+  /// `NFT WALLET`
+  String get nft_wallet_page_title {
+    return Intl.message(
+      'NFT WALLET',
+      name: 'nft_wallet_page_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Connect`
+  String get nft_wallet_connect {
+    return Intl.message(
+      'Connect',
+      name: 'nft_wallet_connect',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wallet`
+  String get nft_wallet_wallet {
+    return Intl.message(
+      'Wallet',
+      name: 'nft_wallet_wallet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add New Wallet`
+  String get nft_wallet_add_wallet {
+    return Intl.message(
+      'Add New Wallet',
+      name: 'nft_wallet_add_wallet',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `@Venmo username`
   String get input_venmo {
     return Intl.message(
@@ -3757,6 +3797,16 @@ class S {
     return Intl.message(
       'No email app available',
       name: 'no_email_app_available',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Swag app support request`
+  String get swag_app_support_request {
+    return Intl.message(
+      'Swag app support request',
+      name: 'swag_app_support_request',
       desc: '',
       args: [],
     );

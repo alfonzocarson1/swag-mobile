@@ -177,16 +177,27 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
         backgroundColor: Palette.current.primaryEerieBlack,
         appBar: PushedHeader(
           showBackButton: false,
-          suffixIconButton: IconButton(
-            iconSize: 30,
-            color: Palette.current.primaryNeonGreen,
-            onPressed: () {
-              _onWillPop(context);
-              Navigator.of(context).pop;
-            },
-            icon: const Icon(
-              Icons.clear_outlined,
-              size: 25,
+          backgroundColor: Colors.transparent,
+          suffixIconButton: Material(
+            color: Palette.current.primaryNero,
+            shape: const CircleBorder(),
+            child: InkWell(
+              onTap: () {
+                _onWillPop(context);
+                Navigator.of(context).pop;
+              },
+              splashColor: Palette.current.primaryWhiteSmoke.withOpacity(0.3),
+              customBorder: const CircleBorder(),
+              child: Padding(
+                padding: const EdgeInsets.all(3.0),
+                child: Center(
+                  child: Icon(
+                    Icons.clear_outlined,
+                    size: 20,
+                    color: Palette.current.primaryWhiteSmoke,
+                  ),
+                ),
+              ),
             ),
           ),
           height: 55,
@@ -384,32 +395,34 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
                                       maxLines: 6,
                                       textCapitalization:
                                           TextCapitalization.sentences,
-                                    onChanged: (value) {
-                                      if (value.length >
-                                          _listDescriptionInitValue.length) {
-                                        final text = value;
-                                        if (text.endsWith('.') ||
-                                            text.endsWith('!') ||
-                                            text.endsWith('?')) {
-                                          final newText = '$text ';
-                                          _listDescriptionItemController.value =
-                                              _listDescriptionItemController
-                                                  .value
-                                                  .copyWith(
-                                            text: newText,
-                                            selection: TextSelection.collapsed(
-                                                offset: newText.length),
-                                          );
+                                      onChanged: (value) {
+                                        if (value.length >
+                                            _listDescriptionInitValue.length) {
+                                          final text = value;
+                                          if (text.endsWith('.') ||
+                                              text.endsWith('!') ||
+                                              text.endsWith('?')) {
+                                            final newText = '$text ';
+                                            _listDescriptionItemController
+                                                    .value =
+                                                _listDescriptionItemController
+                                                    .value
+                                                    .copyWith(
+                                              text: newText,
+                                              selection:
+                                                  TextSelection.collapsed(
+                                                      offset: newText.length),
+                                            );
+                                            setState(() {
+                                              _listDescriptionInitValue = value;
+                                            });
+                                          }
+                                        } else {
                                           setState(() {
                                             _listDescriptionInitValue = value;
                                           });
                                         }
-                                      } else {
-                                        setState(() {
-                                          _listDescriptionInitValue = value;
-                                        });
-                                      }
-                                    },
+                                      },
                                       style: TextStyle(
                                           fontSize: 16.0,
                                           color: Palette
