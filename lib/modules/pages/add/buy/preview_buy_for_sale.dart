@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
-import 'package:sendbird_sdk/sendbird_sdk.dart';
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 import 'package:swagapp/modules/common/ui/general_delete_popup.dart';
 import 'package:swagapp/modules/cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
@@ -15,12 +14,12 @@ import 'package:swagapp/modules/models/profile/profile_model.dart';
 import 'package:swagapp/modules/models/ui_models/checkbox_model.dart';
 import 'package:swagapp/modules/pages/chat/chat_page.dart';
 import '../../../../generated/l10n.dart';
-import '../../../blocs/chat/chat_bloc.dart';
 import '../../../blocs/sale_history/sale_history_bloc.dart';
 import '../../../common/ui/loading.dart';
 import '../../../common/ui/primary_button.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
+import '../../../common/utils/send_mail_contact.dart';
 import '../../../constants/constants.dart';
 import '../../../cubits/buy/buy_cubit.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
@@ -87,6 +86,25 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
         .salesHistory(catalogItemId ?? "");
   }
 
+  void reportListing(ProfileModel profileData, BuyForSaleListingModel listData) {
+    SendMailContact.send(
+        context: context,
+        subject:
+        '${profileData.username}'
+            ' Reported listing: '
+            '${listData.submitPurchaseInfo?.userNameBuyer} ${listData.productItemName}',
+        body: 'I want to report a listing\n'
+              'Reporter username: ${profileData.username}\n'
+              'Reporter account ID: ${profileData.accountId}\n'
+              'Reporter email: ${profileData.email}\n'
+              'Seller username: ${listData.submitPurchaseInfo?.userNameBuyer}\n'
+              'Seller account ID: ${listData.profileId}\n'
+              'Seller email: ${listData.submitPurchaseInfo?.profilePeerToPeerPayment?.payPalEmail}\n'
+              'Listing name: ${listData.productItemName}\n'
+              'Listing ID: ${listData.productItemId}\n'
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -126,9 +144,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                         }
                       }
 
-                      (profileData.accountId == listData.profileId)
-                          ? overlayItems = editListingDropDown
-                          : overlayItems = reportListingDropDown;
+                      overlayItems = reportListingDropDown;
                     });
                     return null;
                   },
@@ -300,6 +316,8 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                                 onSubmit: () {},
                                                               );
                                                             });
+                                                      } else {
+                                                            reportListing(profileData, listData);
                                                       }
                                                     },
                                                   ),
