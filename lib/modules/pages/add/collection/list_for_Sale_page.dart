@@ -310,7 +310,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                     FilteringTextInputFormatter.digitsOnly,
                                     CurrencyTextInputFormatter(),
                                   ],
-                                  maxLength: 9,
+                                  maxLength: 7,
                                   onChanged: (value) {
                                     String str = _listPriceItemController.value.text;
                                     String result = str.replaceAll(',', '');
