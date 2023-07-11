@@ -478,7 +478,7 @@ String alertAvatar(String avatarType, String? listingImageUrl) {
 
 List<dynamic> imagesList = [
   {
-    'id': 'AVATAR1',
+    'id': 'AVATAR10',
     'url':
         'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Franklin.png?alt=media&token=c1073f88-74c2-44c8-a287-fbe0caebf878'
   },
