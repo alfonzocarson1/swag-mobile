@@ -1,6 +1,3 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
 import '../data/shared_preferences/shared_preferences_service.dart';
 import '../di/injector.dart';
 import '../models/overlay_buton/overlay_button_model.dart';
@@ -138,6 +135,8 @@ const List<CustomOverlayItemModel> reportListingDropDown = [
       imagePath: 'assets/icons/BlockUserWhite.png', label: 'Block user'),
   CustomOverlayItemModel(
       imagePath: 'assets/icons/ReportUserWhite.png', label: 'Report User'),
+  CustomOverlayItemModel(
+      imagePath: 'assets/icons/ReportListingWhite.png', label: 'Report Listing'),
 ];
 
 enum FilterType {
