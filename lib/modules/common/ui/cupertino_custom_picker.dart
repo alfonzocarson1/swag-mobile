@@ -76,9 +76,11 @@ class _CupertinoPickerViewState extends State<CupertinoPickerView> {
                       child: Row(
                         children: [
                           Expanded(
-                              flex: 1,
+                              flex: 3,
                               child: Text(
-                                widget.cupertinoPickervalue ?? "",
+                                widget.cupertinoPickervalue == 'State'
+                                    ? '${widget.cupertinoPickervalue}/Region'
+                                    : widget.cupertinoPickervalue ?? '',
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall!
