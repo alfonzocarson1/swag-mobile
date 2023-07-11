@@ -113,7 +113,9 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
   getProfileData() async {
     var tempProfile =
         await getIt<ProfileCubit>().profileService.privateProfile();
-    profileId = tempProfile.accountId;
+    setState(() {
+      profileId = tempProfile.accountId;
+    });
   }
 
   @override
@@ -289,11 +291,13 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                                     )),
                           ),
                           const SizedBox(height: 30),
-                          FooterListItemPage(
-                            addList: true,
-                            productItemId: this.widget.productItemId ?? '',
-                            showChatButton: true,
-                          ),
+                          if (profileId != "")
+                            FooterListItemPage(
+                              useCurrentUser: true,
+                              profileId: profileId,
+                              productItemId: this.widget.productItemId ?? '',
+                              showChatButton: true,
+                            ),
                           const SizedBox(height: 30),
                           PrimaryButton(
                             title: S.of(context).post_listing_btn,

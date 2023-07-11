@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_interceptor/http/intercepted_client.dart';
 
@@ -207,7 +208,8 @@ class APIService {
           } else {
             res = fromJson!(json.decode(utf8.decode(response.bodyBytes)));
           }
-        } catch (e) {
+        } catch (e, stk) {
+          debugPrintStack(stackTrace: stk, label: e.toString());
           return response.body;
         }
 
