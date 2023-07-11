@@ -53,7 +53,7 @@ class _CustomOverlayButtonState extends State<CustomOverlayButton> {
                   color: Colors.black,
                   elevation: 8.0,
                   child: ListView(
-                    padding: const EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(4),
                     shrinkWrap: true,
                     children:
                         widget.items.map<Widget>((CustomOverlayItemModel item) {
@@ -63,6 +63,7 @@ class _CustomOverlayButtonState extends State<CustomOverlayButton> {
                           height: deviceSizeRatio * 65,
                           width: deviceSizeRatio * 65,
                           fit: BoxFit.contain,
+                          color: Colors.white,
                         ),
                         title: Text(
                           item.label,
