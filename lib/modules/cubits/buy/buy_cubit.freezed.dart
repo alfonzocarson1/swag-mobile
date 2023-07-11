@@ -26,7 +26,7 @@ mixin _$BuyStateCubit {
     required TResult Function(BuyASaleListingResponseModel buyItemlList)
         loadedBuyLisItem,
     required TResult Function(
-            AcceptPurchaseResponseModel acceptPurchaseResponse)
+            CancelPurchaseResponseModel acceptPurchaseResponse)
         acceptPurchaseRequest,
     required TResult Function(
             CancelPurchaseResponseModel cancelPurchaseResponse)
@@ -45,7 +45,7 @@ mixin _$BuyStateCubit {
         loadedListDetailItem,
     TResult? Function(BuyASaleListingResponseModel buyItemlList)?
         loadedBuyLisItem,
-    TResult? Function(AcceptPurchaseResponseModel acceptPurchaseResponse)?
+    TResult? Function(CancelPurchaseResponseModel acceptPurchaseResponse)?
         acceptPurchaseRequest,
     TResult? Function(CancelPurchaseResponseModel cancelPurchaseResponse)?
         dataCancelPurchaseRequest,
@@ -63,7 +63,7 @@ mixin _$BuyStateCubit {
         loadedListDetailItem,
     TResult Function(BuyASaleListingResponseModel buyItemlList)?
         loadedBuyLisItem,
-    TResult Function(AcceptPurchaseResponseModel acceptPurchaseResponse)?
+    TResult Function(CancelPurchaseResponseModel acceptPurchaseResponse)?
         acceptPurchaseRequest,
     TResult Function(CancelPurchaseResponseModel cancelPurchaseResponse)?
         dataCancelPurchaseRequest,
@@ -183,7 +183,7 @@ class _$Initial implements Initial {
     required TResult Function(BuyASaleListingResponseModel buyItemlList)
         loadedBuyLisItem,
     required TResult Function(
-            AcceptPurchaseResponseModel acceptPurchaseResponse)
+            CancelPurchaseResponseModel acceptPurchaseResponse)
         acceptPurchaseRequest,
     required TResult Function(
             CancelPurchaseResponseModel cancelPurchaseResponse)
@@ -205,7 +205,7 @@ class _$Initial implements Initial {
         loadedListDetailItem,
     TResult? Function(BuyASaleListingResponseModel buyItemlList)?
         loadedBuyLisItem,
-    TResult? Function(AcceptPurchaseResponseModel acceptPurchaseResponse)?
+    TResult? Function(CancelPurchaseResponseModel acceptPurchaseResponse)?
         acceptPurchaseRequest,
     TResult? Function(CancelPurchaseResponseModel cancelPurchaseResponse)?
         dataCancelPurchaseRequest,
@@ -226,7 +226,7 @@ class _$Initial implements Initial {
         loadedListDetailItem,
     TResult Function(BuyASaleListingResponseModel buyItemlList)?
         loadedBuyLisItem,
-    TResult Function(AcceptPurchaseResponseModel acceptPurchaseResponse)?
+    TResult Function(CancelPurchaseResponseModel acceptPurchaseResponse)?
         acceptPurchaseRequest,
     TResult Function(CancelPurchaseResponseModel cancelPurchaseResponse)?
         dataCancelPurchaseRequest,
@@ -378,7 +378,7 @@ class _$loading_page implements loading_page {
     required TResult Function(BuyASaleListingResponseModel buyItemlList)
         loadedBuyLisItem,
     required TResult Function(
-            AcceptPurchaseResponseModel acceptPurchaseResponse)
+            CancelPurchaseResponseModel acceptPurchaseResponse)
         acceptPurchaseRequest,
     required TResult Function(
             CancelPurchaseResponseModel cancelPurchaseResponse)
@@ -400,7 +400,7 @@ class _$loading_page implements loading_page {
         loadedListDetailItem,
     TResult? Function(BuyASaleListingResponseModel buyItemlList)?
         loadedBuyLisItem,
-    TResult? Function(AcceptPurchaseResponseModel acceptPurchaseResponse)?
+    TResult? Function(CancelPurchaseResponseModel acceptPurchaseResponse)?
         acceptPurchaseRequest,
     TResult? Function(CancelPurchaseResponseModel cancelPurchaseResponse)?
         dataCancelPurchaseRequest,
@@ -421,7 +421,7 @@ class _$loading_page implements loading_page {
         loadedListDetailItem,
     TResult Function(BuyASaleListingResponseModel buyItemlList)?
         loadedBuyLisItem,
-    TResult Function(AcceptPurchaseResponseModel acceptPurchaseResponse)?
+    TResult Function(CancelPurchaseResponseModel acceptPurchaseResponse)?
         acceptPurchaseRequest,
     TResult Function(CancelPurchaseResponseModel cancelPurchaseResponse)?
         dataCancelPurchaseRequest,
@@ -550,7 +550,7 @@ class _$UpdateItem implements UpdateItem {
     required TResult Function(BuyASaleListingResponseModel buyItemlList)
         loadedBuyLisItem,
     required TResult Function(
-            AcceptPurchaseResponseModel acceptPurchaseResponse)
+            CancelPurchaseResponseModel acceptPurchaseResponse)
         acceptPurchaseRequest,
     required TResult Function(
             CancelPurchaseResponseModel cancelPurchaseResponse)
@@ -572,7 +572,7 @@ class _$UpdateItem implements UpdateItem {
         loadedListDetailItem,
     TResult? Function(BuyASaleListingResponseModel buyItemlList)?
         loadedBuyLisItem,
-    TResult? Function(AcceptPurchaseResponseModel acceptPurchaseResponse)?
+    TResult? Function(CancelPurchaseResponseModel acceptPurchaseResponse)?
         acceptPurchaseRequest,
     TResult? Function(CancelPurchaseResponseModel cancelPurchaseResponse)?
         dataCancelPurchaseRequest,
@@ -593,7 +593,7 @@ class _$UpdateItem implements UpdateItem {
         loadedListDetailItem,
     TResult Function(BuyASaleListingResponseModel buyItemlList)?
         loadedBuyLisItem,
-    TResult Function(AcceptPurchaseResponseModel acceptPurchaseResponse)?
+    TResult Function(CancelPurchaseResponseModel acceptPurchaseResponse)?
         acceptPurchaseRequest,
     TResult Function(CancelPurchaseResponseModel cancelPurchaseResponse)?
         dataCancelPurchaseRequest,
@@ -756,7 +756,7 @@ class _$LoadedListDetailItemState implements LoadedListDetailItemState {
     required TResult Function(BuyASaleListingResponseModel buyItemlList)
         loadedBuyLisItem,
     required TResult Function(
-            AcceptPurchaseResponseModel acceptPurchaseResponse)
+            CancelPurchaseResponseModel acceptPurchaseResponse)
         acceptPurchaseRequest,
     required TResult Function(
             CancelPurchaseResponseModel cancelPurchaseResponse)
@@ -778,7 +778,7 @@ class _$LoadedListDetailItemState implements LoadedListDetailItemState {
         loadedListDetailItem,
     TResult? Function(BuyASaleListingResponseModel buyItemlList)?
         loadedBuyLisItem,
-    TResult? Function(AcceptPurchaseResponseModel acceptPurchaseResponse)?
+    TResult? Function(CancelPurchaseResponseModel acceptPurchaseResponse)?
         acceptPurchaseRequest,
     TResult? Function(CancelPurchaseResponseModel cancelPurchaseResponse)?
         dataCancelPurchaseRequest,
@@ -799,7 +799,7 @@ class _$LoadedListDetailItemState implements LoadedListDetailItemState {
         loadedListDetailItem,
     TResult Function(BuyASaleListingResponseModel buyItemlList)?
         loadedBuyLisItem,
-    TResult Function(AcceptPurchaseResponseModel acceptPurchaseResponse)?
+    TResult Function(CancelPurchaseResponseModel acceptPurchaseResponse)?
         acceptPurchaseRequest,
     TResult Function(CancelPurchaseResponseModel cancelPurchaseResponse)?
         dataCancelPurchaseRequest,
@@ -968,7 +968,7 @@ class _$LoadedBuyListItemState implements LoadedBuyListItemState {
     required TResult Function(BuyASaleListingResponseModel buyItemlList)
         loadedBuyLisItem,
     required TResult Function(
-            AcceptPurchaseResponseModel acceptPurchaseResponse)
+            CancelPurchaseResponseModel acceptPurchaseResponse)
         acceptPurchaseRequest,
     required TResult Function(
             CancelPurchaseResponseModel cancelPurchaseResponse)
@@ -990,7 +990,7 @@ class _$LoadedBuyListItemState implements LoadedBuyListItemState {
         loadedListDetailItem,
     TResult? Function(BuyASaleListingResponseModel buyItemlList)?
         loadedBuyLisItem,
-    TResult? Function(AcceptPurchaseResponseModel acceptPurchaseResponse)?
+    TResult? Function(CancelPurchaseResponseModel acceptPurchaseResponse)?
         acceptPurchaseRequest,
     TResult? Function(CancelPurchaseResponseModel cancelPurchaseResponse)?
         dataCancelPurchaseRequest,
@@ -1011,7 +1011,7 @@ class _$LoadedBuyListItemState implements LoadedBuyListItemState {
         loadedListDetailItem,
     TResult Function(BuyASaleListingResponseModel buyItemlList)?
         loadedBuyLisItem,
-    TResult Function(AcceptPurchaseResponseModel acceptPurchaseResponse)?
+    TResult Function(CancelPurchaseResponseModel acceptPurchaseResponse)?
         acceptPurchaseRequest,
     TResult Function(CancelPurchaseResponseModel cancelPurchaseResponse)?
         dataCancelPurchaseRequest,
@@ -1103,9 +1103,9 @@ abstract class _$$AcceptPurchaseRequestStateCopyWith<$Res> {
           $Res Function(_$AcceptPurchaseRequestState) then) =
       __$$AcceptPurchaseRequestStateCopyWithImpl<$Res>;
   @useResult
-  $Res call({AcceptPurchaseResponseModel acceptPurchaseResponse});
+  $Res call({CancelPurchaseResponseModel acceptPurchaseResponse});
 
-  $AcceptPurchaseResponseModelCopyWith<$Res> get acceptPurchaseResponse;
+  $CancelPurchaseResponseModelCopyWith<$Res> get acceptPurchaseResponse;
 }
 
 /// @nodoc
@@ -1126,14 +1126,14 @@ class __$$AcceptPurchaseRequestStateCopyWithImpl<$Res>
       null == acceptPurchaseResponse
           ? _value.acceptPurchaseResponse
           : acceptPurchaseResponse // ignore: cast_nullable_to_non_nullable
-              as AcceptPurchaseResponseModel,
+              as CancelPurchaseResponseModel,
     ));
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $AcceptPurchaseResponseModelCopyWith<$Res> get acceptPurchaseResponse {
-    return $AcceptPurchaseResponseModelCopyWith<$Res>(
+  $CancelPurchaseResponseModelCopyWith<$Res> get acceptPurchaseResponse {
+    return $CancelPurchaseResponseModelCopyWith<$Res>(
         _value.acceptPurchaseResponse, (value) {
       return _then(_value.copyWith(acceptPurchaseResponse: value));
     });
@@ -1146,7 +1146,7 @@ class _$AcceptPurchaseRequestState implements AcceptPurchaseRequestState {
   _$AcceptPurchaseRequestState(this.acceptPurchaseResponse);
 
   @override
-  final AcceptPurchaseResponseModel acceptPurchaseResponse;
+  final CancelPurchaseResponseModel acceptPurchaseResponse;
 
   @override
   String toString() {
@@ -1183,7 +1183,7 @@ class _$AcceptPurchaseRequestState implements AcceptPurchaseRequestState {
     required TResult Function(BuyASaleListingResponseModel buyItemlList)
         loadedBuyLisItem,
     required TResult Function(
-            AcceptPurchaseResponseModel acceptPurchaseResponse)
+            CancelPurchaseResponseModel acceptPurchaseResponse)
         acceptPurchaseRequest,
     required TResult Function(
             CancelPurchaseResponseModel cancelPurchaseResponse)
@@ -1205,7 +1205,7 @@ class _$AcceptPurchaseRequestState implements AcceptPurchaseRequestState {
         loadedListDetailItem,
     TResult? Function(BuyASaleListingResponseModel buyItemlList)?
         loadedBuyLisItem,
-    TResult? Function(AcceptPurchaseResponseModel acceptPurchaseResponse)?
+    TResult? Function(CancelPurchaseResponseModel acceptPurchaseResponse)?
         acceptPurchaseRequest,
     TResult? Function(CancelPurchaseResponseModel cancelPurchaseResponse)?
         dataCancelPurchaseRequest,
@@ -1226,7 +1226,7 @@ class _$AcceptPurchaseRequestState implements AcceptPurchaseRequestState {
         loadedListDetailItem,
     TResult Function(BuyASaleListingResponseModel buyItemlList)?
         loadedBuyLisItem,
-    TResult Function(AcceptPurchaseResponseModel acceptPurchaseResponse)?
+    TResult Function(CancelPurchaseResponseModel acceptPurchaseResponse)?
         acceptPurchaseRequest,
     TResult Function(CancelPurchaseResponseModel cancelPurchaseResponse)?
         dataCancelPurchaseRequest,
@@ -1302,10 +1302,10 @@ class _$AcceptPurchaseRequestState implements AcceptPurchaseRequestState {
 
 abstract class AcceptPurchaseRequestState implements BuyStateCubit {
   factory AcceptPurchaseRequestState(
-          final AcceptPurchaseResponseModel acceptPurchaseResponse) =
+          final CancelPurchaseResponseModel acceptPurchaseResponse) =
       _$AcceptPurchaseRequestState;
 
-  AcceptPurchaseResponseModel get acceptPurchaseResponse;
+  CancelPurchaseResponseModel get acceptPurchaseResponse;
   @JsonKey(ignore: true)
   _$$AcceptPurchaseRequestStateCopyWith<_$AcceptPurchaseRequestState>
       get copyWith => throw _privateConstructorUsedError;
@@ -1398,7 +1398,7 @@ class _$CancelPurchaseRequestState implements CancelPurchaseRequestState {
     required TResult Function(BuyASaleListingResponseModel buyItemlList)
         loadedBuyLisItem,
     required TResult Function(
-            AcceptPurchaseResponseModel acceptPurchaseResponse)
+            CancelPurchaseResponseModel acceptPurchaseResponse)
         acceptPurchaseRequest,
     required TResult Function(
             CancelPurchaseResponseModel cancelPurchaseResponse)
@@ -1420,7 +1420,7 @@ class _$CancelPurchaseRequestState implements CancelPurchaseRequestState {
         loadedListDetailItem,
     TResult? Function(BuyASaleListingResponseModel buyItemlList)?
         loadedBuyLisItem,
-    TResult? Function(AcceptPurchaseResponseModel acceptPurchaseResponse)?
+    TResult? Function(CancelPurchaseResponseModel acceptPurchaseResponse)?
         acceptPurchaseRequest,
     TResult? Function(CancelPurchaseResponseModel cancelPurchaseResponse)?
         dataCancelPurchaseRequest,
@@ -1441,7 +1441,7 @@ class _$CancelPurchaseRequestState implements CancelPurchaseRequestState {
         loadedListDetailItem,
     TResult Function(BuyASaleListingResponseModel buyItemlList)?
         loadedBuyLisItem,
-    TResult Function(AcceptPurchaseResponseModel acceptPurchaseResponse)?
+    TResult Function(CancelPurchaseResponseModel acceptPurchaseResponse)?
         acceptPurchaseRequest,
     TResult Function(CancelPurchaseResponseModel cancelPurchaseResponse)?
         dataCancelPurchaseRequest,
@@ -1611,7 +1611,7 @@ class _$LoadedListUpdateStatus implements LoadedListUpdateStatus {
     required TResult Function(BuyASaleListingResponseModel buyItemlList)
         loadedBuyLisItem,
     required TResult Function(
-            AcceptPurchaseResponseModel acceptPurchaseResponse)
+            CancelPurchaseResponseModel acceptPurchaseResponse)
         acceptPurchaseRequest,
     required TResult Function(
             CancelPurchaseResponseModel cancelPurchaseResponse)
@@ -1633,7 +1633,7 @@ class _$LoadedListUpdateStatus implements LoadedListUpdateStatus {
         loadedListDetailItem,
     TResult? Function(BuyASaleListingResponseModel buyItemlList)?
         loadedBuyLisItem,
-    TResult? Function(AcceptPurchaseResponseModel acceptPurchaseResponse)?
+    TResult? Function(CancelPurchaseResponseModel acceptPurchaseResponse)?
         acceptPurchaseRequest,
     TResult? Function(CancelPurchaseResponseModel cancelPurchaseResponse)?
         dataCancelPurchaseRequest,
@@ -1654,7 +1654,7 @@ class _$LoadedListUpdateStatus implements LoadedListUpdateStatus {
         loadedListDetailItem,
     TResult Function(BuyASaleListingResponseModel buyItemlList)?
         loadedBuyLisItem,
-    TResult Function(AcceptPurchaseResponseModel acceptPurchaseResponse)?
+    TResult Function(CancelPurchaseResponseModel acceptPurchaseResponse)?
         acceptPurchaseRequest,
     TResult Function(CancelPurchaseResponseModel cancelPurchaseResponse)?
         dataCancelPurchaseRequest,
@@ -1812,7 +1812,7 @@ class _$ErrorBuyStateCubit implements ErrorBuyStateCubit {
     required TResult Function(BuyASaleListingResponseModel buyItemlList)
         loadedBuyLisItem,
     required TResult Function(
-            AcceptPurchaseResponseModel acceptPurchaseResponse)
+            CancelPurchaseResponseModel acceptPurchaseResponse)
         acceptPurchaseRequest,
     required TResult Function(
             CancelPurchaseResponseModel cancelPurchaseResponse)
@@ -1834,7 +1834,7 @@ class _$ErrorBuyStateCubit implements ErrorBuyStateCubit {
         loadedListDetailItem,
     TResult? Function(BuyASaleListingResponseModel buyItemlList)?
         loadedBuyLisItem,
-    TResult? Function(AcceptPurchaseResponseModel acceptPurchaseResponse)?
+    TResult? Function(CancelPurchaseResponseModel acceptPurchaseResponse)?
         acceptPurchaseRequest,
     TResult? Function(CancelPurchaseResponseModel cancelPurchaseResponse)?
         dataCancelPurchaseRequest,
@@ -1855,7 +1855,7 @@ class _$ErrorBuyStateCubit implements ErrorBuyStateCubit {
         loadedListDetailItem,
     TResult Function(BuyASaleListingResponseModel buyItemlList)?
         loadedBuyLisItem,
-    TResult Function(AcceptPurchaseResponseModel acceptPurchaseResponse)?
+    TResult Function(CancelPurchaseResponseModel acceptPurchaseResponse)?
         acceptPurchaseRequest,
     TResult Function(CancelPurchaseResponseModel cancelPurchaseResponse)?
         dataCancelPurchaseRequest,

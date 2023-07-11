@@ -5,7 +5,7 @@ import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'package:http_interceptor/http/intercepted_client.dart';
 
-import '../common/utils/token_retry_policy.dart';
+import '../common/utils/http_interceptors.dart';
 import '../data/secure_storage/storage_repository_service.dart';
 import '../di/injector.dart';
 import 'api.dart';
@@ -68,7 +68,6 @@ class APIService {
             headers: baseHeaders,
             body: jsonEncode(body),
           );
-
           break;
         case RequestMethod.put:
           response = await client.put(
@@ -76,7 +75,6 @@ class APIService {
             headers: baseHeaders,
             body: jsonEncode(body),
           );
-
           break;
         case RequestMethod.delete:
           response = await client.delete(
@@ -131,7 +129,7 @@ class APIService {
       String? dynamicParam}) async {
     InterceptedClient client = InterceptedClient.build(
       retryPolicy: TokenRetryPolicy(),
-      interceptors: [ApiInterceptor()],
+      interceptors: [ApiInterceptor(), LoggingInterceptor(enabled: false)],
     );
     String? token = '';
     if (needBearer) {
@@ -178,7 +176,6 @@ class APIService {
             headers: baseHeaders,
             body: jsonEncode(body),
           );
-
           break;
         case RequestMethod.delete:
           response = await client.delete(

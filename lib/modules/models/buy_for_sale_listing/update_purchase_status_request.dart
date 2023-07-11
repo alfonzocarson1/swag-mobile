@@ -5,7 +5,7 @@ part 'update_purchase_status_request.g.dart';
 
 @freezed
 class UpdatePurchaseStatusRequestModel with _$UpdatePurchaseStatusRequestModel {
-  @JsonSerializable()
+  @JsonSerializable(includeIfNull: false)
   const factory UpdatePurchaseStatusRequestModel(
       {final String? listingStatus,
       final String? productItemId,

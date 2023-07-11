@@ -5,8 +5,10 @@ import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 
 import '../../../../generated/l10n.dart';
+import '../../../blocs/chat/chat_bloc.dart';
 import '../../../common/ui/cupertino_custom_picker.dart';
 import '../../../common/ui/custom_text_form_field.dart';
+import '../../../common/ui/loading.dart';
 import '../../../common/utils/utils.dart';
 import '../../../constants/constants.dart';
 import '../../../cubits/buy/buy_cubit.dart';
@@ -14,10 +16,12 @@ import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
 import '../../../models/buy_for_sale_listing/buy_a_listing_model.dart';
 import '../../../models/buy_for_sale_listing/buy_a_listing_response_model.dart';
+import '../../../models/chat/chat_data.dart';
 import '../../../models/profile/profile_model.dart';
 import '../../../models/settings/peer_to_peer_payments_get_model.dart';
 import '../../../models/settings/peer_to_peer_payments_model.dart';
 import '../../../models/update_profile/addresses_payload_model.dart';
+import '../../chat/chat_page.dart';
 
 class BuyerCompletePurchasePopUp extends StatefulWidget {
   const BuyerCompletePurchasePopUp(
@@ -185,6 +189,28 @@ class _BuyerCompletePurchasePopUpState
     setState(() {});
   }
 
+  Future<void> onTapSubmit(String channelUrl) async {
+    ChatBloc chatBloc = context.read<ChatBloc>();
+
+    late ChatData chatData;
+    try {
+      Loading.show(context);
+      await Future.delayed(const Duration(milliseconds: 500));
+
+      chatData = await chatBloc.startNewChat(channelUrl, false);
+
+      Loading.hide(context);
+      await Navigator.of(context, rootNavigator: true).push(
+        MaterialPageRoute(
+            builder: (BuildContext context) => ChatPage(chatData: chatData)),
+      );
+      Navigator.of(context).pop();
+      Navigator.of(context).pop();
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<BuyCubit, BuyStateCubit>(
@@ -193,8 +219,7 @@ class _BuyerCompletePurchasePopUpState
                 return null;
               },
               loadedBuyLisItem: (BuyASaleListingResponseModel buyItemlList) {
-                Navigator.of(context).pop();
-                getIt<BuyCubit>().getListDetailItem(widget.productItemId ?? '');
+                onTapSubmit(buyItemlList.channelUrl ?? '');
                 return null;
               },
             ),

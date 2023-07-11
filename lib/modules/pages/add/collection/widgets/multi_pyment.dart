@@ -35,77 +35,58 @@ class _MultiCheckboxDropdownState extends State<MultiCheckboxDropdown> {
   PeerToPeerPaymentsGetModel paymentData =
       getIt<PreferenceRepositoryService>().paymanetData();
 
-  List<String> items = [];
+  List<String> connectedMethods = [];
+  List<String> selectedMethods = [];
 
-  final TextEditingController _textEditingController = TextEditingController();
-  String? _selectedItem;
+  final TextEditingController _selectedMethodsTextController =
+      TextEditingController();
   bool _showDropdown = false;
 
   @override
   void initState() {
     super.initState();
-
-    if (paymentData.peerToPeerPayments != null) {
-      setUpPaymentList();
-
-      var peerToPeerPaymentsJson = paymentData.peerToPeerPayments!.toJson();
-
-      if (peerToPeerPaymentsJson.length == 1) {
-        if (paymentData.peerToPeerPayments!
-            .toJson()
-            .keys
-            .first
-            .contains('payPalEmail')) {
-          _textEditingController.text = 'PayPal';
-          selectedOptions.add('PayPal');
-        }
-
-        if (paymentData.peerToPeerPayments!
-            .toJson()
-            .keys
-            .first
-            .contains('cashTag')) {
-          _textEditingController.text = 'CashApp';
-          selectedOptions.add('CashApp');
-        }
-
-        if (paymentData.peerToPeerPayments!
-            .toJson()
-            .keys
-            .first
-            .contains('venmoUser')) {
-          _textEditingController.text = 'Venmo';
-          selectedOptions.add('Venmo');
-        }
-      }
-    }
-
-    _selectedItem = 'Accepted Payment Types';
-    _textEditingController.text = _selectedItem!;
+    setUpPaymentList();
   }
 
   void setUpPaymentList() {
-    addPaymentIfNotNull(paymentData.peerToPeerPayments!.venmoUser, 'Venmo');
-    addPaymentIfNotNull(paymentData.peerToPeerPayments!.cashTag, 'CashApp');
-    addPaymentIfNotNull(paymentData.peerToPeerPayments!.payPalEmail, 'PayPal');
+    addPaymentIfNotNull(paymentData.peerToPeerPayments?.venmoUser, 'Venmo');
+    addPaymentIfNotNull(paymentData.peerToPeerPayments?.cashTag, 'CashApp');
+    addPaymentIfNotNull(paymentData.peerToPeerPayments?.payPalEmail, 'PayPal');
+    selectAllConnectedMethods();
   }
 
   void addPaymentIfNotNull(String? payment, String itemName) {
-    if (payment != null) {
-      items.add(itemName);
+    if (payment != null && !connectedMethods.contains(itemName)) {
+      connectedMethods.add(itemName);
+    }
+  }
+
+  void selectAllConnectedMethods() {
+    for (final m in connectedMethods) {
+      if (!selectedMethods.contains(m)) {
+        selectedMethods.add(m);
+      }
+    }
+  }
+
+  void setSelectedMethodsText() {
+    if (selectedMethods.isEmpty) {
+      _selectedMethodsTextController.text = S.current.accepted_payment_types;
+    } else {
+      _selectedMethodsTextController.text = selectedMethods.join(", ");
     }
   }
 
   void handlePayment(String payment) {
-    if (selectedOptions.contains(payment)) {
-      selectedOptions.remove(payment);
+    if (selectedMethods.contains(payment)) {
+      selectedMethods.remove(payment);
     } else {
-      selectedOptions.add(payment);
+      selectedMethods.add(payment);
     }
-    widget.onPaymentChange!(selectedOptions);
+    setSelectedMethodsText();
+    widget.onPaymentChange!(selectedMethods);
   }
 
-  List<String> selectedOptions = [];
   @override
   Widget build(BuildContext context) {
     Future.delayed(Duration.zero, () {
@@ -117,12 +98,13 @@ class _MultiCheckboxDropdownState extends State<MultiCheckboxDropdown> {
                 paymentDataNew.peerToPeerPayments)) {
           setState(() {
             paymentData = getIt<PreferenceRepositoryService>().paymanetData();
-            items = [];
+            connectedMethods = [];
             setUpPaymentList();
           });
         }
       });
     });
+    setSelectedMethodsText();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -176,7 +158,7 @@ class _MultiCheckboxDropdownState extends State<MultiCheckboxDropdown> {
                         child: TextFormField(
                           readOnly: true,
                           enableInteractiveSelection: false,
-                          controller: _textEditingController,
+                          controller: _selectedMethodsTextController,
                           decoration: InputDecoration(
                             labelStyle:
                                 Theme.of(context).textTheme.bodySmall!.copyWith(
@@ -230,7 +212,7 @@ class _MultiCheckboxDropdownState extends State<MultiCheckboxDropdown> {
                                         visualDensity: const VisualDensity(
                                             horizontal: -4, vertical: -4),
                                         onTap: () {
-                                          items.contains('Venmo')
+                                          connectedMethods.contains('Venmo')
                                               ? () {}
                                               : Navigator.of(context,
                                                       rootNavigator: true)
@@ -274,11 +256,12 @@ class _MultiCheckboxDropdownState extends State<MultiCheckboxDropdown> {
                                           child: Checkbox(
                                             visualDensity: const VisualDensity(
                                                 horizontal: -4, vertical: -4),
-                                            value: selectedOptions
+                                            value: selectedMethods
                                                 .contains(S.of(context).venmo),
                                             onChanged: (value) {
                                               setState(() {
-                                                if (items.contains('Venmo')) {
+                                                if (connectedMethods
+                                                    .contains('Venmo')) {
                                                   handlePayment('Venmo');
                                                 } else {
                                                   Navigator.of(context,
@@ -314,7 +297,8 @@ class _MultiCheckboxDropdownState extends State<MultiCheckboxDropdown> {
                                                         fontSize: 14)),
                                           ],
                                         ),
-                                        trailing: items.contains('Venmo')
+                                        trailing: connectedMethods
+                                                .contains('Venmo')
                                             ? Text(
                                                 'Connected',
                                                 style: Theme.of(context)
@@ -348,7 +332,7 @@ class _MultiCheckboxDropdownState extends State<MultiCheckboxDropdown> {
                                         visualDensity: const VisualDensity(
                                             horizontal: -4, vertical: -4),
                                         onTap: () {
-                                          items.contains('CashApp')
+                                          connectedMethods.contains('CashApp')
                                               ? () {}
                                               : Navigator.of(context,
                                                       rootNavigator: true)
@@ -392,11 +376,12 @@ class _MultiCheckboxDropdownState extends State<MultiCheckboxDropdown> {
                                           child: Checkbox(
                                             visualDensity: const VisualDensity(
                                                 horizontal: -4, vertical: -4),
-                                            value: selectedOptions.contains(
+                                            value: selectedMethods.contains(
                                                 S.of(context).cash_app),
                                             onChanged: (value) {
                                               setState(() {
-                                                if (items.contains('CashApp')) {
+                                                if (connectedMethods
+                                                    .contains('CashApp')) {
                                                   handlePayment('CashApp');
                                                 } else {
                                                   Navigator.of(context,
@@ -432,7 +417,8 @@ class _MultiCheckboxDropdownState extends State<MultiCheckboxDropdown> {
                                                         fontSize: 14)),
                                           ],
                                         ),
-                                        trailing: items.contains('CashApp')
+                                        trailing: connectedMethods
+                                                .contains('CashApp')
                                             ? Text('Connected',
                                                 style: Theme.of(context)
                                                     .textTheme
@@ -466,7 +452,7 @@ class _MultiCheckboxDropdownState extends State<MultiCheckboxDropdown> {
                                           visualDensity: const VisualDensity(
                                               horizontal: -4, vertical: -4),
                                           onTap: () {
-                                            items.contains('PayPal')
+                                            connectedMethods.contains('PayPal')
                                                 ? () {}
                                                 : Navigator.of(context,
                                                         rootNavigator: true)
@@ -513,11 +499,11 @@ class _MultiCheckboxDropdownState extends State<MultiCheckboxDropdown> {
                                                   const VisualDensity(
                                                       horizontal: -4,
                                                       vertical: -4),
-                                              value: selectedOptions.contains(
+                                              value: selectedMethods.contains(
                                                   S.of(context).payPal),
                                               onChanged: (value) {
                                                 setState(() {
-                                                  if (items
+                                                  if (connectedMethods
                                                       .contains('PayPal')) {
                                                     handlePayment('PayPal');
                                                   } else {
@@ -554,7 +540,8 @@ class _MultiCheckboxDropdownState extends State<MultiCheckboxDropdown> {
                                                           fontSize: 14)),
                                             ],
                                           ),
-                                          trailing: items.contains('PayPal')
+                                          trailing: connectedMethods
+                                                  .contains('PayPal')
                                               ? Text('Connected',
                                                   style: Theme.of(context)
                                                       .textTheme
