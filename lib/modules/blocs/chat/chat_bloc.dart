@@ -109,6 +109,23 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     }
   }
 
+  cleandata(String rawData){
+final regExp = RegExp(r'\"(.*?)\"');
+final matches = regExp.allMatches(rawData).toList();
+
+for (var match in matches.reversed) {
+  final stringToReplace = match.group(0);
+  // Removing the enclosing double quotes first
+  var sanitizedString = stringToReplace?.substring(1, stringToReplace.length - 1);
+  // Now replace single quote with escaped version and wrap it again with single quotes
+  sanitizedString = sanitizedString?.replaceAll('\'', r'\''');
+  final finalString = '\'$sanitizedString\'';
+  rawData = rawData.replaceRange(match.start, match.end, finalString);
+}
+print(rawData);
+return rawData;
+  }
+
   Future<ChatData> startNewChatPeerToPeer(String value) async {
     try {
       bool isChannelUrl = value.contains('sendbird');
@@ -120,7 +137,10 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         return chatData.channel.channelUrl == newChannel.channelUrl;
       });
 
+      String dataString = newChannel.data ?? "";
+      newChannel.data = cleandata(dataString);   
       List<BaseMessage> messages = await this._getMessagesByChannel(newChannel);
+  
 
       if (chatExists) {
         return this.state.chats.firstWhere((ChatData chatData) {
