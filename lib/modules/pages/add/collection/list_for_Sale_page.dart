@@ -74,7 +74,6 @@ class _ListForSalePageState extends State<ListForSalePage> {
   Color _conditionBorder = Palette.current.primaryWhiteSmoke;
 
   final FocusNode _paymentNode = FocusNode();
-  final _paymentController = TextEditingController();
   Color _paymentBorder = Palette.current.primaryWhiteSmoke;
 
   final _listDescriptionItemController = TextEditingController();
@@ -310,7 +309,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                     FilteringTextInputFormatter.digitsOnly,
                                     CurrencyTextInputFormatter(),
                                   ],
-                                  maxLength: 7,
+                                  maxLength: 9,
                                   onChanged: (value) {
                                     String str = _listPriceItemController.value.text;
                                     String result = str.replaceAll(',', '');
