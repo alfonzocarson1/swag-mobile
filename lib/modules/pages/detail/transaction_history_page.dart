@@ -69,12 +69,29 @@ class TransactionHistory extends StatefulWidget {
 class _TransactionHistoryState extends State<TransactionHistory> {
   late final ScrollController? _scrollController =
       PrimaryScrollController.of(context);
+  ScrollController scroll = ScrollController();
+  bool showbtn = false;
 
   bool changeColor = false;
   bool favorite = false;
   @override
   void initState() {
     // TODO: implement initState
+    scroll.addListener(() {
+      double showoffset = MediaQuery.of(context).size.height - 200;
+
+      if(scroll.offset > showoffset){
+        showbtn = true;
+        setState(() {
+          //update state
+        });
+      }else{
+        showbtn = false;
+        setState(() {
+          //update state
+        });
+      }
+    });
     super.initState();
     favorite = widget.favorite;
   }
@@ -84,8 +101,29 @@ class _TransactionHistoryState extends State<TransactionHistory> {
     return Scaffold(
         backgroundColor: Palette.current.blackSmoke,
         resizeToAvoidBottomInset: true,
+        floatingActionButton: AnimatedOpacity(
+          duration: Duration(milliseconds: 1000),
+          opacity: showbtn?1.0:0.0,
+          child: FloatingActionButton(
+            onPressed: () {
+              scroll.animateTo(
+                  0,
+                  duration: Duration(milliseconds: 500),
+                  curve:Curves.fastOutSlowIn
+              );
+            },
+            child: Icon(Icons.arrow_upward),
+            backgroundColor: Palette.current.primaryNeonGreen,
+          ),
+        ),
         appBar: CustomAppBar(color: Palette.current.black, actions: true),
-        body: 
+        body: SizedBox(child:
+         SingleChildScrollView(
+           controller: scroll,
+        physics: const ClampingScrollPhysics(),
+        padding: const EdgeInsets.all(0),
+    scrollDirection: Axis.vertical,
+    child:
         Container(
                     width: MediaQuery.of(context).size.width,
                     decoration:
@@ -93,7 +131,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                     child: _getBody(
                         widget.saleHIstoryList)
                         )
-        );
+        )));
   }
 
   Widget _getBody(List<SalesHistoryModel>? historyList) {
@@ -121,7 +159,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
             itemId: widget.itemId, 
             saleHistory: const [],),
         historyList!.isNotEmpty
-            ? CustomDataTable(histories: historyList)
+            ? CustomDataTable(histories: historyList, screenHeight: MediaQuery.of(context).size.height)
             : Center(
                 child: Text(
                   S.of(context).empty_text,
