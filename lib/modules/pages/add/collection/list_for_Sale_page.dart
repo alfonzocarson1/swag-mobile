@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
 import 'package:swagapp/modules/common/assets/icons.dart';
+import 'package:swagapp/modules/common/utils/currency_input_formatter.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../common/ui/add_photo_list_item.dart';
@@ -30,7 +30,6 @@ import 'list_item_preview_page.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 import 'widgets/multi_pyment.dart';
-import 'widgets/payment_setup_error.dart';
 
 class ListForSalePage extends StatefulWidget {
   static const name = '/ListForSalePage';
@@ -75,7 +74,6 @@ class _ListForSalePageState extends State<ListForSalePage> {
   Color _conditionBorder = Palette.current.primaryWhiteSmoke;
 
   final FocusNode _paymentNode = FocusNode();
-  final _paymentController = TextEditingController();
   Color _paymentBorder = Palette.current.primaryWhiteSmoke;
 
   final _listDescriptionItemController = TextEditingController();
@@ -308,40 +306,17 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                         : const SizedBox.shrink(),
                                   ),
                                   inputFormatters: <TextInputFormatter>[
-                                    FilteringTextInputFormatter.digitsOnly
+                                    FilteringTextInputFormatter.digitsOnly,
+                                    CurrencyTextInputFormatter(),
                                   ],
-                                  maxLength: 7,
+                                  maxLength: 9,
                                   onChanged: (value) {
-                                    if (value == '00') {
-                                      setState(() {
-                                        _price = 0.0;
-                                      });
+                                    String str = _listPriceItemController.value.text;
+                                    String result = str.replaceAll(',', '');
+                                    _price = double.tryParse(result) ?? 0;
+                                    if (_price == 0) {
+                                      _listPriceItemController.text = '';
                                     }
-                                    String newValue = value
-                                        .replaceAll(',', '')
-                                        .replaceAll('.', '');
-                                    if (value.isEmpty || newValue == '00') {
-                                      _listPriceItemController.clear();
-                                      isFirst = true;
-                                      return;
-                                    }
-                                    double value1 = double.parse(newValue);
-                                    if (!isFirst) value1 = value1 * 100;
-                                    value = NumberFormat.currency(
-                                            customPattern: '###,###.##')
-                                        .format(value1 / 100);
-                                    _listPriceItemController.value =
-                                        TextEditingValue(
-                                      text: value,
-                                      selection: TextSelection.collapsed(
-                                          offset: value.length),
-                                    );
-                                    setState(() {
-                                      String str =
-                                          _listPriceItemController.value.text;
-                                      String result = str.replaceAll(',', '');
-                                      _price = double.parse(result);
-                                    });
                                   },
                                   borderColor: _listPriceItemBorder,
                                   autofocus: false,
