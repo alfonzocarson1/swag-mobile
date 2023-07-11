@@ -37,7 +37,6 @@ class _CustomDataTableState extends State<CustomDataTable> {
   bool hasActiveSubscription = false;
   bool hasUsedFreeTrial = false;
   late ProfileModel profileData;
-
   var histories = <SalesHistoryModel>[];
 
   @override
@@ -76,7 +75,7 @@ class _CustomDataTableState extends State<CustomDataTable> {
   }
 
   removePaywall() {
-    hasActiveSubscription = false;
+    hasActiveSubscription = true;
     setState(() {});
   }
 
@@ -92,8 +91,9 @@ class _CustomDataTableState extends State<CustomDataTable> {
             child: _subscriptionListView()
           )
               :
-           Container(
-            height: MediaQuery.of(context).size.height - 200,
+           SizedBox(
+
+            height: MediaQuery.of(context).size.height - (MediaQuery.of(context).size.height *0.15),
             child: _subscriptionListView()
           )
     );
