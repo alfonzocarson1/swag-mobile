@@ -113,7 +113,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
   @override
   void initState() {
     super.initState();
-    
+
     if (paymentData.peerToPeerPayments != null) {
       var peerToPeerPaymentsJson = paymentData.peerToPeerPayments!.toJson();
 
@@ -311,7 +311,8 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                   ],
                                   maxLength: 9,
                                   onChanged: (value) {
-                                    String str = _listPriceItemController.value.text;
+                                    String str =
+                                        _listPriceItemController.value.text;
                                     String result = str.replaceAll(',', '');
                                     _price = double.tryParse(result) ?? 0;
                                     if (_price == 0) {
@@ -353,7 +354,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                MultiCheckboxDropdown(
+                                MultiPaymentDropdown(
                                   helperText:
                                       'You must select at least one form of payment. You can manage these payment types in your settings.',
                                   borderColor: _paymentBorder,

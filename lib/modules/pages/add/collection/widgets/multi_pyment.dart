@@ -9,8 +9,8 @@ import '../../../settings/account/peer_to_peer_payments_page.dart';
 import 'payment_setup_error.dart';
 
 // ignore: must_be_immutable
-class MultiCheckboxDropdown extends StatefulWidget {
-  MultiCheckboxDropdown({
+class MultiPaymentDropdown extends StatefulWidget {
+  MultiPaymentDropdown({
     super.key,
     this.borderColor,
     this.errorText,
@@ -28,10 +28,10 @@ class MultiCheckboxDropdown extends StatefulWidget {
   final String? helperText;
 
   @override
-  _MultiCheckboxDropdownState createState() => _MultiCheckboxDropdownState();
+  _MultiPaymentDropdownState createState() => _MultiPaymentDropdownState();
 }
 
-class _MultiCheckboxDropdownState extends State<MultiCheckboxDropdown> {
+class _MultiPaymentDropdownState extends State<MultiPaymentDropdown> {
   PeerToPeerPaymentsGetModel paymentData =
       getIt<PreferenceRepositoryService>().paymanetData();
 
@@ -46,6 +46,9 @@ class _MultiCheckboxDropdownState extends State<MultiCheckboxDropdown> {
   void initState() {
     super.initState();
     setUpPaymentList();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      widget.onPaymentChange!(selectedMethods);
+    });
   }
 
   void setUpPaymentList() {
@@ -56,7 +59,7 @@ class _MultiCheckboxDropdownState extends State<MultiCheckboxDropdown> {
   }
 
   void addPaymentIfNotNull(String? payment, String itemName) {
-    if (payment != null && !connectedMethods.contains(itemName)) {
+    if (payment != null && payment.isNotEmpty && !connectedMethods.contains(itemName)) {
       connectedMethods.add(itemName);
     }
   }

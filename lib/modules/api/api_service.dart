@@ -130,7 +130,7 @@ class APIService {
       String? dynamicParam}) async {
     InterceptedClient client = InterceptedClient.build(
       retryPolicy: TokenRetryPolicy(),
-      interceptors: [ApiInterceptor(), LoggingInterceptor(enabled: false)],
+      interceptors: [ApiInterceptor(), LoggingInterceptor(enabled: true)],
     );
     String? token = '';
     if (needBearer) {
