@@ -439,11 +439,11 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                             .productItemId ??
                                                         '',
                                                     showChatButton: true,
-                                                    avatar: profileURL ??
-                                                        defaultImage,
-                                                    username: listData
-                                                        .submitPurchaseInfo
-                                                        ?.userNameBuyer,
+                                                    profileId:
+                                                        listData.profileId!,
+                                                    useCurrentUser:
+                                                        profileData.accountId !=
+                                                            listData.profileId,
                                                   ),
                                                   const SizedBox(height: 30),
                                                   Visibility(
@@ -508,11 +508,13 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                                       .profileId)
                                                               ? true
                                                               : false,
-                                                          avatar: profileURL ??
-                                                              defaultImage,
-                                                          username: listData
-                                                              .submitPurchaseInfo
-                                                              ?.userNameBuyer,
+                                                          profileId: listData
+                                                              .profileId!,
+                                                          useCurrentUser:
+                                                              profileData
+                                                                      .accountId !=
+                                                                  listData
+                                                                      .profileId,
                                                         ),
                                                         const SizedBox(
                                                             height: 30),

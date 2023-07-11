@@ -8,7 +8,10 @@ import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
 import 'package:swagapp/modules/common/assets/icons.dart';
 import 'package:swagapp/modules/common/ui/custom_outline_button.dart';
 import 'package:swagapp/modules/common/ui/loading.dart';
+import 'package:swagapp/modules/common/utils/stateful_wrapper.dart';
+import 'package:swagapp/modules/cubits/public_profile/public_profile_cubit.dart';
 import 'package:swagapp/modules/models/chat/chat_data.dart';
+import 'package:swagapp/modules/models/profile/public_profile.dart';
 import 'package:swagapp/modules/pages/chat/chat_page.dart';
 
 import '../../../../generated/l10n.dart';
@@ -19,57 +22,84 @@ import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
 import '../../../models/profile/profile_model.dart';
 
- List<ChatData> chatList=[]; 
-
-class FooterListItemPage extends StatefulWidget {
-  FooterListItemPage({
-    super.key,
-    this.addList,
-    required this.showChatButton,
-    required this.productItemId,
-    this.username,
-    this.avatar,
-  });
-
+class FooterListItemPage extends StatelessWidget {
   final bool showChatButton;
   final String productItemId;
-  final bool? addList;
-  final String? username;
-  final String? avatar;
+  final String profileId;
+  final bool useCurrentUser;
+  FooterListItemPage({
+    super.key,
+    required this.showChatButton,
+    required this.productItemId,
+    required this.profileId,
+    this.useCurrentUser = false,
+  });
 
-  @override
-  State<FooterListItemPage> createState() => _FooterListItemPageState();
-}
-
-String userName = "";
-
-class _FooterListItemPageState extends State<FooterListItemPage> {
-  ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
-
-  double rating = 4;
-  @override
-  Widget build(BuildContext context) {
-    ChatBloc chatBloc = context.read<ChatBloc>();
-    String? profileURL;
-    String? defaultImage;
-    chatList = chatBloc.state.chats;
-
-    ProfileModel profileData =
-        getIt<PreferenceRepositoryService>().profileData();
-    userName = profileData.username;
-
-    if (profileData.useAvatar != 'CUSTOM') {
-      var data = imagesList
-          .where((avatar) => (avatar["id"].contains(profileData.useAvatar)));
-
-      defaultImage = data.first['url'];
+  String? getProfileImageUrl(PublicProfile profile) {
+    if (profile.useAvatar != 'CUSTOM') {
+      return imagesList.firstWhere(
+        (avatar) => (avatar["id"].contains(profile.useAvatar)),
+        orElse: () => imagesList.first,
+      )['url'];
     } else {
-      profileURL = profileData!.avatarUrl ??
-          'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Franklin.png?alt=media&token=c1073f88-74c2-44c8-a287-fbe0caebf878';
+      return profile.avatarUrl;
+    }
+  }
+
+  Widget buildProfileImage(BuildContext context, String? avatar) {
+    if (avatar == null) {
+      return Image.asset(
+        "assets/images/Avatar.png",
+        scale: 3,
+      );
     }
 
+    return CircleAvatar(
+      backgroundColor: Colors.transparent,
+      backgroundImage: const AssetImage('assets/images/Avatar.png'),
+      foregroundImage: NetworkImage(avatar),
+      radius: 75,
+    );
+  }
 
+  @override
+  Widget build(BuildContext context) {
+    return StatefulWrapper(
+      onInit: (context) {
+        context.read<PublicProfileCubit>().loadProfile(
+              profileId,
+              prefillFromCurrentUser: useCurrentUser,
+            );
+      },
+      child: BlocConsumer<PublicProfileCubit, PublicProfileState>(
+        listener: (context, state) {
+          if (state.isLoadingWithoutPreviousData && !Loading.isVisible()) {
+            Loading.show(context);
+          } else if (!state.isLoading && Loading.isVisible()) {
+            Loading.hide(context);
+          }
+        },
+        builder: (context, state) {
+          return state.when(
+            error: (e, previousData) => Center(
+              child: Text(
+                "Error loading profile: $e",
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      color: Palette.current.primaryNeonPink,
+                    ),
+              ),
+            ),
+            loading: (previousData) => previousData == null
+                ? Container()
+                : buildBody(context, previousData),
+            loaded: (data) => buildBody(context, data),
+          );
+        },
+      ),
+    );
+  }
 
+  Row buildBody(BuildContext context, PublicProfile profile) {
     return Row(
       children: [
         Expanded(
@@ -79,28 +109,7 @@ class _FooterListItemPageState extends State<FooterListItemPage> {
             child: SizedBox(
               height: 40,
               width: 40,
-              child: widget.addList ?? false
-                  ? CircleAvatar(
-                      backgroundColor: Colors.transparent,
-                      backgroundImage:
-                          const AssetImage('assets/images/Avatar.png'),
-                      foregroundImage: profileURL != null
-                          ? NetworkImage('$profileURL')
-                          : NetworkImage('$defaultImage'),
-                      radius: 75,
-                    )
-                  : widget.avatar == null
-                      ? Image.asset(
-                          "assets/images/Avatar.png",
-                          scale: 3,
-                        )
-                      : CircleAvatar(
-                          backgroundColor: Colors.transparent,
-                          backgroundImage:
-                              const AssetImage('assets/images/Avatar.png'),
-                          foregroundImage: NetworkImage(widget.avatar!),
-                          radius: 75,
-                        ),
+              child: buildProfileImage(context, getProfileImageUrl(profile)),
             ),
           ),
         ),
@@ -108,77 +117,94 @@ class _FooterListItemPageState extends State<FooterListItemPage> {
           width: 10.0,
         ),
         Expanded(
-            flex: 8,
-            child: Column(
-              children: [
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                      widget.addList ?? false
-                          ? '@${profileData.username.toUpperCase()}'
-                          : (widget.username ?? "NULL"),
-                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontWeight: FontWeight.w300,
-                          letterSpacing: 0.05,
-                          fontSize: 14,
-                          color: Palette.current.white)),
+          flex: 8,
+          child: Wrap(
+            spacing: 12,
+            alignment: WrapAlignment.start,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              Text(
+                (profile.username ?? "NULL").toUpperCase(),
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      fontFamily: "KnockoutCustom",
+                      fontWeight: FontWeight.w300,
+                      letterSpacing: 0.43,
+                      fontSize: 24,
+                      color: Palette.current.primaryWhiteSmoke,
+                    ),
+              ),
+              if (profile.kycverified == true) ...[
+                Image.asset(
+                  "assets/icons/checkmark.png",
+                  width: 15,
+                  height: 15,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Palette.current.primaryWhiteSmoke,
+                  ),
+                  width: 4,
+                  height: 4,
                 ),
               ],
-            )),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ImageIcon(
+                    const AssetImage("assets/icons/thumbs-up.png"),
+                    size: 20,
+                    color: Palette.current.primaryNeonGreen,
+                  ),
+                  const SizedBox(width: 6),
+                  Text(
+                    (profile.listingsRating ?? 0).toString(),
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        fontFamily: "KnockoutCustom",
+                        fontSize: 16,
+                        color: Palette.current.primaryNeonGreen,
+                        fontWeight: FontWeight.w300,
+                        letterSpacing: 0.3),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
         const Spacer(),
-        (widget.showChatButton == true)
+        showChatButton
             ? CustomOutlineButton(
                 padding: 20,
                 iconPath: AppIcons.chat,
                 text: S.current.chatChat.toUpperCase(),
-                onTap: () => this.onTapChat(chatBloc),
+                onTap: () => this.onTapChat(context),
               )
             : const SizedBox.shrink(),
       ],
     );
   }
 
-ChatData isUserInAnyChannel(String userId, List<ChatData> chatList) {
-  String channelUrl = "";
-  late ChatData existingChatData;
-  for (var chatData in chatList) {
-    for (var member in chatData.channel.members) {
-     try {
-        String formattedData = chatData.channel.data!.replaceAll("'", "\"");
-        Map<String, dynamic> dataMap = jsonDecode(formattedData);      
-      for (var member in chatData.channel.members) {
-        if (member.nickname == userId && dataMap['productItemId'] == this.widget.productItemId) {
-          channelUrl = chatData.channel.channelUrl;
-          existingChatData = chatData;
-          return chatData;
-        }
-      }
-    } catch (e) {
-      print("Error parsing channel data: $e");
-    }
-    }
-  }  
-  return ChatData(messages: [], channel: GroupChannel(channelUrl: ""));
-}
-
-  Future<void> onTapChat(ChatBloc chatBloc) async {
+  Future<void> onTapChat(BuildContext context) async {
+    final chatBloc = context.read<ChatBloc>();
+    final chatList = chatBloc.state.chats;
     debugPrint(chatList.toString());
     late ChatData chatData;
+    final ProfileModel currentProfileData =
+        getIt<PreferenceRepositoryService>().profileData();
     try {
       Loading.show(context);
       await Future.delayed(const Duration(milliseconds: 500));
-      
-      ChatData existingChat = isUserInAnyChannel(userName, chatList);
 
-      if(existingChat.messages.isNotEmpty){
+      ChatData existingChat =
+          isUserInAnyChannel(currentProfileData.username, chatList);
+
+      if (existingChat.messages.isNotEmpty) {
         debugPrint("existe canal");
         chatData = existingChat;
-      }else{
-        chatData =
-          await chatBloc.startNewChatPeerToPeer(this.widget.productItemId);
-        //TODO fix product name ' 
+      } else {
+        chatData = await chatBloc.startNewChatPeerToPeer(this.productItemId);
+        //TODO fix product name '
       }
-      
 
       Loading.hide(context);
 
@@ -189,5 +215,29 @@ ChatData isUserInAnyChannel(String userId, List<ChatData> chatList) {
     } catch (e) {
       Loading.hide(context);
     }
+  }
+
+  ChatData isUserInAnyChannel(String userId, List<ChatData> chatList) {
+    String channelUrl = "";
+    late ChatData existingChatData;
+    for (var chatData in chatList) {
+      for (var member in chatData.channel.members) {
+        try {
+          String formattedData = chatData.channel.data!.replaceAll("'", "\"");
+          Map<String, dynamic> dataMap = jsonDecode(formattedData);
+          for (var member in chatData.channel.members) {
+            if (member.nickname == userId &&
+                dataMap['productItemId'] == this.productItemId) {
+              channelUrl = chatData.channel.channelUrl;
+              existingChatData = chatData;
+              return chatData;
+            }
+          }
+        } catch (e) {
+          print("Error parsing channel data: $e");
+        }
+      }
+    }
+    return ChatData(messages: [], channel: GroupChannel(channelUrl: ""));
   }
 }
