@@ -20,6 +20,7 @@ import '../../cubits/sold/get_sold_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 
+import '../../enums/chat_type.dart';
 import '../../models/explore/explore_payload_model.dart';
 import 'account_info.dart';
 import 'staff_picks_page.dart';
@@ -178,12 +179,14 @@ class _ExplorePageState extends State<ExplorePage> with ChannelEventHandler {
   @override
   void onChannelMemberCountChanged(List<GroupChannel> channels) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      if (this.chatUrl != channels[0].channelUrl) {
+      if(channels.first.customType != ChatType.listing.textValue){
+         if (this.chatUrl != channels[0].channelUrl) {
         this.chatUrl = channels[0].channelUrl;
         await context
             .read<ChatBloc>()
             .startNewChat(channels[0].channelUrl, true);
       }
+      }     
     });
     super.onChannelMemberCountChanged(channels);
   }
