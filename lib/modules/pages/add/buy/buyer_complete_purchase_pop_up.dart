@@ -8,6 +8,7 @@ import '../../../../generated/l10n.dart';
 import '../../../blocs/chat/chat_bloc.dart';
 import '../../../common/ui/cupertino_custom_picker.dart';
 import '../../../common/ui/custom_text_form_field.dart';
+import '../../../common/ui/loading.dart';
 import '../../../common/utils/utils.dart';
 import '../../../constants/constants.dart';
 import '../../../cubits/buy/buy_cubit.dart';
@@ -193,16 +194,18 @@ class _BuyerCompletePurchasePopUpState
 
     late ChatData chatData;
     try {
+      Loading.show(context);
       await Future.delayed(const Duration(milliseconds: 500));
 
       chatData = await chatBloc.startNewChat(channelUrl, false);
 
+      Loading.hide(context);
       await Navigator.of(context, rootNavigator: true).push(
         MaterialPageRoute(
             builder: (BuildContext context) => ChatPage(chatData: chatData)),
       );
       Navigator.of(context).pop();
-      getIt<BuyCubit>().getListDetailItem(widget.productItemId ?? '');
+      Navigator.of(context).pop();
     } catch (e) {
       print(e);
     }

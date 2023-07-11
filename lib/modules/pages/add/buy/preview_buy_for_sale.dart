@@ -715,7 +715,8 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                                               '',
                                                                           false);
 
-                                                              Navigator.push(
+                                                              await Navigator
+                                                                  .push(
                                                                 context,
                                                                 MaterialPageRoute(
                                                                     builder: (BuildContext
@@ -724,6 +725,10 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                                             chatData:
                                                                                 chadData)),
                                                               );
+
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
                                                             },
                                                             type:
                                                                 PrimaryButtonType
