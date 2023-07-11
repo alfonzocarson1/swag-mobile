@@ -159,7 +159,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
             itemId: widget.itemId, 
             saleHistory: const [],),
         historyList!.isNotEmpty
-            ? CustomDataTable(histories: historyList, screenHeight: MediaQuery.of(context).size.height)
+            ? CustomDataTable(histories: historyList)
             : Center(
                 child: Text(
                   S.of(context).empty_text,

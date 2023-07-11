@@ -22,10 +22,9 @@ extension on Priority {
 }
 
 class CustomDataTable extends StatefulWidget {
-  CustomDataTable({super.key, required this.histories, required this.screenHeight});
+  CustomDataTable({super.key, required this.histories});
 
   final List<SalesHistoryModel>? histories;
-  final double screenHeight;
 
   @override
   State<CustomDataTable> createState() => _CustomDataTableState();
