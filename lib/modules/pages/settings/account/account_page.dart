@@ -130,9 +130,9 @@ class _AccountPageState extends State<AccountPage> {
                             context,
                             'assets/icons/KYC_icon.png',
                             S.of(context).kyc_title,
-                            profileData.kycverified!
-                                ? profileData.username
-                                : '',
+                            profileData.kycverified ?? false
+                                ? '${profileData.addresses?.first.firstName ?? ''} ${profileData.addresses?.first.lastName ?? ''}'
+                                : ' ',
                             () {},
                             Text(
                                 profileData.kycverified!
@@ -146,7 +146,7 @@ class _AccountPageState extends State<AccountPage> {
                                         fontSize: 16,
                                         color: profileData.kycverified!
                                             ? Palette.current.primaryNeonGreen
-                                            : Palette.current.red)),
+                                            : Palette.current.primaryNeonPink)),
                             null),
                         SizedBox(
                           height: 0.2,
