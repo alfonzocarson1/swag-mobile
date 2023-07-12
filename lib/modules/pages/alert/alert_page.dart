@@ -188,7 +188,7 @@ class _AlertPageState extends State<AlertPage> {
                                         'assets/images/Avatar.png'),
                                     foregroundImage: NetworkImage(alertAvatar(
                                         item.payload!.avatar ?? '',
-                                        item.typeNotification)),
+                                        item.payload!.listingImageUrl ?? '')),
                                     radius: 75,
                                   ),
                                 ),

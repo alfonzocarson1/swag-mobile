@@ -747,10 +747,6 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                                                                             chatData:
                                                                                 chadData)),
                                                               );
-
-                                                              Navigator.of(
-                                                                      context)
-                                                                  .pop();
                                                             },
                                                             type:
                                                                 PrimaryButtonType
