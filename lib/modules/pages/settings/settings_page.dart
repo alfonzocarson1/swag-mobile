@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swagapp/modules/cubits/purchase_history/purchase_history_cubit.dart';
+import 'package:swagapp/modules/pages/profile/profile_detail_page.dart';
 import 'package:swagapp/modules/pages/settings/purchase_history/purchase_history_page.dart';
 
 import '../../../generated/l10n.dart';
@@ -92,7 +93,12 @@ class _SettingsPageState extends State<SettingsPage> {
                             'assets/icons/BlockUserWhite.png',
                             S.of(context).profile_title,
                             S.of(context).profile_sub_title,
-                            () {}),
+                            () {
+                              Navigator.of(
+                                context,
+                                rootNavigator: true,
+                              ).push(ProfileDetailPage.route());
+                            }),
                         SizedBox(
                           height: 0.2,
                           child: Container(
