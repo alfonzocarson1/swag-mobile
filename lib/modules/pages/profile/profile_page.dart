@@ -67,6 +67,8 @@ class _ProfilePageState extends State<ProfilePage>
                 return Padding(
                   padding: const EdgeInsets.only(right: 10),
                   child: IconButton(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
                     icon: Image.asset(
                       'assets/images/Setting.png',
                       scale: 2.5,
@@ -85,6 +87,8 @@ class _ProfilePageState extends State<ProfilePage>
         leading: Padding(
           padding: const EdgeInsets.only(left: 10),
           child: IconButton(
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
               icon: Image.asset(
                 'assets/images/Message.png',
                 scale: 2.5,

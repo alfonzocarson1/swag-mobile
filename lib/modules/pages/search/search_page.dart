@@ -191,6 +191,8 @@ class _SearchPageState extends State<SearchPage>
                   builder: (context, stateSharedPreferences) {
                 return stateSharedPreferences.map(
                   setPreference: (state) => IconButton(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
                     onPressed: () async {
                       await setIsForSale(!state.model.isForSale);
                       if (!mounted) return;
@@ -212,6 +214,8 @@ class _SearchPageState extends State<SearchPage>
                   builder: (context, stateSharedPreferences) {
                 return stateSharedPreferences.map(
                   setPreference: (state) => IconButton(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
                     onPressed: () {
                       Navigator.of(context, rootNavigator: true)
                           .push(FiltersBottomSheet.route(
