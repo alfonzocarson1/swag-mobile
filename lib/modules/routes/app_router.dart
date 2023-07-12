@@ -433,17 +433,6 @@ abstract class AppRouter {
         },
       ),
 
-      // GoRoute(
-      //   path: AppRoutes.shippingAddressDetail,
-      //   name: AppRouteNames.shippingAddressDetail,
-      //   builder: (BuildContext context, GoRouterState state) {
-
-      //     ShippingAddressDetailNavigatorPatameters parameters = state.extra as ShippingAddressDetailNavigatorPatameters;
-
-      //     return ShippingAddressDetailPage(addressIndex: parameters.address, );
-      //   },
-      // ),
-
       GoRoute(
         path: AppRoutes.addShippingAddress,
         name: AppRouteNames.addShippingAddress,
