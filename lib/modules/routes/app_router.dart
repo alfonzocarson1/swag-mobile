@@ -72,9 +72,13 @@ abstract class AppRouter {
           return BlocListener<AuthBloc, AuthState>(
             listener: (BuildContext context, AuthState state) {
 
-              if (state is Unauthenticated) _navigateAfterBuild(AppRoutes.landingPage, context);
-              else if(state is Authenticated) _navigateAfterBuild(AppRoutes.homePage, context);
-              else if(state is AuthenticationError)_navigateAfterBuild(AppRoutes.landingPage, context);        
+              if (state is Unauthenticated) {
+                _navigateAfterBuild(AppRoutes.landingPage, context);
+              } else if(state is Authenticated) {
+                _navigateAfterBuild(AppRoutes.homePage, context);
+              } else if(state is AuthenticationError) {
+                _navigateAfterBuild(AppRoutes.landingPage, context);
+              }        
             },
             child: const HomePage(),
           );    
@@ -89,9 +93,13 @@ abstract class AppRouter {
           return BlocListener<AuthBloc, AuthState>(
             listener: (BuildContext context, AuthState state) {
 
-              if (state is Unauthenticated) _navigateAfterBuild(AppRoutes.landingPage, context);
-              else if(state is Authenticated) _navigateAfterBuild(AppRoutes.homePage, context);
-              else if(state is AuthenticationError) _navigateAfterBuild(AppRoutes.landingPage, context); 
+              if (state is Unauthenticated) {
+                _navigateAfterBuild(AppRoutes.landingPage, context);
+              } else if(state is Authenticated) {
+                _navigateAfterBuild(AppRoutes.homePage, context);
+              } else if(state is AuthenticationError) {
+                _navigateAfterBuild(AppRoutes.landingPage, context);
+              } 
             },
             child: const SplashPage(),
           );
@@ -107,10 +115,15 @@ abstract class AppRouter {
             listener: (BuildContext context, AuthState state) {},
             builder: (BuildContext context, AuthState state) {
 
-              if (state is Unauthenticated) return const LandingPage();
-              else if(state is Authenticated) return const HomePage();              
-              else if(state is AuthenticationError) return const LandingPage();
-              else return const SplashPage();                          
+              if (state is Unauthenticated) {
+                return const LandingPage();
+              } else if(state is Authenticated) {
+                return const HomePage();
+              } else if(state is AuthenticationError) {
+                return const LandingPage();
+              } else {
+                return const SplashPage();
+              }                          
             },
           );
         },
@@ -125,10 +138,15 @@ abstract class AppRouter {
             listener: (BuildContext context, AuthState state) {},
             builder: (BuildContext context, AuthState state) {
 
-              if (state is Unauthenticated) return const LandingPage();
-              else if(state is Authenticated) return const HomePage();              
-              else if(state is AuthenticationError) return const LandingPage();
-              else return const SplashPage();                          
+              if (state is Unauthenticated) {
+                return const LandingPage();
+              } else if(state is Authenticated) {
+                return const HomePage();
+              } else if(state is AuthenticationError) {
+                return const LandingPage();
+              } else {
+                return const SplashPage();
+              }                          
             },
           );
         },
