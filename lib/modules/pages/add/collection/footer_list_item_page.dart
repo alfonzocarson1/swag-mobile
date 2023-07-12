@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:sendbird_sdk/core/channel/group/group_channel.dart';
 import 'package:sendbird_sdk/core/models/member.dart';
 import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
@@ -133,41 +134,7 @@ class FooterListItemPage extends StatelessWidget {
                       color: Palette.current.primaryWhiteSmoke,
                     ),
               ),
-              if (profile.kycverified == true) ...[
-                Image.asset(
-                  "assets/icons/checkmark.png",
-                  width: 15,
-                  height: 15,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Palette.current.primaryWhiteSmoke,
-                  ),
-                  width: 4,
-                  height: 4,
-                ),
-              ],
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  ImageIcon(
-                    const AssetImage("assets/icons/thumbs-up.png"),
-                    size: 20,
-                    color: Palette.current.primaryNeonGreen,
-                  ),
-                  const SizedBox(width: 6),
-                  Text(
-                    (profile.listingsRating ?? 0).toString(),
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        fontFamily: "KnockoutCustom",
-                        fontSize: 16,
-                        color: Palette.current.primaryNeonGreen,
-                        fontWeight: FontWeight.w300,
-                        letterSpacing: 0.3),
-                  ),
-                ],
-              )
+              ...buildVerifiedAndRatingWidgets(context, profile),
             ],
           ),
         ),
@@ -182,6 +149,54 @@ class FooterListItemPage extends StatelessWidget {
             : const SizedBox.shrink(),
       ],
     );
+  }
+
+  Iterable<Widget> buildVerifiedAndRatingWidgets(
+      BuildContext context, PublicProfile profile) {
+    final widgets = <Widget>[];
+
+    if (profile.kycverified == true) {
+      widgets.add(Image.asset(
+        "assets/icons/checkmark.png",
+        width: 15,
+        height: 15,
+      ));
+    }
+
+    if ((profile.listingsRating ?? 0) >= 1) {
+      final numberFormat = NumberFormat.decimalPattern();
+      final ratingString =
+          numberFormat.format(profile.listingsRating?.toInt() ?? 0);
+      widgets.add(Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ImageIcon(
+            const AssetImage("assets/icons/thumbs-up.png"),
+            size: 20,
+            color: Palette.current.primaryNeonGreen,
+          ),
+          const SizedBox(width: 6),
+          Text(
+            ratingString,
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                fontFamily: "KnockoutCustom",
+                fontSize: 16,
+                color: Palette.current.primaryNeonGreen,
+                fontWeight: FontWeight.w300,
+                letterSpacing: 0.3),
+          ),
+        ],
+      ));
+    }
+
+    return widgets.separatedBy(() => Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Palette.current.primaryWhiteSmoke,
+          ),
+          width: 4,
+          height: 4,
+        ));
   }
 
   Future<void> onTapChat(BuildContext context) async {
