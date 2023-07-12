@@ -771,22 +771,18 @@ class _BuyerCompletePurchasePopUpState
                                                   PeerToPeerPaymentsModel(
                                                 venmoUser: _defaultPaymentType
                                                         .contains('Venmo')
-                                                    ? paymentData
-                                                            .peerToPeerPayments!
+                                                    ? widget.payments
                                                             .venmoUser ??
                                                         ''
                                                     : null,
                                                 cashTag: _defaultPaymentType
                                                         .contains('CashApp')
-                                                    ? paymentData
-                                                            .peerToPeerPayments!
-                                                            .cashTag ??
+                                                    ? widget.payments.cashTag ??
                                                         ''
                                                     : null,
                                                 payPalEmail: _defaultPaymentType
                                                         .contains('PayPal')
-                                                    ? paymentData
-                                                            .peerToPeerPayments!
+                                                    ? widget.payments
                                                             .payPalEmail ??
                                                         ''
                                                     : null,

@@ -6,7 +6,8 @@ enum ChatMessageDataType {
   confirmShip('confirm_ship'),
   shipped('shipped'),
   saleCanceled('sale_canceled'),
-  message('message');
+  message('message'),
+  itemNotReceived('item_not_received');
 
   final String textValue;
 
