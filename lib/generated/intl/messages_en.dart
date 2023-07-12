@@ -219,6 +219,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete_photo": MessageLookupByLibrary.simpleMessage("DELETE PHOTO"),
         "delete_photo_descrption": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to delete this photo?"),
+        "delivered_not_yes": MessageLookupByLibrary.simpleMessage("NOT YET"),
+        "delivered_not_yet_alert": MessageLookupByLibrary.simpleMessage(
+            "Sorry you’re still waiting! We will \ncheck back with you in a few days."),
+        "delivered_sub_title": MessageLookupByLibrary.simpleMessage(
+            "It’s been X days since you purchased the Gold King Cover from @mrcarl. We want to know if you received your item yet?"),
+        "delivered_title":
+            MessageLookupByLibrary.simpleMessage("Did you get it?"),
+        "delivered_yes": MessageLookupByLibrary.simpleMessage("YES"),
         "detail": MessageLookupByLibrary.simpleMessage("DETAILS"),
         "didnt_get_email":
             MessageLookupByLibrary.simpleMessage("Didn’t get an email? "),

@@ -3811,6 +3811,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Did you get it?`
+  String get delivered_title {
+    return Intl.message(
+      'Did you get it?',
+      name: 'delivered_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `It’s been X days since you purchased the Gold King Cover from @mrcarl. We want to know if you received your item yet?`
+  String get delivered_sub_title {
+    return Intl.message(
+      'It’s been X days since you purchased the Gold King Cover from @mrcarl. We want to know if you received your item yet?',
+      name: 'delivered_sub_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `YES`
+  String get delivered_yes {
+    return Intl.message(
+      'YES',
+      name: 'delivered_yes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `NOT YET`
+  String get delivered_not_yes {
+    return Intl.message(
+      'NOT YET',
+      name: 'delivered_not_yes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sorry you’re still waiting! We will \ncheck back with you in a few days.`
+  String get delivered_not_yet_alert {
+    return Intl.message(
+      'Sorry you’re still waiting! We will \ncheck back with you in a few days.',
+      name: 'delivered_not_yet_alert',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

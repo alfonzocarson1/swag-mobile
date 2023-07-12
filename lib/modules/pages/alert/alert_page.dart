@@ -7,6 +7,7 @@ import '../../common/utils/palette.dart';
 import '../../common/utils/utils.dart';
 import '../../di/injector.dart';
 import '../../models/alerts/alert_response_model.dart';
+import 'delivered_popup.dart';
 
 class AlertPage extends StatefulWidget {
   static const name = '/Alert';
@@ -136,6 +137,12 @@ class _AlertPageState extends State<AlertPage> {
                               onTap: () {
                                 getIt<AlertCubit>()
                                     .readAlert(item.notificationAlertId ?? '');
+                                showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (BuildContext context) {
+                                      return const DeliveredPopUp();
+                                    });
                               },
                               leading: Theme(
                                 data: ThemeData(
