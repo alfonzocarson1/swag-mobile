@@ -12,6 +12,7 @@ import 'package:swagapp/modules/data/chat/ichat_service.dart';
 import 'package:swagapp/modules/services/local_notifications_service.dart';
 import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
 
+import '../../common/utils/sendbird_utils.dart';
 import '../../enums/chat_message_data_type.dart';
 import '../../models/profile/profile_model.dart';
 
@@ -109,22 +110,6 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     }
   }
 
-  cleandata(String rawData){
-final regExp = RegExp(r'\"(.*?)\"');
-final matches = regExp.allMatches(rawData).toList();
-
-for (var match in matches.reversed) {
-  final stringToReplace = match.group(0);
-  // Removing the enclosing double quotes first
-  var sanitizedString = stringToReplace?.substring(1, stringToReplace.length - 1);
-  // Now replace single quote with escaped version and wrap it again with single quotes
-  sanitizedString = sanitizedString?.replaceAll('\'', r'\''');
-  final finalString = '\'$sanitizedString\'';
-  rawData = rawData.replaceRange(match.start, match.end, finalString);
-}
-print(rawData);
-return rawData;
-  }
 
   Future<ChatData> startNewChatPeerToPeer(String value) async {
     try {
@@ -138,7 +123,8 @@ return rawData;
       });
 
       String dataString = newChannel.data ?? "";
-      newChannel.data = cleandata(dataString);   
+     // newChannel.data = SendBirdUtils.cleanPeer2PeerChatData(dataString);  
+      newChannel.data = dataString;    
       List<BaseMessage> messages = await this._getMessagesByChannel(newChannel);
   
 
