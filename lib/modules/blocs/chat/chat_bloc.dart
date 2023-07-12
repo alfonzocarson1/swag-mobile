@@ -12,6 +12,7 @@ import 'package:swagapp/modules/data/chat/ichat_service.dart';
 import 'package:swagapp/modules/services/local_notifications_service.dart';
 import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
 
+
 import '../../enums/chat_message_data_type.dart';
 import '../../models/profile/profile_model.dart';
 
@@ -109,6 +110,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     }
   }
 
+
   Future<ChatData> startNewChatPeerToPeer(String value) async {
     try {
       bool isChannelUrl = value.contains('sendbird');
@@ -120,7 +122,10 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         return chatData.channel.channelUrl == newChannel.channelUrl;
       });
 
+      String dataString = newChannel.data ?? "";
+      newChannel.data = dataString;    
       List<BaseMessage> messages = await this._getMessagesByChannel(newChannel);
+  
 
       if (chatExists) {
         return this.state.chats.firstWhere((ChatData chatData) {
