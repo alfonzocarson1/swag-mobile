@@ -25,6 +25,9 @@ ThemeData appTheme(Palette palette) {
     cardColor: palette.light4,
     dialogBackgroundColor: palette.light3,
     visualDensity: VisualDensity.adaptivePlatformDensity,
+    splashColor: Colors.transparent,
+    highlightColor: Colors.transparent,
+    hoverColor: Colors.transparent,
   );
 }
 

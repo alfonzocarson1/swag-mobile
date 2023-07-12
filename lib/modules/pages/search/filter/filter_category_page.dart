@@ -114,6 +114,14 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
                     padding: const EdgeInsets.only(right: 0.0),
                     child: IconButton(
                         onPressed: () {
+                          if (widget.updateFilters != null) {
+                            widget.updateFilters!();
+                          }
+                          performSearch(
+                            context: context,
+                            searchParam: widget.searchParam,
+                            tab: widget.tab,
+                          );
                           Navigator.pop(context);
                         },
                         icon: Icon(
@@ -180,14 +188,6 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
             title: S.of(context).see_results.toUpperCase(),
             onPressed: () {
               apiCall();
-              if (widget.updateFilters != null) {
-                widget.updateFilters!();
-              }
-              performSearch(
-                context: context,
-                searchParam: widget.searchParam,
-                tab: widget.tab,
-              );
               Navigator.pop(context);
               Navigator.pop(context);
             },
@@ -203,7 +203,7 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
       color: Palette.current.primaryEerieBlack,
       child: InkWell(
         onTap: () {},
-        splashColor: Palette.current.primaryNero,
+        splashColor: Colors.transparent,
         child: Column(
           children: [
             Container(
