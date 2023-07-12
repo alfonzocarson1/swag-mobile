@@ -533,3 +533,16 @@ T getRandomElement<T>(List<T> list) {
   final randomIndex = random.nextInt(list.length);
   return list[randomIndex];
 }
+
+extension Separated<E> on List<E> {
+  Iterable<E> separatedBy(E Function() builder) sync* {
+    int i = 0;
+    while (i < this.length) {
+      yield this[i];
+      if (i + 1 < this.length) {
+        yield builder();
+      }
+      i++;
+    }
+  }
+}
