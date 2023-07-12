@@ -68,6 +68,8 @@ class _PushedHeaderState extends State<PushedHeader>
                     children: [
                       widget.showBackButton
                           ? IconButton(
+                              splashColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
                               icon: Icon(
                                 Icons.arrow_back,
                                 color: Palette.current.primaryNeonGreen,

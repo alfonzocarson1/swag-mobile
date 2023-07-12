@@ -94,6 +94,8 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                 Padding(
                   padding: const EdgeInsets.only(right: 0.0),
                   child: IconButton(
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
                       onPressed: () {
                         Navigator.pop(context);
                       },
@@ -115,22 +117,24 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                         color: Palette.current.primaryWhiteSmoke),
                   ),
                 ),
-                TextButton(
-                  onPressed: () {
-                   initFilterAndSortsWithBloc(context,
-                       selectedProductNumber: widget.tab?.index ?? defaultInt);
+                InkWell(
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () {
+                    initFilterAndSortsWithBloc(context,
+                        selectedProductNumber: widget.tab?.index ?? defaultInt);
                   },
-                  style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all(Colors.transparent)),
-                  child: Text(
-                    S.of(context).clear_all,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall!
-                        .copyWith(color: Palette.current.primaryNeonGreen),
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 16),
+                    child: Text(
+                      S.of(context).clear_all,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall!
+                          .copyWith(color: Palette.current.primaryNeonGreen),
+                    ),
+                  )
                   ),
-                )
               ],
             ),
             const SizedBox(
@@ -198,6 +202,9 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                           S.of(context).for_sale.toUpperCase(),
                           () {},
                           buttons: IconButton(
+                            hoverColor: Colors.transparent,
+                            splashColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
                             onPressed: () {
 
                               setState(() {
