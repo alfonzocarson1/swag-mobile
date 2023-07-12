@@ -12,7 +12,7 @@ import 'package:swagapp/modules/data/chat/ichat_service.dart';
 import 'package:swagapp/modules/services/local_notifications_service.dart';
 import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
 
-import '../../common/utils/sendbird_utils.dart';
+
 import '../../enums/chat_message_data_type.dart';
 import '../../models/profile/profile_model.dart';
 
@@ -123,7 +123,6 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       });
 
       String dataString = newChannel.data ?? "";
-     // newChannel.data = SendBirdUtils.cleanPeer2PeerChatData(dataString);  
       newChannel.data = dataString;    
       List<BaseMessage> messages = await this._getMessagesByChannel(newChannel);
   
