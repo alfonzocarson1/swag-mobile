@@ -776,7 +776,7 @@ class _BuyerCompletePurchasePopUpState
                                                         ''
                                                     : null,
                                                 cashTag: _defaultPaymentType
-                                                        .contains('CashApp')
+                                                        .contains('Cashapp')
                                                     ? widget.payments.cashTag ??
                                                         ''
                                                     : null,
