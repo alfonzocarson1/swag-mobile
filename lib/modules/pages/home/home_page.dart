@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/di/injector.dart';
@@ -9,6 +10,7 @@ import '../../cubits/alert/alert_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../pages/alert/alert_page.dart';
 import '../../pages/profile/profile_page.dart';
+import '../../routes/app_routes.dart';
 import '../explore/explore_page.dart';
 import '../login/create_account_page.dart';
 
@@ -53,8 +55,7 @@ class _HomePage extends State<HomePage> {
   void onTapTapped(int index) {
     bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
     if ((index == 2 || index == 3) && !isLogged) {
-      Navigator.of(context, rootNavigator: true)
-          .push(CreateAccountPage.route());
+      context.push(AppRoutes.createAccount);
       getIt<PreferenceRepositoryService>().saveReturExploreIsNotLogged(true);
     } else if (index == 2 && isLogged) {
       getIt<AlertCubit>().getAlertList();

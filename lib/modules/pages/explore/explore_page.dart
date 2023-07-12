@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sendbird_sdk/sendbird_sdk.dart';
 import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
 
@@ -21,6 +22,7 @@ import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 
 import '../../models/explore/explore_payload_model.dart';
+import '../../routes/app_routes.dart';
 import 'account_info.dart';
 import 'staff_picks_page.dart';
 import 'unicorn_covers_page.dart';
@@ -46,6 +48,8 @@ class _ExplorePageState extends State<ExplorePage> with ChannelEventHandler {
   bool _isLogged = false;
   bool _hasJustSignedUp = false;
 
+  
+
   late final ScrollController? _scrollController =
       PrimaryScrollController.of(context);
 
@@ -53,6 +57,7 @@ class _ExplorePageState extends State<ExplorePage> with ChannelEventHandler {
 
   @override
   void initState() {
+
     this.initSendBirdApp();
     this.loadDynamicFilters();
     getIt<AlertCubit>().updateAletBadget();
@@ -135,7 +140,7 @@ class _ExplorePageState extends State<ExplorePage> with ChannelEventHandler {
         getIt<PreferenceRepositoryService>().loginAfterGuest();
 
     Future.delayed(Duration(milliseconds: loginAfterGuest ? 5000 : 7000), () {
-      Navigator.of(context, rootNavigator: true).push(AccountInfoPage.route());
+      context.push(AppRoutes.accountInfo);
     });
   }
 
