@@ -136,10 +136,12 @@ Future<void> performSearch({
       .add(SearchEvent.performSearch(payload, tab ?? SearchTab.all));
 }
 
-List<BuyForSaleListingModel> filteredCondition(List<BuyForSaleListingModel> model, FilterModel filters) {
-  if(filters.conditions != null) {
+List<BuyForSaleListingModel> filteredCondition(
+    List<BuyForSaleListingModel> model, FilterModel filters) {
+  if (filters.conditions != null) {
     List<BuyForSaleListingModel> filteredArr = model.where((model) {
-      return filters.conditions!.any((filterItem) => model.condition == filterItem);
+      return filters.conditions!
+          .any((filterItem) => model.condition == filterItem);
     }).toList();
 
     return filteredArr;
@@ -463,7 +465,9 @@ String alertDays(String dateAlert) {
 }
 
 String alertAvatar(String avatarType, String? listingImageUrl) {
-  if (avatarType != 'CUSTOM') {
+  if (listingImageUrl!.isNotEmpty) {
+    return listingImageUrl;
+  } else if (avatarType != 'CUSTOM') {
     var data =
         imagesList.where((avatar) => (avatar["id"].contains(avatarType)));
 
