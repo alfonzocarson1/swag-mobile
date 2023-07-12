@@ -137,12 +137,20 @@ class _AlertPageState extends State<AlertPage> {
                               onTap: () {
                                 getIt<AlertCubit>()
                                     .readAlert(item.notificationAlertId ?? '');
-                                showDialog(
-                                    context: context,
-                                    barrierDismissible: false,
-                                    builder: (BuildContext context) {
-                                      return const DeliveredPopUp();
-                                    });
+
+                                if (item.payload!.dateItemShipped != null) {
+                                  showDialog(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (BuildContext context) {
+                                        return DeliveredPopUp(
+                                            userName:
+                                                item.payload!.userName ?? '',
+                                            productItemId:
+                                                item.payload!.productItemId ??
+                                                    '');
+                                      });
+                                }
                               },
                               leading: Theme(
                                 data: ThemeData(

@@ -3822,13 +3822,13 @@ class S {
     );
   }
 
-  /// `It’s been X days since you purchased the Gold King Cover from @mrcarl. We want to know if you received your item yet?`
-  String get delivered_sub_title {
+  /// `It’s been X days since you purchased the Gold King Cover from @{userName}. We want to know if you received your item yet?`
+  String delivered_sub_title(Object userName) {
     return Intl.message(
-      'It’s been X days since you purchased the Gold King Cover from @mrcarl. We want to know if you received your item yet?',
+      'It’s been X days since you purchased the Gold King Cover from @$userName. We want to know if you received your item yet?',
       name: 'delivered_sub_title',
       desc: '',
-      args: [],
+      args: [userName],
     );
   }
 
@@ -3859,6 +3859,17 @@ class S {
       name: 'delivered_not_yet_alert',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `{buyerUserName} has still not received this item. {sellerUserName} can you please provide an update on shipping? Thank you.`
+  String notDeliveredItemChatMessage(
+      Object buyerUserName, Object sellerUserName) {
+    return Intl.message(
+      '$buyerUserName has still not received this item. $sellerUserName can you please provide an update on shipping? Thank you.',
+      name: 'notDeliveredItemChatMessage',
+      desc: '',
+      args: [buyerUserName, sellerUserName],
     );
   }
 }

@@ -151,6 +151,14 @@ class _ChatMessagesState extends State<ChatMessages> {
                 isMyMessage: isMyMessage,
               )
             : const SizedBox.shrink();
+      } else if (messageData.type ==
+          ChatMessageDataType.itemNotReceived.textValue) {
+        return (isMyUserBuyer)
+            ? const SizedBox.shrink()
+            : _Message(
+                message: message,
+                isMyMessage: isMyMessage,
+              );
       }
 
       return (isMyUserBuyer)

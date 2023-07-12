@@ -10,6 +10,7 @@ class CancelPurchaseRequestModel with _$CancelPurchaseRequestModel {
     final String? productItemId,
     final String? listingChatId,
     final String? cancelReason,
+    final bool? received,
   }) = _CancelPurchaseRequestModel;
 
   factory CancelPurchaseRequestModel.fromJson(Map<String, dynamic> json) =>

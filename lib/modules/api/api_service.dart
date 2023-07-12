@@ -62,6 +62,7 @@ class APIService {
         case RequestMethod.get:
           response =
               await client.get(Uri.parse(uri.toString()), headers: baseHeaders);
+          print(response.body);
           break;
         case RequestMethod.post:
           response = await client.post(
@@ -163,6 +164,7 @@ class APIService {
         case RequestMethod.get:
           response =
               await client.get(Uri.parse(uri.toString()), headers: baseHeaders);
+          print(response.body);
           break;
         case RequestMethod.post:
           response = await client.post(

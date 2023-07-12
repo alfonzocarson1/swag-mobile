@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
@@ -5,20 +7,51 @@ import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 
 import '../../../generated/l10n.dart';
+import '../../blocs/chat/chat_bloc.dart';
 import '../../blocs/collection_bloc/collection_bloc.dart';
 import '../../common/ui/loading.dart';
+import '../../cubits/buy/buy_cubit.dart';
+import '../../di/injector.dart';
+import '../../models/buy_for_sale_listing/cancel_purchase_request_model.dart';
+import '../../models/buy_for_sale_listing/cancel_purchase_response_model.dart';
 import '../../services/local_notifications_service.dart';
 
 class DeliveredPopUp extends StatefulWidget {
-  const DeliveredPopUp({super.key});
+  final String userName;
+  final String productItemId;
+  const DeliveredPopUp(
+      {super.key, required this.userName, required this.productItemId});
 
   @override
   State<DeliveredPopUp> createState() => _DeliveredPopUpState();
 }
 
 class _DeliveredPopUpState extends State<DeliveredPopUp> {
+  String? listingChatId;
+
   @override
   void initState() {
+    ChatBloc chatBloc = context.read<ChatBloc>();
+
+    for (int i = 0; i < chatBloc.state.chats.length; i++) {
+      if (chatBloc.state.chats[i].channel.data!.isNotEmpty) {
+        String jsonString = chatBloc.state.chats[i].channel.data!;
+
+        jsonString = jsonString.replaceAll("'", '"');
+
+        Map<String, dynamic> json = jsonDecode(jsonString);
+
+        String productItemId = json['productItemId'];
+
+        if (widget.productItemId == productItemId) {
+          setState(() {
+            listingChatId = chatBloc.state.chats[i].channel.channelUrl;
+          });
+
+          break;
+        }
+      }
+    }
     super.initState();
   }
 
@@ -60,7 +93,8 @@ class _DeliveredPopUpState extends State<DeliveredPopUp> {
                       ),
                       Align(
                         alignment: Alignment.centerLeft,
-                        child: Text(S.of(context).delivered_sub_title,
+                        child: Text(
+                            S.of(context).delivered_sub_title(widget.userName),
                             style:
                                 Theme.of(context).textTheme.bodySmall!.copyWith(
                                       fontSize: 15,
@@ -76,7 +110,15 @@ class _DeliveredPopUpState extends State<DeliveredPopUp> {
                   PrimaryButton(
                     title: S.of(context).delivered_yes,
                     onPressed: () {
-                      setState(() {});
+                      setState(() {
+                        getIt<BuyCubit>().confirmReceivedItem(
+                          CancelPurchaseRequestModel(
+                              productItemId: widget.productItemId,
+                              listingChatId: listingChatId ?? '',
+                              received: true),
+                        );
+                        Navigator.of(context).pop();
+                      });
                     },
                     type: PrimaryButtonType.green,
                   ),
@@ -87,6 +129,12 @@ class _DeliveredPopUpState extends State<DeliveredPopUp> {
                     title: S.of(context).delivered_not_yes,
                     onPressed: () {
                       setState(() {
+                        getIt<BuyCubit>().confirmReceivedItem(
+                          CancelPurchaseRequestModel(
+                              productItemId: widget.productItemId,
+                              listingChatId: listingChatId ?? '',
+                              received: false),
+                        );
                         LocalNotificationsService.showInAppAllert(
                             S.of(context).delivered_not_yet_alert);
                         Navigator.of(context).pop();
@@ -123,14 +171,9 @@ class _DeliveredPopUpState extends State<DeliveredPopUp> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<CollectionBloc, CollectionState>(
+    return BlocListener<BuyCubit, BuyStateCubit>(
         listener: (context, state) => state.maybeWhen(
               orElse: () {
-                return null;
-              },
-              loadedCollectionSuccess: (state) {
-                Navigator.of(context, rootNavigator: true).pop();
-                Loading.hide(context);
                 return null;
               },
               initial: () {
@@ -139,6 +182,10 @@ class _DeliveredPopUpState extends State<DeliveredPopUp> {
               error: (message) => {
                 Loading.hide(context),
                 // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
+              },
+              deliveredItemRequest:
+                  (CancelPurchaseResponseModel itemDeliveredResponse) {
+                print(itemDeliveredResponse);
               },
             ),
         child: Center(child: _getBody()));

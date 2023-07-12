@@ -14,6 +14,7 @@ _$_AlertPayloadModel _$$_AlertPayloadModelFromJson(Map<String, dynamic> json) =>
       productItemId: json['productItemId'] as String?,
       avatar: json['avatar'] as String?,
       listingImageUrl: json['listingImageUrl'] as String?,
+      dateItemShipped: json['dateItemShipped'] as int?,
     );
 
 Map<String, dynamic> _$$_AlertPayloadModelToJson(
@@ -32,5 +33,6 @@ Map<String, dynamic> _$$_AlertPayloadModelToJson(
   writeNotNull('productItemId', instance.productItemId);
   writeNotNull('avatar', instance.avatar);
   writeNotNull('listingImageUrl', instance.listingImageUrl);
+  writeNotNull('dateItemShipped', instance.dateItemShipped);
   return val;
 }
