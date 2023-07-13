@@ -3873,7 +3873,7 @@ class S {
     );
   }
 
-  /// `Profile detail username `
+  /// `Username`
   String get profile_username_title {
     return Intl.message(
       'Username',
@@ -3883,7 +3883,7 @@ class S {
     );
   }
 
-  /// `Profile detail password `
+  /// `Password`
   String get profile_password_title {
     return Intl.message(
       'Password',
@@ -3893,7 +3893,7 @@ class S {
     );
   }
 
-  /// `Profile detail name `
+  /// `Name`
   String get profile_name_title {
     return Intl.message(
       'Name',
@@ -3903,7 +3903,7 @@ class S {
     );
   }
 
-  /// `Profile detail email `
+  /// `Email`
   String get profile_email_title {
     return Intl.message(
       'Email',
@@ -3913,7 +3913,7 @@ class S {
     );
   }
 
-  /// `Profile detail mobile number `
+  /// `Mobile Number`
   String get profile_mobile_number_title {
     return Intl.message(
       'Mobile Number',
@@ -3923,7 +3923,7 @@ class S {
     );
   }
 
-  /// `Profile detail delete title `
+  /// `Delete Swag Account`
   String get profile_delete_title {
     return Intl.message(
       'Delete Swag Account',
@@ -3933,22 +3933,21 @@ class S {
     );
   }
 
-
-  /// `User sign out`
-  String get sign_out {
+  /// `Verified`
+  String get email_verified {
     return Intl.message(
-      'SIGN OUT',
-      name: 'sign_out',
+      'Verified',
+      name: 'email_verified',
       desc: '',
       args: [],
     );
   }
 
-  /// `User verified
-  String get email_verified {
+  /// `Sign Out`
+  String get sign_out {
     return Intl.message(
-      'Verified',
-      name: 'email_verified',
+      'Sign Out',
+      name: 'sign_out',
       desc: '',
       args: [],
     );
