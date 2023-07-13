@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:swagapp/modules/common/assets/icons.dart';
+import 'package:swagapp/modules/common/ui/grant_permission_popup.dart';
 import 'package:swagapp/modules/common/utils/currency_input_formatter.dart';
 
 import '../../../../generated/l10n.dart';
@@ -170,13 +170,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
       });
     });
   }
-
-    getPermissionStatus() async{
-         photosStatus = await Permission.photos.status;
-         cameraStatus = await Permission.camera.status;
-    }
-
-  @override
+   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -567,10 +561,12 @@ class _ListForSalePageState extends State<ListForSalePage> {
               return const PopUpImageGuideline();
             });
       }
-
       setState(() {});
     } catch (e) {
-      log("Image picker: $e");
+      showDialog(context: context, builder: (BuildContext context){
+        return const GrantPermissionPopup();
+      });
+      //log("Image picker: $e");
     }
   }
 
