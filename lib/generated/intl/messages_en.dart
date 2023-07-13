@@ -370,6 +370,37 @@ class MessageLookup extends MessageLookupByLibrary {
         "n_a": MessageLookupByLibrary.simpleMessage("N/A"),
         "new_password": MessageLookupByLibrary.simpleMessage("New Password"),
         "next_btn": MessageLookupByLibrary.simpleMessage("NEXT"),
+        "nft_connect_sheet_button":
+            MessageLookupByLibrary.simpleMessage("NEXT"),
+        "nft_connect_sheet_subtitle": MessageLookupByLibrary.simpleMessage(
+            "Please enter your OpenSea wallet address"),
+        "nft_connect_sheet_title":
+            MessageLookupByLibrary.simpleMessage("NFT WALLET CONNECT"),
+        "nft_dialog_connect_wallet":
+            MessageLookupByLibrary.simpleMessage("CONNECT WALLET"),
+        "nft_dialog_learn_more":
+            MessageLookupByLibrary.simpleMessage("LEARN MORE"),
+        "nft_dialog_point1": MessageLookupByLibrary.simpleMessage(
+            "Increase odds on hitting drops"),
+        "nft_dialog_point2":
+            MessageLookupByLibrary.simpleMessage("No signature required"),
+        "nft_dialog_point3": MessageLookupByLibrary.simpleMessage(
+            "Guaranteed hit on trait drops"),
+        "nft_dialog_subtitle": MessageLookupByLibrary.simpleMessage(
+            "Connect your wallet to get exclusive offers, access NTF exclusive drops and more..."),
+        "nft_dialog_title":
+            MessageLookupByLibrary.simpleMessage("OWN A SWAG NFT?"),
+        "nft_verify_sheet_button":
+            MessageLookupByLibrary.simpleMessage("VERIFY"),
+        "nft_verify_sheet_subtitle": MessageLookupByLibrary.simpleMessage(
+            "Copy and paste the following code to your OpenSea profile bio."),
+        "nft_verify_sheet_subtitle2": MessageLookupByLibrary.simpleMessage(
+            "Once the code has been added to your profile bio hit the button below"),
+        "nft_verify_sheet_title":
+            MessageLookupByLibrary.simpleMessage("VERIFY WALLET"),
+        "nft_verify_sheet_verification_failed":
+            MessageLookupByLibrary.simpleMessage(
+                "Wallet verification failed. Please try again."),
         "nft_wallet_add_wallet":
             MessageLookupByLibrary.simpleMessage("Add New Wallet"),
         "nft_wallet_connect": MessageLookupByLibrary.simpleMessage("Connect"),

@@ -2700,6 +2700,156 @@ class S {
     );
   }
 
+  /// `OWN A SWAG NFT?`
+  String get nft_dialog_title {
+    return Intl.message(
+      'OWN A SWAG NFT?',
+      name: 'nft_dialog_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Connect your wallet to get exclusive offers, access NTF exclusive drops and more...`
+  String get nft_dialog_subtitle {
+    return Intl.message(
+      'Connect your wallet to get exclusive offers, access NTF exclusive drops and more...',
+      name: 'nft_dialog_subtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Increase odds on hitting drops`
+  String get nft_dialog_point1 {
+    return Intl.message(
+      'Increase odds on hitting drops',
+      name: 'nft_dialog_point1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No signature required`
+  String get nft_dialog_point2 {
+    return Intl.message(
+      'No signature required',
+      name: 'nft_dialog_point2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Guaranteed hit on trait drops`
+  String get nft_dialog_point3 {
+    return Intl.message(
+      'Guaranteed hit on trait drops',
+      name: 'nft_dialog_point3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CONNECT WALLET`
+  String get nft_dialog_connect_wallet {
+    return Intl.message(
+      'CONNECT WALLET',
+      name: 'nft_dialog_connect_wallet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `LEARN MORE`
+  String get nft_dialog_learn_more {
+    return Intl.message(
+      'LEARN MORE',
+      name: 'nft_dialog_learn_more',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `NFT WALLET CONNECT`
+  String get nft_connect_sheet_title {
+    return Intl.message(
+      'NFT WALLET CONNECT',
+      name: 'nft_connect_sheet_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter your OpenSea wallet address`
+  String get nft_connect_sheet_subtitle {
+    return Intl.message(
+      'Please enter your OpenSea wallet address',
+      name: 'nft_connect_sheet_subtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `NEXT`
+  String get nft_connect_sheet_button {
+    return Intl.message(
+      'NEXT',
+      name: 'nft_connect_sheet_button',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `VERIFY WALLET`
+  String get nft_verify_sheet_title {
+    return Intl.message(
+      'VERIFY WALLET',
+      name: 'nft_verify_sheet_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Copy and paste the following code to your OpenSea profile bio.`
+  String get nft_verify_sheet_subtitle {
+    return Intl.message(
+      'Copy and paste the following code to your OpenSea profile bio.',
+      name: 'nft_verify_sheet_subtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Once the code has been added to your profile bio hit the button below`
+  String get nft_verify_sheet_subtitle2 {
+    return Intl.message(
+      'Once the code has been added to your profile bio hit the button below',
+      name: 'nft_verify_sheet_subtitle2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `VERIFY`
+  String get nft_verify_sheet_button {
+    return Intl.message(
+      'VERIFY',
+      name: 'nft_verify_sheet_button',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wallet verification failed. Please try again.`
+  String get nft_verify_sheet_verification_failed {
+    return Intl.message(
+      'Wallet verification failed. Please try again.',
+      name: 'nft_verify_sheet_verification_failed',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `@Venmo username`
   String get input_venmo {
     return Intl.message(
