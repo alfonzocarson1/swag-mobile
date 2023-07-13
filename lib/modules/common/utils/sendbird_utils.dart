@@ -7,7 +7,8 @@ abstract class SendBirdUtils {
 
     String stringData = json.encode(data.replaceAll("'", '"').replaceAll('None', 'null'));
     String formatedData = stringData.replaceAll('\\', "");
-    Map<String, dynamic> mapedData = json.decode(formatedData.substring(1, formatedData.length - 1));
+    Map<String, dynamic> mapedData =
+          json.decode(formatedData.substring(1, formatedData.length - 1));
     return mapedData;
   }
 }
