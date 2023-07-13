@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,6 +8,9 @@ import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
+import 'package:swagapp/modules/stripe/models/customer_input_model.dart';
+import 'package:swagapp/modules/stripe/models/payment_method_input_model.dart';
+import 'package:swagapp/modules/stripe/models/stripe_error_model.dart';
 
 import '../../blocs/update_profile_bloc/update_profile_bloc.dart';
 import '../../common/ui/cupertino_custom_date_picker.dart';
@@ -23,8 +28,11 @@ import '../../constants/constants.dart';
 import '../../data/secure_storage/storage_repository_service.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
+import '../../models/profile/profile_model.dart';
 import '../../models/update_profile/addresses_payload_model.dart';
 import '../../models/update_profile/update_profile_payload_model.dart';
+import '../../stripe/constants.dart';
+import '../../stripe/stripe_service.dart';
 
 class AccountInfoPage extends StatefulWidget {
   static const name = '/AccountInfo';
@@ -40,6 +48,8 @@ class AccountInfoPage extends StatefulWidget {
 }
 
 class _AccountInfoPageState extends State<AccountInfoPage> {
+  ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
+
   final FocusNode _firstNameNode = FocusNode();
   final _firstNameController = TextEditingController();
   Color _firstNameBorder = Palette.current.primaryWhiteSmoke;
@@ -75,11 +85,11 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   // New Data Starts From Here
   final FocusNode _cardNameNode = FocusNode();
   final _cardNameController = TextEditingController();
-  final Color _cardNameBorder = Palette.current.primaryWhiteSmoke;
+  Color _cardNameBorder = Palette.current.primaryWhiteSmoke;
 
   final FocusNode _cardNode = FocusNode();
   final _cardController = TextEditingController();
-  final Color _cardBorder = Palette.current.primaryWhiteSmoke;
+  Color _cardBorder = Palette.current.primaryWhiteSmoke;
 
   final FocusNode _cvcNode = FocusNode();
   final _cvcController = TextEditingController();
@@ -109,6 +119,10 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   final _billingZippController = TextEditingController();
   Color _billingZippBorder = Palette.current.primaryWhiteSmoke;
 
+  final FocusNode _billingStateNode = FocusNode();
+  final _billingStateController = TextEditingController();
+  Color _billingStateBorder = Palette.current.primaryWhiteSmoke;
+
   String? nameErrorText;
   String? lastNameErrorText;
   String? countryErrorText;
@@ -124,6 +138,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   String? billingFirstAddressError;
   String? billingCityErrorText;
   String? billingZippErrorText;
+  String? billingStateErrorText;
   String firstName = '';
   String lastName = '';
   String address1 = '';
@@ -142,7 +157,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   String _billingdefaultState = 'State';
   List<String> _states = ['State'];
   int value = 0;
-
+  StripeService stripeService = StripeService();
   bool updateAllFlow = false;
   late String userName;
   DateTime _defaultDateTime = DateTime.now();
@@ -174,6 +189,11 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
 
     _firstNameNode.addListener(() {
       setState(() {
+        if (_firstNameNode.hasFocus) {
+          setState(() {
+            nameErrorText = null;
+          });
+        }
         _firstNameBorder = _firstNameNode.hasFocus
             ? Palette.current.primaryNeonGreen
             : Palette.current.primaryWhiteSmoke;
@@ -181,6 +201,11 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
     });
 
     _lastNameNode.addListener(() {
+      if (_lastNameNode.hasFocus) {
+        setState(() {
+          lastNameErrorText = null;
+        });
+      }
       setState(() {
         _lastNameBorder = _lastNameNode.hasFocus
             ? Palette.current.primaryNeonGreen
@@ -189,6 +214,11 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
     });
 
     _countryNode.addListener(() {
+      if (_countryNode.hasFocus) {
+        setState(() {
+          countryErrorText = null;
+        });
+      }
       setState(() {
         _countryBorder = _countryNode.hasFocus
             ? Palette.current.primaryNeonGreen
@@ -197,6 +227,11 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
     });
 
     _firstAddressNode.addListener(() {
+      if (_firstAddressNode.hasFocus) {
+        setState(() {
+          addressErrorText = null;
+        });
+      }
       setState(() {
         _firstAddressBorder = _firstAddressNode.hasFocus
             ? Palette.current.primaryNeonGreen
@@ -213,6 +248,11 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
     });
 
     _cityNode.addListener(() {
+      if (_cityNode.hasFocus) {
+        setState(() {
+          cityErrorText = null;
+        });
+      }
       setState(() {
         _cityBorder = _cityNode.hasFocus
             ? Palette.current.primaryNeonGreen
@@ -221,6 +261,11 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
     });
 
     _stateNode.addListener(() {
+      if (_stateNode.hasFocus) {
+        setState(() {
+          stateErrorText = null;
+        });
+      }
       setState(() {
         _stateBorder = _stateNode.hasFocus
             ? Palette.current.primaryNeonGreen
@@ -229,12 +274,86 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
     });
 
     _zipNode.addListener(() {
+      if (_zipNode.hasFocus) {
+        setState(() {
+          zipErrorText = null;
+        });
+      }
       setState(() {
         _zipBorder = _zipNode.hasFocus
             ? Palette.current.primaryNeonGreen
             : Palette.current.primaryWhiteSmoke;
       });
     });
+
+    _cardNameNode.addListener(() {
+      if (_cardNameNode.hasFocus) {
+        setState(() {
+          cardNameErrorText = null;
+        });
+      }
+      setState(() {
+        _cardNameBorder = _cardNameNode.hasFocus
+            ? Palette.current.primaryNeonGreen
+            : Palette.current.primaryWhiteSmoke;
+      });
+    });
+
+    _cardNode.addListener(() {
+      if (_cardNode.hasFocus) {
+        setState(() {
+          cardErrorText = null;
+        });
+      }
+      setState(() {
+        _cardBorder = _cardNode.hasFocus
+            ? Palette.current.primaryNeonGreen
+            : Palette.current.primaryWhiteSmoke;
+      });
+    });
+
+    _cvcNode.addListener(() {
+      setState(() {
+        cvcErrorText = null;
+        _cvcBorder = _cvcNode.hasFocus
+            ? Palette.current.primaryNeonGreen
+            : Palette.current.primaryWhiteSmoke;
+      });
+    });
+
+    _billingFirstAddressNode.addListener(() {
+      setState(() {
+        if (_billingFirstAddressNode.hasFocus) {
+          billingFirstAddressError = null;
+        }
+        __billingFirstAddressBorder = _billingFirstAddressNode.hasFocus
+            ? Palette.current.primaryNeonGreen
+            : Palette.current.primaryWhiteSmoke;
+      });
+    });
+
+    _billingCityNode.addListener(() {
+      setState(() {
+        if (_billingCityNode.hasFocus) {
+          billingCityErrorText = null;
+        }
+        _billingCityBorder = _billingCityNode.hasFocus
+            ? Palette.current.primaryNeonGreen
+            : Palette.current.primaryWhiteSmoke;
+      });
+    });
+
+    _billingZipNode.addListener(() {
+      setState(() {
+        if (_billingZipNode.hasFocus) {
+          billingZippErrorText = null;
+        }
+        _billingZippBorder = _billingZipNode.hasFocus
+            ? Palette.current.primaryNeonGreen
+            : Palette.current.primaryWhiteSmoke;
+      });
+    });
+
     _getStates(_defaultCountry);
     getStoredInfo();
     if (firstName == '' || lastName == '') {
@@ -458,6 +577,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                   setState(() => value = index);
                                   _defaultCountry = countries[index];
                                   _countryController.text = _defaultCountry;
+                                  countryErrorText = null;
                                   if (_defaultCountry != defaultCountry)
                                     _defaultState = defaultState;
                                   Navigator.pop(context);
@@ -531,6 +651,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                                     stateCodes[index];
                                                 _stateController.text =
                                                     _defaultState;
+                                                stateErrorText = null;
                                                 Navigator.pop(context);
                                               })
                                           : CupertinoPickerView(
@@ -547,6 +668,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                                 _defaultState = defaultState;
                                                 _stateController.text =
                                                     defaultState;
+                                                stateErrorText = null;
                                                 Navigator.pop(context);
                                               }),
                                       Visibility(
@@ -645,10 +767,9 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                               focusNode: _cardNode,
                               controller: _cardController,
                               inputType: TextInputType.number,
-                              onChanged: (value) {
+                              onChanged: (v) {
                                 setState(() {
-                                  _cardController.text =
-                                      _formatCardNumber(value);
+                                  _cardController.text = _formatCardNumber(v);
                                   _cardController.selection =
                                       TextSelection.fromPosition(TextPosition(
                                           offset: _cardController.text.length));
@@ -669,23 +790,18 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                   flex: 2,
                                   child: Column(
                                     children: [
-                                
                                       CupertinoMonthYearPickerView(
                                         errorText: expirationErrorText,
                                         cupertinoDatePickervalue:
                                             _defaultDateTime,
                                         onDone: (DateTime newValue) {
                                           setState(() {
-                                              // datePickerErrorFlag = true;
-                                              _defaultDateTime = newValue;
-                                              // String str = _defaultDateTime.toString();
-                                              // String result = str.replaceAll(' ', 'T');
-                                              // // formattedDate = result;
-                                              Navigator.pop(context);
-                                            });
+                                            _defaultDateTime = newValue;
+                                            expirationErrorText = null;
+                                            Navigator.pop(context);
+                                          });
                                         },
                                       ),
-                                      
                                     ],
                                   ),
                                 ),
@@ -767,30 +883,43 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                             ),
                             PrimaryButton(
                               title: S.of(context).next_btn,
-                              onPressed: () {
+                              onPressed: () async {
                                 showErrors();
                                 if (areFieldsValid()) {
-                                  setState(() {
-                                    updateAllFlow = true;
-                                  });
-                                  context
-                                      .read<UpdateProfileBloc>()
-                                      .add(UpdateProfileEvent.update(
-                                          UpdateProfilePayloadModel(addresses: [
-                                        AddressesPayloadModel(
-                                            addressType: "SHIPPING",
-                                            firstName:
-                                                _firstNameController.text,
-                                            lastName: _lastNameController.text,
-                                            country: _defaultCountry,
-                                            address1:
-                                                _firstAddressController.text,
-                                            address2:
-                                                _secondAddressController.text,
-                                            city: _cityController.text,
-                                            state: _defaultState,
-                                            postalCode: _zipController.text),
-                                      ])));
+                                  debugPrint('All Fields Are Valid');
+                                  final response =
+                                      await createAndAttachPaymentMethod();
+
+                                  if (response != null &&
+                                      response.statusCode == 200) {
+                                    setState(() {
+                                      updateAllFlow = true;
+                                    });
+                                    context.read<UpdateProfileBloc>().add(
+                                            UpdateProfileEvent.update(
+                                                UpdateProfilePayloadModel(
+                                                    addresses: [
+                                              AddressesPayloadModel(
+                                                  addressType: "SHIPPING",
+                                                  firstName:
+                                                      _firstNameController.text,
+                                                  lastName:
+                                                      _lastNameController.text,
+                                                  country: _defaultCountry,
+                                                  address1:
+                                                      _firstAddressController
+                                                          .text,
+                                                  address2:
+                                                      _secondAddressController
+                                                          .text,
+                                                  city: _cityController.text,
+                                                  state: _defaultState,
+                                                  postalCode:
+                                                      _zipController.text),
+                                            ])));
+                                  }
+                                } else {
+                                  debugPrint('All Fields Are Not Valid');
                                 }
                               },
                               type: PrimaryButtonType.green,
@@ -838,9 +967,20 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
           ? null
           : S.of(context).required_field;
       cardErrorText =
-          _cardController.text.isNotEmpty ? null : S.of(context).required_field;
+          _cardController.text.isNotEmpty && _cardController.text.length == 19
+              ? null
+              : S.of(context).required_field;
       cvcErrorText =
           _cvcController.text.isNotEmpty ? null : S.of(context).required_field;
+      expirationErrorText = _defaultDateTime.isAfter(DateTime.now())
+          ? null
+          : S.of(context).invalid_date;
+      billingCountryErrorText = _billingDefaultCountry != 'Country'
+          ? null
+          : S.of(context).required_field;
+      billingStateErrorText = _billingDefaultCountry != 'Country'
+          ? null
+          : S.of(context).required_field;
     });
 
     if (!billingAndShippingAddressesAreSame) {
@@ -855,34 +995,13 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
         billingCityErrorText = _billingCityController.text.isNotEmpty
             ? null
             : S.of(context).required_field;
+        billingStateErrorText =
+            validateBillingState() ? null : S.of(context).required_field;
         billingZippErrorText = _billingZippController.text.isNotEmpty
             ? null
             : S.of(context).required_field;
       });
     }
-  }
-
-  String _formatCVV(String value) {
-    value = value.replaceAll(RegExp(r'\D'), '');
-    if (value.length > 3) {
-      value = value.substring(0, 3);
-    }
-    return value;
-  }
-
-  String _formatExpiryDate(String value) {
-    value = value.replaceAll(RegExp(r'\D+'), '');
-    if (value.length > 4) {
-      value = value.substring(0, 4);
-    }
-    String formattedValue = '';
-    if (value.isNotEmpty) {
-      formattedValue = value.substring(0, 2);
-      if (value.length > 2) {
-        formattedValue += '/${value.substring(2)}';
-      }
-    }
-    return formattedValue.trim();
   }
 
   String _formatCardNumber(String value) {
@@ -896,23 +1015,180 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   }
 
   bool validateState() {
-    if (_defaultCountry == 'United States' && _defaultState == 'State') {
+    if (_defaultCountry == 'United States' && _defaultState != 'State') {
+      return true;
+    } else if (_defaultCountry != 'United States' && _defaultState == 'State') {
+      return true;
+    } else {
       return false;
     }
-    if (_defaultCountry != 'United States' && _defaultState == 'State') {
+  }
+
+  bool validateBillingState() {
+    if (_billingDefaultCountry == 'United States' &&
+        _billingdefaultState != 'State') {
       return true;
+    } else if (_billingDefaultCountry != 'United States' &&
+        _billingdefaultState == 'State') {
+      return true;
+    } else {
+      return false;
     }
-    return false;
   }
 
   bool areFieldsValid() {
+    var billingOverAllCheck = false;
+
+    if (!billingAndShippingAddressesAreSame) {
+      billingOverAllCheck = _billingCityController.text.isNotEmpty &&
+          _billingFirstAddressController.text.isNotEmpty &&
+          _billingDefaultCountry != 'Country' &&
+          _billingZippController.text.isNotEmpty &&
+          validateBillingState();
+    } else {
+      billingOverAllCheck = true;
+    }
+
     return _firstNameController.text.isNotEmpty &&
         _lastNameController.text.isNotEmpty &&
         _defaultCountry != 'Country' &&
         _firstAddressController.text.isNotEmpty &&
         _cityController.text.isNotEmpty &&
         validateState() &&
-        _zipController.text.isNotEmpty;
+        _zipController.text.isNotEmpty &&
+        _cardController.text.isNotEmpty &&
+        _cardController.text.length == 19 &&
+        _cvcController.text.isNotEmpty &&
+        _defaultDateTime.isAfter(DateTime.now()) &&
+        billingOverAllCheck;
+  }
+
+  Future<http.Response?> createAndAttachPaymentMethod() async {
+    http.Response? response;
+    Loading.show(context);
+    CustomerInputModel customerInputModel = billingAndShippingAddressesAreSame
+        ? CustomerInputModel(
+            name: _firstNameController.text + _lastNameController.text,
+            email: profileData.email,
+            phone: profileData.phoneNumber,
+            city: _cityController.text,
+            // country: _defaultCountry,
+            country: 'US',
+            line1: _firstAddressController.text,
+            line2: _secondAddressController.text ?? ' ',
+            postalCode: _zipController.text,
+            state: _defaultState)
+        : CustomerInputModel(
+            name: _cardNameController.text,
+            email: profileData.email,
+            phone: profileData.phoneNumber,
+            city: _billingCityController.text,
+            // country: _billingdefaultState,
+            country: 'US',
+            line1: _billingFirstAddressController.text,
+            line2: _billingSecondAddressController.text ?? ' ',
+            postalCode: _billingZippController.text,
+            state: _billingdefaultState);
+
+    PaymentMethodInputModel paymentMethodInputModel =
+        billingAndShippingAddressesAreSame
+            ? PaymentMethodInputModel(
+                city: _cityController.text,
+                country: 'US',
+                line1: _firstAddressController.text,
+                line2: _secondAddressController.text,
+                postalCode: _zipController.text,
+                state: _defaultState,
+                email: profileData.email,
+                name:
+                    '${_firstNameController.text} ${_lastNameController.text}',
+                phone: profileData.phoneNumber,
+                expMonth: '${_defaultDateTime.month}',
+                expYear: '${_defaultDateTime.year}',
+                cvc: _cvcController.text,
+                cardNumber: _cardController.text)
+            : PaymentMethodInputModel(
+                city: _billingCityController.text,
+                // country: _billingDefaultCountry,
+                country: 'US',
+                line1: _billingFirstAddressController.text,
+                line2: _billingSecondAddressController.text,
+                postalCode: _billingZippController.text,
+                state: _billingdefaultState,
+                email: profileData.email,
+                name:
+                    '${_firstNameController.text} ${_lastNameController.text}',
+                phone: profileData.phoneNumber,
+                expMonth: '${_defaultDateTime.month}',
+                expYear: '${_defaultDateTime.year}',
+                cvc: _cvcController.text,
+                cardNumber: _cardController.text);
+
+    final customerCreationResponse =
+        await stripeService.createCustomer(customerInputModel);
+    if (customerCreationResponse.statusCode == 200) {
+      debugPrint('New Stripe User Created: ${customerCreationResponse.body}');
+      final customerId = jsonDecode(customerCreationResponse.body)['id'];
+      final paymentMethodCreationResponse =
+          await stripeService.createPaymentMethod(paymentMethodInputModel);
+      if (paymentMethodCreationResponse.statusCode != 200) {
+        StripeErrorModel stripeErrorModel = StripeErrorModel.fromJson(
+            jsonDecode(paymentMethodCreationResponse.body)['error']);
+        // Card Related Error handlings
+        handleCardErrors(stripeErrorModel);
+      } else if (paymentMethodCreationResponse.statusCode == 200) {
+        debugPrint(
+            'New Payment Method Created: ${paymentMethodCreationResponse.body}');
+        final paymentMethodId =
+            jsonDecode(paymentMethodCreationResponse.body)["id"];
+        final paymentMethodAttachmentResponse =
+            await stripeService.attachPaymentMethod(
+                customerId: customerId, paymentMethodId: paymentMethodId);
+        response = paymentMethodAttachmentResponse;
+        if (paymentMethodAttachmentResponse.statusCode == 200) {
+          debugPrint(
+              'Newly Created payment method attached to the newly created stripe customer: ${paymentMethodAttachmentResponse.body}');
+          // SAVING THE NEWLY CREATED PAYMENT METHOD ID FOR FUTURE USE
+          final paymentMethodId =
+              jsonDecode(paymentMethodAttachmentResponse.body)['id'];
+          getIt<StorageRepositoryService>().saveStripeToken(paymentMethodId);
+        } else {
+          debugPrint(
+              'Failed  to Attache newly created paymnet methode to the newly created stripe customer: ${paymentMethodAttachmentResponse.body}');
+        }
+      } else {
+        debugPrint(
+            'New Payment Method Creation Failed: ${paymentMethodCreationResponse.body}');
+      }
+    } else {
+      debugPrint(
+          'New Stripe Customer Creation Failed: ${customerCreationResponse.body}');
+    }
+    Loading.hide(context);
+    return response;
+  }
+
+  void handleCardErrors(StripeErrorModel stripeErrorModel) {
+    debugPrint(stripeErrorModel.code);
+    if (stripeErrorModel.code == INVALID_CARD) {
+      setState(() {
+        cardErrorText = 'Invalid Card Number';
+      });
+    } else if (stripeErrorModel.code == INVALID_EXPIRY_MONTH) {
+      setState(() {
+        expirationErrorText = 'Invalid Month';
+      });
+    } else if (stripeErrorModel.code == INVALID_EXPIRY_YEAR) {
+      setState(() {
+        expirationErrorText = 'Invalid Year';
+      });
+    } else if (stripeErrorModel.code == INVALID_CVC) {
+      setState(() {
+        cvcErrorText = 'Invalid CVC';
+      });
+    } else {
+      return;
+    }
   }
 
   void showPopUp({String? username}) {
@@ -1019,18 +1295,34 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
             flex: 2,
             child: Column(
               children: [
-                CupertinoPickerView(
-                    errorText: stateErrorText,
-                    cupertinoPickerItems: stateCodes,
-                    cupertinoPickervalue: _defaultState,
-                    onDone: (index) {
-                      setState(() => value = index);
-                      _defaultState = stateCodes[index];
-                      _stateController.text = _defaultState;
-                      Navigator.pop(context);
-                    }),
+                (_billingDefaultCountry == defaultCountry)
+                    ? CupertinoPickerView(
+                        key: const Key('State-Picker3'),
+                        errorText: billingStateErrorText,
+                        cupertinoPickerItems: stateCodes,
+                        cupertinoPickervalue: _billingdefaultState,
+                        onDone: (index) {
+                          // setState(() => value = index);
+                          _billingdefaultState = stateCodes[index];
+                          _billingStateController.text = _billingdefaultState;
+                          billingStateErrorText = null;
+                          Navigator.pop(context);
+                        })
+                    : CupertinoPickerView(
+                        key: const Key('State-Picker-4'),
+                        errorText: billingStateErrorText,
+                        looping: false,
+                        cupertinoPickerItems: const ["State"],
+                        cupertinoPickervalue: _billingdefaultState,
+                        onDone: (index) {
+                          // setState(() => value = index);
+                          _billingdefaultState = defaultState;
+                          _billingStateController.text = defaultState;
+                          billingStateErrorText = null;
+                          Navigator.pop(context);
+                        }),
                 Visibility(
-                    visible: stateErrorText != null,
+                    visible: billingStateErrorText != null,
                     child: Align(
                       alignment: Alignment.bottomLeft,
                       child: Text(S.of(context).required_field,
@@ -1041,7 +1333,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                   color: Palette.current.primaryNeonPink)),
                     )),
                 Visibility(
-                    visible: stateErrorText == null && zipErrorText != null,
+                    visible: billingStateErrorText == null &&
+                        billingZippErrorText != null,
                     child: const SizedBox(
                       height: 20,
                     ))

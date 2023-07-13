@@ -666,6 +666,17 @@ class S {
     );
   }
 
+    /// `Invalid DAte`
+  String get invalid_date {
+    return Intl.message(
+      'Invalid Date',
+      name: 'invalid_date',
+      desc: '',
+      args: [],
+    );
+  }
+
+
   /// `Search name, style, color etc`
   String get search_hint {
     return Intl.message(

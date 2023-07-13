@@ -23,4 +23,6 @@ abstract class StorageRepositoryInt {
   Future<String?> getState();
   Future<void> saveZip(String lastName);
   Future<String?> getZip();
+  Future<void> saveStripeToken(String stripeToken);
+  Future<String?> getStripeToken();
 }
