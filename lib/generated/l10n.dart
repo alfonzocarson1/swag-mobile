@@ -3822,10 +3822,10 @@ class S {
     );
   }
 
-  /// `It’s been X days since you purchased the Gold King Cover from @{userName}. We want to know if you received your item yet?`
+  /// `It’s been 7 days since you purchased the Gold King Cover from @{userName}. We want to know if you received your item yet?`
   String delivered_sub_title(Object userName) {
     return Intl.message(
-      'It’s been X days since you purchased the Gold King Cover from @$userName. We want to know if you received your item yet?',
+      'It’s been 7 days since you purchased the Gold King Cover from @$userName. We want to know if you received your item yet?',
       name: 'delivered_sub_title',
       desc: '',
       args: [userName],

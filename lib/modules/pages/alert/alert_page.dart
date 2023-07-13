@@ -148,7 +148,10 @@ class _AlertPageState extends State<AlertPage> {
                                                 item.payload!.userName ?? '',
                                             productItemId:
                                                 item.payload!.productItemId ??
-                                                    '');
+                                                    '',
+                                            purchaseHistoryId: item.payload!
+                                                    .purchaseHistoryId ??
+                                                '');
                                       });
                                 }
                               },

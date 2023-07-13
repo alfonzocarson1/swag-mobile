@@ -15,12 +15,17 @@ import '../../di/injector.dart';
 import '../../models/buy_for_sale_listing/cancel_purchase_request_model.dart';
 import '../../models/buy_for_sale_listing/cancel_purchase_response_model.dart';
 import '../../services/local_notifications_service.dart';
+import '../settings/purchase_history/purchase_history_details/purchase_history_details_page.dart';
 
 class DeliveredPopUp extends StatefulWidget {
   final String userName;
   final String productItemId;
+  final String purchaseHistoryId;
   const DeliveredPopUp(
-      {super.key, required this.userName, required this.productItemId});
+      {super.key,
+      required this.userName,
+      required this.productItemId,
+      required this.purchaseHistoryId});
 
   @override
   State<DeliveredPopUp> createState() => _DeliveredPopUpState();
@@ -118,6 +123,9 @@ class _DeliveredPopUpState extends State<DeliveredPopUp> {
                               received: true),
                         );
                         Navigator.of(context).pop();
+                        Navigator.of(context, rootNavigator: true).push(
+                            PurchaseHistoryDetailsPage.route(
+                                widget.purchaseHistoryId));
                       });
                     },
                     type: PrimaryButtonType.green,
@@ -137,7 +145,12 @@ class _DeliveredPopUpState extends State<DeliveredPopUp> {
                         );
                         LocalNotificationsService.showInAppAllert(
                             S.of(context).delivered_not_yet_alert);
+
                         Navigator.of(context).pop();
+
+                        Navigator.of(context, rootNavigator: true).push(
+                            PurchaseHistoryDetailsPage.route(
+                                widget.purchaseHistoryId));
                       });
                     },
                     type: PrimaryButtonType.pink,

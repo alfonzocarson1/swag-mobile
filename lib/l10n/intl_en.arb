@@ -396,7 +396,7 @@
     "swag_app_support_request": "Swag app support request",
 
     "delivered_title": "Did you get it?",
-    "delivered_sub_title": "It’s been X days since you purchased the Gold King Cover from @{userName}. We want to know if you received your item yet?",
+    "delivered_sub_title": "It’s been 7 days since you purchased the Gold King Cover from @{userName}. We want to know if you received your item yet?",
     "delivered_yes": "YES",
     "delivered_not_yes": "NOT YET",
     "delivered_not_yet_alert": "Sorry you’re still waiting! We will \ncheck back with you in a few days.",
