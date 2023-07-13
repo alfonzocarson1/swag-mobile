@@ -16,6 +16,7 @@ import '../../models/buy_for_sale_listing/cancel_purchase_request_model.dart';
 import '../../models/buy_for_sale_listing/cancel_purchase_response_model.dart';
 import '../../services/local_notifications_service.dart';
 import '../settings/purchase_history/purchase_history_details/purchase_history_details_page.dart';
+import 'rating_buyer.dart';
 
 class DeliveredPopUp extends StatefulWidget {
   final String userName;
@@ -116,16 +117,23 @@ class _DeliveredPopUpState extends State<DeliveredPopUp> {
                     title: S.of(context).delivered_yes,
                     onPressed: () {
                       setState(() {
-                        getIt<BuyCubit>().confirmReceivedItem(
-                          CancelPurchaseRequestModel(
-                              productItemId: widget.productItemId,
-                              listingChatId: listingChatId ?? '',
-                              received: true),
-                        );
+                        // getIt<BuyCubit>().confirmReceivedItem(
+                        //   CancelPurchaseRequestModel(
+                        //       productItemId: widget.productItemId,
+                        //       listingChatId: listingChatId ?? '',
+                        //       received: true),
+                        // );
                         Navigator.of(context).pop();
-                        Navigator.of(context, rootNavigator: true).push(
-                            PurchaseHistoryDetailsPage.route(
-                                widget.purchaseHistoryId));
+                        // Navigator.of(context, rootNavigator: true).push(
+                        //     PurchaseHistoryDetailsPage.route(
+                        //         widget.purchaseHistoryId));
+
+                        showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext context) {
+                              return RatingBuyer();
+                            });
                       });
                     },
                     type: PrimaryButtonType.green,
