@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:simple_rich_text/simple_rich_text.dart';
-
 import '../../../generated/l10n.dart';
 import '../utils/palette.dart';
 import 'clickable_text.dart';
@@ -10,12 +9,19 @@ class AddPhotoWidget extends StatefulWidget {
   AddPhotoWidget({super.key, this.addPhoto});
 
   Function()? addPhoto;
+  
 
   @override
   State<AddPhotoWidget> createState() => _AddPhotoWidgetState();
 }
 
 class _AddPhotoWidgetState extends State<AddPhotoWidget> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(

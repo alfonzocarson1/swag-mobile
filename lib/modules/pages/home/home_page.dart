@@ -55,7 +55,8 @@ class _HomePage extends State<HomePage> {
   void onTapTapped(int index) {
     bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
     if ((index == 2 || index == 3) && !isLogged) {
-      context.push(AppRoutes.createAccount);
+      Navigator.of(context, rootNavigator: true)
+          .push(CreateAccountPage.route());
       getIt<PreferenceRepositoryService>().saveReturExploreIsNotLogged(true);
     } else if (index == 2 && isLogged) {
       getIt<AlertCubit>().getAlertList();
