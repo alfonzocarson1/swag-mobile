@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:swagapp/modules/common/assets/icons.dart';
+import 'package:swagapp/modules/common/ui/grant_permission_popup.dart';
 import 'package:swagapp/modules/common/utils/currency_input_formatter.dart';
 
 import '../../../../generated/l10n.dart';
@@ -84,15 +85,10 @@ class _ListForSalePageState extends State<ListForSalePage> {
   String? paymentErrorText;
 
   List<String> _selectedPayments = [];
-
   String? _defaultCondition;
-
   bool isFirst = true;
-
   double _price = 0.0;
-
   bool validPrice = false;
-
   var _listDescriptionInitValue = '';
 
   var Conditions = [
@@ -101,6 +97,9 @@ class _ListForSalePageState extends State<ListForSalePage> {
     'Displayed',
     'Gamed',
   ];
+
+  late var photosStatus;
+  late var cameraStatus;
 
   @override
   void dispose() {
@@ -112,8 +111,9 @@ class _ListForSalePageState extends State<ListForSalePage> {
 
   @override
   void initState() {
-    super.initState();
 
+   super.initState();
+   //  getPermissionStatus();
     if (paymentData.peerToPeerPayments != null) {
       var peerToPeerPaymentsJson = paymentData.peerToPeerPayments!.toJson();
 
@@ -144,7 +144,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
       }
     }
 
-    _defaultCondition = widget.collectionData!.itemCondition;
+    _defaultCondition = widget.collectionData!.itemCondition.capitalize();
 
     _listPriceItemNode.addListener(() {
       setState(() {
@@ -170,8 +170,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
       });
     });
   }
-
-  @override
+   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -562,10 +561,12 @@ class _ListForSalePageState extends State<ListForSalePage> {
               return const PopUpImageGuideline();
             });
       }
-
       setState(() {});
     } catch (e) {
-      log("Image picker: $e");
+      showDialog(context: context, builder: (BuildContext context){
+        return const GrantPermissionPopup();
+      });
+      //log("Image picker: $e");
     }
   }
 
