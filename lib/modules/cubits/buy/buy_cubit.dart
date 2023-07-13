@@ -4,7 +4,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../common/utils/handling_errors.dart';
 import '../../data/buy_for_sale_listing/i_buy_for_sale_listing_service.dart';
 import '../../di/injector.dart';
-import '../../models/buy_for_sale_listing/buy_a_listing_accept_purchase_response_model.dart';
 import '../../models/buy_for_sale_listing/buy_a_listing_model.dart';
 import '../../models/buy_for_sale_listing/buy_a_listing_response_model.dart';
 import '../../models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
@@ -76,6 +75,18 @@ class BuyCubit extends Cubit<BuyStateCubit> {
       CancelPurchaseResponseModel responseBody =
           await buyService.updateListingStatus(model);
       emit(BuyStateCubit.loadedListUpdateStatus(responseBody));
+    } catch (error) {
+      emit(
+        ErrorBuyStateCubit(HandlingErrors().getError(error)),
+      );
+    }
+  }
+
+  Future<void> confirmReceivedItem(CancelPurchaseRequestModel model) async {
+    try {
+      CancelPurchaseResponseModel responseBody =
+          await buyService.confirmReceivedItem(model);
+      emit(BuyStateCubit.deliveredItemRequest(responseBody));
     } catch (error) {
       emit(
         ErrorBuyStateCubit(HandlingErrors().getError(error)),

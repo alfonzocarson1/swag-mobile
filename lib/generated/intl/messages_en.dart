@@ -53,15 +53,21 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m10(chatsNumber) => "${chatsNumber} Unread";
 
-  static String m11(number) => "${number} Items";
+  static String m11(userName) =>
+      "It’s been 7 days since you purchased the Gold King Cover from @${userName}. We want to know if you received your item yet?";
 
-  static String m12(orderNumber) => "Order number: ${orderNumber}";
+  static String m12(number) => "${number} Items";
 
-  static String m13(totalPrice) => "TOTAL=\$${totalPrice}";
+  static String m13(buyerUserName, sellerUserName) =>
+      "${buyerUserName} has still not received this item. ${sellerUserName} can you please provide an update on shipping? Thank you.";
 
-  static String m14(paymentMethod) => "Paid via ${paymentMethod}";
+  static String m14(orderNumber) => "Order number: ${orderNumber}";
 
-  static String m15(trackingNumber) => "Tracking number:\n${trackingNumber}";
+  static String m15(totalPrice) => "TOTAL=\$${totalPrice}";
+
+  static String m16(paymentMethod) => "Paid via ${paymentMethod}";
+
+  static String m17(trackingNumber) => "Tracking number:\n${trackingNumber}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -219,6 +225,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete_photo": MessageLookupByLibrary.simpleMessage("DELETE PHOTO"),
         "delete_photo_descrption": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to delete this photo?"),
+        "delivered_not_yes": MessageLookupByLibrary.simpleMessage("NOT YET"),
+        "delivered_not_yet_alert": MessageLookupByLibrary.simpleMessage(
+            "Sorry you’re still waiting! We will \ncheck back with you in a few days."),
+        "delivered_sub_title": m11,
+        "delivered_title":
+            MessageLookupByLibrary.simpleMessage("Did you get it?"),
+        "delivered_yes": MessageLookupByLibrary.simpleMessage("YES"),
         "detail": MessageLookupByLibrary.simpleMessage("DETAILS"),
         "didnt_get_email":
             MessageLookupByLibrary.simpleMessage("Didn’t get an email? "),
@@ -325,7 +338,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Username must be between 4-20 characters"),
         "ist_item_popup_btn":
             MessageLookupByLibrary.simpleMessage("CREATE LISTING"),
-        "items_purchased": m11,
+        "items_purchased": m12,
         "kyc_title": MessageLookupByLibrary.simpleMessage("KYC"),
         "last_name": MessageLookupByLibrary.simpleMessage("Last Name"),
         "last_sale": MessageLookupByLibrary.simpleMessage("LAST SALE"),
@@ -371,6 +384,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Password doesn’t match"),
         "no_purchase_history_yet":
             MessageLookupByLibrary.simpleMessage("No Purchase History yet"),
+        "notDeliveredItemChatMessage": m13,
         "notification_already_requested": MessageLookupByLibrary.simpleMessage(
             "You have already requested to be notified.  We will notify you when item is listed for sale."),
         "notify_availability": MessageLookupByLibrary.simpleMessage(
@@ -487,10 +501,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Item purchased from"),
         "purchase_item_shipped":
             MessageLookupByLibrary.simpleMessage("Item shipped"),
-        "purchase_order_number": m12,
+        "purchase_order_number": m14,
         "purchase_paid_status": MessageLookupByLibrary.simpleMessage("PAID"),
-        "purchase_payment_card_total": m13,
-        "purchase_payment_card_via": m14,
+        "purchase_payment_card_total": m15,
+        "purchase_payment_card_via": m16,
         "purchase_pending_shipping":
             MessageLookupByLibrary.simpleMessage("Pending shipping"),
         "purchase_price":
@@ -501,7 +515,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "purchase_title":
             MessageLookupByLibrary.simpleMessage("Purchase History"),
         "purchase_total_item": MessageLookupByLibrary.simpleMessage("TOTAL"),
-        "purchase_tracking_number": m15,
+        "purchase_tracking_number": m17,
         "putters": MessageLookupByLibrary.simpleMessage("Putters"),
         "rarity_score": MessageLookupByLibrary.simpleMessage("RARITY SCORE"),
         "razon_remove_btn": MessageLookupByLibrary.simpleMessage("SUBMIT"),

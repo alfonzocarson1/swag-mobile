@@ -51,6 +51,7 @@ enum Endpoint {
   paywallSubscription,
   purchaseHistoryDetails,
   completeSale,
+  confirmReceivedItem
 }
 
 class API {
@@ -123,5 +124,6 @@ class API {
     Endpoint.purchaseHistoryDetails:
         'api/v1/profile/settings/purchaseHistory/purchaseHistoryDetail/%s',
     Endpoint.completeSale: 'api/v1/buyFlow/acceptPurchaseRequest',
+    Endpoint.confirmReceivedItem: 'api/v1/buyFlow/confirmReceivedItem',
   };
 }

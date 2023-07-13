@@ -26,6 +26,8 @@ mixin _$AlertPayloadModel {
   String? get productItemId => throw _privateConstructorUsedError;
   String? get avatar => throw _privateConstructorUsedError;
   String? get listingImageUrl => throw _privateConstructorUsedError;
+  int? get dateItemShipped => throw _privateConstructorUsedError;
+  String? get purchaseHistoryId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,7 +47,9 @@ abstract class $AlertPayloadModelCopyWith<$Res> {
       String? itemName,
       String? productItemId,
       String? avatar,
-      String? listingImageUrl});
+      String? listingImageUrl,
+      int? dateItemShipped,
+      String? purchaseHistoryId});
 }
 
 /// @nodoc
@@ -67,6 +71,8 @@ class _$AlertPayloadModelCopyWithImpl<$Res, $Val extends AlertPayloadModel>
     Object? productItemId = freezed,
     Object? avatar = freezed,
     Object? listingImageUrl = freezed,
+    Object? dateItemShipped = freezed,
+    Object? purchaseHistoryId = freezed,
   }) {
     return _then(_value.copyWith(
       accountId: freezed == accountId
@@ -93,6 +99,14 @@ class _$AlertPayloadModelCopyWithImpl<$Res, $Val extends AlertPayloadModel>
           ? _value.listingImageUrl
           : listingImageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      dateItemShipped: freezed == dateItemShipped
+          ? _value.dateItemShipped
+          : dateItemShipped // ignore: cast_nullable_to_non_nullable
+              as int?,
+      purchaseHistoryId: freezed == purchaseHistoryId
+          ? _value.purchaseHistoryId
+          : purchaseHistoryId // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -111,7 +125,9 @@ abstract class _$$_AlertPayloadModelCopyWith<$Res>
       String? itemName,
       String? productItemId,
       String? avatar,
-      String? listingImageUrl});
+      String? listingImageUrl,
+      int? dateItemShipped,
+      String? purchaseHistoryId});
 }
 
 /// @nodoc
@@ -131,6 +147,8 @@ class __$$_AlertPayloadModelCopyWithImpl<$Res>
     Object? productItemId = freezed,
     Object? avatar = freezed,
     Object? listingImageUrl = freezed,
+    Object? dateItemShipped = freezed,
+    Object? purchaseHistoryId = freezed,
   }) {
     return _then(_$_AlertPayloadModel(
       accountId: freezed == accountId
@@ -157,6 +175,14 @@ class __$$_AlertPayloadModelCopyWithImpl<$Res>
           ? _value.listingImageUrl
           : listingImageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      dateItemShipped: freezed == dateItemShipped
+          ? _value.dateItemShipped
+          : dateItemShipped // ignore: cast_nullable_to_non_nullable
+              as int?,
+      purchaseHistoryId: freezed == purchaseHistoryId
+          ? _value.purchaseHistoryId
+          : purchaseHistoryId // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -171,7 +197,9 @@ class _$_AlertPayloadModel extends _AlertPayloadModel {
       this.itemName,
       this.productItemId,
       this.avatar,
-      this.listingImageUrl})
+      this.listingImageUrl,
+      this.dateItemShipped,
+      this.purchaseHistoryId})
       : super._();
 
   factory _$_AlertPayloadModel.fromJson(Map<String, dynamic> json) =>
@@ -189,10 +217,14 @@ class _$_AlertPayloadModel extends _AlertPayloadModel {
   final String? avatar;
   @override
   final String? listingImageUrl;
+  @override
+  final int? dateItemShipped;
+  @override
+  final String? purchaseHistoryId;
 
   @override
   String toString() {
-    return 'AlertPayloadModel(accountId: $accountId, userName: $userName, itemName: $itemName, productItemId: $productItemId, avatar: $avatar, listingImageUrl: $listingImageUrl)';
+    return 'AlertPayloadModel(accountId: $accountId, userName: $userName, itemName: $itemName, productItemId: $productItemId, avatar: $avatar, listingImageUrl: $listingImageUrl, dateItemShipped: $dateItemShipped, purchaseHistoryId: $purchaseHistoryId)';
   }
 
   @override
@@ -210,13 +242,25 @@ class _$_AlertPayloadModel extends _AlertPayloadModel {
                 other.productItemId == productItemId) &&
             (identical(other.avatar, avatar) || other.avatar == avatar) &&
             (identical(other.listingImageUrl, listingImageUrl) ||
-                other.listingImageUrl == listingImageUrl));
+                other.listingImageUrl == listingImageUrl) &&
+            (identical(other.dateItemShipped, dateItemShipped) ||
+                other.dateItemShipped == dateItemShipped) &&
+            (identical(other.purchaseHistoryId, purchaseHistoryId) ||
+                other.purchaseHistoryId == purchaseHistoryId));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, accountId, userName, itemName,
-      productItemId, avatar, listingImageUrl);
+  int get hashCode => Object.hash(
+      runtimeType,
+      accountId,
+      userName,
+      itemName,
+      productItemId,
+      avatar,
+      listingImageUrl,
+      dateItemShipped,
+      purchaseHistoryId);
 
   @JsonKey(ignore: true)
   @override
@@ -240,7 +284,9 @@ abstract class _AlertPayloadModel extends AlertPayloadModel {
       final String? itemName,
       final String? productItemId,
       final String? avatar,
-      final String? listingImageUrl}) = _$_AlertPayloadModel;
+      final String? listingImageUrl,
+      final int? dateItemShipped,
+      final String? purchaseHistoryId}) = _$_AlertPayloadModel;
   const _AlertPayloadModel._() : super._();
 
   factory _AlertPayloadModel.fromJson(Map<String, dynamic> json) =
@@ -258,6 +304,10 @@ abstract class _AlertPayloadModel extends AlertPayloadModel {
   String? get avatar;
   @override
   String? get listingImageUrl;
+  @override
+  int? get dateItemShipped;
+  @override
+  String? get purchaseHistoryId;
   @override
   @JsonKey(ignore: true)
   _$$_AlertPayloadModelCopyWith<_$_AlertPayloadModel> get copyWith =>

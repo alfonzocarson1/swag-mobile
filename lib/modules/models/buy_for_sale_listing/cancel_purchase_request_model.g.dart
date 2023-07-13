@@ -12,6 +12,7 @@ _$_CancelPurchaseRequestModel _$$_CancelPurchaseRequestModelFromJson(
       productItemId: json['productItemId'] as String?,
       listingChatId: json['listingChatId'] as String?,
       cancelReason: json['cancelReason'] as String?,
+      received: json['received'] as bool?,
     );
 
 Map<String, dynamic> _$$_CancelPurchaseRequestModelToJson(
@@ -27,5 +28,6 @@ Map<String, dynamic> _$$_CancelPurchaseRequestModelToJson(
   writeNotNull('productItemId', instance.productItemId);
   writeNotNull('listingChatId', instance.listingChatId);
   writeNotNull('cancelReason', instance.cancelReason);
+  writeNotNull('received', instance.received);
   return val;
 }

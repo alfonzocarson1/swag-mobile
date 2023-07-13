@@ -364,7 +364,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     Map<String, dynamic> json = jsonDecode(jsonStringWithQuotes);
 
     String alertMessage =
-        'Pending sale ${json['payload']['listingName']} \nNew message from @Swag';
+        'Pending sale \n${json['payload']['listingName']} \nNew message from @Swag';
     LocalNotificationsService.showInAppAllert(alertMessage);
   }
 
