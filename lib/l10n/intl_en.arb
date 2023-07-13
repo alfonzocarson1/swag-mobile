@@ -273,6 +273,23 @@
     "nft_wallet_connect": "Connect",
     "nft_wallet_wallet": "Wallet",
     "nft_wallet_add_wallet": "Add New Wallet",
+    "nft_dialog_title": "OWN A SWAG NFT?",
+    "nft_dialog_subtitle": "Connect your wallet to get exclusive offers, access NTF exclusive drops and more...",
+    "nft_dialog_point1": "Increase odds on hitting drops",
+    "nft_dialog_point2": "No signature required",
+    "nft_dialog_point3": "Guaranteed hit on trait drops",
+    "nft_dialog_connect_wallet": "CONNECT WALLET",
+    "nft_dialog_learn_more": "LEARN MORE",
+    "nft_connect_sheet_title": "NFT WALLET CONNECT",
+    "nft_connect_sheet_subtitle": "Please enter your OpenSea wallet address",
+    "nft_connect_sheet_button": "NEXT",
+    "nft_verify_sheet_title": "VERIFY WALLET",
+    "nft_verify_sheet_subtitle": "Copy and paste the following code to your OpenSea profile bio.",
+    "nft_verify_sheet_subtitle2": "Once the code has been added to your profile bio hit the button below",
+    "nft_verify_sheet_button": "VERIFY",
+    "nft_verify_sheet_verification_failed": "Wallet verification failed. Please try again.",
+
+    
 
     "input_venmo": "@Venmo username",
     "input_cash_app": "$cashtag",
