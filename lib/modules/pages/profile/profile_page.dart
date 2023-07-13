@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,6 +12,7 @@ import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
 import '../../common/utils/utils.dart';
 import '../../cubits/profile/get_profile_cubit.dart';
+import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/profile/profile_model.dart';
 import '../settings/settings_page.dart';
@@ -35,12 +38,17 @@ class _ProfilePageState extends State<ProfilePage>
   late TabController _tabController;
   double rating = 3.5;
   int _currentIndex = 0;
+  late double blurLevel;
+  late ProfileModel profileData;
 
   @override
   void initState() {
+  
     _tabController = TabController(length: 4, vsync: this);
     _tabController.addListener(_handleTabSelection);
-    getIt<ProfileCubit>().loadProfileResults();
+    //getIt<ProfileCubit>().loadProfileResults();
+    verifySubscriptionStatus();
+   
 
     super.initState();
   }
@@ -51,8 +59,38 @@ class _ProfilePageState extends State<ProfilePage>
     _tabController.dispose();
   }
 
+  verifySubscriptionStatus(){
+    getIt<ProfileCubit>().loadProfileResults();
+    setState(() {
+      ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
+      if(profileData.hasActiveSubscription == true){
+      blurLevel= 0;
+    }
+    else{
+      blurLevel = 8.0;
+    }
+    });  
+       
+  }
+
+
+  removePaywall(){
+    setState(() {
+      
+    });
+  }
+
+  paywallAction(){
+    ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
+    if(profileData.hasActiveSubscription != true){
+      showPaywallSplashScreen(context: context, hasUsedFreeTrial: profileData.hasUsedFreeTrial ?? false, removePaywall: removePaywall);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    verifySubscriptionStatus();
+
     return Scaffold(
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle(
@@ -122,29 +160,40 @@ class _ProfilePageState extends State<ProfilePage>
                               fontWeight: FontWeight.w300,
                               color: Palette.current.light4)),
                 ),
-                BlocBuilder<ProfileCubit, ProfileCubitState>(
-                    builder: (context, state) {
-                  return state.maybeWhen(
-                    orElse: () => Container(),
-                    loadedProfileData: (ProfileModel profileBuildData) {
-                      return Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: Text(
-                            decimalDigitsLastSalePrice(
-                                profileBuildData.collectionValue.toString()),
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayMedium!
-                                .copyWith(
-                                    fontFamily: "KnockoutCustom",
-                                    fontSize: 45,
-                                    letterSpacing: 1.0,
-                                    fontWeight: FontWeight.w300,
-                                    color: Palette.current.light4)),
-                      );
-                    },
-                  );
-                }),
+                Stack(
+                  children: [                    
+                    BlocBuilder<ProfileCubit, ProfileCubitState>(
+                      builder: (context, state) {
+                    return state.maybeWhen(
+                      orElse: () => Container(),
+                      loadedProfileData: (ProfileModel profileBuildData) {
+                        return Padding(
+                          padding: const EdgeInsets.only(left: 10.0),
+                          child: GestureDetector(
+                            onTap: (){
+                              paywallAction();
+                            },
+                            child: ImageFiltered(
+                              imageFilter:ImageFilter.blur(sigmaX: blurLevel, sigmaY: blurLevel),
+                              child: Text(
+                                  decimalDigitsLastSalePrice(
+                                      profileBuildData.collectionValue.toString()),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayMedium!
+                                      .copyWith(
+                                          fontFamily: "KnockoutCustom",
+                                          fontSize: 45,
+                                          letterSpacing: 1.0,
+                                          fontWeight: FontWeight.w300,
+                                          color: Palette.current.light4)),
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  }),
+              ]),
               ],
             ),
             const SizedBox(
