@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:swagapp/modules/common/assets/icons.dart';
 import 'package:swagapp/modules/common/utils/currency_input_formatter.dart';
 
@@ -84,15 +85,10 @@ class _ListForSalePageState extends State<ListForSalePage> {
   String? paymentErrorText;
 
   List<String> _selectedPayments = [];
-
   String? _defaultCondition;
-
   bool isFirst = true;
-
   double _price = 0.0;
-
   bool validPrice = false;
-
   var _listDescriptionInitValue = '';
 
   var Conditions = [
@@ -101,6 +97,9 @@ class _ListForSalePageState extends State<ListForSalePage> {
     'Displayed',
     'Gamed',
   ];
+
+  late var photosStatus;
+  late var cameraStatus;
 
   @override
   void dispose() {
@@ -112,8 +111,9 @@ class _ListForSalePageState extends State<ListForSalePage> {
 
   @override
   void initState() {
-    super.initState();
 
+   super.initState();
+   //  getPermissionStatus();
     if (paymentData.peerToPeerPayments != null) {
       var peerToPeerPaymentsJson = paymentData.peerToPeerPayments!.toJson();
 
@@ -170,6 +170,11 @@ class _ListForSalePageState extends State<ListForSalePage> {
       });
     });
   }
+
+    getPermissionStatus() async{
+         photosStatus = await Permission.photos.status;
+         cameraStatus = await Permission.camera.status;
+    }
 
   @override
   Widget build(BuildContext context) {
