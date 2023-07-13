@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:swagapp/modules/common/utils/stateful_wrapper.dart';
+import 'package:swagapp/modules/pages/settings/nft_wallet/nft_connect_sheet.dart';
+import 'package:swagapp/modules/pages/settings/nft_wallet/nft_splash_dialog.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../common/ui/pushed_header.dart';
@@ -16,31 +19,35 @@ class NftWalletPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PushedHeader(
-        showBackButton: true,
-        title: Align(
-          alignment: Alignment.centerRight,
-          child: Text(
-            S.of(context).nft_wallet_page_title,
-            style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                  letterSpacing: 1,
-                  fontWeight: FontWeight.w300,
-                  fontFamily: "KnockoutCustom",
-                  fontSize: 30,
-                  color: Palette.current.primaryNeonGreen,
-                ),
+    return StatefulWrapper(
+      onInit: (context) => WidgetsBinding.instance.addPostFrameCallback(
+          (_) => Navigator.of(context).push(NftSplashDialog.route(context))),
+      child: Scaffold(
+        appBar: PushedHeader(
+          showBackButton: true,
+          title: Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              S.of(context).nft_wallet_page_title,
+              style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                    letterSpacing: 1,
+                    fontWeight: FontWeight.w300,
+                    fontFamily: "KnockoutCustom",
+                    fontSize: 30,
+                    color: Palette.current.primaryNeonGreen,
+                  ),
+            ),
           ),
+          height: 70,
         ),
-        height: 70,
-      ),
-      backgroundColor: Palette.current.primaryNero,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            _NftWalletItem(),
-            _AddNewWallet(),
-          ],
+        backgroundColor: Palette.current.primaryNero,
+        body: const SingleChildScrollView(
+          child: Column(
+            children: [
+              _NftWalletItem(),
+              _AddNewWallet(),
+            ],
+          ),
         ),
       ),
     );
@@ -121,7 +128,9 @@ class _AddNewWallet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).push(NftConnectWalletBottomSheet.route(context));
+      },
       splashColor: Palette.current.primaryNero,
       child: Column(
         children: [
