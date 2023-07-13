@@ -248,6 +248,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "email_taken": MessageLookupByLibrary.simpleMessage(
             "An account is already associated with this email"),
+        "email_verified": MessageLookupByLibrary.simpleMessage("Verified"),
         "empty_collection": MessageLookupByLibrary.simpleMessage(
             "TAP THE “+” ICON ON ANY ITEM TO ADD TO YOUR COLLECTION"),
         "empty_favorite": MessageLookupByLibrary.simpleMessage(
@@ -492,9 +493,19 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Problems creating account? "),
         "problems_signing_in":
             MessageLookupByLibrary.simpleMessage("Problems signing in? "),
+        "profile_delete_title":
+            MessageLookupByLibrary.simpleMessage("Delete Swag Account"),
+        "profile_email_title": MessageLookupByLibrary.simpleMessage("Email"),
+        "profile_mobile_number_title":
+            MessageLookupByLibrary.simpleMessage("Mobile Number"),
+        "profile_name_title": MessageLookupByLibrary.simpleMessage("Name"),
+        "profile_password_title":
+            MessageLookupByLibrary.simpleMessage("Password"),
         "profile_sub_title": MessageLookupByLibrary.simpleMessage(
             "Username, email, password, phone"),
         "profile_title": MessageLookupByLibrary.simpleMessage("Profile"),
+        "profile_username_title":
+            MessageLookupByLibrary.simpleMessage("Username"),
         "purchase_history_detail_title":
             MessageLookupByLibrary.simpleMessage("PURCHASE"),
         "purchase_item_purchased_from":
@@ -605,6 +616,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "shop_by_category_title":
             MessageLookupByLibrary.simpleMessage("SHOP BY CATEGORY"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Sign In"),
+        "sign_out": MessageLookupByLibrary.simpleMessage("Sign Out"),
         "similar_items": MessageLookupByLibrary.simpleMessage("SIMILAR ITEMS"),
         "sort": MessageLookupByLibrary.simpleMessage("Sort:"),
         "sort_by": MessageLookupByLibrary.simpleMessage("sort by"),

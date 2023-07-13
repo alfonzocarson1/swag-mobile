@@ -400,5 +400,13 @@
     "delivered_yes": "YES",
     "delivered_not_yes": "NOT YET",
     "delivered_not_yet_alert": "Sorry you’re still waiting! We will \ncheck back with you in a few days.",
-    "notDeliveredItemChatMessage": "{buyerUserName} has still not received this item. {sellerUserName} can you please provide an update on shipping? Thank you."
+    "notDeliveredItemChatMessage": "{buyerUserName} has still not received this item. {sellerUserName} can you please provide an update on shipping? Thank you.",
+    "profile_username_title": "Username",
+    "profile_password_title": "Password",
+    "profile_name_title": "Name",
+    "profile_email_title": "Email",
+    "profile_mobile_number_title": "Mobile Number",
+    "profile_delete_title": "Delete Swag Account",
+    "email_verified": "Verified",
+    "sign_out": "Sign Out"
 }
