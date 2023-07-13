@@ -144,7 +144,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
       }
     }
 
-    _defaultCondition = widget.collectionData!.itemCondition;
+    _defaultCondition = widget.collectionData!.itemCondition.capitalize();
 
     _listPriceItemNode.addListener(() {
       setState(() {
