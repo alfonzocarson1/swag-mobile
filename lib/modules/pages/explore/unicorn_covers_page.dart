@@ -35,6 +35,9 @@ class _UnicornCoversPageState extends State<UnicornCoversPage> {
         child: ExploreCategorySlider(
           sliderList: unicornListData,
           sliderText: S.of(context).unicorn_covers,
+            isStaffPicks: false,
+            isUnicorn: true,
+            isWhatsHot: false
         ));
   }
 }

@@ -31,7 +31,7 @@ class _StaffPicksPageState extends State<StaffPicksPage> {
                 return null;
               },
             ),
-        child: ExploreCategorySlider(sliderList: staffListData, sliderText: S.of(context).staff_picks));
+        child: ExploreCategorySlider(sliderList: staffListData, sliderText: S.of(context).staff_picks, isStaffPicks: true, isUnicorn: false, isWhatsHot: false));
   }
 
 }
