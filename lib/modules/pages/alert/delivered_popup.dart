@@ -115,24 +115,24 @@ class _DeliveredPopUpState extends State<DeliveredPopUp> {
                   ),
                   PrimaryButton(
                     title: S.of(context).delivered_yes,
-                    onPressed: () {
+                    onPressed: () async {
+                      await getIt<BuyCubit>().confirmReceivedItem(
+                        CancelPurchaseRequestModel(
+                            productItemId: widget.productItemId,
+                            listingChatId: listingChatId ?? '',
+                            received: true),
+                      );
                       setState(() {
-                        // getIt<BuyCubit>().confirmReceivedItem(
-                        //   CancelPurchaseRequestModel(
-                        //       productItemId: widget.productItemId,
-                        //       listingChatId: listingChatId ?? '',
-                        //       received: true),
-                        // );
                         Navigator.of(context).pop();
-                        // Navigator.of(context, rootNavigator: true).push(
-                        //     PurchaseHistoryDetailsPage.route(
-                        //         widget.purchaseHistoryId));
 
                         showDialog(
                             context: context,
                             barrierDismissible: false,
                             builder: (BuildContext context) {
-                              return RatingBuyer();
+                              return RatingBuyer(
+                                productItemId: widget.productItemId,
+                                purchaseHistoryId: widget.purchaseHistoryId,
+                              );
                             });
                       });
                     },
@@ -143,14 +143,14 @@ class _DeliveredPopUpState extends State<DeliveredPopUp> {
                   ),
                   PrimaryButton(
                     title: S.of(context).delivered_not_yes,
-                    onPressed: () {
+                    onPressed: () async {
+                      await getIt<BuyCubit>().confirmReceivedItem(
+                        CancelPurchaseRequestModel(
+                            productItemId: widget.productItemId,
+                            listingChatId: listingChatId ?? '',
+                            received: false),
+                      );
                       setState(() {
-                        getIt<BuyCubit>().confirmReceivedItem(
-                          CancelPurchaseRequestModel(
-                              productItemId: widget.productItemId,
-                              listingChatId: listingChatId ?? '',
-                              received: false),
-                        );
                         LocalNotificationsService.showInAppAllert(
                             S.of(context).delivered_not_yet_alert);
 

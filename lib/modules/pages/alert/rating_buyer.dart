@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
@@ -7,20 +5,22 @@ import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 
 import '../../../generated/l10n.dart';
-import '../../blocs/chat/chat_bloc.dart';
-import '../../blocs/collection_bloc/collection_bloc.dart';
+
 import '../../common/ui/loading.dart';
 import '../../cubits/buy/buy_cubit.dart';
 import '../../di/injector.dart';
-import '../../models/buy_for_sale_listing/cancel_purchase_request_model.dart';
 import '../../models/buy_for_sale_listing/cancel_purchase_response_model.dart';
-import '../../services/local_notifications_service.dart';
+import '../../models/buy_for_sale_listing/rating_buy_request_model.dart';
 import '../settings/purchase_history/purchase_history_details/purchase_history_details_page.dart';
 
 class RatingBuyer extends StatefulWidget {
-  const RatingBuyer({
-    super.key,
-  });
+  final String productItemId;
+  final String purchaseHistoryId;
+
+  const RatingBuyer(
+      {super.key,
+      required this.productItemId,
+      required this.purchaseHistoryId});
 
   @override
   State<RatingBuyer> createState() => _RatingBuyerState();
@@ -29,6 +29,8 @@ class RatingBuyer extends StatefulWidget {
 class _RatingBuyerState extends State<RatingBuyer> {
   String? listingChatId;
   TextEditingController _textFieldController = TextEditingController();
+  String? ratingReason;
+  String? ratingReasonError;
   var initialText = '';
   bool ratingPositive = false;
   bool ratingNegative = false;
@@ -147,6 +149,9 @@ class _RatingBuyerState extends State<RatingBuyer> {
                             child: InkWell(
                               onTap: () {
                                 _handlerRating(true, false);
+                                setState(() {
+                                  ratingReasonError = null;
+                                });
                               },
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(
@@ -178,9 +183,11 @@ class _RatingBuyerState extends State<RatingBuyer> {
                         )
                       ],
                     ),
-                    const SizedBox(
-                      height: 30,
-                    ),
+                    ratingNegative
+                        ? const SizedBox(
+                            height: 30,
+                          )
+                        : const SizedBox.shrink(),
                     Visibility(
                       visible: ratingNegative,
                       child: Container(
@@ -191,7 +198,7 @@ class _RatingBuyerState extends State<RatingBuyer> {
                           keyboardType: TextInputType.text,
                           controller: _textFieldController,
                           textCapitalization: TextCapitalization.sentences,
-                          maxLines: 6,
+                          maxLines: 10,
                           onChanged: (value) {
                             if (value.length > initialText.length) {
                               final text = value;
@@ -216,13 +223,13 @@ class _RatingBuyerState extends State<RatingBuyer> {
                             }
                           },
                           style: TextStyle(
-                              fontSize: 16.0,
+                              fontSize: 14.0,
                               color: Palette.current.primaryWhiteSmoke),
                           decoration: InputDecoration(
                             hintText:
                                 'Additional details here \n(not seen by users)...',
                             hintStyle: const TextStyle(
-                              color: Colors.grey,
+                              color: Colors.white,
                             ),
                             contentPadding: const EdgeInsets.only(
                                 top: 8, left: 8, right: 8),
@@ -235,18 +242,44 @@ class _RatingBuyerState extends State<RatingBuyer> {
                         ),
                       ),
                     ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(ratingReasonError ?? '',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(
+                                  color: Palette.current.primaryNeonPink)),
+                    ),
                     const SizedBox(
                       height: 30,
                     ),
-                    PrimaryButton(
-                      title: 'Submit rating',
-                      onPressed: () {
-                        setState(() {
-                          Navigator.of(context).pop();
-                        });
-                      },
-                      type: PrimaryButtonType.green,
-                    ),
+                    (ratingPositive == ratingNegative)
+                        ? const PrimaryButton(
+                            title: 'Submit rating',
+                            onPressed: null,
+                            type: PrimaryButtonType.grey,
+                          )
+                        : PrimaryButton(
+                            title: 'Submit rating',
+                            onPressed: () async {
+                              showErrors();
+                              if (areFieldsValid()) {
+                                await getIt<BuyCubit>().listingsRating(
+                                  RatingBuyModelRequest(
+                                      productItemId: widget.productItemId,
+                                      listingRating: ratingPositive,
+                                      listingFeedbackMessage: ratingReason),
+                                );
+                                Navigator.of(context).pop();
+
+                                Navigator.of(context, rootNavigator: true).push(
+                                    PurchaseHistoryDetailsPage.route(
+                                        widget.purchaseHistoryId));
+                              }
+                            },
+                            type: PrimaryButtonType.green,
+                          ),
                     const SizedBox(
                       height: 30,
                     ),
@@ -295,5 +328,22 @@ class _RatingBuyerState extends State<RatingBuyer> {
               },
             ),
         child: Center(child: _getBody()));
+  }
+
+  void showErrors() {
+    setState(() {
+      if (ratingNegative && _textFieldController.value.text.isNotEmpty) {
+        ratingReason = _textFieldController.value.text;
+        ratingReasonError = null;
+      } else if (ratingNegative && _textFieldController.value.text.isEmpty) {
+        ratingReasonError = S.of(context).reason_required;
+      } else {
+        ratingReasonError = null;
+      }
+    });
+  }
+
+  bool areFieldsValid() {
+    return ratingReasonError == null;
   }
 }
