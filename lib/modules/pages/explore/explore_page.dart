@@ -140,7 +140,7 @@ class _ExplorePageState extends State<ExplorePage> with ChannelEventHandler {
         getIt<PreferenceRepositoryService>().loginAfterGuest();
 
     Future.delayed(Duration(milliseconds: loginAfterGuest ? 5000 : 7000), () {
-      context.push(AppRoutes.accountInfo);
+      Navigator.of(context, rootNavigator: true).push(AccountInfoPage.route());
     });
   }
 
