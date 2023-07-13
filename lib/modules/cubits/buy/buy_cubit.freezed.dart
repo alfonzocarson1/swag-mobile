@@ -33,6 +33,8 @@ mixin _$BuyStateCubit {
         dataCancelPurchaseRequest,
     required TResult Function(CancelPurchaseResponseModel detaUpdatedItemlList)
         loadedListUpdateStatus,
+    required TResult Function(CancelPurchaseResponseModel itemDeliveredResponse)
+        deliveredItemRequest,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -51,6 +53,8 @@ mixin _$BuyStateCubit {
         dataCancelPurchaseRequest,
     TResult? Function(CancelPurchaseResponseModel detaUpdatedItemlList)?
         loadedListUpdateStatus,
+    TResult? Function(CancelPurchaseResponseModel itemDeliveredResponse)?
+        deliveredItemRequest,
     TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -69,6 +73,8 @@ mixin _$BuyStateCubit {
         dataCancelPurchaseRequest,
     TResult Function(CancelPurchaseResponseModel detaUpdatedItemlList)?
         loadedListUpdateStatus,
+    TResult Function(CancelPurchaseResponseModel itemDeliveredResponse)?
+        deliveredItemRequest,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
@@ -87,6 +93,8 @@ mixin _$BuyStateCubit {
         dataCancelPurchaseRequest,
     required TResult Function(LoadedListUpdateStatus value)
         loadedListUpdateStatus,
+    required TResult Function(DeliveredItemRequestState value)
+        deliveredItemRequest,
     required TResult Function(ErrorBuyStateCubit value) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -101,6 +109,7 @@ mixin _$BuyStateCubit {
     TResult? Function(CancelPurchaseRequestState value)?
         dataCancelPurchaseRequest,
     TResult? Function(LoadedListUpdateStatus value)? loadedListUpdateStatus,
+    TResult? Function(DeliveredItemRequestState value)? deliveredItemRequest,
     TResult? Function(ErrorBuyStateCubit value)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -115,6 +124,7 @@ mixin _$BuyStateCubit {
     TResult Function(CancelPurchaseRequestState value)?
         dataCancelPurchaseRequest,
     TResult Function(LoadedListUpdateStatus value)? loadedListUpdateStatus,
+    TResult Function(DeliveredItemRequestState value)? deliveredItemRequest,
     TResult Function(ErrorBuyStateCubit value)? error,
     required TResult orElse(),
   }) =>
@@ -190,6 +200,8 @@ class _$Initial implements Initial {
         dataCancelPurchaseRequest,
     required TResult Function(CancelPurchaseResponseModel detaUpdatedItemlList)
         loadedListUpdateStatus,
+    required TResult Function(CancelPurchaseResponseModel itemDeliveredResponse)
+        deliveredItemRequest,
     required TResult Function(String message) error,
   }) {
     return initial();
@@ -211,6 +223,8 @@ class _$Initial implements Initial {
         dataCancelPurchaseRequest,
     TResult? Function(CancelPurchaseResponseModel detaUpdatedItemlList)?
         loadedListUpdateStatus,
+    TResult? Function(CancelPurchaseResponseModel itemDeliveredResponse)?
+        deliveredItemRequest,
     TResult? Function(String message)? error,
   }) {
     return initial?.call();
@@ -232,6 +246,8 @@ class _$Initial implements Initial {
         dataCancelPurchaseRequest,
     TResult Function(CancelPurchaseResponseModel detaUpdatedItemlList)?
         loadedListUpdateStatus,
+    TResult Function(CancelPurchaseResponseModel itemDeliveredResponse)?
+        deliveredItemRequest,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -256,6 +272,8 @@ class _$Initial implements Initial {
         dataCancelPurchaseRequest,
     required TResult Function(LoadedListUpdateStatus value)
         loadedListUpdateStatus,
+    required TResult Function(DeliveredItemRequestState value)
+        deliveredItemRequest,
     required TResult Function(ErrorBuyStateCubit value) error,
   }) {
     return initial(this);
@@ -273,6 +291,7 @@ class _$Initial implements Initial {
     TResult? Function(CancelPurchaseRequestState value)?
         dataCancelPurchaseRequest,
     TResult? Function(LoadedListUpdateStatus value)? loadedListUpdateStatus,
+    TResult? Function(DeliveredItemRequestState value)? deliveredItemRequest,
     TResult? Function(ErrorBuyStateCubit value)? error,
   }) {
     return initial?.call(this);
@@ -290,6 +309,7 @@ class _$Initial implements Initial {
     TResult Function(CancelPurchaseRequestState value)?
         dataCancelPurchaseRequest,
     TResult Function(LoadedListUpdateStatus value)? loadedListUpdateStatus,
+    TResult Function(DeliveredItemRequestState value)? deliveredItemRequest,
     TResult Function(ErrorBuyStateCubit value)? error,
     required TResult orElse(),
   }) {
@@ -385,6 +405,8 @@ class _$loading_page implements loading_page {
         dataCancelPurchaseRequest,
     required TResult Function(CancelPurchaseResponseModel detaUpdatedItemlList)
         loadedListUpdateStatus,
+    required TResult Function(CancelPurchaseResponseModel itemDeliveredResponse)
+        deliveredItemRequest,
     required TResult Function(String message) error,
   }) {
     return loading(isFirstFetch);
@@ -406,6 +428,8 @@ class _$loading_page implements loading_page {
         dataCancelPurchaseRequest,
     TResult? Function(CancelPurchaseResponseModel detaUpdatedItemlList)?
         loadedListUpdateStatus,
+    TResult? Function(CancelPurchaseResponseModel itemDeliveredResponse)?
+        deliveredItemRequest,
     TResult? Function(String message)? error,
   }) {
     return loading?.call(isFirstFetch);
@@ -427,6 +451,8 @@ class _$loading_page implements loading_page {
         dataCancelPurchaseRequest,
     TResult Function(CancelPurchaseResponseModel detaUpdatedItemlList)?
         loadedListUpdateStatus,
+    TResult Function(CancelPurchaseResponseModel itemDeliveredResponse)?
+        deliveredItemRequest,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -451,6 +477,8 @@ class _$loading_page implements loading_page {
         dataCancelPurchaseRequest,
     required TResult Function(LoadedListUpdateStatus value)
         loadedListUpdateStatus,
+    required TResult Function(DeliveredItemRequestState value)
+        deliveredItemRequest,
     required TResult Function(ErrorBuyStateCubit value) error,
   }) {
     return loading(this);
@@ -468,6 +496,7 @@ class _$loading_page implements loading_page {
     TResult? Function(CancelPurchaseRequestState value)?
         dataCancelPurchaseRequest,
     TResult? Function(LoadedListUpdateStatus value)? loadedListUpdateStatus,
+    TResult? Function(DeliveredItemRequestState value)? deliveredItemRequest,
     TResult? Function(ErrorBuyStateCubit value)? error,
   }) {
     return loading?.call(this);
@@ -485,6 +514,7 @@ class _$loading_page implements loading_page {
     TResult Function(CancelPurchaseRequestState value)?
         dataCancelPurchaseRequest,
     TResult Function(LoadedListUpdateStatus value)? loadedListUpdateStatus,
+    TResult Function(DeliveredItemRequestState value)? deliveredItemRequest,
     TResult Function(ErrorBuyStateCubit value)? error,
     required TResult orElse(),
   }) {
@@ -557,6 +587,8 @@ class _$UpdateItem implements UpdateItem {
         dataCancelPurchaseRequest,
     required TResult Function(CancelPurchaseResponseModel detaUpdatedItemlList)
         loadedListUpdateStatus,
+    required TResult Function(CancelPurchaseResponseModel itemDeliveredResponse)
+        deliveredItemRequest,
     required TResult Function(String message) error,
   }) {
     return updateItem();
@@ -578,6 +610,8 @@ class _$UpdateItem implements UpdateItem {
         dataCancelPurchaseRequest,
     TResult? Function(CancelPurchaseResponseModel detaUpdatedItemlList)?
         loadedListUpdateStatus,
+    TResult? Function(CancelPurchaseResponseModel itemDeliveredResponse)?
+        deliveredItemRequest,
     TResult? Function(String message)? error,
   }) {
     return updateItem?.call();
@@ -599,6 +633,8 @@ class _$UpdateItem implements UpdateItem {
         dataCancelPurchaseRequest,
     TResult Function(CancelPurchaseResponseModel detaUpdatedItemlList)?
         loadedListUpdateStatus,
+    TResult Function(CancelPurchaseResponseModel itemDeliveredResponse)?
+        deliveredItemRequest,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -623,6 +659,8 @@ class _$UpdateItem implements UpdateItem {
         dataCancelPurchaseRequest,
     required TResult Function(LoadedListUpdateStatus value)
         loadedListUpdateStatus,
+    required TResult Function(DeliveredItemRequestState value)
+        deliveredItemRequest,
     required TResult Function(ErrorBuyStateCubit value) error,
   }) {
     return updateItem(this);
@@ -640,6 +678,7 @@ class _$UpdateItem implements UpdateItem {
     TResult? Function(CancelPurchaseRequestState value)?
         dataCancelPurchaseRequest,
     TResult? Function(LoadedListUpdateStatus value)? loadedListUpdateStatus,
+    TResult? Function(DeliveredItemRequestState value)? deliveredItemRequest,
     TResult? Function(ErrorBuyStateCubit value)? error,
   }) {
     return updateItem?.call(this);
@@ -657,6 +696,7 @@ class _$UpdateItem implements UpdateItem {
     TResult Function(CancelPurchaseRequestState value)?
         dataCancelPurchaseRequest,
     TResult Function(LoadedListUpdateStatus value)? loadedListUpdateStatus,
+    TResult Function(DeliveredItemRequestState value)? deliveredItemRequest,
     TResult Function(ErrorBuyStateCubit value)? error,
     required TResult orElse(),
   }) {
@@ -763,6 +803,8 @@ class _$LoadedListDetailItemState implements LoadedListDetailItemState {
         dataCancelPurchaseRequest,
     required TResult Function(CancelPurchaseResponseModel detaUpdatedItemlList)
         loadedListUpdateStatus,
+    required TResult Function(CancelPurchaseResponseModel itemDeliveredResponse)
+        deliveredItemRequest,
     required TResult Function(String message) error,
   }) {
     return loadedListDetailItem(detaItemlList);
@@ -784,6 +826,8 @@ class _$LoadedListDetailItemState implements LoadedListDetailItemState {
         dataCancelPurchaseRequest,
     TResult? Function(CancelPurchaseResponseModel detaUpdatedItemlList)?
         loadedListUpdateStatus,
+    TResult? Function(CancelPurchaseResponseModel itemDeliveredResponse)?
+        deliveredItemRequest,
     TResult? Function(String message)? error,
   }) {
     return loadedListDetailItem?.call(detaItemlList);
@@ -805,6 +849,8 @@ class _$LoadedListDetailItemState implements LoadedListDetailItemState {
         dataCancelPurchaseRequest,
     TResult Function(CancelPurchaseResponseModel detaUpdatedItemlList)?
         loadedListUpdateStatus,
+    TResult Function(CancelPurchaseResponseModel itemDeliveredResponse)?
+        deliveredItemRequest,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -829,6 +875,8 @@ class _$LoadedListDetailItemState implements LoadedListDetailItemState {
         dataCancelPurchaseRequest,
     required TResult Function(LoadedListUpdateStatus value)
         loadedListUpdateStatus,
+    required TResult Function(DeliveredItemRequestState value)
+        deliveredItemRequest,
     required TResult Function(ErrorBuyStateCubit value) error,
   }) {
     return loadedListDetailItem(this);
@@ -846,6 +894,7 @@ class _$LoadedListDetailItemState implements LoadedListDetailItemState {
     TResult? Function(CancelPurchaseRequestState value)?
         dataCancelPurchaseRequest,
     TResult? Function(LoadedListUpdateStatus value)? loadedListUpdateStatus,
+    TResult? Function(DeliveredItemRequestState value)? deliveredItemRequest,
     TResult? Function(ErrorBuyStateCubit value)? error,
   }) {
     return loadedListDetailItem?.call(this);
@@ -863,6 +912,7 @@ class _$LoadedListDetailItemState implements LoadedListDetailItemState {
     TResult Function(CancelPurchaseRequestState value)?
         dataCancelPurchaseRequest,
     TResult Function(LoadedListUpdateStatus value)? loadedListUpdateStatus,
+    TResult Function(DeliveredItemRequestState value)? deliveredItemRequest,
     TResult Function(ErrorBuyStateCubit value)? error,
     required TResult orElse(),
   }) {
@@ -975,6 +1025,8 @@ class _$LoadedBuyListItemState implements LoadedBuyListItemState {
         dataCancelPurchaseRequest,
     required TResult Function(CancelPurchaseResponseModel detaUpdatedItemlList)
         loadedListUpdateStatus,
+    required TResult Function(CancelPurchaseResponseModel itemDeliveredResponse)
+        deliveredItemRequest,
     required TResult Function(String message) error,
   }) {
     return loadedBuyLisItem(buyItemlList);
@@ -996,6 +1048,8 @@ class _$LoadedBuyListItemState implements LoadedBuyListItemState {
         dataCancelPurchaseRequest,
     TResult? Function(CancelPurchaseResponseModel detaUpdatedItemlList)?
         loadedListUpdateStatus,
+    TResult? Function(CancelPurchaseResponseModel itemDeliveredResponse)?
+        deliveredItemRequest,
     TResult? Function(String message)? error,
   }) {
     return loadedBuyLisItem?.call(buyItemlList);
@@ -1017,6 +1071,8 @@ class _$LoadedBuyListItemState implements LoadedBuyListItemState {
         dataCancelPurchaseRequest,
     TResult Function(CancelPurchaseResponseModel detaUpdatedItemlList)?
         loadedListUpdateStatus,
+    TResult Function(CancelPurchaseResponseModel itemDeliveredResponse)?
+        deliveredItemRequest,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -1041,6 +1097,8 @@ class _$LoadedBuyListItemState implements LoadedBuyListItemState {
         dataCancelPurchaseRequest,
     required TResult Function(LoadedListUpdateStatus value)
         loadedListUpdateStatus,
+    required TResult Function(DeliveredItemRequestState value)
+        deliveredItemRequest,
     required TResult Function(ErrorBuyStateCubit value) error,
   }) {
     return loadedBuyLisItem(this);
@@ -1058,6 +1116,7 @@ class _$LoadedBuyListItemState implements LoadedBuyListItemState {
     TResult? Function(CancelPurchaseRequestState value)?
         dataCancelPurchaseRequest,
     TResult? Function(LoadedListUpdateStatus value)? loadedListUpdateStatus,
+    TResult? Function(DeliveredItemRequestState value)? deliveredItemRequest,
     TResult? Function(ErrorBuyStateCubit value)? error,
   }) {
     return loadedBuyLisItem?.call(this);
@@ -1075,6 +1134,7 @@ class _$LoadedBuyListItemState implements LoadedBuyListItemState {
     TResult Function(CancelPurchaseRequestState value)?
         dataCancelPurchaseRequest,
     TResult Function(LoadedListUpdateStatus value)? loadedListUpdateStatus,
+    TResult Function(DeliveredItemRequestState value)? deliveredItemRequest,
     TResult Function(ErrorBuyStateCubit value)? error,
     required TResult orElse(),
   }) {
@@ -1190,6 +1250,8 @@ class _$AcceptPurchaseRequestState implements AcceptPurchaseRequestState {
         dataCancelPurchaseRequest,
     required TResult Function(CancelPurchaseResponseModel detaUpdatedItemlList)
         loadedListUpdateStatus,
+    required TResult Function(CancelPurchaseResponseModel itemDeliveredResponse)
+        deliveredItemRequest,
     required TResult Function(String message) error,
   }) {
     return acceptPurchaseRequest(acceptPurchaseResponse);
@@ -1211,6 +1273,8 @@ class _$AcceptPurchaseRequestState implements AcceptPurchaseRequestState {
         dataCancelPurchaseRequest,
     TResult? Function(CancelPurchaseResponseModel detaUpdatedItemlList)?
         loadedListUpdateStatus,
+    TResult? Function(CancelPurchaseResponseModel itemDeliveredResponse)?
+        deliveredItemRequest,
     TResult? Function(String message)? error,
   }) {
     return acceptPurchaseRequest?.call(acceptPurchaseResponse);
@@ -1232,6 +1296,8 @@ class _$AcceptPurchaseRequestState implements AcceptPurchaseRequestState {
         dataCancelPurchaseRequest,
     TResult Function(CancelPurchaseResponseModel detaUpdatedItemlList)?
         loadedListUpdateStatus,
+    TResult Function(CancelPurchaseResponseModel itemDeliveredResponse)?
+        deliveredItemRequest,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -1256,6 +1322,8 @@ class _$AcceptPurchaseRequestState implements AcceptPurchaseRequestState {
         dataCancelPurchaseRequest,
     required TResult Function(LoadedListUpdateStatus value)
         loadedListUpdateStatus,
+    required TResult Function(DeliveredItemRequestState value)
+        deliveredItemRequest,
     required TResult Function(ErrorBuyStateCubit value) error,
   }) {
     return acceptPurchaseRequest(this);
@@ -1273,6 +1341,7 @@ class _$AcceptPurchaseRequestState implements AcceptPurchaseRequestState {
     TResult? Function(CancelPurchaseRequestState value)?
         dataCancelPurchaseRequest,
     TResult? Function(LoadedListUpdateStatus value)? loadedListUpdateStatus,
+    TResult? Function(DeliveredItemRequestState value)? deliveredItemRequest,
     TResult? Function(ErrorBuyStateCubit value)? error,
   }) {
     return acceptPurchaseRequest?.call(this);
@@ -1290,6 +1359,7 @@ class _$AcceptPurchaseRequestState implements AcceptPurchaseRequestState {
     TResult Function(CancelPurchaseRequestState value)?
         dataCancelPurchaseRequest,
     TResult Function(LoadedListUpdateStatus value)? loadedListUpdateStatus,
+    TResult Function(DeliveredItemRequestState value)? deliveredItemRequest,
     TResult Function(ErrorBuyStateCubit value)? error,
     required TResult orElse(),
   }) {
@@ -1405,6 +1475,8 @@ class _$CancelPurchaseRequestState implements CancelPurchaseRequestState {
         dataCancelPurchaseRequest,
     required TResult Function(CancelPurchaseResponseModel detaUpdatedItemlList)
         loadedListUpdateStatus,
+    required TResult Function(CancelPurchaseResponseModel itemDeliveredResponse)
+        deliveredItemRequest,
     required TResult Function(String message) error,
   }) {
     return dataCancelPurchaseRequest(cancelPurchaseResponse);
@@ -1426,6 +1498,8 @@ class _$CancelPurchaseRequestState implements CancelPurchaseRequestState {
         dataCancelPurchaseRequest,
     TResult? Function(CancelPurchaseResponseModel detaUpdatedItemlList)?
         loadedListUpdateStatus,
+    TResult? Function(CancelPurchaseResponseModel itemDeliveredResponse)?
+        deliveredItemRequest,
     TResult? Function(String message)? error,
   }) {
     return dataCancelPurchaseRequest?.call(cancelPurchaseResponse);
@@ -1447,6 +1521,8 @@ class _$CancelPurchaseRequestState implements CancelPurchaseRequestState {
         dataCancelPurchaseRequest,
     TResult Function(CancelPurchaseResponseModel detaUpdatedItemlList)?
         loadedListUpdateStatus,
+    TResult Function(CancelPurchaseResponseModel itemDeliveredResponse)?
+        deliveredItemRequest,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -1471,6 +1547,8 @@ class _$CancelPurchaseRequestState implements CancelPurchaseRequestState {
         dataCancelPurchaseRequest,
     required TResult Function(LoadedListUpdateStatus value)
         loadedListUpdateStatus,
+    required TResult Function(DeliveredItemRequestState value)
+        deliveredItemRequest,
     required TResult Function(ErrorBuyStateCubit value) error,
   }) {
     return dataCancelPurchaseRequest(this);
@@ -1488,6 +1566,7 @@ class _$CancelPurchaseRequestState implements CancelPurchaseRequestState {
     TResult? Function(CancelPurchaseRequestState value)?
         dataCancelPurchaseRequest,
     TResult? Function(LoadedListUpdateStatus value)? loadedListUpdateStatus,
+    TResult? Function(DeliveredItemRequestState value)? deliveredItemRequest,
     TResult? Function(ErrorBuyStateCubit value)? error,
   }) {
     return dataCancelPurchaseRequest?.call(this);
@@ -1505,6 +1584,7 @@ class _$CancelPurchaseRequestState implements CancelPurchaseRequestState {
     TResult Function(CancelPurchaseRequestState value)?
         dataCancelPurchaseRequest,
     TResult Function(LoadedListUpdateStatus value)? loadedListUpdateStatus,
+    TResult Function(DeliveredItemRequestState value)? deliveredItemRequest,
     TResult Function(ErrorBuyStateCubit value)? error,
     required TResult orElse(),
   }) {
@@ -1618,6 +1698,8 @@ class _$LoadedListUpdateStatus implements LoadedListUpdateStatus {
         dataCancelPurchaseRequest,
     required TResult Function(CancelPurchaseResponseModel detaUpdatedItemlList)
         loadedListUpdateStatus,
+    required TResult Function(CancelPurchaseResponseModel itemDeliveredResponse)
+        deliveredItemRequest,
     required TResult Function(String message) error,
   }) {
     return loadedListUpdateStatus(detaUpdatedItemlList);
@@ -1639,6 +1721,8 @@ class _$LoadedListUpdateStatus implements LoadedListUpdateStatus {
         dataCancelPurchaseRequest,
     TResult? Function(CancelPurchaseResponseModel detaUpdatedItemlList)?
         loadedListUpdateStatus,
+    TResult? Function(CancelPurchaseResponseModel itemDeliveredResponse)?
+        deliveredItemRequest,
     TResult? Function(String message)? error,
   }) {
     return loadedListUpdateStatus?.call(detaUpdatedItemlList);
@@ -1660,6 +1744,8 @@ class _$LoadedListUpdateStatus implements LoadedListUpdateStatus {
         dataCancelPurchaseRequest,
     TResult Function(CancelPurchaseResponseModel detaUpdatedItemlList)?
         loadedListUpdateStatus,
+    TResult Function(CancelPurchaseResponseModel itemDeliveredResponse)?
+        deliveredItemRequest,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -1684,6 +1770,8 @@ class _$LoadedListUpdateStatus implements LoadedListUpdateStatus {
         dataCancelPurchaseRequest,
     required TResult Function(LoadedListUpdateStatus value)
         loadedListUpdateStatus,
+    required TResult Function(DeliveredItemRequestState value)
+        deliveredItemRequest,
     required TResult Function(ErrorBuyStateCubit value) error,
   }) {
     return loadedListUpdateStatus(this);
@@ -1701,6 +1789,7 @@ class _$LoadedListUpdateStatus implements LoadedListUpdateStatus {
     TResult? Function(CancelPurchaseRequestState value)?
         dataCancelPurchaseRequest,
     TResult? Function(LoadedListUpdateStatus value)? loadedListUpdateStatus,
+    TResult? Function(DeliveredItemRequestState value)? deliveredItemRequest,
     TResult? Function(ErrorBuyStateCubit value)? error,
   }) {
     return loadedListUpdateStatus?.call(this);
@@ -1718,6 +1807,7 @@ class _$LoadedListUpdateStatus implements LoadedListUpdateStatus {
     TResult Function(CancelPurchaseRequestState value)?
         dataCancelPurchaseRequest,
     TResult Function(LoadedListUpdateStatus value)? loadedListUpdateStatus,
+    TResult Function(DeliveredItemRequestState value)? deliveredItemRequest,
     TResult Function(ErrorBuyStateCubit value)? error,
     required TResult orElse(),
   }) {
@@ -1737,6 +1827,230 @@ abstract class LoadedListUpdateStatus implements BuyStateCubit {
   @JsonKey(ignore: true)
   _$$LoadedListUpdateStatusCopyWith<_$LoadedListUpdateStatus> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$DeliveredItemRequestStateCopyWith<$Res> {
+  factory _$$DeliveredItemRequestStateCopyWith(
+          _$DeliveredItemRequestState value,
+          $Res Function(_$DeliveredItemRequestState) then) =
+      __$$DeliveredItemRequestStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({CancelPurchaseResponseModel itemDeliveredResponse});
+
+  $CancelPurchaseResponseModelCopyWith<$Res> get itemDeliveredResponse;
+}
+
+/// @nodoc
+class __$$DeliveredItemRequestStateCopyWithImpl<$Res>
+    extends _$BuyStateCubitCopyWithImpl<$Res, _$DeliveredItemRequestState>
+    implements _$$DeliveredItemRequestStateCopyWith<$Res> {
+  __$$DeliveredItemRequestStateCopyWithImpl(_$DeliveredItemRequestState _value,
+      $Res Function(_$DeliveredItemRequestState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? itemDeliveredResponse = null,
+  }) {
+    return _then(_$DeliveredItemRequestState(
+      null == itemDeliveredResponse
+          ? _value.itemDeliveredResponse
+          : itemDeliveredResponse // ignore: cast_nullable_to_non_nullable
+              as CancelPurchaseResponseModel,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CancelPurchaseResponseModelCopyWith<$Res> get itemDeliveredResponse {
+    return $CancelPurchaseResponseModelCopyWith<$Res>(
+        _value.itemDeliveredResponse, (value) {
+      return _then(_value.copyWith(itemDeliveredResponse: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$DeliveredItemRequestState implements DeliveredItemRequestState {
+  _$DeliveredItemRequestState(this.itemDeliveredResponse);
+
+  @override
+  final CancelPurchaseResponseModel itemDeliveredResponse;
+
+  @override
+  String toString() {
+    return 'BuyStateCubit.deliveredItemRequest(itemDeliveredResponse: $itemDeliveredResponse)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DeliveredItemRequestState &&
+            (identical(other.itemDeliveredResponse, itemDeliveredResponse) ||
+                other.itemDeliveredResponse == itemDeliveredResponse));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, itemDeliveredResponse);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DeliveredItemRequestStateCopyWith<_$DeliveredItemRequestState>
+      get copyWith => __$$DeliveredItemRequestStateCopyWithImpl<
+          _$DeliveredItemRequestState>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(bool isFirstFetch) loading,
+    required TResult Function() updateItem,
+    required TResult Function(BuyForSaleListingModel detaItemlList)
+        loadedListDetailItem,
+    required TResult Function(BuyASaleListingResponseModel buyItemlList)
+        loadedBuyLisItem,
+    required TResult Function(
+            CancelPurchaseResponseModel acceptPurchaseResponse)
+        acceptPurchaseRequest,
+    required TResult Function(
+            CancelPurchaseResponseModel cancelPurchaseResponse)
+        dataCancelPurchaseRequest,
+    required TResult Function(CancelPurchaseResponseModel detaUpdatedItemlList)
+        loadedListUpdateStatus,
+    required TResult Function(CancelPurchaseResponseModel itemDeliveredResponse)
+        deliveredItemRequest,
+    required TResult Function(String message) error,
+  }) {
+    return deliveredItemRequest(itemDeliveredResponse);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(bool isFirstFetch)? loading,
+    TResult? Function()? updateItem,
+    TResult? Function(BuyForSaleListingModel detaItemlList)?
+        loadedListDetailItem,
+    TResult? Function(BuyASaleListingResponseModel buyItemlList)?
+        loadedBuyLisItem,
+    TResult? Function(CancelPurchaseResponseModel acceptPurchaseResponse)?
+        acceptPurchaseRequest,
+    TResult? Function(CancelPurchaseResponseModel cancelPurchaseResponse)?
+        dataCancelPurchaseRequest,
+    TResult? Function(CancelPurchaseResponseModel detaUpdatedItemlList)?
+        loadedListUpdateStatus,
+    TResult? Function(CancelPurchaseResponseModel itemDeliveredResponse)?
+        deliveredItemRequest,
+    TResult? Function(String message)? error,
+  }) {
+    return deliveredItemRequest?.call(itemDeliveredResponse);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(bool isFirstFetch)? loading,
+    TResult Function()? updateItem,
+    TResult Function(BuyForSaleListingModel detaItemlList)?
+        loadedListDetailItem,
+    TResult Function(BuyASaleListingResponseModel buyItemlList)?
+        loadedBuyLisItem,
+    TResult Function(CancelPurchaseResponseModel acceptPurchaseResponse)?
+        acceptPurchaseRequest,
+    TResult Function(CancelPurchaseResponseModel cancelPurchaseResponse)?
+        dataCancelPurchaseRequest,
+    TResult Function(CancelPurchaseResponseModel detaUpdatedItemlList)?
+        loadedListUpdateStatus,
+    TResult Function(CancelPurchaseResponseModel itemDeliveredResponse)?
+        deliveredItemRequest,
+    TResult Function(String message)? error,
+    required TResult orElse(),
+  }) {
+    if (deliveredItemRequest != null) {
+      return deliveredItemRequest(itemDeliveredResponse);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Initial value) initial,
+    required TResult Function(loading_page value) loading,
+    required TResult Function(UpdateItem value) updateItem,
+    required TResult Function(LoadedListDetailItemState value)
+        loadedListDetailItem,
+    required TResult Function(LoadedBuyListItemState value) loadedBuyLisItem,
+    required TResult Function(AcceptPurchaseRequestState value)
+        acceptPurchaseRequest,
+    required TResult Function(CancelPurchaseRequestState value)
+        dataCancelPurchaseRequest,
+    required TResult Function(LoadedListUpdateStatus value)
+        loadedListUpdateStatus,
+    required TResult Function(DeliveredItemRequestState value)
+        deliveredItemRequest,
+    required TResult Function(ErrorBuyStateCubit value) error,
+  }) {
+    return deliveredItemRequest(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Initial value)? initial,
+    TResult? Function(loading_page value)? loading,
+    TResult? Function(UpdateItem value)? updateItem,
+    TResult? Function(LoadedListDetailItemState value)? loadedListDetailItem,
+    TResult? Function(LoadedBuyListItemState value)? loadedBuyLisItem,
+    TResult? Function(AcceptPurchaseRequestState value)? acceptPurchaseRequest,
+    TResult? Function(CancelPurchaseRequestState value)?
+        dataCancelPurchaseRequest,
+    TResult? Function(LoadedListUpdateStatus value)? loadedListUpdateStatus,
+    TResult? Function(DeliveredItemRequestState value)? deliveredItemRequest,
+    TResult? Function(ErrorBuyStateCubit value)? error,
+  }) {
+    return deliveredItemRequest?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Initial value)? initial,
+    TResult Function(loading_page value)? loading,
+    TResult Function(UpdateItem value)? updateItem,
+    TResult Function(LoadedListDetailItemState value)? loadedListDetailItem,
+    TResult Function(LoadedBuyListItemState value)? loadedBuyLisItem,
+    TResult Function(AcceptPurchaseRequestState value)? acceptPurchaseRequest,
+    TResult Function(CancelPurchaseRequestState value)?
+        dataCancelPurchaseRequest,
+    TResult Function(LoadedListUpdateStatus value)? loadedListUpdateStatus,
+    TResult Function(DeliveredItemRequestState value)? deliveredItemRequest,
+    TResult Function(ErrorBuyStateCubit value)? error,
+    required TResult orElse(),
+  }) {
+    if (deliveredItemRequest != null) {
+      return deliveredItemRequest(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class DeliveredItemRequestState implements BuyStateCubit {
+  factory DeliveredItemRequestState(
+          final CancelPurchaseResponseModel itemDeliveredResponse) =
+      _$DeliveredItemRequestState;
+
+  CancelPurchaseResponseModel get itemDeliveredResponse;
+  @JsonKey(ignore: true)
+  _$$DeliveredItemRequestStateCopyWith<_$DeliveredItemRequestState>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1819,6 +2133,8 @@ class _$ErrorBuyStateCubit implements ErrorBuyStateCubit {
         dataCancelPurchaseRequest,
     required TResult Function(CancelPurchaseResponseModel detaUpdatedItemlList)
         loadedListUpdateStatus,
+    required TResult Function(CancelPurchaseResponseModel itemDeliveredResponse)
+        deliveredItemRequest,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -1840,6 +2156,8 @@ class _$ErrorBuyStateCubit implements ErrorBuyStateCubit {
         dataCancelPurchaseRequest,
     TResult? Function(CancelPurchaseResponseModel detaUpdatedItemlList)?
         loadedListUpdateStatus,
+    TResult? Function(CancelPurchaseResponseModel itemDeliveredResponse)?
+        deliveredItemRequest,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -1861,6 +2179,8 @@ class _$ErrorBuyStateCubit implements ErrorBuyStateCubit {
         dataCancelPurchaseRequest,
     TResult Function(CancelPurchaseResponseModel detaUpdatedItemlList)?
         loadedListUpdateStatus,
+    TResult Function(CancelPurchaseResponseModel itemDeliveredResponse)?
+        deliveredItemRequest,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -1885,6 +2205,8 @@ class _$ErrorBuyStateCubit implements ErrorBuyStateCubit {
         dataCancelPurchaseRequest,
     required TResult Function(LoadedListUpdateStatus value)
         loadedListUpdateStatus,
+    required TResult Function(DeliveredItemRequestState value)
+        deliveredItemRequest,
     required TResult Function(ErrorBuyStateCubit value) error,
   }) {
     return error(this);
@@ -1902,6 +2224,7 @@ class _$ErrorBuyStateCubit implements ErrorBuyStateCubit {
     TResult? Function(CancelPurchaseRequestState value)?
         dataCancelPurchaseRequest,
     TResult? Function(LoadedListUpdateStatus value)? loadedListUpdateStatus,
+    TResult? Function(DeliveredItemRequestState value)? deliveredItemRequest,
     TResult? Function(ErrorBuyStateCubit value)? error,
   }) {
     return error?.call(this);
@@ -1919,6 +2242,7 @@ class _$ErrorBuyStateCubit implements ErrorBuyStateCubit {
     TResult Function(CancelPurchaseRequestState value)?
         dataCancelPurchaseRequest,
     TResult Function(LoadedListUpdateStatus value)? loadedListUpdateStatus,
+    TResult Function(DeliveredItemRequestState value)? deliveredItemRequest,
     TResult Function(ErrorBuyStateCubit value)? error,
     required TResult orElse(),
   }) {

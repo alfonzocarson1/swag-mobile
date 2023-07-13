@@ -21,6 +21,7 @@ _$_BuyUserForSaleListingModel _$$_BuyUserForSaleListingModelFromJson(
           ? null
           : PeerToPeerPaymentsModel.fromJson(
               json['profilePeerToPeerPayment'] as Map<String, dynamic>),
+      purchaseHistoryId: json['purchaseHistoryId'] as String?,
     );
 
 Map<String, dynamic> _$$_BuyUserForSaleListingModelToJson(
@@ -39,5 +40,6 @@ Map<String, dynamic> _$$_BuyUserForSaleListingModelToJson(
   writeNotNull('purchaseOrder', instance.purchaseOrder);
   writeNotNull('address', instance.address);
   writeNotNull('profilePeerToPeerPayment', instance.profilePeerToPeerPayment);
+  writeNotNull('purchaseHistoryId', instance.purchaseHistoryId);
   return val;
 }

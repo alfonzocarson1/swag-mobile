@@ -24,6 +24,7 @@ mixin _$CancelPurchaseRequestModel {
   String? get productItemId => throw _privateConstructorUsedError;
   String? get listingChatId => throw _privateConstructorUsedError;
   String? get cancelReason => throw _privateConstructorUsedError;
+  bool? get received => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -39,7 +40,10 @@ abstract class $CancelPurchaseRequestModelCopyWith<$Res> {
           CancelPurchaseRequestModel>;
   @useResult
   $Res call(
-      {String? productItemId, String? listingChatId, String? cancelReason});
+      {String? productItemId,
+      String? listingChatId,
+      String? cancelReason,
+      bool? received});
 }
 
 /// @nodoc
@@ -59,6 +63,7 @@ class _$CancelPurchaseRequestModelCopyWithImpl<$Res,
     Object? productItemId = freezed,
     Object? listingChatId = freezed,
     Object? cancelReason = freezed,
+    Object? received = freezed,
   }) {
     return _then(_value.copyWith(
       productItemId: freezed == productItemId
@@ -73,6 +78,10 @@ class _$CancelPurchaseRequestModelCopyWithImpl<$Res,
           ? _value.cancelReason
           : cancelReason // ignore: cast_nullable_to_non_nullable
               as String?,
+      received: freezed == received
+          ? _value.received
+          : received // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 }
@@ -87,7 +96,10 @@ abstract class _$$_CancelPurchaseRequestModelCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? productItemId, String? listingChatId, String? cancelReason});
+      {String? productItemId,
+      String? listingChatId,
+      String? cancelReason,
+      bool? received});
 }
 
 /// @nodoc
@@ -106,6 +118,7 @@ class __$$_CancelPurchaseRequestModelCopyWithImpl<$Res>
     Object? productItemId = freezed,
     Object? listingChatId = freezed,
     Object? cancelReason = freezed,
+    Object? received = freezed,
   }) {
     return _then(_$_CancelPurchaseRequestModel(
       productItemId: freezed == productItemId
@@ -120,6 +133,10 @@ class __$$_CancelPurchaseRequestModelCopyWithImpl<$Res>
           ? _value.cancelReason
           : cancelReason // ignore: cast_nullable_to_non_nullable
               as String?,
+      received: freezed == received
+          ? _value.received
+          : received // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -129,7 +146,10 @@ class __$$_CancelPurchaseRequestModelCopyWithImpl<$Res>
 @JsonSerializable(includeIfNull: false)
 class _$_CancelPurchaseRequestModel implements _CancelPurchaseRequestModel {
   const _$_CancelPurchaseRequestModel(
-      {this.productItemId, this.listingChatId, this.cancelReason});
+      {this.productItemId,
+      this.listingChatId,
+      this.cancelReason,
+      this.received});
 
   factory _$_CancelPurchaseRequestModel.fromJson(Map<String, dynamic> json) =>
       _$$_CancelPurchaseRequestModelFromJson(json);
@@ -140,10 +160,12 @@ class _$_CancelPurchaseRequestModel implements _CancelPurchaseRequestModel {
   final String? listingChatId;
   @override
   final String? cancelReason;
+  @override
+  final bool? received;
 
   @override
   String toString() {
-    return 'CancelPurchaseRequestModel(productItemId: $productItemId, listingChatId: $listingChatId, cancelReason: $cancelReason)';
+    return 'CancelPurchaseRequestModel(productItemId: $productItemId, listingChatId: $listingChatId, cancelReason: $cancelReason, received: $received)';
   }
 
   @override
@@ -156,13 +178,15 @@ class _$_CancelPurchaseRequestModel implements _CancelPurchaseRequestModel {
             (identical(other.listingChatId, listingChatId) ||
                 other.listingChatId == listingChatId) &&
             (identical(other.cancelReason, cancelReason) ||
-                other.cancelReason == cancelReason));
+                other.cancelReason == cancelReason) &&
+            (identical(other.received, received) ||
+                other.received == received));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, productItemId, listingChatId, cancelReason);
+  int get hashCode => Object.hash(
+      runtimeType, productItemId, listingChatId, cancelReason, received);
 
   @JsonKey(ignore: true)
   @override
@@ -184,7 +208,8 @@ abstract class _CancelPurchaseRequestModel
   const factory _CancelPurchaseRequestModel(
       {final String? productItemId,
       final String? listingChatId,
-      final String? cancelReason}) = _$_CancelPurchaseRequestModel;
+      final String? cancelReason,
+      final bool? received}) = _$_CancelPurchaseRequestModel;
 
   factory _CancelPurchaseRequestModel.fromJson(Map<String, dynamic> json) =
       _$_CancelPurchaseRequestModel.fromJson;
@@ -195,6 +220,8 @@ abstract class _CancelPurchaseRequestModel
   String? get listingChatId;
   @override
   String? get cancelReason;
+  @override
+  bool? get received;
   @override
   @JsonKey(ignore: true)
   _$$_CancelPurchaseRequestModelCopyWith<_$_CancelPurchaseRequestModel>

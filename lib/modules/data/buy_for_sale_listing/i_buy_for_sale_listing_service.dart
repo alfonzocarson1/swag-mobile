@@ -25,4 +25,7 @@ abstract class IBuyForSaleListingService {
 
   Future<BuyASaleListingResponseModel> buyAListing(
       BuyASaleListingModel buyAListing);
+
+  Future<CancelPurchaseResponseModel> confirmReceivedItem(
+      CancelPurchaseRequestModel model);
 }

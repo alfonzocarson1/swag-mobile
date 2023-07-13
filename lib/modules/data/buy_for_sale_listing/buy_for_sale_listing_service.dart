@@ -94,4 +94,18 @@ class BuyForSaleListingService extends IBuyForSaleListingService {
     );
     return response;
   }
+
+  @override
+  Future<CancelPurchaseResponseModel> confirmReceivedItem(
+      CancelPurchaseRequestModel model) async {
+    print(model.toJson());
+    CancelPurchaseResponseModel response = await apiService.getEndpointData(
+      endpoint: Endpoint.confirmReceivedItem,
+      method: RequestMethod.post,
+      needBearer: true,
+      fromJson: (json) => CancelPurchaseResponseModel.fromJson(json),
+      body: model.toJson(),
+    );
+    return response;
+  }
 }

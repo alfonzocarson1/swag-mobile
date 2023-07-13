@@ -144,7 +144,7 @@ class __$$_UpdatePurchaseStatusRequestModelCopyWithImpl<$Res>
 
 /// @nodoc
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class _$_UpdatePurchaseStatusRequestModel
     implements _UpdatePurchaseStatusRequestModel {
   const _$_UpdatePurchaseStatusRequestModel(

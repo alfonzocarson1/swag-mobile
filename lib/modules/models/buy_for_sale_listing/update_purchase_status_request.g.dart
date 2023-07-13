@@ -16,10 +16,18 @@ _$_UpdatePurchaseStatusRequestModel
         );
 
 Map<String, dynamic> _$$_UpdatePurchaseStatusRequestModelToJson(
-        _$_UpdatePurchaseStatusRequestModel instance) =>
-    <String, dynamic>{
-      'listingStatus': instance.listingStatus,
-      'productItemId': instance.productItemId,
-      'listingChatId': instance.listingChatId,
-      'numberTracking': instance.numberTracking,
-    };
+    _$_UpdatePurchaseStatusRequestModel instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('listingStatus', instance.listingStatus);
+  writeNotNull('productItemId', instance.productItemId);
+  writeNotNull('listingChatId', instance.listingChatId);
+  writeNotNull('numberTracking', instance.numberTracking);
+  return val;
+}
