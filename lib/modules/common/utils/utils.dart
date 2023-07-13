@@ -18,6 +18,7 @@ import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/search/filter_model.dart';
 import '../../models/search/search_request_payload_model.dart';
+import '../ui/paywall_splash_screen.dart';
 
 String dateFormat(String dateStr) {
   final DateFormat displayFormater = DateFormat('dd/MM/yyyy');
@@ -545,3 +546,15 @@ extension Separated<E> on List<E> {
     }
   }
 }
+
+ showPaywallSplashScreen({required Function removePaywall,required bool hasUsedFreeTrial,required BuildContext context}){
+        Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) => PaywallSplashScreen(
+                                          hasUsedFreeTrial: hasUsedFreeTrial, 
+                                          removePaywall: (){
+                                            removePaywall;
+                                          },
+                                          )
+                                        )); 
+    }
