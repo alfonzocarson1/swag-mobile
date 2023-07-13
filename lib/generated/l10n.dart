@@ -540,6 +540,52 @@ class S {
     );
   }
 
+  String get name {
+    return Intl.message(
+      'Name',
+      name: 'Name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get card {
+    return Intl.message(
+      'Card',
+      name: 'Card',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get cvc {
+    return Intl.message(
+      'CVC',
+      name: 'CVC',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get expiration {
+    return Intl.message(
+      'Expiration',
+      name: 'Expiration',
+      desc: '',
+      args: [],
+    );
+  }
+
+  ///Billing Address
+   String get billing_address {
+    return Intl.message(
+      'Billing Address',
+      name: 'Billing Address',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `City`
   String get city {
     return Intl.message(

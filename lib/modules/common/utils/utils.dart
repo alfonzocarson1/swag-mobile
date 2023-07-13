@@ -66,6 +66,14 @@ String formatDate(String dateTime) {
   return formatted;
 }
 
+String formatDateWithMonthAndYear(String dateTime) {
+  final DateFormat displayFormater = DateFormat('yyyy-MM-dd HH:mm:ss.SSS');
+  final DateFormat serverFormater = DateFormat('MM/yyyy');
+  final DateTime displayDate = displayFormater.parse(dateTime);
+  final String formatted = serverFormater.format(displayDate);
+  return formatted.replaceAll('/20', '/');
+}
+
 extension StringExtension on String {
   String capitalize() {
     return "${this[0].toUpperCase()}${this.substring(1).toLowerCase()}";
