@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:swagapp/modules/common/ui/primary_button.dart';
 import '../../../generated/l10n.dart';
 import '../../common/ui/pushed_header.dart';
 import '../../common/utils/custom_route_animations.dart';
@@ -32,7 +33,7 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
         showBackButton: true,
         title: Align(
           alignment: Alignment.centerRight,
-          child: Text("PROFILE",
+          child: Text(S.of(context).profile_title.toUpperCase(),
               style: Theme.of(context).textTheme.displayLarge!.copyWith(
                   letterSpacing: 1,
                   fontWeight: FontWeight.w300,
@@ -57,7 +58,7 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                       children: [
                         _selectTile(
                             'assets/icons/BlockUserWhite.png',
-                            'Name',
+                            S.of(context).profile_name_title,
                             'Doug Hardman',
                                 () {},
                             true,
@@ -74,12 +75,12 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                         ),
                         _selectTile(
                             'assets/icons/account_icon.png',
-                            'Username',
+                            S.of(context).profile_username_title,
                             '@mrdoug',
                                 () {},
                             true,
                             '',
-                            'assets/icons/checkmark.png',
+                            'assets/icons/Verify.png',
                             false
 
                         ),
@@ -91,7 +92,7 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                         ),
                         _selectTile(
                           'assets/icons/security_icon.png',
-                          'Password',
+                            S.of(context).profile_password_title,
                           '*************',
                               () {},
                             true,
@@ -112,12 +113,12 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                           ),
                         ),
                         _selectTile(
-                          'assets/icons/nft_wallet_icon.png',
-                          'Email',
+                          'assets/icons/email.png',
+                            S.of(context).profile_email_title,
                           'doug@swag.com',
                               () {},
                             false,
-                            'Verified',
+                            S.of(context).email_verified,
                             '',
                             false
                         ),
@@ -129,7 +130,7 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                         ),
                         _selectTile(
                             'assets/icons/contact_us_icon.png',
-                            'Mobile Number',
+                            S.of(context).profile_mobile_number_title,
                             '1.555.555.5555',
                                 () {},
                             true,
@@ -145,7 +146,7 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                         ),
                         _selectTile(
                             'assets/icons/trash.png',
-                            'Delete My Swag Account',
+                            S.of(context).profile_delete_title,
                             '',
                                 () {},
                             true,
@@ -153,12 +154,24 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                             '',
                             true
                         ),
+
                         SizedBox(
                           height: 0.2,
                           child: Container(
                             color: Palette.current.grey,
                           ),
                         ),
+                          SizedBox(height: 150,),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            child: PrimaryButton(
+                            title: S.of(context).sign_out,
+                            onPressed: () {
+
+                            },
+                            type: PrimaryButtonType.pink,
+                          ),)
+
                       ],
                     )),
               );
@@ -189,19 +202,31 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
           size: 25,
           color: Colors.white,
         ),
-        title: Padding(
+        visualDensity: VisualDensity(vertical: 2),
+        title: subTitle != '' ? Padding(
           padding: const EdgeInsets.only(bottom: 3),
           child: Text(title,
               style: Theme.of(context).textTheme.bodySmall!.copyWith(
                   fontWeight: FontWeight.w400,
                   color: Palette.current.primaryWhiteSmoke,
                   fontSize: 16)),
-        ),
-        subtitle: Text(subTitle,
+        ) :  SizedBox(
+            height: 60,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(title,
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    fontWeight: FontWeight.w400,
+                    color: Palette.current.primaryWhiteSmoke,
+                    fontSize: 16)),
+          )),
+        subtitle: subTitle != '' ? Text(subTitle,
             style: Theme.of(context)
                 .textTheme
                 .bodySmall!
-                .copyWith(color: Palette.current.grey, fontSize: 14)),
+                .copyWith(color: Palette.current.grey, fontSize: 14)) :
+            null
+          ,
         trailing: showRightIcon ?
         hasArrowIcon ? Icon(Icons.arrow_forward_ios_sharp ,
           size: 10,
