@@ -49,14 +49,14 @@ class HorizontalSlideWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            height: MediaQuery.of(context).size.width * 0.38,
-            width: MediaQuery.of(context).size.width * 0.80,
+             height: MediaQuery.of(context).size.width * 0.38,
+            // width: MediaQuery.of(context).size.width * 0.80,
             child: Stack(
               fit: StackFit.loose,
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.width * 0.37,
-                  width: MediaQuery.of(context).size.width * 0.50,
+                  // height: MediaQuery.of(context).size.width * 0.37,
+                  // width: MediaQuery.of(context).size.width * 0.50,
                   child: ClipRRect(
                     child: CachedNetworkImage(
                       fit: BoxFit.fitHeight,
@@ -75,31 +75,6 @@ class HorizontalSlideWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
-                    top: 5,
-                    right: 5,
-                    child: CircleAvatar(
-                      radius: 15,
-                      backgroundColor: Palette.current.blackSmoke,
-                      child: IconButton(
-                        focusColor: Palette.current.blackSmoke,
-                        icon: Icon(
-                          size: 15.0,
-                          Icons.add,
-                          color: Palette.current.white,
-                        ),
-                        onPressed: () {
-                          if (isLogged) {
-                            Navigator.of(context, rootNavigator: true).push(
-                                AddCollection.route(
-                                    context, catalogItemId, pathImage, title));
-                          } else {
-                            Navigator.of(context, rootNavigator: true)
-                                .push(CreateAccountPage.route());
-                          }
-                        },
-                      ),
-                    )),
                 Positioned(
                   bottom: 0,
                   right: 0,
