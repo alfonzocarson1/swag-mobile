@@ -490,6 +490,16 @@ class S {
     );
   }
 
+  // Name
+  String get name {
+    return Intl.message(
+      'Name',
+      name: 'name',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `First Name`
   String get first_name {
     return Intl.message(

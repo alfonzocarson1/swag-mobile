@@ -25,7 +25,7 @@ class CustomTextFormField extends StatefulWidget {
       this.dropdownForm = false,
       this.dropdownFormItems,
       this.dropdownOnChanged,
-      this.dropdownvalue, this.textCapitalization})
+      this.dropdownvalue, this.textCapitalization, this.readOnly = false})
       : super(key: key);
   final String labelText;
   final FocusNode focusNode;
@@ -48,6 +48,7 @@ class CustomTextFormField extends StatefulWidget {
   void Function(String?)? dropdownOnChanged;
   final String? dropdownvalue;
   final TextCapitalization? textCapitalization;
+  final bool readOnly;
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
@@ -157,6 +158,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                               maxLength: widget.maxLength,
                               onChanged: widget.onChanged,
                               onSubmitted: widget.onSubmitted,
+                              readOnly: widget.readOnly,
                               inputFormatters: widget.inputFormatters ??
                                   [
                                     FilteringTextInputFormatter.deny(
