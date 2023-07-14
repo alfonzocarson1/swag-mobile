@@ -16,6 +16,7 @@ import '../../models/buy_for_sale_listing/cancel_purchase_request_model.dart';
 import '../../models/buy_for_sale_listing/cancel_purchase_response_model.dart';
 import '../../services/local_notifications_service.dart';
 import '../settings/purchase_history/purchase_history_details/purchase_history_details_page.dart';
+import 'rating_buyer.dart';
 
 class DeliveredPopUp extends StatefulWidget {
   final String userName;
@@ -114,18 +115,26 @@ class _DeliveredPopUpState extends State<DeliveredPopUp> {
                   ),
                   PrimaryButton(
                     title: S.of(context).delivered_yes,
-                    onPressed: () {
+                    onPressed: () async {
+                      await getIt<BuyCubit>().confirmReceivedItem(
+                        CancelPurchaseRequestModel(
+                            productItemId: widget.productItemId,
+                            listingChatId: listingChatId ?? '',
+                            received: true),
+                      );
                       setState(() {
-                        getIt<BuyCubit>().confirmReceivedItem(
-                          CancelPurchaseRequestModel(
-                              productItemId: widget.productItemId,
-                              listingChatId: listingChatId ?? '',
-                              received: true),
-                        );
                         Navigator.of(context).pop();
-                        Navigator.of(context, rootNavigator: true).push(
-                            PurchaseHistoryDetailsPage.route(
-                                widget.purchaseHistoryId));
+
+                        showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext context) {
+                              return RatingBuyer(
+                                productItemId: widget.productItemId,
+                                purchaseHistoryId: widget.purchaseHistoryId,
+                                userName: widget.userName,
+                              );
+                            });
                       });
                     },
                     type: PrimaryButtonType.green,
@@ -135,14 +144,14 @@ class _DeliveredPopUpState extends State<DeliveredPopUp> {
                   ),
                   PrimaryButton(
                     title: S.of(context).delivered_not_yes,
-                    onPressed: () {
+                    onPressed: () async {
+                      await getIt<BuyCubit>().confirmReceivedItem(
+                        CancelPurchaseRequestModel(
+                            productItemId: widget.productItemId,
+                            listingChatId: listingChatId ?? '',
+                            received: false),
+                      );
                       setState(() {
-                        getIt<BuyCubit>().confirmReceivedItem(
-                          CancelPurchaseRequestModel(
-                              productItemId: widget.productItemId,
-                              listingChatId: listingChatId ?? '',
-                              received: false),
-                        );
                         LocalNotificationsService.showInAppAllert(
                             S.of(context).delivered_not_yet_alert);
 
@@ -198,7 +207,7 @@ class _DeliveredPopUpState extends State<DeliveredPopUp> {
               },
               deliveredItemRequest:
                   (CancelPurchaseResponseModel itemDeliveredResponse) {
-                print(itemDeliveredResponse);
+                return null;
               },
             ),
         child: Center(child: _getBody()));

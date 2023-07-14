@@ -4,4 +4,6 @@ abstract class ISoldService {
   Stream<String?> subscribeToAuthChanges();
 
   Future<List<ProductItemSold>> getProductItemsSold();
+
+  Future<ProductItemSold> getDetailProductItemsSold(String productItemId);
 }

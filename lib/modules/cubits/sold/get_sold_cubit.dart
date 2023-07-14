@@ -26,4 +26,19 @@ class SoldProfileCubit extends Cubit<SoldCubitState> {
       );
     }
   }
+
+  Future<void> getDetailProductItemsSold(String productItemId) async {
+    emit(
+      const _Initial(),
+    );
+    try {
+      ProductItemSold response =
+          await soldService.getDetailProductItemsSold(productItemId);
+      emit(SoldCubitState.loadedSoldDetailItem(response));
+    } catch (error) {
+      emit(
+        ErrorSoldState(HandlingErrors().getError(error)),
+      );
+    }
+  }
 }

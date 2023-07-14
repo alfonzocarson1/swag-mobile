@@ -602,7 +602,7 @@ class _BuyerCompletePurchasePopUpState
                                                     stateCodes[index];
                                                 _stateController.text =
                                                     _defaultState;
-                                                print(_stateController.text);
+
                                                 Navigator.pop(context);
                                               }),
                                           Visibility(

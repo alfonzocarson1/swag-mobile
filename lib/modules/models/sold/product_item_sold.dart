@@ -24,6 +24,8 @@ class ProductItemSold with _$ProductItemSold {
     bool? sold,
     bool? isDeleted,
     String? status,
+    String? soldTo,
+    String? soldDate,
     PeerToPeerPaymentsModel? peerToPeerPaymentOptions,
     SubmitPurchaseInfo? submitPurchaseInfo,
   }) = _ProductItemSold;

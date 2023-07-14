@@ -10,5 +10,9 @@ class SoldCubitState with _$SoldCubitState {
     required final List<ProductItemSold> dataSoldList,
   }) = LoadedSoldItemState;
 
+  factory SoldCubitState.loadedSoldDetailItem(
+    ProductItemSold dataSoldDetail,
+  ) = LoadedSoldDetailItemState;
+
   factory SoldCubitState.error(final String message) = ErrorSoldState;
 }
