@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
+import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
+import 'package:swagapp/modules/di/injector.dart';
+import 'package:swagapp/modules/models/profile/profile_model.dart';
 import '../../../generated/l10n.dart';
 import '../../common/ui/pushed_header.dart';
 import '../../common/utils/custom_route_animations.dart';
@@ -27,6 +30,8 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
 
     return Scaffold(
       appBar: PushedHeader(
@@ -59,7 +64,7 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                         _selectTile(
                             'assets/icons/BlockUserWhite.png',
                             S.of(context).profile_name_title,
-                            'Doug Hardman',
+                            '',
                                 () {},
                             true,
                             '',
@@ -76,11 +81,11 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                         _selectTile(
                             'assets/icons/account_icon.png',
                             S.of(context).profile_username_title,
-                            '@mrdoug',
+                            profileData.username,
                                 () {},
                             true,
                             '',
-                            'assets/icons/Verify.png',
+                            'assets/icons/verifiedindicator.png',
                             false
 
                         ),
@@ -115,7 +120,7 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                         _selectTile(
                           'assets/icons/email.png',
                             S.of(context).profile_email_title,
-                          'doug@swag.com',
+                          profileData.email,
                               () {},
                             false,
                             S.of(context).email_verified,
@@ -131,7 +136,7 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                         _selectTile(
                             'assets/icons/contact_us_icon.png',
                             S.of(context).profile_mobile_number_title,
-                            '1.555.555.5555',
+                            profileData.phoneNumber,
                                 () {},
                             true,
                             '',
@@ -165,7 +170,7 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 20),
                             child: PrimaryButton(
-                            title: S.of(context).sign_out,
+                            title: S.of(context).sign_out.toUpperCase(),
                             onPressed: () {
 
                             },
