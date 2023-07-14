@@ -18,6 +18,7 @@ import '../../di/injector.dart';
 import '../../models/profile/profile_model.dart';
 import '../../models/search/filter_model.dart';
 import '../../models/search/search_request_payload_model.dart';
+import '../ui/dynamic_toast_messages.dart';
 
 String dateFormat(String dateStr) {
   final DateFormat displayFormater = DateFormat('dd/MM/yyyy');
@@ -527,4 +528,18 @@ T getRandomElement<T>(List<T> list) {
   final random = Random();
   final randomIndex = random.nextInt(list.length);
   return list[randomIndex];
+}
+
+Future<void> showSnackBar(BuildContext context, String message) async {
+  Future.delayed(const Duration(milliseconds: 2000), () {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        duration: const Duration(seconds: 3),
+        behavior: SnackBarBehavior.floating,
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).size.height / 1.3,
+        ),
+        backgroundColor: Colors.transparent,
+        content: ToastMessage(message: message),
+        dismissDirection: DismissDirection.none));
+  });
 }

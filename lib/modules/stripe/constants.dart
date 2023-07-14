@@ -3,7 +3,7 @@
 const createPaymentMethodUrl = 'https://api.stripe.com/v1/payment_methods';
 const createCustomerUrl = 'https://api.stripe.com/v1/customers';
 const attachPaymentMethodUrl = 'https://api.stripe.com/v1/payment_methods/';
-const stripeApiKey = 'sk_test_4eC39HqLyjWDarjtT1zdp7dc';
+const stripeApiKey = 'sk_test_51NG1gBKROefVddLby7hWboL6uaxmpN5ymAaWCUeMML7KF4ZZMtcynqRVvZjuDlyweXWXzy6CWHuYXY5p7tcsilMt00zhKZ4LTb';
 
 // CARD ERRORS
 const INVALID_CARD = 'incorrect_number';

@@ -1072,8 +1072,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
             email: profileData.email,
             phone: profileData.phoneNumber,
             city: _cityController.text,
-            // country: _defaultCountry,
-            country: 'US',
+            country: getCountryCodeFromCountryName(_defaultCountry) ?? ' ',
             line1: _firstAddressController.text,
             line2: _secondAddressController.text ?? ' ',
             postalCode: _zipController.text,
@@ -1083,8 +1082,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
             email: profileData.email,
             phone: profileData.phoneNumber,
             city: _billingCityController.text,
-            // country: _billingdefaultState,
-            country: 'US',
+            country:
+                getCountryCodeFromCountryName(_billingDefaultCountry) ?? ' ',
             line1: _billingFirstAddressController.text,
             line2: _billingSecondAddressController.text ?? ' ',
             postalCode: _billingZippController.text,
@@ -1094,7 +1093,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
         billingAndShippingAddressesAreSame
             ? PaymentMethodInputModel(
                 city: _cityController.text,
-                country: 'US',
+                country: getCountryCodeFromCountryName(_defaultCountry) ?? ' ',
                 line1: _firstAddressController.text,
                 line2: _secondAddressController.text,
                 postalCode: _zipController.text,
@@ -1109,8 +1108,9 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                 cardNumber: _cardController.text)
             : PaymentMethodInputModel(
                 city: _billingCityController.text,
-                // country: _billingDefaultCountry,
-                country: 'US',
+                country:
+                    getCountryCodeFromCountryName(_billingDefaultCountry) ??
+                        ' ',
                 line1: _billingFirstAddressController.text,
                 line2: _billingSecondAddressController.text,
                 postalCode: _billingZippController.text,
@@ -1153,14 +1153,29 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
               jsonDecode(paymentMethodAttachmentResponse.body)['id'];
           getIt<StorageRepositoryService>().saveStripeToken(paymentMethodId);
         } else {
+          //HANDLING STRIPE PAYMENT METHOD ATTACHMENT FAILURE SCENARIO
+          StripeErrorModel stripeErrorModel = StripeErrorModel.fromJson(
+              jsonDecode(paymentMethodAttachmentResponse.body)['error']);
+          final errorMessage = stripeErrorModel.message;
+          showSnackBar(context, errorMessage ?? S.of(context).stripe_error);
           debugPrint(
               'Failed  to Attache newly created paymnet methode to the newly created stripe customer: ${paymentMethodAttachmentResponse.body}');
         }
       } else {
+        //HANDLING STRIPE PAYMENT METHOD CREATION FAILED SCENARIO
+        StripeErrorModel stripeErrorModel = StripeErrorModel.fromJson(
+            jsonDecode(paymentMethodCreationResponse.body)['error']);
+        final errorMessage = stripeErrorModel.message;
+        showSnackBar(context, errorMessage ?? S.of(context).stripe_error);
         debugPrint(
             'New Payment Method Creation Failed: ${paymentMethodCreationResponse.body}');
       }
     } else {
+      //HANDLING STRIPE USER CREATION FAILED SCENARIO
+      StripeErrorModel stripeErrorModel = StripeErrorModel.fromJson(
+          jsonDecode(customerCreationResponse.body)['error']);
+      final errorMessage = stripeErrorModel.message;
+      showSnackBar(context, errorMessage ?? S.of(context).stripe_error);
       debugPrint(
           'New Stripe Customer Creation Failed: ${customerCreationResponse.body}');
     }
@@ -1189,6 +1204,14 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
     } else {
       return;
     }
+  }
+
+  String? getCountryCodeFromCountryName(String countryName) {
+    final countryIndex = countries.indexOf(countryName);
+    if (countryIndex != -1) {
+      return countriesCode[countryIndex];
+    }
+    return null;
   }
 
   void showPopUp({String? username}) {
@@ -1382,21 +1405,20 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
       textAlign: TextAlign.left,
       text: TextSpan(children: [
         TextSpan(
-          text: 'Credit card and billing information.\n',
+          text: S.of(context).creditcard_and_billing_info,
           style: Theme.of(context).textTheme.bodySmall!.copyWith(
                 color: Palette.current.primaryWhiteSmoke,
               ),
         ),
         TextSpan(
-          text: 'Note:',
+          text: S.of(context).note,
           style: Theme.of(context).textTheme.bodySmall!.copyWith(
                 fontWeight: FontWeight.w400,
                 color: Palette.current.primaryWhiteSmoke,
               ),
         ),
         TextSpan(
-          text:
-              ' this card will only be used for Atomic Drop purchases. All secondary market purchases will use P2P payment options.',
+          text: S.of(context).card_description,
           style: Theme.of(context).textTheme.bodySmall!.copyWith(
                 color: Palette.current.primaryWhiteSmoke,
               ),
