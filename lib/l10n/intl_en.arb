@@ -430,5 +430,6 @@
     "rating_sub_title": "How was your experience \nwith {sellerUserName}?",
     "rating_btn": "Submit rating",
     "rating_feedback": "Additional details here \n(not seen by users)...",
-    "sold_footer_title": "Sold to @{buyerUserName} on {dateSold} "
+    "sold_footer_title": "Sold to @{buyerUserName} on {dateSold} ",
+    "inactive": "Inactive"
 }

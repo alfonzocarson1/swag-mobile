@@ -313,6 +313,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Include the following images with your listing. Photos MUST include a physical note with username and date."),
         "import_late": MessageLookupByLibrary.simpleMessage(
             "*You’ll be able to make updates later."),
+        "inactive": MessageLookupByLibrary.simpleMessage("Inactive"),
         "incorrect_code": MessageLookupByLibrary.simpleMessage(
             "Incorrect code. Please check and try again."),
         "incorrect_email_or_password": MessageLookupByLibrary.simpleMessage(
