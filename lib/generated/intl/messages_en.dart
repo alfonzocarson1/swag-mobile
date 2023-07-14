@@ -69,6 +69,12 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m17(trackingNumber) => "Tracking number:\n${trackingNumber}";
 
+  static String m18(sellerUserName) =>
+      "How was your experience \nwith ${sellerUserName}?";
+
+  static String m19(buyerUserName, dateSold) =>
+      "Sold to @${buyerUserName} on ${dateSold} ";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "See_All": MessageLookupByLibrary.simpleMessage("See All"),
@@ -560,6 +566,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "purchase_tracking_number": m17,
         "putters": MessageLookupByLibrary.simpleMessage("Putters"),
         "rarity_score": MessageLookupByLibrary.simpleMessage("RARITY SCORE"),
+        "rating_btn": MessageLookupByLibrary.simpleMessage("Submit rating"),
+        "rating_feedback": MessageLookupByLibrary.simpleMessage(
+            "Additional details here \n(not seen by users)..."),
+        "rating_sub_title": m18,
+        "rating_title": MessageLookupByLibrary.simpleMessage("How’d it go?"),
         "razon_remove_btn": MessageLookupByLibrary.simpleMessage("SUBMIT"),
         "razon_remove_subtitle": MessageLookupByLibrary.simpleMessage(
             "Please select the reason you are removing this item."),
@@ -649,6 +660,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sign_in": MessageLookupByLibrary.simpleMessage("Sign In"),
         "sign_out": MessageLookupByLibrary.simpleMessage("Sign Out"),
         "similar_items": MessageLookupByLibrary.simpleMessage("SIMILAR ITEMS"),
+        "sold_footer_title": m19,
         "sort": MessageLookupByLibrary.simpleMessage("Sort:"),
         "sort_by": MessageLookupByLibrary.simpleMessage("sort by"),
         "staff_picks": MessageLookupByLibrary.simpleMessage("STAFF PICKS"),

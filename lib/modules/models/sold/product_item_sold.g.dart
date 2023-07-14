@@ -24,6 +24,8 @@ _$_ProductItemSold _$$_ProductItemSoldFromJson(Map<String, dynamic> json) =>
       sold: json['sold'] as bool?,
       isDeleted: json['isDeleted'] as bool?,
       status: json['status'] as String?,
+      soldTo: json['soldTo'] as String?,
+      soldDate: json['soldDate'] as String?,
       peerToPeerPaymentOptions: json['peerToPeerPaymentOptions'] == null
           ? null
           : PeerToPeerPaymentsModel.fromJson(
@@ -50,6 +52,8 @@ Map<String, dynamic> _$$_ProductItemSoldToJson(_$_ProductItemSold instance) =>
       'sold': instance.sold,
       'isDeleted': instance.isDeleted,
       'status': instance.status,
+      'soldTo': instance.soldTo,
+      'soldDate': instance.soldDate,
       'peerToPeerPaymentOptions': instance.peerToPeerPaymentOptions,
       'submitPurchaseInfo': instance.submitPurchaseInfo,
     };

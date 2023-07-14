@@ -34,6 +34,8 @@ mixin _$ProductItemSold {
   bool? get sold => throw _privateConstructorUsedError;
   bool? get isDeleted => throw _privateConstructorUsedError;
   String? get status => throw _privateConstructorUsedError;
+  String? get soldTo => throw _privateConstructorUsedError;
+  String? get soldDate => throw _privateConstructorUsedError;
   PeerToPeerPaymentsModel? get peerToPeerPaymentOptions =>
       throw _privateConstructorUsedError;
   SubmitPurchaseInfo? get submitPurchaseInfo =>
@@ -66,6 +68,8 @@ abstract class $ProductItemSoldCopyWith<$Res> {
       bool? sold,
       bool? isDeleted,
       String? status,
+      String? soldTo,
+      String? soldDate,
       PeerToPeerPaymentsModel? peerToPeerPaymentOptions,
       SubmitPurchaseInfo? submitPurchaseInfo});
 
@@ -100,6 +104,8 @@ class _$ProductItemSoldCopyWithImpl<$Res, $Val extends ProductItemSold>
     Object? sold = freezed,
     Object? isDeleted = freezed,
     Object? status = freezed,
+    Object? soldTo = freezed,
+    Object? soldDate = freezed,
     Object? peerToPeerPaymentOptions = freezed,
     Object? submitPurchaseInfo = freezed,
   }) {
@@ -159,6 +165,14 @@ class _$ProductItemSoldCopyWithImpl<$Res, $Val extends ProductItemSold>
       status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
+              as String?,
+      soldTo: freezed == soldTo
+          ? _value.soldTo
+          : soldTo // ignore: cast_nullable_to_non_nullable
+              as String?,
+      soldDate: freezed == soldDate
+          ? _value.soldDate
+          : soldDate // ignore: cast_nullable_to_non_nullable
               as String?,
       peerToPeerPaymentOptions: freezed == peerToPeerPaymentOptions
           ? _value.peerToPeerPaymentOptions
@@ -221,6 +235,8 @@ abstract class _$$_ProductItemSoldCopyWith<$Res>
       bool? sold,
       bool? isDeleted,
       String? status,
+      String? soldTo,
+      String? soldDate,
       PeerToPeerPaymentsModel? peerToPeerPaymentOptions,
       SubmitPurchaseInfo? submitPurchaseInfo});
 
@@ -255,6 +271,8 @@ class __$$_ProductItemSoldCopyWithImpl<$Res>
     Object? sold = freezed,
     Object? isDeleted = freezed,
     Object? status = freezed,
+    Object? soldTo = freezed,
+    Object? soldDate = freezed,
     Object? peerToPeerPaymentOptions = freezed,
     Object? submitPurchaseInfo = freezed,
   }) {
@@ -315,6 +333,14 @@ class __$$_ProductItemSoldCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String?,
+      soldTo: freezed == soldTo
+          ? _value.soldTo
+          : soldTo // ignore: cast_nullable_to_non_nullable
+              as String?,
+      soldDate: freezed == soldDate
+          ? _value.soldDate
+          : soldDate // ignore: cast_nullable_to_non_nullable
+              as String?,
       peerToPeerPaymentOptions: freezed == peerToPeerPaymentOptions
           ? _value.peerToPeerPaymentOptions
           : peerToPeerPaymentOptions // ignore: cast_nullable_to_non_nullable
@@ -346,6 +372,8 @@ class _$_ProductItemSold implements _ProductItemSold {
       this.sold,
       this.isDeleted,
       this.status,
+      this.soldTo,
+      this.soldDate,
       this.peerToPeerPaymentOptions,
       this.submitPurchaseInfo})
       : _productItemImageUrls = productItemImageUrls;
@@ -389,13 +417,17 @@ class _$_ProductItemSold implements _ProductItemSold {
   @override
   final String? status;
   @override
+  final String? soldTo;
+  @override
+  final String? soldDate;
+  @override
   final PeerToPeerPaymentsModel? peerToPeerPaymentOptions;
   @override
   final SubmitPurchaseInfo? submitPurchaseInfo;
 
   @override
   String toString() {
-    return 'ProductItemSold(productItemId: $productItemId, productItemName: $productItemName, productItemPrice: $productItemPrice, productItemImageUrls: $productItemImageUrls, productItemDescription: $productItemDescription, condition: $condition, profileId: $profileId, catalogItemId: $catalogItemId, profileCollectionItemId: $profileCollectionItemId, lastSale: $lastSale, forSale: $forSale, sold: $sold, isDeleted: $isDeleted, status: $status, peerToPeerPaymentOptions: $peerToPeerPaymentOptions, submitPurchaseInfo: $submitPurchaseInfo)';
+    return 'ProductItemSold(productItemId: $productItemId, productItemName: $productItemName, productItemPrice: $productItemPrice, productItemImageUrls: $productItemImageUrls, productItemDescription: $productItemDescription, condition: $condition, profileId: $profileId, catalogItemId: $catalogItemId, profileCollectionItemId: $profileCollectionItemId, lastSale: $lastSale, forSale: $forSale, sold: $sold, isDeleted: $isDeleted, status: $status, soldTo: $soldTo, soldDate: $soldDate, peerToPeerPaymentOptions: $peerToPeerPaymentOptions, submitPurchaseInfo: $submitPurchaseInfo)';
   }
 
   @override
@@ -429,6 +461,9 @@ class _$_ProductItemSold implements _ProductItemSold {
             (identical(other.isDeleted, isDeleted) ||
                 other.isDeleted == isDeleted) &&
             (identical(other.status, status) || other.status == status) &&
+            (identical(other.soldTo, soldTo) || other.soldTo == soldTo) &&
+            (identical(other.soldDate, soldDate) ||
+                other.soldDate == soldDate) &&
             (identical(
                     other.peerToPeerPaymentOptions, peerToPeerPaymentOptions) ||
                 other.peerToPeerPaymentOptions == peerToPeerPaymentOptions) &&
@@ -454,6 +489,8 @@ class _$_ProductItemSold implements _ProductItemSold {
       sold,
       isDeleted,
       status,
+      soldTo,
+      soldDate,
       peerToPeerPaymentOptions,
       submitPurchaseInfo);
 
@@ -487,6 +524,8 @@ abstract class _ProductItemSold implements ProductItemSold {
       final bool? sold,
       final bool? isDeleted,
       final String? status,
+      final String? soldTo,
+      final String? soldDate,
       final PeerToPeerPaymentsModel? peerToPeerPaymentOptions,
       final SubmitPurchaseInfo? submitPurchaseInfo}) = _$_ProductItemSold;
 
@@ -521,6 +560,10 @@ abstract class _ProductItemSold implements ProductItemSold {
   bool? get isDeleted;
   @override
   String? get status;
+  @override
+  String? get soldTo;
+  @override
+  String? get soldDate;
   @override
   PeerToPeerPaymentsModel? get peerToPeerPaymentOptions;
   @override

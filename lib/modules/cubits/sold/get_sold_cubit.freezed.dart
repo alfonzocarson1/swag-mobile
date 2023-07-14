@@ -22,6 +22,8 @@ mixin _$SoldCubitState {
     required TResult Function(bool isFirstFetch) loading,
     required TResult Function(List<ProductItemSold> dataSoldList)
         loadedSoldItems,
+    required TResult Function(ProductItemSold dataSoldDetail)
+        loadedSoldDetailItem,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -30,6 +32,7 @@ mixin _$SoldCubitState {
     TResult? Function()? initial,
     TResult? Function(bool isFirstFetch)? loading,
     TResult? Function(List<ProductItemSold> dataSoldList)? loadedSoldItems,
+    TResult? Function(ProductItemSold dataSoldDetail)? loadedSoldDetailItem,
     TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -38,6 +41,7 @@ mixin _$SoldCubitState {
     TResult Function()? initial,
     TResult Function(bool isFirstFetch)? loading,
     TResult Function(List<ProductItemSold> dataSoldList)? loadedSoldItems,
+    TResult Function(ProductItemSold dataSoldDetail)? loadedSoldDetailItem,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
@@ -47,6 +51,8 @@ mixin _$SoldCubitState {
     required TResult Function(_Initial value) initial,
     required TResult Function(loading_search value) loading,
     required TResult Function(LoadedSoldItemState value) loadedSoldItems,
+    required TResult Function(LoadedSoldDetailItemState value)
+        loadedSoldDetailItem,
     required TResult Function(ErrorSoldState value) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -55,6 +61,7 @@ mixin _$SoldCubitState {
     TResult? Function(_Initial value)? initial,
     TResult? Function(loading_search value)? loading,
     TResult? Function(LoadedSoldItemState value)? loadedSoldItems,
+    TResult? Function(LoadedSoldDetailItemState value)? loadedSoldDetailItem,
     TResult? Function(ErrorSoldState value)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -63,6 +70,7 @@ mixin _$SoldCubitState {
     TResult Function(_Initial value)? initial,
     TResult Function(loading_search value)? loading,
     TResult Function(LoadedSoldItemState value)? loadedSoldItems,
+    TResult Function(LoadedSoldDetailItemState value)? loadedSoldDetailItem,
     TResult Function(ErrorSoldState value)? error,
     required TResult orElse(),
   }) =>
@@ -128,6 +136,8 @@ class _$_Initial implements _Initial {
     required TResult Function(bool isFirstFetch) loading,
     required TResult Function(List<ProductItemSold> dataSoldList)
         loadedSoldItems,
+    required TResult Function(ProductItemSold dataSoldDetail)
+        loadedSoldDetailItem,
     required TResult Function(String message) error,
   }) {
     return initial();
@@ -139,6 +149,7 @@ class _$_Initial implements _Initial {
     TResult? Function()? initial,
     TResult? Function(bool isFirstFetch)? loading,
     TResult? Function(List<ProductItemSold> dataSoldList)? loadedSoldItems,
+    TResult? Function(ProductItemSold dataSoldDetail)? loadedSoldDetailItem,
     TResult? Function(String message)? error,
   }) {
     return initial?.call();
@@ -150,6 +161,7 @@ class _$_Initial implements _Initial {
     TResult Function()? initial,
     TResult Function(bool isFirstFetch)? loading,
     TResult Function(List<ProductItemSold> dataSoldList)? loadedSoldItems,
+    TResult Function(ProductItemSold dataSoldDetail)? loadedSoldDetailItem,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -165,6 +177,8 @@ class _$_Initial implements _Initial {
     required TResult Function(_Initial value) initial,
     required TResult Function(loading_search value) loading,
     required TResult Function(LoadedSoldItemState value) loadedSoldItems,
+    required TResult Function(LoadedSoldDetailItemState value)
+        loadedSoldDetailItem,
     required TResult Function(ErrorSoldState value) error,
   }) {
     return initial(this);
@@ -176,6 +190,7 @@ class _$_Initial implements _Initial {
     TResult? Function(_Initial value)? initial,
     TResult? Function(loading_search value)? loading,
     TResult? Function(LoadedSoldItemState value)? loadedSoldItems,
+    TResult? Function(LoadedSoldDetailItemState value)? loadedSoldDetailItem,
     TResult? Function(ErrorSoldState value)? error,
   }) {
     return initial?.call(this);
@@ -187,6 +202,7 @@ class _$_Initial implements _Initial {
     TResult Function(_Initial value)? initial,
     TResult Function(loading_search value)? loading,
     TResult Function(LoadedSoldItemState value)? loadedSoldItems,
+    TResult Function(LoadedSoldDetailItemState value)? loadedSoldDetailItem,
     TResult Function(ErrorSoldState value)? error,
     required TResult orElse(),
   }) {
@@ -271,6 +287,8 @@ class _$loading_search implements loading_search {
     required TResult Function(bool isFirstFetch) loading,
     required TResult Function(List<ProductItemSold> dataSoldList)
         loadedSoldItems,
+    required TResult Function(ProductItemSold dataSoldDetail)
+        loadedSoldDetailItem,
     required TResult Function(String message) error,
   }) {
     return loading(isFirstFetch);
@@ -282,6 +300,7 @@ class _$loading_search implements loading_search {
     TResult? Function()? initial,
     TResult? Function(bool isFirstFetch)? loading,
     TResult? Function(List<ProductItemSold> dataSoldList)? loadedSoldItems,
+    TResult? Function(ProductItemSold dataSoldDetail)? loadedSoldDetailItem,
     TResult? Function(String message)? error,
   }) {
     return loading?.call(isFirstFetch);
@@ -293,6 +312,7 @@ class _$loading_search implements loading_search {
     TResult Function()? initial,
     TResult Function(bool isFirstFetch)? loading,
     TResult Function(List<ProductItemSold> dataSoldList)? loadedSoldItems,
+    TResult Function(ProductItemSold dataSoldDetail)? loadedSoldDetailItem,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -308,6 +328,8 @@ class _$loading_search implements loading_search {
     required TResult Function(_Initial value) initial,
     required TResult Function(loading_search value) loading,
     required TResult Function(LoadedSoldItemState value) loadedSoldItems,
+    required TResult Function(LoadedSoldDetailItemState value)
+        loadedSoldDetailItem,
     required TResult Function(ErrorSoldState value) error,
   }) {
     return loading(this);
@@ -319,6 +341,7 @@ class _$loading_search implements loading_search {
     TResult? Function(_Initial value)? initial,
     TResult? Function(loading_search value)? loading,
     TResult? Function(LoadedSoldItemState value)? loadedSoldItems,
+    TResult? Function(LoadedSoldDetailItemState value)? loadedSoldDetailItem,
     TResult? Function(ErrorSoldState value)? error,
   }) {
     return loading?.call(this);
@@ -330,6 +353,7 @@ class _$loading_search implements loading_search {
     TResult Function(_Initial value)? initial,
     TResult Function(loading_search value)? loading,
     TResult Function(LoadedSoldItemState value)? loadedSoldItems,
+    TResult Function(LoadedSoldDetailItemState value)? loadedSoldDetailItem,
     TResult Function(ErrorSoldState value)? error,
     required TResult orElse(),
   }) {
@@ -426,6 +450,8 @@ class _$LoadedSoldItemState implements LoadedSoldItemState {
     required TResult Function(bool isFirstFetch) loading,
     required TResult Function(List<ProductItemSold> dataSoldList)
         loadedSoldItems,
+    required TResult Function(ProductItemSold dataSoldDetail)
+        loadedSoldDetailItem,
     required TResult Function(String message) error,
   }) {
     return loadedSoldItems(dataSoldList);
@@ -437,6 +463,7 @@ class _$LoadedSoldItemState implements LoadedSoldItemState {
     TResult? Function()? initial,
     TResult? Function(bool isFirstFetch)? loading,
     TResult? Function(List<ProductItemSold> dataSoldList)? loadedSoldItems,
+    TResult? Function(ProductItemSold dataSoldDetail)? loadedSoldDetailItem,
     TResult? Function(String message)? error,
   }) {
     return loadedSoldItems?.call(dataSoldList);
@@ -448,6 +475,7 @@ class _$LoadedSoldItemState implements LoadedSoldItemState {
     TResult Function()? initial,
     TResult Function(bool isFirstFetch)? loading,
     TResult Function(List<ProductItemSold> dataSoldList)? loadedSoldItems,
+    TResult Function(ProductItemSold dataSoldDetail)? loadedSoldDetailItem,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -463,6 +491,8 @@ class _$LoadedSoldItemState implements LoadedSoldItemState {
     required TResult Function(_Initial value) initial,
     required TResult Function(loading_search value) loading,
     required TResult Function(LoadedSoldItemState value) loadedSoldItems,
+    required TResult Function(LoadedSoldDetailItemState value)
+        loadedSoldDetailItem,
     required TResult Function(ErrorSoldState value) error,
   }) {
     return loadedSoldItems(this);
@@ -474,6 +504,7 @@ class _$LoadedSoldItemState implements LoadedSoldItemState {
     TResult? Function(_Initial value)? initial,
     TResult? Function(loading_search value)? loading,
     TResult? Function(LoadedSoldItemState value)? loadedSoldItems,
+    TResult? Function(LoadedSoldDetailItemState value)? loadedSoldDetailItem,
     TResult? Function(ErrorSoldState value)? error,
   }) {
     return loadedSoldItems?.call(this);
@@ -485,6 +516,7 @@ class _$LoadedSoldItemState implements LoadedSoldItemState {
     TResult Function(_Initial value)? initial,
     TResult Function(loading_search value)? loading,
     TResult Function(LoadedSoldItemState value)? loadedSoldItems,
+    TResult Function(LoadedSoldDetailItemState value)? loadedSoldDetailItem,
     TResult Function(ErrorSoldState value)? error,
     required TResult orElse(),
   }) {
@@ -504,6 +536,174 @@ abstract class LoadedSoldItemState implements SoldCubitState {
   @JsonKey(ignore: true)
   _$$LoadedSoldItemStateCopyWith<_$LoadedSoldItemState> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$LoadedSoldDetailItemStateCopyWith<$Res> {
+  factory _$$LoadedSoldDetailItemStateCopyWith(
+          _$LoadedSoldDetailItemState value,
+          $Res Function(_$LoadedSoldDetailItemState) then) =
+      __$$LoadedSoldDetailItemStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({ProductItemSold dataSoldDetail});
+
+  $ProductItemSoldCopyWith<$Res> get dataSoldDetail;
+}
+
+/// @nodoc
+class __$$LoadedSoldDetailItemStateCopyWithImpl<$Res>
+    extends _$SoldCubitStateCopyWithImpl<$Res, _$LoadedSoldDetailItemState>
+    implements _$$LoadedSoldDetailItemStateCopyWith<$Res> {
+  __$$LoadedSoldDetailItemStateCopyWithImpl(_$LoadedSoldDetailItemState _value,
+      $Res Function(_$LoadedSoldDetailItemState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? dataSoldDetail = null,
+  }) {
+    return _then(_$LoadedSoldDetailItemState(
+      null == dataSoldDetail
+          ? _value.dataSoldDetail
+          : dataSoldDetail // ignore: cast_nullable_to_non_nullable
+              as ProductItemSold,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ProductItemSoldCopyWith<$Res> get dataSoldDetail {
+    return $ProductItemSoldCopyWith<$Res>(_value.dataSoldDetail, (value) {
+      return _then(_value.copyWith(dataSoldDetail: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$LoadedSoldDetailItemState implements LoadedSoldDetailItemState {
+  _$LoadedSoldDetailItemState(this.dataSoldDetail);
+
+  @override
+  final ProductItemSold dataSoldDetail;
+
+  @override
+  String toString() {
+    return 'SoldCubitState.loadedSoldDetailItem(dataSoldDetail: $dataSoldDetail)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LoadedSoldDetailItemState &&
+            (identical(other.dataSoldDetail, dataSoldDetail) ||
+                other.dataSoldDetail == dataSoldDetail));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, dataSoldDetail);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LoadedSoldDetailItemStateCopyWith<_$LoadedSoldDetailItemState>
+      get copyWith => __$$LoadedSoldDetailItemStateCopyWithImpl<
+          _$LoadedSoldDetailItemState>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(bool isFirstFetch) loading,
+    required TResult Function(List<ProductItemSold> dataSoldList)
+        loadedSoldItems,
+    required TResult Function(ProductItemSold dataSoldDetail)
+        loadedSoldDetailItem,
+    required TResult Function(String message) error,
+  }) {
+    return loadedSoldDetailItem(dataSoldDetail);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(bool isFirstFetch)? loading,
+    TResult? Function(List<ProductItemSold> dataSoldList)? loadedSoldItems,
+    TResult? Function(ProductItemSold dataSoldDetail)? loadedSoldDetailItem,
+    TResult? Function(String message)? error,
+  }) {
+    return loadedSoldDetailItem?.call(dataSoldDetail);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(bool isFirstFetch)? loading,
+    TResult Function(List<ProductItemSold> dataSoldList)? loadedSoldItems,
+    TResult Function(ProductItemSold dataSoldDetail)? loadedSoldDetailItem,
+    TResult Function(String message)? error,
+    required TResult orElse(),
+  }) {
+    if (loadedSoldDetailItem != null) {
+      return loadedSoldDetailItem(dataSoldDetail);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(loading_search value) loading,
+    required TResult Function(LoadedSoldItemState value) loadedSoldItems,
+    required TResult Function(LoadedSoldDetailItemState value)
+        loadedSoldDetailItem,
+    required TResult Function(ErrorSoldState value) error,
+  }) {
+    return loadedSoldDetailItem(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(loading_search value)? loading,
+    TResult? Function(LoadedSoldItemState value)? loadedSoldItems,
+    TResult? Function(LoadedSoldDetailItemState value)? loadedSoldDetailItem,
+    TResult? Function(ErrorSoldState value)? error,
+  }) {
+    return loadedSoldDetailItem?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(loading_search value)? loading,
+    TResult Function(LoadedSoldItemState value)? loadedSoldItems,
+    TResult Function(LoadedSoldDetailItemState value)? loadedSoldDetailItem,
+    TResult Function(ErrorSoldState value)? error,
+    required TResult orElse(),
+  }) {
+    if (loadedSoldDetailItem != null) {
+      return loadedSoldDetailItem(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class LoadedSoldDetailItemState implements SoldCubitState {
+  factory LoadedSoldDetailItemState(final ProductItemSold dataSoldDetail) =
+      _$LoadedSoldDetailItemState;
+
+  ProductItemSold get dataSoldDetail;
+  @JsonKey(ignore: true)
+  _$$LoadedSoldDetailItemStateCopyWith<_$LoadedSoldDetailItemState>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -574,6 +774,8 @@ class _$ErrorSoldState implements ErrorSoldState {
     required TResult Function(bool isFirstFetch) loading,
     required TResult Function(List<ProductItemSold> dataSoldList)
         loadedSoldItems,
+    required TResult Function(ProductItemSold dataSoldDetail)
+        loadedSoldDetailItem,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -585,6 +787,7 @@ class _$ErrorSoldState implements ErrorSoldState {
     TResult? Function()? initial,
     TResult? Function(bool isFirstFetch)? loading,
     TResult? Function(List<ProductItemSold> dataSoldList)? loadedSoldItems,
+    TResult? Function(ProductItemSold dataSoldDetail)? loadedSoldDetailItem,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -596,6 +799,7 @@ class _$ErrorSoldState implements ErrorSoldState {
     TResult Function()? initial,
     TResult Function(bool isFirstFetch)? loading,
     TResult Function(List<ProductItemSold> dataSoldList)? loadedSoldItems,
+    TResult Function(ProductItemSold dataSoldDetail)? loadedSoldDetailItem,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -611,6 +815,8 @@ class _$ErrorSoldState implements ErrorSoldState {
     required TResult Function(_Initial value) initial,
     required TResult Function(loading_search value) loading,
     required TResult Function(LoadedSoldItemState value) loadedSoldItems,
+    required TResult Function(LoadedSoldDetailItemState value)
+        loadedSoldDetailItem,
     required TResult Function(ErrorSoldState value) error,
   }) {
     return error(this);
@@ -622,6 +828,7 @@ class _$ErrorSoldState implements ErrorSoldState {
     TResult? Function(_Initial value)? initial,
     TResult? Function(loading_search value)? loading,
     TResult? Function(LoadedSoldItemState value)? loadedSoldItems,
+    TResult? Function(LoadedSoldDetailItemState value)? loadedSoldDetailItem,
     TResult? Function(ErrorSoldState value)? error,
   }) {
     return error?.call(this);
@@ -633,6 +840,7 @@ class _$ErrorSoldState implements ErrorSoldState {
     TResult Function(_Initial value)? initial,
     TResult Function(loading_search value)? loading,
     TResult Function(LoadedSoldItemState value)? loadedSoldItems,
+    TResult Function(LoadedSoldDetailItemState value)? loadedSoldDetailItem,
     TResult Function(ErrorSoldState value)? error,
     required TResult orElse(),
   }) {

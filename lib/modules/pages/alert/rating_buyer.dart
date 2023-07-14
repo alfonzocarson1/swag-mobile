@@ -16,11 +16,14 @@ import '../settings/purchase_history/purchase_history_details/purchase_history_d
 class RatingBuyer extends StatefulWidget {
   final String productItemId;
   final String purchaseHistoryId;
+  final String userName;
 
-  const RatingBuyer(
-      {super.key,
-      required this.productItemId,
-      required this.purchaseHistoryId});
+  const RatingBuyer({
+    super.key,
+    required this.productItemId,
+    required this.purchaseHistoryId,
+    required this.userName,
+  });
 
   @override
   State<RatingBuyer> createState() => _RatingBuyerState();
@@ -70,7 +73,7 @@ class _RatingBuyerState extends State<RatingBuyer> {
                         ),
                         Align(
                           alignment: Alignment.centerLeft,
-                          child: Text('How’d it go?',
+                          child: Text(S.of(context).rating_title.toUpperCase(),
                               textAlign: TextAlign.left,
                               style: Theme.of(context)
                                   .textTheme
@@ -87,7 +90,8 @@ class _RatingBuyerState extends State<RatingBuyer> {
                         ),
                         Align(
                           alignment: Alignment.centerLeft,
-                          child: Text('How was your experience  with @mrcarl?',
+                          child: Text(
+                              S.of(context).rating_sub_title(widget.userName),
                               style: Theme.of(context)
                                   .textTheme
                                   .bodySmall!
@@ -226,8 +230,7 @@ class _RatingBuyerState extends State<RatingBuyer> {
                               fontSize: 14.0,
                               color: Palette.current.primaryWhiteSmoke),
                           decoration: InputDecoration(
-                            hintText:
-                                'Additional details here \n(not seen by users)...',
+                            hintText: S.of(context).rating_feedback,
                             hintStyle: const TextStyle(
                               color: Colors.white,
                             ),
@@ -255,13 +258,13 @@ class _RatingBuyerState extends State<RatingBuyer> {
                       height: 30,
                     ),
                     (ratingPositive == ratingNegative)
-                        ? const PrimaryButton(
-                            title: 'Submit rating',
+                        ? PrimaryButton(
+                            title: S.of(context).rating_btn.toUpperCase(),
                             onPressed: null,
                             type: PrimaryButtonType.grey,
                           )
                         : PrimaryButton(
-                            title: 'Submit rating',
+                            title: S.of(context).rating_btn.toUpperCase(),
                             onPressed: () async {
                               showErrors();
                               if (areFieldsValid()) {
@@ -324,7 +327,7 @@ class _RatingBuyerState extends State<RatingBuyer> {
               },
               deliveredItemRequest:
                   (CancelPurchaseResponseModel itemDeliveredResponse) {
-                print(itemDeliveredResponse);
+                return null;
               },
             ),
         child: Center(child: _getBody()));

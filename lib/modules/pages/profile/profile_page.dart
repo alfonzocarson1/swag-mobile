@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/pages/chats/chats_page.dart';
-import 'package:swagapp/modules/pages/profile/sold_page.dart';
+import 'package:swagapp/modules/pages/profile/sold/sold_page.dart';
 
 import '../../../generated/l10n.dart';
 import '../../common/ui/account_info_head.dart';
@@ -101,23 +101,25 @@ class _ProfilePageState extends State<ProfilePage>
         actions: <Widget>[
           BlocBuilder<ProfileCubit, ProfileCubitState>(
             builder: (context, state) {
-              return state.maybeWhen(orElse:  () => Container(), loadedProfileData: (ProfileModel profileBuildData) {
-                return Padding(
-                  padding: const EdgeInsets.only(right: 10),
-                  child: IconButton(
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    icon: Image.asset(
-                      'assets/images/Setting.png',
-                      scale: 2.5,
-                    ),
-                    onPressed: () {
-                      Navigator.of(context, rootNavigator: true)
-                          .push(SettingsPage.route(profileBuildData));
-                    },
-                  ),
-                );
-              });
+              return state.maybeWhen(
+                  orElse: () => Container(),
+                  loadedProfileData: (ProfileModel profileBuildData) {
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: IconButton(
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        icon: Image.asset(
+                          'assets/images/Setting.png',
+                          scale: 2.5,
+                        ),
+                        onPressed: () {
+                          Navigator.of(context, rootNavigator: true)
+                              .push(SettingsPage.route(profileBuildData));
+                        },
+                      ),
+                    );
+                  });
             },
           ),
         ],
