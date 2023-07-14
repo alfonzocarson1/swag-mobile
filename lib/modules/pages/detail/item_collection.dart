@@ -201,17 +201,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
       });
     }
 
-    showPaywallSplashScreen(){
-        Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) => PaywallSplashScreen(
-                                          hasUsedFreeTrial: false, 
-                                          removePaywall: (){
-                                            removePaywall();
-                                          },
-                                          )
-                                        )); 
-    }
+   
 
     return Column(
       children: [
@@ -521,7 +511,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                       : showToastMessage(
                                           S.of(context).collection_listed);
                             } else {
-                              showPaywallSplashScreen();
+                              showPaywallSplashScreen(context: context, hasUsedFreeTrial: profileData?.hasUsedFreeTrial ?? false, removePaywall: removePaywall());
                             }
                             }else{
                               Navigator.of(context, rootNavigator: true)
@@ -613,7 +603,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                       S.of(context).notify_availability);
                                   }
                                   else{
-                                    showPaywallSplashScreen();                                    
+                                    showPaywallSplashScreen(context: context, hasUsedFreeTrial: profileData?.hasUsedFreeTrial ?? false, removePaywall: removePaywall());                                   
                                   }                                
                                 } else if (isLogged &&
                                     buttonEnable == false &&
@@ -623,7 +613,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                       .of(context)
                                       .notification_already_requested);
                                        }else{
-                                        showPaywallSplashScreen(); 
+                                        showPaywallSplashScreen(context: context, hasUsedFreeTrial: profileData?.hasUsedFreeTrial ?? false, removePaywall: removePaywall());
                                        }                                  
                                 } else if (!notifyAvailabilityFlagBTN &&
                                     buttonEnable &&

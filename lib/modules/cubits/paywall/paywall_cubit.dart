@@ -19,13 +19,14 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
   final InAppPurchase _iap = InAppPurchase.instance;
   List<ProductDetails> _products = [];
   ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData(); 
-
+ StreamSubscription<List<PurchaseDetails>>? subscription;
   
   PaywallCubit() : super(const PaywallCubitState.initial()){
     _loadProducts();
     _subscription = _iap.purchaseStream.listen((purchases) {
       _handlePurchaseUpdates(purchases);
     });
+    subscription = _subscription;
   }
 
   StreamSubscription<List<PurchaseDetails>>? _subscription;
@@ -47,29 +48,31 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
     _products = response.productDetails;
   }
 
-  void _handlePurchaseUpdates(List<PurchaseDetails> purchases) {
-    purchases.forEach((purchase) {
-      switch (purchase.status) {
-        case PurchaseStatus.pending:        
-          emit(PaywallCubitState.progress());
-          _iap.completePurchase(purchase);
-          break;
-        case PurchaseStatus.error:
-          emit(PaywallCubitState.error(purchase.error!.message));
-          break;
-        case PurchaseStatus.purchased:
-        case PurchaseStatus.restored:
-          if (purchase.pendingCompletePurchase) {
-            _iap.completePurchase(purchase);
-            sendSubscriptionRequest(purchase.purchaseID ??"");
-            emit(PaywallCubitState.success());
-          }
-          break;
-        default:
-          // handle other states if necessary
-      }
-    });
+  void _handlePurchaseUpdates(List<PurchaseDetails> purchases) async {
+      for (var purchase in purchases) {
+        switch (purchase.status) {
+            case PurchaseStatus.pending:        
+                emit(PaywallCubitState.progress());
+                _iap.completePurchase(purchase);
+                break;
+            case PurchaseStatus.error:
+                emit(PaywallCubitState.error(purchase.error!.message));
+                break;
+            case PurchaseStatus.purchased:
+            case PurchaseStatus.restored:
+                if (purchase.pendingCompletePurchase) {
+                    _iap.completePurchase(purchase);
+                    await sendSubscriptionRequest(purchase.purchaseID ??"");
+                    emit(const PaywallCubitState.success());
+                }
+                break;
+            default:
+                // handle other states if necessary
+        }
+    }
   }
+
+ 
 
 
   sendSubscriptionRequest(String purchaseId) async {
@@ -79,8 +82,9 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
             accountId: profileData.accountId, 
             transactionID: purchaseId, 
             deviceType: "iOS")
-      );
+      ); 
       return response;
+      
 
   }
 
