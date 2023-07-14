@@ -11,6 +11,7 @@ import '../../common/ui/account_info_head.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
 import '../../common/utils/utils.dart';
+import '../../cubits/paywall/paywall_cubit.dart';
 import '../../cubits/profile/get_profile_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
@@ -43,12 +44,10 @@ class _ProfilePageState extends State<ProfilePage>
 
   @override
   void initState() {
-  
     _tabController = TabController(length: 4, vsync: this);
     _tabController.addListener(_handleTabSelection);
     //getIt<ProfileCubit>().loadProfileResults();
     verifySubscriptionStatus();
-   
 
     super.initState();
   }
@@ -59,31 +58,33 @@ class _ProfilePageState extends State<ProfilePage>
     _tabController.dispose();
   }
 
-  verifySubscriptionStatus(){
+  verifySubscriptionStatus() {
     getIt<ProfileCubit>().loadProfileResults();
     setState(() {
-      ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
-      if(profileData.hasActiveSubscription == true){
-      blurLevel= 0;
-    }
-    else{
-      blurLevel = 8.0;
-    }
-    });  
-       
-  }
-
-
-  removePaywall(){
-    setState(() {
-      
+      profileData = getIt<PreferenceRepositoryService>().profileData();
+      if (profileData.hasActiveSubscription == true) {
+        blurLevel = 0;
+      } else {
+        blurLevel = 8.0;
+      }
     });
   }
 
-  paywallAction(){
-    ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
-    if(profileData.hasActiveSubscription != true){
-      showPaywallSplashScreen(context: context, hasUsedFreeTrial: profileData.hasUsedFreeTrial ?? false, removePaywall: removePaywall);
+  removePaywall() async {
+    await getIt<ProfileCubit>().loadProfileResults();
+    profileData = getIt<PreferenceRepositoryService>().profileData();
+    blurLevel = 0;
+    setState(() {});
+  }
+
+  paywallAction() {
+    ProfileModel profileData =
+        getIt<PreferenceRepositoryService>().profileData();
+    if (profileData.hasActiveSubscription != true) {
+      showPaywallSplashScreen(
+          context: context,
+          hasUsedFreeTrial: profileData.hasUsedFreeTrial ?? false,
+          removePaywall: removePaywall);
     }
   }
 
@@ -162,9 +163,8 @@ class _ProfilePageState extends State<ProfilePage>
                               fontWeight: FontWeight.w300,
                               color: Palette.current.light4)),
                 ),
-                Stack(
-                  children: [                    
-                    BlocBuilder<ProfileCubit, ProfileCubitState>(
+                Stack(children: [
+                  BlocBuilder<ProfileCubit, ProfileCubitState>(
                       builder: (context, state) {
                     return state.maybeWhen(
                       orElse: () => Container(),
@@ -172,14 +172,16 @@ class _ProfilePageState extends State<ProfilePage>
                         return Padding(
                           padding: const EdgeInsets.only(left: 10.0),
                           child: GestureDetector(
-                            onTap: (){
+                            onTap: () {
                               paywallAction();
                             },
                             child: ImageFiltered(
-                              imageFilter:ImageFilter.blur(sigmaX: blurLevel, sigmaY: blurLevel),
+                              imageFilter: ImageFilter.blur(
+                                  sigmaX: blurLevel, sigmaY: blurLevel),
                               child: Text(
-                                  decimalDigitsLastSalePrice(
-                                      profileBuildData.collectionValue.toString()),
+                                  decimalDigitsLastSalePrice(profileBuildData
+                                      .collectionValue
+                                      .toString()),
                                   style: Theme.of(context)
                                       .textTheme
                                       .displayMedium!
@@ -195,7 +197,7 @@ class _ProfilePageState extends State<ProfilePage>
                       },
                     );
                   }),
-              ]),
+                ]),
               ],
             ),
             const SizedBox(
