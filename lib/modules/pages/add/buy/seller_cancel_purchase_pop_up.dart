@@ -27,9 +27,6 @@ class SellerCancelPurchasePopUp extends StatefulWidget {
 class _SellerCancelPurchasePopUpState extends State<SellerCancelPurchasePopUp> {
   @override
   void initState() {
-    print(widget.listingChatId);
-    print(widget.productItemId);
-
     super.initState();
   }
 

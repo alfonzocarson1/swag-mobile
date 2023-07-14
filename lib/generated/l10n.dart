@@ -3952,6 +3952,56 @@ class S {
       args: [],
     );
   }
+
+  /// `How’d it go?`
+  String get rating_title {
+    return Intl.message(
+      'How’d it go?',
+      name: 'rating_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `How was your experience \nwith {sellerUserName}?`
+  String rating_sub_title(Object sellerUserName) {
+    return Intl.message(
+      'How was your experience \nwith $sellerUserName?',
+      name: 'rating_sub_title',
+      desc: '',
+      args: [sellerUserName],
+    );
+  }
+
+  /// `Submit rating`
+  String get rating_btn {
+    return Intl.message(
+      'Submit rating',
+      name: 'rating_btn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Additional details here \n(not seen by users)...`
+  String get rating_feedback {
+    return Intl.message(
+      'Additional details here \n(not seen by users)...',
+      name: 'rating_feedback',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sold to @{buyerUserName} on {dateSold} `
+  String sold_footer_title(Object buyerUserName, Object dateSold) {
+    return Intl.message(
+      'Sold to @$buyerUserName on $dateSold ',
+      name: 'sold_footer_title',
+      desc: '',
+      args: [buyerUserName, dateSold],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

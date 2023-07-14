@@ -408,5 +408,10 @@
     "profile_mobile_number_title": "Mobile Number",
     "profile_delete_title": "Delete Swag Account",
     "email_verified": "Verified",
-    "sign_out": "Sign Out"
+    "sign_out": "Sign Out",
+    "rating_title": "How’d it go?",
+    "rating_sub_title": "How was your experience \nwith {sellerUserName}?",
+    "rating_btn": "Submit rating",
+    "rating_feedback": "Additional details here \n(not seen by users)...",
+    "sold_footer_title": "Sold to @{buyerUserName} on {dateSold} "
 }

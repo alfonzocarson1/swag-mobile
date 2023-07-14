@@ -132,6 +132,7 @@ class _DeliveredPopUpState extends State<DeliveredPopUp> {
                               return RatingBuyer(
                                 productItemId: widget.productItemId,
                                 purchaseHistoryId: widget.purchaseHistoryId,
+                                userName: widget.userName,
                               );
                             });
                       });
@@ -206,7 +207,7 @@ class _DeliveredPopUpState extends State<DeliveredPopUp> {
               },
               deliveredItemRequest:
                   (CancelPurchaseResponseModel itemDeliveredResponse) {
-                print(itemDeliveredResponse);
+                return null;
               },
             ),
         child: Center(child: _getBody()));

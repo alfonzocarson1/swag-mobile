@@ -78,7 +78,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     GroupChannelListQuery query = GroupChannelListQuery()..limit = 100;
     try {
       List<GroupChannel> channels = await query.loadNext();
-      print(channels.first.channelUrl);
+
       await this._loadPreviousMessages(channels);
       return channels;
     } catch (error) {

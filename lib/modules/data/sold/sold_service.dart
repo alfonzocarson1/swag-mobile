@@ -15,7 +15,8 @@ class SoldService extends ISoldService {
 
   @override
   Future<List<ProductItemSold>> getProductItemsSold() async {
-    final ListProductItemsSoldResponseModel response = await apiService.getEndpointData(
+    final ListProductItemsSoldResponseModel response =
+        await apiService.getEndpointData(
       endpoint: Endpoint.productItemsSold,
       method: RequestMethod.get,
       jsonKey: "productItemsSold",
@@ -24,5 +25,18 @@ class SoldService extends ISoldService {
     );
 
     return response.productItemsSold;
+  }
+
+  @override
+  Future<ProductItemSold> getDetailProductItemsSold(
+      String productItemId) async {
+    final ProductItemSold response = await apiService.getEndpointData(
+      endpoint: Endpoint.soldDetail,
+      method: RequestMethod.get,
+      dynamicParam: productItemId,
+      needBearer: true,
+      fromJson: (json) => ProductItemSold.fromJson(json),
+    );
+    return response;
   }
 }
