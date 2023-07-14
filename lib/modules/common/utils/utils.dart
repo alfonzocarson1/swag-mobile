@@ -553,7 +553,7 @@ extension Separated<E> on List<E> {
                                         builder: (context) => PaywallSplashScreen(
                                           hasUsedFreeTrial: hasUsedFreeTrial, 
                                           removePaywall: (){
-                                            removePaywall;
+                                            removePaywall();
                                           },
                                           )
                                         )); 
