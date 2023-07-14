@@ -9,10 +9,12 @@ import '../../search/search_result/search_result_page.dart';
 import '../slide_horizontal_widget.dart';
 
 class ExploreCategorySlider extends StatefulWidget {
-  const ExploreCategorySlider({super.key, required this.sliderList, required this.sliderText});
+  const ExploreCategorySlider({super.key, required this.sliderList, required this.sliderText, required this.isStaffPicks, required this.isUnicorn, required this.isWhatsHot});
   final List<CatalogItemModel> sliderList;
   final String sliderText;
-
+  final bool isUnicorn;
+  final bool isWhatsHot;
+  final bool isStaffPicks;
 
   @override
   State<ExploreCategorySlider> createState() => _ExploreCategorySliderState();
@@ -62,9 +64,9 @@ class _ExploreCategorySliderState extends State<ExploreCategorySlider> {
                           onPressed: () {
                             Navigator.of(context, rootNavigator: true).push(
                                 SearchResultPage.route(
-                                    searchParam: '',
-                                    staffPicksFlag: false,
-                                    unicornFlag: true));
+                                    searchParam: widget.sliderText,
+                                    staffPicksFlag: widget.isStaffPicks,
+                                    unicornFlag: widget.isUnicorn));
                           },
                         )),
                   )
