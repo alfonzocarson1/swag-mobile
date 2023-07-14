@@ -14,20 +14,26 @@ import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/utils.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
+import '../../models/profile/profile_model.dart';
 import 'reset_password_page.dart';
 
 enum StatusCode { zero, one, two }
 
 class ForgotPasswordPage extends StatefulWidget {
   static const name = '/ForgotPasword';
-  const ForgotPasswordPage({Key? key, this.codeView}) : super(key: key);
+  const ForgotPasswordPage(
+      {Key? key, this.codeView, this.isFromProfileSettings = false})
+      : super(key: key);
 
-  static Route route() => PageRoutes.material(
+  static Route route(bool? isFromSettings) => PageRoutes.material(
         settings: const RouteSettings(name: name),
-        builder: (context) => const ForgotPasswordPage(),
+        builder: (context) => ForgotPasswordPage(
+          isFromProfileSettings: isFromSettings!,
+        ),
       );
 
   final bool? codeView;
+  final bool? isFromProfileSettings;
 
   @override
   State<ForgotPasswordPage> createState() => _ForgotPasswordPageState();
@@ -72,6 +78,13 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   @override
   Widget build(BuildContext context) {
+    ProfileModel profileData;
+
+    if (widget.isFromProfileSettings ?? false) {
+      profileData = getIt<PreferenceRepositoryService>().profileData();
+      _emailController.text = profileData.email;
+    }
+
     return Scaffold(
         extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: true,
@@ -96,7 +109,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         setState(() {
                           Loading.hide(context);
                           Navigator.of(context, rootNavigator: true).push(
-                              ResetPasswordPage.route(_emailController.text));
+                              ResetPasswordPage.route(_emailController.text,
+                                  widget.isFromProfileSettings));
                         });
                       });
                     } else {
@@ -206,6 +220,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       ),
                       CustomTextFormField(
                           autofocus: false,
+                          readOnly: _codeView
+                              ? false
+                              : widget.isFromProfileSettings ?? false,
                           errorText: errorText,
                           borderColor: _codeView ? _codeBorder : _emailBorder,
                           labelText: _codeView

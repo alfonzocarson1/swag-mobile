@@ -220,7 +220,7 @@ class _SignInPageState extends State<SignInPage> {
                                             .saveForgotPasswordFlow(true);
                                         Navigator.of(context,
                                                 rootNavigator: true)
-                                            .push(ForgotPasswordPage.route());
+                                            .push(ForgotPasswordPage.route(false));
                                       }),
                                   const SizedBox(
                                     height: 20,

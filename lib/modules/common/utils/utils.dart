@@ -346,14 +346,14 @@ Widget selectSettings(
     String subTitle,
     Function()? onTap,
     Widget trailing,
-    Widget? customSubTitle) {
+    Widget? customSubTitle, {double scale = 3.0}) {
   return InkWell(
     onTap: onTap,
     splashColor: Palette.current.primaryNero,
     child: ListTile(
       leading: Image.asset(
         iconUrl,
-        scale: 3,
+        scale: scale,
       ),
       title: Text(title,
           style: Theme.of(context).textTheme.bodySmall!.copyWith(

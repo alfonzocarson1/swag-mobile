@@ -18,17 +18,18 @@ import '../../di/injector.dart';
 
 class ResetPasswordPage extends StatefulWidget {
   static const name = '/ResetPassword';
-  ResetPasswordPage({
-    Key? key,
-    required this.email,
-  }) : super(key: key);
+  ResetPasswordPage(
+      {Key? key, required this.email, this.isFromProfileSetting = false})
+      : super(key: key);
 
   String email;
+  bool isFromProfileSetting;
 
-  static Route route(email) => PageRoutes.material(
+  static Route route(email,isFromSetting) => PageRoutes.material(
         settings: const RouteSettings(name: name),
         builder: (context) => ResetPasswordPage(
           email: email,
+          isFromProfileSetting: isFromSetting,
         ),
       );
 
@@ -113,7 +114,11 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                     _passwordController.text = '';
                     _confirmPasswordController.text = '';
                     Future.delayed(const Duration(milliseconds: 5000), () {
-                      Navigator.popUntil(context, ModalRoute.withName('/'));
+                      Navigator.popUntil(
+                          context,
+                          ModalRoute.withName(widget.isFromProfileSetting
+                              ? '/ProfileSettingsPage'
+                              : '/'));
                     });
 
                     return null;

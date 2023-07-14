@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:swagapp/modules/cubits/purchase_history/purchase_history_cubit.dart';
 import 'package:swagapp/modules/pages/profile/profile_detail_page.dart';
 import 'package:swagapp/modules/pages/settings/purchase_history/purchase_history_page.dart';
+import 'package:swagapp/modules/pages/profile/profile_page.dart';
 
 import '../../../generated/l10n.dart';
 import '../../common/ui/pushed_header.dart';
@@ -13,6 +14,7 @@ import '../../di/injector.dart';
 import '../../models/profile/profile_model.dart';
 import 'account/account_page.dart';
 import 'nft_wallet/nft_wallet_page.dart';
+import 'profile/profile_settings_page.dart';
 import 'shared_widgetds.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -93,13 +95,10 @@ class _SettingsPageState extends State<SettingsPage> {
                         _selectSettings(
                             'assets/icons/BlockUserWhite.png',
                             S.of(context).profile_title,
-                            S.of(context).profile_sub_title,
-                            () {
-                              Navigator.of(
-                                context,
-                                rootNavigator: true,
-                              ).push(ProfileDetailPage.route());
-                            }),
+                            S.of(context).profile_sub_title, () {
+                          Navigator.of(context, rootNavigator: true)
+                              .push(ProfileSettingsPage.route());
+                        }),
                         SizedBox(
                           height: 0.2,
                           child: Container(
