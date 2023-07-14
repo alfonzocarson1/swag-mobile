@@ -122,9 +122,9 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                             S.of(context).profile_email_title,
                           profileData.email,
                               () {},
-                            false,
-                            S.of(context).email_verified,
-                            '',
+                            profileData.emailVerified ? false : true,
+                            profileData.emailVerified ?  S.of(context).email_verified : '',
+                            profileData.emailVerified ? '' : 'assets/icons/unverifiedindicator.png',
                             false
                         ),
                         SizedBox(
