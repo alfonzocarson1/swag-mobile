@@ -154,20 +154,26 @@ class _AccountPageState extends State<AccountPage> {
                             color: Palette.current.grey,
                           ),
                         ),
-                        // selectSettings(
-                        //     context,
-                        //     'assets/icons/atomic_drop_payments_icon.png',
-                        //     S.of(context).subscription_title,
-                        //     '',
-                        //     () {},
-                        //     const SizedBox(),
-                        //     Text(S.of(context).active,
-                        //         style: Theme.of(context)
-                        //             .textTheme
-                        //             .bodySmall!
-                        //             .copyWith(
-                        //                 color: Palette.current.primaryNeonGreen,
-                        //                 fontSize: 14))),
+                        selectSettings(
+                            context,
+                            'assets/icons/atomic_drop_payments_icon.png',
+                            S.of(context).subscription_title,
+                            '',
+                            () {},
+                            const SizedBox(),
+                             Text(profileData.hasActiveSubscription! ? S.of(context).active : S.of(context).inactive,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(
+                                        color: profileData.hasActiveSubscription! ? Palette.current.primaryNeonGreen : Palette.current.primaryNeonPink,
+                                        fontSize: 14))),
+                        SizedBox(
+                          height: 0.2,
+                          child: Container(
+                            color: Palette.current.grey,
+                          ),
+                        ),
                       ],
                     )),
               );

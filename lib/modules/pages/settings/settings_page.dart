@@ -57,10 +57,11 @@ class _SettingsPageState extends State<SettingsPage> {
         height: 70,
         actions: [
           //Todo This will be implemented in the future
-          // HeaderActionButton(
-          //   buttonText: S.of(context).premium_member_title,
-          //   onPressed: () {},
-          // ),
+          profile.hasActiveSubscription! ? Padding(padding: const EdgeInsets.only(right: 15),
+          child: HeaderActionButton(
+            buttonText: S.of(context).premium_member_title,
+            onPressed: () {},
+          )) : Container(),
         ],
       ),
       backgroundColor: Palette.current.primaryNero,

@@ -4152,6 +4152,16 @@ class S {
       args: [buyerUserName, dateSold],
     );
   }
+
+  /// `Inactive`
+  String get inactive {
+    return Intl.message(
+      'Inactive',
+      name: 'inactive',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
