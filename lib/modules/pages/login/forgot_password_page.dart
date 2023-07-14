@@ -68,11 +68,16 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       });
     });
     _codeNode.addListener(() {
-      setState(() {
-        _codeBorder = _codeNode.hasFocus
-            ? Palette.current.primaryNeonGreen
-            : Palette.current.primaryWhiteSmoke;
-      });
+      if (_codeNode.hasFocus) {
+        setState(() {
+          errorText = null;
+          _codeBorder = Palette.current.primaryNeonGreen;
+        });
+      } else {
+        setState(() {
+          _codeBorder = Palette.current.primaryWhiteSmoke;
+        });
+      }
     });
   }
 
@@ -224,6 +229,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                               ? false
                               : widget.isFromProfileSettings ?? false,
                           errorText: errorText,
+                          maxLength: _codeView ? 6 : 30,
                           borderColor: _codeView ? _codeBorder : _emailBorder,
                           labelText: _codeView
                               ? S.of(context).code
@@ -232,7 +238,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                           controller:
                               _codeView ? _codeController : _emailController,
                           inputType: _codeView
-                              ? TextInputType.text
+                              ? TextInputType.number
                               : TextInputType.emailAddress),
                       const SizedBox(
                         height: 20,

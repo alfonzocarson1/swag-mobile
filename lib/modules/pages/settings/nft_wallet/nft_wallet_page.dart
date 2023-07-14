@@ -41,7 +41,7 @@ class NftWalletPage extends StatelessWidget {
           height: 70,
         ),
         backgroundColor: Palette.current.primaryNero,
-        body: const SingleChildScrollView(
+        body:  SingleChildScrollView(
           child: Column(
             children: [
               _NftWalletItem(),
