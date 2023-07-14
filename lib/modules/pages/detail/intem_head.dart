@@ -258,8 +258,8 @@ class _HeadWidgetState extends State<HeadWidget> {
                                                 profileFavoriteItemId,
                                             catalogItemId: widget.itemId)
                                       ])));
-                                  widget.addFavorite(false);
                                   favorite = false;
+                                  widget.addFavorite(false);
                                   refreshResults();
                                 }
                               });
