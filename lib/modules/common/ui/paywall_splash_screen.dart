@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:swagapp/modules/common/assets/images.dart';
 import 'package:swagapp/modules/common/ui/avatar.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
@@ -175,14 +174,14 @@ class _PaywallSplashScreenState extends State<PaywallSplashScreen> {
                 const SizedBox(height: 35),
                 PrimaryButton(
                     title: S.of(context).paywall_splash_decline.toUpperCase(),
-                    onPressed: () {
+                    onPressed: ()  {
                       Navigator.of(context).pop();
                     },
                     type: PrimaryButtonType.primaryEerieBlack),
                 BlocListener<PaywallCubit, PaywallCubitState>(
                   listener: (context, state) {
                     state.maybeWhen(
-                      success: () { 
+                      success: ()  {                         
                         widget.removePaywall();
                         Navigator.of(context).pop();
                         },
