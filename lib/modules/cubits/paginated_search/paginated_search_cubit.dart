@@ -7,6 +7,7 @@ import '../../common/utils/tab_wrapper.dart';
 import '../../common/utils/utils.dart';
 import '../../data/search_service/i_search_service.dart';
 import '../../models/search/catalog_item_model.dart';
+import '../../models/search/filter_model.dart';
 import '../../models/search/search_request_payload_model.dart';
 
 part 'paginated_search_state.dart';
@@ -27,8 +28,8 @@ class PaginatedSearchCubit extends Cubit<PaginatedSearchState> {
     SearchTab.putters: 0,
     SearchTab.accessories: 0,
   };
-  late SearchTab currentTab;
-  late SearchRequestPayloadModel model;
+  SearchTab? currentTab;
+  SearchRequestPayloadModel? _model;
   bool isLoadingMore = false;
 
   Future<void> loadResults({
@@ -36,7 +37,7 @@ class PaginatedSearchCubit extends Cubit<PaginatedSearchState> {
     required SearchRequestPayloadModel searchModel,
   }) async {
     var currentState = state;
-    model = searchModel;
+    _model = searchModel;
     currentTab = searchTab;
 
     if (state is loading_search) return;
@@ -47,7 +48,7 @@ class PaginatedSearchCubit extends Cubit<PaginatedSearchState> {
 
     if (oldResultMap.containsKey(currentTab)) {
       if (!isLoadingMore) {
-        oldResultMap.update(currentTab, (value) => []);
+        oldResultMap.update(currentTab!, (value) => []);
       }
     }
 
@@ -56,7 +57,7 @@ class PaginatedSearchCubit extends Cubit<PaginatedSearchState> {
     tabSearchService
         .search(
             model: searchModel,
-            tab: currentTab,
+            tab: currentTab!,
             page: pageCountMap[currentTab] ?? 0)
         .then((newMap) {
       if (isLoadingMore) {
@@ -88,24 +89,43 @@ class PaginatedSearchCubit extends Cubit<PaginatedSearchState> {
     return mergedMap;
   }
 
-  Future<void> refreshResults({String? params, required SearchTab searchTab}) async {
+  Future<SearchRequestPayloadModel> _defaultSearchRequestPayloadModel() async {
+    final filters = await getCurrentFilterModel();
+    return SearchRequestPayloadModel(
+      filters: FilterModel(
+        sortBy: filters.sortBy,
+        theme: filters.theme,
+        type: filters.type,
+        conditions: filters.conditions,
+        collection: filters.collection,
+        forSale: filters.forSale,
+        productType: filters.productType,
+        priceRanges: filters.priceRanges,
+        releaseYears: filters.releaseYears,
+      ),
+    );
+  }
+
+  Future<void> refreshResults(
+      {String? params, required SearchTab searchTab}) async {
+    _model ??= await _defaultSearchRequestPayloadModel();
     var currentfilters = await getCurrentFilterModel();
-    var tabId = model.categoryId;
+    var tabId = _model!.categoryId;
     pageCountMap.update(searchTab, (value) => 0);
-    model = SearchRequestPayloadModel(
-      searchParams: (params !=null ) ? [params] : null,
+    _model = SearchRequestPayloadModel(
+      searchParams: (params != null) ? [params] : null,
       whatsHotFlag: (searchTab == SearchTab.whatsHot) ? true : null,
       staffPicksFlag: null,
       unicornFlag: null,
       categoryId: (searchTab == SearchTab.whatsHot) ? null : tabId,
       filters: currentfilters,
     );
-    await loadResults(searchModel: model, searchTab: searchTab);
+    await loadResults(searchModel: _model!, searchTab: searchTab);
   }
 
   Future<void> loadMoreResults(SearchTab tab) async {
     pageCountMap.update(tab, (value) => value + 1);
     isLoadingMore = true;
-    await loadResults(searchModel: model, searchTab: tab);
+    await loadResults(searchModel: _model!, searchTab: tab);
   }
 }
