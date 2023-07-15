@@ -305,7 +305,6 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                         : const SizedBox.shrink(),
                                   ),
                                   inputFormatters: <TextInputFormatter>[
-                                    FilteringTextInputFormatter.digitsOnly,
                                     CurrencyTextInputFormatter(),
                                   ],
                                   maxLength: 9,
