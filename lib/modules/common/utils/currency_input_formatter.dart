@@ -2,6 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class CurrencyTextInputFormatter extends TextInputFormatter {
+  static tryParseText(String text) {
+    if (text.isEmpty) {
+      return null;
+    }
+    if (text == ".") {
+      return 0;
+    }
+    return double.tryParse(text);
+  }
+
   final regex = RegExp(r'[0-9\.]');
 
   @override
