@@ -133,6 +133,7 @@ class _DeliveredPopUpState extends State<DeliveredPopUp> {
                                 productItemId: widget.productItemId,
                                 purchaseHistoryId: widget.purchaseHistoryId,
                                 userName: widget.userName,
+                                seller: false,
                               );
                             });
                       });

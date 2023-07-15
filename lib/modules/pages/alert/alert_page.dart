@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/cubits/alert/alert_cubit.dart';
+import 'package:swagapp/modules/pages/alert/rating_buyer.dart';
 import '../../../generated/l10n.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
@@ -152,6 +153,24 @@ class _AlertPageState extends State<AlertPage> {
                                             purchaseHistoryId: item.payload!
                                                     .purchaseHistoryId ??
                                                 '');
+                                      });
+                                }
+
+                                if (item.payload!.listingStatus != null) {
+                                  showDialog(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (BuildContext context) {
+                                        return RatingBuyer(
+                                          productItemId:
+                                              item.payload!.productItemId ?? '',
+                                          purchaseHistoryId:
+                                              item.payload!.purchaseHistoryId ??
+                                                  '',
+                                          userName:
+                                              item.payload!.userName ?? '',
+                                          seller: true,
+                                        );
                                       });
                                 }
                               },
