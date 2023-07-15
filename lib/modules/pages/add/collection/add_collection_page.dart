@@ -84,7 +84,7 @@ class _AddCollectionState extends State<AddCollection> {
   bool validPrice = false;
   double _price = 0.0;
 
-  final formater = NumberFormat("###0.00");
+  final formatter = NumberFormat("###0.00");
 
   String _defaultCondition = 'Condition';
   String _defaultSource = 'Source';
@@ -106,11 +106,26 @@ class _AddCollectionState extends State<AddCollection> {
     super.dispose();
   }
 
+  double? _tryParsePurchasePrice() {
+    final txt = _purchaseController.text;
+    if (txt.isEmpty) {
+      return null;
+    }
+    if (txt == ".") {
+      return 0;
+    }
+    return double.tryParse(txt);
+  }
+
   @override
   void initState() {
     super.initState();
 
     _purchaseNode.addListener(() {
+      if (!_purchaseNode.hasFocus && _purchaseController.text.isNotEmpty) {
+        final formattedNumber = formatter.format(_tryParsePurchasePrice());
+        _purchaseController.text = formattedNumber;
+      }
       setState(() {
         _purchaseBorder = _purchaseNode.hasFocus
             ? Palette.current.primaryNeonGreen
@@ -326,22 +341,18 @@ class _AddCollectionState extends State<AddCollection> {
                                 controller: _purchaseController,
                                 inputType:
                                     const TextInputType.numberWithOptions(
-                                  decimal: false,
+                                  decimal: true,
                                   signed: false,
                                 ),
                                 inputFormatters: <TextInputFormatter>[
-                                  FilteringTextInputFormatter.digitsOnly,
                                   CurrencyTextInputFormatter()
                                 ],
                                 maxLength: 9,
                                 onChanged: (value) {
                                   setState(() {
-                                    String str = _purchaseController.value.text;
-                                    String result = str.replaceAll(',', '');
-                                    _price = double.tryParse(result) ?? 0;
-
-                                    if (_price == 0) {
-                                      _purchaseController.text = '';
+                                    final parsed = _tryParsePurchasePrice();
+                                    if (parsed == null) {
+                                      _price = 0;
                                     }
                                   });
                                 },
