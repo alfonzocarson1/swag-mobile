@@ -11,7 +11,13 @@ class AsyncValue<T> with _$AsyncValue<T> {
   const factory AsyncValue.error(Object e, [T? previousData]) = _Error<T>;
 
   bool get isLoading => this is _Loading;
-  bool get isLoadingWithoutPreviousData => this is _Loading && (this as _Loading).previousData == null;
+  bool get isLoadingWithoutPreviousData =>
+      this is _Loading && (this as _Loading).previousData == null;
   bool get isLoaded => this is _Loaded;
   bool get isError => this is _Error;
+  T? get dataOrPreviousData => this.when(
+        loaded: (data) => data,
+        loading: (previousData) => previousData,
+        error: (e, previousData) => previousData,
+      );
 }

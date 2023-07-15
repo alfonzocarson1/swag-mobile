@@ -123,20 +123,32 @@ const itemConditions = [
   'Gamed',
 ];
 
+/// REFACTORING NOTE: ORDER OF ITEMS IS IMPORTANT
 const List<CustomOverlayItemModel> editListingDropDown = [
   CustomOverlayItemModel(
-      imagePath: 'assets/icons/editWhite.png', label: 'Edit listing'),
+    imagePath: 'assets/icons/editWhite.png',
+    label: 'Edit listing',
+  ),
   CustomOverlayItemModel(
-      imagePath: 'assets/icons/xCircle.png', label: 'Remove listing'),
+    imagePath: 'assets/icons/xCircle.png',
+    label: 'Remove listing',
+  ),
 ];
 
+/// REFACTORING NOTE: ORDER OF ITEMS IS IMPORTANT
 const List<CustomOverlayItemModel> reportListingDropDown = [
   CustomOverlayItemModel(
-      imagePath: 'assets/icons/BlockUserWhite.png', label: 'Block user'),
+    imagePath: 'assets/icons/BlockUserWhite.png',
+    label: 'Block user',
+  ),
   CustomOverlayItemModel(
-      imagePath: 'assets/icons/ReportUserWhite.png', label: 'Report User'),
+    imagePath: 'assets/icons/ReportUserWhite.png',
+    label: 'Report User',
+  ),
   CustomOverlayItemModel(
-      imagePath: 'assets/icons/ReportListingWhite.png', label: 'Report Listing'),
+    imagePath: 'assets/icons/ReportListingWhite.png',
+    label: 'Report Listing',
+  ),
 ];
 
 enum FilterType {
