@@ -7,6 +7,7 @@ import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 import 'package:swagapp/modules/common/ui/general_delete_popup.dart';
 import 'package:swagapp/modules/cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
+import 'package:swagapp/modules/cubits/public_profile/public_profile_cubit.dart';
 import 'package:swagapp/modules/models/chat/chat_data.dart';
 import 'package:swagapp/modules/models/detail/sale_list_history_model.dart';
 import 'package:swagapp/modules/models/listing_for_sale/listing_for_sale_model.dart';
@@ -88,27 +89,6 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
     salesHistoryList = await getIt<SalesHistoryBloc>()
         .salesHistoryService
         .salesHistory(catalogItemId ?? "");
-  }
-
-  void reportListing(
-    ProfileModel profileData,
-    BuyForSaleListingModel listData,
-  ) {
-    SendMailContact.send(
-      context: context,
-      subject: '${profileData.username}'
-          ' Reported listing: '
-          '${listData.submitPurchaseInfo?.userNameBuyer} ${listData.productItemName}',
-      body: 'I want to report a listing\n'
-          'Reporter username: ${profileData.username}\n'
-          'Reporter account ID: ${profileData.accountId}\n'
-          'Reporter email: ${profileData.email}\n'
-          'Seller username: ${listData.submitPurchaseInfo?.userNameBuyer}\n'
-          'Seller account ID: ${listData.profileId}\n'
-          'Seller email: ${listData.submitPurchaseInfo?.profilePeerToPeerPayment?.payPalEmail}\n'
-          'Listing name: ${listData.productItemName}\n'
-          'Listing ID: ${listData.productItemId}\n',
-    );
   }
 
   @override
@@ -636,41 +616,90 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
               ),
               items: overlayItems,
               onItemSelected: (String value) {
-                if (value == editListingDropDown[0].label) {
-                  getIt<ListingProfileCubit>().listingService.updateListing(
-                        ListingForSaleModel(
-                          productItemId: listData.productItemId,
-                          forSale: true,
-                          sold: false,
-                          status: 'Editing',
-                        ),
-                      );
-                  Navigator.of(context, rootNavigator: true).push(
-                    EditListForSalePage.route(
-                        DetailCollectionModel(
-                            profileCollectionItemId:
-                                listData.productItemId ?? '',
-                            catalogItemId: listData.catalogItemId ?? '',
-                            description: listData.productItemDescription,
-                            purchaseDate: '',
-                            purchasePrice: listData.lastSale ?? 0.0,
-                            itemCondition: listData.condition ?? 'condition',
-                            itemSource: ''),
-                        listData.productItemId,
-                        listData.productItemName ?? '',
-                        listData.productItemImageUrls,
-                        salesHistoryList),
-                  );
-                } else if (value == editListingDropDown[1].label) {
+                bool isEditListingOption() =>
+                    value == editListingDropDown[0].label;
+                bool isRemoveListingOption() =>
+                    value == editListingDropDown[1].label;
+                bool isReportListing() =>
+                    value == reportListingDropDown[2].label;
+
+                if (isEditListingOption()) {
+                  _editListingOptionSelected(context);
+                } else if (isRemoveListingOption()) {
                   _showRemoveListingDialog(context);
+                } else if (isReportListing()) {
+                  _reportListing(profileData, listData);
                 } else {
-                  reportListing(profileData, listData);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("NOT IMPLEMENTED"),
+                    ),
+                  );
                 }
               },
             ),
           ),
         ),
       ],
+    );
+  }
+
+  void _editListingOptionSelected(BuildContext context) {
+    getIt<ListingProfileCubit>().listingService.updateListing(
+          ListingForSaleModel(
+            productItemId: listData.productItemId,
+            forSale: true,
+            sold: false,
+            status: 'Editing',
+          ),
+        );
+    Navigator.of(context, rootNavigator: true).push(
+      EditListForSalePage.route(
+        DetailCollectionModel(
+          profileCollectionItemId: listData.productItemId ?? '',
+          catalogItemId: listData.catalogItemId ?? '',
+          description: listData.productItemDescription,
+          purchaseDate: '',
+          purchasePrice: listData.lastSale ?? 0.0,
+          itemCondition: listData.condition ?? 'condition',
+          itemSource: '',
+        ),
+        listData.productItemId,
+        listData.productItemName ?? '',
+        listData.productItemImageUrls,
+        salesHistoryList,
+      ),
+    );
+  }
+
+  void _reportListing(
+    ProfileModel profileData,
+    BuyForSaleListingModel listData,
+  ) {
+    final sellerProfile =
+        context.read<PublicProfileCubit>().state.dataOrPreviousData;
+    if (sellerProfile == null ||
+        sellerProfile.accountId != listData.profileId) {
+      // profile data may still be loading
+      return;
+    }
+
+    final subject = "${profileData.username} Reported listing: "
+        "${sellerProfile.username} ${listData.productItemName}";
+    final body = """I want to report a listing
+    
+Reporter username: ${profileData.username}
+Reporter account ID: ${profileData.accountId}
+Reporter email: ${profileData.email}
+Seller username: ${sellerProfile.username}
+Seller account ID: ${sellerProfile.accountId}
+Listing name: ${listData.productItemName}
+Listing ID: ${listData.productItemId}
+""";
+    SendMailContact.send(
+      context: context,
+      subject: subject,
+      body: body,
     );
   }
 
