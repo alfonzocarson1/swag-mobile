@@ -11,9 +11,11 @@ import '../../cubits/buy/buy_cubit.dart';
 import '../../di/injector.dart';
 import '../../models/buy_for_sale_listing/cancel_purchase_response_model.dart';
 import '../../models/buy_for_sale_listing/rating_buy_request_model.dart';
+import '../profile/sold/sold_detail_page.dart';
 import '../settings/purchase_history/purchase_history_details/purchase_history_details_page.dart';
 
 class RatingBuyer extends StatefulWidget {
+  final bool seller;
   final String productItemId;
   final String purchaseHistoryId;
   final String userName;
@@ -23,6 +25,7 @@ class RatingBuyer extends StatefulWidget {
     required this.productItemId,
     required this.purchaseHistoryId,
     required this.userName,
+    required this.seller,
   });
 
   @override
@@ -276,9 +279,18 @@ class _RatingBuyerState extends State<RatingBuyer> {
                                 );
                                 Navigator.of(context).pop();
 
-                                Navigator.of(context, rootNavigator: true).push(
-                                    PurchaseHistoryDetailsPage.route(
-                                        widget.purchaseHistoryId));
+                                if (widget.seller) {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(MaterialPageRoute(
+                                          builder: (context) => SoldDetailPage(
+                                                productItemId:
+                                                    widget.productItemId,
+                                              )));
+                                } else {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(PurchaseHistoryDetailsPage.route(
+                                          widget.purchaseHistoryId));
+                                }
                               }
                             },
                             type: PrimaryButtonType.green,

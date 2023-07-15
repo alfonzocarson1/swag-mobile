@@ -16,6 +16,7 @@ class AlertPayloadModel with _$AlertPayloadModel {
     final String? listingImageUrl,
     final int? dateItemShipped,
     final String? purchaseHistoryId,
+    final String? listingStatus,
   }) = _AlertPayloadModel;
 
   factory AlertPayloadModel.fromJson(Map<String, dynamic> json) =>
