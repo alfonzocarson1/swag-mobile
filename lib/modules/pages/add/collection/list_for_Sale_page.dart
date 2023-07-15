@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:swagapp/modules/common/assets/icons.dart';
 import 'package:swagapp/modules/common/ui/grant_permission_popup.dart';
 import 'package:swagapp/modules/common/utils/currency_input_formatter.dart';
@@ -91,6 +92,8 @@ class _ListForSalePageState extends State<ListForSalePage> {
   bool validPrice = false;
   var _listDescriptionInitValue = '';
 
+  final formatter = NumberFormat("###0.00");
+
   var Conditions = [
     'Condition',
     'Sealed',
@@ -111,9 +114,8 @@ class _ListForSalePageState extends State<ListForSalePage> {
 
   @override
   void initState() {
-
-   super.initState();
-   //  getPermissionStatus();
+    super.initState();
+    //  getPermissionStatus();
     if (paymentData.peerToPeerPayments != null) {
       var peerToPeerPaymentsJson = paymentData.peerToPeerPayments!.toJson();
 
@@ -147,6 +149,15 @@ class _ListForSalePageState extends State<ListForSalePage> {
     _defaultCondition = widget.collectionData!.itemCondition.capitalize();
 
     _listPriceItemNode.addListener(() {
+      if (!_listPriceItemNode.hasFocus &&
+          _listPriceItemController.text.isNotEmpty) {
+        final formattedNumber = formatter.format(
+          CurrencyTextInputFormatter.tryParseText(
+            _listPriceItemController.text,
+          ),
+        );
+        _listPriceItemController.text = formattedNumber;
+      }
       setState(() {
         _listPriceItemBorder = _listPriceItemNode.hasFocus
             ? Palette.current.primaryNeonGreen
@@ -170,7 +181,8 @@ class _ListForSalePageState extends State<ListForSalePage> {
       });
     });
   }
-   @override
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -309,12 +321,11 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                   ],
                                   maxLength: 9,
                                   onChanged: (value) {
-                                    String str =
-                                        _listPriceItemController.value.text;
-                                    String result = str.replaceAll(',', '');
-                                    _price = double.tryParse(result) ?? 0;
-                                    if (_price == 0) {
-                                      _listPriceItemController.text = '';
+                                    final parsed =
+                                        CurrencyTextInputFormatter.tryParseText(
+                                            _listPriceItemController.text);
+                                    if (parsed == null) {
+                                      _price = 0;
                                     }
                                   },
                                   borderColor: _listPriceItemBorder,
@@ -562,9 +573,11 @@ class _ListForSalePageState extends State<ListForSalePage> {
       }
       setState(() {});
     } catch (e) {
-      showDialog(context: context, builder: (BuildContext context){
-        return const GrantPermissionPopup();
-      });
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return const GrantPermissionPopup();
+          });
       //log("Image picker: $e");
     }
   }

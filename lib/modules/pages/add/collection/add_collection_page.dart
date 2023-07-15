@@ -106,24 +106,17 @@ class _AddCollectionState extends State<AddCollection> {
     super.dispose();
   }
 
-  double? _tryParsePurchasePrice() {
-    final txt = _purchaseController.text;
-    if (txt.isEmpty) {
-      return null;
-    }
-    if (txt == ".") {
-      return 0;
-    }
-    return double.tryParse(txt);
-  }
-
   @override
   void initState() {
     super.initState();
 
     _purchaseNode.addListener(() {
       if (!_purchaseNode.hasFocus && _purchaseController.text.isNotEmpty) {
-        final formattedNumber = formatter.format(_tryParsePurchasePrice());
+        final formattedNumber = formatter.format(
+          CurrencyTextInputFormatter.tryParseText(
+            _purchaseController.text,
+          ),
+        );
         _purchaseController.text = formattedNumber;
       }
       setState(() {
@@ -350,7 +343,7 @@ class _AddCollectionState extends State<AddCollection> {
                                 maxLength: 9,
                                 onChanged: (value) {
                                   setState(() {
-                                    final parsed = _tryParsePurchasePrice();
+                                    final parsed = CurrencyTextInputFormatter.tryParseText(_purchaseController.text);
                                     if (parsed == null) {
                                       _price = 0;
                                     }
