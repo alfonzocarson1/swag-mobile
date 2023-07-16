@@ -14,6 +14,7 @@ import 'package:swagapp/modules/cubits/public_profile/public_profile_cubit.dart'
 import 'package:swagapp/modules/models/chat/chat_data.dart';
 import 'package:swagapp/modules/models/profile/public_profile.dart';
 import 'package:swagapp/modules/pages/chat/chat_page.dart';
+import 'package:swagapp/modules/pages/public_profile/public_profile_page.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../common/utils/palette.dart';
@@ -100,17 +101,26 @@ class FooterListItemPage extends StatelessWidget {
     );
   }
 
+  void _navigateToPublicProfile(BuildContext context) {
+    if (useCurrentUser) return;
+    Navigator.of(context, rootNavigator: true)
+        .push(PublicProfilePage.route(profileId));
+  }
+
   Row buildBody(BuildContext context, PublicProfile profile) {
     return Row(
       children: [
         Expanded(
           flex: 1,
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: SizedBox(
-              height: 40,
-              width: 40,
-              child: buildProfileImage(context, getProfileImageUrl(profile)),
+          child: GestureDetector(
+            onTap: () => _navigateToPublicProfile(context),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: SizedBox(
+                height: 40,
+                width: 40,
+                child: buildProfileImage(context, getProfileImageUrl(profile)),
+              ),
             ),
           ),
         ),
@@ -124,15 +134,18 @@ class FooterListItemPage extends StatelessWidget {
             alignment: WrapAlignment.start,
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [
-              Text(
-                (profile.username ?? "NULL").toUpperCase(),
-                style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      fontFamily: "KnockoutCustom",
-                      fontWeight: FontWeight.w300,
-                      letterSpacing: 0.43,
-                      fontSize: 24,
-                      color: Palette.current.primaryWhiteSmoke,
-                    ),
+              GestureDetector(
+                onTap: () => _navigateToPublicProfile(context),
+                child: Text(
+                  (profile.username ?? "NULL").toUpperCase(),
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        fontFamily: "KnockoutCustom",
+                        fontWeight: FontWeight.w300,
+                        letterSpacing: 0.43,
+                        fontSize: 24,
+                        color: Palette.current.primaryWhiteSmoke,
+                      ),
+                ),
               ),
               ...buildVerifiedAndRatingWidgets(context, profile),
             ],
