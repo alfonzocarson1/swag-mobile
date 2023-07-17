@@ -33,9 +33,9 @@ abstract class PushNotificationsService {
 
     await FirebaseMessaging.instance
         .setForegroundNotificationPresentationOptions(
-      alert: getIt<PreferenceRepositoryService>().showNotification(),
-      badge: getIt<PreferenceRepositoryService>().showNotification(),
-      sound: getIt<PreferenceRepositoryService>().showNotification(),
+      alert: true,
+      badge: true,
+      sound: true,
     );
 
     FirebaseMessaging.onBackgroundMessage(_onBackgroundHandler);

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sendbird_sdk/core/models/member.dart';
@@ -87,7 +88,13 @@ class _ChatPageState extends State<ChatPage> {
               size: 24,
             ),
             onPressed: () {
-              setState(() {
+              setState(() async {
+                await FirebaseMessaging.instance
+                    .setForegroundNotificationPresentationOptions(
+                  alert: true,
+                  badge: true,
+                  sound: true,
+                );
                 getIt<PreferenceRepositoryService>().saveShowNotification(true);
               });
               Navigator.pop(context);
