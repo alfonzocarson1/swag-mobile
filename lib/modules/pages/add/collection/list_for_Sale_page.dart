@@ -324,9 +324,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                     final parsed =
                                         CurrencyTextInputFormatter.tryParseText(
                                             _listPriceItemController.text);
-                                    if (parsed == null) {
-                                      _price = 0;
-                                    }
+                                    _price = parsed ?? 0;
                                   },
                                   borderColor: _listPriceItemBorder,
                                   autofocus: false,
