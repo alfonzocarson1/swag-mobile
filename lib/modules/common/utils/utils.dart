@@ -10,6 +10,7 @@ import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/common/utils/tab_wrapper.dart';
 import 'package:swagapp/modules/models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
 import 'package:swagapp/modules/models/shared_preferences/shared_preference_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../blocs/search_bloc.dart/search_bloc.dart';
 import '../../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
@@ -58,6 +59,13 @@ bool isValidNumberDot(String number) {
 
 bool isValidNumberComa(String number) {
   return RegExp(r"^[0-9]+\,[0-9][0-9]$").hasMatch(number);
+}
+
+Future<void> launchUrlInWebView(String urlStr) async {
+  if(!await launchUrl(Uri.parse(urlStr),
+      mode: LaunchMode.platformDefault)){
+    throw Exception('Could not launch $urlStr');
+  }
 }
 
 String formatDate(String dateTime) {

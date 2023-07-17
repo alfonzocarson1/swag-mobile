@@ -11,6 +11,10 @@ const termsAndConditionsUrl = "https://swag.golf/pages/termsandconditions";
 const termsAndConditionsBasePath = "https://swag.golf";
 const String sendBirdAppId = "3A0E70A8-4861-44C2-ABC0-B7E13C776BEF";
 const String shareListingUrl = "intent://www.swagapp.com/product/";
+const String facebookUrl = "https://www.facebook.com/swaggolfco";
+const String twitterUrl = "https://twitter.com/swaggolfco";
+const String discordUrl = "https://discord.com/invite/OfficialSwag";
+const String instagramUrl = "https://www.instagram.com/swaggolfco/";
 
 const String swagBotNickName = "SWAG Listing Bot";
 
