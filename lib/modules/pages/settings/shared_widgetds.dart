@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:swagapp/modules/common/utils/utils.dart';
+import 'package:swagapp/modules/constants/constants.dart';
 
 import '../../common/utils/palette.dart';
 
@@ -22,7 +24,9 @@ class SocialFooter extends StatelessWidget {
                     size: 25,
                     color: Palette.current.grey,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    launchUrlInWebView(twitterUrl);
+                  },
                 ),
                 IconButton(
                   icon: ImageIcon(
@@ -30,7 +34,9 @@ class SocialFooter extends StatelessWidget {
                     size: 25,
                     color: Palette.current.grey,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    launchUrlInWebView(facebookUrl);
+                  },
                 ),
                 IconButton(
                   icon: ImageIcon(
@@ -38,7 +44,9 @@ class SocialFooter extends StatelessWidget {
                     size: 25,
                     color: Palette.current.grey,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    launchUrlInWebView(instagramUrl);
+                  },
                 ),
                 IconButton(
                   icon: ImageIcon(
@@ -46,7 +54,9 @@ class SocialFooter extends StatelessWidget {
                     size: 30,
                     color: Palette.current.grey,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    launchUrlInWebView(discordUrl);
+                  },
                 ),
               ],
             ),
