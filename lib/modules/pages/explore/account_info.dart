@@ -841,6 +841,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                   child: Checkbox(
                                     checkColor: Palette.current.black,
                                     value: billingAndShippingAddressesAreSame,
+                                    activeColor: Palette.current.primaryNeonGreen,
                                     onChanged: (value) {
                                       setState(() =>
                                           billingAndShippingAddressesAreSame =
