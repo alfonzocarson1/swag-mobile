@@ -321,30 +321,38 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       if (userName == json['payload']['userNameSeller'] &&
           json['type'] ==
               ChatMessageDataType.confirmPaymentReceived.textValue) {
-        String alertMessage =
-            'Payment made ${json['payload']['listingName']} \nNew message from @Swag';
-        LocalNotificationsService.showInAppAllert(alertMessage);
+        await LocalNotificationsService.showNotification(
+          title: 'Payment made ${json['payload']['listingName']}',
+          body: 'New message from @Swag',
+          payload: null,
+        );
       }
 
       if (userName == json['payload']['userNameBuyer'] &&
           json['type'] == ChatMessageDataType.paymentReceived.textValue) {
-        String alertMessage =
-            'Payment received ${json['payload']['listingName']} \nNew message from @Swag';
-        LocalNotificationsService.showInAppAllert(alertMessage);
+        await LocalNotificationsService.showNotification(
+          title: 'Payment received ${json['payload']['listingName']}',
+          body: 'New message from @Swag',
+          payload: null,
+        );
       }
 
       if (userName == json['payload']['userNameBuyer'] &&
           json['type'] == ChatMessageDataType.saleCanceled.textValue) {
-        String alertMessage =
-            'Sale cancelled ${json['payload']['listingName']} \n${json['payload']['userNameSeller']} has cancelled the sale';
-        LocalNotificationsService.showInAppAllert(alertMessage);
+        await LocalNotificationsService.showNotification(
+          title: 'Sale cancelled ${json['payload']['listingName']}',
+          body: '${json['payload']['userNameSeller']} has cancelled the sale',
+          payload: null,
+        );
       }
 
       if (userName == json['payload']['userNameBuyer'] &&
           json['type'] == ChatMessageDataType.confirmPaidSend.textValue) {
-        String alertMessage =
-            'Payment details ${json['payload']['listingName']} \nNew message from @Swag';
-        LocalNotificationsService.showInAppAllert(alertMessage);
+        await LocalNotificationsService.showNotification(
+          title: 'Payment details ${json['payload']['listingName']}',
+          body: 'New message from @Swag',
+          payload: null,
+        );
       }
     }
   }
@@ -367,9 +375,11 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
     Map<String, dynamic> json = jsonDecode(jsonStringWithQuotes);
 
-    String alertMessage =
-        'Pending sale \n${json['payload']['listingName']} \nNew message from @Swag';
-    LocalNotificationsService.showInAppAllert(alertMessage);
+    await LocalNotificationsService.showNotification(
+      title: 'Pending sale ${json['payload']['listingName']}',
+      body: 'New message from @Swag',
+      payload: null,
+    );
   }
 
   Future<void> updateChatReadStatus(ChatData updateChatData) async {
