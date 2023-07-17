@@ -91,6 +91,26 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
         .salesHistory(catalogItemId ?? "");
   }
 
+  Future<void> onTapSubmit(String channelUrl) async {
+    ChatBloc chatBloc = context.read<ChatBloc>();
+
+    late ChatData chatData;
+    try {
+      await Future.delayed(const Duration(milliseconds: 500));
+
+      chatData = await chatBloc.startNewChat(channelUrl, false);
+
+      Loading.hide(context);
+      await Navigator.of(context, rootNavigator: true).push(
+        MaterialPageRoute(
+            builder: (BuildContext context) => ChatPage(chatData: chatData)),
+      );
+      Navigator.of(context).pop();
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -418,22 +438,14 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
               }
             }
 
+            Loading.show(context);
             await getIt<BuyCubit>().acceptPurchase(
               UpdatePurchaseStatusRequestModel(
                   productItemId: listData.productItemId,
                   listingChatId: listingChatId),
             );
 
-            ChatData chadData = await context
-                .read<ChatBloc>()
-                .startNewChat(listingChatId ?? '', false);
-
-            await Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (BuildContext context) => ChatPage(chatData: chadData),
-              ),
-            );
+            onTapSubmit(listingChatId ?? '');
           },
           type: PrimaryButtonType.green,
         ),

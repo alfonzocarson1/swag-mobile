@@ -195,11 +195,12 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           ChatData chatDataFirst = this.state.chats.firstWhere((ChatData chat) {
             return chat.channel.channelUrl == value;
           });
-
-          await this.receiveFirstMessage(
-            chatData: chatDataFirst,
-            message: messages[0],
-          );
+          if (Platform.isAndroid) {
+            await this.receiveFirstMessage(
+              chatData: chatDataFirst,
+              message: messages[0],
+            );
+          }
 
           this.add(ChatAddChatsEvent(this.state.chats));
         }
@@ -298,50 +299,53 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       chats: this.state.chats,
     ));
 
-    ProfileModel userProfile =
-        getIt<PreferenceRepositoryService>().profileData();
-    String userName = userProfile.username;
+    if (Platform.isAndroid) {
+      ProfileModel userProfile =
+          getIt<PreferenceRepositoryService>().profileData();
+      String userName = userProfile.username;
 
-    String jsonString = message.data ?? '';
+      String jsonString = message.data ?? '';
 
-    jsonString = jsonString.replaceAll("'", '"');
+      jsonString = jsonString.replaceAll("'", '"');
 
-    String jsonStringWithQuotes = "'$jsonString'";
+      String jsonStringWithQuotes = "'$jsonString'";
 
-    jsonStringWithQuotes = jsonString.replaceAll("None", '""');
+      jsonStringWithQuotes = jsonString.replaceAll("None", '""');
 
-    Map<String, dynamic> json = jsonDecode(jsonStringWithQuotes);
+      Map<String, dynamic> json = jsonDecode(jsonStringWithQuotes);
 
-    Member member = chatData.channel.members.firstWhere((Member member) {
-      return member.userId != this.state.myUser!.userId;
-    });
+      Member member = chatData.channel.members.firstWhere((Member member) {
+        return member.userId != this.state.myUser!.userId;
+      });
 
-    if (userName == json['payload']['userNameSeller'] &&
-        json['type'] == ChatMessageDataType.confirmPaymentReceived.textValue) {
-      String alertMessage =
-          'Payment made ${json['payload']['listingName']} \nNew message from @Swag';
-      LocalNotificationsService.showInAppAllert(alertMessage);
-    }
+      if (userName == json['payload']['userNameSeller'] &&
+          json['type'] ==
+              ChatMessageDataType.confirmPaymentReceived.textValue) {
+        String alertMessage =
+            'Payment made ${json['payload']['listingName']} \nNew message from @Swag';
+        LocalNotificationsService.showInAppAllert(alertMessage);
+      }
 
-    if (userName == json['payload']['userNameBuyer'] &&
-        json['type'] == ChatMessageDataType.paymentReceived.textValue) {
-      String alertMessage =
-          'Payment received ${json['payload']['listingName']} \nNew message from @Swag';
-      LocalNotificationsService.showInAppAllert(alertMessage);
-    }
+      if (userName == json['payload']['userNameBuyer'] &&
+          json['type'] == ChatMessageDataType.paymentReceived.textValue) {
+        String alertMessage =
+            'Payment received ${json['payload']['listingName']} \nNew message from @Swag';
+        LocalNotificationsService.showInAppAllert(alertMessage);
+      }
 
-    if (userName == json['payload']['userNameBuyer'] &&
-        json['type'] == ChatMessageDataType.saleCanceled.textValue) {
-      String alertMessage =
-          'Sale cancelled ${json['payload']['listingName']} \n${json['payload']['userNameSeller']} has cancelled the sale';
-      LocalNotificationsService.showInAppAllert(alertMessage);
-    }
+      if (userName == json['payload']['userNameBuyer'] &&
+          json['type'] == ChatMessageDataType.saleCanceled.textValue) {
+        String alertMessage =
+            'Sale cancelled ${json['payload']['listingName']} \n${json['payload']['userNameSeller']} has cancelled the sale';
+        LocalNotificationsService.showInAppAllert(alertMessage);
+      }
 
-    if (userName == json['payload']['userNameBuyer'] &&
-        json['type'] == ChatMessageDataType.confirmPaidSend.textValue) {
-      String alertMessage =
-          'Payment details ${json['payload']['listingName']} \nNew message from @Swag';
-      LocalNotificationsService.showInAppAllert(alertMessage);
+      if (userName == json['payload']['userNameBuyer'] &&
+          json['type'] == ChatMessageDataType.confirmPaidSend.textValue) {
+        String alertMessage =
+            'Payment details ${json['payload']['listingName']} \nNew message from @Swag';
+        LocalNotificationsService.showInAppAllert(alertMessage);
+      }
     }
   }
 
