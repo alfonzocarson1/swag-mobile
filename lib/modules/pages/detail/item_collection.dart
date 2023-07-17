@@ -511,7 +511,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                       : showToastMessage(
                                           S.of(context).collection_listed);
                             } else {
-                              showPaywallSplashScreen(context: context, hasUsedFreeTrial: profileData?.hasUsedFreeTrial ?? false, removePaywall: removePaywall());
+                              showPaywallSplashScreen(context: context, hasUsedFreeTrial: profileData?.hasUsedFreeTrial ?? false, removePaywall: removePaywall);
                             }
                             }else{
                               Navigator.of(context, rootNavigator: true)
