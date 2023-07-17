@@ -40,6 +40,8 @@ class _ChatPageState extends State<ChatPage> {
   void initState() {
     this.updateChatData();
 
+    getIt<PreferenceRepositoryService>().saveShowNotification(false);
+
     this.isTyping = false;
     this.scrollController = ScrollController();
     super.initState();
@@ -77,13 +79,15 @@ class _ChatPageState extends State<ChatPage> {
         ),
         centerTitle: false,
         leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Palette.current.primaryNeonGreen,
-            size: 24,
-          ),
-          onPressed: () => Navigator.pop(context),
-        ),
+            icon: Icon(
+              Icons.arrow_back,
+              color: Palette.current.primaryNeonGreen,
+              size: 24,
+            ),
+            onPressed: () {
+              getIt<PreferenceRepositoryService>().saveShowNotification(true);
+              Navigator.pop(context);
+            }),
         actions: <Widget>[ChatPopupMenu(chatData: this.widget.chatData!)],
       ),
       body: _Body(
