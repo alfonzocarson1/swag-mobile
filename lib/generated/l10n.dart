@@ -450,6 +450,36 @@ class S {
     );
   }
 
+  // Stripe Error
+  String get stripe_error {
+    return Intl.message(
+      'Stripe Error',
+      name: 'stripe_error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  // Card Description
+  String get card_description {
+    return Intl.message(
+        ' this card will only be used for Atomic Drop purchases. All secondary market purchases will use P2P payment options.',
+        name: 'card_description',
+        desc: '',
+        args: []);
+  }
+
+  //Note
+  String get note {
+    return Intl.message('Note:', name: 'note', desc: '', args: []);
+  }
+
+  // Credit Card and billing Information
+  String get creditcard_and_billing_info {
+    return Intl.message('Credit card and billing information.\n',
+        name: 'creditcard_and_billing_info', desc: '', args: []);
+  }
+
   /// `Username must be between 4-20 characters`
   String get invalid_username {
     return Intl.message(
@@ -550,6 +580,52 @@ class S {
     );
   }
 
+  String get name {
+    return Intl.message(
+      'Name',
+      name: 'Name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get card {
+    return Intl.message(
+      'Card',
+      name: 'Card',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get cvc {
+    return Intl.message(
+      'CVC',
+      name: 'CVC',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get expiration {
+    return Intl.message(
+      'Expiration',
+      name: 'Expiration',
+      desc: '',
+      args: [],
+    );
+  }
+
+  ///Billing Address
+  String get billing_address {
+    return Intl.message(
+      'Billing Address',
+      name: 'Billing Address',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `City`
   String get city {
     return Intl.message(
@@ -625,6 +701,16 @@ class S {
     return Intl.message(
       'Required field',
       name: 'required_field',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid DAte`
+  String get invalid_date {
+    return Intl.message(
+      'Invalid Date',
+      name: 'invalid_date',
       desc: '',
       args: [],
     );

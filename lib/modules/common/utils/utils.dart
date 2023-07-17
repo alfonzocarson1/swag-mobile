@@ -19,6 +19,7 @@ import '../../di/injector.dart';
 import '../../models/search/filter_model.dart';
 import '../../models/search/search_request_payload_model.dart';
 import '../ui/paywall_splash_screen.dart';
+import '../ui/dynamic_toast_messages.dart';
 
 String dateFormat(String dateStr) {
   final DateFormat displayFormater = DateFormat('dd/MM/yyyy');
@@ -65,6 +66,14 @@ String formatDate(String dateTime) {
   final DateTime displayDate = displayFormater.parse(dateTime);
   final String formatted = serverFormater.format(displayDate);
   return formatted;
+}
+
+String formatDateWithMonthAndYear(String dateTime) {
+  final DateFormat displayFormater = DateFormat('yyyy-MM-dd HH:mm:ss.SSS');
+  final DateFormat serverFormater = DateFormat('MM/yyyy');
+  final DateTime displayDate = displayFormater.parse(dateTime);
+  final String formatted = serverFormater.format(displayDate);
+  return formatted.replaceAll('/20', '/');
 }
 
 extension StringExtension on String {
@@ -558,3 +567,16 @@ extension Separated<E> on List<E> {
                                           )
                                         )); 
     }
+Future<void> showSnackBar(BuildContext context, String message) async {
+  Future.delayed(const Duration(milliseconds: 2000), () {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        duration: const Duration(seconds: 3),
+        behavior: SnackBarBehavior.floating,
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).size.height / 1.3,
+        ),
+        backgroundColor: Colors.transparent,
+        content: ToastMessage(message: message),
+        dismissDirection: DismissDirection.none));
+  });
+}

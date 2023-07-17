@@ -26,17 +26,17 @@ const String defaultCountry = "United States";
 const String defaultState = "State";
 
 const countriesCode = [
-  "US",
-  "CA",
-  "GB",
-  "AU",
-  "SG",
-  "SE",
-  "DE",
-  "JP",
-  "HK",
-  "CN",
-  "KR",
+  'AU',
+  'CA',
+  'CN',
+  'DE',
+  'HK',
+  'JP',
+  'KR',
+  'SG',
+  'SE',
+  'GB',
+  'US'
 ];
 
 const countries = [

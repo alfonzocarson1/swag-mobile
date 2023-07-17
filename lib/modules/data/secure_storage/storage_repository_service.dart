@@ -14,6 +14,7 @@ class StorageRepositoryService implements StorageRepositoryInt {
   static const String _country = 'country';
   static const String _state = 'state';
   static const String _zip = 'zip';
+  static const String _stripeTokenKey = 'stripeTokenKey';
 
   late FlutterSecureStorage _storage;
 
@@ -177,5 +178,19 @@ class StorageRepositoryService implements StorageRepositoryInt {
   @override
   Future<void> saveZip(String zip) async {
     await _storage.write(key: _zip, value: zip);
+  }
+
+  @override
+  Future<String?> getStripeToken() async {
+    try {
+      return await storage.read(key: _stripeTokenKey);
+    } catch (e) {
+      return '';
+    }
+  }
+
+  @override
+  Future<void> saveStripeToken(String stripeToken) async {
+    await _storage.write(key: _stripeTokenKey, value: stripeToken);
   }
 }
