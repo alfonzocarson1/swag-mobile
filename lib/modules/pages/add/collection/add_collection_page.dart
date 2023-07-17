@@ -343,10 +343,10 @@ class _AddCollectionState extends State<AddCollection> {
                                 maxLength: 9,
                                 onChanged: (value) {
                                   setState(() {
-                                    final parsed = CurrencyTextInputFormatter.tryParseText(_purchaseController.text);
-                                    if (parsed == null) {
-                                      _price = 0;
-                                    }
+                                    final parsed =
+                                        CurrencyTextInputFormatter.tryParseText(
+                                            _purchaseController.text);
+                                    _price = parsed ?? 0;
                                   });
                                 },
                               ),
