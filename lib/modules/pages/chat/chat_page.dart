@@ -40,7 +40,9 @@ class _ChatPageState extends State<ChatPage> {
   void initState() {
     this.updateChatData();
 
-    getIt<PreferenceRepositoryService>().saveShowNotification(false);
+    setState(() {
+      getIt<PreferenceRepositoryService>().saveShowNotification(false);
+    });
 
     this.isTyping = false;
     this.scrollController = ScrollController();
@@ -85,7 +87,9 @@ class _ChatPageState extends State<ChatPage> {
               size: 24,
             ),
             onPressed: () {
-              getIt<PreferenceRepositoryService>().saveShowNotification(true);
+              setState(() {
+                getIt<PreferenceRepositoryService>().saveShowNotification(true);
+              });
               Navigator.pop(context);
             }),
         actions: <Widget>[ChatPopupMenu(chatData: this.widget.chatData!)],

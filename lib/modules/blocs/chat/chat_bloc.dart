@@ -299,8 +299,9 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       chats: this.state.chats,
     ));
 
-    if (Platform.isAndroid &&
-        getIt<PreferenceRepositoryService>().showNotification()) {
+    bool showNotidy = getIt<PreferenceRepositoryService>().showNotification();
+
+    if (Platform.isAndroid && showNotidy) {
       ProfileModel userProfile =
           getIt<PreferenceRepositoryService>().profileData();
       String userName = userProfile.username;

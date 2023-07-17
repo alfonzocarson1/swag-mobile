@@ -101,6 +101,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
       chatData = await chatBloc.startNewChat(channelUrl, false);
 
       Loading.hide(context);
+      getIt<PreferenceRepositoryService>().saveShowNotification(false);
       await Navigator.of(context, rootNavigator: true).push(
         MaterialPageRoute(
             builder: (BuildContext context) => ChatPage(chatData: chatData)),
