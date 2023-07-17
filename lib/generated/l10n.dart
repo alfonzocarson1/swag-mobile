@@ -1,6 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -575,15 +576,6 @@ class S {
     return Intl.message(
       'Address 2 (optional)',
       name: 'second_address',
-      desc: '',
-      args: [],
-    );
-  }
-
-  String get name {
-    return Intl.message(
-      'Name',
-      name: 'Name',
       desc: '',
       args: [],
     );
