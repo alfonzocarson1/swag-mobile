@@ -194,7 +194,6 @@ class _BuyerCompletePurchasePopUpState
 
     late ChatData chatData;
     try {
-      Loading.show(context);
       await Future.delayed(const Duration(milliseconds: 500));
 
       chatData = await chatBloc.startNewChat(channelUrl, false);
@@ -748,6 +747,7 @@ class _BuyerCompletePurchasePopUpState
                                   onPressed: () {
                                     showErrors();
                                     if (areFieldsValid()) {
+                                      Loading.show(context);
                                       getIt<BuyCubit>().buyListItem(
                                           BuyASaleListingModel(
                                               saveAddress: checkBoxValue,
