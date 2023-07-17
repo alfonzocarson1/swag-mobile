@@ -97,7 +97,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             S.of(context).profile_title,
                             S.of(context).profile_sub_title, () {
                           Navigator.of(context, rootNavigator: true)
-                              .push(ProfileSettingsPage.route());
+                              .push(ProfileDetailPage.route());
                         }),
                         SizedBox(
                           height: 0.2,
