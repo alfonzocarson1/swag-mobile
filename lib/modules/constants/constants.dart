@@ -15,6 +15,7 @@ const String facebookUrl = "https://www.facebook.com/swaggolfco";
 const String twitterUrl = "https://twitter.com/swaggolfco";
 const String discordUrl = "https://discord.com/invite/OfficialSwag";
 const String instagramUrl = "https://www.instagram.com/swaggolfco/";
+const String faqsUrl = "https://swag.golf/pages/faq";
 
 const String swagBotNickName = "SWAG Listing Bot";
 

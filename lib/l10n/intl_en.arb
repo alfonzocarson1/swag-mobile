@@ -432,6 +432,8 @@
     "rating_feedback": "Additional details here \n(not seen by users)...",
     "sold_footer_title": "Sold to @{buyerUserName} on {dateSold} ",
     "inactive": "Inactive",
+    "help_center_faq": "FAQs",
+    "help_center_terms_title": "Terms and Privacy",
     "name": "Name",
     "card": "Card",
     "cvc": "CVC",

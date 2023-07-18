@@ -4163,6 +4163,26 @@ class S {
     );
   }
 
+  /// `FAQs`
+  String get help_center_faq {
+    return Intl.message(
+      'FAQs',
+      name: 'help_center_faq',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Terms and Privacy`
+  String get help_center_terms_title {
+    return Intl.message(
+      'Terms and Privacy',
+      name: 'help_center_terms_title',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Name`
   String get name {
     return Intl.message(

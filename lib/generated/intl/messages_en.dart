@@ -308,8 +308,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "get_an_email":
             MessageLookupByLibrary.simpleMessage("Didn’t get an email?"),
         "headcovers": MessageLookupByLibrary.simpleMessage("Headcovers"),
+        "help_center_faq": MessageLookupByLibrary.simpleMessage("FAQs"),
         "help_center_sub_title": MessageLookupByLibrary.simpleMessage(
             "See our FAQS, Terms and Privacy"),
+        "help_center_terms_title":
+            MessageLookupByLibrary.simpleMessage("Terms and Privacy"),
         "help_center_title":
             MessageLookupByLibrary.simpleMessage("Help Center"),
         "help_payment": MessageLookupByLibrary.simpleMessage(
