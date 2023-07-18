@@ -82,9 +82,9 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                             S.of(context).profile_username_title,
                             profileData.username,
                             () {},
-                            true,
+                            profileData.kycverified! ? true : false,
                             '',
-                            'assets/icons/verifiedindicator.png',
+                            profileData.kycverified! ? 'assets/icons/Verifiedindicator_icon.png' : '',
                             false),
                         SizedBox(
                           height: 0.2,
@@ -235,7 +235,7 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                       size: 10,
                       color: Palette.current.darkGray,
                     )
-                  : Image.asset(rightIconUrl, width: 23, height: 23)
+                  : Image.asset(rightIconUrl, width: 20, height: 20)
               : Text(status,
                   style: Theme.of(context).textTheme.bodySmall!.copyWith(
                       fontWeight: FontWeight.w300,
