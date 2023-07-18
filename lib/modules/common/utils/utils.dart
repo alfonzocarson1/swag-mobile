@@ -61,6 +61,13 @@ bool isValidNumberComa(String number) {
   return RegExp(r"^[0-9]+\,[0-9][0-9]$").hasMatch(number);
 }
 
+Future<void> launchBrowserAppFromLink(String urlStr) async {
+  if(!await launchUrl(Uri.parse(urlStr),
+      mode: LaunchMode.externalApplication)){
+    throw Exception('Could not launch $urlStr');
+  }
+}
+
 Future<void> launchUrlInWebView(String urlStr) async {
   if(!await launchUrl(Uri.parse(urlStr),
       mode: LaunchMode.platformDefault)){

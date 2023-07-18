@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../generated/l10n.dart';
 import '../../blocs/favorite_bloc/favorite_item_bloc.dart';
+import '../../cubits/favorites/get_favorites_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/favorite/favorite_item_model.dart';
@@ -343,6 +344,7 @@ class _CatalogPageState extends State<CatalogPage> {
                                       });
                                       onChangeFavoriteAnimation(index);
                                     }
+                                    getIt<FavoriteProfileCubit>().loadResults();
                                   } else {
                                     Navigator.of(context, rootNavigator: true)
                                         .push(CreateAccountPage.route());

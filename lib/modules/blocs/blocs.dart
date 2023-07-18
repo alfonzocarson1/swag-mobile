@@ -43,7 +43,7 @@ import 'sold_bloc/sold_bloc.dart';
 abstract class AppBlocs {
   static List<BlocProvider> blocs(BuildContext context) => [
         BlocProvider<ChatBloc>(
-            create: (BuildContext context) => ChatBloc(getIt<ChatService>())),
+            create: (context) => getIt<ChatBloc>()),
         BlocProvider<AuthBloc>(create: (_) => getIt<AuthBloc>()),
         BlocProvider<UsernameBloc>(create: (_) => getIt<UsernameBloc>()),
         // BlocProvider<SignUpBloc>(create: (_) => getIt<SignUpBloc>()),

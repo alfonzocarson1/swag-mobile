@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sendbird_sdk/core/models/member.dart';
@@ -39,6 +41,11 @@ class _ChatPageState extends State<ChatPage> {
   @override
   void initState() {
     this.updateChatData();
+    this.loadPushNotifications();
+
+    setState(() {
+      getIt<PreferenceRepositoryService>().saveShowNotification(false);
+    });
 
     this.isTyping = false;
     this.scrollController = ScrollController();
@@ -49,6 +56,17 @@ class _ChatPageState extends State<ChatPage> {
   void dispose() {
     this.scrollController.dispose();
     super.dispose();
+  }
+
+  Future<void> loadPushNotifications() async {
+    if (Platform.isIOS) {
+      await FirebaseMessaging.instance
+          .setForegroundNotificationPresentationOptions(
+        alert: false,
+        badge: false,
+        sound: false,
+      );
+    }
   }
 
   @override
@@ -77,13 +95,25 @@ class _ChatPageState extends State<ChatPage> {
         ),
         centerTitle: false,
         leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Palette.current.primaryNeonGreen,
-            size: 24,
-          ),
-          onPressed: () => Navigator.pop(context),
-        ),
+            icon: Icon(
+              Icons.arrow_back,
+              color: Palette.current.primaryNeonGreen,
+              size: 24,
+            ),
+            onPressed: () async {
+              if (Platform.isIOS) {
+                await FirebaseMessaging.instance
+                    .setForegroundNotificationPresentationOptions(
+                  alert: true,
+                  badge: true,
+                  sound: true,
+                );
+              }
+              setState(() {
+                getIt<PreferenceRepositoryService>().saveShowNotification(true);
+              });
+              Navigator.pop(context);
+            }),
         actions: <Widget>[ChatPopupMenu(chatData: this.widget.chatData!)],
       ),
       body: _Body(

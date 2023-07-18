@@ -4182,6 +4182,106 @@ class S {
       args: [],
     );
   }
+
+  /// `Name`
+  String get name {
+    return Intl.message(
+      'Name',
+      name: 'name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Card`
+  String get card {
+    return Intl.message(
+      'Card',
+      name: 'card',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CVC`
+  String get cvc {
+    return Intl.message(
+      'CVC',
+      name: 'cvc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid Date`
+  String get invalid_date {
+    return Intl.message(
+      'Invalid Date',
+      name: 'invalid_date',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stripe Error`
+  String get stripe_error {
+    return Intl.message(
+      'Stripe Error',
+      name: 'stripe_error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This card will only be used for Atomic Drop purchases. All secondary market purchases will use P2P payment options.`
+  String get card_description {
+    return Intl.message(
+      'This card will only be used for Atomic Drop purchases. All secondary market purchases will use P2P payment options.',
+      name: 'card_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Note`
+  String get note {
+    return Intl.message(
+      'Note',
+      name: 'note',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Credit card and Billing information.\n`
+  String get creditcard_and_billing_info {
+    return Intl.message(
+      'Credit card and Billing information.\n',
+      name: 'creditcard_and_billing_info',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Expiration`
+  String get expiration {
+    return Intl.message(
+      'Expiration',
+      name: 'expiration',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Billing Address`
+  String get billing_address {
+    return Intl.message(
+      'Billing Address',
+      name: 'billing_address',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

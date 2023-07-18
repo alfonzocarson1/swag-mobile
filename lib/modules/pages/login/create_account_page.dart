@@ -130,9 +130,9 @@ class _CreateAccountState extends State<CreateAccountPage> {
     });
     _phoneNode.addListener(() {
       if (_phoneBorder == Palette.current.primaryNeonGreen) {
-            getIt<AuthCubit>()
-              .loadResultsPhoneAvailable("${currentPhoneNumber!.dialCode}${_phoneController.text}");
-          setPhoneErrorText(isPhoneValid, isPhoneInUse);
+        getIt<AuthCubit>().loadResultsPhoneAvailable(
+            "${currentPhoneNumber!.dialCode}${_phoneController.text}");
+        setPhoneErrorText(isPhoneValid, isPhoneInUse);
       }
 
       setState(() {
@@ -430,6 +430,8 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                     child: Checkbox(
                                       checkColor: Palette.current.black,
                                       value: checkBoxValue,
+                                      activeColor:
+                                          Palette.current.primaryNeonGreen,
                                       onChanged: (value) {
                                         setState(() =>
                                             checkBoxValue = value ?? false);
@@ -610,7 +612,9 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                     onPressed: () {
                                       SendMailContact.send(
                                         context: context,
-                                        subject: S.of(context).user_problem_creating_account_in_the_swag_app,
+                                        subject: S
+                                            .of(context)
+                                            .user_problem_creating_account_in_the_swag_app,
                                       );
                                     }),
                               )

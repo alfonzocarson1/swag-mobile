@@ -76,13 +76,13 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   }
 
   @override
-  bool onChatPage() {
+  bool showNotification() {
     final onChatPage = _prefs.getBool(_onChatPage);
-    return onChatPage ?? false;
+    return onChatPage ?? true;
   }
 
   @override
-  Future<void> saveOnChatPage(bool value) async {
+  Future<void> saveShowNotification(bool value) async {
     await _prefs.setBool(_onChatPage, value);
   }
 

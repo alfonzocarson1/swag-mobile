@@ -16,6 +16,7 @@ import '../../../common/ui/custom_text_form_field.dart';
 import '../../../common/ui/popup_image_guidelines.dart';
 import '../../../common/ui/primary_button.dart';
 import '../../../common/ui/pushed_header.dart';
+import '../../../common/utils/currency_input_formatter.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
 
@@ -93,6 +94,8 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
   String? descriptionErrorText;
   String _defaultCondition = 'Condition';
 
+  final formatter = NumberFormat("###0.00");
+
   bool isFirst = true;
   double _price = 100.0;
   bool validPrice = false;
@@ -123,6 +126,15 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
 
     imageFileList = widget.imageUrls ?? [];
     _listPriceItemNode.addListener(() {
+      if (!_listPriceItemNode.hasFocus &&
+          _listPriceItemController.text.isNotEmpty) {
+        final formattedNumber = formatter.format(
+          CurrencyTextInputFormatter.tryParseText(
+            _listPriceItemController.text,
+          ),
+        );
+        _listPriceItemController.text = formattedNumber;
+      }
       setState(() {
         _listPriceItemBorder = _listPriceItemNode.hasFocus
             ? Palette.current.primaryNeonGreen
@@ -305,40 +317,14 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
                                           )
                                         : const SizedBox.shrink(),
                                     inputFormatters: <TextInputFormatter>[
-                                      FilteringTextInputFormatter.digitsOnly
+                                      CurrencyTextInputFormatter(),
                                     ],
-                                    maxLength: 7,
+                                    maxLength: 9,
                                     onChanged: (value) {
-                                      if (value == '00') {
-                                        setState(() {
-                                          _price = 0.0;
-                                        });
-                                      }
-                                      String newValue = value
-                                          .replaceAll(',', '')
-                                          .replaceAll('.', '');
-                                      if (value.isEmpty || newValue == '00') {
-                                        _listPriceItemController.clear();
-                                        isFirst = true;
-                                        return;
-                                      }
-                                      double value1 = double.parse(newValue);
-                                      if (!isFirst) value1 = value1 * 100;
-                                      value = NumberFormat.currency(
-                                              customPattern: '###,###.##')
-                                          .format(value1 / 100);
-                                      _listPriceItemController.value =
-                                          TextEditingValue(
-                                        text: value,
-                                        selection: TextSelection.collapsed(
-                                            offset: value.length),
-                                      );
-                                      setState(() {
-                                        String str =
-                                            _listPriceItemController.value.text;
-                                        String result = str.replaceAll(',', '');
-                                        _price = double.parse(result);
-                                      });
+                                      final parsed = CurrencyTextInputFormatter
+                                          .tryParseText(
+                                              _listPriceItemController.text);
+                                      _price = parsed ?? 0;
                                     },
                                     borderColor: _listPriceItemBorder,
                                     autofocus: false,
