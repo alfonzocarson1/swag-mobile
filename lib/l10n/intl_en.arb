@@ -431,5 +431,7 @@
     "rating_btn": "Submit rating",
     "rating_feedback": "Additional details here \n(not seen by users)...",
     "sold_footer_title": "Sold to @{buyerUserName} on {dateSold} ",
-    "inactive": "Inactive"
+    "inactive": "Inactive",
+    "help_center_faq": "FAQs",
+    "help_center_terms_title": "Terms and Privacy"
 }
