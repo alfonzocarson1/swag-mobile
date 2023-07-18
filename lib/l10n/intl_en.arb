@@ -431,5 +431,15 @@
     "rating_btn": "Submit rating",
     "rating_feedback": "Additional details here \n(not seen by users)...",
     "sold_footer_title": "Sold to @{buyerUserName} on {dateSold} ",
-    "inactive": "Inactive"
+    "inactive": "Inactive",
+    "name": "Name",
+    "card": "Card",
+    "cvc": "CVC",
+    "invalid_date": "Invalid Date",
+    "stripe_error": "Stripe Error",
+    "card_description": "This card will only be used for Atomic Drop purchases. All secondary market purchases will use P2P payment options.",
+    "note": "Note",
+    "creditcard_and_billing_info": "Credit card and Billing information.\n",
+    "expiration": "Expiration",
+    "billing_address": "Billing Address"
 }

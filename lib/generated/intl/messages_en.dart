@@ -120,6 +120,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "b111_222": MessageLookupByLibrary.simpleMessage("\$111 - \$222"),
         "b222_555": MessageLookupByLibrary.simpleMessage("\$222 - \$555"),
         "b555_above": MessageLookupByLibrary.simpleMessage("\$555 - Above"),
+        "billing_address":
+            MessageLookupByLibrary.simpleMessage("Billing Address"),
         "buy_for": MessageLookupByLibrary.simpleMessage("BUY FOR"),
         "camera": MessageLookupByLibrary.simpleMessage("TAKE PHOTO"),
         "cancel": MessageLookupByLibrary.simpleMessage("CANCEL"),
@@ -127,6 +129,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancel_sale_btn": MessageLookupByLibrary.simpleMessage("CANCEL SALE"),
         "cancel_sale_description": MessageLookupByLibrary.simpleMessage(
             "Please select the reason you are canceling this sale."),
+        "card": MessageLookupByLibrary.simpleMessage("Card"),
+        "card_description": MessageLookupByLibrary.simpleMessage(
+            "This card will only be used for Atomic Drop purchases. All secondary market purchases will use P2P payment options."),
         "cash_app": MessageLookupByLibrary.simpleMessage("CashApp"),
         "cash_app_sub_title": MessageLookupByLibrary.simpleMessage(
             "Please enter and confirm your \nCashApp cashtag"),
@@ -217,6 +222,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "country": MessageLookupByLibrary.simpleMessage("Country"),
         "create_account":
             MessageLookupByLibrary.simpleMessage("Create Account"),
+        "creditcard_and_billing_info": MessageLookupByLibrary.simpleMessage(
+            "Credit card and Billing information.\n"),
+        "cvc": MessageLookupByLibrary.simpleMessage("CVC"),
         "date_purchased":
             MessageLookupByLibrary.simpleMessage("Date Purchased"),
         "delete": MessageLookupByLibrary.simpleMessage("DELETE"),
@@ -275,6 +283,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "It looks like you already have this item in your collection. Are you sure you want to add another one?"),
         "existing_item_to_collection_error_title":
             MessageLookupByLibrary.simpleMessage("Are you sure"),
+        "expiration": MessageLookupByLibrary.simpleMessage("Expiration"),
         "expired": MessageLookupByLibrary.simpleMessage("Expired"),
         "explore_as_guest":
             MessageLookupByLibrary.simpleMessage("EXPLORE AS GUEST"),
@@ -336,6 +345,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Must be 5-30 characters, no spaces or special characters except - or _"),
         "invadlidEmail": MessageLookupByLibrary.simpleMessage(
             "Incorrect email. Please try again."),
+        "invalid_date": MessageLookupByLibrary.simpleMessage("Invalid Date"),
         "invalid_email": MessageLookupByLibrary.simpleMessage(
             "Invalid email address format"),
         "invalid_password": MessageLookupByLibrary.simpleMessage(
@@ -375,6 +385,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("WHALE ALERT"),
         "my_collection": MessageLookupByLibrary.simpleMessage("MY COLLECTION"),
         "n_a": MessageLookupByLibrary.simpleMessage("N/A"),
+        "name": MessageLookupByLibrary.simpleMessage("Name"),
         "new_password": MessageLookupByLibrary.simpleMessage("New Password"),
         "next_btn": MessageLookupByLibrary.simpleMessage("NEXT"),
         "nft_connect_sheet_button":
@@ -424,6 +435,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "no_purchase_history_yet":
             MessageLookupByLibrary.simpleMessage("No Purchase History yet"),
         "notDeliveredItemChatMessage": m13,
+        "note": MessageLookupByLibrary.simpleMessage("Note"),
         "notification_already_requested": MessageLookupByLibrary.simpleMessage(
             "You have already requested to be notified.  We will notify you when item is listed for sale."),
         "notify_availability": MessageLookupByLibrary.simpleMessage(
@@ -666,6 +678,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sort_by": MessageLookupByLibrary.simpleMessage("sort by"),
         "staff_picks": MessageLookupByLibrary.simpleMessage("STAFF PICKS"),
         "state": MessageLookupByLibrary.simpleMessage("State"),
+        "stripe_error": MessageLookupByLibrary.simpleMessage("Stripe Error"),
         "subscription_title":
             MessageLookupByLibrary.simpleMessage("Subscription"),
         "subtitle_welcome":
