@@ -9,6 +9,7 @@ import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
 import 'package:swagapp/modules/common/assets/icons.dart';
 import 'package:swagapp/modules/common/ui/custom_outline_button.dart';
 import 'package:swagapp/modules/common/ui/loading.dart';
+import 'package:swagapp/modules/common/ui/user_avatar.dart';
 import 'package:swagapp/modules/common/utils/stateful_wrapper.dart';
 import 'package:swagapp/modules/cubits/public_profile/public_profile_cubit.dart';
 import 'package:swagapp/modules/models/chat/chat_data.dart';
@@ -36,34 +37,7 @@ class FooterListItemPage extends StatelessWidget {
     required this.profileId,
     this.useCurrentUser = false,
   });
-
-  String? getProfileImageUrl(PublicProfile profile) {
-    if (profile.useAvatar != 'CUSTOM') {
-      return imagesList.firstWhere(
-        (avatar) => (avatar["id"].contains(profile.useAvatar)),
-        orElse: () => imagesList.first,
-      )['url'];
-    } else {
-      return profile.avatarUrl;
-    }
-  }
-
-  Widget buildProfileImage(BuildContext context, String? avatar) {
-    if (avatar == null) {
-      return Image.asset(
-        "assets/images/Avatar.png",
-        scale: 3,
-      );
-    }
-
-    return CircleAvatar(
-      backgroundColor: Colors.transparent,
-      backgroundImage: const AssetImage('assets/images/Avatar.png'),
-      foregroundImage: NetworkImage(avatar),
-      radius: 75,
-    );
-  }
-
+  
   @override
   Widget build(BuildContext context) {
     return StatefulWrapper(
@@ -119,7 +93,10 @@ class FooterListItemPage extends StatelessWidget {
               child: SizedBox(
                 height: 40,
                 width: 40,
-                child: buildProfileImage(context, getProfileImageUrl(profile)),
+                child: UserAvatar(
+                  useAvatar: profile.useAvatar,
+                  avatarUrl: profile.avatarUrl,
+                ),
               ),
             ),
           ),
