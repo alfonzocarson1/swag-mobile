@@ -443,5 +443,6 @@
     "note": "Note",
     "creditcard_and_billing_info": "Credit card and Billing information.\n",
     "expiration": "Expiration",
-    "billing_address": "Billing Address"
+    "billing_address": "Billing Address",
+    "unverified": "Unverified"
 }
