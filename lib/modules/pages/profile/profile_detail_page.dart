@@ -7,6 +7,7 @@ import '../../../generated/l10n.dart';
 import '../../common/ui/pushed_header.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
+import '../login/forgot_password_page.dart';
 
 class ProfileDetailPage extends StatefulWidget {
   static const name = '/ProfileDetailPage';
@@ -14,9 +15,9 @@ class ProfileDetailPage extends StatefulWidget {
   const ProfileDetailPage({super.key});
 
   static Route route() => PageRoutes.material(
-    settings: RouteSettings(name: name),
-    builder: (context) => const ProfileDetailPage(),
-  );
+        settings: RouteSettings(name: name),
+        builder: (context) => const ProfileDetailPage(),
+      );
 
   @override
   State<ProfileDetailPage> createState() => _ProfileDetailPage();
@@ -30,8 +31,8 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-
-    ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
+    ProfileModel profileData =
+        getIt<PreferenceRepositoryService>().profileData();
 
     return Scaffold(
       appBar: PushedHeader(
@@ -65,13 +66,11 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                             'assets/icons/BlockUserWhite.png',
                             S.of(context).profile_name_title,
                             '',
-                                () {},
+                            () {},
                             true,
                             '',
-                          '',
-                          true
-
-                        ),
+                            '',
+                            true),
                         SizedBox(
                           height: 0.2,
                           child: Container(
@@ -82,13 +81,11 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                             'assets/icons/account_icon.png',
                             S.of(context).profile_username_title,
                             profileData.username,
-                                () {},
+                            () {},
                             true,
                             '',
                             'assets/icons/verifiedindicator.png',
-                            false
-
-                        ),
+                            false),
                         SizedBox(
                           height: 0.2,
                           child: Container(
@@ -96,15 +93,14 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                           ),
                         ),
                         _selectTile(
-                          'assets/icons/security_icon.png',
+                            'assets/icons/security_icon.png',
                             S.of(context).profile_password_title,
-                          '*************',
-                              () {},
-                            true,
-                            '',
-                            '',
-                            true
-                        ),
+                            '*************', () {
+                          getIt<PreferenceRepositoryService>()
+                              .saveForgotPasswordFlow(true);
+                          Navigator.of(context, rootNavigator: true)
+                              .push(ForgotPasswordPage.route(true));
+                        }, true, '', '', true),
                         SizedBox(
                           height: 0.2,
                           child: Container(
@@ -118,15 +114,18 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                           ),
                         ),
                         _selectTile(
-                          'assets/icons/email.png',
+                            'assets/icons/email.png',
                             S.of(context).profile_email_title,
-                          profileData.email,
-                              () {},
+                            profileData.email,
+                            () {},
                             profileData.emailVerified ? false : true,
-                            profileData.emailVerified ?  S.of(context).email_verified : '',
-                            profileData.emailVerified ? '' : 'assets/icons/unverifiedindicator.png',
-                            false
-                        ),
+                            profileData.emailVerified
+                                ? S.of(context).email_verified
+                                : '',
+                            profileData.emailVerified
+                                ? ''
+                                : 'assets/icons/unverifiedindicator.png',
+                            false),
                         SizedBox(
                           height: 0.2,
                           child: Container(
@@ -137,12 +136,11 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                             'assets/icons/contact_us_icon.png',
                             S.of(context).profile_mobile_number_title,
                             profileData.phoneNumber,
-                                () {},
+                            () {},
                             true,
                             '',
                             '',
-                            true
-                        ),
+                            true),
                         SizedBox(
                           height: 0.2,
                           child: Container(
@@ -153,30 +151,28 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                             'assets/icons/trash.png',
                             S.of(context).profile_delete_title,
                             '',
-                                () {},
+                            () {},
                             true,
                             '',
                             '',
-                            true
-                        ),
-
+                            true),
                         SizedBox(
                           height: 0.2,
                           child: Container(
                             color: Palette.current.grey,
                           ),
                         ),
-                          SizedBox(height: 150,),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20),
-                            child: PrimaryButton(
+                        SizedBox(
+                          height: 150,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: PrimaryButton(
                             title: S.of(context).sign_out.toUpperCase(),
-                            onPressed: () {
-
-                            },
+                            onPressed: () {},
                             type: PrimaryButtonType.pink,
-                          ),)
-
+                          ),
+                        )
                       ],
                     )),
               );
@@ -184,7 +180,6 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
           ),
         ],
       ),
-
     );
   }
 
@@ -196,56 +191,56 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
       bool showRightIcon,
       String status,
       String rightIconUrl,
-      bool hasArrowIcon
-      ) {
+      bool hasArrowIcon) {
     return InkWell(
       onTap: onTap,
       splashColor: Palette.current.primaryNero,
       child: ListTile(
-        leading: ImageIcon(
-          AssetImage(iconUrl),
-          size: 25,
-          color: Colors.white,
-        ),
-        visualDensity: VisualDensity(vertical: 2),
-        title: subTitle != '' ? Padding(
-          padding: const EdgeInsets.only(bottom: 3),
-          child: Text(title,
-              style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  fontWeight: FontWeight.w400,
-                  color: Palette.current.primaryWhiteSmoke,
-                  fontSize: 16)),
-        ) :  SizedBox(
-            height: 60,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(title,
-                style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                    fontWeight: FontWeight.w400,
-                    color: Palette.current.primaryWhiteSmoke,
-                    fontSize: 16)),
-          )),
-        subtitle: subTitle != '' ? Text(subTitle,
-            style: Theme.of(context)
-                .textTheme
-                .bodySmall!
-                .copyWith(color: Palette.current.grey, fontSize: 14)) :
-            null
-          ,
-        trailing: showRightIcon ?
-        hasArrowIcon ? Icon(Icons.arrow_forward_ios_sharp ,
-          size: 10,
-          color: Palette.current.darkGray,
-        )
-            :
-          Image.asset(rightIconUrl, width: 23, height: 23)
-         :
-        Text(status,
-            style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                fontWeight: FontWeight.w300,
-                color: Palette.current.primaryNeonGreen,
-                fontSize: 16))
-      ),
+          leading: ImageIcon(
+            AssetImage(iconUrl),
+            size: 25,
+            color: Colors.white,
+          ),
+          visualDensity: VisualDensity(vertical: 2),
+          title: subTitle != ''
+              ? Padding(
+                  padding: const EdgeInsets.only(bottom: 3),
+                  child: Text(title,
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          fontWeight: FontWeight.w400,
+                          color: Palette.current.primaryWhiteSmoke,
+                          fontSize: 16)),
+                )
+              : SizedBox(
+                  height: 60,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(title,
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            fontWeight: FontWeight.w400,
+                            color: Palette.current.primaryWhiteSmoke,
+                            fontSize: 16)),
+                  )),
+          subtitle: subTitle != ''
+              ? Text(subTitle,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall!
+                      .copyWith(color: Palette.current.grey, fontSize: 14))
+              : null,
+          trailing: showRightIcon
+              ? hasArrowIcon
+                  ? Icon(
+                      Icons.arrow_forward_ios_sharp,
+                      size: 10,
+                      color: Palette.current.darkGray,
+                    )
+                  : Image.asset(rightIconUrl, width: 23, height: 23)
+              : Text(status,
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      fontWeight: FontWeight.w300,
+                      color: Palette.current.primaryNeonGreen,
+                      fontSize: 16))),
     );
   }
 }

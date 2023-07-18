@@ -65,6 +65,12 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   void initState() {
     super.initState();
     _passwordNode.addListener(() {
+      if (_passwordNode.hasFocus) {
+        setState(() {
+          errorFirstText = null;
+          errorSecondText = null;
+        });
+      }
       setState(() {
         //If the password field was focused and now its not we will show the error it has to
         if (_passwordBorder == Palette.current.primaryNeonGreen) {
@@ -78,7 +84,18 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       });
     });
     _confirmPasswordNode.addListener(() {
-      setState(() {
+      if (_confirmPasswordNode.hasFocus) {
+        setState(() {
+          errorFirstText = null;
+          errorSecondText = null;
+        });
+      }
+       setState(() {
+        if (_confirmPasswordBorder == Palette.current.primaryNeonGreen) {
+          errorSecondText = isValidPassword(_confirmPasswordController.text)
+              ? null
+              : S.of(context).invalid_password;
+        }
         _confirmPasswordBorder = _confirmPasswordNode.hasFocus
             ? Palette.current.primaryNeonGreen
             : Palette.current.primaryWhiteSmoke;
