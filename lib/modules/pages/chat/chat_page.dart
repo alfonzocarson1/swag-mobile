@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -40,6 +41,7 @@ class _ChatPageState extends State<ChatPage> {
   @override
   void initState() {
     this.updateChatData();
+    this.loadPushNotifications();
 
     setState(() {
       getIt<PreferenceRepositoryService>().saveShowNotification(false);
@@ -54,6 +56,17 @@ class _ChatPageState extends State<ChatPage> {
   void dispose() {
     this.scrollController.dispose();
     super.dispose();
+  }
+
+  Future<void> loadPushNotifications() async {
+    if (Platform.isIOS) {
+      await FirebaseMessaging.instance
+          .setForegroundNotificationPresentationOptions(
+        alert: false,
+        badge: false,
+        sound: false,
+      );
+    }
   }
 
   @override
@@ -87,14 +100,16 @@ class _ChatPageState extends State<ChatPage> {
               color: Palette.current.primaryNeonGreen,
               size: 24,
             ),
-            onPressed: () {
-              setState(() async {
+            onPressed: () async {
+              if (Platform.isIOS) {
                 await FirebaseMessaging.instance
                     .setForegroundNotificationPresentationOptions(
                   alert: true,
                   badge: true,
                   sound: true,
                 );
+              }
+              setState(() {
                 getIt<PreferenceRepositoryService>().saveShowNotification(true);
               });
               Navigator.pop(context);

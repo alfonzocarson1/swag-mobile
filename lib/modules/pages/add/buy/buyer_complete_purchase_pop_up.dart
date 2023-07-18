@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -201,12 +203,15 @@ class _BuyerCompletePurchasePopUpState
 
       Loading.hide(context);
 
-      await FirebaseMessaging.instance
-          .setForegroundNotificationPresentationOptions(
-        alert: false,
-        badge: false,
-        sound: false,
-      );
+      if (Platform.isIOS) {
+        await FirebaseMessaging.instance
+            .setForegroundNotificationPresentationOptions(
+          alert: false,
+          badge: false,
+          sound: false,
+        );
+      }
+
       getIt<PreferenceRepositoryService>().saveShowNotification(false);
       await Navigator.of(context, rootNavigator: true).push(
         MaterialPageRoute(
