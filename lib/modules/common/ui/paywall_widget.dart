@@ -103,7 +103,8 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                   height: MediaQuery.of(context).size.height * 0.03,
                 ),
                GestureDetector(
-                onTap:() => getIt<PaywallCubit>().startPurchase(annualSubscriptionId),
+                onTap:() => widget.removePaywall(),
+                //getIt<PaywallCubit>().startPurchase(annualSubscriptionId),
                 child: const DiscountContainerWidget()),
                const SizedBox(height: 20),
                GestureDetector(
