@@ -4282,6 +4282,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Unverified`
+  String get unverified {
+    return Intl.message(
+      'Unverified',
+      name: 'unverified',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

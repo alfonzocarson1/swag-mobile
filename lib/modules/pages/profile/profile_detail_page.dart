@@ -118,13 +118,11 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                             S.of(context).profile_email_title,
                             profileData.email,
                             () {},
-                            profileData.emailVerified ? false : true,
-                            profileData.emailVerified
+                            false,
+                             profileData.emailVerified
                                 ? S.of(context).email_verified
-                                : '',
-                            profileData.emailVerified
-                                ? ''
-                                : 'assets/icons/unverifiedindicator.png',
+                                : S.of(context).unverified,
+                            '',
                             false),
                         SizedBox(
                           height: 0.2,
@@ -239,7 +237,9 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
               : Text(status,
                   style: Theme.of(context).textTheme.bodySmall!.copyWith(
                       fontWeight: FontWeight.w300,
-                      color: Palette.current.primaryNeonGreen,
+                      color: status == S.of(context).email_verified ?
+                      Palette.current.primaryNeonGreen
+                          : Palette.current.primaryNeonPink,
                       fontSize: 16))),
     );
   }
