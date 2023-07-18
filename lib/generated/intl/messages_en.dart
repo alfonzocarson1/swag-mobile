@@ -709,6 +709,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unicorn_covers":
             MessageLookupByLibrary.simpleMessage("UNICORN COVERS"),
         "unread": MessageLookupByLibrary.simpleMessage("Unread"),
+        "unverified": MessageLookupByLibrary.simpleMessage("Unverified"),
         "user_problem_creating_account_in_the_swag_app":
             MessageLookupByLibrary.simpleMessage(
                 "User problem creating account in the Swag App"),
