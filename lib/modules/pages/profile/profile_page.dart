@@ -78,6 +78,7 @@ class _ProfilePageState extends State<ProfilePage>
   }
 
   paywallAction() {
+      verifySubscriptionStatus();
     ProfileModel profileData =
         getIt<PreferenceRepositoryService>().profileData();
     if (profileData.hasActiveSubscription != true) {
@@ -89,8 +90,7 @@ class _ProfilePageState extends State<ProfilePage>
   }
 
   @override
-  Widget build(BuildContext context) {
-    verifySubscriptionStatus();
+  Widget build(BuildContext context) {  
 
     return Scaffold(
       appBar: AppBar(
