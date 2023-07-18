@@ -102,12 +102,14 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
       chatData = await chatBloc.startNewChat(channelUrl, false);
 
       Loading.hide(context);
-      await FirebaseMessaging.instance
-          .setForegroundNotificationPresentationOptions(
-        alert: false,
-        badge: false,
-        sound: false,
-      );
+      if (Platform.isIOS) {
+        await FirebaseMessaging.instance
+            .setForegroundNotificationPresentationOptions(
+          alert: false,
+          badge: false,
+          sound: false,
+        );
+      }
       getIt<PreferenceRepositoryService>().saveShowNotification(false);
       await Navigator.of(context, rootNavigator: true).push(
         MaterialPageRoute(
