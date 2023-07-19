@@ -6,6 +6,7 @@ import 'package:swagapp/modules/common/ui/user_avatar.dart';
 import 'package:swagapp/modules/common/utils/stateful_wrapper.dart';
 import 'package:swagapp/modules/models/profile/public_profile.dart';
 
+import '../../../generated/l10n.dart';
 import '../../common/ui/loading.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
@@ -87,7 +88,137 @@ class PublicProfilePage extends StatelessWidget {
           username: profile.username ?? "NULL",
           kycVerified: profile.kycverified ?? false,
           rating: profile.listingsRating ?? 0,
-        )
+        ),
+        const SizedBox(height: 25),
+        const Expanded(child: _PublicProfileTabs())
+      ],
+    );
+  }
+}
+
+class _PublicProfileTabs extends StatefulWidget {
+  const _PublicProfileTabs({
+    super.key,
+  });
+
+  @override
+  State<_PublicProfileTabs> createState() => _PublicProfileTabsState();
+}
+
+class _PublicProfileTabsState extends State<_PublicProfileTabs>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: TabBar(
+            isScrollable: true,
+            dividerColor: Colors.transparent,
+            indicatorColor: Palette.current.primaryNeonGreen,
+            controller: _tabController,
+            indicator: UnderlineTabIndicator(
+              borderSide: BorderSide(
+                width: 3,
+                color: Palette.current.primaryNeonGreen,
+              ),
+            ),
+            indicatorSize: TabBarIndicatorSize.label,
+            labelPadding: const EdgeInsets.symmetric(horizontal: 20),
+            labelColor: Palette.current.primaryNeonGreen,
+            unselectedLabelColor: Palette.current.primaryWhiteSmoke,
+            unselectedLabelStyle: Theme.of(context)
+                .textTheme
+                .headlineMedium!
+                .copyWith(
+                    fontFamily: "KnockoutCustom",
+                    fontSize: 21,
+                    letterSpacing: 1.1,
+                    fontWeight: FontWeight.w300),
+            labelStyle: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                fontFamily: "KnockoutCustom",
+                fontSize: 21,
+                letterSpacing: 1.1,
+                fontWeight: FontWeight.w300),
+            tabs: [
+              Tab(
+                child: Text(
+                  S.of(context).tab_listings,
+                ),
+              ),
+              Tab(
+                child: Text(
+                  S.of(context).tab_favorites,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Expanded(
+          child: TabBarView(
+            physics: const NeverScrollableScrollPhysics(),
+            controller: _tabController,
+            children: [
+              _EmptyWidget(
+                message: S.of(context).public_profile_empty_listing,
+              ),
+              _EmptyWidget(
+                message: S.of(context).public_profile_empty_favorites,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _EmptyWidget extends StatelessWidget {
+  final String message;
+  const _EmptyWidget({super.key, required this.message});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 60,
+        vertical: 70,
+      ),
+      children: [
+        Image.asset(
+          "assets/images/UnFavorite.png",
+          width: 30,
+          height: 30,
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Text(
+          textAlign: TextAlign.center,
+          message.toUpperCase(),
+          style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                fontFamily: "KnockoutCustom",
+                fontWeight: FontWeight.w300,
+                fontSize: 30,
+                letterSpacing: 1.2,
+                color: Palette.current.darkGray,
+              ),
+        ),
       ],
     );
   }
