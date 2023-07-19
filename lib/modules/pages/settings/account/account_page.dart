@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 import '../../../../generated/l10n.dart';
@@ -8,6 +10,10 @@ import '../../../common/utils/utils.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
 import '../../../models/profile/profile_model.dart';
+import '../../../stripe/models/cards_response_model.dart';
+import '../../../stripe/models/stripe_error_model.dart';
+import '../../../stripe/stripe_service.dart';
+import 'cards_page.dart';
 import 'peer_to_peer_payments_page.dart';
 import 'shipping_address_page.dart';
 
@@ -26,6 +32,32 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
+  CardsResponseModel? cardsResponseModel;
+
+  @override
+  void initState() {
+    fetchAllCards();
+    super.initState();
+  }
+
+  fetchAllCards() async {
+    final StripeService stripeService = StripeService();
+    final respose =
+        await stripeService.getAllCards(customerId: 'cus_OHVy4VX6DiHyvI');
+    if (respose.statusCode != 200) {
+      StripeErrorModel stripeErrorModel =
+          StripeErrorModel.fromJson(jsonDecode(respose.body)['error']);
+      debugPrint(stripeErrorModel.message);
+    } else {
+      final CardsResponseModel tempModel =
+          CardsResponseModel.fromJson(jsonDecode(respose.body));
+      cardsResponseModel = tempModel;
+      setState(() {});
+      getIt<PreferenceRepositoryService>()
+          .saveCardsResponseModel(cardsResponseModel!);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     ProfileModel profileData =
@@ -68,7 +100,15 @@ class _AccountPageState extends State<AccountPage> {
                             S
                                 .of(context)
                                 .premium_memberatomic_drop_payments_sub_title,
-                            () {},
+                            () async {
+                          if (cardsResponseModel != null &&
+                              cardsResponseModel!.data!.isNotEmpty) {
+                            Navigator.of(context, rootNavigator: true)
+                                .push(CardsPage.route());
+                          } else {
+                            showSnackBar(context, 'No Cards Linked');
+                          }
+                        },
                             Icon(
                               Icons.arrow_forward_ios_sharp,
                               size: 10,
@@ -161,12 +201,18 @@ class _AccountPageState extends State<AccountPage> {
                             '',
                             () {},
                             const SizedBox(),
-                             Text(profileData.hasActiveSubscription! ? S.of(context).active : S.of(context).inactive,
+                            Text(
+                                profileData.hasActiveSubscription!
+                                    ? S.of(context).active
+                                    : S.of(context).inactive,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall!
                                     .copyWith(
-                                        color: profileData.hasActiveSubscription! ? Palette.current.primaryNeonGreen : Palette.current.primaryNeonPink,
+                                        color: profileData
+                                                .hasActiveSubscription!
+                                            ? Palette.current.primaryNeonGreen
+                                            : Palette.current.primaryNeonPink,
                                         fontSize: 14))),
                         SizedBox(
                           height: 0.2,
