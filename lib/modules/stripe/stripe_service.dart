@@ -14,7 +14,7 @@ class StripeService {
     final body = paymentMethodInputModel.toJson();
     final response = await http.post(Uri.parse(createPaymentMethodUrl),
         headers: headers, body: body);
-        
+
     return response;
   }
 
@@ -35,6 +35,15 @@ class StripeService {
         headers: headers,
         body: body);
 
+    return response;
+  }
+
+  Future<http.Response> getAllCards({required String customerId}) async {
+    final uri = '$createCustomerUrl/$customerId/$paymentMethodAndType';
+    final response = await http.get(
+      Uri.parse(uri),
+      headers: headers,
+    );
     return response;
   }
 }

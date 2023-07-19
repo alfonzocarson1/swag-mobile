@@ -4,6 +4,7 @@ import 'package:swagapp/modules/models/filters/dynamic_filters.dart';
 import '../../models/profile/profile_model.dart';
 import '../../models/search/category_model.dart';
 import '../../models/settings/peer_to_peer_payments_get_model.dart';
+import '../../stripe/models/cards_response_model.dart';
 
 abstract class PreferenceRepositoryInt {
   SharedPreferences get prefs;
@@ -89,4 +90,7 @@ abstract class PreferenceRepositoryInt {
 
   String getFirebaseDeviceToken();
   Future<void> saveFirebaseDeviceToken(String token);
+
+  CardsResponseModel cardsResponseModel();
+  Future<void> saveCardsResponseModel(CardsResponseModel value);
 }
