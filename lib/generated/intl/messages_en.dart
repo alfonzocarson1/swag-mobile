@@ -559,6 +559,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile_title": MessageLookupByLibrary.simpleMessage("Profile"),
         "profile_username_title":
             MessageLookupByLibrary.simpleMessage("Username"),
+        "public_profile_empty_favorites":
+            MessageLookupByLibrary.simpleMessage("No favorites yet"),
+        "public_profile_empty_listing":
+            MessageLookupByLibrary.simpleMessage("No active listings"),
         "purchase_history_detail_title":
             MessageLookupByLibrary.simpleMessage("PURCHASE"),
         "purchase_item_purchased_from":
