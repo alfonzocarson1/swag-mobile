@@ -47,4 +47,18 @@ class FavoriteService extends IFavoriteService {
     );
     return response;
   }
+
+  @override
+  Future<ListFavoriteProfileResponseModel> getFavoritesForProfile(
+    String profileId,
+  ) async {
+    final response = await apiService.getEndpointData(
+      endpoint: Endpoint.favoriteProfile,
+      method: RequestMethod.get,
+      jsonKey: "favoriteList",
+      dynamicParam: profileId,
+      fromJson: (json) => ListFavoriteProfileResponseModel.fromJson(json),
+    );
+    return response;
+  }
 }

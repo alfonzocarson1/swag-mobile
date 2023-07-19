@@ -53,7 +53,8 @@ enum Endpoint {
   completeSale,
   confirmReceivedItem,
   listingsRating,
-  soldDetail
+  soldDetail,
+  favoriteProfile,
 }
 
 class API {
@@ -128,6 +129,7 @@ class API {
     Endpoint.completeSale: 'api/v1/buyFlow/acceptPurchaseRequest',
     Endpoint.confirmReceivedItem: 'api/v1/buyFlow/confirmReceivedItem',
     Endpoint.listingsRating: 'api/v1/profile/listingsRating',
-    Endpoint.soldDetail: 'api/v1/listing/listingDetail/soldDetail/%s'
+    Endpoint.soldDetail: 'api/v1/listing/listingDetail/soldDetail/%s',
+    Endpoint.favoriteProfile : 'api/public/v1/profile/favoriteItems/%s',
   };
 }
