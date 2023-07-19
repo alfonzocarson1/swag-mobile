@@ -1,9 +1,11 @@
 enum ChatType {
-
   listing('listing_chat'),
   buyWorkflow('buy_chat'),
-  text('text');
+  text('text'),
+  notifyMessageBuyFlow('notifyMessageBuyFlow'),
+  notifySale('notifySale'),
+  notifyMe('notifyMe');
 
-  final String textValue;  
+  final String textValue;
   const ChatType(this.textValue);
 }
