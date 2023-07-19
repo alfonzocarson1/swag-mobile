@@ -21,6 +21,7 @@ mixin _$PaywallCubitState {
     required TResult Function() initial,
     required TResult Function() progress,
     required TResult Function() success,
+    required TResult Function() cancelled,
     required TResult Function(String errorMessage) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -29,6 +30,7 @@ mixin _$PaywallCubitState {
     TResult? Function()? initial,
     TResult? Function()? progress,
     TResult? Function()? success,
+    TResult? Function()? cancelled,
     TResult? Function(String errorMessage)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -37,6 +39,7 @@ mixin _$PaywallCubitState {
     TResult Function()? initial,
     TResult Function()? progress,
     TResult Function()? success,
+    TResult Function()? cancelled,
     TResult Function(String errorMessage)? error,
     required TResult orElse(),
   }) =>
@@ -46,6 +49,7 @@ mixin _$PaywallCubitState {
     required TResult Function(PaywallCubitStateInitial value) initial,
     required TResult Function(PaywallCubitStateProgress value) progress,
     required TResult Function(PaywallCubitStateSuccess value) success,
+    required TResult Function(PaywallCubitStateCancelled value) cancelled,
     required TResult Function(PaywallCubitStateError value) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -54,6 +58,7 @@ mixin _$PaywallCubitState {
     TResult? Function(PaywallCubitStateInitial value)? initial,
     TResult? Function(PaywallCubitStateProgress value)? progress,
     TResult? Function(PaywallCubitStateSuccess value)? success,
+    TResult? Function(PaywallCubitStateCancelled value)? cancelled,
     TResult? Function(PaywallCubitStateError value)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -62,6 +67,7 @@ mixin _$PaywallCubitState {
     TResult Function(PaywallCubitStateInitial value)? initial,
     TResult Function(PaywallCubitStateProgress value)? progress,
     TResult Function(PaywallCubitStateSuccess value)? success,
+    TResult Function(PaywallCubitStateCancelled value)? cancelled,
     TResult Function(PaywallCubitStateError value)? error,
     required TResult orElse(),
   }) =>
@@ -128,6 +134,7 @@ class _$PaywallCubitStateInitial implements PaywallCubitStateInitial {
     required TResult Function() initial,
     required TResult Function() progress,
     required TResult Function() success,
+    required TResult Function() cancelled,
     required TResult Function(String errorMessage) error,
   }) {
     return initial();
@@ -139,6 +146,7 @@ class _$PaywallCubitStateInitial implements PaywallCubitStateInitial {
     TResult? Function()? initial,
     TResult? Function()? progress,
     TResult? Function()? success,
+    TResult? Function()? cancelled,
     TResult? Function(String errorMessage)? error,
   }) {
     return initial?.call();
@@ -150,6 +158,7 @@ class _$PaywallCubitStateInitial implements PaywallCubitStateInitial {
     TResult Function()? initial,
     TResult Function()? progress,
     TResult Function()? success,
+    TResult Function()? cancelled,
     TResult Function(String errorMessage)? error,
     required TResult orElse(),
   }) {
@@ -165,6 +174,7 @@ class _$PaywallCubitStateInitial implements PaywallCubitStateInitial {
     required TResult Function(PaywallCubitStateInitial value) initial,
     required TResult Function(PaywallCubitStateProgress value) progress,
     required TResult Function(PaywallCubitStateSuccess value) success,
+    required TResult Function(PaywallCubitStateCancelled value) cancelled,
     required TResult Function(PaywallCubitStateError value) error,
   }) {
     return initial(this);
@@ -176,6 +186,7 @@ class _$PaywallCubitStateInitial implements PaywallCubitStateInitial {
     TResult? Function(PaywallCubitStateInitial value)? initial,
     TResult? Function(PaywallCubitStateProgress value)? progress,
     TResult? Function(PaywallCubitStateSuccess value)? success,
+    TResult? Function(PaywallCubitStateCancelled value)? cancelled,
     TResult? Function(PaywallCubitStateError value)? error,
   }) {
     return initial?.call(this);
@@ -187,6 +198,7 @@ class _$PaywallCubitStateInitial implements PaywallCubitStateInitial {
     TResult Function(PaywallCubitStateInitial value)? initial,
     TResult Function(PaywallCubitStateProgress value)? progress,
     TResult Function(PaywallCubitStateSuccess value)? success,
+    TResult Function(PaywallCubitStateCancelled value)? cancelled,
     TResult Function(PaywallCubitStateError value)? error,
     required TResult orElse(),
   }) {
@@ -244,6 +256,7 @@ class _$PaywallCubitStateProgress implements PaywallCubitStateProgress {
     required TResult Function() initial,
     required TResult Function() progress,
     required TResult Function() success,
+    required TResult Function() cancelled,
     required TResult Function(String errorMessage) error,
   }) {
     return progress();
@@ -255,6 +268,7 @@ class _$PaywallCubitStateProgress implements PaywallCubitStateProgress {
     TResult? Function()? initial,
     TResult? Function()? progress,
     TResult? Function()? success,
+    TResult? Function()? cancelled,
     TResult? Function(String errorMessage)? error,
   }) {
     return progress?.call();
@@ -266,6 +280,7 @@ class _$PaywallCubitStateProgress implements PaywallCubitStateProgress {
     TResult Function()? initial,
     TResult Function()? progress,
     TResult Function()? success,
+    TResult Function()? cancelled,
     TResult Function(String errorMessage)? error,
     required TResult orElse(),
   }) {
@@ -281,6 +296,7 @@ class _$PaywallCubitStateProgress implements PaywallCubitStateProgress {
     required TResult Function(PaywallCubitStateInitial value) initial,
     required TResult Function(PaywallCubitStateProgress value) progress,
     required TResult Function(PaywallCubitStateSuccess value) success,
+    required TResult Function(PaywallCubitStateCancelled value) cancelled,
     required TResult Function(PaywallCubitStateError value) error,
   }) {
     return progress(this);
@@ -292,6 +308,7 @@ class _$PaywallCubitStateProgress implements PaywallCubitStateProgress {
     TResult? Function(PaywallCubitStateInitial value)? initial,
     TResult? Function(PaywallCubitStateProgress value)? progress,
     TResult? Function(PaywallCubitStateSuccess value)? success,
+    TResult? Function(PaywallCubitStateCancelled value)? cancelled,
     TResult? Function(PaywallCubitStateError value)? error,
   }) {
     return progress?.call(this);
@@ -303,6 +320,7 @@ class _$PaywallCubitStateProgress implements PaywallCubitStateProgress {
     TResult Function(PaywallCubitStateInitial value)? initial,
     TResult Function(PaywallCubitStateProgress value)? progress,
     TResult Function(PaywallCubitStateSuccess value)? success,
+    TResult Function(PaywallCubitStateCancelled value)? cancelled,
     TResult Function(PaywallCubitStateError value)? error,
     required TResult orElse(),
   }) {
@@ -359,6 +377,7 @@ class _$PaywallCubitStateSuccess implements PaywallCubitStateSuccess {
     required TResult Function() initial,
     required TResult Function() progress,
     required TResult Function() success,
+    required TResult Function() cancelled,
     required TResult Function(String errorMessage) error,
   }) {
     return success();
@@ -370,6 +389,7 @@ class _$PaywallCubitStateSuccess implements PaywallCubitStateSuccess {
     TResult? Function()? initial,
     TResult? Function()? progress,
     TResult? Function()? success,
+    TResult? Function()? cancelled,
     TResult? Function(String errorMessage)? error,
   }) {
     return success?.call();
@@ -381,6 +401,7 @@ class _$PaywallCubitStateSuccess implements PaywallCubitStateSuccess {
     TResult Function()? initial,
     TResult Function()? progress,
     TResult Function()? success,
+    TResult Function()? cancelled,
     TResult Function(String errorMessage)? error,
     required TResult orElse(),
   }) {
@@ -396,6 +417,7 @@ class _$PaywallCubitStateSuccess implements PaywallCubitStateSuccess {
     required TResult Function(PaywallCubitStateInitial value) initial,
     required TResult Function(PaywallCubitStateProgress value) progress,
     required TResult Function(PaywallCubitStateSuccess value) success,
+    required TResult Function(PaywallCubitStateCancelled value) cancelled,
     required TResult Function(PaywallCubitStateError value) error,
   }) {
     return success(this);
@@ -407,6 +429,7 @@ class _$PaywallCubitStateSuccess implements PaywallCubitStateSuccess {
     TResult? Function(PaywallCubitStateInitial value)? initial,
     TResult? Function(PaywallCubitStateProgress value)? progress,
     TResult? Function(PaywallCubitStateSuccess value)? success,
+    TResult? Function(PaywallCubitStateCancelled value)? cancelled,
     TResult? Function(PaywallCubitStateError value)? error,
   }) {
     return success?.call(this);
@@ -418,6 +441,7 @@ class _$PaywallCubitStateSuccess implements PaywallCubitStateSuccess {
     TResult Function(PaywallCubitStateInitial value)? initial,
     TResult Function(PaywallCubitStateProgress value)? progress,
     TResult Function(PaywallCubitStateSuccess value)? success,
+    TResult Function(PaywallCubitStateCancelled value)? cancelled,
     TResult Function(PaywallCubitStateError value)? error,
     required TResult orElse(),
   }) {
@@ -430,6 +454,129 @@ class _$PaywallCubitStateSuccess implements PaywallCubitStateSuccess {
 
 abstract class PaywallCubitStateSuccess implements PaywallCubitState {
   const factory PaywallCubitStateSuccess() = _$PaywallCubitStateSuccess;
+}
+
+/// @nodoc
+abstract class _$$PaywallCubitStateCancelledCopyWith<$Res> {
+  factory _$$PaywallCubitStateCancelledCopyWith(
+          _$PaywallCubitStateCancelled value,
+          $Res Function(_$PaywallCubitStateCancelled) then) =
+      __$$PaywallCubitStateCancelledCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$PaywallCubitStateCancelledCopyWithImpl<$Res>
+    extends _$PaywallCubitStateCopyWithImpl<$Res, _$PaywallCubitStateCancelled>
+    implements _$$PaywallCubitStateCancelledCopyWith<$Res> {
+  __$$PaywallCubitStateCancelledCopyWithImpl(
+      _$PaywallCubitStateCancelled _value,
+      $Res Function(_$PaywallCubitStateCancelled) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$PaywallCubitStateCancelled implements PaywallCubitStateCancelled {
+  const _$PaywallCubitStateCancelled();
+
+  @override
+  String toString() {
+    return 'PaywallCubitState.cancelled()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PaywallCubitStateCancelled);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() progress,
+    required TResult Function() success,
+    required TResult Function() cancelled,
+    required TResult Function(String errorMessage) error,
+  }) {
+    return cancelled();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? progress,
+    TResult? Function()? success,
+    TResult? Function()? cancelled,
+    TResult? Function(String errorMessage)? error,
+  }) {
+    return cancelled?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? progress,
+    TResult Function()? success,
+    TResult Function()? cancelled,
+    TResult Function(String errorMessage)? error,
+    required TResult orElse(),
+  }) {
+    if (cancelled != null) {
+      return cancelled();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PaywallCubitStateInitial value) initial,
+    required TResult Function(PaywallCubitStateProgress value) progress,
+    required TResult Function(PaywallCubitStateSuccess value) success,
+    required TResult Function(PaywallCubitStateCancelled value) cancelled,
+    required TResult Function(PaywallCubitStateError value) error,
+  }) {
+    return cancelled(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PaywallCubitStateInitial value)? initial,
+    TResult? Function(PaywallCubitStateProgress value)? progress,
+    TResult? Function(PaywallCubitStateSuccess value)? success,
+    TResult? Function(PaywallCubitStateCancelled value)? cancelled,
+    TResult? Function(PaywallCubitStateError value)? error,
+  }) {
+    return cancelled?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PaywallCubitStateInitial value)? initial,
+    TResult Function(PaywallCubitStateProgress value)? progress,
+    TResult Function(PaywallCubitStateSuccess value)? success,
+    TResult Function(PaywallCubitStateCancelled value)? cancelled,
+    TResult Function(PaywallCubitStateError value)? error,
+    required TResult orElse(),
+  }) {
+    if (cancelled != null) {
+      return cancelled(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PaywallCubitStateCancelled implements PaywallCubitState {
+  const factory PaywallCubitStateCancelled() = _$PaywallCubitStateCancelled;
 }
 
 /// @nodoc
@@ -501,6 +648,7 @@ class _$PaywallCubitStateError implements PaywallCubitStateError {
     required TResult Function() initial,
     required TResult Function() progress,
     required TResult Function() success,
+    required TResult Function() cancelled,
     required TResult Function(String errorMessage) error,
   }) {
     return error(errorMessage);
@@ -512,6 +660,7 @@ class _$PaywallCubitStateError implements PaywallCubitStateError {
     TResult? Function()? initial,
     TResult? Function()? progress,
     TResult? Function()? success,
+    TResult? Function()? cancelled,
     TResult? Function(String errorMessage)? error,
   }) {
     return error?.call(errorMessage);
@@ -523,6 +672,7 @@ class _$PaywallCubitStateError implements PaywallCubitStateError {
     TResult Function()? initial,
     TResult Function()? progress,
     TResult Function()? success,
+    TResult Function()? cancelled,
     TResult Function(String errorMessage)? error,
     required TResult orElse(),
   }) {
@@ -538,6 +688,7 @@ class _$PaywallCubitStateError implements PaywallCubitStateError {
     required TResult Function(PaywallCubitStateInitial value) initial,
     required TResult Function(PaywallCubitStateProgress value) progress,
     required TResult Function(PaywallCubitStateSuccess value) success,
+    required TResult Function(PaywallCubitStateCancelled value) cancelled,
     required TResult Function(PaywallCubitStateError value) error,
   }) {
     return error(this);
@@ -549,6 +700,7 @@ class _$PaywallCubitStateError implements PaywallCubitStateError {
     TResult? Function(PaywallCubitStateInitial value)? initial,
     TResult? Function(PaywallCubitStateProgress value)? progress,
     TResult? Function(PaywallCubitStateSuccess value)? success,
+    TResult? Function(PaywallCubitStateCancelled value)? cancelled,
     TResult? Function(PaywallCubitStateError value)? error,
   }) {
     return error?.call(this);
@@ -560,6 +712,7 @@ class _$PaywallCubitStateError implements PaywallCubitStateError {
     TResult Function(PaywallCubitStateInitial value)? initial,
     TResult Function(PaywallCubitStateProgress value)? progress,
     TResult Function(PaywallCubitStateSuccess value)? success,
+    TResult Function(PaywallCubitStateCancelled value)? cancelled,
     TResult Function(PaywallCubitStateError value)? error,
     required TResult orElse(),
   }) {
