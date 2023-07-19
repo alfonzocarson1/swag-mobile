@@ -15,7 +15,7 @@ class PublicProfileFavoritesCubit extends Cubit<PublicProfileFavoritesState> {
 
   final Map<String, List<DetailItemModel>> _cache = {};
 
-  Future<void> loadProfile(String profileId) async {
+  Future<void> loadProfileFavorites(String profileId) async {
     emit(AsyncValue.loading(_cache[profileId]));
     try {
       final wrapper = await _favoriteService.getFavoritesForProfile(profileId);
