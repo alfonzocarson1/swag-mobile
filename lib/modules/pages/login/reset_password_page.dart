@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
+import 'package:swagapp/modules/common/ui/pushed_header.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 
 import '../../blocs/auth_bloc/auth_bloc.dart';
@@ -109,8 +110,21 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
     return Scaffold(
         extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: true,
-        backgroundColor: Colors.transparent,
-        appBar: CustomAppBar(
+        backgroundColor: widget.isFromProfileSetting! ? Palette.current.primaryNero : Colors.transparent,
+        appBar: widget.isFromProfileSetting! ? PushedHeader(
+          showBackButton: true,
+          title: Align(
+            alignment: Alignment.centerRight,
+            child: Text("RESET PASSWORD",
+                style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                    letterSpacing: 1,
+                    fontWeight: FontWeight.w300,
+                    fontFamily: "KnockoutCustom",
+                    fontSize: 30,
+                    color: Palette.current.primaryNeonGreen)),
+          ),
+          height: 70,
+        ) : CustomAppBar(
           onRoute: () {
             getIt<PreferenceRepositoryService>().saveForgotPasswordFlow(false);
             Navigator.of(context, rootNavigator: true)
@@ -134,7 +148,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                       Navigator.popUntil(
                           context,
                           ModalRoute.withName(widget.isFromProfileSetting
-                              ? '/ProfileSettingsPage'
+                              ? '/ProfileDetailPage'
                               : '/'));
                     });
 
@@ -146,7 +160,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           duration: const Duration(seconds: 3),
                           behavior: SnackBarBehavior.floating,
                           margin: EdgeInsets.only(
-                            bottom: MediaQuery.of(context).size.height / 1.3,
+                            bottom: widget.isFromProfileSetting! ? MediaQuery.of(context).size.height / 1.5 :  MediaQuery.of(context).size.height / 1.3,
                           ),
                           backgroundColor: Colors.transparent,
                           content: ToastMessage(
@@ -179,7 +193,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
           ColorFiltered(
             colorFilter:
                 const ColorFilter.mode(Colors.black38, BlendMode.darken),
-            child: Container(
+            child: widget.isFromProfileSetting! ? Container()
+                : Container(
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage("assets/images/background.png"),
@@ -201,9 +216,10 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         SizedBox(
-                          height: _responsiveDesign.heightMultiplier(80),
+                          height: widget.isFromProfileSetting! ? 0 : _responsiveDesign.heightMultiplier(80),
                         ),
-                        Image.asset(
+                        widget.isFromProfileSetting! ? SizedBox.shrink()
+                            : Image.asset(
                           'assets/images/logo.png',
                           width: 125,
                           height: 51,
