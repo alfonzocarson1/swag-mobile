@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
@@ -111,19 +112,61 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: true,
         backgroundColor: widget.isFromProfileSetting! ? Palette.current.primaryNero : Colors.transparent,
-        appBar: widget.isFromProfileSetting! ? PushedHeader(
-          showBackButton: true,
-          title: Align(
-            alignment: Alignment.centerRight,
-            child: Text("RESET PASSWORD",
-                style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                    letterSpacing: 1,
-                    fontWeight: FontWeight.w300,
-                    fontFamily: "KnockoutCustom",
-                    fontSize: 30,
-                    color: Palette.current.primaryNeonGreen)),
+        appBar: widget.isFromProfileSetting! ? AppBar(
+          scrolledUnderElevation: 0.0,
+          backgroundColor: Palette.current.primaryNero,
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+            statusBarIconBrightness: Brightness.light, // For Android (dark icons)
+            statusBarBrightness: Brightness.dark, // For iOS (dark icons)
           ),
-          height: 70,
+          automaticallyImplyLeading: false,
+          flexibleSpace: SafeArea(
+            child: NavigationToolbar(
+              middleSpacing: 0,
+              centerMiddle: false,
+              middle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(
+                        right: 12, top: 6),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                         IconButton(
+                            splashColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            icon: Icon(
+                              Icons.arrow_back,
+                              color: Palette.current.primaryNeonGreen,
+                              size: 24,
+                            ),
+                            onPressed: () {
+                              Navigator.popUntil(
+                                  context,
+                                  ModalRoute.withName(widget.isFromProfileSetting
+                                      ? '/ProfileDetailPage'
+                                      : '/'));
+                            }),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Text("RESET PASSWORD",
+                              style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                                  letterSpacing: 1,
+                                  fontWeight: FontWeight.w300,
+                                  fontFamily: "KnockoutCustom",
+                                  fontSize: 30,
+                                  color: Palette.current.primaryNeonGreen)),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ) : CustomAppBar(
           onRoute: () {
             getIt<PreferenceRepositoryService>().saveForgotPasswordFlow(false);
