@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -7,15 +8,19 @@ import 'package:swagapp/modules/pages/add/buy/preview_buy_for_sale.dart';
 
 import '../../../generated/l10n.dart';
 import '../../blocs/listing_bloc/listing_bloc.dart';
+import '../../common/ui/paywall_widget.dart';
 import '../../common/ui/refresh_widget.dart';
 import '../../common/ui/simple_loader.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
 import '../../common/utils/utils.dart';
 import '../../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
+import '../../cubits/paywall/paywall_cubit.dart';
+import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/listing_for_sale/listing_for_sale_model.dart';
 import '../../models/listing_for_sale/profile_listing_model.dart';
+import '../../models/profile/profile_model.dart';
 
 class ListingsPage extends StatefulWidget {
   static const name = '/Listings';
@@ -32,12 +37,17 @@ class ListingsPage extends StatefulWidget {
 
 class _ListingsPageState extends State<ListingsPage> {
   List<File> tempFiles = [];
+   bool hasActiveSubscription = false;
+  bool hasUsedFreeTrial = false;
+  late ProfileModel profileData;
 
   @override
   void initState() {
-    // TODO: implement initState
+
     super.initState();
-    loadList();
+         loadList();
+   getProfileData();
+   
   }
 
   @override
@@ -46,12 +56,28 @@ class _ListingsPageState extends State<ListingsPage> {
   }
 
   Future loadList() async {
-    getIt<ListingProfileCubit>().loadResults();
+    await getIt<ListingProfileCubit>().loadResults();
+  }
+
+    getProfileData() async {   
+    profileData = await getIt<PreferenceRepositoryService>().profileData();
+    hasActiveSubscription = profileData.hasActiveSubscription ?? false;
+    hasUsedFreeTrial = profileData.hasUsedFreeTrial ?? false;  
+
+  }
+    removePaywall() {
+    hasActiveSubscription = true;
+    WidgetsBinding.instance.addPostFrameCallback((_){
+    setState(() {
+      
+    });
+    });    
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ListingProfileCubit, ListingCubitState>(
+
+    return (hasActiveSubscription == true) ? BlocBuilder<ListingProfileCubit, ListingCubitState>(
         builder: (context, state) {
       return state.maybeWhen(
           orElse: () {
@@ -68,7 +94,42 @@ class _ListingsPageState extends State<ListingsPage> {
               (List<ListingForSaleProfileResponseModel> listForSale) {
             return _getBody(listForSale.first.listForSale);
           });
-    });
+    }):
+       BlocBuilder<PaywallCubit, PaywallCubitState>(
+          builder: (context, state) {
+            return state.maybeWhen(
+                initial: () => (hasActiveSubscription)
+                    ? const SizedBox.shrink()
+                    : SingleChildScrollView(
+                      child: PayWallWidget(
+                                      hasUsedFreeTrial: hasUsedFreeTrial,
+                                      removePaywall: removePaywall,
+                                    ),
+                    ),
+                progress: () => 
+                    const SingleChildScrollView(
+                      
+                      child: Center(child:  SimpleLoader()
+                      ),
+                    ),
+                success: () {
+                  removePaywall();
+                  return const SizedBox.shrink();
+                },
+                error: (error) {
+                  debugPrint(error);
+                  return Container();
+                },
+                orElse: () => (hasActiveSubscription)
+                    ? const SizedBox.shrink()
+                    : SingleChildScrollView(
+                      child: PayWallWidget(
+                                      hasUsedFreeTrial: hasUsedFreeTrial,
+                                      removePaywall: removePaywall,
+                                    ),
+                    ));
+          },
+        );
   }
 
   Widget _getBody(List<ListingForSaleModel> listingList) {

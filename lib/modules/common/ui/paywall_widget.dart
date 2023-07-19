@@ -1,17 +1,11 @@
-import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:swagapp/modules/api/api_service.dart';
 import 'package:swagapp/modules/common/ui/discount_container_widget.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
-import 'package:swagapp/modules/common/ui/simple_loader.dart';
 import 'package:swagapp/modules/cubits/paywall/paywall_cubit.dart';
-import 'package:swagapp/modules/cubits/subscription_status/update_subscription_status_cubit.dart';
 import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
 import 'package:swagapp/modules/di/injector.dart';
-import 'package:swagapp/modules/models/paywall/subscription_change_status.dart';
 import 'package:swagapp/modules/models/profile/profile_model.dart';
 
 import '../../../generated/l10n.dart';
@@ -103,7 +97,8 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                   height: MediaQuery.of(context).size.height * 0.03,
                 ),
                GestureDetector(
-                onTap:() => getIt<PaywallCubit>().startPurchase(annualSubscriptionId),
+                onTap:() =>
+                getIt<PaywallCubit>().startPurchase(annualSubscriptionId),
                 child: const DiscountContainerWidget()),
                const SizedBox(height: 20),
                GestureDetector(
