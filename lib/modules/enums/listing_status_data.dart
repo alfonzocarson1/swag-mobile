@@ -1,4 +1,5 @@
 enum ListingStatusDataType {
+  listed('listed'),
   pendingPayment('pendingPayment'),
   paid('paid'),
   paymentReceived('paymentReceived'),
