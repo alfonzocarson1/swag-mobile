@@ -66,7 +66,7 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
                 emit(PaywallCubitState.error(purchase.error!.message));
                 break;
             case PurchaseStatus.canceled:
-            emit(const PaywallCubitState.success());
+            emit(const PaywallCubitState.initial());
             break;
             case PurchaseStatus.purchased:
                 if (purchase.status == PurchaseStatus.purchased) {
