@@ -4,7 +4,6 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:swagapp/modules/common/ui/paywall_splash_screen.dart';
 import 'package:swagapp/modules/pages/add/buy/preview_buy_for_sale.dart';
 
 import '../../../generated/l10n.dart';
@@ -17,7 +16,6 @@ import '../../common/utils/palette.dart';
 import '../../common/utils/utils.dart';
 import '../../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
 import '../../cubits/paywall/paywall_cubit.dart';
-import '../../cubits/profile/get_profile_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/listing_for_sale/listing_for_sale_model.dart';
@@ -47,8 +45,9 @@ class _ListingsPageState extends State<ListingsPage> {
   void initState() {
 
     super.initState();
-    loadList();
-    getProfileData();
+         loadList();
+   getProfileData();
+   
   }
 
   @override
@@ -57,26 +56,27 @@ class _ListingsPageState extends State<ListingsPage> {
   }
 
   Future loadList() async {
-    getIt<ListingProfileCubit>().loadResults();
+    await getIt<ListingProfileCubit>().loadResults();
   }
 
-    getProfileData() async {
-    await getIt<ProfileCubit>().loadProfileResults();
+    getProfileData() async {   
     profileData = await getIt<PreferenceRepositoryService>().profileData();
     hasActiveSubscription = profileData.hasActiveSubscription ?? false;
-    hasUsedFreeTrial = profileData.hasUsedFreeTrial ?? false;
-  
+    hasUsedFreeTrial = profileData.hasUsedFreeTrial ?? false;  
+
   }
     removePaywall() {
     hasActiveSubscription = true;
-    getProfileData();
-    
-    setState(() {});
+    WidgetsBinding.instance.addPostFrameCallback((_){
+    setState(() {
+      
+    });
+    });    
   }
 
   @override
   Widget build(BuildContext context) {
-    
+
     return (hasActiveSubscription == true) ? BlocBuilder<ListingProfileCubit, ListingCubitState>(
         builder: (context, state) {
       return state.maybeWhen(
@@ -95,38 +95,41 @@ class _ListingsPageState extends State<ListingsPage> {
             return _getBody(listForSale.first.listForSale);
           });
     }):
-    SingleChildScrollView(child: PayWallWidget(hasUsedFreeTrial: hasUsedFreeTrial,removePaywall: removePaywall));
-      //  BlocBuilder<PaywallCubit, PaywallCubitState>(
-      //     builder: (context, state) {
-      //       return state.maybeWhen(
-      //           initial: () => (hasActiveSubscription)
-      //               ? const SizedBox.shrink()
-      //               : SingleChildScrollView(
-      //                 child: PayWallWidget(
-      //                                 hasUsedFreeTrial: hasUsedFreeTrial,
-      //                                 removePaywall: removePaywall,
-      //                               ),
-      //               ),
-      //           progress: () => ClipRect(
-      //               child: BackdropFilter(
-      //                   filter:
-      //                   ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
-      //                   child: const SimpleLoader())),
-      //           success: () => const SizedBox.shrink(),
-      //           error: (error) {
-      //             debugPrint(error);
-      //             return Container();
-      //           },
-      //           orElse: () => (hasActiveSubscription)
-      //               ? const SizedBox.shrink()
-      //               : SingleChildScrollView(
-      //                 child: PayWallWidget(
-      //                                 hasUsedFreeTrial: hasUsedFreeTrial,
-      //                                 removePaywall: removePaywall,
-      //                               ),
-      //               ));
-      //     },
-      //   );
+       BlocBuilder<PaywallCubit, PaywallCubitState>(
+          builder: (context, state) {
+            return state.maybeWhen(
+                initial: () => (hasActiveSubscription)
+                    ? const SizedBox.shrink()
+                    : SingleChildScrollView(
+                      child: PayWallWidget(
+                                      hasUsedFreeTrial: hasUsedFreeTrial,
+                                      removePaywall: removePaywall,
+                                    ),
+                    ),
+                progress: () => 
+                    const SingleChildScrollView(
+                      
+                      child: Center(child:  SimpleLoader()
+                      ),
+                    ),
+                success: () {
+                  removePaywall();
+                  return const SizedBox.shrink();
+                },
+                error: (error) {
+                  debugPrint(error);
+                  return Container();
+                },
+                orElse: () => (hasActiveSubscription)
+                    ? const SizedBox.shrink()
+                    : SingleChildScrollView(
+                      child: PayWallWidget(
+                                      hasUsedFreeTrial: hasUsedFreeTrial,
+                                      removePaywall: removePaywall,
+                                    ),
+                    ));
+          },
+        );
   }
 
   Widget _getBody(List<ListingForSaleModel> listingList) {
