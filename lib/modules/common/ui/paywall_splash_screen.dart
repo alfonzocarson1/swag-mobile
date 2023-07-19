@@ -13,6 +13,7 @@ import '../../cubits/paywall/paywall_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/profile/profile_model.dart';
+import '../assets/icons.dart';
 import '../utils/palette.dart';
 import 'discount_container_widget.dart';
 
@@ -104,14 +105,25 @@ class _PaywallSplashScreenState extends State<PaywallSplashScreen> {
                 SizedBox(
                   height: deviceHeight * 0.03,
                 ),
-                const AvatarPage(),
-                Text('@${profileData.username}',
-                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                        fontFamily: "KnockoutCustom",
-                        fontSize: 33,
-                        letterSpacing: 1.0,
-                        fontWeight: FontWeight.w300,
-                        color: Palette.current.light4)),
+                const AvatarPage(disableChangeAvatar: true,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('@${profileData.username}',
+                        style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                            fontFamily: "KnockoutCustom",
+                            fontSize: 33,
+                            letterSpacing: 1.0,
+                            fontWeight: FontWeight.w300,
+                            color: Palette.current.light4)),
+                            (profileData.kycverified == true) ?
+              SizedBox(
+                height: 20,
+                width: 20,
+                child: Image.asset(AppIcons.checkMarkIcon)
+                ): const SizedBox.shrink()
+                  ],
+                ),
                 ListView.builder(
                     padding: EdgeInsets.zero,
                     physics: const NeverScrollableScrollPhysics(),
