@@ -603,7 +603,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                       S.of(context).notify_availability);
                                   }
                                   else{
-                                    showPaywallSplashScreen(context: context, hasUsedFreeTrial: profileData?.hasUsedFreeTrial ?? false, removePaywall: removePaywall());                                   
+                                    showPaywallSplashScreen(context: context, hasUsedFreeTrial: profileData?.hasUsedFreeTrial ?? false, removePaywall: removePaywall);                                   
                                   }                                
                                 } else if (isLogged &&
                                     buttonEnable == false &&
@@ -613,7 +613,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                       .of(context)
                                       .notification_already_requested);
                                        }else{
-                                        showPaywallSplashScreen(context: context, hasUsedFreeTrial: profileData?.hasUsedFreeTrial ?? false, removePaywall: removePaywall());
+                                        showPaywallSplashScreen(context: context, hasUsedFreeTrial: profileData?.hasUsedFreeTrial ?? false, removePaywall: removePaywall);
                                        }                                  
                                 } else if (!notifyAvailabilityFlagBTN &&
                                     buttonEnable &&
