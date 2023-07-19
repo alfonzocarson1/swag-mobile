@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:swagapp/modules/common/assets/icons.dart';
 import 'package:swagapp/modules/pages/explore/update_avatar_bottom_sheet.dart';
 
 import '../../blocs/update_profile_bloc/update_profile_bloc.dart';
@@ -12,8 +13,9 @@ import '../utils/palette.dart';
 import '../utils/utils.dart';
 
 class AvatarPage extends StatefulWidget {
-  const AvatarPage({super.key, this.isFirstUse = false});
+  const AvatarPage({super.key, this.isFirstUse = false, this.disableChangeAvatar = false});
   final bool isFirstUse;
+  final bool disableChangeAvatar;
 
   @override
   State<AvatarPage> createState() => _AvatarPageState();
@@ -96,7 +98,8 @@ class _AvatarPageState extends State<AvatarPage> {
             bottom: 0,
             child: GestureDetector(
               onTap: () {
-                Navigator.of(context, rootNavigator: true)
+                if(widget.disableChangeAvatar == false){
+                     Navigator.of(context, rootNavigator: true)
                     .push(UpdateAvatarBottomSheet.route(context, null))
                     .then((imageParam) => {
                           if (imageParam != null)
@@ -106,8 +109,13 @@ class _AvatarPageState extends State<AvatarPage> {
                               })
                             }
                         });
+                }else{
+
+                }
+             
               },
-              child: Container(
+              child: (widget.disableChangeAvatar == false) ?            
+              Container(
                 height: 35,
                 width: 35,
                 padding: const EdgeInsets.all(7.5),
@@ -117,10 +125,10 @@ class _AvatarPageState extends State<AvatarPage> {
                 child: Image.asset(
                   width: 24,
                   height: 24,
-                  'assets/images/plus.png',
+                   'assets/images/plus.png',
                   color: Palette.current.black,
                 ),
-              ),
+              ): const SizedBox.shrink(),
             ))
       ]),
     );
