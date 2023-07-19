@@ -6,4 +6,5 @@ abstract class IFavoriteService {
   Future<FavoriteModel> addFavorite(FavoriteModel model);
   Future<FavoriteModel> removeFavorite(FavoriteModel model);
   Future<ListFavoriteProfileResponseModel> getFavorites();
+  Future<ListFavoriteProfileResponseModel> getFavoritesForProfile(String profileId);
 }

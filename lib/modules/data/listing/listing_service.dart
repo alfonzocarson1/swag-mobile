@@ -35,19 +35,18 @@ class ListingService extends IListingService {
   Future<UpdateAvatarModel> uploadListingImage(
       Uint8List bytes, String topicId) async {
     try {
-  UpdateAvatarModel response = await apiService.getEndpointData(
-    endpoint: Endpoint.uploadImageListingForSale,
-    method: RequestMethod.multipart,
-    dynamicParam: topicId,
-    needBearer: true,
-    bytes: bytes,
-    fromJson: (json) => UpdateAvatarModel.fromJson(json),
-  );
-  return response;
-} on Exception catch (e) {
-  throw(e);
-}
-    
+      UpdateAvatarModel response = await apiService.getEndpointData(
+        endpoint: Endpoint.uploadImageListingForSale,
+        method: RequestMethod.multipart,
+        dynamicParam: topicId,
+        needBearer: true,
+        bytes: bytes,
+        fromJson: (json) => UpdateAvatarModel.fromJson(json),
+      );
+      return response;
+    } on Exception catch (e) {
+      throw (e);
+    }
   }
 
   @override
@@ -55,21 +54,27 @@ class ListingService extends IListingService {
     ProfileModel profileData =
         getIt<PreferenceRepositoryService>().profileData();
 
+    return getListingForSaleForProfile(profileData.accountId);
+  }
+
+  @override
+  Future<ListingForSaleProfileResponseModel> getListingForSaleForProfile(
+      String profileId) async {
     ListingForSaleProfileResponseModel response =
         await apiService.getEndpointData(
       endpoint: Endpoint.listingsProfile,
       method: RequestMethod.get,
-      dynamicParam: profileData.accountId,
+      dynamicParam: profileId,
       jsonKey: "listForSale",
       needBearer: true,
       fromJson: (json) => ListingForSaleProfileResponseModel.fromJson(json),
     );
     return response;
   }
-  
+
   @override
-  Future<ListingForSaleModel> updateListing(ListingForSaleModel model)async{
-     ListingForSaleModel response = await apiService.getEndpointData(
+  Future<ListingForSaleModel> updateListing(ListingForSaleModel model) async {
+    ListingForSaleModel response = await apiService.getEndpointData(
       endpoint: Endpoint.createListingForSale,
       method: RequestMethod.put,
       body: model.toJson(),
@@ -78,9 +83,10 @@ class ListingService extends IListingService {
     );
     return response;
   }
-  
+
   @override
-  Future<ListingForSaleModel> removeListingItem(ListingForSaleModel model) async {
+  Future<ListingForSaleModel> removeListingItem(
+      ListingForSaleModel model) async {
     ListingForSaleModel response = await apiService.getEndpointData(
       endpoint: Endpoint.createListingForSale,
       method: RequestMethod.delete,
@@ -88,12 +94,11 @@ class ListingService extends IListingService {
       needBearer: true,
       fromJson: (json) => ListingForSaleModel.fromJson(json),
     );
-     return response;
+    return response;
   }
-  
+
   @override
   Future<void> updateImages(List<String> imageUrls) async {
-   
     String response = await apiService.updateImageEndpoint(
       endpoint: Endpoint.updateImages,
       method: RequestMethod.post,
