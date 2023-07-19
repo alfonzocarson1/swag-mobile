@@ -15,6 +15,7 @@ import '../../common/utils/utils.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../enums/chat_type.dart';
+import '../../enums/listing_status_data.dart';
 import '../../models/alerts/alert_response_model.dart';
 import '../../models/chat/chat_data.dart';
 import '../add/buy/preview_buy_for_sale.dart';
@@ -247,7 +248,20 @@ class _AlertPageState extends State<AlertPage> {
                                       });
                                 }
 
-                                if (item.payload!.listingStatus != null) {
+                                if (item.payload!.listingStatus ==
+                                    ListingStatusDataType.listed.textValue) {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(MaterialPageRoute(
+                                          builder: (context) => BuyPreviewPage(
+                                                productItemId:
+                                                    item.payload!.productItemId,
+                                              )));
+                                }
+
+                                if (item.payload!.listingStatus != null &&
+                                    item.payload!.listingStatus !=
+                                        ListingStatusDataType
+                                            .listed.textValue) {
                                   showDialog(
                                       context: context,
                                       barrierDismissible: false,
