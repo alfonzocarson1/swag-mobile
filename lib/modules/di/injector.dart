@@ -6,6 +6,8 @@ import 'package:swagapp/modules/blocs/search_bloc.dart/search_bloc.dart';
 import 'package:swagapp/modules/common/utils/context_service.dart';
 import 'package:swagapp/modules/cubits/paginated_search/paginated_search_cubit.dart';
 import 'package:swagapp/modules/cubits/public_profile/public_profile_cubit.dart';
+import 'package:swagapp/modules/cubits/public_profile_favorites/public_profile_favorites_cubit.dart';
+import 'package:swagapp/modules/cubits/public_profile_listings/public_profile_listings_cubit.dart';
 import 'package:swagapp/modules/cubits/purchase_history/purchase_history_cubit.dart';
 import 'package:swagapp/modules/cubits/saved_search/saved_searches_cubit.dart';
 import 'package:swagapp/modules/data/auth/i_auth_service.dart';
@@ -229,6 +231,9 @@ Future<void> setupAppScope() {
   getIt.registerLazySingleton<IProfileService>(
       () => ProfileService(APIService()));
   getIt.registerLazySingleton(() => PublicProfileCubit(getIt(), getIt()));
+
+  getIt.registerLazySingleton(() => PublicProfileListingsCubit(getIt()));
+  getIt.registerLazySingleton(() => PublicProfileFavoritesCubit(getIt()));
 
   return getIt.allReady();
 }

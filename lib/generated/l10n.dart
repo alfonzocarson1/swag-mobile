@@ -1060,6 +1060,26 @@ class S {
     );
   }
 
+  /// `No active listings`
+  String get public_profile_empty_listing {
+    return Intl.message(
+      'No active listings',
+      name: 'public_profile_empty_listing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No favorites yet`
+  String get public_profile_empty_favorites {
+    return Intl.message(
+      'No favorites yet',
+      name: 'public_profile_empty_favorites',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `SALE DATE`
   String get sale_data {
     return Intl.message(

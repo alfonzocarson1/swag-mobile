@@ -62,15 +62,14 @@ bool isValidNumberComa(String number) {
 }
 
 Future<void> launchBrowserAppFromLink(String urlStr) async {
-  if(!await launchUrl(Uri.parse(urlStr),
-      mode: LaunchMode.externalApplication)){
+  if (!await launchUrl(Uri.parse(urlStr),
+      mode: LaunchMode.externalApplication)) {
     throw Exception('Could not launch $urlStr');
   }
 }
 
 Future<void> launchUrlInWebView(String urlStr) async {
-  if(!await launchUrl(Uri.parse(urlStr),
-      mode: LaunchMode.platformDefault)){
+  if (!await launchUrl(Uri.parse(urlStr), mode: LaunchMode.platformDefault)) {
     throw Exception('Could not launch $urlStr');
   }
 }
@@ -363,14 +362,9 @@ void initFilterAndSortsWithBloc(BuildContext context,
       );
 }
 
-Widget selectSettings(
-    BuildContext context,
-    String iconUrl,
-    String title,
-    String subTitle,
-    Function()? onTap,
-    Widget trailing,
-    Widget? customSubTitle, {double scale = 3.0}) {
+Widget selectSettings(BuildContext context, String iconUrl, String title,
+    String subTitle, Function()? onTap, Widget trailing, Widget? customSubTitle,
+    {double scale = 3.0}) {
   return InkWell(
     onTap: onTap,
     splashColor: Palette.current.primaryNero,
@@ -571,17 +565,27 @@ extension Separated<E> on List<E> {
   }
 }
 
- showPaywallSplashScreen({required Function removePaywall,required bool hasUsedFreeTrial,required BuildContext context}){
-        Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) => PaywallSplashScreen(
-                                          hasUsedFreeTrial: hasUsedFreeTrial, 
-                                          removePaywall: (){
-                                            removePaywall();
-                                          },
-                                          )
-                                        )); 
-    }
+extension FirstOrNull<T> on List<T>? {
+  T? get firstOrNull {
+    if (this == null) return null;
+    if (this!.isEmpty) return null;
+    return this!.first;
+  }
+}
+
+showPaywallSplashScreen(
+    {required Function removePaywall,
+    required bool hasUsedFreeTrial,
+    required BuildContext context}) {
+  Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => PaywallSplashScreen(
+            hasUsedFreeTrial: hasUsedFreeTrial,
+            removePaywall: () {
+              removePaywall();
+            },
+          )));
+}
+
 Future<void> showSnackBar(BuildContext context, String message) async {
   Future.delayed(const Duration(milliseconds: 2000), () {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(

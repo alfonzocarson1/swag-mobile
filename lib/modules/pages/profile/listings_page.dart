@@ -37,17 +37,15 @@ class ListingsPage extends StatefulWidget {
 
 class _ListingsPageState extends State<ListingsPage> {
   List<File> tempFiles = [];
-   bool hasActiveSubscription = false;
+  bool hasActiveSubscription = false;
   bool hasUsedFreeTrial = false;
   late ProfileModel profileData;
 
   @override
   void initState() {
-
     super.initState();
-         loadList();
-   getProfileData();
-   
+    loadList();
+    getProfileData();
   }
 
   @override
@@ -59,163 +57,91 @@ class _ListingsPageState extends State<ListingsPage> {
     await getIt<ListingProfileCubit>().loadResults();
   }
 
-    getProfileData() async {   
+  getProfileData() async {
     profileData = await getIt<PreferenceRepositoryService>().profileData();
     hasActiveSubscription = profileData.hasActiveSubscription ?? false;
-    hasUsedFreeTrial = profileData.hasUsedFreeTrial ?? false;  
-
+    hasUsedFreeTrial = profileData.hasUsedFreeTrial ?? false;
   }
-    removePaywall() {
+
+  removePaywall() {
     hasActiveSubscription = true;
-    WidgetsBinding.instance.addPostFrameCallback((_){
-    setState(() {
-      
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {});
     });
-    });    
   }
 
   @override
   Widget build(BuildContext context) {
-
-    return (hasActiveSubscription == true) ? BlocBuilder<ListingProfileCubit, ListingCubitState>(
-        builder: (context, state) {
-      return state.maybeWhen(
-          orElse: () {
-            return Container();
-          },
-          initial: () => ListView.builder(
-                itemBuilder: (_, index) => SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.5,
-                  child: const Center(child: SimpleLoader()),
-                ),
-                itemCount: 1,
-              ),
-          loadedProfileListings:
-              (List<ListingForSaleProfileResponseModel> listForSale) {
-            return _getBody(listForSale.first.listForSale);
-          });
-    }):
-       BlocBuilder<PaywallCubit, PaywallCubitState>(
-          builder: (context, state) {
+    return (hasActiveSubscription == true)
+        ? BlocBuilder<ListingProfileCubit, ListingCubitState>(
+            builder: (context, state) {
             return state.maybeWhen(
-                initial: () => (hasActiveSubscription)
-                    ? const SizedBox.shrink()
-                    : SingleChildScrollView(
-                      child: PayWallWidget(
-                                      hasUsedFreeTrial: hasUsedFreeTrial,
-                                      removePaywall: removePaywall,
-                                    ),
-                    ),
-                progress: () => 
-                    const SingleChildScrollView(
-                      
-                      child: Center(child:  SimpleLoader()
-                      ),
-                    ),
-                success: () {
-                  removePaywall();
-                  return const SizedBox.shrink();
-                },
-                error: (error) {
-                  debugPrint(error);
+                orElse: () {
                   return Container();
                 },
-                orElse: () => (hasActiveSubscription)
-                    ? const SizedBox.shrink()
-                    : SingleChildScrollView(
-                      child: PayWallWidget(
-                                      hasUsedFreeTrial: hasUsedFreeTrial,
-                                      removePaywall: removePaywall,
-                                    ),
-                    ));
-          },
-        );
+                initial: () => ListView.builder(
+                      itemBuilder: (_, index) => SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.5,
+                        child: const Center(child: SimpleLoader()),
+                      ),
+                      itemCount: 1,
+                    ),
+                loadedProfileListings:
+                    (List<ListingForSaleProfileResponseModel> listForSale) {
+                  return _getBody(listForSale.first.listForSale);
+                });
+          })
+        : BlocBuilder<PaywallCubit, PaywallCubitState>(
+            builder: (context, state) {
+              return state.maybeWhen(
+                  initial: () => (hasActiveSubscription)
+                      ? const SizedBox.shrink()
+                      : SingleChildScrollView(
+                          child: PayWallWidget(
+                            hasUsedFreeTrial: hasUsedFreeTrial,
+                            removePaywall: removePaywall,
+                          ),
+                        ),
+                  progress: () => const SingleChildScrollView(
+                        child: Center(child: SimpleLoader()),
+                      ),
+                  success: () {
+                    removePaywall();
+                    return const SizedBox.shrink();
+                  },
+                  error: (error) {
+                    debugPrint(error);
+                    return Container();
+                  },
+                  orElse: () => (hasActiveSubscription)
+                      ? const SizedBox.shrink()
+                      : SingleChildScrollView(
+                          child: PayWallWidget(
+                            hasUsedFreeTrial: hasUsedFreeTrial,
+                            removePaywall: removePaywall,
+                          ),
+                        ));
+            },
+          );
   }
 
   Widget _getBody(List<ListingForSaleModel> listingList) {
     return listingList.isNotEmpty
         ? RefreshWidget(
             onRefresh: loadList,
-            child: GridView.builder(
-              padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
-              shrinkWrap: true,
-              physics: const ScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 19.0,
-                mainAxisSpacing: 12.0,
-                mainAxisExtent: 215,
-              ),
+            child: ProfileGrid(
               itemCount: listingList.length,
               itemBuilder: (_, index) {
                 ListingForSaleModel listItem = listingList[index];
                 var catalogItemId = listingList[index].catalogItemId;
                 var imageUrls = listingList[index].productItemImageUrls ?? [];
                 var productItemName = listingList[index].productItemName ?? "";
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Stack(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            if (catalogItemId != null) {
-                              Navigator.of(context, rootNavigator: true)
-                                  .push(MaterialPageRoute(
-                                      builder: (context) => BuyPreviewPage(
-                                            productItemId:
-                                                listItem.productItemId,
-                                          )));
-                            }
-                          },
-                          child: SizedBox(
-                            height: MediaQuery.of(context).size.width * 0.37,
-                            width: MediaQuery.of(context).size.width * 0.45,
-                            child: ClipRRect(
-                              child: CachedNetworkImage(
-                                fit: BoxFit.cover,
-                                imageUrl: (imageUrls.isNotEmpty)
-                                    ? listingList[index].productItemImageUrls[0]
-                                    : 'assets/images/Avatar.png',
-                                placeholder: (context, url) => SizedBox(
-                                  height: 200,
-                                  child: Center(
-                                    child: CircularProgressIndicator(
-                                      color: Palette.current.primaryNeonGreen,
-                                      backgroundColor: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                                errorWidget: (context, url, error) =>
-                                    Image.asset(
-                                        "assets/images/ProfilePhoto.png"),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 5),
-                    Text(productItemName.toUpperCase(),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayLarge!
-                            .copyWith(
-                                letterSpacing: 1,
-                                fontWeight: FontWeight.w300,
-                                fontFamily: "KnockoutCustom",
-                                fontSize: 21,
-                                color: Palette.current.white)),
-                    Text(
-                        '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(listingList[index].lastSale.toString())}',
-                        overflow: TextOverflow.fade,
-                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            fontWeight: FontWeight.w300,
-                            fontSize: 13,
-                            color: Palette.current.primaryNeonGreen)),
-                  ],
+                return ListingGridItemWidget(
+                  productItemName: productItemName,
+                  catalogItemId: catalogItemId,
+                  productItemId: listItem.productItemId!,
+                  imageUrl: imageUrls.isEmpty ? null : imageUrls[0],
+                  lastSale: listingList[index].lastSale,
                 );
               },
             ),
@@ -258,5 +184,111 @@ class _ListingsPageState extends State<ListingsPage> {
 
   void makeCall() {
     context.read<ListingBloc>().add(const ListingEvent.getListingItem());
+  }
+}
+
+class ProfileGrid extends StatelessWidget {
+  final int itemCount;
+  final NullableIndexedWidgetBuilder itemBuilder;
+  const ProfileGrid({
+    super.key,
+    required this.itemCount,
+    required this.itemBuilder,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+      shrinkWrap: true,
+      physics: const ScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 19.0,
+        mainAxisSpacing: 12.0,
+        mainAxisExtent: 215,
+      ),
+      itemCount: itemCount,
+      itemBuilder: itemBuilder,
+    );
+  }
+}
+
+// TODO: move to common ui folder
+class ListingGridItemWidget extends StatelessWidget {
+  final String productItemName;
+  final String? catalogItemId;
+  final String productItemId;
+  final String imageUrl;
+  final double? lastSale;
+  const ListingGridItemWidget({
+    super.key,
+    required this.productItemName,
+    required this.catalogItemId,
+    required this.productItemId,
+    required this.imageUrl,
+    required this.lastSale,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Stack(
+          children: [
+            GestureDetector(
+              onTap: () {
+                if (catalogItemId != null) {
+                  Navigator.of(context, rootNavigator: true)
+                      .push(MaterialPageRoute(
+                          builder: (context) => BuyPreviewPage(
+                                productItemId: productItemId,
+                              )));
+                }
+              },
+              child: SizedBox(
+                height: MediaQuery.of(context).size.width * 0.37,
+                width: MediaQuery.of(context).size.width * 0.45,
+                child: ClipRRect(
+                  child: CachedNetworkImage(
+                    fit: BoxFit.cover,
+                    imageUrl: imageUrl,
+                    placeholder: (context, url) => SizedBox(
+                      height: 200,
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: Palette.current.primaryNeonGreen,
+                          backgroundColor: Colors.white,
+                        ),
+                      ),
+                    ),
+                    errorWidget: (context, url, error) =>
+                        Image.asset("assets/images/ProfilePhoto.png"),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 5),
+        Text(productItemName.toUpperCase(),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                letterSpacing: 1,
+                fontWeight: FontWeight.w300,
+                fontFamily: "KnockoutCustom",
+                fontSize: 21,
+                color: Palette.current.white)),
+        Text(
+            '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(lastSale.toString())}',
+            overflow: TextOverflow.fade,
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                fontWeight: FontWeight.w300,
+                fontSize: 13,
+                color: Palette.current.primaryNeonGreen)),
+      ],
+    );
   }
 }

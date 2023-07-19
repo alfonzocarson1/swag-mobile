@@ -101,6 +101,9 @@
     "save_search": "Save Search",
     "sort": "Sort:",
 
+    "public_profile_empty_listing": "No active listings",
+    "public_profile_empty_favorites": "No favorites yet",
+
     "sale_data": "SALE DATE",
     "price": "PRICE",
 
