@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:swagapp/modules/cubits/profile/get_profile_cubit.dart';
 import 'package:swagapp/modules/data/paywall/i_paywall_service.dart';
 
 import '../../constants/constants.dart';
@@ -22,19 +23,25 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
  StreamSubscription<List<PurchaseDetails>>? subscription;
   
   PaywallCubit() : super(const PaywallCubitState.initial()){
-    _loadProducts();
+ inAppPurchaseIntitialization();
+  }
+
+  StreamSubscription<List<PurchaseDetails>>? _subscription;
+
+  void inAppPurchaseIntitialization()async{
+   await _loadProducts();
     _subscription = _iap.purchaseStream.listen((purchases) {
+        completeTransactions(purchases);
       _handlePurchaseUpdates(purchases);
     });
     subscription = _subscription;
   }
 
-  StreamSubscription<List<PurchaseDetails>>? _subscription;
-
   void startPurchase(String subscriptionType) {
+ 
     emit(const PaywallCubitState.progress());
-    final ProductDetails product = _products.firstWhere((product) => product.id == subscriptionType); 
-    final PurchaseParam purchaseParam = PurchaseParam(productDetails: product);
+    final ProductDetails product = _products.firstWhere((product) => product.id == subscriptionType);    
+    final PurchaseParam purchaseParam = PurchaseParam(productDetails: product);   
     _iap.buyNonConsumable(purchaseParam: purchaseParam);
     
   }
@@ -58,11 +65,27 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
             case PurchaseStatus.error:
                 emit(PaywallCubitState.error(purchase.error!.message));
                 break;
+            case PurchaseStatus.canceled:
+            emit(const PaywallCubitState.success());
+            break;
             case PurchaseStatus.purchased:
+                if (purchase.status == PurchaseStatus.purchased) {
+                    _iap.completePurchase(purchase);
+                    await sendSubscriptionRequest(purchase.purchaseID ??"");
+                  // var subscriptionResponse = await sendSubscriptionRequest(purchase.purchaseID ??"");
+                    emit(const PaywallCubitState.success());
+                }
+                else{
+                        emit(const PaywallCubitState.success());
+                }
+               await getIt<ProfileCubit>().loadProfileResults();
+                emit(const PaywallCubitState.success());
+                break;
             case PurchaseStatus.restored:
                 if (purchase.pendingCompletePurchase) {
                     _iap.completePurchase(purchase);
                     await sendSubscriptionRequest(purchase.purchaseID ??"");
+                   await getIt<ProfileCubit>().loadProfileResults();
                     emit(const PaywallCubitState.success());
                 }
                 break;
@@ -72,7 +95,14 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
     }
   }
 
- 
+
+  completeTransactions(List<PurchaseDetails> purchases) async {
+  for (var _purchaseDetails in purchases) {
+    if (_purchaseDetails.pendingCompletePurchase) {
+      await _iap.completePurchase(_purchaseDetails);
+   }
+}
+  } 
 
 
   sendSubscriptionRequest(String purchaseId) async {
