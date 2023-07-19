@@ -133,17 +133,25 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         });
                       });
                     } else {
-                      setState(() {
-                        errorText =
-                            state.statusCode == StatusCode.zero.index.toString()
-                                ? null
-                                : state.statusCode ==
-                                        StatusCode.one.index.toString()
-                                    ? S.of(context).code_expired
-                                    : state.statusCode ==
-                                            StatusCode.two.index.toString()
-                                        ? S.of(context).incorrect_code
-                                        : S.of(context).incorrect_code;
+                      Future.delayed(const Duration(milliseconds: 1000), () {
+                        setState(() {
+                          errorText =
+                          state.statusCode == StatusCode.zero.index.toString()
+                              ? null
+                              : state.statusCode ==
+                              StatusCode.one.index.toString()
+                              ? S
+                              .of(context)
+                              .code_expired
+                              : state.statusCode ==
+                              StatusCode.two.index.toString()
+                              ? S
+                              .of(context)
+                              .incorrect_code
+                              : S
+                              .of(context)
+                              .incorrect_code;
+                        });
                       });
                       Loading.hide(context);
                     }
