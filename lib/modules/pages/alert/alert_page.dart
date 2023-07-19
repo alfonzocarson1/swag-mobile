@@ -1,13 +1,24 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/cubits/alert/alert_cubit.dart';
 import 'package:swagapp/modules/pages/alert/rating_buyer.dart';
 import '../../../generated/l10n.dart';
+import '../../blocs/chat/chat_bloc.dart';
+import '../../common/ui/loading.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
 import '../../common/utils/utils.dart';
+import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
+import '../../enums/chat_type.dart';
 import '../../models/alerts/alert_response_model.dart';
+import '../../models/chat/chat_data.dart';
+import '../add/buy/preview_buy_for_sale.dart';
+import '../chat/chat_page.dart';
 import 'delivered_popup.dart';
 
 class AlertPage extends StatefulWidget {
@@ -25,6 +36,7 @@ class AlertPage extends StatefulWidget {
 
 class _AlertPageState extends State<AlertPage> {
   int unreadCount = 0;
+  String? listingChatId;
 
   @override
   void initState() {
@@ -42,6 +54,34 @@ class _AlertPageState extends State<AlertPage> {
     await Future.delayed(Duration(seconds: 2));
     getIt<AlertCubit>().getAlertList();
     setState(() {});
+  }
+
+  Future<void> onTapSubmit(String channelUrl) async {
+    ChatBloc chatBloc = context.read<ChatBloc>();
+
+    late ChatData chatData;
+    try {
+      await Future.delayed(const Duration(milliseconds: 500));
+
+      chatData = await chatBloc.startNewChat(channelUrl, false);
+
+      Loading.hide(context);
+      if (Platform.isIOS) {
+        await FirebaseMessaging.instance
+            .setForegroundNotificationPresentationOptions(
+          alert: false,
+          badge: false,
+          sound: false,
+        );
+      }
+      getIt<PreferenceRepositoryService>().saveShowNotification(false);
+      await Navigator.of(context, rootNavigator: true).push(
+        MaterialPageRoute(
+            builder: (BuildContext context) => ChatPage(chatData: chatData)),
+      );
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
@@ -138,6 +178,57 @@ class _AlertPageState extends State<AlertPage> {
                               onTap: () {
                                 getIt<AlertCubit>()
                                     .readAlert(item.notificationAlertId ?? '');
+
+                                if (item.typeNotification ==
+                                        ChatType
+                                            .notifyMessageBuyFlow.textValue &&
+                                    item.payload!.dateItemShipped == null &&
+                                    item.payload!.listingStatus == null) {
+                                  ChatBloc chatBloc = context.read<ChatBloc>();
+                                  for (int i = 0;
+                                      i < chatBloc.state.chats.length;
+                                      i++) {
+                                    if (chatBloc.state.chats[i].channel.data!
+                                        .isNotEmpty) {
+                                      String jsonString =
+                                          chatBloc.state.chats[i].channel.data!;
+
+                                      jsonString =
+                                          jsonString.replaceAll("'", '"');
+
+                                      Map<String, dynamic> json =
+                                          jsonDecode(jsonString);
+
+                                      String productItemId =
+                                          json['productItemId'];
+
+                                      if (item.payload!.productItemId ==
+                                          productItemId) {
+                                        setState(() {
+                                          listingChatId = chatBloc.state
+                                              .chats[i].channel.channelUrl;
+                                        });
+
+                                        break;
+                                      }
+                                    }
+                                  }
+
+                                  Loading.show(context);
+                                  onTapSubmit(listingChatId ?? '');
+                                } else if ((item.typeNotification ==
+                                            ChatType.notifySale.textValue ||
+                                        item.typeNotification ==
+                                            ChatType.notifyMe.textValue) &&
+                                    item.payload!.dateItemShipped == null &&
+                                    item.payload!.listingStatus == null) {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(MaterialPageRoute(
+                                          builder: (context) => BuyPreviewPage(
+                                                productItemId:
+                                                    item.payload!.productItemId,
+                                              )));
+                                }
 
                                 if (item.payload!.dateItemShipped != null) {
                                   showDialog(
