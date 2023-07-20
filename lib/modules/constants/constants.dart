@@ -51,11 +51,80 @@ const countries = [
   'Germany',
   'Hong Kong',
   'Japan',
-  'Korea',
+  'South Korea',
   'Singapore',
   'Sweden',
   'United Kingdom',
   'United States',
+];
+
+const usStates = [
+  {"name": "Alabama", "short": "AL"},
+  {"name": "Alaska", "short": "AK"},
+  {"name": "Arizona", "short": "AZ"},
+  {"name": "Arkansas", "short": "AR"},
+  {"name": "California", "short": "CA"},
+  {"name": "Colorado", "short": "CO"},
+  {"name": "Connecticut", "short": "CT"},
+  {"name": "Delaware", "short": "DE"},
+  {"name": "Florida", "short": "FL"},
+  {"name": "Georgia", "short": "GA"},
+  {"name": "Hawaii", "short": "HI"},
+  {"name": "Idaho", "short": "ID"},
+  {"name": "Illinois", "short": "IL"},
+  {"name": "Indiana", "short": "IN"},
+  {"name": "Iowa", "short": "IA"},
+  {"name": "Kansas", "short": "KS"},
+  {"name": "Kentucky", "short": "KY"},
+  {"name": "Louisiana", "short": "LA"},
+  {"name": "Maine", "short": "ME"},
+  {"name": "Maryland", "short": "MD"},
+  {"name": "Massachusetts", "short": "MA"},
+  {"name": "Michigan", "short": "MI"},
+  {"name": "Minnesota", "short": "MN"},
+  {"name": "Mississippi", "short": "MS"},
+  {"name": "Missouri", "short": "MO"},
+  {"name": "Montana", "short": "MT"},
+  {"name": "Nebraska", "short": "NE"},
+  {"name": "Nevada", "short": "NV"},
+  {"name": "New Hampshire", "short": "NH"},
+  {"name": "New Jersey", "short": "NJ"},
+  {"name": "New Mexico", "short": "NM"},
+  {"name": "New York", "short": "NY"},
+  {"name": "North Carolina", "short": "NC"},
+  {"name": "North Dakota", "short": "ND"},
+  {"name": "Ohio", "short": "OH"},
+  {"name": "Oklahoma", "short": "OK"},
+  {"name": "Oregon", "short": "OR"},
+  {"name": "Pennsylvania", "short": "PA"},
+  {"name": "Rhode Island", "short": "RI"},
+  {"name": "South Carolina", "short": "SC"},
+  {"name": "South Dakota", "short": "SD"},
+  {"name": "Tennessee", "short": "TN"},
+  {"name": "Texas", "short": "TX"},
+  {"name": "Utah", "short": "UT"},
+  {"name": "Vermont", "short": "VT"},
+  {"name": "Virginia", "short": "VA"},
+  {"name": "Washington", "short": "WA"},
+  {"name": "West Virginia", "short": "WV"},
+  {"name": "Wisconsin", "short": "WI"},
+  {"name": "Wyoming", "short": "WY"}
+];
+
+const caStates = [
+  {"name": "Alberta", "short": "AB"},
+  {"name": "British Columbia", "short": "BC"},
+  {"name": "Manitoba", "short": "MB"},
+  {"name": "New Brunswick", "short": "NB"},
+  {"name": "Newfoundland and Labrador", "short": "NL"},
+  {"name": "Nova Scotia", "short": "NS"},
+  {"name": "Ontario", "short": "ON"},
+  {"name": "Prince Edward Island", "short": "PE"},
+  {"name": "Quebec", "short": "QC"},
+  {"name": "Saskatchewan", "short": "SK"},
+  {"name": "Northwest Territories", "short": "NT"},
+  {"name": "Nunavut", "short": "NU"},
+  {"name": "Yukon", "short": "YT"}
 ];
 
 const stateCodes = [
@@ -119,6 +188,78 @@ const stateCodes = [
   'WI',
   'WV',
   'WY'
+];
+
+List<String> canadianProvincesAndTerritories = [
+  'AB', // Alberta
+  'BC', // British Columbia
+  'MB', // Manitoba
+  'NB', // New Brunswick
+  'NL', // Newfoundland and Labrador
+  'NT', // Northwest Territories
+  'NS', // Nova Scotia
+  'NU', // Nunavut
+  'ON', // Ontario
+  'PE', // Prince Edward Island
+  'QC', // Quebec
+  'SK', // Saskatchewan
+  'YT', // Yukon
+];
+
+List<String> hongKongStates = [
+  'Hong Kong Island',
+  'Kowloon',
+  'New Territories',
+  'Lantau Island',
+  'Lamma Island',
+  'Cheung Chau',
+  'Peng Chau',
+  'Lantau Island',
+  'Mui Wo',
+  'Sai Kung',
+  'Sha Tin',
+  'Tuen Mun',
+  'Tsuen Wan',
+  'Tung Chung',
+  'Yuen Long',
+  'Central and Western District',
+  'Eastern District',
+  'Southern District',
+  'Wan Chai District',
+  'Kowloon City District',
+  'Kwun Tong District',
+  'Sham Shui Po District',
+  'Wong Tai Sin District',
+  'Yau Tsim Mong District',
+  'Islands District',
+  'Kwai Tsing District',
+  'North District',
+  'Sai Kung District',
+  'Sha Tin District',
+  'Tai Po District',
+  'Tsuen Wan District',
+  'Tuen Mun District',
+  'Yuen Long District',
+];
+
+List<String> southKoreaStates = [
+  "Seoul",
+  "Busan",
+  "Daegu",
+  "Incheon",
+  "Gwangju",
+  "Daejeon",
+  "Ulsan",
+  "Sejong",
+  "Gyeonggi",
+  "Gangwon",
+  "Chungbuk",
+  "Chungnam",
+  "Jeonbuk",
+  "Jeonnam",
+  "Gyeongbuk",
+  "Gyeongnam",
+  "Jeju"
 ];
 
 const itemConditions = [
