@@ -14,6 +14,7 @@ import 'package:swagapp/modules/cubits/collections/get_collections_cubit.dart';
 import 'package:swagapp/modules/cubits/explore/get_explore_cubit.dart';
 import 'package:swagapp/modules/cubits/favorites/get_favorites_cubit.dart';
 import 'package:swagapp/modules/cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
+import 'package:swagapp/modules/cubits/nft_wallet/nft_wallet_cubit.dart';
 import 'package:swagapp/modules/cubits/page_from_explore/page_from_explore_cubit.dart';
 import 'package:swagapp/modules/cubits/paginated_search/paginated_search_cubit.dart';
 import 'package:swagapp/modules/cubits/peer_to_peer_payments/peer_to_peer_payments_cubit.dart';
@@ -44,8 +45,7 @@ import 'sold_bloc/sold_bloc.dart';
 
 abstract class AppBlocs {
   static List<BlocProvider> blocs(BuildContext context) => [
-        BlocProvider<ChatBloc>(
-            create: (context) => getIt<ChatBloc>()),
+        BlocProvider<ChatBloc>(create: (context) => getIt<ChatBloc>()),
         BlocProvider<AuthBloc>(create: (_) => getIt<AuthBloc>()),
         BlocProvider<UsernameBloc>(create: (_) => getIt<UsernameBloc>()),
         // BlocProvider<SignUpBloc>(create: (_) => getIt<SignUpBloc>()),
@@ -100,5 +100,6 @@ abstract class AppBlocs {
         BlocProvider<PublicProfileCubit>(create: (_) => getIt()),
         BlocProvider<PublicProfileListingsCubit>(create: (_) => getIt()),
         BlocProvider<PublicProfileFavoritesCubit>(create: (_) => getIt()),
+        BlocProvider<NftWalletCubit>(create: (_) => getIt()),
       ];
 }
