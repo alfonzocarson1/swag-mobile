@@ -280,6 +280,11 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           height: 30,
                         ),
                         CustomTextFormField(
+                            onChanged: (text){
+                              setState(() {
+                                errorFirstText = null;
+                              });
+                            },
                             errorText: errorFirstText,
                             helperText: S.of(context).password_helper,
                             borderColor: _passwordBorder,
@@ -293,6 +298,11 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           height: 20,
                         ),
                         CustomTextFormField(
+                            onChanged: (text) {
+                              setState(() {
+                                errorSecondText = null;
+                              });
+                            },
                             errorText: errorSecondText,
                             borderColor: _confirmPasswordBorder,
                             autofocus: false,
