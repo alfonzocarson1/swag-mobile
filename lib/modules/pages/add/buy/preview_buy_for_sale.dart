@@ -643,7 +643,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                 bool isRemoveListingOption() =>
                     value == editListingDropDown[1].label;
                 bool isReportListing() =>
-                    value == reportListingDropDown[2].label;
+                    value == reportListingDropDown[0].label;
 
                 if (isEditListingOption()) {
                   _editListingOptionSelected(context);
