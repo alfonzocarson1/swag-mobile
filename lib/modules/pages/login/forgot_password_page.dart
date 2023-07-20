@@ -174,7 +174,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         duration: const Duration(seconds: 3),
                         behavior: SnackBarBehavior.floating,
                         margin: EdgeInsets.only(
-                          bottom: widget.isFromProfileSettings! ? MediaQuery.of(context).size.height / 1.4 : MediaQuery.of(context).size.height / 1.3,
+                          bottom: MediaQuery.of(context).size.height / 1.3,
                         ),
                         backgroundColor: Colors.transparent,
                         content: ToastMessage(
