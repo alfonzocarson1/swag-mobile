@@ -4,7 +4,6 @@ import 'package:swagapp/modules/api/api_service.dart';
 import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
 import 'package:swagapp/modules/blocs/search_bloc.dart/search_bloc.dart';
 import 'package:swagapp/modules/common/utils/context_service.dart';
-import 'package:swagapp/modules/cubits/nft_wallet/nft_wallet_cubit.dart';
 import 'package:swagapp/modules/cubits/paginated_search/paginated_search_cubit.dart';
 import 'package:swagapp/modules/cubits/public_profile/public_profile_cubit.dart';
 import 'package:swagapp/modules/cubits/public_profile_favorites/public_profile_favorites_cubit.dart';
@@ -15,8 +14,6 @@ import 'package:swagapp/modules/data/auth/i_auth_service.dart';
 import 'package:swagapp/modules/data/chat/chat_service.dart';
 import 'package:swagapp/modules/data/chat/ichat_service.dart';
 import 'package:swagapp/modules/data/filters/filters_service.dart';
-import 'package:swagapp/modules/data/nft_wallet/i_nft_wallet_service.dart';
-import 'package:swagapp/modules/data/nft_wallet/nft_wallet_service.dart';
 import 'package:swagapp/modules/data/paywall/i_paywall_service.dart';
 import 'package:swagapp/modules/data/paywall/paywall_service.dart';
 import 'package:swagapp/modules/data/profile/i_profile_service.dart';
@@ -102,7 +99,7 @@ Future<void> setupAppScope() {
   getIt.registerLazySingleton(() => StorageRepositoryService());
   getIt.registerLazySingleton(() => ContextService());
   getIt.registerLazySingleton<IChatService>(() => ChatService(APIService()));
-  getIt.registerLazySingleton<ChatBloc>(() => ChatBloc(getIt<IChatService>()));
+  getIt.registerLazySingleton<ChatBloc>(()=>ChatBloc(getIt<IChatService>()));
   getIt.registerLazySingleton<IAuthService>(() => AuthService(APIService()));
   getIt.registerLazySingleton<AuthBloc>(() => AuthBloc(getIt<IAuthService>()));
   getIt.registerLazySingleton<UsernameBloc>(
@@ -237,11 +234,6 @@ Future<void> setupAppScope() {
 
   getIt.registerLazySingleton(() => PublicProfileListingsCubit(getIt()));
   getIt.registerLazySingleton(() => PublicProfileFavoritesCubit(getIt()));
-
-  getIt.registerLazySingleton<INftWalletService>(
-      () => NftWalletService(APIService()));
-
-  getIt.registerLazySingleton(() => NftWalletCubit(getIt()));
 
   return getIt.allReady();
 }

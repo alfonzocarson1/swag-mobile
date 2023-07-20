@@ -121,6 +121,7 @@ class APIService {
       {required Endpoint endpoint,
       required RequestMethod method,
       T Function(Map<String, dynamic> json)? fromJson,
+      T Function(List<dynamic> json)? fromJsonList,
       String? jsonKey,
       bool? needJsonBody = true,
       Map<String, Object>? params,
@@ -131,7 +132,7 @@ class APIService {
       String? dynamicParam}) async {
     InterceptedClient client = InterceptedClient.build(
       retryPolicy: TokenRetryPolicy(),
-      interceptors: [ApiInterceptor(), LoggingInterceptor(enabled: false)],
+      interceptors: [ApiInterceptor(), LoggingInterceptor(enabled: true)],
     );
     String? token = '';
     if (needBearer) {
@@ -204,7 +205,11 @@ class APIService {
             final rawList = jsonDecode(utf8.decode(response.bodyBytes));
             res = fromJson!({jsonKey: rawList});
           } else {
-            res = fromJson!(json.decode(utf8.decode(response.bodyBytes)));
+            if (fromJsonList != null) {
+              res = fromJsonList(json.decode(utf8.decode(response.bodyBytes)));
+            } else {
+              res = fromJson!(json.decode(utf8.decode(response.bodyBytes)));
+            }
           }
         } catch (e, stk) {
           debugPrintStack(stackTrace: stk, label: e.toString());
