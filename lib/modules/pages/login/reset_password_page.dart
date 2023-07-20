@@ -43,6 +43,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   final FocusNode _passwordNode = FocusNode();
   final _passwordController = TextEditingController();
   String? errorFirstText;
+  bool readOnly = false;
 
   final FocusNode _confirmPasswordNode = FocusNode();
   final _confirmPasswordController = TextEditingController();
@@ -180,14 +181,17 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                     return null;
                   },
                   authenticated: () {
+                    setState(() {
+                      readOnly = true;
+                    });
                     getIt<PreferenceRepositoryService>().saveIsLogged(true);
                     getIt<StorageRepositoryService>().saveEmail(widget.email);
                     getIt<StorageRepositoryService>()
                         .savePassword(_confirmPasswordController.text);
                     Loading.hide(context);
-                    _passwordController.text = '';
-                    _confirmPasswordController.text = '';
                     Future.delayed(const Duration(milliseconds: 5000), () {
+                      _passwordController.text = '';
+                      _confirmPasswordController.text = '';
                       Navigator.popUntil(
                           context,
                           ModalRoute.withName(widget.isFromProfileSetting
@@ -203,7 +207,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           duration: const Duration(seconds: 3),
                           behavior: SnackBarBehavior.floating,
                           margin: EdgeInsets.only(
-                            bottom: widget.isFromProfileSetting! ? MediaQuery.of(context).size.height / 1.5 :  MediaQuery.of(context).size.height / 1.3,
+                            bottom: MediaQuery.of(context).size.height / 1.3,
                           ),
                           backgroundColor: Colors.transparent,
                           content: ToastMessage(
@@ -280,6 +284,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           height: 30,
                         ),
                         CustomTextFormField(
+                            readOnly: readOnly,
                             onChanged: (text){
                               setState(() {
                                 errorFirstText = null;
@@ -298,6 +303,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           height: 20,
                         ),
                         CustomTextFormField(
+                            readOnly: readOnly,
                             onChanged: (text) {
                               setState(() {
                                 errorSecondText = null;
