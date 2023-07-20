@@ -156,9 +156,11 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   String _billingDefaultCountry = 'United States';
   String _billingdefaultState = 'State';
   List<String> _states = ['State'];
+  List<String> _billingStates = ['State'];
   int value = 0;
   StripeService stripeService = StripeService();
   bool updateAllFlow = false;
+  bool billingCountryFirstUse = true;
   late String userName;
   DateTime _defaultDateTime = DateTime.now();
   @override
@@ -173,10 +175,19 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   }
 
   void _getStates(String country) async {
-    _states = ['State'];
+    // _states = ['State'];
+    _states.clear();
     _defaultState = 'State';
     var responseSatate = await getStates(country);
     _states.addAll(responseSatate as Iterable<String>);
+    setState(() {});
+  }
+
+  void _getBillingStates(String country) async {
+    _states.clear();
+    _billingdefaultState = 'State';
+    var responseSatate = await getStates(country);
+    _billingStates.addAll(responseSatate as Iterable<String>);
     setState(() {});
   }
 
@@ -354,7 +365,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
       });
     });
 
-    _getStates(_defaultCountry);
+    getStatesForProvidedCountry();
     getStoredInfo();
     if (firstName == '' || lastName == '') {
       showPopUp(username: userName);
@@ -575,11 +586,20 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                 cupertinoPickervalue: _defaultCountry,
                                 onDone: (index) {
                                   setState(() => value = index);
-                                  _defaultCountry = countries[index];
+                                  setState(() {
+                                    _defaultCountry = countries[index];
+                                  });
                                   _countryController.text = _defaultCountry;
                                   countryErrorText = null;
-                                  if (_defaultCountry != defaultCountry)
-                                    _defaultState = defaultState;
+                                  getStatesForProvidedCountry();
+                                  if (billingCountryFirstUse) {
+                                    setState(() {
+                                      _billingDefaultCountry = _defaultCountry;
+                                    });
+                                    getBillingStatesForSelectedCountry();
+                                  }
+                                  // if (_defaultCountry != defaultCountry)
+                                  //   _defaultState = defaultState;
                                   Navigator.pop(context);
                                 }),
                             const SizedBox(
@@ -638,39 +658,22 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                   flex: 2,
                                   child: Column(
                                     children: [
-                                      (_defaultCountry == defaultCountry)
-                                          ? CupertinoPickerView(
-                                              key: const Key('State-Picker'),
-                                              errorText: stateErrorText,
-                                              cupertinoPickerItems: stateCodes,
-                                              cupertinoPickervalue:
-                                                  _defaultState,
-                                              onDone: (index) {
-                                                setState(() => value = index);
-                                                _defaultState =
-                                                    stateCodes[index];
-                                                _stateController.text =
-                                                    _defaultState;
-                                                stateErrorText = null;
-                                                Navigator.pop(context);
-                                              })
-                                          : CupertinoPickerView(
-                                              key: const Key('State-Picker-2'),
-                                              errorText: stateErrorText,
-                                              looping: false,
-                                              cupertinoPickerItems: const [
-                                                "State"
-                                              ],
-                                              cupertinoPickervalue:
-                                                  _defaultState,
-                                              onDone: (index) {
-                                                setState(() => value = index);
-                                                _defaultState = defaultState;
-                                                _stateController.text =
-                                                    defaultState;
-                                                stateErrorText = null;
-                                                Navigator.pop(context);
-                                              }),
+                                      CupertinoPickerView(
+                                          key: const Key('State-Picker'),
+                                          errorText: stateErrorText,
+                                          cupertinoPickerItems: _states,
+                                          cupertinoPickervalue: _defaultState,
+                                          onDone: (index) {
+                                            setState(() => value = index);
+                                            _defaultState = _states[index]
+                                                .split('-')
+                                                .last
+                                                .trim();
+                                            _stateController.text =
+                                                _defaultState;
+                                            stateErrorText = null;
+                                            Navigator.pop(context);
+                                          }),
                                       Visibility(
                                           visible: stateErrorText != null,
                                           child: Align(
@@ -841,7 +844,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                   child: Checkbox(
                                     checkColor: Palette.current.black,
                                     value: billingAndShippingAddressesAreSame,
-                                    activeColor: Palette.current.primaryNeonGreen,
+                                    activeColor:
+                                        Palette.current.primaryNeonGreen,
                                     onChanged: (value) {
                                       setState(() =>
                                           billingAndShippingAddressesAreSame =
@@ -940,6 +944,44 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
         ]));
   }
 
+  getStatesForProvidedCountry() {
+    _states.clear();
+    _defaultState = defaultState;
+    setState(() {});
+    if (_defaultCountry == defaultCountry) {
+      _states
+          .addAll(usStates.map((e) => '${e['short']} - ${e['name']}').toList());
+    } else if (_defaultCountry == "Canada") {
+      _states
+          .addAll(caStates.map((e) => '${e['short']} - ${e['name']}').toList());
+    } else if (_defaultCountry == "Hong Kong") {
+      _states.addAll(hongKongStates);
+    } else if (_defaultCountry == "South Korea") {
+      _states.addAll(southKoreaStates);
+    } else {
+      _getStates(_defaultCountry);
+    }
+  }
+
+  getBillingStatesForSelectedCountry() {
+    _billingStates.clear();
+    _billingdefaultState = defaultState;
+    setState(() {});
+    if (_billingDefaultCountry == defaultCountry) {
+      _billingStates
+          .addAll(usStates.map((e) => '${e['short']} - ${e['name']}').toList());
+    } else if (_billingDefaultCountry == "Canada") {
+      _billingStates
+          .addAll(caStates.map((e) => '${e['short']} - ${e['name']}').toList());
+    } else if (_billingDefaultCountry == "Hong Kong") {
+      _billingStates.addAll(hongKongStates);
+    } else if (_billingDefaultCountry == "South Korea") {
+      _billingStates.addAll(southKoreaStates);
+    } else {
+      _getBillingStates(_billingDefaultCountry);
+    }
+  }
+
   void showErrors() {
     setState(() {
       nameErrorText = _firstNameController.text.isNotEmpty
@@ -960,7 +1002,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
       cityErrorText =
           _cityController.text.isNotEmpty ? null : S.of(context).required_field;
 
-      stateErrorText = validateState() ? null : S.of(context).required_field;
+      stateErrorText =
+          _defaultState != defaultState ? null : S.of(context).required_field;
 
       zipErrorText =
           _zipController.text.isNotEmpty ? null : S.of(context).required_field;
@@ -996,8 +1039,9 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
         billingCityErrorText = _billingCityController.text.isNotEmpty
             ? null
             : S.of(context).required_field;
-        billingStateErrorText =
-            validateBillingState() ? null : S.of(context).required_field;
+        billingStateErrorText = _billingdefaultState != defaultState
+            ? null
+            : S.of(context).required_field;
         billingZippErrorText = _billingZippController.text.isNotEmpty
             ? null
             : S.of(context).required_field;
@@ -1045,7 +1089,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
           _billingFirstAddressController.text.isNotEmpty &&
           _billingDefaultCountry != 'Country' &&
           _billingZippController.text.isNotEmpty &&
-          validateBillingState();
+          _billingdefaultState != defaultState;
     } else {
       billingOverAllCheck = true;
     }
@@ -1055,7 +1099,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
         _defaultCountry != 'Country' &&
         _firstAddressController.text.isNotEmpty &&
         _cityController.text.isNotEmpty &&
-        validateState() &&
+        _defaultState != defaultState &&
         _zipController.text.isNotEmpty &&
         _cardController.text.isNotEmpty &&
         _cardController.text.length == 19 &&
@@ -1262,8 +1306,12 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
             setState(() => value = index);
             _billingDefaultCountry = countries[index];
             _billingCountryController.text = _billingDefaultCountry;
-            if (_billingDefaultCountry != defaultCountry)
-              _billingdefaultState = defaultState;
+            setState(() {
+              billingCountryFirstUse = false;
+            });
+            // if (_billingDefaultCountry != defaultCountry)
+            //   _billingdefaultState = defaultState;
+            getBillingStatesForSelectedCountry();
             Navigator.pop(context);
           }),
       const SizedBox(
@@ -1319,32 +1367,22 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
             flex: 2,
             child: Column(
               children: [
-                (_billingDefaultCountry == defaultCountry)
-                    ? CupertinoPickerView(
-                        key: const Key('State-Picker3'),
-                        errorText: billingStateErrorText,
-                        cupertinoPickerItems: stateCodes,
-                        cupertinoPickervalue: _billingdefaultState,
-                        onDone: (index) {
-                          // setState(() => value = index);
-                          _billingdefaultState = stateCodes[index];
-                          _billingStateController.text = _billingdefaultState;
-                          billingStateErrorText = null;
-                          Navigator.pop(context);
-                        })
-                    : CupertinoPickerView(
-                        key: const Key('State-Picker-4'),
-                        errorText: billingStateErrorText,
-                        looping: false,
-                        cupertinoPickerItems: const ["State"],
-                        cupertinoPickervalue: _billingdefaultState,
-                        onDone: (index) {
-                          // setState(() => value = index);
-                          _billingdefaultState = defaultState;
-                          _billingStateController.text = defaultState;
-                          billingStateErrorText = null;
-                          Navigator.pop(context);
-                        }),
+                CupertinoPickerView(
+                    key: const Key('State-Picker2'),
+                    errorText: billingStateErrorText,
+                    cupertinoPickerItems: _billingStates,
+                    cupertinoPickervalue: _billingdefaultState,
+                    onDone: (index) {
+                      setState(() => value = index);
+                      _billingdefaultState =
+                          _billingStates[index].split('-').last.trim();
+                      _billingStateController.text = _billingdefaultState;
+                      billingStateErrorText = null;
+                      setState(() {
+                        billingCountryFirstUse = false;
+                      });
+                      Navigator.pop(context);
+                    }),
                 Visibility(
                     visible: billingStateErrorText != null,
                     child: Align(
