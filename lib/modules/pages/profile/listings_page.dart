@@ -61,6 +61,7 @@ class _ListingsPageState extends State<ListingsPage> {
     profileData = await getIt<PreferenceRepositoryService>().profileData();
     hasActiveSubscription = profileData.hasActiveSubscription ?? false;
     hasUsedFreeTrial = profileData.hasUsedFreeTrial ?? false;
+    setState(() {});
   }
 
   removePaywall() {
