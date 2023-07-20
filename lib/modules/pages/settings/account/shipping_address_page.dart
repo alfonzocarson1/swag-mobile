@@ -32,7 +32,7 @@ class _ShippingAddressPageState extends State<ShippingAddressPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
           profileData = getIt<PreferenceRepositoryService>().profileData();
         }));
-        
+
     return Scaffold(
       appBar: PushedHeader(
         showBackButton: true,
@@ -102,26 +102,23 @@ class _ShippingAddressPageState extends State<ShippingAddressPage> {
                                         ),
                                       ],
                                     ))),
-                        InkWell(
+                        ListTile(
                           onTap: () {
                             Navigator.of(context, rootNavigator: true)
                                 .push(AddShippingAddressPage.route(null));
                           },
-                          splashColor: Palette.current.primaryNero,
-                          child: ListTile(
-                            leading: Icon(
-                              Icons.add,
-                              color: Palette.current.primaryNeonGreen,
-                            ),
-                            title: Text(S.of(context).add_new_address,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                                    .copyWith(
-                                        fontWeight: FontWeight.w400,
-                                        color: Palette.current.primaryNeonGreen,
-                                        fontSize: 16)),
+                          leading: Icon(
+                            Icons.add,
+                            color: Palette.current.primaryNeonGreen,
                           ),
+                          title: Text(S.of(context).add_new_address,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(
+                                      fontWeight: FontWeight.w400,
+                                      color: Palette.current.primaryNeonGreen,
+                                      fontSize: 16)),
                         )
                       ],
                     )),

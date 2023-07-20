@@ -62,8 +62,8 @@ class PrimaryButton extends StatelessWidget {
                           : type == PrimaryButtonType.grey
                               ? Palette.current.darkGray.withOpacity(0.24)
                               : Palette.current.black,
-          splashColor: Palette.current.primaryNeonPink.withOpacity(0.4),
-          highlightColor: Palette.current.black.withOpacity(0.3),
+          // splashColor: Palette.current.primaryNeonPink.withOpacity(0.4),
+          // highlightColor: Palette.current.black.withOpacity(0.3),
           onPressed: onPressed,
           child: AnimatedContainer(
             height: maxHeight,
