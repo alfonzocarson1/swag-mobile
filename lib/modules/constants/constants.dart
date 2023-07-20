@@ -284,14 +284,6 @@ const List<CustomOverlayItemModel> editListingDropDown = [
 /// REFACTORING NOTE: ORDER OF ITEMS IS IMPORTANT
 const List<CustomOverlayItemModel> reportListingDropDown = [
   CustomOverlayItemModel(
-    imagePath: 'assets/icons/BlockUserWhite.png',
-    label: 'Block user',
-  ),
-  CustomOverlayItemModel(
-    imagePath: 'assets/icons/ReportUserWhite.png',
-    label: 'Report User',
-  ),
-  CustomOverlayItemModel(
     imagePath: 'assets/icons/ReportListingWhite.png',
     label: 'Report Listing',
   ),
