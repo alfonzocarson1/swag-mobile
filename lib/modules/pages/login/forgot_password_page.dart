@@ -66,8 +66,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         _emailBorder = _emailNode.hasFocus
             ? Palette.current.primaryNeonGreen
             : Palette.current.primaryWhiteSmoke;
+
       });
     });
+
     _codeNode.addListener(() {
       if (_codeNode.hasFocus) {
         setState(() {
@@ -247,6 +249,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         height: widget.isFromProfileSettings! ? 40 : 20,
                       ),
                       CustomTextFormField(
+                        onChanged: (text) {
+                            setState(() {
+                              errorText = null;
+                            });
+                        },
                           autofocus: false,
                           readOnly: _codeView
                               ? false
