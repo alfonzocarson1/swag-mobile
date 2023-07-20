@@ -74,7 +74,9 @@ class _HelpCenterPage extends State<HelpCenterPage> {
                         ),
                         _selectTile(
                             'assets/icons/terms.png',
-                            S.of(context).help_center_terms_title, () {}),
+                            S.of(context).help_center_terms_title, () {
+                              launchBrowserAppFromLink(termsAndConditionsUrl);
+                        }),
                         SizedBox(
                           height: 0.2,
                           child: Container(
