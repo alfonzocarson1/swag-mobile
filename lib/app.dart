@@ -115,7 +115,7 @@ class _AppState extends State<App> {
               OverlayEntry(builder: (BuildContext context) {
 
                 return MediaQuery(
-                  data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+                  data: MediaQuery.of(context).copyWith(boldText: false),
                   child: BlocBuilder<AuthBloc, AuthState>(
                     builder: (context, authState) => authState.maybeMap(
                         orElse: () => child!,
