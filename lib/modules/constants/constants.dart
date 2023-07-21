@@ -262,6 +262,14 @@ List<String> southKoreaStates = [
   "Jeju"
 ];
 
+const singaporeRegions = [
+  'Central CDC',
+  'North East CDC',
+  'North West CDC',
+  'South East CDC',
+  'South West CDC',
+];
+
 const itemConditions = [
   'Condition',
   'Sealed',
