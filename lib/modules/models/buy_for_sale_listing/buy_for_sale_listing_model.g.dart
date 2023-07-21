@@ -12,7 +12,8 @@ _$_BuyForSaleListingModel _$$_BuyForSaleListingModelFromJson(
       productItemId: json['productItemId'] as String?,
       productItemName: json['productItemName'] as String?,
       productItemPrice: (json['productItemPrice'] as num?)?.toDouble(),
-      productItemImageUrls: json['productItemImageUrls'] as List<dynamic>,
+      productItemImageUrls:
+          json['productItemImageUrls'] as List<dynamic>? ?? const [],
       productItemDescription: json['productItemDescription'] as String?,
       condition: json['condition'] as String?,
       profileId: json['profileId'] as String?,
