@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:swagapp/modules/common/assets/icons.dart';
 import 'package:swagapp/modules/common/ui/discount_container_widget.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/cubits/paywall/paywall_cubit.dart';
@@ -49,13 +50,12 @@ class _PayWallWidgetState extends State<PayWallWidget> {
       
     return  SizedBox(
       width: MediaQuery.of(context).size.width,  
-      height: MediaQuery.of(context).size.height,  
       child: ClipRect(
       child: BackdropFilter(
     
         filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
         child:  Padding(
-          padding: const EdgeInsets.fromLTRB(30, 10, 30, 30),
+          padding: const EdgeInsets.fromLTRB(20, 10, 20, 30),
           child: Column(
             children: [
               Text(S.of(context).paywall_title.toUpperCase(),
@@ -68,20 +68,22 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                             color: Palette.current.primaryNeonGreen)),
               ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
+                clipBehavior: Clip.hardEdge,
                 shrinkWrap: true,
                 itemCount: payWallConditionList.length,
                 itemBuilder: (BuildContext context, int index){
                   return Container(     
                     height: 
-                    20,                  
+                    20,
+                    width: 50,                  
                     margin:  const EdgeInsets.symmetric(vertical: 5),
                     child: ListTile(
-                      contentPadding:  EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width * 0.12)),
+                      contentPadding:  EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width * 0.05)),
                       minVerticalPadding: 0,          
                       leading: SizedBox(
                         height: 20,
                         width: 20,
-                        child: Image.asset('assets/icons/list_green_check.png')),
+                        child: Image.asset(AppIcons.listGreenCheck)),
                       title: Text(payWallConditionList[index],
                                       style: Theme.of(context)
                                           .textTheme
@@ -94,7 +96,7 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                 }
                 ),
                  SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.03,
+                  height: MediaQuery.of(context).size.height * 0.05,
                 ),
                GestureDetector(
                 onTap:() =>

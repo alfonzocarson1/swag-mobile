@@ -459,15 +459,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "paymetPaypal": MessageLookupByLibrary.simpleMessage("PayPal"),
         "paymetVenmo": MessageLookupByLibrary.simpleMessage("Venmo"),
         "paywall_condition1":
-            MessageLookupByLibrary.simpleMessage("Unlimited listings "),
-        "paywall_condition2":
-            MessageLookupByLibrary.simpleMessage("See items price history"),
+            MessageLookupByLibrary.simpleMessage("List items for sale"),
+        "paywall_condition2": MessageLookupByLibrary.simpleMessage(
+            "Increase odds on hitting drops"),
         "paywall_condition3":
-            MessageLookupByLibrary.simpleMessage("Track your portfolio value"),
+            MessageLookupByLibrary.simpleMessage("See product sales history"),
         "paywall_condition4":
-            MessageLookupByLibrary.simpleMessage("Make offers on items"),
-        "paywall_condition5":
-            MessageLookupByLibrary.simpleMessage("Verified user badge"),
+            MessageLookupByLibrary.simpleMessage("Track your collection value"),
+        "paywall_condition5": MessageLookupByLibrary.simpleMessage(
+            "Get notified when items are listed"),
         "paywall_discount": MessageLookupByLibrary.simpleMessage("SAVE 20%"),
         "paywall_free_trial":
             MessageLookupByLibrary.simpleMessage("GET 30 Days free"),
