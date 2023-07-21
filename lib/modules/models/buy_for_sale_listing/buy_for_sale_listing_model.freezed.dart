@@ -338,7 +338,7 @@ class _$_BuyForSaleListingModel implements _BuyForSaleListingModel {
       {this.productItemId,
       this.productItemName,
       this.productItemPrice,
-      required final List<dynamic> productItemImageUrls,
+      final List<dynamic> productItemImageUrls = const [],
       this.productItemDescription,
       this.condition,
       this.profileId,
@@ -364,6 +364,7 @@ class _$_BuyForSaleListingModel implements _BuyForSaleListingModel {
   final double? productItemPrice;
   final List<dynamic> _productItemImageUrls;
   @override
+  @JsonKey()
   List<dynamic> get productItemImageUrls {
     if (_productItemImageUrls is EqualUnmodifiableListView)
       return _productItemImageUrls;
@@ -480,7 +481,7 @@ abstract class _BuyForSaleListingModel implements BuyForSaleListingModel {
           {final String? productItemId,
           final String? productItemName,
           final double? productItemPrice,
-          required final List<dynamic> productItemImageUrls,
+          final List<dynamic> productItemImageUrls,
           final String? productItemDescription,
           final String? condition,
           final String? profileId,

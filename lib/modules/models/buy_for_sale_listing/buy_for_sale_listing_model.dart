@@ -14,7 +14,8 @@ class BuyForSaleListingModel with _$BuyForSaleListingModel {
     final String? productItemId,
     final String? productItemName,
     final double? productItemPrice,
-    required final List<dynamic> productItemImageUrls,
+    @Default([])
+    final List<dynamic> productItemImageUrls,
     final String? productItemDescription,
     final String? condition,
     final String? profileId,
