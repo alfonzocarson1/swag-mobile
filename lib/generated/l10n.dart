@@ -3672,50 +3672,50 @@ class S {
     );
   }
 
-  /// `Unlimited listings `
+  /// `List items for sale`
   String get paywall_condition1 {
     return Intl.message(
-      'Unlimited listings ',
+      'List items for sale',
       name: 'paywall_condition1',
       desc: '',
       args: [],
     );
   }
 
-  /// `See items price history`
+  /// `Increase odds on hitting drops`
   String get paywall_condition2 {
     return Intl.message(
-      'See items price history',
+      'Increase odds on hitting drops',
       name: 'paywall_condition2',
       desc: '',
       args: [],
     );
   }
 
-  /// `Track your portfolio value`
+  /// `See product sales history`
   String get paywall_condition3 {
     return Intl.message(
-      'Track your portfolio value',
+      'See product sales history',
       name: 'paywall_condition3',
       desc: '',
       args: [],
     );
   }
 
-  /// `Make offers on items`
+  /// `Track your collection value`
   String get paywall_condition4 {
     return Intl.message(
-      'Make offers on items',
+      'Track your collection value',
       name: 'paywall_condition4',
       desc: '',
       args: [],
     );
   }
 
-  /// `Verified user badge`
+  /// `Get notified when items are listed`
   String get paywall_condition5 {
     return Intl.message(
-      'Verified user badge',
+      'Get notified when items are listed',
       name: 'paywall_condition5',
       desc: '',
       args: [],
