@@ -121,6 +121,7 @@ class _PopUpState extends State<PopUp> {
                                 onPressed: () {
                                   getIt<UpdateProfileBloc>().add(
                                       const UpdateProfileEvent.importData());
+                                  Navigator.pop(context);
                                 },
                                 type: PrimaryButtonType.green,
                               ),
@@ -186,8 +187,8 @@ class _PopUpState extends State<PopUp> {
                 iconSize: 30,
                 color: Palette.current.primaryNeonGreen,
                 onPressed: () {
-                  getIt<UpdateProfileBloc>().add(
-                                      const UpdateProfileEvent.closeVerifyEmailModal());
+                  getIt<UpdateProfileBloc>()
+                      .add(const UpdateProfileEvent.closeVerifyEmailModal());
                   Navigator.of(context).pop();
                 },
                 icon: const Icon(
