@@ -141,8 +141,7 @@ class _PaywallSplashScreenState extends State<PaywallSplashScreen> {
                           leading: SizedBox(
                               height: 20,
                               width: 20,
-                              child: Image.asset(
-                                  'assets/icons/list_green_check.png')),
+                              child: Image.asset(AppIcons.listGreenCheck)),
                           title: Text(payWallConditionList[index],                        
                               style: Theme.of(context)
                                   .textTheme
