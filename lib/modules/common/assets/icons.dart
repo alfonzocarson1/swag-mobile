@@ -11,5 +11,6 @@ abstract class AppIcons {
   static const String elipsis = '${_root}elipsis.png';
   static const String admin = '${_root}admin.png';
   static const String checkMarkIcon = '${_root}check_mark_icon.png';
+  static const String listGreenCheck ='${_root}list_green_check.png';
 }
 
