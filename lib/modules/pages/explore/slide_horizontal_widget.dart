@@ -19,21 +19,21 @@ class HorizontalSlideWidget extends StatelessWidget {
   final String? lastSale;
   bool forSale = false;
   final String? minPrice;
+  final String? maxPrice;
   final int numberAvailable;
-  final int collectionItems;
   final String catalogItemId;
 
-  HorizontalSlideWidget(
-      this.pathImage,
-      this.title,
-      this.lastSale,
-      this.forSale,
-      this.minPrice,
-      this.numberAvailable,
-      this.collectionItems,
-      this.catalogItemId,
-      {Key? key})
-      : super(key: key);
+  HorizontalSlideWidget({
+    required this.pathImage,
+    required this.title,
+    required this.forSale,
+    required this.minPrice,
+    required this.maxPrice,
+    required this.lastSale,
+    required this.numberAvailable,
+    required this.catalogItemId,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class HorizontalSlideWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-             height: MediaQuery.of(context).size.width * 0.38,
+            height: MediaQuery.of(context).size.width * 0.38,
             // width: MediaQuery.of(context).size.width * 0.80,
             child: Stack(
               fit: StackFit.loose,
@@ -122,8 +122,10 @@ class HorizontalSlideWidget extends StatelessWidget {
                   color: Palette.current.white)),
           Text(
               forSale
-                  ? '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice('$minPrice')}'
-                  : '${S.of(context).last_sale}: ${decimalDigitsLastSalePrice('$lastSale')}',
+                  ? (numberAvailable > 1)
+                      ? '${S.of(context).from}: ${decimalDigitsLastSalePrice(minPrice.toString())}'
+                      : '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(minPrice.toString())}'
+                  : '${S.of(context).last_sale}: ${decimalDigitsLastSalePrice(lastSale.toString())}',
               overflow: TextOverflow.fade,
               style: Theme.of(context).textTheme.bodySmall!.copyWith(
                   fontWeight: FontWeight.w300,
