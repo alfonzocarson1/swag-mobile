@@ -98,7 +98,9 @@ class _ExplorePageState extends State<ExplorePage> with ChannelEventHandler {
       extendBodyBehindAppBar: false,
       resizeToAvoidBottomInset: true,
       backgroundColor: Palette.current.blackSmoke,
-      appBar: !_isLogged ? CustomAppBar() : null,
+      appBar: !_isLogged ? CustomAppBar(onRoute: (){
+        Navigator.of(context, rootNavigator: true).pop();
+      }) : null,
       body: Column(
         children: [
           Expanded(
