@@ -99,6 +99,11 @@ extension StringExtension on String {
 String decimalDigitsLastSalePrice(String lastSale) {
   if (lastSale != "N/A") {
     var decimalDigitsLastSalePrice = lastSale.split('.');
+
+    // The number doesn't have any decimal part, so we add 0 as the decimal part.
+    if (decimalDigitsLastSalePrice.length == 1) {
+      decimalDigitsLastSalePrice.add("0");
+    }
     var oCcy = NumberFormat.currency(
         locale: 'en_US', customPattern: '#,###', decimalDigits: 3);
 

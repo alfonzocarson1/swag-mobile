@@ -9,7 +9,13 @@ import '../../search/search_result/search_result_page.dart';
 import '../slide_horizontal_widget.dart';
 
 class ExploreCategorySlider extends StatefulWidget {
-  const ExploreCategorySlider({super.key, required this.sliderList, required this.sliderText, required this.isStaffPicks, required this.isUnicorn, required this.isWhatsHot});
+  const ExploreCategorySlider(
+      {super.key,
+      required this.sliderList,
+      required this.sliderText,
+      required this.isStaffPicks,
+      required this.isUnicorn,
+      required this.isWhatsHot});
   final List<CatalogItemModel> sliderList;
   final String sliderText;
   final bool isUnicorn;
@@ -77,7 +83,7 @@ class _ExploreCategorySliderState extends State<ExploreCategorySlider> {
         ),
         SizedBox(
           height: deviceSizeRatio * 510,
-          child: GridView.builder(          
+          child: GridView.builder(
               physics: const ScrollPhysics(),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 mainAxisSpacing: 7,
@@ -89,17 +95,18 @@ class _ExploreCategorySliderState extends State<ExploreCategorySlider> {
               itemCount: widget.sliderList.length,
               itemBuilder: (BuildContext context, int index) {
                 return HorizontalSlideWidget(
-                    widget.sliderList[index].catalogItemImage,
-                    widget.sliderList[index].catalogItemName.toUpperCase(),
-                    widget.sliderList[index].saleInfo.lastSale,
-                    widget.sliderList[index].forSale,
-                    widget.sliderList[index].saleInfo.maxPrice,
-                    widget.sliderList[index].numberAvailable,
-                    widget.sliderList[index].collectionItems!.length,
-                    widget.sliderList[index].catalogItemId);
+                  pathImage: widget.sliderList[index].catalogItemImage,
+                  title: widget.sliderList[index].catalogItemName.toUpperCase(),
+                  forSale: widget.sliderList[index].forSale,
+                  minPrice: widget.sliderList[index].saleInfo.minPrice,
+                  maxPrice: widget.sliderList[index].saleInfo.maxPrice,
+                  lastSale: widget.sliderList[index].saleInfo.lastSale,
+                  numberAvailable: widget.sliderList[index].numberAvailable,
+                  catalogItemId: widget.sliderList[index].catalogItemId,
+                );
               }),
         ),
       ],
-    );;
+    );
   }
 }
