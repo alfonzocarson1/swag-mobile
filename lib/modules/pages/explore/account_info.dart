@@ -366,6 +366,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
     });
 
     getStatesForProvidedCountry();
+    getBillingStatesForSelectedCountry();
     getStoredInfo();
     if (firstName == '' || lastName == '') {
       showPopUp(username: userName);
@@ -958,6 +959,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
       _states.addAll(hongKongStates);
     } else if (_defaultCountry == "South Korea") {
       _states.addAll(southKoreaStates);
+    } else if (_defaultCountry == "Singapore") {
+      _states.addAll(singaporeRegions);
     } else {
       _getStates(_defaultCountry);
     }
@@ -977,6 +980,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
       _billingStates.addAll(hongKongStates);
     } else if (_billingDefaultCountry == "South Korea") {
       _billingStates.addAll(southKoreaStates);
+    } else if (_billingDefaultCountry == "Singapore") {
+      _billingStates.addAll(singaporeRegions);
     } else {
       _getBillingStates(_billingDefaultCountry);
     }
