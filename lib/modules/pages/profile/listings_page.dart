@@ -220,7 +220,7 @@ class ListingGridItemWidget extends StatelessWidget {
   final String productItemName;
   final String? catalogItemId;
   final String productItemId;
-  final String imageUrl;
+  final String? imageUrl;
   final double? lastSale;
   const ListingGridItemWidget({
     super.key,
@@ -252,21 +252,23 @@ class ListingGridItemWidget extends StatelessWidget {
                 height: MediaQuery.of(context).size.width * 0.37,
                 width: MediaQuery.of(context).size.width * 0.45,
                 child: ClipRRect(
-                  child: CachedNetworkImage(
-                    fit: BoxFit.cover,
-                    imageUrl: imageUrl,
-                    placeholder: (context, url) => SizedBox(
-                      height: 200,
-                      child: Center(
-                        child: CircularProgressIndicator(
-                          color: Palette.current.primaryNeonGreen,
-                          backgroundColor: Colors.white,
+                  child: imageUrl == null
+                      ? Image.asset("assets/images/ProfilePhoto.png")
+                      : CachedNetworkImage(
+                          fit: BoxFit.cover,
+                          imageUrl: imageUrl!,
+                          placeholder: (context, url) => SizedBox(
+                            height: 200,
+                            child: Center(
+                              child: CircularProgressIndicator(
+                                color: Palette.current.primaryNeonGreen,
+                                backgroundColor: Colors.white,
+                              ),
+                            ),
+                          ),
+                          errorWidget: (context, url, error) =>
+                              Image.asset("assets/images/ProfilePhoto.png"),
                         ),
-                      ),
-                    ),
-                    errorWidget: (context, url, error) =>
-                        Image.asset("assets/images/ProfilePhoto.png"),
-                  ),
                 ),
               ),
             ),
