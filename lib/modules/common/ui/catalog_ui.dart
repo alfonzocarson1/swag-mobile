@@ -101,7 +101,7 @@ class _CatalogPageState extends State<CatalogPage> {
                         .copyWith(profileFavoriteItemId: null);
                   }
                 });
-              }, widget.tab));
+              }, null));
             },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
