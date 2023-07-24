@@ -23,23 +23,21 @@ class PrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color:  type == PrimaryButtonType.black
-                ? Palette.current.primaryNeonGreen
-                : type == PrimaryButtonType.primaryEerieBlack
-                    ? Palette.current.primaryWhiteSmoke
-                    : Colors.transparent,
+        color: type == PrimaryButtonType.black
+            ? Palette.current.primaryNeonGreen
+            : type == PrimaryButtonType.primaryEerieBlack
+                ? Palette.current.primaryWhiteSmoke
+                : Colors.transparent,
         border: Border.all(
-          color: 
-          type == PrimaryButtonType.grey
-            ? Palette.current.darkGray.withOpacity(0.24)
-            :
-          type == PrimaryButtonType.pink
-              ? Palette.current.primaryNeonPink
-              : type == PrimaryButtonType.primaryEerieBlack
-                  ? Palette.current.primaryWhiteSmoke
-                  : type == PrimaryButtonType.blueNeon
-                      ? Palette.current.blueNeon
-                      : Palette.current.primaryNeonGreen,
+          color: type == PrimaryButtonType.grey
+              ? Palette.current.darkGray.withOpacity(0.24)
+              : type == PrimaryButtonType.pink
+                  ? Palette.current.primaryNeonPink
+                  : type == PrimaryButtonType.primaryEerieBlack
+                      ? Palette.current.primaryWhiteSmoke
+                      : type == PrimaryButtonType.blueNeon
+                          ? Palette.current.blueNeon
+                          : Palette.current.primaryNeonGreen,
         ),
       ),
       child: Padding(
@@ -64,6 +62,10 @@ class PrimaryButton extends StatelessWidget {
                               : Palette.current.black,
           // splashColor: Palette.current.primaryNeonPink.withOpacity(0.4),
           // highlightColor: Palette.current.black.withOpacity(0.3),
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          hoverColor: Colors.transparent,
+          focusColor: Colors.transparent,
           onPressed: onPressed,
           child: AnimatedContainer(
             height: maxHeight,
