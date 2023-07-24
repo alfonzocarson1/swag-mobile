@@ -46,6 +46,10 @@ class PrimaryButton extends StatelessWidget {
             : const EdgeInsets.only(bottom: 6),
         child: RawMaterialButton(
           elevation: 0,
+          highlightElevation: 0,
+          focusElevation: 0,
+          hoverElevation: 0,
+          enableFeedback: false,
           constraints: BoxConstraints(
             maxHeight: maxHeight,
           ),
