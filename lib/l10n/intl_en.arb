@@ -448,5 +448,8 @@
     "creditcard_and_billing_info": "Credit card and Billing information.\n",
     "expiration": "Expiration",
     "billing_address": "Billing Address",
-    "unverified": "Unverified"
+    "unverified": "Unverified",
+    "notifications_title": "Notifications",
+    "notification_subtitle": "Email, text, push",
+    "blocked_title": "Blocked Accounts"
 }

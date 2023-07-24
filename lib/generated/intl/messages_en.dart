@@ -122,6 +122,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "b555_above": MessageLookupByLibrary.simpleMessage("\$555 - Above"),
         "billing_address":
             MessageLookupByLibrary.simpleMessage("Billing Address"),
+        "blocked_title":
+            MessageLookupByLibrary.simpleMessage("Blocked Accounts"),
         "buy_for": MessageLookupByLibrary.simpleMessage("BUY FOR"),
         "camera": MessageLookupByLibrary.simpleMessage("TAKE PHOTO"),
         "cancel": MessageLookupByLibrary.simpleMessage("CANCEL"),
@@ -441,6 +443,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "note": MessageLookupByLibrary.simpleMessage("Note"),
         "notification_already_requested": MessageLookupByLibrary.simpleMessage(
             "You have already requested to be notified.  We will notify you when item is listed for sale."),
+        "notification_subtitle":
+            MessageLookupByLibrary.simpleMessage("Email, text, push"),
+        "notifications_title":
+            MessageLookupByLibrary.simpleMessage("Notifications"),
         "notify_availability": MessageLookupByLibrary.simpleMessage(
             "You will be notified when this item is available."),
         "notify_available":
