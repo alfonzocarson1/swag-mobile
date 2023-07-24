@@ -25,6 +25,8 @@ _$_ProfileModel _$$_ProfileModelFromJson(Map<String, dynamic> json) =>
       hasActiveSubscription: json['hasActiveSubscription'] as bool?,
       hasUsedFreeTrial: json['hasUsedFreeTrial'] as bool?,
       kycverified: json['kycverified'] as bool?,
+      firstName: json['firstName'] as String?,
+      lastName: json['lastName'] as String?,
     );
 
 Map<String, dynamic> _$$_ProfileModelToJson(_$_ProfileModel instance) =>
@@ -43,4 +45,6 @@ Map<String, dynamic> _$$_ProfileModelToJson(_$_ProfileModel instance) =>
       'hasActiveSubscription': instance.hasActiveSubscription,
       'hasUsedFreeTrial': instance.hasUsedFreeTrial,
       'kycverified': instance.kycverified,
+      'firstName': instance.firstName,
+      'lastName': instance.lastName,
     };

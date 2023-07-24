@@ -65,7 +65,7 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                         _selectTile(
                             'assets/icons/BlockUserWhite.png',
                             S.of(context).profile_name_title,
-                            '',
+                            '${profileData.firstName ?? ''} ${profileData.lastName ?? ''}',
                             () {},
                             true,
                             '',
