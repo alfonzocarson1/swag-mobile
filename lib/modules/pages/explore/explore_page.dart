@@ -31,14 +31,18 @@ import 'whats_hot_page.dart';
 
 class ExplorePage extends StatefulWidget {
   static const name = '/ExplorePage';
-  const ExplorePage({Key? key, required this.pageFromExplore})
+  const ExplorePage(
+      {Key? key, required this.pageFromExplore, this.refreshNotifier})
       : super(key: key);
 
   final Function() pageFromExplore;
+  final ChangeNotifier? refreshNotifier;
 
   static Route route(Function() pageFromExplore) => PageRoutes.material(
         settings: const RouteSettings(name: name),
-        builder: (context) => ExplorePage(pageFromExplore: pageFromExplore),
+        builder: (context) => ExplorePage(
+          pageFromExplore: pageFromExplore,
+        ),
       );
 
   @override
@@ -49,26 +53,12 @@ class _ExplorePageState extends State<ExplorePage> with ChannelEventHandler {
   bool _isLogged = false;
   bool _hasJustSignedUp = false;
 
-  
-
   late final ScrollController? _scrollController =
       PrimaryScrollController.of(context);
 
   String chatUrl = '';
 
-  @override
-  void initState() {
-
-    this.initSendBirdApp();
-    this.loadDynamicFilters();
-    getIt<AlertCubit>().updateAletBadget();
-    context
-        .read<ChatBloc>()
-        .sendBirdSdk
-        .addChannelEventHandler('identifier', this);
-
-    getIt<PeerToPeerPaymentsCubit>().getPyments();
-
+  void refresh() async {
     getIt<ExploreCubit>()
         .getUnicorn(const ExploreRequestPayloadModel(unicornFlag: true));
     getIt<ExploreCubit>()
@@ -87,6 +77,22 @@ class _ExplorePageState extends State<ExplorePage> with ChannelEventHandler {
     if (_isLogged && _hasJustSignedUp) {
       getIt<PreferenceRepositoryService>().saveHasJustSignedUp(false);
     }
+  }
+
+  @override
+  void initState() {
+    this.initSendBirdApp();
+    this.loadDynamicFilters();
+    getIt<AlertCubit>().updateAletBadget();
+    context
+        .read<ChatBloc>()
+        .sendBirdSdk
+        .addChannelEventHandler('identifier', this);
+
+    getIt<PeerToPeerPaymentsCubit>().getPyments();
+
+    widget.refreshNotifier?.addListener(refresh);
+    refresh();
     super.initState();
   }
 
@@ -98,9 +104,11 @@ class _ExplorePageState extends State<ExplorePage> with ChannelEventHandler {
       extendBodyBehindAppBar: false,
       resizeToAvoidBottomInset: true,
       backgroundColor: Palette.current.blackSmoke,
-      appBar: !_isLogged ? CustomAppBar(onRoute: (){
-        Navigator.of(context, rootNavigator: true).pop();
-      }) : null,
+      appBar: !_isLogged
+          ? CustomAppBar(onRoute: () {
+              Navigator.of(context, rootNavigator: true).pop();
+            })
+          : null,
       body: Column(
         children: [
           Expanded(
@@ -183,18 +191,18 @@ class _ExplorePageState extends State<ExplorePage> with ChannelEventHandler {
     super.onMessageReceived(channel, message);
   }
 
- @override
-   void onChannelMemberCountChanged(List<GroupChannel> channels) {
-     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-       if(channels.first.customType != ChatType.listing.textValue){
-          if (this.chatUrl != channels[0].channelUrl) {
-         this.chatUrl = channels[0].channelUrl;
-         await context
-             .read<ChatBloc>()
-             .startNewChat(channels[0].channelUrl, true);
-       }
-       }     
-     });
-     super.onChannelMemberCountChanged(channels);
-}
+  @override
+  void onChannelMemberCountChanged(List<GroupChannel> channels) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      if (channels.first.customType != ChatType.listing.textValue) {
+        if (this.chatUrl != channels[0].channelUrl) {
+          this.chatUrl = channels[0].channelUrl;
+          await context
+              .read<ChatBloc>()
+              .startNewChat(channels[0].channelUrl, true);
+        }
+      }
+    });
+    super.onChannelMemberCountChanged(channels);
+  }
 }

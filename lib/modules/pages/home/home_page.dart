@@ -37,15 +37,25 @@ class _HomePage extends State<HomePage> {
   bool unread = getIt<PreferenceRepositoryService>().unreadAlert();
 
   List<Widget> widgetsChildren = [];
+  var widgetsChildrenRefreshNotifiers = <ChangeNotifier>[];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    widgetsChildrenRefreshNotifiers = [
+      ChangeNotifier(),
+      ChangeNotifier(),
+      ChangeNotifier(),
+      ChangeNotifier(),
+    ];
     widgetsChildren = [
-      ExplorePage(pageFromExplore: () {
-        onTapTapped(1);
-      }),
+      ExplorePage(
+        pageFromExplore: () {
+          onTapTapped(1);
+        },
+        refreshNotifier: widgetsChildrenRefreshNotifiers[0],
+      ),
       const SearchPage(),
       const AlertPage(),
       const ProfilePage()
@@ -53,6 +63,7 @@ class _HomePage extends State<HomePage> {
   }
 
   void onTapTapped(int index) {
+    widgetsChildrenRefreshNotifiers[index]?.notifyListeners();
     bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
     if ((index == 2 || index == 3) && !isLogged) {
       Navigator.of(context, rootNavigator: true)
