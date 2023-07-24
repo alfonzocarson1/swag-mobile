@@ -574,7 +574,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
       showDialog(
           context: context,
           builder: (BuildContext context) {
-            return const GrantPermissionPopup();
+            return const GrantPermissionDialog(type: GrantPermissionDialogType.camera);
           });
       //log("Image picker: $e");
     }

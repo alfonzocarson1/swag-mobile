@@ -61,18 +61,29 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m13(buyerUserName, sellerUserName) =>
       "${buyerUserName} has still not received this item. ${sellerUserName} can you please provide an update on shipping? Thank you.";
 
-  static String m14(orderNumber) => "Order number: ${orderNumber}";
+  static String m14(permission) => "ALLOW ${permission} ACCESS";
 
-  static String m15(totalPrice) => "TOTAL=\$${totalPrice}";
+  static String m15(os, permission) =>
+      "Please allow ${permission} permission in your ${Intl.select(os, {
+            'android': 'phone',
+            'ios': 'iPhone',
+            'other': 'device',
+          })} settings for the Swag App";
 
-  static String m16(paymentMethod) => "Paid via ${paymentMethod}";
+  static String m16(permission) => "${permission} ACCESS";
 
-  static String m17(trackingNumber) => "Tracking number:\n${trackingNumber}";
+  static String m17(orderNumber) => "Order number: ${orderNumber}";
 
-  static String m18(sellerUserName) =>
+  static String m18(totalPrice) => "TOTAL=\$${totalPrice}";
+
+  static String m19(paymentMethod) => "Paid via ${paymentMethod}";
+
+  static String m20(trackingNumber) => "Tracking number:\n${trackingNumber}";
+
+  static String m21(sellerUserName) =>
       "How was your experience \nwith ${sellerUserName}?";
 
-  static String m19(buyerUserName, dateSold) =>
+  static String m22(buyerUserName, dateSold) =>
       "Sold to @${buyerUserName} on ${dateSold} ";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -511,6 +522,12 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Peer to Peer Payment Options"),
         "pending_sale_btn":
             MessageLookupByLibrary.simpleMessage("Pending Sale"),
+        "permission_camera": MessageLookupByLibrary.simpleMessage("camera"),
+        "permission_dialog_button": m14,
+        "permission_dialog_description": m15,
+        "permission_dialog_title": m16,
+        "permission_photos": MessageLookupByLibrary.simpleMessage("photo"),
+        "permission_photos_title": MessageLookupByLibrary.simpleMessage(""),
         "phone": MessageLookupByLibrary.simpleMessage("Phone"),
         "phone_taken": MessageLookupByLibrary.simpleMessage(
             "An account is already associated with this phone number"),
@@ -575,10 +592,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Item purchased from"),
         "purchase_item_shipped":
             MessageLookupByLibrary.simpleMessage("Item shipped"),
-        "purchase_order_number": m14,
+        "purchase_order_number": m17,
         "purchase_paid_status": MessageLookupByLibrary.simpleMessage("PAID"),
-        "purchase_payment_card_total": m15,
-        "purchase_payment_card_via": m16,
+        "purchase_payment_card_total": m18,
+        "purchase_payment_card_via": m19,
         "purchase_pending_shipping":
             MessageLookupByLibrary.simpleMessage("Pending shipping"),
         "purchase_price":
@@ -589,13 +606,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "purchase_title":
             MessageLookupByLibrary.simpleMessage("Purchase History"),
         "purchase_total_item": MessageLookupByLibrary.simpleMessage("TOTAL"),
-        "purchase_tracking_number": m17,
+        "purchase_tracking_number": m20,
         "putters": MessageLookupByLibrary.simpleMessage("Putters"),
         "rarity_score": MessageLookupByLibrary.simpleMessage("RARITY SCORE"),
         "rating_btn": MessageLookupByLibrary.simpleMessage("Submit rating"),
         "rating_feedback": MessageLookupByLibrary.simpleMessage(
             "Additional details here \n(not seen by users)..."),
-        "rating_sub_title": m18,
+        "rating_sub_title": m21,
         "rating_title": MessageLookupByLibrary.simpleMessage("How’d it go?"),
         "razon_remove_btn": MessageLookupByLibrary.simpleMessage("SUBMIT"),
         "razon_remove_subtitle": MessageLookupByLibrary.simpleMessage(
@@ -686,7 +703,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sign_in": MessageLookupByLibrary.simpleMessage("Sign In"),
         "sign_out": MessageLookupByLibrary.simpleMessage("Sign Out"),
         "similar_items": MessageLookupByLibrary.simpleMessage("SIMILAR ITEMS"),
-        "sold_footer_title": m19,
+        "sold_footer_title": m22,
         "sold_for": MessageLookupByLibrary.simpleMessage("SOLD FOR"),
         "sort": MessageLookupByLibrary.simpleMessage("Sort:"),
         "sort_by": MessageLookupByLibrary.simpleMessage("sort by"),
