@@ -306,6 +306,7 @@
     "save_address": "Save address to your account",
     "add_address_title": "Please enter and confirm your shipping information.",
     "from": "FROM",
+    "sold_for": "SOLD FOR",
     "accepted_payment_types": "Accepted Payment Types",
     "setup_payment": "Setup Payment",
     "setup_payment_sub_title": "You must setup at least one form of payment before you can list an item. ",

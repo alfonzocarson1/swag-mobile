@@ -135,7 +135,7 @@ class _SoldPageState extends State<SoldPage> {
                       Text(
                           soldList[index].forSale ?? false
                               ? '${S.of(context).last_sale} \$${soldList[index].lastSale}'
-                              : '${S.of(context).from}: \$${soldList[index].productItemPrice}',
+                              : '${S.of(context).sold_for}: \$${soldList[index].productItemPrice}',
                           overflow: TextOverflow.fade,
                           style: Theme.of(context)
                               .textTheme

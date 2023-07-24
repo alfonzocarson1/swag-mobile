@@ -681,6 +681,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sign_out": MessageLookupByLibrary.simpleMessage("Sign Out"),
         "similar_items": MessageLookupByLibrary.simpleMessage("SIMILAR ITEMS"),
         "sold_footer_title": m19,
+        "sold_for": MessageLookupByLibrary.simpleMessage("SOLD FOR"),
         "sort": MessageLookupByLibrary.simpleMessage("Sort:"),
         "sort_by": MessageLookupByLibrary.simpleMessage("sort by"),
         "staff_picks": MessageLookupByLibrary.simpleMessage("STAFF PICKS"),

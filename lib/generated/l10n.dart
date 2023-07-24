@@ -2980,6 +2980,16 @@ class S {
     );
   }
 
+  /// `SOLD FOR`
+  String get sold_for {
+    return Intl.message(
+      'SOLD FOR',
+      name: 'sold_for',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Accepted Payment Types`
   String get accepted_payment_types {
     return Intl.message(
