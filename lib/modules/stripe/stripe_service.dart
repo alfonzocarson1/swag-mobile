@@ -2,6 +2,7 @@ import 'package:http/http.dart' as http;
 import 'package:swagapp/modules/stripe/models/customer_input_model.dart';
 import 'package:swagapp/modules/stripe/models/payment_method_input_model.dart';
 import 'constants.dart';
+import 'models/card_token_input_model.dart';
 
 class StripeService {
   final headers = {
@@ -22,6 +23,15 @@ class StripeService {
       CustomerInputModel customerInputModel) async {
     final body = customerInputModel.toJson();
     final response = await http.post(Uri.parse(createCustomerUrl),
+        headers: headers, body: body);
+
+    return response;
+  }
+
+  Future<http.Response> createCardToken(
+      CardTokenInputModel cardTokenInputModel) async {
+    final body = cardTokenInputModel.toJson();
+    final response = await http.post(Uri.parse(createCardTokenUrl),
         headers: headers, body: body);
 
     return response;

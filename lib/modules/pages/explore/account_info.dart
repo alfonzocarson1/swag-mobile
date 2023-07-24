@@ -1,6 +1,8 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,6 +10,7 @@ import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
+import 'package:swagapp/modules/stripe/models/card_token_input_model.dart';
 import 'package:swagapp/modules/stripe/models/customer_input_model.dart';
 import 'package:swagapp/modules/stripe/models/payment_method_input_model.dart';
 import 'package:swagapp/modules/stripe/models/stripe_error_model.dart';
@@ -893,8 +896,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                 showErrors();
                                 if (areFieldsValid()) {
                                   debugPrint('All Fields Are Valid');
-                                  final response =
-                                      await createAndAttachPaymentMethod();
+                                  final response = await createCardToken();
 
                                   if (response != null &&
                                       response.statusCode == 200) {
@@ -1111,6 +1113,51 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
         _cvcController.text.isNotEmpty &&
         _defaultDateTime.isAfter(DateTime.now()) &&
         billingOverAllCheck;
+  }
+
+  Future<http.Response?> createCardToken() async {
+    http.Response? response;
+    Loading.show(context);
+
+    CardTokenInputModel cardTokenInputModel = CardTokenInputModel(
+        expMonth: '${_defaultDateTime.month}',
+        expYear: '${_defaultDateTime.year}',
+        cvc: _cvcController.text,
+        cardNumber: _cardController.text);
+
+    response = await stripeService.createCardToken(cardTokenInputModel);
+    if (response.statusCode != 200) {
+      StripeErrorModel stripeErrorModel =
+          StripeErrorModel.fromJson(jsonDecode(response.body)['error']);
+      // Card Related Error handlings
+      handleCardErrors(stripeErrorModel);
+      showSnackBar(
+          context, stripeErrorModel.message ?? S.of(context).stripe_error);
+      debugPrint('Card Token Creation Failed: ${response.body}');
+    } else {
+      debugPrint('Card Token Created: ${response.body}');
+      final tokenId = jsonDecode(response.body)['id'];
+      saveCardToken(tokenId);
+    }
+    Loading.hide(context);
+    return response;
+  }
+
+  Future<http.Response?> saveCardToken(String cardToken) async {
+    http.Response? response;
+    final uri = '$addPaymentMethod$cardToken';
+    final token = await getIt<StorageRepositoryService>().getToken();
+    final headers = {
+      "Content-Type": "application/json",
+      HttpHeaders.authorizationHeader: 'Bearer $token',
+    };
+    response = await http.post(Uri.parse(uri), headers: headers);
+    if (response != null && response.statusCode == 200) {
+      debugPrint('Card Token Saved On B.E: ${response.body}');
+    } else {
+      debugPrint('Failed To Save Card Token On B.E: ${response.body}');
+    }
+    return response;
   }
 
   Future<http.Response?> createAndAttachPaymentMethod() async {
