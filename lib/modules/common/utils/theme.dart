@@ -9,7 +9,7 @@ final _transparentMaterialStateColor = MaterialStateColor.resolveWith(
 
 ThemeData appTheme(Palette palette) {
   return ThemeData(
-    useMaterial3: true,
+    useMaterial3: false,
     scaffoldBackgroundColor: palette.light2,
     textTheme: _textTheme(palette),
     backgroundColor: palette.light2,
