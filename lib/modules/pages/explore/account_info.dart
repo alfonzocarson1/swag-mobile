@@ -1119,12 +1119,34 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
     http.Response? response;
     Loading.show(context);
 
-    CardTokenInputModel cardTokenInputModel = CardTokenInputModel(
-        expMonth: '${_defaultDateTime.month}',
-        expYear: '${_defaultDateTime.year}',
-        cvc: _cvcController.text,
-        cardNumber: _cardController.text);
-
+    CardTokenInputModel cardTokenInputModel = billingAndShippingAddressesAreSame
+        ? CardTokenInputModel(
+            expMonth: '${_defaultDateTime.month}',
+            expYear: '${_defaultDateTime.year}',
+            cvc: _cvcController.text,
+            cardNumber: _cardController.text,
+            name: _cardNameController.text.trim(),
+            city: _cityController.text,
+            address1: _firstAddressController.text,
+            address2: _secondAddressController.text ?? ' ',
+            zip: _zipController.text,
+            state: _defaultState,
+            country: getCountryCodeFromCountryName(_defaultCountry) ?? ' ',
+          )
+        : CardTokenInputModel(
+            expMonth: '${_defaultDateTime.month}',
+            expYear: '${_defaultDateTime.year}',
+            cvc: _cvcController.text,
+            cardNumber: _cardController.text,
+            name: _cardNameController.text.trim(),
+            city: _billingCityController.text,
+            address1: _billingFirstAddressController.text,
+            address2: _billingSecondAddressController.text ?? ' ',
+            zip: _billingZippController.text,
+            state: _billingdefaultState,
+            country:
+                getCountryCodeFromCountryName(_billingDefaultCountry) ?? ' ',
+          );
     response = await stripeService.createCardToken(cardTokenInputModel);
     if (response.statusCode != 200) {
       StripeErrorModel stripeErrorModel =
