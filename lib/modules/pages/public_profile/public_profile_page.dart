@@ -133,18 +133,6 @@ class _PublicProfileTabsState extends State<_PublicProfileTabs>
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
-    _tabController.addListener(() {
-      int index = _tabController.index;
-      if (index == 0) {
-        context
-            .read<PublicProfileListingsCubit>()
-            .loadProfileListings(widget.profileId);
-      } else if (index == 1) {
-        context
-            .read<PublicProfileFavoritesCubit>()
-            .loadProfileFavorites(widget.profileId);
-      }
-    });
   }
 
   @override
