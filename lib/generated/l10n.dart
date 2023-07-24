@@ -610,6 +610,70 @@ class S {
     );
   }
 
+  /// `photo`
+  String get permission_photos {
+    return Intl.message(
+      'photo',
+      name: 'permission_photos',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `camera`
+  String get permission_camera {
+    return Intl.message(
+      'camera',
+      name: 'permission_camera',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{permission} ACCESS`
+  String permission_dialog_title(Object permission) {
+    return Intl.message(
+      '$permission ACCESS',
+      name: 'permission_dialog_title',
+      desc: '',
+      args: [permission],
+    );
+  }
+
+  /// `Please allow {permission} permission in your {os, select, android{phone} ios{iPhone} other{device}} settings for the Swag App`
+  String permission_dialog_description(Object os, Object permission) {
+    return Intl.message(
+      'Please allow $permission permission in your ${Intl.select(os, {
+            'android': 'phone',
+            'ios': 'iPhone',
+            'other': 'device'
+          })} settings for the Swag App',
+      name: 'permission_dialog_description',
+      desc: '',
+      args: [os, permission],
+    );
+  }
+
+  /// `ALLOW {permission} ACCESS`
+  String permission_dialog_button(Object permission) {
+    return Intl.message(
+      'ALLOW $permission ACCESS',
+      name: 'permission_dialog_button',
+      desc: '',
+      args: [permission],
+    );
+  }
+
+  /// ``
+  String get permission_photos_title {
+    return Intl.message(
+      '',
+      name: 'permission_photos_title',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Required field`
   String get required_field {
     return Intl.message(

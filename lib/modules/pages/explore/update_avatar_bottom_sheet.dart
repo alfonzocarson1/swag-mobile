@@ -6,6 +6,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:swagapp/modules/common/ui/grant_permission_popup.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 
 import '../../../generated/l10n.dart';
@@ -183,7 +185,39 @@ class _UpdateAvatarBottomSheetState extends State<UpdateAvatarBottomSheet> {
     );
   }
 
+  Future<void> getPermissions() async {
+    final requests = <Permission>[];
+
+    final cameraStatus = await Permission.camera.status;
+    if (cameraStatus.isPermanentlyDenied) {
+      await showDialog(
+        context: context,
+        builder: (context) => const GrantPermissionDialog(
+          type: GrantPermissionDialogType.camera,
+        ),
+      );
+    } else if (cameraStatus.isDenied) {
+      requests.add(Permission.camera);
+    }
+
+    final photosStatus = await Permission.photos.status;
+    if (photosStatus.isPermanentlyDenied) {
+      await showDialog(
+        context: context,
+        builder: (context) => const GrantPermissionDialog(
+          type: GrantPermissionDialogType.photos,
+        ),
+      );
+    } else if (photosStatus.isDenied) {
+      requests.add(Permission.photos);
+    }
+
+    await requests.request();
+  }
+
   Future<void> photoLibraryCall(ImageSource source) async {
+    await getPermissions();
+
     final ImagePicker picker = ImagePicker();
     // Pick an image
     try {
