@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:swagapp/modules/cubits/purchase_history/purchase_history_cubit.dart';
 import 'package:swagapp/modules/pages/profile/profile_detail_page.dart';
+import 'package:swagapp/modules/pages/settings/communication/communication_page.dart';
 import 'package:swagapp/modules/pages/settings/help_center/help_center_page.dart';
 import 'package:swagapp/modules/pages/settings/purchase_history/purchase_history_page.dart';
 import 'package:swagapp/modules/pages/profile/profile_page.dart';
@@ -156,7 +157,10 @@ class _SettingsPageState extends State<SettingsPage> {
                             'assets/icons/communications_icon.png',
                             S.of(context).communications_title,
                             S.of(context).communications_sub_title,
-                            () {}),
+                            () {
+                              Navigator.of(context, rootNavigator: true)
+                                  .push(CommunicationPage.route());
+                            }),
                         SizedBox(
                           height: 0.2,
                           child: Container(

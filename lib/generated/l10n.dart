@@ -4312,6 +4312,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Notifications`
+  String get notifications_title {
+    return Intl.message(
+      'Notifications',
+      name: 'notifications_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email, text, push`
+  String get notification_subtitle {
+    return Intl.message(
+      'Email, text, push',
+      name: 'notification_subtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Blocked Accounts`
+  String get blocked_title {
+    return Intl.message(
+      'Blocked Accounts',
+      name: 'blocked_title',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
