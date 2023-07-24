@@ -26,7 +26,9 @@ import '../../models/search/search_request_payload_model.dart';
 
 class SearchPage extends StatefulWidget {
   static const name = '/SearchCatalog';
-  const SearchPage({Key? key}) : super(key: key);
+  const SearchPage({Key? key, this.refreshNotifier}) : super(key: key);
+
+  final ChangeNotifier? refreshNotifier;
 
   static Route route() => PageRoutes.material(
         settings: const RouteSettings(name: name),
@@ -196,8 +198,11 @@ class _SearchPageState extends State<SearchPage>
                     onPressed: () async {
                       await setIsForSale(!state.model.isForSale);
                       if (!mounted) return;
-                      performSearch(context: context, tab: SearchTab.values[_tabController.index]);
-                      await callApi(SearchTab.values.elementAt(_tabController.index));
+                      performSearch(
+                          context: context,
+                          tab: SearchTab.values[_tabController.index]);
+                      await callApi(
+                          SearchTab.values.elementAt(_tabController.index));
                     },
                     icon: Image.asset(
                       "assets/icons/ForSale.png",
@@ -279,7 +284,7 @@ class _SearchPageState extends State<SearchPage>
     return Padding(
       padding: const EdgeInsets.only(top: 10, left: 0, right: 0),
       child: TabBar(
-        dividerColor: Colors.transparent,
+          dividerColor: Colors.transparent,
           indicatorColor: Palette.current.primaryNeonGreen,
           labelPadding: const EdgeInsets.all(0),
           controller: _tabController,
@@ -326,7 +331,7 @@ callApi(SearchTab? tab) async {
   if (tab != null) {
     categoryId = await getTabId(tab);
   }
-   getIt<PaginatedSearchCubit>().loadResults(
+  getIt<PaginatedSearchCubit>().loadResults(
       searchModel: SearchRequestPayloadModel(
           whatsHotFlag: (tab == SearchTab.whatsHot) ? true : false,
           categoryId:
