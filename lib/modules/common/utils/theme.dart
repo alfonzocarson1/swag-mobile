@@ -3,6 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 
+final _transparentMaterialStateColor = MaterialStateColor.resolveWith(
+  (states) => Colors.transparent,
+);
+
 ThemeData appTheme(Palette palette) {
   return ThemeData(
     useMaterial3: true,
@@ -28,8 +32,17 @@ ThemeData appTheme(Palette palette) {
     splashColor: Colors.transparent,
     highlightColor: Colors.transparent,
     hoverColor: Colors.transparent,
+    splashFactory: NoSplash.splashFactory,
+    iconButtonTheme: _iconButtonTheme(),
   );
 }
+
+IconButtonThemeData _iconButtonTheme() => IconButtonThemeData(
+      style: ButtonStyle(
+        splashFactory: NoSplash.splashFactory,
+        overlayColor: _transparentMaterialStateColor,
+      ),
+    );
 
 BottomSheetThemeData _bottomSheetThemeData(Palette palette) {
   return const BottomSheetThemeData(
@@ -89,6 +102,8 @@ ElevatedButtonThemeData _elevatedButtonTheme(Palette palette) {
       )),
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0))),
+      splashFactory: NoSplash.splashFactory,
+      overlayColor: _transparentMaterialStateColor,
     ),
   );
 }
@@ -97,8 +112,6 @@ TextButtonThemeData _textButtonTheme(Palette palette) {
   return TextButtonThemeData(
     style: ButtonStyle(
       backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-      overlayColor:
-          MaterialStateProperty.all<Color>(palette.light1.withOpacity(0.3)),
       minimumSize: MaterialStateProperty.all<Size>(const Size(88.0, 36.0)),
       foregroundColor:
           MaterialStateProperty.all<Color>(palette.primaryNeonGreen),
@@ -109,6 +122,8 @@ TextButtonThemeData _textButtonTheme(Palette palette) {
       )),
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0))),
+      splashFactory: NoSplash.splashFactory,
+      overlayColor: _transparentMaterialStateColor,
     ),
   );
 }
@@ -136,7 +151,9 @@ AppBarTheme _appBarTheme(Palette palette) {
     ),
     actionsIconTheme: IconThemeData(
       color: palette.light4,
-    ), toolbarTextStyle: _textTheme(palette).bodyMedium, titleTextStyle: _textTheme(palette).titleLarge,
+    ),
+    toolbarTextStyle: _textTheme(palette).bodyMedium,
+    titleTextStyle: _textTheme(palette).titleLarge,
   );
 }
 
