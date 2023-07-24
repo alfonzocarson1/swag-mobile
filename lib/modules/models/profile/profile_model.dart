@@ -22,7 +22,9 @@ class ProfileModel with _$ProfileModel {
     required final bool emailVerified,
     final bool? hasActiveSubscription,
     final bool? hasUsedFreeTrial,
-    final bool? kycverified
+    final bool? kycverified,
+    final String? firstName,
+    final String? lastName
 
   }) = _ProfileModel;
 
