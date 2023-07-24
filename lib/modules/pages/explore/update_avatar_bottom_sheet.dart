@@ -125,8 +125,6 @@ class _UpdateAvatarBottomSheetState extends State<UpdateAvatarBottomSheet> {
     return Material(
       color: Palette.current.primaryEerieBlack,
       child: InkWell(
-          splashColor: Palette.current.darkGray,
-          highlightColor: Palette.current.primaryEerieBlack,
           onTap: () {
             getIt<UpdateProfileBloc>().add(UpdateProfileEvent.update(
                 UpdateProfilePayloadModel(useAvatar: avatar['id'])));
