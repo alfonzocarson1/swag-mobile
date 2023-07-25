@@ -13,6 +13,7 @@ import 'package:swagapp/modules/common/ui/primary_button.dart';
 import '../../../generated/l10n.dart';
 import '../../blocs/update_profile_bloc/update_profile_bloc.dart';
 import '../../common/ui/handler.dart';
+import '../../common/ui/image_picker_with_permissions.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
 import '../../common/utils/utils.dart';
@@ -185,60 +186,19 @@ class _UpdateAvatarBottomSheetState extends State<UpdateAvatarBottomSheet> {
     );
   }
 
-  Future<void> getPermissions() async {
-    final requests = <Permission>[];
-
-    final cameraStatus = await Permission.camera.status;
-    if (cameraStatus.isPermanentlyDenied) {
-      await showDialog(
-        context: context,
-        builder: (context) => const GrantPermissionDialog(
-          type: GrantPermissionDialogType.camera,
-        ),
-      );
-    } else if (cameraStatus.isDenied) {
-      requests.add(Permission.camera);
-    }
-
-    final photosStatus = await Permission.photos.status;
-    if (photosStatus.isPermanentlyDenied) {
-      await showDialog(
-        context: context,
-        builder: (context) => const GrantPermissionDialog(
-          type: GrantPermissionDialogType.photos,
-        ),
-      );
-    } else if (photosStatus.isDenied) {
-      requests.add(Permission.photos);
-    }
-
-    await requests.request();
-  }
-
   Future<void> photoLibraryCall(ImageSource source) async {
-    await getPermissions();
-
-    final ImagePicker picker = ImagePicker();
     // Pick an image
     try {
-      final XFile? xFileImage =
-          await picker.pickImage(source: source, maxHeight: 800, maxWidth: 600);
-      //TODO Do some testing about image size with image 800 x 600
-      // var bytes = await xFileImage!.length();
+      final file = (await selectImagesAndHandlePermissions(context, source))!;
 
-      // final bytes =
-      //     (await Image.file(File(xFileImage!.path)).r()).lengthInBytes;
-      // final kb = bytes / 1024;
-      // final mb = kb / 1024;
-
-      Uint8List bytes = await File(xFileImage!.path).readAsBytes();
+      Uint8List bytes = await file.readAsBytes();
 
       context
           .read<UpdateProfileBloc>()
           .add(UpdateProfileEvent.updateAvatar(bytes, 'avatar', _accountId));
 
       Navigator.of(context, rootNavigator: true)
-          .pop(Image.file(File(xFileImage.path)).image);
+          .pop(Image.file(file).image);
     } catch (e) {
       log("Image picker: $e");
     }
