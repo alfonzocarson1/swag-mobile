@@ -8,6 +8,7 @@ import 'package:swagapp/modules/common/utils/stateful_wrapper.dart';
 import 'package:swagapp/modules/cubits/public_profile_favorites/public_profile_favorites_cubit.dart';
 import 'package:swagapp/modules/cubits/public_profile_listings/public_profile_listings_cubit.dart';
 import 'package:swagapp/modules/models/profile/public_profile.dart';
+import 'package:swagapp/modules/pages/add/collection/widgets/custom_overlay_button.dart';
 import 'package:swagapp/modules/pages/profile/favorites_page.dart';
 import 'package:swagapp/modules/pages/profile/listings_page.dart';
 import '../../../generated/l10n.dart';
@@ -15,10 +16,15 @@ import '../../common/ui/loading.dart';
 import '../../common/ui/simple_loader.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
+import '../../common/utils/send_mail_contact.dart';
 import '../../cubits/public_profile/public_profile_cubit.dart';
+import '../../data/shared_preferences/shared_preferences_service.dart';
+import '../../di/injector copy.dart';
 import '../../models/detail/detail_item_model.dart';
 import '../../models/listing_for_sale/listing_for_sale_model.dart';
 import 'package:swagapp/modules/common/utils/utils.dart';
+
+import '../../models/overlay_buton/overlay_button_model.dart';
 
 class PublicProfilePage extends StatelessWidget {
   static const name = "/publicProfile";
@@ -51,9 +57,22 @@ class PublicProfilePage extends StatelessWidget {
           height: 70,
           backgroundColor: Colors.transparent,
           suffixIconButton: IconButton(
-            icon: ImageIcon(
-              const AssetImage("assets/images/more-horizontal.png"),
-              color: Palette.current.primaryWhiteSmoke,
+            icon: CustomOverlayButton(
+              icon: Image.asset(
+                "assets/images/more-horizontal.png",
+                color: Palette.current.primaryWhiteSmoke,
+              ),
+              items: [
+                CustomOverlayItemModel(
+                  imagePath: "assets/icons/BlockUserWhite.png",
+                  label: S.of(context).profile_report_user,
+                ),
+              ],
+              onItemSelected: (selectedLabel) {
+                if (selectedLabel == S.of(context).profile_report_user) {
+                  _reportUser(context, profileId);
+                }
+              },
             ),
             onPressed: () {},
           ),
@@ -112,6 +131,36 @@ class PublicProfilePage extends StatelessWidget {
       ],
     );
   }
+}
+
+void _reportUser(
+  BuildContext context,
+  String sellerId,
+) {
+  final profileData = getIt<PreferenceRepositoryService>().profileData();
+
+  final sellerProfile =
+      context.read<PublicProfileCubit>().state.dataOrPreviousData;
+  if (sellerProfile == null || sellerProfile.accountId != sellerId) {
+    // profile data may still be loading
+    return;
+  }
+
+  final subject =
+      "${profileData.username} Reported user ${sellerProfile.username}";
+  final body = """I want to report a user
+
+Reporter username: ${profileData.username}
+Reporter account ID: ${profileData.accountId}
+Reporter email: ${profileData.email}
+Seller username: ${sellerProfile.username}
+Seller account ID: ${sellerProfile.accountId}
+""";
+  SendMailContact.send(
+    context: context,
+    subject: subject,
+    body: body,
+  );
 }
 
 class _PublicProfileTabs extends StatefulWidget {
