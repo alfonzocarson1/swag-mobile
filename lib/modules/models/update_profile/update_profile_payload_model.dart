@@ -14,6 +14,8 @@ class UpdateProfilePayloadModel with _$UpdateProfilePayloadModel {
     final String? email,
     final String? userName,
     final String? useAvatar,
+    final String? firstName,
+    final String? lastName,
     List<AddressesPayloadModel>? addresses,
   }) = _UpdateProfilePayloadModel;
 

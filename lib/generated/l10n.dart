@@ -4426,6 +4426,36 @@ class S {
       args: [],
     );
   }
+
+  /// `First name`
+  String get profile_first_name {
+    return Intl.message(
+      'First name',
+      name: 'profile_first_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Last name`
+  String get profile_last_name {
+    return Intl.message(
+      'Last name',
+      name: 'profile_last_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name`
+  String get profile_name {
+    return Intl.message(
+      'Name',
+      name: 'profile_name',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

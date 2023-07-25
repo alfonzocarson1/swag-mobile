@@ -572,8 +572,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile_delete_title":
             MessageLookupByLibrary.simpleMessage("Delete Swag Account"),
         "profile_email_title": MessageLookupByLibrary.simpleMessage("Email"),
+        "profile_first_name":
+            MessageLookupByLibrary.simpleMessage("First name"),
+        "profile_last_name": MessageLookupByLibrary.simpleMessage("Last name"),
         "profile_mobile_number_title":
             MessageLookupByLibrary.simpleMessage("Mobile Number"),
+        "profile_name": MessageLookupByLibrary.simpleMessage("Name"),
         "profile_name_title": MessageLookupByLibrary.simpleMessage("Name"),
         "profile_password_title":
             MessageLookupByLibrary.simpleMessage("Password"),
