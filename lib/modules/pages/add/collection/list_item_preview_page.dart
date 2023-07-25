@@ -64,34 +64,36 @@ class ListItemPreviewPage extends StatefulWidget {
   List<String> paymentAccepted;
   Function() onClose;
 
-  static Route route(
-          {isUpdate,
-          productItemId,
-          imgList,
-          imgUrls,
-          itemName,
-          itemPrice,
-          itemCondition,
-          itemDescription,
-          profileCollectionItemId,
-          catalogItemId,
-          paymentAccepted,
-          onClose}) =>
+  static Route route({
+    required bool isUpdate,
+    String? productItemId,
+    required List<File> imgList,
+    List<String>? imgUrls,
+    required String  itemName,
+    required double itemPrice,
+    required String itemCondition,
+    required String itemDescription,
+    required String profileCollectionItemId,
+    required String catalogItemId,
+    required List<String> paymentAccepted,
+    required Function() onClose,
+  }) =>
       PageRoutes.material(
         settings: const RouteSettings(name: name),
         builder: (context) => ListItemPreviewPage(
-            isUpdate: isUpdate,
-            productItemId: productItemId,
-            imgList: imgList,
-            imgUrls: imgUrls,
-            itemName: itemName,
-            itemPrice: itemPrice,
-            itemCondition: itemCondition,
-            itemDescription: itemDescription,
-            profileCollectionItemId: profileCollectionItemId,
-            catalogItemId: catalogItemId,
-            paymentAccepted: paymentAccepted,
-            onClose: onClose),
+          isUpdate: isUpdate,
+          productItemId: productItemId,
+          imgList: imgList,
+          imgUrls: imgUrls,
+          itemName: itemName,
+          itemPrice: itemPrice,
+          itemCondition: itemCondition,
+          itemDescription: itemDescription,
+          profileCollectionItemId: profileCollectionItemId,
+          catalogItemId: catalogItemId,
+          paymentAccepted: paymentAccepted,
+          onClose: onClose,
+        ),
       );
 
   @override

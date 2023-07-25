@@ -248,6 +248,7 @@ abstract class AppRouter {
             collectionData: parameters.collectionData,
             imageUrls: parameters.imageUrls,
             productItemId: parameters.productItemId,
+            paymentAccepted: parameters.paymentAccepted,
           );
         },
       ),
