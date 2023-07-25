@@ -604,3 +604,7 @@ Future<void> showSnackBar(BuildContext context, String message) async {
         dismissDirection: DismissDirection.none));
   });
 }
+
+extension StringNotEmptyOrNull on String? {
+  bool get isNotEmptyOrNull => this?.isNotEmpty ?? false;
+}

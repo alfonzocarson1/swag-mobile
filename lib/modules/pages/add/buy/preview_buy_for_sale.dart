@@ -13,6 +13,7 @@ import 'package:swagapp/modules/models/chat/chat_data.dart';
 import 'package:swagapp/modules/models/detail/sale_list_history_model.dart';
 import 'package:swagapp/modules/models/listing_for_sale/listing_for_sale_model.dart';
 import 'package:swagapp/modules/models/profile/profile_model.dart';
+import 'package:swagapp/modules/models/settings/peer_to_peer_payments_model.dart';
 import 'package:swagapp/modules/models/ui_models/checkbox_model.dart';
 import 'package:swagapp/modules/pages/chat/chat_page.dart';
 import '../../../../generated/l10n.dart';
@@ -690,6 +691,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
         listData.productItemName ?? '',
         listData.productItemImageUrls,
         salesHistoryList,
+        listData.peerToPeerPaymentOptions?.listOfAvailableMethods() ?? [],
       ),
     );
   }

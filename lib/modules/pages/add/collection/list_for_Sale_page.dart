@@ -492,7 +492,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                                   .collectionData!
                                                   .catalogItemId,
                                               imgList: imageFileList,
-                                              itemCondition: _defaultCondition,
+                                              itemCondition: _defaultCondition!,
                                               itemDescription:
                                                   _listDescriptionItemController
                                                       .text
