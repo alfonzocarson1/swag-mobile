@@ -577,6 +577,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile_name_title": MessageLookupByLibrary.simpleMessage("Name"),
         "profile_password_title":
             MessageLookupByLibrary.simpleMessage("Password"),
+        "profile_report_user":
+            MessageLookupByLibrary.simpleMessage("Report User"),
         "profile_sub_title": MessageLookupByLibrary.simpleMessage(
             "Username, email, password, phone"),
         "profile_title": MessageLookupByLibrary.simpleMessage("Profile"),

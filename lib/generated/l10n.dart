@@ -1324,6 +1324,16 @@ class S {
     );
   }
 
+  /// `Report User`
+  String get profile_report_user {
+    return Intl.message(
+      'Report User',
+      name: 'profile_report_user',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `DETAILS`
   String get detail {
     return Intl.message(

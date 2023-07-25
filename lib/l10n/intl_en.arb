@@ -129,6 +129,8 @@
     "photo_condition_four": "• Minimum of 4, Maximum of 6",
     "date_purchased": "Date Purchased",
     "select_item": "SELECT ITEM",
+    
+    "profile_report_user": "Report User",
 
     "detail": "DETAILS",
     "info_guideline_popup_title": "INFO GUIDELINES",
