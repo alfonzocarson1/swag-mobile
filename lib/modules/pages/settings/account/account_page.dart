@@ -199,7 +199,14 @@ class _AccountPageState extends State<AccountPage> {
                             'assets/icons/atomic_drop_payments_icon.png',
                             S.of(context).subscription_title,
                             '',
-                            () {},
+                            () {
+                              if (profileData.hasActiveSubscription == false) {
+                                showPaywallSplashScreen(
+                                    context: context,
+                                    hasUsedFreeTrial: profileData.hasUsedFreeTrial ?? false,
+                                    removePaywall: (){});
+                              }
+                            },
                             const SizedBox(),
                             Text(
                                 profileData.hasActiveSubscription!
