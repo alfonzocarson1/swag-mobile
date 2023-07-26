@@ -189,7 +189,7 @@ class _UpdateAvatarBottomSheetState extends State<UpdateAvatarBottomSheet> {
   Future<void> photoLibraryCall(ImageSource source) async {
     // Pick an image
     try {
-      final file = (await selectImagesAndHandlePermissions(context, source))!;
+      final file = (await selectImageAndHandlePermissions(context, source))!;
 
       Uint8List bytes = await file.readAsBytes();
 
@@ -197,8 +197,7 @@ class _UpdateAvatarBottomSheetState extends State<UpdateAvatarBottomSheet> {
           .read<UpdateProfileBloc>()
           .add(UpdateProfileEvent.updateAvatar(bytes, 'avatar', _accountId));
 
-      Navigator.of(context, rootNavigator: true)
-          .pop(Image.file(file).image);
+      Navigator.of(context, rootNavigator: true).pop(Image.file(file).image);
     } catch (e) {
       log("Image picker: $e");
     }

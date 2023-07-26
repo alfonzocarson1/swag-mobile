@@ -35,7 +35,7 @@ Future<void> handlePermissionsForImagePicker(
   }
 }
 
-Future<File?> selectImagesAndHandlePermissions(
+Future<File?> selectImageAndHandlePermissions(
   BuildContext context,
   ImageSource source,
 ) async {
@@ -48,4 +48,16 @@ Future<File?> selectImagesAndHandlePermissions(
   );
   if (xFileImage == null) return null;
   return File(xFileImage.path);
+}
+
+Future<List<XFile>> selectMultipleImagesAndHandlePermissions(
+  BuildContext context, {
+  int? imageQuality,
+}) async {
+  await handlePermissionsForImagePicker(context, ImageSource.gallery);
+  final picker = ImagePicker();
+  final files = await picker.pickMultiImage(
+    imageQuality: imageQuality,
+  );
+  return files;
 }

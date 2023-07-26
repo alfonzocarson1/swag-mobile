@@ -9,6 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:swagapp/modules/common/ui/add_photo_list_item.dart';
 
+import '../../../../common/ui/image_picker_with_permissions.dart';
 import '../../../../common/ui/multi_image_slide.dart';
 import '../../../../common/ui/popup_image_guidelines.dart';
 import '../../../../common/utils/palette.dart';
@@ -84,7 +85,7 @@ class _SliderCustomWidgetState extends State<SliderCustomWidget> {
     // Pick an image
     removedImages = false;
     try {
-      final List<XFile> selectedImages = await imagePicker.pickMultiImage();
+      final List<XFile> selectedImages = await selectMultipleImagesAndHandlePermissions(context);
 
       if ((selectedImages.length + imgList.length) <= 6) {
         scaleDownXFile(selectedImages);
