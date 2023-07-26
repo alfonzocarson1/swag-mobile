@@ -37,6 +37,8 @@ class ChatMessages extends StatefulWidget {
 
 class _ChatMessagesState extends State<ChatMessages> {
   late List<Widget> items;
+  List<String> messageStatues = [];
+
   late String userSendbirdiId;
   late int previousMessagesLengh;
   late GlobalKey<AnimatedListState> listKey;
@@ -44,6 +46,15 @@ class _ChatMessagesState extends State<ChatMessages> {
 
   @override
   void initState() {
+    for (int i = 0; i < this.widget.chatData.messages.length; i++) {
+      BaseMessage message = this.widget.chatData.messages.toList()[i];
+      Map<String, dynamic> messageDataJson =
+          SendBirdUtils.getFormatedData(message.data!);
+      MessageData messageData = MessageData.fromJson(messageDataJson);
+      messageStatues.add(messageData.type);
+    }
+    print(messageStatues);
+
     ChatBloc chatBloc = context.read<ChatBloc>();
     channelDataString = this.widget.chatData.channel.data ?? "";
 
@@ -124,6 +135,10 @@ class _ChatMessagesState extends State<ChatMessages> {
       bool showReceivedMessage = (messageData.type ==
           ChatMessageDataType.confirmPaymentReceived.textValue);
 
+      bool hideButtonConfirmPaidSend = this
+          .messageStatues
+          .contains(ChatMessageDataType.saleCanceled.textValue);
+
       if (messageData.type == ChatMessageDataType.paymentReceived.textValue ||
           messageData.type == ChatMessageDataType.message.textValue ||
           messageData.type == ChatMessageDataType.shipped.textValue ||
@@ -167,6 +182,7 @@ class _ChatMessagesState extends State<ChatMessages> {
               : ChatCardMessage(
                   messageData: messageData,
                   chatData: this.widget.chatData,
+                  hideCardButton: hideButtonConfirmPaidSend,
                 )
           : (showConfirmMessage)
               ? _Message(

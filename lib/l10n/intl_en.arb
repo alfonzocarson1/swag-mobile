@@ -355,7 +355,7 @@
     "chatAddSwagAdminButton": "Add Swag Member",
     "chatBannerItemSold": "Item sold",
     "chatBannerWillPay": "@{userName} will paying using ",
-    "chatBannerTitle": "@{userName} has agreed to purchase your Golden King Cover",
+    "chatBannerTitle": "@{userName} has agreed to purchase your {listingName}",
     "chatCardConfirmPaymentBuyer": "@{sellerUserName} here is @{myUserName}'s {paymnetMethod}'s information to send payment - {rate} \n\n{paymentUser}\n\nOnce payment is made please click the confirmation button below",
     "chatCardConfirmPaymentSeller": "@{sellerUserName} here is @{myUserName}'s {paymnetMethod}'s information to send payment - {rate} \n\n{paymentUser}",
     "chatCardPaymentReceivedSeller": "@{buyerUserName} indicated he made payment. Please check your {paymnetMethod} account and click the button below to confirm payment was received",
@@ -371,7 +371,9 @@
     "chatCommenceMessage": "You can use this chat to adjust any information necessary to complete the sale. If you need 3rd party assistance click the icon above and request an admin to join the chat. NOTE: If payment is not received in 12 hours the listings can be cancelled ",
     "chatConfirmPaymentMessage": "@{sellerUserName} has confirmed that payment has been received",
     "chatConfirmShipMessage": "@{sellerUserName} here is the shipping address to ship this item\n\n{buyerName} {buyerLastName}\n{address}, {address2} \n{city}, {state}, {zipCode}, {country}",
-    "chatShippedMessage": "@{sellerUserName} has ship the item. Here is the tracking number\n\n{trackingNumber}",
+    "chatShippedMessage": "@{sellerUserName} has shipped the item. Here is the tracking number\n\n{trackingNumber}",
+    "chatShippedMessageWithoutTrackingNumber": "@{sellerUserName} has shipped the item.",
+
     "chatCancelPurchaseMessage": "The seller has chosen to \ncanceled this transaction.",
 
 

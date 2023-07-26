@@ -20,8 +20,8 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(userName) =>
-      "@${userName} has agreed to purchase your Golden King Cover";
+  static String m0(userName, listingName) =>
+      "@${userName} has agreed to purchase your ${listingName}";
 
   static String m1(userName) => "@${userName} will paying using ";
 
@@ -49,41 +49,44 @@ class MessageLookup extends MessageLookupByLibrary {
       "Payment Confirmation @${buyerUserName} indicated they made payment";
 
   static String m9(sellerUserName, trackingNumber) =>
-      "@${sellerUserName} has ship the item. Here is the tracking number\n\n${trackingNumber}";
+      "@${sellerUserName} has shipped the item. Here is the tracking number\n\n${trackingNumber}";
 
-  static String m10(chatsNumber) => "${chatsNumber} Unread";
+  static String m10(sellerUserName) =>
+      "@${sellerUserName} has shipped the item.";
 
-  static String m11(userName) =>
+  static String m11(chatsNumber) => "${chatsNumber} Unread";
+
+  static String m12(userName) =>
       "It’s been 7 days since you purchased the Gold King Cover from @${userName}. We want to know if you received your item yet?";
 
-  static String m12(number) => "${number} Items";
+  static String m13(number) => "${number} Items";
 
-  static String m13(buyerUserName, sellerUserName) =>
+  static String m14(buyerUserName, sellerUserName) =>
       "${buyerUserName} has still not received this item. ${sellerUserName} can you please provide an update on shipping? Thank you.";
 
-  static String m14(permission) => "ALLOW ${permission} ACCESS";
+  static String m15(permission) => "ALLOW ${permission} ACCESS";
 
-  static String m15(os, permission) =>
+  static String m16(os, permission) =>
       "Please allow ${permission} permission in your ${Intl.select(os, {
             'android': 'phone',
             'ios': 'iPhone',
             'other': 'device',
           })} settings for the Swag App";
 
-  static String m16(permission) => "${permission} ACCESS";
+  static String m17(permission) => "${permission} ACCESS";
 
-  static String m17(orderNumber) => "Order number: ${orderNumber}";
+  static String m18(orderNumber) => "Order number: ${orderNumber}";
 
-  static String m18(totalPrice) => "TOTAL=\$${totalPrice}";
+  static String m19(totalPrice) => "TOTAL=\$${totalPrice}";
 
-  static String m19(paymentMethod) => "Paid via ${paymentMethod}";
+  static String m20(paymentMethod) => "Paid via ${paymentMethod}";
 
-  static String m20(trackingNumber) => "Tracking number:\n${trackingNumber}";
+  static String m21(trackingNumber) => "Tracking number:\n${trackingNumber}";
 
-  static String m21(sellerUserName) =>
+  static String m22(sellerUserName) =>
       "How was your experience \nwith ${sellerUserName}?";
 
-  static String m22(buyerUserName, dateSold) =>
+  static String m23(buyerUserName, dateSold) =>
       "Sold to @${buyerUserName} on ${dateSold} ";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -194,12 +197,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No previous messages"),
         "chatPaymentSendBuyer": m8,
         "chatShippedMessage": m9,
+        "chatShippedMessageWithoutTrackingNumber": m10,
         "chatSwagg": MessageLookupByLibrary.simpleMessage("SWAG"),
         "chatSwaggAdmin": MessageLookupByLibrary.simpleMessage("Swagg Admin"),
         "chatToday": MessageLookupByLibrary.simpleMessage("Today"),
         "chatTyping": MessageLookupByLibrary.simpleMessage("Typing..."),
         "chatsHeader": MessageLookupByLibrary.simpleMessage("Chat"),
-        "chatsUnreadMessages": m10,
+        "chatsUnreadMessages": m11,
         "city": MessageLookupByLibrary.simpleMessage("City"),
         "clear_all": MessageLookupByLibrary.simpleMessage("Clear All"),
         "code": MessageLookupByLibrary.simpleMessage("Code"),
@@ -255,7 +259,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "delivered_not_yes": MessageLookupByLibrary.simpleMessage("NOT YET"),
         "delivered_not_yet_alert": MessageLookupByLibrary.simpleMessage(
             "Sorry you’re still waiting! We will \ncheck back with you in a few days."),
-        "delivered_sub_title": m11,
+        "delivered_sub_title": m12,
         "delivered_title":
             MessageLookupByLibrary.simpleMessage("Did you get it?"),
         "delivered_yes": MessageLookupByLibrary.simpleMessage("YES"),
@@ -372,7 +376,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Username must be between 4-20 characters"),
         "ist_item_popup_btn":
             MessageLookupByLibrary.simpleMessage("CREATE LISTING"),
-        "items_purchased": m12,
+        "items_purchased": m13,
         "kyc_title": MessageLookupByLibrary.simpleMessage("KYC"),
         "last_name": MessageLookupByLibrary.simpleMessage("Last Name"),
         "last_sale": MessageLookupByLibrary.simpleMessage("LAST SALE"),
@@ -450,7 +454,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Password doesn’t match"),
         "no_purchase_history_yet":
             MessageLookupByLibrary.simpleMessage("No Purchase History yet"),
-        "notDeliveredItemChatMessage": m13,
+        "notDeliveredItemChatMessage": m14,
         "note": MessageLookupByLibrary.simpleMessage("Note"),
         "notification_already_requested": MessageLookupByLibrary.simpleMessage(
             "You have already requested to be notified.  We will notify you when item is listed for sale."),
@@ -523,9 +527,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "pending_sale_btn":
             MessageLookupByLibrary.simpleMessage("Pending Sale"),
         "permission_camera": MessageLookupByLibrary.simpleMessage("camera"),
-        "permission_dialog_button": m14,
-        "permission_dialog_description": m15,
-        "permission_dialog_title": m16,
+        "permission_dialog_button": m15,
+        "permission_dialog_description": m16,
+        "permission_dialog_title": m17,
         "permission_photos": MessageLookupByLibrary.simpleMessage("photo"),
         "permission_photos_title": MessageLookupByLibrary.simpleMessage(""),
         "phone": MessageLookupByLibrary.simpleMessage("Phone"),
@@ -598,10 +602,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Item purchased from"),
         "purchase_item_shipped":
             MessageLookupByLibrary.simpleMessage("Item shipped"),
-        "purchase_order_number": m17,
+        "purchase_order_number": m18,
         "purchase_paid_status": MessageLookupByLibrary.simpleMessage("PAID"),
-        "purchase_payment_card_total": m18,
-        "purchase_payment_card_via": m19,
+        "purchase_payment_card_total": m19,
+        "purchase_payment_card_via": m20,
         "purchase_pending_shipping":
             MessageLookupByLibrary.simpleMessage("Pending shipping"),
         "purchase_price":
@@ -612,13 +616,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "purchase_title":
             MessageLookupByLibrary.simpleMessage("Purchase History"),
         "purchase_total_item": MessageLookupByLibrary.simpleMessage("TOTAL"),
-        "purchase_tracking_number": m20,
+        "purchase_tracking_number": m21,
         "putters": MessageLookupByLibrary.simpleMessage("Putters"),
         "rarity_score": MessageLookupByLibrary.simpleMessage("RARITY SCORE"),
         "rating_btn": MessageLookupByLibrary.simpleMessage("Submit rating"),
         "rating_feedback": MessageLookupByLibrary.simpleMessage(
             "Additional details here \n(not seen by users)..."),
-        "rating_sub_title": m21,
+        "rating_sub_title": m22,
         "rating_title": MessageLookupByLibrary.simpleMessage("How’d it go?"),
         "razon_remove_btn": MessageLookupByLibrary.simpleMessage("SUBMIT"),
         "razon_remove_subtitle": MessageLookupByLibrary.simpleMessage(
@@ -709,7 +713,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sign_in": MessageLookupByLibrary.simpleMessage("Sign In"),
         "sign_out": MessageLookupByLibrary.simpleMessage("Sign Out"),
         "similar_items": MessageLookupByLibrary.simpleMessage("SIMILAR ITEMS"),
-        "sold_footer_title": m22,
+        "sold_footer_title": m23,
         "sold_for": MessageLookupByLibrary.simpleMessage("SOLD FOR"),
         "sort": MessageLookupByLibrary.simpleMessage("Sort:"),
         "sort_by": MessageLookupByLibrary.simpleMessage("sort by"),

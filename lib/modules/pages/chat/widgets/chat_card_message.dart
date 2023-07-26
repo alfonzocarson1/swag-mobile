@@ -17,12 +17,13 @@ import 'chat_card_message_input.dart';
 class ChatCardMessage extends StatelessWidget {
   final MessageData messageData;
   final ChatData chatData;
+  final bool hideCardButton;
 
-  const ChatCardMessage({
-    super.key,
-    required this.messageData,
-    required this.chatData,
-  });
+  const ChatCardMessage(
+      {super.key,
+      required this.messageData,
+      required this.chatData,
+      this.hideCardButton = false});
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +36,7 @@ class ChatCardMessage extends StatelessWidget {
           _CardContent(
             messageData: this.messageData,
             chatData: this.chatData,
+            hideCardButton: hideCardButton,
           ),
           const SizedBox(height: 5),
         ],
@@ -46,12 +48,13 @@ class ChatCardMessage extends StatelessWidget {
 class _CardContent extends StatefulWidget {
   final ChatData chatData;
   final MessageData messageData;
+  final bool hideCardButton;
 
-  const _CardContent({
-    super.key,
-    required this.messageData,
-    required this.chatData,
-  });
+  const _CardContent(
+      {super.key,
+      required this.messageData,
+      required this.chatData,
+      this.hideCardButton = false});
 
   @override
   State<_CardContent> createState() => _CardContentState();
@@ -95,10 +98,12 @@ class _CardContentState extends State<_CardContent> {
                 )
               : const SizedBox.shrink(),
           const SizedBox(height: 10),
-          _CardButton(
-            text: buttonText,
-            onTap: () => this.onTapButton(),
-          ),
+          widget.hideCardButton
+              ? const SizedBox.shrink()
+              : _CardButton(
+                  text: buttonText,
+                  onTap: () => this.onTapButton(),
+                ),
         ],
       ),
     );
