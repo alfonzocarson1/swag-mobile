@@ -3444,13 +3444,13 @@ class S {
     );
   }
 
-  /// `@{userName} has agreed to purchase your Golden King Cover`
-  String chatBannerTitle(Object userName) {
+  /// `@{userName} has agreed to purchase your {listingName}`
+  String chatBannerTitle(Object userName, Object listingName) {
     return Intl.message(
-      '@$userName has agreed to purchase your Golden King Cover',
+      '@$userName has agreed to purchase your $listingName',
       name: 'chatBannerTitle',
       desc: '',
-      args: [userName],
+      args: [userName, listingName],
     );
   }
 
@@ -3616,13 +3616,23 @@ class S {
     );
   }
 
-  /// `@{sellerUserName} has ship the item. Here is the tracking number\n\n{trackingNumber}`
+  /// `@{sellerUserName} has shipped the item. Here is the tracking number\n\n{trackingNumber}`
   String chatShippedMessage(Object sellerUserName, Object trackingNumber) {
     return Intl.message(
-      '@$sellerUserName has ship the item. Here is the tracking number\n\n$trackingNumber',
+      '@$sellerUserName has shipped the item. Here is the tracking number\n\n$trackingNumber',
       name: 'chatShippedMessage',
       desc: '',
       args: [sellerUserName, trackingNumber],
+    );
+  }
+
+  /// `@{sellerUserName} has shipped the item.`
+  String chatShippedMessageWithoutTrackingNumber(Object sellerUserName) {
+    return Intl.message(
+      '@$sellerUserName has shipped the item.',
+      name: 'chatShippedMessageWithoutTrackingNumber',
+      desc: '',
+      args: [sellerUserName],
     );
   }
 

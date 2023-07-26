@@ -627,38 +627,41 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
             ),
           ),
         ),
-        Expanded(
-          flex: 1,
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: CustomOverlayButton(
-              icon: Image.asset(
-                "assets/images/more-horizontal.png",
-                scale: 2,
-              ),
-              items: overlayItems,
-              onItemSelected: (String value) {
-                bool isEditListingOption() =>
-                    value == editListingDropDown[0].label;
-                bool isRemoveListingOption() =>
-                    value == editListingDropDown[1].label;
-                bool isReportListing() =>
-                    value == reportListingDropDown[0].label;
+        Visibility(
+          visible: listData.status == 'listed',
+          child: Expanded(
+            flex: 1,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: CustomOverlayButton(
+                icon: Image.asset(
+                  "assets/images/more-horizontal.png",
+                  scale: 2,
+                ),
+                items: overlayItems,
+                onItemSelected: (String value) {
+                  bool isEditListingOption() =>
+                      value == editListingDropDown[0].label;
+                  bool isRemoveListingOption() =>
+                      value == editListingDropDown[1].label;
+                  bool isReportListing() =>
+                      value == reportListingDropDown[0].label;
 
-                if (isEditListingOption()) {
-                  _editListingOptionSelected(context);
-                } else if (isRemoveListingOption()) {
-                  _showRemoveListingDialog(context);
-                } else if (isReportListing()) {
-                  _reportListing(profileData, listData);
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text("NOT IMPLEMENTED"),
-                    ),
-                  );
-                }
-              },
+                  if (isEditListingOption()) {
+                    _editListingOptionSelected(context);
+                  } else if (isRemoveListingOption()) {
+                    _showRemoveListingDialog(context);
+                  } else if (isReportListing()) {
+                    _reportListing(profileData, listData);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("NOT IMPLEMENTED"),
+                      ),
+                    );
+                  }
+                },
+              ),
             ),
           ),
         ),
