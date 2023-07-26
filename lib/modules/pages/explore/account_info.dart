@@ -925,6 +925,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                                   postalCode:
                                                       _zipController.text),
                                             ])));
+                                    getIt<PreferenceRepositoryService>()
+                                        .saveProfileDataState(false);
                                   }
                                 } else {
                                   debugPrint('All Fields Are Not Valid');
