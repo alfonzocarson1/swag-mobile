@@ -532,6 +532,8 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                             termsOfServiceAccepted:
                                                 checkBoxValue,
                                             deviceId: deviceId)));
+                                    getIt<PreferenceRepositoryService>()
+                                        .saveProfileDataState(true);
                                   }
                                 },
                                 type: PrimaryButtonType.green,

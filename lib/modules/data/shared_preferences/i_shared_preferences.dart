@@ -93,4 +93,7 @@ abstract class PreferenceRepositoryInt {
 
   CardsResponseModel cardsResponseModel();
   Future<void> saveCardsResponseModel(CardsResponseModel value);
+
+  bool getProfileDataState();
+  Future<void> saveProfileDataState(bool value);
 }

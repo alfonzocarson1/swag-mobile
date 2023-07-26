@@ -45,6 +45,7 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   static const String _onChatPage = 'onChatPage';
   static const String _unreadAlert = 'unreadAlert';
   static const String _cardsResponseModelKey = 'cardsResponseKey';
+  static const String _profileDataStateKey = 'profileDataStateKey';
 
   late SharedPreferences _prefs;
   @override
@@ -419,5 +420,16 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
       CardsResponseModel cardsResponseModel) async {
     await _prefs.setString(
         _cardsResponseModelKey, jsonEncode(cardsResponseModel));
+  }
+
+  @override
+  bool getProfileDataState() {
+    final profileDataState = _prefs.getBool(_profileDataStateKey);
+    return profileDataState ?? false;
+  }
+
+  @override
+  Future<void> saveProfileDataState(bool value) async {
+    await _prefs.setBool(_profileDataStateKey, value);
   }
 }
