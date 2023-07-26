@@ -153,20 +153,21 @@ class _SettingsPageState extends State<SettingsPage> {
                             color: Palette.current.grey,
                           ),
                         ),
-                        _selectSettings(
-                            'assets/icons/communications_icon.png',
-                            S.of(context).communications_title,
-                            S.of(context).communications_sub_title,
-                            () {
-                              Navigator.of(context, rootNavigator: true)
-                                  .push(CommunicationPage.route());
-                            }),
-                        SizedBox(
-                          height: 0.2,
-                          child: Container(
-                            color: Palette.current.grey,
-                          ),
-                        ),
+                        // Todo: Need this code in future
+                        // _selectSettings(
+                        //     'assets/icons/communications_icon.png',
+                        //     S.of(context).communications_title,
+                        //     S.of(context).communications_sub_title,
+                        //     () {
+                        //       Navigator.of(context, rootNavigator: true)
+                        //           .push(CommunicationPage.route());
+                        //     }),
+                        // SizedBox(
+                        //   height: 0.2,
+                        //   child: Container(
+                        //     color: Palette.current.grey,
+                        //   ),
+                        // ),
                         _selectSettings(
                             'assets/icons/contact_us_icon.png',
                             S.of(context).contact_us_title,
