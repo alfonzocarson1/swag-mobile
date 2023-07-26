@@ -903,16 +903,17 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                     setState(() {
                                       updateAllFlow = true;
                                     });
-                                    context.read<UpdateProfileBloc>().add(
-                                            UpdateProfileEvent.update(
-                                                UpdateProfilePayloadModel(
-                                                    addresses: [
+                                    context
+                                        .read<UpdateProfileBloc>()
+                                        .add(UpdateProfileEvent.update(
+                                            UpdateProfilePayloadModel(
+                                                firstName:
+                                                    _firstNameController.text,
+                                                lastName:
+                                                    _lastNameController.text,
+                                                addresses: [
                                               AddressesPayloadModel(
                                                   addressType: "SHIPPING",
-                                                  firstName:
-                                                      _firstNameController.text,
-                                                  lastName:
-                                                      _lastNameController.text,
                                                   country: _defaultCountry,
                                                   address1:
                                                       _firstAddressController

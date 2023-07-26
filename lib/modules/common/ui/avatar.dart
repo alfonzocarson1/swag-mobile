@@ -13,7 +13,8 @@ import '../utils/palette.dart';
 import '../utils/utils.dart';
 
 class AvatarPage extends StatefulWidget {
-  const AvatarPage({super.key, this.isFirstUse = false, this.disableChangeAvatar = false});
+  const AvatarPage(
+      {super.key, this.isFirstUse = false, this.disableChangeAvatar = false});
   final bool isFirstUse;
   final bool disableChangeAvatar;
 
@@ -75,7 +76,10 @@ class _AvatarPageState extends State<AvatarPage> {
     }
     Future.delayed(const Duration(seconds: 1)).then((value) {
       getIt<UpdateProfileBloc>().add(UpdateProfileEvent.update(
-          UpdateProfilePayloadModel(useAvatar: randomAvatar)));
+          UpdateProfilePayloadModel(
+              useAvatar: randomAvatar,
+              firstName: profileData!.firstName ?? '',
+              lastName: profileData!.lastName ?? '')));
     });
   }
 
@@ -98,37 +102,35 @@ class _AvatarPageState extends State<AvatarPage> {
             bottom: 0,
             child: GestureDetector(
               onTap: () {
-                if(widget.disableChangeAvatar == false){
-                     Navigator.of(context, rootNavigator: true)
-                    .push(UpdateAvatarBottomSheet.route(context, null))
-                    .then((imageParam) => {
-                          if (imageParam != null)
-                            {
-                              setState(() {
-                                image = imageParam;
-                              })
-                            }
-                        });
-                }else{
-
-                }
-             
+                if (widget.disableChangeAvatar == false) {
+                  Navigator.of(context, rootNavigator: true)
+                      .push(UpdateAvatarBottomSheet.route(context, null))
+                      .then((imageParam) => {
+                            if (imageParam != null)
+                              {
+                                setState(() {
+                                  image = imageParam;
+                                })
+                              }
+                          });
+                } else {}
               },
-              child: (widget.disableChangeAvatar == false) ?            
-              Container(
-                height: 35,
-                width: 35,
-                padding: const EdgeInsets.all(7.5),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(90.0),
-                    color: Palette.current.primaryNeonGreen),
-                child: Image.asset(
-                  width: 24,
-                  height: 24,
-                   'assets/images/plus.png',
-                  color: Palette.current.black,
-                ),
-              ): const SizedBox.shrink(),
+              child: (widget.disableChangeAvatar == false)
+                  ? Container(
+                      height: 35,
+                      width: 35,
+                      padding: const EdgeInsets.all(7.5),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(90.0),
+                          color: Palette.current.primaryNeonGreen),
+                      child: Image.asset(
+                        width: 24,
+                        height: 24,
+                        'assets/images/plus.png',
+                        color: Palette.current.black,
+                      ),
+                    )
+                  : const SizedBox.shrink(),
             ))
       ]),
     );
