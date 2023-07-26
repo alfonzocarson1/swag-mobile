@@ -40,7 +40,7 @@ class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
       importData: importData, 
       askEmailVerification: _askEmailVerification, 
       closeVerifyEmailModal: _closeVerifyEmailModal,
-      
+      updateName: _updateName
       );
   }
 
@@ -49,9 +49,19 @@ class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
     try {
       UpdateProfileModel responseBody =
           await updateProfileService.updateProfile(param);
+      yield UpdateProfileState.updated();
+      yield UpdateProfileState.loadedSuccess(responseBody);
+    } catch (e) {
+      yield UpdateProfileState.error(HandlingErrors().getError(e));
+    }
+  }
+
+  Stream<UpdateProfileState> _updateName(UpdateProfilePayloadModel param) async* {
+    yield UpdateProfileState.initial();
+    try {
+      UpdateProfileModel responseBody =
+      await updateProfileService.updateProfile(param);
       await getIt<ProfileCubit>().loadProfileResults();
-      ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
-      getIt<PreferenceRepositoryService>().saveProfileData(profileData);
       yield UpdateProfileState.updated();
       yield UpdateProfileState.loadedSuccess(responseBody);
     } catch (e) {
