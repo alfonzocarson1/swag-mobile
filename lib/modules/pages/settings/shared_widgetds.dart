@@ -5,8 +5,8 @@ import 'package:swagapp/modules/constants/constants.dart';
 import '../../common/utils/palette.dart';
 
 class SocialFooter extends StatelessWidget {
-  const SocialFooter({super.key});
-
+   SocialFooter({super.key, this.version});
+  String? version;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -62,7 +62,7 @@ class SocialFooter extends StatelessWidget {
             ),
             const SizedBox(height: 16.0),
             Text(
-              'Swag App v1.0.0',
+              'Swag App v$version',
               style: TextStyle(
                 fontSize: 14,
                 color: Palette.current.grey,

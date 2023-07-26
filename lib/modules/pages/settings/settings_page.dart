@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:swagapp/modules/cubits/purchase_history/purchase_history_cubit.dart';
 import 'package:swagapp/modules/pages/profile/profile_detail_page.dart';
 import 'package:swagapp/modules/pages/settings/communication/communication_page.dart';
@@ -34,12 +35,25 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  String version = '';
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    appVersion();
     getIt<PeerToPeerPaymentsCubit>().getPyments();
     getIt<PurchaseHistoryCubit>().loadPurchaseHistory();
+    print(version);
+  }
+
+   void appVersion() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+     version = packageInfo.version;
+    String buildNumber = packageInfo.buildNumber;
+    print("VERSION $version $buildNumber");
+    setState(() {
+
+    });
   }
 
   @override
@@ -207,7 +221,7 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
         ],
       ),
-      bottomNavigationBar: const SocialFooter(),
+      bottomNavigationBar:  SocialFooter(version: version),
     );
   }
 
