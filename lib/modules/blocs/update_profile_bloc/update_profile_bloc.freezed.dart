@@ -25,6 +25,7 @@ mixin _$UpdateProfileEvent {
     required TResult Function() importData,
     required TResult Function() askEmailVerification,
     required TResult Function() closeVerifyEmailModal,
+    required TResult Function(UpdateProfilePayloadModel model) updateName,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -35,6 +36,7 @@ mixin _$UpdateProfileEvent {
     TResult? Function()? importData,
     TResult? Function()? askEmailVerification,
     TResult? Function()? closeVerifyEmailModal,
+    TResult? Function(UpdateProfilePayloadModel model)? updateName,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -45,6 +47,7 @@ mixin _$UpdateProfileEvent {
     TResult Function()? importData,
     TResult Function()? askEmailVerification,
     TResult Function()? closeVerifyEmailModal,
+    TResult Function(UpdateProfilePayloadModel model)? updateName,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -56,6 +59,7 @@ mixin _$UpdateProfileEvent {
     required TResult Function(_AskEmailVerification value) askEmailVerification,
     required TResult Function(_CloseVerifyEmailModal value)
         closeVerifyEmailModal,
+    required TResult Function(_UpdateProfileNameEvent value) updateName,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -65,6 +69,7 @@ mixin _$UpdateProfileEvent {
     TResult? Function(_importDataEvent value)? importData,
     TResult? Function(_AskEmailVerification value)? askEmailVerification,
     TResult? Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
+    TResult? Function(_UpdateProfileNameEvent value)? updateName,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -74,6 +79,7 @@ mixin _$UpdateProfileEvent {
     TResult Function(_importDataEvent value)? importData,
     TResult Function(_AskEmailVerification value)? askEmailVerification,
     TResult Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
+    TResult Function(_UpdateProfileNameEvent value)? updateName,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -179,6 +185,7 @@ class _$_UpdateProfileEvent implements _UpdateProfileEvent {
     required TResult Function() importData,
     required TResult Function() askEmailVerification,
     required TResult Function() closeVerifyEmailModal,
+    required TResult Function(UpdateProfilePayloadModel model) updateName,
   }) {
     return update(model);
   }
@@ -192,6 +199,7 @@ class _$_UpdateProfileEvent implements _UpdateProfileEvent {
     TResult? Function()? importData,
     TResult? Function()? askEmailVerification,
     TResult? Function()? closeVerifyEmailModal,
+    TResult? Function(UpdateProfilePayloadModel model)? updateName,
   }) {
     return update?.call(model);
   }
@@ -205,6 +213,7 @@ class _$_UpdateProfileEvent implements _UpdateProfileEvent {
     TResult Function()? importData,
     TResult Function()? askEmailVerification,
     TResult Function()? closeVerifyEmailModal,
+    TResult Function(UpdateProfilePayloadModel model)? updateName,
     required TResult orElse(),
   }) {
     if (update != null) {
@@ -222,6 +231,7 @@ class _$_UpdateProfileEvent implements _UpdateProfileEvent {
     required TResult Function(_AskEmailVerification value) askEmailVerification,
     required TResult Function(_CloseVerifyEmailModal value)
         closeVerifyEmailModal,
+    required TResult Function(_UpdateProfileNameEvent value) updateName,
   }) {
     return update(this);
   }
@@ -234,6 +244,7 @@ class _$_UpdateProfileEvent implements _UpdateProfileEvent {
     TResult? Function(_importDataEvent value)? importData,
     TResult? Function(_AskEmailVerification value)? askEmailVerification,
     TResult? Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
+    TResult? Function(_UpdateProfileNameEvent value)? updateName,
   }) {
     return update?.call(this);
   }
@@ -246,6 +257,7 @@ class _$_UpdateProfileEvent implements _UpdateProfileEvent {
     TResult Function(_importDataEvent value)? importData,
     TResult Function(_AskEmailVerification value)? askEmailVerification,
     TResult Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
+    TResult Function(_UpdateProfileNameEvent value)? updateName,
     required TResult orElse(),
   }) {
     if (update != null) {
@@ -355,6 +367,7 @@ class _$_UpdateAvatarEvent implements _UpdateAvatarEvent {
     required TResult Function() importData,
     required TResult Function() askEmailVerification,
     required TResult Function() closeVerifyEmailModal,
+    required TResult Function(UpdateProfilePayloadModel model) updateName,
   }) {
     return updateAvatar(bytes, imageTopic, topicId);
   }
@@ -368,6 +381,7 @@ class _$_UpdateAvatarEvent implements _UpdateAvatarEvent {
     TResult? Function()? importData,
     TResult? Function()? askEmailVerification,
     TResult? Function()? closeVerifyEmailModal,
+    TResult? Function(UpdateProfilePayloadModel model)? updateName,
   }) {
     return updateAvatar?.call(bytes, imageTopic, topicId);
   }
@@ -381,6 +395,7 @@ class _$_UpdateAvatarEvent implements _UpdateAvatarEvent {
     TResult Function()? importData,
     TResult Function()? askEmailVerification,
     TResult Function()? closeVerifyEmailModal,
+    TResult Function(UpdateProfilePayloadModel model)? updateName,
     required TResult orElse(),
   }) {
     if (updateAvatar != null) {
@@ -398,6 +413,7 @@ class _$_UpdateAvatarEvent implements _UpdateAvatarEvent {
     required TResult Function(_AskEmailVerification value) askEmailVerification,
     required TResult Function(_CloseVerifyEmailModal value)
         closeVerifyEmailModal,
+    required TResult Function(_UpdateProfileNameEvent value) updateName,
   }) {
     return updateAvatar(this);
   }
@@ -410,6 +426,7 @@ class _$_UpdateAvatarEvent implements _UpdateAvatarEvent {
     TResult? Function(_importDataEvent value)? importData,
     TResult? Function(_AskEmailVerification value)? askEmailVerification,
     TResult? Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
+    TResult? Function(_UpdateProfileNameEvent value)? updateName,
   }) {
     return updateAvatar?.call(this);
   }
@@ -422,6 +439,7 @@ class _$_UpdateAvatarEvent implements _UpdateAvatarEvent {
     TResult Function(_importDataEvent value)? importData,
     TResult Function(_AskEmailVerification value)? askEmailVerification,
     TResult Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
+    TResult Function(_UpdateProfileNameEvent value)? updateName,
     required TResult orElse(),
   }) {
     if (updateAvatar != null) {
@@ -488,6 +506,7 @@ class _$_importDataEvent implements _importDataEvent {
     required TResult Function() importData,
     required TResult Function() askEmailVerification,
     required TResult Function() closeVerifyEmailModal,
+    required TResult Function(UpdateProfilePayloadModel model) updateName,
   }) {
     return importData();
   }
@@ -501,6 +520,7 @@ class _$_importDataEvent implements _importDataEvent {
     TResult? Function()? importData,
     TResult? Function()? askEmailVerification,
     TResult? Function()? closeVerifyEmailModal,
+    TResult? Function(UpdateProfilePayloadModel model)? updateName,
   }) {
     return importData?.call();
   }
@@ -514,6 +534,7 @@ class _$_importDataEvent implements _importDataEvent {
     TResult Function()? importData,
     TResult Function()? askEmailVerification,
     TResult Function()? closeVerifyEmailModal,
+    TResult Function(UpdateProfilePayloadModel model)? updateName,
     required TResult orElse(),
   }) {
     if (importData != null) {
@@ -531,6 +552,7 @@ class _$_importDataEvent implements _importDataEvent {
     required TResult Function(_AskEmailVerification value) askEmailVerification,
     required TResult Function(_CloseVerifyEmailModal value)
         closeVerifyEmailModal,
+    required TResult Function(_UpdateProfileNameEvent value) updateName,
   }) {
     return importData(this);
   }
@@ -543,6 +565,7 @@ class _$_importDataEvent implements _importDataEvent {
     TResult? Function(_importDataEvent value)? importData,
     TResult? Function(_AskEmailVerification value)? askEmailVerification,
     TResult? Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
+    TResult? Function(_UpdateProfileNameEvent value)? updateName,
   }) {
     return importData?.call(this);
   }
@@ -555,6 +578,7 @@ class _$_importDataEvent implements _importDataEvent {
     TResult Function(_importDataEvent value)? importData,
     TResult Function(_AskEmailVerification value)? askEmailVerification,
     TResult Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
+    TResult Function(_UpdateProfileNameEvent value)? updateName,
     required TResult orElse(),
   }) {
     if (importData != null) {
@@ -613,6 +637,7 @@ class _$_AskEmailVerification implements _AskEmailVerification {
     required TResult Function() importData,
     required TResult Function() askEmailVerification,
     required TResult Function() closeVerifyEmailModal,
+    required TResult Function(UpdateProfilePayloadModel model) updateName,
   }) {
     return askEmailVerification();
   }
@@ -626,6 +651,7 @@ class _$_AskEmailVerification implements _AskEmailVerification {
     TResult? Function()? importData,
     TResult? Function()? askEmailVerification,
     TResult? Function()? closeVerifyEmailModal,
+    TResult? Function(UpdateProfilePayloadModel model)? updateName,
   }) {
     return askEmailVerification?.call();
   }
@@ -639,6 +665,7 @@ class _$_AskEmailVerification implements _AskEmailVerification {
     TResult Function()? importData,
     TResult Function()? askEmailVerification,
     TResult Function()? closeVerifyEmailModal,
+    TResult Function(UpdateProfilePayloadModel model)? updateName,
     required TResult orElse(),
   }) {
     if (askEmailVerification != null) {
@@ -656,6 +683,7 @@ class _$_AskEmailVerification implements _AskEmailVerification {
     required TResult Function(_AskEmailVerification value) askEmailVerification,
     required TResult Function(_CloseVerifyEmailModal value)
         closeVerifyEmailModal,
+    required TResult Function(_UpdateProfileNameEvent value) updateName,
   }) {
     return askEmailVerification(this);
   }
@@ -668,6 +696,7 @@ class _$_AskEmailVerification implements _AskEmailVerification {
     TResult? Function(_importDataEvent value)? importData,
     TResult? Function(_AskEmailVerification value)? askEmailVerification,
     TResult? Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
+    TResult? Function(_UpdateProfileNameEvent value)? updateName,
   }) {
     return askEmailVerification?.call(this);
   }
@@ -680,6 +709,7 @@ class _$_AskEmailVerification implements _AskEmailVerification {
     TResult Function(_importDataEvent value)? importData,
     TResult Function(_AskEmailVerification value)? askEmailVerification,
     TResult Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
+    TResult Function(_UpdateProfileNameEvent value)? updateName,
     required TResult orElse(),
   }) {
     if (askEmailVerification != null) {
@@ -738,6 +768,7 @@ class _$_CloseVerifyEmailModal implements _CloseVerifyEmailModal {
     required TResult Function() importData,
     required TResult Function() askEmailVerification,
     required TResult Function() closeVerifyEmailModal,
+    required TResult Function(UpdateProfilePayloadModel model) updateName,
   }) {
     return closeVerifyEmailModal();
   }
@@ -751,6 +782,7 @@ class _$_CloseVerifyEmailModal implements _CloseVerifyEmailModal {
     TResult? Function()? importData,
     TResult? Function()? askEmailVerification,
     TResult? Function()? closeVerifyEmailModal,
+    TResult? Function(UpdateProfilePayloadModel model)? updateName,
   }) {
     return closeVerifyEmailModal?.call();
   }
@@ -764,6 +796,7 @@ class _$_CloseVerifyEmailModal implements _CloseVerifyEmailModal {
     TResult Function()? importData,
     TResult Function()? askEmailVerification,
     TResult Function()? closeVerifyEmailModal,
+    TResult Function(UpdateProfilePayloadModel model)? updateName,
     required TResult orElse(),
   }) {
     if (closeVerifyEmailModal != null) {
@@ -781,6 +814,7 @@ class _$_CloseVerifyEmailModal implements _CloseVerifyEmailModal {
     required TResult Function(_AskEmailVerification value) askEmailVerification,
     required TResult Function(_CloseVerifyEmailModal value)
         closeVerifyEmailModal,
+    required TResult Function(_UpdateProfileNameEvent value) updateName,
   }) {
     return closeVerifyEmailModal(this);
   }
@@ -793,6 +827,7 @@ class _$_CloseVerifyEmailModal implements _CloseVerifyEmailModal {
     TResult? Function(_importDataEvent value)? importData,
     TResult? Function(_AskEmailVerification value)? askEmailVerification,
     TResult? Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
+    TResult? Function(_UpdateProfileNameEvent value)? updateName,
   }) {
     return closeVerifyEmailModal?.call(this);
   }
@@ -805,6 +840,7 @@ class _$_CloseVerifyEmailModal implements _CloseVerifyEmailModal {
     TResult Function(_importDataEvent value)? importData,
     TResult Function(_AskEmailVerification value)? askEmailVerification,
     TResult Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
+    TResult Function(_UpdateProfileNameEvent value)? updateName,
     required TResult orElse(),
   }) {
     if (closeVerifyEmailModal != null) {
@@ -816,6 +852,180 @@ class _$_CloseVerifyEmailModal implements _CloseVerifyEmailModal {
 
 abstract class _CloseVerifyEmailModal implements UpdateProfileEvent {
   const factory _CloseVerifyEmailModal() = _$_CloseVerifyEmailModal;
+}
+
+/// @nodoc
+abstract class _$$_UpdateProfileNameEventCopyWith<$Res> {
+  factory _$$_UpdateProfileNameEventCopyWith(_$_UpdateProfileNameEvent value,
+          $Res Function(_$_UpdateProfileNameEvent) then) =
+      __$$_UpdateProfileNameEventCopyWithImpl<$Res>;
+  @useResult
+  $Res call({UpdateProfilePayloadModel model});
+
+  $UpdateProfilePayloadModelCopyWith<$Res> get model;
+}
+
+/// @nodoc
+class __$$_UpdateProfileNameEventCopyWithImpl<$Res>
+    extends _$UpdateProfileEventCopyWithImpl<$Res, _$_UpdateProfileNameEvent>
+    implements _$$_UpdateProfileNameEventCopyWith<$Res> {
+  __$$_UpdateProfileNameEventCopyWithImpl(_$_UpdateProfileNameEvent _value,
+      $Res Function(_$_UpdateProfileNameEvent) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? model = null,
+  }) {
+    return _then(_$_UpdateProfileNameEvent(
+      null == model
+          ? _value.model
+          : model // ignore: cast_nullable_to_non_nullable
+              as UpdateProfilePayloadModel,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UpdateProfilePayloadModelCopyWith<$Res> get model {
+    return $UpdateProfilePayloadModelCopyWith<$Res>(_value.model, (value) {
+      return _then(_value.copyWith(model: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$_UpdateProfileNameEvent implements _UpdateProfileNameEvent {
+  const _$_UpdateProfileNameEvent(this.model);
+
+  @override
+  final UpdateProfilePayloadModel model;
+
+  @override
+  String toString() {
+    return 'UpdateProfileEvent.updateName(model: $model)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_UpdateProfileNameEvent &&
+            (identical(other.model, model) || other.model == model));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, model);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_UpdateProfileNameEventCopyWith<_$_UpdateProfileNameEvent> get copyWith =>
+      __$$_UpdateProfileNameEventCopyWithImpl<_$_UpdateProfileNameEvent>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(UpdateProfilePayloadModel model) update,
+    required TResult Function(
+            Uint8List bytes, String imageTopic, String topicId)
+        updateAvatar,
+    required TResult Function() importData,
+    required TResult Function() askEmailVerification,
+    required TResult Function() closeVerifyEmailModal,
+    required TResult Function(UpdateProfilePayloadModel model) updateName,
+  }) {
+    return updateName(model);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(UpdateProfilePayloadModel model)? update,
+    TResult? Function(Uint8List bytes, String imageTopic, String topicId)?
+        updateAvatar,
+    TResult? Function()? importData,
+    TResult? Function()? askEmailVerification,
+    TResult? Function()? closeVerifyEmailModal,
+    TResult? Function(UpdateProfilePayloadModel model)? updateName,
+  }) {
+    return updateName?.call(model);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(UpdateProfilePayloadModel model)? update,
+    TResult Function(Uint8List bytes, String imageTopic, String topicId)?
+        updateAvatar,
+    TResult Function()? importData,
+    TResult Function()? askEmailVerification,
+    TResult Function()? closeVerifyEmailModal,
+    TResult Function(UpdateProfilePayloadModel model)? updateName,
+    required TResult orElse(),
+  }) {
+    if (updateName != null) {
+      return updateName(model);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_UpdateProfileEvent value) update,
+    required TResult Function(_UpdateAvatarEvent value) updateAvatar,
+    required TResult Function(_importDataEvent value) importData,
+    required TResult Function(_AskEmailVerification value) askEmailVerification,
+    required TResult Function(_CloseVerifyEmailModal value)
+        closeVerifyEmailModal,
+    required TResult Function(_UpdateProfileNameEvent value) updateName,
+  }) {
+    return updateName(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_UpdateProfileEvent value)? update,
+    TResult? Function(_UpdateAvatarEvent value)? updateAvatar,
+    TResult? Function(_importDataEvent value)? importData,
+    TResult? Function(_AskEmailVerification value)? askEmailVerification,
+    TResult? Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
+    TResult? Function(_UpdateProfileNameEvent value)? updateName,
+  }) {
+    return updateName?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_UpdateProfileEvent value)? update,
+    TResult Function(_UpdateAvatarEvent value)? updateAvatar,
+    TResult Function(_importDataEvent value)? importData,
+    TResult Function(_AskEmailVerification value)? askEmailVerification,
+    TResult Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
+    TResult Function(_UpdateProfileNameEvent value)? updateName,
+    required TResult orElse(),
+  }) {
+    if (updateName != null) {
+      return updateName(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UpdateProfileNameEvent implements UpdateProfileEvent {
+  const factory _UpdateProfileNameEvent(final UpdateProfilePayloadModel model) =
+      _$_UpdateProfileNameEvent;
+
+  UpdateProfilePayloadModel get model;
+  @JsonKey(ignore: true)
+  _$$_UpdateProfileNameEventCopyWith<_$_UpdateProfileNameEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

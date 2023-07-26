@@ -41,6 +41,10 @@ bool isValidPassword(String password) {
       .hasMatch(password);
 }
 
+bool isValidName(String name){
+  return RegExp(r"^[a-zA-Z]+$").hasMatch(name);
+}
+
 bool isValidUsername(String username) {
   return RegExp(r"^.{4,20}$").hasMatch(username);
 }

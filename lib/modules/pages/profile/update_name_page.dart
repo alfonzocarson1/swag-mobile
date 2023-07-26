@@ -17,6 +17,7 @@ import 'package:swagapp/modules/models/update_profile/update_profile_payload_mod
 import '../../../generated/l10n.dart';
 import '../../common/ui/dynamic_toast_messages.dart';
 import '../../common/ui/loading.dart';
+import '../../common/utils/utils.dart';
 
 class UpdateNamePage extends StatefulWidget {
   static const name = '/UpdateNamePage';
@@ -24,9 +25,9 @@ class UpdateNamePage extends StatefulWidget {
   const UpdateNamePage({super.key});
 
   static Route route() => PageRoutes.material(
-    settings: const RouteSettings(name: name),
-    builder: (context) => const UpdateNamePage(),
-  );
+        settings: const RouteSettings(name: name),
+        builder: (context) => const UpdateNamePage(),
+      );
 
   @override
   State<UpdateNamePage> createState() => _UpdateNamePage();
@@ -62,7 +63,6 @@ class _UpdateNamePage extends State<UpdateNamePage> {
         });
       }
       setState(() {
-
         _firstNameBorder = _firstNameNode.hasFocus
             ? Palette.current.primaryNeonGreen
             : Palette.current.primaryWhiteSmoke;
@@ -76,13 +76,11 @@ class _UpdateNamePage extends State<UpdateNamePage> {
         });
       }
       setState(() {
-
         _lastNameBorder = _lastNameNode.hasFocus
             ? Palette.current.primaryNeonGreen
             : Palette.current.primaryWhiteSmoke;
       });
     });
-
   }
 
   @override
@@ -108,23 +106,22 @@ class _UpdateNamePage extends State<UpdateNamePage> {
         ),
         body: BlocListener<UpdateProfileBloc, UpdateProfileState>(
             listener: (context, state) => state.maybeWhen(
-              orElse: () {
-                return null;
-              },
-              updated: () {
-                Loading.hide(context);
-                Navigator.of(context).pop();
-                return null;
-              },
-              initial: () {
-                return Loading.show(context);
-              },
-              error: (message) => {
-
-                Loading.hide(context),
-                // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
-              },
-            ),
+                  orElse: () {
+                    return null;
+                  },
+                  updated: () {
+                    Loading.hide(context);
+                    Navigator.of(context).pop(true);
+                    return null;
+                  },
+                  initial: () {
+                    return Loading.show(context);
+                  },
+                  error: (message) => {
+                    Loading.hide(context),
+                    // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
+                  },
+                ),
             child: _getBody()));
   }
 
@@ -151,10 +148,9 @@ class _UpdateNamePage extends State<UpdateNamePage> {
                         const SizedBox(
                           height: 30,
                         ),
-
                         CustomTextFormField(
                             textCapitalization: TextCapitalization.sentences,
-                            onChanged: (text){
+                            onChanged: (text) {
                               setState(() {
                                 errorFirstText = null;
                               });
@@ -171,7 +167,7 @@ class _UpdateNamePage extends State<UpdateNamePage> {
                           height: 20,
                         ),
                         CustomTextFormField(
-                          textCapitalization: TextCapitalization.sentences,
+                            textCapitalization: TextCapitalization.sentences,
                             onChanged: (text) {
                               setState(() {
                                 errorSecondText = null;
@@ -185,20 +181,19 @@ class _UpdateNamePage extends State<UpdateNamePage> {
                             controller: _lastNameController,
                             secure: false,
                             inputType: TextInputType.text),
-                         SizedBox(
+                        SizedBox(
                           height: MediaQuery.of(context).size.height * 0.49,
                         ),
                         PrimaryButton(
                           title: 'SAVE',
                           onPressed: () {
-                             showErrors();
+                            showErrors();
                             if (enableSaveButton) {
-                              context.read<UpdateProfileBloc>().add(UpdateProfileEvent.update(
-                                UpdateProfilePayloadModel(
-                                  firstName: _firstNameController.text,
-                                  lastName: _lastNameController.text
-                                )
-                              ));
+                              context.read<UpdateProfileBloc>().add(
+                                  UpdateProfileEvent.updateName(
+                                      UpdateProfilePayloadModel(
+                                          firstName: _firstNameController.text,
+                                          lastName: _lastNameController.text)));
                             }
                           },
                           type: PrimaryButtonType.green,
@@ -220,13 +215,22 @@ class _UpdateNamePage extends State<UpdateNamePage> {
     setState(() {
       errorFirstText = _firstNameController.text.isEmpty
           ? S.of(context).required_field
-          :  null;
+          : isValidName(_firstNameController.text)
+              ? null
+              : "Only allow letters";
 
       errorSecondText = _lastNameController.text.isEmpty
           ? S.of(context).required_field
-          : null;
+          : isValidName(_lastNameController.text)
+              ? null
+              : "Only allow letters";
 
-      enableSaveButton = (_firstNameController.text.isNotEmpty && _lastNameController.text.isNotEmpty) ? true: false;
+      enableSaveButton = (_firstNameController.text.isNotEmpty &&
+              _lastNameController.text.isNotEmpty &&
+              isValidName(_firstNameController.text) &&
+              isValidName(_lastNameController.text))
+          ? true
+          : false;
     });
   }
 }

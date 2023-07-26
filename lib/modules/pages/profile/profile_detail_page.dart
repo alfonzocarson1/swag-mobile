@@ -5,6 +5,7 @@ import 'package:swagapp/modules/cubits/profile/get_profile_cubit.dart';
 import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
 import 'package:swagapp/modules/di/injector.dart';
 import 'package:swagapp/modules/models/profile/profile_model.dart';
+import 'package:swagapp/modules/pages/login/landing_page.dart';
 import 'package:swagapp/modules/pages/profile/update_name_page.dart';
 import '../../../generated/l10n.dart';
 import '../../common/ui/pushed_header.dart';
@@ -36,7 +37,8 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-
+    ProfileModel profileData =
+    getIt<PreferenceRepositoryService>().profileData();
     return Scaffold(
       appBar: PushedHeader(
         showBackButton: true,
@@ -53,11 +55,7 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
         height: 70,
       ),
       backgroundColor: Palette.current.primaryNero,
-      body: BlocBuilder<ProfileCubit, ProfileCubitState>(
-        builder: (context, state) {
-          ProfileModel profileData =
-          getIt<PreferenceRepositoryService>().profileData();
-          return Column(
+      body: Column(
             children: [
               Expanded(
                 child: LayoutBuilder(builder: (context, viewportConstraints) {
@@ -73,9 +71,15 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                                 'assets/icons/BlockUserWhite.png',
                                 S.of(context).profile_name_title,
                                 '${profileData.firstName ?? ''} ${profileData.lastName ?? ''}',
-                                    () {
-                                  Navigator.of(context, rootNavigator: true)
+                                    () async {
+                                  final result = await Navigator.of(context, rootNavigator: true)
                                       .push(UpdateNamePage.route());
+                                  if(result) {
+                                    print("BACK");
+                                    setState(() {
+
+                                    });
+                                  }
                                 },
                                 true,
                                 '',
@@ -177,7 +181,9 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                               padding: EdgeInsets.symmetric(horizontal: 20),
                               child: PrimaryButton(
                                 title: S.of(context).sign_out.toUpperCase(),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.of(context).pushAndRemoveUntil(LandingPage.route(), (route) => false);
+                                },
                                 type: PrimaryButtonType.pink,
                               ),
                             )
@@ -187,10 +193,8 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                 }),
               ),
             ],
-          );
-        }
-      )
-    );
+          )
+      );
   }
 
   Widget _selectTile(
