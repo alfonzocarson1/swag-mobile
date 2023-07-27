@@ -72,7 +72,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
         child: SafeArea(
           child: Column(
             children: [
-              const SizedBox(height: 30),
+              const SizedBox(height: 15),
               Image.asset(
                 "assets/images/logo.png",
                 width: 110,
@@ -97,7 +97,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                           length: pages.length,
                           selectedIndex: _page,
                         ),
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 15),
                         TextButton(
                           onPressed: finishOnboarding,
                           child: Text(
@@ -148,13 +148,13 @@ class OnboardingTabPage extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        const SizedBox(height: 55),
+        const SizedBox(height: 40),
         Image.asset(
           imagePath,
           height: 350,
           fit: BoxFit.contain,
         ),
-        const SizedBox(height: 30),
+        const SizedBox(height: 25),
         Text(
           title.toUpperCase(),
           style: TextStyle(
@@ -166,7 +166,7 @@ class OnboardingTabPage extends StatelessWidget {
           ),
           textAlign: TextAlign.center,
         ),
-        const SizedBox(height: 24),
+        const SizedBox(height: 10),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 38),
           child: Text(
