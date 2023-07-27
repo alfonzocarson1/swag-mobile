@@ -178,7 +178,7 @@ class _AlertPageState extends State<AlertPage> {
                           itemBuilder: (context, index) {
                             final item = alertList!.alertList[index];
                             return ListTile(
-                              onTap: () {
+                              onTap: () async {
                                 getIt<AlertCubit>()
                                     .readAlert(item.notificationAlertId ?? '');
 
@@ -238,6 +238,11 @@ class _AlertPageState extends State<AlertPage> {
                                       .push(PurchaseHistoryDetailsPage.route(
                                           item.payload!.purchaseHistoryId ??
                                               ''));
+
+                                  await Future.delayed(
+                                      const Duration(milliseconds: 1000),
+                                      () {});
+
                                   showDialog(
                                       context: context,
                                       barrierDismissible: false,
@@ -277,6 +282,10 @@ class _AlertPageState extends State<AlertPage> {
                                                         .productItemId ??
                                                     '',
                                               )));
+
+                                  await Future.delayed(
+                                      const Duration(milliseconds: 1000),
+                                      () {});
                                   showDialog(
                                       context: context,
                                       barrierDismissible: false,
