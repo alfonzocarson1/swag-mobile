@@ -10,6 +10,7 @@ import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
 
 import '../../../common/utils/utils.dart';
+import '../../../cubits/public_profile/public_profile_cubit.dart';
 import '../../../cubits/sold/get_sold_cubit.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
@@ -71,6 +72,11 @@ class _SoldDetailPageState extends State<SoldDetailPage> {
                   loadedSoldDetailItem: (ProductItemSold dataSoldDetail) {
                     setState(() {
                       soldItemData = dataSoldDetail;
+
+                      context.read<PublicProfileCubit>().loadProfile(
+                            soldItemData.submitPurchaseInfo!.buyerAccountId ??
+                                '',
+                          );
 
                       if (soldItemData.submitPurchaseInfo != null) {
                         if (soldItemData.submitPurchaseInfo!.avatarBuyer !=
@@ -298,15 +304,55 @@ class _SoldDetailPageState extends State<SoldDetailPage> {
                                                                 radius: 75,
                                                               ),
                                                             ),
-                                                            const Positioned(
-                                                                bottom: -1,
-                                                                right: -1,
-                                                                child: Image(
-                                                                  image: AssetImage(
-                                                                      'assets/images/Verifyindicator.png'),
-                                                                  width: 20,
-                                                                  height: 20,
-                                                                )),
+                                                            BlocConsumer<
+                                                                PublicProfileCubit,
+                                                                PublicProfileState>(
+                                                              listener:
+                                                                  (context,
+                                                                      state) {},
+                                                              builder: (context,
+                                                                  state) {
+                                                                return state
+                                                                    .maybeWhen(
+                                                                  error: (e,
+                                                                          previousData) =>
+                                                                      Center(
+                                                                    child: Text(
+                                                                      "Error loading profile: $e",
+                                                                      style: Theme.of(
+                                                                              context)
+                                                                          .textTheme
+                                                                          .bodySmall!
+                                                                          .copyWith(
+                                                                            color:
+                                                                                Palette.current.primaryNeonPink,
+                                                                          ),
+                                                                    ),
+                                                                  ),
+                                                                  loaded: (data) => data
+                                                                              .kycverified ??
+                                                                          false
+                                                                      ? const Positioned(
+                                                                          bottom:
+                                                                              -1,
+                                                                          right:
+                                                                              -1,
+                                                                          child:
+                                                                              Image(
+                                                                            image:
+                                                                                AssetImage('assets/images/Verifyindicator.png'),
+                                                                            width:
+                                                                                20,
+                                                                            height:
+                                                                                20,
+                                                                          ))
+                                                                      : const SizedBox(),
+                                                                  orElse: () {
+                                                                    return Container();
+                                                                  },
+                                                                );
+                                                              },
+                                                            ),
                                                           ],
                                                         ),
                                                       ),
