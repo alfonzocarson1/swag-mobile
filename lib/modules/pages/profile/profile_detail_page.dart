@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/blocs/auth_bloc/auth_bloc.dart';
+import 'package:swagapp/modules/common/ui/email_verification_popup.dart';
 import 'package:swagapp/modules/common/ui/loading.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/cubits/profile/get_profile_cubit.dart';
@@ -266,13 +267,25 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                       color: Palette.current.darkGray,
                     )
                   : Image.asset(rightIconUrl, width: 20, height: 20)
-              : Text(status,
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      fontWeight: FontWeight.w300,
-                      color: status == S.of(context).email_verified ?
-                      Palette.current.primaryNeonGreen
-                          : Palette.current.primaryNeonPink,
-                      fontSize: 16))),
+              : GestureDetector(
+            onTap: (){
+              showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  barrierColor: Colors.black,
+                  builder: (BuildContext context) {
+                    return EmailVerificationPopup();
+                  });
+            },
+            child: Text(status,
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    fontWeight: FontWeight.w300,
+                    color: status == S.of(context).email_verified ?
+                    Palette.current.primaryNeonGreen
+                        : Palette.current.primaryNeonPink,
+                    fontSize: 16)),
+          )
+      ),
     );
   }
 }
