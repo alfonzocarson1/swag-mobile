@@ -5,9 +5,6 @@ import 'package:swagapp/modules/blocs/update_profile_bloc/update_profile_bloc.da
 import 'package:swagapp/modules/common/ui/loading.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
-import 'package:swagapp/modules/di/injector%20copy.dart';
-
-import '../../../generated/l10n.dart';
 import 'dynamic_toast_messages.dart';
 
 class EmailVerificationPopup extends StatefulWidget {
