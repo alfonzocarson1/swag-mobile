@@ -278,19 +278,6 @@ class _RatingBuyerState extends State<RatingBuyer> {
                                       listingFeedbackMessage: ratingReason),
                                 );
                                 Navigator.of(context).pop();
-
-                                if (widget.seller) {
-                                  Navigator.of(context, rootNavigator: true)
-                                      .push(MaterialPageRoute(
-                                          builder: (context) => SoldDetailPage(
-                                                productItemId:
-                                                    widget.productItemId,
-                                              )));
-                                } else {
-                                  Navigator.of(context, rootNavigator: true)
-                                      .push(PurchaseHistoryDetailsPage.route(
-                                          widget.purchaseHistoryId));
-                                }
                               }
                             },
                             type: PrimaryButtonType.green,

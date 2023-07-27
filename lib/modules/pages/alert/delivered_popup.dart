@@ -160,10 +160,6 @@ class _DeliveredPopUpState extends State<DeliveredPopUp> {
                             S.of(context).delivered_not_yet_alert);
 
                         Navigator.of(context).pop();
-
-                        Navigator.of(context, rootNavigator: true).push(
-                            PurchaseHistoryDetailsPage.route(
-                                widget.purchaseHistoryId));
                       });
                     },
                     type: PrimaryButtonType.pink,
