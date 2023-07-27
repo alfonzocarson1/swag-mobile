@@ -25,6 +25,7 @@ class Payload {
   Address address;
   String productId;
   PaymentMethod paymentMethod;
+  PaymentMethod paymentMethodOption;
   String userNameSeller;
   String userNameBuyer;
   String trackingNumber;
@@ -39,6 +40,7 @@ class Payload {
       required this.trackingNumber,
       required this.productId,
       required this.paymentMethod,
+      required this.paymentMethodOption,
       required this.userNameSeller,
       required this.userNameBuyer,
       required this.listingPrice,
@@ -53,6 +55,8 @@ class Payload {
             (json.containsKey('trackingNumber')) ? json["trackingNumber"] : '',
         productId: json["productId"],
         paymentMethod: PaymentMethod.fromJson(json["PaymentMethod"]),
+        paymentMethodOption:
+            PaymentMethod.fromJson(json["PaymentMethodOption"]),
         userNameSeller: json["userNameSeller"],
         userNameBuyer: json["userNameBuyer"],
         listingPrice: json["listingPrice"],

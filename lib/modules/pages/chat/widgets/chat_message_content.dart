@@ -126,10 +126,10 @@ class _ContentState extends State<_Content> with AutomaticKeepAliveClientMixin {
         return S.current.chatCardConfirmPaymentSeller(
             messageData.payload.userNameBuyer,
             messageData.payload.userNameSeller,
-            getPaymentMehotd(messageData.payload.paymentMethod),
+            getPaymentMehotd(messageData.payload.paymentMethodOption),
             decimalDigitsLastSalePrice(
                 messageData.payload.listingPrice.toString()),
-            getPaymentMehotdUser(messageData.payload.paymentMethod));
+            getPaymentMehotdUser(messageData.payload.paymentMethodOption));
       } else if (messageData.type ==
           ChatMessageDataType.paymentReceived.textValue) {
         return S.current

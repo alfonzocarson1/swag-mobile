@@ -117,17 +117,19 @@ class _CardContentState extends State<_CardContent> {
       return S.current.chatCardConfirmPaymentBuyer(
           this.widget.messageData.payload.userNameBuyer,
           this.widget.messageData.payload.userNameSeller,
-          this.getPaymentMehotd(this.widget.messageData.payload.paymentMethod),
+          this.getPaymentMehotd(
+              this.widget.messageData.payload.paymentMethodOption),
           decimalDigitsLastSalePrice(
               this.widget.messageData.payload.listingPrice.toString()),
           this.getPaymentMehotdUser(
-              this.widget.messageData.payload.paymentMethod));
+              this.widget.messageData.payload.paymentMethodOption));
     }
     if (this.widget.messageData.type ==
         ChatMessageDataType.confirmPaymentReceived.textValue) {
       return S.current.chatCardPaymentReceivedSeller(
           this.widget.messageData.payload.userNameBuyer,
-          this.getPaymentMehotd(this.widget.messageData.payload.paymentMethod));
+          this.getPaymentMehotd(
+              this.widget.messageData.payload.paymentMethodOption));
     }
 
     if (this.widget.messageData.type ==
