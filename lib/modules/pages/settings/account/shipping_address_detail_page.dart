@@ -36,7 +36,7 @@ class _ShippingAddressDetailPageState extends State<ShippingAddressDetailPage> {
   ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
   @override
   Widget build(BuildContext context) {
-     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
           profileData = getIt<PreferenceRepositoryService>().profileData();
         }));
     return Scaffold(
@@ -110,8 +110,9 @@ class _ShippingAddressDetailPageState extends State<ShippingAddressDetailPage> {
                                 onPressed: () {
                                   Navigator.of(context, rootNavigator: true)
                                       .push(AddShippingAddressPage.route(
-                                    profileData.addresses![widget.addressIndex],
-                                  ));
+                                          profileData
+                                              .addresses![widget.addressIndex],
+                                          () {}));
                                 }),
                           ),
                         ),

@@ -12,6 +12,7 @@ class CupertinoPickerView extends StatefulWidget {
     this.onDone,
     this.errorText,
     this.looping,
+    this.showPicker = true,
   }) : super(key: key);
 
   void Function(int)? onDone;
@@ -20,6 +21,7 @@ class CupertinoPickerView extends StatefulWidget {
   final List<dynamic>? cupertinoPickerItems;
   final String? errorText;
   final bool? looping;
+  bool? showPicker;
   @override
   _CupertinoPickerViewState createState() => _CupertinoPickerViewState();
 }
@@ -46,12 +48,14 @@ class _CupertinoPickerViewState extends State<CupertinoPickerView> {
         children: [
           InkWell(
             onTap: () {
-              showCupertinoModalPopup<void>(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return _buildBottomPicker(
-                        context, _buildCupertinoPicker(), widget.onDone!);
-                  });
+              if (widget.showPicker ?? true) {
+                showCupertinoModalPopup<void>(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return _buildBottomPicker(
+                          context, _buildCupertinoPicker(), widget.onDone!);
+                    });
+              }
             },
             child: Column(
               children: [

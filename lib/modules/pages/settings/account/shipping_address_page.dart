@@ -104,8 +104,8 @@ class _ShippingAddressPageState extends State<ShippingAddressPage> {
                                     ))),
                         ListTile(
                           onTap: () {
-                            Navigator.of(context, rootNavigator: true)
-                                .push(AddShippingAddressPage.route(null));
+                            Navigator.of(context, rootNavigator: true).push(
+                                AddShippingAddressPage.route(null, () {}));
                           },
                           leading: Icon(
                             Icons.add,
