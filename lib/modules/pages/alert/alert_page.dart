@@ -20,6 +20,8 @@ import '../../models/alerts/alert_response_model.dart';
 import '../../models/chat/chat_data.dart';
 import '../add/buy/preview_buy_for_sale.dart';
 import '../chat/chat_page.dart';
+import '../profile/sold/sold_detail_page.dart';
+import '../settings/purchase_history/purchase_history_details/purchase_history_details_page.dart';
 import 'delivered_popup.dart';
 
 class AlertPage extends StatefulWidget {
@@ -232,6 +234,10 @@ class _AlertPageState extends State<AlertPage> {
                                 }
 
                                 if (item.payload!.dateItemShipped != null) {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(PurchaseHistoryDetailsPage.route(
+                                          item.payload!.purchaseHistoryId ??
+                                              ''));
                                   showDialog(
                                       context: context,
                                       barrierDismissible: false,
@@ -264,6 +270,13 @@ class _AlertPageState extends State<AlertPage> {
                                     item.payload!.listingStatus !=
                                         ListingStatusDataType
                                             .listed.textValue) {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(MaterialPageRoute(
+                                          builder: (context) => SoldDetailPage(
+                                                productItemId: item.payload!
+                                                        .productItemId ??
+                                                    '',
+                                              )));
                                   showDialog(
                                       context: context,
                                       barrierDismissible: false,
