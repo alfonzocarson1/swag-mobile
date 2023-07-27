@@ -462,6 +462,33 @@ class MessageLookup extends MessageLookupByLibrary {
             "You will be notified when this item is available."),
         "notify_available":
             MessageLookupByLibrary.simpleMessage("NOTIFY ME WHEN AVAILABLE"),
+        "onboarding_atomic_drops_description": MessageLookupByLibrary.simpleMessage(
+            "Atomic Drops are live product drops where you can grab new gear directly from Swag. Don\'t worry, getting cart sniped is more fun on the app anyway."),
+        "onboarding_atomic_drops_title":
+            MessageLookupByLibrary.simpleMessage("Atomic Drops"),
+        "onboarding_discover_description": MessageLookupByLibrary.simpleMessage(
+            "Easily search the Swag archive and see what is being sold by other collectors."),
+        "onboarding_discover_title":
+            MessageLookupByLibrary.simpleMessage("DISCOVER"),
+        "onboarding_finish_btn":
+            MessageLookupByLibrary.simpleMessage("Let’s Go"),
+        "onboarding_kyc_description": MessageLookupByLibrary.simpleMessage(
+            "Verify your identity! Verified people have a better change at hitting on Atomic Drops!"),
+        "onboarding_kyc_title":
+            MessageLookupByLibrary.simpleMessage("Verified Identity"),
+        "onboarding_payment_description": MessageLookupByLibrary.simpleMessage(
+            "When you purchase items on the secondary market, the Swag App will help facilitate payment using private chat rooms and peer-to-peer payment systems like Venmo, CashApp, and PayPal."),
+        "onboarding_payment_title":
+            MessageLookupByLibrary.simpleMessage("BUY/Payment"),
+        "onboarding_skip_btn": MessageLookupByLibrary.simpleMessage("Skip"),
+        "onboarding_swag_description": MessageLookupByLibrary.simpleMessage(
+            "Sell Swag items to other collectors by listing items from your collection."),
+        "onboarding_swag_title":
+            MessageLookupByLibrary.simpleMessage("Sell Your Swag"),
+        "onboarding_welcome_description": MessageLookupByLibrary.simpleMessage(
+            "Welcome to the Swag App! It\'s your one-stop shop for all things Swag: buy, sell, and participate in drops all from your phone."),
+        "onboarding_welcome_title":
+            MessageLookupByLibrary.simpleMessage("WELCOME"),
         "paid": MessageLookupByLibrary.simpleMessage("Paid:"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "password_helper": MessageLookupByLibrary.simpleMessage(

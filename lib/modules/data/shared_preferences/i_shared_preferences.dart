@@ -51,6 +51,9 @@ abstract class PreferenceRepositoryInt {
   bool loginAfterGuest();
   Future<void> saveloginAfterGuest(bool value);
 
+  bool shouldShowOnboarding();
+  Future<void> saveShouldShowOnboarding(bool value);
+
   Future<String> validCode();
   Future<void> saveValidCode(String value);
 

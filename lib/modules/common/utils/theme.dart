@@ -111,7 +111,7 @@ ElevatedButtonThemeData _elevatedButtonTheme(Palette palette) {
 TextButtonThemeData _textButtonTheme(Palette palette) {
   return TextButtonThemeData(
     style: ButtonStyle(
-      backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+      backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
       minimumSize: MaterialStateProperty.all<Size>(const Size(88.0, 36.0)),
       foregroundColor:
           MaterialStateProperty.all<Color>(palette.primaryNeonGreen),

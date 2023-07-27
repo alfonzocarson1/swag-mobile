@@ -3956,6 +3956,146 @@ class S {
     );
   }
 
+  /// `WELCOME`
+  String get onboarding_welcome_title {
+    return Intl.message(
+      'WELCOME',
+      name: 'onboarding_welcome_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Welcome to the Swag App! It's your one-stop shop for all things Swag: buy, sell, and participate in drops all from your phone.`
+  String get onboarding_welcome_description {
+    return Intl.message(
+      'Welcome to the Swag App! It\'s your one-stop shop for all things Swag: buy, sell, and participate in drops all from your phone.',
+      name: 'onboarding_welcome_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `DISCOVER`
+  String get onboarding_discover_title {
+    return Intl.message(
+      'DISCOVER',
+      name: 'onboarding_discover_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Easily search the Swag archive and see what is being sold by other collectors.`
+  String get onboarding_discover_description {
+    return Intl.message(
+      'Easily search the Swag archive and see what is being sold by other collectors.',
+      name: 'onboarding_discover_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sell Your Swag`
+  String get onboarding_swag_title {
+    return Intl.message(
+      'Sell Your Swag',
+      name: 'onboarding_swag_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sell Swag items to other collectors by listing items from your collection.`
+  String get onboarding_swag_description {
+    return Intl.message(
+      'Sell Swag items to other collectors by listing items from your collection.',
+      name: 'onboarding_swag_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `BUY/Payment`
+  String get onboarding_payment_title {
+    return Intl.message(
+      'BUY/Payment',
+      name: 'onboarding_payment_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `When you purchase items on the secondary market, the Swag App will help facilitate payment using private chat rooms and peer-to-peer payment systems like Venmo, CashApp, and PayPal.`
+  String get onboarding_payment_description {
+    return Intl.message(
+      'When you purchase items on the secondary market, the Swag App will help facilitate payment using private chat rooms and peer-to-peer payment systems like Venmo, CashApp, and PayPal.',
+      name: 'onboarding_payment_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Atomic Drops`
+  String get onboarding_atomic_drops_title {
+    return Intl.message(
+      'Atomic Drops',
+      name: 'onboarding_atomic_drops_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Atomic Drops are live product drops where you can grab new gear directly from Swag. Don't worry, getting cart sniped is more fun on the app anyway.`
+  String get onboarding_atomic_drops_description {
+    return Intl.message(
+      'Atomic Drops are live product drops where you can grab new gear directly from Swag. Don\'t worry, getting cart sniped is more fun on the app anyway.',
+      name: 'onboarding_atomic_drops_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Verified Identity`
+  String get onboarding_kyc_title {
+    return Intl.message(
+      'Verified Identity',
+      name: 'onboarding_kyc_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Verify your identity! Verified people have a better change at hitting on Atomic Drops!`
+  String get onboarding_kyc_description {
+    return Intl.message(
+      'Verify your identity! Verified people have a better change at hitting on Atomic Drops!',
+      name: 'onboarding_kyc_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Skip`
+  String get onboarding_skip_btn {
+    return Intl.message(
+      'Skip',
+      name: 'onboarding_skip_btn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Let’s Go`
+  String get onboarding_finish_btn {
+    return Intl.message(
+      'Let’s Go',
+      name: 'onboarding_finish_btn',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `User problem creating account in the Swag App`
   String get user_problem_creating_account_in_the_swag_app {
     return Intl.message(

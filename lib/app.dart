@@ -4,7 +4,9 @@ import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:swagapp/modules/common/utils/stateful_wrapper.dart';
 import 'package:swagapp/modules/pages/login/landing_page.dart';
+import 'package:swagapp/modules/pages/onboarding/onboarding_page.dart';
 import 'generated/l10n.dart';
 
 import 'modules/blocs/auth_bloc/auth_bloc.dart';
@@ -18,7 +20,6 @@ import 'modules/di/injector.dart';
 import 'modules/pages/splash/splash_page.dart';
 
 class App extends StatefulWidget {
-
   App({Key? key}) : super(key: key);
 
   @override
@@ -32,7 +33,7 @@ class _AppState extends State<App> {
   late AppLinks _appLinks;
   StreamSubscription<Uri>? _linkSubscription;
 
-    @override
+  @override
   void initState() {
     super.initState();
 
@@ -46,7 +47,7 @@ class _AppState extends State<App> {
     super.dispose();
   }
 
-   Future<void> initDeepLinks() async {
+  Future<void> initDeepLinks() async {
     _appLinks = AppLinks();
 
     // Check initial link if app was in cold state (terminated)
@@ -63,10 +64,10 @@ class _AppState extends State<App> {
     });
   }
 
-    void openAppLink(Uri uri) {
-      var uriFragment = uri;
-      print(uriFragment);
-      //_homeNavigatorKey.currentState?.pushNamed("");
+  void openAppLink(Uri uri) {
+    var uriFragment = uri;
+    print(uriFragment);
+    //_homeNavigatorKey.currentState?.pushNamed("");
   }
 
   @override
@@ -87,33 +88,38 @@ class _AppState extends State<App> {
             GlobalCupertinoLocalizations.delegate,
             S.delegate
           ],
-          home: BlocConsumer<AuthBloc, AuthState>(
-            builder: (context, state) => state.maybeMap(
-                initial: (_) => const SplashPage(),
-                authenticated: (_) => const HomePage(),
-                walkthrough: (_) => const LandingPage(),
-                onboarding: (_) => const LandingPage(),
-                orElse: () => const SplashPage(),
-                error: (_) => const LandingPage(),
-                unauthenticated: (_) {
-                  return const LandingPage();
-                }),
-            listener: (context, state) => state.maybeMap(
-                // orElse: () => null,
-                orElse: () async {
-              await setupUnauthorizedScope(
-                  getIt<ContextService>().rootNavigatorKey);
-              return null;
-            }, authenticated: (_) async {
-              await setupAuthorizedScope(
-                  getIt<ContextService>().rootNavigatorKey, _homeNavigatorKey);
-              return null;
-            }),
+          home: StatefulWrapper(
+            onInit: (context) {
+              context.read<AuthBloc>().add(const AuthEvent.init());
+            },
+            child: BlocConsumer<AuthBloc, AuthState>(
+              builder: (context, state) => state.maybeMap(
+                  initial: (_) => const SplashPage(),
+                  authenticated: (_) => const HomePage(),
+                  walkthrough: (_) => const OnboardingPage(),
+                  onboarding: (_) => const OnboardingPage(),
+                  orElse: () => const SplashPage(),
+                  error: (_) => const LandingPage(),
+                  unauthenticated: (_) {
+                    return const LandingPage();
+                  }),
+              listener: (context, state) => state.maybeMap(
+                  // orElse: () => null,
+                  orElse: () async {
+                await setupUnauthorizedScope(
+                    getIt<ContextService>().rootNavigatorKey);
+                return null;
+              }, authenticated: (_) async {
+                await setupAuthorizedScope(
+                    getIt<ContextService>().rootNavigatorKey,
+                    _homeNavigatorKey);
+                return null;
+              }),
+            ),
           ),
           builder: (context, child) => Overlay(
             initialEntries: [
               OverlayEntry(builder: (BuildContext context) {
-
                 return MediaQuery(
                   data: MediaQuery.of(context).copyWith(boldText: false),
                   child: BlocBuilder<AuthBloc, AuthState>(
@@ -138,7 +144,7 @@ class _AppState extends State<App> {
                             )),
                   ),
                 );
-              }), 
+              }),
             ],
           ),
         ));

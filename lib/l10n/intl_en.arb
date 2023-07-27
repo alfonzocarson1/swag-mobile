@@ -412,6 +412,22 @@
     "paywall_splash_condition5": "Get notified when items are listed",
     "paywall_splash_decline":"No thanks" ,
 
+    "onboarding_welcome_title": "WELCOME",
+    "onboarding_welcome_description": "Welcome to the Swag App! It's your one-stop shop for all things Swag: buy, sell, and participate in drops all from your phone.",
+    "onboarding_discover_title": "DISCOVER",
+    "onboarding_discover_description": "Easily search the Swag archive and see what is being sold by other collectors.",
+    "onboarding_swag_title": "Sell Your Swag",
+    "onboarding_swag_description": "Sell Swag items to other collectors by listing items from your collection.",
+    "onboarding_payment_title": "BUY/Payment",
+    "onboarding_payment_description": "When you purchase items on the secondary market, the Swag App will help facilitate payment using private chat rooms and peer-to-peer payment systems like Venmo, CashApp, and PayPal.",
+    "onboarding_atomic_drops_title": "Atomic Drops",
+    "onboarding_atomic_drops_description": "Atomic Drops are live product drops where you can grab new gear directly from Swag. Don't worry, getting cart sniped is more fun on the app anyway.",
+    "onboarding_kyc_title": "Verified Identity",
+    "onboarding_kyc_description": "Verify your identity! Verified people have a better change at hitting on Atomic Drops!",
+    "onboarding_skip_btn": "Skip",
+    "onboarding_finish_btn": "Let’s Go",
+    
+
     "user_problem_creating_account_in_the_swag_app": "User problem creating account in the Swag App",
     "user_problem_signing_into_the_swag_app": "User problem signing into the Swag App",
     "problems_signing_in": "Problems signing in? ",
