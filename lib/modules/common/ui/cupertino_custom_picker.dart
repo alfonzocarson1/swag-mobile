@@ -94,17 +94,19 @@ class _CupertinoPickerViewState extends State<CupertinoPickerView> {
                                       color: Palette.current.primaryNero,
                                     ),
                               )),
-                          const Expanded(
-                            flex: 1,
-                            child: Align(
-                              alignment: Alignment.centerRight,
-                              child: Icon(
-                                Icons.arrow_drop_down_sharp,
-                                color: Colors.black,
-                                size: 20.0,
-                              ),
-                            ),
-                          )
+                          widget.showPicker ?? true
+                              ? const Expanded(
+                                  flex: 1,
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Icon(
+                                      Icons.arrow_drop_down_sharp,
+                                      color: Colors.black,
+                                      size: 20.0,
+                                    ),
+                                  ),
+                                )
+                              : Container()
                         ],
                       ),
                     ),
