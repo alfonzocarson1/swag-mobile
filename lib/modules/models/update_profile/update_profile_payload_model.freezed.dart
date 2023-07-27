@@ -26,6 +26,8 @@ mixin _$UpdateProfilePayloadModel {
   String? get email => throw _privateConstructorUsedError;
   String? get userName => throw _privateConstructorUsedError;
   String? get useAvatar => throw _privateConstructorUsedError;
+  String? get firstName => throw _privateConstructorUsedError;
+  String? get lastName => throw _privateConstructorUsedError;
   List<AddressesPayloadModel>? get addresses =>
       throw _privateConstructorUsedError;
 
@@ -47,6 +49,8 @@ abstract class $UpdateProfilePayloadModelCopyWith<$Res> {
       String? email,
       String? userName,
       String? useAvatar,
+      String? firstName,
+      String? lastName,
       List<AddressesPayloadModel>? addresses});
 }
 
@@ -69,6 +73,8 @@ class _$UpdateProfilePayloadModelCopyWithImpl<$Res,
     Object? email = freezed,
     Object? userName = freezed,
     Object? useAvatar = freezed,
+    Object? firstName = freezed,
+    Object? lastName = freezed,
     Object? addresses = freezed,
   }) {
     return _then(_value.copyWith(
@@ -91,6 +97,14 @@ class _$UpdateProfilePayloadModelCopyWithImpl<$Res,
       useAvatar: freezed == useAvatar
           ? _value.useAvatar
           : useAvatar // ignore: cast_nullable_to_non_nullable
+              as String?,
+      firstName: freezed == firstName
+          ? _value.firstName
+          : firstName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lastName: freezed == lastName
+          ? _value.lastName
+          : lastName // ignore: cast_nullable_to_non_nullable
               as String?,
       addresses: freezed == addresses
           ? _value.addresses
@@ -115,6 +129,8 @@ abstract class _$$_UpdateProfilePayloadModelCopyWith<$Res>
       String? email,
       String? userName,
       String? useAvatar,
+      String? firstName,
+      String? lastName,
       List<AddressesPayloadModel>? addresses});
 }
 
@@ -136,6 +152,8 @@ class __$$_UpdateProfilePayloadModelCopyWithImpl<$Res>
     Object? email = freezed,
     Object? userName = freezed,
     Object? useAvatar = freezed,
+    Object? firstName = freezed,
+    Object? lastName = freezed,
     Object? addresses = freezed,
   }) {
     return _then(_$_UpdateProfilePayloadModel(
@@ -159,6 +177,14 @@ class __$$_UpdateProfilePayloadModelCopyWithImpl<$Res>
           ? _value.useAvatar
           : useAvatar // ignore: cast_nullable_to_non_nullable
               as String?,
+      firstName: freezed == firstName
+          ? _value.firstName
+          : firstName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lastName: freezed == lastName
+          ? _value.lastName
+          : lastName // ignore: cast_nullable_to_non_nullable
+              as String?,
       addresses: freezed == addresses
           ? _value._addresses
           : addresses // ignore: cast_nullable_to_non_nullable
@@ -177,6 +203,8 @@ class _$_UpdateProfilePayloadModel implements _UpdateProfilePayloadModel {
       this.email,
       this.userName,
       this.useAvatar,
+      this.firstName,
+      this.lastName,
       final List<AddressesPayloadModel>? addresses})
       : _addresses = addresses;
 
@@ -193,6 +221,10 @@ class _$_UpdateProfilePayloadModel implements _UpdateProfilePayloadModel {
   final String? userName;
   @override
   final String? useAvatar;
+  @override
+  final String? firstName;
+  @override
+  final String? lastName;
   final List<AddressesPayloadModel>? _addresses;
   @override
   List<AddressesPayloadModel>? get addresses {
@@ -205,7 +237,7 @@ class _$_UpdateProfilePayloadModel implements _UpdateProfilePayloadModel {
 
   @override
   String toString() {
-    return 'UpdateProfilePayloadModel(accountId: $accountId, phoneNumber: $phoneNumber, email: $email, userName: $userName, useAvatar: $useAvatar, addresses: $addresses)';
+    return 'UpdateProfilePayloadModel(accountId: $accountId, phoneNumber: $phoneNumber, email: $email, userName: $userName, useAvatar: $useAvatar, firstName: $firstName, lastName: $lastName, addresses: $addresses)';
   }
 
   @override
@@ -222,14 +254,26 @@ class _$_UpdateProfilePayloadModel implements _UpdateProfilePayloadModel {
                 other.userName == userName) &&
             (identical(other.useAvatar, useAvatar) ||
                 other.useAvatar == useAvatar) &&
+            (identical(other.firstName, firstName) ||
+                other.firstName == firstName) &&
+            (identical(other.lastName, lastName) ||
+                other.lastName == lastName) &&
             const DeepCollectionEquality()
                 .equals(other._addresses, _addresses));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, accountId, phoneNumber, email,
-      userName, useAvatar, const DeepCollectionEquality().hash(_addresses));
+  int get hashCode => Object.hash(
+      runtimeType,
+      accountId,
+      phoneNumber,
+      email,
+      userName,
+      useAvatar,
+      firstName,
+      lastName,
+      const DeepCollectionEquality().hash(_addresses));
 
   @JsonKey(ignore: true)
   @override
@@ -253,6 +297,8 @@ abstract class _UpdateProfilePayloadModel implements UpdateProfilePayloadModel {
           final String? email,
           final String? userName,
           final String? useAvatar,
+          final String? firstName,
+          final String? lastName,
           final List<AddressesPayloadModel>? addresses}) =
       _$_UpdateProfilePayloadModel;
 
@@ -269,6 +315,10 @@ abstract class _UpdateProfilePayloadModel implements UpdateProfilePayloadModel {
   String? get userName;
   @override
   String? get useAvatar;
+  @override
+  String? get firstName;
+  @override
+  String? get lastName;
   @override
   List<AddressesPayloadModel>? get addresses;
   @override

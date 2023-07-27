@@ -2,9 +2,11 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:swagapp/modules/cubits/profile/get_profile_cubit.dart';
 import 'package:swagapp/modules/models/profile/profile_model.dart';
 
 import '../../common/utils/handling_errors.dart';
+import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../data/update_profile/i_update_profile_service.dart';
 import '../../di/injector.dart';
 import '../../models/update_profile/update_avatar_model.dart';
@@ -38,7 +40,7 @@ class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
       importData: importData, 
       askEmailVerification: _askEmailVerification, 
       closeVerifyEmailModal: _closeVerifyEmailModal,
-      
+      updateName: _updateName
       );
   }
 
@@ -47,7 +49,19 @@ class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
     try {
       UpdateProfileModel responseBody =
           await updateProfileService.updateProfile(param);
+      yield UpdateProfileState.updated();
+      yield UpdateProfileState.loadedSuccess(responseBody);
+    } catch (e) {
+      yield UpdateProfileState.error(HandlingErrors().getError(e));
+    }
+  }
 
+  Stream<UpdateProfileState> _updateName(UpdateProfilePayloadModel param) async* {
+    yield UpdateProfileState.initial();
+    try {
+      UpdateProfileModel responseBody =
+      await updateProfileService.updateProfile(param);
+      await getIt<ProfileCubit>().loadProfileResults();
       yield UpdateProfileState.updated();
       yield UpdateProfileState.loadedSuccess(responseBody);
     } catch (e) {

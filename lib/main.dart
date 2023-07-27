@@ -16,6 +16,12 @@ Future<void> main() async {
     debugPrint = (String? message, {int? wrapWidth}) {};
   }
   WidgetsFlutterBinding.ensureInitialized();
+  // FlutterError.onError = (details) {
+  //   debugPrintStack(
+  //     stackTrace: details.stack,
+  //     label: details.exception.toString(),
+  //   );
+  // };
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   setupAppScope();
@@ -56,7 +62,6 @@ Future<void> _handleFlavorConfig() async {
 }
 
 Future<void> _runApp() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   await PushNotificationsService.initializeApp();
   await LocalNotificationsService.initializeApp();

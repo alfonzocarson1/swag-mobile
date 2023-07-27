@@ -41,6 +41,7 @@ class EditListForSalePage extends StatefulWidget {
     required this.catalogItemName,
     this.imageUrls,
     required this.salesHistoryListModel,
+    required this.paymentAccepted,
   });
 
   final DetailCollectionModel? collectionData;
@@ -48,6 +49,7 @@ class EditListForSalePage extends StatefulWidget {
   final String catalogItemName;
   final List<dynamic>? imageUrls;
   final SalesHistoryListModel salesHistoryListModel;
+  final List<String> paymentAccepted;
 
   static Route route(
     DetailCollectionModel? collectionData,
@@ -55,6 +57,7 @@ class EditListForSalePage extends StatefulWidget {
     String catalogItemName,
     List<dynamic>? imageUrls,
     SalesHistoryListModel salesHistoryListModel,
+    List<String> paymentAccepted,
   ) =>
       PageRoutes.slideUp(
         settings: const RouteSettings(name: name),
@@ -64,6 +67,7 @@ class EditListForSalePage extends StatefulWidget {
           catalogItemName: catalogItemName,
           imageUrls: imageUrls,
           salesHistoryListModel: salesHistoryListModel,
+          paymentAccepted: paymentAccepted,
         ),
       );
 
@@ -480,6 +484,8 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
                                               profileCollectionItemId: widget
                                                   .collectionData!
                                                   .profileCollectionItemId,
+                                              paymentAccepted:
+                                                  widget.paymentAccepted,
                                               onClose: () {
                                                 Navigator.pop(context);
                                               }));

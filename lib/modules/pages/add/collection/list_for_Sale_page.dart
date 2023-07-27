@@ -14,6 +14,7 @@ import '../../../../generated/l10n.dart';
 import '../../../common/ui/add_photo_list_item.dart';
 import '../../../common/ui/custom_text_form_field.dart';
 
+import '../../../common/ui/image_picker_with_permissions.dart';
 import '../../../common/ui/multi_image_slide.dart';
 import '../../../common/ui/popup_image_guidelines.dart';
 
@@ -492,7 +493,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                                   .collectionData!
                                                   .catalogItemId,
                                               imgList: imageFileList,
-                                              itemCondition: _defaultCondition,
+                                              itemCondition: _defaultCondition!,
                                               itemDescription:
                                                   _listDescriptionItemController
                                                       .text
@@ -557,8 +558,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
   Future<void> selectImages() async {
     // Pick an image
     try {
-      final List<XFile> selectedImages =
-          await ImagePicker().pickMultiImage(imageQuality: 80);
+      final List<XFile> selectedImages = await selectMultipleImagesAndHandlePermissions(context, imageQuality: 80);
       if ((selectedImages.length + imageFileList.length) <= 6) {
         scaleDownXFile(selectedImages);
       } else {

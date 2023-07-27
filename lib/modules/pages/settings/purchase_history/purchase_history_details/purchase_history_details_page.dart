@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/common/ui/pushed_header.dart';
 import 'package:swagapp/modules/common/utils/stateful_wrapper.dart';
+import 'package:swagapp/modules/common/utils/utils.dart';
 import 'package:swagapp/modules/cubits/purchase_history_detail/purchase_history_detail_cubit.dart';
 import 'package:swagapp/modules/models/purchase_history/purchase_history_detail_model.dart';
 
@@ -487,8 +488,4 @@ class _ShippingCard extends StatelessWidget {
           ),
     );
   }
-}
-
-extension on String? {
-  bool get isNotEmptyOrNull => this?.isNotEmpty ?? false;
 }

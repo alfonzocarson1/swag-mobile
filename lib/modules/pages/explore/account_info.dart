@@ -747,7 +747,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                               inputType: TextInputType.text,
                               inputFormatters: [
                                 FilteringTextInputFormatter.allow(
-                                    RegExp(r'[a-zA-Z0-9 ]')),
+                                    RegExp(r'[a-zA-Z. ]')),
                               ],
                               textCapitalization: TextCapitalization.words,
                               borderColor: _cardNameBorder,
@@ -766,7 +766,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                 FilteringTextInputFormatter.allow(
                                     RegExp("^.{0,50}\$")),
                               ],
-                              maxLength: 19,
+                              maxLength: 23,
                               borderColor: _cardBorder,
                               autofocus: false,
                               errorText: cardErrorText,
@@ -783,7 +783,6 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                 });
                               },
                             ),
-
                             const SizedBox(
                               height: 20,
                             ),
@@ -903,16 +902,17 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                     setState(() {
                                       updateAllFlow = true;
                                     });
-                                    context.read<UpdateProfileBloc>().add(
-                                            UpdateProfileEvent.update(
-                                                UpdateProfilePayloadModel(
-                                                    addresses: [
+                                    context
+                                        .read<UpdateProfileBloc>()
+                                        .add(UpdateProfileEvent.update(
+                                            UpdateProfilePayloadModel(
+                                                firstName:
+                                                    _firstNameController.text,
+                                                lastName:
+                                                    _lastNameController.text,
+                                                addresses: [
                                               AddressesPayloadModel(
                                                   addressType: "SHIPPING",
-                                                  firstName:
-                                                      _firstNameController.text,
-                                                  lastName:
-                                                      _lastNameController.text,
                                                   country: _defaultCountry,
                                                   address1:
                                                       _firstAddressController
@@ -925,6 +925,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                                   postalCode:
                                                       _zipController.text),
                                             ])));
+                                    getIt<PreferenceRepositoryService>()
+                                        .saveProfileDataState(false);
                                   }
                                 } else {
                                   debugPrint('All Fields Are Not Valid');
@@ -1017,10 +1019,11 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
       cardNameErrorText = _cardNameController.text.isNotEmpty
           ? null
           : S.of(context).required_field;
-      cardErrorText =
-          _cardController.text.isNotEmpty && _cardController.text.length == 19
-              ? null
-              : S.of(context).required_field;
+      cardErrorText = _cardController.text.isNotEmpty &&
+              _cardController.text.length >= 19 &&
+              _cardController.text.length <= 23
+          ? null
+          : S.of(context).required_field;
       cvcErrorText =
           _cvcController.text.isNotEmpty ? null : S.of(context).required_field;
       expirationErrorText = _defaultDateTime.isAfter(DateTime.now())
@@ -1058,8 +1061,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
 
   String _formatCardNumber(String value) {
     value = value.replaceAll(RegExp(r'\D'), '');
-    if (value.length > 16) {
-      value = value.substring(0, 16);
+    if (value.length > 19) {
+      value = value.substring(0, 19);
     }
     final formattedValue = value.replaceAllMapped(
         RegExp(r'.{4}'), (match) => '${match.group(0)} ');
@@ -1109,7 +1112,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
         _defaultState != defaultState &&
         _zipController.text.isNotEmpty &&
         _cardController.text.isNotEmpty &&
-        _cardController.text.length == 19 &&
+        _cardController.text.length >= 19 &&
+        _cardController.text.length <= 23 &&
         _cvcController.text.isNotEmpty &&
         _defaultDateTime.isAfter(DateTime.now()) &&
         billingOverAllCheck;
@@ -1398,7 +1402,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
           textCapitalization: TextCapitalization.words,
           borderColor: __billingFirstAddressBorder,
           autofocus: false,
-          labelText: S.of(context).first_address,
+          labelText: '${S.of(context).billing_address} 1',
           errorText: billingFirstAddressError,
           focusNode: _billingFirstAddressNode,
           controller: _billingFirstAddressController,

@@ -461,5 +461,8 @@
     "unverified": "Unverified",
     "notifications_title": "Notifications",
     "notification_subtitle": "Email, text, push",
-    "blocked_title": "Blocked Accounts"
+    "blocked_title": "Blocked Accounts",
+    "profile_first_name": "First name",
+    "profile_last_name": "Last name",
+    "profile_name": "Name"
 }

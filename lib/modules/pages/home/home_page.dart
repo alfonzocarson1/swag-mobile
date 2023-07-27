@@ -3,20 +3,25 @@ import 'package:go_router/go_router.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/di/injector.dart';
+import 'package:swagapp/modules/models/profile/profile_model.dart';
 import 'package:swagapp/modules/pages/search/search_page.dart';
 
 import '../../common/utils/custom_route_animations.dart';
 import '../../cubits/alert/alert_cubit.dart';
+import '../../cubits/profile/get_profile_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../pages/alert/alert_page.dart';
 import '../../pages/profile/profile_page.dart';
 import '../../routes/app_routes.dart';
+import '../explore/account_info.dart';
 import '../explore/explore_page.dart';
 import '../login/create_account_page.dart';
 
 class HomePage extends StatefulWidget {
   static const name = '/HomePage';
-  const HomePage({super.key});
+  const HomePage({
+    super.key,
+  });
 
   static Route route() => PageRoutes.material(
         settings: const RouteSettings(name: name),
@@ -33,8 +38,10 @@ class _HomePage extends State<HomePage> {
   final PersistentTabController _controller =
       PersistentTabController(initialIndex: 0);
   int indexTap = 0;
-
+  ProfileModel? profileData;
   bool unread = getIt<PreferenceRepositoryService>().unreadAlert();
+  bool profileDataState =
+      getIt<PreferenceRepositoryService>().getProfileDataState();
 
   List<Widget> widgetsChildren = [];
   var widgetsChildrenRefreshNotifiers = <ChangeNotifier>[];
@@ -60,6 +67,7 @@ class _HomePage extends State<HomePage> {
       const AlertPage(),
       const ProfilePage()
     ];
+    cehckIfProfileDataIsMissing();
   }
 
   void onTapTapped(int index) {
@@ -77,6 +85,26 @@ class _HomePage extends State<HomePage> {
       _controller.index = index;
       indexTap = index;
     });
+  }
+
+  void cehckIfProfileDataIsMissing() async {
+    profileData = getIt<PreferenceRepositoryService>().profileData();
+    await getIt<ProfileCubit>().loadProfileResults();
+    try {
+      final pData = getIt<PreferenceRepositoryService>().profileData();
+      if (pData.addresses!.isEmpty && profileDataState) {
+        Future.delayed(const Duration(milliseconds: 700), () {
+          Navigator.of(context, rootNavigator: true)
+              .push(AccountInfoPage.route());
+        });
+      }
+
+      // if (context.canPop() && profileDataState == false ) {
+      //   Navigator.pop(context);
+      // }
+    } catch (e) {
+      debugPrint('Failed To Check Partial Profile Data Scenario: $e');
+    }
   }
 
   @override
