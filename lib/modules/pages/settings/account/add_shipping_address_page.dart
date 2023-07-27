@@ -29,15 +29,17 @@ import '../../../models/update_profile/update_profile_payload_model.dart';
 class AddShippingAddressPage extends StatefulWidget {
   static const name = '/AddShippingAddressPage';
 
-  AddShippingAddressPage({super.key, this.address});
+  AddShippingAddressPage({super.key, this.address, this.onPaymentChange});
 
   AddressesPayloadModel? address;
+  void Function()? onPaymentChange;
 
-  static Route route(AddressesPayloadModel? address) => PageRoutes.material(
+  static Route route(
+          AddressesPayloadModel? address, void Function()? onPaymentChange) =>
+      PageRoutes.material(
         settings: const RouteSettings(name: name),
         builder: (context) => AddShippingAddressPage(
-          address: address,
-        ),
+            address: address, onPaymentChange: onPaymentChange),
       );
 
   @override
@@ -425,6 +427,7 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
                   updated: () {
                     getIt<ProfileCubit>().loadProfileResults();
                     Loading.hide(context);
+                    widget.onPaymentChange!();
                     Navigator.of(context).pop();
                     return null;
                   },

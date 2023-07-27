@@ -25,6 +25,7 @@ import '../../../models/settings/peer_to_peer_payments_get_model.dart';
 import '../../../models/settings/peer_to_peer_payments_model.dart';
 import '../../../models/update_profile/addresses_payload_model.dart';
 import '../../chat/chat_page.dart';
+import '../../settings/account/add_shipping_address_page.dart';
 
 class BuyerCompletePurchasePopUp extends StatefulWidget {
   const BuyerCompletePurchasePopUp(
@@ -94,6 +95,23 @@ class _BuyerCompletePurchasePopUpState
   bool _showDropdown = false;
 
   int value = 0;
+
+  Future<void> updateAddressList() async {
+    await Future.delayed(const Duration(milliseconds: 2000), () {});
+
+    setState(() {
+      profileData = getIt<PreferenceRepositoryService>().profileData();
+
+      addresses = profileData.addresses!;
+
+      shippedAddress = [];
+
+      for (final address in profileData.addresses!) {
+        final index = profileData.addresses!.indexOf(address);
+        shippedAddress.add('${profileData.addresses![index].address1}');
+      }
+    });
+  }
 
   @override
   void initState() {
@@ -391,12 +409,18 @@ class _BuyerCompletePurchasePopUpState
                                                         child: TextFormField(
                                                           controller:
                                                               _firstAddressController,
+                                                          readOnly: true,
                                                           decoration:
                                                               const InputDecoration(
                                                             border: InputBorder
                                                                 .none,
                                                           ),
-                                                          onTap: () {},
+                                                          onTap: () {
+                                                            setState(() {
+                                                              _showDropdown =
+                                                                  true;
+                                                            });
+                                                          },
                                                           onChanged:
                                                               (String value) {
                                                             setState(() {
@@ -504,53 +528,103 @@ class _BuyerCompletePurchasePopUpState
                                           child: SizedBox(
                                             height: 200.0,
                                             child: ListView.builder(
-                                              itemCount: shippedAddress.length,
+                                              itemCount:
+                                                  shippedAddress.length + 1,
                                               itemBuilder:
                                                   (BuildContext context,
                                                       int index) {
-                                                final String option =
-                                                    shippedAddress
+                                                bool addAddress = (index + 1 >
+                                                    shippedAddress.length);
+                                                final String option = addAddress
+                                                    ? '+ Add New Address'
+                                                    : shippedAddress
                                                         .elementAt(index);
                                                 return GestureDetector(
                                                   onTap: () {
-                                                    setState(() {
-                                                      _selectedItem = option;
-                                                      _firstAddressController
-                                                          .text = option;
-                                                      _showDropdown = false;
-
+                                                    if (addAddress) {
+                                                      Navigator.of(context,
+                                                              rootNavigator:
+                                                                  true)
+                                                          .push(
+                                                              AddShippingAddressPage
+                                                                  .route(null,
+                                                                      () {
+                                                        setState(() {
+                                                          updateAddressList();
+                                                        });
+                                                      }));
+                                                    } else {
                                                       setState(() {
-                                                        AddressesPayloadModel?
-                                                            targetAddress =
-                                                            addresses.firstWhere(
-                                                                (address) =>
-                                                                    address
-                                                                        .address1 ==
-                                                                    _selectedItem);
+                                                        _selectedItem = option;
+                                                        _firstAddressController
+                                                            .text = option;
+                                                        _showDropdown = false;
 
                                                         setState(() {
-                                                          _addressController
-                                                                  .text =
-                                                              '${targetAddress.address2}';
-                                                          _cityController.text =
-                                                              '${targetAddress.city}';
-                                                          _zipController.text =
-                                                              '${targetAddress.postalCode}';
-                                                          _defaultState =
-                                                              '${targetAddress.state}';
-                                                        });
-                                                      });
+                                                          AddressesPayloadModel?
+                                                              targetAddress =
+                                                              addresses.firstWhere(
+                                                                  (address) =>
+                                                                      address
+                                                                          .address1 ==
+                                                                      _selectedItem);
 
-                                                      _firstAddressController
-                                                              .selection =
-                                                          TextSelection.fromPosition(
-                                                              TextPosition(
-                                                                  offset: option
-                                                                      .length));
-                                                    });
+                                                          setState(() {
+                                                            _addressController
+                                                                    .text =
+                                                                '${targetAddress.address2}';
+                                                            _cityController
+                                                                    .text =
+                                                                '${targetAddress.city}';
+                                                            _zipController
+                                                                    .text =
+                                                                '${targetAddress.postalCode}';
+                                                            _defaultState =
+                                                                '${targetAddress.state}';
+                                                          });
+                                                        });
+
+                                                        _firstAddressController
+                                                                .selection =
+                                                            TextSelection.fromPosition(
+                                                                TextPosition(
+                                                                    offset: option
+                                                                        .length));
+                                                      });
+                                                    }
                                                   },
                                                   child: ListTile(
-                                                    title: Text(option),
+                                                    contentPadding:
+                                                        const EdgeInsets.only(
+                                                            left: 0.0,
+                                                            right: 0.0),
+                                                    visualDensity:
+                                                        const VisualDensity(
+                                                            horizontal: -4,
+                                                            vertical: -4),
+                                                    title: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 15),
+                                                      child: addAddress
+                                                          ? Text(option)
+                                                          : Text(option),
+                                                    ),
+                                                    trailing: index == 0
+                                                        ? IconButton(
+                                                            icon: Image.asset(
+                                                              'assets/images/IconDropdowUp.png',
+                                                              width: 20,
+                                                              height: 20,
+                                                            ),
+                                                            onPressed: () {
+                                                              setState(() {
+                                                                _showDropdown =
+                                                                    false;
+                                                              });
+                                                            },
+                                                          )
+                                                        : const Text(''),
                                                   ),
                                                 );
                                               },
