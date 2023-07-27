@@ -19,7 +19,7 @@ import '../../common/utils/palette.dart';
 import '../../common/utils/send_mail_contact.dart';
 import '../../cubits/public_profile/public_profile_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
-import '../../di/injector copy.dart';
+import '../../di/injector.dart';
 import '../../models/detail/detail_item_model.dart';
 import '../../models/listing_for_sale/listing_for_sale_model.dart';
 import 'package:swagapp/modules/common/utils/utils.dart';

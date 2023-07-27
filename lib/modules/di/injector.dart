@@ -29,6 +29,7 @@ import 'package:swagapp/modules/data/search/i_search_service.dart';
 import 'package:swagapp/modules/data/search/search_service.dart';
 import 'package:swagapp/modules/data/search_service/search_service.dart'
     as search;
+import 'package:swagapp/modules/data/secure_storage/storage_repository_int.dart';
 
 import '../blocs/auth_bloc/auth_bloc.dart';
 import '../blocs/auth_bloc/username_bloc.dart';
@@ -84,6 +85,7 @@ import '../data/sale_history/i_sale_history_service.dart';
 import '../data/sale_history/sale_history_service.dart';
 import '../data/search_service/i_search_service.dart';
 import '../data/secure_storage/storage_repository_service.dart';
+import '../data/shared_preferences/i_shared_preferences.dart';
 import '../data/shared_preferences/shared_preferences_service.dart';
 import '../data/sold/i_sold_service.dart';
 import '../data/sold/sold_service.dart';
@@ -104,7 +106,7 @@ Future<void> setupAppScope() {
   getIt.registerLazySingleton<IChatService>(() => ChatService(APIService()));
   getIt.registerLazySingleton<ChatBloc>(() => ChatBloc(getIt<IChatService>()));
   getIt.registerLazySingleton<IAuthService>(() => AuthService(APIService()));
-  getIt.registerLazySingleton<AuthBloc>(() => AuthBloc(getIt<IAuthService>()));
+  getIt.registerLazySingleton<AuthBloc>(() => AuthBloc(getIt(), getIt(), getIt()));
   getIt.registerLazySingleton<UsernameBloc>(
       () => UsernameBloc(getIt<IAuthService>()));
 

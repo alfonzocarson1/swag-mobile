@@ -12,7 +12,7 @@ import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 
 class LandingPage extends StatelessWidget {
-  static const name = '/Explore';
+  static const name = '/Landing';
   const LandingPage({Key? key}) : super(key: key);
 
   static Route route() => PageRoutes.material(
