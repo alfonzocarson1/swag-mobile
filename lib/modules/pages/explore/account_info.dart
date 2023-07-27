@@ -1165,6 +1165,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
       final tokenId = jsonDecode(response.body)['id'];
       saveCardToken(tokenId);
     }
+    await Future.delayed(const Duration(milliseconds: 800));
     Loading.hide(context);
     return response;
   }
