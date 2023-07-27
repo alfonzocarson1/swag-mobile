@@ -56,8 +56,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m11(chatsNumber) => "${chatsNumber} Unread";
 
-  static String m12(userName) =>
-      "It’s been 7 days since you purchased the Gold King Cover from @${userName}. We want to know if you received your item yet?";
+  static String m12(itemName, userName) =>
+      "It’s been 7 days since you purchased the ${itemName} from @${userName}. We want to know if you received your item yet?";
 
   static String m13(number) => "${number} Items";
 

@@ -611,20 +611,23 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                 ),
           ),
         ),
-        Expanded(
-          flex: 2,
-          child: Align(
-            alignment: Alignment.centerRight,
-            child: IconButton(
-              icon: Image.asset(
-                "assets/images/share.png",
-                scale: 3.5,
+        Visibility(
+          visible: listData.status == 'listed',
+          child: Expanded(
+            flex: 2,
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: IconButton(
+                icon: Image.asset(
+                  "assets/images/share.png",
+                  scale: 3.5,
+                ),
+                onPressed: () async {
+                  Share.share(
+                    '$shareListingUrl${listData.catalogItemId}',
+                  );
+                },
               ),
-              onPressed: () async {
-                Share.share(
-                  '$shareListingUrl${listData.catalogItemId}',
-                );
-              },
             ),
           ),
         ),

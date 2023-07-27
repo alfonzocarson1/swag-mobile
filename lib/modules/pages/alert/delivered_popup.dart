@@ -22,11 +22,13 @@ class DeliveredPopUp extends StatefulWidget {
   final String userName;
   final String productItemId;
   final String purchaseHistoryId;
+  final String itemName;
   const DeliveredPopUp(
       {super.key,
       required this.userName,
       required this.productItemId,
-      required this.purchaseHistoryId});
+      required this.purchaseHistoryId,
+      required this.itemName});
 
   @override
   State<DeliveredPopUp> createState() => _DeliveredPopUpState();
@@ -100,7 +102,8 @@ class _DeliveredPopUpState extends State<DeliveredPopUp> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                            S.of(context).delivered_sub_title(widget.userName),
+                            S.of(context).delivered_sub_title(
+                                widget.itemName, widget.userName),
                             style:
                                 Theme.of(context).textTheme.bodySmall!.copyWith(
                                       fontSize: 15,

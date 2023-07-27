@@ -237,14 +237,16 @@ class _AlertPageState extends State<AlertPage> {
                                       barrierDismissible: false,
                                       builder: (BuildContext context) {
                                         return DeliveredPopUp(
-                                            userName:
-                                                item.payload!.userName ?? '',
-                                            productItemId:
-                                                item.payload!.productItemId ??
-                                                    '',
-                                            purchaseHistoryId: item.payload!
-                                                    .purchaseHistoryId ??
-                                                '');
+                                          userName:
+                                              item.payload!.userName ?? '',
+                                          productItemId:
+                                              item.payload!.productItemId ?? '',
+                                          purchaseHistoryId:
+                                              item.payload!.purchaseHistoryId ??
+                                                  '',
+                                          itemName:
+                                              item.payload!.itemName ?? '',
+                                        );
                                       });
                                 }
 
