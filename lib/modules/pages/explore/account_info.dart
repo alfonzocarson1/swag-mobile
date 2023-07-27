@@ -253,6 +253,19 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
       });
     });
 
+    _expirationNode.addListener(() {
+      if (_expirationNode.hasFocus) {
+        setState(() {
+          expirationErrorText = null;
+        });
+      }
+      setState(() {
+        _expirationBorder = _expirationNode.hasFocus
+            ? Palette.current.primaryNeonGreen
+            : Palette.current.primaryWhiteSmoke;
+      });
+    });
+
     _secondAddressNode.addListener(() {
       setState(() {
         _secondAddressBorder = _secondAddressNode.hasFocus
@@ -401,7 +414,9 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
         extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: true,
         backgroundColor: Colors.transparent,
-        appBar: CustomAppBar(),
+        appBar: CustomAppBar(
+          isAccountInfo: true,
+        ),
         body: BlocListener<UpdateProfileBloc, UpdateProfileState>(
             listener: (context, state) => state.maybeWhen(
                   orElse: () {
@@ -796,18 +811,34 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                   flex: 2,
                                   child: Column(
                                     children: [
-                                      CupertinoMonthYearPickerView(
+                                      CustomTextFormField(
+                                        inputType: TextInputType.number,
+                                        borderColor: _expirationBorder,
+                                        inputFormatters: [
+                                          _CardExpirationInputFormatter(),
+                                        ],
+                                        maxLength: 5,
+                                        autofocus: false,
                                         errorText: expirationErrorText,
-                                        cupertinoDatePickervalue:
-                                            _defaultDateTime,
-                                        onDone: (DateTime newValue) {
-                                          setState(() {
-                                            _defaultDateTime = newValue;
-                                            expirationErrorText = null;
-                                            Navigator.pop(context);
-                                          });
+                                        labelText: S.of(context).expiration,
+                                        focusNode: _expirationNode,
+                                        controller: _expirationController,
+                                        onChanged: (p0) {
+                                          debugPrint("length: ${p0.length}");
+                                          if (p0.length == 5) {
+                                            final month =
+                                                int.parse(p0.split('/').first);
+                                            final year = int.parse(
+                                                '20${p0.split('/').last}');
+                                            final monthYear =
+                                                DateTime(year, month);
+                                            setState(() {
+                                              _defaultDateTime = monthYear;
+                                              expirationErrorText = null;
+                                            });
+                                          }
                                         },
-                                      ),
+                                      )
                                     ],
                                   ),
                                 ),
@@ -1543,5 +1574,37 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
         )
       ]),
     );
+  }
+}
+
+class _CardExpirationInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    String formattedText = _getFormattedText(newValue.text);
+    return newValue.copyWith(
+      text: formattedText,
+      selection: TextSelection.collapsed(offset: formattedText.length),
+    );
+  }
+
+  String _getFormattedText(String inputText) {
+    inputText = inputText.replaceAll(RegExp(r'[^0-9]'), '');
+    var month = '';
+    var year = '';
+    if (inputText.length >= 3) {
+      month = inputText.substring(0, 2);
+      year = inputText.substring(2);
+      if (int.parse(month) > 12) {
+        month = '12';
+      }
+      inputText = '$month/$year';
+    }
+    if (inputText.length == 5) {
+      if (int.parse('20${inputText.split('/').last}') < DateTime.now().year) {
+        inputText = '$month/${DateTime.now().year.toString().substring(2, 4)}';
+      }
+    }
+    return inputText;
   }
 }

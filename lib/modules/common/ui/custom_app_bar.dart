@@ -5,16 +5,17 @@ import '../../di/injector.dart';
 import '../utils/palette.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  CustomAppBar({
-    Key? key,
-    this.height = 50,
-    this.onRoute,
-    this.title,
-    this.actions = false,
-    this.collections,
-    this.color,
-    this.onAction,
-  }) : super(key: key);
+  CustomAppBar(
+      {Key? key,
+      this.height = 50,
+      this.onRoute,
+      this.title,
+      this.actions = false,
+      this.collections,
+      this.color,
+      this.onAction,
+      this.isAccountInfo = false})
+      : super(key: key);
 
   double? height;
   final VoidCallback? onRoute;
@@ -23,6 +24,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final int? collections;
   final Color? color;
   final VoidCallback? onAction;
+  final bool isAccountInfo;
 
   @override
   AppBar build(BuildContext context) {
@@ -60,28 +62,30 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             ]
           : null,
       automaticallyImplyLeading: false,
-      leading: InkWell(
-        onTap: onRoute ??
-            () {
-              Navigator.of(context).pop();
-            },
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Container(
-            width: 20,
-            height: 20,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Palette.current.blackSmoke,
-            ),
-            child: Icon(
-              Icons.arrow_back,
-              color: Palette.current.white,
-              size: 18,
-            ),
-          ),
-        ),
-      ),
+      leading: !isAccountInfo
+          ? InkWell(
+              onTap: onRoute ??
+                  () {
+                    Navigator.of(context).pop();
+                  },
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  width: 20,
+                  height: 20,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Palette.current.blackSmoke,
+                  ),
+                  child: Icon(
+                    Icons.arrow_back,
+                    color: Palette.current.white,
+                    size: 18,
+                  ),
+                ),
+              ),
+            )
+          : null,
     );
   }
 
