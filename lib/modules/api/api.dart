@@ -56,6 +56,7 @@ enum Endpoint {
   soldDetail,
   favoriteProfile,
   nftWallet,
+  logout
 }
 
 class API {
@@ -132,6 +133,7 @@ class API {
     Endpoint.listingsRating: 'api/v1/profile/listingsRating',
     Endpoint.soldDetail: 'api/v1/listing/listingDetail/soldDetail/%s',
     Endpoint.favoriteProfile : 'api/public/v1/profile/favoriteItems/%s',
-    Endpoint.nftWallet: 'api/v1/profile/settings/nftWallet'
+    Endpoint.nftWallet: 'api/v1/profile/settings/nftWallet',
+    Endpoint.logout: 'api/v1/account/logout'
   };
 }

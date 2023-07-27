@@ -3,6 +3,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 abstract class StorageRepositoryInt {
   FlutterSecureStorage get storage;
   void initialize();
+  Future<void> deleteAll();
   Future<void> saveToken(String token);
   Future<String?> getToken();
   Future<void> saveEmail(String email);

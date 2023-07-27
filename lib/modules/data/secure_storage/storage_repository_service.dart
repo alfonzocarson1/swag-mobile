@@ -34,6 +34,11 @@ class StorageRepositoryService implements StorageRepositoryInt {
   }
 
   @override
+  Future<void> deleteAll() async {
+   await _storage.deleteAll();
+  }
+
+  @override
   Future<String?> getToken() async {
     try {
       final token = await storage.read(key: _token);

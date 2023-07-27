@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swagapp/modules/blocs/auth_bloc/auth_bloc.dart';
+import 'package:swagapp/modules/common/ui/loading.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/cubits/profile/get_profile_cubit.dart';
+import 'package:swagapp/modules/data/secure_storage/storage_repository_service.dart';
 import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
 import 'package:swagapp/modules/di/injector.dart';
 import 'package:swagapp/modules/models/profile/profile_model.dart';
 import 'package:swagapp/modules/pages/login/landing_page.dart';
+import 'package:swagapp/modules/pages/login/sign_in_page.dart';
 import 'package:swagapp/modules/pages/profile/update_name_page.dart';
+import 'package:swagapp/modules/pages/splash/splash_page.dart';
 import '../../../generated/l10n.dart';
 import '../../common/ui/pushed_header.dart';
 import '../../common/utils/custom_route_animations.dart';
@@ -55,7 +60,28 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
         height: 70,
       ),
       backgroundColor: Palette.current.primaryNero,
-      body: Column(
+      body: BlocListener<AuthBloc, AuthState>(
+    listener: (context, state) => state.maybeWhen(
+    orElse: () {
+      print("ELSE");
+    return null;
+    },
+    unauthenticated: () {
+     Navigator.pushReplacement(context, LandingPage.route());
+      Future.delayed(const Duration(milliseconds: 3000), () async {
+        await getIt<StorageRepositoryService>().deleteAll();
+        await getIt<PreferenceRepositoryService>().deleteAll();
+      });
+
+    print("UNAUTHENTICATED");
+    return null;
+    },
+    error: (message) => {
+    Loading.hide(context),
+    // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
+    },
+    ),
+    child: Column(
             children: [
               Expanded(
                 child: LayoutBuilder(builder: (context, viewportConstraints) {
@@ -182,7 +208,8 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                               child: PrimaryButton(
                                 title: S.of(context).sign_out.toUpperCase(),
                                 onPressed: () {
-                                  Navigator.of(context).pushAndRemoveUntil(LandingPage.route(), (route) => false);
+                                  getIt<AuthBloc>().add(
+                                      const AuthEvent.logout());
                                 },
                                 type: PrimaryButtonType.pink,
                               ),
@@ -194,7 +221,8 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
               ),
             ],
           )
-      );
+      )
+    );
   }
 
   Widget _selectTile(

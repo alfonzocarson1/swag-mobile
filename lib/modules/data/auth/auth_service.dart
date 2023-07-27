@@ -42,7 +42,14 @@ class AuthService extends IAuthService {
   }
 
   @override
-  Future<void> logOut() async {}
+  Future<dynamic> logOut() async {
+    dynamic response = await apiService.getEndpointData(
+      endpoint: Endpoint.logout,
+      method: RequestMethod.post,
+      fromJson: (json) => json,
+    );
+   return response;
+  }
 
   @override
   Future<bool> isUsernameAvailable(String username) async {
