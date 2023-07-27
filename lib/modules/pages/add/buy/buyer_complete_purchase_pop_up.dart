@@ -527,121 +527,140 @@ class _BuyerCompletePurchasePopUpState
                                           elevation: 4.0,
                                           child: SizedBox(
                                             height: 200.0,
-                                            child: ListView.builder(
-                                              itemCount:
-                                                  shippedAddress.length + 1,
-                                              itemBuilder:
-                                                  (BuildContext context,
-                                                      int index) {
-                                                bool addAddress = (index + 1 >
-                                                    shippedAddress.length);
-                                                final String option = addAddress
-                                                    ? '+ Add New Address'
-                                                    : shippedAddress
-                                                        .elementAt(index);
-                                                return GestureDetector(
-                                                  onTap: () {
-                                                    if (addAddress) {
-                                                      Navigator.of(context,
-                                                              rootNavigator:
-                                                                  true)
-                                                          .push(
-                                                              AddShippingAddressPage
-                                                                  .route(null,
-                                                                      () {
-                                                        setState(() {
-                                                          updateAddressList();
-                                                        });
-                                                      }));
-                                                    } else {
-                                                      setState(() {
-                                                        _selectedItem = option;
-                                                        _firstAddressController
-                                                            .text = option;
-                                                        _showDropdown = false;
-
-                                                        setState(() {
-                                                          AddressesPayloadModel?
-                                                              targetAddress =
-                                                              addresses.firstWhere(
-                                                                  (address) =>
-                                                                      address
-                                                                          .address1 ==
-                                                                      _selectedItem);
-
+                                            child: Stack(
+                                              children: [
+                                                ListView.builder(
+                                                  itemCount:
+                                                      shippedAddress.length + 1,
+                                                  itemBuilder:
+                                                      (BuildContext context,
+                                                          int index) {
+                                                    bool addAddress = (index +
+                                                            1 >
+                                                        shippedAddress.length);
+                                                    final String option =
+                                                        addAddress
+                                                            ? '+ Add New Address'
+                                                            : shippedAddress
+                                                                .elementAt(
+                                                                    index);
+                                                    return GestureDetector(
+                                                      onTap: () {
+                                                        if (addAddress) {
+                                                          Navigator.of(context,
+                                                                  rootNavigator:
+                                                                      true)
+                                                              .push(
+                                                                  AddShippingAddressPage
+                                                                      .route(
+                                                                          null,
+                                                                          () {
+                                                            setState(() {
+                                                              updateAddressList();
+                                                            });
+                                                          }));
+                                                        } else {
                                                           setState(() {
-                                                            _addressController
-                                                                    .text =
-                                                                '${targetAddress.address2}';
-                                                            _cityController
-                                                                    .text =
-                                                                '${targetAddress.city}';
-                                                            _zipController
-                                                                    .text =
-                                                                '${targetAddress.postalCode}';
-                                                            _defaultState =
-                                                                '${targetAddress.state}';
-                                                          });
-                                                        });
+                                                            _selectedItem =
+                                                                option;
+                                                            _firstAddressController
+                                                                .text = option;
+                                                            _showDropdown =
+                                                                false;
 
-                                                        _firstAddressController
-                                                                .selection =
-                                                            TextSelection.fromPosition(
-                                                                TextPosition(
-                                                                    offset: option
-                                                                        .length));
-                                                      });
-                                                    }
-                                                  },
-                                                  child: ListTile(
-                                                    contentPadding:
-                                                        const EdgeInsets.only(
-                                                            left: 0.0,
-                                                            right: 0.0),
-                                                    visualDensity:
-                                                        const VisualDensity(
-                                                            horizontal: -4,
-                                                            vertical: -4),
-                                                    title: Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              left: 15),
-                                                      child: addAddress
-                                                          ? Text(option)
-                                                          : Text(option),
-                                                    ),
-                                                    trailing: index == 0
-                                                        ? IconButton(
-                                                            icon: Image.asset(
-                                                              'assets/images/IconDropdowUp.png',
-                                                              width: 20,
-                                                              height: 20,
-                                                            ),
-                                                            onPressed: () {
+                                                            setState(() {
+                                                              AddressesPayloadModel?
+                                                                  targetAddress =
+                                                                  addresses.firstWhere(
+                                                                      (address) =>
+                                                                          address
+                                                                              .address1 ==
+                                                                          _selectedItem);
+
                                                               setState(() {
-                                                                _showDropdown =
-                                                                    false;
+                                                                _addressController
+                                                                        .text =
+                                                                    '${targetAddress.address2}';
+                                                                _cityController
+                                                                        .text =
+                                                                    '${targetAddress.city}';
+                                                                _zipController
+                                                                        .text =
+                                                                    '${targetAddress.postalCode}';
+                                                                _defaultState =
+                                                                    '${targetAddress.state}';
                                                               });
-                                                            },
-                                                          )
-                                                        : const Text(''),
+                                                            });
+
+                                                            _firstAddressController
+                                                                    .selection =
+                                                                TextSelection.fromPosition(
+                                                                    TextPosition(
+                                                                        offset:
+                                                                            option.length));
+                                                          });
+                                                        }
+                                                      },
+                                                      child: ListTile(
+                                                        contentPadding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                left: 0.0,
+                                                                right: 0.0),
+                                                        visualDensity:
+                                                            const VisualDensity(
+                                                                horizontal: -4,
+                                                                vertical: -4),
+                                                        title: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  left: 15),
+                                                          child: addAddress
+                                                              ? Text(option)
+                                                              : Text(option),
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                                Positioned(
+                                                  right: 0,
+                                                  top: 0,
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      _showDropdown = false;
+                                                    },
+                                                    child: IconButton(
+                                                      icon: Image.asset(
+                                                        'assets/images/IconDropdowUp.png',
+                                                        width: 20,
+                                                        height: 20,
+                                                      ),
+                                                      onPressed: () {
+                                                        setState(() {
+                                                          _showDropdown = false;
+                                                        });
+                                                      },
+                                                    ),
                                                   ),
-                                                );
-                                              },
+                                                ),
+                                              ],
                                             ),
                                           ),
                                         ),
                                       ),
                                   ],
                                 ),
-                                const SizedBox(
-                                  height: 2,
+                                SizedBox(
+                                  height: _showDropdown ? 10 : 0,
                                 ),
                                 CustomTextFormField(
                                     inputFormatters: [
                                       FilteringTextInputFormatter.allow(
                                           RegExp("^.{0,50}\$")),
                                     ],
+                                    readOnly: true,
                                     textCapitalization:
                                         TextCapitalization.words,
                                     borderColor: _addressBorder,
@@ -659,6 +678,7 @@ class _BuyerCompletePurchasePopUpState
                                       FilteringTextInputFormatter.allow(
                                           RegExp("^.{0,50}\$")),
                                     ],
+                                    readOnly: true,
                                     borderColor: _cityBorder,
                                     autofocus: false,
                                     labelText: 'City',
@@ -730,6 +750,7 @@ class _BuyerCompletePurchasePopUpState
                                               decimal: true,
                                               signed: false,
                                             ),
+                                            readOnly: true,
                                             borderColor: _zipBorder,
                                             autofocus: false,
                                             errorText: zipErrorText,
