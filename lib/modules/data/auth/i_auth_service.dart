@@ -11,7 +11,7 @@ abstract class IAuthService {
       String email, String password, String deviceId);
   Future<CreateAccountResponseModel> createAccount(
       CreateAccountPayloadModel model);
-  Future<void> logOut();
+  Future<dynamic> logOut();
   Future<bool> isUsernameAvailable(String username);
   Future<dynamic> isPhoneAvailable(String phone);
   Future<void> requestPasswordResetCode(String email);

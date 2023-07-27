@@ -9,7 +9,7 @@ import '../../stripe/models/cards_response_model.dart';
 abstract class PreferenceRepositoryInt {
   SharedPreferences get prefs;
   void initialize();
-
+  Future<void> deleteAll();
   bool isLogged();
   Future<void> saveIsLogged(bool value);
   bool showNotification();

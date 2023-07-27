@@ -61,8 +61,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Stream<AuthState> _logout() async* {
-    await authService.logOut();
-    yield const AuthState.unauthenticated();
+    try {
+      dynamic response = await authService.logOut();
+      bool isLogout = response["response"];
+
+      if(isLogout){
+
+        yield const AuthState.unauthenticated();
+      }
+    } catch(e){
+      print("ERROR");
+      yield AuthState.error(HandlingErrors().getError(e));
+    }
   }
 
   Stream<AuthState> _init() async* {

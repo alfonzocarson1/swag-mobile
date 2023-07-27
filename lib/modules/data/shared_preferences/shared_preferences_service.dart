@@ -57,6 +57,11 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   }
 
   @override
+  Future<void> deleteAll()  async {
+    await _prefs.clear();
+  }
+
+  @override
   bool isLogged() {
     final logged = _prefs.getBool(_logged);
     return logged ?? false;
