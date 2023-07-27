@@ -54,6 +54,10 @@ class _BuyerCompletePurchasePopUpState
   final _addressController = TextEditingController();
   Color _addressBorder = Palette.current.primaryWhiteSmoke;
 
+  final FocusNode _countryNode = FocusNode();
+  final _countryController = TextEditingController();
+  Color _countryBorder = Palette.current.primaryWhiteSmoke;
+
   final FocusNode _cityNode = FocusNode();
   final _cityController = TextEditingController();
   Color _cityBorder = Palette.current.primaryWhiteSmoke;
@@ -159,6 +163,7 @@ class _BuyerCompletePurchasePopUpState
     _zipController.text = '${profileData.addresses![0].postalCode}';
     _defaultState = '${profileData.addresses![0].state}';
     _defaultCountry = '${profileData.addresses![0].country}';
+    _countryController.text = '${profileData.addresses![0].country}';
 
     _paymentTypeNode.addListener(() {
       setState(() {
@@ -170,6 +175,14 @@ class _BuyerCompletePurchasePopUpState
 
     _shippedAddressNode.addListener(() {
       setState(() {});
+    });
+
+    _countryNode.addListener(() {
+      setState(() {
+        _countryBorder = _countryNode.hasFocus
+            ? Palette.current.primaryNeonGreen
+            : Palette.current.primaryWhiteSmoke;
+      });
     });
 
     _addressNode.addListener(() {
@@ -263,6 +276,7 @@ class _BuyerCompletePurchasePopUpState
               onTap: () {
                 _paymentTypeNode.unfocus();
                 _shippedAddressNode.unfocus();
+                _countryNode.unfocus();
                 _addressNode.unfocus();
                 _cityNode.unfocus();
                 _stateNode.unfocus();
@@ -353,6 +367,20 @@ class _BuyerCompletePurchasePopUpState
                                 const SizedBox(
                                   height: 10,
                                 ),
+                                CustomTextFormField(
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                          RegExp("^.{0,50}\$")),
+                                    ],
+                                    readOnly: true,
+                                    textCapitalization:
+                                        TextCapitalization.words,
+                                    borderColor: _countryBorder,
+                                    autofocus: false,
+                                    labelText: 'Country',
+                                    focusNode: _countryNode,
+                                    controller: _countryController,
+                                    inputType: TextInputType.text),
                                 Stack(
                                   children: [
                                     SizedBox(
@@ -589,6 +617,10 @@ class _BuyerCompletePurchasePopUpState
                                                                     '${targetAddress.postalCode}';
                                                                 _defaultState =
                                                                     '${targetAddress.state}';
+
+                                                                _countryController
+                                                                        .text =
+                                                                    '${targetAddress.country}';
                                                               });
                                                             });
 
@@ -698,20 +730,20 @@ class _BuyerCompletePurchasePopUpState
                                       child: Column(
                                         children: [
                                           CupertinoPickerView(
-                                              key: const Key('State-Picker'),
-                                              errorText: stateErrorText,
-                                              cupertinoPickerItems: stateCodes,
-                                              cupertinoPickervalue:
-                                                  _defaultState,
-                                              onDone: (index) {
-                                                setState(() => value = index);
-                                                _defaultState =
-                                                    stateCodes[index];
-                                                _stateController.text =
-                                                    _defaultState;
+                                            key: const Key('State-Picker'),
+                                            errorText: stateErrorText,
+                                            cupertinoPickerItems: stateCodes,
+                                            cupertinoPickervalue: _defaultState,
+                                            onDone: (index) {
+                                              setState(() => value = index);
+                                              _defaultState = stateCodes[index];
+                                              _stateController.text =
+                                                  _defaultState;
 
-                                                Navigator.pop(context);
-                                              }),
+                                              Navigator.pop(context);
+                                            },
+                                            showPicker: false,
+                                          ),
                                           Visibility(
                                               visible: stateErrorText != null,
                                               child: Align(
@@ -774,77 +806,6 @@ class _BuyerCompletePurchasePopUpState
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                      height: 24.0,
-                                      width: 24.0,
-                                      child: Theme(
-                                        data: ThemeData(
-                                          unselectedWidgetColor:
-                                              Palette.current.primaryWhiteSmoke,
-                                          checkboxTheme: CheckboxThemeData(
-                                            side: MaterialStateBorderSide
-                                                .resolveWith(
-                                              (Set<MaterialState> states) {
-                                                if (states.contains(
-                                                    MaterialState.selected)) {
-                                                  return BorderSide(
-                                                      width: 1,
-                                                      color: Palette
-                                                          .current.white);
-                                                }
-                                                return BorderSide(
-                                                    width: 1,
-                                                    color:
-                                                        Palette.current.white);
-                                              },
-                                            ),
-                                            fillColor: MaterialStateProperty
-                                                .resolveWith<Color>(
-                                                    (Set<MaterialState>
-                                                        states) {
-                                              if (states.contains(
-                                                  MaterialState.selected)) {
-                                                return Palette
-                                                    .current.primaryNeonGreen;
-                                              }
-                                              return Palette.current.grey;
-                                            }),
-                                          ),
-                                        ),
-                                        child: Checkbox(
-                                          checkColor: Palette.current.black,
-                                          value: checkBoxValue,
-                                          onChanged: (value) {
-                                            setState(() =>
-                                                checkBoxValue = value ?? false);
-                                          },
-                                          side: BorderSide(
-                                              color: Palette
-                                                  .current.primaryNeonGreen),
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 10),
-                                    Flexible(
-                                      child: Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 0.0),
-                                          child: Text(
-                                            S.of(context).save_address,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall!
-                                                .copyWith(
-                                                  color: Palette
-                                                      .current.primaryNeonGreen,
-                                                ),
-                                          )),
-                                    ),
-                                  ],
-                                ),
                                 const SizedBox(
                                   height: 20,
                                 ),
@@ -871,7 +832,8 @@ class _BuyerCompletePurchasePopUpState
                                                           .text,
                                                   address2:
                                                       _addressController.text,
-                                                  country: _defaultCountry,
+                                                  country:
+                                                      _countryController.text,
                                                   city: _cityController.text,
                                                   state: _defaultState,
                                                   postalCode:
