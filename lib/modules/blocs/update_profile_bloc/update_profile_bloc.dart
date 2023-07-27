@@ -97,6 +97,7 @@ class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
     Stream<UpdateProfileState> _askEmailVerification() async* {
     try {
       bool response = await updateProfileService.requestEmailVerification();
+      yield UpdateProfileState.updated();
       yield  UpdateProfileState.verificationEmailSent(response);
     } on Exception catch (e) {
       yield UpdateProfileState.error(HandlingErrors().getError(e));
