@@ -31,7 +31,6 @@ import 'package:swagapp/modules/data/search/i_search_service.dart';
 import 'package:swagapp/modules/data/search/search_service.dart';
 import 'package:swagapp/modules/data/search_service/search_service.dart'
     as search;
-import 'package:swagapp/modules/data/secure_storage/storage_repository_int.dart';
 
 import '../blocs/auth_bloc/auth_bloc.dart';
 import '../blocs/auth_bloc/username_bloc.dart';
@@ -45,7 +44,6 @@ import '../blocs/listing_bloc/listing_bloc.dart';
 import '../blocs/profile_favorite_bloc/profile_favorite_bloc.dart';
 import '../blocs/sale_history/sale_history_bloc.dart';
 import '../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
-import '../blocs/sold_bloc/sold_bloc.dart';
 import '../blocs/update_profile_bloc/update_profile_bloc.dart';
 import '../cubits/alert/alert_cubit.dart';
 import '../cubits/auth/auth_cubit.dart';
@@ -87,7 +85,6 @@ import '../data/sale_history/i_sale_history_service.dart';
 import '../data/sale_history/sale_history_service.dart';
 import '../data/search_service/i_search_service.dart';
 import '../data/secure_storage/storage_repository_service.dart';
-import '../data/shared_preferences/i_shared_preferences.dart';
 import '../data/shared_preferences/shared_preferences_service.dart';
 import '../data/sold/i_sold_service.dart';
 import '../data/sold/sold_service.dart';
@@ -114,7 +111,8 @@ Future<void> setupAppScope(String appFlavor) async {
   getIt.registerLazySingleton<IChatService>(() => ChatService(getIt()));
   getIt.registerLazySingleton<ChatBloc>(() => ChatBloc(getIt(), getIt()));
   getIt.registerLazySingleton<IAuthService>(() => AuthService(getIt()));
-  getIt.registerLazySingleton<AuthBloc>(() => AuthBloc(getIt(), getIt(), getIt()));
+  getIt.registerLazySingleton<AuthBloc>(
+      () => AuthBloc(getIt(), getIt(), getIt()));
   getIt.registerLazySingleton<UsernameBloc>(
       () => UsernameBloc(getIt<IAuthService>()));
 
