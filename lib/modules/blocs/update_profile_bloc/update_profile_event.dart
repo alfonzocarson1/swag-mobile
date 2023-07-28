@@ -12,4 +12,6 @@ class UpdateProfileEvent with _$UpdateProfileEvent {
   const factory UpdateProfileEvent.closeVerifyEmailModal() = _CloseVerifyEmailModal;
   const factory UpdateProfileEvent.updateName(UpdateProfilePayloadModel model) =
   _UpdateProfileNameEvent;
+  const factory UpdateProfileEvent.updateEmail(UpdateProfilePayloadModel model) =
+  _UpdateEmailEvent;
 }

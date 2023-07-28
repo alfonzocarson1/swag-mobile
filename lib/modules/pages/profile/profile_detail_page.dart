@@ -11,6 +11,7 @@ import 'package:swagapp/modules/di/injector.dart';
 import 'package:swagapp/modules/models/profile/profile_model.dart';
 import 'package:swagapp/modules/pages/login/landing_page.dart';
 import 'package:swagapp/modules/pages/login/sign_in_page.dart';
+import 'package:swagapp/modules/pages/profile/update_email_page.dart';
 import 'package:swagapp/modules/pages/profile/update_name_page.dart';
 import 'package:swagapp/modules/pages/splash/splash_page.dart';
 import '../../../generated/l10n.dart';
@@ -164,7 +165,17 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                                 'assets/icons/email.png',
                                 S.of(context).profile_email_title,
                                 profileData.email,
-                                    () {},
+                                    () async {
+                                      final result = await Navigator.of(context, rootNavigator: true)
+                                          .push(UpdateEmailPage.route());
+                                      if(result) {
+                                        print("BACK");
+                                        setState(() {
+
+                                        });
+                                      }
+
+                                    },
                                 false,
                                 profileData.emailVerified
                                     ? S.of(context).email_verified

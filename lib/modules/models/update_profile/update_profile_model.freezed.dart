@@ -20,13 +20,15 @@ UpdateProfileModel _$UpdateProfileModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UpdateProfileModel {
-  String get accountId => throw _privateConstructorUsedError;
-  String get username => throw _privateConstructorUsedError;
-  double get listingsRating => throw _privateConstructorUsedError;
-  String get phoneNumber => throw _privateConstructorUsedError;
-  String get email => throw _privateConstructorUsedError;
+  String? get accountId => throw _privateConstructorUsedError;
+  String? get username => throw _privateConstructorUsedError;
+  double? get listingsRating => throw _privateConstructorUsedError;
+  String? get phoneNumber => throw _privateConstructorUsedError;
+  String? get email => throw _privateConstructorUsedError;
   List<AddressesPayloadModel>? get addresses =>
       throw _privateConstructorUsedError;
+  bool? get hasActiveSubscription => throw _privateConstructorUsedError;
+  Status? get status => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,12 +43,16 @@ abstract class $UpdateProfileModelCopyWith<$Res> {
       _$UpdateProfileModelCopyWithImpl<$Res, UpdateProfileModel>;
   @useResult
   $Res call(
-      {String accountId,
-      String username,
-      double listingsRating,
-      String phoneNumber,
-      String email,
-      List<AddressesPayloadModel>? addresses});
+      {String? accountId,
+      String? username,
+      double? listingsRating,
+      String? phoneNumber,
+      String? email,
+      List<AddressesPayloadModel>? addresses,
+      bool? hasActiveSubscription,
+      Status? status});
+
+  $StatusCopyWith<$Res>? get status;
 }
 
 /// @nodoc
@@ -62,39 +68,61 @@ class _$UpdateProfileModelCopyWithImpl<$Res, $Val extends UpdateProfileModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? accountId = null,
-    Object? username = null,
-    Object? listingsRating = null,
-    Object? phoneNumber = null,
-    Object? email = null,
+    Object? accountId = freezed,
+    Object? username = freezed,
+    Object? listingsRating = freezed,
+    Object? phoneNumber = freezed,
+    Object? email = freezed,
     Object? addresses = freezed,
+    Object? hasActiveSubscription = freezed,
+    Object? status = freezed,
   }) {
     return _then(_value.copyWith(
-      accountId: null == accountId
+      accountId: freezed == accountId
           ? _value.accountId
           : accountId // ignore: cast_nullable_to_non_nullable
-              as String,
-      username: null == username
+              as String?,
+      username: freezed == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
-              as String,
-      listingsRating: null == listingsRating
+              as String?,
+      listingsRating: freezed == listingsRating
           ? _value.listingsRating
           : listingsRating // ignore: cast_nullable_to_non_nullable
-              as double,
-      phoneNumber: null == phoneNumber
+              as double?,
+      phoneNumber: freezed == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
-              as String,
-      email: null == email
+              as String?,
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       addresses: freezed == addresses
           ? _value.addresses
           : addresses // ignore: cast_nullable_to_non_nullable
               as List<AddressesPayloadModel>?,
+      hasActiveSubscription: freezed == hasActiveSubscription
+          ? _value.hasActiveSubscription
+          : hasActiveSubscription // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as Status?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $StatusCopyWith<$Res>? get status {
+    if (_value.status == null) {
+      return null;
+    }
+
+    return $StatusCopyWith<$Res>(_value.status!, (value) {
+      return _then(_value.copyWith(status: value) as $Val);
+    });
   }
 }
 
@@ -107,12 +135,17 @@ abstract class _$$_UpdateProfileModelCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String accountId,
-      String username,
-      double listingsRating,
-      String phoneNumber,
-      String email,
-      List<AddressesPayloadModel>? addresses});
+      {String? accountId,
+      String? username,
+      double? listingsRating,
+      String? phoneNumber,
+      String? email,
+      List<AddressesPayloadModel>? addresses,
+      bool? hasActiveSubscription,
+      Status? status});
+
+  @override
+  $StatusCopyWith<$Res>? get status;
 }
 
 /// @nodoc
@@ -126,38 +159,48 @@ class __$$_UpdateProfileModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? accountId = null,
-    Object? username = null,
-    Object? listingsRating = null,
-    Object? phoneNumber = null,
-    Object? email = null,
+    Object? accountId = freezed,
+    Object? username = freezed,
+    Object? listingsRating = freezed,
+    Object? phoneNumber = freezed,
+    Object? email = freezed,
     Object? addresses = freezed,
+    Object? hasActiveSubscription = freezed,
+    Object? status = freezed,
   }) {
     return _then(_$_UpdateProfileModel(
-      accountId: null == accountId
+      accountId: freezed == accountId
           ? _value.accountId
           : accountId // ignore: cast_nullable_to_non_nullable
-              as String,
-      username: null == username
+              as String?,
+      username: freezed == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
-              as String,
-      listingsRating: null == listingsRating
+              as String?,
+      listingsRating: freezed == listingsRating
           ? _value.listingsRating
           : listingsRating // ignore: cast_nullable_to_non_nullable
-              as double,
-      phoneNumber: null == phoneNumber
+              as double?,
+      phoneNumber: freezed == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
-              as String,
-      email: null == email
+              as String?,
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       addresses: freezed == addresses
           ? _value._addresses
           : addresses // ignore: cast_nullable_to_non_nullable
               as List<AddressesPayloadModel>?,
+      hasActiveSubscription: freezed == hasActiveSubscription
+          ? _value.hasActiveSubscription
+          : hasActiveSubscription // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as Status?,
     ));
   }
 }
@@ -166,27 +209,29 @@ class __$$_UpdateProfileModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_UpdateProfileModel implements _UpdateProfileModel {
   const _$_UpdateProfileModel(
-      {required this.accountId,
-      required this.username,
-      required this.listingsRating,
-      required this.phoneNumber,
-      required this.email,
-      final List<AddressesPayloadModel>? addresses})
+      {this.accountId,
+      this.username,
+      this.listingsRating,
+      this.phoneNumber,
+      this.email,
+      final List<AddressesPayloadModel>? addresses,
+      this.hasActiveSubscription,
+      this.status})
       : _addresses = addresses;
 
   factory _$_UpdateProfileModel.fromJson(Map<String, dynamic> json) =>
       _$$_UpdateProfileModelFromJson(json);
 
   @override
-  final String accountId;
+  final String? accountId;
   @override
-  final String username;
+  final String? username;
   @override
-  final double listingsRating;
+  final double? listingsRating;
   @override
-  final String phoneNumber;
+  final String? phoneNumber;
   @override
-  final String email;
+  final String? email;
   final List<AddressesPayloadModel>? _addresses;
   @override
   List<AddressesPayloadModel>? get addresses {
@@ -198,8 +243,13 @@ class _$_UpdateProfileModel implements _UpdateProfileModel {
   }
 
   @override
+  final bool? hasActiveSubscription;
+  @override
+  final Status? status;
+
+  @override
   String toString() {
-    return 'UpdateProfileModel(accountId: $accountId, username: $username, listingsRating: $listingsRating, phoneNumber: $phoneNumber, email: $email, addresses: $addresses)';
+    return 'UpdateProfileModel(accountId: $accountId, username: $username, listingsRating: $listingsRating, phoneNumber: $phoneNumber, email: $email, addresses: $addresses, hasActiveSubscription: $hasActiveSubscription, status: $status)';
   }
 
   @override
@@ -217,7 +267,10 @@ class _$_UpdateProfileModel implements _UpdateProfileModel {
                 other.phoneNumber == phoneNumber) &&
             (identical(other.email, email) || other.email == email) &&
             const DeepCollectionEquality()
-                .equals(other._addresses, _addresses));
+                .equals(other._addresses, _addresses) &&
+            (identical(other.hasActiveSubscription, hasActiveSubscription) ||
+                other.hasActiveSubscription == hasActiveSubscription) &&
+            (identical(other.status, status) || other.status == status));
   }
 
   @JsonKey(ignore: true)
@@ -229,7 +282,9 @@ class _$_UpdateProfileModel implements _UpdateProfileModel {
       listingsRating,
       phoneNumber,
       email,
-      const DeepCollectionEquality().hash(_addresses));
+      const DeepCollectionEquality().hash(_addresses),
+      hasActiveSubscription,
+      status);
 
   @JsonKey(ignore: true)
   @override
@@ -248,30 +303,185 @@ class _$_UpdateProfileModel implements _UpdateProfileModel {
 
 abstract class _UpdateProfileModel implements UpdateProfileModel {
   const factory _UpdateProfileModel(
-      {required final String accountId,
-      required final String username,
-      required final double listingsRating,
-      required final String phoneNumber,
-      required final String email,
-      final List<AddressesPayloadModel>? addresses}) = _$_UpdateProfileModel;
+      {final String? accountId,
+      final String? username,
+      final double? listingsRating,
+      final String? phoneNumber,
+      final String? email,
+      final List<AddressesPayloadModel>? addresses,
+      final bool? hasActiveSubscription,
+      final Status? status}) = _$_UpdateProfileModel;
 
   factory _UpdateProfileModel.fromJson(Map<String, dynamic> json) =
       _$_UpdateProfileModel.fromJson;
 
   @override
-  String get accountId;
+  String? get accountId;
   @override
-  String get username;
+  String? get username;
   @override
-  double get listingsRating;
+  double? get listingsRating;
   @override
-  String get phoneNumber;
+  String? get phoneNumber;
   @override
-  String get email;
+  String? get email;
   @override
   List<AddressesPayloadModel>? get addresses;
   @override
+  bool? get hasActiveSubscription;
+  @override
+  Status? get status;
+  @override
   @JsonKey(ignore: true)
   _$$_UpdateProfileModelCopyWith<_$_UpdateProfileModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+Status _$StatusFromJson(Map<String, dynamic> json) {
+  return _Status.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Status {
+  String? get errorCode => throw _privateConstructorUsedError;
+  String? get errorMessage => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $StatusCopyWith<Status> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $StatusCopyWith<$Res> {
+  factory $StatusCopyWith(Status value, $Res Function(Status) then) =
+      _$StatusCopyWithImpl<$Res, Status>;
+  @useResult
+  $Res call({String? errorCode, String? errorMessage});
+}
+
+/// @nodoc
+class _$StatusCopyWithImpl<$Res, $Val extends Status>
+    implements $StatusCopyWith<$Res> {
+  _$StatusCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? errorCode = freezed,
+    Object? errorMessage = freezed,
+  }) {
+    return _then(_value.copyWith(
+      errorCode: freezed == errorCode
+          ? _value.errorCode
+          : errorCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      errorMessage: freezed == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_StatusCopyWith<$Res> implements $StatusCopyWith<$Res> {
+  factory _$$_StatusCopyWith(_$_Status value, $Res Function(_$_Status) then) =
+      __$$_StatusCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String? errorCode, String? errorMessage});
+}
+
+/// @nodoc
+class __$$_StatusCopyWithImpl<$Res>
+    extends _$StatusCopyWithImpl<$Res, _$_Status>
+    implements _$$_StatusCopyWith<$Res> {
+  __$$_StatusCopyWithImpl(_$_Status _value, $Res Function(_$_Status) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? errorCode = freezed,
+    Object? errorMessage = freezed,
+  }) {
+    return _then(_$_Status(
+      errorCode: freezed == errorCode
+          ? _value.errorCode
+          : errorCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      errorMessage: freezed == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_Status implements _Status {
+  const _$_Status({this.errorCode, this.errorMessage});
+
+  factory _$_Status.fromJson(Map<String, dynamic> json) =>
+      _$$_StatusFromJson(json);
+
+  @override
+  final String? errorCode;
+  @override
+  final String? errorMessage;
+
+  @override
+  String toString() {
+    return 'Status(errorCode: $errorCode, errorMessage: $errorMessage)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_Status &&
+            (identical(other.errorCode, errorCode) ||
+                other.errorCode == errorCode) &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, errorCode, errorMessage);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_StatusCopyWith<_$_Status> get copyWith =>
+      __$$_StatusCopyWithImpl<_$_Status>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_StatusToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Status implements Status {
+  const factory _Status({final String? errorCode, final String? errorMessage}) =
+      _$_Status;
+
+  factory _Status.fromJson(Map<String, dynamic> json) = _$_Status.fromJson;
+
+  @override
+  String? get errorCode;
+  @override
+  String? get errorMessage;
+  @override
+  @JsonKey(ignore: true)
+  _$$_StatusCopyWith<_$_Status> get copyWith =>
       throw _privateConstructorUsedError;
 }
