@@ -14,7 +14,8 @@ import 'api.dart';
 enum RequestMethod { get, post, put, multipart, delete }
 
 class APIService {
-  APIService();
+  final API api;
+  APIService(this.api);
 
   Future updateImageEndpoint<T>(
       {required Endpoint endpoint,
@@ -37,7 +38,6 @@ class APIService {
       token = await getIt<StorageRepositoryService>().getToken();
     }
 
-    final api = API();
     http.Response? response;
     var uri = api.endpointUri(endpoint, dynamicParam: dynamicParam);
 
@@ -140,7 +140,6 @@ class APIService {
       print(token);
     }
 
-    final api = API();
     http.Response? response;
     var uri = api.endpointUri(endpoint, dynamicParam: dynamicParam);
 

@@ -60,15 +60,17 @@ enum Endpoint {
 }
 
 class API {
-  static final String? host = AppConfig().baseUrl;
-  static const String basePath = '';
+  final AppConfig appConfig;
+  API(this.appConfig);
+
+  String get host => appConfig.apiBaseUrl;
 
   Uri tokenUri() => Uri(scheme: 'https', host: host, path: tokenPath);
 
   Uri endpointUri(Endpoint endpoint, {String? dynamicParam = defaultString}) =>
       Uri.http(
           //TODO: Update to https when possible
-          host ?? hostProd,
+          host,
           dynamicParam != null
               ? sprintf(_paths[endpoint]!, [dynamicParam])
               : _paths[endpoint]!);
@@ -132,7 +134,7 @@ class API {
     Endpoint.confirmReceivedItem: 'api/v1/buyFlow/confirmReceivedItem',
     Endpoint.listingsRating: 'api/v1/profile/listingsRating',
     Endpoint.soldDetail: 'api/v1/listing/listingDetail/soldDetail/%s',
-    Endpoint.favoriteProfile : 'api/public/v1/profile/favoriteItems/%s',
+    Endpoint.favoriteProfile: 'api/public/v1/profile/favoriteItems/%s',
     Endpoint.nftWallet: 'api/v1/profile/settings/nftWallet',
     Endpoint.logout: 'api/v1/account/logout'
   };

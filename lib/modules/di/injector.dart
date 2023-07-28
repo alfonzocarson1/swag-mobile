@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
+import 'package:swagapp/modules/api/api.dart';
 import 'package:swagapp/modules/api/api_service.dart';
+import 'package:swagapp/modules/api/app_config.dart';
 import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
 import 'package:swagapp/modules/blocs/search_bloc.dart/search_bloc.dart';
 import 'package:swagapp/modules/common/utils/context_service.dart';
@@ -98,24 +100,29 @@ const baseScope = 'baseScope';
 const unauthorizedScope = 'unauthorizedScope';
 const authorizedScope = 'authorizedScope';
 
-Future<void> setupAppScope() {
+Future<void> setupAppScope(String appFlavor) async {
+  final config = await AppConfig.init(appFlavor);
+  getIt.registerSingleton<AppConfig>(config);
+
+  getIt.registerLazySingleton(() => API(getIt()));
+  getIt.registerLazySingleton(() => APIService(getIt()));
+
   getIt.registerLazySingleton(() => PreferenceRepositoryService());
-  getIt.registerLazySingleton(() => FiltersService(APIService()));
+  getIt.registerLazySingleton(() => FiltersService(getIt()));
   getIt.registerLazySingleton(() => StorageRepositoryService());
   getIt.registerLazySingleton(() => ContextService());
-  getIt.registerLazySingleton<IChatService>(() => ChatService(APIService()));
-  getIt.registerLazySingleton<ChatBloc>(() => ChatBloc(getIt<IChatService>()));
-  getIt.registerLazySingleton<IAuthService>(() => AuthService(APIService()));
+  getIt.registerLazySingleton<IChatService>(() => ChatService(getIt()));
+  getIt.registerLazySingleton<ChatBloc>(() => ChatBloc(getIt(), getIt()));
+  getIt.registerLazySingleton<IAuthService>(() => AuthService(getIt()));
   getIt.registerLazySingleton<AuthBloc>(() => AuthBloc(getIt(), getIt(), getIt()));
   getIt.registerLazySingleton<UsernameBloc>(
       () => UsernameBloc(getIt<IAuthService>()));
 
-  getIt
-      .registerLazySingleton<ISearchService>(() => SearchService(APIService()));
+  getIt.registerLazySingleton<ISearchService>(() => SearchService(getIt()));
   getIt.registerLazySingleton<ISearchService2>(
-      () => search.SearchService(APIService()));
+      () => search.SearchService(getIt()));
   getIt.registerLazySingleton<ISavedSearchService>(
-      () => SavedSearchService(APIService()));
+      () => SavedSearchService(getIt()));
 
   getIt.registerLazySingleton<SearchBloc>(
       () => SearchBloc(getIt<ISearchService>(), getIt<ISavedSearchService>()));
@@ -144,41 +151,39 @@ Future<void> setupAppScope() {
       () => CollectionProfileCubit(getIt<ICollectionService>()));
 
   getIt.registerLazySingleton<IPeerToPeerPaymentsService>(
-      () => PeerToPeerPaymentsService(APIService()));
+      () => PeerToPeerPaymentsService(getIt()));
   getIt.registerLazySingleton<PeerToPeerPaymentsCubit>(
       () => PeerToPeerPaymentsCubit(getIt<IPeerToPeerPaymentsService>()));
 
   getIt.registerLazySingleton<ProfileCubit>(
       () => ProfileCubit(getIt<IAuthService>()));
 
-  getIt.registerLazySingleton<IExploreService>(
-      () => ExploreService(APIService()));
+  getIt.registerLazySingleton<IExploreService>(() => ExploreService(getIt()));
 
   getIt.registerLazySingleton<BuyCubit>(
       () => BuyCubit(getIt<IBuyForSaleListingService>()));
 
-  getIt.registerLazySingleton<IAlertService>(() => AlertService(APIService()));
+  getIt.registerLazySingleton<IAlertService>(() => AlertService(getIt()));
   getIt.registerLazySingleton<AlertCubit>(
       () => AlertCubit(getIt<IAlertService>()));
 
-  getIt.registerLazySingleton<ISoldService>(() => SoldService(APIService()));
+  getIt.registerLazySingleton<ISoldService>(() => SoldService(getIt()));
   getIt.registerLazySingleton<SoldProfileCubit>(
       () => SoldProfileCubit(getIt<ISoldService>()));
 
   getIt.registerLazySingleton<IUpdateProfileService>(
-      () => UpdateProfileService(APIService()));
+      () => UpdateProfileService(getIt()));
   getIt.registerLazySingleton<UpdateProfileBloc>(
       () => UpdateProfileBloc(getIt<IUpdateProfileService>()));
 
   getIt.registerLazySingleton<FavoriteBloc>(() => FavoriteBloc());
 
-  getIt
-      .registerLazySingleton<IDetailService>(() => DetailService(APIService()));
+  getIt.registerLazySingleton<IDetailService>(() => DetailService(getIt()));
   getIt.registerLazySingleton<DetailBloc>(
       () => DetailBloc(getIt<IDetailService>()));
 
   getIt.registerLazySingleton<ICollectionService>(
-      () => CollectionService(APIService()));
+      () => CollectionService(getIt()));
   getIt.registerLazySingleton<CollectionBloc>(
       () => CollectionBloc(getIt<ICollectionService>()));
 
@@ -186,22 +191,21 @@ Future<void> setupAppScope() {
       () => PageFromExploreCubit());
 
   getIt.registerLazySingleton<ISalesHistoryService>(
-      () => SalesHistoryService(APIService()));
+      () => SalesHistoryService(getIt()));
   getIt.registerLazySingleton<SalesHistoryBloc>(
       () => SalesHistoryBloc(getIt<ISalesHistoryService>()));
 
-  getIt.registerLazySingleton<IListingService>(
-      () => ListingService(APIService()));
+  getIt.registerLazySingleton<IListingService>(() => ListingService(getIt()));
   getIt.registerLazySingleton<ListingBloc>(
       () => ListingBloc(getIt<IListingService>()));
 
   getIt.registerLazySingleton<IFavoriteProfileService>(
-      () => FavoriteProfileService(APIService()));
+      () => FavoriteProfileService(getIt()));
   getIt.registerLazySingleton<ProfileFavoriteBloc>(
       () => ProfileFavoriteBloc(getIt<IFavoriteProfileService>()));
 
   getIt.registerLazySingleton<IBuyForSaleListingService>(
-      () => BuyForSaleListingService(APIService()));
+      () => BuyForSaleListingService(getIt()));
   getIt.registerLazySingleton<BuySaleListingBloc>(
       () => BuySaleListingBloc(getIt<IBuyForSaleListingService>()));
 
@@ -210,22 +214,19 @@ Future<void> setupAppScope() {
             preferenceRepository: getIt<PreferenceRepositoryService>(),
           ));
 
-  getIt.registerLazySingleton<ICategoryService>(
-      () => CategoryService(APIService()));
+  getIt.registerLazySingleton<ICategoryService>(() => CategoryService(getIt()));
   getIt.registerLazySingleton<CategoryBloc>(
       () => CategoryBloc(getIt<ICategoryService>()));
 
-  getIt.registerLazySingleton<IFavoriteService>(
-      () => FavoriteService(APIService()));
+  getIt.registerLazySingleton<IFavoriteService>(() => FavoriteService(getIt()));
   getIt.registerLazySingleton<FavoriteItemBloc>(
       () => FavoriteItemBloc(getIt<IFavoriteService>()));
 
   getIt.registerLazySingleton<IPurchaseHistoryService>(
-      () => PurchaseHistoryService(APIService()));
+      () => PurchaseHistoryService(getIt()));
   getIt.registerLazySingleton(() => PurchaseHistoryCubit(getIt.get()));
 
-  getIt.registerLazySingleton<IPaywallService>(
-      () => PaywallService(APIService()));
+  getIt.registerLazySingleton<IPaywallService>(() => PaywallService(getIt()));
   getIt.registerLazySingleton(() => PurchaseHistoryDetailCubit(getIt.get()));
 
   getIt.registerLazySingleton<UpdateSubscriptionStatusCubit>(
@@ -233,15 +234,14 @@ Future<void> setupAppScope() {
 
   getIt.registerLazySingleton<PaywallCubit>(() => PaywallCubit());
 
-  getIt.registerLazySingleton<IProfileService>(
-      () => ProfileService(APIService()));
+  getIt.registerLazySingleton<IProfileService>(() => ProfileService(getIt()));
   getIt.registerLazySingleton(() => PublicProfileCubit(getIt(), getIt()));
 
   getIt.registerLazySingleton(() => PublicProfileListingsCubit(getIt()));
   getIt.registerLazySingleton(() => PublicProfileFavoritesCubit(getIt()));
 
   getIt.registerLazySingleton<INftWalletService>(
-      () => NftWalletService(APIService()));
+      () => NftWalletService(getIt()));
 
   getIt.registerLazySingleton(() => NftWalletCubit(getIt()));
 

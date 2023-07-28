@@ -68,22 +68,34 @@ android {
 
         dev {
             dimension "swagapp"
-            applicationIdSuffix ""
             resValue "string", "app_name", "Swag Dev"
+            applicationId "golf.swag.dev.swaggolf"
+            applicationIdSuffix ""
             versionNameSuffix ""
         }
 
         qa {
             dimension "swagapp"
-            applicationIdSuffix ""
             resValue "string", "app_name", "Swag QA"
+            applicationId "golf.swag.qa.swaggolf"
+            applicationIdSuffix ""
+            versionNameSuffix ""
+        }
+
+        uat {
+            dimension "swagapp"
+            applicationId "golf.swag.uat.swaggolf"
+            resValue "string", "app_name", "Swag UAT"
+            applicationIdSuffix ""
             versionNameSuffix ""
         }
 
         prod {
             dimension "swagapp"
-            applicationId "golf.swag.dev.swaggolf"
+            applicationId "golf.swag.swaggolf"
             resValue "string", "app_name", "Swag"
+            applicationIdSuffix ""
+            versionNameSuffix ""
         }
 
         signingConfigs {
