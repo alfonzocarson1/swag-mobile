@@ -68,16 +68,22 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
     return null;
     },
     unauthenticated: () {
-     Navigator.pushReplacement(context, LandingPage.route());
-      Future.delayed(const Duration(milliseconds: 3000), () async {
+
+      Future.delayed(const Duration(milliseconds: 1000), () async {
+        Loading.hide(context);
         await getIt<StorageRepositoryService>().deleteAll();
         await getIt<PreferenceRepositoryService>().deleteAll();
+        Navigator.of(context).pushAndRemoveUntil(LandingPage.route(), (route) => true);
       });
 
     print("UNAUTHENTICATED");
     return null;
     },
-    error: (message) => {
+      initial: (){
+        return Loading.show(context);
+      },
+
+      error: (message) => {
     Loading.hide(context),
     // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
     },
