@@ -59,7 +59,9 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
 
   @override
   Future<void> deleteAll()  async {
+    final bool shouldshowonboarding = shouldShowOnboarding();
     await _prefs.clear();
+    await saveShouldShowOnboarding(shouldshowonboarding);
   }
 
   @override
