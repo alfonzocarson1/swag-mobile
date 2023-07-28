@@ -24,7 +24,10 @@ Future<void> main() async {
   // };
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  setupAppScope();
+
+  final appFlavor = await getAppFlavor();
+  debugPrint('STARTED WITH FLAVOR $appFlavor');
+  await setupAppScope(appFlavor);
   await getIt<PreferenceRepositoryService>().initialize();
   getIt<StorageRepositoryService>().initialize();
   initFiltersAndSorts();
@@ -36,29 +39,24 @@ Future<void> main() async {
       print('initNotifications error message: $e');
     }
   }
-  await _handleFlavorConfig();
+  return _runApp();
 }
 
-Future<void> _handleFlavorConfig() async {
-  const MethodChannel('flavor')
-      .invokeMethod<String>('getFlavor')
-      .then((String? flavor) {
-    debugPrint('STARTED WITH FLAVOR $flavor');
-    switch (flavor) {
-      case AppConfig.swagProd:
-        AppConfig().init(url: hostProd).then((_) => _runApp());
-        break;
-      case AppConfig.swagDev:
-        AppConfig().init(url: hostDev).then((_) => _runApp());
-        break;
-      case AppConfig.swagQa:
-        AppConfig().init(url: hostQa).then((_) => _runApp());
-        break;
+Future<String> getAppFlavor() async {
+  try {
+    final flavor =
+        await const MethodChannel('flavor').invokeMethod<String>('getFlavor');
+    if (flavor == null) {
+      debugPrint('ERROR: APP FLAVOR IS NULL');
     }
-  }).catchError((error) {
-    debugPrint('FAILED TO LOAD FLAVOR');
-    debugPrint(error.toString());
-  });
+    return flavor!;
+  } catch (e, stk) {
+    debugPrintStack(
+      label: 'FAILED TO LOAD FLAVOR | ${e.toString()}',
+      stackTrace: stk,
+    );
+    rethrow;
+  }
 }
 
 Future<void> _runApp() async {

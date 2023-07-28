@@ -3,13 +3,9 @@ import '../di/injector.dart';
 import '../models/overlay_buton/overlay_button_model.dart';
 import '../models/search/category_model.dart';
 
-const String hostProd = "dev.core-api.app.net";
-const String hostDev = "orchestration.dev.swag.kuldisak.net:8080";
-const String hostQa = "dev.core-api.app.net";
 const tokenPath = 'auth/realms/app/protocol/openid-connect/token';
 const termsAndConditionsUrl = "https://swag.golf/pages/termsandconditions";
 const termsAndConditionsBasePath = "https://swag.golf";
-const String sendBirdAppId = "3A0E70A8-4861-44C2-ABC0-B7E13C776BEF";
 const String shareListingUrl = "intent://www.swagapp.com/product/";
 const String facebookUrl = "https://www.facebook.com/swaggolfco";
 const String twitterUrl = "https://twitter.com/swaggolfco";

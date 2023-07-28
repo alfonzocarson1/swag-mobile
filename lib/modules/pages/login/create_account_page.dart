@@ -635,7 +635,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
 
   Future<bool> checkIfEmailIsInUse(String email) async {
     var result = false;
-    final APIService apiService = APIService();
+    final apiService = getIt<APIService>();
     try {
       final response = await apiService.getEndpointData(
         endpoint: Endpoint.isEmailInUse,

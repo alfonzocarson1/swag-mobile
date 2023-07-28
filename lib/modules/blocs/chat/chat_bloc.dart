@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sendbird_sdk/sendbird_sdk.dart';
+import 'package:swagapp/modules/api/app_config.dart';
 import 'package:swagapp/modules/di/injector.dart';
 import 'package:swagapp/modules/constants/constants.dart';
 import 'package:swagapp/modules/models/chat/chat_data.dart';
@@ -21,9 +22,10 @@ part 'chat_state.dart';
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
   late SendbirdSdk _sendbirdSdk;
   final IChatService service;
+  final AppConfig appConfig;
 
-  ChatBloc(this.service) : super(ChatState()) {
-    this._sendbirdSdk = SendbirdSdk(appId: sendBirdAppId);
+  ChatBloc(this.service, this.appConfig) : super(ChatState()) {
+    this._sendbirdSdk = SendbirdSdk(appId: appConfig.sendBirdAppId);
 
     on<ChatSetMyUser>(
         (event, emit) => emit(this.state.copyWith(myUser: event.user)));
