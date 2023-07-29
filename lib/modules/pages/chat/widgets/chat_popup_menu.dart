@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:swagapp/generated/l10n.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/assets/icons.dart';
 import 'package:swagapp/modules/common/utils/palette.dart'; 
 import 'package:swagapp/modules/models/chat/chat_data.dart';
