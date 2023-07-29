@@ -1,15 +1,143 @@
 
 import 'dart:convert';
 
+import 'package:swagapp/generated/intl/messages_en.dart';
+import 'package:swagapp/modules/common/utils/utils.dart';
+
+import '../../../generated/l10n.dart';
+import '../../enums/chat_message_data_type.dart';
+import '../../models/chat/message_data.dart';
+
+
 abstract class SendBirdUtils {
 
   static Map<String, dynamic> getFormatedData(String data) {
 
-    String stringData = json.encode(data.replaceAll("'", '"').replaceAll('None', 'null'));
+    if(data.isEmpty){
+      return {};
+    }else{
+        String stringData = json.encode(data.replaceAll("'", '"').replaceAll('None', 'null'));
     String formatedData = stringData.replaceAll('\\', "");
     Map<String, dynamic> mapedData =
           json.decode(formatedData.substring(1, formatedData.length - 1));
     return mapedData;
+    }  
+  }
+
+
+ static String getPaymentMehotd(PaymentMethod paymentMethod) {
+    return (paymentMethod.payPalEmail.isEmpty)
+        ? (paymentMethod.venmoUser.isEmpty)
+            ? (paymentMethod.cashTag.isEmpty)
+                ? ''
+                : S.current.paymetCashApp
+            : S.current.paymetVenmo
+        : S.current.paymetPaypal;
+  }
+
+ static String getPaymentMehotdUser(PaymentMethod paymentMethod) {
+    return (paymentMethod.payPalEmail.isEmpty)
+        ? (paymentMethod.venmoUser.isEmpty)
+            ? (paymentMethod.cashTag.isEmpty)
+                ? ''
+                : paymentMethod.cashTag
+            : paymentMethod.venmoUser
+        : paymentMethod.payPalEmail;
+  }
+
+  static String getMessageText(MessageData messageData ) {      
+
+      if (messageData.type != ChatMessageDataType.message.textValue &&
+          messageData.type != ChatMessageDataType.paymentReceived.textValue &&
+          messageData.type != ChatMessageDataType.shipped.textValue &&
+          messageData.type != ChatMessageDataType.confirmShip.textValue &&
+          messageData.type != ChatMessageDataType.saleCanceled.textValue &&
+          messageData.type != ChatMessageDataType.paymentSend.textValue &&
+          messageData.type != ChatMessageDataType.itemNotReceived.textValue) {
+        return S.current.chatCardConfirmPaymentSeller(
+            messageData.payload.userNameBuyer,
+            messageData.payload.userNameSeller,
+            getPaymentMehotd(messageData.payload.paymentMethodOption),
+            decimalDigitsLastSalePrice(
+                messageData.payload.listingPrice.toString()),
+            getPaymentMehotdUser(messageData.payload.paymentMethodOption));
+      } else if (messageData.type ==
+          ChatMessageDataType.paymentReceived.textValue) {
+        return S.current
+            .chatConfirmPaymentMessage(messageData.payload.userNameSeller);
+      } else if (messageData.type ==
+          ChatMessageDataType.confirmShip.textValue) {
+        return S.current.chatConfirmShipMessage(
+            messageData.payload.userNameSeller,
+            messageData.payload.nameBuyer ?? '',
+            messageData.payload.lastNameBuyer ?? '',
+            messageData.payload.address.address1,
+            messageData.payload.address.address2,
+            messageData.payload.address.city,
+            messageData.payload.address.state,
+            messageData.payload.address.postalCode,
+            messageData.payload.address.country ?? '');
+      } else if (messageData.type == ChatMessageDataType.shipped.textValue) {
+        if (messageData.payload.trackingNumber.isEmpty) {
+          return S.current.chatShippedMessageWithoutTrackingNumber(
+              messageData.payload.userNameSeller);
+        } else {
+          return S.current.chatShippedMessage(
+            messageData.payload.userNameSeller,
+            messageData.payload.trackingNumber,
+          );
+        }
+      } else if (messageData.type ==
+          ChatMessageDataType.saleCanceled.textValue) {
+        return S.current.chatCancelPurchaseMessage;
+      } else if (messageData.type ==
+          ChatMessageDataType.paymentSend.textValue) {
+        return S.current
+            .chatPaymentSendBuyer(messageData.payload.userNameBuyer);
+      } else if (messageData.type ==
+          ChatMessageDataType.itemNotReceived.textValue) {
+        return S.current.notDeliveredItemChatMessage(
+            messageData.payload.userNameBuyer,
+            messageData.payload.userNameSeller);
+      } else {
+        return S.current.chatCommenceMessage;
+      }
+
+  }
+
+    static String getChatCardButtonText(MessageData messageData) {
+    if (messageData.type ==
+        ChatMessageDataType.confirmPaidSend.textValue) {
+      return S.current.chatCardButtonPaymentSent;
+    } else if (messageData.type ==
+        ChatMessageDataType.confirmPaymentReceived.textValue) {
+      return S.current.chatCardButtonPaymentReceived;
+    } else if (messageData.type ==
+        ChatMessageDataType.confirmShip.textValue) {
+      return S.current.chatCardButtonShipmentSent;
+    } else {
+      return '';
+    }
+  }
+
+  static  String getCardTitle(MessageData messageData) {
+    if (messageData.type ==
+        ChatMessageDataType.confirmPaidSend.textValue) {
+      return S.current.chatCardPaymetInformation;
+    } else if (messageData.type ==
+        ChatMessageDataType.confirmPaymentReceived.textValue) {
+      return S.current.chatCardPaymetConfirmation;
+    } else if (messageData.type ==
+        ChatMessageDataType.confirmShip.textValue) {
+      return S.current.chatCardShippingInformation;
+    } else {
+      return '';
+    }
   }
 }
+
+
+
+
+
 
