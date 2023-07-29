@@ -75,15 +75,15 @@ class LoggingInterceptor implements InterceptorContract {
   Future<BaseRequest> interceptRequest({
     required BaseRequest request,
   }) async {
-    debugPrint(">>> ${request.method} ${request.url}");
-    debugPrint(">>> Headers:");
+  //  debugPrint(">>> ${request.method} ${request.url}");
+  //  debugPrint(">>> Headers:");
     for (final headerEntry in request.headers.entries) {
-      debugPrint(">>> ${headerEntry.key}: ${headerEntry.value}");
+   //   debugPrint(">>> ${headerEntry.key}: ${headerEntry.value}");
     }
     if (request is Request) {
-      debugPrint(">>> Body:");
+    //  debugPrint(">>> Body:");
       request.body.split("\n").forEach((line) {
-        debugPrint(">>> $line");
+      //  debugPrint(">>> $line");
       });
     }
     return request;
@@ -93,14 +93,13 @@ class LoggingInterceptor implements InterceptorContract {
   Future<BaseResponse> interceptResponse({
     required BaseResponse response,
   }) async {
-    debugPrint(
-        "<<< [${response.statusCode}] ${response.request?.method} ${response.request?.url}");
+   // debugPrint("<<< [${response.statusCode}] ${response.request?.method} ${response.request?.url}");
     // debugPrint(">>> Headers:");
     // for (final headerEntry in request.headers.entries) {
     //   debugPrint(">>> ${headerEntry.key}: ${headerEntry.value}");
     // }
     if (response is Response) {
-      debugPrint("<<< Body:");
+     // debugPrint("<<< Body:");
       var body = response.body;
 
       try {
@@ -111,7 +110,7 @@ class LoggingInterceptor implements InterceptorContract {
       }
 
       body.split("\n").forEach((line) {
-        debugPrint("<<< $line");
+       // debugPrint("<<< $line");
       });
     }
     return response;
