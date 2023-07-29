@@ -4,17 +4,19 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 
 import '../../../../generated/l10n.dart';
-import '../../../blocs/chat/chat_bloc.dart';
+
 import '../../../common/ui/cupertino_custom_picker.dart';
 import '../../../common/ui/custom_text_form_field.dart';
 import '../../../common/ui/loading.dart';
 import '../../../common/utils/utils.dart';
 import '../../../constants/constants.dart';
 import '../../../cubits/buy/buy_cubit.dart';
+import '../../../cubits/chat/chat_cubit.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
 import '../../../models/buy_for_sale_listing/buy_a_listing_model.dart';
@@ -24,7 +26,8 @@ import '../../../models/profile/profile_model.dart';
 import '../../../models/settings/peer_to_peer_payments_get_model.dart';
 import '../../../models/settings/peer_to_peer_payments_model.dart';
 import '../../../models/update_profile/addresses_payload_model.dart';
-import '../../chat/chat_page.dart';
+
+import '../../chat/chatPage.dart';
 import '../../settings/account/add_shipping_address_page.dart';
 
 class BuyerCompletePurchasePopUp extends StatefulWidget {
@@ -224,13 +227,11 @@ class _BuyerCompletePurchasePopUpState
   }
 
   Future<void> onTapSubmit(String channelUrl) async {
-    ChatBloc chatBloc = context.read<ChatBloc>();
 
-    late ChatData chatData;
+    late GroupChannel chatData;
     try {
       await Future.delayed(const Duration(milliseconds: 500));
-
-      chatData = await chatBloc.startNewChat(channelUrl, false);
+      chatData = await getIt<ChatCubit>().startChat(channelUrl);
 
       Loading.hide(context);
 
@@ -246,7 +247,7 @@ class _BuyerCompletePurchasePopUpState
       getIt<PreferenceRepositoryService>().saveShowNotification(false);
       await Navigator.of(context, rootNavigator: true).push(
         MaterialPageRoute(
-            builder: (BuildContext context) => ChatPage(chatData: chatData)),
+            builder: (BuildContext context) => ChatPage(channel: chatData)),
       );
       Navigator.of(context).pop();
       Navigator.of(context).pop();

@@ -4,18 +4,21 @@ import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
+import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
+
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 import 'package:swagapp/modules/common/ui/general_delete_popup.dart';
+import 'package:swagapp/modules/cubits/chat/chat_cubit.dart';
 import 'package:swagapp/modules/cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
 import 'package:swagapp/modules/cubits/public_profile/public_profile_cubit.dart';
+import 'package:swagapp/modules/enums/chat_type.dart';
 import 'package:swagapp/modules/models/chat/chat_data.dart';
 import 'package:swagapp/modules/models/detail/sale_list_history_model.dart';
 import 'package:swagapp/modules/models/listing_for_sale/listing_for_sale_model.dart';
 import 'package:swagapp/modules/models/profile/profile_model.dart';
 import 'package:swagapp/modules/models/settings/peer_to_peer_payments_model.dart';
 import 'package:swagapp/modules/models/ui_models/checkbox_model.dart';
-import 'package:swagapp/modules/pages/chat/chat_page.dart';
+import 'package:swagapp/modules/pages/chats/chat_list_view.dart';
 import '../../../../generated/l10n.dart';
 import '../../../blocs/sale_history/sale_history_bloc.dart';
 import '../../../common/ui/loading.dart';
@@ -32,6 +35,7 @@ import '../../../models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
 import '../../../models/buy_for_sale_listing/update_purchase_status_request.dart';
 import '../../../models/detail/detail_collection_model.dart';
 import '../../../models/overlay_buton/overlay_button_model.dart';
+import '../../chat/chatPage.dart';
 import '../collection/edit_list_for_Sale_page.dart';
 import '../collection/footer_list_item_page.dart';
 import '../collection/widgets/custom_overlay_button.dart';
@@ -72,9 +76,11 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
 
   bool get isListingDataLoaded => listData.productItemId != null;
   bool get isLoggedInUserListing => profileData.accountId == listData.profileId;
+  late List<GroupChannel> channels; 
 
   @override
   void initState() {
+
     getIt<BuyCubit>().getListDetailItem(widget.productItemId ?? '');
     super.initState();
   }
@@ -93,14 +99,12 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
         .salesHistory(catalogItemId ?? "");
   }
 
-  Future<void> onTapSubmit(String channelUrl) async {
-    ChatBloc chatBloc = context.read<ChatBloc>();
+  Future<void> onTapSubmit(String channelUrl) async {  
 
-    late ChatData chatData;
+    late GroupChannel chatData;
     try {
       await Future.delayed(const Duration(milliseconds: 500));
-
-      chatData = await chatBloc.startNewChat(channelUrl, false);
+      chatData = await getIt<ChatCubit>().startChat(channelUrl);
 
       Loading.hide(context);
       if (Platform.isIOS) {
@@ -112,18 +116,25 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
         );
       }
       getIt<PreferenceRepositoryService>().saveShowNotification(false);
+      await Future.delayed(const Duration(milliseconds: 500));
       await Navigator.of(context, rootNavigator: true).push(
         MaterialPageRoute(
-            builder: (BuildContext context) => ChatPage(chatData: chatData)),
+
+            builder: (BuildContext context) => ChatPage(channel: chatData)
+            ),
       );
-      Navigator.of(context).pop();
+      
     } catch (e) {
       print(e);
     }
   }
+  getChatChannels()async{
+     channels = await getIt<ChatCubit>().loadGroupChannels();
+  }
 
   @override
   Widget build(BuildContext context) {
+      getChatChannels();
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: Palette.current.primaryEerieBlack,
@@ -383,27 +394,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
           title: S.of(context).cancel_sale_btn.toUpperCase(),
           onPressed: () {
             setState(() {
-              ChatBloc chatBloc = context.read<ChatBloc>();
-
-              for (int i = 0; i < chatBloc.state.chats.length; i++) {
-                if (chatBloc.state.chats[i].channel.data!.isNotEmpty) {
-                  String jsonString = chatBloc.state.chats[i].channel.data!;
-
-                  jsonString = jsonString.replaceAll("'", '"');
-
-                  Map<String, dynamic> json = jsonDecode(jsonString);
-
-                  String productItemId = json['productItemId'];
-
-                  if (listData.productItemId == productItemId) {
-                    setState(() {
-                      listingChatId =
-                          chatBloc.state.chats[i].channel.channelUrl;
-                    });
-                    break;
-                  }
-                }
-              }
+             getListingChatId(channels);
             });
 
             showDialog(
@@ -421,33 +412,31 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
     );
   }
 
+  getListingChatId(List<GroupChannel> channels){
+    for (int i = 0; i < channels.length; i++) {
+              if (channels[i].data.isNotEmpty && channels[i].customType == ChatType.buyWorkflow.textValue) {
+                String jsonString = channels[i].data;
+                jsonString = jsonString.replaceAll("'", '"');
+                Map<String, dynamic> json = jsonDecode(jsonString);
+                String productItemId = json['productItemId'];
+                if (listData.productItemId == productItemId) {
+                  setState(() {
+                    listingChatId = channels[i].channelUrl;
+                  });
+                  break;
+                }
+              }
+            }
+  }
+
   Widget _buildPendingSellerConfirmationWidget(BuildContext context) {
     return Column(
       children: [
         PrimaryButton(
           title: S.of(context).complete_sale_btn.toUpperCase(),
           onPressed: () async {
-            ChatBloc chatBloc = context.read<ChatBloc>();
-
-            for (int i = 0; i < chatBloc.state.chats.length; i++) {
-              if (chatBloc.state.chats[i].channel.data!.isNotEmpty) {
-                String jsonString = chatBloc.state.chats[i].channel.data!;
-
-                jsonString = jsonString.replaceAll("'", '"');
-
-                Map<String, dynamic> json = jsonDecode(jsonString);
-
-                String productItemId = json['productItemId'];
-
-                if (listData.productItemId == productItemId) {
-                  setState(() {
-                    listingChatId = chatBloc.state.chats[i].channel.channelUrl;
-                  });
-
-                  break;
-                }
-              }
-            }
+            channels = await getIt<ChatCubit>().loadGroupChannels();
+            getListingChatId(channels);
 
             Loading.show(context);
             await getIt<BuyCubit>().acceptPurchase(
@@ -455,7 +444,6 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                   productItemId: listData.productItemId,
                   listingChatId: listingChatId),
             );
-
             onTapSubmit(listingChatId ?? '');
           },
           type: PrimaryButtonType.green,
@@ -464,31 +452,10 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
         PrimaryButton(
           title: S.of(context).cancel_sale_btn.toUpperCase(),
           onPressed: () {
-            setState(() {
-              ChatBloc chatBloc = context.read<ChatBloc>();
-
-              for (int i = 0; i < chatBloc.state.chats.length; i++) {
-                if (chatBloc.state.chats[i].channel.data!.isNotEmpty) {
-                  String jsonString = chatBloc.state.chats[i].channel.data!;
-
-                  jsonString = jsonString.replaceAll("'", '"');
-
-                  Map<String, dynamic> json = jsonDecode(jsonString);
-
-                  String productItemId = json['productItemId'];
-
-                  if (listData.productItemId == productItemId) {
-                    setState(() {
-                      listingChatId =
-                          chatBloc.state.chats[i].channel.channelUrl;
-                    });
-
-                    break;
-                  }
-                }
-              }
-            });
-
+          getListingChatId(channels);
+          setState(() {
+            
+          });
             showDialog(
               context: context,
               barrierDismissible: false,
@@ -611,23 +578,20 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                 ),
           ),
         ),
-        Visibility(
-          visible: listData.status == 'listed',
-          child: Expanded(
-            flex: 2,
-            child: Align(
-              alignment: Alignment.centerRight,
-              child: IconButton(
-                icon: Image.asset(
-                  "assets/images/share.png",
-                  scale: 3.5,
-                ),
-                onPressed: () async {
-                  Share.share(
-                    '$shareListingUrl${listData.catalogItemId}',
-                  );
-                },
+        Expanded(
+          flex: 2,
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: IconButton(
+              icon: Image.asset(
+                "assets/images/share.png",
+                scale: 3.5,
               ),
+              onPressed: () async {
+                Share.share(
+                  '$shareListingUrl${listData.catalogItemId}',
+                );
+              },
             ),
           ),
         ),
