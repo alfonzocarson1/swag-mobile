@@ -1,4 +1,4 @@
-import 'package:sendbird_sdk/sendbird_sdk.dart';
+import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
 
 class ChatData {
 
@@ -12,6 +12,6 @@ class ChatData {
 
   Map<String, dynamic> toJson() => {
     "themes": List<String>.from(messages.map((x) => x)),
-    "types": channel.toJson(),
+    "types": channel,
   };  
 }
