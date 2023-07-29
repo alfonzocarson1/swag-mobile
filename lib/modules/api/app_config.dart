@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:swagapp/modules/api/api.dart';
 
 class AppFlavors {
   AppFlavors._();
@@ -54,9 +55,11 @@ extension on String {
 class AppConfig {
   final String apiBaseUrl;
   final String sendBirdAppId;
+  final apiHostScheme;
 
   AppConfig._({
     required this.apiBaseUrl,
+    required this.apiHostScheme,
     required this.sendBirdAppId,
   });
 
@@ -67,6 +70,10 @@ class AppConfig {
         qa: () => "dev.core-api.app.net",
         uat: () => "orchestration-uat.kuldisak.net",
         prod: () => "dev.core-api.app.net",
+      ),
+      apiHostScheme: appFlavor.whenFlavorOrElse(
+        uat: () => ApiHostScheme.https,
+        orElse: () => ApiHostScheme.http,
       ),
       sendBirdAppId: appFlavor.whenFlavorOrElse(
         uat: () => "29A3A5B7-E41B-49F3-AB81-5EEEC9678CC2",
