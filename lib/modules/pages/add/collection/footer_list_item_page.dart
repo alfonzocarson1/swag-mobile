@@ -3,18 +3,19 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:sendbird_sdk/core/channel/group/group_channel.dart';
-import 'package:sendbird_sdk/core/models/member.dart';
-import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
+import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
+
+
 import 'package:swagapp/modules/common/assets/icons.dart';
 import 'package:swagapp/modules/common/ui/custom_outline_button.dart';
 import 'package:swagapp/modules/common/ui/loading.dart';
 import 'package:swagapp/modules/common/ui/user_avatar.dart';
 import 'package:swagapp/modules/common/utils/stateful_wrapper.dart';
+import 'package:swagapp/modules/cubits/chat/chat_cubit.dart';
 import 'package:swagapp/modules/cubits/public_profile/public_profile_cubit.dart';
 import 'package:swagapp/modules/models/chat/chat_data.dart';
 import 'package:swagapp/modules/models/profile/public_profile.dart';
-import 'package:swagapp/modules/pages/chat/chat_page.dart';
+
 import 'package:swagapp/modules/pages/public_profile/public_profile_page.dart';
 
 import '../../../../generated/l10n.dart';
@@ -24,6 +25,7 @@ import '../../../constants/constants.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
 import '../../../models/profile/profile_model.dart';
+import '../../chat/chatPage.dart';
 
 class FooterListItemPage extends StatelessWidget {
   final bool showChatButton;
@@ -190,24 +192,24 @@ class FooterListItemPage extends StatelessWidget {
   }
 
   Future<void> onTapChat(BuildContext context) async {
-    final chatBloc = context.read<ChatBloc>();
-    final chatList = chatBloc.state.chats;
-    debugPrint(chatList.toString());
-    late ChatData chatData;
+    List<GroupChannel> channels = await getIt<ChatCubit>().loadGroupChannels();
+    List<ChatData> chatList = [];
+   // debugPrint(chatList.toString());
+    late GroupChannel channel;
     final ProfileModel currentProfileData =
         getIt<PreferenceRepositoryService>().profileData();
     try {
       Loading.show(context);
       await Future.delayed(const Duration(milliseconds: 500));
 
-      ChatData existingChat =
-          isUserInAnyChannel(currentProfileData.username, chatList);
+      GroupChannel existingChat =
+          isUserInAnyChannel(currentProfileData.username, channels);
 
-      if (existingChat.messages.isNotEmpty) {
+      if (existingChat.memberCount > 2) {
         debugPrint("existe canal");
-        chatData = existingChat;
+        channel = existingChat;
       } else {
-        chatData = await chatBloc.startNewChatPeerToPeer(this.productItemId);
+        channel = await getIt<ChatCubit>().startChat(this.productItemId);
         //TODO fix product name '
       }
 
@@ -215,27 +217,27 @@ class FooterListItemPage extends StatelessWidget {
 
       await Navigator.of(context, rootNavigator: true).push(
         MaterialPageRoute(
-            builder: (BuildContext context) => ChatPage(chatData: chatData)),
+            builder: (BuildContext context) => ChatPage(channel: channel,)),
       );
     } catch (e) {
       Loading.hide(context);
     }
   }
 
-  ChatData isUserInAnyChannel(String userId, List<ChatData> chatList) {
+  GroupChannel isUserInAnyChannel(String userId, List<GroupChannel> channels) {
     String channelUrl = "";
-    late ChatData existingChatData;
-    for (var chatData in chatList) {
-      for (var member in chatData.channel.members) {
+    late GroupChannel existingChatData;
+    for (var channel in channels) {
+      for (var member in channel.members) {
         try {
-          String formattedData = chatData.channel.data!.replaceAll("'", "\"");
+          String formattedData = channel.data.replaceAll("'", "\"");
           Map<String, dynamic> dataMap = jsonDecode(formattedData);
-          for (var member in chatData.channel.members) {
+          for (var member in channel.members) {
             if (member.nickname == userId &&
                 dataMap['productItemId'] == this.productItemId) {
-              channelUrl = chatData.channel.channelUrl;
-              existingChatData = chatData;
-              return chatData;
+              channelUrl = channel.channelUrl;
+              existingChatData = channel;
+              return channel;
             }
           }
         } catch (e) {
@@ -243,6 +245,6 @@ class FooterListItemPage extends StatelessWidget {
         }
       }
     }
-    return ChatData(messages: [], channel: GroupChannel(channelUrl: ""));
+    return GroupChannel(channelUrl: channelUrl);
   }
 }
