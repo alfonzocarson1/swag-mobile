@@ -3454,6 +3454,16 @@ class S {
     );
   }
 
+  /// `@{userName} has started a chat`
+  String chatListingBannerTitle(Object userName) {
+    return Intl.message(
+      '@$userName has started a chat',
+      name: 'chatListingBannerTitle',
+      desc: '',
+      args: [userName],
+    );
+  }
+
   /// `@{sellerUserName} here is @{myUserName}'s {paymnetMethod}'s information to send payment - {rate} \n\n{paymentUser}\n\nOnce payment is made please click the confirmation button below`
   String chatCardConfirmPaymentBuyer(Object sellerUserName, Object myUserName,
       Object paymnetMethod, Object rate, Object paymentUser) {

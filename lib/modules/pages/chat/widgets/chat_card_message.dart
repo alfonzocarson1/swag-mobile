@@ -1,14 +1,14 @@
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:swagapp/generated/l10n.dart';
-import 'package:swagapp/modules/common/utils/utils.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
+import 'package:swagapp/modules/cubits/chat/chat_cubit.dart';
 import 'package:swagapp/modules/models/chat/chat_data.dart';
 import 'package:swagapp/modules/models/chat/message_data.dart';
 import 'package:swagapp/modules/enums/chat_message_data_type.dart';
 
+import '../../../common/utils/sendbird_utils.dart';
 import '../../../cubits/buy/buy_cubit.dart';
-import '../../../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
 import '../../../di/injector.dart';
 import '../../../enums/listing_status_data.dart';
 import '../../../models/buy_for_sale_listing/update_purchase_status_request.dart';
@@ -70,10 +70,11 @@ class _CardContentState extends State<_CardContent> {
 
   @override
   Widget build(BuildContext context) {
-    String contentText = this.getContentText();
-    String buttonText = this.getButtonText();
+    String contentText = SendBirdUtils.getMessageText(widget.messageData) ;
+    String buttonText = SendBirdUtils.getChatCardButtonText(widget.messageData);
     bool showInput = this.widget.messageData.type ==
         ChatMessageDataType.confirmShip.textValue;
+        getIt<ChatCubit>().loadMessages(widget.chatData.channel);
 
     return Container(
       width: double.infinity,
@@ -85,7 +86,7 @@ class _CardContentState extends State<_CardContent> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _CardTitle(title: this.getCardTitle()),
+          _CardTitle(title: SendBirdUtils.getCardTitle(widget.messageData)),
           const SizedBox(height: 5),
           Text(
             contentText,
@@ -110,78 +111,6 @@ class _CardContentState extends State<_CardContent> {
   }
 
   void onChangeInput(String value) => setState(() => this.trackingCode = value);
-
-  String getContentText() {
-    if (this.widget.messageData.type ==
-        ChatMessageDataType.confirmPaidSend.textValue) {
-      return S.current.chatCardConfirmPaymentBuyer(
-          this.widget.messageData.payload.userNameBuyer,
-          this.widget.messageData.payload.userNameSeller,
-          this.getPaymentMehotd(
-              this.widget.messageData.payload.paymentMethodOption),
-          decimalDigitsLastSalePrice(
-              this.widget.messageData.payload.listingPrice.toString()),
-          this.getPaymentMehotdUser(
-              this.widget.messageData.payload.paymentMethodOption));
-    }
-    if (this.widget.messageData.type ==
-        ChatMessageDataType.confirmPaymentReceived.textValue) {
-      return S.current.chatCardPaymentReceivedSeller(
-          this.widget.messageData.payload.userNameBuyer,
-          this.getPaymentMehotd(
-              this.widget.messageData.payload.paymentMethodOption));
-    }
-
-    if (this.widget.messageData.type ==
-        ChatMessageDataType.confirmShip.textValue) {
-      return S.current.chatConfirmShipMessage(
-          this.widget.messageData.payload.userNameSeller,
-          this.widget.messageData.payload.nameBuyer ?? '',
-          this.widget.messageData.payload.lastNameBuyer ?? '',
-          this.widget.messageData.payload.address.address1,
-          this.widget.messageData.payload.address.address2,
-          this.widget.messageData.payload.address.city,
-          this.widget.messageData.payload.address.state,
-          this.widget.messageData.payload.address.postalCode,
-          this.widget.messageData.payload.address.country ?? '');
-    }
-
-    return '';
-  }
-
-  String getPaymentMehotd(PaymentMethod paymentMethod) {
-    return (paymentMethod.payPalEmail.isEmpty)
-        ? (paymentMethod.venmoUser.isEmpty)
-            ? (paymentMethod.cashTag.isEmpty)
-                ? ''
-                : S.current.paymetCashApp
-            : S.current.paymetVenmo
-        : S.current.paymetPaypal;
-  }
-
-  String getPaymentMehotdUser(PaymentMethod paymentMethod) {
-    return (paymentMethod.payPalEmail.isEmpty)
-        ? (paymentMethod.venmoUser.isEmpty)
-            ? (paymentMethod.cashTag.isEmpty)
-                ? ''
-                : paymentMethod.cashTag
-            : paymentMethod.venmoUser
-        : paymentMethod.payPalEmail;
-  }
-
-  String getButtonText() {
-    if (this.widget.messageData.type ==
-        ChatMessageDataType.confirmPaidSend.textValue) {
-      return S.current.chatCardButtonPaymentSent;
-    } else if (this.widget.messageData.type ==
-        ChatMessageDataType.confirmPaymentReceived.textValue) {
-      return S.current.chatCardButtonPaymentReceived;
-    } else if (this.widget.messageData.type ==
-        ChatMessageDataType.confirmShip.textValue) {
-      return S.current.chatCardButtonShipmentSent;
-    } else
-      return '';
-  }
 
   void onTapButton() {
     if (this.widget.messageData.type ==
@@ -212,19 +141,6 @@ class _CardContentState extends State<_CardContent> {
     }
   }
 
-  String getCardTitle() {
-    if (this.widget.messageData.type ==
-        ChatMessageDataType.confirmPaidSend.textValue) {
-      return S.current.chatCardPaymetInformation;
-    } else if (this.widget.messageData.type ==
-        ChatMessageDataType.confirmPaymentReceived.textValue) {
-      return S.current.chatCardPaymetConfirmation;
-    } else if (this.widget.messageData.type ==
-        ChatMessageDataType.confirmShip.textValue) {
-      return S.current.chatCardShippingInformation;
-    } else
-      return '';
-  }
 }
 
 class _CardTitle extends StatelessWidget {

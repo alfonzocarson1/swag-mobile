@@ -2,15 +2,17 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 
 import 'package:swagapp/modules/common/utils/palette.dart';
 
 import '../../../generated/l10n.dart';
-import '../../blocs/chat/chat_bloc.dart';
+
 import '../../blocs/collection_bloc/collection_bloc.dart';
 import '../../common/ui/loading.dart';
 import '../../cubits/buy/buy_cubit.dart';
+import '../../cubits/chat/chat_cubit.dart';
 import '../../di/injector.dart';
 import '../../models/buy_for_sale_listing/cancel_purchase_request_model.dart';
 import '../../models/buy_for_sale_listing/cancel_purchase_response_model.dart';
@@ -39,29 +41,27 @@ class _DeliveredPopUpState extends State<DeliveredPopUp> {
 
   @override
   void initState() {
-    ChatBloc chatBloc = context.read<ChatBloc>();
+    getListingId();  
+    super.initState();
+  }
 
-    for (int i = 0; i < chatBloc.state.chats.length; i++) {
-      if (chatBloc.state.chats[i].channel.data!.isNotEmpty) {
-        String jsonString = chatBloc.state.chats[i].channel.data!;
-
+    getListingId()async{
+    List<GroupChannel> channels = await getIt<ChatCubit>().loadGroupChannels();
+      for (int i = 0; i < channels.length; i++) {
+      if (channels[i].data!.isNotEmpty) {
+        String jsonString = channels[i].data!;
         jsonString = jsonString.replaceAll("'", '"');
-
         Map<String, dynamic> json = jsonDecode(jsonString);
-
         String productItemId = json['productItemId'];
-
         if (widget.productItemId == productItemId) {
           setState(() {
-            listingChatId = chatBloc.state.chats[i].channel.channelUrl;
+            listingChatId = channels[i].channelUrl;
           });
-
           break;
         }
       }
     }
-    super.initState();
-  }
+    }
 
   Dialog _getBody() {
     return Dialog(

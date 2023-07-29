@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/blocs/auth_bloc/auth_bloc.dart';
 import 'package:swagapp/modules/blocs/auth_bloc/username_bloc.dart';
 import 'package:swagapp/modules/blocs/category_bloc/category_bloc.dart';
-import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
+
 // import 'package:swagapp/modules/blocs/explore_bloc/explore_bloc.dart';
 import 'package:swagapp/modules/blocs/profile_favorite_bloc/profile_favorite_bloc.dart';
 import 'package:swagapp/modules/blocs/update_profile_bloc/update_profile_bloc.dart';
@@ -29,6 +29,7 @@ import 'package:swagapp/modules/data/chat/chat_service.dart';
 import 'package:swagapp/modules/di/injector.dart';
 
 import '../cubits/alert/alert_cubit.dart';
+import '../cubits/chat/chat_cubit.dart';
 import '../cubits/paywall/paywall_cubit.dart';
 import '../cubits/public_profile_listings/public_profile_listings_cubit.dart';
 import '../cubits/sold/get_sold_cubit.dart';
@@ -45,7 +46,7 @@ import 'sold_bloc/sold_bloc.dart';
 
 abstract class AppBlocs {
   static List<BlocProvider> blocs(BuildContext context) => [
-        BlocProvider<ChatBloc>(create: (context) => getIt<ChatBloc>()),
+        BlocProvider<ChatCubit>(create: (context) => getIt<ChatCubit>()),
         BlocProvider<AuthBloc>(create: (_) => getIt<AuthBloc>()),
         BlocProvider<UsernameBloc>(create: (_) => getIt<UsernameBloc>()),
         // BlocProvider<SignUpBloc>(create: (_) => getIt<SignUpBloc>()),

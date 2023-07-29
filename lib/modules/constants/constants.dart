@@ -12,8 +12,9 @@ const String twitterUrl = "https://twitter.com/swaggolfco";
 const String discordUrl = "https://discord.com/invite/OfficialSwag";
 const String instagramUrl = "https://www.instagram.com/swaggolfco/";
 const String faqsUrl = "https://swag.golf/pages/faq";
-
+const String sendBirdAppId = "3A0E70A8-4861-44C2-ABC0-B7E13C776BEF";
 const String swagBotNickName = "SWAG Listing Bot";
+const String defaultAvatarUrl = "http://images.dev.swag.kuldisak.net/avatars/defaults/Dripskull.png";
 
 const successResponse = "0";
 

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
 import 'package:swagapp/modules/services/local_notifications_service.dart';
 import 'package:swagapp/modules/services/push_notifications_service.dart';
 import 'app.dart';
@@ -29,6 +30,7 @@ Future<void> main() async {
   debugPrint('STARTED WITH FLAVOR $appFlavor');
   await setupAppScope(appFlavor);
   await getIt<PreferenceRepositoryService>().initialize();
+  SendbirdChat.init(appId: sendBirdAppId);
   getIt<StorageRepositoryService>().initialize();
   initFiltersAndSorts();
   initUtilsPreference();
