@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/generated/l10n.dart';
-import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
+import 'package:swagapp/modules/cubits/chat/chat_cubit.dart';
 
 import 'primary_button.dart';
 
@@ -66,7 +66,7 @@ class PopupSwaggAdmin extends StatelessWidget {
 
   Future<void> onTapAddSwaggButton(BuildContext context) async {
 
-    await context.read<ChatBloc>().bringAdminToChat(this.channelUrl);
+    await context.read<ChatCubit>().bringAdminToChat(this.channelUrl);
     Navigator.pop(context);
   }
 }
