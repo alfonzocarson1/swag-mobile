@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swagapp/modules/common/ui/simple_loader.dart';
 import 'package:swagapp/modules/models/chat/chat_data.dart';
 import 'package:swagapp/modules/pages/chats/widgets/chat_list_appbar.dart';
 import 'package:swagapp/modules/pages/chats/widgets/chats_contacts.dart';
@@ -53,13 +54,11 @@ class _ChatListPageState extends State<ChatListPage> {
           builder: (context, state) {
             return state.maybeWhen(
               initial: () => const Center(child: Text('Welcome to the group chats page')),
-              loadingChats: () => const Center(child: CircularProgressIndicator()),
-            //  loadedChats: (messages) => const Center(child: Text('Chats are loaded, but not displayed in this page.')),
+              loadingChats: () => const Center(child: SimpleLoader()),
               loadedChatChannels: (channels) => ListView.builder(
                 itemCount: channels.length,
                 itemBuilder: (context, index) {
                   final channel = channels[index];
-                  final members = channel.members.map((member) => member.nickname).join(', ');
                   final lastMessage = channel.lastMessage?.message ?? 'No messages yet';
                   ChatData chatData = ChatData(messages: messages, channel: channel);
                   return ChatsContact(lastMessage: lastMessage, chatData: chatData);
