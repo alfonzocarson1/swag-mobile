@@ -223,7 +223,9 @@ void setupOnMessageReceivedHandler() {
   }  
 
 
-  bringAdminToChat(String channelUrl) {} 
+  bringAdminToChat(String channelUrl) async =>
+      await this.service.bringAdminToChat(channelUrl);
+
 }
 
 getMessageJson({BaseChannel? channel, BaseMessage? message}){
