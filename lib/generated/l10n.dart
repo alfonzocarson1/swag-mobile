@@ -3374,10 +3374,10 @@ class S {
     );
   }
 
-  /// `Swagg Admin`
+  /// `Swag Admin`
   String get chatSwaggAdmin {
     return Intl.message(
-      'Swagg Admin',
+      'Swag Admin',
       name: 'chatSwaggAdmin',
       desc: '',
       args: [],
