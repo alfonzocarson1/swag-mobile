@@ -66,9 +66,10 @@ class _ChatPageState extends State<ChatPage> {
             member.nickname != userName && member.role != Role.operator)
         .toList()
         .first;
-
+    if(widget.channel.unreadMessageCount >0){
     widget.channel.markAsRead();
-
+    }
+    
     return Scaffold(
       backgroundColor: Palette.current.black,
       appBar: AppBar(
