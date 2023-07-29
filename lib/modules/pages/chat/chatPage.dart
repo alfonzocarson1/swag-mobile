@@ -167,6 +167,7 @@ class _ChatPageState extends State<ChatPage> {
                   },
                 ),
                 inputOptions: InputOptions(
+                  textCapitalization: TextCapitalization.sentences,
                     leading: [
                       IconButton(
                           onPressed: () {
