@@ -8,7 +8,8 @@ import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
 
 import '../../data/chat/ichat_service.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
-import '../../di/injector copy.dart';
+
+import '../../di/injector.dart';
 import '../../enums/chat_message_data_type.dart';
 import '../../models/chat/chat_data.dart';
 import '../../models/profile/profile_model.dart';
