@@ -7,25 +7,33 @@ import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:swagapp/modules/models/chat/channel_data.dart';
 
+
+late double screenHeight;
+
 class ChatCommenceBanner extends StatelessWidget {
   final ChannelData channelData;
+  final bool isListingChat;
 
   const ChatCommenceBanner({
     super.key,
     required this.channelData,
+    required this.isListingChat
   });
 
   @override
   Widget build(BuildContext context) {
+     screenHeight = MediaQuery.of(context).size.height;
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20),
+      width: 350,
+      //margin: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         children: <Widget>[
-          const _BannerTopBar(),
+           _BannerTopBar(isListingChat: this.isListingChat),
           const SizedBox(height: 5),
-          _BannerContent(channelData: this.channelData),
+          _BannerContent(channelData: this.channelData, isListingChat: this.isListingChat,),
           const SizedBox(height: 5),
           _BannerBottomBar(
+            isListingChat: this.isListingChat,
             channelData: this.channelData,
           ),
         ],
@@ -36,16 +44,20 @@ class ChatCommenceBanner extends StatelessWidget {
 
 class _BannerContent extends StatelessWidget {
   final ChannelData channelData;
+  final bool isListingChat;
 
   const _BannerContent({
     super.key,
     required this.channelData,
+    required this.isListingChat
   });
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     return Container(
       width: double.infinity,
+      height:(isListingChat) ? screenHeight * 0.20 : screenHeight * 0.23,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(7),
         color: Palette.current.greyMessage,
@@ -56,7 +68,7 @@ class _BannerContent extends StatelessWidget {
           _BannerTitle(
             buyerName: this.channelData.buyerUsername,
             listingName: this.channelData.listingProductName,
-          ),
+           isListingChat: this.isListingChat),
           const SizedBox(height: 15),
           Row(
             children: <Widget>[
@@ -75,17 +87,19 @@ class _BannerContent extends StatelessWidget {
 class _BannerTitle extends StatelessWidget {
   final String buyerName;
   final String listingName;
+  final bool isListingChat;
 
   const _BannerTitle({
     super.key,
     required this.buyerName,
     required this.listingName,
+    required this.isListingChat
   });
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      S.current.chatBannerTitle(this.buyerName, this.listingName),
+     (this.isListingChat) ? S.current.chatListingBannerTitle(this.buyerName) :S .current.chatBannerTitle(this.buyerName, this.listingName),
       maxLines: 2,
       style: Theme.of(context).textTheme.bodySmall!.copyWith(
             overflow: TextOverflow.ellipsis,
@@ -164,7 +178,8 @@ class _BannerProductInfo extends StatelessWidget {
 }
 
 class _BannerTopBar extends StatelessWidget {
-  const _BannerTopBar({super.key});
+  const _BannerTopBar({super.key, required this.isListingChat});
+  final bool isListingChat;
 
   @override
   Widget build(BuildContext context) {
@@ -175,7 +190,7 @@ class _BannerTopBar extends StatelessWidget {
     return Row(
       children: <Widget>[
         Text(
-          S.current.chatBannerItemSold,
+          (!this.isListingChat)? S.current.chatBannerItemSold : "Listing",
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.lerp(FontWeight.w300, FontWeight.w400, 0.5),
@@ -198,10 +213,12 @@ class _BannerTopBar extends StatelessWidget {
 
 class _BannerBottomBar extends StatelessWidget {
   final ChannelData channelData;
+  final bool isListingChat;
 
   const _BannerBottomBar({
     super.key,
     required this.channelData,
+    required this.isListingChat
   });
 
   @override
@@ -214,7 +231,7 @@ class _BannerBottomBar extends StatelessWidget {
             : S.current.paymetVenmo
         : S.current.paymetPaypal;
 
-    return RichText(
+    return (!this.isListingChat) ? RichText(
       text: TextSpan(
           style: TextStyle(color: Palette.current.grey),
           children: <InlineSpan>[
@@ -225,6 +242,8 @@ class _BannerBottomBar extends StatelessWidget {
                 text: paymentMethod,
                 style: TextStyle(color: Palette.current.primaryNeonGreen)),
           ]),
+    ): SizedBox(
+      height: screenHeight * 0.05,
     );
   }
 }

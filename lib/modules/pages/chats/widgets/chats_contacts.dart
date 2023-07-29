@@ -1,21 +1,25 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:sendbird_sdk/sendbird_sdk.dart';
+import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
+
 import 'package:swagapp/modules/common/ui/custom_list_tile.dart';
+import 'package:swagapp/modules/common/utils/sendbird_utils.dart';
 import 'package:swagapp/modules/common/utils/utils.dart';
+
 import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
 import 'package:swagapp/modules/enums/chat_type.dart';
 import 'package:swagapp/modules/models/profile/profile_model.dart';
-import 'package:swagapp/modules/pages/chat/chat_page.dart';
 import 'package:swagapp/modules/common/assets/images.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/models/chat/chat_data.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:swagapp/modules/models/chat/sendbird_channel_data.dart';
-import 'package:swagapp/modules/pages/chats/widgets/time_Stamp_converter.dart';
+import 'package:swagapp/modules/pages/chats/widgets/chatPage.dart';
+import 'package:swagapp/modules/pages/chats/widgets/time_stamp_converter.dart';
 
 import '../../../constants/constants.dart';
 import '../../../di/injector.dart';
+import '../../../models/chat/message_data.dart';
 
 class ChatsContact extends StatelessWidget {
   final String lastMessage;
@@ -43,7 +47,10 @@ class ChatsContact extends StatelessWidget {
         .toList()
         .first;
     String lastActivityTimeStamp = TimeStampConverter().calculateTime(this.chatData.channel.lastMessage?.createdAt ?? 0);
-
+   Map<String,dynamic> buyChannelJson = SendBirdUtils.getFormatedData(this.chatData.messages[0].data ?? "");
+    MessageData messageData = MessageData.fromJson(buyChannelJson);
+    String lastBuyChatMessage = SendBirdUtils.getMessageText(messageData);
+               
     return CustomListTile(
       titleSpacing: 5,
       widgetSpacing: 20,
@@ -67,7 +74,7 @@ class ChatsContact extends StatelessWidget {
             ),
       ),
       subtitle: Text(
-        this.lastMessage,
+        (chatData.channel.customType == ChatType.listing.textValue) ? this.lastMessage : lastBuyChatMessage,
         maxLines: 1,
         style: Theme.of(context).textTheme.bodySmall!.copyWith(
             fontSize: 14,
@@ -78,16 +85,16 @@ class ChatsContact extends StatelessWidget {
       onTap: () => Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) => ChatPage(chatData: this.chatData),
+          builder: (BuildContext context) => ChatPage(channel: chatData.channel,),
         ),
       ), 
     );
   }
 
   SendBirdChannelData getChannelData() {
-    if (this.chatData.channel.data!.isNotEmpty) {
+    if (this.chatData.channel.data.isNotEmpty) {
       String stringData =
-          json.encode(this.chatData.channel.data!.replaceAll("'", '"'));
+          json.encode(this.chatData.channel.data.replaceAll("'", '"'));
       String formatedData = stringData.replaceAll('\\', "");
       Map<String, dynamic> data =
           json.decode(formatedData.substring(1, formatedData.length - 1));
@@ -111,7 +118,7 @@ class _Avatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isCoverChannelNull = this.chatData.channel.coverUrl == null;
+    bool isCoverChannelNull = this.chatData.channel.coverUrl.isEmpty;
 
     return CircleAvatar(
         backgroundColor: (
@@ -134,7 +141,7 @@ class _Avatar extends StatelessWidget {
                     width: 100,
                     height: 100,
                     fit: BoxFit.cover,
-                    imageUrl: this.chatData.channel.coverUrl!,
+                    imageUrl: this.chatData.channel.coverUrl,
                   ),
                 ),
               ));
