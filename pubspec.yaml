@@ -263,6 +263,25 @@ flutter:
     - family: Ringside
       fonts:
         - asset: assets/fonts/ringside/RingsideRegular-Book.otf
+    - family: SFProText
+      fonts:
+        - asset: assets/fonts/SFpro/SF-Pro-Text-Black.otf
+        - asset: assets/fonts/SFpro/SF-Pro-Text-BlackItalic.otf
+        - asset: assets/fonts/SFpro/SF-Pro-Text-Bold.otf
+        - asset: assets/fonts/SFpro/SF-Pro-Text-BoldItalic.otf
+        - asset: assets/fonts/SFpro/SF-Pro-Text-Heavy.otf
+        - asset: assets/fonts/SFpro/SF-Pro-Text-HeavyItalic.otf
+        - asset: assets/fonts/SFpro/SF-Pro-Text-Light.otf
+        - asset: assets/fonts/SFpro/SF-Pro-Text-LightItalic.otf
+        - asset: assets/fonts/SFpro/SF-Pro-Text-Medium.otf
+        - asset: assets/fonts/SFpro/SF-Pro-Text-MediumItalic.otf
+        - asset: assets/fonts/SFpro/SF-Pro-Text-Regular.otf
+        - asset: assets/fonts/SFpro/SF-Pro-Text-RegularItalic.otf
+        - asset: assets/fonts/SFpro/SF-Pro-Text-SemiBold.otf
+        - asset: assets/fonts/SFpro/SF-Pro-Text-SemiBoldItalic.otf
+        - asset: assets/fonts/SFpro/SF-Pro.otf
+
+
         
 flutter_intl:
   enabled: true
