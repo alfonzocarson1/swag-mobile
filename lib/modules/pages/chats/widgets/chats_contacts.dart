@@ -5,6 +5,7 @@ import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
 import 'package:swagapp/modules/common/ui/custom_list_tile.dart';
 import 'package:swagapp/modules/common/utils/sendbird_utils.dart';
 import 'package:swagapp/modules/common/utils/utils.dart';
+import 'package:swagapp/modules/cubits/chat/chat_cubit.dart';
 
 import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
 import 'package:swagapp/modules/enums/chat_type.dart';
@@ -22,9 +23,14 @@ import '../../../di/injector.dart';
 import '../../../models/chat/message_data.dart';
 import '../../chat/chatPage.dart';
 
-class ChatsContact extends StatelessWidget {
+
+ String lastBuyChatMessage = "";
+ List BuyChannelMessages = [];
+
+class ChatsContact extends StatefulWidget {
   final String lastMessage;
   final ChatData chatData;
+
 
   const ChatsContact({
     super.key,
@@ -33,24 +39,56 @@ class ChatsContact extends StatelessWidget {
   });
 
   @override
+  State<ChatsContact> createState() => _ChatsContactState();
+}
+
+class _ChatsContactState extends State<ChatsContact> {
+
+  
+   @override
+   void initState() {
+     super.initState();
+    // getChannelMessages();
+    // getPayloadData();
+   }
+  
+  getPayloadData()async {    
+    if(BuyChannelMessages.isNotEmpty){    
+    Map<String,dynamic> buyChannelJson = SendBirdUtils.getFormatedData(this.widget.chatData.messages[0].data ?? "");
+    MessageData messageData = MessageData.fromJson(buyChannelJson);
+    lastBuyChatMessage = SendBirdUtils.getMessageText(messageData);
+    }
+  }
+
+  getChannelMessages()async{
+  if(this.widget.chatData.channel.customType != ChatType.listing.textValue && BuyChannelMessages.isEmpty){
+    BuyChannelMessages = await getIt<ChatCubit>().loadMessages(widget.chatData.channel);
+  }
+   
+  }
+
+  @override
   Widget build(BuildContext context) {
+  
+   
     ProfileModel userProfile =
         getIt<PreferenceRepositoryService>().profileData();
     String userName = userProfile.username;
 
-    int unreadMessages = this.chatData.channel.unreadMessageCount;
+    int unreadMessages = this.widget.chatData.channel.unreadMessageCount;
     bool hasUreadMessages = unreadMessages > 0;
     SendBirdChannelData channelData = this.getChannelData();
-    List<Member> chatMembers = this.chatData.channel.members;
+    List<Member> chatMembers = this.widget.chatData.channel.members;
     Member seller = chatMembers
         .where((Member member) =>
             member.nickname != userName && member.nickname != swagBotNickName)
         .toList()
         .first;
-    String lastActivityTimeStamp = TimeStampConverter().calculateTime(this.chatData.channel.lastMessage?.createdAt ?? 0);
-   Map<String,dynamic> buyChannelJson = SendBirdUtils.getFormatedData(this.chatData.messages[0].data ?? "");
-    MessageData messageData = MessageData.fromJson(buyChannelJson);
-    String lastBuyChatMessage = SendBirdUtils.getMessageText(messageData);
+    String lastActivityTimeStamp = TimeStampConverter().calculateTime(this.widget.chatData.channel.lastMessage?.createdAt ?? 0);
+    //getPayloadData();
+  //  Map<String,dynamic> buyChannelJson = SendBirdUtils.getFormatedData(this.chatData.messages[0].data ?? "");
+  //   MessageData messageData = MessageData.fromJson(buyChannelJson);
+  //   String lastBuyChatMessage = SendBirdUtils.getMessageText(messageData);
                
     return CustomListTile(
       titleSpacing: 5,
@@ -62,7 +100,7 @@ class ChatsContact extends StatelessWidget {
             overflow: TextOverflow.ellipsis),),
       leading: _Avatar(
         hasUreadMessages: hasUreadMessages,
-        chatData: this.chatData,
+        chatData: this.widget.chatData,
       ),
       title: Text(
         '@${seller.nickname.capitalize()} - ${channelData.listingProductName}',
@@ -75,7 +113,7 @@ class ChatsContact extends StatelessWidget {
             ),
       ),
       subtitle: Text(
-        (chatData.channel.customType == ChatType.listing.textValue) ? this.lastMessage : lastBuyChatMessage,
+        (widget.chatData.channel.customType == ChatType.listing.textValue) ? this.widget.lastMessage : lastBuyChatMessage,
         maxLines: 1,
         style: Theme.of(context).textTheme.bodySmall!.copyWith(
             fontSize: 14,
@@ -86,16 +124,16 @@ class ChatsContact extends StatelessWidget {
       onTap: () => Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) => ChatPage(channel: chatData.channel,),
+          builder: (BuildContext context) => ChatPage(channel: widget.chatData.channel,),
         ),
       ), 
     );
   }
 
   SendBirdChannelData getChannelData() {
-    if (this.chatData.channel.data.isNotEmpty) {
+    if (this.widget.chatData.channel.data.isNotEmpty) {
       String stringData =
-          json.encode(this.chatData.channel.data.replaceAll("'", '"'));
+          json.encode(this.widget.chatData.channel.data.replaceAll("'", '"'));
       String formatedData = stringData.replaceAll('\\', "");
       Map<String, dynamic> data =
           json.decode(formatedData.substring(1, formatedData.length - 1));
