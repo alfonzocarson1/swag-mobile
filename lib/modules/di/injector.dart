@@ -3,7 +3,6 @@ import 'package:get_it/get_it.dart';
 import 'package:swagapp/modules/api/api.dart';
 import 'package:swagapp/modules/api/api_service.dart';
 import 'package:swagapp/modules/api/app_config.dart';
-import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
 import 'package:swagapp/modules/blocs/search_bloc.dart/search_bloc.dart';
 import 'package:swagapp/modules/common/utils/context_service.dart';
 import 'package:swagapp/modules/cubits/nft_wallet/nft_wallet_cubit.dart';
@@ -109,7 +108,6 @@ Future<void> setupAppScope(String appFlavor) async {
   getIt.registerLazySingleton(() => StorageRepositoryService());
   getIt.registerLazySingleton(() => ContextService());
   getIt.registerLazySingleton<IChatService>(() => ChatService(getIt()));
-  getIt.registerLazySingleton<ChatBloc>(() => ChatBloc(getIt(), getIt()));
   getIt.registerLazySingleton<IAuthService>(() => AuthService(getIt()));
   getIt.registerLazySingleton<AuthBloc>(
       () => AuthBloc(getIt(), getIt(), getIt()));
