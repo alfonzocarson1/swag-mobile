@@ -14,6 +14,7 @@ const String instagramUrl = "https://www.instagram.com/swaggolfco/";
 const String faqsUrl = "https://swag.golf/pages/faq";
 
 const String swagBotNickName = "SWAG Listing Bot";
+const String defaultAvatarUrl = "http://images.dev.swag.kuldisak.net/avatars/defaults/Dripskull.png";
 
 const successResponse = "0";
 
