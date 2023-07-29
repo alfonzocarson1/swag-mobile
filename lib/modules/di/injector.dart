@@ -48,6 +48,7 @@ import '../cubits/alert/alert_cubit.dart';
 import '../cubits/auth/auth_cubit.dart';
 import '../cubits/buy/buy_cubit.dart';
 import '../cubits/catalog_detail/catalog_detail_cubit.dart';
+import '../cubits/chat/chat_cubit.dart';
 import '../cubits/collections/get_collections_cubit.dart';
 import '../cubits/explore/get_explore_cubit.dart';
 import '../cubits/favorites/get_favorites_cubit.dart';
@@ -108,6 +109,7 @@ Future<void> setupAppScope(String appFlavor) async {
   getIt.registerLazySingleton(() => StorageRepositoryService());
   getIt.registerLazySingleton(() => ContextService());
   getIt.registerLazySingleton<IChatService>(() => ChatService(getIt()));
+  getIt.registerLazySingleton<ChatCubit>(() => ChatCubit(getIt<IChatService>()));
   getIt.registerLazySingleton<IAuthService>(() => AuthService(getIt()));
   getIt.registerLazySingleton<AuthBloc>(
       () => AuthBloc(getIt(), getIt(), getIt()));
