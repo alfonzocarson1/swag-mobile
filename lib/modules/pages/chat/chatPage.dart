@@ -10,6 +10,7 @@ import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
 import 'package:swagapp/modules/common/assets/icons.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/enums/chat_type.dart';
+import 'package:swagapp/modules/pages/chat/widgets/chat_popup_menu.dart';
 
 import '../../common/utils/sendbird_utils.dart';
 import '../../constants/constants.dart';
@@ -95,7 +96,7 @@ class _ChatPageState extends State<ChatPage> {
             Navigator.of(context).pop();
           },
         ),
-        //actions: <Widget>[ChatPopupMenu(chatData: ChatData(messages: messages, channel: widget.channel))],
+        actions: <Widget>[ChatPopupMenu(chatData: ChatData(messages: messages, channel: widget.channel))],
         // foregroundColor: Palette.current.greyMessage,
         backgroundColor: Palette.current.blackAppbarBlackground,
         title: Text(

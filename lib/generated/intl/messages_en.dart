@@ -202,7 +202,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "chatShippedMessage": m10,
         "chatShippedMessageWithoutTrackingNumber": m11,
         "chatSwagg": MessageLookupByLibrary.simpleMessage("SWAG"),
-        "chatSwaggAdmin": MessageLookupByLibrary.simpleMessage("Swagg Admin"),
+        "chatSwaggAdmin": MessageLookupByLibrary.simpleMessage("Swag Admin"),
         "chatToday": MessageLookupByLibrary.simpleMessage("Today"),
         "chatTyping": MessageLookupByLibrary.simpleMessage("Typing..."),
         "chatsHeader": MessageLookupByLibrary.simpleMessage("Chat"),

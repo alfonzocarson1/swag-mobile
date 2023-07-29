@@ -21,44 +21,63 @@ class PopupSwaggAdmin extends StatelessWidget {
     return Center(
       child: Dialog(
         insetPadding: const EdgeInsets.all(40),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
-        child: Container(
-          padding: const EdgeInsets.all(40),
-          color: Palette.current.blackSmoke,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-        
-              Text(
-                S.of(context).chatAddSwagAdmin,
-                textAlign: TextAlign.left,
-                style: Theme.of(context).textTheme.displayMedium!
-                .copyWith(
-                  letterSpacing: 1.2,
-                  fontFamily: "KnockoutCustom",
-                  fontSize: 44,
-                  fontWeight: FontWeight.w300,
-                  color: Palette.current.primaryNeonGreen,
+      //  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+        child: Stack(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(40),
+              color: Palette.current.blackSmoke,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+            
+                  Text(
+                    S.of(context).chatAddSwagAdmin,
+                    textAlign: TextAlign.left,
+                    style: Theme.of(context).textTheme.displayMedium!
+                    .copyWith(
+                      letterSpacing: 1.2,
+                      fontFamily: "KnockoutCustom",
+                      fontSize: 44,
+                      fontWeight: FontWeight.w300,
+                      color: Palette.current.primaryNeonGreen,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    S.of(context).chatAddSwagAdminContent,
+                    style: Theme.of(context).textTheme.bodySmall!
+                    .copyWith(
+                      fontSize: 15,
+                      letterSpacing: 0.3,
+                      color: Palette.current.primaryWhiteSmoke,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  PrimaryButton(
+                    title: S.current.chatAddSwagAdminButton.toUpperCase(),
+                    onPressed: ()=> this.onTapAddSwaggButton(context),
+                    type: PrimaryButtonType.green,
+                  ),
+                ],
+              ),
+            ),
+                   Positioned(
+              right: 0,
+              top: 3,
+              child: IconButton(
+                iconSize: 30,
+                color: Palette.current.primaryNeonGreen,
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                icon: const Icon(
+                  Icons.clear_outlined,
+                  size: 20,
                 ),
               ),
-              const SizedBox(height: 20),
-              Text(
-                S.of(context).chatAddSwagAdminContent,
-                style: Theme.of(context).textTheme.bodySmall!
-                .copyWith(
-                  fontSize: 15,
-                  letterSpacing: 0.3,
-                  color: Palette.current.primaryWhiteSmoke,
-                ),
-              ),
-              const SizedBox(height: 20),
-              PrimaryButton(
-                title: S.current.chatAddSwagAdminButton.toUpperCase(),
-                onPressed: ()=> this.onTapAddSwaggButton(context),
-                type: PrimaryButtonType.green,
-              ),
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );
