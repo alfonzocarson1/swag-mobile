@@ -279,7 +279,7 @@ flutter:
         - asset: assets/fonts/SFpro/SF-Pro-Text-RegularItalic.otf
         - asset: assets/fonts/SFpro/SF-Pro-Text-SemiBold.otf
         - asset: assets/fonts/SFpro/SF-Pro-Text-SemiBoldItalic.otf
-        - asset: assets/fonts/SFpro/SF-Pro.otf
+        - asset: assets/fonts/SFpro/SF-Pro.ttf
 
 
         
