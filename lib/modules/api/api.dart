@@ -59,21 +59,41 @@ enum Endpoint {
   logout
 }
 
+enum ApiHostScheme {
+  http,
+  https,
+}
+
+extension on ApiHostScheme {
+  Uri encodeUri(
+    String authority, [
+    String unencodedPath = '',
+    Map<String, dynamic /*String?|Iterable<String>*/ >? queryParameters,
+  ]) {
+    switch (this) {
+      case ApiHostScheme.http:
+        return Uri.http(authority, unencodedPath, queryParameters);
+      case ApiHostScheme.https:
+        return Uri.https(authority, unencodedPath, queryParameters);
+    }
+  }
+}
+
 class API {
   final AppConfig appConfig;
   API(this.appConfig);
 
   String get host => appConfig.apiBaseUrl;
-
-  Uri tokenUri() => Uri(scheme: 'https', host: host, path: tokenPath);
+  ApiHostScheme get scheme => appConfig.apiHostScheme;
 
   Uri endpointUri(Endpoint endpoint, {String? dynamicParam = defaultString}) =>
-      Uri.http(
-          //TODO: Update to https when possible
-          host,
-          dynamicParam != null
-              ? sprintf(_paths[endpoint]!, [dynamicParam])
-              : _paths[endpoint]!);
+      scheme.encodeUri(
+        //TODO: Update to https when possible
+        host,
+        dynamicParam != null
+            ? sprintf(_paths[endpoint]!, [dynamicParam])
+            : _paths[endpoint]!,
+      );
 
   static final Map<Endpoint, String> _paths = {
     Endpoint.isUsernameAvailable:

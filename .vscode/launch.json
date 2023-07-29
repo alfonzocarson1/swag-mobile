@@ -23,6 +23,15 @@
             ]
         },
         {
+            "name": "Swag UAT",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--flavor",
+                "uat"
+            ]
+        },
+        {
             "name": "Swag",
             "request": "launch",
             "type": "dart",
