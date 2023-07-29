@@ -5,6 +5,7 @@ import 'package:swagapp/modules/pages/chats/widgets/chat_list_appbar.dart';
 import 'package:swagapp/modules/pages/chats/widgets/chats_contacts.dart';
 import '../../common/utils/palette.dart';
 import '../../cubits/chat/chat_cubit.dart';
+import '../../di/injector.dart';
 
 
 class ChatListPage extends StatefulWidget {

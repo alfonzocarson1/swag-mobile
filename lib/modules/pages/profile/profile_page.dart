@@ -3,7 +3,9 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:swagapp/modules/pages/chats/chats_page.dart';
+import 'package:swagapp/modules/common/assets/icons.dart';
+import 'package:swagapp/modules/cubits/chat/chat_cubit.dart';
+import 'package:swagapp/modules/pages/chats/chat_list_view.dart';
 import 'package:swagapp/modules/pages/profile/sold/sold_page.dart';
 
 import '../../../generated/l10n.dart';
@@ -11,7 +13,6 @@ import '../../common/ui/account_info_head.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
 import '../../common/utils/utils.dart';
-import '../../cubits/paywall/paywall_cubit.dart';
 import '../../cubits/profile/get_profile_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
@@ -41,14 +42,13 @@ class _ProfilePageState extends State<ProfilePage>
   int _currentIndex = 0;
   late double blurLevel;
   late ProfileModel profileData;
+  bool hasUnreadMessages = false;
 
   @override
   void initState() {
     _tabController = TabController(length: 4, vsync: this);
     _tabController.addListener(_handleTabSelection);
-    //getIt<ProfileCubit>().loadProfileResults();
     verifySubscriptionStatus();
-
     super.initState();
   }
 
@@ -56,6 +56,11 @@ class _ProfilePageState extends State<ProfilePage>
   void dispose() {
     super.dispose();
     _tabController.dispose();
+  }
+
+  getUnreadMessagesState() async {
+   hasUnreadMessages = await getIt<ChatCubit>().hasUnreadMessages();
+    setState(() {});
   }
 
   verifySubscriptionStatus() {
@@ -78,7 +83,7 @@ class _ProfilePageState extends State<ProfilePage>
   }
 
   paywallAction() {
-      verifySubscriptionStatus();
+    verifySubscriptionStatus();
     ProfileModel profileData =
         getIt<PreferenceRepositoryService>().profileData();
     if (profileData.hasActiveSubscription != true) {
@@ -90,8 +95,7 @@ class _ProfilePageState extends State<ProfilePage>
   }
 
   @override
-  Widget build(BuildContext context) {  
-
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle(
@@ -127,16 +131,39 @@ class _ProfilePageState extends State<ProfilePage>
         automaticallyImplyLeading: false,
         leading: Padding(
           padding: const EdgeInsets.only(left: 10),
-          child: IconButton(
-              splashColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              icon: Image.asset(
-                'assets/images/Message.png',
-                scale: 2.5,
-              ),
-              onPressed: () => Navigator.of(context, rootNavigator: true).push(
-                    MaterialPageRoute(builder: (context) => const ChatsPage()),
-                  )),
+          child: BlocBuilder<ChatCubit, ChatState>(
+            builder: (context, state) {
+              return state.maybeWhen(
+                hasUnreadMessages: (hasUnreadMessages, unreadMessageCount) {
+                  return IconButton(
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  icon: Image.asset(
+                    (hasUnreadMessages)?AppIcons.chatNewMessage : AppIcons.chat,
+                    scale: 2.5,
+                  ),
+                  onPressed: () =>
+                      Navigator.of(context, rootNavigator: true).push(
+                        MaterialPageRoute(
+                            builder: (context) => const ChatListPage()),
+                      ));
+                },
+                orElse: (){
+                  return IconButton(
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  icon: Image.asset(
+                    AppIcons.chat,
+                    scale: 2.5,
+                  ),
+                  onPressed: () =>
+                      Navigator.of(context, rootNavigator: true).push(
+                        MaterialPageRoute(
+                            builder: (context) => const ChatListPage()),
+                      ));
+                });
+            },
+          ),
         ),
       ),
       backgroundColor: Palette.current.primaryNero,

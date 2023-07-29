@@ -5,7 +5,7 @@ import 'package:swagapp/modules/cubits/chat/chat_cubit.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../common/utils/palette.dart';
-import '../../../di/injector copy.dart';
+
 
 class AppBarTitle extends StatefulWidget {
   const AppBarTitle({super.key});
@@ -19,8 +19,6 @@ class _AppBarTitleState extends State<AppBarTitle> {
 
   @override
   void initState() {
-    //getUnreadMessageCount();
-    //getIt<ChatCubit>().loadGroupChannels();
     super.initState();
   }
 

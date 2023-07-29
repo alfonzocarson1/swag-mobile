@@ -9,11 +9,11 @@ import 'package:swagapp/modules/pages/add/collection/add_to_wall_collection.dart
 import 'package:swagapp/modules/pages/add/collection/edit_list_for_Sale_page.dart';
 import 'package:swagapp/modules/pages/add/collection/list_item_preview_page.dart';
 import 'package:swagapp/modules/pages/add/collection/select_item_page.dart';
-import 'package:swagapp/modules/pages/chat/chat_page.dart';
+
 import 'package:swagapp/modules/pages/detail/transaction_history_page.dart';
 import 'package:swagapp/modules/pages/explore/account_info.dart';
 import 'package:swagapp/modules/pages/home/home_page.dart';
-import 'package:swagapp/modules/pages/chats/chats_page.dart';
+
 import 'package:swagapp/modules/pages/login/forgot_password_page.dart';
 import 'package:swagapp/modules/pages/login/landing_page.dart';
 import 'package:swagapp/modules/pages/login/reset_password_page.dart';
@@ -26,7 +26,7 @@ import 'package:swagapp/modules/pages/settings/account/account_page.dart';
 import 'package:swagapp/modules/pages/settings/account/add_shipping_address_page.dart';
 import 'package:swagapp/modules/pages/settings/account/peer_to_peer_payments_page.dart';
 import 'package:swagapp/modules/pages/settings/account/peer_to_peer_payments_save_widget.dart';
-import 'package:swagapp/modules/pages/settings/account/shipping_address_detail_page.dart';
+
 import 'package:swagapp/modules/pages/settings/account/shipping_address_page.dart';
 import 'package:swagapp/modules/pages/settings/settings_page.dart';
 import 'package:swagapp/modules/pages/splash/splash_page.dart';
@@ -152,21 +152,21 @@ abstract class AppRouter {
         },
       ),
 
-      GoRoute(
-        path: AppRoutes.chats,
-        name: AppRouteNames.chats,
-        builder: (BuildContext context, GoRouterState state)=> const ChatsPage(),
-      ),
+      // GoRoute(
+      //   path: AppRoutes.chats,
+      //   name: AppRouteNames.chats,
+      //   builder: (BuildContext context, GoRouterState state)=> const ChatsPage(),
+      // ),
 
-      GoRoute(
-        path: AppRoutes.chat,
-        name: AppRouteNames.chat,
-        builder: (BuildContext context, GoRouterState state) {
+      // GoRoute(
+      //   path: AppRoutes.chat,
+      //   name: AppRouteNames.chat,
+      //   builder: (BuildContext context, GoRouterState state) {
 
-          ChatNavigatorParameters parameters = state.extra as ChatNavigatorParameters;
-          return ChatPage(chatData: parameters.chatdata);
-        },
-      ),
+      //     ChatNavigatorParameters parameters = state.extra as ChatNavigatorParameters;
+      //     return ChatPage(chatData: parameters.chatdata);
+      //   },
+      // ),
 
       GoRoute(
         path: AppRoutes.itemDetail,

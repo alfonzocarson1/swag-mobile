@@ -14,12 +14,13 @@ import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/models/chat/chat_data.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:swagapp/modules/models/chat/sendbird_channel_data.dart';
-import 'package:swagapp/modules/pages/chats/widgets/chatPage.dart';
+
 import 'package:swagapp/modules/pages/chats/widgets/time_stamp_converter.dart';
 
 import '../../../constants/constants.dart';
 import '../../../di/injector.dart';
 import '../../../models/chat/message_data.dart';
+import '../../chat/chatPage.dart';
 
 class ChatsContact extends StatelessWidget {
   final String lastMessage;

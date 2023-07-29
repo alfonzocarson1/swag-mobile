@@ -4,10 +4,12 @@ import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
 import 'package:swagapp/modules/cubits/alert/alert_cubit.dart';
+import 'package:swagapp/modules/cubits/chat/chat_cubit.dart';
 import 'package:swagapp/modules/pages/alert/rating_buyer.dart';
 import '../../../generated/l10n.dart';
-import '../../blocs/chat/chat_bloc.dart';
+
 import '../../common/ui/loading.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
@@ -17,11 +19,10 @@ import '../../di/injector.dart';
 import '../../enums/chat_type.dart';
 import '../../enums/listing_status_data.dart';
 import '../../models/alerts/alert_response_model.dart';
-import '../../models/chat/chat_data.dart';
+
 import '../add/buy/preview_buy_for_sale.dart';
-import '../chat/chat_page.dart';
-import '../profile/sold/sold_detail_page.dart';
-import '../settings/purchase_history/purchase_history_details/purchase_history_details_page.dart';
+
+import '../chat/chatPage.dart';
 import 'delivered_popup.dart';
 
 class AlertPage extends StatefulWidget {
@@ -60,13 +61,12 @@ class _AlertPageState extends State<AlertPage> {
   }
 
   Future<void> onTapSubmit(String channelUrl) async {
-    ChatBloc chatBloc = context.read<ChatBloc>();
 
-    late ChatData chatData;
+
+    late GroupChannel chatData;
     try {
       await Future.delayed(const Duration(milliseconds: 500));
-
-      chatData = await chatBloc.startNewChat(channelUrl, false);
+      chatData = await getIt<ChatCubit>().startChat(channelUrl);
 
       Loading.hide(context);
       if (Platform.isIOS) {
@@ -80,7 +80,7 @@ class _AlertPageState extends State<AlertPage> {
       getIt<PreferenceRepositoryService>().saveShowNotification(false);
       await Navigator.of(context, rootNavigator: true).push(
         MaterialPageRoute(
-            builder: (BuildContext context) => ChatPage(chatData: chatData)),
+            builder: (BuildContext context) => ChatPage(channel: chatData)),
       );
     } catch (e) {
       print(e);
@@ -178,7 +178,7 @@ class _AlertPageState extends State<AlertPage> {
                           itemBuilder: (context, index) {
                             final item = alertList!.alertList[index];
                             return ListTile(
-                              onTap: () async {
+                              onTap: () {
                                 getIt<AlertCubit>()
                                     .readAlert(item.notificationAlertId ?? '');
 
@@ -187,38 +187,38 @@ class _AlertPageState extends State<AlertPage> {
                                             .notifyMessageBuyFlow.textValue &&
                                     item.payload!.dateItemShipped == null &&
                                     item.payload!.listingStatus == null) {
-                                  ChatBloc chatBloc = context.read<ChatBloc>();
-                                  for (int i = 0;
-                                      i < chatBloc.state.chats.length;
-                                      i++) {
-                                    if (chatBloc.state.chats[i].channel.data!
-                                        .isNotEmpty) {
-                                      String jsonString =
-                                          chatBloc.state.chats[i].channel.data!;
+                                  // ChatBloc chatBloc = context.read<ChatBloc>();
+                                  // for (int i = 0;
+                                  //     i < chatBloc.state.chats.length;
+                                  //     i++) {
+                                  //   if (chatBloc.state.chats[i].channel.data!
+                                  //       .isNotEmpty) {
+                                  //     String jsonString =
+                                  //         chatBloc.state.chats[i].channel.data!;
 
-                                      jsonString =
-                                          jsonString.replaceAll("'", '"');
+                                  //     jsonString =
+                                  //         jsonString.replaceAll("'", '"');
 
-                                      Map<String, dynamic> json =
-                                          jsonDecode(jsonString);
+                                  //     Map<String, dynamic> json =
+                                  //         jsonDecode(jsonString);
 
-                                      String productItemId =
-                                          json['productItemId'];
+                                  //     String productItemId =
+                                  //         json['productItemId'];
 
-                                      if (item.payload!.productItemId ==
-                                          productItemId) {
-                                        setState(() {
-                                          listingChatId = chatBloc.state
-                                              .chats[i].channel.channelUrl;
-                                        });
+                                  //     if (item.payload!.productItemId ==
+                                  //         productItemId) {
+                                  //       setState(() {
+                                  //         listingChatId = chatBloc.state
+                                  //             .chats[i].channel.channelUrl;
+                                  //       });
 
-                                        break;
-                                      }
-                                    }
-                                  }
+                                  //       break;
+                                  //     }
+                                  //   }
+                                  // }
 
-                                  Loading.show(context);
-                                  onTapSubmit(listingChatId ?? '');
+                                  // Loading.show(context);
+                                  // onTapSubmit(listingChatId ?? '');
                                 } else if ((item.typeNotification ==
                                             ChatType.notifySale.textValue ||
                                         item.typeNotification ==
@@ -234,30 +234,20 @@ class _AlertPageState extends State<AlertPage> {
                                 }
 
                                 if (item.payload!.dateItemShipped != null) {
-                                  Navigator.of(context, rootNavigator: true)
-                                      .push(PurchaseHistoryDetailsPage.route(
-                                          item.payload!.purchaseHistoryId ??
-                                              ''));
-
-                                  await Future.delayed(
-                                      const Duration(milliseconds: 1000),
-                                      () {});
-
                                   showDialog(
                                       context: context,
                                       barrierDismissible: false,
                                       builder: (BuildContext context) {
                                         return DeliveredPopUp(
-                                          userName:
-                                              item.payload!.userName ?? '',
-                                          productItemId:
-                                              item.payload!.productItemId ?? '',
-                                          purchaseHistoryId:
-                                              item.payload!.purchaseHistoryId ??
-                                                  '',
-                                          itemName:
-                                              item.payload!.itemName ?? '',
-                                        );
+                                            userName:
+                                                item.payload!.userName ?? '',
+                                            productItemId:
+                                                item.payload!.productItemId ??
+                                                    '',
+                                            purchaseHistoryId: item.payload!
+                                                    .purchaseHistoryId ??
+                                                '', 
+                                            itemName: item.payload?.itemName ?? '',);
                                       });
                                 }
 
@@ -275,17 +265,6 @@ class _AlertPageState extends State<AlertPage> {
                                     item.payload!.listingStatus !=
                                         ListingStatusDataType
                                             .listed.textValue) {
-                                  Navigator.of(context, rootNavigator: true)
-                                      .push(MaterialPageRoute(
-                                          builder: (context) => SoldDetailPage(
-                                                productItemId: item.payload!
-                                                        .productItemId ??
-                                                    '',
-                                              )));
-
-                                  await Future.delayed(
-                                      const Duration(milliseconds: 1000),
-                                      () {});
                                   showDialog(
                                       context: context,
                                       barrierDismissible: false,

@@ -169,8 +169,8 @@ class _ChatPageState extends State<ChatPage> {
                     leading: [
                       IconButton(
                           onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const CameraPage()));
+                            // Navigator.of(context).push(MaterialPageRoute(
+                            //     builder: (context) => const CameraPage()));
                           },
                           icon: Image.asset(AppIcons.add))
                     ],

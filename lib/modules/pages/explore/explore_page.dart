@@ -1,29 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:sendbird_sdk/sendbird_sdk.dart';
-import 'package:swagapp/modules/blocs/chat/chat_bloc.dart';
 
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/data/filters/filters_service.dart';
-import 'package:swagapp/modules/models/chat/chat_data.dart';
 import 'package:swagapp/modules/models/filters/dynamic_filters.dart';
-
 import ' shop_by_category_page.dart';
-
 import '../../common/ui/custom_app_bar.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../cubits/alert/alert_cubit.dart';
+import '../../cubits/chat/chat_cubit.dart';
 import '../../cubits/explore/get_explore_cubit.dart';
-import '../../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
 import '../../cubits/peer_to_peer_payments/peer_to_peer_payments_cubit.dart';
-import '../../cubits/sold/get_sold_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
-
-import '../../enums/chat_type.dart';
 import '../../models/explore/explore_payload_model.dart';
-import '../../routes/app_routes.dart';
 import 'account_info.dart';
 import 'staff_picks_page.dart';
 import 'unicorn_covers_page.dart';
@@ -49,11 +38,11 @@ class ExplorePage extends StatefulWidget {
   State<ExplorePage> createState() => _ExplorePageState();
 }
 
-class _ExplorePageState extends State<ExplorePage> with ChannelEventHandler {
+class _ExplorePageState extends State<ExplorePage>  {
   bool _isLogged = false;
   bool _hasJustSignedUp = false;
 
-  late final ScrollController? _scrollController =
+  late final ScrollController _scrollController =
       PrimaryScrollController.of(context);
 
   String chatUrl = '';
@@ -81,16 +70,10 @@ class _ExplorePageState extends State<ExplorePage> with ChannelEventHandler {
 
   @override
   void initState() {
-    this.initSendBirdApp();
+   getIt<ChatCubit>().connectSendBirdApp();
     this.loadDynamicFilters();
     getIt<AlertCubit>().updateAletBadget();
-    context
-        .read<ChatBloc>()
-        .sendBirdSdk
-        .addChannelEventHandler('identifier', this);
-
     getIt<PeerToPeerPaymentsCubit>().getPyments();
-
     widget.refreshNotifier?.addListener(refresh);
     refresh();
     super.initState();
@@ -164,45 +147,4 @@ class _ExplorePageState extends State<ExplorePage> with ChannelEventHandler {
     });
   }
 
-  void initSendBirdApp() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      ChatBloc chatBloc = context.read<ChatBloc>();
-
-      await chatBloc.getUserSendBirdToken();
-      await chatBloc.initSendBirdApp();
-      await chatBloc.getChannels();
-    });
-  }
-
-  @override
-  void onMessageReceived(BaseChannel channel, BaseMessage message) async {
-    ChatBloc chatBloc = context.read<ChatBloc>();
-    ChatData chatData = chatBloc.state.chats.firstWhere((ChatData chat) {
-      return chat.channel.channelUrl == channel.channelUrl;
-    });
-
-    getIt<ListingProfileCubit>().loadResults();
-
-    await chatBloc.receiveMessage(
-      chatData: chatData,
-      message: message,
-    );
-
-    super.onMessageReceived(channel, message);
-  }
-
-  @override
-  void onChannelMemberCountChanged(List<GroupChannel> channels) {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      if (channels.first.customType != ChatType.listing.textValue) {
-        if (this.chatUrl != channels[0].channelUrl) {
-          this.chatUrl = channels[0].channelUrl;
-          await context
-              .read<ChatBloc>()
-              .startNewChat(channels[0].channelUrl, true);
-        }
-      }
-    });
-    super.onChannelMemberCountChanged(channels);
-  }
 }
