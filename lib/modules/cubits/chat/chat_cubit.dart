@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
@@ -14,6 +16,7 @@ import '../../di/injector.dart';
 import '../../enums/chat_message_data_type.dart';
 import '../../models/chat/chat_data.dart';
 import '../../models/profile/profile_model.dart';
+import '../../services/firebase_manager.dart';
 import '../../services/local_notifications_service.dart';
 
 
@@ -32,6 +35,7 @@ class ChatCubit extends Cubit<ChatState> {
 
     Future<void> connectSendBirdApp() async {
     try {
+
       await getUserSendBirdToken();
       String userId = getIt<PreferenceRepositoryService>().getUserSendBirdId();
       String userToken =
@@ -42,6 +46,8 @@ class ChatCubit extends Cubit<ChatState> {
             userId,
             accessToken: userToken,
           );
+         await FirebaseManager.registerPushToken();
+
        }, 
        (error, stack) {
         print(error.toString());
@@ -49,7 +55,7 @@ class ChatCubit extends Cubit<ChatState> {
 
       setupOnMessageReceivedHandler();
 
-      await this.initSendBirdPushNotifications();    
+      //await this.initSendBirdPushNotifications();    
     } catch (e) {
       throw Exception('Error loading my user');
     }
@@ -222,11 +228,37 @@ void setupOnMessageReceivedHandler() {
   Future<void> initSendBirdPushNotifications() async {
     String firebaseToken =
         getIt<PreferenceRepositoryService>().getFirebaseDeviceToken();
+        
 
-    await SendbirdChat.registerPushToken(
+    PushTokenRegistrationStatus notificationRegisterStatus = await SendbirdChat.registerPushToken(
           type: (Platform.isIOS) ? PushTokenType.apns : PushTokenType.fcm,
           token: firebaseToken,
+          unique: true
         );
+       // debugPrint(notificationRegisterStatus.toString());
+
+//        PushTokenType? _getPushTokenType() {
+//   PushTokenType? pushTokenType;
+//   if (Platform.isAndroid) {
+//     pushTokenType = PushTokenType.fcm;
+//   } else if (Platform.isIOS) {
+//     pushTokenType = PushTokenType.apns;
+//   }
+//   return pushTokenType;
+// }
+
+// Future<String?> _getToken() async {
+//   String? token;
+//   if (Platform.isAndroid) {
+//     token = await FirebaseMessaging.instance.getToken();
+//   } else if (Platform.isIOS) {
+//     token = await FirebaseMessaging.instance.getAPNSToken();
+//   }
+//   return token;
+// }
+
+
+
   }  
 
 
@@ -257,7 +289,7 @@ getMessageJson({BaseChannel? channel, BaseMessage? message}){
 
 showPushNotificationsAndroid(BaseMessage message, GroupChannel channel, bool showNotification) async{
   
-  if (Platform.isIOS && showNotification ) {
+  if (Platform.isAndroid && showNotification ) {
       ProfileModel userProfile =
           getIt<PreferenceRepositoryService>().profileData();
       String userName = userProfile.username;
