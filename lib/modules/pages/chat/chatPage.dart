@@ -45,6 +45,8 @@ class _ChatPageState extends State<ChatPage> {
   List<BaseMessage> messagesList = [];
   late List<ChatMessage> chatMessages;
   List<String> messageStatus = [];
+  FocusNode _focusNode = FocusNode();
+  TextEditingController _textEditingController = TextEditingController();
 
   @override
   void initState() {
@@ -53,6 +55,13 @@ class _ChatPageState extends State<ChatPage> {
     getIt<ChatCubit>().loadMessages(widget.channel);
     this.userSendbirdiId =
         getIt<PreferenceRepositoryService>().getUserSendBirdId();
+    _focusNode.addListener(() {
+      setState(() {});
+    });
+
+    _textEditingController.addListener(() {
+      setState(() {});
+    });
   }
 
   @override
@@ -111,10 +120,8 @@ class _ChatPageState extends State<ChatPage> {
         builder: (context, state) {          
           return state.maybeWhen(
             initial: () => const Center(child: Text('Welcome to the chat')),
-            //loadingChats: () => const SizedBox.shrink(),
             loadedChats: (List<BaseMessage> messages) {
               messagesList = messages;
-              // messages = messages;
               chatMessages = messagesList.map((chatMessage) {
                 Map<String, dynamic> messageDataJson =
                     SendBirdUtils.getFormatedData(chatMessage.data ?? "");
@@ -168,21 +175,65 @@ class _ChatPageState extends State<ChatPage> {
                   },
                 ),
                 inputOptions: InputOptions(
+                  textController: _textEditingController,
+                  focusNode: _focusNode,
                   textCapitalization: TextCapitalization.sentences,
-                    leading: [
+                  sendButtonBuilder: (send) {
+                    return const SizedBox.shrink();
+                  },
+                    leading: (_focusNode.hasFocus) ? [
+                      Icon(Icons.chevron_right, color: Palette.current.primaryNeonGreen ) 
+                    ]:[
                       IconButton(
                           onPressed: () {
                             // Navigator.of(context).push(MaterialPageRoute(
                             //     builder: (context) => const CameraPage()));
                           },
-                          icon: Image.asset(AppIcons.add))
+                          icon: Image.asset(AppIcons.chatCamera)),
+                      IconButton(
+                          onPressed: () {
+                            // Navigator.of(context).push(MaterialPageRoute(
+                            //     builder: (context) => const CameraPage()));
+                          },
+                          icon: Image.asset(AppIcons.chatGallery))
                     ],
                     inputTextStyle:
                         TextStyle(color: Palette.current.primaryWhiteSmoke),
-                    sendButtonBuilder: defaultSendButton(
-                        icon: Icons.ac_unit_sharp,
-                        color: Palette.current.primaryNeonGreen),
                     inputDecoration: InputDecoration(
+                       constraints: BoxConstraints.tight(const Size(50, 50)),
+        suffixIcon: Container(
+        padding: const EdgeInsetsDirectional.only(end: 12.0),
+          child: IconButton(
+            icon: (_textEditingController.text.isEmpty) ? Image.asset(AppIcons.sendDisabled, height: 25,) : Image.asset(AppIcons.sendEnabled, height: 25) ,
+            onPressed: _textEditingController.text.isEmpty
+                ? null
+                : () async {
+
+                   final text = _textEditingController.text;
+
+                  // Create a ChatMessage instance from the text
+                  final chatMessage = ChatMessage(
+                    text: text,
+                    user: ChatUser(
+                      // Add your user info here
+                      id: userProfile.accountId,
+                      firstName: userName,
+                    ), createdAt: DateTime.now(),
+                  );
+
+                     UserMessage sentMessage = await getIt<ChatCubit>()
+                      .sendMessage(widget.channel, chatMessage.text);
+                      _textEditingController.clear();
+                  setState(() {
+                    // _messages.add(sentMessage);
+                  });
+                  
+
+                
+                    // handle sending the message here
+                  },
+          ),
+        ),
                       hintText: 'Enter message',
                       hintStyle: TextStyle(color: Palette.current.grey),
                       fillColor: Palette
