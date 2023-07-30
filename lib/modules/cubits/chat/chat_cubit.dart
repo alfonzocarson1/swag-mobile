@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
 
 import '../../data/chat/ichat_service.dart';
@@ -31,6 +32,7 @@ class ChatCubit extends Cubit<ChatState> {
 
     Future<void> connectSendBirdApp() async {
     try {
+      await getUserSendBirdToken();
       String userId = getIt<PreferenceRepositoryService>().getUserSendBirdId();
       String userToken =
           getIt<PreferenceRepositoryService>().getUserSendBirdToken();
@@ -52,6 +54,12 @@ class ChatCubit extends Cubit<ChatState> {
       throw Exception('Error loading my user');
     }
 }
+
+  Future<void> getUserSendBirdToken() async {
+    String sendBirdToken = await this.service.getUserSendBirdToken();
+    await getIt<PreferenceRepositoryService>()
+        .saveUserSendBirdToken(sendBirdToken);
+  }
 
  Future<List<BaseMessage>> loadMessages(GroupChannel channel) async {
 
@@ -140,34 +148,33 @@ class ChatCubit extends Cubit<ChatState> {
     }
   }
 
-  sentFileMessage(GroupChannel channel, File file){
-   File messageFile= File(file.path); 
+  sendGalleryFileMessage(GroupChannel channel)async{
+   final picker = ImagePicker();
+   XFile?  pickedFile = await picker.pickImage(source: ImageSource.gallery, imageQuality: 50);
+
+   if (pickedFile != null) { 
+   final params = FileMessageCreateParams.withFile(
+   File(pickedFile.path), 
+   fileName: pickedFile.name, 
+   customType: pickedFile.mimeType,
+   pushNotificationDeliveryOption: PushNotificationDeliveryOption.normal);
+   // or other MIME type based on your file
+
+  try {
+    await channel.sendFileMessage(params);
+    print('File message sent successfully');
+  } catch (e) {
+    print('Failed to send file message: $e');
+  }
+} else {
+  print('No image selected');
+}
    
 
-    try {
-  final params = FileMessageCreateParams.withFile(messageFile,
-    fileName: 'FILE_NAME',
-    customType : 'CUSTOM_TYPE',
-    mentionType : MentionType.users,
-   // mentionedUserIds : ['Jeff', 'Julia'],
-    pushNotificationDeliveryOption : PushNotificationDeliveryOption.normal
-  ); 
-  
-
-  final message = channel.sendFileMessage(params, handler: (message, e) {
-    if (e != null) {
-      // Handle error.
-    } else {
-      // A file message with detailed configuration is successfully sent to the channel.
-    }
-  });
-  // Use message to display the message before it is sent to the server.
-} catch (e) {
-  // Handle error.
-}
-
+ 
 
   }
+
 
    Future<GroupChannel> startChat(String productId) async {
     try {
