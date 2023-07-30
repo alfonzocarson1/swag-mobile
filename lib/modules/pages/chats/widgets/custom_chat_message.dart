@@ -37,13 +37,13 @@ class CustomChatMessage extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-      (isAfterDateSeparator)? Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Text(
-        "fecha dsfadsfa ",
-        style: TextStyle(color: Colors.white),
-      ),
-    ):const SizedBox.shrink(),
+    //   (isAfterDateSeparator)? Padding(
+    //   padding: const EdgeInsets.all(8.0),
+    //   child: Text(
+    //     "hoy",
+    //     style: TextStyle(color: Colors.white),
+    //   ),
+    // ):const SizedBox.shrink(),
           Row(
             mainAxisAlignment: user.id == message.user.id
                 ? MainAxisAlignment.end
