@@ -1,16 +1,20 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
-import 'package:swagapp/modules/services/local_notifications_service.dart';
-import 'package:swagapp/modules/services/push_notifications_service.dart';
+
 import 'app.dart';
 import 'modules/api/app_config.dart';
+import 'modules/common/utils/context_service.dart';
 import 'modules/common/utils/utils.dart';
 import 'modules/constants/constants.dart';
 import 'modules/data/secure_storage/storage_repository_service.dart';
 import 'modules/data/shared_preferences/shared_preferences_service.dart';
 import 'modules/di/injector.dart';
+import 'modules/notifications_providers/local_notifications_providers.dart';
+import 'modules/notifications_providers/push_notifications_providers.dart';
+import 'modules/pages/alert/alert_page.dart';
 
 Future<void> main() async {
   if (kReleaseMode) {
@@ -63,7 +67,9 @@ Future<String> getAppFlavor() async {
 
 Future<void> _runApp() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await PushNotificationsService.initializeApp();
-  await LocalNotificationsService.initializeApp();
+  await Firebase.initializeApp();
+  PushNotificationsProvider pushProvider = PushNotificationsProvider();
+  pushProvider.initializeProvider();
+  LocalNotificationProvider().initNotification();
   return runApp(App());
 }

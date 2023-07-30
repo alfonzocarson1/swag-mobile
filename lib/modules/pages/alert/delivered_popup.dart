@@ -16,7 +16,7 @@ import '../../cubits/chat/chat_cubit.dart';
 import '../../di/injector.dart';
 import '../../models/buy_for_sale_listing/cancel_purchase_request_model.dart';
 import '../../models/buy_for_sale_listing/cancel_purchase_response_model.dart';
-import '../../services/local_notifications_service.dart';
+import '../../notifications_providers/local_notifications_providers.dart';
 import '../settings/purchase_history/purchase_history_details/purchase_history_details_page.dart';
 import 'rating_buyer.dart';
 
@@ -41,13 +41,13 @@ class _DeliveredPopUpState extends State<DeliveredPopUp> {
 
   @override
   void initState() {
-    getListingId();  
+    getListingId();
     super.initState();
   }
 
-    getListingId()async{
+  getListingId() async {
     List<GroupChannel> channels = await getIt<ChatCubit>().loadGroupChannels();
-      for (int i = 0; i < channels.length; i++) {
+    for (int i = 0; i < channels.length; i++) {
       if (channels[i].data!.isNotEmpty) {
         String jsonString = channels[i].data!;
         jsonString = jsonString.replaceAll("'", '"');
@@ -61,7 +61,7 @@ class _DeliveredPopUpState extends State<DeliveredPopUp> {
         }
       }
     }
-    }
+  }
 
   Dialog _getBody() {
     return Dialog(
@@ -156,7 +156,7 @@ class _DeliveredPopUpState extends State<DeliveredPopUp> {
                             received: false),
                       );
                       setState(() {
-                        LocalNotificationsService.showInAppAllert(
+                        LocalNotificationProvider.showInAppAllert(
                             S.of(context).delivered_not_yet_alert);
 
                         Navigator.of(context).pop();
