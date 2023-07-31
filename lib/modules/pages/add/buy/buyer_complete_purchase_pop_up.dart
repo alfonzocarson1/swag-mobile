@@ -10,6 +10,7 @@ import 'package:swagapp/modules/common/utils/palette.dart';
 
 import '../../../../generated/l10n.dart';
 
+import '../../../blocs/detail_bloc/detail_bloc.dart';
 import '../../../common/ui/cupertino_custom_picker.dart';
 import '../../../common/ui/custom_text_form_field.dart';
 import '../../../common/ui/loading.dart';
@@ -32,8 +33,9 @@ import '../../settings/account/add_shipping_address_page.dart';
 
 class BuyerCompletePurchasePopUp extends StatefulWidget {
   const BuyerCompletePurchasePopUp(
-      {super.key, this.productItemId, required this.payments});
+      {super.key, this.productItemId, required this.payments, this.catalogId});
   final String? productItemId;
+  final String? catalogId;
 
   final PeerToPeerPaymentsModel payments;
 
@@ -227,12 +229,10 @@ class _BuyerCompletePurchasePopUpState
   }
 
   Future<void> onTapSubmit(String channelUrl) async {
-
     late GroupChannel chatData;
     try {
       await Future.delayed(const Duration(milliseconds: 500));
       chatData = await getIt<ChatCubit>().startChat(channelUrl);
-
       Loading.hide(context);
 
       if (Platform.isIOS) {
@@ -249,6 +249,9 @@ class _BuyerCompletePurchasePopUpState
         MaterialPageRoute(
             builder: (BuildContext context) => ChatPage(channel: chatData)),
       );
+      BlocProvider.of<DetailBloc>(context)
+          .add(DetailEvent.getDetailItem(widget.catalogId ?? ''));
+      Navigator.of(context).pop();
       Navigator.of(context).pop();
       Navigator.of(context).pop();
     } catch (e) {
