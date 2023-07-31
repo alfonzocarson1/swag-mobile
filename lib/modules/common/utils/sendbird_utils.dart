@@ -1,12 +1,17 @@
 
 import 'dart:convert';
 
+import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
 import 'package:swagapp/generated/intl/messages_en.dart';
 import 'package:swagapp/modules/common/utils/utils.dart';
 
 import '../../../generated/l10n.dart';
+import '../../data/shared_preferences/shared_preferences_service.dart';
+import '../../di/injector.dart';
 import '../../enums/chat_message_data_type.dart';
+import '../../enums/chat_type.dart';
 import '../../models/chat/message_data.dart';
+import '../../models/profile/profile_model.dart';
 
 
 abstract class SendBirdUtils {
@@ -45,7 +50,9 @@ abstract class SendBirdUtils {
         : paymentMethod.payPalEmail;
   }
 
-  static String getMessageText(MessageData messageData ) {      
+  static String getMessageText(MessageData messageData ) {    
+
+       ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
 
       if (messageData.type != ChatMessageDataType.message.textValue &&
           messageData.type != ChatMessageDataType.paymentReceived.textValue &&
@@ -54,13 +61,21 @@ abstract class SendBirdUtils {
           messageData.type != ChatMessageDataType.saleCanceled.textValue &&
           messageData.type != ChatMessageDataType.paymentSend.textValue &&
           messageData.type != ChatMessageDataType.itemNotReceived.textValue) {
-        return S.current.chatCardConfirmPaymentSeller(
+     return (profileData.username == messageData.payload.userNameSeller) ?  S.current.chatCardConfirmPaymentSeller(
             messageData.payload.userNameBuyer,
             messageData.payload.userNameSeller,
             getPaymentMehotd(messageData.payload.paymentMethodOption),
             decimalDigitsLastSalePrice(
                 messageData.payload.listingPrice.toString()),
-            getPaymentMehotdUser(messageData.payload.paymentMethodOption));
+            getPaymentMehotdUser(messageData.payload.paymentMethodOption)) :
+            S.current.chatCardConfirmPaymentBuyer(
+            messageData.payload.userNameBuyer,
+            messageData.payload.userNameSeller,
+            getPaymentMehotd(messageData.payload.paymentMethodOption),
+            decimalDigitsLastSalePrice(
+                messageData.payload.listingPrice.toString()),
+            getPaymentMehotdUser(messageData.payload.paymentMethodOption))             
+            ;
       } else if (messageData.type ==
           ChatMessageDataType.paymentReceived.textValue) {
         return S.current
@@ -118,6 +133,24 @@ abstract class SendBirdUtils {
     } else {
       return '';
     }
+  }
+
+  static String getListingChatUrl(List<GroupChannel> channels, String proudctItemId) {
+    String listingUrl = "";
+
+    for (int i = 0; i < channels.length; i++) {
+      if (channels[i].data.isNotEmpty &&
+          channels[i].customType == ChatType.buyWorkflow.textValue) {
+        String jsonString = channels[i].data;
+        jsonString = jsonString.replaceAll("'", '"');
+        Map<String, dynamic> json = jsonDecode(jsonString);
+        String jsonProductItemId = json['productItemId'];
+        if (jsonProductItemId == proudctItemId) {  
+         listingUrl = channels[i].channelUrl;
+        }
+      }
+    }
+    return listingUrl;
   }
 
   static  String getCardTitle(MessageData messageData) {
