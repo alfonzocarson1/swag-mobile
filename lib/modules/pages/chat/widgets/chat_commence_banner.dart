@@ -13,11 +13,15 @@ late double screenHeight;
 class ChatCommenceBanner extends StatelessWidget {
   final ChannelData channelData;
   final bool isListingChat;
+  final DateTime createdAt;
+  final String otherUser;
 
   const ChatCommenceBanner({
     super.key,
     required this.channelData,
-    required this.isListingChat
+    required this.isListingChat, 
+    required this.createdAt, 
+     required this.otherUser
   });
 
   @override
@@ -28,9 +32,9 @@ class ChatCommenceBanner extends StatelessWidget {
       //margin: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         children: <Widget>[
-           _BannerTopBar(isListingChat: this.isListingChat),
+           _BannerTopBar(isListingChat: this.isListingChat, createdAt: this.createdAt,),
           const SizedBox(height: 5),
-          _BannerContent(channelData: this.channelData, isListingChat: this.isListingChat,),
+          _BannerContent(channelData: this.channelData, isListingChat: this.isListingChat, otherUser: this.otherUser),
           const SizedBox(height: 5),
           _BannerBottomBar(
             isListingChat: this.isListingChat,
@@ -45,11 +49,13 @@ class ChatCommenceBanner extends StatelessWidget {
 class _BannerContent extends StatelessWidget {
   final ChannelData channelData;
   final bool isListingChat;
+  final String? otherUser;
 
   const _BannerContent({
     super.key,
     required this.channelData,
-    required this.isListingChat
+    required this.isListingChat, 
+    this.otherUser
   });
 
   @override
@@ -66,7 +72,7 @@ class _BannerContent extends StatelessWidget {
       child: Column(
         children: <Widget>[
           _BannerTitle(
-            buyerName: this.channelData.buyerUsername,
+            buyerName:(this.isListingChat) ? this.otherUser ?? "" : this.channelData.buyerUsername,
             listingName: this.channelData.listingProductName,
            isListingChat: this.isListingChat),
           const SizedBox(height: 15),
@@ -178,14 +184,14 @@ class _BannerProductInfo extends StatelessWidget {
 }
 
 class _BannerTopBar extends StatelessWidget {
-  const _BannerTopBar({super.key, required this.isListingChat});
+  const _BannerTopBar({super.key, required this.isListingChat, required this.createdAt});
   final bool isListingChat;
+  final DateTime createdAt;
 
   @override
   Widget build(BuildContext context) {
-    DateTime createdAt = DateTime.now();
-    DateFormat dateFormat = DateFormat().add_jm();
-    String createdAtFormated = dateFormat.format(createdAt);
+     DateFormat dateFormat = DateFormat().add_jm();
+     String createdAtFormated = dateFormat.format(createdAt);
 
     return Row(
       children: <Widget>[
