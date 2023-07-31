@@ -286,13 +286,15 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                   : Image.asset(rightIconUrl, width: 20, height: 20)
               : GestureDetector(
             onTap: (){
-              showDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  barrierColor: Colors.black,
-                  builder: (BuildContext context) {
-                    return EmailVerificationPopup();
-                  });
+              if(status != S.of(context).email_verified) {
+                showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    barrierColor: Colors.black,
+                    builder: (BuildContext context) {
+                      return EmailVerificationPopup();
+                    });
+              }
             },
             child: Text(status,
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
