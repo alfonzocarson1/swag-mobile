@@ -18,9 +18,7 @@ class PushNotificationsProvider {
 
   Future<void> initializeProvider() async {
     await requestPermissions();
-    token = (Platform.isIOS)
-        ? await FirebaseMessaging.instance.getAPNSToken()
-        : await FirebaseMessaging.instance.getToken();
+    token = await FirebaseMessaging.instance.getToken();
 
     print('==== FCM Token ====');
     print(token);
