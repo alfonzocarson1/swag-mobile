@@ -205,10 +205,9 @@ class ChatCubit extends Cubit<ChatState> {
   }
 
   Future<GroupChannel> startChat(String productId) async {
-  Future<GroupChannel> startChat(String productId) async {
     try {
       String channelUrl = await getChannelUrl(productId);
-      String channelUrl = await getChannelUrl(productId);
+
       GroupChannel channel = await GroupChannel.getChannel(channelUrl);
 
 
@@ -276,7 +275,7 @@ class ChatCubit extends Cubit<ChatState> {
 //   return token;
 // }
   }
-  }
+  
 
   bringAdminToChat(String channelUrl) async =>
       await this.service.bringAdminToChat(channelUrl);
