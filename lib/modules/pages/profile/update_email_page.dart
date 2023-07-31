@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/utils/utils.dart';
+import 'package:swagapp/modules/cubits/profile/get_profile_cubit.dart';
 import 'package:swagapp/modules/models/update_profile/update_profile_payload_model.dart';
 
 import '../../../generated/l10n.dart';
@@ -107,14 +108,23 @@ class _UpdateEmailPage extends State<UpdateEmailPage> {
       //          });
                 Future.delayed(const Duration(milliseconds: 4000), () async {
 
-                  Navigator.of(context).pop(true);
-                  showDialog(
+                  final result = await showDialog(
                       context: context,
                       barrierDismissible: false,
                       barrierColor: Colors.black,
                       builder: (BuildContext context) {
                         return EmailVerificationPopup();
                       });
+                  if(result){
+                    print("CALL API");
+                    await getIt<ProfileCubit>().loadProfileResults();
+                    print("UPDATe");
+
+                    setState(() {
+
+                    });
+                    Navigator.of(context).pop(true);
+                  }
                 });
                 return null;
               },
@@ -124,7 +134,7 @@ class _UpdateEmailPage extends State<UpdateEmailPage> {
               error: (message)  {
                 Loading.hide(context);
                 setState(() {
-                  errorEmailText = message;
+                  errorEmailText = "an account is already associated with this email";
                 });
 
                 // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
@@ -181,7 +191,7 @@ class _UpdateEmailPage extends State<UpdateEmailPage> {
                             showErrors();
                             if (enableSaveButton) {
                               context.read<UpdateProfileBloc>().add(
-                                  UpdateProfileEvent.updateEmail(UpdateProfilePayloadModel(email: _emailController.text)));
+                                  UpdateProfileEvent.updateEmail(UpdateProfilePayloadModel(email: _emailController.text, accountId: profileData.accountId)));
                             }
                           },
                           type: PrimaryButtonType.green,
@@ -205,7 +215,7 @@ class _UpdateEmailPage extends State<UpdateEmailPage> {
           ? S.of(context).required_field
           : isValidEmail(_emailController.text)
           ? null
-          : S.of(context).invadlidEmail;
+          : "Invalid email address format";
 
       enableSaveButton = (_emailController.text.isNotEmpty &&
           isValidEmail(_emailController.text))
