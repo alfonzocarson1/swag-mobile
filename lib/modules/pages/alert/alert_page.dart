@@ -195,8 +195,9 @@ class _AlertPageState extends State<AlertPage> {
                                       item.payload!.dateItemShipped == null &&
                                       item.payload!.listingStatus == null) {
                                       String productItemId = item.payload!.productItemId ?? "";
+                                      String listingImageUrl = item.payload!.listingImageUrl ?? "";
 
-                                      String channelUrl = SendBirdUtils.getListingChatUrl(groupChannelList, productItemId);
+                                      String channelUrl = SendBirdUtils.getListingChatUrl(groupChannelList, productItemId, listingImageUrl );
                                       Loading.show(context);
                                       onTapSubmit(channelUrl);
 
