@@ -39,7 +39,9 @@
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
 		1B6D253DC803D062B67A88BD /* Pods-Runner.profile-qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile-qa.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile-qa.xcconfig"; sourceTree = "<group>"; };
+		2C9DDC332515D29D86DEDEDE /* Pods-Runner.release-stg.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release-stg.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release-stg.xcconfig"; sourceTree = "<group>"; };
 		3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppFrameworkInfo.plist; path = Flutter/AppFrameworkInfo.plist; sourceTree = "<group>"; };
+		408F7C783D844A83129B6FE1 /* Pods-Runner.profile-stg.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile-stg.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile-stg.xcconfig"; sourceTree = "<group>"; };
 		4CBE2EFF2A478AFE004E529F /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		689ECD5EBC38DC303078CC44 /* Pods-Runner.debug-qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug-qa.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug-qa.xcconfig"; sourceTree = "<group>"; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -60,6 +62,7 @@
 		A6E845F54532DB8F0EB4D2B4 /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC3606F167F2596FD8219E70 /* Pods-Runner.debug-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug-prod.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug-prod.xcconfig"; sourceTree = "<group>"; };
 		D86FBA2E787A39477547932B /* Pods-Runner.release-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release-dev.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release-dev.xcconfig"; sourceTree = "<group>"; };
+		E022F0C5292A799D72290DEC /* Pods-Runner.debug-stg.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug-stg.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug-stg.xcconfig"; sourceTree = "<group>"; };
 		F37930551FB75805EFDD763B /* Pods-Runner.release-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release-prod.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release-prod.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -91,6 +94,9 @@
 				90983E79025107E1A65D4AF3 /* Pods-Runner.debug-uat.xcconfig */,
 				7776AA7EEC8B206541006453 /* Pods-Runner.profile-uat.xcconfig */,
 				0CC45A03BF9D3001CDC148AD /* Pods-Runner.release-uat.xcconfig */,
+				E022F0C5292A799D72290DEC /* Pods-Runner.debug-stg.xcconfig */,
+				408F7C783D844A83129B6FE1 /* Pods-Runner.profile-stg.xcconfig */,
+				2C9DDC332515D29D86DEDEDE /* Pods-Runner.release-stg.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -670,7 +676,7 @@
 			};
 			name = "Release-prod";
 		};
-		038D3E2D2950A8C3008C0CAD /* Debug-qa */ = {
+		038D3E2D2950A8C3008C0CAD /* Debug-stg */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -724,14 +730,14 @@
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			name = "Debug-qa";
+			name = "Debug-stg";
 		};
-		038D3E2E2950A8C3008C0CAD /* Debug-qa */ = {
+		038D3E2E2950A8C3008C0CAD /* Debug-stg */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9740EEB21CF90195004384FC /* Debug.xcconfig */;
 			buildSettings = {
-				APP_DISPLAY_NAME = "Swag QA";
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-qa";
+				APP_DISPLAY_NAME = "Swag Stg";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-stg";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -745,8 +751,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = golf.swag.qa.swaggolf;
-				PRODUCT_FLAVOR = qa;
+				PRODUCT_BUNDLE_IDENTIFIER = golf.swag.stg.swaggolf;
+				PRODUCT_FLAVOR = stg;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
@@ -755,9 +761,9 @@
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
-			name = "Debug-qa";
+			name = "Debug-stg";
 		};
-		038D3E2F2950A8D0008C0CAD /* Release-qa */ = {
+		038D3E2F2950A8D0008C0CAD /* Release-stg */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -808,14 +814,14 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
-			name = "Release-qa";
+			name = "Release-stg";
 		};
-		038D3E302950A8D0008C0CAD /* Release-qa */ = {
+		038D3E302950A8D0008C0CAD /* Release-stg */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
-				APP_DISPLAY_NAME = "Swag QA";
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-qa";
+				APP_DISPLAY_NAME = "Swag Stg";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-stg";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -829,8 +835,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = golf.swag.qa.swaggolf;
-				PRODUCT_FLAVOR = qa;
+				PRODUCT_BUNDLE_IDENTIFIER = golf.swag.stg.swaggolf;
+				PRODUCT_FLAVOR = stg;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
@@ -838,7 +844,7 @@
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
-			name = "Release-qa";
+			name = "Release-stg";
 		};
 		249021D3217E4FDB00AE95B9 /* Profile-dev */ = {
 			isa = XCBuildConfiguration;
@@ -977,7 +983,7 @@
 			};
 			name = "Profile-prod";
 		};
-		97C147041CF9000F007C117D /* Profile-qa */ = {
+		97C147041CF9000F007C117D /* Profile-stg */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1028,7 +1034,7 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
-			name = "Profile-qa";
+			name = "Profile-stg";
 		};
 		97C147061CF9000F007C117D /* Profile-prod */ = {
 			isa = XCBuildConfiguration;
@@ -1061,12 +1067,12 @@
 			};
 			name = "Profile-prod";
 		};
-		97C147071CF9000F007C117D /* Profile-qa */ = {
+		97C147071CF9000F007C117D /* Profile-stg */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
-				APP_DISPLAY_NAME = "Swag QA";
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-qa";
+				APP_DISPLAY_NAME = "Swag Stg";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-stg";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -1080,8 +1086,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = golf.swag.qa.swaggolf;
-				PRODUCT_FLAVOR = qa;
+				PRODUCT_BUNDLE_IDENTIFIER = golf.swag.stg.swaggolf;
+				PRODUCT_FLAVOR = stg;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
@@ -1089,7 +1095,7 @@
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
-			name = "Profile-qa";
+			name = "Profile-stg";
 		};
 		C3A991DE2A745B52008E8AD2 /* Debug-uat */ = {
 			isa = XCBuildConfiguration;
@@ -1235,7 +1241,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
-				APP_DISPLAY_NAME = "Swag QA";
+				APP_DISPLAY_NAME = "Swag UAT";
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-uat";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
@@ -1351,13 +1357,13 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				97C147031CF9000F007C117D /* Profile-prod */,
-				038D3E2D2950A8C3008C0CAD /* Debug-qa */,
+				038D3E2D2950A8C3008C0CAD /* Debug-stg */,
 				C3A991DE2A745B52008E8AD2 /* Debug-uat */,
 				038D3E292950A8AB008C0CAD /* Debug-prod */,
 				038D3E252950A82D008C0CAD /* Debug-dev */,
-				97C147041CF9000F007C117D /* Profile-qa */,
+				97C147041CF9000F007C117D /* Profile-stg */,
 				C3A991E02A745B6C008E8AD2 /* Profile-uat */,
-				038D3E2F2950A8D0008C0CAD /* Release-qa */,
+				038D3E2F2950A8D0008C0CAD /* Release-stg */,
 				C3A991E22A745B89008E8AD2 /* Release-uat */,
 				038D3E2B2950A8B9008C0CAD /* Release-prod */,
 				038D3E272950A89A008C0CAD /* Release-dev */,
@@ -1370,13 +1376,13 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				97C147061CF9000F007C117D /* Profile-prod */,
-				038D3E2E2950A8C3008C0CAD /* Debug-qa */,
+				038D3E2E2950A8C3008C0CAD /* Debug-stg */,
 				C3A991DF2A745B52008E8AD2 /* Debug-uat */,
 				038D3E2A2950A8AB008C0CAD /* Debug-prod */,
 				038D3E262950A82D008C0CAD /* Debug-dev */,
-				97C147071CF9000F007C117D /* Profile-qa */,
+				97C147071CF9000F007C117D /* Profile-stg */,
 				C3A991E12A745B6C008E8AD2 /* Profile-uat */,
-				038D3E302950A8D0008C0CAD /* Release-qa */,
+				038D3E302950A8D0008C0CAD /* Release-stg */,
 				C3A991E32A745B89008E8AD2 /* Release-uat */,
 				038D3E2C2950A8B9008C0CAD /* Release-prod */,
 				038D3E282950A89A008C0CAD /* Release-dev */,

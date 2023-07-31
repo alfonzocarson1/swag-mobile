@@ -74,10 +74,10 @@ android {
             versionNameSuffix ""
         }
 
-        qa {
+        stg {
             dimension "swagapp"
-            resValue "string", "app_name", "Swag QA"
-            applicationId "golf.swag.qa.swaggolf"
+            resValue "string", "app_name", "Swag Staging"
+            applicationId "golf.swag.stg.swaggolf"
             applicationIdSuffix ""
             versionNameSuffix ""
         }
