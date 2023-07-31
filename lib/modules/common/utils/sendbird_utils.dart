@@ -12,7 +12,6 @@ import '../../enums/chat_type.dart';
 import '../../models/chat/message_data.dart';
 import '../../models/profile/profile_model.dart';
 
-
 abstract class SendBirdUtils {
   static Map<String, dynamic> getFormatedData(String data) {
     if (data.isEmpty) {
@@ -47,74 +46,69 @@ abstract class SendBirdUtils {
         : paymentMethod.payPalEmail;
   }
 
-  static String getMessageText(MessageData messageData ) {    
+  static String getMessageText(MessageData messageData) {
+    ProfileModel profileData =
+        getIt<PreferenceRepositoryService>().profileData();
 
-       ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
-
-      if (messageData.type != ChatMessageDataType.message.textValue &&
-          messageData.type != ChatMessageDataType.paymentReceived.textValue &&
-          messageData.type != ChatMessageDataType.shipped.textValue &&
-          messageData.type != ChatMessageDataType.confirmShip.textValue &&
-          messageData.type != ChatMessageDataType.saleCanceled.textValue &&
-          messageData.type != ChatMessageDataType.paymentSend.textValue &&
-          messageData.type != ChatMessageDataType.itemNotReceived.textValue) {
-     return (profileData.username == messageData.payload.userNameSeller) ?  S.current.chatCardConfirmPaymentSeller(
-            messageData.payload.userNameBuyer,
-            messageData.payload.userNameSeller,
-            getPaymentMehotd(messageData.payload.paymentMethodOption),
-            decimalDigitsLastSalePrice(
-                messageData.payload.listingPrice.toString()),
-            getPaymentMehotdUser(messageData.payload.paymentMethodOption)) :
-            S.current.chatCardConfirmPaymentBuyer(
-            messageData.payload.userNameBuyer,
-            messageData.payload.userNameSeller,
-            getPaymentMehotd(messageData.payload.paymentMethodOption),
-            decimalDigitsLastSalePrice(
-                messageData.payload.listingPrice.toString()),
-            getPaymentMehotdUser(messageData.payload.paymentMethodOption))             
-            ;
-      } else if (messageData.type ==
-          ChatMessageDataType.paymentReceived.textValue) {
-        return S.current
-            .chatConfirmPaymentMessage(messageData.payload.userNameSeller);
-      } else if (messageData.type ==
-          ChatMessageDataType.confirmShip.textValue) {
-        return S.current.chatConfirmShipMessage(
-            messageData.payload.userNameSeller,
-            messageData.payload.nameBuyer ?? '',
-            messageData.payload.lastNameBuyer ?? '',
-            messageData.payload.address.address1,
-            messageData.payload.address.address2,
-            messageData.payload.address.city,
-            messageData.payload.address.state,
-            messageData.payload.address.postalCode,
-            messageData.payload.address.country ?? '');
-      } else if (messageData.type == ChatMessageDataType.shipped.textValue) {
-        if (messageData.payload.trackingNumber.isEmpty) {
-          return S.current.chatShippedMessageWithoutTrackingNumber(
-              messageData.payload.userNameSeller);
-        } else {
-          return S.current.chatShippedMessage(
-            messageData.payload.userNameSeller,
-            messageData.payload.trackingNumber,
-          );
-        }
-      } else if (messageData.type ==
-          ChatMessageDataType.saleCanceled.textValue) {
-        return S.current.chatCancelPurchaseMessage;
-      } else if (messageData.type ==
-          ChatMessageDataType.paymentSend.textValue) {
-        return S.current
-            .chatPaymentSendBuyer(messageData.payload.userNameBuyer);
-      } else if (messageData.type ==
-          ChatMessageDataType.itemNotReceived.textValue) {
-        return S.current.notDeliveredItemChatMessage(
-            messageData.payload.userNameBuyer,
+    if (messageData.type != ChatMessageDataType.message.textValue &&
+        messageData.type != ChatMessageDataType.paymentReceived.textValue &&
+        messageData.type != ChatMessageDataType.shipped.textValue &&
+        messageData.type != ChatMessageDataType.confirmShip.textValue &&
+        messageData.type != ChatMessageDataType.saleCanceled.textValue &&
+        messageData.type != ChatMessageDataType.paymentSend.textValue &&
+        messageData.type != ChatMessageDataType.itemNotReceived.textValue) {
+      return (profileData.username == messageData.payload.userNameSeller)
+          ? S.current.chatCardConfirmPaymentSeller(
+              messageData.payload.userNameBuyer,
+              messageData.payload.userNameSeller,
+              getPaymentMehotd(messageData.payload.paymentMethodOption),
+              decimalDigitsLastSalePrice(
+                  messageData.payload.listingPrice.toString()),
+              getPaymentMehotdUser(messageData.payload.paymentMethodOption))
+          : S.current.chatCardConfirmPaymentBuyer(
+              messageData.payload.userNameBuyer,
+              messageData.payload.userNameSeller,
+              getPaymentMehotd(messageData.payload.paymentMethodOption),
+              decimalDigitsLastSalePrice(
+                  messageData.payload.listingPrice.toString()),
+              getPaymentMehotdUser(messageData.payload.paymentMethodOption));
+    } else if (messageData.type ==
+        ChatMessageDataType.paymentReceived.textValue) {
+      return S.current
+          .chatConfirmPaymentMessage(messageData.payload.userNameSeller);
+    } else if (messageData.type == ChatMessageDataType.confirmShip.textValue) {
+      return S.current.chatConfirmShipMessage(
+          messageData.payload.userNameSeller,
+          messageData.payload.nameBuyer ?? '',
+          messageData.payload.lastNameBuyer ?? '',
+          messageData.payload.address.address1,
+          messageData.payload.address.address2,
+          messageData.payload.address.city,
+          messageData.payload.address.state,
+          messageData.payload.address.postalCode,
+          messageData.payload.address.country ?? '');
+    } else if (messageData.type == ChatMessageDataType.shipped.textValue) {
+      if (messageData.payload.trackingNumber.isEmpty) {
+        return S.current.chatShippedMessageWithoutTrackingNumber(
             messageData.payload.userNameSeller);
       } else {
-        return S.current.chatCommenceMessage;
+        return S.current.chatShippedMessage(
+          messageData.payload.userNameSeller,
+          messageData.payload.trackingNumber,
+        );
       }
-
+    } else if (messageData.type == ChatMessageDataType.saleCanceled.textValue) {
+      return S.current.chatCancelPurchaseMessage;
+    } else if (messageData.type == ChatMessageDataType.paymentSend.textValue) {
+      return S.current.chatPaymentSendBuyer(messageData.payload.userNameBuyer);
+    } else if (messageData.type ==
+        ChatMessageDataType.itemNotReceived.textValue) {
+      return S.current.notDeliveredItemChatMessage(
+          messageData.payload.userNameBuyer,
+          messageData.payload.userNameSeller);
+    } else {
+      return S.current.chatCommenceMessage;
+    }
   }
 
   static String getChatCardButtonText(MessageData messageData) {
@@ -130,28 +124,37 @@ abstract class SendBirdUtils {
     }
   }
 
-  static String getListingChatUrl(List<GroupChannel> channels, String proudctItemId, String listingImageUrl) {
+  static String getListingChatUrl(List<GroupChannel> channels,
+      String proudctItemId, String listingImageUrl) {
     String listingUrl = "";
 
     for (int i = 0; i < channels.length; i++) {
-      if (channels[i].data.isNotEmpty &&
-          channels[i].customType == ChatType.buyWorkflow.textValue) {
+      if (channels[i].data.isNotEmpty) {
         String jsonString = channels[i].data;
         jsonString = jsonString.replaceAll("'", '"');
         Map<String, dynamic> json = jsonDecode(jsonString);
         String jsonProductItemId = json['productItemId'];
         String jsonListingImageUrl = json['listingImageUrl'];
-        if (jsonProductItemId == proudctItemId && jsonListingImageUrl == listingImageUrl) {  
-         listingUrl = channels[i].channelUrl;
+        bool isFrozen = channels[i].isFrozen;
+
+        if (proudctItemId == jsonProductItemId &&
+            isFrozen == false &&
+            listingImageUrl == jsonListingImageUrl) {
+          listingUrl = channels[i].channelUrl;
+          break;
+        } else if (proudctItemId == jsonProductItemId &&
+            isFrozen == true &&
+            listingImageUrl == jsonListingImageUrl) {
+          listingUrl = channels[i].channelUrl;
+          break;
         }
       }
     }
     return listingUrl;
   }
 
-  static  String getCardTitle(MessageData messageData) {
-    if (messageData.type ==
-        ChatMessageDataType.confirmPaidSend.textValue) {
+  static String getCardTitle(MessageData messageData) {
+    if (messageData.type == ChatMessageDataType.confirmPaidSend.textValue) {
       return S.current.chatCardPaymetInformation;
     } else if (messageData.type ==
         ChatMessageDataType.confirmPaymentReceived.textValue) {

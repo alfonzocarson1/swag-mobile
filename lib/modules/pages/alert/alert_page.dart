@@ -42,17 +42,16 @@ class AlertPage extends StatefulWidget {
 class _AlertPageState extends State<AlertPage> {
   int unreadCount = 0;
   String? listingChatId;
- late List<GroupChannel> groupChannelList;
+  late List<GroupChannel> groupChannelList;
 
   @override
   void initState() {
-
     getIt<AlertCubit>().getAlertList();
     // TODO: implement initState
     super.initState();
   }
 
-  getChannelsList()async{
+  getChannelsList() async {
     groupChannelList = await getIt<ChatCubit>().loadGroupChannels();
   }
 
@@ -194,13 +193,18 @@ class _AlertPageState extends State<AlertPage> {
                                               .notifyMessageBuyFlow.textValue &&
                                       item.payload!.dateItemShipped == null &&
                                       item.payload!.listingStatus == null) {
-                                      String productItemId = item.payload!.productItemId ?? "";
-                                      String listingImageUrl = item.payload!.listingImageUrl ?? "";
+                                    String productItemId =
+                                        item.payload!.productItemId ?? "";
+                                    String listingImageUrl =
+                                        item.payload!.listingImageUrl ?? "";
 
-                                      String channelUrl = SendBirdUtils.getListingChatUrl(groupChannelList, productItemId, listingImageUrl );
-                                      Loading.show(context);
-                                      onTapSubmit(channelUrl);
-
+                                    String channelUrl =
+                                        SendBirdUtils.getListingChatUrl(
+                                            groupChannelList,
+                                            productItemId,
+                                            listingImageUrl);
+                                    Loading.show(context);
+                                    onTapSubmit(channelUrl);
                                   } else if ((item.typeNotification ==
                                               ChatType.notifySale.textValue ||
                                           item.typeNotification ==
@@ -273,7 +277,7 @@ class _AlertPageState extends State<AlertPage> {
                                   data: ThemeData(
                                     unselectedWidgetColor:
                                         Palette.current.primaryWhiteSmoke,
-                                    checkboxTheme: CheckboxThemeData( 
+                                    checkboxTheme: CheckboxThemeData(
                                       side: MaterialStateBorderSide.resolveWith(
                                         (Set<MaterialState> states) {
                                           if (states.contains(
