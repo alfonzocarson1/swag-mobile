@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
@@ -15,22 +14,20 @@ import '../../models/profile/profile_model.dart';
 
 
 abstract class SendBirdUtils {
-
   static Map<String, dynamic> getFormatedData(String data) {
-
-    if(data.isEmpty){
+    if (data.isEmpty) {
       return {};
-    }else{
-        String stringData = json.encode(data.replaceAll("'", '"').replaceAll('None', 'null'));
-    String formatedData = stringData.replaceAll('\\', "");
-    Map<String, dynamic> mapedData =
+    } else {
+      String stringData =
+          json.encode(data.replaceAll("'", '"').replaceAll('None', 'null'));
+      String formatedData = stringData.replaceAll('\\', "");
+      Map<String, dynamic> mapedData =
           json.decode(formatedData.substring(1, formatedData.length - 1));
-    return mapedData;
-    }  
+      return mapedData;
+    }
   }
 
-
- static String getPaymentMehotd(PaymentMethod paymentMethod) {
+  static String getPaymentMehotd(PaymentMethod paymentMethod) {
     return (paymentMethod.payPalEmail.isEmpty)
         ? (paymentMethod.venmoUser.isEmpty)
             ? (paymentMethod.cashTag.isEmpty)
@@ -40,7 +37,7 @@ abstract class SendBirdUtils {
         : S.current.paymetPaypal;
   }
 
- static String getPaymentMehotdUser(PaymentMethod paymentMethod) {
+  static String getPaymentMehotdUser(PaymentMethod paymentMethod) {
     return (paymentMethod.payPalEmail.isEmpty)
         ? (paymentMethod.venmoUser.isEmpty)
             ? (paymentMethod.cashTag.isEmpty)
@@ -120,15 +117,13 @@ abstract class SendBirdUtils {
 
   }
 
-    static String getChatCardButtonText(MessageData messageData) {
-    if (messageData.type ==
-        ChatMessageDataType.confirmPaidSend.textValue) {
+  static String getChatCardButtonText(MessageData messageData) {
+    if (messageData.type == ChatMessageDataType.confirmPaidSend.textValue) {
       return S.current.chatCardButtonPaymentSent;
     } else if (messageData.type ==
         ChatMessageDataType.confirmPaymentReceived.textValue) {
       return S.current.chatCardButtonPaymentReceived;
-    } else if (messageData.type ==
-        ChatMessageDataType.confirmShip.textValue) {
+    } else if (messageData.type == ChatMessageDataType.confirmShip.textValue) {
       return S.current.chatCardButtonShipmentSent;
     } else {
       return '';
@@ -161,17 +156,10 @@ abstract class SendBirdUtils {
     } else if (messageData.type ==
         ChatMessageDataType.confirmPaymentReceived.textValue) {
       return S.current.chatCardPaymetConfirmation;
-    } else if (messageData.type ==
-        ChatMessageDataType.confirmShip.textValue) {
+    } else if (messageData.type == ChatMessageDataType.confirmShip.textValue) {
       return S.current.chatCardShippingInformation;
     } else {
       return '';
     }
   }
 }
-
-
-
-
-
-
