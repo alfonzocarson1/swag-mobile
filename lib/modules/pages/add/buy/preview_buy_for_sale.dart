@@ -48,13 +48,16 @@ import 'seller_cancel_purchase_pop_up.dart';
 class BuyPreviewPage extends StatefulWidget {
   static const name = '/BuyPreviewPage';
 
-  const BuyPreviewPage({super.key, this.productItemId});
+  const BuyPreviewPage({super.key, this.productItemId, this.catalogId});
 
   final String? productItemId;
+  final String? catalogId;
 
-  static Route route({String? productItemId}) => PageRoutes.material(
+  static Route route({String? productItemId, String? catalogId}) =>
+      PageRoutes.material(
         settings: const RouteSettings(name: name),
-        builder: (context) => BuyPreviewPage(productItemId: productItemId),
+        builder: (context) =>
+            BuyPreviewPage(productItemId: productItemId, catalogId: catalogId),
       );
 
   @override
@@ -76,11 +79,10 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
 
   bool get isListingDataLoaded => listData.productItemId != null;
   bool get isLoggedInUserListing => profileData.accountId == listData.profileId;
-  late List<GroupChannel> channels; 
+  late List<GroupChannel> channels;
 
   @override
   void initState() {
-
     getIt<BuyCubit>().getListDetailItem(widget.productItemId ?? '');
     super.initState();
   }
@@ -99,8 +101,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
         .salesHistory(catalogItemId ?? "");
   }
 
-  Future<void> onTapSubmit(String channelUrl) async {  
-
+  Future<void> onTapSubmit(String channelUrl) async {
     late GroupChannel chatData;
     try {
       await Future.delayed(const Duration(milliseconds: 500));
@@ -119,22 +120,26 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
       await Future.delayed(const Duration(milliseconds: 500));
       await Navigator.of(context, rootNavigator: true).push(
         MaterialPageRoute(
-
-            builder: (BuildContext context) => ChatPage(channel: chatData)
-            ),
+            builder: (BuildContext context) => ChatPage(channel: chatData)),
       );
-      
+      loadList();
+      Navigator.of(context).pop();
     } catch (e) {
       print(e);
     }
   }
-  getChatChannels()async{
-     channels = await getIt<ChatCubit>().loadGroupChannels();
+
+  Future loadList() async {
+    await getIt<ListingProfileCubit>().loadResults();
+  }
+
+  getChatChannels() async {
+    channels = await getIt<ChatCubit>().loadGroupChannels();
   }
 
   @override
   Widget build(BuildContext context) {
-      getChatChannels();
+    getChatChannels();
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: Palette.current.primaryEerieBlack,
@@ -394,7 +399,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
           title: S.of(context).cancel_sale_btn.toUpperCase(),
           onPressed: () {
             setState(() {
-             getListingChatId(channels);
+              getListingChatId(channels);
             });
 
             showDialog(
@@ -412,21 +417,22 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
     );
   }
 
-  getListingChatId(List<GroupChannel> channels){
+  getListingChatId(List<GroupChannel> channels) {
     for (int i = 0; i < channels.length; i++) {
-              if (channels[i].data.isNotEmpty && channels[i].customType == ChatType.buyWorkflow.textValue) {
-                String jsonString = channels[i].data;
-                jsonString = jsonString.replaceAll("'", '"');
-                Map<String, dynamic> json = jsonDecode(jsonString);
-                String productItemId = json['productItemId'];
-                if (listData.productItemId == productItemId) {
-                  setState(() {
-                    listingChatId = channels[i].channelUrl;
-                  });
-                  break;
-                }
-              }
-            }
+      if (channels[i].data.isNotEmpty &&
+          channels[i].customType == ChatType.buyWorkflow.textValue) {
+        String jsonString = channels[i].data;
+        jsonString = jsonString.replaceAll("'", '"');
+        Map<String, dynamic> json = jsonDecode(jsonString);
+        String productItemId = json['productItemId'];
+        if (listData.productItemId == productItemId) {
+          setState(() {
+            listingChatId = channels[i].channelUrl;
+          });
+          break;
+        }
+      }
+    }
   }
 
   Widget _buildPendingSellerConfirmationWidget(BuildContext context) {
@@ -452,10 +458,8 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
         PrimaryButton(
           title: S.of(context).cancel_sale_btn.toUpperCase(),
           onPressed: () {
-          getListingChatId(channels);
-          setState(() {
-            
-          });
+            getListingChatId(channels);
+            setState(() {});
             showDialog(
               context: context,
               barrierDismissible: false,
@@ -494,6 +498,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                 builder: (BuildContext context) => BuyerCompletePurchasePopUp(
                   payments: listData.peerToPeerPaymentOptions!,
                   productItemId: listData.productItemId,
+                  catalogId: widget.catalogId ?? '',
                 ),
               );
             },

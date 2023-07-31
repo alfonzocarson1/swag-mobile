@@ -52,7 +52,7 @@ class _ChatPageState extends State<ChatPage> {
   @override
   void initState() {
     super.initState();
-
+    this.loadPushNotifications();
     channelDataString = widget.channel.data;
     getIt<ChatCubit>().loadMessages(widget.channel);
     this.userSendbirdiId =
@@ -64,6 +64,18 @@ class _ChatPageState extends State<ChatPage> {
     _textEditingController.addListener(() {
       setState(() {});
     });
+  }
+
+  Future<void> loadPushNotifications() async {
+    if (Platform.isIOS) {
+      await FirebaseMessaging.instance
+          .setForegroundNotificationPresentationOptions(
+        alert: false,
+        badge: false,
+        sound: false,
+      );
+    }
+    getIt<PreferenceRepositoryService>().saveShowNotification(false);
   }
 
   @override
@@ -122,7 +134,11 @@ class _ChatPageState extends State<ChatPage> {
           return current is! ChatsLoading &&
               current is! ChatChannelsLoaded &&
               current is! HasUnreadMessages;
+          return current is! ChatsLoading &&
+              current is! ChatChannelsLoaded &&
+              current is! HasUnreadMessages;
         },
+        builder: (context, state) {
         builder: (context, state) {
           return state.maybeWhen(
               initial: () => const Center(child: Text('Welcome to the chat')),

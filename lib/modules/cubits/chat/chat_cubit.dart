@@ -17,7 +17,6 @@ import '../../enums/chat_message_data_type.dart';
 import '../../models/chat/chat_data.dart';
 import '../../models/profile/profile_model.dart';
 import '../../services/firebase_manager.dart';
-import '../../services/local_notifications_service.dart';
 
 part 'chat_cubit_state.dart';
 part 'chat_cubit.freezed.dart';
@@ -206,9 +205,12 @@ class ChatCubit extends Cubit<ChatState> {
   }
 
   Future<GroupChannel> startChat(String productId) async {
+  Future<GroupChannel> startChat(String productId) async {
     try {
       String channelUrl = await getChannelUrl(productId);
+      String channelUrl = await getChannelUrl(productId);
       GroupChannel channel = await GroupChannel.getChannel(channelUrl);
+
 
       List<BaseMessage> messages = await loadMessages(channel);
       return channel;
@@ -274,6 +276,7 @@ class ChatCubit extends Cubit<ChatState> {
 //   return token;
 // }
   }
+  }
 
   bringAdminToChat(String channelUrl) async =>
       await this.service.bringAdminToChat(channelUrl);
@@ -297,64 +300,6 @@ getMessageJson({BaseChannel? channel, BaseMessage? message}) {
   }
 }
 
-showPushNotificationsAndroid(
-    BaseMessage message, GroupChannel channel, bool showNotification) async {
-  if (Platform.isAndroid && showNotification) {
-    ProfileModel userProfile =
-        getIt<PreferenceRepositoryService>().profileData();
-    String userName = userProfile.username;
-
-    var json = getMessageJson(message: message);
-
-    if (userName == json['payload']['userNameSeller'] &&
-        json['type'] == ChatMessageDataType.confirmPaymentReceived.textValue) {
-      await LocalNotificationsService.showNotification(
-        title: 'Payment made ${json['payload']['listingName']}',
-        body: 'New message from @Swag',
-        payload: null,
-      );
-    }
-
-    if (userName == json['payload']['userNameBuyer'] &&
-        json['type'] == ChatMessageDataType.paymentReceived.textValue) {
-      await LocalNotificationsService.showNotification(
-        title: 'Payment received ${json['payload']['listingName']}',
-        body: 'New message from @Swag',
-        payload: null,
-      );
-    }
-
-    if (userName == json['payload']['userNameBuyer'] &&
-        json['type'] == ChatMessageDataType.saleCanceled.textValue) {
-      await LocalNotificationsService.showNotification(
-        title: 'Sale cancelled ${json['payload']['listingName']}',
-        body: '${json['payload']['userNameSeller']} has cancelled the sale',
-        payload: null,
-      );
-    }
-
-    if (userName == json['payload']['userNameBuyer'] &&
-        json['type'] == ChatMessageDataType.confirmPaidSend.textValue) {
-      await LocalNotificationsService.showNotification(
-        title: 'Payment details ${json['payload']['listingName']}',
-        body: 'New message from @Swag',
-        payload: null,
-      );
-    }
-  }
-}
-
-ShowInAppAlert(
-    BaseMessage message, GroupChannel channel, bool showNotification) async {
-  var json = getMessageJson(channel: channel);
-  String senderName = message.sender?.nickname ?? "";
-  await LocalNotificationsService.showNotification(
-    title: '${json['listingProductName']}',
-    body: 'New message from @$senderName',
-    payload: json['listingImageUrl'],
-  );
-}
-
 class MyGroupChannelHandler extends GroupChannelHandler {
   @override
   void onMessageReceived(BaseChannel channel, BaseMessage message) async {
@@ -367,11 +312,6 @@ class MyGroupChannelHandler extends GroupChannelHandler {
     if (channel is GroupChannel) {
       // Now you can access the GroupChannel methods
       groupChannel = channel;
-      if (message.data != "") {
-        showPushNotificationsAndroid(message, groupChannel, showNotification);
-      } else {
-        ShowInAppAlert(message, channel, showNotification);
-      }
 
       // Then load the messages for this channel and update the state
       await getIt<ChatCubit>().loadMessages(groupChannel);

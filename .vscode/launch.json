@@ -14,12 +14,12 @@
             ]
         },
         {
-            "name": "Swag Qa",
+            "name": "Swag Staging",
             "request": "launch",
             "type": "dart",
             "args": [
                 "--flavor",
-                "qa"
+                "stg"
             ]
         },
         {
