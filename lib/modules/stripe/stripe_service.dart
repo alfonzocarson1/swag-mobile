@@ -1,13 +1,15 @@
 import 'package:http/http.dart' as http;
+import 'package:swagapp/modules/api/app_config.dart';
+import 'package:swagapp/modules/di/injector.dart';
 import 'package:swagapp/modules/stripe/models/customer_input_model.dart';
 import 'package:swagapp/modules/stripe/models/payment_method_input_model.dart';
 import 'constants.dart';
 import 'models/card_token_input_model.dart';
 
 class StripeService {
-  final headers = {
+  Map<String, String> get headers => {
     "Content-Type": "application/x-www-form-urlencoded",
-    "Authorization": "Bearer $stripeApiKey"
+    "Authorization": "Bearer ${getIt<AppConfig>().stripeKey}"
   };
 
   Future<http.Response> createPaymentMethod(

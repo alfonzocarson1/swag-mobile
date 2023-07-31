@@ -12,8 +12,8 @@ class AppFlavors {
 extension on String {
   T whenFlavor<T>({
     required T Function() dev,
-    required T Function() stg,
     required T Function() uat,
+    required T Function() stg,
     required T Function() prod,
   }) {
     switch (this) {
@@ -32,8 +32,8 @@ extension on String {
 
   T whenFlavorOrElse<T>({
     T Function()? dev,
-    T Function()? stg,
     T Function()? uat,
+    T Function()? stg,
     T Function()? prod,
     required T Function() orElse,
   }) {
@@ -55,28 +55,42 @@ extension on String {
 class AppConfig {
   final String apiBaseUrl;
   final String sendBirdAppId;
-  final apiHostScheme;
+  final ApiHostScheme apiHostScheme;
+  final String stripeKey;
 
   AppConfig._({
     required this.apiBaseUrl,
     required this.apiHostScheme,
     required this.sendBirdAppId,
+    required this.stripeKey,
   });
 
   static Future<AppConfig> init(String appFlavor) async {
+    const testStripeKey =
+        "pk_test_51NG1gBKROefVddLbuxTuy6os1HXtQ2ebTozLzLnrnYphLErEzbol93Z6dGZhXRwWrQe1GGlNO54D9uq3aDrs36EG0048nf2QGb";
+    const prodStripeKey =
+        "pk_live_51NG1gBKROefVddLbhNRswa3pvKjuiEKezodTqsXEp638os1aDWkey8ZScc4JJtmWHRp7uRAwrXx6s1dGLLzcTNfG006c4xjJSm";
     return AppConfig._(
       apiBaseUrl: appFlavor.whenFlavor(
         dev: () => "orchestration.dev.swag.kuldisak.net:8080",
         stg: () => "dev.core-api.app.net",
         uat: () => "orchestration-uat.kuldisak.net",
-        prod: () => "dev.core-api.app.net",
+        prod: () => "orchestration.kuldisak.net",
       ),
       apiHostScheme: appFlavor.whenFlavorOrElse(
         uat: () => ApiHostScheme.https,
+        prod: () => ApiHostScheme.https,
         orElse: () => ApiHostScheme.http,
+      ),
+      stripeKey: appFlavor.whenFlavor(
+        dev: () => testStripeKey,
+        uat: () => testStripeKey,
+        stg: () => prodStripeKey,
+        prod: () => prodStripeKey,
       ),
       sendBirdAppId: appFlavor.whenFlavorOrElse(
         uat: () => "29A3A5B7-E41B-49F3-AB81-5EEEC9678CC2",
+        prod: () => "4C11EAB0-646D-40A0-8EC5-7C25DF62A02A",
         orElse: () => "3A0E70A8-4861-44C2-ABC0-B7E13C776BEF",
       ),
     );
