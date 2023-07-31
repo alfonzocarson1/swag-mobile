@@ -144,11 +144,7 @@ class FirebaseManager {
 
   static PushTokenType? _getPushTokenType() {
     PushTokenType? pushTokenType;
-    if (Platform.isAndroid) {
-      pushTokenType = PushTokenType.fcm;
-    } else if (Platform.isIOS) {
-      pushTokenType = PushTokenType.apns;
-    }
+    pushTokenType = PushTokenType.fcm;
     return pushTokenType;
   }
 }
