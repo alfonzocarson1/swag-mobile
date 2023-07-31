@@ -155,33 +155,61 @@ class ChatCubit extends Cubit<ChatState> {
   }
 
   sendGalleryFileMessage(GroupChannel channel) async {
+    FileMessage fileMessage;
+    // int tempMessageId = DateTime.now().millisecondsSinceEpoch.toInt();
+     List<BaseMessage> currentMessages = messages;
+    // FileMessage tempFileMessage = FileMessage(
+    //     url: "",
+    //     channelUrl: channel.channelUrl,
+    //     channelType: ChannelType.group,
+    //     messageId: tempMessageId);
+    // currentMessages.add(tempFileMessage);
+
     final picker = ImagePicker();
-    XFile? pickedFile =
-        await picker.pickImage(source: ImageSource.gallery, imageQuality: 50);
+    XFile? pickedFile = await picker.pickMedia(imageQuality: 70);
 
     if (pickedFile != null) {
-      final params = FileMessageCreateParams.withFile(File(pickedFile.path),
+      List<Size>? chatThumbnailSizes = const [Size(100, 100), Size(40, 40)];
+      final params = FileMessageCreateParams.withFile(
+        File(pickedFile.path),
           fileName: pickedFile.name,
           customType: pickedFile.mimeType,
-          pushNotificationDeliveryOption:
-              PushNotificationDeliveryOption.normal);
+          pushNotificationDeliveryOption: PushNotificationDeliveryOption.normal)
+        ..thumbnailSizes = chatThumbnailSizes;
       // or other MIME type based on your file
 
-      try {
-        await channel.sendFileMessage(params);
-        print('File message sent successfully');
-      } catch (e) {
-        print('Failed to send file message: $e');
-      }
+      fileMessage = channel.sendFileMessage(
+        params,
+        // handler: (message, e) {
+        //   if (e != null) {
+        //     debugPrint(e.message);
+        //   } else {
+        //     // final index = currentMessages
+        //     //     .indexWhere((msg) => msg.messageId == tempMessageId);
+        //     // if (index != -1) {
+        //     //   currentMessages[index] = message;
+        //     //   fileMessage = message;
+        //     //   emit(ChatState.loadedChats(currentMessages));
+        //     }
+        //   }
+        // },
+      );
+
+      currentMessages.add(fileMessage);
+      emit(ChatState.loadedChats(currentMessages));
+
+      debugPrint('File message sent successfully');
     } else {
-      print('No image selected');
+      debugPrint('No image selected');
     }
   }
 
   Future<GroupChannel> startChat(String productId) async {
     try {
       String channelUrl = await getChannelUrl(productId);
+
       GroupChannel channel = await GroupChannel.getChannel(channelUrl);
+
 
       List<BaseMessage> messages = await loadMessages(channel);
       return channel;
@@ -247,6 +275,7 @@ class ChatCubit extends Cubit<ChatState> {
 //   return token;
 // }
   }
+  
 
   bringAdminToChat(String channelUrl) async =>
       await this.service.bringAdminToChat(channelUrl);

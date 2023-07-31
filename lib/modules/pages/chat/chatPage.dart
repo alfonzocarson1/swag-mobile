@@ -47,6 +47,7 @@ class _ChatPageState extends State<ChatPage> {
   List<String> messageStatus = [];
   FocusNode _focusNode = FocusNode();
   TextEditingController _textEditingController = TextEditingController();
+  late Member seller; 
 
   @override
   void initState() {
@@ -83,7 +84,7 @@ class _ChatPageState extends State<ChatPage> {
         getIt<PreferenceRepositoryService>().profileData();
     String userName = userProfile.username;
     List<Member> chatMembers = widget.channel.members;
-    Member seller = chatMembers
+    seller = chatMembers
         .where((Member member) =>
             member.nickname != userName && member.role != Role.operator)
         .toList()
@@ -140,6 +141,20 @@ class _ChatPageState extends State<ChatPage> {
               loadedChats: (List<BaseMessage> messages) {
                 messagesList = messages;
                 chatMessages = messagesList.map((chatMessage) {
+                  FileMessage fileMessage;
+                  ChatMedia chatMedia =
+                      ChatMedia(url: "", fileName: "", type: MediaType.image);
+                  if (chatMessage is FileMessage) {
+                    fileMessage = chatMessage;
+                    chatMedia = ChatMedia(
+                        url: fileMessage.secureUrl ?? "",
+                        fileName: fileMessage.name ?? "",
+                        type: (fileMessage.type!.contains("image/jpeg"))
+                            ? MediaType.image
+                            : (fileMessage.type!.contains("video/mp4"))
+                                ? MediaType.video
+                                : MediaType.file);
+                  }
                   Map<String, dynamic> messageDataJson =
                       SendBirdUtils.getFormatedData(chatMessage.data ?? "");
                   if (messageDataJson.isNotEmpty) {
@@ -147,9 +162,11 @@ class _ChatPageState extends State<ChatPage> {
                         MessageData.fromJson(messageDataJson);
                     messageStatus.add(messageData.type);
                   }
+
                   return ChatMessage(
                     text: chatMessage.message,
                     customProperties: messageDataJson,
+                    medias: [chatMedia],
                     user: ChatUser(
                       profileImage: chatMessage.sender?.profileUrl ?? "",
                       firstName: chatMessage.sender?.nickname ?? "",
@@ -164,7 +181,8 @@ class _ChatPageState extends State<ChatPage> {
                     text: 'Banner',
                     user:
                         ChatUser(id: 'SwagBanner', firstName: swagBotNickName),
-                    createdAt: DateTime.now()));
+                    
+                    createdAt: DateTime.fromMillisecondsSinceEpoch(widget.channel.invitedAt)));
 
                 return DashChat(
                   messageOptions: MessageOptions(
@@ -184,6 +202,7 @@ class _ChatPageState extends State<ChatPage> {
                             ),
                             isAfterDateSeparator: isAfterDateSeparator,
                             isBeforeDateSeparator: isBeforeDateSeparator),
+                    
                     avatarBuilder: (p0, onPressAvatar, onLongPressAvatar) {
                       if (p0.id == 'SwagBanner') {
                         return const SizedBox.shrink();
@@ -212,11 +231,11 @@ class _ChatPageState extends State<ChatPage> {
                                   },
                                   icon: Image.asset(AppIcons.chatCamera)),
                               IconButton(
-                                  onPressed: () {
-                                    // Navigator.of(context).push(MaterialPageRoute(
-                                    //     builder: (context) => const CameraPage()));
-                                  },
-                                  icon: Image.asset(AppIcons.chatGallery))
+                                icon: Image.asset(AppIcons.chatGallery),
+                                onPressed: () {
+                                  galleryMethod();
+                                },
+                              )
                             ],
                       inputTextStyle:
                           TextStyle(color: Palette.current.primaryWhiteSmoke),
@@ -306,20 +325,41 @@ class _ChatPageState extends State<ChatPage> {
     String formattedTime = DateFormat('h:mm a').format(messageTime);
 
     if (message.text.contains('Banner')) {
+      bool isListingChat = widget.channel.customType == ChatType.listing.textValue;
       return ChatCommenceBanner(
         channelData: getChannelData(),
-        isListingChat: widget.channel.customType == ChatType.listing.textValue,
+        otherUser: seller.nickname,
+        createdAt: DateTime.fromMillisecondsSinceEpoch(widget.channel.invitedAt),
+        isListingChat: isListingChat,
       );
     } else {
       if (message.user.firstName != swagBotNickName) {
-        return CustomChatMessage(
-          formattedTime: formattedTime,
-          context: context,
-          isAfterDateSeparator: isAfterDateSeparator,
-          isBeforeDateSeparator: isBeforeDateSeparator,
-          message: message,
-          user: user,
-        );
+        if (message.medias != null && message.medias!.first.url.isNotEmpty) {
+
+          return CustomChatMessage(
+            formattedTime: formattedTime,
+            context: context,
+            isAfterDateSeparator: isAfterDateSeparator,
+            isBeforeDateSeparator: isBeforeDateSeparator,
+            message: message,
+            user: user,
+            otherUser: seller.nickname,
+            fileUrl: message.medias!.first.url,
+            mediaType: message.medias!.first.type,
+          );
+         
+        }
+        else {
+          return CustomChatMessage(
+            formattedTime: formattedTime,
+            context: context,
+            isAfterDateSeparator: isAfterDateSeparator,
+            isBeforeDateSeparator: isBeforeDateSeparator,
+            message: message,
+            user: user,
+            otherUser: seller.nickname,
+          );
+        }
       } else {
         MessageData messageData =
             MessageData.fromJson(message.customProperties ?? {});
@@ -347,6 +387,7 @@ class _ChatPageState extends State<ChatPage> {
             isBeforeDateSeparator: isBeforeDateSeparator,
             message: message,
             user: user,
+            otherUser: seller.nickname,
             messageData: messageData,
           );
         } else if (messageData.type ==
@@ -359,6 +400,7 @@ class _ChatPageState extends State<ChatPage> {
                   isBeforeDateSeparator: isBeforeDateSeparator,
                   message: message,
                   user: user,
+                  otherUser: seller.nickname,
                   messageData: messageData)
               : ChatCardMessage(
                   messageData: messageData,
@@ -374,6 +416,7 @@ class _ChatPageState extends State<ChatPage> {
                   isBeforeDateSeparator: isBeforeDateSeparator,
                   message: message,
                   user: user,
+                  otherUser: seller.nickname,
                   messageData: messageData)
               : const SizedBox.shrink();
         } else if (messageData.type ==
@@ -387,6 +430,7 @@ class _ChatPageState extends State<ChatPage> {
                   isBeforeDateSeparator: isBeforeDateSeparator,
                   message: message,
                   user: user,
+                  otherUser: seller.nickname,
                   messageData: messageData);
         } else {
           return (isMyUserBuyer)
@@ -405,6 +449,7 @@ class _ChatPageState extends State<ChatPage> {
                       isBeforeDateSeparator: isBeforeDateSeparator,
                       message: message,
                       user: user,
+                      otherUser: seller.nickname,
                       messageData: messageData)
                   : ChatCardMessage(
                       messageData: messageData,
@@ -421,6 +466,11 @@ class _ChatPageState extends State<ChatPage> {
     ChannelData channelData = ChannelData.fromJson(channelDataJson);
 
     return channelData;
+  }
+
+  void galleryMethod() {
+    getIt<ChatCubit>().sendGalleryFileMessage(widget.channel);
+    //setState(() {});
   }
 
   // Widget addDateSeparator(int index, BaseMessage message) {
