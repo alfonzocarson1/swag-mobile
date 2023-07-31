@@ -23,7 +23,7 @@ class _EmailVerificationPopup extends State<EmailVerificationPopup> {
             return null;
           },
           updated: () {
-
+         //   Loading.hide(context);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           duration: const Duration(seconds: 3),
           behavior: SnackBarBehavior.floating,
@@ -31,24 +31,21 @@ class _EmailVerificationPopup extends State<EmailVerificationPopup> {
             bottom: MediaQuery
                 .of(context)
                 .size
-                .height / 1.3,
+                .height / 1.4,
           ),
           backgroundColor: Colors.transparent,
           content: ToastMessage(
             message: 'A verification email has been sent',
           ),
           dismissDirection: DismissDirection.none));
-
-            Loading.hide(context);
-        //    Navigator.of(context).pop();
-
+      Navigator.of(context).pop(true);
             return null;
           },
           initial: () {
-            return Loading.show(context);
+            return null;
           },
           error: (message) => {
-            Loading.hide(context),
+           // Loading.hide(context),
             // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
           },
         ),
@@ -144,7 +141,7 @@ class _EmailVerificationPopup extends State<EmailVerificationPopup> {
                 iconSize: 30,
                 color: Palette.current.primaryNeonGreen,
                 onPressed: () {
-                  Navigator.of(context).pop(true);
+                  Navigator.of(context, rootNavigator: true).pop(true);
                 },
                 icon: const Icon(
                   Icons.clear_outlined,
