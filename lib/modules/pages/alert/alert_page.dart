@@ -61,8 +61,6 @@ class _AlertPageState extends State<AlertPage> {
   }
 
   Future<void> onTapSubmit(String channelUrl) async {
-
-
     late GroupChannel chatData;
     try {
       await Future.delayed(const Duration(milliseconds: 500));
@@ -94,151 +92,121 @@ class _AlertPageState extends State<AlertPage> {
         resizeToAvoidBottomInset: true,
         backgroundColor: Palette.current.blackSmoke,
         body: BlocListener<AlertCubit, AlertStateCubit>(
-          listener: (context, state) => state.maybeWhen(
-            orElse: () {
-              return null;
-            },
-            loadedAlertList: (AlertResponseModel listAlert) {
-              setState(() {
-                this.unreadCount = 0;
-                alertList = listAlert;
-                for (var alert in alertList!.alertList) {
-                  if (alert.read == false) {
-                    unreadCount++;
-                  }
-                }
-              });
-              return null;
-            },
-          ),
-          child: alertList != null
-              ? Column(
-                  children: [
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(left: 20, right: 20, top: 70),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 8,
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                S.of(context).alert_center_title,
-                                textAlign: TextAlign.left,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displayMedium!
-                                    .copyWith(
-                                      fontFamily: "KnockoutCustom",
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.w300,
-                                      color: Palette.current.primaryNeonGreen,
-                                    ),
-                              ),
-                            ),
+            listener: (context, state) => state.maybeWhen(
+                  orElse: () {
+                    return null;
+                  },
+                  loadedAlertList: (AlertResponseModel listAlert) {
+                    setState(() {
+                      this.unreadCount = 0;
+                      alertList = listAlert;
+                      for (var alert in alertList!.alertList) {
+                        if (alert.read == false) {
+                          unreadCount++;
+                        }
+                      }
+                    });
+                    return null;
+                  },
+                ),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20, top: 70),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 8,
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            S.of(context).alert_center_title,
+                            textAlign: TextAlign.left,
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium!
+                                .copyWith(
+                                  fontFamily: "KnockoutCustom",
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.w300,
+                                  color: Palette.current.primaryNeonGreen,
+                                ),
                           ),
-                          Expanded(
-                            flex: 3,
-                            child: Align(
-                              alignment: Alignment.centerRight,
-                              child: Text(
-                                '$unreadCount ${S.of(context).unread}',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                                    .copyWith(
-                                      fontSize: 15,
-                                      fontWeight: unreadCount > 0
-                                          ? FontWeight.w400
-                                          : FontWeight.w300,
-                                      letterSpacing:
-                                          unreadCount > 0 ? 0.5 : 0.3,
-                                      color: Palette.current.primaryNeonPink,
-                                    ),
-                              ),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 20),
-                    Expanded(
-                      child: RefreshIndicator(
-                        onRefresh: _refreshList,
-                        child: ListView.separated(
-                          padding: const EdgeInsets.only(top: 0),
-                          itemCount: alertList!.alertList.length,
-                          separatorBuilder: (context, index) => SizedBox(
-                            height: 0.2,
-                            child: Container(
-                              color: Palette.current.grey,
+                      alertList != null
+                          ? Expanded(
+                              flex: 3,
+                              child: Align(
+                                alignment: Alignment.centerRight,
+                                child: Text(
+                                  '$unreadCount ${S.of(context).unread}',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(
+                                        fontSize: 15,
+                                        fontWeight: unreadCount > 0
+                                            ? FontWeight.w400
+                                            : FontWeight.w300,
+                                        letterSpacing:
+                                            unreadCount > 0 ? 0.5 : 0.3,
+                                        color: Palette.current.primaryNeonPink,
+                                      ),
+                                ),
+                              ),
+                            )
+                          : const SizedBox(),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+                alertList != null
+                    ? Expanded(
+                        child: RefreshIndicator(
+                          onRefresh: _refreshList,
+                          child: ListView.separated(
+                            padding: const EdgeInsets.only(top: 0),
+                            itemCount: alertList!.alertList.length,
+                            separatorBuilder: (context, index) => SizedBox(
+                              height: 0.2,
+                              child: Container(
+                                color: Palette.current.grey,
+                              ),
                             ),
-                          ),
-                          itemBuilder: (context, index) {
-                            final item = alertList!.alertList[index];
-                            return ListTile(
-                              onTap: () {
-                                getIt<AlertCubit>()
-                                    .readAlert(item.notificationAlertId ?? '');
+                            itemBuilder: (context, index) {
+                              final item = alertList!.alertList[index];
+                              return ListTile(
+                                onTap: () {
+                                  getIt<AlertCubit>().readAlert(
+                                      item.notificationAlertId ?? '');
 
-                                if (item.typeNotification ==
-                                        ChatType
-                                            .notifyMessageBuyFlow.textValue &&
-                                    item.payload!.dateItemShipped == null &&
-                                    item.payload!.listingStatus == null) {
-                                  // ChatBloc chatBloc = context.read<ChatBloc>();
-                                  // for (int i = 0;
-                                  //     i < chatBloc.state.chats.length;
-                                  //     i++) {
-                                  //   if (chatBloc.state.chats[i].channel.data!
-                                  //       .isNotEmpty) {
-                                  //     String jsonString =
-                                  //         chatBloc.state.chats[i].channel.data!;
+                                  if (item.typeNotification ==
+                                          ChatType
+                                              .notifyMessageBuyFlow.textValue &&
+                                      item.payload!.dateItemShipped == null &&
+                                      item.payload!.listingStatus == null) {
+                                  } else if ((item.typeNotification ==
+                                              ChatType.notifySale.textValue ||
+                                          item.typeNotification ==
+                                              ChatType.notifyMe.textValue) &&
+                                      item.payload!.dateItemShipped == null &&
+                                      item.payload!.listingStatus == null) {
+                                    Navigator.of(context, rootNavigator: true)
+                                        .push(MaterialPageRoute(
+                                            builder: (context) =>
+                                                BuyPreviewPage(
+                                                  productItemId: item
+                                                      .payload!.productItemId,
+                                                )));
+                                  }
 
-                                  //     jsonString =
-                                  //         jsonString.replaceAll("'", '"');
-
-                                  //     Map<String, dynamic> json =
-                                  //         jsonDecode(jsonString);
-
-                                  //     String productItemId =
-                                  //         json['productItemId'];
-
-                                  //     if (item.payload!.productItemId ==
-                                  //         productItemId) {
-                                  //       setState(() {
-                                  //         listingChatId = chatBloc.state
-                                  //             .chats[i].channel.channelUrl;
-                                  //       });
-
-                                  //       break;
-                                  //     }
-                                  //   }
-                                  // }
-
-                                  // Loading.show(context);
-                                  // onTapSubmit(listingChatId ?? '');
-                                } else if ((item.typeNotification ==
-                                            ChatType.notifySale.textValue ||
-                                        item.typeNotification ==
-                                            ChatType.notifyMe.textValue) &&
-                                    item.payload!.dateItemShipped == null &&
-                                    item.payload!.listingStatus == null) {
-                                  Navigator.of(context, rootNavigator: true)
-                                      .push(MaterialPageRoute(
-                                          builder: (context) => BuyPreviewPage(
-                                                productItemId:
-                                                    item.payload!.productItemId,
-                                              )));
-                                }
-
-                                if (item.payload!.dateItemShipped != null) {
-                                  showDialog(
-                                      context: context,
-                                      barrierDismissible: false,
-                                      builder: (BuildContext context) {
-                                        return DeliveredPopUp(
+                                  if (item.payload!.dateItemShipped != null) {
+                                    showDialog(
+                                        context: context,
+                                        barrierDismissible: false,
+                                        builder: (BuildContext context) {
+                                          return DeliveredPopUp(
                                             userName:
                                                 item.payload!.userName ?? '',
                                             productItemId:
@@ -246,124 +214,147 @@ class _AlertPageState extends State<AlertPage> {
                                                     '',
                                             purchaseHistoryId: item.payload!
                                                     .purchaseHistoryId ??
-                                                '', 
-                                            itemName: item.payload?.itemName ?? '',);
-                                      });
-                                }
+                                                '',
+                                            itemName:
+                                                item.payload?.itemName ?? '',
+                                          );
+                                        });
+                                  }
 
-                                if (item.payload!.listingStatus ==
-                                    ListingStatusDataType.listed.textValue) {
-                                  Navigator.of(context, rootNavigator: true)
-                                      .push(MaterialPageRoute(
-                                          builder: (context) => BuyPreviewPage(
-                                                productItemId:
-                                                    item.payload!.productItemId,
-                                              )));
-                                }
+                                  if (item.payload!.listingStatus ==
+                                      ListingStatusDataType.listed.textValue) {
+                                    Navigator.of(context, rootNavigator: true)
+                                        .push(MaterialPageRoute(
+                                            builder: (context) =>
+                                                BuyPreviewPage(
+                                                  productItemId: item
+                                                      .payload!.productItemId,
+                                                )));
+                                  }
 
-                                if (item.payload!.listingStatus != null &&
-                                    item.payload!.listingStatus !=
-                                        ListingStatusDataType
-                                            .listed.textValue) {
-                                  showDialog(
-                                      context: context,
-                                      barrierDismissible: false,
-                                      builder: (BuildContext context) {
-                                        return RatingBuyer(
-                                          productItemId:
-                                              item.payload!.productItemId ?? '',
-                                          purchaseHistoryId:
-                                              item.payload!.purchaseHistoryId ??
-                                                  '',
-                                          userName:
-                                              item.payload!.userName ?? '',
-                                          seller: true,
-                                        );
-                                      });
-                                }
-                              },
-                              leading: Theme(
-                                data: ThemeData(
-                                  unselectedWidgetColor:
-                                      Palette.current.primaryWhiteSmoke,
-                                  checkboxTheme: CheckboxThemeData(
-                                    side: MaterialStateBorderSide.resolveWith(
-                                      (Set<MaterialState> states) {
-                                        if (states
-                                            .contains(MaterialState.selected)) {
+                                  if (item.payload!.listingStatus != null &&
+                                      item.payload!.listingStatus !=
+                                          ListingStatusDataType
+                                              .listed.textValue) {
+                                    showDialog(
+                                        context: context,
+                                        barrierDismissible: false,
+                                        builder: (BuildContext context) {
+                                          return RatingBuyer(
+                                            productItemId:
+                                                item.payload!.productItemId ??
+                                                    '',
+                                            purchaseHistoryId: item.payload!
+                                                    .purchaseHistoryId ??
+                                                '',
+                                            userName:
+                                                item.payload!.userName ?? '',
+                                            seller: true,
+                                          );
+                                        });
+                                  }
+                                },
+                                leading: Theme(
+                                  data: ThemeData(
+                                    unselectedWidgetColor:
+                                        Palette.current.primaryWhiteSmoke,
+                                    checkboxTheme: CheckboxThemeData(
+                                      side: MaterialStateBorderSide.resolveWith(
+                                        (Set<MaterialState> states) {
+                                          if (states.contains(
+                                              MaterialState.selected)) {
+                                            return BorderSide(
+                                              width: 1,
+                                              color: Palette.current.grey,
+                                            );
+                                          }
                                           return BorderSide(
                                             width: 1,
                                             color: Palette.current.grey,
                                           );
-                                        }
-                                        return BorderSide(
-                                          width: 1,
-                                          color: Palette.current.grey,
-                                        );
-                                      },
+                                        },
+                                      ),
+                                      fillColor: MaterialStateProperty
+                                          .resolveWith<Color>(
+                                        (Set<MaterialState> states) {
+                                          if (states.contains(
+                                              MaterialState.selected)) {
+                                            return Palette
+                                                .current.primaryNeonGreen;
+                                          }
+                                          return Palette.current.grey;
+                                        },
+                                      ),
                                     ),
-                                    fillColor: MaterialStateProperty
-                                        .resolveWith<Color>(
-                                      (Set<MaterialState> states) {
-                                        if (states
-                                            .contains(MaterialState.selected)) {
-                                          return Palette
-                                              .current.primaryNeonGreen;
-                                        }
-                                        return Palette.current.grey;
-                                      },
+                                  ),
+                                  child: Container(
+                                    width: 40,
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      border: Border.all(
+                                        color: item.read
+                                            ? Colors.transparent
+                                            : Palette.current.primaryNeonPink,
+                                        width: 2.0,
+                                      ),
+                                    ),
+                                    child: CircleAvatar(
+                                      backgroundColor: Colors.transparent,
+                                      backgroundImage: const AssetImage(
+                                          'assets/images/Avatar.png'),
+                                      foregroundImage: NetworkImage(alertAvatar(
+                                          item.payload!.avatar ?? '',
+                                          item.payload!.listingImageUrl ?? '')),
+                                      radius: 75,
                                     ),
                                   ),
                                 ),
-                                child: Container(
-                                  width: 40,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                      color: item.read
-                                          ? Colors.transparent
-                                          : Palette.current.primaryNeonPink,
-                                      width: 2.0,
-                                    ),
-                                  ),
-                                  child: CircleAvatar(
-                                    backgroundColor: Colors.transparent,
-                                    backgroundImage: const AssetImage(
-                                        'assets/images/Avatar.png'),
-                                    foregroundImage: NetworkImage(alertAvatar(
-                                        item.payload!.avatar ?? '',
-                                        item.payload!.listingImageUrl ?? '')),
-                                    radius: 75,
-                                  ),
-                                ),
-                              ),
-                              title: Row(
-                                children: [
-                                  Expanded(
-                                    flex: 7,
-                                    child: Text(
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 1,
-                                      item.notificationAlertTitle ?? '',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displayLarge!
-                                          .copyWith(
-                                            fontWeight: FontWeight.w400,
-                                            letterSpacing: 0.6,
-                                            color: item.read
-                                                ? Palette.current.grey
-                                                : Palette.current.white,
-                                            fontSize: 16,
-                                          ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                      flex: 3,
+                                title: Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 7,
                                       child: Text(
-                                        alertDays(item.timeStamp ?? ''),
-                                        textAlign: TextAlign.end,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        item.notificationAlertTitle ?? '',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displayLarge!
+                                            .copyWith(
+                                              fontWeight: FontWeight.w400,
+                                              letterSpacing: 0.6,
+                                              color: item.read
+                                                  ? Palette.current.grey
+                                                  : Palette.current.white,
+                                              fontSize: 16,
+                                            ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                        flex: 3,
+                                        child: Text(
+                                          alertDays(item.timeStamp ?? ''),
+                                          textAlign: TextAlign.end,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                                fontSize: 14,
+                                                color: Palette.current.grey,
+                                              ),
+                                        ))
+                                  ],
+                                ),
+                                subtitle: Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 5,
+                                      child: Text(
+                                        item.notificationAlertBody ?? '',
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        textAlign: TextAlign.start,
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodySmall!
@@ -371,38 +362,47 @@ class _AlertPageState extends State<AlertPage> {
                                               fontSize: 14,
                                               color: Palette.current.grey,
                                             ),
-                                      ))
-                                ],
-                              ),
-                              subtitle: Row(
-                                children: [
-                                  Expanded(
-                                    flex: 5,
-                                    child: Text(
-                                      item.notificationAlertBody ?? '',
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 1,
-                                      textAlign: TextAlign.start,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                            fontSize: 14,
-                                            color: Palette.current.grey,
-                                          ),
+                                      ),
                                     ),
+                                    Expanded(flex: 2, child: Container()),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      )
+                    : Container(
+                        padding: EdgeInsets.only(
+                            top: MediaQuery.of(context).size.height * 0.3),
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              "assets/images/Alerts.png",
+                              width: 30,
+                              height: 30,
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              textAlign: TextAlign.center,
+                              'no Alerts yet!'.toUpperCase(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(
+                                    fontFamily: "KnockoutCustom",
+                                    fontWeight: FontWeight.w300,
+                                    fontSize: 30,
+                                    letterSpacing: 1.2,
+                                    color: Palette.current.darkGray,
                                   ),
-                                  Expanded(flex: 2, child: Container()),
-                                ],
-                              ),
-                            );
-                          },
+                            ),
+                          ],
                         ),
                       ),
-                    ),
-                  ],
-                )
-              : Container(),
-        ));
+              ],
+            )));
   }
 }
