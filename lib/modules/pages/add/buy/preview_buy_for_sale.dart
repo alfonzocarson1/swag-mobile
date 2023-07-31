@@ -108,14 +108,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
       chatData = await getIt<ChatCubit>().startChat(channelUrl);
 
       Loading.hide(context);
-      if (Platform.isIOS) {
-        await FirebaseMessaging.instance
-            .setForegroundNotificationPresentationOptions(
-          alert: false,
-          badge: false,
-          sound: false,
-        );
-      }
+
       getIt<PreferenceRepositoryService>().saveShowNotification(false);
       await Future.delayed(const Duration(milliseconds: 500));
       await Navigator.of(context, rootNavigator: true).push(

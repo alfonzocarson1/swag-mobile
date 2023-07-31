@@ -27,13 +27,6 @@ class PushNotificationsProvider {
     await getIt<PreferenceRepositoryService>()
         .saveFirebaseDeviceToken(token ?? '');
 
-    await FirebaseMessaging.instance
-        .setForegroundNotificationPresentationOptions(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
-
     FirebaseMessaging.onBackgroundMessage(_onBackgroundHandler);
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
@@ -44,7 +37,7 @@ class PushNotificationsProvider {
 
       var json = jsonDecode(message.data['sendbird']);
 
-      if (showNotify && Platform.isAndroid) {
+      if (showNotify) {
         LocalNotificationProvider().showNotification(
             title: json['push_title'],
             body: json['message'],
