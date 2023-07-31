@@ -139,7 +139,8 @@ class _BuyForSaleState extends State<BuyForSale> {
                     ));
               },
               loadedSaledItems: (state) {
-                List<BuyForSaleListingModel> model = List.from(state.saledItemdList[0].saledItemdList);
+                List<BuyForSaleListingModel> model =
+                    List.from(state.saledItemdList[0].saledItemdList);
                 return _getBody(filteredCondition(model, filters));
               },
             );
@@ -351,7 +352,7 @@ class _BuyForSaleState extends State<BuyForSale> {
                               BuyPreviewPage.route(
                                   productItemId:
                                       dataListingSale[index].productItemId,
-                                  ));
+                                  catalogId: widget.catalogItemId ?? ''));
                         },
                         child: Container(
                           margin: const EdgeInsets.only(bottom: 28),
