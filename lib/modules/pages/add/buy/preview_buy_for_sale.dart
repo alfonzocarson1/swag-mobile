@@ -122,9 +122,15 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
         MaterialPageRoute(
             builder: (BuildContext context) => ChatPage(channel: chatData)),
       );
+      loadList();
+      Navigator.of(context).pop();
     } catch (e) {
       print(e);
     }
+  }
+
+  Future loadList() async {
+    await getIt<ListingProfileCubit>().loadResults();
   }
 
   getChatChannels() async {
