@@ -93,7 +93,7 @@ class _UpdateEmailPage extends State<UpdateEmailPage> {
               },
               updated: () {
                 Loading.hide(context);
-            //    Future.delayed(const Duration(milliseconds: 3000), () {
+                Future.delayed(const Duration(milliseconds: 1000), () {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       duration: const Duration(seconds: 3),
                       behavior: SnackBarBehavior.floating,
@@ -105,26 +105,19 @@ class _UpdateEmailPage extends State<UpdateEmailPage> {
                         message: 'A verification email has been sent',
                       ),
                       dismissDirection: DismissDirection.none));
-      //          });
+                });
                 Future.delayed(const Duration(milliseconds: 4000), () async {
-
-                  final result = await showDialog(
+               //   Navigator.of(context).pop();
+                final result =  await showDialog(
                       context: context,
                       barrierDismissible: false,
                       barrierColor: Colors.black,
                       builder: (BuildContext context) {
                         return EmailVerificationPopup();
                       });
-                  if(result){
-                    print("CALL API");
-                    await getIt<ProfileCubit>().loadProfileResults();
-                    print("UPDATe");
-
-                    setState(() {
-
-                    });
-                    Navigator.of(context).pop(true);
-                  }
+                if (result){
+                  Navigator.of(context).pop(true);
+                }
                 });
                 return null;
               },

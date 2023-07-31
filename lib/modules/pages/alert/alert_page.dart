@@ -5,6 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
+import 'package:swagapp/modules/common/utils/sendbird_utils.dart';
 import 'package:swagapp/modules/cubits/alert/alert_cubit.dart';
 import 'package:swagapp/modules/cubits/chat/chat_cubit.dart';
 import 'package:swagapp/modules/pages/alert/rating_buyer.dart';
@@ -41,12 +42,17 @@ class AlertPage extends StatefulWidget {
 class _AlertPageState extends State<AlertPage> {
   int unreadCount = 0;
   String? listingChatId;
+  late List<GroupChannel> groupChannelList;
 
   @override
   void initState() {
     getIt<AlertCubit>().getAlertList();
     // TODO: implement initState
     super.initState();
+  }
+
+  getChannelsList() async {
+    groupChannelList = await getIt<ChatCubit>().loadGroupChannels();
   }
 
   // Simular la carga de datos
@@ -87,6 +93,7 @@ class _AlertPageState extends State<AlertPage> {
 
   @override
   Widget build(BuildContext context) {
+    getChannelsList();
     return Scaffold(
         extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: true,
@@ -186,6 +193,18 @@ class _AlertPageState extends State<AlertPage> {
                                               .notifyMessageBuyFlow.textValue &&
                                       item.payload!.dateItemShipped == null &&
                                       item.payload!.listingStatus == null) {
+                                    String productItemId =
+                                        item.payload!.productItemId ?? "";
+                                    String listingImageUrl =
+                                        item.payload!.listingImageUrl ?? "";
+
+                                    String channelUrl =
+                                        SendBirdUtils.getListingChatUrl(
+                                            groupChannelList,
+                                            productItemId,
+                                            listingImageUrl);
+                                    Loading.show(context);
+                                    onTapSubmit(channelUrl);
                                   } else if ((item.typeNotification ==
                                               ChatType.notifySale.textValue ||
                                           item.typeNotification ==

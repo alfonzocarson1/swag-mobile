@@ -39,7 +39,13 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
   @override
   void initState() {
     super.initState();
+    callApi();
 
+  }
+
+  void callApi() async {
+    await getIt<ProfileCubit>().loadProfileResults();
+    setState(() {});
   }
 
   @override
@@ -168,11 +174,13 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                                     () async {
                                       final result = await Navigator.of(context, rootNavigator: true)
                                           .push(UpdateEmailPage.route());
-                                      if(result) {
-                                        print("BACK");
-                                        setState(() {
 
-                                        });
+                                      if(result) {
+                                        Navigator.of(context).pop();
+                                        print("BACK");
+                                        // setState(() {
+                                        //
+                                        // });
                                       }
 
                                     },
@@ -295,8 +303,7 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                       return EmailVerificationPopup();
                     });
                 if(result){
-                  print("CALL API");
-                  await getIt<ProfileCubit>().loadProfileResults();
+                  Navigator.of(context).pop();
                   print("UPDATE STATE");
                   setState(() {
 

@@ -34,6 +34,8 @@ class PushNotificationsProvider {
       sound: true,
     );
 
+    await getIt<PreferenceRepositoryService>().saveShowNotification(true);
+
     FirebaseMessaging.onBackgroundMessage(_onBackgroundHandler);
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
