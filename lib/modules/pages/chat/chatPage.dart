@@ -134,11 +134,7 @@ class _ChatPageState extends State<ChatPage> {
           return current is! ChatsLoading &&
               current is! ChatChannelsLoaded &&
               current is! HasUnreadMessages;
-          return current is! ChatsLoading &&
-              current is! ChatChannelsLoaded &&
-              current is! HasUnreadMessages;
         },
-        builder: (context, state) {
         builder: (context, state) {
           return state.maybeWhen(
               initial: () => const Center(child: Text('Welcome to the chat')),
