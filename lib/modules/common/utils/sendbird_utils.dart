@@ -135,7 +135,7 @@ abstract class SendBirdUtils {
     }
   }
 
-  static String getListingChatUrl(List<GroupChannel> channels, String proudctItemId) {
+  static String getListingChatUrl(List<GroupChannel> channels, String proudctItemId, String listingImageUrl) {
     String listingUrl = "";
 
     for (int i = 0; i < channels.length; i++) {
@@ -145,7 +145,8 @@ abstract class SendBirdUtils {
         jsonString = jsonString.replaceAll("'", '"');
         Map<String, dynamic> json = jsonDecode(jsonString);
         String jsonProductItemId = json['productItemId'];
-        if (jsonProductItemId == proudctItemId) {  
+        String jsonListingImageUrl = json['listingImageUrl'];
+        if (jsonProductItemId == proudctItemId && jsonListingImageUrl == listingImageUrl) {  
          listingUrl = channels[i].channelUrl;
         }
       }
