@@ -138,13 +138,21 @@ class FirebaseManager {
 
   static Future<String?> _getToken() async {
     String? token;
-    token = await FirebaseMessaging.instance.getToken();
+    if (Platform.isAndroid) {
+      token = await FirebaseMessaging.instance.getToken();
+    } else if (Platform.isIOS) {
+      token = await FirebaseMessaging.instance.getAPNSToken();
+    }
     return token;
   }
 
   static PushTokenType? _getPushTokenType() {
     PushTokenType? pushTokenType;
-    pushTokenType = PushTokenType.fcm;
+    if (Platform.isAndroid) {
+      pushTokenType = PushTokenType.fcm;
+    } else if (Platform.isIOS) {
+      pushTokenType = PushTokenType.apns;
+    }
     return pushTokenType;
   }
 }

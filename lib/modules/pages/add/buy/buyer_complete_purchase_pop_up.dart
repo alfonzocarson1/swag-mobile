@@ -235,6 +235,15 @@ class _BuyerCompletePurchasePopUpState
       chatData = await getIt<ChatCubit>().startChat(channelUrl);
       Loading.hide(context);
 
+      if (Platform.isIOS) {
+        await FirebaseMessaging.instance
+            .setForegroundNotificationPresentationOptions(
+          alert: false,
+          badge: false,
+          sound: false,
+        );
+      }
+
       getIt<PreferenceRepositoryService>().saveShowNotification(false);
       await Navigator.of(context, rootNavigator: true).push(
         MaterialPageRoute(

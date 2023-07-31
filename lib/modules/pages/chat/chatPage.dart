@@ -66,6 +66,14 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   Future<void> loadPushNotifications() async {
+    if (Platform.isIOS) {
+      await FirebaseMessaging.instance
+          .setForegroundNotificationPresentationOptions(
+        alert: false,
+        badge: false,
+        sound: false,
+      );
+    }
     getIt<PreferenceRepositoryService>().saveShowNotification(false);
   }
 
@@ -95,7 +103,14 @@ class _ChatPageState extends State<ChatPage> {
           ),
           onPressed: () async {
             context.read<ChatCubit>().loadGroupChannels();
-
+            if (Platform.isIOS) {
+              await FirebaseMessaging.instance
+                  .setForegroundNotificationPresentationOptions(
+                alert: true,
+                badge: true,
+                sound: true,
+              );
+            }
             setState(() {
               getIt<PreferenceRepositoryService>().saveShowNotification(true);
             });

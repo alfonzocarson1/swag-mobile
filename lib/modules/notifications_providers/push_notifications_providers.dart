@@ -18,12 +18,21 @@ class PushNotificationsProvider {
 
   Future<void> initializeProvider() async {
     await requestPermissions();
-    token = await FirebaseMessaging.instance.getToken();
+    token = (Platform.isIOS)
+        ? await FirebaseMessaging.instance.getAPNSToken()
+        : await FirebaseMessaging.instance.getToken();
 
     print('==== FCM Token ====');
     print(token);
     await getIt<PreferenceRepositoryService>()
         .saveFirebaseDeviceToken(token ?? '');
+
+    await FirebaseMessaging.instance
+        .setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
 
     FirebaseMessaging.onBackgroundMessage(_onBackgroundHandler);
 
@@ -35,7 +44,7 @@ class PushNotificationsProvider {
 
       var json = jsonDecode(message.data['sendbird']);
 
-      if (showNotify) {
+      if (showNotify && Platform.isAndroid) {
         LocalNotificationProvider().showNotification(
             title: json['push_title'],
             body: json['message'],
