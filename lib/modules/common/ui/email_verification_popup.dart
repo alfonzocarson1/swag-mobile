@@ -144,7 +144,7 @@ class _EmailVerificationPopup extends State<EmailVerificationPopup> {
                 iconSize: 30,
                 color: Palette.current.primaryNeonGreen,
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Navigator.of(context).pop(true);
                 },
                 icon: const Icon(
                   Icons.clear_outlined,

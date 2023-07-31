@@ -285,15 +285,23 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                     )
                   : Image.asset(rightIconUrl, width: 20, height: 20)
               : GestureDetector(
-            onTap: (){
+            onTap: () async {
               if(status != S.of(context).email_verified) {
-                showDialog(
+                final result = await showDialog(
                     context: context,
                     barrierDismissible: false,
                     barrierColor: Colors.black,
                     builder: (BuildContext context) {
                       return EmailVerificationPopup();
                     });
+                if(result){
+                  print("CALL API");
+                  await getIt<ProfileCubit>().loadProfileResults();
+                  print("UPDATE STATE");
+                  setState(() {
+
+                  });
+                }
               }
             },
             child: Text(status,
