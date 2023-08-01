@@ -6,26 +6,32 @@ class ChannelData {
 
   String listingProductName;
   String buyerUsername;
+  String sellerUsername;
   String listingImageUrl;
   double price;
   String productItemId;
   PaymentMethod paymentMethod;
-  String buyerAccountId;
+  String buyerAccountId;  
+  String creatorUserName;
 
   ChannelData({
     required this.listingProductName,
     required this.listingImageUrl,
     required this.buyerUsername,
+    required this.sellerUsername,
     required this.price,
     required this.productItemId,
     required this.paymentMethod,
     required this.buyerAccountId,
+    required this.creatorUserName,
   });
 
   factory ChannelData.fromJson(Map<String, dynamic> json) => ChannelData(
+    creatorUserName: json.containsKey('creatorUserName') ? json["creatorUserName"] : '',
     listingProductName: json["listingProductName"],
     listingImageUrl: json.containsKey('listingImageUrl') ? json["listingImageUrl"] : '',
     buyerUsername: json.containsKey('buyerUsername') ? json["buyerUsername"] : '',
+    sellerUsername: json.containsKey('sellerUsername') ? json["sellerUsername"] : '',
     price: json["price"],
     productItemId: json["productItemId"],
     paymentMethod: json.containsKey('paymentMethod') ? PaymentMethod.fromJson(json["paymentMethod"]) : PaymentMethod(),
