@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -7,6 +9,7 @@ import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import '../common/assets/images.dart';
 import '../common/utils/context_service.dart';
 import '../di/injector.dart';
+import '../pages/add/buy/preview_buy_for_sale.dart';
 import '../pages/alert/alert_page.dart';
 
 class LocalNotificationProvider {
@@ -29,10 +32,16 @@ class LocalNotificationProvider {
     await notificationsPlugin.initialize(initializationSettings,
         onDidReceiveNotificationResponse:
             (NotificationResponse notificationResponse) async {
+      var jsonData = jsonDecode(notificationResponse.payload ?? '');
+      print(jsonData);
+
       getIt<ContextService>()
           .rootNavigatorKey
           .currentState!
-          .push(AlertPage.route());
+          .push(MaterialPageRoute(
+              builder: (context) => BuyPreviewPage(
+                    productItemId: jsonData['productItemId'],
+                  )));
     });
   }
 

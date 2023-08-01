@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 
 import '../common/utils/context_service.dart';
 import '../data/shared_preferences/shared_preferences_service.dart';
@@ -43,14 +44,14 @@ class PushNotificationsProvider {
       print(message.data);
 
       bool showNotify = getIt<PreferenceRepositoryService>().showNotification();
-
+      var jsonData = jsonDecode(message.data['message']);
       var json = jsonDecode(message.data['sendbird']);
 
       if (showNotify && Platform.isAndroid) {
         LocalNotificationProvider().showNotification(
             title: json['push_title'],
-            body: json['message'],
-            payLoad: "Data nueva");
+            body: jsonData['message'],
+            payLoad: message.data['message']);
       }
     });
 
@@ -68,13 +69,14 @@ class PushNotificationsProvider {
     print('===== On BackgroundMessage ======');
     print(message.data);
 
+    var jsonData = jsonDecode(message.data['message']);
     var json = jsonDecode(message.data['sendbird']);
 
     if (Platform.isAndroid) {
       LocalNotificationProvider().showNotification(
           title: json['push_title'],
-          body: json['message'],
-          payLoad: "Data nueva");
+          body: jsonData['message'],
+          payLoad: message.data['message']);
     }
   }
 
