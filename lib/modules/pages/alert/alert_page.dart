@@ -25,6 +25,8 @@ import '../../models/alerts/alert_response_model.dart';
 import '../add/buy/preview_buy_for_sale.dart';
 
 import '../chat/chatPage.dart';
+import '../profile/sold/sold_detail_page.dart';
+import '../settings/purchase_history/purchase_history_details/purchase_history_details_page.dart';
 import 'delivered_popup.dart';
 
 class AlertPage extends StatefulWidget {
@@ -195,7 +197,7 @@ class _AlertPageState extends State<AlertPage> {
                                 itemBuilder: (context, index) {
                                   final item = alertList!.alertList[index];
                                   return ListTile(
-                                    onTap: () {
+                                    onTap: () async {
                                       getIt<AlertCubit>().readAlert(
                                           item.notificationAlertId ?? '');
 
@@ -239,6 +241,17 @@ class _AlertPageState extends State<AlertPage> {
 
                                       if (item.payload!.dateItemShipped !=
                                           null) {
+                                        Navigator.of(context,
+                                                rootNavigator: true)
+                                            .push(PurchaseHistoryDetailsPage
+                                                .route(item.payload!
+                                                        .purchaseHistoryId ??
+                                                    ''));
+
+                                        await Future.delayed(
+                                            const Duration(milliseconds: 1000),
+                                            () {});
+
                                         showDialog(
                                             context: context,
                                             barrierDismissible: false,
@@ -254,7 +267,7 @@ class _AlertPageState extends State<AlertPage> {
                                                         .purchaseHistoryId ??
                                                     '',
                                                 itemName:
-                                                    item.payload?.itemName ??
+                                                    item.payload!.itemName ??
                                                         '',
                                               );
                                             });
@@ -278,6 +291,20 @@ class _AlertPageState extends State<AlertPage> {
                                           item.payload!.listingStatus !=
                                               ListingStatusDataType
                                                   .listed.textValue) {
+                                        Navigator.of(context,
+                                                rootNavigator: true)
+                                            .push(MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SoldDetailPage(
+                                                      productItemId: item
+                                                              .payload!
+                                                              .productItemId ??
+                                                          '',
+                                                    )));
+
+                                        await Future.delayed(
+                                            const Duration(milliseconds: 1000),
+                                            () {});
                                         showDialog(
                                             context: context,
                                             barrierDismissible: false,
