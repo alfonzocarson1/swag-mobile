@@ -63,7 +63,7 @@ class CustomChatMessage extends StatelessWidget {
                             fontWeight: FontWeight.w700,
                             fontFamily: "SFProText",
                             fontSize: 14,
-                            color: Palette.current.greyMessage),),
+                            color: Palette.current.grey),),
               ), 
             //  SizedBox(width: MediaQuery.of(context).size.width * 0.8,),            
             ],
