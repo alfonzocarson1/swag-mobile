@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 
 import '../common/utils/context_service.dart';
 import '../data/shared_preferences/shared_preferences_service.dart';
@@ -57,10 +58,12 @@ class PushNotificationsProvider {
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       print('===== On MessageOpenedApp ======');
       print(message.data);
-      getIt<ContextService>()
-          .rootNavigatorKey
-          .currentState!
-          .push(AlertPage.route());
+      WidgetsBinding.instance?.addPostFrameCallback((_) {
+        getIt<ContextService>()
+            .rootNavigatorKey
+            .currentState!
+            .push(AlertPage.route());
+      });
     });
   }
 
