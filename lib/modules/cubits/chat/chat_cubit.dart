@@ -156,14 +156,9 @@ class ChatCubit extends Cubit<ChatState> {
 
   sendGalleryFileMessage(GroupChannel channel) async {
     FileMessage fileMessage;
-    // int tempMessageId = DateTime.now().millisecondsSinceEpoch.toInt();
+     int tempMessageId = DateTime.now().millisecondsSinceEpoch.toInt();
      List<BaseMessage> currentMessages = messages;
-    // FileMessage tempFileMessage = FileMessage(
-    //     url: "",
-    //     channelUrl: channel.channelUrl,
-    //     channelType: ChannelType.group,
-    //     messageId: tempMessageId);
-    // currentMessages.add(tempFileMessage);
+
 
     final picker = ImagePicker();
     XFile? pickedFile = await picker.pickMedia(imageQuality: 70);
@@ -178,21 +173,28 @@ class ChatCubit extends Cubit<ChatState> {
         ..thumbnailSizes = chatThumbnailSizes;
       // or other MIME type based on your file
 
-      fileMessage = channel.sendFileMessage(
+      FileMessage tempMessage = FileMessage(url: "", name: "placeholder", channelUrl: channel.channelUrl, channelType: channel.channelType, messageId: tempMessageId, sendingStatus: SendingStatus.pending);
+      currentMessages.insert(0, tempMessage);
+     // emit(ChatState.loadingFile(sentBytes, totalBytes));
+      //Future.delayed(const Duration(milliseconds: 500));
+
+      fileMessage = await channel.sendFileMessage(
         params,
-        // handler: (message, e) {
-        //   if (e != null) {
-        //     debugPrint(e.message);
-        //   } else {
-        //     // final index = currentMessages
-        //     //     .indexWhere((msg) => msg.messageId == tempMessageId);
-        //     // if (index != -1) {
-        //     //   currentMessages[index] = message;
-        //     //   fileMessage = message;
-        //     //   emit(ChatState.loadedChats(currentMessages));
-        //     }
-        //   }
-        // },
+        handler: (message, e) {
+           if (e != null) {
+            print('Error sending file message: $e');
+            return;
+        }
+        var index = currentMessages.indexOf(tempMessage);
+          if (index != -1) {
+            currentMessages[index] = message;
+            emit(ChatState.loadedChats(currentMessages));
+            print('File message sent successfully');
+          }
+        },
+       progressHandler: (sentBytes, totalBytes) {
+         emit(ChatState.loadingFile(sentBytes, totalBytes));
+       },
       );
 
       currentMessages.add(fileMessage);
