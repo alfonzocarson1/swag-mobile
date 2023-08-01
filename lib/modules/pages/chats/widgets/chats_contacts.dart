@@ -79,7 +79,7 @@ class _ChatsContactState extends State<ChatsContact> {
     bool hasUreadMessages = unreadMessages > 0;
     SendBirdChannelData channelData = this.getChannelData();
     List<Member> chatMembers = this.widget.chatData.channel.members;
-    Member seller = chatMembers
+    Member otherUser = chatMembers
         .where((Member member) =>
             member.nickname != userName && member.nickname != swagBotNickName)
         .toList()
@@ -93,17 +93,17 @@ class _ChatsContactState extends State<ChatsContact> {
     return CustomListTile(
       titleSpacing: 5,
       widgetSpacing: 20,
-      trailing: Text(lastActivityTimeStamp,  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+      trailing:(lastActivityTimeStamp != "") ? Text(lastActivityTimeStamp,  style: Theme.of(context).textTheme.bodySmall!.copyWith(
             fontSize: 14,
             letterSpacing: 0.3,
             color: Palette.current.grey,
-            overflow: TextOverflow.ellipsis),),
+            overflow: TextOverflow.ellipsis),) :  SizedBox(width: MediaQuery.of(context).size.width * 0.18,),
       leading: _Avatar(
         hasUreadMessages: hasUreadMessages,
         chatData: this.widget.chatData,
       ),
       title: Text(
-        '@${seller.nickname.capitalize()} - ${channelData.listingProductName}',
+        '@${otherUser.nickname.capitalize()} - ${channelData.listingProductName}',
           overflow: TextOverflow.ellipsis,
         style: Theme.of(context).textTheme.bodySmall!.copyWith(
               fontWeight:
