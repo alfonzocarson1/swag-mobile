@@ -61,6 +61,7 @@ class _ChatListPageState extends State<ChatListPage> {
                 itemCount: channels.length,
                 itemBuilder: (context, index) {
                   final channel = channels[index];
+            
                   final lastMessage = channel.lastMessage?.message ?? 'No messages yet';
                   ChatData chatData = ChatData(messages: messages, channel: channel);
                   return ChatsContact(lastMessage: lastMessage, chatData: chatData);
