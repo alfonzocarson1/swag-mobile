@@ -294,22 +294,29 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                   : Image.asset(rightIconUrl, width: 20, height: 20)
               : GestureDetector(
             onTap: () async {
-              if(status != S.of(context).email_verified) {
-                final result = await showDialog(
-                    context: context,
-                    barrierDismissible: false,
-                    barrierColor: Colors.black,
-                    builder: (BuildContext context) {
-                      return EmailVerificationPopup();
-                    });
-                if(result){
-                  Navigator.of(context).pop();
-                  print("UPDATE STATE");
-                  setState(() {
+              final profile = await getIt<ProfileCubit>().getProfil();
+              print("GET PROFILE");
+              if(profile != null && !profile!.emailVerified){
+                print("NOT VERIFIED");
+                if(status != S.of(context).email_verified) {
+                  final result = await showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      barrierColor: Colors.black,
+                      builder: (BuildContext context) {
+                        return EmailVerificationPopup();
+                      });
+                  if(result){
+                    Navigator.of(context).pop();
+                    print("UPDATE STATE");
+                    setState(() {
 
-                  });
+                    });
+                  }
                 }
               }
+              print("Before set state");
+              setState(() {});
             },
             child: Text(status,
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
