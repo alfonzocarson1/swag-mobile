@@ -11,6 +11,7 @@ import 'package:swagapp/modules/di/injector.dart';
 import 'package:swagapp/modules/models/profile/profile_model.dart';
 import 'package:swagapp/modules/pages/login/landing_page.dart';
 import 'package:swagapp/modules/pages/login/sign_in_page.dart';
+import 'package:swagapp/modules/pages/profile/delete_account/delete_account_page.dart';
 import 'package:swagapp/modules/pages/profile/update_email_page.dart';
 import 'package:swagapp/modules/pages/profile/update_name_page.dart';
 import 'package:swagapp/modules/pages/splash/splash_page.dart';
@@ -215,7 +216,10 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                                 'assets/icons/trash.png',
                                 S.of(context).profile_delete_title,
                                 '',
-                                    () {},
+                                    () {
+                                      Navigator.of(context)
+                                          .push(DeleteAccountPage.route());
+                                    },
                                 true,
                                 '',
                                 '',
