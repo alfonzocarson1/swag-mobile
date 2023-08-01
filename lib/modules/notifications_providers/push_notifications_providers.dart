@@ -58,12 +58,11 @@ class PushNotificationsProvider {
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       print('===== On MessageOpenedApp ======');
       print(message.data);
-      WidgetsBinding.instance?.addPostFrameCallback((_) {
-        getIt<ContextService>()
-            .rootNavigatorKey
-            .currentState!
-            .push(AlertPage.route());
-      });
+
+      getIt<ContextService>()
+          .rootNavigatorKey
+          .currentState!
+          .push(AlertPage.route());
     });
   }
 
