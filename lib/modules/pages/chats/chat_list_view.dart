@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/ui/simple_loader.dart';
 import 'package:swagapp/modules/models/chat/chat_data.dart';
@@ -35,6 +36,7 @@ class _ChatListPageState extends State<ChatListPage> {
       child: Scaffold(
         backgroundColor: Palette.current.primaryNero,
         appBar: AppBar(
+          systemOverlayStyle: SystemUiOverlayStyle.light,
           leading: IconButton(
             icon: Icon(
               Icons.arrow_back,
