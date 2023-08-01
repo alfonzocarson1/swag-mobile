@@ -86,7 +86,7 @@ class AppConfig {
         dev: () => testStripeKey,
         uat: () => testStripeKey,
         stg: () => prodStripeKey,
-        prod: () => prodStripeKey,
+        prod: () => testStripeKey,
       ),
       sendBirdAppId: appFlavor.whenFlavorOrElse(
         uat: () => "29A3A5B7-E41B-49F3-AB81-5EEEC9678CC2",
