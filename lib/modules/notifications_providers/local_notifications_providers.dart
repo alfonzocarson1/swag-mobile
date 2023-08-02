@@ -19,8 +19,11 @@ import '../di/injector.dart';
 import '../enums/listing_status_data.dart';
 import '../pages/add/buy/preview_buy_for_sale.dart';
 import '../pages/alert/alert_page.dart';
+import '../pages/alert/delivered_popup.dart';
+import '../pages/alert/rating_buyer.dart';
 import '../pages/chat/chatPage.dart';
 import '../pages/profile/sold/sold_detail_page.dart';
+import '../pages/settings/purchase_history/purchase_history_details/purchase_history_details_page.dart';
 
 class LocalNotificationProvider {
   final FlutterLocalNotificationsPlugin notificationsPlugin =
@@ -54,7 +57,7 @@ class LocalNotificationProvider {
             .currentState!
             .push(MaterialPageRoute(
                 builder: (context) => BuyPreviewPage(
-                      productItemId: jsonData['productItemId'],
+                      productItemId: jsonData['productItemId'] ?? '',
                     )));
       }
 
@@ -68,6 +71,54 @@ class LocalNotificationProvider {
           jsonData['listingStatus'] == ListingStatusDataType.listed.textValue) {
         Loading.show(context);
         onTapSubmit(jsonData['channelUrl']);
+      }
+
+      if (jsonData['listingStatus'] ==
+          ListingStatusDataType.received.textValue) {
+        getIt<ContextService>()
+            .rootNavigatorKey
+            .currentState!
+            .push(MaterialPageRoute(
+                builder: (context) => SoldDetailPage(
+                      productItemId: jsonData['productItemId'] ?? '',
+                    )));
+
+        await Future.delayed(const Duration(milliseconds: 1000), () {});
+        showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return RatingBuyer(
+                productItemId: jsonData['productItemId'] ?? '',
+                purchaseHistoryId: jsonData['purchaseHistoryId'] ?? '',
+                userName: jsonData['userName'] ?? '',
+                seller: true,
+              );
+            });
+      }
+
+      if (jsonData['dateItemShipped'] != 'null') {
+        getIt<ContextService>()
+            .rootNavigatorKey
+            .currentState!
+            .push(MaterialPageRoute(
+                builder: (context) => PurchaseHistoryDetailsPage(
+                      id: jsonData['purchaseHistoryId'] ?? '',
+                    )));
+
+        await Future.delayed(const Duration(milliseconds: 1000), () {});
+
+        showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return DeliveredPopUp(
+                userName: jsonData['userName'] ?? '',
+                productItemId: jsonData['productItemId'] ?? '',
+                purchaseHistoryId: jsonData['purchaseHistoryId'] ?? '',
+                itemName: jsonData['catalogName'] ?? '',
+              );
+            });
       }
     });
   }
