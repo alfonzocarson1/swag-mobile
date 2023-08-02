@@ -64,7 +64,7 @@ enum ApiHostScheme {
   https,
 }
 
-extension on ApiHostScheme {
+extension ApiHostSchemeX on ApiHostScheme {
   Uri encodeUri(
     String authority, [
     String unencodedPath = '',
