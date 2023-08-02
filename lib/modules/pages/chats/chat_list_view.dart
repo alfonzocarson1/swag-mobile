@@ -51,7 +51,7 @@ class _ChatListPageState extends State<ChatListPage> {
         ),
         body: BlocBuilder<ChatCubit, ChatState>(
             buildWhen: (previous, current) {
-          return current is! ChatsLoaded && current is !HasUnreadMessages;
+          return current is! ChatsLoaded && current is !HasUnreadMessages && current is !LoadingFile;
         },
           builder: (context, state) {
             return state.maybeWhen(

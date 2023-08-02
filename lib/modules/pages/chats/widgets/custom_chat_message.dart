@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter/material.dart';
 import 'package:swagapp/modules/common/utils/sendbird_utils.dart';
+import 'package:swagapp/modules/pages/chat/widgets/custom_file_message.dart';
 import 'package:swagapp/modules/pages/media_viewer/media_viewer_page.dart';
 
 import '../../../common/utils/palette.dart';
@@ -20,7 +22,8 @@ class CustomChatMessage extends StatelessWidget {
       required this.otherUser,
       this.messageData,
       this.fileUrl,
-      this.mediaType});
+      this.mediaType,
+      this.isFileLoading});
 
   final String formattedTime;
   final BuildContext context;
@@ -32,6 +35,7 @@ class CustomChatMessage extends StatelessWidget {
   final MessageData? messageData;
   final String? fileUrl;
   final MediaType? mediaType;
+  final bool? isFileLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -50,44 +54,49 @@ class CustomChatMessage extends StatelessWidget {
           //     style: TextStyle(color: Colors.white),
           //   ),
           // ):const SizedBox.shrink(),
-          (user.id != message.user.id) ? 
-          Row(
-            //mainAxisAlignment: MainAxisAlignment.end,
-            children: [ 
-              SizedBox(width: MediaQuery.of(context).size.width * 0.15,),             
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.035,
-                child: Text(otherUser, 
-                style: Theme.of(context).textTheme.labelSmall!.copyWith(
+          (user.id != message.user.id)
+              ? Row(
+                  //mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.15,
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.035,
+                      child: Text(
+                        otherUser,
+                        style: Theme.of(context).textTheme.labelSmall!.copyWith(
                             letterSpacing: 0.1,
                             fontWeight: FontWeight.w700,
                             fontFamily: "SFProText",
                             fontSize: 14,
-                            color: Palette.current.grey),),
-              ), 
-            //  SizedBox(width: MediaQuery.of(context).size.width * 0.8,),            
-            ],
-          ) : const SizedBox.shrink(),
-          
+                            color: Palette.current.grey),
+                      ),
+                    ),
+                    //  SizedBox(width: MediaQuery.of(context).size.width * 0.8,),
+                  ],
+                )
+              : const SizedBox.shrink(),
+
           Row(
             mainAxisAlignment: user.id == message.user.id
                 ? MainAxisAlignment.end
                 : MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              
               (user.id != message.user.id)
                   ? CircleAvatar(
                       backgroundImage: NetworkImage(avatarImageUrl),
                     )
                   : const SizedBox.shrink(),
-              const SizedBox(width: 12),            
+              const SizedBox(width: 12),
               (user.id == message.user.id)
-                  ? Row(                    
+                  ? Row(
                       children: [
                         Text(
-                          formattedTime, 
-                          style: const TextStyle(color: Colors.grey, fontSize: 11),
+                          formattedTime,
+                          style:
+                              const TextStyle(color: Colors.grey, fontSize: 11),
                         ),
                         const SizedBox(width: 12),
                       ],
@@ -99,62 +108,56 @@ class CustomChatMessage extends StatelessWidget {
                       0.6, // Max width is 70% of screen width
                 ),
                 child: Container(
-                  // width: 150,
-                  padding:
-                      const EdgeInsets.all(10), // Padding for the inner text
-                  decoration: BoxDecoration(
-                    color: (user.id != message.user.id)
-                        ? Palette.current.greyMessage
-                        : Palette.current
-                            .primaryNeonGreen, // Background color of the message
-                    borderRadius: BorderRadius.circular(12), // Rounded corners
-                  ),
-                  child: (fileUrl == null)
-                      ? Text(
-                          (message.user.firstName == swagBotNickName &&
-                                  messageData != null)
-                              ? SendBirdUtils.getMessageText(messageData!)
-                              : message.text,
-                          style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                          letterSpacing: 0.1,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: "SFProText",
-                          fontSize: 14,
-                          color:(user.id != message.user.id) ? Palette.current.primaryWhiteSmoke : Palette.current.primaryNero)
-                          // TextStyle(
-                          //     color: (user.id != message.user.id)
-                          //         ? Palette.current.primaryWhiteSmoke
-                          //         : Palette.current.primaryNero), // Text color
-                        )
-                      : (this.mediaType == MediaType.image)
-                          ? Image.network(fileUrl ?? "", loadingBuilder:
-                              (context, child, loadingProgress) {
-                              if (loadingProgress == null) {
-                                return child;
-                              }
-                              return Center(
-                                child: CircularProgressIndicator(
-                                  value: loadingProgress.expectedTotalBytes !=
-                                          null
-                                      ? loadingProgress.cumulativeBytesLoaded /
-                                          loadingProgress.expectedTotalBytes!
-                                      : null,
+                    // width: 150,
+                    padding:
+                        const EdgeInsets.all(10), // Padding for the inner text
+                    decoration: BoxDecoration(
+                      color: (user.id != message.user.id)
+                          ? Palette.current.greyMessage
+                          : Palette.current
+                              .primaryNeonGreen, // Background color of the message
+                      borderRadius:
+                          BorderRadius.circular(12), // Rounded corners
+                    ),
+                    child: (fileUrl == null)
+                        ? Text(
+                            (message.user.firstName == swagBotNickName &&
+                                    messageData != null)
+                                ? SendBirdUtils.getMessageText(messageData!)
+                                : message.text,
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelSmall!
+                                .copyWith(
+                                    letterSpacing: 0.1,
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: "SFProText",
+                                    fontSize: 14,
+                                    color: (user.id != message.user.id)
+                                        ? Palette.current.primaryWhiteSmoke
+                                        : Palette.current.primaryNero)
+                            // TextStyle(
+                            //     color: (user.id != message.user.id)
+                            //         ? Palette.current.primaryWhiteSmoke
+                            //         : Palette.current.primaryNero), // Text color
+                            )
+                        : (this.isFileLoading == false) ?
+                        CustomFileMessage(fileUrl: this.fileUrl ?? "" , mediaType: this.mediaType ?? MediaType.image , key: Key('fileMessage${DateTime.now()}'),)
+                        :
+                        CircularProgressIndicator()                       
+                                
                                 ),
-                              );
-                            })
-                          : Container(),
-                ),
               ),
               const SizedBox(
                   width: 8), // Add some space between message and time
               (user.id != message.user.id)
                   ? Align(
-   
-                    child: Text(
+                      child: Text(
                         formattedTime, // Replace this with actual time of message
-                        style: const TextStyle(color: Colors.grey, fontSize: 11),
+                        style:
+                            const TextStyle(color: Colors.grey, fontSize: 11),
                       ),
-                  )
+                    )
                   : const SizedBox.shrink(),
             ],
           ),
