@@ -49,22 +49,21 @@ class _FavoritesPageState extends State<FavoritesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FavoriteProfileCubit, FavoriteCubitState>(
+    return BlocBuilder<FavoriteProfileCubit, FavoriteProfileState>(
         builder: (context, state) {
       return state.maybeWhen(
         orElse: () {
           return Container();
         },
-        initial: () => ListView.builder(
+        loading: (_) => ListView.builder(
           itemBuilder: (_, index) => SizedBox(
             height: MediaQuery.of(context).size.height * 0.5,
             child: const Center(child: SimpleLoader()),
           ),
           itemCount: 1,
         ),
-        loadedProfileFavorites:
-            (ListFavoriteProfileResponseModel profileFavoriteList) {
-          favoritesList = [...profileFavoriteList.favoriteList];
+        loaded: (state) {
+          favoritesList = [...state.model.favoriteList];
 
           return _getBody(favoritesList);
         },

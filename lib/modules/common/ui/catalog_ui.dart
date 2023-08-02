@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swagapp/modules/models/detail/detail_item_model.dart';
 
 import '../../../generated/l10n.dart';
 import '../../blocs/favorite_bloc/favorite_item_bloc.dart';
@@ -10,6 +11,7 @@ import '../../di/injector.dart';
 import '../../models/favorite/favorite_item_model.dart';
 import '../../models/favorite/favorite_model.dart';
 import '../../models/search/catalog_item_model.dart';
+import '../../models/ui_models/pair.dart';
 import '../../pages/add/collection/add_collection_page.dart';
 import '../../pages/detail/item_detail_page.dart';
 import '../../pages/login/create_account_page.dart';
@@ -48,6 +50,7 @@ class _CatalogPageState extends State<CatalogPage> {
     catalogList = [...widget.catalogItems];
     super.initState();
     isLogged = getIt<PreferenceRepositoryService>().isLogged();
+    getIt<FavoriteProfileCubit>().loadResults();
   }
 
   onChangeFavoriteAnimation(int index) async {
@@ -244,13 +247,12 @@ class _CatalogPageState extends State<CatalogPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Flexible(
-                        flex: 5,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Container(
-
-                              child: Align(
+                          flex: 5,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                  child: Align(
                                 alignment: Alignment.bottomLeft,
                                 child: Text(
                                     catalogList[index]
@@ -260,96 +262,119 @@ class _CatalogPageState extends State<CatalogPage> {
                                         .textTheme
                                         .displayLarge!
                                         .copyWith(
-                                        letterSpacing: 0.54,
-                                        fontWeight: FontWeight.w300,
-                                        fontFamily: "KnockoutCustom",
-                                        fontSize: 30,
-                                        color: Palette.current.white)),
+                                            letterSpacing: 0.54,
+                                            fontWeight: FontWeight.w300,
+                                            fontFamily: "KnockoutCustom",
+                                            fontSize: 30,
+                                            color: Palette.current.white)),
                               )),
-                          const SizedBox(height: 10),
-                          Padding(
-                           padding: const EdgeInsets.symmetric(horizontal: 0.0),
-                            child: Row(
-                              children: [
-                                Text(
-                                    catalogList[index].forSale
-                                        ? (catalogList[index].numberAvailable > 1)
-                                        ? '${S.of(context).from}: ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.minPrice!)} - ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.maxPrice!)}'
-                                        : '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.minPrice!)}'
-                                        : '${S.of(context).last_sale}: ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.lastSale!)}',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(
-                                        letterSpacing: 0.0244,
-                                        fontWeight: FontWeight.w300,
-                                        color: Palette.current.primaryNeonGreen))
-                              ],
-                            ),
-                          ),
-                        ],
-                      )),
+                              const SizedBox(height: 10),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 0.0),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                        catalogList[index].forSale
+                                            ? (catalogList[index]
+                                                        .numberAvailable >
+                                                    1)
+                                                ? '${S.of(context).from}: ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.minPrice!)} - ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.maxPrice!)}'
+                                                : '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.minPrice!)}'
+                                            : '${S.of(context).last_sale}: ${decimalDigitsLastSalePrice(catalogList[index].saleInfo.lastSale!)}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(
+                                                letterSpacing: 0.0244,
+                                                fontWeight: FontWeight.w300,
+                                                color: Palette
+                                                    .current.primaryNeonGreen))
+                                  ],
+                                ),
+                              ),
+                            ],
+                          )),
                       Expanded(
                           flex: 2,
                           child: Align(
                             alignment: Alignment.topRight,
-                            child: IconButton(
-                              icon: Image.asset(
-                                catalogList[index].inFavorites
-                                    ? "assets/images/Favorite.png"
-                                    : "assets/images/UnFavorite.png",
-                                scale: 3.5,
-                              ),
-                              onPressed: () async {
-                                setState(() {
-                                  if (isLogged) {
-                                    if (catalogList[index].inFavorites) {
-                                      BlocProvider.of<FavoriteItemBloc>(context)
-                                          .add(FavoriteItemEvent
-                                              .removeFavoriteItem(FavoriteModel(
-                                                  favoritesItemAction: "DELETE",
-                                                  profileFavoriteItems: [
-                                            FavoriteItemModel(
-                                                profileFavoriteItemId:
-                                                    catalogList[index]
-                                                        .profileFavoriteItemId,
-                                                catalogItemId:
-                                                    catalogList[index]
-                                                        .catalogItemId)
-                                          ])));
-                                      catalogList[index] = catalogList[index]
-                                          .copyWith(inFavorites: false);
+                            child: Builder(
+                              builder: (context) {
+                                final item = catalogList[index];
+                                final favItemState = context.select(
+                                    (FavoriteProfileCubit cubit) => cubit.state
+                                        .getItem(item.catalogItemId));
 
-                                      setState(() {
-                                        indexList = index;
-                                      });
-                                    } else {
-                                      BlocProvider.of<FavoriteItemBloc>(context)
-                                          .add(
-                                              FavoriteItemEvent.addFavoriteItem(
-                                                  FavoriteModel(
+                                final inFavorites = favItemState.first;
+                                debugPrint(
+                                    "${item.catalogItemId} => $inFavorites");
+                                final profileFavoriteItemId =
+                                    favItemState.second?.profileFavoriteItemId;
+
+                                return IconButton(
+                                  icon: Image.asset(
+                                    inFavorites
+                                        ? "assets/images/Favorite.png"
+                                        : "assets/images/UnFavorite.png",
+                                    scale: 3.5,
+                                  ),
+                                  onPressed: () async {
+                                    setState(() {
+                                      if (isLogged) {
+                                        if (inFavorites) {
+                                          BlocProvider.of<FavoriteItemBloc>(
+                                                  context)
+                                              .add(FavoriteItemEvent
+                                                  .removeFavoriteItem(
+                                                      FavoriteModel(
+                                                          favoritesItemAction:
+                                                              "DELETE",
+                                                          profileFavoriteItems: [
+                                                FavoriteItemModel(
+                                                    profileFavoriteItemId:
+                                                        profileFavoriteItemId,
+                                                    catalogItemId:
+                                                        catalogList[index]
+                                                            .catalogItemId)
+                                              ])));
+                                          catalogList[index] =
+                                              catalogList[index]
+                                                  .copyWith(inFavorites: false);
+
+                                          setState(() {
+                                            indexList = index;
+                                          });
+                                        } else {
+                                          BlocProvider.of<FavoriteItemBloc>(
+                                                  context)
+                                              .add(FavoriteItemEvent
+                                                  .addFavoriteItem(FavoriteModel(
                                                       favoritesItemAction:
                                                           "ADD",
                                                       profileFavoriteItems: [
-                                            FavoriteItemModel(
-                                                catalogItemId:
-                                                    catalogList[index]
-                                                        .catalogItemId)
-                                          ])));
-                                      catalogList[index] = catalogList[index]
-                                          .copyWith(inFavorites: true);
+                                                FavoriteItemModel(
+                                                    catalogItemId:
+                                                        catalogList[index]
+                                                            .catalogItemId)
+                                              ])));
+                                          catalogList[index] =
+                                              catalogList[index]
+                                                  .copyWith(inFavorites: true);
 
-                                      setState(() {
-                                        indexList = index;
-                                      });
-                                      onChangeFavoriteAnimation(index);
-                                    }
-                                    getIt<FavoriteProfileCubit>().loadResults();
-                                  } else {
-                                    Navigator.of(context, rootNavigator: true)
-                                        .push(CreateAccountPage.route());
-                                  }
-                                });
+                                          setState(() {
+                                            indexList = index;
+                                          });
+                                          onChangeFavoriteAnimation(index);
+                                        }
+                                      } else {
+                                        Navigator.of(context,
+                                                rootNavigator: true)
+                                            .push(CreateAccountPage.route());
+                                      }
+                                    });
+                                  },
+                                );
                               },
                             ),
                           ))
