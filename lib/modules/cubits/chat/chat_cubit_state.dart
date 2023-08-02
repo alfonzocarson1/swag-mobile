@@ -9,5 +9,5 @@ class ChatState with _$ChatState {
   const factory ChatState.loadedChatChannels(List<GroupChannel> channels) =  ChatChannelsLoaded;
   const factory ChatState.hasUnreadMessages(bool hasUnreadMessages, int unreadMessageCount) = HasUnreadMessages;   
   const factory ChatState.error(String errorMessage) = ChatsError;
-  const factory ChatState.loadingFile(int sentBytes, int totalBytes) = LoadingFile;
+  const factory ChatState.loadingFile(int sentBytes, int totalBytes, String messageId) = LoadingFile;
 }

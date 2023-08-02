@@ -25,7 +25,8 @@ mixin _$ChatState {
     required TResult Function(bool hasUnreadMessages, int unreadMessageCount)
         hasUnreadMessages,
     required TResult Function(String errorMessage) error,
-    required TResult Function(int sentBytes, int totalBytes) loadingFile,
+    required TResult Function(int sentBytes, int totalBytes, String messageId)
+        loadingFile,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -37,7 +38,8 @@ mixin _$ChatState {
     TResult? Function(bool hasUnreadMessages, int unreadMessageCount)?
         hasUnreadMessages,
     TResult? Function(String errorMessage)? error,
-    TResult? Function(int sentBytes, int totalBytes)? loadingFile,
+    TResult? Function(int sentBytes, int totalBytes, String messageId)?
+        loadingFile,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -49,7 +51,8 @@ mixin _$ChatState {
     TResult Function(bool hasUnreadMessages, int unreadMessageCount)?
         hasUnreadMessages,
     TResult Function(String errorMessage)? error,
-    TResult Function(int sentBytes, int totalBytes)? loadingFile,
+    TResult Function(int sentBytes, int totalBytes, String messageId)?
+        loadingFile,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -150,7 +153,8 @@ class _$_Initial implements _Initial {
     required TResult Function(bool hasUnreadMessages, int unreadMessageCount)
         hasUnreadMessages,
     required TResult Function(String errorMessage) error,
-    required TResult Function(int sentBytes, int totalBytes) loadingFile,
+    required TResult Function(int sentBytes, int totalBytes, String messageId)
+        loadingFile,
   }) {
     return initial();
   }
@@ -165,7 +169,8 @@ class _$_Initial implements _Initial {
     TResult? Function(bool hasUnreadMessages, int unreadMessageCount)?
         hasUnreadMessages,
     TResult? Function(String errorMessage)? error,
-    TResult? Function(int sentBytes, int totalBytes)? loadingFile,
+    TResult? Function(int sentBytes, int totalBytes, String messageId)?
+        loadingFile,
   }) {
     return initial?.call();
   }
@@ -180,7 +185,8 @@ class _$_Initial implements _Initial {
     TResult Function(bool hasUnreadMessages, int unreadMessageCount)?
         hasUnreadMessages,
     TResult Function(String errorMessage)? error,
-    TResult Function(int sentBytes, int totalBytes)? loadingFile,
+    TResult Function(int sentBytes, int totalBytes, String messageId)?
+        loadingFile,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -285,7 +291,8 @@ class _$ChatsLoading implements ChatsLoading {
     required TResult Function(bool hasUnreadMessages, int unreadMessageCount)
         hasUnreadMessages,
     required TResult Function(String errorMessage) error,
-    required TResult Function(int sentBytes, int totalBytes) loadingFile,
+    required TResult Function(int sentBytes, int totalBytes, String messageId)
+        loadingFile,
   }) {
     return loadingChats();
   }
@@ -300,7 +307,8 @@ class _$ChatsLoading implements ChatsLoading {
     TResult? Function(bool hasUnreadMessages, int unreadMessageCount)?
         hasUnreadMessages,
     TResult? Function(String errorMessage)? error,
-    TResult? Function(int sentBytes, int totalBytes)? loadingFile,
+    TResult? Function(int sentBytes, int totalBytes, String messageId)?
+        loadingFile,
   }) {
     return loadingChats?.call();
   }
@@ -315,7 +323,8 @@ class _$ChatsLoading implements ChatsLoading {
     TResult Function(bool hasUnreadMessages, int unreadMessageCount)?
         hasUnreadMessages,
     TResult Function(String errorMessage)? error,
-    TResult Function(int sentBytes, int totalBytes)? loadingFile,
+    TResult Function(int sentBytes, int totalBytes, String messageId)?
+        loadingFile,
     required TResult orElse(),
   }) {
     if (loadingChats != null) {
@@ -452,7 +461,8 @@ class _$ChatsLoaded implements ChatsLoaded {
     required TResult Function(bool hasUnreadMessages, int unreadMessageCount)
         hasUnreadMessages,
     required TResult Function(String errorMessage) error,
-    required TResult Function(int sentBytes, int totalBytes) loadingFile,
+    required TResult Function(int sentBytes, int totalBytes, String messageId)
+        loadingFile,
   }) {
     return loadedChats(messages);
   }
@@ -467,7 +477,8 @@ class _$ChatsLoaded implements ChatsLoaded {
     TResult? Function(bool hasUnreadMessages, int unreadMessageCount)?
         hasUnreadMessages,
     TResult? Function(String errorMessage)? error,
-    TResult? Function(int sentBytes, int totalBytes)? loadingFile,
+    TResult? Function(int sentBytes, int totalBytes, String messageId)?
+        loadingFile,
   }) {
     return loadedChats?.call(messages);
   }
@@ -482,7 +493,8 @@ class _$ChatsLoaded implements ChatsLoaded {
     TResult Function(bool hasUnreadMessages, int unreadMessageCount)?
         hasUnreadMessages,
     TResult Function(String errorMessage)? error,
-    TResult Function(int sentBytes, int totalBytes)? loadingFile,
+    TResult Function(int sentBytes, int totalBytes, String messageId)?
+        loadingFile,
     required TResult orElse(),
   }) {
     if (loadedChats != null) {
@@ -626,7 +638,8 @@ class _$ChatChannelsLoaded implements ChatChannelsLoaded {
     required TResult Function(bool hasUnreadMessages, int unreadMessageCount)
         hasUnreadMessages,
     required TResult Function(String errorMessage) error,
-    required TResult Function(int sentBytes, int totalBytes) loadingFile,
+    required TResult Function(int sentBytes, int totalBytes, String messageId)
+        loadingFile,
   }) {
     return loadedChatChannels(channels);
   }
@@ -641,7 +654,8 @@ class _$ChatChannelsLoaded implements ChatChannelsLoaded {
     TResult? Function(bool hasUnreadMessages, int unreadMessageCount)?
         hasUnreadMessages,
     TResult? Function(String errorMessage)? error,
-    TResult? Function(int sentBytes, int totalBytes)? loadingFile,
+    TResult? Function(int sentBytes, int totalBytes, String messageId)?
+        loadingFile,
   }) {
     return loadedChatChannels?.call(channels);
   }
@@ -656,7 +670,8 @@ class _$ChatChannelsLoaded implements ChatChannelsLoaded {
     TResult Function(bool hasUnreadMessages, int unreadMessageCount)?
         hasUnreadMessages,
     TResult Function(String errorMessage)? error,
-    TResult Function(int sentBytes, int totalBytes)? loadingFile,
+    TResult Function(int sentBytes, int totalBytes, String messageId)?
+        loadingFile,
     required TResult orElse(),
   }) {
     if (loadedChatChannels != null) {
@@ -804,7 +819,8 @@ class _$HasUnreadMessages implements HasUnreadMessages {
     required TResult Function(bool hasUnreadMessages, int unreadMessageCount)
         hasUnreadMessages,
     required TResult Function(String errorMessage) error,
-    required TResult Function(int sentBytes, int totalBytes) loadingFile,
+    required TResult Function(int sentBytes, int totalBytes, String messageId)
+        loadingFile,
   }) {
     return hasUnreadMessages(this.hasUnreadMessages, unreadMessageCount);
   }
@@ -819,7 +835,8 @@ class _$HasUnreadMessages implements HasUnreadMessages {
     TResult? Function(bool hasUnreadMessages, int unreadMessageCount)?
         hasUnreadMessages,
     TResult? Function(String errorMessage)? error,
-    TResult? Function(int sentBytes, int totalBytes)? loadingFile,
+    TResult? Function(int sentBytes, int totalBytes, String messageId)?
+        loadingFile,
   }) {
     return hasUnreadMessages?.call(this.hasUnreadMessages, unreadMessageCount);
   }
@@ -834,7 +851,8 @@ class _$HasUnreadMessages implements HasUnreadMessages {
     TResult Function(bool hasUnreadMessages, int unreadMessageCount)?
         hasUnreadMessages,
     TResult Function(String errorMessage)? error,
-    TResult Function(int sentBytes, int totalBytes)? loadingFile,
+    TResult Function(int sentBytes, int totalBytes, String messageId)?
+        loadingFile,
     required TResult orElse(),
   }) {
     if (hasUnreadMessages != null) {
@@ -974,7 +992,8 @@ class _$ChatsError implements ChatsError {
     required TResult Function(bool hasUnreadMessages, int unreadMessageCount)
         hasUnreadMessages,
     required TResult Function(String errorMessage) error,
-    required TResult Function(int sentBytes, int totalBytes) loadingFile,
+    required TResult Function(int sentBytes, int totalBytes, String messageId)
+        loadingFile,
   }) {
     return error(errorMessage);
   }
@@ -989,7 +1008,8 @@ class _$ChatsError implements ChatsError {
     TResult? Function(bool hasUnreadMessages, int unreadMessageCount)?
         hasUnreadMessages,
     TResult? Function(String errorMessage)? error,
-    TResult? Function(int sentBytes, int totalBytes)? loadingFile,
+    TResult? Function(int sentBytes, int totalBytes, String messageId)?
+        loadingFile,
   }) {
     return error?.call(errorMessage);
   }
@@ -1004,7 +1024,8 @@ class _$ChatsError implements ChatsError {
     TResult Function(bool hasUnreadMessages, int unreadMessageCount)?
         hasUnreadMessages,
     TResult Function(String errorMessage)? error,
-    TResult Function(int sentBytes, int totalBytes)? loadingFile,
+    TResult Function(int sentBytes, int totalBytes, String messageId)?
+        loadingFile,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -1075,7 +1096,7 @@ abstract class _$$LoadingFileCopyWith<$Res> {
           _$LoadingFile value, $Res Function(_$LoadingFile) then) =
       __$$LoadingFileCopyWithImpl<$Res>;
   @useResult
-  $Res call({int sentBytes, int totalBytes});
+  $Res call({int sentBytes, int totalBytes, String messageId});
 }
 
 /// @nodoc
@@ -1091,6 +1112,7 @@ class __$$LoadingFileCopyWithImpl<$Res>
   $Res call({
     Object? sentBytes = null,
     Object? totalBytes = null,
+    Object? messageId = null,
   }) {
     return _then(_$LoadingFile(
       null == sentBytes
@@ -1101,6 +1123,10 @@ class __$$LoadingFileCopyWithImpl<$Res>
           ? _value.totalBytes
           : totalBytes // ignore: cast_nullable_to_non_nullable
               as int,
+      null == messageId
+          ? _value.messageId
+          : messageId // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -1108,16 +1134,18 @@ class __$$LoadingFileCopyWithImpl<$Res>
 /// @nodoc
 
 class _$LoadingFile implements LoadingFile {
-  const _$LoadingFile(this.sentBytes, this.totalBytes);
+  const _$LoadingFile(this.sentBytes, this.totalBytes, this.messageId);
 
   @override
   final int sentBytes;
   @override
   final int totalBytes;
+  @override
+  final String messageId;
 
   @override
   String toString() {
-    return 'ChatState.loadingFile(sentBytes: $sentBytes, totalBytes: $totalBytes)';
+    return 'ChatState.loadingFile(sentBytes: $sentBytes, totalBytes: $totalBytes, messageId: $messageId)';
   }
 
   @override
@@ -1128,11 +1156,14 @@ class _$LoadingFile implements LoadingFile {
             (identical(other.sentBytes, sentBytes) ||
                 other.sentBytes == sentBytes) &&
             (identical(other.totalBytes, totalBytes) ||
-                other.totalBytes == totalBytes));
+                other.totalBytes == totalBytes) &&
+            (identical(other.messageId, messageId) ||
+                other.messageId == messageId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, sentBytes, totalBytes);
+  int get hashCode =>
+      Object.hash(runtimeType, sentBytes, totalBytes, messageId);
 
   @JsonKey(ignore: true)
   @override
@@ -1150,9 +1181,10 @@ class _$LoadingFile implements LoadingFile {
     required TResult Function(bool hasUnreadMessages, int unreadMessageCount)
         hasUnreadMessages,
     required TResult Function(String errorMessage) error,
-    required TResult Function(int sentBytes, int totalBytes) loadingFile,
+    required TResult Function(int sentBytes, int totalBytes, String messageId)
+        loadingFile,
   }) {
-    return loadingFile(sentBytes, totalBytes);
+    return loadingFile(sentBytes, totalBytes, messageId);
   }
 
   @override
@@ -1165,9 +1197,10 @@ class _$LoadingFile implements LoadingFile {
     TResult? Function(bool hasUnreadMessages, int unreadMessageCount)?
         hasUnreadMessages,
     TResult? Function(String errorMessage)? error,
-    TResult? Function(int sentBytes, int totalBytes)? loadingFile,
+    TResult? Function(int sentBytes, int totalBytes, String messageId)?
+        loadingFile,
   }) {
-    return loadingFile?.call(sentBytes, totalBytes);
+    return loadingFile?.call(sentBytes, totalBytes, messageId);
   }
 
   @override
@@ -1180,11 +1213,12 @@ class _$LoadingFile implements LoadingFile {
     TResult Function(bool hasUnreadMessages, int unreadMessageCount)?
         hasUnreadMessages,
     TResult Function(String errorMessage)? error,
-    TResult Function(int sentBytes, int totalBytes)? loadingFile,
+    TResult Function(int sentBytes, int totalBytes, String messageId)?
+        loadingFile,
     required TResult orElse(),
   }) {
     if (loadingFile != null) {
-      return loadingFile(sentBytes, totalBytes);
+      return loadingFile(sentBytes, totalBytes, messageId);
     }
     return orElse();
   }
@@ -1237,11 +1271,13 @@ class _$LoadingFile implements LoadingFile {
 }
 
 abstract class LoadingFile implements ChatState {
-  const factory LoadingFile(final int sentBytes, final int totalBytes) =
+  const factory LoadingFile(
+          final int sentBytes, final int totalBytes, final String messageId) =
       _$LoadingFile;
 
   int get sentBytes;
   int get totalBytes;
+  String get messageId;
   @JsonKey(ignore: true)
   _$$LoadingFileCopyWith<_$LoadingFile> get copyWith =>
       throw _privateConstructorUsedError;
