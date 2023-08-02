@@ -201,12 +201,54 @@ class _AlertPageState extends State<AlertPage> {
                                       getIt<AlertCubit>().readAlert(
                                           item.notificationAlertId ?? '');
 
+                                      if (item.payload!.listingStatus ==
+                                          ListingStatusDataType
+                                              .pendingSellerConfirmation
+                                              .textValue) {
+                                        Navigator.of(context,
+                                                rootNavigator: true)
+                                            .push(MaterialPageRoute(
+                                                builder: (context) =>
+                                                    BuyPreviewPage(
+                                                      productItemId: item
+                                                          .payload!
+                                                          .productItemId,
+                                                    )));
+                                      }
+
                                       if (item.typeNotification ==
-                                              ChatType.notifyMessageBuyFlow
-                                                  .textValue &&
-                                          item.payload!.dateItemShipped ==
-                                              null &&
-                                          item.payload!.listingStatus == null) {
+                                              ChatType.notifyMe.textValue &&
+                                          item.payload!.listingStatus ==
+                                              ListingStatusDataType
+                                                  .listed.textValue) {
+                                        Navigator.of(context,
+                                                rootNavigator: true)
+                                            .push(MaterialPageRoute(
+                                                builder: (context) =>
+                                                    BuyPreviewPage(
+                                                      productItemId: item
+                                                          .payload!
+                                                          .productItemId,
+                                                    )));
+                                      }
+
+                                      if (item.payload!.listingStatus ==
+                                              ListingStatusDataType
+                                                  .paid.textValue ||
+                                          item.payload!.listingStatus ==
+                                              ListingStatusDataType
+                                                  .pendingPayment.textValue ||
+                                          item.payload!.listingStatus ==
+                                              ListingStatusDataType.paymentReceived
+                                                  .textValue ||
+                                          item.payload!.listingStatus ==
+                                              ListingStatusDataType
+                                                  .shipped.textValue ||
+                                          (item.typeNotification !=
+                                                  ChatType.notifyMe.textValue &&
+                                              item.payload!.listingStatus ==
+                                                  ListingStatusDataType
+                                                      .listed.textValue)) {
                                         String productItemId =
                                             item.payload!.productItemId ?? "";
                                         String listingImageUrl =
@@ -219,24 +261,42 @@ class _AlertPageState extends State<AlertPage> {
                                                 listingImageUrl);
                                         Loading.show(context);
                                         onTapSubmit(channelUrl);
-                                      } else if ((item.typeNotification ==
-                                                  ChatType
-                                                      .notifySale.textValue ||
-                                              item.typeNotification ==
-                                                  ChatType
-                                                      .notifyMe.textValue) &&
-                                          item.payload!.dateItemShipped ==
-                                              null &&
-                                          item.payload!.listingStatus == null) {
+                                      }
+
+                                      if (item.payload!.listingStatus ==
+                                          ListingStatusDataType
+                                              .received.textValue) {
                                         Navigator.of(context,
                                                 rootNavigator: true)
                                             .push(MaterialPageRoute(
                                                 builder: (context) =>
-                                                    BuyPreviewPage(
+                                                    SoldDetailPage(
                                                       productItemId: item
-                                                          .payload!
-                                                          .productItemId,
+                                                              .payload!
+                                                              .productItemId ??
+                                                          '',
                                                     )));
+
+                                        await Future.delayed(
+                                            const Duration(milliseconds: 1000),
+                                            () {});
+                                        showDialog(
+                                            context: context,
+                                            barrierDismissible: false,
+                                            builder: (BuildContext context) {
+                                              return RatingBuyer(
+                                                productItemId: item.payload!
+                                                        .productItemId ??
+                                                    '',
+                                                purchaseHistoryId: item.payload!
+                                                        .purchaseHistoryId ??
+                                                    '',
+                                                userName:
+                                                    item.payload!.userName ??
+                                                        '',
+                                                seller: true,
+                                              );
+                                            });
                                       }
 
                                       if (item.payload!.dateItemShipped !=
@@ -269,57 +329,6 @@ class _AlertPageState extends State<AlertPage> {
                                                 itemName:
                                                     item.payload!.itemName ??
                                                         '',
-                                              );
-                                            });
-                                      }
-
-                                      if (item.payload!.listingStatus ==
-                                          ListingStatusDataType
-                                              .listed.textValue) {
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .push(MaterialPageRoute(
-                                                builder: (context) =>
-                                                    BuyPreviewPage(
-                                                      productItemId: item
-                                                          .payload!
-                                                          .productItemId,
-                                                    )));
-                                      }
-
-                                      if (item.payload!.listingStatus != null &&
-                                          item.payload!.listingStatus !=
-                                              ListingStatusDataType
-                                                  .listed.textValue) {
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .push(MaterialPageRoute(
-                                                builder: (context) =>
-                                                    SoldDetailPage(
-                                                      productItemId: item
-                                                              .payload!
-                                                              .productItemId ??
-                                                          '',
-                                                    )));
-
-                                        await Future.delayed(
-                                            const Duration(milliseconds: 1000),
-                                            () {});
-                                        showDialog(
-                                            context: context,
-                                            barrierDismissible: false,
-                                            builder: (BuildContext context) {
-                                              return RatingBuyer(
-                                                productItemId: item.payload!
-                                                        .productItemId ??
-                                                    '',
-                                                purchaseHistoryId: item.payload!
-                                                        .purchaseHistoryId ??
-                                                    '',
-                                                userName:
-                                                    item.payload!.userName ??
-                                                        '',
-                                                seller: true,
                                               );
                                             });
                                       }

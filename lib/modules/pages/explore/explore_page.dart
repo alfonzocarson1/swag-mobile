@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/data/filters/filters_service.dart';
 import 'package:swagapp/modules/models/filters/dynamic_filters.dart';
+import 'package:swagapp/modules/pages/explore/atomic_drop_banner.dart';
 import ' shop_by_category_page.dart';
 import '../../common/ui/custom_app_bar.dart';
 import '../../common/utils/custom_route_animations.dart';
@@ -106,6 +107,10 @@ class _ExplorePageState extends State<ExplorePage>  {
                       padding: EdgeInsets.only(top: _isLogged ? 50 : 0),
                       child: Column(
                         children: [
+                          Container(
+                            height: MediaQuery.of(context).size.height * 0.35,
+                            child: const AtomicDropBanner(),
+                          ),
                           ShopByCategory(
                             pageFromExplore: () {
                               widget.pageFromExplore();

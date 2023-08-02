@@ -3,6 +3,7 @@ enum ListingStatusDataType {
   pendingPayment('pendingPayment'),
   paid('paid'),
   paymentReceived('paymentReceived'),
+  pendingSellerConfirmation('pendingSellerConfirmation'),
   shipped('shipped'),
   received('received');
 
