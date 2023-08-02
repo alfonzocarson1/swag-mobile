@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
 import 'package:swagapp/modules/common/assets/icons.dart';
+import 'package:swagapp/modules/common/ui/simple_loader.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/enums/chat_type.dart';
 import 'package:swagapp/modules/pages/chat/widgets/chat_popup_menu.dart';
@@ -23,7 +24,7 @@ import '../../enums/chat_message_data_type.dart';
 import '../../models/chat/channel_data.dart';
 import '../../models/chat/chat_data.dart';
 import '../../models/chat/message_data.dart';
-import '../../models/chat/message_file_status.dart';
+
 import '../../models/profile/profile_model.dart';
 import 'widgets/chat_card_message.dart';
 import 'widgets/chat_commence_banner.dart';
@@ -51,6 +52,7 @@ class _ChatPageState extends State<ChatPage> {
   TextEditingController _textEditingController = TextEditingController();
   late Member otherUser; 
   late ChannelData channelMetaData;
+  String loadingFileId ="";
 
   @override
   void initState() {
@@ -140,15 +142,26 @@ class _ChatPageState extends State<ChatPage> {
           ),
         ),
       ),
-      body: BlocBuilder<ChatCubit, ChatState>(
+      body: BlocConsumer<ChatCubit, ChatState>(
+        listenWhen: (previous, current) => current is LoadingFile,
+        listener: (context, state) {
+          state.maybeWhen(
+            loadingFile: (sentBytes, totalBytes, messageId) {
+              loadingFileId = messageId;
+            },
+            orElse: () => null,);
+        },
+
         buildWhen: (previous, current) {
           return current is! ChatsLoading &&
               current is! ChatChannelsLoaded &&
-              current is! HasUnreadMessages && current is !LoadingFile;
+              current is! HasUnreadMessages ;
+              //&& current is !LoadingFile;
         },
         builder: (context, state) {
           return state.maybeWhen(
               initial: () => const Center(child: Text('Welcome to the chat')),
+              loadingFile: (sentBytes, totalBytes, messageId) => const SimpleLoader(),
               loadedChats: (List<BaseMessage> messages) {
                 messagesList = messages;
                 chatMessages = messagesList.map((chatMessage) {
@@ -164,7 +177,7 @@ class _ChatPageState extends State<ChatPage> {
                         fileName: fileMessage.name ?? "",
                         type: (fileMessage.type!.contains("image/jpeg"))
                             ? MediaType.image
-                            : (fileMessage.type!.contains("video/mp4"))
+                            : (fileMessage.type!.contains("video/mp4") || fileMessage.type!.contains("video/quicktime"))
                                 ? MediaType.video
                                 : MediaType.file);
                   }else{
@@ -240,8 +253,8 @@ class _ChatPageState extends State<ChatPage> {
                           : [
                               IconButton(
                                   onPressed: () {
-                                    // Navigator.of(context).push(MaterialPageRoute(
-                                    //     builder: (context) => const CameraPage()));
+                                    Navigator.of(context).push(MaterialPageRoute(
+                                        builder: (context) =>  ChatCamera(channel:  widget.channel,)));
                                   },
                                   icon: Image.asset(AppIcons.chatCamera)),
                               IconButton(
@@ -367,6 +380,7 @@ class _ChatPageState extends State<ChatPage> {
             message: message,
             user: user,
             otherUser: otherUser.nickname,
+            isFileLoading: false,
             fileUrl: message.medias!.first.url,
             mediaType: message.medias!.first.type,
           ) : const Center(child: CircularProgressIndicator(),);  
