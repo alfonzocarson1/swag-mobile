@@ -5,8 +5,8 @@ const createCustomerUrl = 'https://api.stripe.com/v1/customers';
 const attachPaymentMethodUrl = 'https://api.stripe.com/v1/payment_methods/';
 const createCardTokenUrl = 'https://api.stripe.com/v1/tokens';
 const paymentMethodAndType = 'payment_methods?type=card';
-const addPaymentMethod =
-    'http://orchestration.dev.swag.kuldisak.net:8080/api/v1/profile/settings/addPaymentMethod/';
+// const addPaymentMethod =
+//     'http://orchestration.dev.swag.kuldisak.net:8080/api/v1/profile/settings/addPaymentMethod/';
 
 // CARD ERRORS
 const INVALID_CARD = 'incorrect_number';

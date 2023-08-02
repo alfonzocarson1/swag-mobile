@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dash_chat_2/dash_chat_2.dart';
@@ -48,12 +49,14 @@ class _ChatPageState extends State<ChatPage> {
   FocusNode _focusNode = FocusNode();
   TextEditingController _textEditingController = TextEditingController();
   late Member seller; 
+  late ChannelData channelMetaData;
 
   @override
   void initState() {
     super.initState();
     this.loadPushNotifications();
     channelDataString = widget.channel.data;
+    channelMetaData= ChannelData.fromJson(SendBirdUtils.getFormatedData(channelDataString));
     getIt<ChatCubit>().loadMessages(widget.channel);
     this.userSendbirdiId =
         getIt<PreferenceRepositoryService>().getUserSendBirdId();
@@ -125,8 +128,15 @@ class _ChatPageState extends State<ChatPage> {
         // foregroundColor: Palette.current.greyMessage,
         backgroundColor: Palette.current.blackAppbarBlackground,
         title: Text(
-          '$userName, ${seller.nickname}, and $swagBotNickName ',
-          style: TextStyle(color: Palette.current.primaryWhiteSmoke),
+         (widget.channel.customType == ChatType.listing.textValue) ? '@$userName, @${seller.nickname}, and $swagBotNickName ':
+         '@${this.channelMetaData.sellerUsername} ${this.channelMetaData.listingProductName}',
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+          fontFamily: 'Ringside Regular',
+          fontStyle: FontStyle.normal,
+          fontWeight: FontWeight.w700,
+          
+         color: Palette.current.primaryWhiteSmoke, fontSize: 16
+          ),
         ),
       ),
       body: BlocBuilder<ChatCubit, ChatState>(

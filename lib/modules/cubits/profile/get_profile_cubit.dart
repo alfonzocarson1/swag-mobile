@@ -22,11 +22,30 @@ class ProfileCubit extends Cubit<ProfileCubitState> {
     try {
       ProfileModel responseBody = await profileService.privateProfile();
       getIt<PreferenceRepositoryService>().saveProfileData(responseBody);
+      print(responseBody);
       emit(LoadedProfileDataState(responseBody));
     } catch (error) {
       emit(
         ErrorProfileState(HandlingErrors().getError(error)),
       );
+    }
+  }
+
+  Future<ProfileModel?> getProfil() async {
+    emit(
+      const _Initial(),
+    );
+    try {
+      ProfileModel responseBody = await profileService.privateProfile();
+      getIt<PreferenceRepositoryService>().saveProfileData(responseBody);
+      print(responseBody);
+      emit(LoadedProfileDataState(responseBody));
+      return responseBody;
+    } catch (error) {
+      emit(
+        ErrorProfileState(HandlingErrors().getError(error)),
+      );
+      return null;
     }
   }
 }

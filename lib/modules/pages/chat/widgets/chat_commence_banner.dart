@@ -72,7 +72,7 @@ class _BannerContent extends StatelessWidget {
       child: Column(
         children: <Widget>[
           _BannerTitle(
-            buyerName:(this.isListingChat) ? this.otherUser ?? "" : this.channelData.buyerUsername,
+            buyerName:(this.isListingChat) ? this.channelData.creatorUserName : this.channelData.buyerUsername,
             listingName: this.channelData.listingProductName,
            isListingChat: this.isListingChat),
           const SizedBox(height: 15),

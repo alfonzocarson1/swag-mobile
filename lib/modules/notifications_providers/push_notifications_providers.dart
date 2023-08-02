@@ -58,6 +58,7 @@ class PushNotificationsProvider {
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       print('===== On MessageOpenedApp ======');
       print(message.data);
+
       getIt<ContextService>()
           .rootNavigatorKey
           .currentState!
