@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/generated/l10n.dart';
+import 'package:swagapp/modules/api/api.dart';
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
@@ -1203,13 +1204,16 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
 
   Future<http.Response?> saveCardToken(String cardToken) async {
     http.Response? response;
-    final uri = '$addPaymentMethod$cardToken';
+    final uri = getIt.get<API>().scheme.encodeUri(
+      getIt.get<API>().host,
+      "api/v1/profile/settings/addPaymentMethod/$cardToken",
+    );
     final token = await getIt<StorageRepositoryService>().getToken();
     final headers = {
       "Content-Type": "application/json",
       HttpHeaders.authorizationHeader: 'Bearer $token',
     };
-    response = await http.post(Uri.parse(uri), headers: headers);
+    response = await http.post(uri, headers: headers);
     if (response != null && response.statusCode == 200) {
       debugPrint('Card Token Saved On B.E: ${response.body}');
     } else {
