@@ -25,6 +25,8 @@ import '../../models/alerts/alert_response_model.dart';
 import '../add/buy/preview_buy_for_sale.dart';
 
 import '../chat/chatPage.dart';
+import '../profile/sold/sold_detail_page.dart';
+import '../settings/purchase_history/purchase_history_details/purchase_history_details_page.dart';
 import 'delivered_popup.dart';
 
 class AlertPage extends StatefulWidget {
@@ -195,16 +197,40 @@ class _AlertPageState extends State<AlertPage> {
                                 itemBuilder: (context, index) {
                                   final item = alertList!.alertList[index];
                                   return ListTile(
-                                    onTap: () {
+                                    onTap: () async {
                                       getIt<AlertCubit>().readAlert(
                                           item.notificationAlertId ?? '');
 
-                                      if (item.typeNotification ==
-                                              ChatType.notifyMessageBuyFlow
-                                                  .textValue &&
-                                          item.payload!.dateItemShipped ==
-                                              null &&
-                                          item.payload!.listingStatus == null) {
+                                      if (item.payload!.listingStatus ==
+                                          ListingStatusDataType
+                                              .pendingSellerConfirmation
+                                              .textValue) {
+                                        Navigator.of(context,
+                                                rootNavigator: true)
+                                            .push(MaterialPageRoute(
+                                                builder: (context) =>
+                                                    BuyPreviewPage(
+                                                      productItemId: item
+                                                          .payload!
+                                                          .productItemId,
+                                                    )));
+                                      }
+
+                                      if (item.payload!.listingStatus ==
+                                              ListingStatusDataType
+                                                  .paid.textValue ||
+                                          item.payload!.listingStatus ==
+                                              ListingStatusDataType
+                                                  .pendingPayment.textValue ||
+                                          item.payload!.listingStatus ==
+                                              ListingStatusDataType.paymentReceived
+                                                  .textValue ||
+                                          item.payload!.listingStatus ==
+                                              ListingStatusDataType
+                                                  .shipped.textValue ||
+                                          item.payload!.listingStatus ==
+                                              ListingStatusDataType
+                                                  .listed.textValue) {
                                         String productItemId =
                                             item.payload!.productItemId ?? "";
                                         String listingImageUrl =
@@ -217,67 +243,25 @@ class _AlertPageState extends State<AlertPage> {
                                                 listingImageUrl);
                                         Loading.show(context);
                                         onTapSubmit(channelUrl);
-                                      } else if ((item.typeNotification ==
-                                                  ChatType
-                                                      .notifySale.textValue ||
-                                              item.typeNotification ==
-                                                  ChatType
-                                                      .notifyMe.textValue) &&
-                                          item.payload!.dateItemShipped ==
-                                              null &&
-                                          item.payload!.listingStatus == null) {
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .push(MaterialPageRoute(
-                                                builder: (context) =>
-                                                    BuyPreviewPage(
-                                                      productItemId: item
-                                                          .payload!
-                                                          .productItemId,
-                                                    )));
-                                      }
-
-                                      if (item.payload!.dateItemShipped !=
-                                          null) {
-                                        showDialog(
-                                            context: context,
-                                            barrierDismissible: false,
-                                            builder: (BuildContext context) {
-                                              return DeliveredPopUp(
-                                                userName:
-                                                    item.payload!.userName ??
-                                                        '',
-                                                productItemId: item.payload!
-                                                        .productItemId ??
-                                                    '',
-                                                purchaseHistoryId: item.payload!
-                                                        .purchaseHistoryId ??
-                                                    '',
-                                                itemName:
-                                                    item.payload?.itemName ??
-                                                        '',
-                                              );
-                                            });
                                       }
 
                                       if (item.payload!.listingStatus ==
                                           ListingStatusDataType
-                                              .listed.textValue) {
+                                              .received.textValue) {
                                         Navigator.of(context,
                                                 rootNavigator: true)
                                             .push(MaterialPageRoute(
                                                 builder: (context) =>
-                                                    BuyPreviewPage(
+                                                    SoldDetailPage(
                                                       productItemId: item
-                                                          .payload!
-                                                          .productItemId,
+                                                              .payload!
+                                                              .productItemId ??
+                                                          '',
                                                     )));
-                                      }
 
-                                      if (item.payload!.listingStatus != null &&
-                                          item.payload!.listingStatus !=
-                                              ListingStatusDataType
-                                                  .listed.textValue) {
+                                        await Future.delayed(
+                                            const Duration(milliseconds: 1000),
+                                            () {});
                                         showDialog(
                                             context: context,
                                             barrierDismissible: false,
@@ -293,6 +277,40 @@ class _AlertPageState extends State<AlertPage> {
                                                     item.payload!.userName ??
                                                         '',
                                                 seller: true,
+                                              );
+                                            });
+                                      }
+
+                                      if (item.payload!.dateItemShipped !=
+                                          null) {
+                                        Navigator.of(context,
+                                                rootNavigator: true)
+                                            .push(PurchaseHistoryDetailsPage
+                                                .route(item.payload!
+                                                        .purchaseHistoryId ??
+                                                    ''));
+
+                                        await Future.delayed(
+                                            const Duration(milliseconds: 1000),
+                                            () {});
+
+                                        showDialog(
+                                            context: context,
+                                            barrierDismissible: false,
+                                            builder: (BuildContext context) {
+                                              return DeliveredPopUp(
+                                                userName:
+                                                    item.payload!.userName ??
+                                                        '',
+                                                productItemId: item.payload!
+                                                        .productItemId ??
+                                                    '',
+                                                purchaseHistoryId: item.payload!
+                                                        .purchaseHistoryId ??
+                                                    '',
+                                                itemName:
+                                                    item.payload!.itemName ??
+                                                        '',
                                               );
                                             });
                                       }
