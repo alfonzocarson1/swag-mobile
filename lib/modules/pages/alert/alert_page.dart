@@ -216,6 +216,22 @@ class _AlertPageState extends State<AlertPage> {
                                                     )));
                                       }
 
+                                      if (item.typeNotification ==
+                                              ChatType.notifyMe.textValue &&
+                                          item.payload!.listingStatus ==
+                                              ListingStatusDataType
+                                                  .listed.textValue) {
+                                        Navigator.of(context,
+                                                rootNavigator: true)
+                                            .push(MaterialPageRoute(
+                                                builder: (context) =>
+                                                    BuyPreviewPage(
+                                                      productItemId: item
+                                                          .payload!
+                                                          .productItemId,
+                                                    )));
+                                      }
+
                                       if (item.payload!.listingStatus ==
                                               ListingStatusDataType
                                                   .paid.textValue ||
@@ -228,9 +244,11 @@ class _AlertPageState extends State<AlertPage> {
                                           item.payload!.listingStatus ==
                                               ListingStatusDataType
                                                   .shipped.textValue ||
-                                          item.payload!.listingStatus ==
-                                              ListingStatusDataType
-                                                  .listed.textValue) {
+                                          (item.typeNotification !=
+                                                  ChatType.notifyMe.textValue &&
+                                              item.payload!.listingStatus ==
+                                                  ListingStatusDataType
+                                                      .listed.textValue)) {
                                         String productItemId =
                                             item.payload!.productItemId ?? "";
                                         String listingImageUrl =
