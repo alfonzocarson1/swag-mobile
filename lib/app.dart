@@ -18,6 +18,7 @@ import 'modules/common/utils/palette.dart';
 import 'modules/common/utils/theme.dart';
 import 'modules/di/injector.dart';
 import 'modules/pages/splash/splash_page.dart';
+import 'modules/services/route_observer.dart';
 
 class App extends StatefulWidget {
   App({Key? key}) : super(key: key);
@@ -72,9 +73,12 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
+
+  
     return MultiBlocProvider(
         providers: AppBlocs.blocs(context),
         child: MaterialApp(
+          navigatorObservers: [getIt<RouteTracker>()],
           navigatorKey: getIt<ContextService>().rootNavigatorKey,
           debugShowCheckedModeBanner: false,
           theme: appTheme(LightPalette()),

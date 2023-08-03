@@ -21,6 +21,7 @@ import '../../models/alerts/alerts_model.dart';
 import '../../models/chat/chat_data.dart';
 import '../../models/profile/profile_model.dart';
 import '../../services/firebase_manager.dart';
+import '../../services/route_observer.dart';
 import '../alert/alert_cubit.dart';
 
 part 'chat_cubit_state.dart';
@@ -357,6 +358,12 @@ class MyGroupChannelHandler extends GroupChannelHandler {
     //print(message);
     ProfileModel profileData =
         getIt<PreferenceRepositoryService>().profileData();
+
+    try{
+     String? currentRoute = getIt<RouteTracker>().currentRoute;
+    }catch (e){
+      debugPrint(e.toString());
+    }
 
     messages.add(message);
     //getIt<ChatCubit>().loadGroupChannels();
