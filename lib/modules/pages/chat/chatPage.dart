@@ -93,7 +93,8 @@ void didChangeDependencies() {
        Navigator.of(context).push(MaterialPageRoute(
                                         builder: (context) =>  ChatCamera(channel:  widget.channel,)));
 
-  } else if(cameraPermissionStatus.isPermanentlyDenied){
+  }
+  else if(cameraPermissionStatus.isPermanentlyDenied || cameraPermissionStatus.isDenied){
      await showDialog(
       context: context,
       builder: (context) => const GrantPermissionDialog(
@@ -101,14 +102,18 @@ void didChangeDependencies() {
       ),
     );
   }
-  else if(microphonePermissionStatus.isPermanentlyDenied){
+  else if(microphonePermissionStatus.isPermanentlyDenied || microphonePermissionStatus.isDenied){
      await showDialog(
       context: context,
       builder: (context) => const GrantPermissionDialog(
         type: GrantPermissionDialogType.microphone,
       ),
     );
-  }  }
+  }else{
+    debugPrint("----------");
+  }  
+  
+  }
 
   Future<void> loadPushNotifications() async {
     if (Platform.isIOS) {
