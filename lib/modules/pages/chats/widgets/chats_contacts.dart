@@ -125,6 +125,7 @@ class _ChatsContactState extends State<ChatsContact> {
         context,
         MaterialPageRoute(
           builder: (BuildContext context) => ChatPage(channel: widget.chatData.channel,),
+          settings: const RouteSettings(name: '/ChatPage')
         ),
       ), 
     );

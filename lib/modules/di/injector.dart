@@ -90,6 +90,7 @@ import '../data/sold/i_sold_service.dart';
 import '../data/sold/sold_service.dart';
 import '../data/update_profile/i_update_profile_service.dart';
 import '../data/update_profile/update_profile_service.dart';
+import '../services/route_observer.dart';
 
 final getIt = GetIt.instance;
 
@@ -103,6 +104,7 @@ Future<void> setupAppScope(String appFlavor) async {
 
   getIt.registerLazySingleton(() => API(getIt()));
   getIt.registerLazySingleton(() => APIService(getIt()));
+  getIt.registerLazySingleton(() => RouteTracker());
 
   getIt.registerLazySingleton(() => PreferenceRepositoryService());
   getIt.registerLazySingleton(() => FiltersService(getIt()));

@@ -13,6 +13,7 @@ import 'package:swagapp/modules/common/ui/simple_loader.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/enums/chat_type.dart';
 import 'package:swagapp/modules/pages/chat/widgets/chat_popup_menu.dart';
+import 'package:swagapp/modules/services/route_observer.dart';
 
 import '../../common/utils/sendbird_utils.dart';
 import '../../constants/constants.dart';
@@ -26,6 +27,7 @@ import '../../models/chat/chat_data.dart';
 import '../../models/chat/message_data.dart';
 
 import '../../models/profile/profile_model.dart';
+import '../../services/route_observer_utils.dart';
 import 'widgets/chat_card_message.dart';
 import 'widgets/chat_commence_banner.dart';
 
@@ -33,6 +35,7 @@ import '../chats/widgets/chat_camera_page.dart';
 import '../chats/widgets/custom_chat_message.dart';
 
 class ChatPage extends StatefulWidget {
+  static const name = '/ChatPage';
   final GroupChannel channel;
 
   ChatPage({required this.channel});
@@ -41,7 +44,7 @@ class ChatPage extends StatefulWidget {
   State<ChatPage> createState() => _ChatPageState();
 }
 
-class _ChatPageState extends State<ChatPage> {
+class _ChatPageState extends State<ChatPage> with RouteAware{
   List<BaseMessage> messages = [];
   late String userSendbirdiId;
   String channelDataString = "";
@@ -71,6 +74,13 @@ class _ChatPageState extends State<ChatPage> {
       setState(() {});
     });
   }
+
+  @override
+void didChangeDependencies() {
+  super.didChangeDependencies();
+  ObserverUtils.routeObserver.subscribe(this, ModalRoute.of(context)!);
+//getIt<RouteTracker>().s
+}
 
   Future<void> loadPushNotifications() async {
     if (Platform.isIOS) {

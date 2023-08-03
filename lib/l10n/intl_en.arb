@@ -57,6 +57,7 @@
     "camera": "TAKE PHOTO",
     "permission_photos": "photo",
     "permission_camera": "camera",
+    "permission_microphone":"microphone",
     "permission_dialog_title": "{permission} ACCESS",
     "permission_dialog_description": "Please allow {permission} permission in your {os, select, android{phone} ios{iPhone} other{device}} settings for the Swag App",
     "permission_dialog_button": "ALLOW {permission} ACCESS",

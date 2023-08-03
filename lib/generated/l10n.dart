@@ -630,6 +630,16 @@ class S {
     );
   }
 
+  /// `microphone`
+  String get permission_microphone {
+    return Intl.message(
+      'microphone',
+      name: 'permission_microphone',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `{permission} ACCESS`
   String permission_dialog_title(Object permission) {
     return Intl.message(

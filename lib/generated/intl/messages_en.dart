@@ -560,6 +560,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "permission_dialog_button": m16,
         "permission_dialog_description": m17,
         "permission_dialog_title": m18,
+        "permission_microphone":
+            MessageLookupByLibrary.simpleMessage("microphone"),
         "permission_photos": MessageLookupByLibrary.simpleMessage("photo"),
         "permission_photos_title": MessageLookupByLibrary.simpleMessage(""),
         "phone": MessageLookupByLibrary.simpleMessage("Phone"),

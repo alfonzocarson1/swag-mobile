@@ -21,6 +21,7 @@ import '../../models/alerts/alerts_model.dart';
 import '../../models/chat/chat_data.dart';
 import '../../models/profile/profile_model.dart';
 import '../../services/firebase_manager.dart';
+import '../../services/route_observer.dart';
 import '../alert/alert_cubit.dart';
 
 part 'chat_cubit_state.dart';
@@ -349,6 +350,7 @@ getMessageJson({BaseChannel? channel, BaseMessage? message}) {
 }
 
 class MyGroupChannelHandler extends GroupChannelHandler {
+  String? currentRoute = ""; 
   @override
   void onMessageReceived(BaseChannel channel, BaseMessage message) async {
     bool showNotification =
@@ -357,6 +359,12 @@ class MyGroupChannelHandler extends GroupChannelHandler {
     //print(message);
     ProfileModel profileData =
         getIt<PreferenceRepositoryService>().profileData();
+
+    try{
+      currentRoute = getIt<RouteTracker>().currentRoute;
+    }catch (e){
+      debugPrint(e.toString());
+    }
 
     messages.add(message);
     //getIt<ChatCubit>().loadGroupChannels();
@@ -367,7 +375,7 @@ class MyGroupChannelHandler extends GroupChannelHandler {
       jsonString = jsonString.replaceAll("'", "\"");
       Map<String, dynamic> jsonData = jsonDecode(jsonString);
 
-      if (showNotification == true &&
+      if (currentRoute == "/ChatPage"  &&
           channel.customType == ChatType.listing.textValue) {
         await getIt<AlertCubit>().saveAlert(
           AlertModel(

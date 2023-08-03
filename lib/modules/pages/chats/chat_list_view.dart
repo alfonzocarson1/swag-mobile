@@ -11,6 +11,7 @@ import '../../di/injector.dart';
 
 
 class ChatListPage extends StatefulWidget {
+  static const name="/ChatsListPage";
   const ChatListPage({super.key});
 
   @override
