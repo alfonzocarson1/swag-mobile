@@ -9,14 +9,19 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
 
+import '../../../generated/l10n.dart';
 import '../../data/chat/ichat_service.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 
 import '../../di/injector.dart';
 import '../../enums/chat_message_data_type.dart';
+import '../../enums/chat_type.dart';
+import '../../models/alerts/alert_payload_model.dart';
+import '../../models/alerts/alerts_model.dart';
 import '../../models/chat/chat_data.dart';
 import '../../models/profile/profile_model.dart';
 import '../../services/firebase_manager.dart';
+import '../alert/alert_cubit.dart';
 
 part 'chat_cubit_state.dart';
 part 'chat_cubit.freezed.dart';
@@ -154,24 +159,23 @@ class ChatCubit extends Cubit<ChatState> {
     }
   }
 
-  sendCameraFile(GroupChannel channel, File file, String type ) async{
+  sendCameraFile(GroupChannel channel, File file, String type) async {
     FileMessage fileMessage;
     int tempMessageId = DateTime.now().millisecondsSinceEpoch.toInt();
     List<BaseMessage> currentMessages = messages;
-     List<Size>? chatThumbnailSizes = const [Size(100, 100), Size(40, 40)];
-      final params = FileMessageCreateParams.withFile(
-        file,
-          fileName: "chat_camera_picture_$tempMessageId",
-          customType: type,
-          pushNotificationDeliveryOption: PushNotificationDeliveryOption.normal)
-        ..thumbnailSizes = chatThumbnailSizes;
-    
-       fileMessage = await channel.sendFileMessage(
-        params,
-        handler: (message, e) {
-           if (e != null) {
-            print('Error sending file message: $e');
-            return;
+    List<Size>? chatThumbnailSizes = const [Size(100, 100), Size(40, 40)];
+    final params = FileMessageCreateParams.withFile(file,
+        fileName: "chat_camera_picture_$tempMessageId",
+        customType: type,
+        pushNotificationDeliveryOption: PushNotificationDeliveryOption.normal)
+      ..thumbnailSizes = chatThumbnailSizes;
+
+    fileMessage = await channel.sendFileMessage(
+      params,
+      handler: (message, e) {
+        if (e != null) {
+          print('Error sending file message: $e');
+          return;
         }
         currentMessages.insert(0, message);
         emit(ChatState.loadedChats(currentMessages));
@@ -182,34 +186,31 @@ class ChatCubit extends Cubit<ChatState> {
         //     emit(ChatState.loadedChats(currentMessages));
         //     debugPrint('File message sent successfully');
         //   }
-        },
-       progressHandler: (sentBytes, totalBytes) {
-        
+      },
+      progressHandler: (sentBytes, totalBytes) {
         debugPrint('Uploading File: $sentBytes / $totalBytes');
-         emit(ChatState.loadingFile(sentBytes, totalBytes, tempMessageId.toString()));
-       },
-      );
+        emit(ChatState.loadingFile(
+            sentBytes, totalBytes, tempMessageId.toString()));
+      },
+    );
 
-      currentMessages.add(fileMessage);
-      emit(ChatState.loadedChats(currentMessages));
+    currentMessages.add(fileMessage);
+    emit(ChatState.loadedChats(currentMessages));
 
-      debugPrint('File message sent successfully');
-
+    debugPrint('File message sent successfully');
   }
 
   sendGalleryFileMessage(GroupChannel channel) async {
     FileMessage fileMessage;
-     int tempMessageId = DateTime.now().millisecondsSinceEpoch.toInt();
-     List<BaseMessage> currentMessages = messages;
-
+    int tempMessageId = DateTime.now().millisecondsSinceEpoch.toInt();
+    List<BaseMessage> currentMessages = messages;
 
     final picker = ImagePicker();
     XFile? pickedFile = await picker.pickMedia(imageQuality: 70);
 
     if (pickedFile != null) {
       List<Size>? chatThumbnailSizes = const [Size(100, 100), Size(40, 40)];
-      final params = FileMessageCreateParams.withFile(
-        File(pickedFile.path),
+      final params = FileMessageCreateParams.withFile(File(pickedFile.path),
           fileName: pickedFile.name,
           customType: pickedFile.mimeType,
           pushNotificationDeliveryOption: PushNotificationDeliveryOption.normal)
@@ -218,31 +219,31 @@ class ChatCubit extends Cubit<ChatState> {
 
       // FileMessage tempMessage = FileMessage(url: "", name: "placeholder", channelUrl: channel.channelUrl, channelType: channel.channelType, messageId: tempMessageId, sendingStatus: SendingStatus.pending);
       // currentMessages.insert(0, tempMessage);
-     // emit(ChatState.loadingFile(sentBytes, totalBytes));
+      // emit(ChatState.loadingFile(sentBytes, totalBytes));
       //Future.delayed(const Duration(milliseconds: 500));
 
       fileMessage = await channel.sendFileMessage(
         params,
         handler: (message, e) {
-           if (e != null) {
+          if (e != null) {
             print('Error sending file message: $e');
             return;
-        }
-        currentMessages.insert(0, message);
-        emit(ChatState.loadedChats(currentMessages));
-        debugPrint('File message sent successfully');
-        // var index = currentMessages.indexOf(tempMessage);
-        //   if (index != -1) {
-        //     currentMessages[index] = message;
-        //     emit(ChatState.loadedChats(currentMessages));
-        //     debugPrint('File message sent successfully');
-        //   }
+          }
+          currentMessages.insert(0, message);
+          emit(ChatState.loadedChats(currentMessages));
+          debugPrint('File message sent successfully');
+          // var index = currentMessages.indexOf(tempMessage);
+          //   if (index != -1) {
+          //     currentMessages[index] = message;
+          //     emit(ChatState.loadedChats(currentMessages));
+          //     debugPrint('File message sent successfully');
+          //   }
         },
-       progressHandler: (sentBytes, totalBytes) {
-        
-        debugPrint('Uploading File: $sentBytes / $totalBytes');
-         emit(ChatState.loadingFile(sentBytes, totalBytes, tempMessageId.toString()));
-       },
+        progressHandler: (sentBytes, totalBytes) {
+          debugPrint('Uploading File: $sentBytes / $totalBytes');
+          emit(ChatState.loadingFile(
+              sentBytes, totalBytes, tempMessageId.toString()));
+        },
       );
 
       currentMessages.add(fileMessage);
@@ -259,7 +260,6 @@ class ChatCubit extends Cubit<ChatState> {
       String channelUrl = await getChannelUrl(productId);
 
       GroupChannel channel = await GroupChannel.getChannel(channelUrl);
-
 
       List<BaseMessage> messages = await loadMessages(channel);
       return channel;
@@ -325,7 +325,6 @@ class ChatCubit extends Cubit<ChatState> {
 //   return token;
 // }
   }
-  
 
   bringAdminToChat(String channelUrl) async =>
       await this.service.bringAdminToChat(channelUrl);
@@ -356,12 +355,36 @@ class MyGroupChannelHandler extends GroupChannelHandler {
         getIt<PreferenceRepositoryService>().showNotification();
     GroupChannel groupChannel = GroupChannel(channelUrl: channel.channelUrl);
     //print(message);
+    ProfileModel profileData =
+        getIt<PreferenceRepositoryService>().profileData();
 
     messages.add(message);
     //getIt<ChatCubit>().loadGroupChannels();
     if (channel is GroupChannel) {
       // Now you can access the GroupChannel methods
       groupChannel = channel;
+      String jsonString = channel.data.toString();
+      jsonString = jsonString.replaceAll("'", "\"");
+      Map<String, dynamic> jsonData = jsonDecode(jsonString);
+
+      if (showNotification == true &&
+          channel.customType == ChatType.listing.textValue) {
+        await getIt<AlertCubit>().saveAlert(
+          AlertModel(
+              notificationAlertTitle: jsonData['listingProductName'],
+              notificationAlertBody:
+                  S.current.chatMessageFrom(jsonData['creatorUserName']),
+              typeNotification: 'MESSAGE_CHAT_P2P_ALERT',
+              payload: AlertPayloadModel(
+                  accountId: profileData.accountId,
+                  userName: profileData.username,
+                  itemName: jsonData['listingProductName'],
+                  productItemId: jsonData['productItemId'],
+                  avatar: profileData.useAvatar,
+                  listingStatus: channel.channelUrl),
+              read: false),
+        );
+      }
 
       // Then load the messages for this channel and update the state
       await getIt<ChatCubit>().loadMessages(groupChannel);

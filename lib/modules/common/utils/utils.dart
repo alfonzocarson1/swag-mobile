@@ -41,7 +41,7 @@ bool isValidPassword(String password) {
       .hasMatch(password);
 }
 
-bool isValidName(String name){
+bool isValidName(String name) {
   return RegExp(r"^[a-zA-Z]+$").hasMatch(name);
 }
 
@@ -508,7 +508,10 @@ String alertAvatar(String avatarType, String? listingImageUrl) {
 }
 
 List<dynamic> imagesList = [
- 
+  {
+    'id': 'AVATAR1',
+    'url': 'http://images.dev.swag.kuldisak.net/avatars/defaults/Flipper.png'
+  },
   {
     'id': 'AVATAR2',
     'url': 'http://images.dev.swag.kuldisak.net/avatars/defaults/Flipper.png'

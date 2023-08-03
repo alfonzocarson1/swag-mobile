@@ -5,6 +5,7 @@ enum ListingStatusDataType {
   paymentReceived('paymentReceived'),
   pendingSellerConfirmation('pendingSellerConfirmation'),
   shipped('shipped'),
+  notifyChatP2P('notifyChatP2P'),
   received('received');
 
   final String textValue;
