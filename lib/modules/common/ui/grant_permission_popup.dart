@@ -11,6 +11,7 @@ import '../utils/palette.dart';
 enum GrantPermissionDialogType {
   camera,
   photos,
+  microphone,
 }
 
 extension on GrantPermissionDialogType {
@@ -20,6 +21,8 @@ extension on GrantPermissionDialogType {
         return S.of(context).permission_camera;
       case GrantPermissionDialogType.photos:
         return S.of(context).permission_photos;
+      case GrantPermissionDialogType.microphone:
+        return S.of(context).permission_microphone;
     }
   }
 }
