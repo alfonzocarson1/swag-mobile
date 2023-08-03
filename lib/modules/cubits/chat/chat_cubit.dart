@@ -350,19 +350,17 @@ getMessageJson({BaseChannel? channel, BaseMessage? message}) {
 }
 
 class MyGroupChannelHandler extends GroupChannelHandler {
-  String? currentRoute = ""; 
+  String? currentRoute = "";
   @override
   void onMessageReceived(BaseChannel channel, BaseMessage message) async {
-    bool showNotification =
-        getIt<PreferenceRepositoryService>().showNotification();
     GroupChannel groupChannel = GroupChannel(channelUrl: channel.channelUrl);
     //print(message);
     ProfileModel profileData =
         getIt<PreferenceRepositoryService>().profileData();
 
-    try{
+    try {
       currentRoute = getIt<RouteTracker>().currentRoute;
-    }catch (e){
+    } catch (e) {
       debugPrint(e.toString());
     }
 
@@ -375,8 +373,9 @@ class MyGroupChannelHandler extends GroupChannelHandler {
       jsonString = jsonString.replaceAll("'", "\"");
       Map<String, dynamic> jsonData = jsonDecode(jsonString);
 
-      if (currentRoute == "/ChatPage"  &&
-          channel.customType == ChatType.listing.textValue) {
+      if (currentRoute != "/ChatPage" &&
+          (channel.customType == ChatType.listing.textValue ||
+              message.customType != 'chat_question')) {
         await getIt<AlertCubit>().saveAlert(
           AlertModel(
               notificationAlertTitle: jsonData['listingProductName'],
@@ -384,12 +383,13 @@ class MyGroupChannelHandler extends GroupChannelHandler {
                   S.current.chatMessageFrom(jsonData['creatorUserName']),
               typeNotification: 'MESSAGE_CHAT_P2P_ALERT',
               payload: AlertPayloadModel(
-                  accountId: profileData.accountId,
-                  userName: profileData.username,
+                  accountId: jsonData['creatorUserId'],
+                  userName: jsonData['creatorUserName'],
                   itemName: jsonData['listingProductName'],
                   productItemId: jsonData['productItemId'],
                   avatar: profileData.useAvatar,
-                  listingStatus: channel.channelUrl),
+                  listingStatus: channel.channelUrl,
+                  listingImageUrl: jsonData['listingImageUrl']),
               read: false),
         );
       }
