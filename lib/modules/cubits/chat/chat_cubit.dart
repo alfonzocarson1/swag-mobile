@@ -350,6 +350,7 @@ getMessageJson({BaseChannel? channel, BaseMessage? message}) {
 }
 
 class MyGroupChannelHandler extends GroupChannelHandler {
+  String? currentRoute = ""; 
   @override
   void onMessageReceived(BaseChannel channel, BaseMessage message) async {
     bool showNotification =
@@ -360,7 +361,7 @@ class MyGroupChannelHandler extends GroupChannelHandler {
         getIt<PreferenceRepositoryService>().profileData();
 
     try{
-     String? currentRoute = getIt<RouteTracker>().currentRoute;
+      currentRoute = getIt<RouteTracker>().currentRoute;
     }catch (e){
       debugPrint(e.toString());
     }
@@ -374,7 +375,7 @@ class MyGroupChannelHandler extends GroupChannelHandler {
       jsonString = jsonString.replaceAll("'", "\"");
       Map<String, dynamic> jsonData = jsonDecode(jsonString);
 
-      if (showNotification == true &&
+      if (currentRoute == "/ChatPage"  &&
           channel.customType == ChatType.listing.textValue) {
         await getIt<AlertCubit>().saveAlert(
           AlertModel(
