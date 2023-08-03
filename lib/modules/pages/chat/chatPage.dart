@@ -46,7 +46,7 @@ class ChatPage extends StatefulWidget {
   State<ChatPage> createState() => _ChatPageState();
 }
 
-class _ChatPageState extends State<ChatPage> with RouteAware{
+class _ChatPageState extends State<ChatPage> with RouteAware {
   List<BaseMessage> messages = [];
   late String userSendbirdiId;
   String channelDataString = "";
@@ -55,16 +55,17 @@ class _ChatPageState extends State<ChatPage> with RouteAware{
   List<String> messageStatus = [];
   FocusNode _focusNode = FocusNode();
   TextEditingController _textEditingController = TextEditingController();
-  late Member otherUser; 
+  late Member otherUser;
   late ChannelData channelMetaData;
-  String loadingFileId ="";
+  String loadingFileId = "";
 
   @override
   void initState() {
     super.initState();
     this.loadPushNotifications();
     channelDataString = widget.channel.data;
-    channelMetaData= ChannelData.fromJson(SendBirdUtils.getFormatedData(channelDataString));
+    channelMetaData =
+        ChannelData.fromJson(SendBirdUtils.getFormatedData(channelDataString));
     getIt<ChatCubit>().loadMessages(widget.channel);
     this.userSendbirdiId =
         getIt<PreferenceRepositoryService>().getUserSendBirdId();
@@ -78,41 +79,50 @@ class _ChatPageState extends State<ChatPage> with RouteAware{
   }
 
   @override
+<<<<<<< Updated upstream
 void didChangeDependencies() {
   super.didChangeDependencies();
   ObserverUtils.routeObserver.subscribe(this, ModalRoute.of(context)!);
   
 }
 
+=======
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    ObserverUtils.routeObserver.subscribe(this, ModalRoute.of(context)!);
+//getIt<RouteTracker>().s
+  }
+>>>>>>> Stashed changes
 
   void _askPermissions() async {
     final cameraPermissionStatus = await Permission.camera.request();
     final microphonePermissionStatus = await Permission.microphone.request();
 
-    if (cameraPermissionStatus.isGranted  && microphonePermissionStatus.isGranted) {
-       Navigator.of(context).push(MaterialPageRoute(
-                                        builder: (context) =>  ChatCamera(channel:  widget.channel,)));
-
-  }
-  else if(cameraPermissionStatus.isPermanentlyDenied || cameraPermissionStatus.isDenied){
-     await showDialog(
-      context: context,
-      builder: (context) => const GrantPermissionDialog(
-        type: GrantPermissionDialogType.camera,
-      ),
-    );
-  }
-  else if(microphonePermissionStatus.isPermanentlyDenied || microphonePermissionStatus.isDenied){
-     await showDialog(
-      context: context,
-      builder: (context) => const GrantPermissionDialog(
-        type: GrantPermissionDialogType.microphone,
-      ),
-    );
-  }else{
-    debugPrint("----------");
-  }  
-  
+    if (cameraPermissionStatus.isGranted &&
+        microphonePermissionStatus.isGranted) {
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => ChatCamera(
+                channel: widget.channel,
+              )));
+    } else if (cameraPermissionStatus.isPermanentlyDenied ||
+        cameraPermissionStatus.isDenied) {
+      await showDialog(
+        context: context,
+        builder: (context) => const GrantPermissionDialog(
+          type: GrantPermissionDialogType.camera,
+        ),
+      );
+    } else if (microphonePermissionStatus.isPermanentlyDenied ||
+        microphonePermissionStatus.isDenied) {
+      await showDialog(
+        context: context,
+        builder: (context) => const GrantPermissionDialog(
+          type: GrantPermissionDialogType.microphone,
+        ),
+      );
+    } else {
+      debugPrint("----------");
+    }
   }
 
   Future<void> loadPushNotifications() async {
@@ -176,15 +186,15 @@ void didChangeDependencies() {
         // foregroundColor: Palette.current.greyMessage,
         backgroundColor: Palette.current.blackAppbarBlackground,
         title: Text(
-         (widget.channel.customType == ChatType.listing.textValue) ? '@$userName, @${otherUser.nickname}, and $swagBotNickName ':
-         '@${this.channelMetaData.sellerUsername} ${this.channelMetaData.listingProductName}',
+          (widget.channel.customType == ChatType.listing.textValue)
+              ? '@$userName, @${otherUser.nickname}, and $swagBotNickName '
+              : '@${this.channelMetaData.sellerUsername} ${this.channelMetaData.listingProductName}',
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
-          fontFamily: 'Ringside Regular',
-          fontStyle: FontStyle.normal,
-          fontWeight: FontWeight.w700,
-          
-         color: Palette.current.primaryWhiteSmoke, fontSize: 16
-          ),
+              fontFamily: 'Ringside Regular',
+              fontStyle: FontStyle.normal,
+              fontWeight: FontWeight.w700,
+              color: Palette.current.primaryWhiteSmoke,
+              fontSize: 16),
         ),
       ),
       body: BlocConsumer<ChatCubit, ChatState>(
@@ -194,46 +204,52 @@ void didChangeDependencies() {
             loadingFile: (sentBytes, totalBytes, messageId) {
               loadingFileId = messageId;
             },
-            orElse: () => null,);
+            orElse: () => null,
+          );
         },
-
         buildWhen: (previous, current) {
           return current is! ChatsLoading &&
               current is! ChatChannelsLoaded &&
-              current is! HasUnreadMessages ;
-              //&& current is !LoadingFile;
+              current is! HasUnreadMessages;
+          //&& current is !LoadingFile;
         },
         builder: (context, state) {
           return state.maybeWhen(
               initial: () => const Center(child: Text('Welcome to the chat')),
-              loadingFile: (sentBytes, totalBytes, messageId) => const SimpleLoader(),
+              loadingFile: (sentBytes, totalBytes, messageId) =>
+                  const SimpleLoader(),
               loadedChats: (List<BaseMessage> messages) {
                 messagesList = messages;
                 chatMessages = messagesList.map((chatMessage) {
                   FileMessage fileMessage;
                   ChatMedia chatMedia =
                       ChatMedia(url: "", fileName: "", type: MediaType.image);
-                  Map<String, dynamic> messageDataJson = {};    
+                  Map<String, dynamic> messageDataJson = {};
                   if (chatMessage is FileMessage) {
                     fileMessage = chatMessage;
-                    messageDataJson ={'sentFileStatus': fileMessage.sendingStatus.toString().split('.').last};
+                    messageDataJson = {
+                      'sentFileStatus':
+                          fileMessage.sendingStatus.toString().split('.').last
+                    };
                     chatMedia = ChatMedia(
                         url: fileMessage.secureUrl ?? "",
                         fileName: fileMessage.name ?? "",
                         type: (fileMessage.type!.contains("image/jpeg"))
                             ? MediaType.image
-                            : (fileMessage.type!.contains("video/mp4") || fileMessage.type!.contains("video/quicktime"))
+                            : (fileMessage.type!.contains("video/mp4") ||
+                                    fileMessage.type!
+                                        .contains("video/quicktime"))
                                 ? MediaType.video
                                 : MediaType.file);
-                  }else{
-                     messageDataJson =
-                      SendBirdUtils.getFormatedData(chatMessage.data ?? "");
-                  if (messageDataJson.isNotEmpty) {
-                    MessageData messageData =
-                        MessageData.fromJson(messageDataJson);
-                    messageStatus.add(messageData.type);
+                  } else {
+                    messageDataJson =
+                        SendBirdUtils.getFormatedData(chatMessage.data ?? "");
+                    if (messageDataJson.isNotEmpty) {
+                      MessageData messageData =
+                          MessageData.fromJson(messageDataJson);
+                      messageStatus.add(messageData.type);
+                    }
                   }
-                  }                 
 
                   return ChatMessage(
                     text: chatMessage.message,
@@ -253,8 +269,8 @@ void didChangeDependencies() {
                     text: 'Banner',
                     user:
                         ChatUser(id: 'SwagBanner', firstName: swagBotNickName),
-                    
-                    createdAt: DateTime.fromMillisecondsSinceEpoch(widget.channel.invitedAt)));
+                    createdAt: DateTime.fromMillisecondsSinceEpoch(
+                        widget.channel.invitedAt)));
 
                 return DashChat(
                   messageOptions: MessageOptions(
@@ -274,7 +290,6 @@ void didChangeDependencies() {
                             ),
                             isAfterDateSeparator: isAfterDateSeparator,
                             isBeforeDateSeparator: isBeforeDateSeparator),
-                    
                     avatarBuilder: (p0, onPressAvatar, onLongPressAvatar) {
                       if (p0.id == 'SwagBanner') {
                         return const SizedBox.shrink();
@@ -298,7 +313,7 @@ void didChangeDependencies() {
                           : [
                               IconButton(
                                   onPressed: () {
-                                   _askPermissions();
+                                    _askPermissions();
                                   },
                                   icon: Image.asset(AppIcons.chatCamera)),
                               IconButton(
@@ -396,59 +411,57 @@ void didChangeDependencies() {
     String formattedTime = DateFormat('h:mm a').format(messageTime);
     var creator = widget.channel.creator;
     String chatCreator = "";
-    if(creator != null ){
-      chatCreator  = creator.nickname;
+    if (creator != null) {
+      chatCreator = creator.nickname;
     }
-    
 
     if (message.text.contains('Banner')) {
-      bool isListingChat = widget.channel.customType == ChatType.listing.textValue;
+      bool isListingChat =
+          widget.channel.customType == ChatType.listing.textValue;
       return ChatCommenceBanner(
         channelData: getChannelData(),
         otherUser: chatCreator,
-        createdAt: DateTime.fromMillisecondsSinceEpoch(widget.channel.invitedAt),
+        createdAt:
+            DateTime.fromMillisecondsSinceEpoch(widget.channel.invitedAt),
         isListingChat: isListingChat,
       );
     } else {
       if (message.user.firstName != swagBotNickName) {
-        if (message.medias != null && message.medias!.first.url.isNotEmpty) {   
+        if (message.medias != null && message.medias!.first.url.isNotEmpty) {
           var customProperties = message.customProperties;
-          if(customProperties != null && customProperties.containsKey("sentFileStatus")){
-              String sentFileStatus = customProperties['sentFileStatus'];
-              return (sentFileStatus == "succeeded") ? 
-           CustomChatMessage(
-            formattedTime: formattedTime,
-            context: context,
-            isAfterDateSeparator: isAfterDateSeparator,
-            isBeforeDateSeparator: isBeforeDateSeparator,
-            message: message,
-            user: user,
-            otherUser: otherUser.nickname,
-            isFileLoading: false,
-            fileUrl: message.medias!.first.url,
-            mediaType: message.medias!.first.type,
-          ) : const Center(child: CircularProgressIndicator(),);  
-                 
-          } 
-          else{
-
-          return CustomChatMessage(
-            formattedTime: formattedTime,
-            context: context,
-            isAfterDateSeparator: isAfterDateSeparator,
-            isBeforeDateSeparator: isBeforeDateSeparator,
-            message: message,
-            user: user,
-            otherUser: otherUser.nickname,
-            fileUrl: message.medias!.first.url,
-            mediaType: message.medias!.first.type,
-          );
-
-          }      
-
-         
-        }
-        else {
+          if (customProperties != null &&
+              customProperties.containsKey("sentFileStatus")) {
+            String sentFileStatus = customProperties['sentFileStatus'];
+            return (sentFileStatus == "succeeded")
+                ? CustomChatMessage(
+                    formattedTime: formattedTime,
+                    context: context,
+                    isAfterDateSeparator: isAfterDateSeparator,
+                    isBeforeDateSeparator: isBeforeDateSeparator,
+                    message: message,
+                    user: user,
+                    otherUser: otherUser.nickname,
+                    isFileLoading: false,
+                    fileUrl: message.medias!.first.url,
+                    mediaType: message.medias!.first.type,
+                  )
+                : const Center(
+                    child: CircularProgressIndicator(),
+                  );
+          } else {
+            return CustomChatMessage(
+              formattedTime: formattedTime,
+              context: context,
+              isAfterDateSeparator: isAfterDateSeparator,
+              isBeforeDateSeparator: isBeforeDateSeparator,
+              message: message,
+              user: user,
+              otherUser: otherUser.nickname,
+              fileUrl: message.medias!.first.url,
+              mediaType: message.medias!.first.type,
+            );
+          }
+        } else {
           return CustomChatMessage(
             formattedTime: formattedTime,
             context: context,
@@ -520,17 +533,15 @@ void didChangeDependencies() {
               : const SizedBox.shrink();
         } else if (messageData.type ==
             ChatMessageDataType.itemNotReceived.textValue) {
-          return (isMyUserBuyer)
-              ? const SizedBox.shrink()
-              : CustomChatMessage(
-                  formattedTime: formattedTime,
-                  context: context,
-                  isAfterDateSeparator: isAfterDateSeparator,
-                  isBeforeDateSeparator: isBeforeDateSeparator,
-                  message: message,
-                  user: user,
-                  otherUser: swagBotMessageName,
-                  messageData: messageData);
+          return CustomChatMessage(
+              formattedTime: formattedTime,
+              context: context,
+              isAfterDateSeparator: isAfterDateSeparator,
+              isBeforeDateSeparator: isBeforeDateSeparator,
+              message: message,
+              user: user,
+              otherUser: otherUser.nickname,
+              messageData: messageData);
         } else {
           return (isMyUserBuyer)
               ? (showReceivedMessage)
