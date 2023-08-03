@@ -187,6 +187,14 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
           child: PrimaryButton(
             title: S.of(context).see_results.toUpperCase(),
             onPressed: () {
+              if (widget.updateFilters != null) {
+                widget.updateFilters!();
+              }
+              performSearch(
+                context: context,
+                searchParam: widget.searchParam,
+                tab: widget.tab,
+              );
               apiCall();
               Navigator.pop(context);
               Navigator.pop(context);
