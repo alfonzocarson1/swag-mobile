@@ -201,6 +201,14 @@ class _AlertPageState extends State<AlertPage> {
                                       getIt<AlertCubit>().readAlert(
                                           item.notificationAlertId ?? '');
 
+                                      if (item.typeNotification ==
+                                          ListingStatusDataType
+                                              .notifyChatP2P.textValue) {
+                                        Loading.show(context);
+                                        onTapSubmit(
+                                            item.payload!.listingStatus ?? '');
+                                      }
+
                                       if (item.payload!.listingStatus ==
                                           ListingStatusDataType
                                               .pendingSellerConfirmation
@@ -387,9 +395,14 @@ class _AlertPageState extends State<AlertPage> {
                                           foregroundImage: NetworkImage(
                                               alertAvatar(
                                                   item.payload!.avatar ?? '',
-                                                  item.payload!
-                                                          .listingImageUrl ??
-                                                      '')),
+                                                  (item.typeNotification !=
+                                                          ListingStatusDataType
+                                                              .notifyChatP2P
+                                                              .textValue)
+                                                      ? item.payload!
+                                                              .listingImageUrl ??
+                                                          ''
+                                                      : '')),
                                           radius: 75,
                                         ),
                                       ),

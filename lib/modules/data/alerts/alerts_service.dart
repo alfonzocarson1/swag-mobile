@@ -36,4 +36,16 @@ class AlertService extends IAlertService {
     );
     return response;
   }
+
+  @override
+  Future<dynamic> saveAlert(AlertModel alert) async {
+    dynamic response = await apiService.getEndpointData(
+      endpoint: Endpoint.addAlertP2P,
+      method: RequestMethod.post,
+      needBearer: true,
+      fromJson: (json) => json,
+      body: alert.toJson(),
+    );
+    return response;
+  }
 }
