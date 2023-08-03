@@ -79,6 +79,7 @@ class _SearchResultPageState extends State<SearchResultPage>
                   ? null
                   : [widget.searchParam],
           categoryId: null,
+          whatsHotFlag: widget.staffPicksFlag,
           staffPicksFlag: widget.staffPicksFlag,
           unicornFlag: widget.unicornFlag,
           filters: const FilterModel(productType: null),

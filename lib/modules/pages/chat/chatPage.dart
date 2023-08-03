@@ -81,7 +81,7 @@ class _ChatPageState extends State<ChatPage> with RouteAware{
 void didChangeDependencies() {
   super.didChangeDependencies();
   ObserverUtils.routeObserver.subscribe(this, ModalRoute.of(context)!);
-//getIt<RouteTracker>().s
+  
 }
 
 
@@ -138,9 +138,11 @@ void didChangeDependencies() {
             member.nickname != userName && member.role != Role.operator)
         .toList()
         .first;
-    if (widget.channel.unreadMessageCount > 0) {
+
+          if (widget.channel.unreadMessageCount > 0) {
       widget.channel.markAsRead();
     }
+  
 
     return Scaffold(
       backgroundColor: Palette.current.black,
@@ -484,7 +486,7 @@ void didChangeDependencies() {
             isBeforeDateSeparator: isBeforeDateSeparator,
             message: message,
             user: user,
-            otherUser: otherUser.nickname,
+            otherUser: swagBotMessageName,
             messageData: messageData,
           );
         } else if (messageData.type ==
@@ -497,7 +499,7 @@ void didChangeDependencies() {
                   isBeforeDateSeparator: isBeforeDateSeparator,
                   message: message,
                   user: user,
-                  otherUser: otherUser.nickname,
+                  otherUser: swagBotMessageName,
                   messageData: messageData)
               : ChatCardMessage(
                   messageData: messageData,
@@ -513,7 +515,7 @@ void didChangeDependencies() {
                   isBeforeDateSeparator: isBeforeDateSeparator,
                   message: message,
                   user: user,
-                  otherUser: otherUser.nickname,
+                  otherUser: swagBotMessageName,
                   messageData: messageData)
               : const SizedBox.shrink();
         } else if (messageData.type ==
@@ -527,7 +529,7 @@ void didChangeDependencies() {
                   isBeforeDateSeparator: isBeforeDateSeparator,
                   message: message,
                   user: user,
-                  otherUser: otherUser.nickname,
+                  otherUser: swagBotMessageName,
                   messageData: messageData);
         } else {
           return (isMyUserBuyer)
@@ -546,7 +548,7 @@ void didChangeDependencies() {
                       isBeforeDateSeparator: isBeforeDateSeparator,
                       message: message,
                       user: user,
-                      otherUser: otherUser.nickname,
+                      otherUser: swagBotMessageName,
                       messageData: messageData)
                   : ChatCardMessage(
                       messageData: messageData,

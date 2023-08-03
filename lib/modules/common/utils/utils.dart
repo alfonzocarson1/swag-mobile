@@ -159,6 +159,9 @@ Future<void> performSearch({
               ? null
               : await SearchTabWrapper(tab).toStringCustom(),
           filters: await getCurrentFilterModel(),
+          whatsHotFlag: null,
+          unicornFlag: null,
+          staffPicksFlag: null,
         );
 
   updateSelectedFiltersAndSortsNumber(context, tab: tab);
