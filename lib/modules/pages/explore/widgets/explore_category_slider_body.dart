@@ -4,6 +4,9 @@ import 'package:simple_rich_text/simple_rich_text.dart';
 import '../../../../generated/l10n.dart';
 import '../../../common/ui/clickable_text.dart';
 import '../../../common/utils/palette.dart';
+import '../../../cubits/page_from_explore/page_from_explore_cubit.dart';
+import '../../../data/shared_preferences/shared_preferences_service.dart';
+import '../../../di/injector.dart';
 import '../../../models/search/catalog_item_model.dart';
 import '../../search/search_result/search_result_page.dart';
 import '../slide_horizontal_widget.dart';
@@ -15,8 +18,10 @@ class ExploreCategorySlider extends StatefulWidget {
       required this.sliderText,
       required this.isStaffPicks,
       required this.isUnicorn,
-      required this.isWhatsHot});
+      required this.isWhatsHot,
+      this.pageFromExplore});
   final List<CatalogItemModel> sliderList;
+  final Function()? pageFromExplore;
   final String sliderText;
   final bool isUnicorn;
   final bool isWhatsHot;
@@ -68,11 +73,18 @@ class _ExploreCategorySliderState extends State<ExploreCategorySlider> {
                                     color: Palette.current.primaryWhiteSmoke,
                                   )),
                           onPressed: () {
-                            Navigator.of(context, rootNavigator: true).push(
-                                SearchResultPage.route(
-                                    searchParam: widget.sliderText,
-                                    staffPicksFlag: widget.isStaffPicks,
-                                    unicornFlag: widget.isUnicorn));
+                            if(!widget.isWhatsHot) {
+                              Navigator.of(context, rootNavigator: true).push(
+                                  SearchResultPage.route(
+                                      searchParam: widget.sliderText,
+                                      staffPicksFlag: widget.isStaffPicks,
+                                      unicornFlag: widget.isUnicorn));
+                            }
+                            else{
+                              widget.pageFromExplore!();
+                              getIt<PreferenceRepositoryService>().setPageFromExplore(1);
+                              getIt<PageFromExploreCubit>().loadResults(0);
+                            }
                           },
                         )),
                   )

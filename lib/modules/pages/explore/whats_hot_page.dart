@@ -33,7 +33,7 @@ class _WhatsHotExplorePageState extends State<WhatsHotExplorePage> {
                 return null;
               },
             ),
-        child: ExploreCategorySlider(sliderList: whatsHotListData, sliderText: S.of(context).whats_hot.toUpperCase(), isStaffPicks: false, isUnicorn: false, isWhatsHot: true));
+        child: ExploreCategorySlider(sliderList: whatsHotListData, sliderText: S.of(context).whats_hot.toUpperCase(), isStaffPicks: false, isUnicorn: false, isWhatsHot: true, pageFromExplore: widget.pageFromExplore,));
   }
  
 }
