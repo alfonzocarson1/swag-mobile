@@ -150,17 +150,37 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
       });
     });
     _getStates(_defaultCountry);
+    getStatesForProvidedCountry();
     populateInitialData();
     // TODO: implement initState
     super.initState();
   }
 
   void _getStates(String country) async {
-    _states = ['State'];
+    _states.clear();
     _defaultState = 'State';
     var responseSatate = await getStates(country);
     _states.addAll(responseSatate as Iterable<String>);
     setState(() {});
+  }
+
+  getStatesForProvidedCountry() {
+    _states.clear();
+    _defaultState = defaultState;
+    setState(() {});
+    if (_defaultCountry == defaultCountry) {
+      _states
+          .addAll(usStates.map((e) => '${e['short']} - ${e['name']}').toList());
+    } else if (_defaultCountry == "Canada") {
+      _states
+          .addAll(caStates.map((e) => '${e['short']} - ${e['name']}').toList());
+    } else if (_defaultCountry == "Hong Kong") {
+      _states.addAll(hongKongStates);
+    } else if (_defaultCountry == "South Korea") {
+      _states.addAll(southKoreaStates);
+    } else {
+      _getStates(_defaultCountry);
+    }
   }
 
   GestureDetector _getBody() {
@@ -201,16 +221,18 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
                           height: 20,
                         ),
                         CupertinoPickerView(
-                            errorText: stateErrorText,
+                            errorText: countryErrorText,
                             cupertinoPickerItems: countries,
                             cupertinoPickervalue: _defaultCountry,
                             onDone: (index) {
                               setState(() => value = index);
-                              _defaultCountry = countries[index];
+                              setState(() {
+                                _defaultCountry = countries[index];
+                              });
                               _countryController.text = _defaultCountry;
-                              if (_defaultCountry != defaultCountry) {
-                                _defaultState = defaultState;
-                              }
+                              countryErrorText = null;
+                              getStatesForProvidedCountry();
+
                               Navigator.pop(context);
                             }),
                         const SizedBox(
@@ -269,32 +291,21 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
                               flex: 2,
                               child: Column(
                                 children: [
-                                  (_defaultCountry == defaultCountry)
-                                      ? CupertinoPickerView(
-                                          key: const Key('State-Picker'),
-                                          errorText: stateErrorText,
-                                          cupertinoPickerItems: stateCodes,
-                                          cupertinoPickervalue: _defaultState,
-                                          onDone: (index) {
-                                            setState(() => value = index);
-                                            _defaultState = stateCodes[index];
-                                            _stateController.text =
-                                                _defaultState;
-                                            Navigator.pop(context);
-                                          })
-                                      : CupertinoPickerView(
-                                          key: const Key('State-Picker-2'),
-                                          errorText: stateErrorText,
-                                          looping: false,
-                                          cupertinoPickerItems: const ["State"],
-                                          cupertinoPickervalue: _defaultState,
-                                          onDone: (index) {
-                                            setState(() => value = index);
-                                            _defaultState = defaultState;
-                                            _stateController.text =
-                                                defaultState;
-                                            Navigator.pop(context);
-                                          }),
+                                  CupertinoPickerView(
+                                      key: const Key('State-Picker'),
+                                      errorText: stateErrorText,
+                                      cupertinoPickerItems: _states,
+                                      cupertinoPickervalue: _defaultState,
+                                      onDone: (index) {
+                                        setState(() => value = index);
+                                        _defaultState = _states[index]
+                                            .split('-')
+                                            .last
+                                            .trim();
+                                        _stateController.text = _defaultState;
+                                        stateErrorText = null;
+                                        Navigator.pop(context);
+                                      }),
                                   Visibility(
                                       visible: stateErrorText != null,
                                       child: Align(
@@ -455,10 +466,7 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
           _cityController.text.isNotEmpty ? null : S.of(context).required_field;
 
       stateErrorText =
-          (_defaultCountry == 'United States' && _defaultState != 'State') ||
-                  _defaultCountry != 'United States'
-              ? null
-              : S.of(context).required_field;
+          _defaultState != defaultState ? null : S.of(context).required_field;
 
       zipErrorText =
           _zipController.text.isNotEmpty ? null : S.of(context).required_field;
@@ -466,17 +474,10 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
   }
 
   bool areFieldsValid() {
-    if (_defaultCountry == 'United States') {
-      return _defaultCountry != 'Country' &&
-          _firstAddressController.text.isNotEmpty &&
-          _cityController.text.isNotEmpty &&
-          _defaultState != 'State' &&
-          _zipController.text.isNotEmpty;
-    }
     return _defaultCountry != 'Country' &&
         _firstAddressController.text.isNotEmpty &&
         _cityController.text.isNotEmpty &&
-        _defaultState == 'State' &&
+        _defaultState != 'State' &&
         _zipController.text.isNotEmpty;
   }
 }
