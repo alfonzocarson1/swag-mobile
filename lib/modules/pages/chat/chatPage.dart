@@ -79,20 +79,10 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
   }
 
   @override
-<<<<<<< Updated upstream
-void didChangeDependencies() {
-  super.didChangeDependencies();
-  ObserverUtils.routeObserver.subscribe(this, ModalRoute.of(context)!);
-  
-}
-
-=======
   void didChangeDependencies() {
     super.didChangeDependencies();
     ObserverUtils.routeObserver.subscribe(this, ModalRoute.of(context)!);
-//getIt<RouteTracker>().s
   }
->>>>>>> Stashed changes
 
   void _askPermissions() async {
     final cameraPermissionStatus = await Permission.camera.request();
@@ -149,10 +139,9 @@ void didChangeDependencies() {
         .toList()
         .first;
 
-          if (widget.channel.unreadMessageCount > 0) {
+    if (widget.channel.unreadMessageCount > 0) {
       widget.channel.markAsRead();
     }
-  
 
     return Scaffold(
       backgroundColor: Palette.current.black,
