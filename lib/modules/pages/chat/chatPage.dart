@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
 import 'package:swagapp/modules/common/assets/icons.dart';
 import 'package:swagapp/modules/common/ui/simple_loader.dart';
@@ -15,6 +16,7 @@ import 'package:swagapp/modules/enums/chat_type.dart';
 import 'package:swagapp/modules/pages/chat/widgets/chat_popup_menu.dart';
 import 'package:swagapp/modules/services/route_observer.dart';
 
+import '../../common/ui/grant_permission_popup.dart';
 import '../../common/utils/sendbird_utils.dart';
 import '../../constants/constants.dart';
 import '../../cubits/chat/chat_cubit.dart';
@@ -81,6 +83,32 @@ void didChangeDependencies() {
   ObserverUtils.routeObserver.subscribe(this, ModalRoute.of(context)!);
 //getIt<RouteTracker>().s
 }
+
+
+  void _askPermissions() async {
+    final cameraPermissionStatus = await Permission.camera.request();
+    final microphonePermissionStatus = await Permission.microphone.request();
+
+    if (cameraPermissionStatus.isGranted  && microphonePermissionStatus.isGranted) {
+       Navigator.of(context).push(MaterialPageRoute(
+                                        builder: (context) =>  ChatCamera(channel:  widget.channel,)));
+
+  } else if(cameraPermissionStatus.isPermanentlyDenied){
+     await showDialog(
+      context: context,
+      builder: (context) => const GrantPermissionDialog(
+        type: GrantPermissionDialogType.camera,
+      ),
+    );
+  }
+  else if(microphonePermissionStatus.isPermanentlyDenied){
+     await showDialog(
+      context: context,
+      builder: (context) => const GrantPermissionDialog(
+        type: GrantPermissionDialogType.microphone,
+      ),
+    );
+  }  }
 
   Future<void> loadPushNotifications() async {
     if (Platform.isIOS) {
@@ -263,8 +291,7 @@ void didChangeDependencies() {
                           : [
                               IconButton(
                                   onPressed: () {
-                                    Navigator.of(context).push(MaterialPageRoute(
-                                        builder: (context) =>  ChatCamera(channel:  widget.channel,)));
+                                   _askPermissions();
                                   },
                                   icon: Image.asset(AppIcons.chatCamera)),
                               IconButton(
