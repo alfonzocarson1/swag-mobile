@@ -55,8 +55,8 @@ class Payload {
             (json.containsKey('trackingNumber')) ? json["trackingNumber"] : '',
         productId: json["productId"],
         paymentMethod: PaymentMethod.fromJson(json["PaymentMethod"]),
-        paymentMethodOption:
-            PaymentMethod.fromJson(json["PaymentMethodOption"]),
+        paymentMethodOption: (json.containsKey('PaymentMethodOption')) ?
+            PaymentMethod.fromJson(json["PaymentMethodOption"]) : PaymentMethod(),
         userNameSeller: json["userNameSeller"],
         userNameBuyer: json["userNameBuyer"],
         listingPrice: json["listingPrice"],
