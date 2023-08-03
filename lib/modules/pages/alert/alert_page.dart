@@ -88,7 +88,8 @@ class _AlertPageState extends State<AlertPage> {
       getIt<PreferenceRepositoryService>().saveShowNotification(false);
       await Navigator.of(context, rootNavigator: true).push(
         MaterialPageRoute(
-            builder: (BuildContext context) => ChatPage(channel: chatData)),
+            builder: (BuildContext context) => ChatPage(channel: chatData),
+            settings: const RouteSettings(name: '/ChatPage')),
       );
     } catch (e) {
       print(e);
@@ -395,14 +396,9 @@ class _AlertPageState extends State<AlertPage> {
                                           foregroundImage: NetworkImage(
                                               alertAvatar(
                                                   item.payload!.avatar ?? '',
-                                                  (item.typeNotification !=
-                                                          ListingStatusDataType
-                                                              .notifyChatP2P
-                                                              .textValue)
-                                                      ? item.payload!
-                                                              .listingImageUrl ??
-                                                          ''
-                                                      : '')),
+                                                  item.payload!
+                                                          .listingImageUrl ??
+                                                      '')),
                                           radius: 75,
                                         ),
                                       ),
