@@ -45,81 +45,81 @@ class LocalNotificationProvider {
     await notificationsPlugin.initialize(initializationSettings,
         onDidReceiveNotificationResponse:
             (NotificationResponse notificationResponse) async {
-      BuildContext context =
-          getIt<ContextService>().rootNavigatorKey.currentContext!;
-      var jsonData = jsonDecode(notificationResponse.payload ?? '');
-      print(jsonData);
+      // BuildContext context =
+      //     getIt<ContextService>().rootNavigatorKey.currentContext!;
+      // var jsonData = jsonDecode(notificationResponse.payload ?? '');
+      // print(jsonData);
 
-      if (jsonData['listingStatus'] ==
-          ListingStatusDataType.pendingSellerConfirmation.textValue) {
-        getIt<ContextService>()
-            .rootNavigatorKey
-            .currentState!
-            .push(MaterialPageRoute(
-                builder: (context) => BuyPreviewPage(
-                      productItemId: jsonData['productItemId'] ?? '',
-                    )));
-      }
+      // if (jsonData['listingStatus'] ==
+      //     ListingStatusDataType.pendingSellerConfirmation.textValue) {
+      //   getIt<ContextService>()
+      //       .rootNavigatorKey
+      //       .currentState!
+      //       .push(MaterialPageRoute(
+      //           builder: (context) => BuyPreviewPage(
+      //                 productItemId: jsonData['productItemId'] ?? '',
+      //               )));
+      // }
 
-      if (jsonData['listingStatus'] == ListingStatusDataType.paid.textValue ||
-          jsonData['listingStatus'] ==
-              ListingStatusDataType.pendingPayment.textValue ||
-          jsonData['listingStatus'] ==
-              ListingStatusDataType.paymentReceived.textValue ||
-          jsonData['listingStatus'] ==
-              ListingStatusDataType.shipped.textValue ||
-          jsonData['listingStatus'] == ListingStatusDataType.listed.textValue) {
-        Loading.show(context);
-        onTapSubmit(jsonData['channelUrl']);
-      }
+      // if (jsonData['listingStatus'] == ListingStatusDataType.paid.textValue ||
+      //     jsonData['listingStatus'] ==
+      //         ListingStatusDataType.pendingPayment.textValue ||
+      //     jsonData['listingStatus'] ==
+      //         ListingStatusDataType.paymentReceived.textValue ||
+      //     jsonData['listingStatus'] ==
+      //         ListingStatusDataType.shipped.textValue ||
+      //     jsonData['listingStatus'] == ListingStatusDataType.listed.textValue) {
+      //   Loading.show(context);
+      //   onTapSubmit(jsonData['channelUrl']);
+      // }
 
-      if (jsonData['listingStatus'] ==
-          ListingStatusDataType.received.textValue) {
-        getIt<ContextService>()
-            .rootNavigatorKey
-            .currentState!
-            .push(MaterialPageRoute(
-                builder: (context) => SoldDetailPage(
-                      productItemId: jsonData['productItemId'] ?? '',
-                    )));
+      // if (jsonData['listingStatus'] ==
+      //     ListingStatusDataType.received.textValue) {
+      //   getIt<ContextService>()
+      //       .rootNavigatorKey
+      //       .currentState!
+      //       .push(MaterialPageRoute(
+      //           builder: (context) => SoldDetailPage(
+      //                 productItemId: jsonData['productItemId'] ?? '',
+      //               )));
 
-        await Future.delayed(const Duration(milliseconds: 1000), () {});
-        showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (BuildContext context) {
-              return RatingBuyer(
-                productItemId: jsonData['productItemId'] ?? '',
-                purchaseHistoryId: jsonData['purchaseHistoryId'] ?? '',
-                userName: jsonData['userName'] ?? '',
-                seller: true,
-              );
-            });
-      }
+      //   await Future.delayed(const Duration(milliseconds: 1000), () {});
+      //   showDialog(
+      //       context: context,
+      //       barrierDismissible: false,
+      //       builder: (BuildContext context) {
+      //         return RatingBuyer(
+      //           productItemId: jsonData['productItemId'] ?? '',
+      //           purchaseHistoryId: jsonData['purchaseHistoryId'] ?? '',
+      //           userName: jsonData['userName'] ?? '',
+      //           seller: true,
+      //         );
+      //       });
+      // }
 
-      if (jsonData['dateItemShipped'] != 'null') {
-        getIt<ContextService>()
-            .rootNavigatorKey
-            .currentState!
-            .push(MaterialPageRoute(
-                builder: (context) => PurchaseHistoryDetailsPage(
-                      id: jsonData['purchaseHistoryId'] ?? '',
-                    )));
+      // if (jsonData['dateItemShipped'] != 'null') {
+      //   getIt<ContextService>()
+      //       .rootNavigatorKey
+      //       .currentState!
+      //       .push(MaterialPageRoute(
+      //           builder: (context) => PurchaseHistoryDetailsPage(
+      //                 id: jsonData['purchaseHistoryId'] ?? '',
+      //               )));
 
-        await Future.delayed(const Duration(milliseconds: 1000), () {});
+      //   await Future.delayed(const Duration(milliseconds: 1000), () {});
 
-        showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (BuildContext context) {
-              return DeliveredPopUp(
-                userName: jsonData['userName'] ?? '',
-                productItemId: jsonData['productItemId'] ?? '',
-                purchaseHistoryId: jsonData['purchaseHistoryId'] ?? '',
-                itemName: jsonData['catalogName'] ?? '',
-              );
-            });
-      }
+      //   showDialog(
+      //       context: context,
+      //       barrierDismissible: false,
+      //       builder: (BuildContext context) {
+      //         return DeliveredPopUp(
+      //           userName: jsonData['userName'] ?? '',
+      //           productItemId: jsonData['productItemId'] ?? '',
+      //           purchaseHistoryId: jsonData['purchaseHistoryId'] ?? '',
+      //           itemName: jsonData['catalogName'] ?? '',
+      //         );
+      //       });
+      // }
     });
   }
 

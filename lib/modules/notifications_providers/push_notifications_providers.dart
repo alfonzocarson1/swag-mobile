@@ -44,14 +44,11 @@ class PushNotificationsProvider {
       print(message.data);
 
       bool showNotify = getIt<PreferenceRepositoryService>().showNotification();
-      var jsonData = jsonDecode(message.data['message']);
       var json = jsonDecode(message.data['sendbird']);
 
       if (showNotify && Platform.isAndroid) {
         LocalNotificationProvider().showNotification(
-            title: json['push_title'],
-            body: jsonData['message'],
-            payLoad: message.data['message']);
+            title: json['push_title'], body: json['message'], payLoad: 'data');
       }
     });
 
@@ -70,14 +67,11 @@ class PushNotificationsProvider {
     print('===== On BackgroundMessage ======');
     print(message.data);
 
-    var jsonData = jsonDecode(message.data['message']);
     var json = jsonDecode(message.data['sendbird']);
 
     if (Platform.isAndroid) {
       LocalNotificationProvider().showNotification(
-          title: json['push_title'],
-          body: jsonData['message'],
-          payLoad: message.data['message']);
+          title: json['push_title'], body: json['message'], payLoad: 'data');
     }
   }
 
