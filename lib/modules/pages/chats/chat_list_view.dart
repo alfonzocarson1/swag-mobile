@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/ui/simple_loader.dart';
+import 'package:swagapp/modules/enums/chat_type.dart';
 import 'package:swagapp/modules/models/chat/chat_data.dart';
 import 'package:swagapp/modules/pages/chats/widgets/chat_list_appbar.dart';
 import 'package:swagapp/modules/pages/chats/widgets/chats_contacts.dart';
 import '../../common/utils/palette.dart';
+import '../../common/utils/sendbird_utils.dart';
 import '../../cubits/chat/chat_cubit.dart';
 import '../../di/injector.dart';
+import '../../models/chat/message_data.dart';
 
 
 class ChatListPage extends StatefulWidget {
@@ -24,6 +27,14 @@ class _ChatListPageState extends State<ChatListPage> {
   void initState() {
     super.initState();
     getIt<ChatCubit>().loadGroupChannels();
+  }
+
+   getBuyFlowLastMessage(dynamic messagesData) {    
+   
+    Map<String,dynamic> buyChannelJson = SendBirdUtils.getFormatedData(messagesData?? "");
+    MessageData messageData = MessageData.fromJson(buyChannelJson);
+    return lastBuyChatMessage = SendBirdUtils.getMessageText(messageData);
+
   }
 
 
@@ -62,8 +73,12 @@ class _ChatListPageState extends State<ChatListPage> {
                 itemCount: channels.length,
                 itemBuilder: (context, index) {
                   final channel = channels[index];
-            
-                  final lastMessage = channel.lastMessage?.message ?? 'No messages yet';
+                  String lastMessage= "";
+                  if(channel.customType == ChatType.buyWorkflow.textValue){
+                    (channel.lastMessage?.data != "" ) ? lastMessage = getBuyFlowLastMessage(channel.lastMessage?.data) : lastMessage = channel.lastMessage!.message ;
+                  }else{
+                    lastMessage = channel.lastMessage?.message ?? 'No messages yet';
+                  }          
                   ChatData chatData = ChatData(messages: messages, channel: channel);
                   return ChatsContact(lastMessage: lastMessage, chatData: chatData);
 
