@@ -286,7 +286,7 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
                           : [
                               IconButton(
                                   onPressed: () {
-                                    CameraPermissionsHandler.handlePermissions(context: context, afterPermissionsHandled: _navigate );                           
+                                    handlePermissions(context: context, afterPermissionsHandled: _navigate );                           
                                   },
                                   icon: Image.asset(AppIcons.chatCamera)),
                               IconButton(
