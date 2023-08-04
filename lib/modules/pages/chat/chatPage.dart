@@ -6,6 +6,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -88,12 +89,22 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
   }
 
   void _navigate() async {
-             Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => ChatCamera(
-                channel: widget.channel,
-              )));                                    
-   
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => ChatCamera(
+              channel: widget.channel,
+            )));
   }
+
+  Future<void> markAsRead(GroupChannel channel) async {
+  try {
+    await channel.markAsRead();
+  } on MarkAsReadRateLimitExceededException catch (_) {
+    Future.delayed(Duration(seconds: 1), () => markAsRead(channel));
+  } catch (e) {
+    // Handle other exceptions
+    print(e);
+  }
+}
 
   Future<void> loadPushNotifications() async {
     if (Platform.isIOS) {
@@ -119,8 +130,6 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
         .toList()
         .first;
 
-   
-
     return Scaffold(
       backgroundColor: Palette.current.black,
       appBar: AppBar(
@@ -131,7 +140,9 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
             color: Palette.current.primaryNeonGreen,
           ),
           onPressed: () async {
-
+            
+                  markAsRead(widget.channel);
+                
             context.read<ChatCubit>().loadGroupChannels();
             if (Platform.isIOS) {
               await FirebaseMessaging.instance
@@ -187,11 +198,10 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
               loadingFile: (sentBytes, totalBytes, messageId) =>
                   const SimpleLoader(),
               loadedChats: (List<BaseMessage> messages) {
+                // if (widget.channel.unreadMessageCount > 0) {
+                //   markAsRead(widget.channel);
+                // }
 
-                                         if (widget.channel.unreadMessageCount > 0) {
-      widget.channel.markAsRead();
-    }
-    
                 messagesList = messages;
                 chatMessages = messagesList.map((chatMessage) {
                   FileMessage fileMessage;
@@ -247,12 +257,13 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
 
                 return RefreshIndicator(
                   onRefresh: () {
-                   return refreshChatPage();
+                    return refreshChatPage();
                   },
                   child: DashChat(
                     messageOptions: MessageOptions(
                       currentUserTextColor: Colors.black,
-                      currentUserContainerColor: Palette.current.primaryNeonGreen,
+                      currentUserContainerColor:
+                          Palette.current.primaryNeonGreen,
                       containerColor: Palette.current.greyMessage,
                       textColor: Palette.current.primaryWhiteSmoke,
                       messagePadding: const EdgeInsets.symmetric(
@@ -290,7 +301,9 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
                             : [
                                 IconButton(
                                     onPressed: () {
-                                      handlePermissions(context: context, afterPermissionsHandled: _navigate );                           
+                                      handlePermissions(
+                                          context: context,
+                                          afterPermissionsHandled: _navigate);
                                     },
                                     icon: Image.asset(AppIcons.chatCamera)),
                                 IconButton(
@@ -305,19 +318,21 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
                         inputDecoration: InputDecoration(
                           constraints: BoxConstraints.tight(const Size(50, 50)),
                           suffixIcon: Container(
-                            padding: const EdgeInsetsDirectional.only(end: 12.0),
+                            padding:
+                                const EdgeInsetsDirectional.only(end: 12.0),
                             child: IconButton(
                               icon: (_textEditingController.text.isEmpty)
                                   ? Image.asset(
                                       AppIcons.sendDisabled,
                                       height: 25,
                                     )
-                                  : Image.asset(AppIcons.sendEnabled, height: 25),
+                                  : Image.asset(AppIcons.sendEnabled,
+                                      height: 25),
                               onPressed: _textEditingController.text.isEmpty
                                   ? null
                                   : () async {
                                       final text = _textEditingController.text;
-                
+
                                       // Create a ChatMessage instance from the text
                                       final chatMessage = ChatMessage(
                                         text: text,
@@ -328,7 +343,7 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
                                         ),
                                         createdAt: DateTime.now(),
                                       );
-                
+
                                       UserMessage sentMessage =
                                           await getIt<ChatCubit>().sendMessage(
                                               widget.channel, chatMessage.text);
@@ -336,15 +351,15 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
                                       setState(() {
                                         // _messages.add(sentMessage);
                                       });
-                
+
                                       // handle sending the message here
                                     },
                             ),
                           ),
                           hintText: 'Enter message',
                           hintStyle: TextStyle(color: Palette.current.grey),
-                          fillColor: Palette
-                              .current.greyMessage, // Set your desired color here
+                          fillColor: Palette.current
+                              .greyMessage, // Set your desired color here
                           filled: true,
                           contentPadding: const EdgeInsets.symmetric(
                               horizontal: 20.0, vertical: 10.0),
@@ -561,21 +576,19 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
     getIt<ChatCubit>().sendGalleryFileMessage(widget.channel);
     //setState(() {});
   }
-  
+
   Future<void> refreshChatPage() {
-  return Future.delayed(
-      Duration(seconds: 1),
-      () {
-        /// adding elements in list after [1 seconds] delay
-        /// to mimic network call
-        ///
-        /// Remember: setState is necessary so that
-        /// build method will run again otherwise
-        /// list will not show all elements
-        setState(() {
-          getIt<ChatCubit>().loadMessages(widget.channel);
-        });  
-        });          
+    return Future.delayed(Duration(seconds: 1), () {
+      /// adding elements in list after [1 seconds] delay
+      /// to mimic network call
+      ///
+      /// Remember: setState is necessary so that
+      /// build method will run again otherwise
+      /// list will not show all elements
+      setState(() {
+        getIt<ChatCubit>().loadMessages(widget.channel);
+      });
+    });
   }
 
   // Widget addDateSeparator(int index, BaseMessage message) {
