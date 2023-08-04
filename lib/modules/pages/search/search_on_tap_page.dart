@@ -18,13 +18,15 @@ class SearchOnTapPage extends StatefulWidget {
   static const name = '/searchOnTap';
   final TextEditingController _textEditingController = TextEditingController();
 
-  SearchOnTapPage({super.key, this.showTabBar = true});
+  SearchOnTapPage({super.key, this.showTabBar = true, this.category});
 
   final bool showTabBar;
+  int? category;
 
-  static Route route(bool showTabBar) => PageRoutes.fade(
+  static Route route(bool showTabBar, int? category) => PageRoutes.fade(
         settings: const RouteSettings(name: name),
-        builder: (_) => SearchOnTapPage(showTabBar: showTabBar),
+        builder: (_) =>
+            SearchOnTapPage(showTabBar: showTabBar, category: category),
       );
 
   @override
@@ -103,32 +105,35 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  widget.showTabBar ? _getTabBar(context) : Container(),
+                  (widget.showTabBar && widget.category == null)
+                      ? _getTabBar(context)
+                      : Container(),
                   Expanded(
-                    child:
-                        TabBarView(controller: _tabController, children: const [
-                      RecentSearchesPage(),
-                      SavedSearchesPage(),
+                    child: TabBarView(controller: _tabController, children: [
+                      RecentSearchesPage(category: widget.category),
+                      SavedSearchesPage(category: widget.category),
                     ]),
                   ),
                 ],
               ),
-              widget._textEditingController.text.isNotEmpty
-                  ? Container(
-                      color: Palette.current.blackSmoke,
-                      child: Column(
-                        children: [
-                          _categoryItem(context, S.of(context).whats_hot,
-                              SearchTab.whatsHot.index),
-                          _categoryItem(context, S.of(context).headcovers,
-                              SearchTab.headcovers.index),
-                          _categoryItem(context, S.of(context).putters,
-                              SearchTab.putters.index),
-                          _categoryItem(context, S.of(context).accessories,
-                              SearchTab.accessories.index),
-                        ],
-                      ),
-                    )
+              widget.category == null
+                  ? widget._textEditingController.text.isNotEmpty
+                      ? Container(
+                          color: Palette.current.blackSmoke,
+                          child: Column(
+                            children: [
+                              _categoryItem(context, S.of(context).whats_hot,
+                                  SearchTab.whatsHot.index),
+                              _categoryItem(context, S.of(context).headcovers,
+                                  SearchTab.headcovers.index),
+                              _categoryItem(context, S.of(context).putters,
+                                  SearchTab.putters.index),
+                              _categoryItem(context, S.of(context).accessories,
+                                  SearchTab.accessories.index),
+                            ],
+                          ),
+                        )
+                      : Container()
                   : Container(),
             ],
           ),
@@ -146,7 +151,9 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
     Navigator.of(context).pop();
     PersistentNavBarNavigator.pushNewScreen(
       context,
-      screen: SearchResultPage(searchParam: widget._textEditingController.text),
+      screen: SearchResultPage(
+          searchParam: widget._textEditingController.text,
+          category: widget.category),
       withNavBar: true,
     );
   }
@@ -169,46 +176,42 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Flexible(
-                      child:  Container(
+                      child: Container(
                         padding: const EdgeInsets.only(right: 0.0),
                         child: Text(
                           '${widget._textEditingController.text} ',
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context)
-                          .textTheme
-                          .headlineLarge!
+                              .textTheme
+                              .headlineLarge!
                               .copyWith(
-                          color: Palette.current.darkGray,
-                          fontSize: 16),
-                          ),
+                                  color: Palette.current.darkGray,
+                                  fontSize: 16),
                         ),
                       ),
-                     Container(
-                      child:  Text(
-                        "in $category",
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineLarge!
-                            .copyWith(
-                        color: Palette.current.primaryWhiteSmoke,
-                            fontSize: 16))
-                      ),
+                    ),
+                    Container(
+                        child: Text("in $category",
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineLarge!
+                                .copyWith(
+                                    color: Palette.current.primaryWhiteSmoke,
+                                    fontSize: 16))),
                     Spacer(flex: 1),
                     Container(
-                      width: 50,
-                      height: 50,
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 4.0),
-                          child: Icon(
-                            Icons.arrow_forward_ios_sharp,
-                            size: 10,
-                            color: Palette.current.darkGray,
-                          ),
-                        )
-                      )
-                    )
+                        width: 50,
+                        height: 50,
+                        child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 4.0),
+                              child: Icon(
+                                Icons.arrow_forward_ios_sharp,
+                                size: 10,
+                                color: Palette.current.darkGray,
+                              ),
+                            )))
                   ],
                 ),
               ),

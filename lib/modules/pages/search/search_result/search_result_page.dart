@@ -24,25 +24,29 @@ class SearchResultPage extends StatefulWidget {
   final SearchRequestPayloadModel? searchWithFilters;
   bool? staffPicksFlag;
   bool? unicornFlag;
+  int? category;
 
   SearchResultPage(
       {Key? key,
       required this.searchParam,
       this.searchWithFilters,
       this.staffPicksFlag,
-      this.unicornFlag})
+      this.unicornFlag,
+      this.category})
       : super(key: key);
 
   static Route route(
           {required String searchParam,
           bool? staffPicksFlag,
-          bool? unicornFlag}) =>
+          bool? unicornFlag,
+          int? category}) =>
       PageRoutes.material(
         settings: const RouteSettings(name: name),
         builder: (context) => SearchResultPage(
             searchParam: searchParam,
             staffPicksFlag: staffPicksFlag,
-            unicornFlag: unicornFlag),
+            unicornFlag: unicornFlag,
+            category: category),
       );
 
   @override
@@ -78,7 +82,10 @@ class _SearchResultPageState extends State<SearchResultPage>
               (widget.staffPicksFlag == true || widget.unicornFlag == true)
                   ? null
                   : [widget.searchParam],
-          categoryId: null,
+          categoryId: widget.category != null
+              ? await SearchTabWrapper(SearchTab.values[widget.category ?? 0])
+                  .toStringCustom()
+              : null,
           whatsHotFlag: widget.staffPicksFlag,
           staffPicksFlag: widget.staffPicksFlag,
           unicornFlag: widget.unicornFlag,
@@ -99,6 +106,7 @@ class _SearchResultPageState extends State<SearchResultPage>
               SearchResultField(
                 textEditingController: this.textEditingController,
                 searchParam: this.widget.searchParam,
+                category: widget.category,
               ),
               Container(
                 color: Palette.current.darkGray,
