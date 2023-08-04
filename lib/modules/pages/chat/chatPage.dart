@@ -139,10 +139,8 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
             Icons.arrow_back_ios,
             color: Palette.current.primaryNeonGreen,
           ),
-          onPressed: () async {
-            
-                  markAsRead(widget.channel);
-                
+          onPressed: () async {            
+            await markAsRead(widget.channel);                
             context.read<ChatCubit>().loadGroupChannels();
             if (Platform.isIOS) {
               await FirebaseMessaging.instance
