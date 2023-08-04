@@ -69,23 +69,26 @@ class _ChatListPageState extends State<ChatListPage> {
             return state.maybeWhen(
               initial: () => const Center(child: Text('Welcome to the group chats page')),
               loadingChats: () => const Center(child: SimpleLoader()),
-              loadedChatChannels: (channels) => ListView.builder(
-                itemCount: channels.length,
-                itemBuilder: (context, index) {
-                  final channel = channels[index];
-                  String lastMessage= "";
-                  if(channel.customType == ChatType.buyWorkflow.textValue && channel.lastMessage != null){
-                    (channel.lastMessage?.data != "" ) ? lastMessage = getBuyFlowLastMessage(channel.lastMessage?.data) :  lastMessage = channel.lastMessage!.message ;
-                  }else if(channel.customType == ChatType.buyWorkflow.textValue && channel.lastMessage == null){
-                 
-                  }
-                  else{
-                    lastMessage = channel.lastMessage?.message ?? 'No messages yet';
-                  }          
-                  ChatData chatData = ChatData(messages: messages, channel: channel);
-                  return ChatsContact(lastMessage: lastMessage, chatData: chatData);
-
-          }),
+              loadedChatChannels: (channels) => RefreshIndicator(
+                onRefresh: () async => await  getIt<ChatCubit>().loadGroupChannels(),
+                child: ListView.builder(
+                  itemCount: channels.length,
+                  itemBuilder: (context, index) {
+                    final channel = channels[index];
+                    String lastMessage= "";
+                    if(channel.customType == ChatType.buyWorkflow.textValue && channel.lastMessage != null){
+                      (channel.lastMessage?.data != "" ) ? lastMessage = getBuyFlowLastMessage(channel.lastMessage?.data) :  lastMessage = channel.lastMessage!.message ;
+                    }else if(channel.customType == ChatType.buyWorkflow.textValue && channel.lastMessage == null){
+                   
+                    }
+                    else{
+                      lastMessage = channel.lastMessage?.message ?? 'No messages yet';
+                    }          
+                    ChatData chatData = ChatData(messages: messages, channel: channel);
+                    return ChatsContact(lastMessage: lastMessage, chatData: chatData);
+              
+                        }),
+              ),
               error: (errorMessage) => Center(child: Text('Error: $errorMessage')), orElse: () { return Container(); },
             );
           },
