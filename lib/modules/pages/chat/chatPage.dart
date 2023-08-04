@@ -99,7 +99,7 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
   try {
     await channel.markAsRead();
   } on MarkAsReadRateLimitExceededException catch (_) {
-    Future.delayed(Duration(seconds: 5), () => markAsRead(channel));
+    Future.delayed(Duration(seconds: 1), () => markAsRead(channel));
   } catch (e) {
     // Handle other exceptions
     print(e);
@@ -140,9 +140,9 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
             color: Palette.current.primaryNeonGreen,
           ),
           onPressed: () async {
-              if (widget.channel.unreadMessageCount > 0) {
+            
                   markAsRead(widget.channel);
-                }
+                
             context.read<ChatCubit>().loadGroupChannels();
             if (Platform.isIOS) {
               await FirebaseMessaging.instance
@@ -198,9 +198,9 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
               loadingFile: (sentBytes, totalBytes, messageId) =>
                   const SimpleLoader(),
               loadedChats: (List<BaseMessage> messages) {
-                if (widget.channel.unreadMessageCount > 0) {
-                  markAsRead(widget.channel);
-                }
+                // if (widget.channel.unreadMessageCount > 0) {
+                //   markAsRead(widget.channel);
+                // }
 
                 messagesList = messages;
                 chatMessages = messagesList.map((chatMessage) {
