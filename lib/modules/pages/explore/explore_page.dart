@@ -85,14 +85,14 @@ class _ExplorePageState extends State<ExplorePage>  {
     getIt<PreferenceRepositoryService>().setPageFromExplore(0);
 
     return Scaffold(
-      extendBodyBehindAppBar: false,
+      extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: true,
       backgroundColor: Palette.current.blackSmoke,
-      appBar: !_isLogged
-          ? CustomAppBar(onRoute: () {
-              Navigator.of(context, rootNavigator: true).pop();
-            })
-          : null,
+      // appBar: !_isLogged
+      //     ? CustomAppBar(onRoute: () {
+      //         Navigator.of(context, rootNavigator: true).pop();
+      //       })
+      //     : null,
       body: Column(
         children: [
           Expanded(
@@ -104,11 +104,11 @@ class _ExplorePageState extends State<ExplorePage>  {
                       minHeight: viewportConstraints.maxHeight,
                     ),
                     child: Padding(
-                      padding: EdgeInsets.only(top: _isLogged ? 50 : 0),
+                      padding: EdgeInsets.only(top: _isLogged ? 0 : 0),
                       child: Column(
                         children: [
                           Container(
-                            height: MediaQuery.of(context).size.height * 0.35,
+                            height: MediaQuery.of(context).size.height * 0.42,
                             child: const AtomicDropBanner(),
                           ),
                           ShopByCategory(
