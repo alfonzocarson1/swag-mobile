@@ -20,11 +20,13 @@ import '../../../../models/search/search_request_payload_model.dart';
 class SearchResultField extends StatefulWidget {
   final String searchParam;
   final TextEditingController textEditingController;
+  int? category;
 
-  const SearchResultField(
+  SearchResultField(
       {super.key,
       required this.textEditingController,
-      required this.searchParam});
+      required this.searchParam,
+      this.category});
 
   @override
   State<SearchResultField> createState() => _SearchResultFieldState();
@@ -53,7 +55,7 @@ class _SearchResultFieldState extends State<SearchResultField> {
           child: InkWell(
             onTap: () {
               Navigator.of(context, rootNavigator: true)
-                  .push(SearchOnTapPage.route(true));
+                  .push(SearchOnTapPage.route(true, widget.category));
             },
             child: SearchInput(
                 prefixIcon: null,
@@ -149,7 +151,6 @@ class _SearchResultFieldState extends State<SearchResultField> {
     await getIt<PreferenceRepositoryService>().saveIsForSale(isForSale);
   }
 
-
   getTabId(SearchTab tab) async {
     String categoryId = await SearchTabWrapper(tab).toStringCustom() ?? "";
     Future.delayed(const Duration(milliseconds: 500));
@@ -161,20 +162,21 @@ class _SearchResultFieldState extends State<SearchResultField> {
     FilterModel filters = await getCurrentFilterModel();
     if (tab != null) {
       categoryId = await getTabId(tab);
-    } 
+    }
     getIt<PaginatedSearchCubit>().loadResults(
         searchModel: SearchRequestPayloadModel(
-          categoryId: (tab == SearchTab.all || tab == null || tab == SearchTab.whatsHot)
-              ? null : categoryId,
-          searchParams: (tab == SearchTab.all || tab == null)
-              ? [widget.textEditingController.text]
-              : null,
-          filters: FilterModel(
-            sortBy: filters.sortBy,
-            forSale: filters.forSale,
-          )
-        ),
-        searchTab: tab ?? SearchTab.all
-        );
-  } 
+            categoryId: (tab == SearchTab.all ||
+                    tab == null ||
+                    tab == SearchTab.whatsHot)
+                ? null
+                : categoryId,
+            searchParams: (tab == SearchTab.all || tab == null)
+                ? [widget.textEditingController.text]
+                : null,
+            filters: FilterModel(
+              sortBy: filters.sortBy,
+              forSale: filters.forSale,
+            )),
+        searchTab: tab ?? SearchTab.all);
+  }
 }

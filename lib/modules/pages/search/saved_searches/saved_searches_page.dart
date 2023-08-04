@@ -14,73 +14,71 @@ import '../../../models/saved_searches/saved_search.dart';
 
 class SavedSearchesPage extends StatefulWidget {
   static const name = '/SavedSearchPage';
-  const SavedSearchesPage({Key? key}) : super(key: key);
+  SavedSearchesPage({Key? key, this.category}) : super(key: key);
+
+  int? category;
 
   static Route route() => PageRoutes.material(
         settings: const RouteSettings(name: name),
-        builder: (context) => const SavedSearchesPage(),
+        builder: (context) => SavedSearchesPage(),
       );
 
   @override
   State<SavedSearchesPage> createState() => _SavedSearchesPageState();
 }
 
-
 class _SavedSearchesPageState extends State<SavedSearchesPage> {
   late bool isAuthenticatedUser;
 
   @override
-  Widget build(BuildContext context) {   
-    
+  Widget build(BuildContext context) {
     getIt<SavedSearchesCubit>().loadSearches();
     this.isAuthenticatedUser = getIt<PreferenceRepositoryService>().isLogged();
-    
-    return (this.isAuthenticatedUser) 
-    ? BlocBuilder<SavedSearchesCubit, SavedSearchesState>(
-      builder: (context, state){
-        return state.when(
-          loading:()=> const SimpleLoader(), 
-          loaded: (savedSearchResponse) => _SavedSearchBody(savedSearchList: savedSearchResponse), 
-          error: (message)=> Center(
-            child: Text(message),
-          ));          
-      })
-    : Container();
-  }  
+
+    return (this.isAuthenticatedUser)
+        ? BlocBuilder<SavedSearchesCubit, SavedSearchesState>(
+            builder: (context, state) {
+            return state.when(
+                loading: () => const SimpleLoader(),
+                loaded: (savedSearchResponse) =>
+                    _SavedSearchBody(savedSearchList: savedSearchResponse),
+                error: (message) => Center(
+                      child: Text(message),
+                    ));
+          })
+        : Container();
   }
+}
 
 class _SavedSearchBody extends StatelessWidget {
   final List<SavedSearch> savedSearchList;
 
-   const _SavedSearchBody({super.key,
-   required this.savedSearchList});
+  const _SavedSearchBody({super.key, required this.savedSearchList});
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-          padding: const EdgeInsets.only(top: 10),
-          itemBuilder: (_, index) {
-            var searchValues = savedSearchList[index].searchValues;
-            searchValues ??= const SearchValues(
-                forSale: false,
-                collection: null,
-                productType: null,
-                priceRanges: null,
-                sortBy: null,
-                type: null,
-                theme: null,
-                conditions: null,
-                releaseYears: null,              
-
-              );  
-            return SavedSearchItem(index:index, searchParam: savedSearchList[index].searchName.toString(), searchFilters: searchValues);
-          }, 
-          itemCount: savedSearchList.length,
+      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+      padding: const EdgeInsets.only(top: 10),
+      itemBuilder: (_, index) {
+        var searchValues = savedSearchList[index].searchValues;
+        searchValues ??= const SearchValues(
+          forSale: false,
+          collection: null,
+          productType: null,
+          priceRanges: null,
+          sortBy: null,
+          type: null,
+          theme: null,
+          conditions: null,
+          releaseYears: null,
         );
+        return SavedSearchItem(
+            index: index,
+            searchParam: savedSearchList[index].searchName.toString(),
+            searchFilters: searchValues);
+      },
+      itemCount: savedSearchList.length,
+    );
   }
 }
-
-
-
-
