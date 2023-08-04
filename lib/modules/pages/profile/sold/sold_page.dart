@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:swagapp/modules/models/sold/product_item_sold.dart';
 
 import '../../../../generated/l10n.dart';
@@ -23,6 +24,7 @@ class SoldPage extends StatefulWidget {
 class _SoldPageState extends State<SoldPage> {
   late ResponsiveDesign _responsiveDesign;
   bool loading = true;
+  final formatter = NumberFormat("###0.00");
 
   List<ProductItemSold> dataSoldListItems = [];
 
@@ -134,8 +136,8 @@ class _SoldPageState extends State<SoldPage> {
                                   color: Palette.current.white)),
                       Text(
                           soldList[index].forSale ?? false
-                              ? '${S.of(context).last_sale} \$${soldList[index].lastSale}'
-                              : '${S.of(context).sold_for}: \$${soldList[index].productItemPrice}',
+                              ? '${S.of(context).last_sale} \$${formatter.format(soldList[index].lastSale)}'
+                              : '${S.of(context).sold_for}: \$${formatter.format(soldList[index].productItemPrice)}',
                           overflow: TextOverflow.fade,
                           style: Theme.of(context)
                               .textTheme

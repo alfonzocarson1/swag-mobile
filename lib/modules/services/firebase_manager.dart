@@ -30,7 +30,7 @@ Future<void> _firebaseMessagingProcessRemoteMessage(
   final sendbird = jsonDecode(message.data['sendbird']);
   if (sendbird != null) {
     await LocalNotificationsManager.showNotification(
-        title: null, body: '${message.data['message']}');
+        title: null, body: 'new test Nico');
   }
 }
 

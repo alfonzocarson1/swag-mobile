@@ -259,7 +259,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                     Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                          S.of(context).title_list_for_Sale,
+                                          widget.catalogItemName.toUpperCase(),
                                           textAlign: TextAlign.left,
                                           style: Theme.of(context)
                                               .textTheme
@@ -558,7 +558,9 @@ class _ListForSalePageState extends State<ListForSalePage> {
   Future<void> selectImages() async {
     // Pick an image
     try {
-      final List<XFile> selectedImages = await selectMultipleImagesAndHandlePermissions(context, imageQuality: 80);
+      final List<XFile> selectedImages =
+          await selectMultipleImagesAndHandlePermissions(context,
+              imageQuality: 80);
       if ((selectedImages.length + imageFileList.length) <= 6) {
         scaleDownXFile(selectedImages);
       } else {
@@ -574,7 +576,8 @@ class _ListForSalePageState extends State<ListForSalePage> {
       showDialog(
           context: context,
           builder: (BuildContext context) {
-            return const GrantPermissionDialog(type: GrantPermissionDialogType.camera);
+            return const GrantPermissionDialog(
+                type: GrantPermissionDialogType.camera);
           });
       //log("Image picker: $e");
     }

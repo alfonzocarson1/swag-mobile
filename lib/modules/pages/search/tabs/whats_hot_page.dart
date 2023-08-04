@@ -30,6 +30,7 @@ class _WhatsHotPageState extends State<WhatsHotPage> {
  SearchTab tab = SearchTab.whatsHot;    
   String categoryId= "";
   bool isLoading = false;
+ bool isReload = true;
   Map<SearchTab, List<CatalogItemModel>> resultMap = { };
   List<CatalogItemModel> resultList=[];
   bool hasReachedMax=false;
@@ -43,7 +44,6 @@ class _WhatsHotPageState extends State<WhatsHotPage> {
     callApi();
     shouldLoad = false;
    }
-  
   }
 
  @override
@@ -72,6 +72,9 @@ class _WhatsHotPageState extends State<WhatsHotPage> {
             ),
             ), 
         searchTab: tab );
+    setState(() {
+
+    });
   }
 
 
@@ -102,10 +105,14 @@ class _WhatsHotPageState extends State<WhatsHotPage> {
               resultList = tabMap[tab] ?? [];
               if (newMapList != null) {
                 hasReachedMax = newMapList.length >= defaultPageSize;
-              }                  
+              }
+              if(isReload){
+                callApi();
+                isReload = false;
+              }
             return BodyWidgetWithView(
-              resultList, 
-              tab, 
+              resultList,
+              tab,
               scrollListener: () => hasReachedMax ? getIt<PaginatedSearchCubit>().loadMoreResults(tab) : {},
               );
             }

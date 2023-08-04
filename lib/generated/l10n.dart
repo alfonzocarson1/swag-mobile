@@ -630,6 +630,26 @@ class S {
     );
   }
 
+  /// `microphone`
+  String get permission_microphone {
+    return Intl.message(
+      'microphone',
+      name: 'permission_microphone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `camera and microphone`
+  String get permission_camera_microphone {
+    return Intl.message(
+      'camera and microphone',
+      name: 'permission_camera_microphone',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `{permission} ACCESS`
   String permission_dialog_title(Object permission) {
     return Intl.message(
@@ -1394,10 +1414,10 @@ class S {
     );
   }
 
-  /// `Are you sure`
+  /// `Are you sure?`
   String get existing_item_to_collection_error_title {
     return Intl.message(
-      'Are you sure',
+      'Are you sure?',
       name: 'existing_item_to_collection_error_title',
       desc: '',
       args: [],
@@ -4622,6 +4642,16 @@ class S {
     return Intl.message(
       'Need copy here for regarding data and what happens when they delete their account, Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique',
       name: 'legal_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This shipping address will be removed from your account.`
+  String get remove_address_pop_up {
+    return Intl.message(
+      'This shipping address will be removed from your account.',
+      name: 'remove_address_pop_up',
       desc: '',
       args: [],
     );

@@ -31,6 +31,10 @@ class FavoriteItemBloc extends Bloc<FavoriteItemEvent, FavoriteItemState> {
   Stream<FavoriteItemState> _addFavorite(FavoriteModel param) async* {
     yield FavoriteItemState.initial();
     try {
+      param.profileFavoriteItems?.forEach((e) {
+        getIt<FavoriteProfileCubit>()
+            .optimisticallyUpdateItem(e.catalogItemId!, true);
+      });
       FavoriteModel responseBody = await favoriteService.addFavorite(param);
       getIt<FavoriteProfileCubit>().loadResults();
       yield FavoriteItemState.loadedFavoriteItem(responseBody);
@@ -42,6 +46,10 @@ class FavoriteItemBloc extends Bloc<FavoriteItemEvent, FavoriteItemState> {
   Stream<FavoriteItemState> _removeFavorite(FavoriteModel param) async* {
     yield FavoriteItemState.initial();
     try {
+      param.profileFavoriteItems?.forEach((e) {
+        getIt<FavoriteProfileCubit>()
+            .optimisticallyUpdateItem(e.catalogItemId!, false);
+      });
       FavoriteModel responseBody = await favoriteService.removeFavorite(param);
 
       getIt<FavoriteProfileCubit>().loadResults();

@@ -6,6 +6,7 @@ import '../../data/alerts/i_alerts_service.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/alerts/alert_response_model.dart';
+import '../../models/alerts/alerts_model.dart';
 
 part 'alert_state.dart';
 part 'alert_cubit.freezed.dart';
@@ -64,6 +65,16 @@ class AlertCubit extends Cubit<AlertStateCubit> {
     try {
       await alertService.readAlert(notificationAlertId);
       await getIt<AlertCubit>().getAlertList();
+    } catch (error) {
+      emit(
+        ErrorAlertStateCubit(HandlingErrors().getError(error)),
+      );
+    }
+  }
+
+  Future<void> saveAlert(AlertModel alert) async {
+    try {
+      await alertService.saveAlert(alert);
     } catch (error) {
       emit(
         ErrorAlertStateCubit(HandlingErrors().getError(error)),

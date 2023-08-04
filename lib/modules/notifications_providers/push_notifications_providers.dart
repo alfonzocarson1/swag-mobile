@@ -2,11 +2,13 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 
 import '../common/utils/context_service.dart';
 import '../data/shared_preferences/shared_preferences_service.dart';
 import '../di/injector.dart';
 import '../pages/alert/alert_page.dart';
+import '../services/route_observer.dart';
 import 'local_notifications_providers.dart';
 
 class PushNotificationsProvider {
@@ -42,21 +44,19 @@ class PushNotificationsProvider {
       print('===== On Message ======');
       print(message.data);
 
-      bool showNotify = getIt<PreferenceRepositoryService>().showNotification();
-
+      String? currentRoute = getIt<RouteTracker>().currentRoute;
       var json = jsonDecode(message.data['sendbird']);
 
-      if (showNotify && Platform.isAndroid) {
+      if (currentRoute != "/ChatPage" && Platform.isAndroid) {
         LocalNotificationProvider().showNotification(
-            title: json['push_title'],
-            body: json['message'],
-            payLoad: "Data nueva");
+            title: json['push_title'], body: json['message'], payLoad: 'data');
       }
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       print('===== On MessageOpenedApp ======');
       print(message.data);
+
       getIt<ContextService>()
           .rootNavigatorKey
           .currentState!
@@ -72,9 +72,7 @@ class PushNotificationsProvider {
 
     if (Platform.isAndroid) {
       LocalNotificationProvider().showNotification(
-          title: json['push_title'],
-          body: json['message'],
-          payLoad: "Data nueva");
+          title: json['push_title'], body: json['message'], payLoad: 'data');
     }
   }
 

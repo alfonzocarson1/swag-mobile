@@ -302,7 +302,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "It looks like you already have this item in your collection. Are you sure you want to add another one?"),
         "existing_item_to_collection_error_title":
-            MessageLookupByLibrary.simpleMessage("Are you sure"),
+            MessageLookupByLibrary.simpleMessage("Are you sure?"),
         "expiration": MessageLookupByLibrary.simpleMessage("Expiration"),
         "expired": MessageLookupByLibrary.simpleMessage("Expired"),
         "explore_as_guest":
@@ -559,9 +559,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "pending_sale_btn":
             MessageLookupByLibrary.simpleMessage("Pending Sale"),
         "permission_camera": MessageLookupByLibrary.simpleMessage("camera"),
+        "permission_camera_microphone":
+            MessageLookupByLibrary.simpleMessage("camera and microphone"),
         "permission_dialog_button": m16,
         "permission_dialog_description": m17,
         "permission_dialog_title": m18,
+        "permission_microphone":
+            MessageLookupByLibrary.simpleMessage("microphone"),
         "permission_photos": MessageLookupByLibrary.simpleMessage("photo"),
         "permission_photos_title": MessageLookupByLibrary.simpleMessage(""),
         "phone": MessageLookupByLibrary.simpleMessage("Phone"),
@@ -673,6 +677,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "released": MessageLookupByLibrary.simpleMessage("Released:"),
         "released_type": MessageLookupByLibrary.simpleMessage("Release Type:"),
         "remove_address": MessageLookupByLibrary.simpleMessage("Remove"),
+        "remove_address_pop_up": MessageLookupByLibrary.simpleMessage(
+            "This shipping address will be removed from your account."),
         "remove_collection_btn":
             MessageLookupByLibrary.simpleMessage("REMOVE FROM COLLECTION"),
         "remove_item": MessageLookupByLibrary.simpleMessage("REMOVE ITEM"),

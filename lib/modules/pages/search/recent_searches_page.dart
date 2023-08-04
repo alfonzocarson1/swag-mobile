@@ -14,11 +14,13 @@ import '../../models/search/search_request_payload_model.dart';
 
 class RecentSearchesPage extends StatefulWidget {
   static const name = '/RecentSearches';
-  const RecentSearchesPage({Key? key}) : super(key: key);
+  RecentSearchesPage({Key? key, this.category}) : super(key: key);
+
+  int? category;
 
   static Route route() => PageRoutes.material(
         settings: const RouteSettings(name: name),
-        builder: (context) => const RecentSearchesPage(),
+        builder: (context) => RecentSearchesPage(),
       );
 
   @override
@@ -30,40 +32,41 @@ class _RecentSearchesPageState extends State<RecentSearchesPage> {
 
   @override
   Widget build(BuildContext context) {
-
-    this. isAuthenticatedUser = getIt<PreferenceRepositoryService>().isLogged();
-    List<String> recentSearches = getIt<PreferenceRepositoryService>().getRecentSearchesWithFilters();
+    this.isAuthenticatedUser = getIt<PreferenceRepositoryService>().isLogged();
+    List<String> recentSearches =
+        getIt<PreferenceRepositoryService>().getRecentSearchesWithFilters();
     List<String> reversedRecentSearches = recentSearches.reversed.toList();
-    List<SearchRequestPayloadModel> recentSearchList =[];    
+    List<SearchRequestPayloadModel> recentSearchList = [];
 
-    for(String x in reversedRecentSearches){      
+    for (String x in reversedRecentSearches) {
       recentSearchList.add(SearchRequestPayloadModel.fromJson(jsonDecode(x)));
     }
 
-    return (this.isAuthenticatedUser) 
-    ? Container(
-        color: Palette.current.primaryNero,
-        child: ListView.builder(
-          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-          itemCount: recentSearchList.length,
-          padding: const EdgeInsets.only(top: 10),
-          itemBuilder: (_, index) {
-            SearchRequestPayloadModel item = recentSearchList[index];    
-            List<String> searchParams = item.searchParams ?? [];
-            return this._recentItem(context, searchParams.first);
-            },
-        ),
-     )
-    : Container();
+    return (this.isAuthenticatedUser)
+        ? Container(
+            color: Palette.current.primaryNero,
+            child: ListView.builder(
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+              itemCount: recentSearchList.length,
+              padding: const EdgeInsets.only(top: 10),
+              itemBuilder: (_, index) {
+                SearchRequestPayloadModel item = recentSearchList[index];
+                List<String> searchParams = item.searchParams ?? [];
+                return this._recentItem(context, searchParams.first);
+              },
+            ),
+          )
+        : Container();
   }
-  
+
   Widget _recentItem(BuildContext context, String searchParam) {
     return InkWell(
       onTap: () {
         Navigator.of(context).pop();
         PersistentNavBarNavigator.pushNewScreen(
           context,
-          screen: SearchResultPage(searchParam: searchParam),
+          screen: SearchResultPage(
+              searchParam: searchParam, category: widget.category),
           withNavBar: true,
         );
       },
@@ -107,14 +110,6 @@ class _RecentSearchesPageState extends State<RecentSearchesPage> {
           ),
         ],
       ),
-    );
-  }
-
-  void onTapResult(BuildContext context, String searchParam) {
-    PersistentNavBarNavigator.pushNewScreen(
-      context,
-      screen: SearchResultPage(searchParam: searchParam),
-      withNavBar: true,
     );
   }
 }

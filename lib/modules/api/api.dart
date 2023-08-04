@@ -56,7 +56,9 @@ enum Endpoint {
   soldDetail,
   favoriteProfile,
   nftWallet,
-  logout
+  logout,
+  addAlertP2P,
+  removeAddress
 }
 
 enum ApiHostScheme {
@@ -64,7 +66,7 @@ enum ApiHostScheme {
   https,
 }
 
-extension on ApiHostScheme {
+extension ApiHostSchemeX on ApiHostScheme {
   Uri encodeUri(
     String authority, [
     String unencodedPath = '',
@@ -156,6 +158,8 @@ class API {
     Endpoint.soldDetail: 'api/v1/listing/listingDetail/soldDetail/%s',
     Endpoint.favoriteProfile: 'api/public/v1/profile/favoriteItems/%s',
     Endpoint.nftWallet: 'api/v1/profile/settings/nftWallet',
-    Endpoint.logout: 'api/v1/account/logout'
+    Endpoint.logout: 'api/v1/account/logout',
+    Endpoint.addAlertP2P: 'api/v1/notification/alerts/alert',
+    Endpoint.removeAddress: 'api/v1/profile/settings/account/addresses/%s'
   };
 }

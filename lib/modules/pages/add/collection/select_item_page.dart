@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/pages/add/collection/widgets/item_page_grid_body.dart';
@@ -16,7 +15,6 @@ import '../../../common/utils/tab_wrapper.dart';
 import '../../../models/search/filter_model.dart';
 import '../../../models/search/search_request_payload_model.dart';
 import '../../search/search_on_tap_page.dart';
-
 
 class SelectItemPage extends StatefulWidget {
   static const name = '/SelectItemPage';
@@ -50,7 +48,6 @@ class _SelectItemPageState extends State<SelectItemPage> {
   Widget build(BuildContext context) {
     _responsiveDesign = ResponsiveDesign(context);
     return Scaffold(
-        
         appBar: PushedHeader(
           showBackButton: true,
           title: Align(
@@ -102,14 +99,14 @@ class _SelectItemPageState extends State<SelectItemPage> {
               },
               result: (state) {
                 return ItemPageGridBody(
-                     catalogList: state.result[SearchTab.values[widget.page]] ?? [],);
+                  catalogList:
+                      state.result[SearchTab.values[widget.page]] ?? [],
+                );
               },
             );
           },
         ));
   }
-
-
 
   void makeCall() {
     context.read<SearchBloc>().add(const SearchEvent.performSearch(
@@ -130,8 +127,9 @@ class _SelectItemPageState extends State<SelectItemPage> {
         Expanded(
           child: InkWell(
             onTap: () {
-              Navigator.of(context, rootNavigator: true)
-                  .push(SearchOnTapPage.route(false)); //_textEditingController
+              Navigator.of(context, rootNavigator: true).push(
+                  SearchOnTapPage.route(
+                      false, widget.page)); //_textEditingController
             },
             child: SearchInput(
               prefixIcon: null,

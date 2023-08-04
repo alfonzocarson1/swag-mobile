@@ -1,6 +1,9 @@
 class TimeStampConverter{
 
   String calculateTime(int timestamp){
+    if(timestamp ==0){
+      return "";
+    }
     DateTime fullMessageDate = DateTime.fromMillisecondsSinceEpoch(timestamp);
     DateTime messageDateOnly = DateTime(fullMessageDate.year, fullMessageDate.month, fullMessageDate.day);
     DateTime now = DateTime.now();
@@ -15,7 +18,7 @@ class TimeStampConverter{
     else if(differenceInDays < 1){
      timeMessage = 'today'; 
     }
-    else if(differenceInWeeks >=1 && differenceInWeeks < 4){      
+    else if(differenceInWeeks >=1){      
       timeMessage = "$differenceInWeeks week${differenceInWeeks == 1 ? '' : 's'} ago";
     }
     return timeMessage;

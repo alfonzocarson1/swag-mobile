@@ -25,6 +25,7 @@ mixin _$UpdateProfileModel {
   double? get listingsRating => throw _privateConstructorUsedError;
   String? get phoneNumber => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
+  bool? get response => throw _privateConstructorUsedError;
   List<AddressesPayloadModel>? get addresses =>
       throw _privateConstructorUsedError;
   bool? get hasActiveSubscription => throw _privateConstructorUsedError;
@@ -48,6 +49,7 @@ abstract class $UpdateProfileModelCopyWith<$Res> {
       double? listingsRating,
       String? phoneNumber,
       String? email,
+      bool? response,
       List<AddressesPayloadModel>? addresses,
       bool? hasActiveSubscription,
       Status? status});
@@ -73,6 +75,7 @@ class _$UpdateProfileModelCopyWithImpl<$Res, $Val extends UpdateProfileModel>
     Object? listingsRating = freezed,
     Object? phoneNumber = freezed,
     Object? email = freezed,
+    Object? response = freezed,
     Object? addresses = freezed,
     Object? hasActiveSubscription = freezed,
     Object? status = freezed,
@@ -98,6 +101,10 @@ class _$UpdateProfileModelCopyWithImpl<$Res, $Val extends UpdateProfileModel>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
+      response: freezed == response
+          ? _value.response
+          : response // ignore: cast_nullable_to_non_nullable
+              as bool?,
       addresses: freezed == addresses
           ? _value.addresses
           : addresses // ignore: cast_nullable_to_non_nullable
@@ -140,6 +147,7 @@ abstract class _$$_UpdateProfileModelCopyWith<$Res>
       double? listingsRating,
       String? phoneNumber,
       String? email,
+      bool? response,
       List<AddressesPayloadModel>? addresses,
       bool? hasActiveSubscription,
       Status? status});
@@ -164,6 +172,7 @@ class __$$_UpdateProfileModelCopyWithImpl<$Res>
     Object? listingsRating = freezed,
     Object? phoneNumber = freezed,
     Object? email = freezed,
+    Object? response = freezed,
     Object? addresses = freezed,
     Object? hasActiveSubscription = freezed,
     Object? status = freezed,
@@ -189,6 +198,10 @@ class __$$_UpdateProfileModelCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
+      response: freezed == response
+          ? _value.response
+          : response // ignore: cast_nullable_to_non_nullable
+              as bool?,
       addresses: freezed == addresses
           ? _value._addresses
           : addresses // ignore: cast_nullable_to_non_nullable
@@ -214,6 +227,7 @@ class _$_UpdateProfileModel implements _UpdateProfileModel {
       this.listingsRating,
       this.phoneNumber,
       this.email,
+      this.response,
       final List<AddressesPayloadModel>? addresses,
       this.hasActiveSubscription,
       this.status})
@@ -232,6 +246,8 @@ class _$_UpdateProfileModel implements _UpdateProfileModel {
   final String? phoneNumber;
   @override
   final String? email;
+  @override
+  final bool? response;
   final List<AddressesPayloadModel>? _addresses;
   @override
   List<AddressesPayloadModel>? get addresses {
@@ -249,7 +265,7 @@ class _$_UpdateProfileModel implements _UpdateProfileModel {
 
   @override
   String toString() {
-    return 'UpdateProfileModel(accountId: $accountId, username: $username, listingsRating: $listingsRating, phoneNumber: $phoneNumber, email: $email, addresses: $addresses, hasActiveSubscription: $hasActiveSubscription, status: $status)';
+    return 'UpdateProfileModel(accountId: $accountId, username: $username, listingsRating: $listingsRating, phoneNumber: $phoneNumber, email: $email, response: $response, addresses: $addresses, hasActiveSubscription: $hasActiveSubscription, status: $status)';
   }
 
   @override
@@ -266,6 +282,8 @@ class _$_UpdateProfileModel implements _UpdateProfileModel {
             (identical(other.phoneNumber, phoneNumber) ||
                 other.phoneNumber == phoneNumber) &&
             (identical(other.email, email) || other.email == email) &&
+            (identical(other.response, response) ||
+                other.response == response) &&
             const DeepCollectionEquality()
                 .equals(other._addresses, _addresses) &&
             (identical(other.hasActiveSubscription, hasActiveSubscription) ||
@@ -282,6 +300,7 @@ class _$_UpdateProfileModel implements _UpdateProfileModel {
       listingsRating,
       phoneNumber,
       email,
+      response,
       const DeepCollectionEquality().hash(_addresses),
       hasActiveSubscription,
       status);
@@ -308,6 +327,7 @@ abstract class _UpdateProfileModel implements UpdateProfileModel {
       final double? listingsRating,
       final String? phoneNumber,
       final String? email,
+      final bool? response,
       final List<AddressesPayloadModel>? addresses,
       final bool? hasActiveSubscription,
       final Status? status}) = _$_UpdateProfileModel;
@@ -325,6 +345,8 @@ abstract class _UpdateProfileModel implements UpdateProfileModel {
   String? get phoneNumber;
   @override
   String? get email;
+  @override
+  bool? get response;
   @override
   List<AddressesPayloadModel>? get addresses;
   @override

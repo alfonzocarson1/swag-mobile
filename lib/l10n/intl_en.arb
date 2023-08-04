@@ -57,6 +57,8 @@
     "camera": "TAKE PHOTO",
     "permission_photos": "photo",
     "permission_camera": "camera",
+    "permission_microphone":"microphone",
+    "permission_camera_microphone":"camera and microphone",
     "permission_dialog_title": "{permission} ACCESS",
     "permission_dialog_description": "Please allow {permission} permission in your {os, select, android{phone} ios{iPhone} other{device}} settings for the Swag App",
     "permission_dialog_button": "ALLOW {permission} ACCESS",
@@ -138,7 +140,7 @@
     "info_guideline_popup_badg_one": "• Detailed product description",
     "info_guideline_popup_badg_two": "• Who you acquired item from",
     "info_guideline_popup_badg_three": "• Any relation to someone at Swag?",
-    "existing_item_to_collection_error_title": "Are you sure",
+    "existing_item_to_collection_error_title": "Are you sure?",
     "existing_item_to_collection_error_sub_desc": "It looks like you already have this item in your collection. Are you sure you want to add another one?",
     "existing_item_to_collection_error_btn": "YES, ADD ANOTHER",
 
@@ -482,5 +484,6 @@
     "profile_first_name": "First name",
     "profile_last_name": "Last name",
     "profile_name": "Name",
-    "legal_text": "Need copy here for regarding data and what happens when they delete their account, Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique"
+    "legal_text": "Need copy here for regarding data and what happens when they delete their account, Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique",
+    "remove_address_pop_up": "This shipping address will be removed from your account."
 }

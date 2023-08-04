@@ -21,3 +21,17 @@ class AsyncValue<T> with _$AsyncValue<T> {
         error: (e, previousData) => previousData,
       );
 }
+
+extension AsyncValueX<T> on AsyncValue<T> {
+  AsyncValue<T> tryCopyWithDataOrPreviousData(T Function(T) copyWithFunc) {
+    return when(
+      loaded: (data) => AsyncValue.loaded(copyWithFunc(data)),
+      loading: (previousData) => AsyncValue.loading(
+          previousData == null ? null : copyWithFunc(previousData)),
+      error: (e, previousData) => AsyncValue.error(
+        e,
+        previousData == null ? null : copyWithFunc(previousData),
+      ),
+    );
+  }
+}

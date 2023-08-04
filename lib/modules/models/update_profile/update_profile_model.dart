@@ -8,11 +8,12 @@ part 'update_profile_model.g.dart';
 @freezed
 class UpdateProfileModel with _$UpdateProfileModel {
   const factory UpdateProfileModel({
-     final String? accountId,
-     final String? username,
-     final double? listingsRating,
-     final String? phoneNumber,
-     final String? email,
+    final String? accountId,
+    final String? username,
+    final double? listingsRating,
+    final String? phoneNumber,
+    final String? email,
+    final bool? response,
     List<AddressesPayloadModel>? addresses,
     final bool? hasActiveSubscription,
     final Status? status,
@@ -24,12 +25,8 @@ class UpdateProfileModel with _$UpdateProfileModel {
 
 @freezed
 class Status with _$Status {
-  const factory Status({
-    final String? errorCode,
-    final String? errorMessage
-}) = _Status;
+  const factory Status({final String? errorCode, final String? errorMessage}) =
+      _Status;
 
-  factory Status.fromJson(Map<String, dynamic> json) =>
-      _$StatusFromJson(json);
-
+  factory Status.fromJson(Map<String, dynamic> json) => _$StatusFromJson(json);
 }

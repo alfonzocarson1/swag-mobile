@@ -48,17 +48,9 @@ class _ChatsContactState extends State<ChatsContact> {
    @override
    void initState() {
      super.initState();
-    // getChannelMessages();
-    // getPayloadData();
    }
   
-  getPayloadData()async {    
-    if(BuyChannelMessages.isNotEmpty){    
-    Map<String,dynamic> buyChannelJson = SendBirdUtils.getFormatedData(this.widget.chatData.messages[0].data ?? "");
-    MessageData messageData = MessageData.fromJson(buyChannelJson);
-    lastBuyChatMessage = SendBirdUtils.getMessageText(messageData);
-    }
-  }
+ 
 
   getChannelMessages()async{
   if(this.widget.chatData.channel.customType != ChatType.listing.textValue && BuyChannelMessages.isEmpty){
@@ -85,10 +77,6 @@ class _ChatsContactState extends State<ChatsContact> {
         .toList()
         .first;
     String lastActivityTimeStamp = TimeStampConverter().calculateTime(this.widget.chatData.channel.lastMessage?.createdAt ?? 0);
-    //getPayloadData();
-  //  Map<String,dynamic> buyChannelJson = SendBirdUtils.getFormatedData(this.chatData.messages[0].data ?? "");
-  //   MessageData messageData = MessageData.fromJson(buyChannelJson);
-  //   String lastBuyChatMessage = SendBirdUtils.getMessageText(messageData);
                
     return CustomListTile(
       titleSpacing: 5,
@@ -103,7 +91,7 @@ class _ChatsContactState extends State<ChatsContact> {
         chatData: this.widget.chatData,
       ),
       title: Text(
-        '@${otherUser.nickname.capitalize()} - ${channelData.listingProductName}',
+        (otherUser.nickname.isNotEmpty) ? '@${otherUser.nickname.capitalize()} - ${channelData.listingProductName}' : "",
           overflow: TextOverflow.ellipsis,
         style: Theme.of(context).textTheme.bodySmall!.copyWith(
               fontWeight:
@@ -113,7 +101,7 @@ class _ChatsContactState extends State<ChatsContact> {
             ),
       ),
       subtitle: Text(
-        (widget.chatData.channel.customType == ChatType.listing.textValue) ? this.widget.lastMessage : lastBuyChatMessage,
+       this.widget.lastMessage ,
         maxLines: 1,
         style: Theme.of(context).textTheme.bodySmall!.copyWith(
             fontSize: 14,
@@ -125,6 +113,7 @@ class _ChatsContactState extends State<ChatsContact> {
         context,
         MaterialPageRoute(
           builder: (BuildContext context) => ChatPage(channel: widget.chatData.channel,),
+          settings: const RouteSettings(name: '/ChatPage')
         ),
       ), 
     );

@@ -14,6 +14,7 @@ _$_UpdateProfileModel _$$_UpdateProfileModelFromJson(
       listingsRating: (json['listingsRating'] as num?)?.toDouble(),
       phoneNumber: json['phoneNumber'] as String?,
       email: json['email'] as String?,
+      response: json['response'] as bool?,
       addresses: (json['addresses'] as List<dynamic>?)
           ?.map(
               (e) => AddressesPayloadModel.fromJson(e as Map<String, dynamic>))
@@ -32,6 +33,7 @@ Map<String, dynamic> _$$_UpdateProfileModelToJson(
       'listingsRating': instance.listingsRating,
       'phoneNumber': instance.phoneNumber,
       'email': instance.email,
+      'response': instance.response,
       'addresses': instance.addresses,
       'hasActiveSubscription': instance.hasActiveSubscription,
       'status': instance.status,

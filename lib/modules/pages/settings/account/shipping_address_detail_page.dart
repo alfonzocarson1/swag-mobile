@@ -11,6 +11,7 @@ import '../../../di/injector.dart';
 import '../../../models/profile/profile_model.dart';
 import '../../../models/update_profile/addresses_payload_model.dart';
 import 'add_shipping_address_page.dart';
+import 'remove_shipping_address_modal.dart';
 
 // ignore: must_be_immutable
 class ShippingAddressDetailPage extends StatefulWidget {
@@ -71,9 +72,22 @@ class _ShippingAddressDetailPageState extends State<ShippingAddressDetailPage> {
                             context,
                             'assets/icons/shipping_address_icon.png',
                             '${profileData.addresses![widget.addressIndex].address1}',
-                            '',
-                            () {},
-                            Text(S.of(context).remove_address,
+                            '', () {
+                          if (profileData.addresses!.length > 1) {
+                            showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (BuildContext context) {
+                                  return RemoveAddressPopUp(
+                                    addressIndex: widget.addressIndex,
+                                  );
+                                });
+                          }
+                        },
+                            Text(
+                                profileData.addresses!.length > 1
+                                    ? S.of(context).remove_address
+                                    : '',
                                 style: Theme.of(context)
                                     .textTheme
                                     .displayLarge!

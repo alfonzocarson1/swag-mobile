@@ -34,7 +34,8 @@ Future<void> main() async {
   debugPrint('STARTED WITH FLAVOR $appFlavor');
   await setupAppScope(appFlavor);
   await getIt<PreferenceRepositoryService>().initialize();
-  SendbirdChat.init(appId: sendBirdAppId);
+  String sendbirdAppId = getIt<AppConfig>().sendBirdAppId;
+  SendbirdChat.init(appId: sendbirdAppId);
   getIt<StorageRepositoryService>().initialize();
   initFiltersAndSorts();
   initUtilsPreference();
