@@ -140,7 +140,7 @@
     "info_guideline_popup_badg_one": "• Detailed product description",
     "info_guideline_popup_badg_two": "• Who you acquired item from",
     "info_guideline_popup_badg_three": "• Any relation to someone at Swag?",
-    "existing_item_to_collection_error_title": "Are you sure",
+    "existing_item_to_collection_error_title": "Are you sure?",
     "existing_item_to_collection_error_sub_desc": "It looks like you already have this item in your collection. Are you sure you want to add another one?",
     "existing_item_to_collection_error_btn": "YES, ADD ANOTHER",
 
@@ -483,5 +483,6 @@
     "blocked_title": "Blocked Accounts",
     "profile_first_name": "First name",
     "profile_last_name": "Last name",
-    "profile_name": "Name"
+    "profile_name": "Name",
+    "remove_address_pop_up": "This shipping address will be removed from your account."
 }
