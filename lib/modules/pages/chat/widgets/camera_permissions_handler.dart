@@ -2,45 +2,58 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../../common/ui/grant_permission_popup.dart';
-import '../../chats/widgets/chat_camera_page.dart';
 
-class CameraPermissionsHandler {
 
- static handlePermissions({required BuildContext context, required Function afterPermissionsHandled})async {
-     final cameraPermissionStatus = await Permission.camera.request();
-    final microphonePermissionStatus = await Permission.microphone.request();
+  
 
-    if (cameraPermissionStatus.isGranted &&
-        microphonePermissionStatus.isGranted) {
+ Future<void> handlePermissions({required BuildContext context, required Function afterPermissionsHandled})async {
+
+
+    const cameraPermission =  Permission.camera;
+    const microphonePermission =  Permission.microphone;
+
+    final cameraStatus = await cameraPermission.status;
+    final microphoneStatus = await microphonePermission.status;
+
+
+    if (cameraStatus.isGranted &&
+        microphoneStatus.isGranted) {
          afterPermissionsHandled();      
-    }   else if ((cameraPermissionStatus.isPermanentlyDenied ||
-        cameraPermissionStatus.isDenied) && (microphonePermissionStatus.isPermanentlyDenied ||
-        microphonePermissionStatus.isDenied))  {
+    }
+     else if (cameraStatus.isPermanentlyDenied && microphoneStatus.isPermanentlyDenied) {
       await showDialog(
         context: context,
         builder: (context) => const GrantPermissionDialog(
           type: GrantPermissionDialogType.cameraMicrophone,
         ),
       );
-    }    
-    else if (cameraPermissionStatus.isPermanentlyDenied ||
-        cameraPermissionStatus.isDenied) {
+    }     
+    else if (cameraStatus.isPermanentlyDenied) {
       await showDialog(
         context: context,
         builder: (context) => const GrantPermissionDialog(
           type: GrantPermissionDialogType.camera,
         ),
       );
-    } else if (microphonePermissionStatus.isPermanentlyDenied ||
-        microphonePermissionStatus.isDenied) {
+    } else if (microphoneStatus.isPermanentlyDenied ) {
       await showDialog(
         context: context,
         builder: (context) => const GrantPermissionDialog(
           type: GrantPermissionDialogType.microphone,
         ),
       );
-    } else if (microphonePermissionStatus.isGranted &&  (cameraPermissionStatus.isPermanentlyDenied ||
-        cameraPermissionStatus.isDenied) 
+    } 
+    else if ( cameraStatus.isDenied ) {
+      await Permission.camera.request();
+      await Permission.microphone.request();
+    } 
+    else if(microphoneStatus.isDenied){
+       await Permission.microphone.request();
+       await Permission.camera.request();
+    }
+    
+    else if (microphoneStatus.isGranted &&  (cameraStatus.isPermanentlyDenied ||
+        cameraStatus.isDenied) 
        )  {
       await showDialog(
         context: context,
@@ -49,8 +62,8 @@ class CameraPermissionsHandler {
         ),
       );
     }
-    else if (cameraPermissionStatus.isGranted &&  (microphonePermissionStatus.isPermanentlyDenied ||
-        microphonePermissionStatus.isDenied) 
+    else if (cameraStatus.isGranted &&  (microphoneStatus.isPermanentlyDenied ||
+        microphoneStatus.isDenied) 
        )  {
       await showDialog(
         context: context,
@@ -61,9 +74,13 @@ class CameraPermissionsHandler {
     }      
     
     else {
-      debugPrint("----------");
+      await showDialog(
+        context: context,
+        builder: (context) => const GrantPermissionDialog(
+          type: GrantPermissionDialogType.cameraMicrophone,
+        ),
+      );
     }
 
   }
 
-}
