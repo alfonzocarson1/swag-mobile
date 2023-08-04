@@ -155,6 +155,9 @@ flutter:
     - family: knockoutCustom
       fonts:
         - asset: assets/fonts/knockout/Knockout-27.otf
+    - family: knockoutBantamWeight
+      fonts:
+        - asset: assets/fonts/knockout/Knockout-47.otf
     - family: RingsideCompressed
       fonts:
         - asset: assets/fonts/ringside/RingsideCompressed-Black.otf
