@@ -91,7 +91,7 @@ class _ChatsContactState extends State<ChatsContact> {
         chatData: this.widget.chatData,
       ),
       title: Text(
-        '@${otherUser.nickname.capitalize()} - ${channelData.listingProductName}',
+        (otherUser.nickname.isNotEmpty) ? '@${otherUser.nickname.capitalize()} - ${channelData.listingProductName}' : "",
           overflow: TextOverflow.ellipsis,
         style: Theme.of(context).textTheme.bodySmall!.copyWith(
               fontWeight:
