@@ -22,7 +22,6 @@ part 'update_profile_state.dart';
 
 class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
   final IUpdateProfileService updateProfileService;
-  
 
   UpdateProfileBloc(this.updateProfileService)
       : super(UpdateProfileState.initial());
@@ -35,14 +34,14 @@ class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
   @override
   Stream<UpdateProfileState> mapEventToState(UpdateProfileEvent event) async* {
     yield* event.when(
-      update: _update, 
-      updateAvatar: _updateAvatar, 
-      importData: importData, 
-      askEmailVerification: _askEmailVerification, 
-      closeVerifyEmailModal: _closeVerifyEmailModal,
-      updateName: _updateName,
-      updateEmail: _updateEmail
-      );
+        update: _update,
+        updateAvatar: _updateAvatar,
+        importData: importData,
+        askEmailVerification: _askEmailVerification,
+        closeVerifyEmailModal: _closeVerifyEmailModal,
+        updateName: _updateName,
+        updateEmail: _updateEmail,
+        removeAddress: _removeAddress);
   }
 
   Stream<UpdateProfileState> _update(UpdateProfilePayloadModel param) async* {
@@ -57,11 +56,24 @@ class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
     }
   }
 
-  Stream<UpdateProfileState> _updateName(UpdateProfilePayloadModel param) async* {
+  Stream<UpdateProfileState> _removeAddress(String addressId) async* {
     yield UpdateProfileState.initial();
     try {
       UpdateProfileModel responseBody =
-      await updateProfileService.updateProfile(param);
+          await updateProfileService.removeAddress(addressId);
+      yield UpdateProfileState.updated();
+      yield UpdateProfileState.loadedSuccess(responseBody);
+    } catch (e) {
+      yield UpdateProfileState.error(HandlingErrors().getError(e));
+    }
+  }
+
+  Stream<UpdateProfileState> _updateName(
+      UpdateProfilePayloadModel param) async* {
+    yield UpdateProfileState.initial();
+    try {
+      UpdateProfileModel responseBody =
+          await updateProfileService.updateProfile(param);
       await getIt<ProfileCubit>().loadProfileResults();
       yield UpdateProfileState.updated();
       yield UpdateProfileState.loadedSuccess(responseBody);
@@ -70,15 +82,15 @@ class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
     }
   }
 
-  Stream<UpdateProfileState> _updateEmail(UpdateProfilePayloadModel param) async* {
+  Stream<UpdateProfileState> _updateEmail(
+      UpdateProfilePayloadModel param) async* {
     yield UpdateProfileState.initial();
     try {
       UpdateProfileModel responseBody =
-      await updateProfileService.updateProfile(param);
-      if(responseBody.status?.errorCode == "203"){
+          await updateProfileService.updateProfile(param);
+      if (responseBody.status?.errorCode == "203") {
         yield UpdateProfileState.error(responseBody.status?.errorMessage ?? '');
-      }
-      else{
+      } else {
         await getIt<ProfileCubit>().loadProfileResults();
         yield UpdateProfileState.updated();
         yield UpdateProfileState.loadedSuccess(responseBody);
@@ -109,19 +121,20 @@ class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
   }
 
   Stream<UpdateProfileState> importData() async* {
-   ProfileModel profileModel  = await getIt<AuthBloc>().authService.privateProfile();
-   bool emailVerified = profileModel.emailVerified;
+    ProfileModel profileModel =
+        await getIt<AuthBloc>().authService.privateProfile();
+    bool emailVerified = profileModel.emailVerified;
     yield UpdateProfileState.dataImported(emailVerified);
   }
 
-    Stream<UpdateProfileState> _askEmailVerification() async* {
+  Stream<UpdateProfileState> _askEmailVerification() async* {
     try {
       bool response = await updateProfileService.requestEmailVerification();
       yield UpdateProfileState.updated();
-      yield  UpdateProfileState.verificationEmailSent(response);
+      yield UpdateProfileState.verificationEmailSent(response);
     } on Exception catch (e) {
       yield UpdateProfileState.error(HandlingErrors().getError(e));
-    }   
+    }
   }
 
   Stream<UpdateProfileState> _closeVerifyEmailModal() async* {

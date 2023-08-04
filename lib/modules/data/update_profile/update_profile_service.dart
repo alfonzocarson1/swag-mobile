@@ -55,4 +55,16 @@ class UpdateProfileService extends IUpdateProfileService {
     );
     return response.parseBool();
   }
+
+  @override
+  Future<UpdateProfileModel> removeAddress(String addressId) async {
+    UpdateProfileModel response = await apiService.getEndpointData(
+      endpoint: Endpoint.removeAddress,
+      method: RequestMethod.delete,
+      dynamicParam: addressId,
+      needBearer: true,
+      fromJson: (json) => UpdateProfileModel.fromJson(json),
+    );
+    return response;
+  }
 }

@@ -1414,10 +1414,10 @@ class S {
     );
   }
 
-  /// `Are you sure`
+  /// `Are you sure?`
   String get existing_item_to_collection_error_title {
     return Intl.message(
-      'Are you sure',
+      'Are you sure?',
       name: 'existing_item_to_collection_error_title',
       desc: '',
       args: [],
@@ -4632,6 +4632,16 @@ class S {
     return Intl.message(
       'Name',
       name: 'profile_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This shipping address will be removed from your account.`
+  String get remove_address_pop_up {
+    return Intl.message(
+      'This shipping address will be removed from your account.',
+      name: 'remove_address_pop_up',
       desc: '',
       args: [],
     );

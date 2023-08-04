@@ -57,7 +57,8 @@ enum Endpoint {
   favoriteProfile,
   nftWallet,
   logout,
-  addAlertP2P
+  addAlertP2P,
+  removeAddress
 }
 
 enum ApiHostScheme {
@@ -158,6 +159,7 @@ class API {
     Endpoint.favoriteProfile: 'api/public/v1/profile/favoriteItems/%s',
     Endpoint.nftWallet: 'api/v1/profile/settings/nftWallet',
     Endpoint.logout: 'api/v1/account/logout',
-    Endpoint.addAlertP2P: 'api/v1/notification/alerts/alert'
+    Endpoint.addAlertP2P: 'api/v1/notification/alerts/alert',
+    Endpoint.removeAddress: 'api/v1/profile/settings/account/addresses/%s'
   };
 }

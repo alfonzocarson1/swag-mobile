@@ -302,7 +302,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "It looks like you already have this item in your collection. Are you sure you want to add another one?"),
         "existing_item_to_collection_error_title":
-            MessageLookupByLibrary.simpleMessage("Are you sure"),
+            MessageLookupByLibrary.simpleMessage("Are you sure?"),
         "expiration": MessageLookupByLibrary.simpleMessage("Expiration"),
         "expired": MessageLookupByLibrary.simpleMessage("Expired"),
         "explore_as_guest":
@@ -675,6 +675,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "released": MessageLookupByLibrary.simpleMessage("Released:"),
         "released_type": MessageLookupByLibrary.simpleMessage("Release Type:"),
         "remove_address": MessageLookupByLibrary.simpleMessage("Remove"),
+        "remove_address_pop_up": MessageLookupByLibrary.simpleMessage(
+            "This shipping address will be removed from your account."),
         "remove_collection_btn":
             MessageLookupByLibrary.simpleMessage("REMOVE FROM COLLECTION"),
         "remove_item": MessageLookupByLibrary.simpleMessage("REMOVE ITEM"),
