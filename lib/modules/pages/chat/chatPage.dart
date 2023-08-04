@@ -139,9 +139,7 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
         .toList()
         .first;
 
-    if (widget.channel.unreadMessageCount > 0) {
-      widget.channel.markAsRead();
-    }
+   
 
     return Scaffold(
       backgroundColor: Palette.current.black,
@@ -153,6 +151,7 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
             color: Palette.current.primaryNeonGreen,
           ),
           onPressed: () async {
+
             context.read<ChatCubit>().loadGroupChannels();
             if (Platform.isIOS) {
               await FirebaseMessaging.instance
@@ -208,6 +207,11 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
               loadingFile: (sentBytes, totalBytes, messageId) =>
                   const SimpleLoader(),
               loadedChats: (List<BaseMessage> messages) {
+
+                                         if (widget.channel.unreadMessageCount > 0) {
+      widget.channel.markAsRead();
+    }
+    
                 messagesList = messages;
                 chatMessages = messagesList.map((chatMessage) {
                   FileMessage fileMessage;
