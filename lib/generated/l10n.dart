@@ -640,6 +640,16 @@ class S {
     );
   }
 
+  /// `camera and microphone`
+  String get permission_camera_microphone {
+    return Intl.message(
+      'camera and microphone',
+      name: 'permission_camera_microphone',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `{permission} ACCESS`
   String permission_dialog_title(Object permission) {
     return Intl.message(

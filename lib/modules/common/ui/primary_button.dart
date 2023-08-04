@@ -9,7 +9,7 @@ class PrimaryButton extends StatelessWidget {
     required this.title,
     required this.onPressed,
     required this.type,
-    this.maxHeight = 56,
+    this.maxHeight = 70,
     this.cornerRadius = 0,
   }) : super(key: key);
 
@@ -72,6 +72,7 @@ class PrimaryButton extends StatelessWidget {
           focusColor: Colors.transparent,
           onPressed: onPressed,
           child: AnimatedContainer(
+            padding: EdgeInsets.symmetric(vertical: 8.0),
             height: maxHeight,
             decoration: const BoxDecoration(
               color: Colors.transparent,
@@ -80,8 +81,9 @@ class PrimaryButton extends StatelessWidget {
             duration: const Duration(
               milliseconds: 250,
             ),
-            child: Text(
+            child: Text(                
               title,
+              textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.displayMedium!.copyWith(
                   fontFamily: "KnockoutCustom",
                   fontSize: 24,

@@ -557,6 +557,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "pending_sale_btn":
             MessageLookupByLibrary.simpleMessage("Pending Sale"),
         "permission_camera": MessageLookupByLibrary.simpleMessage("camera"),
+        "permission_camera_microphone":
+            MessageLookupByLibrary.simpleMessage("camera and microphone"),
         "permission_dialog_button": m16,
         "permission_dialog_description": m17,
         "permission_dialog_title": m18,
