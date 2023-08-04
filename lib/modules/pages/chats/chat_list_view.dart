@@ -74,9 +74,12 @@ class _ChatListPageState extends State<ChatListPage> {
                 itemBuilder: (context, index) {
                   final channel = channels[index];
                   String lastMessage= "";
-                  if(channel.customType == ChatType.buyWorkflow.textValue){
-                    (channel.lastMessage?.data != "" ) ? lastMessage = getBuyFlowLastMessage(channel.lastMessage?.data) : lastMessage = channel.lastMessage!.message ;
-                  }else{
+                  if(channel.customType == ChatType.buyWorkflow.textValue && channel.lastMessage != null){
+                    (channel.lastMessage?.data != "" ) ? lastMessage = getBuyFlowLastMessage(channel.lastMessage?.data) :  lastMessage = channel.lastMessage!.message ;
+                  }else if(channel.customType == ChatType.buyWorkflow.textValue && channel.lastMessage == null){
+                 
+                  }
+                  else{
                     lastMessage = channel.lastMessage?.message ?? 'No messages yet';
                   }          
                   ChatData chatData = ChatData(messages: messages, channel: channel);
