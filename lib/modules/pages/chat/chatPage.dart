@@ -258,7 +258,11 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
                     return refreshChatPage();
                   },
                   child: DashChat(
+                    messageListOptions: MessageListOptions(
+                      dateSeparatorFormat: DateFormat('EEE, MMM d')
+                    ),
                     messageOptions: MessageOptions(
+                      showTime: true,
                       currentUserTextColor: Colors.black,
                       currentUserContainerColor:
                           Palette.current.primaryNeonGreen,
