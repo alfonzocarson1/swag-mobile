@@ -245,122 +245,127 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
                     createdAt: DateTime.fromMillisecondsSinceEpoch(
                         widget.channel.invitedAt)));
 
-                return DashChat(
-                  messageOptions: MessageOptions(
-                    currentUserTextColor: Colors.black,
-                    currentUserContainerColor: Palette.current.primaryNeonGreen,
-                    containerColor: Palette.current.greyMessage,
-                    textColor: Palette.current.primaryWhiteSmoke,
-                    messagePadding: const EdgeInsets.symmetric(
-                        vertical: 5.0, horizontal: 16.0),
-                    messageRowBuilder: (message, previousMessage, nextMessage,
-                            isAfterDateSeparator, isBeforeDateSeparator) =>
-                        messageRowBuilder(
-                            message: message,
-                            user: ChatUser(
-                              firstName: userName,
-                              id: userProfile.accountId,
+                return RefreshIndicator(
+                  onRefresh: () {
+                   return refreshChatPage();
+                  },
+                  child: DashChat(
+                    messageOptions: MessageOptions(
+                      currentUserTextColor: Colors.black,
+                      currentUserContainerColor: Palette.current.primaryNeonGreen,
+                      containerColor: Palette.current.greyMessage,
+                      textColor: Palette.current.primaryWhiteSmoke,
+                      messagePadding: const EdgeInsets.symmetric(
+                          vertical: 5.0, horizontal: 16.0),
+                      messageRowBuilder: (message, previousMessage, nextMessage,
+                              isAfterDateSeparator, isBeforeDateSeparator) =>
+                          messageRowBuilder(
+                              message: message,
+                              user: ChatUser(
+                                firstName: userName,
+                                id: userProfile.accountId,
+                              ),
+                              isAfterDateSeparator: isAfterDateSeparator,
+                              isBeforeDateSeparator: isBeforeDateSeparator),
+                      avatarBuilder: (p0, onPressAvatar, onLongPressAvatar) {
+                        if (p0.id == 'SwagBanner') {
+                          return const SizedBox.shrink();
+                        } else {
+                          return DefaultAvatar(user: p0);
+                        }
+                      },
+                    ),
+                    inputOptions: InputOptions(
+                        textController: _textEditingController,
+                        focusNode: _focusNode,
+                        textCapitalization: TextCapitalization.sentences,
+                        sendButtonBuilder: (send) {
+                          return const SizedBox.shrink();
+                        },
+                        leading: (_focusNode.hasFocus)
+                            ? [
+                                Icon(Icons.chevron_right,
+                                    color: Palette.current.primaryNeonGreen)
+                              ]
+                            : [
+                                IconButton(
+                                    onPressed: () {
+                                      handlePermissions(context: context, afterPermissionsHandled: _navigate );                           
+                                    },
+                                    icon: Image.asset(AppIcons.chatCamera)),
+                                IconButton(
+                                  icon: Image.asset(AppIcons.chatGallery),
+                                  onPressed: () {
+                                    galleryMethod();
+                                  },
+                                )
+                              ],
+                        inputTextStyle:
+                            TextStyle(color: Palette.current.primaryWhiteSmoke),
+                        inputDecoration: InputDecoration(
+                          constraints: BoxConstraints.tight(const Size(50, 50)),
+                          suffixIcon: Container(
+                            padding: const EdgeInsetsDirectional.only(end: 12.0),
+                            child: IconButton(
+                              icon: (_textEditingController.text.isEmpty)
+                                  ? Image.asset(
+                                      AppIcons.sendDisabled,
+                                      height: 25,
+                                    )
+                                  : Image.asset(AppIcons.sendEnabled, height: 25),
+                              onPressed: _textEditingController.text.isEmpty
+                                  ? null
+                                  : () async {
+                                      final text = _textEditingController.text;
+                
+                                      // Create a ChatMessage instance from the text
+                                      final chatMessage = ChatMessage(
+                                        text: text,
+                                        user: ChatUser(
+                                          // Add your user info here
+                                          id: userProfile.accountId,
+                                          firstName: userName,
+                                        ),
+                                        createdAt: DateTime.now(),
+                                      );
+                
+                                      UserMessage sentMessage =
+                                          await getIt<ChatCubit>().sendMessage(
+                                              widget.channel, chatMessage.text);
+                                      _textEditingController.clear();
+                                      setState(() {
+                                        // _messages.add(sentMessage);
+                                      });
+                
+                                      // handle sending the message here
+                                    },
                             ),
-                            isAfterDateSeparator: isAfterDateSeparator,
-                            isBeforeDateSeparator: isBeforeDateSeparator),
-                    avatarBuilder: (p0, onPressAvatar, onLongPressAvatar) {
-                      if (p0.id == 'SwagBanner') {
-                        return const SizedBox.shrink();
-                      } else {
-                        return DefaultAvatar(user: p0);
-                      }
+                          ),
+                          hintText: 'Enter message',
+                          hintStyle: TextStyle(color: Palette.current.grey),
+                          fillColor: Palette
+                              .current.greyMessage, // Set your desired color here
+                          filled: true,
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 20.0, vertical: 10.0),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(25.0),
+                            borderSide: BorderSide.none,
+                          ),
+                        )),
+                    messages: chatMessages,
+                    currentUser: ChatUser(
+                      firstName: userName,
+                      id: userProfile.accountId,
+                    ),
+                    onSend: (ChatMessage message) async {
+                      UserMessage sentMessage = await getIt<ChatCubit>()
+                          .sendMessage(widget.channel, message.text);
+                      setState(() {
+                        // _messages.add(sentMessage);
+                      });
                     },
                   ),
-                  inputOptions: InputOptions(
-                      textController: _textEditingController,
-                      focusNode: _focusNode,
-                      textCapitalization: TextCapitalization.sentences,
-                      sendButtonBuilder: (send) {
-                        return const SizedBox.shrink();
-                      },
-                      leading: (_focusNode.hasFocus)
-                          ? [
-                              Icon(Icons.chevron_right,
-                                  color: Palette.current.primaryNeonGreen)
-                            ]
-                          : [
-                              IconButton(
-                                  onPressed: () {
-                                    handlePermissions(context: context, afterPermissionsHandled: _navigate );                           
-                                  },
-                                  icon: Image.asset(AppIcons.chatCamera)),
-                              IconButton(
-                                icon: Image.asset(AppIcons.chatGallery),
-                                onPressed: () {
-                                  galleryMethod();
-                                },
-                              )
-                            ],
-                      inputTextStyle:
-                          TextStyle(color: Palette.current.primaryWhiteSmoke),
-                      inputDecoration: InputDecoration(
-                        constraints: BoxConstraints.tight(const Size(50, 50)),
-                        suffixIcon: Container(
-                          padding: const EdgeInsetsDirectional.only(end: 12.0),
-                          child: IconButton(
-                            icon: (_textEditingController.text.isEmpty)
-                                ? Image.asset(
-                                    AppIcons.sendDisabled,
-                                    height: 25,
-                                  )
-                                : Image.asset(AppIcons.sendEnabled, height: 25),
-                            onPressed: _textEditingController.text.isEmpty
-                                ? null
-                                : () async {
-                                    final text = _textEditingController.text;
-
-                                    // Create a ChatMessage instance from the text
-                                    final chatMessage = ChatMessage(
-                                      text: text,
-                                      user: ChatUser(
-                                        // Add your user info here
-                                        id: userProfile.accountId,
-                                        firstName: userName,
-                                      ),
-                                      createdAt: DateTime.now(),
-                                    );
-
-                                    UserMessage sentMessage =
-                                        await getIt<ChatCubit>().sendMessage(
-                                            widget.channel, chatMessage.text);
-                                    _textEditingController.clear();
-                                    setState(() {
-                                      // _messages.add(sentMessage);
-                                    });
-
-                                    // handle sending the message here
-                                  },
-                          ),
-                        ),
-                        hintText: 'Enter message',
-                        hintStyle: TextStyle(color: Palette.current.grey),
-                        fillColor: Palette
-                            .current.greyMessage, // Set your desired color here
-                        filled: true,
-                        contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 10.0),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
-                          borderSide: BorderSide.none,
-                        ),
-                      )),
-                  messages: chatMessages,
-                  currentUser: ChatUser(
-                    firstName: userName,
-                    id: userProfile.accountId,
-                  ),
-                  onSend: (ChatMessage message) async {
-                    UserMessage sentMessage = await getIt<ChatCubit>()
-                        .sendMessage(widget.channel, message.text);
-                    setState(() {
-                      // _messages.add(sentMessage);
-                    });
-                  },
                 );
               },
               error: (errorMessage) =>
@@ -555,6 +560,22 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
     handlePermissionsForImagePicker(context, ImageSource.gallery);
     getIt<ChatCubit>().sendGalleryFileMessage(widget.channel);
     //setState(() {});
+  }
+  
+  Future<void> refreshChatPage() {
+  return Future.delayed(
+      Duration(seconds: 1),
+      () {
+        /// adding elements in list after [1 seconds] delay
+        /// to mimic network call
+        ///
+        /// Remember: setState is necessary so that
+        /// build method will run again otherwise
+        /// list will not show all elements
+        setState(() {
+          getIt<ChatCubit>().loadMessages(widget.channel);
+        });  
+        });          
   }
 
   // Widget addDateSeparator(int index, BaseMessage message) {
