@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:swagapp/modules/cubits/alert/alert_cubit.dart';
 
 import '../common/utils/context_service.dart';
 import '../data/shared_preferences/shared_preferences_service.dart';
@@ -50,6 +51,7 @@ class PushNotificationsProvider {
       if (currentRoute != "/ChatPage" && Platform.isAndroid) {
         LocalNotificationProvider().showNotification(
             title: json['push_title'], body: json['message'], payLoad: 'data');
+        getIt<AlertCubit>().getAlertList();
       }
     });
 
