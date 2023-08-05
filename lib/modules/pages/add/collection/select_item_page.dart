@@ -7,11 +7,16 @@ import '../../../blocs/search_bloc.dart/search_bloc.dart';
 import '../../../common/ui/loading.dart';
 import '../../../common/ui/pushed_header.dart';
 import '../../../common/ui/search_input.dart';
+import '../../../common/ui/simple_loader.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
 import '../../../common/utils/size_helper.dart';
 import '../../../common/utils/tab_wrapper.dart';
 
+import '../../../constants/constants.dart';
+import '../../../cubits/paginated_search/paginated_search_cubit.dart';
+import '../../../di/injector.dart';
+import '../../../models/search/catalog_item_model.dart';
 import '../../../models/search/filter_model.dart';
 import '../../../models/search/search_request_payload_model.dart';
 import '../../search/search_on_tap_page.dart';
@@ -34,18 +39,26 @@ class SelectItemPage extends StatefulWidget {
 class _SelectItemPageState extends State<SelectItemPage> {
   late ResponsiveDesign _responsiveDesign;
   final TextEditingController _textEditingController = TextEditingController();
+  SearchTab tab = SearchTab.all;
+  bool isLoading = false;
+  List<CatalogItemModel> resultList = [];
+  bool hasReachedMax = false;
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    context
-        .read<SearchBloc>()
-        .add(SearchEvent.selectTab(SearchTab.values[widget.page], true));
+    // context
+    //     .read<SearchBloc>()
+    //     .add(SearchEvent.selectTab(SearchTab.values[widget.page], true));
+
+    callApi(null);
   }
 
   @override
   Widget build(BuildContext context) {
+    callApi(null);
     _responsiveDesign = ResponsiveDesign(context);
     return Scaffold(
         appBar: PushedHeader(
@@ -72,45 +85,43 @@ class _SelectItemPageState extends State<SelectItemPage> {
           height: 120,
         ),
         backgroundColor: Palette.current.primaryNero,
-        body: BlocConsumer<SearchBloc, SearchState>(
-          listener: (context, state) => state.maybeWhen(
-            orElse: () => {Loading.hide(context)},
-            error: (message) => {
-              Loading.hide(context),
-              // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
-            },
-            initial: () {
-              return Loading.show(context);
-            },
-          ),
-          builder: (context, state) {
-            return state.maybeMap(
-              orElse: () => const Center(),
-              error: (_) {
-                return RefreshIndicator(
-                    onRefresh: () async {
-                      makeCall();
-                      return Future.delayed(const Duration(milliseconds: 1500));
-                    },
-                    child: ListView.builder(
-                      itemBuilder: (_, index) => Container(),
-                      itemCount: 0,
-                    ));
+        body: BlocBuilder<PaginatedSearchCubit, PaginatedSearchState>(
+            builder: (context, state) {
+          return state.when(
+              initial: () => const SimpleLoader(),
+              loading: (isFirstFetch) {
+                isLoading = true;
+                return (resultList.isEmpty)
+                    ? const SimpleLoader()
+                    : ItemPageGridBody(
+                        catalogList: resultList,
+                      );
               },
-              result: (state) {
+              loaded: (tabMap, newMap) {
+                var newMapList = newMap[tab];
+                resultList = tabMap[tab] ?? [];
+                if (newMapList != null) {
+                  hasReachedMax = newMapList.length >= defaultPageSize;
+                }
                 return ItemPageGridBody(
-                  catalogList:
-                      state.result[SearchTab.values[widget.page]] ?? [],
+                  catalogList: resultList,
                 );
-              },
-            );
-          },
-        ));
+              });
+        }));
   }
 
-  void makeCall() {
-    context.read<SearchBloc>().add(const SearchEvent.performSearch(
-        SearchRequestPayloadModel(filters: FilterModel()), SearchTab.whatsHot));
+  callApi(String? param) async {
+    getIt<PaginatedSearchCubit>().loadResults(
+        searchModel: SearchRequestPayloadModel(
+          searchParams: (param == null || param.isEmpty) ? null : [param],
+          categoryId: await SearchTabWrapper(SearchTab.values[widget.page])
+              .toStringCustom(),
+          whatsHotFlag: null,
+          staffPicksFlag: null,
+          unicornFlag: null,
+          filters: const FilterModel(productType: null),
+        ),
+        searchTab: tab);
   }
 
   Widget _searchField(BuildContext context, String title) {
@@ -131,13 +142,49 @@ class _SelectItemPageState extends State<SelectItemPage> {
                   SearchOnTapPage.route(
                       false, widget.page)); //_textEditingController
             },
-            child: SearchInput(
-              prefixIcon: null,
-              suffixIcon: null,
-              enabled: false,
-              controller: _textEditingController,
-              hint: title,
-              resultViewBuilder: (_, controller) => Container(),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 16, top: 4),
+              child: TextField(
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    letterSpacing: 0.2, color: Palette.current.darkGray),
+                controller: _searchController,
+                onSubmitted: (value) {
+                  callApi(value);
+                },
+                onChanged: (value) => setState(() {
+                  callApi(value);
+                }), // Refrescar la UI cuando el texto cambia
+                decoration: InputDecoration(
+                    suffixIcon: AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 150),
+                      child: SizedBox.fromSize(
+                        size: const Size(56, 56),
+                        child: ClipOval(
+                          child: Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              onTap: () {
+                                _searchController.clear();
+                                setState(() {});
+                                FocusScope.of(context).unfocus();
+                              },
+                              child: Icon(
+                                Icons.close,
+                                size: 22,
+                                color: Palette.current.primaryWhiteSmoke,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    border: InputBorder.none,
+                    labelText: title,
+                    labelStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        fontWeight: FontWeight.w300,
+                        letterSpacing: 0.2,
+                        color: Palette.current.darkGray)),
+              ),
             ),
           ),
         ),
