@@ -16,6 +16,8 @@ abstract class PreferenceRepositoryInt {
   Future<void> saveShowNotification(bool value);
   bool unreadAlert();
   Future<void> saveIsUnreadAlert(bool value);
+  int unreadAlertCount();
+  Future<void> setUnreadAlertCount(int value);
   bool backProfileCollection();
   Future<void> saveBackProfileCollection(bool value);
   bool hasJustSignedUp();
