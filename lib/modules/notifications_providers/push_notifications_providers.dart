@@ -75,6 +75,7 @@ class PushNotificationsProvider {
     if (Platform.isAndroid) {
       LocalNotificationProvider().showNotification(
           title: json['push_title'], body: json['message'], payLoad: 'data');
+    getIt<AlertCubit>().getAlertList();
     }
   }
 
