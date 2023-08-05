@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
 import 'package:swagapp/modules/common/utils/sendbird_utils.dart';
@@ -51,6 +52,7 @@ class _AlertPageState extends State<AlertPage> {
   @override
   void initState() {
     getIt<AlertCubit>().getAlertList();
+   
     // TODO: implement initState
     super.initState();
   }
@@ -117,7 +119,8 @@ class _AlertPageState extends State<AlertPage> {
                         if (alert.read == false) {
                           unreadCount++;
                         }
-                      }
+                      } getIt<PreferenceRepositoryService>().setUnreadAlertCount(unreadCount);
+                        FlutterAppBadger.updateBadgeCount(unreadCount);
                     });
                     return null;
                   },
