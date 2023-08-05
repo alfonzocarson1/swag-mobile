@@ -62,6 +62,7 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
   late Member otherUser;
   late ChannelData channelMetaData;
   String loadingFileId = "";
+  MessageData messageData = MessageData(topicId: "", payload: DefaultPayload.defaultPayload(), type: "");
 
   @override
   void initState() {
@@ -196,13 +197,10 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
               loadingFile: (sentBytes, totalBytes, messageId) =>
                   const SimpleLoader(),
               loadedChats: (List<BaseMessage> messages) {
-                // if (widget.channel.unreadMessageCount > 0) {
-                //   markAsRead(widget.channel);
-                // }
-
                 messagesList = messages;
                 chatMessages = messagesList.map((chatMessage) {
                   FileMessage fileMessage;
+                  
                   ChatMedia chatMedia =
                       ChatMedia(url: "", fileName: "", type: MediaType.image);
                   Map<String, dynamic> messageDataJson = {};
@@ -226,7 +224,7 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
                     messageDataJson =
                         SendBirdUtils.getFormatedData(chatMessage.data ?? "");
                     if (messageDataJson.isNotEmpty) {
-                      MessageData messageData =
+                       messageData =
                           MessageData.fromJson(messageDataJson);
                       messageStatus.add(messageData.type);
                     }
@@ -420,7 +418,8 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
             DateTime.fromMillisecondsSinceEpoch(widget.channel.invitedAt),
         isListingChat: isListingChat,
       );
-    } else {
+    }
+    else {
       if (message.user.firstName != swagBotNickName) {
         if (message.medias != null && message.medias!.first.url.isNotEmpty) {
           var customProperties = message.customProperties;
@@ -537,7 +536,12 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
               user: user,
               otherUser: otherUser.nickname,
               messageData: messageData);
-        } else {
+        }
+        else if (messageData.type ==
+            ChatMessageDataType.adminRequested.textValue) {
+          return ChatCardMessage(messageData: messageData, chatData: chatData, hideCardButton: true,);
+        } 
+        else {
           return (isMyUserBuyer)
               ? (showReceivedMessage)
                   ? const SizedBox.shrink()
