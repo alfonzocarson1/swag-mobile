@@ -3444,6 +3444,26 @@ class S {
     );
   }
 
+  /// `SWAG ADMIN ADDED`
+  String get chatCardSwagAdminAdded {
+    return Intl.message(
+      'SWAG ADMIN ADDED',
+      name: 'chatCardSwagAdminAdded',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `A SWAG admin member has been added to this chat. SWAG admin are available Monday - Friday and could take up to 24 hours to respond. `
+  String get chatSwagAdminRequested {
+    return Intl.message(
+      'A SWAG admin member has been added to this chat. SWAG admin are available Monday - Friday and could take up to 24 hours to respond. ',
+      name: 'chatSwagAdminRequested',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Item sold`
   String get chatBannerItemSold {
     return Intl.message(
