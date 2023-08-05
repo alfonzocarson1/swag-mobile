@@ -355,6 +355,8 @@
     "chatAddSwagAdmin": "Add Swag Admin",
     "chatAddSwagAdminContent": "Are you sure you would like to add a swag member to the chat? The admin will be able to see the complete chat history to help settle any disputes. ",
     "chatAddSwagAdminButton": "Add Swag Member",
+    "chatCardSwagAdminAdded":"SWAG ADMIN ADDED",
+    "chatSwagAdminRequested":"A SWAG admin member has been added to this chat. SWAG admin are available Monday - Friday and could take up to 24 hours to respond. ",
     "chatBannerItemSold": "Item sold",
     "chatBannerWillPay": "@{userName} will paying using ",
     "chatBannerTitle": "@{userName} has agreed to purchase your {listingName}",

@@ -1,5 +1,6 @@
 enum ChatMessageDataType {
   confirmPaidSend('confirm_paid_send'),
+  adminRequested('admin_requested'),
   paymentSend('payment_send'),
   confirmPaymentReceived('confirm_payment_received'),
   paymentReceived('payment_received'),

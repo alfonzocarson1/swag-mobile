@@ -182,6 +182,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Shipping Information"),
         "chatCardShippingInformationInputHint":
             MessageLookupByLibrary.simpleMessage("Add tracking number here"),
+        "chatCardSwagAdminAdded":
+            MessageLookupByLibrary.simpleMessage("SWAG ADMIN ADDED"),
         "chatChat": MessageLookupByLibrary.simpleMessage("Chat"),
         "chatCommenceMessage": MessageLookupByLibrary.simpleMessage(
             "You can use this chat to adjust any information necessary to complete the sale. If you need 3rd party assistance click the icon above and request an admin to join the chat. NOTE: If payment is not received in 12 hours the listings can be cancelled "),
@@ -201,6 +203,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "chatPaymentSendBuyer": m9,
         "chatShippedMessage": m10,
         "chatShippedMessageWithoutTrackingNumber": m11,
+        "chatSwagAdminRequested": MessageLookupByLibrary.simpleMessage(
+            "A SWAG admin member has been added to this chat. SWAG admin are available Monday - Friday and could take up to 24 hours to respond. "),
         "chatSwagg": MessageLookupByLibrary.simpleMessage("SWAG"),
         "chatSwaggAdmin": MessageLookupByLibrary.simpleMessage("Swag Admin"),
         "chatToday": MessageLookupByLibrary.simpleMessage("Today"),

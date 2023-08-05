@@ -50,7 +50,11 @@ abstract class SendBirdUtils {
     ProfileModel profileData =
         getIt<PreferenceRepositoryService>().profileData();
 
-    if (messageData.type != ChatMessageDataType.message.textValue &&
+    if (messageData.type ==
+        ChatMessageDataType.adminRequested.textValue) {
+           return S.current.chatSwagAdminRequested;
+        }
+    else if (messageData.type != ChatMessageDataType.message.textValue &&
         messageData.type != ChatMessageDataType.paymentReceived.textValue &&
         messageData.type != ChatMessageDataType.shipped.textValue &&
         messageData.type != ChatMessageDataType.confirmShip.textValue &&
@@ -106,7 +110,8 @@ abstract class SendBirdUtils {
       return S.current.notDeliveredItemChatMessage(
           messageData.payload.userNameBuyer,
           messageData.payload.userNameSeller);
-    } else {
+    }
+    else {
       return S.current.chatCommenceMessage;
     }
   }
@@ -161,7 +166,10 @@ abstract class SendBirdUtils {
       return S.current.chatCardPaymetConfirmation;
     } else if (messageData.type == ChatMessageDataType.confirmShip.textValue) {
       return S.current.chatCardShippingInformation;
-    } else {
+    }else if (messageData.type == ChatMessageDataType.adminRequested.textValue){
+      return S.current.chatCardSwagAdminAdded;
+    } 
+    else {
       return '';
     }
   }
