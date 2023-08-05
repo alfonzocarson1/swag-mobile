@@ -90,11 +90,9 @@ class _SelectItemPageState extends State<SelectItemPage> {
               initial: () => const SimpleLoader(),
               loading: (isFirstFetch) {
                 isLoading = true;
-                return (resultList.isEmpty)
-                    ? const SimpleLoader()
-                    : ItemPageGridBody(
-                        catalogList: resultList,
-                      );
+                return ItemPageGridBody(
+                  catalogList: resultList,
+                );
               },
               loaded: (tabMap, newMap) {
                 var newMapList = newMap[tab];
