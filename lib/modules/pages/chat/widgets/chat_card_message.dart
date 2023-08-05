@@ -86,7 +86,10 @@ class _CardContentState extends State<_CardContent> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _CardTitle(title: SendBirdUtils.getCardTitle(widget.messageData)),
+          _CardTitle(
+            adminAdded: this.widget.messageData.type ==
+        ChatMessageDataType.adminRequested.textValue ,
+            title: SendBirdUtils.getCardTitle(widget.messageData)),
           const SizedBox(height: 5),
           Text(
             contentText,
@@ -145,10 +148,12 @@ class _CardContentState extends State<_CardContent> {
 
 class _CardTitle extends StatelessWidget {
   final String title;
+  final bool? adminAdded;
 
   const _CardTitle({
     super.key,
     required this.title,
+    this.adminAdded
   });
 
   @override
@@ -157,7 +162,7 @@ class _CardTitle extends StatelessWidget {
       this.title,
       style: Theme.of(context).textTheme.bodySmall!.copyWith(
             fontSize: 18,
-            color: Palette.current.white,
+            color: (adminAdded == true) ? Palette.current.primaryNeonGreen :Palette.current.white,
             fontWeight: FontWeight.normal,
           ),
     );
