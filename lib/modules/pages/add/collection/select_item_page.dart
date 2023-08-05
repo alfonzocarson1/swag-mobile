@@ -58,7 +58,6 @@ class _SelectItemPageState extends State<SelectItemPage> {
 
   @override
   Widget build(BuildContext context) {
-    callApi(null);
     _responsiveDesign = ResponsiveDesign(context);
     return Scaffold(
         appBar: PushedHeader(
@@ -136,58 +135,29 @@ class _SelectItemPageState extends State<SelectItemPage> {
           ),
         ),
         Expanded(
-          child: InkWell(
-            onTap: () {
-              Navigator.of(context, rootNavigator: true).push(
-                  SearchOnTapPage.route(
-                      false, widget.page)); //_textEditingController
-            },
             child: Padding(
-              padding: const EdgeInsets.only(left: 16, top: 4),
-              child: TextField(
-                style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                    letterSpacing: 0.2, color: Palette.current.darkGray),
-                controller: _searchController,
-                onSubmitted: (value) {
-                  callApi(value);
-                },
-                onChanged: (value) => setState(() {
-                  callApi(value);
-                }), // Refrescar la UI cuando el texto cambia
-                decoration: InputDecoration(
-                    suffixIcon: AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 150),
-                      child: SizedBox.fromSize(
-                        size: const Size(56, 56),
-                        child: ClipOval(
-                          child: Material(
-                            color: Colors.transparent,
-                            child: InkWell(
-                              onTap: () {
-                                _searchController.clear();
-                                setState(() {});
-                                FocusScope.of(context).unfocus();
-                              },
-                              child: Icon(
-                                Icons.close,
-                                size: 22,
-                                color: Palette.current.primaryWhiteSmoke,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    border: InputBorder.none,
-                    labelText: title,
-                    labelStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        fontWeight: FontWeight.w300,
-                        letterSpacing: 0.2,
-                        color: Palette.current.darkGray)),
-              ),
-            ),
+          padding: const EdgeInsets.only(left: 16, top: 4),
+          child: TextField(
+            style: Theme.of(context)
+                .textTheme
+                .bodySmall!
+                .copyWith(letterSpacing: 0.2, color: Palette.current.darkGray),
+            controller: _searchController,
+            onSubmitted: (value) => setState(() {
+              callApi(value);
+            }),
+            onChanged: (value) => setState(() {
+              callApi(value);
+            }),
+            decoration: InputDecoration(
+                border: InputBorder.none,
+                labelText: title,
+                labelStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    fontWeight: FontWeight.w300,
+                    letterSpacing: 0.2,
+                    color: Palette.current.darkGray)),
           ),
-        ),
+        )),
       ],
     );
   }
