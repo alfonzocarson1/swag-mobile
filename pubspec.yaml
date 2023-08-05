@@ -81,6 +81,7 @@ dependencies:
   video_thumbnail: ^0.5.3
   camera: ^0.10.5+2
   image_gallery_saver: '^2.0.3'
+  flutter_app_badger: ^1.5.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
