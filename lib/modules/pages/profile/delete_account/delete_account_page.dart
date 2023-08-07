@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:swagapp/modules/common/ui/delete_account_popup.dart';
 import 'package:swagapp/modules/common/ui/pushed_header.dart';
 import '../../../common/ui/primary_button.dart';
 import '../../../common/utils/custom_route_animations.dart';
@@ -44,7 +45,7 @@ class _DeleteAccountPage extends State<DeleteAccountPage> {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
-              Container(
+              SizedBox(
                 height: MediaQuery.of(context).size.height  * 0.70,
                 child: Text(S.of(context).legal_text,
                   style: Theme.of(context)
@@ -55,7 +56,13 @@ class _DeleteAccountPage extends State<DeleteAccountPage> {
               PrimaryButton(
                 title: "Delete".toUpperCase(),
                 onPressed: () {
-
+                  showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      barrierColor: Colors.black,
+                      builder: (BuildContext context) {
+                        return DeleteAccountPopup();
+                      });
                 },
                 type: PrimaryButtonType.pink,
               ),

@@ -59,13 +59,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       dynamic response = await authService.logOut();
       bool isLogout = response["response"];
-
+      print("RESPONSEEE  $response");
       if(isLogout){
 
         yield const AuthState.unauthenticated();
       }
     } catch(e){
       print("ERROR");
+      print(e);
       yield AuthState.error(HandlingErrors().getError(e));
     }
   }
