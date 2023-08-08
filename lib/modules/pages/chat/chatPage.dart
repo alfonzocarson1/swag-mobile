@@ -62,7 +62,8 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
   late Member otherUser;
   late ChannelData channelMetaData;
   String loadingFileId = "";
-  MessageData messageData = MessageData(topicId: "", payload: DefaultPayload.defaultPayload(), type: "");
+  MessageData messageData = MessageData(
+      topicId: "", payload: DefaultPayload.defaultPayload(), type: "");
 
   @override
   void initState() {
@@ -97,15 +98,15 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
   }
 
   Future<void> markAsRead(GroupChannel channel) async {
-  try {
-    await channel.markAsRead();
-  } on MarkAsReadRateLimitExceededException catch (_) {
-    Future.delayed(Duration(seconds: 1), () => markAsRead(channel));
-  } catch (e) {
-    // Handle other exceptions
-    print(e);
+    try {
+      await channel.markAsRead();
+    } on MarkAsReadRateLimitExceededException catch (_) {
+      Future.delayed(Duration(seconds: 1), () => markAsRead(channel));
+    } catch (e) {
+      // Handle other exceptions
+      print(e);
+    }
   }
-}
 
   Future<void> loadPushNotifications() async {
     if (Platform.isIOS) {
@@ -140,8 +141,8 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
             Icons.arrow_back_ios,
             color: Palette.current.primaryNeonGreen,
           ),
-          onPressed: () async {            
-            await markAsRead(widget.channel);                
+          onPressed: () async {
+            await markAsRead(widget.channel);
             context.read<ChatCubit>().loadGroupChannels();
             if (Platform.isIOS) {
               await FirebaseMessaging.instance
@@ -200,7 +201,7 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
                 messagesList = messages;
                 chatMessages = messagesList.map((chatMessage) {
                   FileMessage fileMessage;
-                  
+
                   ChatMedia chatMedia =
                       ChatMedia(url: "", fileName: "", type: MediaType.image);
                   Map<String, dynamic> messageDataJson = {};
@@ -224,8 +225,7 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
                     messageDataJson =
                         SendBirdUtils.getFormatedData(chatMessage.data ?? "");
                     if (messageDataJson.isNotEmpty) {
-                       messageData =
-                          MessageData.fromJson(messageDataJson);
+                      messageData = MessageData.fromJson(messageDataJson);
                       messageStatus.add(messageData.type);
                     }
                   }
@@ -257,8 +257,7 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
                   },
                   child: DashChat(
                     messageListOptions: MessageListOptions(
-                      dateSeparatorFormat: DateFormat('EEE, MMM d')
-                    ),
+                        dateSeparatorFormat: DateFormat('EEE, MMM d')),
                     messageOptions: MessageOptions(
                       showTime: true,
                       currentUserTextColor: Colors.black,
@@ -418,8 +417,7 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
             DateTime.fromMillisecondsSinceEpoch(widget.channel.invitedAt),
         isListingChat: isListingChat,
       );
-    }
-    else {
+    } else {
       if (message.user.firstName != swagBotNickName) {
         if (message.medias != null && message.medias!.first.url.isNotEmpty) {
           var customProperties = message.customProperties;
@@ -479,8 +477,18 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
         bool showReceivedMessage = (messageData.type ==
             ChatMessageDataType.confirmPaymentReceived.textValue);
 
-        bool hideButtonConfirmPaidSend =
-            messageStatus.contains(ChatMessageDataType.saleCanceled.textValue);
+        bool hideButtonConfirmPaidSend = messageStatus
+                .contains(ChatMessageDataType.saleCanceled.textValue) ||
+            messageStatus
+                .contains(ChatMessageDataType.confirmPaymentReceived.textValue);
+
+        bool hideButtonPaymentReceived = messageStatus
+                .contains(ChatMessageDataType.saleCanceled.textValue) ||
+            messageStatus.contains(ChatMessageDataType.confirmShip.textValue);
+
+        bool hideButtonShipmentSent = messageStatus
+                .contains(ChatMessageDataType.saleCanceled.textValue) ||
+            messageStatus.contains(ChatMessageDataType.shipped.textValue);
 
         if (messageData.type == ChatMessageDataType.paymentReceived.textValue ||
             messageData.type == ChatMessageDataType.message.textValue ||
@@ -511,6 +519,7 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
               : ChatCardMessage(
                   messageData: messageData,
                   chatData: chatData,
+                  hideCardButton: hideButtonShipmentSent,
                 );
         } else if (messageData.type ==
             ChatMessageDataType.paymentSend.textValue) {
@@ -536,12 +545,14 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
               user: user,
               otherUser: otherUser.nickname,
               messageData: messageData);
-        }
-        else if (messageData.type ==
+        } else if (messageData.type ==
             ChatMessageDataType.adminRequested.textValue) {
-          return ChatCardMessage(messageData: messageData, chatData: chatData, hideCardButton: true,);
-        } 
-        else {
+          return ChatCardMessage(
+            messageData: messageData,
+            chatData: chatData,
+            hideCardButton: true,
+          );
+        } else {
           return (isMyUserBuyer)
               ? (showReceivedMessage)
                   ? const SizedBox.shrink()
@@ -563,6 +574,7 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
                   : ChatCardMessage(
                       messageData: messageData,
                       chatData: chatData,
+                      hideCardButton: hideButtonPaymentReceived,
                     );
         }
       }
