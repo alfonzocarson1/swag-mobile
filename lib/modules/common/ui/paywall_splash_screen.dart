@@ -61,7 +61,6 @@ class _PaywallSplashScreenState extends State<PaywallSplashScreen> {
       S.of(context).paywall_splash_condition2,
       S.of(context).paywall_splash_condition3,
       S.of(context).paywall_splash_condition4,
-      S.of(context).paywall_splash_condition5,
     ];
 
     return Scaffold(

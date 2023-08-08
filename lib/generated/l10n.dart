@@ -3826,41 +3826,31 @@ class S {
     );
   }
 
-  /// `Increase odds on hitting drops`
+  /// `See product sales history`
   String get paywall_condition2 {
     return Intl.message(
-      'Increase odds on hitting drops',
+      'See product sales history',
       name: 'paywall_condition2',
       desc: '',
       args: [],
     );
   }
 
-  /// `See product sales history`
+  /// `Track your collection value`
   String get paywall_condition3 {
     return Intl.message(
-      'See product sales history',
+      'Track your collection value',
       name: 'paywall_condition3',
       desc: '',
       args: [],
     );
   }
 
-  /// `Track your collection value`
+  /// `Get notified when items are listed`
   String get paywall_condition4 {
     return Intl.message(
-      'Track your collection value',
-      name: 'paywall_condition4',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Get notified when items are listed`
-  String get paywall_condition5 {
-    return Intl.message(
       'Get notified when items are listed',
-      name: 'paywall_condition5',
+      name: 'paywall_condition4',
       desc: '',
       args: [],
     );
@@ -3966,41 +3956,31 @@ class S {
     );
   }
 
-  /// `Increase odds on hitting drops`
+  /// `See product sales history`
   String get paywall_splash_condition2 {
     return Intl.message(
-      'Increase odds on hitting drops',
+      'See product sales history',
       name: 'paywall_splash_condition2',
       desc: '',
       args: [],
     );
   }
 
-  /// `See product sales history`
+  /// `Track your collection value`
   String get paywall_splash_condition3 {
     return Intl.message(
-      'See product sales history',
+      'Track your collection value',
       name: 'paywall_splash_condition3',
       desc: '',
       args: [],
     );
   }
 
-  /// `Track your collection value`
+  /// `Get notified when items are listed`
   String get paywall_splash_condition4 {
     return Intl.message(
-      'Track your collection value',
-      name: 'paywall_splash_condition4',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Get notified when items are listed`
-  String get paywall_splash_condition5 {
-    return Intl.message(
       'Get notified when items are listed',
-      name: 'paywall_splash_condition5',
+      name: 'paywall_splash_condition4',
       desc: '',
       args: [],
     );
