@@ -70,11 +70,12 @@ class _CardContentState extends State<_CardContent> {
 
   @override
   Widget build(BuildContext context) {
-    String contentText = SendBirdUtils.getMessageText(widget.messageData) ;
+    String contentText = SendBirdUtils.getMessageText(widget.messageData);
     String buttonText = SendBirdUtils.getChatCardButtonText(widget.messageData);
-    bool showInput = this.widget.messageData.type ==
-        ChatMessageDataType.confirmShip.textValue;
-        getIt<ChatCubit>().loadMessages(widget.chatData.channel);
+    bool showInput = (this.widget.messageData.type ==
+            ChatMessageDataType.confirmShip.textValue &&
+        !widget.hideCardButton);
+    getIt<ChatCubit>().loadMessages(widget.chatData.channel);
 
     return Container(
       width: double.infinity,
@@ -87,9 +88,9 @@ class _CardContentState extends State<_CardContent> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _CardTitle(
-            adminAdded: this.widget.messageData.type ==
-        ChatMessageDataType.adminRequested.textValue ,
-            title: SendBirdUtils.getCardTitle(widget.messageData)),
+              adminAdded: this.widget.messageData.type ==
+                  ChatMessageDataType.adminRequested.textValue,
+              title: SendBirdUtils.getCardTitle(widget.messageData)),
           const SizedBox(height: 5),
           Text(
             contentText,
@@ -143,18 +144,13 @@ class _CardContentState extends State<_CardContent> {
           numberTracking: this.trackingCode ?? ''));
     }
   }
-
 }
 
 class _CardTitle extends StatelessWidget {
   final String title;
   final bool? adminAdded;
 
-  const _CardTitle({
-    super.key,
-    required this.title,
-    this.adminAdded
-  });
+  const _CardTitle({super.key, required this.title, this.adminAdded});
 
   @override
   Widget build(BuildContext context) {
@@ -162,7 +158,9 @@ class _CardTitle extends StatelessWidget {
       this.title,
       style: Theme.of(context).textTheme.bodySmall!.copyWith(
             fontSize: 18,
-            color: (adminAdded == true) ? Palette.current.primaryNeonGreen :Palette.current.white,
+            color: (adminAdded == true)
+                ? Palette.current.primaryNeonGreen
+                : Palette.current.white,
             fontWeight: FontWeight.normal,
           ),
     );
