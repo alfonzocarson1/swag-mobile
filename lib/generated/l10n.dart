@@ -4646,6 +4646,26 @@ class S {
       args: [],
     );
   }
+
+  /// `You already confirmed receipt of the item.  Please rate the seller.`
+  String get buyer_recived {
+    return Intl.message(
+      'You already confirmed receipt of the item.  Please rate the seller.',
+      name: 'buyer_recived',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You already confirmed receipt of the item and rated the seller.`
+  String get buyer_rate {
+    return Intl.message(
+      'You already confirmed receipt of the item and rated the seller.',
+      name: 'buyer_rate',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

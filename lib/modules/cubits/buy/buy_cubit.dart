@@ -35,6 +35,17 @@ class BuyCubit extends Cubit<BuyStateCubit> {
     }
   }
 
+  Future<BuyForSaleListingModel?> getAlertListDetailItem(
+      String productItemId) async {
+    try {
+      BuyForSaleListingModel responseBody =
+          await buyService.buyAForSaleListing(productItemId);
+      return responseBody;
+    } catch (error) {
+      return null;
+    }
+  }
+
   Future<void> buyListItem(BuyASaleListingModel buyAListing) async {
     try {
       BuyASaleListingResponseModel responseBody =

@@ -141,6 +141,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "blocked_title":
             MessageLookupByLibrary.simpleMessage("Blocked Accounts"),
         "buy_for": MessageLookupByLibrary.simpleMessage("BUY FOR"),
+        "buyer_rate": MessageLookupByLibrary.simpleMessage(
+            "You already confirmed receipt of the item and rated the seller."),
+        "buyer_recived": MessageLookupByLibrary.simpleMessage(
+            "You already confirmed receipt of the item.  Please rate the seller."),
         "camera": MessageLookupByLibrary.simpleMessage("TAKE PHOTO"),
         "cancel": MessageLookupByLibrary.simpleMessage("CANCEL"),
         "cancel_sale": MessageLookupByLibrary.simpleMessage("CANCEL SALE"),

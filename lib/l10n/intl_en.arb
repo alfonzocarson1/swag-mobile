@@ -484,5 +484,7 @@
     "profile_first_name": "First name",
     "profile_last_name": "Last name",
     "profile_name": "Name",
-    "remove_address_pop_up": "This shipping address will be removed from your account."
+    "remove_address_pop_up": "This shipping address will be removed from your account.",
+    "buyer_recived": "You already confirmed receipt of the item.  Please rate the seller.",
+    "buyer_rate": "You already confirmed receipt of the item and rated the seller."
 }

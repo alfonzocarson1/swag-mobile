@@ -17,12 +17,15 @@ import '../../common/ui/simple_loader.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
 import '../../common/utils/utils.dart';
+import '../../cubits/buy/buy_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../enums/chat_type.dart';
 import '../../enums/listing_status_data.dart';
 import '../../models/alerts/alert_response_model.dart';
 
+import '../../models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
+import '../../notifications_providers/local_notifications_providers.dart';
 import '../add/buy/preview_buy_for_sale.dart';
 
 import '../chat/chatPage.dart';
@@ -52,7 +55,7 @@ class _AlertPageState extends State<AlertPage> {
   @override
   void initState() {
     getIt<AlertCubit>().getAlertList();
-   
+
     // TODO: implement initState
     super.initState();
   }
@@ -119,8 +122,10 @@ class _AlertPageState extends State<AlertPage> {
                         if (alert.read == false) {
                           unreadCount++;
                         }
-                      } getIt<PreferenceRepositoryService>().setUnreadAlertCount(unreadCount);
-                        FlutterAppBadger.updateBadgeCount(unreadCount);
+                      }
+                      getIt<PreferenceRepositoryService>()
+                          .setUnreadAlertCount(unreadCount);
+                      FlutterAppBadger.updateBadgeCount(unreadCount);
                     });
                     return null;
                   },
@@ -313,6 +318,14 @@ class _AlertPageState extends State<AlertPage> {
 
                                       if (item.payload!.dateItemShipped !=
                                           null) {
+                                        BuyForSaleListingModel?
+                                            alertListinStatus =
+                                            await getIt<BuyCubit>()
+                                                .getAlertListDetailItem(item
+                                                        .payload!
+                                                        .productItemId ??
+                                                    '');
+
                                         Navigator.of(context,
                                                 rootNavigator: true)
                                             .push(PurchaseHistoryDetailsPage
@@ -324,25 +337,63 @@ class _AlertPageState extends State<AlertPage> {
                                             const Duration(milliseconds: 1000),
                                             () {});
 
-                                        showDialog(
-                                            context: context,
-                                            barrierDismissible: false,
-                                            builder: (BuildContext context) {
-                                              return DeliveredPopUp(
-                                                userName:
-                                                    item.payload!.userName ??
-                                                        '',
-                                                productItemId: item.payload!
-                                                        .productItemId ??
-                                                    '',
-                                                purchaseHistoryId: item.payload!
-                                                        .purchaseHistoryId ??
-                                                    '',
-                                                itemName:
-                                                    item.payload!.itemName ??
-                                                        '',
-                                              );
-                                            });
+                                        if (alertListinStatus!.status ==
+                                            ListingStatusDataType
+                                                .received.textValue) {
+                                          LocalNotificationProvider
+                                              .showInAppAllert(
+                                                  S.of(context).buyer_recived);
+
+                                          await Future.delayed(
+                                              const Duration(
+                                                  milliseconds: 1000),
+                                              () {});
+                                          showDialog(
+                                              context: context,
+                                              barrierDismissible: false,
+                                              builder: (BuildContext context) {
+                                                return RatingBuyer(
+                                                  productItemId: item.payload!
+                                                          .productItemId ??
+                                                      '',
+                                                  purchaseHistoryId: item
+                                                          .payload!
+                                                          .purchaseHistoryId ??
+                                                      '',
+                                                  userName:
+                                                      item.payload!.userName ??
+                                                          '',
+                                                  seller: false,
+                                                );
+                                              });
+                                        } else if (alertListinStatus!.status ==
+                                            ListingStatusDataType
+                                                .feedbackProvided.textValue) {
+                                          LocalNotificationProvider
+                                              .showInAppAllert(
+                                                  S.of(context).buyer_rate);
+                                        } else {
+                                          showDialog(
+                                              context: context,
+                                              barrierDismissible: false,
+                                              builder: (BuildContext context) {
+                                                return DeliveredPopUp(
+                                                  userName:
+                                                      item.payload!.userName ??
+                                                          '',
+                                                  productItemId: item.payload!
+                                                          .productItemId ??
+                                                      '',
+                                                  purchaseHistoryId: item
+                                                          .payload!
+                                                          .purchaseHistoryId ??
+                                                      '',
+                                                  itemName:
+                                                      item.payload!.itemName ??
+                                                          '',
+                                                );
+                                              });
+                                        }
                                       }
                                     },
                                     leading: Theme(
