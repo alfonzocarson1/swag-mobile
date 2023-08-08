@@ -45,7 +45,6 @@ class _PayWallWidgetState extends State<PayWallWidget> {
       S.of(context).paywall_condition2,
       S.of(context).paywall_condition3,
       S.of(context).paywall_condition4,
-      S.of(context).paywall_condition5,
     ];
       
     return  SizedBox(
