@@ -62,8 +62,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       bool isLogout = response["response"];
       print("RESPONSEEE  $response");
       if(isLogout){
-        await getIt<StorageRepositoryService>().deleteAll();
-        await getIt<PreferenceRepositoryService>().deleteAll();
         yield const AuthState.unauthenticated();
       }
     } catch(e){
@@ -78,15 +76,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       dynamic response = await authService.deleteAccount();
       bool isDeleted = response["response"];
+      String message = response["shortMessage"];
+
       print("RESPONSEEE  $response");
-      if(isDeleted){
-        await getIt<StorageRepositoryService>().deleteAll();
-        await getIt<PreferenceRepositoryService>().deleteAll();
-        yield const AuthState.unauthenticated();
-      }
-      else{
-        yield AuthState.error(response["shortMessage"]);
-      }
+      yield  AuthState.deleted(message, isDeleted);
     } catch(e){
       print("ERROR");
       print(e);

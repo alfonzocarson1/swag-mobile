@@ -18,4 +18,5 @@ class UpdateProfileEvent with _$UpdateProfileEvent {
 
   const factory UpdateProfileEvent.removeAddress(
       String addressId) = _RemoveAddressEvent;
+  const factory UpdateProfileEvent.delete() = DeleteAccount;
 }

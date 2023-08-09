@@ -55,14 +55,17 @@ class _DeleteAccountPage extends State<DeleteAccountPage> {
               )),
               PrimaryButton(
                 title: "Delete".toUpperCase(),
-                onPressed: () {
-                  showDialog(
+                onPressed: ()   async {
+                 final result = await showDialog(
                       context: context,
                       barrierDismissible: false,
                       barrierColor: Colors.black,
                       builder: (BuildContext context) {
                         return DeleteAccountPopup();
                       });
+                 if(result){
+                   Navigator.of(context).pop();
+                 }
                 },
                 type: PrimaryButtonType.pink,
               ),

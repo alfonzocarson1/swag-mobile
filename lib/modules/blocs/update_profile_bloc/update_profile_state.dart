@@ -14,4 +14,5 @@ class UpdateProfileState with _$UpdateProfileState {
   factory UpdateProfileState.verificationEmailSent(bool verificationSent) = VerificationEmailSent;
   factory UpdateProfileState.verifyEmailModalClosed (bool modalClosed) = VerifyEmailModalClosed;
   factory UpdateProfileState.dataImported(bool emailVerified) = DataImported;
+  factory UpdateProfileState.deleted( String message,  bool status) = Deleted;
 }

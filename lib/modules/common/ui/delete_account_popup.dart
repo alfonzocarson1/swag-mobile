@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/blocs/auth_bloc/auth_bloc.dart';
+import 'package:swagapp/modules/blocs/update_profile_bloc/update_profile_bloc.dart';
 import 'package:swagapp/modules/common/ui/delete_message_popup.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
@@ -25,34 +26,46 @@ class _DeleteAccountPopup extends State<DeleteAccountPopup> {
   getIt<PreferenceRepositoryService>().profileData();
   @override
   Widget build(BuildContext context) {
-    return  BlocListener<AuthBloc, AuthState>(
+    return  BlocListener<UpdateProfileBloc, UpdateProfileState>(
         listener: (context, state) => state.maybeWhen(
+
+          initial: (){
+            return Loading.show(context);
+          },
+          deleted: (message,status) async  {
+            print("INDELETED");
+            if(status){
+             Loading.hide(context);
+              await getIt<StorageRepositoryService>().deleteAll();
+              await getIt<PreferenceRepositoryService>().deleteAll();
+              Navigator.of(context).pushAndRemoveUntil(LandingPage.route(), (route) => true);
+
+              print("DELETEED");
+            }
+            else{
+              Loading.hide(context);
+            print("MESSAG${message}");
+            final result = await showDialog(
+            context: context,
+            barrierDismissible: false,
+            barrierColor: Colors.black,
+            builder: (BuildContext context) {
+            return DeleteMessagePopup(message: message);
+            });
+            if(result){
+              Navigator.of(context).pop(true);
+            }
+            }
+
+            return null;
+          },
+          error: (_){
+            print("ERROR");
+            return null;
+          },
           orElse: () {
             print("ELSE");
             return null;
-          },
-          logging: (){
-            return Loading.show(context);
-          },
-          unauthenticated: ()  {
-              Loading.hide(context);
-              Navigator.of(context).pushAndRemoveUntil(LandingPage.route(), (route) => true);
-
-            print("DELETEED");
-            return null;
-          },
-          error: (message) => {
-            Loading.hide(context),
-            print("MESSAG${message}"),
-            Navigator.of(context).pop(),
-            showDialog(
-                context: context,
-                barrierDismissible: false,
-                barrierColor: Colors.black,
-                builder: (BuildContext context) {
-                  return DeleteMessagePopup(message: message);
-                })
-            // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
           },
         ),
       child: Center(
@@ -226,8 +239,8 @@ class _DeleteAccountPopup extends State<DeleteAccountPopup> {
                             title: 'Delete account'.toUpperCase(),
                             onPressed: () {
 
-                                getIt<AuthBloc>().add(
-                                    const AuthEvent.delete());
+                                getIt<UpdateProfileBloc>().add(
+                                    const UpdateProfileEvent.delete());
 
                             },
                             type: PrimaryButtonType.green,
