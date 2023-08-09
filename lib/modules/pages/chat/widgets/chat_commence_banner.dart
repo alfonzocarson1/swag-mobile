@@ -6,6 +6,8 @@ import 'package:swagapp/modules/common/assets/images.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:swagapp/modules/models/chat/channel_data.dart';
+import 'package:swagapp/modules/pages/add/buy/preview_buy_for_sale.dart';
+import 'package:swagapp/modules/pages/detail/item_detail_page.dart';
 
 
 late double screenHeight;
@@ -30,18 +32,25 @@ class ChatCommenceBanner extends StatelessWidget {
     return Container(
       width: 350,
       //margin: const EdgeInsets.symmetric(horizontal: 10),
-      child: Column(
-        children: <Widget>[
-           _BannerTopBar(isListingChat: this.isListingChat, createdAt: this.createdAt,),
-          const SizedBox(height: 5),
-          _BannerContent(channelData: this.channelData, isListingChat: this.isListingChat, otherUser: this.otherUser),
-          const SizedBox(height: 5),
-          _BannerBottomBar(
-            isListingChat: this.isListingChat,
-            channelData: this.channelData,
-          ),
-        ],
+      child: GestureDetector(
+        child: Column(
+          children: <Widget>[
+             _BannerTopBar(isListingChat: this.isListingChat, createdAt: this.createdAt,),
+            const SizedBox(height: 5),
+            _BannerContent(channelData: this.channelData, isListingChat: this.isListingChat, otherUser: this.otherUser),
+            const SizedBox(height: 5),
+            _BannerBottomBar(
+              isListingChat: this.isListingChat,
+              channelData: this.channelData,
+            ),
+          ],
+        ),
+        onTap: () => Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: ((context) => BuyPreviewPage( productItemId: this.channelData.productItemId,))
+        ),
       ),
+      )
     );
   }
 }
