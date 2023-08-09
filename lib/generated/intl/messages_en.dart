@@ -291,6 +291,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "email_taken": MessageLookupByLibrary.simpleMessage(
             "An account is already associated with this email"),
         "email_verified": MessageLookupByLibrary.simpleMessage("Verified"),
+        "emptyChatsMessage": MessageLookupByLibrary.simpleMessage(
+            "you don’t have any chats yet!"),
         "empty_collection": MessageLookupByLibrary.simpleMessage(
             "TAP THE “+” ICON ON ANY ITEM TO ADD TO YOUR COLLECTION"),
         "empty_favorite": MessageLookupByLibrary.simpleMessage(

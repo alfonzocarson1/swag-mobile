@@ -384,6 +384,7 @@
 
     "chatsHeader": "Chat",
     "chatsUnreadMessages": "{chatsNumber} Unread",
+    "emptyChatsMessage":"you don’t have any chats yet!",
 
     "alert_center_title": "ALERTS & NOTIFICATIONS",
     "unread": "Unread",
