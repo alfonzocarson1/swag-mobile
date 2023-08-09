@@ -93,7 +93,8 @@ class _BodyWidgetWithViewState extends State<BodyWidgetWithView> {
               left: 15,
               right: 15,
             ),
-            child: GridView.builder(
+            child: GridView.builder(  
+              controller: this._scrollController,            
               physics: const ScrollPhysics(),
               shrinkWrap: true,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -139,7 +140,7 @@ class _BodyWidgetWithViewState extends State<BodyWidgetWithView> {
   final maxScroll = _scrollController.position.maxScrollExtent;
   final currentScroll = _scrollController.position.pixels;
 
-  if (maxScroll - currentScroll <= 50) { // 50 is the threshold
+  if (maxScroll - currentScroll <= 70) { // 50 is the threshold
     if (scrollListenerFunction != null) {
       await scrollListenerFunction();
     }
