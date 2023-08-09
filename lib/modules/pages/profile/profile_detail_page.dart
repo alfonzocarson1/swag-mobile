@@ -43,6 +43,11 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
 
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   void callApi() async {
     await getIt<ProfileCubit>().loadProfileResults();
     setState(() {});
@@ -71,6 +76,7 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
       body: BlocListener<AuthBloc, AuthState>(
     listener: (context, state) => state.maybeWhen(
     orElse: () {
+      Loading.hide(context);
       print("ELSE");
     return null;
     },
