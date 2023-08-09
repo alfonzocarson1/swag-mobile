@@ -4,6 +4,7 @@ abstract class AppIcons {
 
   static const String chat = '${_root}chat_icon.png';
   static const String chatNewMessage = '${_root}chat_new_message.png';
+  static const String emptyChatIcon ='${_root}empty_chat.png'; 
   static const String trendingUp = '${_root}trending-up.png';
   static const String add = '${_root}icon-add.png';
   static const String chatGallery = '${_root}gallery_green_icon.png';
