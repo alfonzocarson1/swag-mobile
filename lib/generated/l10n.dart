@@ -3716,6 +3716,16 @@ class S {
     );
   }
 
+  /// `you don’t have any chats yet!`
+  String get emptyChatsMessage {
+    return Intl.message(
+      'you don’t have any chats yet!',
+      name: 'emptyChatsMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `ALERTS & NOTIFICATIONS`
   String get alert_center_title {
     return Intl.message(
