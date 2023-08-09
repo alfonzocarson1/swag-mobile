@@ -166,7 +166,7 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
         backgroundColor: Palette.current.blackAppbarBlackground,
         title: Text(
           (widget.channel.customType == ChatType.listing.textValue)
-              ? '@$userName, @${otherUser.nickname}, and $swagBotNickName '
+              ? '@${otherUser.nickname} ${this.channelMetaData.listingProductName}'
               : '@${this.channelMetaData.sellerUsername} ${this.channelMetaData.listingProductName}',
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontFamily: 'Ringside Regular',
