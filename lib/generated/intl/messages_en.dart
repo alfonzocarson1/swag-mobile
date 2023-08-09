@@ -558,6 +558,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "peer_to_peer_payment_options_title":
             MessageLookupByLibrary.simpleMessage(
                 "Peer to Peer Payment Options"),
+        "pending_payment_btn":
+            MessageLookupByLibrary.simpleMessage("Pending payment"),
         "pending_sale_btn":
             MessageLookupByLibrary.simpleMessage("Pending Sale"),
         "permission_camera": MessageLookupByLibrary.simpleMessage("camera"),

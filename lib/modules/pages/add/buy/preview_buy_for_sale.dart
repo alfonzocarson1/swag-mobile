@@ -390,7 +390,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
     return Column(
       children: [
         PrimaryButton(
-          title: S.of(context).pending_sale_btn.toUpperCase(),
+          title: S.of(context).pending_payment_btn.toUpperCase(),
           onPressed: null,
           type: PrimaryButtonType.grey,
         ),
