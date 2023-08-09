@@ -51,18 +51,41 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       changePassword: _changePassword,
       init: _init,
       finishedOnboarding: _finishedOnboarding,
+      delete: _delete
     );
   }
 
   Stream<AuthState> _logout() async* {
-    yield const AuthState.initial();
+    yield const AuthState.logging();
     try {
       dynamic response = await authService.logOut();
       bool isLogout = response["response"];
       print("RESPONSEEE  $response");
       if(isLogout){
-
+        await getIt<StorageRepositoryService>().deleteAll();
+        await getIt<PreferenceRepositoryService>().deleteAll();
         yield const AuthState.unauthenticated();
+      }
+    } catch(e){
+      print("ERROR");
+      print(e);
+      yield AuthState.error(HandlingErrors().getError(e));
+    }
+  }
+
+  Stream<AuthState> _delete() async* {
+    yield const AuthState.logging();
+    try {
+      dynamic response = await authService.deleteAccount();
+      bool isDeleted = response["response"];
+      print("RESPONSEEE  $response");
+      if(isDeleted){
+        await getIt<StorageRepositoryService>().deleteAll();
+        await getIt<PreferenceRepositoryService>().deleteAll();
+        yield const AuthState.unauthenticated();
+      }
+      else{
+        yield AuthState.error(response["shortMessage"]);
       }
     } catch(e){
       print("ERROR");

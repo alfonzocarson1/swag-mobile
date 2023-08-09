@@ -54,6 +54,7 @@ enum Endpoint {
   confirmReceivedItem,
   listingsRating,
   soldDetail,
+  deleteAccount,
   favoriteProfile,
   nftWallet,
   logout,
@@ -159,6 +160,7 @@ class API {
     Endpoint.favoriteProfile: 'api/public/v1/profile/favoriteItems/%s',
     Endpoint.nftWallet: 'api/v1/profile/settings/nftWallet',
     Endpoint.logout: 'api/v1/account/logout',
+    Endpoint.deleteAccount: 'api/v1/profile',
     Endpoint.addAlertP2P: 'api/v1/notification/alerts/alert',
     Endpoint.removeAddress: 'api/v1/profile/settings/account/addresses/%s'
   };

@@ -77,17 +77,13 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
     },
     unauthenticated: () {
 
-      Future.delayed(const Duration(milliseconds: 1000), () async {
         Loading.hide(context);
-        await getIt<StorageRepositoryService>().deleteAll();
-        await getIt<PreferenceRepositoryService>().deleteAll();
         Navigator.of(context).pushAndRemoveUntil(LandingPage.route(), (route) => true);
-      });
 
     print("UNAUTHENTICATED");
     return null;
     },
-      initial: (){
+      logging: (){
         return Loading.show(context);
       },
 

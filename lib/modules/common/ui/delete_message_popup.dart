@@ -5,7 +5,9 @@ import 'package:swagapp/modules/common/utils/palette.dart';
 import 'dynamic_toast_messages.dart';
 
 class DeleteMessagePopup extends StatefulWidget {
-  const DeleteMessagePopup({super.key});
+  const DeleteMessagePopup({super.key,  required this.message});
+
+  final String message;
 
   @override
   State<DeleteMessagePopup> createState() => _DeleteMessagePopup();
@@ -52,7 +54,7 @@ class _DeleteMessagePopup extends State<DeleteMessagePopup> {
                         ),
                         Align(
                           alignment: Alignment.centerLeft,
-                          child: Text('You currently have outstanding sales and/or purchases. Before you can delete your account you must first complete any pending sales and/or purchases.',
+                          child: Text(widget.message,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodySmall!
