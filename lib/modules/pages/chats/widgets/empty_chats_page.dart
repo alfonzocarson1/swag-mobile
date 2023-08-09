@@ -20,7 +20,7 @@ class EmptyChatPage extends StatelessWidget {
           SizedBox(
             height: aspectRatio * 100,
             width: aspectRatio * 100,
-            child: Image.asset(AppIcons.chat, color:  Palette.current.darkGray,)),
+            child: Image.asset(AppIcons.emptyChatIcon, color:  Palette.current.darkGray,)),
           Container(
             alignment: Alignment.center,
             height: aspectRatio * 300,
@@ -29,7 +29,7 @@ class EmptyChatPage extends StatelessWidget {
             textAlign: TextAlign.center, 
             style: Theme.of(context).textTheme.headlineMedium?.copyWith(              
               fontFamily: "Knockout",
-              fontSize: 50,
+              fontSize: 40,
             letterSpacing: 0.54,
             fontWeight: FontWeight.w300,
             color: Palette.current.darkGray)
