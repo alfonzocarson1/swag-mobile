@@ -41,20 +41,26 @@ class ListForSalePage extends StatefulWidget {
       {super.key,
       this.collectionData,
       required this.catalogItemName,
-      this.salesHistoryNavigation});
+      this.salesHistoryNavigation,
+      this.catalogImage});
 
   DetailCollectionModel? collectionData;
   String catalogItemName;
   VoidCallback? salesHistoryNavigation;
+  String? catalogImage;
 
-  static Route route(VoidCallback? salesHistoryNavigation,
-          DetailCollectionModel? collectionData, String catalogItemName) =>
+  static Route route(
+          VoidCallback? salesHistoryNavigation,
+          DetailCollectionModel? collectionData,
+          String catalogItemName,
+          String? catalogImage) =>
       PageRoutes.slideUp(
         settings: const RouteSettings(name: name),
         builder: (context) => ListForSalePage(
             salesHistoryNavigation: salesHistoryNavigation,
             collectionData: collectionData,
-            catalogItemName: catalogItemName),
+            catalogItemName: catalogItemName,
+            catalogImage: catalogImage),
       );
 
   @override
@@ -239,6 +245,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
                         children: [
                           imageFileList.isEmpty
                               ? AddPhotoWidget(
+                                  catalogImage: widget.catalogImage,
                                   addPhoto: () => selectImages(),
                                 )
                               : MultiImageSlide(

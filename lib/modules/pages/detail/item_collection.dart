@@ -74,7 +74,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
   List<DetailCollectionModel> newCollectionList = [];
   List<BuyForSaleListingResponseModel> buyForSaleList = [];
   List<DetailCollectionModel> dataCollection = [];
-  
+
   List<String> ids = [];
   ProfileNotifyList notificationList =
       const ProfileNotifyList(profileNotificationList: []);
@@ -82,7 +82,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
   @override
   void initState() {
     getNotificationStatus();
-    dataCollection = widget.dataCollection ?? [];    
+    dataCollection = widget.dataCollection ?? [];
     super.initState();
 
     timer = Timer(const Duration(seconds: 1), () {
@@ -105,9 +105,9 @@ class _CollectionWidgetState extends State<CollectionWidget> {
     isLogged = getIt<PreferenceRepositoryService>().isLogged();
     if (isLogged) {
       getIt<ProfileCubit>().loadProfileResults();
-      getProfileAvatar();       
+      getProfileAvatar();
     }
-    hasActiveSubscription =  profileData?.hasActiveSubscription ?? false; 
+    hasActiveSubscription = profileData?.hasActiveSubscription ?? false;
   }
 
   @override
@@ -123,7 +123,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
   }
 
   getProfileAvatar() {
-    profileData = getIt<PreferenceRepositoryService>().profileData();    
+    profileData = getIt<PreferenceRepositoryService>().profileData();
 
     if (profileData!.useAvatar != 'CUSTOM') {
       var data = imagesList
@@ -186,11 +186,9 @@ class _CollectionWidgetState extends State<CollectionWidget> {
         dismissDirection: DismissDirection.none));
   }
 
-  removePaywall(){
-    hasActiveSubscription = true;  
-    setState(() {
-      
-    });
+  removePaywall() {
+    hasActiveSubscription = true;
+    setState(() {});
   }
 
   @override
@@ -200,8 +198,6 @@ class _CollectionWidgetState extends State<CollectionWidget> {
         getProfileAvatar();
       });
     }
-
-   
 
     return Column(
       children: [
@@ -487,36 +483,42 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                           title: S.of(context).list_for_sale_btn,
                           onPressed: () {
                             if (isLogged) {
-                            if( hasActiveSubscription){
-                              (newCollectionList.isNotEmpty &&
-                                      (newCollectionList.length > 1))
-                                  ? showDialog(
-                                      context: context,
-                                      barrierDismissible: false,
-                                      builder: (BuildContext context) {
-                                        return PopUpListItemSale(
-                                            catalogItemName:
+                              if (hasActiveSubscription) {
+                                (newCollectionList.isNotEmpty &&
+                                        (newCollectionList.length > 1))
+                                    ? showDialog(
+                                        context: context,
+                                        barrierDismissible: false,
+                                        builder: (BuildContext context) {
+                                          return PopUpListItemSale(
+                                              catalogItemName:
+                                                  widget.catalogItemName,
+                                              catalogImage: widget.urlImage,
+                                              dataCollection:
+                                                  newCollectionList);
+                                        })
+                                    : (newCollectionList.isNotEmpty &&
+                                            (newCollectionList.length == 1))
+                                        ? Navigator.of(context,
+                                                rootNavigator: true)
+                                            .push(ListForSalePage.route(
+                                                widget.salesHistoryNavigation,
+                                                newCollectionList[0],
                                                 widget.catalogItemName,
-                                            dataCollection: newCollectionList);
-                                      })
-                                  : (newCollectionList.isNotEmpty &&
-                                          (newCollectionList.length == 1))
-                                      ? Navigator.of(context,
-                                              rootNavigator: true)
-                                          .push(ListForSalePage.route(
-                                          widget.salesHistoryNavigation,
-                                          newCollectionList[0],
-                                          widget.catalogItemName,
-                                        ))
-                                      : showToastMessage(
-                                          S.of(context).collection_listed);
+                                                widget.urlImage))
+                                        : showToastMessage(
+                                            S.of(context).collection_listed);
+                              } else {
+                                showPaywallSplashScreen(
+                                    context: context,
+                                    hasUsedFreeTrial:
+                                        profileData?.hasUsedFreeTrial ?? false,
+                                    removePaywall: removePaywall);
+                              }
                             } else {
-                              showPaywallSplashScreen(context: context, hasUsedFreeTrial: profileData?.hasUsedFreeTrial ?? false, removePaywall: removePaywall);
-                            }
-                            }else{
                               Navigator.of(context, rootNavigator: true)
-                                      .push(CreateAccountPage.route());
-                            }                              
+                                  .push(CreateAccountPage.route());
+                            }
                           },
                           type: PrimaryButtonType.black,
                         ),
@@ -589,51 +591,59 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                             width: MediaQuery.of(context).size.width,
                             child: PrimaryButton(
                               title: S.of(context).notify_available,
-                              onPressed: () {                              
+                              onPressed: () {
                                 if (isLogged &&
                                     notifyAvailabilityFlagBTN &&
                                     buttonEnable &&
-                                    !itemInNotifyList) {                                                                          
+                                    !itemInNotifyList) {
                                   buttonEnable = false;
-                                  if (hasActiveSubscription == true){
-                                      setState(() {});
-                                  getIt<CatalogDetailCubit>()
-                                      .notifyAvailability(widget.catalogId);
-                                  showToastMessage(
-                                      S.of(context).notify_availability);
+                                  if (hasActiveSubscription == true) {
+                                    setState(() {});
+                                    getIt<CatalogDetailCubit>()
+                                        .notifyAvailability(widget.catalogId);
+                                    showToastMessage(
+                                        S.of(context).notify_availability);
+                                  } else {
+                                    showPaywallSplashScreen(
+                                        context: context,
+                                        hasUsedFreeTrial:
+                                            profileData?.hasUsedFreeTrial ??
+                                                false,
+                                        removePaywall: removePaywall);
                                   }
-                                  else{
-                                    showPaywallSplashScreen(context: context, hasUsedFreeTrial: profileData?.hasUsedFreeTrial ?? false, removePaywall: removePaywall);                                   
-                                  }                                
                                 } else if (isLogged &&
                                     buttonEnable == false &&
                                     !itemInNotifyList) {
-                                       if (hasActiveSubscription == true){
-                                        showToastMessage(S
-                                      .of(context)
-                                      .notification_already_requested);
-                                       }else{
-                                        showPaywallSplashScreen(context: context, hasUsedFreeTrial: profileData?.hasUsedFreeTrial ?? false, removePaywall: removePaywall);
-                                       }                                  
+                                  if (hasActiveSubscription == true) {
+                                    showToastMessage(S
+                                        .of(context)
+                                        .notification_already_requested);
+                                  } else {
+                                    showPaywallSplashScreen(
+                                        context: context,
+                                        hasUsedFreeTrial:
+                                            profileData?.hasUsedFreeTrial ??
+                                                false,
+                                        removePaywall: removePaywall);
+                                  }
                                 } else if (!notifyAvailabilityFlagBTN &&
                                     buttonEnable &&
                                     itemInNotifyList) {
-                                      if(hasActiveSubscription == true){
-                                         showToastMessage(S
-                                      .of(context)
-                                      .notification_already_requested);
-                                      }
-                                      else{
-                                         Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) => PaywallSplashScreen(
-                                          hasUsedFreeTrial: false, 
-                                          removePaywall: (){
-                                           removePaywall();
-                                          },
-                                          )
-                                        ));
-                                      }                                 
+                                  if (hasActiveSubscription == true) {
+                                    showToastMessage(S
+                                        .of(context)
+                                        .notification_already_requested);
+                                  } else {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                PaywallSplashScreen(
+                                                  hasUsedFreeTrial: false,
+                                                  removePaywall: () {
+                                                    removePaywall();
+                                                  },
+                                                )));
+                                  }
                                 } else if (!isLogged) {
                                   Navigator.of(context, rootNavigator: true)
                                       .push(CreateAccountPage.route());
