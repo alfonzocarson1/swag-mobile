@@ -3,11 +3,14 @@ import 'dart:typed_data';
 
 import '../../api/api.dart';
 import '../../api/api_service.dart';
+import '../../common/utils/context_service.dart';
+import '../../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
 import '../../di/injector.dart';
 import '../../models/listing_for_sale/listing_for_sale_model.dart';
 import '../../models/listing_for_sale/profile_listing_model.dart';
 import '../../models/profile/profile_model.dart';
 import '../../models/update_profile/update_avatar_model.dart';
+import '../../notifications_providers/local_notifications_providers.dart';
 import '../shared_preferences/shared_preferences_service.dart';
 import 'i_listing_service.dart';
 
@@ -32,8 +35,16 @@ class ListingService extends IListingService {
   }
 
   @override
-  Future<UpdateAvatarModel> uploadListingImage(
-      Uint8List bytes, String topicId) async {
+  Future<UpdateAvatarModel> uploadListingImage(Uint8List bytes, String topicId,
+      ListingForSaleModel model, bool updating) async {
+    ListingForSaleModel removeItem = ListingForSaleModel(
+      accountId: model.profileId,
+      productItemId: model.productItemId,
+      productItemName: model.productItemName,
+      catalogItemId: model.catalogItemId,
+      sold: false,
+      forSale: true,
+    );
     try {
       UpdateAvatarModel response = await apiService.getEndpointData(
         endpoint: Endpoint.uploadImageListingForSale,
@@ -45,6 +56,14 @@ class ListingService extends IListingService {
       );
       return response;
     } on Exception catch (e) {
+      if (!updating) {
+        LocalNotificationProvider.showInAppAllert(
+            'Listing creation failed due to photo upload failure.  Please try listing item again.');
+        await getIt<ListingProfileCubit>().removeListingItem(removeItem);
+        getIt<ContextService>().rootNavigatorKey.currentState!.pop();
+        getIt<ContextService>().rootNavigatorKey.currentState!.pop();
+        getIt<ContextService>().rootNavigatorKey.currentState!.pop();
+      }
       throw (e);
     }
   }
