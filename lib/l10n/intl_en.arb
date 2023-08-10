@@ -411,6 +411,8 @@
     "paywall_price_per_month":"($8.30 per month)",
     "paywall_or_price_month":"OR $9.99 per month",
     "paywall_discount":"SAVE 20%",
+    "paywall_yearly_button":"Yearly subscription",
+    "paywall_monthly_button":"Monthly subscription",
     "paywall_free_trial":"GET 30 Days free",
     "paywall_sign_up_premium": "Sign up for Premium",
     

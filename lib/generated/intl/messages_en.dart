@@ -538,6 +538,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "paywall_discount": MessageLookupByLibrary.simpleMessage("SAVE 20%"),
         "paywall_free_trial":
             MessageLookupByLibrary.simpleMessage("GET 30 Days free"),
+        "paywall_monthly_button":
+            MessageLookupByLibrary.simpleMessage("Monthly subscription"),
         "paywall_or_price_month":
             MessageLookupByLibrary.simpleMessage("OR \$9.99 per month"),
         "paywall_price_per_month":
@@ -563,6 +565,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "paywall_splash_title": MessageLookupByLibrary.simpleMessage("SWAG"),
         "paywall_title": MessageLookupByLibrary.simpleMessage(
             "Upgrade your subscription to see the full sales history plus much more!"),
+        "paywall_yearly_button":
+            MessageLookupByLibrary.simpleMessage("Yearly subscription"),
         "peer_to_peer_payment_options_sub_title":
             MessageLookupByLibrary.simpleMessage("Venmo, CashApp, PayPal"),
         "peer_to_peer_payment_options_title":
