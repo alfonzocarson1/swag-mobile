@@ -11,8 +11,10 @@ import 'package:swagapp/modules/models/profile/profile_model.dart';
 
 import '../../../generated/l10n.dart';
 
+import '../../api/app_config.dart';
 import '../../constants/constants.dart';
 
+import '../../models/paywall_products/paywall_products.dart';
 import '../utils/palette.dart';
 
 class PayWallWidget extends StatefulWidget {
@@ -27,10 +29,12 @@ class PayWallWidget extends StatefulWidget {
 
 class _PayWallWidgetState extends State<PayWallWidget> {
   late final ProfileModel profileData;
+  late PaywallSubscriptionProducts flavorProducts; 
 
   @override
   void initState() {
     profileData = getIt<PreferenceRepositoryService>().profileData();
+    flavorProducts = getIt<AppConfig>().paywallProducts;
     super.initState();
   }
 
@@ -140,7 +144,7 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                         ? S.of(context).paywall_sign_up_premium.toUpperCase()
                         : S.of(context).paywall_yearly_button.toUpperCase(),
                     onPressed: () {
-                      getIt<PaywallCubit>().startPurchase(annualSubscriptionId);
+                      getIt<PaywallCubit>().startPurchase(flavorProducts.annualSubscription);
                     },
                     type: PrimaryButtonType.green,
                   ),
@@ -152,7 +156,7 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                         ? S.of(context).paywall_sign_up_premium.toUpperCase()
                         : S.of(context).paywall_monthly_button.toUpperCase(),
                     onPressed: () {
-                      getIt<PaywallCubit>().startPurchase(annualSubscriptionId);
+                      getIt<PaywallCubit>().startPurchase(flavorProducts.monthlySubscription);
                     },
                     type: PrimaryButtonType.blueNeon,
                   ),
