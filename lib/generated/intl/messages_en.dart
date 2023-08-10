@@ -395,6 +395,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "kyc_title": MessageLookupByLibrary.simpleMessage("KYC"),
         "last_name": MessageLookupByLibrary.simpleMessage("Last Name"),
         "last_sale": MessageLookupByLibrary.simpleMessage("LAST SALE"),
+        "legal_text": MessageLookupByLibrary.simpleMessage(
+            "Need copy here for regarding data and what happens when they delete their account, Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique"),
         "less_than": MessageLookupByLibrary.simpleMessage("Less than \$111"),
         "list_for_sale_btn":
             MessageLookupByLibrary.simpleMessage("LIST FOR SALE"),

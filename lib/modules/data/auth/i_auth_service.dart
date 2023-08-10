@@ -12,6 +12,7 @@ abstract class IAuthService {
   Future<CreateAccountResponseModel> createAccount(
       CreateAccountPayloadModel model);
   Future<dynamic> logOut();
+  Future<dynamic> deleteAccount();
   Future<bool> isUsernameAvailable(String username);
   Future<dynamic> isPhoneAvailable(String phone);
   Future<void> requestPasswordResetCode(String email);

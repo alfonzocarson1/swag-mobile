@@ -29,7 +29,6 @@ class _AtomicDropBanner extends  State<AtomicDropBanner> {
 
   @override
   Widget build(BuildContext context) {
-    print("AAAAAA${0.25 * MediaQuery.of(context).size.height}");
     return
       Stack(
         alignment: Alignment.center,

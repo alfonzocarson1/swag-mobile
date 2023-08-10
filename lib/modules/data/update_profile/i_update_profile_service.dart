@@ -9,5 +9,6 @@ abstract class IUpdateProfileService {
   Future<UpdateAvatarModel> updateAvatar(
       Uint8List bytes, String imageTopic, String topicId);
   Future<bool> requestEmailVerification();
+  Future<dynamic> deleteAccount();
   Future<UpdateProfileModel> removeAddress(String addressId);
 }

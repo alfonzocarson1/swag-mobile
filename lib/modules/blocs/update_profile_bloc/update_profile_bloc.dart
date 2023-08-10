@@ -41,7 +41,9 @@ class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
         closeVerifyEmailModal: _closeVerifyEmailModal,
         updateName: _updateName,
         updateEmail: _updateEmail,
-        removeAddress: _removeAddress);
+        removeAddress: _removeAddress,
+      delete: _delete
+    );
   }
 
   Stream<UpdateProfileState> _update(UpdateProfilePayloadModel param) async* {
@@ -78,6 +80,22 @@ class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
       yield UpdateProfileState.updated();
       yield UpdateProfileState.loadedSuccess(responseBody);
     } catch (e) {
+      yield UpdateProfileState.error(HandlingErrors().getError(e));
+    }
+  }
+
+  Stream<UpdateProfileState> _delete() async* {
+    yield  UpdateProfileState.initial();
+    try {
+      dynamic response = await updateProfileService.deleteAccount();
+      bool isDeleted = response["response"];
+      String message = response["shortMessage"];
+
+      print("RESPONSEEE  $response");
+      yield  UpdateProfileState.deleted(message, isDeleted);
+    } catch(e){
+      print("ERROR");
+      print(e);
       yield UpdateProfileState.error(HandlingErrors().getError(e));
     }
   }

@@ -11,6 +11,7 @@ import 'package:swagapp/modules/di/injector.dart';
 import 'package:swagapp/modules/models/profile/profile_model.dart';
 import 'package:swagapp/modules/pages/login/landing_page.dart';
 import 'package:swagapp/modules/pages/login/sign_in_page.dart';
+import 'package:swagapp/modules/pages/profile/delete_account/delete_account_page.dart';
 import 'package:swagapp/modules/pages/profile/update_email_page.dart';
 import 'package:swagapp/modules/pages/profile/update_name_page.dart';
 import 'package:swagapp/modules/pages/splash/splash_page.dart';
@@ -70,27 +71,28 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
       backgroundColor: Palette.current.primaryNero,
       body: BlocListener<AuthBloc, AuthState>(
     listener: (context, state) => state.maybeWhen(
-    orElse: () {
-      print("ELSE");
-    return null;
-    },
-    unauthenticated: () {
-
-      Future.delayed(const Duration(milliseconds: 1000), () async {
+    unauthenticated: ()  {
         Loading.hide(context);
+        Navigator.of(context).pushAndRemoveUntil(LandingPage.route(), (route) => true);
+        Future.delayed(const Duration(milliseconds: 1000), () async {
         await getIt<StorageRepositoryService>().deleteAll();
         await getIt<PreferenceRepositoryService>().deleteAll();
-        Navigator.of(context).pushAndRemoveUntil(LandingPage.route(), (route) => true);
-      });
-
+        });
     print("UNAUTHENTICATED");
     return null;
     },
-      initial: (){
+
+      logging: (){
         return Loading.show(context);
+      },
+      orElse: () {
+         print("ELSE");
+         Loading.show(context);
+        return null ;
       },
 
       error: (message) => {
+      print("ERRROR"),
     Loading.hide(context),
     // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
     },
@@ -215,7 +217,10 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                                 'assets/icons/trash.png',
                                 S.of(context).profile_delete_title,
                                 '',
-                                    () {},
+                                    () {
+                                      Navigator.of(context)
+                                          .push(DeleteAccountPage.route());
+                                    },
                                 true,
                                 '',
                                 '',
@@ -233,9 +238,8 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                               padding: EdgeInsets.symmetric(horizontal: 20),
                               child: PrimaryButton(
                                 title: S.of(context).sign_out.toUpperCase(),
-                                onPressed: () {
-                                  getIt<AuthBloc>().add(
-                                      const AuthEvent.logout());
+                                onPressed: () async {
+                                  context.read<AuthBloc>().add(const AuthEvent.logout());
                                 },
                                 type: PrimaryButtonType.pink,
                               ),

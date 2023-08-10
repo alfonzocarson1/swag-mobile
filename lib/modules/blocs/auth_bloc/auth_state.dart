@@ -17,4 +17,5 @@ class AuthState with _$AuthState {
   factory AuthState.validCodeSuccess(ForgotPasswordCodeModel successValidCode) =
       LoadedvalidCodeSuccess;
   const factory AuthState.passwordChanged() = PasswordChanged;
+  const factory AuthState.deleted( String message,  bool status) = Deleted;
 }

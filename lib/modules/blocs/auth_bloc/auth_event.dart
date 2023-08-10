@@ -14,4 +14,5 @@ class AuthEvent with _$AuthEvent {
 
   const factory AuthEvent.changePassword(
       String changeCode, String newPassword, String deviceId) = _ChangePassword;
+  const factory AuthEvent.delete() = DeleteAccount;
 }

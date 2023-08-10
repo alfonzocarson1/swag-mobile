@@ -28,6 +28,7 @@ mixin _$AuthEvent {
     required TResult Function(
             String changeCode, String newPassword, String deviceId)
         changePassword,
+    required TResult Function() delete,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -41,6 +42,7 @@ mixin _$AuthEvent {
     TResult? Function(String code)? validCode,
     TResult? Function(String changeCode, String newPassword, String deviceId)?
         changePassword,
+    TResult? Function()? delete,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -54,6 +56,7 @@ mixin _$AuthEvent {
     TResult Function(String code)? validCode,
     TResult Function(String changeCode, String newPassword, String deviceId)?
         changePassword,
+    TResult Function()? delete,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -67,6 +70,7 @@ mixin _$AuthEvent {
     required TResult Function(_SendEmail value) sendEmail,
     required TResult Function(_ValidCode value) validCode,
     required TResult Function(_ChangePassword value) changePassword,
+    required TResult Function(DeleteAccount value) delete,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -79,6 +83,7 @@ mixin _$AuthEvent {
     TResult? Function(_SendEmail value)? sendEmail,
     TResult? Function(_ValidCode value)? validCode,
     TResult? Function(_ChangePassword value)? changePassword,
+    TResult? Function(DeleteAccount value)? delete,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -91,6 +96,7 @@ mixin _$AuthEvent {
     TResult Function(_SendEmail value)? sendEmail,
     TResult Function(_ValidCode value)? validCode,
     TResult Function(_ChangePassword value)? changePassword,
+    TResult Function(DeleteAccount value)? delete,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -158,6 +164,7 @@ class _$Init implements Init {
     required TResult Function(
             String changeCode, String newPassword, String deviceId)
         changePassword,
+    required TResult Function() delete,
   }) {
     return init();
   }
@@ -174,6 +181,7 @@ class _$Init implements Init {
     TResult? Function(String code)? validCode,
     TResult? Function(String changeCode, String newPassword, String deviceId)?
         changePassword,
+    TResult? Function()? delete,
   }) {
     return init?.call();
   }
@@ -190,6 +198,7 @@ class _$Init implements Init {
     TResult Function(String code)? validCode,
     TResult Function(String changeCode, String newPassword, String deviceId)?
         changePassword,
+    TResult Function()? delete,
     required TResult orElse(),
   }) {
     if (init != null) {
@@ -209,6 +218,7 @@ class _$Init implements Init {
     required TResult Function(_SendEmail value) sendEmail,
     required TResult Function(_ValidCode value) validCode,
     required TResult Function(_ChangePassword value) changePassword,
+    required TResult Function(DeleteAccount value) delete,
   }) {
     return init(this);
   }
@@ -224,6 +234,7 @@ class _$Init implements Init {
     TResult? Function(_SendEmail value)? sendEmail,
     TResult? Function(_ValidCode value)? validCode,
     TResult? Function(_ChangePassword value)? changePassword,
+    TResult? Function(DeleteAccount value)? delete,
   }) {
     return init?.call(this);
   }
@@ -239,6 +250,7 @@ class _$Init implements Init {
     TResult Function(_SendEmail value)? sendEmail,
     TResult Function(_ValidCode value)? validCode,
     TResult Function(_ChangePassword value)? changePassword,
+    TResult Function(DeleteAccount value)? delete,
     required TResult orElse(),
   }) {
     if (init != null) {
@@ -300,6 +312,7 @@ class _$FinishedOnboarding implements FinishedOnboarding {
     required TResult Function(
             String changeCode, String newPassword, String deviceId)
         changePassword,
+    required TResult Function() delete,
   }) {
     return finishedOnboarding();
   }
@@ -316,6 +329,7 @@ class _$FinishedOnboarding implements FinishedOnboarding {
     TResult? Function(String code)? validCode,
     TResult? Function(String changeCode, String newPassword, String deviceId)?
         changePassword,
+    TResult? Function()? delete,
   }) {
     return finishedOnboarding?.call();
   }
@@ -332,6 +346,7 @@ class _$FinishedOnboarding implements FinishedOnboarding {
     TResult Function(String code)? validCode,
     TResult Function(String changeCode, String newPassword, String deviceId)?
         changePassword,
+    TResult Function()? delete,
     required TResult orElse(),
   }) {
     if (finishedOnboarding != null) {
@@ -351,6 +366,7 @@ class _$FinishedOnboarding implements FinishedOnboarding {
     required TResult Function(_SendEmail value) sendEmail,
     required TResult Function(_ValidCode value) validCode,
     required TResult Function(_ChangePassword value) changePassword,
+    required TResult Function(DeleteAccount value) delete,
   }) {
     return finishedOnboarding(this);
   }
@@ -366,6 +382,7 @@ class _$FinishedOnboarding implements FinishedOnboarding {
     TResult? Function(_SendEmail value)? sendEmail,
     TResult? Function(_ValidCode value)? validCode,
     TResult? Function(_ChangePassword value)? changePassword,
+    TResult? Function(DeleteAccount value)? delete,
   }) {
     return finishedOnboarding?.call(this);
   }
@@ -381,6 +398,7 @@ class _$FinishedOnboarding implements FinishedOnboarding {
     TResult Function(_SendEmail value)? sendEmail,
     TResult Function(_ValidCode value)? validCode,
     TResult Function(_ChangePassword value)? changePassword,
+    TResult Function(DeleteAccount value)? delete,
     required TResult orElse(),
   }) {
     if (finishedOnboarding != null) {
@@ -478,6 +496,7 @@ class _$CreateAccount implements CreateAccount {
     required TResult Function(
             String changeCode, String newPassword, String deviceId)
         changePassword,
+    required TResult Function() delete,
   }) {
     return createAccount(model);
   }
@@ -494,6 +513,7 @@ class _$CreateAccount implements CreateAccount {
     TResult? Function(String code)? validCode,
     TResult? Function(String changeCode, String newPassword, String deviceId)?
         changePassword,
+    TResult? Function()? delete,
   }) {
     return createAccount?.call(model);
   }
@@ -510,6 +530,7 @@ class _$CreateAccount implements CreateAccount {
     TResult Function(String code)? validCode,
     TResult Function(String changeCode, String newPassword, String deviceId)?
         changePassword,
+    TResult Function()? delete,
     required TResult orElse(),
   }) {
     if (createAccount != null) {
@@ -529,6 +550,7 @@ class _$CreateAccount implements CreateAccount {
     required TResult Function(_SendEmail value) sendEmail,
     required TResult Function(_ValidCode value) validCode,
     required TResult Function(_ChangePassword value) changePassword,
+    required TResult Function(DeleteAccount value) delete,
   }) {
     return createAccount(this);
   }
@@ -544,6 +566,7 @@ class _$CreateAccount implements CreateAccount {
     TResult? Function(_SendEmail value)? sendEmail,
     TResult? Function(_ValidCode value)? validCode,
     TResult? Function(_ChangePassword value)? changePassword,
+    TResult? Function(DeleteAccount value)? delete,
   }) {
     return createAccount?.call(this);
   }
@@ -559,6 +582,7 @@ class _$CreateAccount implements CreateAccount {
     TResult Function(_SendEmail value)? sendEmail,
     TResult Function(_ValidCode value)? validCode,
     TResult Function(_ChangePassword value)? changePassword,
+    TResult Function(DeleteAccount value)? delete,
     required TResult orElse(),
   }) {
     if (createAccount != null) {
@@ -661,6 +685,7 @@ class _$Authenticate implements Authenticate {
     required TResult Function(
             String changeCode, String newPassword, String deviceId)
         changePassword,
+    required TResult Function() delete,
   }) {
     return authenticate(email, password);
   }
@@ -677,6 +702,7 @@ class _$Authenticate implements Authenticate {
     TResult? Function(String code)? validCode,
     TResult? Function(String changeCode, String newPassword, String deviceId)?
         changePassword,
+    TResult? Function()? delete,
   }) {
     return authenticate?.call(email, password);
   }
@@ -693,6 +719,7 @@ class _$Authenticate implements Authenticate {
     TResult Function(String code)? validCode,
     TResult Function(String changeCode, String newPassword, String deviceId)?
         changePassword,
+    TResult Function()? delete,
     required TResult orElse(),
   }) {
     if (authenticate != null) {
@@ -712,6 +739,7 @@ class _$Authenticate implements Authenticate {
     required TResult Function(_SendEmail value) sendEmail,
     required TResult Function(_ValidCode value) validCode,
     required TResult Function(_ChangePassword value) changePassword,
+    required TResult Function(DeleteAccount value) delete,
   }) {
     return authenticate(this);
   }
@@ -727,6 +755,7 @@ class _$Authenticate implements Authenticate {
     TResult? Function(_SendEmail value)? sendEmail,
     TResult? Function(_ValidCode value)? validCode,
     TResult? Function(_ChangePassword value)? changePassword,
+    TResult? Function(DeleteAccount value)? delete,
   }) {
     return authenticate?.call(this);
   }
@@ -742,6 +771,7 @@ class _$Authenticate implements Authenticate {
     TResult Function(_SendEmail value)? sendEmail,
     TResult Function(_ValidCode value)? validCode,
     TResult Function(_ChangePassword value)? changePassword,
+    TResult Function(DeleteAccount value)? delete,
     required TResult orElse(),
   }) {
     if (authenticate != null) {
@@ -810,6 +840,7 @@ class _$LogoutAuth implements LogoutAuth {
     required TResult Function(
             String changeCode, String newPassword, String deviceId)
         changePassword,
+    required TResult Function() delete,
   }) {
     return logout();
   }
@@ -826,6 +857,7 @@ class _$LogoutAuth implements LogoutAuth {
     TResult? Function(String code)? validCode,
     TResult? Function(String changeCode, String newPassword, String deviceId)?
         changePassword,
+    TResult? Function()? delete,
   }) {
     return logout?.call();
   }
@@ -842,6 +874,7 @@ class _$LogoutAuth implements LogoutAuth {
     TResult Function(String code)? validCode,
     TResult Function(String changeCode, String newPassword, String deviceId)?
         changePassword,
+    TResult Function()? delete,
     required TResult orElse(),
   }) {
     if (logout != null) {
@@ -861,6 +894,7 @@ class _$LogoutAuth implements LogoutAuth {
     required TResult Function(_SendEmail value) sendEmail,
     required TResult Function(_ValidCode value) validCode,
     required TResult Function(_ChangePassword value) changePassword,
+    required TResult Function(DeleteAccount value) delete,
   }) {
     return logout(this);
   }
@@ -876,6 +910,7 @@ class _$LogoutAuth implements LogoutAuth {
     TResult? Function(_SendEmail value)? sendEmail,
     TResult? Function(_ValidCode value)? validCode,
     TResult? Function(_ChangePassword value)? changePassword,
+    TResult? Function(DeleteAccount value)? delete,
   }) {
     return logout?.call(this);
   }
@@ -891,6 +926,7 @@ class _$LogoutAuth implements LogoutAuth {
     TResult Function(_SendEmail value)? sendEmail,
     TResult Function(_ValidCode value)? validCode,
     TResult Function(_ChangePassword value)? changePassword,
+    TResult Function(DeleteAccount value)? delete,
     required TResult orElse(),
   }) {
     if (logout != null) {
@@ -978,6 +1014,7 @@ class _$_SendEmail implements _SendEmail {
     required TResult Function(
             String changeCode, String newPassword, String deviceId)
         changePassword,
+    required TResult Function() delete,
   }) {
     return sendEmail(email);
   }
@@ -994,6 +1031,7 @@ class _$_SendEmail implements _SendEmail {
     TResult? Function(String code)? validCode,
     TResult? Function(String changeCode, String newPassword, String deviceId)?
         changePassword,
+    TResult? Function()? delete,
   }) {
     return sendEmail?.call(email);
   }
@@ -1010,6 +1048,7 @@ class _$_SendEmail implements _SendEmail {
     TResult Function(String code)? validCode,
     TResult Function(String changeCode, String newPassword, String deviceId)?
         changePassword,
+    TResult Function()? delete,
     required TResult orElse(),
   }) {
     if (sendEmail != null) {
@@ -1029,6 +1068,7 @@ class _$_SendEmail implements _SendEmail {
     required TResult Function(_SendEmail value) sendEmail,
     required TResult Function(_ValidCode value) validCode,
     required TResult Function(_ChangePassword value) changePassword,
+    required TResult Function(DeleteAccount value) delete,
   }) {
     return sendEmail(this);
   }
@@ -1044,6 +1084,7 @@ class _$_SendEmail implements _SendEmail {
     TResult? Function(_SendEmail value)? sendEmail,
     TResult? Function(_ValidCode value)? validCode,
     TResult? Function(_ChangePassword value)? changePassword,
+    TResult? Function(DeleteAccount value)? delete,
   }) {
     return sendEmail?.call(this);
   }
@@ -1059,6 +1100,7 @@ class _$_SendEmail implements _SendEmail {
     TResult Function(_SendEmail value)? sendEmail,
     TResult Function(_ValidCode value)? validCode,
     TResult Function(_ChangePassword value)? changePassword,
+    TResult Function(DeleteAccount value)? delete,
     required TResult orElse(),
   }) {
     if (sendEmail != null) {
@@ -1151,6 +1193,7 @@ class _$_ValidCode implements _ValidCode {
     required TResult Function(
             String changeCode, String newPassword, String deviceId)
         changePassword,
+    required TResult Function() delete,
   }) {
     return validCode(code);
   }
@@ -1167,6 +1210,7 @@ class _$_ValidCode implements _ValidCode {
     TResult? Function(String code)? validCode,
     TResult? Function(String changeCode, String newPassword, String deviceId)?
         changePassword,
+    TResult? Function()? delete,
   }) {
     return validCode?.call(code);
   }
@@ -1183,6 +1227,7 @@ class _$_ValidCode implements _ValidCode {
     TResult Function(String code)? validCode,
     TResult Function(String changeCode, String newPassword, String deviceId)?
         changePassword,
+    TResult Function()? delete,
     required TResult orElse(),
   }) {
     if (validCode != null) {
@@ -1202,6 +1247,7 @@ class _$_ValidCode implements _ValidCode {
     required TResult Function(_SendEmail value) sendEmail,
     required TResult Function(_ValidCode value) validCode,
     required TResult Function(_ChangePassword value) changePassword,
+    required TResult Function(DeleteAccount value) delete,
   }) {
     return validCode(this);
   }
@@ -1217,6 +1263,7 @@ class _$_ValidCode implements _ValidCode {
     TResult? Function(_SendEmail value)? sendEmail,
     TResult? Function(_ValidCode value)? validCode,
     TResult? Function(_ChangePassword value)? changePassword,
+    TResult? Function(DeleteAccount value)? delete,
   }) {
     return validCode?.call(this);
   }
@@ -1232,6 +1279,7 @@ class _$_ValidCode implements _ValidCode {
     TResult Function(_SendEmail value)? sendEmail,
     TResult Function(_ValidCode value)? validCode,
     TResult Function(_ChangePassword value)? changePassword,
+    TResult Function(DeleteAccount value)? delete,
     required TResult orElse(),
   }) {
     if (validCode != null) {
@@ -1344,6 +1392,7 @@ class _$_ChangePassword implements _ChangePassword {
     required TResult Function(
             String changeCode, String newPassword, String deviceId)
         changePassword,
+    required TResult Function() delete,
   }) {
     return changePassword(changeCode, newPassword, deviceId);
   }
@@ -1360,6 +1409,7 @@ class _$_ChangePassword implements _ChangePassword {
     TResult? Function(String code)? validCode,
     TResult? Function(String changeCode, String newPassword, String deviceId)?
         changePassword,
+    TResult? Function()? delete,
   }) {
     return changePassword?.call(changeCode, newPassword, deviceId);
   }
@@ -1376,6 +1426,7 @@ class _$_ChangePassword implements _ChangePassword {
     TResult Function(String code)? validCode,
     TResult Function(String changeCode, String newPassword, String deviceId)?
         changePassword,
+    TResult Function()? delete,
     required TResult orElse(),
   }) {
     if (changePassword != null) {
@@ -1395,6 +1446,7 @@ class _$_ChangePassword implements _ChangePassword {
     required TResult Function(_SendEmail value) sendEmail,
     required TResult Function(_ValidCode value) validCode,
     required TResult Function(_ChangePassword value) changePassword,
+    required TResult Function(DeleteAccount value) delete,
   }) {
     return changePassword(this);
   }
@@ -1410,6 +1462,7 @@ class _$_ChangePassword implements _ChangePassword {
     TResult? Function(_SendEmail value)? sendEmail,
     TResult? Function(_ValidCode value)? validCode,
     TResult? Function(_ChangePassword value)? changePassword,
+    TResult? Function(DeleteAccount value)? delete,
   }) {
     return changePassword?.call(this);
   }
@@ -1425,6 +1478,7 @@ class _$_ChangePassword implements _ChangePassword {
     TResult Function(_SendEmail value)? sendEmail,
     TResult Function(_ValidCode value)? validCode,
     TResult Function(_ChangePassword value)? changePassword,
+    TResult Function(DeleteAccount value)? delete,
     required TResult orElse(),
   }) {
     if (changePassword != null) {
@@ -1447,6 +1501,154 @@ abstract class _ChangePassword implements AuthEvent {
 }
 
 /// @nodoc
+abstract class _$$DeleteAccountCopyWith<$Res> {
+  factory _$$DeleteAccountCopyWith(
+          _$DeleteAccount value, $Res Function(_$DeleteAccount) then) =
+      __$$DeleteAccountCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$DeleteAccountCopyWithImpl<$Res>
+    extends _$AuthEventCopyWithImpl<$Res, _$DeleteAccount>
+    implements _$$DeleteAccountCopyWith<$Res> {
+  __$$DeleteAccountCopyWithImpl(
+      _$DeleteAccount _value, $Res Function(_$DeleteAccount) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$DeleteAccount implements DeleteAccount {
+  const _$DeleteAccount();
+
+  @override
+  String toString() {
+    return 'AuthEvent.delete()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$DeleteAccount);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() init,
+    required TResult Function() finishedOnboarding,
+    required TResult Function(CreateAccountPayloadModel model) createAccount,
+    required TResult Function(String email, String password) authenticate,
+    required TResult Function() logout,
+    required TResult Function(String email) sendEmail,
+    required TResult Function(String code) validCode,
+    required TResult Function(
+            String changeCode, String newPassword, String deviceId)
+        changePassword,
+    required TResult Function() delete,
+  }) {
+    return delete();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? init,
+    TResult? Function()? finishedOnboarding,
+    TResult? Function(CreateAccountPayloadModel model)? createAccount,
+    TResult? Function(String email, String password)? authenticate,
+    TResult? Function()? logout,
+    TResult? Function(String email)? sendEmail,
+    TResult? Function(String code)? validCode,
+    TResult? Function(String changeCode, String newPassword, String deviceId)?
+        changePassword,
+    TResult? Function()? delete,
+  }) {
+    return delete?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? init,
+    TResult Function()? finishedOnboarding,
+    TResult Function(CreateAccountPayloadModel model)? createAccount,
+    TResult Function(String email, String password)? authenticate,
+    TResult Function()? logout,
+    TResult Function(String email)? sendEmail,
+    TResult Function(String code)? validCode,
+    TResult Function(String changeCode, String newPassword, String deviceId)?
+        changePassword,
+    TResult Function()? delete,
+    required TResult orElse(),
+  }) {
+    if (delete != null) {
+      return delete();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Init value) init,
+    required TResult Function(FinishedOnboarding value) finishedOnboarding,
+    required TResult Function(CreateAccount value) createAccount,
+    required TResult Function(Authenticate value) authenticate,
+    required TResult Function(LogoutAuth value) logout,
+    required TResult Function(_SendEmail value) sendEmail,
+    required TResult Function(_ValidCode value) validCode,
+    required TResult Function(_ChangePassword value) changePassword,
+    required TResult Function(DeleteAccount value) delete,
+  }) {
+    return delete(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Init value)? init,
+    TResult? Function(FinishedOnboarding value)? finishedOnboarding,
+    TResult? Function(CreateAccount value)? createAccount,
+    TResult? Function(Authenticate value)? authenticate,
+    TResult? Function(LogoutAuth value)? logout,
+    TResult? Function(_SendEmail value)? sendEmail,
+    TResult? Function(_ValidCode value)? validCode,
+    TResult? Function(_ChangePassword value)? changePassword,
+    TResult? Function(DeleteAccount value)? delete,
+  }) {
+    return delete?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Init value)? init,
+    TResult Function(FinishedOnboarding value)? finishedOnboarding,
+    TResult Function(CreateAccount value)? createAccount,
+    TResult Function(Authenticate value)? authenticate,
+    TResult Function(LogoutAuth value)? logout,
+    TResult Function(_SendEmail value)? sendEmail,
+    TResult Function(_ValidCode value)? validCode,
+    TResult Function(_ChangePassword value)? changePassword,
+    TResult Function(DeleteAccount value)? delete,
+    required TResult orElse(),
+  }) {
+    if (delete != null) {
+      return delete(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class DeleteAccount implements AuthEvent {
+  const factory DeleteAccount() = _$DeleteAccount;
+}
+
+/// @nodoc
 mixin _$AuthState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
@@ -1465,6 +1667,7 @@ mixin _$AuthState {
     required TResult Function(ForgotPasswordCodeModel successValidCode)
         validCodeSuccess,
     required TResult Function() passwordChanged,
+    required TResult Function(String message, bool status) deleted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1484,6 +1687,7 @@ mixin _$AuthState {
     TResult? Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
     TResult? Function()? passwordChanged,
+    TResult? Function(String message, bool status)? deleted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1503,6 +1707,7 @@ mixin _$AuthState {
     TResult Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
     TResult Function()? passwordChanged,
+    TResult Function(String message, bool status)? deleted,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -1522,6 +1727,7 @@ mixin _$AuthState {
     required TResult Function(CodeStatus value) codeSent,
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
     required TResult Function(PasswordChanged value) passwordChanged,
+    required TResult Function(Deleted value) deleted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1540,6 +1746,7 @@ mixin _$AuthState {
     TResult? Function(CodeStatus value)? codeSent,
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult? Function(PasswordChanged value)? passwordChanged,
+    TResult? Function(Deleted value)? deleted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1558,6 +1765,7 @@ mixin _$AuthState {
     TResult Function(CodeStatus value)? codeSent,
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult Function(PasswordChanged value)? passwordChanged,
+    TResult Function(Deleted value)? deleted,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -1631,6 +1839,7 @@ class _$Initial implements Initial {
     required TResult Function(ForgotPasswordCodeModel successValidCode)
         validCodeSuccess,
     required TResult Function() passwordChanged,
+    required TResult Function(String message, bool status) deleted,
   }) {
     return initial();
   }
@@ -1653,6 +1862,7 @@ class _$Initial implements Initial {
     TResult? Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
     TResult? Function()? passwordChanged,
+    TResult? Function(String message, bool status)? deleted,
   }) {
     return initial?.call();
   }
@@ -1675,6 +1885,7 @@ class _$Initial implements Initial {
     TResult Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
     TResult Function()? passwordChanged,
+    TResult Function(String message, bool status)? deleted,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -1700,6 +1911,7 @@ class _$Initial implements Initial {
     required TResult Function(CodeStatus value) codeSent,
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
     required TResult Function(PasswordChanged value) passwordChanged,
+    required TResult Function(Deleted value) deleted,
   }) {
     return initial(this);
   }
@@ -1721,6 +1933,7 @@ class _$Initial implements Initial {
     TResult? Function(CodeStatus value)? codeSent,
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult? Function(PasswordChanged value)? passwordChanged,
+    TResult? Function(Deleted value)? deleted,
   }) {
     return initial?.call(this);
   }
@@ -1742,6 +1955,7 @@ class _$Initial implements Initial {
     TResult Function(CodeStatus value)? codeSent,
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult Function(PasswordChanged value)? passwordChanged,
+    TResult Function(Deleted value)? deleted,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -1808,6 +2022,7 @@ class _$Walkthrough implements Walkthrough {
     required TResult Function(ForgotPasswordCodeModel successValidCode)
         validCodeSuccess,
     required TResult Function() passwordChanged,
+    required TResult Function(String message, bool status) deleted,
   }) {
     return walkthrough();
   }
@@ -1830,6 +2045,7 @@ class _$Walkthrough implements Walkthrough {
     TResult? Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
     TResult? Function()? passwordChanged,
+    TResult? Function(String message, bool status)? deleted,
   }) {
     return walkthrough?.call();
   }
@@ -1852,6 +2068,7 @@ class _$Walkthrough implements Walkthrough {
     TResult Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
     TResult Function()? passwordChanged,
+    TResult Function(String message, bool status)? deleted,
     required TResult orElse(),
   }) {
     if (walkthrough != null) {
@@ -1877,6 +2094,7 @@ class _$Walkthrough implements Walkthrough {
     required TResult Function(CodeStatus value) codeSent,
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
     required TResult Function(PasswordChanged value) passwordChanged,
+    required TResult Function(Deleted value) deleted,
   }) {
     return walkthrough(this);
   }
@@ -1898,6 +2116,7 @@ class _$Walkthrough implements Walkthrough {
     TResult? Function(CodeStatus value)? codeSent,
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult? Function(PasswordChanged value)? passwordChanged,
+    TResult? Function(Deleted value)? deleted,
   }) {
     return walkthrough?.call(this);
   }
@@ -1919,6 +2138,7 @@ class _$Walkthrough implements Walkthrough {
     TResult Function(CodeStatus value)? codeSent,
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult Function(PasswordChanged value)? passwordChanged,
+    TResult Function(Deleted value)? deleted,
     required TResult orElse(),
   }) {
     if (walkthrough != null) {
@@ -1985,6 +2205,7 @@ class _$Onboarding implements Onboarding {
     required TResult Function(ForgotPasswordCodeModel successValidCode)
         validCodeSuccess,
     required TResult Function() passwordChanged,
+    required TResult Function(String message, bool status) deleted,
   }) {
     return onboarding();
   }
@@ -2007,6 +2228,7 @@ class _$Onboarding implements Onboarding {
     TResult? Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
     TResult? Function()? passwordChanged,
+    TResult? Function(String message, bool status)? deleted,
   }) {
     return onboarding?.call();
   }
@@ -2029,6 +2251,7 @@ class _$Onboarding implements Onboarding {
     TResult Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
     TResult Function()? passwordChanged,
+    TResult Function(String message, bool status)? deleted,
     required TResult orElse(),
   }) {
     if (onboarding != null) {
@@ -2054,6 +2277,7 @@ class _$Onboarding implements Onboarding {
     required TResult Function(CodeStatus value) codeSent,
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
     required TResult Function(PasswordChanged value) passwordChanged,
+    required TResult Function(Deleted value) deleted,
   }) {
     return onboarding(this);
   }
@@ -2075,6 +2299,7 @@ class _$Onboarding implements Onboarding {
     TResult? Function(CodeStatus value)? codeSent,
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult? Function(PasswordChanged value)? passwordChanged,
+    TResult? Function(Deleted value)? deleted,
   }) {
     return onboarding?.call(this);
   }
@@ -2096,6 +2321,7 @@ class _$Onboarding implements Onboarding {
     TResult Function(CodeStatus value)? codeSent,
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult Function(PasswordChanged value)? passwordChanged,
+    TResult Function(Deleted value)? deleted,
     required TResult orElse(),
   }) {
     if (onboarding != null) {
@@ -2160,6 +2386,7 @@ class _$Logging implements Logging {
     required TResult Function(ForgotPasswordCodeModel successValidCode)
         validCodeSuccess,
     required TResult Function() passwordChanged,
+    required TResult Function(String message, bool status) deleted,
   }) {
     return logging();
   }
@@ -2182,6 +2409,7 @@ class _$Logging implements Logging {
     TResult? Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
     TResult? Function()? passwordChanged,
+    TResult? Function(String message, bool status)? deleted,
   }) {
     return logging?.call();
   }
@@ -2204,6 +2432,7 @@ class _$Logging implements Logging {
     TResult Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
     TResult Function()? passwordChanged,
+    TResult Function(String message, bool status)? deleted,
     required TResult orElse(),
   }) {
     if (logging != null) {
@@ -2229,6 +2458,7 @@ class _$Logging implements Logging {
     required TResult Function(CodeStatus value) codeSent,
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
     required TResult Function(PasswordChanged value) passwordChanged,
+    required TResult Function(Deleted value) deleted,
   }) {
     return logging(this);
   }
@@ -2250,6 +2480,7 @@ class _$Logging implements Logging {
     TResult? Function(CodeStatus value)? codeSent,
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult? Function(PasswordChanged value)? passwordChanged,
+    TResult? Function(Deleted value)? deleted,
   }) {
     return logging?.call(this);
   }
@@ -2271,6 +2502,7 @@ class _$Logging implements Logging {
     TResult Function(CodeStatus value)? codeSent,
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult Function(PasswordChanged value)? passwordChanged,
+    TResult Function(Deleted value)? deleted,
     required TResult orElse(),
   }) {
     if (logging != null) {
@@ -2337,6 +2569,7 @@ class _$Authenticated implements Authenticated {
     required TResult Function(ForgotPasswordCodeModel successValidCode)
         validCodeSuccess,
     required TResult Function() passwordChanged,
+    required TResult Function(String message, bool status) deleted,
   }) {
     return authenticated();
   }
@@ -2359,6 +2592,7 @@ class _$Authenticated implements Authenticated {
     TResult? Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
     TResult? Function()? passwordChanged,
+    TResult? Function(String message, bool status)? deleted,
   }) {
     return authenticated?.call();
   }
@@ -2381,6 +2615,7 @@ class _$Authenticated implements Authenticated {
     TResult Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
     TResult Function()? passwordChanged,
+    TResult Function(String message, bool status)? deleted,
     required TResult orElse(),
   }) {
     if (authenticated != null) {
@@ -2406,6 +2641,7 @@ class _$Authenticated implements Authenticated {
     required TResult Function(CodeStatus value) codeSent,
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
     required TResult Function(PasswordChanged value) passwordChanged,
+    required TResult Function(Deleted value) deleted,
   }) {
     return authenticated(this);
   }
@@ -2427,6 +2663,7 @@ class _$Authenticated implements Authenticated {
     TResult? Function(CodeStatus value)? codeSent,
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult? Function(PasswordChanged value)? passwordChanged,
+    TResult? Function(Deleted value)? deleted,
   }) {
     return authenticated?.call(this);
   }
@@ -2448,6 +2685,7 @@ class _$Authenticated implements Authenticated {
     TResult Function(CodeStatus value)? codeSent,
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult Function(PasswordChanged value)? passwordChanged,
+    TResult Function(Deleted value)? deleted,
     required TResult orElse(),
   }) {
     if (authenticated != null) {
@@ -2514,6 +2752,7 @@ class _$Unauthenticated implements Unauthenticated {
     required TResult Function(ForgotPasswordCodeModel successValidCode)
         validCodeSuccess,
     required TResult Function() passwordChanged,
+    required TResult Function(String message, bool status) deleted,
   }) {
     return unauthenticated();
   }
@@ -2536,6 +2775,7 @@ class _$Unauthenticated implements Unauthenticated {
     TResult? Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
     TResult? Function()? passwordChanged,
+    TResult? Function(String message, bool status)? deleted,
   }) {
     return unauthenticated?.call();
   }
@@ -2558,6 +2798,7 @@ class _$Unauthenticated implements Unauthenticated {
     TResult Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
     TResult Function()? passwordChanged,
+    TResult Function(String message, bool status)? deleted,
     required TResult orElse(),
   }) {
     if (unauthenticated != null) {
@@ -2583,6 +2824,7 @@ class _$Unauthenticated implements Unauthenticated {
     required TResult Function(CodeStatus value) codeSent,
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
     required TResult Function(PasswordChanged value) passwordChanged,
+    required TResult Function(Deleted value) deleted,
   }) {
     return unauthenticated(this);
   }
@@ -2604,6 +2846,7 @@ class _$Unauthenticated implements Unauthenticated {
     TResult? Function(CodeStatus value)? codeSent,
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult? Function(PasswordChanged value)? passwordChanged,
+    TResult? Function(Deleted value)? deleted,
   }) {
     return unauthenticated?.call(this);
   }
@@ -2625,6 +2868,7 @@ class _$Unauthenticated implements Unauthenticated {
     TResult Function(CodeStatus value)? codeSent,
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult Function(PasswordChanged value)? passwordChanged,
+    TResult Function(Deleted value)? deleted,
     required TResult orElse(),
   }) {
     if (unauthenticated != null) {
@@ -2718,6 +2962,7 @@ class _$AuthenticationError implements AuthenticationError {
     required TResult Function(ForgotPasswordCodeModel successValidCode)
         validCodeSuccess,
     required TResult Function() passwordChanged,
+    required TResult Function(String message, bool status) deleted,
   }) {
     return error(message);
   }
@@ -2740,6 +2985,7 @@ class _$AuthenticationError implements AuthenticationError {
     TResult? Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
     TResult? Function()? passwordChanged,
+    TResult? Function(String message, bool status)? deleted,
   }) {
     return error?.call(message);
   }
@@ -2762,6 +3008,7 @@ class _$AuthenticationError implements AuthenticationError {
     TResult Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
     TResult Function()? passwordChanged,
+    TResult Function(String message, bool status)? deleted,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -2787,6 +3034,7 @@ class _$AuthenticationError implements AuthenticationError {
     required TResult Function(CodeStatus value) codeSent,
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
     required TResult Function(PasswordChanged value) passwordChanged,
+    required TResult Function(Deleted value) deleted,
   }) {
     return error(this);
   }
@@ -2808,6 +3056,7 @@ class _$AuthenticationError implements AuthenticationError {
     TResult? Function(CodeStatus value)? codeSent,
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult? Function(PasswordChanged value)? passwordChanged,
+    TResult? Function(Deleted value)? deleted,
   }) {
     return error?.call(this);
   }
@@ -2829,6 +3078,7 @@ class _$AuthenticationError implements AuthenticationError {
     TResult Function(CodeStatus value)? codeSent,
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult Function(PasswordChanged value)? passwordChanged,
+    TResult Function(Deleted value)? deleted,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -2898,6 +3148,7 @@ class _$Reset implements Reset {
     required TResult Function(ForgotPasswordCodeModel successValidCode)
         validCodeSuccess,
     required TResult Function() passwordChanged,
+    required TResult Function(String message, bool status) deleted,
   }) {
     return reset();
   }
@@ -2920,6 +3171,7 @@ class _$Reset implements Reset {
     TResult? Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
     TResult? Function()? passwordChanged,
+    TResult? Function(String message, bool status)? deleted,
   }) {
     return reset?.call();
   }
@@ -2942,6 +3194,7 @@ class _$Reset implements Reset {
     TResult Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
     TResult Function()? passwordChanged,
+    TResult Function(String message, bool status)? deleted,
     required TResult orElse(),
   }) {
     if (reset != null) {
@@ -2967,6 +3220,7 @@ class _$Reset implements Reset {
     required TResult Function(CodeStatus value) codeSent,
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
     required TResult Function(PasswordChanged value) passwordChanged,
+    required TResult Function(Deleted value) deleted,
   }) {
     return reset(this);
   }
@@ -2988,6 +3242,7 @@ class _$Reset implements Reset {
     TResult? Function(CodeStatus value)? codeSent,
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult? Function(PasswordChanged value)? passwordChanged,
+    TResult? Function(Deleted value)? deleted,
   }) {
     return reset?.call(this);
   }
@@ -3009,6 +3264,7 @@ class _$Reset implements Reset {
     TResult Function(CodeStatus value)? codeSent,
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult Function(PasswordChanged value)? passwordChanged,
+    TResult Function(Deleted value)? deleted,
     required TResult orElse(),
   }) {
     if (reset != null) {
@@ -3075,6 +3331,7 @@ class _$Registered implements Registered {
     required TResult Function(ForgotPasswordCodeModel successValidCode)
         validCodeSuccess,
     required TResult Function() passwordChanged,
+    required TResult Function(String message, bool status) deleted,
   }) {
     return registered();
   }
@@ -3097,6 +3354,7 @@ class _$Registered implements Registered {
     TResult? Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
     TResult? Function()? passwordChanged,
+    TResult? Function(String message, bool status)? deleted,
   }) {
     return registered?.call();
   }
@@ -3119,6 +3377,7 @@ class _$Registered implements Registered {
     TResult Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
     TResult Function()? passwordChanged,
+    TResult Function(String message, bool status)? deleted,
     required TResult orElse(),
   }) {
     if (registered != null) {
@@ -3144,6 +3403,7 @@ class _$Registered implements Registered {
     required TResult Function(CodeStatus value) codeSent,
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
     required TResult Function(PasswordChanged value) passwordChanged,
+    required TResult Function(Deleted value) deleted,
   }) {
     return registered(this);
   }
@@ -3165,6 +3425,7 @@ class _$Registered implements Registered {
     TResult? Function(CodeStatus value)? codeSent,
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult? Function(PasswordChanged value)? passwordChanged,
+    TResult? Function(Deleted value)? deleted,
   }) {
     return registered?.call(this);
   }
@@ -3186,6 +3447,7 @@ class _$Registered implements Registered {
     TResult Function(CodeStatus value)? codeSent,
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult Function(PasswordChanged value)? passwordChanged,
+    TResult Function(Deleted value)? deleted,
     required TResult orElse(),
   }) {
     if (registered != null) {
@@ -3252,6 +3514,7 @@ class _$SendEmail implements SendEmail {
     required TResult Function(ForgotPasswordCodeModel successValidCode)
         validCodeSuccess,
     required TResult Function() passwordChanged,
+    required TResult Function(String message, bool status) deleted,
   }) {
     return sendEmailSuccess();
   }
@@ -3274,6 +3537,7 @@ class _$SendEmail implements SendEmail {
     TResult? Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
     TResult? Function()? passwordChanged,
+    TResult? Function(String message, bool status)? deleted,
   }) {
     return sendEmailSuccess?.call();
   }
@@ -3296,6 +3560,7 @@ class _$SendEmail implements SendEmail {
     TResult Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
     TResult Function()? passwordChanged,
+    TResult Function(String message, bool status)? deleted,
     required TResult orElse(),
   }) {
     if (sendEmailSuccess != null) {
@@ -3321,6 +3586,7 @@ class _$SendEmail implements SendEmail {
     required TResult Function(CodeStatus value) codeSent,
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
     required TResult Function(PasswordChanged value) passwordChanged,
+    required TResult Function(Deleted value) deleted,
   }) {
     return sendEmailSuccess(this);
   }
@@ -3342,6 +3608,7 @@ class _$SendEmail implements SendEmail {
     TResult? Function(CodeStatus value)? codeSent,
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult? Function(PasswordChanged value)? passwordChanged,
+    TResult? Function(Deleted value)? deleted,
   }) {
     return sendEmailSuccess?.call(this);
   }
@@ -3363,6 +3630,7 @@ class _$SendEmail implements SendEmail {
     TResult Function(CodeStatus value)? codeSent,
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult Function(PasswordChanged value)? passwordChanged,
+    TResult Function(Deleted value)? deleted,
     required TResult orElse(),
   }) {
     if (sendEmailSuccess != null) {
@@ -3429,6 +3697,7 @@ class _$ValidEmail implements ValidEmail {
     required TResult Function(ForgotPasswordCodeModel successValidCode)
         validCodeSuccess,
     required TResult Function() passwordChanged,
+    required TResult Function(String message, bool status) deleted,
   }) {
     return emailIsNotValid();
   }
@@ -3451,6 +3720,7 @@ class _$ValidEmail implements ValidEmail {
     TResult? Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
     TResult? Function()? passwordChanged,
+    TResult? Function(String message, bool status)? deleted,
   }) {
     return emailIsNotValid?.call();
   }
@@ -3473,6 +3743,7 @@ class _$ValidEmail implements ValidEmail {
     TResult Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
     TResult Function()? passwordChanged,
+    TResult Function(String message, bool status)? deleted,
     required TResult orElse(),
   }) {
     if (emailIsNotValid != null) {
@@ -3498,6 +3769,7 @@ class _$ValidEmail implements ValidEmail {
     required TResult Function(CodeStatus value) codeSent,
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
     required TResult Function(PasswordChanged value) passwordChanged,
+    required TResult Function(Deleted value) deleted,
   }) {
     return emailIsNotValid(this);
   }
@@ -3519,6 +3791,7 @@ class _$ValidEmail implements ValidEmail {
     TResult? Function(CodeStatus value)? codeSent,
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult? Function(PasswordChanged value)? passwordChanged,
+    TResult? Function(Deleted value)? deleted,
   }) {
     return emailIsNotValid?.call(this);
   }
@@ -3540,6 +3813,7 @@ class _$ValidEmail implements ValidEmail {
     TResult Function(CodeStatus value)? codeSent,
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult Function(PasswordChanged value)? passwordChanged,
+    TResult Function(Deleted value)? deleted,
     required TResult orElse(),
   }) {
     if (emailIsNotValid != null) {
@@ -3606,6 +3880,7 @@ class _$CodeStatus implements CodeStatus {
     required TResult Function(ForgotPasswordCodeModel successValidCode)
         validCodeSuccess,
     required TResult Function() passwordChanged,
+    required TResult Function(String message, bool status) deleted,
   }) {
     return codeSent();
   }
@@ -3628,6 +3903,7 @@ class _$CodeStatus implements CodeStatus {
     TResult? Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
     TResult? Function()? passwordChanged,
+    TResult? Function(String message, bool status)? deleted,
   }) {
     return codeSent?.call();
   }
@@ -3650,6 +3926,7 @@ class _$CodeStatus implements CodeStatus {
     TResult Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
     TResult Function()? passwordChanged,
+    TResult Function(String message, bool status)? deleted,
     required TResult orElse(),
   }) {
     if (codeSent != null) {
@@ -3675,6 +3952,7 @@ class _$CodeStatus implements CodeStatus {
     required TResult Function(CodeStatus value) codeSent,
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
     required TResult Function(PasswordChanged value) passwordChanged,
+    required TResult Function(Deleted value) deleted,
   }) {
     return codeSent(this);
   }
@@ -3696,6 +3974,7 @@ class _$CodeStatus implements CodeStatus {
     TResult? Function(CodeStatus value)? codeSent,
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult? Function(PasswordChanged value)? passwordChanged,
+    TResult? Function(Deleted value)? deleted,
   }) {
     return codeSent?.call(this);
   }
@@ -3717,6 +3996,7 @@ class _$CodeStatus implements CodeStatus {
     TResult Function(CodeStatus value)? codeSent,
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult Function(PasswordChanged value)? passwordChanged,
+    TResult Function(Deleted value)? deleted,
     required TResult orElse(),
   }) {
     if (codeSent != null) {
@@ -3822,6 +4102,7 @@ class _$LoadedvalidCodeSuccess implements LoadedvalidCodeSuccess {
     required TResult Function(ForgotPasswordCodeModel successValidCode)
         validCodeSuccess,
     required TResult Function() passwordChanged,
+    required TResult Function(String message, bool status) deleted,
   }) {
     return validCodeSuccess(successValidCode);
   }
@@ -3844,6 +4125,7 @@ class _$LoadedvalidCodeSuccess implements LoadedvalidCodeSuccess {
     TResult? Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
     TResult? Function()? passwordChanged,
+    TResult? Function(String message, bool status)? deleted,
   }) {
     return validCodeSuccess?.call(successValidCode);
   }
@@ -3866,6 +4148,7 @@ class _$LoadedvalidCodeSuccess implements LoadedvalidCodeSuccess {
     TResult Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
     TResult Function()? passwordChanged,
+    TResult Function(String message, bool status)? deleted,
     required TResult orElse(),
   }) {
     if (validCodeSuccess != null) {
@@ -3891,6 +4174,7 @@ class _$LoadedvalidCodeSuccess implements LoadedvalidCodeSuccess {
     required TResult Function(CodeStatus value) codeSent,
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
     required TResult Function(PasswordChanged value) passwordChanged,
+    required TResult Function(Deleted value) deleted,
   }) {
     return validCodeSuccess(this);
   }
@@ -3912,6 +4196,7 @@ class _$LoadedvalidCodeSuccess implements LoadedvalidCodeSuccess {
     TResult? Function(CodeStatus value)? codeSent,
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult? Function(PasswordChanged value)? passwordChanged,
+    TResult? Function(Deleted value)? deleted,
   }) {
     return validCodeSuccess?.call(this);
   }
@@ -3933,6 +4218,7 @@ class _$LoadedvalidCodeSuccess implements LoadedvalidCodeSuccess {
     TResult Function(CodeStatus value)? codeSent,
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult Function(PasswordChanged value)? passwordChanged,
+    TResult Function(Deleted value)? deleted,
     required TResult orElse(),
   }) {
     if (validCodeSuccess != null) {
@@ -4006,6 +4292,7 @@ class _$PasswordChanged implements PasswordChanged {
     required TResult Function(ForgotPasswordCodeModel successValidCode)
         validCodeSuccess,
     required TResult Function() passwordChanged,
+    required TResult Function(String message, bool status) deleted,
   }) {
     return passwordChanged();
   }
@@ -4028,6 +4315,7 @@ class _$PasswordChanged implements PasswordChanged {
     TResult? Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
     TResult? Function()? passwordChanged,
+    TResult? Function(String message, bool status)? deleted,
   }) {
     return passwordChanged?.call();
   }
@@ -4050,6 +4338,7 @@ class _$PasswordChanged implements PasswordChanged {
     TResult Function(ForgotPasswordCodeModel successValidCode)?
         validCodeSuccess,
     TResult Function()? passwordChanged,
+    TResult Function(String message, bool status)? deleted,
     required TResult orElse(),
   }) {
     if (passwordChanged != null) {
@@ -4075,6 +4364,7 @@ class _$PasswordChanged implements PasswordChanged {
     required TResult Function(CodeStatus value) codeSent,
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
     required TResult Function(PasswordChanged value) passwordChanged,
+    required TResult Function(Deleted value) deleted,
   }) {
     return passwordChanged(this);
   }
@@ -4096,6 +4386,7 @@ class _$PasswordChanged implements PasswordChanged {
     TResult? Function(CodeStatus value)? codeSent,
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult? Function(PasswordChanged value)? passwordChanged,
+    TResult? Function(Deleted value)? deleted,
   }) {
     return passwordChanged?.call(this);
   }
@@ -4117,6 +4408,7 @@ class _$PasswordChanged implements PasswordChanged {
     TResult Function(CodeStatus value)? codeSent,
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult Function(PasswordChanged value)? passwordChanged,
+    TResult Function(Deleted value)? deleted,
     required TResult orElse(),
   }) {
     if (passwordChanged != null) {
@@ -4128,4 +4420,225 @@ class _$PasswordChanged implements PasswordChanged {
 
 abstract class PasswordChanged implements AuthState {
   const factory PasswordChanged() = _$PasswordChanged;
+}
+
+/// @nodoc
+abstract class _$$DeletedCopyWith<$Res> {
+  factory _$$DeletedCopyWith(_$Deleted value, $Res Function(_$Deleted) then) =
+      __$$DeletedCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String message, bool status});
+}
+
+/// @nodoc
+class __$$DeletedCopyWithImpl<$Res>
+    extends _$AuthStateCopyWithImpl<$Res, _$Deleted>
+    implements _$$DeletedCopyWith<$Res> {
+  __$$DeletedCopyWithImpl(_$Deleted _value, $Res Function(_$Deleted) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+    Object? status = null,
+  }) {
+    return _then(_$Deleted(
+      null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$Deleted implements Deleted {
+  const _$Deleted(this.message, this.status);
+
+  @override
+  final String message;
+  @override
+  final bool status;
+
+  @override
+  String toString() {
+    return 'AuthState.deleted(message: $message, status: $status)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Deleted &&
+            (identical(other.message, message) || other.message == message) &&
+            (identical(other.status, status) || other.status == status));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, message, status);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DeletedCopyWith<_$Deleted> get copyWith =>
+      __$$DeletedCopyWithImpl<_$Deleted>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() walkthrough,
+    required TResult Function() onboarding,
+    required TResult Function() logging,
+    required TResult Function() authenticated,
+    required TResult Function() unauthenticated,
+    required TResult Function(String message) error,
+    required TResult Function() reset,
+    required TResult Function() registered,
+    required TResult Function() sendEmailSuccess,
+    required TResult Function() emailIsNotValid,
+    required TResult Function() codeSent,
+    required TResult Function(ForgotPasswordCodeModel successValidCode)
+        validCodeSuccess,
+    required TResult Function() passwordChanged,
+    required TResult Function(String message, bool status) deleted,
+  }) {
+    return deleted(message, status);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? walkthrough,
+    TResult? Function()? onboarding,
+    TResult? Function()? logging,
+    TResult? Function()? authenticated,
+    TResult? Function()? unauthenticated,
+    TResult? Function(String message)? error,
+    TResult? Function()? reset,
+    TResult? Function()? registered,
+    TResult? Function()? sendEmailSuccess,
+    TResult? Function()? emailIsNotValid,
+    TResult? Function()? codeSent,
+    TResult? Function(ForgotPasswordCodeModel successValidCode)?
+        validCodeSuccess,
+    TResult? Function()? passwordChanged,
+    TResult? Function(String message, bool status)? deleted,
+  }) {
+    return deleted?.call(message, status);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? walkthrough,
+    TResult Function()? onboarding,
+    TResult Function()? logging,
+    TResult Function()? authenticated,
+    TResult Function()? unauthenticated,
+    TResult Function(String message)? error,
+    TResult Function()? reset,
+    TResult Function()? registered,
+    TResult Function()? sendEmailSuccess,
+    TResult Function()? emailIsNotValid,
+    TResult Function()? codeSent,
+    TResult Function(ForgotPasswordCodeModel successValidCode)?
+        validCodeSuccess,
+    TResult Function()? passwordChanged,
+    TResult Function(String message, bool status)? deleted,
+    required TResult orElse(),
+  }) {
+    if (deleted != null) {
+      return deleted(message, status);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Initial value) initial,
+    required TResult Function(Walkthrough value) walkthrough,
+    required TResult Function(Onboarding value) onboarding,
+    required TResult Function(Logging value) logging,
+    required TResult Function(Authenticated value) authenticated,
+    required TResult Function(Unauthenticated value) unauthenticated,
+    required TResult Function(AuthenticationError value) error,
+    required TResult Function(Reset value) reset,
+    required TResult Function(Registered value) registered,
+    required TResult Function(SendEmail value) sendEmailSuccess,
+    required TResult Function(ValidEmail value) emailIsNotValid,
+    required TResult Function(CodeStatus value) codeSent,
+    required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
+    required TResult Function(PasswordChanged value) passwordChanged,
+    required TResult Function(Deleted value) deleted,
+  }) {
+    return deleted(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Initial value)? initial,
+    TResult? Function(Walkthrough value)? walkthrough,
+    TResult? Function(Onboarding value)? onboarding,
+    TResult? Function(Logging value)? logging,
+    TResult? Function(Authenticated value)? authenticated,
+    TResult? Function(Unauthenticated value)? unauthenticated,
+    TResult? Function(AuthenticationError value)? error,
+    TResult? Function(Reset value)? reset,
+    TResult? Function(Registered value)? registered,
+    TResult? Function(SendEmail value)? sendEmailSuccess,
+    TResult? Function(ValidEmail value)? emailIsNotValid,
+    TResult? Function(CodeStatus value)? codeSent,
+    TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
+    TResult? Function(PasswordChanged value)? passwordChanged,
+    TResult? Function(Deleted value)? deleted,
+  }) {
+    return deleted?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Initial value)? initial,
+    TResult Function(Walkthrough value)? walkthrough,
+    TResult Function(Onboarding value)? onboarding,
+    TResult Function(Logging value)? logging,
+    TResult Function(Authenticated value)? authenticated,
+    TResult Function(Unauthenticated value)? unauthenticated,
+    TResult Function(AuthenticationError value)? error,
+    TResult Function(Reset value)? reset,
+    TResult Function(Registered value)? registered,
+    TResult Function(SendEmail value)? sendEmailSuccess,
+    TResult Function(ValidEmail value)? emailIsNotValid,
+    TResult Function(CodeStatus value)? codeSent,
+    TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
+    TResult Function(PasswordChanged value)? passwordChanged,
+    TResult Function(Deleted value)? deleted,
+    required TResult orElse(),
+  }) {
+    if (deleted != null) {
+      return deleted(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Deleted implements AuthState {
+  const factory Deleted(final String message, final bool status) = _$Deleted;
+
+  String get message;
+  bool get status;
+  @JsonKey(ignore: true)
+  _$$DeletedCopyWith<_$Deleted> get copyWith =>
+      throw _privateConstructorUsedError;
 }

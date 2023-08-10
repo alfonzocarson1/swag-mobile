@@ -16,6 +16,7 @@ import '../../common/ui/pushed_header.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
 import '../../common/utils/size_helper.dart';
+import '../../data/secure_storage/storage_repository_service.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/profile/profile_model.dart';
@@ -93,6 +94,8 @@ class _UpdateEmailPage extends State<UpdateEmailPage> {
               },
               updated: () {
                 Loading.hide(context);
+                getIt<StorageRepositoryService>()
+                    .saveEmail(_emailController.text);
                 Future.delayed(const Duration(milliseconds: 1000), () {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       duration: const Duration(seconds: 3),
