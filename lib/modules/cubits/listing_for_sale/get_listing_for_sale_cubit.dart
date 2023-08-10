@@ -35,36 +35,36 @@ class ListingProfileCubit extends Cubit<ListingCubitState> {
     }
   }
 
-  Future<void> updateListing(
-      ListingForSaleModel model, List<File> imgList, List<String> imageUrls) async {
-       
-    try {      
+  Future<void> updateListing(ListingForSaleModel model, List<File> imgList,
+      List<String> imageUrls) async {
+    try {
       ListingForSaleModel response = await listingService.updateListing(model);
 
       for (var i = 0; i < imgList.length; i++) {
         await listingService.uploadListingImage(
             await File(imgList[i].path).readAsBytes(),
-            response.productItemId ?? '');
+            response.productItemId ?? '',
+            response,
+            true);
       }
-      await listingService.updateImages(imageUrls); 
-      _cleanupTemporaryFiles(imgList);     
+      await listingService.updateImages(imageUrls);
+      _cleanupTemporaryFiles(imgList);
       getIt<ListingProfileCubit>().loadResults();
     } on Exception catch (e) {
       print(e);
     }
   }
 
-  Future<void> removeListingItem(ListingForSaleModel model) async{
-    try{
-      ListingForSaleModel response = await listingService.removeListingItem(model);
+  Future<void> removeListingItem(ListingForSaleModel model) async {
+    try {
+      await listingService.removeListingItem(model);
       getIt<ListingProfileCubit>().loadResults();
-    }
-    on Exception catch(e){
+    } on Exception catch (e) {
       print(e);
     }
   }
 
-  Future _cleanupTemporaryFiles(List<File> tempFiles)async {
+  Future _cleanupTemporaryFiles(List<File> tempFiles) async {
     // If you have stored the temporary files in a list, iterate through the list and delete each file.
     for (File file in tempFiles) {
       try {

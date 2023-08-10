@@ -144,29 +144,29 @@ class _SettingsPageState extends State<SettingsPage> {
                         //     S.of(context).security_title,
                         //     S.of(context).security_sub_title,
                         //     () {}),
-                        SizedBox(
-                          height: 0.2,
-                          child: Container(
-                            color: Palette.current.grey,
-                          ),
-                        ),
-                        _selectSettings(
-                          'assets/icons/nft_wallet_icon.png',
-                          S.of(context).nft_wallet_title,
-                          S.of(context).nft_wallet_sub_title,
-                          () {
-                            Navigator.of(
-                              context,
-                              rootNavigator: true,
-                            ).push(NftWalletPage.route());
-                          },
-                        ),
-                        SizedBox(
-                          height: 0.2,
-                          child: Container(
-                            color: Palette.current.grey,
-                          ),
-                        ),
+                        // SizedBox(
+                        //   height: 0.2,
+                        //   child: Container(
+                        //     color: Palette.current.grey,
+                        //   ),
+                        // ),
+                        // _selectSettings(
+                        //   'assets/icons/nft_wallet_icon.png',
+                        //   S.of(context).nft_wallet_title,
+                        //   S.of(context).nft_wallet_sub_title,
+                        //   () {
+                        //     Navigator.of(
+                        //       context,
+                        //       rootNavigator: true,
+                        //     ).push(NftWalletPage.route());
+                        //   },
+                        // ),
+                        // SizedBox(
+                        //   height: 0.2,
+                        //   child: Container(
+                        //     color: Palette.current.grey,
+                        //   ),
+                        // ),
                         // Todo: Need this code in future
                         // _selectSettings(
                         //     'assets/icons/communications_icon.png',

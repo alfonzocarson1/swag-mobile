@@ -8,12 +8,17 @@ import 'image_dialog.dart';
 
 class MultiImageSlide extends StatefulWidget {
   MultiImageSlide(
-      {Key? key, required this.imgList, this.addPhoto, this.onRemove})
+      {Key? key,
+      required this.imgList,
+      this.addPhoto,
+      this.onRemove,
+      this.catalogImage})
       : super(key: key);
 
   List<File> imgList;
   Function()? addPhoto;
   Function(int)? onRemove;
+  String? catalogImage;
   @override
   State<MultiImageSlide> createState() => _MultiImageSlideState();
 }
@@ -207,11 +212,14 @@ class _AddNewImageWidget extends StatelessWidget {
       children: [
         Positioned.fill(
           child: ClipRRect(
-              child: Image.asset(
-            "assets/images/bagAddList.png",
+              child: Image.network(
+            widget.catalogImage ?? '',
             fit: BoxFit.cover,
             height: 500,
           )),
+        ),
+        Positioned.fill(
+          child: Container(color: Colors.black.withOpacity(0.5)),
         ),
         Positioned.fill(
           top: 60,

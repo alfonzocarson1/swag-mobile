@@ -52,6 +52,16 @@ class AuthService extends IAuthService {
   }
 
   @override
+  Future<dynamic> deleteAccount() async {
+    dynamic response = await apiService.getEndpointData(
+        endpoint: Endpoint.deleteAccount,
+        method: RequestMethod.delete,
+        fromJson: (json) => json
+    );
+    return response;
+  }
+
+  @override
   Future<bool> isUsernameAvailable(String username) async {
     String response = await apiService.getEndpointData(
       endpoint: Endpoint.isUsernameAvailable,

@@ -6,17 +6,16 @@ import 'clickable_text.dart';
 import 'popup_image_guidelines.dart';
 
 class AddPhotoWidget extends StatefulWidget {
-  AddPhotoWidget({super.key, this.addPhoto});
+  AddPhotoWidget({super.key, this.addPhoto, this.catalogImage});
 
   Function()? addPhoto;
-  
+  String? catalogImage;
 
   @override
   State<AddPhotoWidget> createState() => _AddPhotoWidgetState();
 }
 
 class _AddPhotoWidgetState extends State<AddPhotoWidget> {
-
   @override
   void initState() {
     super.initState();
@@ -29,10 +28,13 @@ class _AddPhotoWidgetState extends State<AddPhotoWidget> {
       child: Stack(
         children: [
           ClipRRect(
-              child: Image.asset(
-            "assets/images/bagAddList.png",
+              child: Image.network(
+            widget.catalogImage ?? '',
             fit: BoxFit.cover,
           )),
+          Positioned.fill(
+            child: Container(color: Colors.black.withOpacity(0.5)),
+          ),
           Positioned.fill(
             top: 60,
             child: Align(

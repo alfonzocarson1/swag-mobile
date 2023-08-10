@@ -1184,6 +1184,16 @@ class S {
     );
   }
 
+  /// `Could not complete request.  Please try again.`
+  String get could_not_complete_try_again {
+    return Intl.message(
+      'Could not complete request.  Please try again.',
+      name: 'could_not_complete_try_again',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Purchase Price`
   String get purchase_price {
     return Intl.message(
@@ -2794,6 +2804,26 @@ class S {
     );
   }
 
+  /// `Pending verification`
+  String get nft_wallet_pending_verification {
+    return Intl.message(
+      'Pending verification',
+      name: 'nft_wallet_pending_verification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Connected`
+  String get nft_wallet_connected {
+    return Intl.message(
+      'Connected',
+      name: 'nft_wallet_connected',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Wallet`
   String get nft_wallet_wallet {
     return Intl.message(
@@ -2954,10 +2984,10 @@ class S {
     );
   }
 
-  /// `Wallet verification failed. Please try again.`
+  /// `Verification failed. Please check your Opensea bio and try again in 1 hour.`
   String get nft_verify_sheet_verification_failed {
     return Intl.message(
-      'Wallet verification failed. Please try again.',
+      'Verification failed. Please check your Opensea bio and try again in 1 hour.',
       name: 'nft_verify_sheet_verification_failed',
       desc: '',
       args: [],
@@ -3716,6 +3746,16 @@ class S {
     );
   }
 
+  /// `you don’t have any chats yet!`
+  String get emptyChatsMessage {
+    return Intl.message(
+      'you don’t have any chats yet!',
+      name: 'emptyChatsMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `ALERTS & NOTIFICATIONS`
   String get alert_center_title {
     return Intl.message(
@@ -3741,6 +3781,16 @@ class S {
     return Intl.message(
       'Pending Sale',
       name: 'pending_sale_btn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pending payment`
+  String get pending_payment_btn {
+    return Intl.message(
+      'Pending payment',
+      name: 'pending_payment_btn',
       desc: '',
       args: [],
     );
@@ -4632,6 +4682,16 @@ class S {
     return Intl.message(
       'Name',
       name: 'profile_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Need copy here for regarding data and what happens when they delete their account, Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique`
+  String get legal_text {
+    return Intl.message(
+      'Need copy here for regarding data and what happens when they delete their account, Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique',
+      name: 'legal_text',
       desc: '',
       args: [],
     );

@@ -41,7 +41,9 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
       for (var i = 0; i < imgList.length; i++) {
         await listingService.uploadListingImage(
             await File(imgList[i].path).readAsBytes(),
-            responseBody.productItemId ?? '');
+            responseBody.productItemId ?? '',
+            responseBody,
+            false);
       }
 
       getIt<ListingProfileCubit>().loadResults();

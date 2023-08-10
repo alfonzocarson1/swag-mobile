@@ -31,6 +31,17 @@ class UpdateProfileService extends IUpdateProfileService {
   }
 
   @override
+  Future<dynamic> deleteAccount() async {
+    dynamic response = await apiService.getEndpointData(
+        endpoint: Endpoint.deleteAccount,
+        method: RequestMethod.delete,
+        fromJson: (json) => json
+    );
+
+    return response;
+  }
+
+  @override
   Future<UpdateAvatarModel> updateAvatar(
       Uint8List bytes, String imageTopic, String topicId) async {
     String param = '$imageTopic/$topicId';

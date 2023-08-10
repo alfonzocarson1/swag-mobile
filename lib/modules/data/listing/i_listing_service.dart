@@ -6,9 +6,11 @@ import 'dart:typed_data';
 abstract class IListingService {
   Stream<String?> subscribeToAuthChanges();
   Future<ListingForSaleModel> createListing(ListingForSaleModel model);
-  Future<UpdateAvatarModel> uploadListingImage(Uint8List bytes, String topicId);
+  Future<UpdateAvatarModel> uploadListingImage(Uint8List bytes, String topicId,
+      ListingForSaleModel model, bool updating);
   Future<ListingForSaleProfileResponseModel> getListingForSale();
-  Future<ListingForSaleProfileResponseModel> getListingForSaleForProfile(String profileId);
+  Future<ListingForSaleProfileResponseModel> getListingForSaleForProfile(
+      String profileId);
   Future<ListingForSaleModel> updateListing(ListingForSaleModel model);
   Future<void> updateImages(List<String> imageUrls);
   Future<ListingForSaleModel> removeListingItem(ListingForSaleModel model);

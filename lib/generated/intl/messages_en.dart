@@ -247,6 +247,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "contact_us_sub_title": MessageLookupByLibrary.simpleMessage(
             "Get in touch with Swag support"),
         "contact_us_title": MessageLookupByLibrary.simpleMessage("Contact Us"),
+        "could_not_complete_try_again": MessageLookupByLibrary.simpleMessage(
+            "Could not complete request.  Please try again."),
         "country": MessageLookupByLibrary.simpleMessage("Country"),
         "create_account":
             MessageLookupByLibrary.simpleMessage("Create Account"),
@@ -291,6 +293,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "email_taken": MessageLookupByLibrary.simpleMessage(
             "An account is already associated with this email"),
         "email_verified": MessageLookupByLibrary.simpleMessage("Verified"),
+        "emptyChatsMessage": MessageLookupByLibrary.simpleMessage(
+            "you don’t have any chats yet!"),
         "empty_collection": MessageLookupByLibrary.simpleMessage(
             "TAP THE “+” ICON ON ANY ITEM TO ADD TO YOUR COLLECTION"),
         "empty_favorite": MessageLookupByLibrary.simpleMessage(
@@ -391,6 +395,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "kyc_title": MessageLookupByLibrary.simpleMessage("KYC"),
         "last_name": MessageLookupByLibrary.simpleMessage("Last Name"),
         "last_sale": MessageLookupByLibrary.simpleMessage("LAST SALE"),
+        "legal_text": MessageLookupByLibrary.simpleMessage(
+            "Need copy here for regarding data and what happens when they delete their account, Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique"),
         "less_than": MessageLookupByLibrary.simpleMessage("Less than \$111"),
         "list_for_sale_btn":
             MessageLookupByLibrary.simpleMessage("LIST FOR SALE"),
@@ -449,12 +455,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("VERIFY WALLET"),
         "nft_verify_sheet_verification_failed":
             MessageLookupByLibrary.simpleMessage(
-                "Wallet verification failed. Please try again."),
+                "Verification failed. Please check your Opensea bio and try again in 1 hour."),
         "nft_wallet_add_wallet":
             MessageLookupByLibrary.simpleMessage("Add New Wallet"),
         "nft_wallet_connect": MessageLookupByLibrary.simpleMessage("Connect"),
+        "nft_wallet_connected":
+            MessageLookupByLibrary.simpleMessage("Connected"),
         "nft_wallet_page_title":
             MessageLookupByLibrary.simpleMessage("NFT WALLET"),
+        "nft_wallet_pending_verification":
+            MessageLookupByLibrary.simpleMessage("Pending verification"),
         "nft_wallet_sub_title":
             MessageLookupByLibrary.simpleMessage("Connect your OpenSea Wallet"),
         "nft_wallet_title": MessageLookupByLibrary.simpleMessage("NFT Wallet"),
@@ -558,6 +568,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "peer_to_peer_payment_options_title":
             MessageLookupByLibrary.simpleMessage(
                 "Peer to Peer Payment Options"),
+        "pending_payment_btn":
+            MessageLookupByLibrary.simpleMessage("Pending payment"),
         "pending_sale_btn":
             MessageLookupByLibrary.simpleMessage("Pending Sale"),
         "permission_camera": MessageLookupByLibrary.simpleMessage("camera"),

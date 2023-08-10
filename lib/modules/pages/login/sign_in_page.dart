@@ -109,6 +109,7 @@ class _SignInPageState extends State<SignInPage> {
                     return Loading.show(context);
                   },
                   error: (message) => {
+                    print("MEEEEE $message"),
                     Loading.hide(context),
                     // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
                   },

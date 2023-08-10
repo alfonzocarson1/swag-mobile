@@ -51,21 +51,38 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       changePassword: _changePassword,
       init: _init,
       finishedOnboarding: _finishedOnboarding,
+      delete: _delete
     );
   }
 
   Stream<AuthState> _logout() async* {
-    yield const AuthState.initial();
+    yield const AuthState.logging();
     try {
       dynamic response = await authService.logOut();
       bool isLogout = response["response"];
-
+      print("RESPONSEEE  $response");
       if(isLogout){
-
         yield const AuthState.unauthenticated();
       }
     } catch(e){
       print("ERROR");
+      print(e);
+      yield AuthState.error(HandlingErrors().getError(e));
+    }
+  }
+
+  Stream<AuthState> _delete() async* {
+    yield const AuthState.logging();
+    try {
+      dynamic response = await authService.deleteAccount();
+      bool isDeleted = response["response"];
+      String message = response["shortMessage"];
+
+      print("RESPONSEEE  $response");
+      yield  AuthState.deleted(message, isDeleted);
+    } catch(e){
+      print("ERROR");
+      print(e);
       yield AuthState.error(HandlingErrors().getError(e));
     }
   }

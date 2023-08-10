@@ -6,9 +6,9 @@ part 'nft_wallet.g.dart';
 @freezed
 class NftWalletModel with _$NftWalletModel {
   const factory NftWalletModel({
-    required final String nftWalletId,
-    required final String nftWallet,
-    required final String? accountProfileId,
+    required final String walletAddress,
+    required final bool? confirmed,
+    required final String? verificationCode,
     required final String accountId,
   }) = _NftWalletModel;
 
