@@ -44,6 +44,12 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
 
   }
 
+  @override
+  void dispose() {
+    print("PROFILE DSPOSE");
+    super.dispose();
+  }
+
   void callApi() async {
     await getIt<ProfileCubit>().loadProfileResults();
     setState(() {});
@@ -71,8 +77,16 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
       backgroundColor: Palette.current.primaryNero,
       body: BlocListener<AuthBloc, AuthState>(
     listener: (context, state) => state.maybeWhen(
+
+    orElse: () {
+      print("ELSE");
+    return null;
+    },
+
     unauthenticated: ()  {
+
         Loading.hide(context);
+        Navigator.of(context, rootNavigator: true).pop();
         Navigator.of(context).pushAndRemoveUntil(LandingPage.route(), (route) => true);
         Future.delayed(const Duration(milliseconds: 1000), () async {
         await getIt<StorageRepositoryService>().deleteAll();
@@ -84,11 +98,6 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
 
       logging: (){
         return Loading.show(context);
-      },
-      orElse: () {
-         print("ELSE");
-         Loading.show(context);
-        return null ;
       },
 
       error: (message) => {

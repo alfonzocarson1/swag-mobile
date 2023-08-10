@@ -37,6 +37,7 @@ class UpdateProfileService extends IUpdateProfileService {
         method: RequestMethod.delete,
         fromJson: (json) => json
     );
+
     return response;
   }
 

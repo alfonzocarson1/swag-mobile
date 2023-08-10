@@ -82,7 +82,6 @@ class _SignInPageState extends State<SignInPage> {
         body: BlocListener<AuthBloc, AuthState>(
             listener: (context, state) => state.maybeWhen(
                   orElse: () {
-                    Loading.hide(context);
                     return null;
                   },
                   authenticated: () {
@@ -110,7 +109,6 @@ class _SignInPageState extends State<SignInPage> {
                     return Loading.show(context);
                   },
                   error: (message) => {
-                  Loading.hide(context),
                     print("MEEEEE $message"),
                     Loading.hide(context),
                     // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
