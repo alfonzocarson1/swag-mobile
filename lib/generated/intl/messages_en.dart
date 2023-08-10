@@ -518,6 +518,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "password_helper": MessageLookupByLibrary.simpleMessage(
             "At least 8 characters, 1 uppercase, 1 number & 1 symbol"),
+        "pawyall_kyc_required":
+            MessageLookupByLibrary.simpleMessage("(KYC required)"),
         "payPal": MessageLookupByLibrary.simpleMessage("PayPal"),
         "payPal_sub_title": MessageLookupByLibrary.simpleMessage(
             "Please enter and confirm your PayPal email"),
