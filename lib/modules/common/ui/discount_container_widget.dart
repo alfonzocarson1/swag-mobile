@@ -46,7 +46,7 @@ class DiscountContainerWidget extends StatelessWidget {
       )),
       Container(
         padding:const EdgeInsets.fromLTRB(25, 10, 0, 0),
-        height: MediaQuery.of(context).size.height * 0.13,
+        height: MediaQuery.of(context).size.height * 0.14,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
             border: Border.all(
