@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:swagapp/modules/common/assets/icons.dart';
+import 'package:swagapp/modules/common/ui/custom_paywall_tile.dart';
 import 'package:swagapp/modules/common/ui/discount_container_widget.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/cubits/paywall/paywall_cubit.dart';
@@ -88,8 +89,12 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                             fontWeight: FontWeight.w400,
                             color: Palette.current.primaryWhiteSmoke)),
                   ),
-                  // This will expand and take up any available space
+                   SizedBox(
+                    height: height * 0.02,
+                  ),
+       
                   ListView.builder(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     shrinkWrap: true,
                     clipBehavior: Clip.hardEdge,
                     physics: const NeverScrollableScrollPhysics(),
@@ -97,12 +102,9 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                     itemBuilder: (BuildContext context, int index) {
                       return SizedBox(
                         height: height * 0.05,
-                        child: ListTile(
-                          dense: true,
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal:
-                                  (MediaQuery.of(context).size.width * 0.05)),
-                          minVerticalPadding: 0,
+                        child: CustomPaywallListTile(
+                          leadingSpacing: 20,
+                          trailingSpacing: 0,                    
                           leading: Image.asset(AppIcons.listGreenCheck,
                               width: height * 0.03, height: height * 0.03),
                           title: Text(
@@ -114,18 +116,27 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                                     fontSize: 14,
                                     fontWeight: FontWeight.w400,
                                     color: Palette.current.primaryWhiteSmoke),
-                          ),
+                          ), trailing: (payWallConditionList[index].contains("for sale")) ? Text(S.of(context).pawyall_kyc_required, style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(
+                                    fontSize: 14,
+                                    fontStyle: FontStyle.italic,
+                                    fontFamily: "Ringside Regular",
+                                      fontWeight: FontWeight.w300,
+                                      color: Palette.current.darkGray),) : const SizedBox.shrink() ,
                         ),
                       );
                     },
-                  ),
-          
+                  ),          
                   SizedBox(
-                    height: height * 0.01,
+                    height: height * 0.02,
                   ),
           
                  DiscountContainerWidget(),
-          
+                  SizedBox(
+                    height: height * 0.01,
+                  ),          
                   Text(
                     S.of(context).paywall_or_price_month.toUpperCase(),
                     style: Theme.of(context).textTheme.displayLarge!.copyWith(

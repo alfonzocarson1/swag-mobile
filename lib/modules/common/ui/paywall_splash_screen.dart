@@ -17,6 +17,7 @@ import '../../di/injector.dart';
 import '../../models/profile/profile_model.dart';
 import '../assets/icons.dart';
 import '../utils/palette.dart';
+import 'custom_paywall_tile.dart';
 import 'discount_container_widget.dart';
 
 ///PaywallSplashScreen
@@ -121,42 +122,52 @@ class _PaywallSplashScreenState extends State<PaywallSplashScreen> {
                             color: Palette.current.light4)),
                             (profileData.kycverified == true) ?
               SizedBox(
-                height: 20,
-                width: 20,
+                height: deviceHeight * 0.03,
+                width: deviceHeight * 0.03,
                 child: Image.asset(AppIcons.checkMarkIcon)
                 ): const SizedBox.shrink()
                   ],
                 ),
+                SizedBox(height: deviceHeight * 0.03,),
                 ListView.builder(
-                    padding: EdgeInsets.zero,
+                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: payWallConditionList.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
-                        height: 20,
-                        margin: const EdgeInsets.symmetric(vertical: 5),
-                        child: ListTile(
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal:
-                                  (MediaQuery.of(context).size.width * 0.04)),
-                          minVerticalPadding: 0,
+                       height: deviceHeight * 0.054,                 
+                        margin: const EdgeInsets.symmetric(vertical: 0),
+                        child: CustomPaywallListTile(
+                          leadingSpacing: 20,
+                          trailingSpacing: 0,                     
                           leading: SizedBox(
-                              height: 20,
-                              width: 20,
+                              height: deviceHeight * 0.03,
+                              width: deviceHeight * 0.03,
                               child: Image.asset(AppIcons.listGreenCheck)),
                           title: Text(payWallConditionList[index],                        
                               style: Theme.of(context)
                                   .textTheme
                                   .bodySmall!
                                   .copyWith(
-                                      fontWeight: FontWeight.w300,
+                                    fontSize: 14,
+                                    fontFamily: "Ringside Regular",
+                                      fontWeight: FontWeight.w400,
                                       color: Palette.current.primaryWhiteSmoke)),
+                          trailing: (payWallConditionList[index].contains("for sale")) ? Text(S.of(context).pawyall_kyc_required, style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(
+                                    fontSize: 14,
+                                    fontStyle: FontStyle.italic,
+                                    fontFamily: "Ringside Regular",
+                                      fontWeight: FontWeight.w300,
+                                      color: Palette.current.darkGray),) : const SizedBox.shrink() ,
                         ),
                       );
                     }),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.04,
+                  height: MediaQuery.of(context).size.height * 0.06,
                 ),
                 const DiscountContainerWidget(),
                 const SizedBox(height: 20),
