@@ -97,12 +97,10 @@ class _ListingsPageState extends State<ListingsPage> {
               return state.maybeWhen(
                   initial: () => (hasActiveSubscription)
                       ? const SizedBox.shrink()
-                      : SingleChildScrollView(
-                          child: PayWallWidget(
-                            hasUsedFreeTrial: hasUsedFreeTrial,
-                            removePaywall: removePaywall,
-                          ),
-                        ),
+                      : PayWallWidget(
+                        hasUsedFreeTrial: hasUsedFreeTrial,
+                        removePaywall: removePaywall,
+                      ),
                   progress: () => const SingleChildScrollView(
                         child: Center(child: SimpleLoader()),
                       ),
