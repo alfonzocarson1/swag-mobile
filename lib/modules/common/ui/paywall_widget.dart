@@ -101,7 +101,7 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                     itemCount: payWallConditionList.length,
                     itemBuilder: (BuildContext context, int index) {
                       return SizedBox(
-                        height: height * 0.05,
+                        height: height * 0.052,
                         child: CustomPaywallListTile(
                           leadingSpacing: 20,
                           trailingSpacing: 0,                    
