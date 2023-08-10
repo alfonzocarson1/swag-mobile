@@ -580,13 +580,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
       }
       setState(() {});
     } catch (e) {
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return const GrantPermissionDialog(
-                type: GrantPermissionDialogType.camera);
-          });
-      //log("Image picker: $e");
+      log("Image picker: $e");
     }
   }
 
