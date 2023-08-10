@@ -396,7 +396,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "last_name": MessageLookupByLibrary.simpleMessage("Last Name"),
         "last_sale": MessageLookupByLibrary.simpleMessage("LAST SALE"),
         "legal_text": MessageLookupByLibrary.simpleMessage(
-            "Need copy here for regarding data and what happens when they delete their account, Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique"),
+            "In some cases, we will be unable to delete your account, such as if there is an issue with your account related to outstanding sales transactions or subscriptions. When we delete your account, we may retain certain information for legitimate business purposes or to comply with legal or regulatory obligations.  Please consult our Privacy Policy at Swag.golf for more info."),
         "less_than": MessageLookupByLibrary.simpleMessage("Less than \$111"),
         "list_for_sale_btn":
             MessageLookupByLibrary.simpleMessage("LIST FOR SALE"),
