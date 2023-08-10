@@ -154,40 +154,33 @@ class _PaywallSplashScreenState extends State<PaywallSplashScreen> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.04,
                 ),
-                GestureDetector(
-                    onTap: () =>
-                        getIt<PaywallCubit>().startPurchase(annualSubscriptionId),
-                    child: const DiscountContainerWidget()),
+                const DiscountContainerWidget(),
                 const SizedBox(height: 20),
-                GestureDetector(
-                  onTap: () =>
-                      getIt<PaywallCubit>().startPurchase(monthlySubscriptionId),
-                  child: Text(
-                    S.of(context).paywall_or_price_month.toUpperCase(),
-                    style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                        letterSpacing: 1,
-                        fontWeight: FontWeight.w300,
-                        fontFamily: "KnockoutCustom",
-                        fontSize: 25,
-                        color: Palette.current.primaryNeonGreen),
-                  ),
+                Text(
+                  S.of(context).paywall_or_price_month.toUpperCase(),
+                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                      letterSpacing: 1,
+                      fontWeight: FontWeight.w300,
+                      fontFamily: "KnockoutCustom",
+                      fontSize: 25,
+                      color: Palette.current.primaryNeonGreen),
                 ),
                 const SizedBox(height: 35),
                 PrimaryButton(
                     title: (widget.hasUsedFreeTrial)
                         ? S.of(context).paywall_sign_up_premium.toUpperCase()
-                        : S.of(context).paywall_free_trial.toUpperCase(),
+                        : S.of(context).paywall_yearly_button.toUpperCase(),
                     onPressed: () {
-                      getIt<PaywallCubit>().startPurchase(monthlySubscriptionId);
+                        getIt<PaywallCubit>().startPurchase(annualSubscriptionId);
                     },
                     type: PrimaryButtonType.green),
                 const SizedBox(height: 35),
                 PrimaryButton(
-                    title: S.of(context).paywall_splash_decline.toUpperCase(),
+                    title: S.of(context).paywall_monthly_button.toUpperCase(),
                     onPressed: ()  {
-                      Navigator.of(context).pop();
+                        getIt<PaywallCubit>().startPurchase(monthlySubscriptionId);
                     },
-                    type: PrimaryButtonType.primaryEerieBlack),
+                    type: PrimaryButtonType.blueNeon),
                 BlocListener<PaywallCubit, PaywallCubitState>(
                   listener: (context, state) {
                     state.maybeWhen(
