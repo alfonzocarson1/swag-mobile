@@ -77,8 +77,8 @@ class AppConfig {
       apiBaseUrl: appFlavor.whenFlavor(
         dev: () => "orchestration.dev.swag.kuldisak.net:8080",
         stg: () => "dev.core-api.app.net",
-        uat: () => "orchestration-uat.kuldisak.net",
-        prod: () => "orchestration.kuldisak.net",
+        uat: () => "d2sgf5a21ot7ey.cloudfront.net",
+        prod: () => "d1emyzr50y1tmd.cloudfront.net",
       ),
       apiHostScheme: appFlavor.whenFlavorOrElse(
         uat: () => ApiHostScheme.https,
