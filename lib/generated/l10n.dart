@@ -3994,6 +3994,16 @@ class S {
     );
   }
 
+  /// `(KYC required)`
+  String get pawyall_kyc_required {
+    return Intl.message(
+      '(KYC required)',
+      name: 'pawyall_kyc_required',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `SWAG`
   String get paywall_splash_title {
     return Intl.message(

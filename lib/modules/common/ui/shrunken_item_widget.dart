@@ -124,7 +124,7 @@ class ShrunkenItemWidget extends StatelessWidget {
                                       fontSize: 14,
                                       fontFamily: 'Ringside',
                                       fontWeight: FontWeight.bold,
-                                      color: Palette.current.black)),
+                                      color: Palette.current.primaryWhiteSmoke)),
                         ),
                       ),
                     )),
