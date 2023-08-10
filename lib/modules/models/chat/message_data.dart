@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+
 class MessageData {
   String topicId;
   Payload payload;
@@ -49,8 +50,10 @@ class Payload {
       this.nameBuyer,
       this.lastNameBuyer});
 
-  factory Payload.fromJson(Map<String, dynamic> json) => Payload(
-        address: Address.fromJson(json["address"]),
+  factory Payload.fromJson(Map<String, dynamic> json) {
+    if(json.isNotEmpty){
+      return Payload(
+        address: Address.fromJson(json["address"]) ,
         trackingNumber:
             (json.containsKey('trackingNumber')) ? json["trackingNumber"] : '',
         productId: json["productId"],
@@ -65,6 +68,12 @@ class Payload {
         nameBuyer: json["nameBuyer"],
         lastNameBuyer: json["lastNameBuyer"],
       );
+    }
+    else{
+      return DefaultPayload.defaultPayload();
+    }
+
+  }
 }
 
 class Address {
@@ -120,4 +129,28 @@ class PaymentMethod {
         venmoUser: (json.containsKey('venmoUser')) ? json["venmoUser"] : '',
         cashTag: (json.containsKey('cashTag')) ? json["cashTag"] : '',
       );
+}
+
+extension DefaultPayload on Payload {
+  static Payload defaultPayload() {
+    return Payload(
+      address: Address(
+        addressType: '',
+        address1: '',
+        address2: '',
+        city: '',
+        state: '',
+        postalCode: '',
+      ),
+      productId: '',
+      paymentMethod: PaymentMethod(),
+      paymentMethodOption: PaymentMethod(),
+      userNameSeller: '',
+      userNameBuyer: '',
+      trackingNumber: '',
+      listingPrice: 0.0,
+      listingStatus: '',
+      listingName: '',
+    );
+  }
 }

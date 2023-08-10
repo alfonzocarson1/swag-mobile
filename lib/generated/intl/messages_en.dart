@@ -141,6 +141,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "blocked_title":
             MessageLookupByLibrary.simpleMessage("Blocked Accounts"),
         "buy_for": MessageLookupByLibrary.simpleMessage("BUY FOR"),
+        "buyer_rate": MessageLookupByLibrary.simpleMessage(
+            "You already confirmed receipt of the item and rated the seller."),
+        "buyer_recived": MessageLookupByLibrary.simpleMessage(
+            "You already confirmed receipt of the item.  Please rate the seller."),
         "camera": MessageLookupByLibrary.simpleMessage("TAKE PHOTO"),
         "cancel": MessageLookupByLibrary.simpleMessage("CANCEL"),
         "cancel_sale": MessageLookupByLibrary.simpleMessage("CANCEL SALE"),
@@ -182,6 +186,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Shipping Information"),
         "chatCardShippingInformationInputHint":
             MessageLookupByLibrary.simpleMessage("Add tracking number here"),
+        "chatCardSwagAdminAdded":
+            MessageLookupByLibrary.simpleMessage("SWAG ADMIN ADDED"),
         "chatChat": MessageLookupByLibrary.simpleMessage("Chat"),
         "chatCommenceMessage": MessageLookupByLibrary.simpleMessage(
             "You can use this chat to adjust any information necessary to complete the sale. If you need 3rd party assistance click the icon above and request an admin to join the chat. NOTE: If payment is not received in 12 hours the listings can be cancelled "),
@@ -201,6 +207,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "chatPaymentSendBuyer": m9,
         "chatShippedMessage": m10,
         "chatShippedMessageWithoutTrackingNumber": m11,
+        "chatSwagAdminRequested": MessageLookupByLibrary.simpleMessage(
+            "A SWAG admin member has been added to this chat. SWAG admin are available Monday - Friday and could take up to 24 hours to respond. "),
         "chatSwagg": MessageLookupByLibrary.simpleMessage("SWAG"),
         "chatSwaggAdmin": MessageLookupByLibrary.simpleMessage("Swag Admin"),
         "chatToday": MessageLookupByLibrary.simpleMessage("Today"),
@@ -283,6 +291,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "email_taken": MessageLookupByLibrary.simpleMessage(
             "An account is already associated with this email"),
         "email_verified": MessageLookupByLibrary.simpleMessage("Verified"),
+        "emptyChatsMessage": MessageLookupByLibrary.simpleMessage(
+            "you don’t have any chats yet!"),
         "empty_collection": MessageLookupByLibrary.simpleMessage(
             "TAP THE “+” ICON ON ANY ITEM TO ADD TO YOUR COLLECTION"),
         "empty_favorite": MessageLookupByLibrary.simpleMessage(
@@ -513,13 +523,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "paymetVenmo": MessageLookupByLibrary.simpleMessage("Venmo"),
         "paywall_condition1":
             MessageLookupByLibrary.simpleMessage("List items for sale"),
-        "paywall_condition2": MessageLookupByLibrary.simpleMessage(
-            "Increase odds on hitting drops"),
-        "paywall_condition3":
+        "paywall_condition2":
             MessageLookupByLibrary.simpleMessage("See product sales history"),
-        "paywall_condition4":
+        "paywall_condition3":
             MessageLookupByLibrary.simpleMessage("Track your collection value"),
-        "paywall_condition5": MessageLookupByLibrary.simpleMessage(
+        "paywall_condition4": MessageLookupByLibrary.simpleMessage(
             "Get notified when items are listed"),
         "paywall_discount": MessageLookupByLibrary.simpleMessage("SAVE 20%"),
         "paywall_free_trial":
@@ -534,13 +542,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Sign up for Premium"),
         "paywall_splash_condition1":
             MessageLookupByLibrary.simpleMessage("List items for sale"),
-        "paywall_splash_condition2": MessageLookupByLibrary.simpleMessage(
-            "Increase odds on hitting drops"),
-        "paywall_splash_condition3":
+        "paywall_splash_condition2":
             MessageLookupByLibrary.simpleMessage("See product sales history"),
-        "paywall_splash_condition4":
+        "paywall_splash_condition3":
             MessageLookupByLibrary.simpleMessage("Track your collection value"),
-        "paywall_splash_condition5": MessageLookupByLibrary.simpleMessage(
+        "paywall_splash_condition4": MessageLookupByLibrary.simpleMessage(
             "Get notified when items are listed"),
         "paywall_splash_decline":
             MessageLookupByLibrary.simpleMessage("No thanks"),

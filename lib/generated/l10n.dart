@@ -3444,6 +3444,26 @@ class S {
     );
   }
 
+  /// `SWAG ADMIN ADDED`
+  String get chatCardSwagAdminAdded {
+    return Intl.message(
+      'SWAG ADMIN ADDED',
+      name: 'chatCardSwagAdminAdded',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `A SWAG admin member has been added to this chat. SWAG admin are available Monday - Friday and could take up to 24 hours to respond. `
+  String get chatSwagAdminRequested {
+    return Intl.message(
+      'A SWAG admin member has been added to this chat. SWAG admin are available Monday - Friday and could take up to 24 hours to respond. ',
+      name: 'chatSwagAdminRequested',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Item sold`
   String get chatBannerItemSold {
     return Intl.message(
@@ -3696,6 +3716,16 @@ class S {
     );
   }
 
+  /// `you don’t have any chats yet!`
+  String get emptyChatsMessage {
+    return Intl.message(
+      'you don’t have any chats yet!',
+      name: 'emptyChatsMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `ALERTS & NOTIFICATIONS`
   String get alert_center_title {
     return Intl.message(
@@ -3806,41 +3836,31 @@ class S {
     );
   }
 
-  /// `Increase odds on hitting drops`
+  /// `See product sales history`
   String get paywall_condition2 {
     return Intl.message(
-      'Increase odds on hitting drops',
+      'See product sales history',
       name: 'paywall_condition2',
       desc: '',
       args: [],
     );
   }
 
-  /// `See product sales history`
+  /// `Track your collection value`
   String get paywall_condition3 {
     return Intl.message(
-      'See product sales history',
+      'Track your collection value',
       name: 'paywall_condition3',
       desc: '',
       args: [],
     );
   }
 
-  /// `Track your collection value`
+  /// `Get notified when items are listed`
   String get paywall_condition4 {
     return Intl.message(
-      'Track your collection value',
-      name: 'paywall_condition4',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Get notified when items are listed`
-  String get paywall_condition5 {
-    return Intl.message(
       'Get notified when items are listed',
-      name: 'paywall_condition5',
+      name: 'paywall_condition4',
       desc: '',
       args: [],
     );
@@ -3946,41 +3966,31 @@ class S {
     );
   }
 
-  /// `Increase odds on hitting drops`
+  /// `See product sales history`
   String get paywall_splash_condition2 {
     return Intl.message(
-      'Increase odds on hitting drops',
+      'See product sales history',
       name: 'paywall_splash_condition2',
       desc: '',
       args: [],
     );
   }
 
-  /// `See product sales history`
+  /// `Track your collection value`
   String get paywall_splash_condition3 {
     return Intl.message(
-      'See product sales history',
+      'Track your collection value',
       name: 'paywall_splash_condition3',
       desc: '',
       args: [],
     );
   }
 
-  /// `Track your collection value`
+  /// `Get notified when items are listed`
   String get paywall_splash_condition4 {
     return Intl.message(
-      'Track your collection value',
-      name: 'paywall_splash_condition4',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Get notified when items are listed`
-  String get paywall_splash_condition5 {
-    return Intl.message(
       'Get notified when items are listed',
-      name: 'paywall_splash_condition5',
+      name: 'paywall_splash_condition4',
       desc: '',
       args: [],
     );
@@ -4652,6 +4662,26 @@ class S {
     return Intl.message(
       'This shipping address will be removed from your account.',
       name: 'remove_address_pop_up',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You already confirmed receipt of the item.  Please rate the seller.`
+  String get buyer_recived {
+    return Intl.message(
+      'You already confirmed receipt of the item.  Please rate the seller.',
+      name: 'buyer_recived',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You already confirmed receipt of the item and rated the seller.`
+  String get buyer_rate {
+    return Intl.message(
+      'You already confirmed receipt of the item and rated the seller.',
+      name: 'buyer_rate',
       desc: '',
       args: [],
     );

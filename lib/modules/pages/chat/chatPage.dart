@@ -6,6 +6,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -61,6 +62,8 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
   late Member otherUser;
   late ChannelData channelMetaData;
   String loadingFileId = "";
+  MessageData messageData = MessageData(
+      topicId: "", payload: DefaultPayload.defaultPayload(), type: "");
 
   @override
   void initState() {
@@ -88,11 +91,21 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
   }
 
   void _navigate() async {
-             Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => ChatCamera(
-                channel: widget.channel,
-              )));                                    
-   
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => ChatCamera(
+              channel: widget.channel,
+            )));
+  }
+
+  Future<void> markAsRead(GroupChannel channel) async {
+    try {
+      await channel.markAsRead();
+    } on MarkAsReadRateLimitExceededException catch (_) {
+      Future.delayed(Duration(seconds: 1), () => markAsRead(channel));
+    } catch (e) {
+      // Handle other exceptions
+      print(e);
+    }
   }
 
   Future<void> loadPushNotifications() async {
@@ -119,8 +132,6 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
         .toList()
         .first;
 
-   
-
     return Scaffold(
       backgroundColor: Palette.current.black,
       appBar: AppBar(
@@ -131,7 +142,7 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
             color: Palette.current.primaryNeonGreen,
           ),
           onPressed: () async {
-
+            await markAsRead(widget.channel);
             context.read<ChatCubit>().loadGroupChannels();
             if (Platform.isIOS) {
               await FirebaseMessaging.instance
@@ -155,7 +166,7 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
         backgroundColor: Palette.current.blackAppbarBlackground,
         title: Text(
           (widget.channel.customType == ChatType.listing.textValue)
-              ? '@$userName, @${otherUser.nickname}, and $swagBotNickName '
+              ? '@${otherUser.nickname} ${this.channelMetaData.listingProductName}'
               : '@${this.channelMetaData.sellerUsername} ${this.channelMetaData.listingProductName}',
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontFamily: 'Ringside Regular',
@@ -187,14 +198,10 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
               loadingFile: (sentBytes, totalBytes, messageId) =>
                   const SimpleLoader(),
               loadedChats: (List<BaseMessage> messages) {
-
-                                         if (widget.channel.unreadMessageCount > 0) {
-      widget.channel.markAsRead();
-    }
-    
                 messagesList = messages;
                 chatMessages = messagesList.map((chatMessage) {
                   FileMessage fileMessage;
+
                   ChatMedia chatMedia =
                       ChatMedia(url: "", fileName: "", type: MediaType.image);
                   Map<String, dynamic> messageDataJson = {};
@@ -218,8 +225,7 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
                     messageDataJson =
                         SendBirdUtils.getFormatedData(chatMessage.data ?? "");
                     if (messageDataJson.isNotEmpty) {
-                      MessageData messageData =
-                          MessageData.fromJson(messageDataJson);
+                      messageData = MessageData.fromJson(messageDataJson);
                       messageStatus.add(messageData.type);
                     }
                   }
@@ -245,122 +251,135 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
                     createdAt: DateTime.fromMillisecondsSinceEpoch(
                         widget.channel.invitedAt)));
 
-                return DashChat(
-                  messageOptions: MessageOptions(
-                    currentUserTextColor: Colors.black,
-                    currentUserContainerColor: Palette.current.primaryNeonGreen,
-                    containerColor: Palette.current.greyMessage,
-                    textColor: Palette.current.primaryWhiteSmoke,
-                    messagePadding: const EdgeInsets.symmetric(
-                        vertical: 5.0, horizontal: 16.0),
-                    messageRowBuilder: (message, previousMessage, nextMessage,
-                            isAfterDateSeparator, isBeforeDateSeparator) =>
-                        messageRowBuilder(
-                            message: message,
-                            user: ChatUser(
-                              firstName: userName,
-                              id: userProfile.accountId,
+                return RefreshIndicator(
+                  onRefresh: () {
+                    return refreshChatPage();
+                  },
+                  child: DashChat(
+                    messageListOptions: MessageListOptions(
+                        dateSeparatorFormat: DateFormat('EEE, MMM d')),
+                    messageOptions: MessageOptions(
+                      showTime: true,
+                      currentUserTextColor: Colors.black,
+                      currentUserContainerColor:
+                          Palette.current.primaryNeonGreen,
+                      containerColor: Palette.current.greyMessage,
+                      textColor: Palette.current.primaryWhiteSmoke,
+                      messagePadding: const EdgeInsets.symmetric(
+                          vertical: 5.0, horizontal: 16.0),
+                      messageRowBuilder: (message, previousMessage, nextMessage,
+                              isAfterDateSeparator, isBeforeDateSeparator) =>
+                          messageRowBuilder(
+                              message: message,
+                              user: ChatUser(
+                                firstName: userName,
+                                id: userProfile.accountId,
+                              ),
+                              isAfterDateSeparator: isAfterDateSeparator,
+                              isBeforeDateSeparator: isBeforeDateSeparator),
+                      avatarBuilder: (p0, onPressAvatar, onLongPressAvatar) {
+                        if (p0.id == 'SwagBanner') {
+                          return const SizedBox.shrink();
+                        } else {
+                          return DefaultAvatar(user: p0);
+                        }
+                      },
+                    ),
+                    inputOptions: InputOptions(
+                        textController: _textEditingController,
+                        focusNode: _focusNode,
+                        textCapitalization: TextCapitalization.sentences,
+                        sendButtonBuilder: (send) {
+                          return const SizedBox.shrink();
+                        },
+                        leading: (_focusNode.hasFocus)
+                            ? [
+                                Icon(Icons.chevron_right,
+                                    color: Palette.current.primaryNeonGreen)
+                              ]
+                            : [
+                                IconButton(
+                                    onPressed: () {
+                                      handlePermissions(
+                                          context: context,
+                                          afterPermissionsHandled: _navigate);
+                                    },
+                                    icon: Image.asset(AppIcons.chatCamera)),
+                                IconButton(
+                                  icon: Image.asset(AppIcons.chatGallery),
+                                  onPressed: () {
+                                    galleryMethod();
+                                  },
+                                )
+                              ],
+                        inputTextStyle:
+                            TextStyle(color: Palette.current.primaryWhiteSmoke),
+                        inputDecoration: InputDecoration(
+                          constraints: BoxConstraints.tight(const Size(50, 50)),
+                          suffixIcon: Container(
+                            padding:
+                                const EdgeInsetsDirectional.only(end: 12.0),
+                            child: IconButton(
+                              icon: (_textEditingController.text.isEmpty)
+                                  ? Image.asset(
+                                      AppIcons.sendDisabled,
+                                      height: 25,
+                                    )
+                                  : Image.asset(AppIcons.sendEnabled,
+                                      height: 25),
+                              onPressed: _textEditingController.text.isEmpty
+                                  ? null
+                                  : () async {
+                                      final text = _textEditingController.text;
+
+                                      // Create a ChatMessage instance from the text
+                                      final chatMessage = ChatMessage(
+                                        text: text,
+                                        user: ChatUser(
+                                          // Add your user info here
+                                          id: userProfile.accountId,
+                                          firstName: userName,
+                                        ),
+                                        createdAt: DateTime.now(),
+                                      );
+
+                                      UserMessage sentMessage =
+                                          await getIt<ChatCubit>().sendMessage(
+                                              widget.channel, chatMessage.text);
+                                      _textEditingController.clear();
+                                      setState(() {
+                                        // _messages.add(sentMessage);
+                                      });
+
+                                      // handle sending the message here
+                                    },
                             ),
-                            isAfterDateSeparator: isAfterDateSeparator,
-                            isBeforeDateSeparator: isBeforeDateSeparator),
-                    avatarBuilder: (p0, onPressAvatar, onLongPressAvatar) {
-                      if (p0.id == 'SwagBanner') {
-                        return const SizedBox.shrink();
-                      } else {
-                        return DefaultAvatar(user: p0);
-                      }
+                          ),
+                          hintText: 'Enter message',
+                          hintStyle: TextStyle(color: Palette.current.grey),
+                          fillColor: Palette.current
+                              .greyMessage, // Set your desired color here
+                          filled: true,
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 20.0, vertical: 10.0),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(25.0),
+                            borderSide: BorderSide.none,
+                          ),
+                        )),
+                    messages: chatMessages,
+                    currentUser: ChatUser(
+                      firstName: userName,
+                      id: userProfile.accountId,
+                    ),
+                    onSend: (ChatMessage message) async {
+                      UserMessage sentMessage = await getIt<ChatCubit>()
+                          .sendMessage(widget.channel, message.text);
+                      setState(() {
+                        // _messages.add(sentMessage);
+                      });
                     },
                   ),
-                  inputOptions: InputOptions(
-                      textController: _textEditingController,
-                      focusNode: _focusNode,
-                      textCapitalization: TextCapitalization.sentences,
-                      sendButtonBuilder: (send) {
-                        return const SizedBox.shrink();
-                      },
-                      leading: (_focusNode.hasFocus)
-                          ? [
-                              Icon(Icons.chevron_right,
-                                  color: Palette.current.primaryNeonGreen)
-                            ]
-                          : [
-                              IconButton(
-                                  onPressed: () {
-                                    handlePermissions(context: context, afterPermissionsHandled: _navigate );                           
-                                  },
-                                  icon: Image.asset(AppIcons.chatCamera)),
-                              IconButton(
-                                icon: Image.asset(AppIcons.chatGallery),
-                                onPressed: () {
-                                  galleryMethod();
-                                },
-                              )
-                            ],
-                      inputTextStyle:
-                          TextStyle(color: Palette.current.primaryWhiteSmoke),
-                      inputDecoration: InputDecoration(
-                        constraints: BoxConstraints.tight(const Size(50, 50)),
-                        suffixIcon: Container(
-                          padding: const EdgeInsetsDirectional.only(end: 12.0),
-                          child: IconButton(
-                            icon: (_textEditingController.text.isEmpty)
-                                ? Image.asset(
-                                    AppIcons.sendDisabled,
-                                    height: 25,
-                                  )
-                                : Image.asset(AppIcons.sendEnabled, height: 25),
-                            onPressed: _textEditingController.text.isEmpty
-                                ? null
-                                : () async {
-                                    final text = _textEditingController.text;
-
-                                    // Create a ChatMessage instance from the text
-                                    final chatMessage = ChatMessage(
-                                      text: text,
-                                      user: ChatUser(
-                                        // Add your user info here
-                                        id: userProfile.accountId,
-                                        firstName: userName,
-                                      ),
-                                      createdAt: DateTime.now(),
-                                    );
-
-                                    UserMessage sentMessage =
-                                        await getIt<ChatCubit>().sendMessage(
-                                            widget.channel, chatMessage.text);
-                                    _textEditingController.clear();
-                                    setState(() {
-                                      // _messages.add(sentMessage);
-                                    });
-
-                                    // handle sending the message here
-                                  },
-                          ),
-                        ),
-                        hintText: 'Enter message',
-                        hintStyle: TextStyle(color: Palette.current.grey),
-                        fillColor: Palette
-                            .current.greyMessage, // Set your desired color here
-                        filled: true,
-                        contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 10.0),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
-                          borderSide: BorderSide.none,
-                        ),
-                      )),
-                  messages: chatMessages,
-                  currentUser: ChatUser(
-                    firstName: userName,
-                    id: userProfile.accountId,
-                  ),
-                  onSend: (ChatMessage message) async {
-                    UserMessage sentMessage = await getIt<ChatCubit>()
-                        .sendMessage(widget.channel, message.text);
-                    setState(() {
-                      // _messages.add(sentMessage);
-                    });
-                  },
                 );
               },
               error: (errorMessage) =>
@@ -458,8 +477,18 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
         bool showReceivedMessage = (messageData.type ==
             ChatMessageDataType.confirmPaymentReceived.textValue);
 
-        bool hideButtonConfirmPaidSend =
-            messageStatus.contains(ChatMessageDataType.saleCanceled.textValue);
+        bool hideButtonConfirmPaidSend = messageStatus
+                .contains(ChatMessageDataType.saleCanceled.textValue) ||
+            messageStatus
+                .contains(ChatMessageDataType.confirmPaymentReceived.textValue);
+
+        bool hideButtonPaymentReceived = messageStatus
+                .contains(ChatMessageDataType.saleCanceled.textValue) ||
+            messageStatus.contains(ChatMessageDataType.confirmShip.textValue);
+
+        bool hideButtonShipmentSent = messageStatus
+                .contains(ChatMessageDataType.saleCanceled.textValue) ||
+            messageStatus.contains(ChatMessageDataType.shipped.textValue);
 
         if (messageData.type == ChatMessageDataType.paymentReceived.textValue ||
             messageData.type == ChatMessageDataType.message.textValue ||
@@ -490,6 +519,7 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
               : ChatCardMessage(
                   messageData: messageData,
                   chatData: chatData,
+                  hideCardButton: hideButtonShipmentSent,
                 );
         } else if (messageData.type ==
             ChatMessageDataType.paymentSend.textValue) {
@@ -515,6 +545,13 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
               user: user,
               otherUser: otherUser.nickname,
               messageData: messageData);
+        } else if (messageData.type ==
+            ChatMessageDataType.adminRequested.textValue) {
+          return ChatCardMessage(
+            messageData: messageData,
+            chatData: chatData,
+            hideCardButton: true,
+          );
         } else {
           return (isMyUserBuyer)
               ? (showReceivedMessage)
@@ -537,6 +574,7 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
                   : ChatCardMessage(
                       messageData: messageData,
                       chatData: chatData,
+                      hideCardButton: hideButtonPaymentReceived,
                     );
         }
       }
@@ -555,6 +593,20 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
     handlePermissionsForImagePicker(context, ImageSource.gallery);
     getIt<ChatCubit>().sendGalleryFileMessage(widget.channel);
     //setState(() {});
+  }
+
+  Future<void> refreshChatPage() {
+    return Future.delayed(Duration(seconds: 1), () {
+      /// adding elements in list after [1 seconds] delay
+      /// to mimic network call
+      ///
+      /// Remember: setState is necessary so that
+      /// build method will run again otherwise
+      /// list will not show all elements
+      setState(() {
+        getIt<ChatCubit>().loadMessages(widget.channel);
+      });
+    });
   }
 
   // Widget addDateSeparator(int index, BaseMessage message) {

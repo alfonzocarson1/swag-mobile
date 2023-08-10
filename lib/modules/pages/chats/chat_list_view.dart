@@ -6,6 +6,7 @@ import 'package:swagapp/modules/enums/chat_type.dart';
 import 'package:swagapp/modules/models/chat/chat_data.dart';
 import 'package:swagapp/modules/pages/chats/widgets/chat_list_appbar.dart';
 import 'package:swagapp/modules/pages/chats/widgets/chats_contacts.dart';
+import 'package:swagapp/modules/pages/chats/widgets/empty_chats_page.dart';
 import '../../common/utils/palette.dart';
 import '../../common/utils/sendbird_utils.dart';
 import '../../cubits/chat/chat_cubit.dart';
@@ -69,23 +70,33 @@ class _ChatListPageState extends State<ChatListPage> {
             return state.maybeWhen(
               initial: () => const Center(child: Text('Welcome to the group chats page')),
               loadingChats: () => const Center(child: SimpleLoader()),
-              loadedChatChannels: (channels) => ListView.builder(
-                itemCount: channels.length,
-                itemBuilder: (context, index) {
-                  final channel = channels[index];
-                  String lastMessage= "";
-                  if(channel.customType == ChatType.buyWorkflow.textValue && channel.lastMessage != null){
-                    (channel.lastMessage?.data != "" ) ? lastMessage = getBuyFlowLastMessage(channel.lastMessage?.data) :  lastMessage = channel.lastMessage!.message ;
-                  }else if(channel.customType == ChatType.buyWorkflow.textValue && channel.lastMessage == null){
-                 
-                  }
-                  else{
-                    lastMessage = channel.lastMessage?.message ?? 'No messages yet';
-                  }          
-                  ChatData chatData = ChatData(messages: messages, channel: channel);
-                  return ChatsContact(lastMessage: lastMessage, chatData: chatData);
+              loadedChatChannels: (channels) => (channels.isNotEmpty) ? RefreshIndicator(
+                onRefresh: () async => await  getIt<ChatCubit>().loadGroupChannels(),
+                child: ListView.builder(
+                  itemCount: channels.length,
+                  itemBuilder: (context, index) {
+                    final channel = channels[index];
+                    if(channel.name == "Push Notification Tester"){
+                      return const SizedBox.shrink();
+                    }else{
+                       String lastMessage= "";
+                    if(channel.customType == ChatType.buyWorkflow.textValue && channel.lastMessage != null){
+                      (channel.lastMessage?.data != "" ) ? lastMessage = getBuyFlowLastMessage(channel.lastMessage?.data) :  lastMessage = channel.lastMessage!.message ;
+                    }else if(channel.customType == ChatType.buyWorkflow.textValue && channel.lastMessage == null){
+                   
+                    }
+                    else{
+                      lastMessage = channel.lastMessage?.message ?? 'No messages yet';
+                    }          
+                    ChatData chatData = ChatData(messages: messages, channel: channel);
+                    return ChatsContact(lastMessage: lastMessage, chatData: chatData);
 
-          }),
+                    }
+                    
+                   
+              
+                        }),
+              ) : const EmptyChatPage(),
               error: (errorMessage) => Center(child: Text('Error: $errorMessage')), orElse: () { return Container(); },
             );
           },

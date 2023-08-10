@@ -355,6 +355,8 @@
     "chatAddSwagAdmin": "Add Swag Admin",
     "chatAddSwagAdminContent": "Are you sure you would like to add a swag member to the chat? The admin will be able to see the complete chat history to help settle any disputes. ",
     "chatAddSwagAdminButton": "Add Swag Member",
+    "chatCardSwagAdminAdded":"SWAG ADMIN ADDED",
+    "chatSwagAdminRequested":"A SWAG admin member has been added to this chat. SWAG admin are available Monday - Friday and could take up to 24 hours to respond. ",
     "chatBannerItemSold": "Item sold",
     "chatBannerWillPay": "@{userName} will paying using ",
     "chatBannerTitle": "@{userName} has agreed to purchase your {listingName}",
@@ -382,6 +384,7 @@
 
     "chatsHeader": "Chat",
     "chatsUnreadMessages": "{chatsNumber} Unread",
+    "emptyChatsMessage":"you don’t have any chats yet!",
 
     "alert_center_title": "ALERTS & NOTIFICATIONS",
     "unread": "Unread",
@@ -396,10 +399,9 @@
     "reason_required": "Reason required",
     "paywall_title":"Upgrade your subscription to see the full sales history plus much more!",
     "paywall_condition1":"List items for sale",
-    "paywall_condition2":"Increase odds on hitting drops",
-    "paywall_condition3":"See product sales history",
-    "paywall_condition4":"Track your collection value",
-    "paywall_condition5":"Get notified when items are listed",
+    "paywall_condition2":"See product sales history",
+    "paywall_condition3":"Track your collection value",
+    "paywall_condition4":"Get notified when items are listed",
     "paywall_price_per_year":"$99.99 per year",
     "paywall_price_per_month":"($8.30 per month)",
     "paywall_or_price_month":"OR $9.99 per month",
@@ -411,10 +413,9 @@
     "paywall_splash_subtitle":"BECOME A MEMBER",
     "paywall_splash_premium_subtitle":"Swag Premium",
     "paywall_splash_condition1":"List items for sale",
-    "paywall_splash_condition2":"Increase odds on hitting drops",
-    "paywall_splash_condition3":"See product sales history",
-    "paywall_splash_condition4":"Track your collection value",
-    "paywall_splash_condition5": "Get notified when items are listed",
+    "paywall_splash_condition2":"See product sales history",
+    "paywall_splash_condition3":"Track your collection value",
+    "paywall_splash_condition4": "Get notified when items are listed",
     "paywall_splash_decline":"No thanks" ,
 
     "onboarding_welcome_title": "WELCOME",
@@ -485,5 +486,8 @@
     "profile_last_name": "Last name",
     "profile_name": "Name",
     "legal_text": "Need copy here for regarding data and what happens when they delete their account, Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique Lorem ipsum dolor sit amet, consectetur elit. Vel ridiculus vel tristique",
-    "remove_address_pop_up": "This shipping address will be removed from your account."
+    "remove_address_pop_up": "This shipping address will be removed from your account.",
+    "remove_address_pop_up": "This shipping address will be removed from your account.",
+    "buyer_recived": "You already confirmed receipt of the item.  Please rate the seller.",
+    "buyer_rate": "You already confirmed receipt of the item and rated the seller."
 }

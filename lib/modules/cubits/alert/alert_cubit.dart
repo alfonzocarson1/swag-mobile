@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../common/utils/handling_errors.dart';
@@ -27,6 +28,7 @@ class AlertCubit extends Cubit<AlertStateCubit> {
           unread++;
         }
       }
+      FlutterAppBadger.updateBadgeCount(unread);
       if (unread > 0) {
         getIt<PreferenceRepositoryService>().saveIsUnreadAlert(true);
       } else {
@@ -47,8 +49,9 @@ class AlertCubit extends Cubit<AlertStateCubit> {
       for (var alert in response.alertList) {
         if (alert.read == false) {
           unread++;
-        }
+        }       
       }
+       FlutterAppBadger.updateBadgeCount(unread);
       if (unread > 0) {
         getIt<PreferenceRepositoryService>().saveIsUnreadAlert(true);
       } else {
@@ -75,6 +78,7 @@ class AlertCubit extends Cubit<AlertStateCubit> {
   Future<void> saveAlert(AlertModel alert) async {
     try {
       await alertService.saveAlert(alert);
+      await getAlertList(); 
     } catch (error) {
       emit(
         ErrorAlertStateCubit(HandlingErrors().getError(error)),

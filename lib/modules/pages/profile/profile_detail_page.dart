@@ -87,8 +87,8 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
       },
       orElse: () {
          print("ELSE");
-
-        return null;
+         Loading.show(context);
+        return null ;
       },
 
       error: (message) => {

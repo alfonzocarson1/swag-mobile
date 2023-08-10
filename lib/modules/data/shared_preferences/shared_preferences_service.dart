@@ -45,6 +45,7 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   static const String _backProfileCollection = 'backProfileCollection';
   static const String _onChatPage = 'onChatPage';
   static const String _unreadAlert = 'unreadAlert';
+  static const String _unreadAlertCount = 'unreadAlertCount'; 
   static const String _cardsResponseModelKey = 'cardsResponseKey';
   static const String _profileDataStateKey = 'profileDataStateKey';
 
@@ -80,6 +81,8 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
     final unreadAlert = _prefs.getBool(_unreadAlert);
     return unreadAlert ?? false;
   }
+
+
 
   @override
   Future<void> saveIsUnreadAlert(bool value) async {
@@ -450,5 +453,16 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   @override
   Future<void> saveProfileDataState(bool value) async {
     await _prefs.setBool(_profileDataStateKey, value);
+  }
+  
+  @override
+  Future<void> setUnreadAlertCount(int value) async {
+    await _prefs.setInt(_unreadAlertCount, value);
+  }
+  
+  @override
+  int unreadAlertCount() {
+       final unreadAlertCount = _prefs.getInt(_unreadAlertCount);
+    return unreadAlertCount ?? 0;
   }
 }
