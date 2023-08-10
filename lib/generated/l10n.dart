@@ -3946,10 +3946,30 @@ class S {
     );
   }
 
-  /// `GET 30 Days free`
+  /// `Yearly subscription`
+  String get paywall_yearly_button {
+    return Intl.message(
+      'Yearly subscription',
+      name: 'paywall_yearly_button',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Monthly subscription`
+  String get paywall_monthly_button {
+    return Intl.message(
+      'Monthly subscription',
+      name: 'paywall_monthly_button',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `30 Day free trial`
   String get paywall_free_trial {
     return Intl.message(
-      'GET 30 Days free',
+      '30 Day free trial',
       name: 'paywall_free_trial',
       desc: '',
       args: [],

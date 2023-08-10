@@ -6,8 +6,10 @@ import 'package:swagapp/modules/common/assets/images.dart';
 import 'package:swagapp/modules/common/ui/avatar.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/ui/simple_loader.dart';
+import 'package:swagapp/modules/models/paywall_products/paywall_products.dart';
 
 import '../../../generated/l10n.dart';
+import '../../api/app_config.dart';
 import '../../constants/constants.dart';
 import '../../cubits/paywall/paywall_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
@@ -40,10 +42,12 @@ class PaywallSplashScreen extends StatefulWidget {
 
 class _PaywallSplashScreenState extends State<PaywallSplashScreen> {
   ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
+  late PaywallSubscriptionProducts flavorProducts; 
 
   @override
   void initState() {
     super.initState();
+    flavorProducts = getIt<AppConfig>().paywallProducts;
   }
 
   @override
@@ -85,7 +89,7 @@ class _PaywallSplashScreenState extends State<PaywallSplashScreen> {
                   width: deviceWidth * 0.3,
                   height: deviceHeight * 0.07,
                 ),
-                Text(S.of(context).paywall_splash_subtitle,
+                Text(S.of(context).paywall_free_trial.toUpperCase(),
                     style: Theme.of(context).textTheme.displayMedium!.copyWith(
                           fontFamily: "KnockoutCustom",
                           fontSize: 50,
@@ -154,40 +158,33 @@ class _PaywallSplashScreenState extends State<PaywallSplashScreen> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.04,
                 ),
-                GestureDetector(
-                    onTap: () =>
-                        getIt<PaywallCubit>().startPurchase(annualSubscriptionId),
-                    child: const DiscountContainerWidget()),
+                const DiscountContainerWidget(),
                 const SizedBox(height: 20),
-                GestureDetector(
-                  onTap: () =>
-                      getIt<PaywallCubit>().startPurchase(monthlySubscriptionId),
-                  child: Text(
-                    S.of(context).paywall_or_price_month.toUpperCase(),
-                    style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                        letterSpacing: 1,
-                        fontWeight: FontWeight.w300,
-                        fontFamily: "KnockoutCustom",
-                        fontSize: 25,
-                        color: Palette.current.primaryNeonGreen),
-                  ),
+                Text(
+                  S.of(context).paywall_or_price_month.toUpperCase(),
+                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                      letterSpacing: 1,
+                      fontWeight: FontWeight.w300,
+                      fontFamily: "KnockoutCustom",
+                      fontSize: 25,
+                      color: Palette.current.primaryNeonGreen),
                 ),
                 const SizedBox(height: 35),
                 PrimaryButton(
                     title: (widget.hasUsedFreeTrial)
                         ? S.of(context).paywall_sign_up_premium.toUpperCase()
-                        : S.of(context).paywall_free_trial.toUpperCase(),
+                        : S.of(context).paywall_yearly_button.toUpperCase(),
                     onPressed: () {
-                      getIt<PaywallCubit>().startPurchase(monthlySubscriptionId);
+                        getIt<PaywallCubit>().startPurchase(flavorProducts.annualSubscription);
                     },
                     type: PrimaryButtonType.green),
-                const SizedBox(height: 35),
+                const SizedBox(height: 20),
                 PrimaryButton(
-                    title: S.of(context).paywall_splash_decline.toUpperCase(),
+                    title: S.of(context).paywall_monthly_button.toUpperCase(),
                     onPressed: ()  {
-                      Navigator.of(context).pop();
+                        getIt<PaywallCubit>().startPurchase(flavorProducts.monthlySubscription);
                     },
-                    type: PrimaryButtonType.primaryEerieBlack),
+                    type: PrimaryButtonType.blueNeon),
                 BlocListener<PaywallCubit, PaywallCubitState>(
                   listener: (context, state) {
                     state.maybeWhen(

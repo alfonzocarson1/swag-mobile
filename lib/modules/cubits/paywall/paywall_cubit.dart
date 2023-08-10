@@ -3,8 +3,10 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:swagapp/modules/api/app_config.dart';
 import 'package:swagapp/modules/cubits/profile/get_profile_cubit.dart';
 import 'package:swagapp/modules/data/paywall/i_paywall_service.dart';
+import 'package:swagapp/modules/models/paywall_products/paywall_products.dart';
 
 import '../../constants/constants.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
@@ -21,7 +23,7 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
   List<ProductDetails> _products = [];
   ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData(); 
  StreamSubscription<List<PurchaseDetails>>? subscription;
-  
+  late PaywallSubscriptionProducts flavorProducts;
   PaywallCubit() : super(const PaywallCubitState.initial()){
  inAppPurchaseIntitialization();
   }
@@ -29,6 +31,7 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
   StreamSubscription<List<PurchaseDetails>>? _subscription;
 
   void inAppPurchaseIntitialization()async{
+  flavorProducts = getIt<AppConfig>().paywallProducts;
    await _loadProducts();
     _subscription = _iap.purchaseStream.listen((purchases) {
         completeTransactions(purchases);
@@ -40,14 +43,14 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
   void startPurchase(String subscriptionType) {
  
     emit(const PaywallCubitState.progress());
-    final ProductDetails product = _products.firstWhere((product) => product.id == subscriptionType);    
+    final ProductDetails product = _products. firstWhere((product) => product.id == subscriptionType);    
     final PurchaseParam purchaseParam = PurchaseParam(productDetails: product);   
     _iap.buyNonConsumable(purchaseParam: purchaseParam);
     
   }
 
   Future<void> _loadProducts() async {
-     Set<String> productIds = {annualSubscriptionId, monthlySubscriptionId};  // replace with your product IDs
+     Set<String> productIds = {flavorProducts.annualSubscription, flavorProducts.monthlySubscription};  // replace with your product IDs
     final ProductDetailsResponse response = await _iap.queryProductDetails(productIds);
     if (response.notFoundIDs.isNotEmpty) {
       //TODO handle errors
