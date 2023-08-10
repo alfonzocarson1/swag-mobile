@@ -393,6 +393,7 @@
     "alert_center_title": "ALERTS & NOTIFICATIONS",
     "unread": "Unread",
     "pending_sale_btn": "Pending Sale",
+    "pending_payment_btn": "Pending payment",
 
     "paymetPaypal": "PayPal",
     "paymetVenmo": "Venmo",

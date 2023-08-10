@@ -3786,6 +3786,16 @@ class S {
     );
   }
 
+  /// `Pending payment`
+  String get pending_payment_btn {
+    return Intl.message(
+      'Pending payment',
+      name: 'pending_payment_btn',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `PayPal`
   String get paymetPaypal {
     return Intl.message(

@@ -41,20 +41,26 @@ class ListForSalePage extends StatefulWidget {
       {super.key,
       this.collectionData,
       required this.catalogItemName,
-      this.salesHistoryNavigation});
+      this.salesHistoryNavigation,
+      this.catalogImage});
 
   DetailCollectionModel? collectionData;
   String catalogItemName;
   VoidCallback? salesHistoryNavigation;
+  String? catalogImage;
 
-  static Route route(VoidCallback? salesHistoryNavigation,
-          DetailCollectionModel? collectionData, String catalogItemName) =>
+  static Route route(
+          VoidCallback? salesHistoryNavigation,
+          DetailCollectionModel? collectionData,
+          String catalogItemName,
+          String? catalogImage) =>
       PageRoutes.slideUp(
         settings: const RouteSettings(name: name),
         builder: (context) => ListForSalePage(
             salesHistoryNavigation: salesHistoryNavigation,
             collectionData: collectionData,
-            catalogItemName: catalogItemName),
+            catalogItemName: catalogItemName,
+            catalogImage: catalogImage),
       );
 
   @override
@@ -239,6 +245,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
                         children: [
                           imageFileList.isEmpty
                               ? AddPhotoWidget(
+                                  catalogImage: widget.catalogImage,
                                   addPhoto: () => selectImages(),
                                 )
                               : MultiImageSlide(
@@ -249,6 +256,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                       imageFileList.removeAt(index);
                                     });
                                   },
+                                  catalogImage: widget.catalogImage,
                                 ),
                           Stack(
                             children: [
@@ -573,13 +581,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
       }
       setState(() {});
     } catch (e) {
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return const GrantPermissionDialog(
-                type: GrantPermissionDialogType.camera);
-          });
-      //log("Image picker: $e");
+      log("Image picker: $e");
     }
   }
 

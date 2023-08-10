@@ -69,7 +69,7 @@ class ListItemPreviewPage extends StatefulWidget {
     String? productItemId,
     required List<File> imgList,
     List<String>? imgUrls,
-    required String  itemName,
+    required String itemName,
     required double itemPrice,
     required String itemCondition,
     required String itemDescription,
@@ -364,7 +364,7 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                                     catalogItemId: widget.catalogItemId,
                                     profileCollectionItemId:
                                         widget.profileCollectionItemId,
-                                    status: 'Listed',
+                                    status: 'listed',
                                   ),
                                   widget.imgList,
                                   widget.imgUrls ?? [],
