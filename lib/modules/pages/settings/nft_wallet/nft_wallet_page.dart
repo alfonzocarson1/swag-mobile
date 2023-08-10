@@ -14,6 +14,7 @@ import '../../../models/nft_wallet/nft_wallet.dart';
 
 class NftWalletPage extends StatefulWidget {
   static const name = '/NFTWallet';
+
   const NftWalletPage({super.key});
 
   static Route route() => PageRoutes.material(
@@ -31,19 +32,24 @@ class _NftWalletPageState extends State<NftWalletPage> {
   @override
   void initState() {
     super.initState();
-    context.read<NftWalletCubit>().loadWallets();
+    _loadWallets();
+  }
+
+  Future<void> _loadWallets() async {
+    await context.read<NftWalletCubit>().loadWallets();
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<NftWalletCubit, NftWalletState>(
       listener: (context, state) {
-        if (state.isLoadingWithoutPreviousData && !Loading.isVisible()) {
+        if (state.wallets.isLoadingWithoutPreviousData &&
+            !Loading.isVisible()) {
           Loading.show(context);
-        } else if (!state.isLoading && Loading.isVisible()) {
+        } else if (!state.wallets.isLoading && Loading.isVisible()) {
           Loading.hide(context);
         }
-        state.whenOrNull(
+        state.wallets.whenOrNull(
           loaded: (wallets) {
             if (wallets.isEmpty) {
               Navigator.of(context).push(NftSplashDialog.route(context));
@@ -73,7 +79,7 @@ class _NftWalletPageState extends State<NftWalletPage> {
           backgroundColor: Palette.current.primaryNero,
           body: Builder(
             builder: (context) {
-              final data = state.dataOrPreviousData;
+              final data = state.wallets.dataOrPreviousData;
               if (data == null) {
                 return Container();
               }
@@ -101,20 +107,22 @@ class _NftWalletPageState extends State<NftWalletPage> {
 
 class _NftWalletItem extends StatelessWidget {
   final NftWalletModel wallet;
+
   const _NftWalletItem({super.key, required this.wallet});
 
   String getFormattedWalletAddress() {
-    final address = wallet.nftWallet;
+    final address = wallet.walletAddress;
     final len = address.length;
     if (address.startsWith("0x") && len >= 10) {
       return "${address.substring(0, 6)}...${address.substring(len - 4)}";
     } else {
-      return wallet.nftWallet;
+      return address;
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    bool isVerified = wallet.confirmed ?? false;
     return Column(
       children: [
         InkWell(
@@ -145,13 +153,17 @@ class _NftWalletItem extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    S.of(context).nft_wallet_connect,
+                    isVerified
+                        ? S.of(context).nft_wallet_connected
+                        : S.of(context).nft_wallet_pending_verification,
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           letterSpacing: 1,
                           fontWeight: FontWeight.w300,
                           fontFamily: "RingsideRegular",
                           fontSize: 14,
-                          color: Palette.current.darkGray,
+                          color: isVerified
+                              ? Palette.current.primaryNeonGreen
+                              : Palette.current.darkGray,
                         ),
                   ),
                   const SizedBox(width: 24),

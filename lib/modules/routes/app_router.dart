@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -55,51 +54,44 @@ import 'app_routes.dart';
 import 'navigator_parameters/chat_navigator_parameters.dart';
 
 abstract class AppRouter {
-
   static final rootNavigatorKey = getIt<ContextService>().rootNavigatorKey;
 
   static final GoRouter _router = GoRouter(
     debugLogDiagnostics: true,
-    navigatorKey: rootNavigatorKey,    
+    navigatorKey: rootNavigatorKey,
     initialLocation: AppRoutes.splash,
-    routes: <RouteBase>
-    [
+    routes: <RouteBase>[
       GoRoute(
-        name: AppRouteNames.homePage,
-        path: AppRoutes.homePage,
-        builder: (BuildContext context, GoRouterState state) {
-
-          return BlocListener<AuthBloc, AuthState>(
-            listener: (BuildContext context, AuthState state) {
-
-              if (state is Unauthenticated) {
-                _navigateAfterBuild(AppRoutes.landingPage, context);
-              } else if(state is Authenticated) {
-                _navigateAfterBuild(AppRoutes.homePage, context);
-              } else if(state is AuthenticationError) {
-                _navigateAfterBuild(AppRoutes.landingPage, context);
-              }        
-            },
-            child: const HomePage(),
-          );    
-        }
-      ),
+          name: AppRouteNames.homePage,
+          path: AppRoutes.homePage,
+          builder: (BuildContext context, GoRouterState state) {
+            return BlocListener<AuthBloc, AuthState>(
+              listener: (BuildContext context, AuthState state) {
+                if (state is Unauthenticated) {
+                  _navigateAfterBuild(AppRoutes.landingPage, context);
+                } else if (state is Authenticated) {
+                  _navigateAfterBuild(AppRoutes.homePage, context);
+                } else if (state is AuthenticationError) {
+                  _navigateAfterBuild(AppRoutes.landingPage, context);
+                }
+              },
+              child: const HomePage(),
+            );
+          }),
 
       GoRoute(
         name: AppRouteNames.splash,
         path: AppRoutes.splash,
         builder: (BuildContext context, GoRouterState state) {
-
           return BlocListener<AuthBloc, AuthState>(
             listener: (BuildContext context, AuthState state) {
-
               if (state is Unauthenticated) {
                 _navigateAfterBuild(AppRoutes.landingPage, context);
-              } else if(state is Authenticated) {
+              } else if (state is Authenticated) {
                 _navigateAfterBuild(AppRoutes.homePage, context);
-              } else if(state is AuthenticationError) {
+              } else if (state is AuthenticationError) {
                 _navigateAfterBuild(AppRoutes.landingPage, context);
-              } 
+              }
             },
             child: const SplashPage(),
           );
@@ -110,20 +102,18 @@ abstract class AppRouter {
         name: AppRouteNames.landingPage,
         path: AppRoutes.landingPage,
         builder: (BuildContext context, GoRouterState state) {
-
           return BlocConsumer<AuthBloc, AuthState>(
             listener: (BuildContext context, AuthState state) {},
             builder: (BuildContext context, AuthState state) {
-
               if (state is Unauthenticated) {
                 return const LandingPage();
-              } else if(state is Authenticated) {
+              } else if (state is Authenticated) {
                 return const HomePage();
-              } else if(state is AuthenticationError) {
+              } else if (state is AuthenticationError) {
                 return const LandingPage();
               } else {
                 return const SplashPage();
-              }                          
+              }
             },
           );
         },
@@ -133,20 +123,18 @@ abstract class AppRouter {
         path: AppRoutes.explore,
         name: AppRouteNames.explore,
         builder: (BuildContext context, GoRouterState state) {
-
           return BlocConsumer<AuthBloc, AuthState>(
             listener: (BuildContext context, AuthState state) {},
             builder: (BuildContext context, AuthState state) {
-
               if (state is Unauthenticated) {
                 return const LandingPage();
-              } else if(state is Authenticated) {
+              } else if (state is Authenticated) {
                 return const HomePage();
-              } else if(state is AuthenticationError) {
+              } else if (state is AuthenticationError) {
                 return const LandingPage();
               } else {
                 return const SplashPage();
-              }                          
+              }
             },
           );
         },
@@ -172,11 +160,11 @@ abstract class AppRouter {
         path: AppRoutes.itemDetail,
         name: AppRouteNames.itemDetail,
         builder: (BuildContext context, GoRouterState state) {
-
-          ItemDetailNavigatorParameters parameters = state.extra as ItemDetailNavigatorParameters;
+          ItemDetailNavigatorParameters parameters =
+              state.extra as ItemDetailNavigatorParameters;
 
           return ItemDetailPage(
-            addFavorite: parameters.addFavorite, 
+            addFavorite: parameters.addFavorite,
             catalogItemId: parameters.catalogItemId,
             tab: parameters.tab,
           );
@@ -186,20 +174,22 @@ abstract class AppRouter {
       GoRoute(
         path: AppRoutes.createAccount,
         name: AppRouteNames.createAccount,
-        builder: (BuildContext context, GoRouterState state)=> const CreateAccountPage(),
+        builder: (BuildContext context, GoRouterState state) =>
+            const CreateAccountPage(),
       ),
 
       GoRoute(
         path: AppRoutes.listForSale,
         name: AppRouteNames.listForSale,
         builder: (BuildContext context, GoRouterState state) {
-
-          ListForSaleNavigatorParameters parameters = state.extra as ListForSaleNavigatorParameters;
+          ListForSaleNavigatorParameters parameters =
+              state.extra as ListForSaleNavigatorParameters;
 
           return ListForSalePage(
-            collectionData: parameters.collectionData, 
-            catalogItemName: parameters.catalogItemName, 
+            collectionData: parameters.collectionData,
+            catalogItemName: parameters.catalogItemName,
             salesHistoryNavigation: parameters.salesHistoryNavigation,
+            catalogImage: parameters.catalogImage,
           );
         },
       ),
@@ -208,8 +198,8 @@ abstract class AppRouter {
         path: AppRoutes.buyPreview,
         name: AppRouteNames.buyPreview,
         builder: (BuildContext context, GoRouterState state) {
-
-          BuyPreviewNavigatorParameters parameters = state.extra as BuyPreviewNavigatorParameters;
+          BuyPreviewNavigatorParameters parameters =
+              state.extra as BuyPreviewNavigatorParameters;
           return BuyPreviewPage(productItemId: parameters.productItemId);
         },
       ),
@@ -218,15 +208,15 @@ abstract class AppRouter {
         path: AppRoutes.transactionHistory,
         name: AppRouteNames.transactionHistory,
         builder: (BuildContext context, GoRouterState state) {
-
-          TransactionHistoryNavigatorParameters parameters = state.extra as TransactionHistoryNavigatorParameters;
+          TransactionHistoryNavigatorParameters parameters =
+              state.extra as TransactionHistoryNavigatorParameters;
 
           return TransactionHistory(
-            addFavorite: parameters.addFavorite, 
-            favorite: parameters.favorite, 
-            itemId: parameters.itemId, 
-            lastSale: parameters.lastSale, 
-            saleHIstoryList: parameters.saleHIstoryList, 
+            addFavorite: parameters.addFavorite,
+            favorite: parameters.favorite,
+            itemId: parameters.itemId,
+            lastSale: parameters.lastSale,
+            saleHIstoryList: parameters.saleHIstoryList,
             urlImage: parameters.urlImage,
             available: parameters.available,
             catalogItemName: parameters.catalogItemName,
@@ -239,11 +229,11 @@ abstract class AppRouter {
         path: AppRoutes.editListForSale,
         name: AppRouteNames.editListForSale,
         builder: (BuildContext context, GoRouterState state) {
-
-          EditListForSaleNavigatorParameters parameters = state.extra as EditListForSaleNavigatorParameters;
+          EditListForSaleNavigatorParameters parameters =
+              state.extra as EditListForSaleNavigatorParameters;
 
           return EditListForSalePage(
-            catalogItemName: parameters.catalogItemName, 
+            catalogItemName: parameters.catalogItemName,
             salesHistoryListModel: parameters.salesHistoryListModel,
             collectionData: parameters.collectionData,
             imageUrls: parameters.imageUrls,
@@ -257,8 +247,8 @@ abstract class AppRouter {
         path: AppRoutes.selectItem,
         name: AppRouteNames.selectItem,
         builder: (BuildContext context, GoRouterState state) {
-
-          SelectItemNavigatorParameters parameters = state.extra as SelectItemNavigatorParameters;
+          SelectItemNavigatorParameters parameters =
+              state.extra as SelectItemNavigatorParameters;
           return SelectItemPage(page: parameters.page);
         },
       ),
@@ -267,19 +257,19 @@ abstract class AppRouter {
         path: AppRoutes.listItemPreview,
         name: AppRouteNames.listItemPreview,
         builder: (BuildContext context, GoRouterState state) {
-
-          ListItemPreviewNavigatorParameters parameters = state.extra as ListItemPreviewNavigatorParameters;
+          ListItemPreviewNavigatorParameters parameters =
+              state.extra as ListItemPreviewNavigatorParameters;
 
           return ListItemPreviewPage(
-            catalogItemId: parameters.catalogItemId, 
-            imgList: parameters.imgList, 
-            isUpdate: parameters.isUpdate, 
-            itemCondition: parameters.itemCondition, 
-            itemDescription: parameters.itemDescription, 
-            itemName: parameters.itemName, 
-            itemPrice: parameters.itemPrice, 
-            onClose: parameters.onClose, 
-            paymentAccepted: parameters.paymentAccepted, 
+            catalogItemId: parameters.catalogItemId,
+            imgList: parameters.imgList,
+            isUpdate: parameters.isUpdate,
+            itemCondition: parameters.itemCondition,
+            itemDescription: parameters.itemDescription,
+            itemName: parameters.itemName,
+            itemPrice: parameters.itemPrice,
+            onClose: parameters.onClose,
+            paymentAccepted: parameters.paymentAccepted,
             profileCollectionItemId: parameters.profileCollectionItemId,
           );
         },
@@ -289,8 +279,8 @@ abstract class AppRouter {
         path: AppRoutes.searchOnTap,
         name: AppRouteNames.searchOnTap,
         builder: (BuildContext context, GoRouterState state) {
-
-          SearchOnTapNavigatorParameters parameters = state.extra as SearchOnTapNavigatorParameters;
+          SearchOnTapNavigatorParameters parameters =
+              state.extra as SearchOnTapNavigatorParameters;
           return SearchOnTapPage(showTabBar: parameters.showTabBar);
         },
       ),
@@ -298,34 +288,35 @@ abstract class AppRouter {
       GoRoute(
         path: AppRoutes.peerToPeerPayments,
         name: AppRouteNames.peerToPeerPayments,
-        builder: (BuildContext context, GoRouterState state)=> const PeerToPeerPaymentsPage(),
-      ),   
+        builder: (BuildContext context, GoRouterState state) =>
+            const PeerToPeerPaymentsPage(),
+      ),
 
       GoRoute(
         path: AppRoutes.mediaViewer,
         name: AppRouteNames.mediaViewer,
         builder: (BuildContext context, GoRouterState state) {
-
-          MediaViewerNavigatorParameters parameters = state.extra as MediaViewerNavigatorParameters;
+          MediaViewerNavigatorParameters parameters =
+              state.extra as MediaViewerNavigatorParameters;
           return MediaViewerPage(url: parameters.url);
         },
-      ),   
+      ),
 
       GoRoute(
         path: AppRoutes.buyFoSale,
         name: AppRouteNames.buyFoSale,
         builder: (BuildContext context, GoRouterState state) {
-
-          BuyForSaleNavigatorParameters parameters = state.extra as BuyForSaleNavigatorParameters;
+          BuyForSaleNavigatorParameters parameters =
+              state.extra as BuyForSaleNavigatorParameters;
 
           return BuyForSale(
-            addFavorite: parameters.addFavorite, 
-            catalogItemId: parameters.catalogItemId, 
-            catalogItemName: parameters.catalogItemName, 
-            catalogItemPrice: parameters.catalogItemPrice, 
-            favorite: parameters.favorite, 
-            sale: parameters.sale, 
-            saleHistoryList: parameters.saleHistoryList, 
+            addFavorite: parameters.addFavorite,
+            catalogItemId: parameters.catalogItemId,
+            catalogItemName: parameters.catalogItemName,
+            catalogItemPrice: parameters.catalogItemPrice,
+            favorite: parameters.favorite,
+            sale: parameters.sale,
+            saleHistoryList: parameters.saleHistoryList,
             urlImage: parameters.urlImage,
             available: parameters.available,
           );
@@ -335,15 +326,16 @@ abstract class AppRouter {
       GoRoute(
         path: AppRoutes.accountInfo,
         name: AppRouteNames.accountInfo,
-        builder: (BuildContext context, GoRouterState state)=> const AccountInfoPage(),
-      ),  
+        builder: (BuildContext context, GoRouterState state) =>
+            const AccountInfoPage(),
+      ),
 
       GoRoute(
         path: AppRoutes.searchResult,
         name: AppRouteNames.searchResult,
         builder: (BuildContext context, GoRouterState state) {
-
-          SearchResultNavigatorParameters parameters = state.extra as SearchResultNavigatorParameters;
+          SearchResultNavigatorParameters parameters =
+              state.extra as SearchResultNavigatorParameters;
 
           return SearchResultPage(
             searchParam: parameters.searchParam,
@@ -357,15 +349,16 @@ abstract class AppRouter {
       GoRoute(
         path: AppRoutes.signIn,
         name: AppRouteNames.signIn,
-        builder: (BuildContext context, GoRouterState state)=> const SignInPage(),
-      ),  
+        builder: (BuildContext context, GoRouterState state) =>
+            const SignInPage(),
+      ),
 
       GoRoute(
-        path: AppRoutes.resetPassword, 
+        path: AppRoutes.resetPassword,
         name: AppRouteNames.resetPassword,
         builder: (BuildContext context, GoRouterState state) {
-
-          ResetPasswordNavigatorParameters parameters = state.extra as ResetPasswordNavigatorParameters;
+          ResetPasswordNavigatorParameters parameters =
+              state.extra as ResetPasswordNavigatorParameters;
 
           return ResetPasswordPage(email: parameters.email);
         },
@@ -374,30 +367,33 @@ abstract class AppRouter {
       GoRoute(
         path: AppRoutes.forgotPassword,
         name: AppRouteNames.forgotPassword,
-        builder: (BuildContext context, GoRouterState state)=> const ForgotPasswordPage(),
-      ),  
+        builder: (BuildContext context, GoRouterState state) =>
+            const ForgotPasswordPage(),
+      ),
 
       GoRoute(
         path: AppRoutes.addToWallCollection,
         name: AppRouteNames.addToWallCollection,
-        builder: (BuildContext context, GoRouterState state)=> const AddToWallCollection(),
-      ),  
+        builder: (BuildContext context, GoRouterState state) =>
+            const AddToWallCollection(),
+      ),
 
       GoRoute(
         path: AppRoutes.settings,
         name: AppRouteNames.settings,
-        builder: (BuildContext context, GoRouterState state)=> const SettingsPage(),
-      ),  
+        builder: (BuildContext context, GoRouterState state) =>
+            const SettingsPage(),
+      ),
 
       GoRoute(
         path: AppRoutes.filterCategory,
         name: AppRouteNames.filterCategory,
         builder: (BuildContext context, GoRouterState state) {
-
-          FilterCategoryNavigatorParameters parameters = state.extra as FilterCategoryNavigatorParameters;
+          FilterCategoryNavigatorParameters parameters =
+              state.extra as FilterCategoryNavigatorParameters;
 
           return FilterCategoryPage(
-            filterType: parameters.filterType, 
+            filterType: parameters.filterType,
             categoryId: parameters.categoryId,
             isMultipleSelection: parameters.isMultipleSelection,
             searchParam: parameters.searchParam,
@@ -406,25 +402,27 @@ abstract class AppRouter {
           );
         },
       ),
-      
+
       GoRoute(
         path: AppRoutes.account,
         name: AppRouteNames.account,
-        builder: (BuildContext context, GoRouterState state)=> const AccountPage(),
-      ),  
+        builder: (BuildContext context, GoRouterState state) =>
+            const AccountPage(),
+      ),
 
       GoRoute(
         path: AppRoutes.shippingAddress,
         name: AppRouteNames.shippingAddress,
-        builder: (BuildContext context, GoRouterState state)=> const ShippingAddressPage(),
-      ),  
-      
+        builder: (BuildContext context, GoRouterState state) =>
+            const ShippingAddressPage(),
+      ),
+
       GoRoute(
         path: AppRoutes.peerToPeerPaymentsSave,
         name: AppRouteNames.peerToPeerPaymentsSave,
         builder: (BuildContext context, GoRouterState state) {
-
-          PeerToPeerPaymentsSaveNavigatorParameters parameters = state.extra as PeerToPeerPaymentsSaveNavigatorParameters;
+          PeerToPeerPaymentsSaveNavigatorParameters parameters =
+              state.extra as PeerToPeerPaymentsSaveNavigatorParameters;
 
           return PeerToPeerPaymentsSaveWidget(
             cashTag: parameters.cashTag,
@@ -437,13 +435,13 @@ abstract class AppRouter {
       GoRoute(
         path: AppRoutes.addShippingAddress,
         name: AppRouteNames.addShippingAddress,
-        builder: (BuildContext context, GoRouterState state)=>  AddShippingAddressPage(),
-      ),  
+        builder: (BuildContext context, GoRouterState state) =>
+            AddShippingAddressPage(),
+      ),
     ],
   );
 
   static void _navigateAfterBuild(String routePath, BuildContext context) {
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       GoRouter.of(context).go(routePath);
     });

@@ -8,16 +8,16 @@ part of 'nft_wallet.dart';
 
 _$_NftWalletModel _$$_NftWalletModelFromJson(Map<String, dynamic> json) =>
     _$_NftWalletModel(
-      nftWalletId: json['nftWalletId'] as String,
-      nftWallet: json['nftWallet'] as String,
-      accountProfileId: json['accountProfileId'] as String?,
+      walletAddress: json['walletAddress'] as String,
+      confirmed: json['confirmed'] as bool?,
+      verificationCode: json['verificationCode'] as String?,
       accountId: json['accountId'] as String,
     );
 
 Map<String, dynamic> _$$_NftWalletModelToJson(_$_NftWalletModel instance) =>
     <String, dynamic>{
-      'nftWalletId': instance.nftWalletId,
-      'nftWallet': instance.nftWallet,
-      'accountProfileId': instance.accountProfileId,
+      'walletAddress': instance.walletAddress,
+      'confirmed': instance.confirmed,
+      'verificationCode': instance.verificationCode,
       'accountId': instance.accountId,
     };

@@ -115,6 +115,8 @@
     "sale_data": "SALE DATE",
     "price": "PRICE",
 
+    "could_not_complete_try_again": "Could not complete request.  Please try again.",
+
     "purchase_price": "Purchase Price",
     "add_collection":"ADD TO COLLECTION",
     "add_collection_title":"ADD TO YOUR COLLECTION",
@@ -284,6 +286,8 @@
 
     "nft_wallet_page_title": "NFT WALLET",
     "nft_wallet_connect": "Connect",
+    "nft_wallet_pending_verification": "Pending verification",
+    "nft_wallet_connected": "Connected",
     "nft_wallet_wallet": "Wallet",
     "nft_wallet_add_wallet": "Add New Wallet",
     "nft_dialog_title": "OWN A SWAG NFT?",
@@ -300,7 +304,7 @@
     "nft_verify_sheet_subtitle": "Copy and paste the following code to your OpenSea profile bio.",
     "nft_verify_sheet_subtitle2": "Once the code has been added to your profile bio hit the button below",
     "nft_verify_sheet_button": "VERIFY",
-    "nft_verify_sheet_verification_failed": "Wallet verification failed. Please try again.",
+    "nft_verify_sheet_verification_failed": "Verification failed. Please check your Opensea bio and try again in 1 hour.",
 
     
 
@@ -389,6 +393,7 @@
     "alert_center_title": "ALERTS & NOTIFICATIONS",
     "unread": "Unread",
     "pending_sale_btn": "Pending Sale",
+    "pending_payment_btn": "Pending payment",
 
     "paymetPaypal": "PayPal",
     "paymetVenmo": "Venmo",

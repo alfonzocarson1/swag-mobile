@@ -75,9 +75,10 @@ class _CreateAccountState extends State<CreateAccountPage> {
   final _usernameController = TextEditingController();
   Color _usernameBorder = Palette.current.primaryWhiteSmoke;
   String? usernameErrorText;
+  String? tosError;
   bool isUsernameTaken = false;
 
-  bool checkBoxValue = false;
+  bool tosChecked = false;
   String usernameVal = defaultString;
 
   @override
@@ -429,12 +430,12 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                     width: 24.0,
                                     child: Checkbox(
                                       checkColor: Palette.current.black,
-                                      value: checkBoxValue,
+                                      value: tosChecked,
                                       activeColor:
                                           Palette.current.primaryNeonGreen,
                                       onChanged: (value) {
-                                        setState(() =>
-                                            checkBoxValue = value ?? false);
+                                        setState(
+                                            () => tosChecked = value ?? false);
                                       },
                                       side: BorderSide(
                                           color:
@@ -510,6 +511,18 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                   ),
                                 ],
                               ),
+                              if (tosError.isNotEmptyOrNull) ...[
+                                const SizedBox(height: 4),
+                                Text(
+                                  tosError!,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(
+                                          color:
+                                              Palette.current.primaryNeonPink),
+                                ),
+                              ],
                               const SizedBox(
                                 height: 20,
                               ),
@@ -529,8 +542,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                                 "${currentPhoneNumber!.dialCode}${_phoneController.text}",
                                             password: _passwordController.text,
                                             userName: _usernameController.text,
-                                            termsOfServiceAccepted:
-                                                checkBoxValue,
+                                            termsOfServiceAccepted: tosChecked,
                                             deviceId: deviceId)));
                                     getIt<PreferenceRepositoryService>()
                                         .saveProfileDataState(true);
@@ -821,6 +833,10 @@ class _CreateAccountState extends State<CreateAccountPage> {
                 ? S.of(context).username_taken
                 : null
             : S.of(context).invalid_username;
+
+    if (!tosChecked) {
+      tosError = S.of(context).required_field;
+    }
   }
 
   bool areFieldsValid() {
@@ -834,7 +850,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
         _confirmPasswordController.text.isNotEmpty &&
         usernameErrorText == null &&
         _usernameController.text.isNotEmpty &&
-        checkBoxValue;
+        tosChecked;
   }
 }
 

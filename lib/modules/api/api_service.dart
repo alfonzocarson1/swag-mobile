@@ -123,6 +123,7 @@ class APIService {
       T Function(Map<String, dynamic> json)? fromJson,
       T Function(List<dynamic> json)? fromJsonList,
       String? jsonKey,
+      String? extractFromJsonKey,
       bool? needJsonBody = true,
       Map<String, Object>? params,
       Map<String, dynamic>? body,
@@ -200,14 +201,17 @@ class APIService {
       if (response.statusCode == 200 || response.statusCode == 201) {
         dynamic res;
         try {
+          var decoded = json.decode(utf8.decode(response.bodyBytes));
+          if (extractFromJsonKey != null) {
+            decoded = decoded[extractFromJsonKey];
+          }
           if (jsonKey != null) {
-            final rawList = jsonDecode(utf8.decode(response.bodyBytes));
-            res = fromJson!({jsonKey: rawList});
+            res = fromJson!({jsonKey: decoded});
           } else {
             if (fromJsonList != null) {
-              res = fromJsonList(json.decode(utf8.decode(response.bodyBytes)));
+              res = fromJsonList(decoded);
             } else {
-              res = fromJson!(json.decode(utf8.decode(response.bodyBytes)));
+              res = fromJson!(decoded);
             }
           }
         } catch (e, stk) {

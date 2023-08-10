@@ -10,10 +10,14 @@ import '../../pages/add/collection/list_for_sale_page.dart';
 import 'dynamic_toast_messages.dart';
 
 class PopUpListItemSale extends StatefulWidget {
-  const PopUpListItemSale(
-      {super.key, required this.dataCollection, required this.catalogItemName});
+  PopUpListItemSale(
+      {super.key,
+      required this.dataCollection,
+      required this.catalogItemName,
+      this.catalogImage});
   final String catalogItemName;
   final List<DetailCollectionModel>? dataCollection;
+  String? catalogImage;
   @override
   State<PopUpListItemSale> createState() => _PopUpListItemSaleState();
 }
@@ -189,7 +193,7 @@ class _PopUpListItemSaleState extends State<PopUpListItemSale> {
                           Navigator.pop(context);
                           Navigator.of(context, rootNavigator: true).push(
                               ListForSalePage.route(() {}, collectionSelected,
-                                  widget.catalogItemName));
+                                  widget.catalogItemName, widget.catalogImage));
                         } else {
                           setState(() {
                             _showErrorPleaseSelectOne = true;
