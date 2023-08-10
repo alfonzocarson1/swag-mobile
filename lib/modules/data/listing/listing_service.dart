@@ -1,8 +1,12 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+
 import '../../api/api.dart';
 import '../../api/api_service.dart';
+import '../../common/ui/loading.dart';
 import '../../common/utils/context_service.dart';
 import '../../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
 import '../../di/injector.dart';
@@ -37,6 +41,8 @@ class ListingService extends IListingService {
   @override
   Future<UpdateAvatarModel> uploadListingImage(Uint8List bytes, String topicId,
       ListingForSaleModel model, bool updating) async {
+    BuildContext context =
+        getIt<ContextService>().rootNavigatorKey.currentContext!;
     ListingForSaleModel removeItem = ListingForSaleModel(
       accountId: model.profileId,
       productItemId: model.productItemId,
@@ -60,7 +66,7 @@ class ListingService extends IListingService {
         LocalNotificationProvider.showInAppAllert(
             'Listing creation failed due to photo upload failure.  Please try listing item again.');
         await getIt<ListingProfileCubit>().removeListingItem(removeItem);
-        getIt<ContextService>().rootNavigatorKey.currentState!.pop();
+        Loading.hide(context);
         getIt<ContextService>().rootNavigatorKey.currentState!.pop();
         getIt<ContextService>().rootNavigatorKey.currentState!.pop();
       }
