@@ -14,6 +14,7 @@ import '../../../blocs/detail_bloc/detail_bloc.dart';
 import '../../../common/ui/cupertino_custom_picker.dart';
 import '../../../common/ui/custom_text_form_field.dart';
 import '../../../common/ui/loading.dart';
+import '../../../common/utils/context_service.dart';
 import '../../../common/utils/utils.dart';
 import '../../../constants/constants.dart';
 import '../../../cubits/buy/buy_cubit.dart';
@@ -119,7 +120,28 @@ class _BuyerCompletePurchasePopUpState
         final index = profileData.addresses!.indexOf(address);
         shippedAddress.add('${profileData.addresses![index].address1}');
       }
+
+      _selectedItem = shippedAddress[0];
+      _firstAddressController.text = _selectedItem ?? '';
+
+      _addressController.text = addresses[0].address2 ?? '';
+      _cityController.text = '${profileData.addresses![0].city}';
+      _zipController.text = '${profileData.addresses![0].postalCode}';
+      _defaultState = '${profileData.addresses![0].state}';
+      _defaultCountry = '${profileData.addresses![0].country}';
+      _countryController.text = '${profileData.addresses![0].country}';
     });
+  }
+
+  Future<void> addShippingAddress() async {
+    await Future.delayed(const Duration(milliseconds: 500), () {});
+
+    Navigator.of(context, rootNavigator: true)
+        .push(AddShippingAddressPage.route(null, () {
+      setState(() {
+        updateAddressList();
+      });
+    }));
   }
 
   @override
@@ -134,9 +156,14 @@ class _BuyerCompletePurchasePopUpState
     if (widget.payments.payPalEmail != null) {
       paymentTypes.add('PayPal');
     }
-    for (final address in profileData.addresses!) {
-      final index = profileData.addresses!.indexOf(address);
-      shippedAddress.add('${profileData.addresses![index].address1}');
+
+    if (profileData.addresses!.isNotEmpty) {
+      for (final address in profileData.addresses!) {
+        final index = profileData.addresses!.indexOf(address);
+        shippedAddress.add('${profileData.addresses![index].address1}');
+      }
+    } else {
+      addShippingAddress();
     }
 
     var peerToPeerPaymentsJson = widget.payments.toJson();
@@ -157,18 +184,22 @@ class _BuyerCompletePurchasePopUpState
     }
 
     setState(() {
-      addresses = profileData.addresses!;
+      if (profileData.addresses!.isNotEmpty) {
+        addresses = profileData.addresses!;
+      }
     });
 
-    _selectedItem = shippedAddress[0];
-    _firstAddressController.text = _selectedItem ?? '';
+    if (profileData.addresses!.isNotEmpty) {
+      _selectedItem = shippedAddress[0];
+      _firstAddressController.text = _selectedItem ?? '';
 
-    _addressController.text = addresses[0].address2 ?? '';
-    _cityController.text = '${profileData.addresses![0].city}';
-    _zipController.text = '${profileData.addresses![0].postalCode}';
-    _defaultState = '${profileData.addresses![0].state}';
-    _defaultCountry = '${profileData.addresses![0].country}';
-    _countryController.text = '${profileData.addresses![0].country}';
+      _addressController.text = addresses[0].address2 ?? '';
+      _cityController.text = '${profileData.addresses![0].city}';
+      _zipController.text = '${profileData.addresses![0].postalCode}';
+      _defaultState = '${profileData.addresses![0].state}';
+      _defaultCountry = '${profileData.addresses![0].country}';
+      _countryController.text = '${profileData.addresses![0].country}';
+    }
 
     _paymentTypeNode.addListener(() {
       setState(() {
@@ -218,6 +249,7 @@ class _BuyerCompletePurchasePopUpState
       });
     });
     _getStates(_defaultCountry);
+
     super.initState();
   }
 
