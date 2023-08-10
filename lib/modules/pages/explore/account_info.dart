@@ -40,6 +40,7 @@ import '../../stripe/stripe_service.dart';
 
 class AccountInfoPage extends StatefulWidget {
   static const name = '/AccountInfo';
+
   const AccountInfoPage({Key? key}) : super(key: key);
 
   static Route route() => PageRoutes.slideUp(
@@ -167,6 +168,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   bool billingCountryFirstUse = true;
   late String userName;
   DateTime _defaultDateTime = DateTime.now();
+
   @override
   void dispose() {
     _firstNameNode.dispose();
@@ -1052,10 +1054,18 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
           ? null
           : S.of(context).required_field;
       cardErrorText = _cardController.text.isNotEmpty &&
-              _cardController.text.length >= 19 &&
-              _cardController.text.length <= 23
+              _cardNumberLength() != 0
           ? null
           : S.of(context).required_field;
+
+      if (_cardNumberLength() > 23) {
+        cardErrorText = S.of(context).card_number_max_error(23);
+      }
+
+      if (_cardNumberLength() < 8) {
+        cardErrorText = S.of(context).card_number_min_error(8);
+      }
+
       cvcErrorText =
           _cvcController.text.isNotEmpty ? null : S.of(context).required_field;
       expirationErrorText = _defaultDateTime.isAfter(DateTime.now())
@@ -1089,6 +1099,10 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
             : S.of(context).required_field;
       });
     }
+  }
+
+  int _cardNumberLength() {
+    return _cardController.text.replaceAll(" ", "").length;
   }
 
   String _formatCardNumber(String value) {
@@ -1144,8 +1158,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
         _defaultState != defaultState &&
         _zipController.text.isNotEmpty &&
         _cardController.text.isNotEmpty &&
-        _cardController.text.length >= 19 &&
-        _cardController.text.length <= 23 &&
+        _cardNumberLength() >= 8 &&
+        _cardNumberLength() <= 19 &&
         _cvcController.text.isNotEmpty &&
         _defaultDateTime.isAfter(DateTime.now()) &&
         billingOverAllCheck;
@@ -1205,9 +1219,9 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   Future<http.Response?> saveCardToken(String cardToken) async {
     http.Response? response;
     final uri = getIt.get<API>().scheme.encodeUri(
-      getIt.get<API>().host,
-      "api/v1/profile/settings/addPaymentMethod/$cardToken",
-    );
+          getIt.get<API>().host,
+          "api/v1/profile/settings/addPaymentMethod/$cardToken",
+        );
     final token = await getIt<StorageRepositoryService>().getToken();
     final headers = {
       "Content-Type": "application/json",

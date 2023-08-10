@@ -20,75 +20,79 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(userName, listingName) =>
+  static String m0(length) => "Max \$${length} digits required";
+
+  static String m1(length) => "Min \$${length} digits required";
+
+  static String m2(userName, listingName) =>
       "@${userName} has agreed to purchase your ${listingName}";
 
-  static String m1(userName) => "@${userName} will paying using ";
+  static String m3(userName) => "@${userName} will paying using ";
 
-  static String m2(
+  static String m4(
           sellerUserName, myUserName, paymnetMethod, rate, paymentUser) =>
       "@${sellerUserName} here is @${myUserName}\'s ${paymnetMethod}\'s information to send payment - ${rate} \n\n${paymentUser}\n\nOnce payment is made please click the confirmation button below";
 
-  static String m3(
+  static String m5(
           sellerUserName, myUserName, paymnetMethod, rate, paymentUser) =>
       "@${sellerUserName} here is @${myUserName}\'s ${paymnetMethod}\'s information to send payment - ${rate} \n\n${paymentUser}";
 
-  static String m4(buyerUserName, paymnetMethod) =>
+  static String m6(buyerUserName, paymnetMethod) =>
       "@${buyerUserName} indicated he made payment. Please check your ${paymnetMethod} account and click the button below to confirm payment was received";
 
-  static String m5(sellerUserName) =>
+  static String m7(sellerUserName) =>
       "@${sellerUserName} has confirmed that payment has been received";
 
-  static String m6(sellerUserName, buyerName, buyerLastName, address, address2,
+  static String m8(sellerUserName, buyerName, buyerLastName, address, address2,
           city, state, zipCode, country) =>
       "@${sellerUserName} here is the shipping address to ship this item\n\n${buyerName} ${buyerLastName}\n${address}, ${address2} \n${city}, ${state}, ${zipCode}, ${country}";
 
-  static String m7(userName) => "@${userName} has started a chat";
+  static String m9(userName) => "@${userName} has started a chat";
 
-  static String m8(sender) => "New message from ${sender}";
+  static String m10(sender) => "New message from ${sender}";
 
-  static String m9(buyerUserName) =>
+  static String m11(buyerUserName) =>
       "Payment Confirmation @${buyerUserName} indicated they made payment";
 
-  static String m10(sellerUserName, trackingNumber) =>
+  static String m12(sellerUserName, trackingNumber) =>
       "@${sellerUserName} has shipped the item. Here is the tracking number\n\n${trackingNumber}";
 
-  static String m11(sellerUserName) =>
+  static String m13(sellerUserName) =>
       "@${sellerUserName} has shipped the item.";
 
-  static String m12(chatsNumber) => "${chatsNumber} Unread";
+  static String m14(chatsNumber) => "${chatsNumber} Unread";
 
-  static String m13(itemName, userName) =>
+  static String m15(itemName, userName) =>
       "It’s been 7 days since you purchased the ${itemName} from @${userName}. We want to know if you received your item yet?";
 
-  static String m14(number) => "${number} Items";
+  static String m16(number) => "${number} Items";
 
-  static String m15(buyerUserName, sellerUserName) =>
+  static String m17(buyerUserName, sellerUserName) =>
       "${buyerUserName} has still not received this item. ${sellerUserName} can you please provide an update on shipping? Thank you.";
 
-  static String m16(permission) => "ALLOW ${permission} ACCESS";
+  static String m18(permission) => "ALLOW ${permission} ACCESS";
 
-  static String m17(os, permission) =>
+  static String m19(os, permission) =>
       "Please allow ${permission} permission in your ${Intl.select(os, {
             'android': 'phone',
             'ios': 'iPhone',
             'other': 'device',
           })} settings for the Swag App";
 
-  static String m18(permission) => "${permission} ACCESS";
+  static String m20(permission) => "${permission} ACCESS";
 
-  static String m19(orderNumber) => "Order number: ${orderNumber}";
+  static String m21(orderNumber) => "Order number: ${orderNumber}";
 
-  static String m20(totalPrice) => "TOTAL=\$${totalPrice}";
+  static String m22(totalPrice) => "TOTAL=\$${totalPrice}";
 
-  static String m21(paymentMethod) => "Paid via ${paymentMethod}";
+  static String m23(paymentMethod) => "Paid via ${paymentMethod}";
 
-  static String m22(trackingNumber) => "Tracking number:\n${trackingNumber}";
+  static String m24(trackingNumber) => "Tracking number:\n${trackingNumber}";
 
-  static String m23(sellerUserName) =>
+  static String m25(sellerUserName) =>
       "How was your experience \nwith ${sellerUserName}?";
 
-  static String m24(buyerUserName, dateSold) =>
+  static String m26(buyerUserName, dateSold) =>
       "Sold to @${buyerUserName} on ${dateSold} ";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -154,6 +158,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "card": MessageLookupByLibrary.simpleMessage("Card"),
         "card_description": MessageLookupByLibrary.simpleMessage(
             "This card will only be used for Atomic Drop purchases. All secondary market purchases will use P2P payment options."),
+        "card_number_max_error": m0,
+        "card_number_min_error": m1,
         "cash_app": MessageLookupByLibrary.simpleMessage("CashApp"),
         "cash_app_sub_title": MessageLookupByLibrary.simpleMessage(
             "Please enter and confirm your \nCashApp cashtag"),
@@ -165,8 +171,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "chatAddSwagAdminContent": MessageLookupByLibrary.simpleMessage(
             "Are you sure you would like to add a swag member to the chat? The admin will be able to see the complete chat history to help settle any disputes. "),
         "chatBannerItemSold": MessageLookupByLibrary.simpleMessage("Item sold"),
-        "chatBannerTitle": m0,
-        "chatBannerWillPay": m1,
+        "chatBannerTitle": m2,
+        "chatBannerWillPay": m3,
         "chatCancelPurchaseMessage": MessageLookupByLibrary.simpleMessage(
             "The seller has chosen to \ncanceled this transaction."),
         "chatCardButtonPaymentReceived":
@@ -175,9 +181,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Payment Sent"),
         "chatCardButtonShipmentSent":
             MessageLookupByLibrary.simpleMessage("Shipment Sent"),
-        "chatCardConfirmPaymentBuyer": m2,
-        "chatCardConfirmPaymentSeller": m3,
-        "chatCardPaymentReceivedSeller": m4,
+        "chatCardConfirmPaymentBuyer": m4,
+        "chatCardConfirmPaymentSeller": m5,
+        "chatCardPaymentReceivedSeller": m6,
         "chatCardPaymetConfirmation":
             MessageLookupByLibrary.simpleMessage("Payment Confirmation"),
         "chatCardPaymetInformation":
@@ -191,22 +197,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "chatChat": MessageLookupByLibrary.simpleMessage("Chat"),
         "chatCommenceMessage": MessageLookupByLibrary.simpleMessage(
             "You can use this chat to adjust any information necessary to complete the sale. If you need 3rd party assistance click the icon above and request an admin to join the chat. NOTE: If payment is not received in 12 hours the listings can be cancelled "),
-        "chatConfirmPaymentMessage": m5,
-        "chatConfirmShipMessage": m6,
+        "chatConfirmPaymentMessage": m7,
+        "chatConfirmShipMessage": m8,
         "chatErrorFile":
             MessageLookupByLibrary.simpleMessage("Error loading the file"),
         "chatInputHintText":
             MessageLookupByLibrary.simpleMessage("Enter message"),
-        "chatListingBannerTitle": m7,
+        "chatListingBannerTitle": m9,
         "chatLoadingFile":
             MessageLookupByLibrary.simpleMessage("Loading File..."),
-        "chatMessageFrom": m8,
+        "chatMessageFrom": m10,
         "chatModeratorName": MessageLookupByLibrary.simpleMessage("SWAG"),
         "chatNoMessages":
             MessageLookupByLibrary.simpleMessage("No previous messages"),
-        "chatPaymentSendBuyer": m9,
-        "chatShippedMessage": m10,
-        "chatShippedMessageWithoutTrackingNumber": m11,
+        "chatPaymentSendBuyer": m11,
+        "chatShippedMessage": m12,
+        "chatShippedMessageWithoutTrackingNumber": m13,
         "chatSwagAdminRequested": MessageLookupByLibrary.simpleMessage(
             "A SWAG admin member has been added to this chat. SWAG admin are available Monday - Friday and could take up to 24 hours to respond. "),
         "chatSwagg": MessageLookupByLibrary.simpleMessage("SWAG"),
@@ -214,7 +220,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "chatToday": MessageLookupByLibrary.simpleMessage("Today"),
         "chatTyping": MessageLookupByLibrary.simpleMessage("Typing..."),
         "chatsHeader": MessageLookupByLibrary.simpleMessage("Chat"),
-        "chatsUnreadMessages": m12,
+        "chatsUnreadMessages": m14,
         "city": MessageLookupByLibrary.simpleMessage("City"),
         "clear_all": MessageLookupByLibrary.simpleMessage("Clear All"),
         "code": MessageLookupByLibrary.simpleMessage("Code"),
@@ -272,7 +278,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "delivered_not_yes": MessageLookupByLibrary.simpleMessage("NOT YET"),
         "delivered_not_yet_alert": MessageLookupByLibrary.simpleMessage(
             "Sorry you’re still waiting! We will \ncheck back with you in a few days."),
-        "delivered_sub_title": m13,
+        "delivered_sub_title": m15,
         "delivered_title":
             MessageLookupByLibrary.simpleMessage("Did you get it?"),
         "delivered_yes": MessageLookupByLibrary.simpleMessage("YES"),
@@ -391,7 +397,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Username must be between 4-20 characters"),
         "ist_item_popup_btn":
             MessageLookupByLibrary.simpleMessage("CREATE LISTING"),
-        "items_purchased": m14,
+        "items_purchased": m16,
         "kyc_title": MessageLookupByLibrary.simpleMessage("KYC"),
         "last_name": MessageLookupByLibrary.simpleMessage("Last Name"),
         "last_sale": MessageLookupByLibrary.simpleMessage("LAST SALE"),
@@ -475,7 +481,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Password doesn’t match"),
         "no_purchase_history_yet":
             MessageLookupByLibrary.simpleMessage("No Purchase History yet"),
-        "notDeliveredItemChatMessage": m15,
+        "notDeliveredItemChatMessage": m17,
         "note": MessageLookupByLibrary.simpleMessage("Note"),
         "notification_already_requested": MessageLookupByLibrary.simpleMessage(
             "You have already requested to be notified.  We will notify you when item is listed for sale."),
@@ -579,9 +585,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "permission_camera": MessageLookupByLibrary.simpleMessage("camera"),
         "permission_camera_microphone":
             MessageLookupByLibrary.simpleMessage("camera and microphone"),
-        "permission_dialog_button": m16,
-        "permission_dialog_description": m17,
-        "permission_dialog_title": m18,
+        "permission_dialog_button": m18,
+        "permission_dialog_description": m19,
+        "permission_dialog_title": m20,
         "permission_microphone":
             MessageLookupByLibrary.simpleMessage("microphone"),
         "permission_photos": MessageLookupByLibrary.simpleMessage("photo"),
@@ -656,10 +662,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Item purchased from"),
         "purchase_item_shipped":
             MessageLookupByLibrary.simpleMessage("Item shipped"),
-        "purchase_order_number": m19,
+        "purchase_order_number": m21,
         "purchase_paid_status": MessageLookupByLibrary.simpleMessage("PAID"),
-        "purchase_payment_card_total": m20,
-        "purchase_payment_card_via": m21,
+        "purchase_payment_card_total": m22,
+        "purchase_payment_card_via": m23,
         "purchase_pending_shipping":
             MessageLookupByLibrary.simpleMessage("Pending shipping"),
         "purchase_price":
@@ -670,13 +676,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "purchase_title":
             MessageLookupByLibrary.simpleMessage("Purchase History"),
         "purchase_total_item": MessageLookupByLibrary.simpleMessage("TOTAL"),
-        "purchase_tracking_number": m22,
+        "purchase_tracking_number": m24,
         "putters": MessageLookupByLibrary.simpleMessage("Putters"),
         "rarity_score": MessageLookupByLibrary.simpleMessage("RARITY SCORE"),
         "rating_btn": MessageLookupByLibrary.simpleMessage("Submit rating"),
         "rating_feedback": MessageLookupByLibrary.simpleMessage(
             "Additional details here \n(not seen by users)..."),
-        "rating_sub_title": m23,
+        "rating_sub_title": m25,
         "rating_title": MessageLookupByLibrary.simpleMessage("How’d it go?"),
         "razon_remove_btn": MessageLookupByLibrary.simpleMessage("SUBMIT"),
         "razon_remove_subtitle": MessageLookupByLibrary.simpleMessage(
@@ -769,7 +775,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sign_in": MessageLookupByLibrary.simpleMessage("Sign In"),
         "sign_out": MessageLookupByLibrary.simpleMessage("Sign Out"),
         "similar_items": MessageLookupByLibrary.simpleMessage("SIMILAR ITEMS"),
-        "sold_footer_title": m24,
+        "sold_footer_title": m26,
         "sold_for": MessageLookupByLibrary.simpleMessage("SOLD FOR"),
         "sort": MessageLookupByLibrary.simpleMessage("Sort:"),
         "sort_by": MessageLookupByLibrary.simpleMessage("sort by"),
