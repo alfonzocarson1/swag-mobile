@@ -537,7 +537,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Get notified when items are listed"),
         "paywall_discount": MessageLookupByLibrary.simpleMessage("SAVE 20%"),
         "paywall_free_trial":
-            MessageLookupByLibrary.simpleMessage("GET 30 Days free"),
+            MessageLookupByLibrary.simpleMessage("30 Day free trial"),
         "paywall_monthly_button":
             MessageLookupByLibrary.simpleMessage("Monthly subscription"),
         "paywall_or_price_month":

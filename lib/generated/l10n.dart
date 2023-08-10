@@ -3966,10 +3966,10 @@ class S {
     );
   }
 
-  /// `GET 30 Days free`
+  /// `30 Day free trial`
   String get paywall_free_trial {
     return Intl.message(
-      'GET 30 Days free',
+      '30 Day free trial',
       name: 'paywall_free_trial',
       desc: '',
       args: [],
