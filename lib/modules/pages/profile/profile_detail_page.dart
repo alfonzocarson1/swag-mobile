@@ -79,7 +79,6 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
     listener: (context, state) => state.maybeWhen(
 
     orElse: () {
-      Loading.hide(context);
       print("ELSE");
     return null;
     },
