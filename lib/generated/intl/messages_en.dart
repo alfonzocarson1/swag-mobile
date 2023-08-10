@@ -26,12 +26,12 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m1(userName) => "@${userName} will paying using ";
 
   static String m2(
-          sellerUserName, myUserName, paymnetMethod, rate, paymentUser) =>
-      "@${sellerUserName} here is @${myUserName}\'s ${paymnetMethod}\'s information to send payment - ${rate} \n\n${paymentUser}\n\nOnce payment is made please click the confirmation button below";
+          buyerUserName, sellerUserName, paymnetMethod, rate, paymentUser) =>
+      "@${buyerUserName} Sale confirmed by seller. Here is @${sellerUserName}\'s${paymnetMethod}\'s information to send payment - ${rate} \n\n${paymentUser}\n\nOnce payment is made please click the confirmation button below";
 
   static String m3(
-          sellerUserName, myUserName, paymnetMethod, rate, paymentUser) =>
-      "@${sellerUserName} here is @${myUserName}\'s ${paymnetMethod}\'s information to send payment - ${rate} \n\n${paymentUser}";
+          buyerUserName, sellerUserName, paymnetMethod, rate, paymentUser) =>
+      "@${buyerUserName} Sale confirmed by seller. Here is @${sellerUserName}\'s ${paymnetMethod}\'s information to send payment - ${rate} \n\n${paymentUser}";
 
   static String m4(buyerUserName, paymnetMethod) =>
       "@${buyerUserName} indicated he made payment. Please check your ${paymnetMethod} account and click the button below to confirm payment was received";
@@ -190,7 +190,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("SWAG ADMIN ADDED"),
         "chatChat": MessageLookupByLibrary.simpleMessage("Chat"),
         "chatCommenceMessage": MessageLookupByLibrary.simpleMessage(
-            "You can use this chat to adjust any information necessary to complete the sale. If you need 3rd party assistance click the icon above and request an admin to join the chat. NOTE: If payment is not received in 12 hours the listings can be cancelled "),
+            "Request to purchase item submitted, pending seller confirmation. You can use this chat to adjust any information necessary to complete the sale. If you need 3rd party assistance click the icon above and request an admin to join the chat. NOTE: If payment is not received in 12 hours the sale can be cancelled."),
         "chatConfirmPaymentMessage": m5,
         "chatConfirmShipMessage": m6,
         "chatErrorFile":
