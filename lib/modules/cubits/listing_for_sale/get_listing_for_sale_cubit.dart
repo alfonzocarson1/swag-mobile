@@ -43,9 +43,7 @@ class ListingProfileCubit extends Cubit<ListingCubitState> {
       for (var i = 0; i < imgList.length; i++) {
         await listingService.uploadListingImage(
             await File(imgList[i].path).readAsBytes(),
-            response.productItemId ?? '',
-            response,
-            true);
+            response.productItemId ?? '');
       }
       await listingService.updateImages(imageUrls);
       _cleanupTemporaryFiles(imgList);

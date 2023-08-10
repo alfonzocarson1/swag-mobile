@@ -6,8 +6,7 @@ import 'dart:typed_data';
 abstract class IListingService {
   Stream<String?> subscribeToAuthChanges();
   Future<ListingForSaleModel> createListing(ListingForSaleModel model);
-  Future<UpdateAvatarModel> uploadListingImage(Uint8List bytes, String topicId,
-      ListingForSaleModel model, bool updating);
+  Future<UpdateAvatarModel> uploadListingImage(Uint8List bytes, String topicId);
   Future<ListingForSaleProfileResponseModel> getListingForSale();
   Future<ListingForSaleProfileResponseModel> getListingForSaleForProfile(
       String profileId);

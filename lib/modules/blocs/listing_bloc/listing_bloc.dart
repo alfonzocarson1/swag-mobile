@@ -1,16 +1,21 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:swagapp/modules/models/search/catalog_item_model.dart';
 
+import '../../common/ui/loading.dart';
+import '../../common/utils/context_service.dart';
 import '../../common/utils/handling_errors.dart';
 import '../../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
 import '../../data/listing/i_listing_service.dart';
 import '../../di/injector.dart';
 import '../../models/listing_for_sale/listing_for_sale_model.dart';
+import '../../notifications_providers/local_notifications_providers.dart';
 
 part 'listing_bloc.freezed.dart';
 part 'listing_event.dart';
@@ -34,21 +39,35 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
   Stream<ListingState> _createListing(
       ListingForSaleModel param, List<File> imgList) async* {
     yield ListingState.initial();
+    late ListingForSaleModel removeItem;
     try {
       ListingForSaleModel responseBody =
           await listingService.createListing(param);
 
+      removeItem = ListingForSaleModel(
+        accountId: responseBody.profileId,
+        productItemId: responseBody.productItemId,
+        productItemName: responseBody.productItemName,
+        catalogItemId: responseBody.catalogItemId,
+        sold: false,
+        forSale: true,
+      );
+
       for (var i = 0; i < imgList.length; i++) {
         await listingService.uploadListingImage(
             await File(imgList[i].path).readAsBytes(),
-            responseBody.productItemId ?? '',
-            responseBody,
-            false);
+            responseBody.productItemId ?? '');
       }
-
       getIt<ListingProfileCubit>().loadResults();
       yield ListingState.loadedListingSuccess(responseBody);
     } catch (e) {
+      BuildContext context =
+          getIt<ContextService>().rootNavigatorKey.currentContext!;
+      LocalNotificationProvider.showInAppAllert(
+          'Listing creation failed due to photo upload failure.  Please try listing item again.');
+      await getIt<ListingProfileCubit>().removeListingItem(removeItem);
+      Loading.hide(context);
+      getIt<ContextService>().rootNavigatorKey.currentState!.pop();
       yield ListingState.error(HandlingErrors().getError(e));
     }
   }

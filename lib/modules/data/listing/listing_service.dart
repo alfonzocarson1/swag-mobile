@@ -39,18 +39,8 @@ class ListingService extends IListingService {
   }
 
   @override
-  Future<UpdateAvatarModel> uploadListingImage(Uint8List bytes, String topicId,
-      ListingForSaleModel model, bool updating) async {
-    BuildContext context =
-        getIt<ContextService>().rootNavigatorKey.currentContext!;
-    ListingForSaleModel removeItem = ListingForSaleModel(
-      accountId: model.profileId,
-      productItemId: model.productItemId,
-      productItemName: model.productItemName,
-      catalogItemId: model.catalogItemId,
-      sold: false,
-      forSale: true,
-    );
+  Future<UpdateAvatarModel> uploadListingImage(
+      Uint8List bytes, String topicId) async {
     try {
       UpdateAvatarModel response = await apiService.getEndpointData(
         endpoint: Endpoint.uploadImageListingForSale,
@@ -62,14 +52,6 @@ class ListingService extends IListingService {
       );
       return response;
     } on Exception catch (e) {
-      if (!updating) {
-        LocalNotificationProvider.showInAppAllert(
-            'Listing creation failed due to photo upload failure.  Please try listing item again.');
-        await getIt<ListingProfileCubit>().removeListingItem(removeItem);
-        Loading.hide(context);
-        getIt<ContextService>().rootNavigatorKey.currentState!.pop();
-        getIt<ContextService>().rootNavigatorKey.currentState!.pop();
-      }
       throw (e);
     }
   }
