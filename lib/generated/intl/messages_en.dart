@@ -247,6 +247,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "contact_us_sub_title": MessageLookupByLibrary.simpleMessage(
             "Get in touch with Swag support"),
         "contact_us_title": MessageLookupByLibrary.simpleMessage("Contact Us"),
+        "could_not_complete_try_again": MessageLookupByLibrary.simpleMessage(
+            "Could not complete request.  Please try again."),
         "country": MessageLookupByLibrary.simpleMessage("Country"),
         "create_account":
             MessageLookupByLibrary.simpleMessage("Create Account"),
@@ -451,12 +453,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("VERIFY WALLET"),
         "nft_verify_sheet_verification_failed":
             MessageLookupByLibrary.simpleMessage(
-                "Wallet verification failed. Please try again."),
+                "Verification failed. Please check your Opensea bio and try again in 1 hour."),
         "nft_wallet_add_wallet":
             MessageLookupByLibrary.simpleMessage("Add New Wallet"),
         "nft_wallet_connect": MessageLookupByLibrary.simpleMessage("Connect"),
+        "nft_wallet_connected":
+            MessageLookupByLibrary.simpleMessage("Connected"),
         "nft_wallet_page_title":
             MessageLookupByLibrary.simpleMessage("NFT WALLET"),
+        "nft_wallet_pending_verification":
+            MessageLookupByLibrary.simpleMessage("Pending verification"),
         "nft_wallet_sub_title":
             MessageLookupByLibrary.simpleMessage("Connect your OpenSea Wallet"),
         "nft_wallet_title": MessageLookupByLibrary.simpleMessage("NFT Wallet"),

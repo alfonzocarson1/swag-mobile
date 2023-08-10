@@ -55,10 +55,12 @@ enum Endpoint {
   listingsRating,
   soldDetail,
   favoriteProfile,
-  nftWallet,
+  userWallets,
+  verifyWallet,
+  createOrUpdateWallet,
   logout,
   addAlertP2P,
-  removeAddress
+  removeAddress,
 }
 
 enum ApiHostScheme {
@@ -157,8 +159,11 @@ class API {
     Endpoint.listingsRating: 'api/v1/profile/listingsRating',
     Endpoint.soldDetail: 'api/v1/listing/listingDetail/soldDetail/%s',
     Endpoint.favoriteProfile: 'api/public/v1/profile/favoriteItems/%s',
-    Endpoint.nftWallet: 'api/v1/profile/settings/nftWallet',
+    Endpoint.userWallets: 'api/public/v1/account/userWallets',
     Endpoint.logout: 'api/v1/account/logout',
+    Endpoint.addAlertP2P: 'api/v1/notification/alerts/alert',
+    Endpoint.verifyWallet: 'api/public/v1/account/verifyWallet',
+    Endpoint.createOrUpdateWallet: 'api/public/v1/account/createOrUpdateWalletPair',
     Endpoint.addAlertP2P: 'api/v1/notification/alerts/alert',
     Endpoint.removeAddress: 'api/v1/profile/settings/account/addresses/%s'
   };

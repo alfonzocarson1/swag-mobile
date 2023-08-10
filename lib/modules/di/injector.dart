@@ -243,7 +243,7 @@ Future<void> setupAppScope(String appFlavor) async {
   getIt.registerLazySingleton<INftWalletService>(
       () => NftWalletService(getIt()));
 
-  getIt.registerLazySingleton(() => NftWalletCubit(getIt()));
+  getIt.registerLazySingleton(() => NftWalletCubit(getIt(), getIt()));
 
   return getIt.allReady();
 }
