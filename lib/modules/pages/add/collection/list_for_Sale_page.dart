@@ -256,6 +256,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
                                       imageFileList.removeAt(index);
                                     });
                                   },
+                                  catalogImage: widget.catalogImage,
                                 ),
                           Stack(
                             children: [
