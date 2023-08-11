@@ -47,13 +47,6 @@ class CustomChatMessage extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(8, 10, 8, 25),
       child: Column(
         children: [
-          //   (isAfterDateSeparator)? Padding(
-          //   padding: const EdgeInsets.all(8.0),
-          //   child: Text(
-          //     "hoy",
-          //     style: TextStyle(color: Colors.white),
-          //   ),
-          // ):const SizedBox.shrink(),
           (user.id != message.user.id)
               ? Row(
                   //mainAxisAlignment: MainAxisAlignment.end,
@@ -73,7 +66,6 @@ class CustomChatMessage extends StatelessWidget {
                             color: Palette.current.grey),
                       ),
                     ),
-                    //  SizedBox(width: MediaQuery.of(context).size.width * 0.8,),
                   ],
                 )
               : const SizedBox.shrink(),
@@ -136,15 +128,11 @@ class CustomChatMessage extends StatelessWidget {
                                     color: (user.id != message.user.id)
                                         ? Palette.current.primaryWhiteSmoke
                                         : Palette.current.primaryNero)
-                            // TextStyle(
-                            //     color: (user.id != message.user.id)
-                            //         ? Palette.current.primaryWhiteSmoke
-                            //         : Palette.current.primaryNero), // Text color
                             )
                         : (this.isFileLoading == false) ?
                         CustomFileMessage(fileUrl: this.fileUrl ?? "" , mediaType: this.mediaType ?? MediaType.image , key: Key('fileMessage${DateTime.now()}'),)
                         :
-                        CircularProgressIndicator()                       
+                        const CircularProgressIndicator()                       
                                 
                                 ),
               ),
