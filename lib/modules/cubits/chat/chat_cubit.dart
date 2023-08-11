@@ -200,7 +200,7 @@ class ChatCubit extends Cubit<ChatState> {
     List<BaseMessage> currentMessages = messages;
 
     final picker = ImagePicker();
-    XFile? pickedFile = await picker.pickMedia(imageQuality: 70);
+    XFile? pickedFile = await picker.pickImage(imageQuality: 70, source: ImageSource.gallery);
 
 
     if (pickedFile != null) {

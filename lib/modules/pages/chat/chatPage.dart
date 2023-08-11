@@ -300,7 +300,7 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
                             : [
                                 IconButton(
                                     onPressed: () {
-                                      handlePermissions(
+                                      handleCameraPermissions(
                                           context: context,
                                           afterPermissionsHandled: _navigate);
                                     },
@@ -332,11 +332,9 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
                                   : () async {
                                       final text = _textEditingController.text;
 
-                                      // Create a ChatMessage instance from the text
                                       final chatMessage = ChatMessage(
                                         text: text,
                                         user: ChatUser(
-                                          // Add your user info here
                                           id: userProfile.accountId,
                                           firstName: userName,
                                         ),
@@ -348,10 +346,7 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
                                               widget.channel, chatMessage.text);
                                       _textEditingController.clear();
                                       setState(() {
-                                        // _messages.add(sentMessage);
                                       });
-
-                                      // handle sending the message here
                                     },
                             ),
                           ),
@@ -597,30 +592,11 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
 
   Future<void> refreshChatPage() {
     return Future.delayed(Duration(seconds: 1), () {
-      /// adding elements in list after [1 seconds] delay
-      /// to mimic network call
-      ///
-      /// Remember: setState is necessary so that
-      /// build method will run again otherwise
-      /// list will not show all elements
+
       setState(() {
         getIt<ChatCubit>().loadMessages(widget.channel);
       });
     });
   }
 
-  // Widget addDateSeparator(int index, BaseMessage message) {
-  //   DateTime createdAt = DateTime.fromMillisecondsSinceEpoch(message.createdAt);
-
-  //   if (index > 0) {
-  //     BaseMessage previousMessage = messages.toList()[index - 1];
-  //     DateTime previousCreatedAt =
-  //         DateTime.fromMillisecondsSinceEpoch(previousMessage.createdAt);
-
-  //     return (createdAt.day != previousCreatedAt.day)
-  //         ? ChatlDateSeparator(date: createdAt)
-  //         : const SizedBox.shrink();
-  //   } else
-  //     return ChatlDateSeparator(date: createdAt);
-  // }
 }

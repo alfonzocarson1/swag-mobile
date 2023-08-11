@@ -28,7 +28,7 @@ class _ChatCameraState extends State<ChatCamera> {
   List<CameraDescription>? cameras;
   late CameraController controller;
   CaptureMode _captureMode = CaptureMode.photo;
-  ScrollController _scrollController = ScrollController();
+
 
   @override
   void initState() {
@@ -39,8 +39,9 @@ class _ChatCameraState extends State<ChatCamera> {
       if (cameras!.length > 0) {
         setState(() {
           controller = CameraController(
-            cameras![0], 
-            ResolutionPreset.high);
+            cameras![0],            
+            ResolutionPreset.high,
+            enableAudio: false);
            
           controller.initialize().then((_) {
             if (!mounted) {
@@ -211,14 +212,14 @@ class _ChatCameraState extends State<ChatCamera> {
                     });
                   },
                 ),
-                TextButton(
-                  child: Text('Video', style: TextStyle(color: _captureMode == CaptureMode.video ? Palette.current.primaryNeonGreen  : Colors.white)),
-                  onPressed: () {
-                    setState(() {
-                      _captureMode = CaptureMode.video;
-                    });
-                  },
-                ),
+                // TextButton(
+                //   child: Text('Video', style: TextStyle(color: _captureMde == CaptureMode.video ? Palette.current.primaryNeonGreen  : Colors.white)),
+                //   onPressed: () {
+                //     setState(() {
+                //       _captureMode = CaptureMode.video;
+                //     });
+                //   },
+                // ),
               ],
             ),
           ),
