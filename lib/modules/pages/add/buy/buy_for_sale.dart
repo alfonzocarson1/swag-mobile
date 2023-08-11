@@ -130,7 +130,7 @@ class _BuyForSaleState extends State<BuyForSale> {
               error: (_) {
                 return RefreshIndicator(
                     onRefresh: () async {
-                      makeCall();
+                      _refreshList;
                       return Future.delayed(const Duration(milliseconds: 1500));
                     },
                     child: ListView.builder(
@@ -149,169 +149,66 @@ class _BuyForSaleState extends State<BuyForSale> {
   }
 
   Widget _getBody(List<BuyForSaleListingModel> dataListingSale) {
-    return RefreshIndicator(
-      onRefresh: () async {
-        makeCall();
-        return Future.delayed(const Duration(milliseconds: 1500));
-      },
-      child: dataListingSale.isNotEmpty
-          ? _dataDetail(dataListingSale, _scrollController!)
-          : ListView.builder(
-              padding: EdgeInsets.zero,
-              itemBuilder: (_, index) => SizedBox(
-                height: MediaQuery.of(context).size.height * 0.7,
-                child: Center(
-                  child: Text(
-                    S.of(context).empty_text,
-                    style: TextStyle(
-                        fontSize: 24, color: Colors.black.withOpacity(0.50)),
-                  ),
+    return dataListingSale.isNotEmpty
+        ? _dataDetail(dataListingSale, _scrollController!)
+        : ListView.builder(
+            padding: EdgeInsets.zero,
+            itemBuilder: (_, index) => SizedBox(
+              height: MediaQuery.of(context).size.height * 0.7,
+              child: Center(
+                child: Text(
+                  S.of(context).empty_text,
+                  style: TextStyle(
+                      fontSize: 24, color: Colors.black.withOpacity(0.50)),
                 ),
               ),
-              itemCount: 1,
             ),
-    );
+            itemCount: 1,
+          );
+  }
+
+  Future<void> _refreshList() async {
+    // Simular la carga de datos
+    await Future.delayed(Duration(seconds: 2));
+    context
+        .read<BuySaleListingBloc>()
+        .add(BuySaleListingEvent.getBuyListingItem(widget.catalogItemId));
+    setState(() {});
   }
 
   Widget _dataDetail(List<BuyForSaleListingModel> dataListingSale,
       ScrollController scrollController) {
-    return ListView.separated(
-        padding: EdgeInsets.zero,
-        controller: scrollController,
-        separatorBuilder: (context, index) => const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Divider(
-                color: Colors.transparent,
-              ),
-            ),
-        itemCount: 1,
-        itemBuilder: (context, index) {
-          return Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    color: Palette.current.blackSmoke,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Text(widget.catalogItemName.toUpperCase(),
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayLarge!
-                              .copyWith(
-                                  letterSpacing: 0.018,
-                                  fontWeight: FontWeight.w300,
-                                  fontFamily: "KnockoutCustom",
-                                  fontSize: 30,
-                                  color: Palette.current.white)),
-                      Text(
-                          '${S.of(context).last_sale} ${decimalDigitsLastSalePrice(widget.catalogItemPrice.lastSale.toString())} ',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(
-                                  letterSpacing: 0.014,
-                                  fontWeight: FontWeight.w300,
-                                  color: Palette.current.primaryNeonGreen)),
-                      (widget.saleHistoryList.isNotEmpty)
-                          ? Column(
-                              children: [
-                                const SizedBox(
-                                  height: 28,
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.of(context, rootNavigator: true)
-                                        .push(TransactionHistory.route(
-                                            widget.urlImage,
-                                            widget.catalogItemName,
-                                            widget.catalogItemPrice,
-                                            widget.sale,
-                                            widget.available ?? 0,
-                                            widget.favorite,
-                                            widget.catalogItemId,
-                                            widget.saleHistoryList, (val) {
-                                      widget.addFavorite(val);
-                                    }));
-                                  },
-                                  child: Center(
-                                    child: Container(
-                                        height: 60,
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: Palette
-                                                    .current.primaryNeonGreen),
-                                            color: Colors.transparent),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            const SizedBox(
-                                              height: 50,
-                                            ),
-                                            Image.asset(
-                                              AppIcons.trendingUp,
-                                              height: 20,
-                                              width: 20,
-                                            ),
-                                            const SizedBox(
-                                              width: 15,
-                                            ),
-                                            Text(S.of(context).sales_history,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyLarge!
-                                                    .copyWith(
-                                                        fontFamily:
-                                                            "KnockoutCustom",
-                                                        fontSize: 25,
-                                                        letterSpacing: 1,
-                                                        fontWeight:
-                                                            FontWeight.w300,
-                                                        color: Palette
-                                                            .current.white)),
-                                          ],
-                                        )),
-                                  ),
-                                ),
-                              ],
-                            )
-                          : const SizedBox.shrink(),
-                    ],
-                  ),
+    return RefreshIndicator(
+      onRefresh: _refreshList,
+      child: ListView.separated(
+          padding: EdgeInsets.zero,
+          separatorBuilder: (context, index) => const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Divider(
+                  color: Colors.transparent,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20),
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    color: Palette.current.blackSmoke,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Row(children: <Widget>[
-                        Text("${dataListingSale.length} FOR SALE",
+          itemCount: 1,
+          itemBuilder: (context, index) {
+            return Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      color: Palette.current.blackSmoke,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(widget.catalogItemName.toUpperCase(),
+                            overflow: TextOverflow.ellipsis,
                             style: Theme.of(context)
                                 .textTheme
                                 .displayLarge!
@@ -321,145 +218,251 @@ class _BuyForSaleState extends State<BuyForSale> {
                                     fontFamily: "KnockoutCustom",
                                     fontSize: 30,
                                     color: Palette.current.white)),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(
-                            child: Divider(
-                          color: Palette.current.grey,
-                        )),
-                      ]),
-                    ],
+                        Text(
+                            '${S.of(context).last_sale} ${decimalDigitsLastSalePrice(widget.catalogItemPrice.lastSale.toString())} ',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(
+                                    letterSpacing: 0.014,
+                                    fontWeight: FontWeight.w300,
+                                    color: Palette.current.primaryNeonGreen)),
+                        (widget.saleHistoryList.isNotEmpty)
+                            ? Column(
+                                children: [
+                                  const SizedBox(
+                                    height: 28,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.of(context, rootNavigator: true)
+                                          .push(TransactionHistory.route(
+                                              widget.urlImage,
+                                              widget.catalogItemName,
+                                              widget.catalogItemPrice,
+                                              widget.sale,
+                                              widget.available ?? 0,
+                                              widget.favorite,
+                                              widget.catalogItemId,
+                                              widget.saleHistoryList, (val) {
+                                        widget.addFavorite(val);
+                                      }));
+                                    },
+                                    child: Center(
+                                      child: Container(
+                                          height: 60,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: Palette.current
+                                                      .primaryNeonGreen),
+                                              color: Colors.transparent),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              const SizedBox(
+                                                height: 50,
+                                              ),
+                                              Image.asset(
+                                                AppIcons.trendingUp,
+                                                height: 20,
+                                                width: 20,
+                                              ),
+                                              const SizedBox(
+                                                width: 15,
+                                              ),
+                                              Text(S.of(context).sales_history,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyLarge!
+                                                      .copyWith(
+                                                          fontFamily:
+                                                              "KnockoutCustom",
+                                                          fontSize: 25,
+                                                          letterSpacing: 1,
+                                                          fontWeight:
+                                                              FontWeight.w300,
+                                                          color: Palette
+                                                              .current.white)),
+                                            ],
+                                          )),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : const SizedBox.shrink(),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Container(
+                Padding(
+                  padding: const EdgeInsets.only(left: 20),
+                  child: Container(
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                       color: Palette.current.blackSmoke,
                     ),
                     child: Column(
-                        children: List.generate(
-                      dataListingSale.length,
-                      (index) => GestureDetector(
-                        onTap: () {
-                          Navigator.of(context, rootNavigator: true).push(
-                              BuyPreviewPage.route(
-                                  productItemId:
-                                      dataListingSale[index].productItemId,
-                                  catalogId: widget.catalogItemId ?? ''));
-                        },
-                        child: Container(
-                          margin: const EdgeInsets.only(bottom: 28),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Expanded(
-                                flex: 3,
-                                child: SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.width * 0.32,
-                                  child: ClipRRect(
-                                    child: CachedNetworkImage(
-                                      fit: BoxFit.cover,
-                                      imageUrl: dataListingSale[index]
-                                          .productItemImageUrls[0],
-                                      placeholder: (context, url) => SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.width *
-                                                0.32,
-                                        child: Center(
-                                          child: CircularProgressIndicator(
-                                            color: Palette
-                                                .current.primaryNeonGreen,
-                                            backgroundColor: Colors.white,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(children: <Widget>[
+                          Text("${dataListingSale.length} FOR SALE",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayLarge!
+                                  .copyWith(
+                                      letterSpacing: 0.018,
+                                      fontWeight: FontWeight.w300,
+                                      fontFamily: "KnockoutCustom",
+                                      fontSize: 30,
+                                      color: Palette.current.white)),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                              child: Divider(
+                            color: Palette.current.grey,
+                          )),
+                        ]),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        color: Palette.current.blackSmoke,
+                      ),
+                      child: Column(
+                          children: List.generate(
+                        dataListingSale.length,
+                        (index) => GestureDetector(
+                          onTap: () {
+                            Navigator.of(context, rootNavigator: true).push(
+                                BuyPreviewPage.route(
+                                    productItemId:
+                                        dataListingSale[index].productItemId,
+                                    catalogId: widget.catalogItemId ?? ''));
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.only(bottom: 28),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Expanded(
+                                  flex: 3,
+                                  child: SizedBox(
+                                    height: MediaQuery.of(context).size.width *
+                                        0.32,
+                                    child: ClipRRect(
+                                      child: CachedNetworkImage(
+                                        fit: BoxFit.cover,
+                                        imageUrl: dataListingSale[index]
+                                            .productItemImageUrls[0],
+                                        placeholder: (context, url) => SizedBox(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.32,
+                                          child: Center(
+                                            child: CircularProgressIndicator(
+                                              color: Palette
+                                                  .current.primaryNeonGreen,
+                                              backgroundColor: Colors.white,
+                                            ),
                                           ),
                                         ),
+                                        errorWidget: (context, url, error) =>
+                                            Image.asset(
+                                                "assets/images/ProfilePhoto.png"),
                                       ),
-                                      errorWidget: (context, url, error) =>
-                                          Image.asset(
-                                              "assets/images/ProfilePhoto.png"),
                                     ),
                                   ),
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 11,
-                              ),
-                              const SizedBox(
-                                width: 11,
-                              ),
-                              Expanded(
-                                  flex: 5,
-                                  child: Column(
-                                    children: [
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                            "${decimalDigitsLastSalePrice(dataListingSale[index].lastSale.toString())}  ",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .displayLarge!
-                                                .copyWith(
-                                                    letterSpacing: 0.015,
-                                                    fontWeight: FontWeight.w300,
-                                                    fontFamily:
-                                                        "KnockoutCustom",
-                                                    fontSize: 30,
-                                                    color: Palette.current
-                                                        .primaryNeonGreen)),
-                                      ),
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                            "Condition: ${dataListingSale[index].condition}",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall!
-                                                .copyWith(
-                                                    fontWeight: FontWeight.w300,
-                                                    color: Palette.current
-                                                        .primaryNeonPink)),
-                                      ),
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                            dataListingSale[index]
-                                                    .productItemDescription ??
-                                                '',
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall!
-                                                .copyWith(
-                                                    fontWeight: FontWeight.w300,
-                                                    color:
-                                                        Palette.current.white)),
-                                      ),
-                                    ],
-                                  )),
-                            ],
+                                const SizedBox(
+                                  height: 11,
+                                ),
+                                const SizedBox(
+                                  width: 11,
+                                ),
+                                Expanded(
+                                    flex: 5,
+                                    child: Column(
+                                      children: [
+                                        Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                              "${decimalDigitsLastSalePrice(dataListingSale[index].lastSale.toString())}  ",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displayLarge!
+                                                  .copyWith(
+                                                      letterSpacing: 0.015,
+                                                      fontWeight:
+                                                          FontWeight.w300,
+                                                      fontFamily:
+                                                          "KnockoutCustom",
+                                                      fontSize: 30,
+                                                      color: Palette.current
+                                                          .primaryNeonGreen)),
+                                        ),
+                                        Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                              "Condition: ${dataListingSale[index].condition}",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.w300,
+                                                      color: Palette.current
+                                                          .primaryNeonPink)),
+                                        ),
+                                        Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                              dataListingSale[index]
+                                                      .productItemDescription ??
+                                                  '',
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.w300,
+                                                      color: Palette
+                                                          .current.white)),
+                                        ),
+                                      ],
+                                    )),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ))),
-              ),
-            ],
-          );
-        });
-  }
-
-  void makeCall() {
-    context
-        .read<BuySaleListingBloc>()
-        .add(BuySaleListingEvent.getBuyListingItem(widget.catalogItemId));
+                      ))),
+                ),
+              ],
+            );
+          }),
+    );
   }
 }
