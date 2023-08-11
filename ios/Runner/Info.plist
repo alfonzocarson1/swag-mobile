@@ -37,8 +37,6 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Allows access to your camera.  This can be configured in Settings.</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Allows access to your microphone.  This can be configured in Settings</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Allows access to your library.  This can be configured in Settings.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
