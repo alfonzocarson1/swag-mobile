@@ -77,8 +77,8 @@ class AppConfig {
       apiBaseUrl: appFlavor.whenFlavor(
         dev: () => "orchestration.dev.swag.kuldisak.net:8080",
         stg: () => "dev.core-api.app.net",
-        uat: () => "d2sgf5a21ot7ey.cloudfront.net",
-        prod: () => "d1emyzr50y1tmd.cloudfront.net",
+        uat: () => "api-uat.kuldisak.net",
+        prod: () => "api.kuldisak.net",
       ),
       apiHostScheme: appFlavor.whenFlavorOrElse(
         uat: () => ApiHostScheme.https,
@@ -97,7 +97,7 @@ class AppConfig {
         orElse: () => "3A0E70A8-4861-44C2-ABC0-B7E13C776BEF",
       ),
       paywallProducts: appFlavor.whenFlavorOrElse(
-        dev: ()=> const PaywallSubscriptionProducts(annualSubscription: 'Swag_App_Premium_Annual', monthlySubscription: 'Swag_App_Premium_Monthly'),
+        dev: ()=> const PaywallSubscriptionProducts(annualSubscription: 'TEST_Swag_App_Premium_Annual', monthlySubscription: 'TEST_Swag_App_Premium_Monthly'),
         uat:()=>const PaywallSubscriptionProducts(annualSubscription: 'UAT_Swag_App_Premium_Annual', monthlySubscription: 'UAT_Swag_App_Premium_Monthly'),
         prod:()=>const PaywallSubscriptionProducts(annualSubscription: "annualSubscription", monthlySubscription: "monthlySubscription") ,
         orElse: ()=>const PaywallSubscriptionProducts(annualSubscription: "annualSubscription", monthlySubscription: "monthlySubscription")
