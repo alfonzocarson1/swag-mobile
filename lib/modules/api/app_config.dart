@@ -99,7 +99,7 @@ class AppConfig {
       paywallProducts: appFlavor.whenFlavorOrElse(
         dev: ()=> const PaywallSubscriptionProducts(annualSubscription: 'TEST_Swag_App_Premium_Annual', monthlySubscription: 'TEST_Swag_App_Premium_Monthly'),
         uat:()=>const PaywallSubscriptionProducts(annualSubscription: 'UAT_Swag_App_Premium_Annual', monthlySubscription: 'UAT_Swag_App_Premium_Monthly'),
-        prod:()=>const PaywallSubscriptionProducts(annualSubscription: "annualSubscription", monthlySubscription: "monthlySubscription") ,
+        prod:()=>const PaywallSubscriptionProducts(annualSubscription: "Swag_App_Premium_Annual", monthlySubscription: "Swag_App_Premium_Monthly") ,
         orElse: ()=>const PaywallSubscriptionProducts(annualSubscription: "annualSubscription", monthlySubscription: "monthlySubscription")
         )
     );
