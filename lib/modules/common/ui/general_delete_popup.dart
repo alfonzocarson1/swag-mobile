@@ -8,7 +8,6 @@ import '../../models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
 import '../../models/ui_models/checkbox_model.dart';
 import '../utils/palette.dart';
 
-
 class GeneralDeletePopup extends StatefulWidget {
   const GeneralDeletePopup(
       {super.key,
@@ -35,14 +34,14 @@ class _GeneralDeletePopupState extends State<GeneralDeletePopup> {
   Widget build(BuildContext context) {
     double deviceScreenRatio = MediaQuery.of(context).size.aspectRatio;
     List<CheckboxModel> options = widget.options;
-    int selectedOption = -1;    
+    int selectedOption = -1;
     model = ListingForSaleModel(
       accountId: widget.model.profileId,
       productItemId: widget.model.productItemId,
       productItemName: widget.model.productItemName,
       catalogItemId: widget.model.catalogItemId,
       sold: false,
-      forSale: true,      
+      forSale: true,
     );
 
     return Dialog(
@@ -54,27 +53,27 @@ class _GeneralDeletePopupState extends State<GeneralDeletePopup> {
         child: Container(
           color: Palette.current.blackSmoke,
           height: deviceScreenRatio * 1200,
-          padding: const EdgeInsets.fromLTRB(10, 10, 10, 0  ) ,
-          child: Column(            
+          padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+          child: Column(
             children: [
-                 Align(
-                    alignment: Alignment.topRight,
-                     child: SizedBox(
-                      height: deviceScreenRatio*100,
-                      width: deviceScreenRatio*100,
-                       child: IconButton(
-                        padding: const EdgeInsets.all(0),
-                         color: Palette.current.primaryNeonGreen,
-                         onPressed: () {
-                           Navigator.of(context).pop();
-                         },
-                         icon: const Icon(
-                           Icons.clear_outlined,
-                           size: 20,
-                         ),
-                       ),
-                     ),
-                   ),
+              Align(
+                alignment: Alignment.topRight,
+                child: SizedBox(
+                  height: deviceScreenRatio * 100,
+                  width: deviceScreenRatio * 100,
+                  child: IconButton(
+                    padding: const EdgeInsets.all(0),
+                    color: Palette.current.primaryNeonGreen,
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    icon: const Icon(
+                      Icons.clear_outlined,
+                      size: 20,
+                    ),
+                  ),
+                ),
+              ),
               Container(
                 height: deviceScreenRatio * 1050,
                 color: Palette.current.blackSmoke,
@@ -82,9 +81,12 @@ class _GeneralDeletePopupState extends State<GeneralDeletePopup> {
                   padding: const EdgeInsets.fromLTRB(25, 0, 25, 40),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [              
+                    children: [
                       Text(widget.title.toUpperCase(),
-                          style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium!
+                              .copyWith(
                                 fontFamily: "KnockoutCustom",
                                 fontSize: 44,
                                 fontWeight: FontWeight.w300,
@@ -94,49 +96,92 @@ class _GeneralDeletePopupState extends State<GeneralDeletePopup> {
                         height: deviceScreenRatio * 50,
                       ),
                       Text(widget.message,
-                          style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                fontSize: 16,
-                                letterSpacing: 0.3,
-                                color: Palette.current.primaryWhiteSmoke,
-                              )),
+                          style:
+                              Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    fontSize: 16,
+                                    letterSpacing: 0.3,
+                                    color: Palette.current.primaryWhiteSmoke,
+                                  )),
                       SizedBox(
                         height: deviceScreenRatio * 50,
                       ),
                       Expanded(
-                        flex: 1,
-                        child: StatefulBuilder(builder: (context, setState) {
-                        return ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: options.length,
-                          itemBuilder: (context, index) {
-                            return ListTile(                              
-                             contentPadding: const EdgeInsets.all(1),
-                              title: Text(options[index].title,
-                                  style:
-                                      Theme.of(context).textTheme.bodySmall!.copyWith(
-                                            fontSize: 16,
-                                            letterSpacing: 0.3,
-                                            color: Palette.current.primaryWhiteSmoke,
-                                          )),
-                              leading: SizedBox(
-                                height: 15,
-                                width: 15,
-                                child: Checkbox(
-                                  value: selectedOption == index,
-                                  onChanged: (bool? value) {
-                                    setState(() {
-                                      selectedOption = value == true ? index : -1;
-                                      model = model.copyWith(removedReason: options[index].title, status: "removed");                              
-                                    });
-                                  },
-                                  activeColor: Palette.current.primaryNeonGreen,
-                                  checkColor: Palette.current.primaryEerieBlack,
-                                ),
-                              ),
+                          flex: 1,
+                          child: StatefulBuilder(builder: (context, setState) {
+                            return ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: options.length,
+                              itemBuilder: (context, index) {
+                                return SizedBox(
+                                  height: 50,
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        width: 18,
+                                        height: 18,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(30.0),
+                                          border: Border.all(
+                                            color: selectedOption == index
+                                                ? Palette
+                                                    .current.primaryNeonGreen
+                                                : Colors.grey,
+                                          ),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(2.0),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(30.0),
+                                            child: Container(
+                                              color: selectedOption == index
+                                                  ? Palette
+                                                      .current.primaryNeonGreen
+                                                  : Colors.transparent,
+                                              child: Checkbox(
+                                                  value:
+                                                      selectedOption == index,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      selectedOption =
+                                                          value == true
+                                                              ? index
+                                                              : -1;
+                                                      model = model.copyWith(
+                                                          removedReason:
+                                                              options[index]
+                                                                  .title,
+                                                          status: "removed");
+                                                    });
+                                                  },
+                                                  activeColor: Palette
+                                                      .current.primaryNeonGreen,
+                                                  checkColor: Palette.current
+                                                      .primaryNeonGreen),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(options[index].title,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                                fontSize: 15,
+                                                letterSpacing: 0.3,
+                                                color: Palette
+                                                    .current.primaryWhiteSmoke,
+                                              )),
+                                    ],
+                                  ),
+                                );
+                              },
                             );
-                          },
-                        );
-                      })),
+                          })),
                       SizedBox(
                         height: deviceScreenRatio * 10,
                       ),
@@ -144,13 +189,14 @@ class _GeneralDeletePopupState extends State<GeneralDeletePopup> {
                         title: S.of(context).razon_remove_btn,
                         onPressed: () {
                           setState(() {
-                            getIt<ListingProfileCubit>().removeListingItem(model);
+                            getIt<ListingProfileCubit>()
+                                .removeListingItem(model);
                             Navigator.of(context).pop();
                             Navigator.of(context).pop();
                           });
                         },
                         type: PrimaryButtonType.green,
-                      ),               
+                      ),
                     ],
                   ),
                 ),

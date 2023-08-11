@@ -365,8 +365,8 @@
     "chatBannerWillPay": "@{userName} will paying using ",
     "chatBannerTitle": "@{userName} has agreed to purchase your {listingName}",
     "chatListingBannerTitle": "@{userName} has started a chat",
-    "chatCardConfirmPaymentBuyer": "@{sellerUserName} here is @{myUserName}'s {paymnetMethod}'s information to send payment - {rate} \n\n{paymentUser}\n\nOnce payment is made please click the confirmation button below",
-    "chatCardConfirmPaymentSeller": "@{sellerUserName} here is @{myUserName}'s {paymnetMethod}'s information to send payment - {rate} \n\n{paymentUser}",
+    "chatCardConfirmPaymentBuyer": "@{buyerUserName} Sale confirmed by seller. Here is @{sellerUserName}'s{paymnetMethod}'s information to send payment - {rate} \n\n{paymentUser}\n\nOnce payment is made please click the confirmation button below",
+    "chatCardConfirmPaymentSeller": "@{buyerUserName} Sale confirmed by seller. Here is @{sellerUserName}'s {paymnetMethod}'s information to send payment - {rate} \n\n{paymentUser}",
     "chatCardPaymentReceivedSeller": "@{buyerUserName} indicated he made payment. Please check your {paymnetMethod} account and click the button below to confirm payment was received",
     "chatPaymentSendBuyer": "Payment Confirmation @{buyerUserName} indicated they made payment",
 
@@ -377,7 +377,7 @@
     "chatCardButtonPaymentSent": "Payment Sent",
     "chatCardButtonPaymentReceived": "Payment Received",
     "chatCardButtonShipmentSent": "Shipment Sent",
-    "chatCommenceMessage": "You can use this chat to adjust any information necessary to complete the sale. If you need 3rd party assistance click the icon above and request an admin to join the chat. NOTE: If payment is not received in 12 hours the listings can be cancelled ",
+    "chatCommenceMessage": "Request to purchase item submitted, pending seller confirmation. You can use this chat to adjust any information necessary to complete the sale. If you need 3rd party assistance click the icon above and request an admin to join the chat. NOTE: If payment is not received in 12 hours the sale can be cancelled.",
     "chatConfirmPaymentMessage": "@{sellerUserName} has confirmed that payment has been received",
     "chatConfirmShipMessage": "@{sellerUserName} here is the shipping address to ship this item\n\n{buyerName} {buyerLastName}\n{address}, {address2} \n{city}, {state}, {zipCode}, {country}",
     "chatShippedMessage": "@{sellerUserName} has shipped the item. Here is the tracking number\n\n{trackingNumber}",
@@ -495,7 +495,6 @@
     "profile_last_name": "Last name",
     "profile_name": "Name",
     "legal_text": "In some cases, we will be unable to delete your account, such as if there is an issue with your account related to outstanding sales transactions or subscriptions. When we delete your account, we may retain certain information for legitimate business purposes or to comply with legal or regulatory obligations.  Please consult our Privacy Policy at Swag.golf for more info.",
-    "remove_address_pop_up": "This shipping address will be removed from your account.",
     "remove_address_pop_up": "This shipping address will be removed from your account.",
     "buyer_recived": "You already confirmed receipt of the item.  Please rate the seller.",
     "buyer_rate": "You already confirmed receipt of the item and rated the seller."

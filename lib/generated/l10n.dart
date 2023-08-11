@@ -3534,25 +3534,33 @@ class S {
     );
   }
 
-  /// `@{sellerUserName} here is @{myUserName}'s {paymnetMethod}'s information to send payment - {rate} \n\n{paymentUser}\n\nOnce payment is made please click the confirmation button below`
-  String chatCardConfirmPaymentBuyer(Object sellerUserName, Object myUserName,
-      Object paymnetMethod, Object rate, Object paymentUser) {
+  /// `@{buyerUserName} Sale confirmed by seller. Here is @{sellerUserName}'s{paymnetMethod}'s information to send payment - {rate} \n\n{paymentUser}\n\nOnce payment is made please click the confirmation button below`
+  String chatCardConfirmPaymentBuyer(
+      Object buyerUserName,
+      Object sellerUserName,
+      Object paymnetMethod,
+      Object rate,
+      Object paymentUser) {
     return Intl.message(
-      '@$sellerUserName here is @$myUserName\'s $paymnetMethod\'s information to send payment - $rate \n\n$paymentUser\n\nOnce payment is made please click the confirmation button below',
+      '@$buyerUserName Sale confirmed by seller. Here is @$sellerUserName\'s$paymnetMethod\'s information to send payment - $rate \n\n$paymentUser\n\nOnce payment is made please click the confirmation button below',
       name: 'chatCardConfirmPaymentBuyer',
       desc: '',
-      args: [sellerUserName, myUserName, paymnetMethod, rate, paymentUser],
+      args: [buyerUserName, sellerUserName, paymnetMethod, rate, paymentUser],
     );
   }
 
-  /// `@{sellerUserName} here is @{myUserName}'s {paymnetMethod}'s information to send payment - {rate} \n\n{paymentUser}`
-  String chatCardConfirmPaymentSeller(Object sellerUserName, Object myUserName,
-      Object paymnetMethod, Object rate, Object paymentUser) {
+  /// `@{buyerUserName} Sale confirmed by seller. Here is @{sellerUserName}'s {paymnetMethod}'s information to send payment - {rate} \n\n{paymentUser}`
+  String chatCardConfirmPaymentSeller(
+      Object buyerUserName,
+      Object sellerUserName,
+      Object paymnetMethod,
+      Object rate,
+      Object paymentUser) {
     return Intl.message(
-      '@$sellerUserName here is @$myUserName\'s $paymnetMethod\'s information to send payment - $rate \n\n$paymentUser',
+      '@$buyerUserName Sale confirmed by seller. Here is @$sellerUserName\'s $paymnetMethod\'s information to send payment - $rate \n\n$paymentUser',
       name: 'chatCardConfirmPaymentSeller',
       desc: '',
-      args: [sellerUserName, myUserName, paymnetMethod, rate, paymentUser],
+      args: [buyerUserName, sellerUserName, paymnetMethod, rate, paymentUser],
     );
   }
 
@@ -3647,10 +3655,10 @@ class S {
     );
   }
 
-  /// `You can use this chat to adjust any information necessary to complete the sale. If you need 3rd party assistance click the icon above and request an admin to join the chat. NOTE: If payment is not received in 12 hours the listings can be cancelled `
+  /// `Request to purchase item submitted, pending seller confirmation. You can use this chat to adjust any information necessary to complete the sale. If you need 3rd party assistance click the icon above and request an admin to join the chat. NOTE: If payment is not received in 12 hours the sale can be cancelled.`
   String get chatCommenceMessage {
     return Intl.message(
-      'You can use this chat to adjust any information necessary to complete the sale. If you need 3rd party assistance click the icon above and request an admin to join the chat. NOTE: If payment is not received in 12 hours the listings can be cancelled ',
+      'Request to purchase item submitted, pending seller confirmation. You can use this chat to adjust any information necessary to complete the sale. If you need 3rd party assistance click the icon above and request an admin to join the chat. NOTE: If payment is not received in 12 hours the sale can be cancelled.',
       name: 'chatCommenceMessage',
       desc: '',
       args: [],
