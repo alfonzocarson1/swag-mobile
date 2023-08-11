@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:swagapp/generated/l10n.dart';
@@ -694,6 +695,15 @@ class _CreateAccountState extends State<CreateAccountPage> {
         labelText: S.of(context).username,
         focusNode: _usernameNode,
         controller: _usernameController,
+        prefix: const Text("@"),
+        inputFormatters: [
+          FilteringTextInputFormatter.allow(RegExp("[a-zA-Z_0-9]")),
+          TextInputFormatter.withFunction(
+            (oldValue, newValue) => newValue.copyWith(
+              text: newValue.text.toLowerCase(),
+            ),
+          ),
+        ],
         onChanged: (value) {
           if (value.isNotEmpty) {
             setState(() {

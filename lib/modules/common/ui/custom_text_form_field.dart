@@ -12,6 +12,7 @@ class CustomTextFormField extends StatefulWidget {
       this.inputType = TextInputType.text,
       this.borderColor,
       this.suffix,
+      this.prefix,
       this.onChanged,
       this.onSubmitted,
       this.inputFormatters,
@@ -36,6 +37,7 @@ class CustomTextFormField extends StatefulWidget {
   final Function(String)? onSubmitted;
   final List<TextInputFormatter>? inputFormatters;
   Widget? suffix;
+  Widget? prefix;
   final int? maxLength;
   final TextStyle? style;
   final String? errorText;
@@ -183,6 +185,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                                   contentPadding: const EdgeInsets.only(top: 8),
                                   border: InputBorder.none,
                                   labelText: widget.labelText,
+                                  prefix: widget.prefix,
                                   suffixIcon: widget.suffix),
                             ),
                           ),
