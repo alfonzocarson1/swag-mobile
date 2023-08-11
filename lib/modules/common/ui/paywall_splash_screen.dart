@@ -60,7 +60,7 @@ class _PaywallSplashScreenState extends State<PaywallSplashScreen> {
   Widget build(BuildContext context) {
     double deviceWidth = MediaQuery.of(context).size.width;
     double deviceHeight = MediaQuery.of(context).size.height;
-    double aspectRatio =  MediaQuery.of(context).size.aspectRatio;
+
 
     List<String> payWallConditionList = [
       S.of(context).paywall_splash_condition1,
@@ -129,15 +129,15 @@ class _PaywallSplashScreenState extends State<PaywallSplashScreen> {
                 ): const SizedBox.shrink()
                   ],
                 ),
-                SizedBox(height: deviceHeight * 0.03,),
+                SizedBox(height: deviceHeight * 0.04,),
                 ListView.builder(
-                    padding:  EdgeInsets.symmetric(horizontal: aspectRatio*37),
+                    padding:  EdgeInsets.symmetric(horizontal: deviceWidth*0.057),
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: payWallConditionList.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
-                       height: aspectRatio * 85,                 
+                       height: (deviceHeight > 840) ? 35 : 49,                 
                         margin: const EdgeInsets.symmetric(vertical: 0),
                         child: CustomPaywallListTile(
                           leadingSpacing: 10,
@@ -151,15 +151,15 @@ class _PaywallSplashScreenState extends State<PaywallSplashScreen> {
                                   .textTheme
                                   .bodySmall!
                                   .copyWith(
-                                    fontSize: aspectRatio * 30,
+                                    fontSize: 16,
                                     fontFamily: "Ringside Regular",
-                                      fontWeight: FontWeight.w400,
+                                      fontWeight: FontWeight.w300,
                                       color: Palette.current.primaryWhiteSmoke)),
                           trailing: (payWallConditionList[index].contains("for sale")) ? Text(S.of(context).pawyall_kyc_required, style: Theme.of(context)
                                   .textTheme
                                   .bodySmall!
                                   .copyWith(
-                                    fontSize: aspectRatio * 30,
+                                    fontSize: 16,
                                     fontStyle: FontStyle.italic,
                                     fontFamily: "Ringside Regular",
                                       fontWeight: FontWeight.w300,
@@ -179,13 +179,11 @@ class _PaywallSplashScreenState extends State<PaywallSplashScreen> {
                       fontWeight: FontWeight.w300,
                       fontFamily: "KnockoutCustom",
                       fontSize: 25,
-                      color: Palette.current.primaryNeonGreen),
+                      color: Palette.current.blueNeon),
                 ),
                 const SizedBox(height: 35),
                 PrimaryButton(
-                    title: (widget.hasUsedFreeTrial)
-                        ? S.of(context).paywall_sign_up_premium.toUpperCase()
-                        : S.of(context).paywall_yearly_button.toUpperCase(),
+                    title: S.of(context).paywall_yearly_button.toUpperCase(),
                     onPressed: () {
                         getIt<PaywallCubit>().startPurchase(flavorProducts.annualSubscription);
                     },
