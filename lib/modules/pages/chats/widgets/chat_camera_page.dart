@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_exif_rotation/flutter_exif_rotation.dart';
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
@@ -37,11 +38,16 @@ class _ChatCameraState extends State<ChatCamera> {
 
       if (cameras!.length > 0) {
         setState(() {
-          controller = CameraController(cameras![0], ResolutionPreset.high);
+          controller = CameraController(
+            cameras![0], 
+            ResolutionPreset.high);
+           
           controller.initialize().then((_) {
             if (!mounted) {
               return;
             }
+             controller.lockCaptureOrientation(DeviceOrientation.portraitUp);
+             
             setState(() {});
           });
         });
@@ -78,15 +84,21 @@ class _ChatCameraState extends State<ChatCamera> {
     try {
       XFile file = await controller.takePicture();
 
+      DeviceOrientation orientation = controller.value.deviceOrientation;
+
       if (mounted) {
         setState(() {});
         File tmpFile = File(file.path);
-        final result = await ImageGallerySaver.saveFile(tmpFile.path).then((value) {
-       
-        //File(file.path).delete(); // delete the temporary file after saving to gallery
+        final result = await ImageGallerySaver.saveFile(tmpFile.path).then((value) {    
         print('Image saved to the gallery');
        
       });
+        if(orientation == DeviceOrientation.portraitUp){
+           File rotatedImage = await FlutterExifRotation.rotateImage(
+        path: tmpFile.path,
+      );
+      tmpFile = rotatedImage;
+        }
         getIt<ChatCubit>().sendCameraFile(widget.channel, tmpFile, file.mimeType.toString());
         Navigator.of(context).pop();
         print("File Saved to Gallery $result");
@@ -152,13 +164,10 @@ class _ChatCameraState extends State<ChatCamera> {
             Icons.arrow_back_ios,
             color: Palette.current.primaryNeonGreen,
           ),
-          onPressed: () async {
-           
+          onPressed: () async {        
             Navigator.of(context).pop();
           },
         ),
-
-        // foregroundColor: Palette.current.greyMessage,
         backgroundColor: Palette.current.blackAppbarBlackground,
        
       ),
