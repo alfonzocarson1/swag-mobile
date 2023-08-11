@@ -60,6 +60,7 @@ class _PaywallSplashScreenState extends State<PaywallSplashScreen> {
   Widget build(BuildContext context) {
     double deviceWidth = MediaQuery.of(context).size.width;
     double deviceHeight = MediaQuery.of(context).size.height;
+    double aspectRatio =  MediaQuery.of(context).size.aspectRatio;
 
     List<String> payWallConditionList = [
       S.of(context).paywall_splash_condition1,
@@ -130,16 +131,16 @@ class _PaywallSplashScreenState extends State<PaywallSplashScreen> {
                 ),
                 SizedBox(height: deviceHeight * 0.03,),
                 ListView.builder(
-                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                    padding:  EdgeInsets.symmetric(horizontal: aspectRatio*37),
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: payWallConditionList.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
-                       height: deviceHeight * 0.054,                 
+                       height: aspectRatio * 85,                 
                         margin: const EdgeInsets.symmetric(vertical: 0),
                         child: CustomPaywallListTile(
-                          leadingSpacing: 20,
+                          leadingSpacing: 10,
                           trailingSpacing: 0,                     
                           leading: SizedBox(
                               height: deviceHeight * 0.03,
@@ -150,7 +151,7 @@ class _PaywallSplashScreenState extends State<PaywallSplashScreen> {
                                   .textTheme
                                   .bodySmall!
                                   .copyWith(
-                                    fontSize: 14,
+                                    fontSize: aspectRatio * 30,
                                     fontFamily: "Ringside Regular",
                                       fontWeight: FontWeight.w400,
                                       color: Palette.current.primaryWhiteSmoke)),
@@ -158,7 +159,7 @@ class _PaywallSplashScreenState extends State<PaywallSplashScreen> {
                                   .textTheme
                                   .bodySmall!
                                   .copyWith(
-                                    fontSize: 14,
+                                    fontSize: aspectRatio * 30,
                                     fontStyle: FontStyle.italic,
                                     fontFamily: "Ringside Regular",
                                       fontWeight: FontWeight.w300,
