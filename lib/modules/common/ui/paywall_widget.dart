@@ -59,6 +59,7 @@ class _PayWallWidgetState extends State<PayWallWidget> {
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
           child: SingleChildScrollView(
+            physics: NeverScrollableScrollPhysics(),
             child: Padding(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
               child: Column(
@@ -94,14 +95,14 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                     height: height * 0.02,
                   ),
        
-                  ListView.builder(
-                    padding:  EdgeInsets.symmetric(horizontal: aspectRatio*57),
+                 ListView.builder(
+                    padding:  EdgeInsets.symmetric(horizontal: (width > 380) ? 30 : 27),
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: payWallConditionList.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
-                       height: aspectRatio * 85,                 
+                       height: (height > 840) ? 35 : 49,                 
                         margin: const EdgeInsets.symmetric(vertical: 0),
                         child: CustomPaywallListTile(
                           leadingSpacing: 10,
@@ -115,22 +116,22 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                                   .textTheme
                                   .bodySmall!
                                   .copyWith(
-                                    fontSize: aspectRatio * 30,
+                                    fontSize: 16,
                                     fontFamily: "Ringside Regular",
-                                      fontWeight: FontWeight.w400,
+                                      fontWeight: FontWeight.w300,
                                       color: Palette.current.primaryWhiteSmoke)),
                           trailing: (payWallConditionList[index].contains("for sale")) ? Text(S.of(context).pawyall_kyc_required, style: Theme.of(context)
                                   .textTheme
                                   .bodySmall!
                                   .copyWith(
-                                    fontSize: aspectRatio * 30,
+                                    fontSize: 16,
                                     fontStyle: FontStyle.italic,
                                     fontFamily: "Ringside Regular",
                                       fontWeight: FontWeight.w300,
                                       color: Palette.current.darkGray),) : const SizedBox.shrink() ,
                         ),
                       );
-                    }),         
+                    }),
                   SizedBox(
                     height: height * 0.02,
                   ),
@@ -153,9 +154,7 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                     height: height * 0.03,
                   ),
                   PrimaryButton(
-                    title: (widget.hasUsedFreeTrial)
-                        ? S.of(context).paywall_sign_up_premium.toUpperCase()
-                        : S.of(context).paywall_yearly_button.toUpperCase(),
+                    title: S.of(context).paywall_yearly_button.toUpperCase(),
                     onPressed: () {
                       getIt<PaywallCubit>().startPurchase(flavorProducts.annualSubscription);
                     },
@@ -165,9 +164,7 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                     height: height * 0.03,
                   ),
                   PrimaryButton(
-                    title: (widget.hasUsedFreeTrial)
-                        ? S.of(context).paywall_sign_up_premium.toUpperCase()
-                        : S.of(context).paywall_monthly_button.toUpperCase(),
+                    title: S.of(context).paywall_monthly_button.toUpperCase(),
                     onPressed: () {
                       getIt<PaywallCubit>().startPurchase(flavorProducts.monthlySubscription);
                     },
