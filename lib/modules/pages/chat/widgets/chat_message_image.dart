@@ -31,24 +31,18 @@ class ChatMessageImage extends StatelessWidget {
            return PhotoViewGalleryPageOptions(
              imageProvider: CachedNetworkImageProvider(url),
              initialScale: PhotoViewComputedScale.contained * 0.8,
-             //heroAttributes: PhotoViewHeroAttributes(tag: ),
            );
          },
-        // itemCount: galleryItems.length,
+
          loadingBuilder: (context, event) => const Center(
            child: SizedBox(
              width: 20.0,
              height: 20.0,
              child: CircularProgressIndicator(
-               // value: event == null
-               //     ? 0
-               //     : event.cumulativeBytesLoaded / event.expectedTotalBytes,
              ),
            ),
          ), itemCount: 1,
-         //backgroundDecoration: widget.backgroundDecoration,
-        // pageController: widget.pageController,
-         //onPageChanged: onPageChanged,
+
        ),
      );
   }
