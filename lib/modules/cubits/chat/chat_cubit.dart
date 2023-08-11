@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_exif_rotation/flutter_exif_rotation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
@@ -54,7 +55,6 @@ class ChatCubit extends Cubit<ChatState> {
 
       setupOnMessageReceivedHandler();
 
-      //await this.initSendBirdPushNotifications();
     } catch (e) {
       throw Exception('Error loading my user');
     }
@@ -72,7 +72,6 @@ class ChatCubit extends Cubit<ChatState> {
       ..nextResultSize = 30
       ..reverse = true;
 
-    // emit(const ChatsLoading());
     try {
       messages = await channel.getMessagesByTimestamp(
           DateTime.now().millisecondsSinceEpoch, params);
@@ -151,7 +150,6 @@ class ChatCubit extends Cubit<ChatState> {
         },
       );
 
-      // Load messages after sending the new one
       await loadMessages(channel);
       return sentMessage;
     } catch (e) {
@@ -181,12 +179,7 @@ class ChatCubit extends Cubit<ChatState> {
         currentMessages.insert(0, message);
         emit(ChatState.loadedChats(currentMessages));
         debugPrint('File message sent successfully');
-        // var index = currentMessages.indexOf(tempMessage);
-        //   if (index != -1) {
-        //     currentMessages[index] = message;
-        //     emit(ChatState.loadedChats(currentMessages));
-        //     debugPrint('File message sent successfully');
-        //   }
+
       },
       progressHandler: (sentBytes, totalBytes) {
         debugPrint('Uploading File: $sentBytes / $totalBytes');
@@ -209,19 +202,17 @@ class ChatCubit extends Cubit<ChatState> {
     final picker = ImagePicker();
     XFile? pickedFile = await picker.pickMedia(imageQuality: 70);
 
+
     if (pickedFile != null) {
       List<Size>? chatThumbnailSizes = const [Size(100, 100), Size(40, 40)];
-      final params = FileMessageCreateParams.withFile(File(pickedFile.path),
+        File rotatedImage = await FlutterExifRotation.rotateImage(
+        path: pickedFile.path,
+      );
+      final params = FileMessageCreateParams.withFile(File(rotatedImage.path),
           fileName: pickedFile.name,
           customType: pickedFile.mimeType,
           pushNotificationDeliveryOption: PushNotificationDeliveryOption.normal)
         ..thumbnailSizes = chatThumbnailSizes;
-      // or other MIME type based on your file
-
-      // FileMessage tempMessage = FileMessage(url: "", name: "placeholder", channelUrl: channel.channelUrl, channelType: channel.channelType, messageId: tempMessageId, sendingStatus: SendingStatus.pending);
-      // currentMessages.insert(0, tempMessage);
-      // emit(ChatState.loadingFile(sentBytes, totalBytes));
-      //Future.delayed(const Duration(milliseconds: 500));
 
       fileMessage = await channel.sendFileMessage(
         params,
@@ -233,12 +224,7 @@ class ChatCubit extends Cubit<ChatState> {
           currentMessages.insert(0, message);
           emit(ChatState.loadedChats(currentMessages));
           debugPrint('File message sent successfully');
-          // var index = currentMessages.indexOf(tempMessage);
-          //   if (index != -1) {
-          //     currentMessages[index] = message;
-          //     emit(ChatState.loadedChats(currentMessages));
-          //     debugPrint('File message sent successfully');
-          //   }
+
         },
         progressHandler: (sentBytes, totalBytes) {
           debugPrint('Uploading File: $sentBytes / $totalBytes');
@@ -269,13 +255,7 @@ class ChatCubit extends Cubit<ChatState> {
     }
   }
 
-  //  bool isChatWithUrlLoaded(String channelUrl) {
-  //   return state.maybeMap(
-  //     loadedChatChannels: (state) =>
-  //         state.channels.any((channel) => channel.channelUrl == channelUrl),
-  //     orElse: () => false,
-  //   );
-  // }
+
 
   Future<String> getChannelUrl(String productId) async {
     String channelUrl = "";
@@ -304,27 +284,7 @@ class ChatCubit extends Cubit<ChatState> {
             type: (Platform.isIOS) ? PushTokenType.apns : PushTokenType.fcm,
             token: firebaseToken,
             unique: true);
-    // debugPrint(notificationRegisterStatus.toString());
 
-//        PushTokenType? _getPushTokenType() {
-//   PushTokenType? pushTokenType;
-//   if (Platform.isAndroid) {
-//     pushTokenType = PushTokenType.fcm;
-//   } else if (Platform.isIOS) {
-//     pushTokenType = PushTokenType.apns;
-//   }
-//   return pushTokenType;
-// }
-
-// Future<String?> _getToken() async {
-//   String? token;
-//   if (Platform.isAndroid) {
-//     token = await FirebaseMessaging.instance.getToken();
-//   } else if (Platform.isIOS) {
-//     token = await FirebaseMessaging.instance.getAPNSToken();
-//   }
-//   return token;
-// }
   }
 
   bringAdminToChat(String channelUrl) async =>
