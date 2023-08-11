@@ -81,7 +81,7 @@ class _CustomDataTableState extends State<CustomDataTable> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint(MediaQuery.of(context).size.height.toString());
+    double height = MediaQuery.of(context).size.height;
     return  Theme(
           data: Theme.of(context).copyWith(
             dividerTheme: const DividerThemeData(
@@ -93,7 +93,7 @@ class _CustomDataTableState extends State<CustomDataTable> {
               :
            SizedBox(
 
-            height: MediaQuery.of(context).size.height - (MediaQuery.of(context).size.height *0.15),
+            height: height,
             child: _subscriptionListView()
           )
     );
