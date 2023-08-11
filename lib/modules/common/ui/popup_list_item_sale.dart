@@ -113,28 +113,64 @@ class _PopUpListItemSaleState extends State<PopUpListItemSale> {
                                             children: [
                                               Row(
                                                 children: [
-                                                  SizedBox(
-                                                    height: 24.0,
-                                                    width: 20.0,
-                                                    child: Checkbox(
-                                                      checkColor: Colors.black,
-                                                      side: const BorderSide(
-                                                          color:
-                                                              Color(0xff585858),
-                                                          width: 1.5),
-                                                      value: _selecteCategorys
-                                                          .contains(widget
-                                                              .dataCollection![
-                                                                  index]
-                                                              .profileCollectionItemId),
-                                                      onChanged:
-                                                          (bool? newValue) {
-                                                        _onCollectionSelected(
-                                                            newValue!,
-                                                            widget.dataCollection![
-                                                                index]);
-                                                        setState(() {});
-                                                      },
+                                                  Container(
+                                                    width: 18,
+                                                    height: 18,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              30.0),
+                                                      border: Border.all(
+                                                        color: _selecteCategorys
+                                                                .contains(widget
+                                                                    .dataCollection![
+                                                                        index]
+                                                                    .profileCollectionItemId)
+                                                            ? Palette.current
+                                                                .primaryNeonGreen
+                                                            : Colors.grey,
+                                                      ),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              2.0),
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(30.0),
+                                                        child: Container(
+                                                          color: _selecteCategorys
+                                                                  .contains(widget
+                                                                      .dataCollection![
+                                                                          index]
+                                                                      .profileCollectionItemId)
+                                                              ? Palette.current
+                                                                  .primaryNeonGreen
+                                                              : Colors
+                                                                  .transparent,
+                                                          child: Checkbox(
+                                                              value: _selecteCategorys
+                                                                  .contains(widget
+                                                                      .dataCollection![
+                                                                          index]
+                                                                      .profileCollectionItemId),
+                                                              onChanged: (bool?
+                                                                  newValue) {
+                                                                _onCollectionSelected(
+                                                                    newValue!,
+                                                                    widget.dataCollection![
+                                                                        index]);
+                                                                setState(() {});
+                                                              },
+                                                              activeColor: Palette
+                                                                  .current
+                                                                  .primaryNeonGreen,
+                                                              checkColor: Palette
+                                                                  .current
+                                                                  .primaryNeonGreen),
+                                                        ),
+                                                      ),
                                                     ),
                                                   ),
                                                   const SizedBox(
@@ -151,7 +187,7 @@ class _PopUpListItemSaleState extends State<PopUpListItemSale> {
                                                             color: Palette
                                                                 .current
                                                                 .primaryWhiteSmoke,
-                                                          ))
+                                                          )),
                                                 ],
                                               ),
                                               const SizedBox(

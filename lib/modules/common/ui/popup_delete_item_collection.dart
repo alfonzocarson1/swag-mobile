@@ -11,6 +11,7 @@ import '../../blocs/detail_bloc/detail_bloc.dart';
 import '../../models/collection/add_collection_items_payload_model.dart';
 import '../../models/collection/add_collection_model.dart';
 import '../../models/detail/detail_collection_model.dart';
+import '../../models/ui_models/checkbox_model.dart';
 import 'loading.dart';
 
 class PopUpDeleteItemCollection extends StatefulWidget {
@@ -25,6 +26,8 @@ class _PopUpDeleteItemCollectionState extends State<PopUpDeleteItemCollection> {
   String? _razon;
   bool razonUi = true;
   bool removeAlert = false;
+
+  List<CheckboxModel> options = [];
 
   //Remove variable//
   late DetailCollectionModel removeDataCollection;
@@ -67,6 +70,11 @@ class _PopUpDeleteItemCollectionState extends State<PopUpDeleteItemCollection> {
   }
 
   Dialog _getBody() {
+    options = [
+      CheckboxModel(title: S.of(context).delete_collection_razon_1),
+      CheckboxModel(title: S.of(context).delete_collection_razon_2),
+      CheckboxModel(title: S.of(context).delete_collection_razon_3),
+    ];
     return Dialog(
       insetPadding: const EdgeInsets.all(20),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
@@ -123,132 +131,110 @@ class _PopUpDeleteItemCollectionState extends State<PopUpDeleteItemCollection> {
                         height: 30,
                       ),
                       razonUi
-                          ? Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    SizedBox(
-                                      height: 24.0,
-                                      width: 20.0,
-                                      child: Checkbox(
-                                        checkColor: Colors.black,
-                                        side: const BorderSide(
-                                            color: Color(0xff585858),
-                                            width: 1.5),
-                                        value: _selecteRazon.contains(1),
-                                        onChanged: (bool? newValue) {
-                                          _onRazonSelected(
-                                              newValue!,
-                                              1,
-                                              S
-                                                  .of(context)
-                                                  .delete_collection_razon_1);
-                                          setState(() {});
-                                        },
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(
-                                        S.of(context).delete_collection_razon_1,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall!
-                                            .copyWith(
-                                              fontSize: 15,
-                                              letterSpacing: 0.3,
-                                              color: Palette
-                                                  .current.primaryWhiteSmoke,
-                                            ))
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 30,
-                                ),
-                                Row(
-                                  children: [
-                                    SizedBox(
-                                      height: 24.0,
-                                      width: 20.0,
-                                      child: Checkbox(
-                                        checkColor: Colors.black,
-                                        side: const BorderSide(
-                                            color: Color(0xff585858),
-                                            width: 1.5),
-                                        value: _selecteRazon.contains(2),
-                                        onChanged: (bool? newValue) {
-                                          _onRazonSelected(
-                                              newValue!,
-                                              2,
-                                              S
-                                                  .of(context)
-                                                  .delete_collection_razon_2);
-                                          setState(() {});
-                                        },
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(
-                                        S.of(context).delete_collection_razon_2,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall!
-                                            .copyWith(
-                                              fontSize: 15,
-                                              letterSpacing: 0.3,
-                                              color: Palette
-                                                  .current.primaryWhiteSmoke,
-                                            ))
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 30,
-                                ),
-                                Row(
-                                  children: [
-                                    SizedBox(
-                                      height: 24.0,
-                                      width: 20.0,
-                                      child: Checkbox(
-                                        checkColor: Colors.black,
-                                        side: const BorderSide(
-                                            color: Color(0xff585858),
-                                            width: 1.5),
-                                        value: _selecteRazon.contains(3),
-                                        onChanged: (bool? newValue) {
-                                          _onRazonSelected(
-                                              newValue!,
-                                              3,
-                                              S
-                                                  .of(context)
-                                                  .delete_collection_razon_3);
-                                          setState(() {});
-                                        },
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(
-                                        S.of(context).delete_collection_razon_3,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall!
-                                            .copyWith(
-                                              fontSize: 15,
-                                              letterSpacing: 0.3,
-                                              color: Palette
-                                                  .current.primaryWhiteSmoke,
-                                            ))
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 30,
-                                ),
-                              ],
+                          ? SizedBox(
+                              height: 150.0,
+                              child: ListView.builder(
+                                  itemCount: 1,
+                                  itemBuilder: (context, index) {
+                                    return Column(
+                                      children: List.generate(
+                                          options.length,
+                                          (index) => Column(
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      Container(
+                                                        width: 18,
+                                                        height: 18,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      30.0),
+                                                          border: Border.all(
+                                                            color: _selecteRazon
+                                                                    .contains(
+                                                                        index +
+                                                                            1)
+                                                                ? Palette
+                                                                    .current
+                                                                    .primaryNeonGreen
+                                                                : Colors.grey,
+                                                          ),
+                                                        ),
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(2.0),
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        30.0),
+                                                            child: Container(
+                                                              color: _selecteRazon
+                                                                      .contains(
+                                                                          index +
+                                                                              1)
+                                                                  ? Palette
+                                                                      .current
+                                                                      .primaryNeonGreen
+                                                                  : Colors
+                                                                      .transparent,
+                                                              child: Checkbox(
+                                                                  value: _selecteRazon
+                                                                      .contains(
+                                                                          index +
+                                                                              1),
+                                                                  onChanged: (bool?
+                                                                      newValue) {
+                                                                    _onRazonSelected(
+                                                                        newValue!,
+                                                                        index +
+                                                                            1,
+                                                                        options[index]
+                                                                            .title);
+                                                                    setState(
+                                                                        () {});
+                                                                  },
+                                                                  activeColor: Palette
+                                                                      .current
+                                                                      .primaryNeonGreen,
+                                                                  checkColor: Palette
+                                                                      .current
+                                                                      .primaryNeonGreen),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(
+                                                        width: 10,
+                                                      ),
+                                                      Text(options[index].title,
+                                                          style:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .bodySmall!
+                                                                  .copyWith(
+                                                                    fontSize:
+                                                                        15,
+                                                                    letterSpacing:
+                                                                        0.3,
+                                                                    color: Palette
+                                                                        .current
+                                                                        .primaryWhiteSmoke,
+                                                                  )),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 30,
+                                                  ),
+                                                ],
+                                              )),
+                                    );
+                                  },
+                                  scrollDirection: Axis.vertical),
                             )
                           : (!razonUi &&
                                   widget.dataCollection!.length > 1 &&
@@ -265,37 +251,63 @@ class _PopUpDeleteItemCollectionState extends State<PopUpDeleteItemCollection> {
                                                     children: [
                                                       Row(
                                                         children: [
-                                                          SizedBox(
-                                                            height: 24.0,
-                                                            width: 20.0,
-                                                            child: Checkbox(
-                                                              checkColor:
-                                                                  Colors.black,
-                                                              side: const BorderSide(
-                                                                  color: Color(
-                                                                      0xff585858),
-                                                                  width: 1.5),
-                                                              value: _selecteCategorys
-                                                                  .contains(widget
-                                                                      .dataCollection![
-                                                                          index]
-                                                                      .profileCollectionItemId),
-                                                              onChanged: (bool?
-                                                                  newValue) {
-                                                                _onCollectionSelected(
-                                                                    newValue!,
-                                                                    widget
+                                                          Container(
+                                                            width: 18,
+                                                            height: 18,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          30.0),
+                                                              border:
+                                                                  Border.all(
+                                                                color: _selecteCategorys.contains(widget
                                                                         .dataCollection![
                                                                             index]
-                                                                        .profileCollectionItemId,
-                                                                    widget
-                                                                        .dataCollection![
-                                                                            index]
-                                                                        .itemCondition,
-                                                                    widget.dataCollection![
-                                                                        index]);
-                                                                setState(() {});
-                                                              },
+                                                                        .profileCollectionItemId)
+                                                                    ? Palette
+                                                                        .current
+                                                                        .primaryNeonGreen
+                                                                    : Colors
+                                                                        .grey,
+                                                              ),
+                                                            ),
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(2.0),
+                                                              child: ClipRRect(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            30.0),
+                                                                child:
+                                                                    Container(
+                                                                  color: _selecteCategorys.contains(widget
+                                                                          .dataCollection![
+                                                                              index]
+                                                                          .profileCollectionItemId)
+                                                                      ? Palette
+                                                                          .current
+                                                                          .primaryNeonGreen
+                                                                      : Colors
+                                                                          .transparent,
+                                                                  child: Checkbox(
+                                                                      value: _selecteCategorys.contains(widget.dataCollection![index].profileCollectionItemId),
+                                                                      onChanged: (bool? newValue) {
+                                                                        _onCollectionSelected(
+                                                                            newValue!,
+                                                                            widget.dataCollection![index].profileCollectionItemId,
+                                                                            widget.dataCollection![index].itemCondition,
+                                                                            widget.dataCollection![index]);
+                                                                        setState(
+                                                                            () {});
+                                                                      },
+                                                                      activeColor: Palette.current.primaryNeonGreen,
+                                                                      checkColor: Palette.current.primaryNeonGreen),
+                                                                ),
+                                                              ),
                                                             ),
                                                           ),
                                                           const SizedBox(
@@ -315,7 +327,7 @@ class _PopUpDeleteItemCollectionState extends State<PopUpDeleteItemCollection> {
                                                                     color: Palette
                                                                         .current
                                                                         .primaryWhiteSmoke,
-                                                                  ))
+                                                                  )),
                                                         ],
                                                       ),
                                                       const SizedBox(
