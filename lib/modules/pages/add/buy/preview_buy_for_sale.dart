@@ -137,6 +137,13 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
     channels = await getIt<ChatCubit>().loadGroupChannels();
   }
 
+  Future<void> _refreshList() async {
+    // Simular la carga de datos
+    await Future.delayed(Duration(seconds: 2));
+    getIt<BuyCubit>().getListDetailItem(widget.productItemId ?? '');
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     getChatChannels();
@@ -190,66 +197,71 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
   Widget _buildLoadedListingData(BuildContext context) {
     String productItemName = listData.productItemName ?? "";
     String condition = listData.condition ?? "";
-    return SingleChildScrollView(
-      physics: const ClampingScrollPhysics(),
-      child: Column(
-        children: [
-          MultiImageSlideBuyPreview(
-            imgList: listData.productItemImageUrls,
-          ),
-          const SizedBox(height: 4),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                _buildListingHeader(productItemName, context),
-                const SizedBox(height: 10),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(
-                      listData.lastSale.toString(),
-                    )} ',
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontWeight: FontWeight.w300,
-                          color: Palette.current.primaryNeonGreen,
-                        ),
-                  ),
-                ),
-                const SizedBox(height: 14),
-                _buildPaymentTypesAccepted(context),
-                const SizedBox(height: 23),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Condition: ${condition.capitalize()}",
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontWeight: FontWeight.w300,
-                          color: Palette.current.primaryNeonPink,
-                        ),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Container(
-                  padding: const EdgeInsets.only(right: 50.0),
-                  child: Text(
-                    '${listData.productItemDescription}',
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 15,
-                          letterSpacing: 0.3,
-                          color: Palette.current.primaryWhiteSmoke,
-                        ),
-                  ),
-                ),
-                const SizedBox(height: 30),
-                (isLoggedInUserListing)
-                    ? _buildLoggedInUserFooter(context)
-                    : _buildFooter(context),
-              ],
+
+    return RefreshIndicator(
+      onRefresh: _refreshList,
+      child: SingleChildScrollView(
+        physics:
+            const AlwaysScrollableScrollPhysics(), // Makes sure the scroll view is always scrollable, required for RefreshIndicator.
+        child: Column(
+          children: [
+            MultiImageSlideBuyPreview(
+              imgList: listData.productItemImageUrls,
             ),
-          ),
-        ],
+            const SizedBox(height: 4),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  _buildListingHeader(productItemName, context),
+                  const SizedBox(height: 10),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      '${S.of(context).for_sale}: ${decimalDigitsLastSalePrice(
+                        listData.lastSale.toString(),
+                      )} ',
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            fontWeight: FontWeight.w300,
+                            color: Palette.current.primaryNeonGreen,
+                          ),
+                    ),
+                  ),
+                  const SizedBox(height: 14),
+                  _buildPaymentTypesAccepted(context),
+                  const SizedBox(height: 23),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Condition: ${condition.capitalize()}",
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            fontWeight: FontWeight.w300,
+                            color: Palette.current.primaryNeonPink,
+                          ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Container(
+                    padding: const EdgeInsets.only(right: 50.0),
+                    child: Text(
+                      '${listData.productItemDescription}',
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            fontSize: 15,
+                            letterSpacing: 0.3,
+                            color: Palette.current.primaryWhiteSmoke,
+                          ),
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+                  (isLoggedInUserListing)
+                      ? _buildLoggedInUserFooter(context)
+                      : _buildFooter(context),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

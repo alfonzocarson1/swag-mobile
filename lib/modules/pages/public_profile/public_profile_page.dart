@@ -107,28 +107,46 @@ class PublicProfilePage extends StatelessWidget {
     );
   }
 
+  Future<void> _handleRefresh(BuildContext context) async {
+    await context.read<PublicProfileCubit>().loadProfile(profileId);
+    await context
+        .read<PublicProfileListingsCubit>()
+        .loadProfileListings(profileId);
+    await context
+        .read<PublicProfileFavoritesCubit>()
+        .loadProfileFavorites(profileId);
+  }
+
   buildBody(BuildContext context, PublicProfile profile) {
-    return Column(
-      children: [
-        const SizedBox(height: 18),
-        UserAvatar(
-          useAvatar: profile.useAvatar,
-          avatarUrl: profile.avatarUrl,
-          radius: 125 / 2,
+    return RefreshIndicator(
+      onRefresh: () => _handleRefresh(context),
+      child: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        child: Column(
+          children: [
+            const SizedBox(height: 18),
+            UserAvatar(
+              useAvatar: profile.useAvatar,
+              avatarUrl: profile.avatarUrl,
+              radius: 125 / 2,
+            ),
+            const SizedBox(height: 14),
+            ProfileUsernameRating(
+              username: profile.username ?? "NULL",
+              kycVerified: profile.kycverified ?? false,
+              rating: profile.listingsRating ?? 0,
+            ),
+            const SizedBox(height: 25),
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height / 2,
+              child: _PublicProfileTabs(
+                profileId: profileId,
+              ),
+            ),
+          ],
         ),
-        const SizedBox(height: 14),
-        ProfileUsernameRating(
-          username: profile.username ?? "NULL",
-          kycVerified: profile.kycverified ?? false,
-          rating: profile.listingsRating ?? 0,
-        ),
-        const SizedBox(height: 25),
-        Expanded(
-          child: _PublicProfileTabs(
-            profileId: profileId,
-          ),
-        )
-      ],
+      ),
     );
   }
 }

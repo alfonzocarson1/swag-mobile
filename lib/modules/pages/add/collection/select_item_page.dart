@@ -38,7 +38,6 @@ class SelectItemPage extends StatefulWidget {
 
 class _SelectItemPageState extends State<SelectItemPage> {
   late ResponsiveDesign _responsiveDesign;
-  final TextEditingController _textEditingController = TextEditingController();
   SearchTab tab = SearchTab.all;
   bool isLoading = false;
   List<CatalogItemModel> resultList = [];
@@ -92,6 +91,7 @@ class _SelectItemPageState extends State<SelectItemPage> {
                 isLoading = true;
                 return ItemPageGridBody(
                   catalogList: resultList,
+                  refresh: null,
                 );
               },
               loaded: (tabMap, newMap) {
@@ -102,12 +102,18 @@ class _SelectItemPageState extends State<SelectItemPage> {
                 }
                 return ItemPageGridBody(
                   catalogList: resultList,
+                  refresh: () {
+                    callApi(null);
+                  },
                 );
               });
         }));
   }
 
   callApi(String? param) async {
+    if (param == null) {
+      _searchController.clear();
+    }
     getIt<PaginatedSearchCubit>().loadResults(
         searchModel: SearchRequestPayloadModel(
           searchParams: (param == null || param.isEmpty) ? null : [param],
