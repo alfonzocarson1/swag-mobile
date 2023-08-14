@@ -60,7 +60,18 @@ class BuyCubit extends Cubit<BuyStateCubit> {
     try {
       BuyASaleListingResponseModel responseBody =
           await buyService.buyAListing(buyAListing);
-      emit(BuyStateCubit.loadedBuyLisItem(responseBody));
+
+      if (responseBody.errorCode == "3") {
+        BuyForSaleListingModel? listinStatus = await getIt<BuyCubit>()
+            .getAlertListDetailItem(buyAListing.productItemId ?? '');
+        LocalNotificationProvider.showInAppAllert('Listing unavailable');
+        getIt<ContextService>().rootNavigatorKey.currentState!.pop();
+        getIt<ContextService>().rootNavigatorKey.currentState!.pop();
+        getIt<BuySaleListingBloc>().add(BuySaleListingEvent.getBuyListingItem(
+            listinStatus!.catalogItemId ?? ''));
+      } else {
+        emit(BuyStateCubit.loadedBuyLisItem(responseBody));
+      }
     } catch (error) {
       emit(
         ErrorBuyStateCubit(HandlingErrors().getError(error)),
