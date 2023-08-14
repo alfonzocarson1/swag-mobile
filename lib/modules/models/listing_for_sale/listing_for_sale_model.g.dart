@@ -25,6 +25,8 @@ _$_ListingForSaleModel _$$_ListingForSaleModelFromJson(
       removedReason: json['removedReason'] as String?,
       isDeleted: json['isDeleted'] as bool?,
       status: json['status'] as String?,
+      errorCode: json['errorCode'] as String?,
+      shortMessage: json['shortMessage'] as String?,
       peerToPeerPaymentOptions: json['peerToPeerPaymentOptions'] == null
           ? null
           : PeerToPeerPaymentsModel.fromJson(
@@ -58,6 +60,8 @@ Map<String, dynamic> _$$_ListingForSaleModelToJson(
   writeNotNull('removedReason', instance.removedReason);
   writeNotNull('isDeleted', instance.isDeleted);
   writeNotNull('status', instance.status);
+  writeNotNull('errorCode', instance.errorCode);
+  writeNotNull('shortMessage', instance.shortMessage);
   writeNotNull('peerToPeerPaymentOptions', instance.peerToPeerPaymentOptions);
   writeNotNull('listingItemsAction', instance.listingItemsAction);
   return val;
