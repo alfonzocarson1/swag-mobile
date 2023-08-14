@@ -13,7 +13,10 @@ import '../../common/ui/account_info_head.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
 import '../../common/utils/utils.dart';
+import '../../cubits/collections/get_collections_cubit.dart';
+import '../../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
 import '../../cubits/profile/get_profile_cubit.dart';
+import '../../cubits/sold/get_sold_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/profile/profile_model.dart';
@@ -58,13 +61,21 @@ class _ProfilePageState extends State<ProfilePage>
     _tabController.dispose();
   }
 
+  void refresh() async {
+    print("CALLED REFRESH");
+    verifySubscriptionStatus();
+    getIt<SoldProfileCubit>().loadSoldList();
+    getIt<CollectionProfileCubit>().loadResults();
+    getIt<ListingProfileCubit>().loadResults();
+  }
+
   getUnreadMessagesState() async {
    hasUnreadMessages = await getIt<ChatCubit>().hasUnreadMessages();
     setState(() {});
   }
 
-  verifySubscriptionStatus() {
-    getIt<ProfileCubit>().loadProfileResults();
+  verifySubscriptionStatus() async {
+    await getIt<ProfileCubit>().loadProfileResults();
     setState(() {
       profileData = getIt<PreferenceRepositoryService>().profileData();
       if (profileData.hasActiveSubscription == true) {
@@ -108,7 +119,9 @@ class _ProfilePageState extends State<ProfilePage>
             builder: (context, state) {
               return state.maybeWhen(
                   orElse: () => Container(),
-                  loadedProfileData: (ProfileModel profileBuildData) {
+                  loadedProfileData: (ProfileModel
+
+                  profileBuildData) {
                     return Padding(
                       padding: const EdgeInsets.only(right: 10),
                       child: IconButton(
@@ -118,9 +131,10 @@ class _ProfilePageState extends State<ProfilePage>
                           'assets/images/Setting.png',
                           scale: 2.5,
                         ),
-                        onPressed: () {
-                          Navigator.of(context, rootNavigator: true)
+                        onPressed: () async  {
+                          await Navigator.of(context, rootNavigator: true)
                               .push(SettingsPage.route(profileBuildData));
+                          refresh();
                         },
                       ),
                     );
@@ -142,11 +156,13 @@ class _ProfilePageState extends State<ProfilePage>
                     (hasUnreadMessages)?AppIcons.chatNewMessage : AppIcons.chat,
                     scale: 2.5,
                   ),
-                  onPressed: () =>
-                      Navigator.of(context, rootNavigator: true).push(
+                  onPressed: () async {
+                       await Navigator.of(context, rootNavigator: true).push(
                         MaterialPageRoute(
-                            builder: (context) => const ChatListPage()),
-                      ));
+                            builder: (context) => const ChatListPage()));
+                       refresh();
+                      }
+                      );
                 },
                 orElse: (){
                   return IconButton(
@@ -156,11 +172,14 @@ class _ProfilePageState extends State<ProfilePage>
                     AppIcons.chat,
                     scale: 2.5,
                   ),
-                  onPressed: () =>
-                      Navigator.of(context, rootNavigator: true).push(
-                        MaterialPageRoute(
-                            builder: (context) => const ChatListPage()),
-                      ));
+                  onPressed: () async {
+                   await Navigator.of(context, rootNavigator: true).push(
+                      MaterialPageRoute(
+                          builder: (context) => const ChatListPage()));
+                     refresh();
+
+                  }
+    );
                 });
             },
           ),
