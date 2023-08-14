@@ -12,7 +12,7 @@ class SimpleLoader extends StatelessWidget {
       padding: (height <=667) ? const EdgeInsets.all(160.0) : const EdgeInsets.all(150.0) ,
       child: const Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             LoadingIndicator(
