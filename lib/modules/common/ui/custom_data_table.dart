@@ -113,7 +113,7 @@ class _CustomDataTableState extends State<CustomDataTable> {
         DataTable(
             showBottomBorder: false,
             dividerThickness: 0,
-            columnSpacing: (height <= 667) ? 20 : 35,
+            columnSpacing: (height <= 840) ? 20 : 35,
             columns: [
               DataColumn(
                 label: SizedBox(
@@ -257,6 +257,7 @@ class _CustomDataTableState extends State<CustomDataTable> {
                           .textTheme
                           .bodySmall!
                           .copyWith(
+                          fontSize: (height <= 840) ? 14 : 16,
                           fontWeight: FontWeight.w300,
                           color: Palette.current.grey)))),
               DataCell(Center(
@@ -265,6 +266,7 @@ class _CustomDataTableState extends State<CustomDataTable> {
                         .textTheme
                         .bodySmall!
                         .copyWith(
+                        fontSize: (height <= 840) ? 14 : 16,
                         fontWeight: FontWeight.w300,
                         color: Palette
                             .current.primaryNeonPink)),
@@ -277,6 +279,7 @@ class _CustomDataTableState extends State<CustomDataTable> {
                           .textTheme
                           .bodySmall!
                           .copyWith(
+                          fontSize: (height <= 840) ? 14 : 16,
                           fontWeight: FontWeight.w300,
                           color: Palette
                               .current.primaryNeonGreen)))),

@@ -49,7 +49,7 @@ class DiscountContainerWidget extends StatelessWidget {
       )),
       Container(
         padding:const EdgeInsets.fromLTRB(25, 5, 0, 0),
-        height: (deviceHeight <= 667) ? 90 : 100,
+        height: 100,
         width: deviceWidth,
         decoration: BoxDecoration(
             border: Border.all(
@@ -61,7 +61,7 @@ class DiscountContainerWidget extends StatelessWidget {
         textAlign: TextAlign.center,
         style: Theme.of(context).textTheme.displayLarge!.copyWith(
                   fontFamily: "KnockoutCustom",
-                  fontSize: (deviceHeight <= 667) ? 40 :44,
+                  fontSize: (deviceHeight <= 840) ? 40 :44,
                   letterSpacing: 1,
                   fontWeight: FontWeight.w400,
                   color: Palette.current.primaryWhiteSmoke),

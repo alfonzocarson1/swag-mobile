@@ -97,7 +97,7 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                   ),
        
                  ListView.builder(
-                    padding:  EdgeInsets.symmetric(horizontal: (width > 375) ? 26 : 20),
+                    padding:  const EdgeInsets.symmetric(horizontal: 26),
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: payWallConditionList.length,
@@ -117,7 +117,7 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                                   .textTheme
                                   .bodySmall!
                                   .copyWith(
-                                    fontSize: 16,
+                                    fontSize: (width < 390)  ? 14: 16,
                                     fontFamily: "Ringside Regular",
                                       fontWeight: FontWeight.w300,
                                       color: Palette.current.primaryWhiteSmoke)),
@@ -125,7 +125,7 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                                   .textTheme
                                   .bodySmall!
                                   .copyWith(
-                                    fontSize: 16,
+                                    fontSize: (width < 390)  ? 14 :16,
                                     fontStyle: FontStyle.italic,
                                     fontFamily: "Ringside Regular",
                                       fontWeight: FontWeight.w300,

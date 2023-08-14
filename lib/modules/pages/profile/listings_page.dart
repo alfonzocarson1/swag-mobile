@@ -80,13 +80,7 @@ class _ListingsPageState extends State<ListingsPage> {
                 orElse: () {
                   return Container();
                 },
-                initial: () => ListView.builder(
-                      itemBuilder: (_, index) => SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.5,
-                        child: const Center(child: SimpleLoader()),
-                      ),
-                      itemCount: 1,
-                    ),
+                initial: () => const SingleChildScrollView(child: SimpleLoader()),
                 loadedProfileListings:
                     (List<ListingForSaleProfileResponseModel> listForSale) {
                   return _getBody(listForSale.first.listForSale);

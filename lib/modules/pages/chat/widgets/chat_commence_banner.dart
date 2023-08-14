@@ -1,6 +1,7 @@
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:swagapp/generated/l10n.dart';
+import 'package:swagapp/modules/common/ui/simple_loader.dart';
 import 'package:swagapp/modules/common/utils/utils.dart';
 import 'package:swagapp/modules/common/assets/images.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
@@ -30,7 +31,7 @@ class ChatCommenceBanner extends StatelessWidget {
   Widget build(BuildContext context) {
      screenHeight = MediaQuery.of(context).size.height;
     return Container(
-      width: 350,
+      width: (screenHeight <=840) ? 300 : 350,
       //margin: const EdgeInsets.symmetric(horizontal: 10),
       child: GestureDetector(
         child: Column(
@@ -69,7 +70,6 @@ class _BannerContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
     return Container(
       width: double.infinity,
       height:(isListingChat) ? screenHeight * 0.20 : screenHeight * 0.23,
@@ -118,7 +118,7 @@ class _BannerTitle extends StatelessWidget {
       maxLines: 2,
       style: Theme.of(context).textTheme.bodySmall!.copyWith(
             overflow: TextOverflow.ellipsis,
-            fontSize: 18,
+            fontSize: (screenHeight <= 667) ? 16 :18,
             color: Palette.current.white,
             fontWeight: FontWeight.normal,
           ),
@@ -171,7 +171,7 @@ class _BannerProductInfo extends StatelessWidget {
           this.channelData.listingProductName.toUpperCase(),
           style: Theme.of(context).textTheme.displayMedium!.copyWith(
                 fontFamily: "KnockoutCustom",
-                fontSize: 35,
+                fontSize:(screenHeight <= 667) ? 28 : 35,
                 letterSpacing: 1.0,
                 fontWeight: FontWeight.w300,
                 color: Palette.current.light4,
@@ -181,7 +181,7 @@ class _BannerProductInfo extends StatelessWidget {
         Text(
           '${S.current.for_sale} ${decimalDigitsLastSalePrice(this.channelData.price.toString())}',
           style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                fontSize: 18,
+                fontSize:(screenHeight <= 667) ? 15 : 18,
                 letterSpacing: 0.0224,
                 fontWeight: FontWeight.w300,
                 color: Palette.current.primaryNeonGreen,
