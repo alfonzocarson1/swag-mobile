@@ -14,6 +14,7 @@ import '../../../generated/l10n.dart';
 
 import '../../common/ui/loading.dart';
 import '../../common/ui/simple_loader.dart';
+import '../../common/utils/context_service.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
 import '../../common/utils/utils.dart';
@@ -238,15 +239,29 @@ class _AlertPageState extends State<AlertPage> {
                                           item.payload!.listingStatus ==
                                               ListingStatusDataType
                                                   .listed.textValue) {
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .push(MaterialPageRoute(
-                                                builder: (context) =>
-                                                    BuyPreviewPage(
-                                                      productItemId: item
-                                                          .payload!
-                                                          .productItemId,
-                                                    )));
+                                        BuyForSaleListingModel?
+                                            alertListinStatus =
+                                            await getIt<BuyCubit>()
+                                                .getAlertListDetailItem(item
+                                                        .payload!
+                                                        .productItemId ??
+                                                    '');
+                                        if (alertListinStatus!.status ==
+                                            'removed') {
+                                          LocalNotificationProvider
+                                              .showInAppAllert(
+                                                  'Listing unavailable');
+                                        } else {
+                                          Navigator.of(context,
+                                                  rootNavigator: true)
+                                              .push(MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      BuyPreviewPage(
+                                                        productItemId: item
+                                                            .payload!
+                                                            .productItemId,
+                                                      )));
+                                        }
                                       }
 
                                       if (item.payload!.listingStatus ==

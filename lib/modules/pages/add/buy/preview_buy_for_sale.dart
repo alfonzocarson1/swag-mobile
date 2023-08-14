@@ -20,9 +20,11 @@ import 'package:swagapp/modules/models/settings/peer_to_peer_payments_model.dart
 import 'package:swagapp/modules/models/ui_models/checkbox_model.dart';
 import 'package:swagapp/modules/pages/chats/chat_list_view.dart';
 import '../../../../generated/l10n.dart';
+import '../../../blocs/buy_sale_listing_bloc/buy_sale_listing_bloc.dart';
 import '../../../blocs/sale_history/sale_history_bloc.dart';
 import '../../../common/ui/loading.dart';
 import '../../../common/ui/primary_button.dart';
+import '../../../common/utils/context_service.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
 import '../../../common/utils/send_mail_contact.dart';
@@ -35,6 +37,7 @@ import '../../../models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
 import '../../../models/buy_for_sale_listing/update_purchase_status_request.dart';
 import '../../../models/detail/detail_collection_model.dart';
 import '../../../models/overlay_buton/overlay_button_model.dart';
+import '../../../notifications_providers/local_notifications_providers.dart';
 import '../../chat/chatPage.dart';
 import '../collection/edit_list_for_Sale_page.dart';
 import '../collection/footer_list_item_page.dart';
@@ -278,6 +281,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                 showChatButton: !isLoggedInUserListing,
                 profileId: listData.profileId!,
                 useCurrentUser: isLoggedInUserListing,
+                catalogId: listData.catalogItemId ?? '',
               ),
               const SizedBox(height: 30),
               PrimaryButton(
@@ -495,6 +499,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
           showChatButton: true,
           profileId: listData.profileId!,
           useCurrentUser: isLoggedInUserListing,
+          catalogId: listData.catalogItemId ?? '',
         ),
         const SizedBox(height: 30),
         Visibility(
@@ -503,16 +508,23 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
             title: '${S.of(context).buy_for}  ${decimalDigitsLastSalePrice(
               listData.lastSale.toString(),
             )}',
-            onPressed: () {
-              showDialog(
-                context: context,
-                barrierDismissible: false,
-                builder: (BuildContext context) => BuyerCompletePurchasePopUp(
-                  payments: listData.peerToPeerPaymentOptions!,
-                  productItemId: listData.productItemId,
-                  catalogId: widget.catalogId ?? '',
-                ),
-              );
+            onPressed: () async {
+              BuyForSaleListingModel? alertListinStatus =
+                  await getIt<BuyCubit>()
+                      .getAlertListDetailItem(listData.productItemId ?? '');
+              if (alertListinStatus!.status == 'removed') {
+                handleListingStatusUnavailable(listData.catalogItemId ?? '');
+              } else {
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (BuildContext context) => BuyerCompletePurchasePopUp(
+                    payments: listData.peerToPeerPaymentOptions!,
+                    productItemId: listData.productItemId,
+                    catalogId: widget.catalogId ?? '',
+                  ),
+                );
+              }
             },
             type: PrimaryButtonType.green,
           ),
@@ -627,7 +639,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                   scale: 2,
                 ),
                 items: overlayItems,
-                onItemSelected: (String value) {
+                onItemSelected: (String value) async {
                   bool isEditListingOption() =>
                       value == editListingDropDown[0].label;
                   bool isRemoveListingOption() =>
@@ -640,7 +652,15 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                   } else if (isRemoveListingOption()) {
                     _showRemoveListingDialog(context);
                   } else if (isReportListing()) {
-                    _reportListing(profileData, listData);
+                    BuyForSaleListingModel? alertListinStatus =
+                        await getIt<BuyCubit>().getAlertListDetailItem(
+                            listData.productItemId ?? '');
+                    if (alertListinStatus!.status == 'removed') {
+                      handleListingStatusUnavailable(
+                          listData.catalogItemId ?? '');
+                    } else {
+                      _reportListing(profileData, listData);
+                    }
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(

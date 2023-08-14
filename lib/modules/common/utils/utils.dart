@@ -12,6 +12,7 @@ import 'package:swagapp/modules/models/buy_for_sale_listing/buy_for_sale_listing
 import 'package:swagapp/modules/models/shared_preferences/shared_preference_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../blocs/buy_sale_listing_bloc/buy_sale_listing_bloc.dart';
 import '../../blocs/search_bloc.dart/search_bloc.dart';
 import '../../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
 import '../../constants/constants.dart';
@@ -19,8 +20,10 @@ import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/search/filter_model.dart';
 import '../../models/search/search_request_payload_model.dart';
+import '../../notifications_providers/local_notifications_providers.dart';
 import '../ui/paywall_splash_screen.dart';
 import '../ui/dynamic_toast_messages.dart';
+import 'context_service.dart';
 
 String dateFormat(String dateStr) {
   final DateFormat displayFormater = DateFormat('dd/MM/yyyy');
@@ -515,38 +518,46 @@ List<dynamic> imagesList = [
     'id': 'AVATAR1',
     'url':
         'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Dripskull.png?alt=media&token=3e50bd26-fe59-4008-ae3d-049d8a35ff17'
-  },  
+  },
   {
     'id': 'AVATAR2',
-    'url': 'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Flipper.png?alt=media&token=fa4b02fb-992e-4bc2-8532-80fdfd7071de'
+    'url':
+        'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Flipper.png?alt=media&token=fa4b02fb-992e-4bc2-8532-80fdfd7071de'
   },
   {
     'id': 'AVATAR3',
-    'url': 'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Franklin.png?alt=media&token=c1073f88-74c2-44c8-a287-fbe0caebf878'
+    'url':
+        'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Franklin.png?alt=media&token=c1073f88-74c2-44c8-a287-fbe0caebf878'
   },
   {
     'id': 'AVATAR4',
-    'url': 'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Hamilton.png?alt=media&token=2cc6fe55-598d-4e6c-b260-cd837d1a5424'
+    'url':
+        'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Hamilton.png?alt=media&token=2cc6fe55-598d-4e6c-b260-cd837d1a5424'
   },
   {
     'id': 'AVATAR5',
-    'url': 'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/HotDog.png?alt=media&token=ca2732fc-e230-4e85-b892-1bcc018ccc6d'
+    'url':
+        'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/HotDog.png?alt=media&token=ca2732fc-e230-4e85-b892-1bcc018ccc6d'
   },
   {
     'id': 'AVATAR6',
-    'url': 'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/King.png?alt=media&token=2ff68eab-1ad6-4eb2-8c6f-78bf731d3248'
+    'url':
+        'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/King.png?alt=media&token=2ff68eab-1ad6-4eb2-8c6f-78bf731d3248'
   },
   {
     'id': 'AVATAR7',
-    'url': 'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Lincoln.png?alt=media&token=8cc89dc2-6910-451c-bf2e-32578215d5ca'
+    'url':
+        'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Lincoln.png?alt=media&token=8cc89dc2-6910-451c-bf2e-32578215d5ca'
   },
   {
     'id': 'AVATAR8',
-    'url': 'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/queen.png?alt=media&token=fd838f3d-8b30-4785-974c-a5bbfaff113b'
+    'url':
+        'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/queen.png?alt=media&token=fd838f3d-8b30-4785-974c-a5bbfaff113b'
   },
   {
     'id': 'AVATAR9',
-    'url': 'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Skull1.png?alt=media&token=a5efe842-e17b-409a-985a-b7f4a7967a7f'
+    'url':
+        'https://firebasestorage.googleapis.com/v0/b/platzitrips-c4e10.appspot.com/o/Skull1.png?alt=media&token=a5efe842-e17b-409a-985a-b7f4a7967a7f'
   },
 ];
 
@@ -606,4 +617,11 @@ Future<void> showSnackBar(BuildContext context, String message) async {
 
 extension StringNotEmptyOrNull on String? {
   bool get isNotEmptyOrNull => this?.isNotEmpty ?? false;
+}
+
+void handleListingStatusUnavailable(String catalogId) {
+  LocalNotificationProvider.showInAppAllert('Listing unavailable');
+  getIt<ContextService>().rootNavigatorKey.currentState!.pop();
+  getIt<BuySaleListingBloc>()
+      .add(BuySaleListingEvent.getBuyListingItem(catalogId));
 }
