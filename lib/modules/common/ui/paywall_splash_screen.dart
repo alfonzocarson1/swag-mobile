@@ -154,13 +154,13 @@ class _PaywallSplashScreenState extends State<PaywallSplashScreen> {
                     ),
                     ListView.builder(
                         padding: EdgeInsets.symmetric(
-                            horizontal: (deviceHeight <= 667) ? 17 : 22),
+                            horizontal: (deviceHeight <= 840) ? 17 : 22),
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: payWallConditionList.length,
                         itemBuilder: (BuildContext context, int index) {
                           return Container(
-                            height: (deviceHeight <= 667) ? 30 : 35,
+                            height: (deviceHeight <= 840) ? 30 : 35,
                             margin: const EdgeInsets.symmetric(vertical: 0),
                             child: CustomPaywallListTile(
                               leadingSpacing: 10,
@@ -174,7 +174,7 @@ class _PaywallSplashScreenState extends State<PaywallSplashScreen> {
                                       .textTheme
                                       .bodySmall!
                                       .copyWith(
-                                          fontSize: 16,
+                                          fontSize: (deviceHeight <= 840) ? 14 : 16,
                                           fontFamily: "Ringside Regular",
                                           fontWeight: FontWeight.w300,
                                           color: Palette
@@ -187,7 +187,7 @@ class _PaywallSplashScreenState extends State<PaywallSplashScreen> {
                                           .textTheme
                                           .bodySmall!
                                           .copyWith(
-                                              fontSize: 16,
+                                              fontSize:(deviceHeight <= 840) ? 14:  16,
                                               fontStyle: FontStyle.italic,
                                               fontFamily: "Ringside Regular",
                                               fontWeight: FontWeight.w300,
