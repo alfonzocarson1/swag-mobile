@@ -102,6 +102,7 @@ class _AppState extends State<App> {
                   authenticated: (_) => const HomePage(),
                   walkthrough: (_) => const OnboardingPage(),
                   onboarding: (_) => const OnboardingPage(),
+                  deleted: (_) => const LandingPage(),
                   orElse: () => const SplashPage(),
                   error: (_) => const LandingPage(),
                   unauthenticated: (_) {

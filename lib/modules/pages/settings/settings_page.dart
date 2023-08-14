@@ -30,6 +30,12 @@ class SettingsPage extends StatefulWidget {
         builder: (context) => const SettingsPage(),
       );
 
+  void onDataReceived(dynamic data) {
+    // Handle the received data
+    print('Received data: $data');
+    // You can perform any action with the received data here
+  }
+
   @override
   State<SettingsPage> createState() => _SettingsPageState();
 }
@@ -111,9 +117,12 @@ class _SettingsPageState extends State<SettingsPage> {
                         _selectSettings(
                             'assets/icons/BlockUserWhite.png',
                             S.of(context).profile_title,
-                            S.of(context).profile_sub_title, () {
-                          Navigator.of(context, rootNavigator: true)
+                            S.of(context).profile_sub_title, () async {
+                        final result = await Navigator.of(context)
                               .push(ProfileDetailPage.route());
+                        if(result){
+                          Navigator.of(context).pop();
+                        }
                         }),
                         SizedBox(
                           height: 0.2,
