@@ -200,7 +200,12 @@ class _ProfilePageState extends State<ProfilePage>
                           padding: const EdgeInsets.only(left: 10.0),
                           child: GestureDetector(
                             onTap: () {
-                              paywallAction();
+                              if(profileBuildData.hasActiveSubscription == false){
+                                paywallAction();
+                              }else{
+                                
+                              }
+                              
                             },
                             child: ImageFiltered(
                               imageFilter: ImageFilter.blur(
