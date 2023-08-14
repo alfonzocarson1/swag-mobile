@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../blocs/buy_sale_listing_bloc/buy_sale_listing_bloc.dart';
+import '../../common/utils/context_service.dart';
 import '../../common/utils/handling_errors.dart';
 import '../../data/buy_for_sale_listing/i_buy_for_sale_listing_service.dart';
 import '../../di/injector.dart';
@@ -26,8 +28,16 @@ class BuyCubit extends Cubit<BuyStateCubit> {
       emit(const loading_page(isFirstFetch: true));
       BuyForSaleListingModel responseBody =
           await buyService.buyAForSaleListing(productItemId);
-      emit(BuyStateCubit.loadedListDetailItem(responseBody));
-      emit(const loading_page(isFirstFetch: false));
+      if (responseBody.status == 'removed') {
+        emit(const loading_page(isFirstFetch: false));
+        LocalNotificationProvider.showInAppAllert('Listing unavailable');
+        getIt<ContextService>().rootNavigatorKey.currentState!.pop();
+        getIt<BuySaleListingBloc>().add(BuySaleListingEvent.getBuyListingItem(
+            responseBody.catalogItemId ?? ''));
+      } else {
+        emit(BuyStateCubit.loadedListDetailItem(responseBody));
+        emit(const loading_page(isFirstFetch: false));
+      }
     } catch (error) {
       emit(
         ErrorBuyStateCubit(HandlingErrors().getError(error)),
