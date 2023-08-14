@@ -85,11 +85,12 @@ class _AvatarPageState extends State<AvatarPage> {
 
   @override
   Widget build(BuildContext context) {
+     double height = MediaQuery.of(context).size.height;
     return Center(
       child: Stack(children: [
         SizedBox(
-          height: 125,
-          width: 128,
+          height: (height <= 667) ? 105 : 125,
+          width: (height <= 667) ? 105 : 125,
           child: CircleAvatar(
             backgroundColor: Colors.transparent,
             backgroundImage:

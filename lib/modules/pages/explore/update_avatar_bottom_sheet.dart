@@ -21,6 +21,10 @@ import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/update_profile/update_profile_payload_model.dart';
 
+
+double deviceWidth = 0.0;
+double deviceHeight = 0.0;
+
 class UpdateAvatarBottomSheet extends StatefulWidget {
   const UpdateAvatarBottomSheet(this.image, {Key? key}) : super(key: key);
 
@@ -59,6 +63,9 @@ class _UpdateAvatarBottomSheetState extends State<UpdateAvatarBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
+    deviceWidth = MediaQuery.of(context).size.width;
+    deviceHeight = MediaQuery.of(context).size.height;  
+
     return GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
@@ -94,30 +101,30 @@ class _UpdateAvatarBottomSheetState extends State<UpdateAvatarBottomSheet> {
               const SizedBox(
                 height: 20,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: GridView.builder(
-                  shrinkWrap: true,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 12.0,
-                    mainAxisSpacing: 12.0,
-                    mainAxisExtent: 100,
-                  ),
-                  itemCount: imagesList.length,
-                  itemBuilder: (_, index) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Stack(
-                          children: [_imageItem(imagesList[index])],
-                        ),
-                      ],
-                    );
-                  },
+              GridView.builder(
+                padding:  EdgeInsets.symmetric(
+                  horizontal:(deviceHeight <= 667) ? 30 : 20,),
+                shrinkWrap: true,
+                gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 12.0,
+                  mainAxisSpacing: 12.0,
+                  mainAxisExtent:(deviceHeight <= 667) ? 80: 100,
                 ),
+                itemCount: imagesList.length,
+                itemBuilder: (_, index) {
+                  return Column(
+                    children: [
+                      Stack(
+                        children: [_imageItem(imagesList[index])],
+                      ),
+                    ],
+                  );
+                },
               ),
-              const Spacer(),
+                 SizedBox(
+                height: (deviceHeight <= 667) ? 10 : 30,
+              ),
               _actionButtonSection(context),
             ],
           ),
@@ -136,8 +143,8 @@ class _UpdateAvatarBottomSheetState extends State<UpdateAvatarBottomSheet> {
           },
           child: CachedNetworkImage(
             imageUrl: avatar['url'],
-            height: 90,
-            width: 90,
+            height: (deviceHeight <= 667) ? 70 : 90,
+            width: (deviceHeight <= 667) ? 70 : 90,
             placeholder: (context, url) => Center(
               child: CircularProgressIndicator(
                 color: Palette.current.primaryNeonGreen,
@@ -155,12 +162,11 @@ class _UpdateAvatarBottomSheetState extends State<UpdateAvatarBottomSheet> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const SizedBox(
-            height: 20,
-          ),
+
           Padding(
             padding: const EdgeInsets.only(left: 20, right: 20),
             child: PrimaryButton(
+              maxHeight: deviceWidth *0.13,
               title: S.of(context).access_photos,
               onPressed: () async {
                 photoLibraryCall(ImageSource.gallery);
@@ -174,6 +180,7 @@ class _UpdateAvatarBottomSheetState extends State<UpdateAvatarBottomSheet> {
           Padding(
             padding: const EdgeInsets.only(left: 20, right: 20),
             child: PrimaryButton(
+               maxHeight: deviceWidth *0.13,
               title: S.of(context).camera,
               onPressed: () {
                 photoLibraryCall(ImageSource.camera);

@@ -55,13 +55,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
         orElse: () {
           return Container();
         },
-        loading: (_) => ListView.builder(
-          itemBuilder: (_, index) => SizedBox(
-            height: MediaQuery.of(context).size.height * 0.5,
-            child: const Center(child: SimpleLoader()),
-          ),
-          itemCount: 1,
-        ),
+        loading: (_) => const SingleChildScrollView(child: SimpleLoader()),
         loaded: (state) {
           favoritesList = [...state.model.favoriteList];
 

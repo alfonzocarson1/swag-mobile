@@ -113,7 +113,7 @@ class _CustomDataTableState extends State<CustomDataTable> {
         DataTable(
             showBottomBorder: false,
             dividerThickness: 0,
-            columnSpacing: 40,
+            columnSpacing: (height <= 667) ? 20 : 35,
             columns: [
               DataColumn(
                 label: SizedBox(
@@ -288,9 +288,10 @@ class _CustomDataTableState extends State<CustomDataTable> {
                 initial: () => (hasActiveSubscription)
                     ? const SizedBox.shrink()
                     : PayWallWidget(
-                  hasUsedFreeTrial: hasUsedFreeTrial,
-                  removePaywall: removePaywall,
-                ),
+                                    hasUsedFreeTrial: hasUsedFreeTrial,
+                                    removePaywall: removePaywall,
+                                    disableScroll: true,
+                                  ),
                 progress: () => ClipRect(
                     child: BackdropFilter(
                         filter:
