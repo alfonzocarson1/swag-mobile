@@ -288,9 +288,10 @@ class _CustomDataTableState extends State<CustomDataTable> {
                 initial: () => (hasActiveSubscription)
                     ? const SizedBox.shrink()
                     : PayWallWidget(
-                  hasUsedFreeTrial: hasUsedFreeTrial,
-                  removePaywall: removePaywall,
-                ),
+                                    hasUsedFreeTrial: hasUsedFreeTrial,
+                                    removePaywall: removePaywall,
+                                    disableScroll: true,
+                                  ),
                 progress: () => ClipRect(
                     child: BackdropFilter(
                         filter:

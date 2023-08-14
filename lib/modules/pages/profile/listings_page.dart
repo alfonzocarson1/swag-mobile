@@ -115,6 +115,7 @@ class _ListingsPageState extends State<ListingsPage> {
                   orElse: () => (hasActiveSubscription)
                       ? const SizedBox.shrink()
                       : SingleChildScrollView(
+                        physics: ScrollPhysics(),
                           child: PayWallWidget(
                             hasUsedFreeTrial: hasUsedFreeTrial,
                             removePaywall: removePaywall,

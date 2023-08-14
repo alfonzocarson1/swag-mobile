@@ -20,9 +20,10 @@ import '../utils/palette.dart';
 
 class PayWallWidget extends StatefulWidget {
   const PayWallWidget(
-      {super.key, required this.hasUsedFreeTrial, required this.removePaywall});
+      {super.key, required this.hasUsedFreeTrial, required this.removePaywall, this.disableScroll});
   final bool hasUsedFreeTrial;
   final Function removePaywall;
+  final bool? disableScroll;
 
   @override
   State<PayWallWidget> createState() => _PayWallWidgetState();
@@ -59,7 +60,7 @@ class _PayWallWidgetState extends State<PayWallWidget> {
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
           child: SingleChildScrollView(
-            physics: NeverScrollableScrollPhysics(),
+            physics: (widget.disableScroll == true) ? const NeverScrollableScrollPhysics() : const ScrollPhysics(),
             child: Padding(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
               child: Column(
