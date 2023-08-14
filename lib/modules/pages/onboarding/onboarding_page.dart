@@ -26,6 +26,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   @override
   Widget build(BuildContext context) {
+    double deviceHeight = MediaQuery.of(context).size.height;
+
     final pages = [
       OnboardingTabPage(
         imagePath: "assets/images/onboarding_welcome.png",
@@ -145,21 +147,22 @@ class OnboardingTabPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double deviceHeight = MediaQuery.of(context).size.height;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         const SizedBox(height: 40),
         Image.asset(
           imagePath,
-          height: 350,
+          height: deviceHeight * 0.4 ,
           fit: BoxFit.contain,
         ),
-        const SizedBox(height: 25),
+         SizedBox(height: deviceHeight * 0.02),
         Text(
           title.toUpperCase(),
           style: TextStyle(
             color: Palette.current.primaryWhiteSmoke,
-            fontSize: 44,
+            fontSize: 40,
             fontWeight: FontWeight.w300,
             letterSpacing: 1.6,
             fontFamily: "KnockoutCustom",
@@ -168,7 +171,7 @@ class OnboardingTabPage extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 38),
+          padding: const EdgeInsets.symmetric(horizontal: 25),
           child: Text(
             description,
             style: Theme.of(context).textTheme.bodySmall!.copyWith(
