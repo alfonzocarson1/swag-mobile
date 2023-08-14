@@ -31,7 +31,7 @@ class ChatCommenceBanner extends StatelessWidget {
   Widget build(BuildContext context) {
      screenHeight = MediaQuery.of(context).size.height;
     return Container(
-      width: (screenHeight <=840) ? 300 : 350,
+      width: screenHeight * 0.42,
       //margin: const EdgeInsets.symmetric(horizontal: 10),
       child: GestureDetector(
         child: Column(
