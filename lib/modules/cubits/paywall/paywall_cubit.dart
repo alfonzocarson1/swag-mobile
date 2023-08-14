@@ -105,6 +105,12 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
 }
   } 
 
+  testSubscirption()async{
+    emit(const PaywallCubitStateProgress());
+    await Future.delayed(Duration(milliseconds: 2000));
+    emit(const PaywallCubitState.success());
+  }
+
 
   sendSubscriptionRequest(String purchaseId) async {
     
