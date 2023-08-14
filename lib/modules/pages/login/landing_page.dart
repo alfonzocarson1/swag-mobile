@@ -25,99 +25,96 @@ class LandingPage extends StatelessWidget {
     return Scaffold(
         resizeToAvoidBottomInset: true,
         backgroundColor: Colors.transparent,
-        body: WillPopScope(
-          onWillPop: () async => false,
-          child: Stack(children: [
-            ColorFiltered(
-              colorFilter:
-              const ColorFilter.mode(Colors.black38, BlendMode.darken),
-              child: Container(
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage("assets/images/background.png"),
-                      fit: BoxFit.cover,
-                    ),
+        body: Stack(children: [
+          ColorFiltered(
+            colorFilter:
+            const ColorFilter.mode(Colors.black38, BlendMode.darken),
+            child: Container(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("assets/images/background.png"),
+                    fit: BoxFit.cover,
                   ),
-                  child: null),
-            ),
-            Center(
-                child: Image.asset(
-                  'assets/images/logo.png',
-                  width: 239,
-                  height: 98,
-                )),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: SafeArea(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const Spacer(),
-                    Align(
-                      alignment: Alignment.center,
-                      child: InkWell(
-                        onTap: () {
-                          getIt<PreferenceRepositoryService>()
-                              .saveIsLogged(false);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const HomePage()),
-                          );
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(S.of(context).explore_as_guest,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displayMedium!
-                                    .copyWith(
-                                  fontFamily: "KnockoutCustom",
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.w300,
-                                  color: Palette.current.primaryWhiteSmoke,
-                                )),
-                            const SizedBox(
-                              width: 4,
-                            ),
-                            Icon(
-                              Icons.arrow_forward,
-                              color: Palette.current.primaryWhiteSmoke,
-                              size: 20,
-                            )
-                          ],
-                        ),
+                ),
+                child: null),
+          ),
+          Center(
+              child: Image.asset(
+                'assets/images/logo.png',
+                width: 239,
+                height: 98,
+              )),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: SafeArea(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const Spacer(),
+                  Align(
+                    alignment: Alignment.center,
+                    child: InkWell(
+                      onTap: () {
+                        getIt<PreferenceRepositoryService>()
+                            .saveIsLogged(false);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HomePage()),
+                        );
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(S.of(context).explore_as_guest,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium!
+                                  .copyWith(
+                                fontFamily: "KnockoutCustom",
+                                fontSize: 30,
+                                fontWeight: FontWeight.w300,
+                                color: Palette.current.primaryWhiteSmoke,
+                              )),
+                          const SizedBox(
+                            width: 4,
+                          ),
+                          Icon(
+                            Icons.arrow_forward,
+                            color: Palette.current.primaryWhiteSmoke,
+                            size: 20,
+                          )
+                        ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    PrimaryButton(
-                      title: S.of(context).create_account.toUpperCase(),
-                      onPressed: () {
-                        Navigator.of(context, rootNavigator: true)
-                            .push(CreateAccountPage.route());
-                      },
-                      type: PrimaryButtonType.green,
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    PrimaryButton(
-                      title: S.of(context).sign_in.toUpperCase(),
-                      onPressed: () {
-                        Navigator.of(context, rootNavigator: true)
-                            .push(SignInPage.route());
-                      },
-                      type: PrimaryButtonType.black,
-                    ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  PrimaryButton(
+                    title: S.of(context).create_account.toUpperCase(),
+                    onPressed: () {
+                      Navigator.of(context, rootNavigator: true)
+                          .push(CreateAccountPage.route());
+                    },
+                    type: PrimaryButtonType.green,
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  PrimaryButton(
+                    title: S.of(context).sign_in.toUpperCase(),
+                    onPressed: () {
+                      Navigator.of(context, rootNavigator: true)
+                          .push(SignInPage.route());
+                    },
+                    type: PrimaryButtonType.black,
+                  ),
+                ],
               ),
             ),
-          ]),
-        )
+          ),
+        ])
     );
   }
 }

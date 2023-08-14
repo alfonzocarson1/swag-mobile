@@ -9,11 +9,14 @@ import 'package:swagapp/modules/data/secure_storage/storage_repository_service.d
 import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
 import 'package:swagapp/modules/di/injector.dart';
 import 'package:swagapp/modules/models/profile/profile_model.dart';
+import 'package:swagapp/modules/pages/home/home_page.dart';
 import 'package:swagapp/modules/pages/login/landing_page.dart';
 import 'package:swagapp/modules/pages/login/sign_in_page.dart';
 import 'package:swagapp/modules/pages/profile/delete_account/delete_account_page.dart';
+import 'package:swagapp/modules/pages/profile/profile_page.dart';
 import 'package:swagapp/modules/pages/profile/update_email_page.dart';
 import 'package:swagapp/modules/pages/profile/update_name_page.dart';
+import 'package:swagapp/modules/pages/settings/settings_page.dart';
 import 'package:swagapp/modules/pages/splash/splash_page.dart';
 import '../../../generated/l10n.dart';
 import '../../common/ui/pushed_header.dart';
@@ -46,7 +49,7 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
 
   @override
   void dispose() {
-    print("PROFILE DSPOSE");
+
     super.dispose();
   }
 
@@ -86,9 +89,10 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
     unauthenticated: ()  {
 
         Loading.hide(context);
-        Navigator.of(context, rootNavigator: true).pop();
-        Navigator.of(context).pushAndRemoveUntil(LandingPage.route(), (route) => true);
-        Future.delayed(const Duration(milliseconds: 1000), () async {
+        Navigator.of(context, rootNavigator: true).pop(true);
+       //  Navigator.of(context).pushAndRemoveUntil(LandingPage.route(), (route) => true);
+
+      Future.delayed(const Duration(milliseconds: 1000), () async {
         await getIt<StorageRepositoryService>().deleteAll();
         await getIt<PreferenceRepositoryService>().deleteAll();
         });
@@ -226,9 +230,12 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                                 'assets/icons/trash.png',
                                 S.of(context).profile_delete_title,
                                 '',
-                                    () {
-                                      Navigator.of(context)
+                                    () async {
+                                    final result = await Navigator.of(context)
                                           .push(DeleteAccountPage.route());
+                                    if(result["isdeleted"] && result["message"] == "DELETED"){
+                                      Navigator.of(context).pop(true);
+                                    }
                                     },
                                 true,
                                 '',

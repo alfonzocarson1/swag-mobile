@@ -31,27 +31,26 @@ class _DeleteAccountPopup extends State<DeleteAccountPopup> {
 
   @override
   void dispose() {
-    print("DISPOSE DELETE");
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return  BlocListener<UpdateProfileBloc, UpdateProfileState>(
+    return  BlocListener<AuthBloc, AuthState>(
         listener: (context, state) => state.maybeWhen(
 
           initial: (){
             return Loading.show(context);
           },
           deleted: (message,status) async  {
-            print("INDELETED");
             if(status){
              Loading.hide(context);
               await getIt<StorageRepositoryService>().deleteAll();
               await getIt<PreferenceRepositoryService>().deleteAll();
-             Navigator.of(context).popUntil((route) => route.settings.name == SettingsPage.name);
-              Navigator.of(context).pushAndRemoveUntil(LandingPage.route(), (route) => true);
-
+           //  Navigator.of(context).popUntil((route) => route.settings.name == SettingsPage.name);
+           //   Navigator.of(context).pushAndRemoveUntil(LandingPage.route(), (route) => true);
+             Navigator.of(context, rootNavigator: true).pop();
+             Navigator.of(context).pop({"isdeleted": true, "message": "DELETED"});
               print("DELETEED");
             }
             else{
@@ -252,8 +251,8 @@ class _DeleteAccountPopup extends State<DeleteAccountPopup> {
                             title: 'Delete account'.toUpperCase(),
                             onPressed: () {
 
-                                getIt<UpdateProfileBloc>().add(
-                                    const UpdateProfileEvent.delete());
+                                getIt<AuthBloc>().add(
+                                    const AuthEvent.delete());
 
                             },
                             type: PrimaryButtonType.green,
