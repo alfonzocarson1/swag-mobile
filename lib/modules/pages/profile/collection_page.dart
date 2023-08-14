@@ -57,13 +57,7 @@ class _CollectionPageState extends State<CollectionPage> {
           orElse: () {
             return Container();
           },
-          initial: () => ListView.builder(
-                itemBuilder: (_, index) => SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.5,
-                  child: const Center(child: SimpleLoader()),
-                ),
-                itemCount: 1,
-              ),
+          initial: () => const SingleChildScrollView(child: SimpleLoader()),
           loading: (bool isFirstFetch) {
             return Container();
           },

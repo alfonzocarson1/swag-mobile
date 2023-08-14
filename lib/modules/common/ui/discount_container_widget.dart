@@ -9,14 +9,17 @@ class DiscountContainerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  double triangleWidth =MediaQuery.of(context).size.width * 0.0985;
-  double triangleHeigth =MediaQuery.of(context).size.height*0.042; 
-  double  triangleTopPosition = MediaQuery.of(context).size.width * 0.025;
+  double deviceHeight = MediaQuery.of(context).size.height;
+  double deviceWidth = MediaQuery.of(context).size.width; 
+  double triangleWidth =deviceWidth * 0.0985;
+  double triangleHeigth =deviceHeight*0.042; 
+  double  triangleTopPosition = deviceWidth * 0.025;
+
 
     return Stack(children: [
             Positioned(
         top: triangleTopPosition,
-          left: MediaQuery.of(context).size.width * -0.01,
+          left: deviceWidth * -0.01,
           child: CustomPaint(
             painter: CustomTriangle(Palette.current.primaryNeonGreen, 'right'),
             size:
@@ -24,7 +27,7 @@ class DiscountContainerWidget extends StatelessWidget {
           )),
       Positioned(
         top:triangleTopPosition,
-          left: MediaQuery.of(context).size.width * 0.071,
+          left: deviceWidth * 0.071,
           child: CustomPaint(
             painter: CustomTriangle(Palette.current.primaryNeonGreen, 'left'),
             size:
@@ -32,8 +35,8 @@ class DiscountContainerWidget extends StatelessWidget {
           )),
       Container(        
         padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-        height: MediaQuery.of(context).size.height * 0.035,
-        width: MediaQuery.of(context).size.width * 0.17,
+        height: deviceHeight * 0.035,
+        width: deviceWidth * 0.17,
         color: Palette.current.primaryNeonGreen,
         child: Text(S.of(context).paywall_discount, 
         textAlign: TextAlign.center,
@@ -46,8 +49,8 @@ class DiscountContainerWidget extends StatelessWidget {
       )),
       Container(
         padding:const EdgeInsets.fromLTRB(25, 5, 0, 0),
-        height: MediaQuery.of(context).size.height * 0.14,
-        width: MediaQuery.of(context).size.width,
+        height: (deviceHeight <= 667) ? 90 : 100,
+        width: deviceWidth,
         decoration: BoxDecoration(
             border: Border.all(
           color: Palette.current.primaryNeonGreen,
@@ -58,7 +61,7 @@ class DiscountContainerWidget extends StatelessWidget {
         textAlign: TextAlign.center,
         style: Theme.of(context).textTheme.displayLarge!.copyWith(
                   fontFamily: "KnockoutCustom",
-                  fontSize: 44,
+                  fontSize: (deviceHeight <= 667) ? 40 :44,
                   letterSpacing: 1,
                   fontWeight: FontWeight.w400,
                   color: Palette.current.primaryWhiteSmoke),

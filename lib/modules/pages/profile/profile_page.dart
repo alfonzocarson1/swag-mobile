@@ -230,13 +230,7 @@ class _ProfilePageState extends State<ProfilePage>
             const SizedBox(
               height: 10,
             ),
-            // StarRating(
-            //   rating: rating,
-            //   onRatingChanged: (rating) => setState(() => this.rating = rating),
-            // ),
-            const SizedBox(
-              height: 10,
-            ),
+
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TabBar(
