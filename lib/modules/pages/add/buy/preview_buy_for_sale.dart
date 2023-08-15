@@ -76,6 +76,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
   late SalesHistoryListModel salesHistoryList;
   String? profileURL;
   String? defaultImage;
+  bool loadingAvailable = true;
 
   BuyForSaleListingModel listData =
       const BuyForSaleListingModel(productItemImageUrls: ['']);
@@ -141,10 +142,20 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
   }
 
   Future<void> _refreshList() async {
-    // Simular la carga de datos
-    await Future.delayed(Duration(seconds: 2));
+    setState(() {
+      loadingAvailable = false;
+    });
+    await Future.delayed(const Duration(seconds: 2));
     getIt<BuyCubit>().getListDetailItem(widget.productItemId ?? '');
-    setState(() {});
+    getIt<PublicProfileCubit>().loadProfile(
+      listData.profileId!,
+      prefillFromCurrentUser: isLoggedInUserListing,
+    );
+
+    await Future.delayed(const Duration(seconds: 2));
+    setState(() {
+      loadingAvailable = true;
+    });
   }
 
   @override
@@ -161,7 +172,11 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
             return null;
           },
           loading: (bool loading) {
-            return loading ? Loading.show(context) : Loading.hide(context);
+            return !loadingAvailable
+                ? Container()
+                : loading
+                    ? Loading.show(context)
+                    : Loading.hide(context);
           },
           loadedListDetailItem: (BuyForSaleListingModel listDataResponse) {
             setState(() {
