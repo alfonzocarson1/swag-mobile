@@ -106,8 +106,8 @@ class CustomChatMessage extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: (user.id != message.user.id)
                           ? Palette.current.greyMessage
-                          : Palette.current
-                              .primaryNeonGreen, // Background color of the message
+                          : (fileUrl == null) ? Palette.current
+                              .primaryNeonGreen : Palette.current.black, // Background color of the message
                       borderRadius:
                           BorderRadius.circular(12), // Rounded corners
                     ),

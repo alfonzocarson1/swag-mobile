@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_exif_rotation/flutter_exif_rotation.dart';
-import 'package:path/path.dart' show join;
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
@@ -19,7 +19,6 @@ class ChatCamera extends StatefulWidget {
 
   final GroupChannel channel;
 
-  
   @override
   _ChatCameraState createState() => _ChatCameraState();
 }
@@ -29,7 +28,6 @@ class _ChatCameraState extends State<ChatCamera> {
   late CameraController controller;
   CaptureMode _captureMode = CaptureMode.photo;
 
-
   @override
   void initState() {
     super.initState();
@@ -38,17 +36,15 @@ class _ChatCameraState extends State<ChatCamera> {
 
       if (cameras!.length > 0) {
         setState(() {
-          controller = CameraController(
-            cameras![0],            
-            ResolutionPreset.high,
-            enableAudio: false);
-           
+          controller = CameraController(cameras![0], ResolutionPreset.medium,
+              enableAudio: false);
+
           controller.initialize().then((_) {
             if (!mounted) {
               return;
             }
-             controller.lockCaptureOrientation(DeviceOrientation.portraitUp);
-             
+            controller.lockCaptureOrientation(DeviceOrientation.portraitUp);
+
             setState(() {});
           });
         });
@@ -90,22 +86,42 @@ class _ChatCameraState extends State<ChatCamera> {
       if (mounted) {
         setState(() {});
         File tmpFile = File(file.path);
-        final result = await ImageGallerySaver.saveFile(tmpFile.path).then((value) {    
-        print('Image saved to the gallery');
-       
-      });
-        if(orientation == DeviceOrientation.portraitUp){
-           File rotatedImage = await FlutterExifRotation.rotateImage(
-        path: tmpFile.path,
-      );
-      tmpFile = rotatedImage;
-        }
-        getIt<ChatCubit>().sendCameraFile(widget.channel, tmpFile, file.mimeType.toString());
+        //   final result = await ImageGallerySaver.saveFile(tmpFile.path).then((value) {
+        //   print('Image saved to the gallery');
+        // });
+        tmpFile = await rotateImage(tmpFile, orientation, filePath);
+
+        getIt<ChatCubit>()
+            .sendCameraFile(widget.channel, tmpFile, file.mimeType.toString());
         Navigator.of(context).pop();
-        print("File Saved to Gallery $result");
+        // print("File Saved to Gallery $result");
       }
     } catch (e) {
       print(e);
+    }
+  }
+
+  rotateImage(
+      File imageFile, DeviceOrientation orientation, String targetPath) async {
+    if (orientation == DeviceOrientation.portraitUp) {
+      File rotatedFileImage = await FlutterExifRotation.rotateImage(
+        path: imageFile.path,
+      );
+      return rotatedFileImage;
+    } else if (orientation == DeviceOrientation.landscapeLeft) {
+      XFile? result = await FlutterImageCompress.compressAndGetFile(
+        imageFile.path,
+        targetPath,
+        quality: 88,
+        rotate: 90,
+      );
+      if (result != null) {
+        return File(result.path);
+      } else {
+        return imageFile.path;
+      }
+    } else {
+      return imageFile;
     }
   }
 
@@ -137,16 +153,15 @@ class _ChatCameraState extends State<ChatCamera> {
 
       if (mounted) setState(() {});
       File tmpFile = File(file.path);
-      final result = await ImageGallerySaver.saveFile(tmpFile.path).then((value) {
-  
-       // File(file.path).delete(); // delete the temporary file after saving to gallery
-        print('Video saved to the gallery');
-       
+      final result =
+          await ImageGallerySaver.saveFile(tmpFile.path).then((value) {
+        // File(file.path).delete(); // delete the temporary file after saving to gallery
+       // print('Video saved to the gallery');
       });
-      print("File Saved to Gallery $result");
-      getIt<ChatCubit>().sendCameraFile(widget.channel, tmpFile, file.mimeType.toString());
-       Navigator.of(context).pop();
-      
+     // print("File Saved to Gallery $result");
+      getIt<ChatCubit>()
+          .sendCameraFile(widget.channel, tmpFile, file.mimeType.toString());
+      Navigator.of(context).pop();
     } catch (e) {
       print(e);
     }
@@ -165,12 +180,11 @@ class _ChatCameraState extends State<ChatCamera> {
             Icons.arrow_back_ios,
             color: Palette.current.primaryNeonGreen,
           ),
-          onPressed: () async {        
+          onPressed: () async {
             Navigator.of(context).pop();
           },
         ),
         backgroundColor: Palette.current.blackAppbarBlackground,
-       
       ),
       body: Stack(
         children: <Widget>[
@@ -193,51 +207,58 @@ class _ChatCameraState extends State<ChatCamera> {
       color: Palette.current.blackAppbarBlackground,
       padding: const EdgeInsets.all(20.0),
       child: Container(
-      color: Palette.current.blackAppbarBlackground,
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-      children: <Widget>[
-        SizedBox(
-          height: 50,
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                TextButton(
-                  child: Text('Photo', style: TextStyle(color: _captureMode == CaptureMode.photo ? Palette.current.primaryNeonGreen : Colors.white)),
-                  onPressed: () {
-                    setState(() {
-                      _captureMode = CaptureMode.photo;
-                    });
-                  },
+        color: Palette.current.blackAppbarBlackground,
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+              height: 50,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    TextButton(
+                      child: Text('Photo',
+                          style: TextStyle(
+                              color: _captureMode == CaptureMode.photo
+                                  ? Palette.current.primaryNeonGreen
+                                  : Colors.white)),
+                      onPressed: () {
+                        setState(() {
+                          _captureMode = CaptureMode.photo;
+                        });
+                      },
+                    ),
+                    // TextButton(
+                    //   child: Text('Video', style: TextStyle(color: _captureMde == CaptureMode.video ? Palette.current.primaryNeonGreen  : Colors.white)),
+                    //   onPressed: () {
+                    //     setState(() {
+                    //       _captureMode = CaptureMode.video;
+                    //     });
+                    //   },
+                    // ),
+                  ],
                 ),
-                // TextButton(
-                //   child: Text('Video', style: TextStyle(color: _captureMde == CaptureMode.video ? Palette.current.primaryNeonGreen  : Colors.white)),
-                //   onPressed: () {
-                //     setState(() {
-                //       _captureMode = CaptureMode.video;
-                //     });
-                //   },
-                // ),
-              ],
+              ),
             ),
-          ),
+            FloatingActionButton(
+              backgroundColor: _captureMode == CaptureMode.photo
+                  ? Colors.white
+                  : (controller.value.isRecordingVideo
+                      ? Colors.red[800]
+                      : Colors.red),
+              onPressed: _capture,
+              child: Icon(
+                _captureMode == CaptureMode.photo ||
+                        !controller.value.isRecordingVideo
+                    ? Icons.circle
+                    : Icons.square,
+                color: Colors.black,
+              ),
+            ),
+          ],
         ),
-        FloatingActionButton(
-          backgroundColor: _captureMode == CaptureMode.photo
-              ? Colors.white
-              : (controller.value.isRecordingVideo ? Colors.red[800] : Colors.red),
-          onPressed: _capture,
-          child: Icon(
-            _captureMode == CaptureMode.photo || !controller.value.isRecordingVideo
-                ? Icons.circle
-                : Icons.square,
-            color: Colors.black,
-          ),
-        ),
-      ],
-      ),
       ),
     );
   }
