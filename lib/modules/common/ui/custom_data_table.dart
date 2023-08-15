@@ -81,7 +81,7 @@ class _CustomDataTableState extends State<CustomDataTable> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint(MediaQuery.of(context).size.height.toString());
+    double height = MediaQuery.of(context).size.height;
     return  Theme(
           data: Theme.of(context).copyWith(
             dividerTheme: const DividerThemeData(
@@ -93,7 +93,7 @@ class _CustomDataTableState extends State<CustomDataTable> {
               :
            SizedBox(
 
-            height: MediaQuery.of(context).size.height - (MediaQuery.of(context).size.height *0.15),
+            height: height,
             child: _subscriptionListView()
           )
     );
@@ -113,7 +113,7 @@ class _CustomDataTableState extends State<CustomDataTable> {
         DataTable(
             showBottomBorder: false,
             dividerThickness: 0,
-            columnSpacing: 40,
+            columnSpacing: (height <= 840) ? 20 : 35,
             columns: [
               DataColumn(
                 label: SizedBox(
@@ -257,6 +257,7 @@ class _CustomDataTableState extends State<CustomDataTable> {
                           .textTheme
                           .bodySmall!
                           .copyWith(
+                          fontSize: (height <= 840) ? 14 : 16,
                           fontWeight: FontWeight.w300,
                           color: Palette.current.grey)))),
               DataCell(Center(
@@ -265,6 +266,7 @@ class _CustomDataTableState extends State<CustomDataTable> {
                         .textTheme
                         .bodySmall!
                         .copyWith(
+                        fontSize: (height <= 840) ? 14 : 16,
                         fontWeight: FontWeight.w300,
                         color: Palette
                             .current.primaryNeonPink)),
@@ -277,6 +279,7 @@ class _CustomDataTableState extends State<CustomDataTable> {
                           .textTheme
                           .bodySmall!
                           .copyWith(
+                          fontSize: (height <= 840) ? 14 : 16,
                           fontWeight: FontWeight.w300,
                           color: Palette
                               .current.primaryNeonGreen)))),
@@ -288,9 +291,10 @@ class _CustomDataTableState extends State<CustomDataTable> {
                 initial: () => (hasActiveSubscription)
                     ? const SizedBox.shrink()
                     : PayWallWidget(
-                  hasUsedFreeTrial: hasUsedFreeTrial,
-                  removePaywall: removePaywall,
-                ),
+                                    hasUsedFreeTrial: hasUsedFreeTrial,
+                                    removePaywall: removePaywall,
+                                    disableScroll: true,
+                                  ),
                 progress: () => ClipRect(
                     child: BackdropFilter(
                         filter:

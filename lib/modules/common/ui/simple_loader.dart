@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
+ double height = 0.0;
 class SimpleLoader extends StatelessWidget {
   const SimpleLoader({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(150.0),
-      child: Center(
+     height = MediaQuery.of(context).size.height;
+    return  Padding(
+      padding: (height <=840) ? const EdgeInsets.all(160.0) : const EdgeInsets.all(150.0) ,
+      child: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -30,11 +32,11 @@ class SmallSimpleLoader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return  Center(
       child: SizedBox(
-        width: 150,
-        height: 50,
-        child: LoadingIndicator(
+        width: (height <= 667) ? 100 : 150,
+        height: (height <= 667) ? 60 : 60,
+        child: const LoadingIndicator(
           indicatorType: Indicator.ballPulse,
           colors: [Colors.white],
           strokeWidth: 1.0,

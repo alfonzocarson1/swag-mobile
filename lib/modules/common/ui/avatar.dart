@@ -90,21 +90,24 @@ class _AvatarPageState extends State<AvatarPage> {
 
   @override
   Widget build(BuildContext context) {
+
     return BlocBuilder<ProfileCubit, ProfileCubitState>(
       builder: (context, state){
         getProfileAvatar();
-      return  Center(
-        child: Stack(children: [
-          SizedBox(
-            height: 125,
-            width: 128,
-            child: CircleAvatar(
-              backgroundColor: Colors.transparent,
-              backgroundImage:
-                  image != null ? image! : NetworkImage("${defaultImage}"),
-              radius: 75,
-            ),
-          ),
+
+     double height = MediaQuery.of(context).size.height;
+    return Center(
+      child: Stack(children: [
+        SizedBox(
+          height: (height <= 667) ? 105 : 125,
+          width: (height <= 667) ? 105 : 125,
+          child: CircleAvatar(
+            backgroundColor: Colors.transparent,
+            backgroundImage:
+                image != null ? image! : NetworkImage("${defaultImage}"),
+            radius: 75,
+
+          )),
           Positioned(
               right: 0,
               bottom: 0,

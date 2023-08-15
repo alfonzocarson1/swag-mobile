@@ -5,10 +5,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:swagapp/modules/api/app_config.dart';
 import 'package:swagapp/modules/cubits/profile/get_profile_cubit.dart';
-import 'package:swagapp/modules/data/paywall/i_paywall_service.dart';
 import 'package:swagapp/modules/models/paywall_products/paywall_products.dart';
 
-import '../../constants/constants.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/paywall/subscription_change_status.dart';
@@ -75,7 +73,7 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
                 if (purchase.status == PurchaseStatus.purchased) {
                     _iap.completePurchase(purchase);
                     await sendSubscriptionRequest(purchase.purchaseID ??"");
-                  // var subscriptionResponse = await sendSubscriptionRequest(purchase.purchaseID ??"");
+
                     emit(const PaywallCubitState.success());
                 }
                 else{
@@ -106,6 +104,12 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
    }
 }
   } 
+
+  testSubscirption()async{
+    emit(const PaywallCubitStateProgress());
+    await Future.delayed(Duration(milliseconds: 2000));
+    emit(const PaywallCubitState.success());
+  }
 
 
   sendSubscriptionRequest(String purchaseId) async {

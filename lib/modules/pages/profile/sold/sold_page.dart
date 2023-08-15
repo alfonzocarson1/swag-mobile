@@ -55,13 +55,7 @@ class _SoldPageState extends State<SoldPage> {
               },
             ),
         child: loading
-            ? ListView.builder(
-                itemBuilder: (_, index) => SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.5,
-                  child: const Center(child: SimpleLoader()),
-                ),
-                itemCount: 1,
-              )
+            ?  const SingleChildScrollView(child: SimpleLoader())
             : _getBody(dataSoldListItems));
   }
 

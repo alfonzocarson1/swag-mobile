@@ -117,6 +117,12 @@ class _ProfilePageState extends State<ProfilePage>
         actions: <Widget>[
           BlocBuilder<ProfileCubit, ProfileCubitState>(
             builder: (context, state) {
+              profileData = getIt<PreferenceRepositoryService>().profileData();
+              if (profileData.hasActiveSubscription == true) {
+                blurLevel = 0;
+              } else {
+                blurLevel = 8.0;
+              }
               return state.maybeWhen(
                   orElse: () => Container(),
                   loadedProfileData: (ProfileModel
@@ -219,7 +225,12 @@ class _ProfilePageState extends State<ProfilePage>
                           padding: const EdgeInsets.only(left: 10.0),
                           child: GestureDetector(
                             onTap: () {
-                              paywallAction();
+                              if(profileBuildData.hasActiveSubscription == false){
+                                paywallAction();
+                              }else{
+                                
+                              }
+                              
                             },
                             child: ImageFiltered(
                               imageFilter: ImageFilter.blur(
@@ -249,13 +260,7 @@ class _ProfilePageState extends State<ProfilePage>
             const SizedBox(
               height: 10,
             ),
-            // StarRating(
-            //   rating: rating,
-            //   onRatingChanged: (rating) => setState(() => this.rating = rating),
-            // ),
-            const SizedBox(
-              height: 10,
-            ),
+
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TabBar(
@@ -339,7 +344,7 @@ class _ProfilePageState extends State<ProfilePage>
                 controller: _tabController,
                 children: const [
                   CollectionPage(),
-                  ListingsPage(),
+                   ListingsPage(),
                   FavoritesPage(),
                   SoldPage()
                 ],

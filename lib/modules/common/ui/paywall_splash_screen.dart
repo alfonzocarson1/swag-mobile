@@ -43,7 +43,7 @@ class PaywallSplashScreen extends StatefulWidget {
 
 class _PaywallSplashScreenState extends State<PaywallSplashScreen> {
   ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
-  late PaywallSubscriptionProducts flavorProducts; 
+  late PaywallSubscriptionProducts flavorProducts;
 
   @override
   void initState() {
@@ -70,171 +70,190 @@ class _PaywallSplashScreenState extends State<PaywallSplashScreen> {
 
     return Scaffold(
       backgroundColor: Colors.black,
-      body: SingleChildScrollView(
-        child: Stack(
-          children: [
-
-           Container(
-          padding: const EdgeInsets.fromLTRB(30, 80, 30, 30),
-          width: double.infinity,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(AppImages.paywallBackground),
-                fit: BoxFit.cover),
-          ),
-             child: Column(
-              children: [
-                
-                Image.asset(
-                  AppImages.logo,
-                  width: deviceWidth * 0.3,
-                  height: deviceHeight * 0.07,
+      body: BlocConsumer<PaywallCubit, PaywallCubitState>(
+        listener: (context, state) {
+          state.maybeWhen(
+                          success: () {
+                            widget.removePaywall();
+                            Navigator.of(context).pop();
+                          },
+                          orElse: () {},
+                        );
+        },
+        builder: (context, state) {
+          return state.maybeWhen(
+            progress: () =>  Container(
+              height: double.infinity,
+               width: double.infinity,
+              alignment: Alignment.center,
+              child: const Center(child:  SimpleLoader())),
+            initial:() =>  SingleChildScrollView(
+            child: Stack(children: [
+              Container(
+                padding: const EdgeInsets.fromLTRB(30, 80, 30, 30),
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(AppImages.paywallBackground),
+                      fit: BoxFit.cover),
                 ),
-                Text(S.of(context).paywall_free_trial.toUpperCase(),
-                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                          fontFamily: "KnockoutCustom",
-                          fontSize: 50,
-                          wordSpacing: 1,
-                          fontWeight: FontWeight.w300,
-                          color: Palette.current.primaryWhiteSmoke,
-                        )),
-                Text(S.of(context).paywall_splash_premium_subtitle,
-                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                          fontFamily: "KnockoutCustom",
-                          fontSize: 27,
-                          wordSpacing: 1,
-                          fontWeight: FontWeight.w300,
-                          color: Palette.current.primaryNeonGreen,
-                        )),
-                SizedBox(
-                  height: deviceHeight * 0.03,
-                ),
-                const AvatarPage(disableChangeAvatar: true,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                child: Column(
                   children: [
-                    Text('@${profileData.username}',
-                        style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                            fontFamily: "KnockoutCustom",
-                            fontSize: 33,
-                            letterSpacing: 1.0,
-                            fontWeight: FontWeight.w300,
-                            color: Palette.current.light4)),
-                            (profileData.kycverified == true) ?
-              SizedBox(
-                height: deviceHeight * 0.03,
-                width: deviceHeight * 0.03,
-                child: Image.asset(AppIcons.checkMarkIcon)
-                ): const SizedBox.shrink()
+                    Image.asset(
+                      AppImages.logo,
+                      width: deviceWidth * 0.3,
+                      height: deviceHeight * 0.07,
+                    ),
+                    Text(S.of(context).paywall_free_trial.toUpperCase(),
+                        style:
+                            Theme.of(context).textTheme.displayMedium!.copyWith(
+                                  fontFamily: "KnockoutCustom",
+                                  fontSize: 50,
+                                  wordSpacing: 1,
+                                  fontWeight: FontWeight.w300,
+                                  color: Palette.current.primaryWhiteSmoke,
+                                )),
+                    Text(S.of(context).paywall_splash_premium_subtitle,
+                        style:
+                            Theme.of(context).textTheme.displayMedium!.copyWith(
+                                  fontFamily: "KnockoutCustom",
+                                  fontSize: 27,
+                                  wordSpacing: 1,
+                                  fontWeight: FontWeight.w300,
+                                  color: Palette.current.primaryNeonGreen,
+                                )),
+                    SizedBox(
+                      height: deviceHeight * 0.03,
+                    ),
+                    const AvatarPage(
+                      disableChangeAvatar: true,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('@${profileData.username}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium!
+                                .copyWith(
+                                    fontFamily: "KnockoutCustom",
+                                    fontSize: 33,
+                                    letterSpacing: 1.0,
+                                    fontWeight: FontWeight.w300,
+                                    color: Palette.current.light4)),
+                        (profileData.kycverified == true)
+                            ? SizedBox(
+                                height: deviceHeight * 0.03,
+                                width: deviceHeight * 0.03,
+                                child: Image.asset(AppIcons.checkMarkIcon))
+                            : const SizedBox.shrink()
+                      ],
+                    ),
+                    SizedBox(
+                      height: deviceHeight * 0.04,
+                    ),
+                    ListView.builder(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: (deviceHeight <= 840) ? 17 : 22),
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: payWallConditionList.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Container(
+                            height: (deviceHeight <= 840) ? 30 : 35,
+                            margin: const EdgeInsets.symmetric(vertical: 0),
+                            child: CustomPaywallListTile(
+                              leadingSpacing: 10,
+                              trailingSpacing: 0,
+                              leading: SizedBox(
+                                  height: deviceHeight * 0.03,
+                                  width: deviceHeight * 0.03,
+                                  child: Image.asset(AppIcons.listGreenCheck)),
+                              title: Text(payWallConditionList[index],
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(
+                                          fontSize: (deviceHeight <= 840) ? 14 : 16,
+                                          fontFamily: "Ringside Regular",
+                                          fontWeight: FontWeight.w300,
+                                          color: Palette
+                                              .current.primaryWhiteSmoke)),
+                              trailing: (payWallConditionList[index]
+                                      .contains("for sale"))
+                                  ? Text(
+                                      S.of(context).pawyall_kyc_required,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall!
+                                          .copyWith(
+                                              fontSize:(deviceHeight <= 840) ? 14:  16,
+                                              fontStyle: FontStyle.italic,
+                                              fontFamily: "Ringside Regular",
+                                              fontWeight: FontWeight.w300,
+                                              color: Palette.current.darkGray),
+                                    )
+                                  : const SizedBox.shrink(),
+                            ),
+                          );
+                        }),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.06,
+                    ),
+                    const DiscountContainerWidget(),
+                    const SizedBox(height: 20),
+                    Text(
+                      S.of(context).paywall_or_price_month.toUpperCase(),
+                      style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                          letterSpacing: 1,
+                          fontWeight: FontWeight.w300,
+                          fontFamily: "KnockoutCustom",
+                          fontSize: 25,
+                          color: Palette.current.blueNeon),
+                    ),
+                    const SizedBox(height: 35),
+                    PrimaryButton(
+                        title:
+                            S.of(context).paywall_yearly_button.toUpperCase(),
+                        onPressed: () {
+                          getIt<PaywallCubit>()
+                              .startPurchase(flavorProducts.annualSubscription);
+                        },
+                        type: PrimaryButtonType.green),
+                    const SizedBox(height: 20),
+                    PrimaryButton(
+                        title:
+                            S.of(context).paywall_monthly_button.toUpperCase(),
+                        onPressed: () {
+                            getIt<PaywallCubit>().startPurchase(flavorProducts.monthlySubscription);
+                          //getIt<PaywallCubit>().testSubscirption();
+                        },
+                        type: PrimaryButtonType.blueNeon),
                   ],
                 ),
-                SizedBox(height: deviceHeight * 0.03,),
-                ListView.builder(
-                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: payWallConditionList.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                       height: deviceHeight * 0.054,                 
-                        margin: const EdgeInsets.symmetric(vertical: 0),
-                        child: CustomPaywallListTile(
-                          leadingSpacing: 20,
-                          trailingSpacing: 0,                     
-                          leading: SizedBox(
-                              height: deviceHeight * 0.03,
-                              width: deviceHeight * 0.03,
-                              child: Image.asset(AppIcons.listGreenCheck)),
-                          title: Text(payWallConditionList[index],                        
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                    fontSize: 14,
-                                    fontFamily: "Ringside Regular",
-                                      fontWeight: FontWeight.w400,
-                                      color: Palette.current.primaryWhiteSmoke)),
-                          trailing: (payWallConditionList[index].contains("for sale")) ? Text(S.of(context).pawyall_kyc_required, style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                    fontSize: 14,
-                                    fontStyle: FontStyle.italic,
-                                    fontFamily: "Ringside Regular",
-                                      fontWeight: FontWeight.w300,
-                                      color: Palette.current.darkGray),) : const SizedBox.shrink() ,
-                        ),
-                      );
-                    }),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.06,
-                ),
-                const DiscountContainerWidget(),
-                const SizedBox(height: 20),
-                Text(
-                  S.of(context).paywall_or_price_month.toUpperCase(),
-                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                      letterSpacing: 1,
-                      fontWeight: FontWeight.w300,
-                      fontFamily: "KnockoutCustom",
-                      fontSize: 25,
-                      color: Palette.current.primaryNeonGreen),
-                ),
-                const SizedBox(height: 35),
-                PrimaryButton(
-                    title: (widget.hasUsedFreeTrial)
-                        ? S.of(context).paywall_sign_up_premium.toUpperCase()
-                        : S.of(context).paywall_yearly_button.toUpperCase(),
-                    onPressed: () {
-                        getIt<PaywallCubit>().startPurchase(flavorProducts.annualSubscription);
-                    },
-                    type: PrimaryButtonType.green),
-                const SizedBox(height: 20),
-                PrimaryButton(
-                    title: S.of(context).paywall_monthly_button.toUpperCase(),
-                    onPressed: ()  {
-                        getIt<PaywallCubit>().startPurchase(flavorProducts.monthlySubscription);
-                    },
-                    type: PrimaryButtonType.blueNeon),
-                BlocListener<PaywallCubit, PaywallCubitState>(
-                  listener: (context, state) {
-                    state.maybeWhen(
-                      success: ()  {                         
-                        widget.removePaywall();
-                        Navigator.of(context).pop();
-                        },
-                      orElse: () {},
-                    );
-                  },
-                  child: BlocBuilder<PaywallCubit, PaywallCubitState>(
-                    builder: (context, state) {
-                      state.maybeWhen(
-                        progress: () => const SimpleLoader(),
-                        orElse: ()=> const SizedBox.shrink(),
-                        );
-                        return Container();
-                    },
-                  ),
-                )
-              ],
-                     ),
-           ),
-                          Positioned(
-            right: 10,
-            top: 30,
-            child: IconButton(
-              iconSize: 30,
-              color: Palette.current.primaryNeonGreen,
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              icon: const Icon(
-                Icons.clear_outlined,
-                size: 20,
               ),
-            ),
-          ),
-        ]),
+              Positioned(
+                right: 10,
+                top: 30,
+                child: IconButton(
+                  iconSize: 30,
+                  color: Palette.current.primaryNeonGreen,
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: const Icon(
+                    Icons.clear_outlined,
+                    size: 20,
+                  ),
+                ),
+              ),
+            ]),
+          ), orElse: () => Container(
+            child: const Center(child: Text("data", style: TextStyle(color: Colors.white),),),
+          )
+          );
+          
+        },
       ),
     );
   }

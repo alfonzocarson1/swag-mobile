@@ -13,25 +13,21 @@ import '../../../../models/search/search_request_payload_model.dart';
 import '../add_collection_page.dart';
 
 class ItemPageGridBody extends StatefulWidget {
-  const ItemPageGridBody({super.key, required this.catalogList});
+  ItemPageGridBody({super.key, required this.catalogList, this.refresh});
 
   final List<CatalogItemModel> catalogList;
+  Function()? refresh;
 
   @override
   State<ItemPageGridBody> createState() => _ItemPageGridBodyState();
 }
 
 class _ItemPageGridBodyState extends State<ItemPageGridBody> {
-  void makeCall() {
-    context.read<SearchBloc>().add(const SearchEvent.performSearch(
-        SearchRequestPayloadModel(filters: FilterModel()), SearchTab.whatsHot));
-  }
-
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
         onRefresh: () async {
-          makeCall();
+          widget.refresh!();
           return Future.delayed(const Duration(milliseconds: 1500));
         },
         child: widget.catalogList.isNotEmpty
