@@ -42,4 +42,13 @@ class PublicProfileCubit extends Cubit<PublicProfileState> {
       emit(AsyncValue.error(e));
     }
   }
+
+  Future<PublicProfile> getPublicProfile(String profileId) async {
+    try {
+      PublicProfile responseBody = await _profileService.getProfile(profileId);
+      return responseBody;
+    } catch (error) {
+      return const PublicProfile();
+    }
+  }
 }

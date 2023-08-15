@@ -114,69 +114,72 @@ class _GeneralDeletePopupState extends State<GeneralDeletePopup> {
                               itemBuilder: (context, index) {
                                 return SizedBox(
                                   height: 50,
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        width: 18,
-                                        height: 18,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(30.0),
-                                          border: Border.all(
-                                            color: selectedOption == index
-                                                ? Palette
-                                                    .current.primaryNeonGreen
-                                                : Colors.grey,
-                                          ),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(2.0),
-                                          child: ClipRRect(
+                                  child: InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        if (selectedOption != index) {
+                                          selectedOption = index;
+                                          model = model.copyWith(
+                                              removedReason:
+                                                  options[index].title,
+                                              status: "removed");
+                                        } else {
+                                          selectedOption = -1;
+                                        }
+                                      });
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          width: 18,
+                                          height: 18,
+                                          decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(30.0),
-                                            child: Container(
+                                            border: Border.all(
                                               color: selectedOption == index
                                                   ? Palette
                                                       .current.primaryNeonGreen
-                                                  : Colors.transparent,
-                                              child: Checkbox(
-                                                  value:
-                                                      selectedOption == index,
-                                                  onChanged: (value) {
-                                                    setState(() {
-                                                      selectedOption =
-                                                          value == true
-                                                              ? index
-                                                              : -1;
-                                                      model = model.copyWith(
-                                                          removedReason:
-                                                              options[index]
-                                                                  .title,
-                                                          status: "removed");
-                                                    });
-                                                  },
-                                                  activeColor: Palette
-                                                      .current.primaryNeonGreen,
-                                                  checkColor: Palette.current
-                                                      .primaryNeonGreen),
+                                                  : Colors.grey,
+                                            ),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(2.0),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(30.0),
+                                              child: Container(
+                                                color: selectedOption == index
+                                                    ? Palette.current
+                                                        .primaryNeonGreen
+                                                    : Colors.transparent,
+                                                child: Checkbox(
+                                                    value:
+                                                        selectedOption == index,
+                                                    onChanged: (value) {},
+                                                    activeColor: Palette.current
+                                                        .primaryNeonGreen,
+                                                    checkColor: Palette.current
+                                                        .primaryNeonGreen),
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text(options[index].title,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall!
-                                              .copyWith(
-                                                fontSize: 15,
-                                                letterSpacing: 0.3,
-                                                color: Palette
-                                                    .current.primaryWhiteSmoke,
-                                              )),
-                                    ],
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text(options[index].title,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall!
+                                                .copyWith(
+                                                  fontSize: 15,
+                                                  letterSpacing: 0.3,
+                                                  color: Palette.current
+                                                      .primaryWhiteSmoke,
+                                                )),
+                                      ],
+                                    ),
                                   ),
                                 );
                               },

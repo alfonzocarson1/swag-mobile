@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
 
-
 import 'package:swagapp/modules/common/assets/icons.dart';
 import 'package:swagapp/modules/common/ui/custom_outline_button.dart';
 import 'package:swagapp/modules/common/ui/loading.dart';
@@ -19,12 +18,17 @@ import 'package:swagapp/modules/models/profile/public_profile.dart';
 import 'package:swagapp/modules/pages/public_profile/public_profile_page.dart';
 
 import '../../../../generated/l10n.dart';
+import '../../../blocs/buy_sale_listing_bloc/buy_sale_listing_bloc.dart';
+import '../../../common/utils/context_service.dart';
 import '../../../common/utils/palette.dart';
 import '../../../common/utils/utils.dart';
 import '../../../constants/constants.dart';
+import '../../../cubits/buy/buy_cubit.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
+import '../../../models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
 import '../../../models/profile/profile_model.dart';
+import '../../../notifications_providers/local_notifications_providers.dart';
 import '../../chat/chatPage.dart';
 
 class FooterListItemPage extends StatelessWidget {
@@ -32,14 +36,15 @@ class FooterListItemPage extends StatelessWidget {
   final String productItemId;
   final String profileId;
   final bool useCurrentUser;
-  FooterListItemPage({
-    super.key,
-    required this.showChatButton,
-    required this.productItemId,
-    required this.profileId,
-    this.useCurrentUser = false,
-  });
-  
+  final String catalogId;
+  FooterListItemPage(
+      {super.key,
+      required this.showChatButton,
+      required this.productItemId,
+      required this.profileId,
+      this.useCurrentUser = false,
+      required this.catalogId});
+
   @override
   Widget build(BuildContext context) {
     return StatefulWrapper(
@@ -136,7 +141,16 @@ class FooterListItemPage extends StatelessWidget {
                 padding: 20,
                 iconPath: AppIcons.chat,
                 text: S.current.chatChat.toUpperCase(),
-                onTap: () => this.onTapChat(context),
+                onTap: () async {
+                  BuyForSaleListingModel? alertListinStatus =
+                      await getIt<BuyCubit>()
+                          .getAlertListDetailItem(productItemId);
+                  if (alertListinStatus!.status == 'removed') {
+                    handleListingStatusUnavailable(catalogId);
+                  } else {
+                    this.onTapChat(context);
+                  }
+                },
               )
             : const SizedBox.shrink(),
       ],
@@ -194,7 +208,7 @@ class FooterListItemPage extends StatelessWidget {
   Future<void> onTapChat(BuildContext context) async {
     List<GroupChannel> channels = await getIt<ChatCubit>().loadGroupChannels();
     List<ChatData> chatList = [];
-   // debugPrint(chatList.toString());
+    // debugPrint(chatList.toString());
     late GroupChannel channel;
     final ProfileModel currentProfileData =
         getIt<PreferenceRepositoryService>().profileData();
@@ -217,7 +231,9 @@ class FooterListItemPage extends StatelessWidget {
 
       await Navigator.of(context, rootNavigator: true).push(
         MaterialPageRoute(
-            builder: (BuildContext context) => ChatPage(channel: channel,)),
+            builder: (BuildContext context) => ChatPage(
+                  channel: channel,
+                )),
       );
     } catch (e) {
       Loading.hide(context);

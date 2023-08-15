@@ -25,6 +25,8 @@ class ListingForSaleModel with _$ListingForSaleModel {
       final String? removedReason,
       final bool? isDeleted,
       final String? status,
+      final String? errorCode,
+      final String? shortMessage,
       final PeerToPeerPaymentsModel? peerToPeerPaymentOptions,
       final String? listingItemsAction}) = _ListingForSaleModel;
 

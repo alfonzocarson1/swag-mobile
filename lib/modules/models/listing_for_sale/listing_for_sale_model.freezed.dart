@@ -36,6 +36,8 @@ mixin _$ListingForSaleModel {
   String? get removedReason => throw _privateConstructorUsedError;
   bool? get isDeleted => throw _privateConstructorUsedError;
   String? get status => throw _privateConstructorUsedError;
+  String? get errorCode => throw _privateConstructorUsedError;
+  String? get shortMessage => throw _privateConstructorUsedError;
   PeerToPeerPaymentsModel? get peerToPeerPaymentOptions =>
       throw _privateConstructorUsedError;
   String? get listingItemsAction => throw _privateConstructorUsedError;
@@ -69,6 +71,8 @@ abstract class $ListingForSaleModelCopyWith<$Res> {
       String? removedReason,
       bool? isDeleted,
       String? status,
+      String? errorCode,
+      String? shortMessage,
       PeerToPeerPaymentsModel? peerToPeerPaymentOptions,
       String? listingItemsAction});
 
@@ -104,6 +108,8 @@ class _$ListingForSaleModelCopyWithImpl<$Res, $Val extends ListingForSaleModel>
     Object? removedReason = freezed,
     Object? isDeleted = freezed,
     Object? status = freezed,
+    Object? errorCode = freezed,
+    Object? shortMessage = freezed,
     Object? peerToPeerPaymentOptions = freezed,
     Object? listingItemsAction = freezed,
   }) {
@@ -172,6 +178,14 @@ class _$ListingForSaleModelCopyWithImpl<$Res, $Val extends ListingForSaleModel>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String?,
+      errorCode: freezed == errorCode
+          ? _value.errorCode
+          : errorCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      shortMessage: freezed == shortMessage
+          ? _value.shortMessage
+          : shortMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
       peerToPeerPaymentOptions: freezed == peerToPeerPaymentOptions
           ? _value.peerToPeerPaymentOptions
           : peerToPeerPaymentOptions // ignore: cast_nullable_to_non_nullable
@@ -222,6 +236,8 @@ abstract class _$$_ListingForSaleModelCopyWith<$Res>
       String? removedReason,
       bool? isDeleted,
       String? status,
+      String? errorCode,
+      String? shortMessage,
       PeerToPeerPaymentsModel? peerToPeerPaymentOptions,
       String? listingItemsAction});
 
@@ -256,6 +272,8 @@ class __$$_ListingForSaleModelCopyWithImpl<$Res>
     Object? removedReason = freezed,
     Object? isDeleted = freezed,
     Object? status = freezed,
+    Object? errorCode = freezed,
+    Object? shortMessage = freezed,
     Object? peerToPeerPaymentOptions = freezed,
     Object? listingItemsAction = freezed,
   }) {
@@ -324,6 +342,14 @@ class __$$_ListingForSaleModelCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String?,
+      errorCode: freezed == errorCode
+          ? _value.errorCode
+          : errorCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      shortMessage: freezed == shortMessage
+          ? _value.shortMessage
+          : shortMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
       peerToPeerPaymentOptions: freezed == peerToPeerPaymentOptions
           ? _value.peerToPeerPaymentOptions
           : peerToPeerPaymentOptions // ignore: cast_nullable_to_non_nullable
@@ -357,6 +383,8 @@ class _$_ListingForSaleModel implements _ListingForSaleModel {
       this.removedReason,
       this.isDeleted,
       this.status,
+      this.errorCode,
+      this.shortMessage,
       this.peerToPeerPaymentOptions,
       this.listingItemsAction});
 
@@ -396,13 +424,17 @@ class _$_ListingForSaleModel implements _ListingForSaleModel {
   @override
   final String? status;
   @override
+  final String? errorCode;
+  @override
+  final String? shortMessage;
+  @override
   final PeerToPeerPaymentsModel? peerToPeerPaymentOptions;
   @override
   final String? listingItemsAction;
 
   @override
   String toString() {
-    return 'ListingForSaleModel(accountId: $accountId, productItemId: $productItemId, productItemName: $productItemName, productItemPrice: $productItemPrice, productItemImageUrls: $productItemImageUrls, productItemDescription: $productItemDescription, condition: $condition, profileId: $profileId, catalogItemId: $catalogItemId, profileCollectionItemId: $profileCollectionItemId, lastSale: $lastSale, forSale: $forSale, sold: $sold, removedReason: $removedReason, isDeleted: $isDeleted, status: $status, peerToPeerPaymentOptions: $peerToPeerPaymentOptions, listingItemsAction: $listingItemsAction)';
+    return 'ListingForSaleModel(accountId: $accountId, productItemId: $productItemId, productItemName: $productItemName, productItemPrice: $productItemPrice, productItemImageUrls: $productItemImageUrls, productItemDescription: $productItemDescription, condition: $condition, profileId: $profileId, catalogItemId: $catalogItemId, profileCollectionItemId: $profileCollectionItemId, lastSale: $lastSale, forSale: $forSale, sold: $sold, removedReason: $removedReason, isDeleted: $isDeleted, status: $status, errorCode: $errorCode, shortMessage: $shortMessage, peerToPeerPaymentOptions: $peerToPeerPaymentOptions, listingItemsAction: $listingItemsAction)';
   }
 
   @override
@@ -440,6 +472,10 @@ class _$_ListingForSaleModel implements _ListingForSaleModel {
             (identical(other.isDeleted, isDeleted) ||
                 other.isDeleted == isDeleted) &&
             (identical(other.status, status) || other.status == status) &&
+            (identical(other.errorCode, errorCode) ||
+                other.errorCode == errorCode) &&
+            (identical(other.shortMessage, shortMessage) ||
+                other.shortMessage == shortMessage) &&
             (identical(
                     other.peerToPeerPaymentOptions, peerToPeerPaymentOptions) ||
                 other.peerToPeerPaymentOptions == peerToPeerPaymentOptions) &&
@@ -449,26 +485,29 @@ class _$_ListingForSaleModel implements _ListingForSaleModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      accountId,
-      productItemId,
-      productItemName,
-      productItemPrice,
-      const DeepCollectionEquality().hash(productItemImageUrls),
-      productItemDescription,
-      condition,
-      profileId,
-      catalogItemId,
-      profileCollectionItemId,
-      lastSale,
-      forSale,
-      sold,
-      removedReason,
-      isDeleted,
-      status,
-      peerToPeerPaymentOptions,
-      listingItemsAction);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        accountId,
+        productItemId,
+        productItemName,
+        productItemPrice,
+        const DeepCollectionEquality().hash(productItemImageUrls),
+        productItemDescription,
+        condition,
+        profileId,
+        catalogItemId,
+        profileCollectionItemId,
+        lastSale,
+        forSale,
+        sold,
+        removedReason,
+        isDeleted,
+        status,
+        errorCode,
+        shortMessage,
+        peerToPeerPaymentOptions,
+        listingItemsAction
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -503,6 +542,8 @@ abstract class _ListingForSaleModel implements ListingForSaleModel {
       final String? removedReason,
       final bool? isDeleted,
       final String? status,
+      final String? errorCode,
+      final String? shortMessage,
       final PeerToPeerPaymentsModel? peerToPeerPaymentOptions,
       final String? listingItemsAction}) = _$_ListingForSaleModel;
 
@@ -541,6 +582,10 @@ abstract class _ListingForSaleModel implements ListingForSaleModel {
   bool? get isDeleted;
   @override
   String? get status;
+  @override
+  String? get errorCode;
+  @override
+  String? get shortMessage;
   @override
   PeerToPeerPaymentsModel? get peerToPeerPaymentOptions;
   @override
