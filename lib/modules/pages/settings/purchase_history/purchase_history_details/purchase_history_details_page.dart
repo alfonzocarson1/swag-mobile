@@ -206,7 +206,7 @@ class _PriceList extends StatelessWidget {
         children: [
           ...purchaseItems.map((item) => _PriceListItem(
                 name: item.purchaseItemTitle ?? "NULL",
-                price: item.purchaseItemPrice.toString(),
+                price: item.purchaseItemPrice.toStringAsFixed(2),
                 color: Palette.current.primaryWhiteSmoke,
               )),
           SizedBox(
@@ -218,7 +218,7 @@ class _PriceList extends StatelessWidget {
           const SizedBox(height: 16),
           _PriceListItem(
             name: S.of(context).purchase_total_item,
-            price: "\$$total",
+            price: "\$${total.toStringAsFixed(2)}",
             color: Palette.current.primaryNeonGreen,
           )
         ],
@@ -310,7 +310,7 @@ class _PaymentCard extends StatelessWidget {
           children: [
             Text(
               S.of(context).purchase_payment_card_total(
-                    model.purchaseTotal.toString(),
+                    model.purchaseTotal.toStringAsFixed(2),
                   ),
               style: Theme.of(context).textTheme.displayLarge!.copyWith(
                     fontSize: 54,
