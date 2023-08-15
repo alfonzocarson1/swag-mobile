@@ -42,6 +42,7 @@ class BuySaleListingBloc
       BuyForSaleListingResponseModel responseBody =
           await buySaleListingService.buyForSaleListing(catalogItemId);
       if (responseBody.saledItemdList.isEmpty) {
+        LocalNotificationProvider.showInAppAllert('Listing unavailable');
         getIt<ContextService>().rootNavigatorKey.currentState!.pop();
         getIt<DetailBloc>().add(DetailEvent.getDetailItem(catalogItemId));
       } else {
