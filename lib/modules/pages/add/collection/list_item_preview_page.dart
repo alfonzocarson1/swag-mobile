@@ -299,6 +299,7 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                               profileId: profileId,
                               productItemId: this.widget.productItemId ?? '',
                               showChatButton: false,
+                              catalogId: widget.catalogItemId,
                             ),
                           const SizedBox(height: 30),
                           PrimaryButton(

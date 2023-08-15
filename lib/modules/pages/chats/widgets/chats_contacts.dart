@@ -19,18 +19,18 @@ import 'package:swagapp/modules/models/chat/sendbird_channel_data.dart';
 import 'package:swagapp/modules/pages/chats/widgets/time_stamp_converter.dart';
 
 import '../../../constants/constants.dart';
+import '../../../cubits/public_profile/public_profile_cubit.dart';
 import '../../../di/injector.dart';
 import '../../../models/chat/message_data.dart';
+import '../../../models/profile/public_profile.dart';
 import '../../chat/chatPage.dart';
 
-
- String lastBuyChatMessage = "";
- List BuyChannelMessages = [];
+String lastBuyChatMessage = "";
+List BuyChannelMessages = [];
 
 class ChatsContact extends StatefulWidget {
   final String lastMessage;
   final ChatData chatData;
-
 
   const ChatsContact({
     super.key,
@@ -43,26 +43,29 @@ class ChatsContact extends StatefulWidget {
 }
 
 class _ChatsContactState extends State<ChatsContact> {
-
-  
-   @override
-   void initState() {
-     super.initState();
-   }
-  
- 
-
-  getChannelMessages()async{
-  if(this.widget.chatData.channel.customType != ChatType.listing.textValue && BuyChannelMessages.isEmpty){
-    BuyChannelMessages = await getIt<ChatCubit>().loadMessages(widget.chatData.channel);
+  @override
+  void initState() {
+    super.initState();
   }
-   
+
+  PublicProfile dataPublicProfile = const PublicProfile();
+  getChannelMessages() async {
+    if (this.widget.chatData.channel.customType != ChatType.listing.textValue &&
+        BuyChannelMessages.isEmpty) {
+      BuyChannelMessages =
+          await getIt<ChatCubit>().loadMessages(widget.chatData.channel);
+    }
+  }
+
+  Future<void> _handlePublicProfile(
+      BuildContext context, String profileId) async {
+    dataPublicProfile =
+        await getIt<PublicProfileCubit>().getPublicProfile(profileId);
+    // print(dataPublicProfile);
   }
 
   @override
   Widget build(BuildContext context) {
-  
-   
     ProfileModel userProfile =
         getIt<PreferenceRepositoryService>().profileData();
     String userName = userProfile.username;
@@ -76,23 +79,35 @@ class _ChatsContactState extends State<ChatsContact> {
             member.nickname != userName && member.nickname != swagBotNickName)
         .toList()
         .first;
-    String lastActivityTimeStamp = TimeStampConverter().calculateTime(this.widget.chatData.channel.lastMessage?.createdAt ?? 0);
-               
+    String lastActivityTimeStamp = TimeStampConverter().calculateTime(
+        this.widget.chatData.channel.lastMessage?.createdAt ?? 0);
+
+    _handlePublicProfile(context, otherUser.userId);
+
     return CustomListTile(
       titleSpacing: 5,
       widgetSpacing: 20,
-      trailing:(lastActivityTimeStamp != "") ? Text(lastActivityTimeStamp,  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-            fontSize: 14,
-            letterSpacing: 0.3,
-            color: Palette.current.grey,
-            overflow: TextOverflow.ellipsis),) :  SizedBox(width: MediaQuery.of(context).size.width * 0.18,),
+      trailing: (lastActivityTimeStamp != "")
+          ? Text(
+              lastActivityTimeStamp,
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  fontSize: 14,
+                  letterSpacing: 0.3,
+                  color: Palette.current.grey,
+                  overflow: TextOverflow.ellipsis),
+            )
+          : SizedBox(
+              width: MediaQuery.of(context).size.width * 0.18,
+            ),
       leading: _Avatar(
         hasUreadMessages: hasUreadMessages,
         chatData: this.widget.chatData,
       ),
       title: Text(
-        (otherUser.nickname.isNotEmpty) ? '@${otherUser.nickname.capitalize()} - ${channelData.listingProductName}' : "",
-          overflow: TextOverflow.ellipsis,
+        (otherUser.nickname.isNotEmpty)
+            ? '@${otherUser.nickname.capitalize()} - ${channelData.listingProductName}'
+            : "",
+        overflow: TextOverflow.ellipsis,
         style: Theme.of(context).textTheme.bodySmall!.copyWith(
               fontWeight:
                   (hasUreadMessages) ? FontWeight.w300 : FontWeight.w300,
@@ -101,7 +116,7 @@ class _ChatsContactState extends State<ChatsContact> {
             ),
       ),
       subtitle: Text(
-       this.widget.lastMessage ,
+        this.widget.lastMessage,
         maxLines: 1,
         style: Theme.of(context).textTheme.bodySmall!.copyWith(
             fontSize: 14,
@@ -112,10 +127,11 @@ class _ChatsContactState extends State<ChatsContact> {
       onTap: () => Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) => ChatPage(channel: widget.chatData.channel,),
-          settings: const RouteSettings(name: '/ChatPage')
-        ),
-      ), 
+            builder: (BuildContext context) => ChatPage(
+                  channel: widget.chatData.channel,
+                ),
+            settings: const RouteSettings(name: '/ChatPage')),
+      ),
     );
   }
 
@@ -149,10 +165,10 @@ class _Avatar extends StatelessWidget {
     bool isCoverChannelNull = this.chatData.channel.coverUrl.isEmpty;
 
     return CircleAvatar(
-        backgroundColor: (
-          this.chatData.channel.customType == ChatType.listing.textValue)
-            ? Palette.current.primaryNeonPink
-            : Palette.current.primaryNeonGreen,
+        backgroundColor:
+            (this.chatData.channel.customType == ChatType.listing.textValue)
+                ? Palette.current.primaryNeonPink
+                : Palette.current.primaryNeonGreen,
         maxRadius: 22,
         child: (isCoverChannelNull)
             ? Image.asset(
