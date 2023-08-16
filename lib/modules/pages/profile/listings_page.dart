@@ -25,12 +25,14 @@ import '../../models/profile/profile_model.dart';
 
 class ListingsPage extends StatefulWidget {
   static const name = '/Listings';
-  const ListingsPage({Key? key}) : super(key: key);
+  const ListingsPage({Key? key, required this.profileData}) : super(key: key);
 
-  static Route route() => PageRoutes.material(
-        settings: const RouteSettings(name: name),
-        builder: (context) => const ListingsPage(),
-      );
+  final ProfileModel profileData;
+
+  // static Route route() => PageRoutes.material(
+  //       settings: const RouteSettings(name: name),
+  //       builder: (context) => const ListingsPage(),
+  //     );
 
   @override
   State<ListingsPage> createState() => _ListingsPageState();
@@ -74,7 +76,7 @@ class _ListingsPageState extends State<ListingsPage> {
 
   @override
   Widget build(BuildContext context) {
-     return (hasActiveSubscription == true)
+     return (widget.profileData.hasActiveSubscription == true) //widget.profileData.hasActiveSubscription == true
         ? BlocBuilder<ListingProfileCubit, ListingCubitState>(
         builder: (context, state) {
           profileData =  getIt<PreferenceRepositoryService>().profileData();
@@ -94,10 +96,10 @@ class _ListingsPageState extends State<ListingsPage> {
         }) : BlocBuilder<PaywallCubit, PaywallCubitState>(
        builder: (context, state) {
          return state.maybeWhen(
-             initial: () => (hasActiveSubscription)
+             initial: () => (widget.profileData.hasActiveSubscription ?? false) // hasActiveSubscription
                  ? const SizedBox.shrink()
                  : PayWallWidget(
-               hasUsedFreeTrial: hasUsedFreeTrial,
+               hasUsedFreeTrial: widget.profileData.hasUsedFreeTrial ?? false,  // hasUsedFreeTrial
                removePaywall: removePaywall,
              ),
              progress: () => const SingleChildScrollView(
@@ -111,12 +113,12 @@ class _ListingsPageState extends State<ListingsPage> {
                debugPrint(error);
                return Container();
              },
-             orElse: () => (hasActiveSubscription)
+             orElse: () => (widget.profileData.hasActiveSubscription ?? false) // hasActiveSubscription
                  ? const SizedBox.shrink()
                  : SingleChildScrollView(
                physics: ScrollPhysics(),
                child: PayWallWidget(
-                 hasUsedFreeTrial: hasUsedFreeTrial,
+                 hasUsedFreeTrial: widget.profileData.hasUsedFreeTrial ?? false, // hasUsedFreeTrial,
                  removePaywall: removePaywall,
                ),
              ));

@@ -67,7 +67,7 @@ class _HomePage extends State<HomePage> {
       ),
       const SearchPage(),
       const AlertPage(),
-      const ProfilePage()
+       ProfilePage(refreshNotifier: widgetsChildrenRefreshNotifiers[3])
     ];
     cehckIfProfileDataIsMissing();
   }
@@ -81,13 +81,6 @@ class _HomePage extends State<HomePage> {
       getIt<PreferenceRepositoryService>().saveReturExploreIsNotLogged(true);
     } else if (index == 2 && isLogged) {
       getIt<AlertCubit>().getAlertList();
-    }
-    else if(index == 3 && isLogged) {
-      print("CALLED ALL");
-      await getIt<ProfileCubit>().loadProfileResults();
-      await getIt<SoldProfileCubit>().loadSoldList();
-      await getIt<CollectionProfileCubit>().loadResults();
-      await getIt<ListingProfileCubit>().loadResults();
     }
 
     setState(() {

@@ -27,7 +27,9 @@ import 'listings_page.dart';
 
 class ProfilePage extends StatefulWidget {
   static const name = '/Profile';
-  const ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({Key? key, this.refreshNotifier}) : super(key: key);
+
+  final ChangeNotifier? refreshNotifier;
 
   static Route route() => PageRoutes.material(
         settings: const RouteSettings(name: name),
@@ -44,14 +46,16 @@ class _ProfilePageState extends State<ProfilePage>
   double rating = 3.5;
   int _currentIndex = 0;
   late double blurLevel;
-  late ProfileModel profileData;
+   ProfileModel? profileData;
   bool hasUnreadMessages = false;
 
   @override
   void initState() {
+
     _tabController = TabController(length: 4, vsync: this);
     _tabController.addListener(_handleTabSelection);
     verifySubscriptionStatus();
+    widget.refreshNotifier?.addListener(refresh);
     super.initState();
   }
 
@@ -63,10 +67,13 @@ class _ProfilePageState extends State<ProfilePage>
 
   void refresh() async {
     print("CALLED REFRESH");
-    verifySubscriptionStatus();
-    getIt<SoldProfileCubit>().loadSoldList();
-    getIt<CollectionProfileCubit>().loadResults();
-    getIt<ListingProfileCubit>().loadResults();
+    await getIt<SoldProfileCubit>().loadSoldList();
+    await getIt<CollectionProfileCubit>().loadResults();
+    await getIt<ListingProfileCubit>().loadResults();
+    await verifySubscriptionStatus();
+    setState(() {
+
+    });
   }
 
   getUnreadMessagesState() async {
@@ -78,7 +85,7 @@ class _ProfilePageState extends State<ProfilePage>
     await getIt<ProfileCubit>().loadProfileResults();
     setState(() {
       profileData = getIt<PreferenceRepositoryService>().profileData();
-      if (profileData.hasActiveSubscription == true) {
+      if (profileData?.hasActiveSubscription == true) {
         blurLevel = 0;
       } else {
         blurLevel = 8.0;
@@ -117,12 +124,6 @@ class _ProfilePageState extends State<ProfilePage>
         actions: <Widget>[
           BlocBuilder<ProfileCubit, ProfileCubitState>(
             builder: (context, state) {
-              profileData = getIt<PreferenceRepositoryService>().profileData();
-              if (profileData.hasActiveSubscription == true) {
-                blurLevel = 0;
-              } else {
-                blurLevel = 8.0;
-              }
               return state.maybeWhen(
                   orElse: () => Container(),
                   loadedProfileData: (ProfileModel
@@ -342,9 +343,9 @@ class _ProfilePageState extends State<ProfilePage>
               child: TabBarView(
                 physics: NeverScrollableScrollPhysics(),
                 controller: _tabController,
-                children: const [
+                children:  [
                   CollectionPage(),
-                   ListingsPage(),
+                  profileData != null ? ListingsPage(profileData: profileData!) : Container(),
                   FavoritesPage(),
                   SoldPage()
                 ],
