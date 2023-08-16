@@ -6,7 +6,7 @@ import '../models/search/category_model.dart';
 const tokenPath = 'auth/realms/app/protocol/openid-connect/token';
 const termsAndConditionsUrl = "https://swag.golf/pages/termsandconditions";
 const termsAndConditionsBasePath = "https://swag.golf";
-const String shareListingUrl = "intent://www.swagapp.com/product/";
+const String shareListingUrl = "https://www.swagapp.com/product/";
 const String facebookUrl = "https://www.facebook.com/swaggolfco";
 const String twitterUrl = "https://twitter.com/swaggolfco";
 const String discordUrl = "https://discord.com/invite/OfficialSwag";
