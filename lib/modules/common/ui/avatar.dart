@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/assets/icons.dart';
 import 'package:swagapp/modules/pages/explore/update_avatar_bottom_sheet.dart';
 
@@ -49,29 +50,33 @@ class _AvatarPageState extends State<AvatarPage> {
     }
     profileData = getIt<PreferenceRepositoryService>().profileData();
     if (widget.isFirstUse && profileData!.useAvatar == 'AVATAR1') {
+
       final tempRandomElement = getRandomElement(avatars);
-      setState(() {
+     // setState(() {
         defaultImage = tempRandomElement.url;
         randomAvatar = tempRandomElement.id;
-      });
+   //   });
     } else if (profileData!.useAvatar != 'CUSTOM') {
+
       var avatarModel = avatars
           .where((avatar) => (avatar.id.contains(profileData!.useAvatar)))
           .first;
-      setState(() {
+    //  setState(() {
         defaultImage = avatarModel.url;
-      });
+   //   });
     } else {
+
       final tempRandomElement = getRandomElement(avatars);
       if (profileData!.avatarUrl != null) {
-        setState(() {
+    //    setState(() {
           defaultImage = profileData!.avatarUrl!;
-        });
+    //    });
       } else {
-        setState(() {
+
+    //    setState(() {
           defaultImage = tempRandomElement.url;
           randomAvatar = tempRandomElement.id;
-        });
+    //    });
       }
     }
     Future.delayed(const Duration(seconds: 1)).then((value) {
@@ -85,6 +90,11 @@ class _AvatarPageState extends State<AvatarPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    return BlocBuilder<ProfileCubit, ProfileCubitState>(
+      builder: (context, state){
+        getProfileAvatar();
+
      double height = MediaQuery.of(context).size.height;
     return Center(
       child: Stack(children: [
@@ -96,44 +106,44 @@ class _AvatarPageState extends State<AvatarPage> {
             backgroundImage:
                 image != null ? image! : NetworkImage("${defaultImage}"),
             radius: 75,
-          ),
-        ),
-        Positioned(
-            right: 0,
-            bottom: 0,
-            child: GestureDetector(
-              onTap: () {
-                if (widget.disableChangeAvatar == false) {
-                  Navigator.of(context, rootNavigator: true)
-                      .push(UpdateAvatarBottomSheet.route(context, null))
-                      .then((imageParam) => {
-                            if (imageParam != null)
-                              {
-                                setState(() {
-                                  image = imageParam;
-                                })
-                              }
-                          });
-                } else {}
-              },
-              child: (widget.disableChangeAvatar == false)
-                  ? Container(
-                      height: 35,
-                      width: 35,
-                      padding: const EdgeInsets.all(7.5),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(90.0),
-                          color: Palette.current.primaryNeonGreen),
-                      child: Image.asset(
-                        width: 24,
-                        height: 24,
-                        'assets/images/plus.png',
-                        color: Palette.current.black,
-                      ),
-                    )
-                  : const SizedBox.shrink(),
-            ))
-      ]),
-    );
+
+          )),
+          Positioned(
+              right: 0,
+              bottom: 0,
+              child: GestureDetector(
+                onTap: () {
+                  if (widget.disableChangeAvatar == false) {
+                    Navigator.of(context, rootNavigator: true)
+                        .push(UpdateAvatarBottomSheet.route(context, null))
+                        .then((imageParam) => {
+                              if (imageParam != null)
+                                {
+                                  setState(() {
+                                    image = imageParam;
+                                  })
+                                }
+                            });
+                  } else {}
+                },
+                child: (widget.disableChangeAvatar == false)
+                    ? Container(
+                        height: 35,
+                        width: 35,
+                        padding: const EdgeInsets.all(7.5),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(90.0),
+                            color: Palette.current.primaryNeonGreen),
+                        child: Image.asset(
+                          width: 24,
+                          height: 24,
+                          'assets/images/plus.png',
+                          color: Palette.current.black,
+                        ),
+                      )
+                    : const SizedBox.shrink(),
+              ))
+        ]));
+      });
   }
 }

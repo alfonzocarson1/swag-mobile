@@ -8,7 +8,10 @@ import 'package:swagapp/modules/pages/search/search_page.dart';
 
 import '../../common/utils/custom_route_animations.dart';
 import '../../cubits/alert/alert_cubit.dart';
+import '../../cubits/collections/get_collections_cubit.dart';
+import '../../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
 import '../../cubits/profile/get_profile_cubit.dart';
+import '../../cubits/sold/get_sold_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../pages/alert/alert_page.dart';
 import '../../pages/profile/profile_page.dart';
@@ -45,7 +48,6 @@ class _HomePage extends State<HomePage> {
 
   List<Widget> widgetsChildren = [];
   var widgetsChildrenRefreshNotifiers = <ChangeNotifier>[];
-
   @override
   void initState() {
     // TODO: implement initState
@@ -65,12 +67,12 @@ class _HomePage extends State<HomePage> {
       ),
       const SearchPage(),
       const AlertPage(),
-      const ProfilePage()
+       ProfilePage(refreshNotifier: widgetsChildrenRefreshNotifiers[3])
     ];
     cehckIfProfileDataIsMissing();
   }
 
-  void onTapTapped(int index) {
+  void onTapTapped(int index) async {
     widgetsChildrenRefreshNotifiers[index]?.notifyListeners();
     bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
     if ((index == 2 || index == 3) && !isLogged) {

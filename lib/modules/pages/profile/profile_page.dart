@@ -13,7 +13,10 @@ import '../../common/ui/account_info_head.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
 import '../../common/utils/utils.dart';
+import '../../cubits/collections/get_collections_cubit.dart';
+import '../../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
 import '../../cubits/profile/get_profile_cubit.dart';
+import '../../cubits/sold/get_sold_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/profile/profile_model.dart';
@@ -24,7 +27,9 @@ import 'listings_page.dart';
 
 class ProfilePage extends StatefulWidget {
   static const name = '/Profile';
-  const ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({Key? key, this.refreshNotifier}) : super(key: key);
+
+  final ChangeNotifier? refreshNotifier;
 
   static Route route() => PageRoutes.material(
         settings: const RouteSettings(name: name),
@@ -41,14 +46,16 @@ class _ProfilePageState extends State<ProfilePage>
   double rating = 3.5;
   int _currentIndex = 0;
   late double blurLevel;
-  late ProfileModel profileData;
+   ProfileModel? profileData;
   bool hasUnreadMessages = false;
 
   @override
   void initState() {
+
     _tabController = TabController(length: 4, vsync: this);
     _tabController.addListener(_handleTabSelection);
     verifySubscriptionStatus();
+    widget.refreshNotifier?.addListener(refresh);
     super.initState();
   }
 
@@ -58,16 +65,27 @@ class _ProfilePageState extends State<ProfilePage>
     _tabController.dispose();
   }
 
+  void refresh() async {
+    print("CALLED REFRESH");
+    await getIt<SoldProfileCubit>().loadSoldList();
+    await getIt<CollectionProfileCubit>().loadResults();
+    await getIt<ListingProfileCubit>().loadResults();
+    await verifySubscriptionStatus();
+    setState(() {
+
+    });
+  }
+
   getUnreadMessagesState() async {
    hasUnreadMessages = await getIt<ChatCubit>().hasUnreadMessages();
     setState(() {});
   }
 
-  verifySubscriptionStatus() {
-    getIt<ProfileCubit>().loadProfileResults();
+  verifySubscriptionStatus() async {
+    await getIt<ProfileCubit>().loadProfileResults();
     setState(() {
       profileData = getIt<PreferenceRepositoryService>().profileData();
-      if (profileData.hasActiveSubscription == true) {
+      if (profileData?.hasActiveSubscription == true) {
         blurLevel = 0;
       } else {
         blurLevel = 8.0;
@@ -108,7 +126,9 @@ class _ProfilePageState extends State<ProfilePage>
             builder: (context, state) {
               return state.maybeWhen(
                   orElse: () => Container(),
-                  loadedProfileData: (ProfileModel profileBuildData) {
+                  loadedProfileData: (ProfileModel
+
+                  profileBuildData) {
                     return Padding(
                       padding: const EdgeInsets.only(right: 10),
                       child: IconButton(
@@ -118,9 +138,10 @@ class _ProfilePageState extends State<ProfilePage>
                           'assets/images/Setting.png',
                           scale: 2.5,
                         ),
-                        onPressed: () {
-                          Navigator.of(context, rootNavigator: true)
+                        onPressed: () async  {
+                          await Navigator.of(context, rootNavigator: true)
                               .push(SettingsPage.route(profileBuildData));
+                          refresh();
                         },
                       ),
                     );
@@ -142,11 +163,13 @@ class _ProfilePageState extends State<ProfilePage>
                     (hasUnreadMessages)?AppIcons.chatNewMessage : AppIcons.chat,
                     scale: 2.5,
                   ),
-                  onPressed: () =>
-                      Navigator.of(context, rootNavigator: true).push(
+                  onPressed: () async {
+                       await Navigator.of(context, rootNavigator: true).push(
                         MaterialPageRoute(
-                            builder: (context) => const ChatListPage()),
-                      ));
+                            builder: (context) => const ChatListPage()));
+                       refresh();
+                      }
+                      );
                 },
                 orElse: (){
                   return IconButton(
@@ -156,11 +179,14 @@ class _ProfilePageState extends State<ProfilePage>
                     AppIcons.chat,
                     scale: 2.5,
                   ),
-                  onPressed: () =>
-                      Navigator.of(context, rootNavigator: true).push(
-                        MaterialPageRoute(
-                            builder: (context) => const ChatListPage()),
-                      ));
+                  onPressed: () async {
+                   await Navigator.of(context, rootNavigator: true).push(
+                      MaterialPageRoute(
+                          builder: (context) => const ChatListPage()));
+                     refresh();
+
+                  }
+    );
                 });
             },
           ),
@@ -317,9 +343,9 @@ class _ProfilePageState extends State<ProfilePage>
               child: TabBarView(
                 physics: NeverScrollableScrollPhysics(),
                 controller: _tabController,
-                children: const [
+                children:  [
                   CollectionPage(),
-                  ListingsPage(),
+                  profileData != null ? ListingsPage(profileData: profileData!) : Container(),
                   FavoritesPage(),
                   SoldPage()
                 ],
