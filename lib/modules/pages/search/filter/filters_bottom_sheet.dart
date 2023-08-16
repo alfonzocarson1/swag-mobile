@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/constants/constants.dart';
 import 'package:swagapp/modules/pages/search/filter/filter_category_page.dart';
+import 'package:swagapp/modules/pages/search/search_page.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
@@ -121,6 +122,12 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                   splashColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () {
+                    if(isForSale){
+                      setState(() {
+                        isForSale = !isForSale;
+                      });
+                    }
+
                     initFilterAndSortsWithBloc(context,
                         selectedProductNumber: widget.tab?.index ?? defaultInt);
                   },
