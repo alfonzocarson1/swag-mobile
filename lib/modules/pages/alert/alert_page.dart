@@ -265,6 +265,16 @@ class _AlertPageState extends State<AlertPage> {
                                                     )));
                                       }
 
+                                      if (item.typeNotification ==
+                                              ChatType.notifyMe.textValue &&
+                                          alertListinStatus!.status !=
+                                              ListingStatusDataType
+                                                  .listed.textValue) {
+                                        LocalNotificationProvider
+                                            .showInAppAllert(
+                                                'Listing unavailable');
+                                      }
+
                                       if (alertListinStatus.status ==
                                               ListingStatusDataType
                                                   .paid.textValue ||
