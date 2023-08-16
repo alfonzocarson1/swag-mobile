@@ -44,7 +44,8 @@ class BuySaleListingBloc
           await buySaleListingService.buyForSaleListing(catalogItemId);
 
       RouteHistoryCubit routeHistoryCubit = getIt<RouteHistoryCubit>();
-      bool lastRoute = routeHistoryCubit.routes[1] != 'ItemDetail';
+      bool lastRoute = routeHistoryCubit.routes[1] != 'ItemDetail' ||
+          routeHistoryCubit.routes[1] != 'Purchase';
 
       if (responseBody.saledItemdList.isEmpty) {
         lastRoute

@@ -19,6 +19,7 @@ import '../../../common/utils/utils.dart';
 import '../../../constants/constants.dart';
 import '../../../cubits/buy/buy_cubit.dart';
 import '../../../cubits/chat/chat_cubit.dart';
+import '../../../cubits/route_history/route_history_cubit.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
 import '../../../models/buy_for_sale_listing/buy_a_listing_model.dart';
@@ -88,6 +89,7 @@ class _BuyerCompletePurchasePopUpState
   List<AddressesPayloadModel> addresses = [];
 
   var paymentTypes = ['Payment Type'];
+  late RouteHistoryCubit _routeHistoryCubit;
 
   var shippedAddress = [];
 
@@ -914,6 +916,9 @@ class _BuyerCompletePurchasePopUpState
                         iconSize: 30,
                         color: Palette.current.primaryNeonGreen,
                         onPressed: () {
+                          _routeHistoryCubit = getIt<RouteHistoryCubit>();
+                          _routeHistoryCubit
+                              .toggleRoute(_routeHistoryCubit.routes[0]);
                           Navigator.of(context).pop();
                         },
                         icon: const Icon(

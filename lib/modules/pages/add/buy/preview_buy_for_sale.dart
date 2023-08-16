@@ -30,6 +30,7 @@ import '../../../common/utils/palette.dart';
 import '../../../common/utils/send_mail_contact.dart';
 import '../../../constants/constants.dart';
 import '../../../cubits/buy/buy_cubit.dart';
+import '../../../cubits/route_history/route_history_cubit.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
 import '../../../common/utils/utils.dart';
@@ -85,6 +86,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
   bool get isListingDataLoaded => listData.productItemId != null;
   bool get isLoggedInUserListing => profileData.accountId == listData.profileId;
   late List<GroupChannel> channels;
+  late RouteHistoryCubit _routeHistoryCubit;
 
   @override
   void initState() {
@@ -532,6 +534,8 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                   ListingStatusDataType.listed.textValue) {
                 handleListingStatusUnavailable(listData.catalogItemId ?? '');
               } else {
+                _routeHistoryCubit = getIt<RouteHistoryCubit>();
+                _routeHistoryCubit.toggleRoute('Purchase');
                 showDialog(
                   context: context,
                   barrierDismissible: false,
