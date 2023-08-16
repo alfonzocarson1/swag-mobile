@@ -44,7 +44,7 @@ class BuySaleListingBloc
           await buySaleListingService.buyForSaleListing(catalogItemId);
 
       RouteHistoryCubit routeHistoryCubit = getIt<RouteHistoryCubit>();
-      bool lastRoute = routeHistoryCubit.routes[1] == 'Alert';
+      bool lastRoute = routeHistoryCubit.routes[1] != 'ItemDetail';
 
       if (responseBody.saledItemdList.isEmpty) {
         LocalNotificationProvider.showInAppAllert('Listing unavailable');

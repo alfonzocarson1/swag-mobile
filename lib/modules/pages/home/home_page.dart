@@ -9,6 +9,7 @@ import 'package:swagapp/modules/pages/search/search_page.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../cubits/alert/alert_cubit.dart';
 import '../../cubits/profile/get_profile_cubit.dart';
+import '../../cubits/route_history/route_history_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../pages/alert/alert_page.dart';
 import '../../pages/profile/profile_page.dart';
@@ -45,6 +46,7 @@ class _HomePage extends State<HomePage> {
 
   List<Widget> widgetsChildren = [];
   var widgetsChildrenRefreshNotifiers = <ChangeNotifier>[];
+  late RouteHistoryCubit _routeHistoryCubit;
 
   @override
   void initState() {
@@ -79,6 +81,11 @@ class _HomePage extends State<HomePage> {
       getIt<PreferenceRepositoryService>().saveReturExploreIsNotLogged(true);
     } else if (index == 2 && isLogged) {
       getIt<AlertCubit>().getAlertList();
+    }
+
+    if (index == 3) {
+      _routeHistoryCubit = getIt<RouteHistoryCubit>();
+      _routeHistoryCubit.toggleRoute('Profile');
     }
 
     setState(() {
