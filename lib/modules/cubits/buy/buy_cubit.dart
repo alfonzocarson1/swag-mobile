@@ -37,12 +37,14 @@ class BuyCubit extends Cubit<BuyStateCubit> {
           getIt<PreferenceRepositoryService>().profileData();
       bool isSeller = responseBody.profileId == profileData.accountId;
 
+      bool mySellerListing = (responseBody.status ==
+              ListingStatusDataType.pendingPayment.textValue ||
+          responseBody.status ==
+                  ListingStatusDataType.pendingSellerConfirmation.textValue &&
+              isSeller);
+
       if (responseBody.status != ListingStatusDataType.listed.textValue &&
-          responseBody.status !=
-              ListingStatusDataType.pendingSellerConfirmation.textValue &&
-          (responseBody.status !=
-                  ListingStatusDataType.pendingPayment.textValue &&
-              !isSeller)) {
+          !mySellerListing) {
         emit(const loading_page(isFirstFetch: false));
         LocalNotificationProvider.showInAppAllert('Listing unavailable');
         getIt<ContextService>().rootNavigatorKey.currentState!.pop();

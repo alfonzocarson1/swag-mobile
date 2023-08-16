@@ -226,9 +226,14 @@ class _AlertPageState extends State<AlertPage> {
                                             alertListinStatus!.status ?? '');
                                       }
 
-                                      if (alertListinStatus!.status ==
-                                          ListingStatusDataType
-                                              .removed.textValue) {
+                                      if ((item.typeNotification ==
+                                              ChatType.notifyMe.textValue) &&
+                                          (alertListinStatus!.status ==
+                                                  ListingStatusDataType
+                                                      .removed.textValue ||
+                                              alertListinStatus!.status ==
+                                                  ListingStatusDataType
+                                                      .editing.textValue)) {
                                         LocalNotificationProvider
                                             .showInAppAllert(
                                                 'Listing unavailable');
@@ -265,16 +270,6 @@ class _AlertPageState extends State<AlertPage> {
                                                     )));
                                       }
 
-                                      if (item.typeNotification ==
-                                              ChatType.notifyMe.textValue &&
-                                          alertListinStatus!.status !=
-                                              ListingStatusDataType
-                                                  .listed.textValue) {
-                                        LocalNotificationProvider
-                                            .showInAppAllert(
-                                                'Listing unavailable');
-                                      }
-
                                       if (alertListinStatus.status ==
                                               ListingStatusDataType
                                                   .paid.textValue ||
@@ -289,9 +284,16 @@ class _AlertPageState extends State<AlertPage> {
                                                   .shipped.textValue ||
                                           (item.typeNotification !=
                                                   ChatType.notifyMe.textValue &&
-                                              alertListinStatus.status ==
-                                                  ListingStatusDataType
-                                                      .listed.textValue)) {
+                                              (alertListinStatus.status ==
+                                                      ListingStatusDataType
+                                                          .listed.textValue ||
+                                                  alertListinStatus!.status ==
+                                                      ListingStatusDataType
+                                                          .editing.textValue ||
+                                                  alertListinStatus!.status ==
+                                                      ListingStatusDataType
+                                                          .removed
+                                                          .textValue))) {
                                         String productItemId =
                                             item.payload!.productItemId ?? "";
                                         String listingImageUrl =

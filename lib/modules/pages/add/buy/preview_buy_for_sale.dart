@@ -710,7 +710,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
             productItemId: listData.productItemId,
             forSale: true,
             sold: false,
-            status: 'Editing',
+            status: 'editing',
           ),
         );
     Navigator.of(context, rootNavigator: true).push(
