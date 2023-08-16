@@ -43,19 +43,10 @@ class BuySaleListingBloc
       BuyForSaleListingResponseModel responseBody =
           await buySaleListingService.buyForSaleListing(catalogItemId);
 
-      RouteHistoryCubit routeHistoryCubit = getIt<RouteHistoryCubit>();
-      bool lastRoute = routeHistoryCubit.routes[1] != 'ItemDetail';
-      if (routeHistoryCubit.routes[1] == 'Purchase') {
-        lastRoute = false;
-        routeHistoryCubit.toggleRoute(routeHistoryCubit.routes[0]);
-      }
-
       if (responseBody.saledItemdList.isEmpty) {
-        if (!lastRoute) {
-          LocalNotificationProvider.showInAppAllert('Listing unavailable');
-          getIt<ContextService>().rootNavigatorKey.currentState!.pop();
-          getIt<DetailBloc>().add(DetailEvent.getDetailItem(catalogItemId));
-        }
+        LocalNotificationProvider.showInAppAllert('Listing unavailable');
+        getIt<ContextService>().rootNavigatorKey.currentState!.pop();
+        getIt<DetailBloc>().add(DetailEvent.getDetailItem(catalogItemId));
       } else {
         yield BuySaleListingState.loadedSaledItems(
             saledItemdList: [responseBody]);
