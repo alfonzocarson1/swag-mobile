@@ -161,6 +161,8 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
     _defaultState = 'State';
     var responseSatate = await getStates(country);
     _states.addAll(responseSatate as Iterable<String>);
+   _states
+       .addAll(usStates.map((e) => '${e['short']} - ${e['name']}').toList());
     setState(() {});
   }
 
