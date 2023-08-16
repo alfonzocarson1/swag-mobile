@@ -635,7 +635,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                 ),
                 onPressed: () async {
                   Share.share(
-                    '$shareListingUrl${listData.catalogItemId}',
+                    '${listData.productItemName} - $shareListingUrl${listData.catalogItemId}',
                   );
                 },
               ),
