@@ -7,6 +7,7 @@ enum ListingStatusDataType {
   shipped('shipped'),
   notifyChatP2P('notifyChatP2P'),
   feedbackProvided('feedbackProvided'),
+  removed('removed'),
   received('received');
 
   final String textValue;

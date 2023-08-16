@@ -211,118 +211,75 @@ class _AlertPageState extends State<AlertPage> {
                                       getIt<AlertCubit>().readAlert(
                                           item.notificationAlertId ?? '');
 
+                                      BuyForSaleListingModel?
+                                          alertListinStatus =
+                                          await getIt<BuyCubit>()
+                                              .getAlertListDetailItem(
+                                                  item.payload!.productItemId ??
+                                                      '');
+
                                       if (item.typeNotification ==
                                           ListingStatusDataType
                                               .notifyChatP2P.textValue) {
                                         Loading.show(context);
                                         onTapSubmit(
-                                            item.payload!.listingStatus ?? '');
+                                            alertListinStatus!.status ?? '');
                                       }
 
-                                      if (item.payload!.listingStatus ==
+                                      if (alertListinStatus!.status ==
+                                          ListingStatusDataType
+                                              .removed.textValue) {
+                                        LocalNotificationProvider
+                                            .showInAppAllert(
+                                                'Listing unavailable');
+                                      }
+
+                                      if (alertListinStatus!.status ==
                                           ListingStatusDataType
                                               .pendingSellerConfirmation
                                               .textValue) {
-                                        BuyForSaleListingModel?
-                                            alertListinStatus =
-                                            await getIt<BuyCubit>()
-                                                .getAlertListDetailItem(item
-                                                        .payload!
-                                                        .productItemId ??
-                                                    '');
-                                        if (alertListinStatus!
-                                                .submitPurchaseInfo !=
-                                            null) {
-                                          String productItemId =
-                                              item.payload!.productItemId ?? "";
-                                          String listingImageUrl =
-                                              item.payload!.listingImageUrl ??
-                                                  "";
-
-                                          String channelUrl =
-                                              SendBirdUtils.getListingChatUrl(
-                                                  groupChannelList,
-                                                  productItemId,
-                                                  listingImageUrl);
-                                          Loading.show(context);
-                                          onTapSubmit(channelUrl);
-                                        } else {
-                                          Navigator.of(context,
-                                                  rootNavigator: true)
-                                              .push(MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      BuyPreviewPage(
-                                                        productItemId: item
-                                                            .payload!
-                                                            .productItemId,
-                                                      )));
-                                        }
+                                        Navigator.of(context,
+                                                rootNavigator: true)
+                                            .push(MaterialPageRoute(
+                                                builder: (context) =>
+                                                    BuyPreviewPage(
+                                                      productItemId: item
+                                                          .payload!
+                                                          .productItemId,
+                                                    )));
                                       }
 
                                       if (item.typeNotification ==
                                               ChatType.notifyMe.textValue &&
-                                          item.payload!.listingStatus ==
+                                          alertListinStatus.status ==
                                               ListingStatusDataType
                                                   .listed.textValue) {
-                                        BuyForSaleListingModel?
-                                            alertListinStatus =
-                                            await getIt<BuyCubit>()
-                                                .getAlertListDetailItem(item
-                                                        .payload!
-                                                        .productItemId ??
-                                                    '');
-                                        if (alertListinStatus!.status ==
-                                                ListingStatusDataType
-                                                    .paid.textValue ||
-                                            alertListinStatus
-                                                    .submitPurchaseInfo !=
-                                                null) {
-                                          String productItemId =
-                                              item.payload!.productItemId ?? "";
-                                          String listingImageUrl =
-                                              item.payload!.listingImageUrl ??
-                                                  "";
-
-                                          String channelUrl =
-                                              SendBirdUtils.getListingChatUrl(
-                                                  groupChannelList,
-                                                  productItemId,
-                                                  listingImageUrl);
-                                          Loading.show(context);
-                                          onTapSubmit(channelUrl);
-                                        } else if (alertListinStatus!.status ==
-                                            'removed') {
-                                          LocalNotificationProvider
-                                              .showInAppAllert(
-                                                  'Listing unavailable');
-                                        } else {
-                                          Navigator.of(context,
-                                                  rootNavigator: true)
-                                              .push(MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      BuyPreviewPage(
-                                                        productItemId: item
-                                                            .payload!
-                                                            .productItemId,
-                                                      )));
-                                        }
+                                        Navigator.of(context,
+                                                rootNavigator: true)
+                                            .push(MaterialPageRoute(
+                                                builder: (context) =>
+                                                    BuyPreviewPage(
+                                                      productItemId: item
+                                                          .payload!
+                                                          .productItemId,
+                                                    )));
                                       }
 
-                                      if (item.payload!.listingStatus ==
+                                      if (alertListinStatus.status ==
                                               ListingStatusDataType
                                                   .paid.textValue ||
-                                          item.payload!.listingStatus ==
+                                          alertListinStatus.status ==
                                               ListingStatusDataType
                                                   .pendingPayment.textValue ||
-                                          item.payload!.listingStatus ==
+                                          alertListinStatus.status ==
                                               ListingStatusDataType.paymentReceived
                                                   .textValue ||
-                                          item.payload!.listingStatus ==
+                                          alertListinStatus.status ==
                                               ListingStatusDataType
                                                   .shipped.textValue ||
                                           (item.typeNotification !=
                                                   ChatType.notifyMe.textValue &&
-                                              item.payload!.listingStatus ==
+                                              alertListinStatus.status ==
                                                   ListingStatusDataType
                                                       .listed.textValue)) {
                                         String productItemId =
@@ -339,7 +296,7 @@ class _AlertPageState extends State<AlertPage> {
                                         onTapSubmit(channelUrl);
                                       }
 
-                                      if (item.payload!.listingStatus ==
+                                      if (alertListinStatus.status ==
                                           ListingStatusDataType
                                               .received.textValue) {
                                         Navigator.of(context,

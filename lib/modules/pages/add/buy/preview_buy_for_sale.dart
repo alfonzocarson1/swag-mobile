@@ -33,6 +33,7 @@ import '../../../cubits/buy/buy_cubit.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
 import '../../../common/utils/utils.dart';
+import '../../../enums/listing_status_data.dart';
 import '../../../models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
 import '../../../models/buy_for_sale_listing/update_purchase_status_request.dart';
 import '../../../models/detail/detail_collection_model.dart';
@@ -143,7 +144,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
 
   Future<void> _refreshList() async {
     setState(() {
-      loadingAvailable = false;
+      this.loadingAvailable = false;
     });
     await Future.delayed(const Duration(seconds: 2));
     getIt<BuyCubit>().getListDetailItem(widget.productItemId ?? '');
@@ -151,11 +152,6 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
       listData.profileId!,
       prefillFromCurrentUser: isLoggedInUserListing,
     );
-
-    await Future.delayed(const Duration(seconds: 2));
-    setState(() {
-      loadingAvailable = true;
-    });
   }
 
   @override
@@ -172,7 +168,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
             return null;
           },
           loading: (bool loading) {
-            return !loadingAvailable
+            return this.loadingAvailable == false
                 ? Container()
                 : loading
                     ? Loading.show(context)
@@ -182,6 +178,11 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
             setState(() {
               listData = listDataResponse;
               getSalesHistory();
+              Future.delayed(const Duration(seconds: 2)).then((value) {
+                setState(() {
+                  this.loadingAvailable = false;
+                });
+              });
 
               if (listData.submitPurchaseInfo != null) {
                 if (listData.submitPurchaseInfo!.avatarBuyer != 'CUSTOM') {
@@ -527,7 +528,8 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
               BuyForSaleListingModel? alertListinStatus =
                   await getIt<BuyCubit>()
                       .getAlertListDetailItem(listData.productItemId ?? '');
-              if (alertListinStatus!.status == 'removed') {
+              if (alertListinStatus!.status !=
+                  ListingStatusDataType.listed.textValue) {
                 handleListingStatusUnavailable(listData.catalogItemId ?? '');
               } else {
                 showDialog(
@@ -634,9 +636,18 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                   scale: 3.5,
                 ),
                 onPressed: () async {
-                  Share.share(
-                    '$shareListingUrl${listData.catalogItemId}',
-                  );
+                  BuyForSaleListingModel? alertListinStatus =
+                      await getIt<BuyCubit>()
+                          .getAlertListDetailItem(listData.productItemId ?? '');
+                  if (alertListinStatus!.status !=
+                      ListingStatusDataType.listed.textValue) {
+                    handleListingStatusUnavailable(
+                        listData.catalogItemId ?? '');
+                  } else {
+                    Share.share(
+                      '$shareListingUrl${listData.catalogItemId}',
+                    );
+                  }
                 },
               ),
             ),
@@ -670,7 +681,8 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                     BuyForSaleListingModel? alertListinStatus =
                         await getIt<BuyCubit>().getAlertListDetailItem(
                             listData.productItemId ?? '');
-                    if (alertListinStatus!.status == 'removed') {
+                    if (alertListinStatus!.status !=
+                        ListingStatusDataType.listed.textValue) {
                       handleListingStatusUnavailable(
                           listData.catalogItemId ?? '');
                     } else {

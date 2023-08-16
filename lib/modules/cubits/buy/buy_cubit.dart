@@ -1,11 +1,15 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../blocs/buy_sale_listing_bloc/buy_sale_listing_bloc.dart';
+import '../../common/ui/loading.dart';
 import '../../common/utils/context_service.dart';
 import '../../common/utils/handling_errors.dart';
 import '../../data/buy_for_sale_listing/i_buy_for_sale_listing_service.dart';
+import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
+import '../../enums/listing_status_data.dart';
 import '../../models/buy_for_sale_listing/buy_a_listing_model.dart';
 import '../../models/buy_for_sale_listing/buy_a_listing_response_model.dart';
 import '../../models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
@@ -13,6 +17,7 @@ import '../../models/buy_for_sale_listing/cancel_purchase_request_model.dart';
 import '../../models/buy_for_sale_listing/cancel_purchase_response_model.dart';
 import '../../models/buy_for_sale_listing/rating_buy_request_model.dart';
 import '../../models/buy_for_sale_listing/update_purchase_status_request.dart';
+import '../../models/profile/profile_model.dart';
 import '../../notifications_providers/local_notifications_providers.dart';
 
 part 'buy_state.dart';
@@ -28,7 +33,16 @@ class BuyCubit extends Cubit<BuyStateCubit> {
       emit(const loading_page(isFirstFetch: true));
       BuyForSaleListingModel responseBody =
           await buyService.buyAForSaleListing(productItemId);
-      if (responseBody.status == 'removed') {
+      ProfileModel profileData =
+          getIt<PreferenceRepositoryService>().profileData();
+      bool isSeller = responseBody.profileId == profileData.accountId;
+
+      if (responseBody.status != ListingStatusDataType.listed.textValue &&
+          responseBody.status !=
+              ListingStatusDataType.pendingSellerConfirmation.textValue &&
+          (responseBody.status !=
+                  ListingStatusDataType.pendingPayment.textValue &&
+              !isSeller)) {
         emit(const loading_page(isFirstFetch: false));
         LocalNotificationProvider.showInAppAllert('Listing unavailable');
         getIt<ContextService>().rootNavigatorKey.currentState!.pop();
