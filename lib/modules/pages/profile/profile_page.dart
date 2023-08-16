@@ -229,7 +229,7 @@ class _ProfilePageState extends State<ProfilePage>
                               if(profileBuildData.hasActiveSubscription == false){
                                 paywallAction();
                               }else{
-                                
+                                paywallAction();
                               }
                               
                             },
