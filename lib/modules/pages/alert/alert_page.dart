@@ -55,13 +55,9 @@ class _AlertPageState extends State<AlertPage> {
   late List<GroupChannel> groupChannelList;
   bool loading = true;
   ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
-  late RouteHistoryCubit _routeHistoryCubit;
-
   @override
   void initState() {
     getIt<AlertCubit>().getAlertList();
-    _routeHistoryCubit = getIt<RouteHistoryCubit>();
-    _routeHistoryCubit.toggleRoute('Alert');
     // TODO: implement initState
     super.initState();
   }

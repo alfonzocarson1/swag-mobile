@@ -47,7 +47,9 @@ class BuySaleListingBloc
       bool lastRoute = routeHistoryCubit.routes[1] != 'ItemDetail';
 
       if (responseBody.saledItemdList.isEmpty) {
-        LocalNotificationProvider.showInAppAllert('Listing unavailable');
+        lastRoute
+            ? null
+            : LocalNotificationProvider.showInAppAllert('Listing unavailable');
         lastRoute
             ? null
             : getIt<ContextService>().rootNavigatorKey.currentState!.pop();

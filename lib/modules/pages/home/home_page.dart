@@ -80,10 +80,12 @@ class _HomePage extends State<HomePage> {
           .push(CreateAccountPage.route());
       getIt<PreferenceRepositoryService>().saveReturExploreIsNotLogged(true);
     } else if (index == 2 && isLogged) {
+      _routeHistoryCubit = getIt<RouteHistoryCubit>();
+      _routeHistoryCubit.toggleRoute('Alert');
       getIt<AlertCubit>().getAlertList();
     }
 
-    if (index == 3) {
+    if (index == 3 && isLogged) {
       _routeHistoryCubit = getIt<RouteHistoryCubit>();
       _routeHistoryCubit.toggleRoute('Profile');
     }
