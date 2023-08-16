@@ -58,6 +58,7 @@ import '../cubits/paywall/paywall_cubit.dart';
 import '../cubits/peer_to_peer_payments/peer_to_peer_payments_cubit.dart';
 import '../cubits/profile/get_profile_cubit.dart';
 import '../cubits/purchase_history_detail/purchase_history_detail_cubit.dart';
+import '../cubits/route_history/route_history_cubit.dart';
 import '../cubits/sold/get_sold_cubit.dart';
 import '../cubits/subscription_status/update_subscription_status_cubit.dart';
 import '../data/alerts/alerts_service.dart';
@@ -111,7 +112,8 @@ Future<void> setupAppScope(String appFlavor) async {
   getIt.registerLazySingleton(() => StorageRepositoryService());
   getIt.registerLazySingleton(() => ContextService());
   getIt.registerLazySingleton<IChatService>(() => ChatService(getIt()));
-  getIt.registerLazySingleton<ChatCubit>(() => ChatCubit(getIt<IChatService>()));
+  getIt
+      .registerLazySingleton<ChatCubit>(() => ChatCubit(getIt<IChatService>()));
   getIt.registerLazySingleton<IAuthService>(() => AuthService(getIt()));
   getIt.registerLazySingleton<AuthBloc>(
       () => AuthBloc(getIt(), getIt(), getIt()));
@@ -189,6 +191,8 @@ Future<void> setupAppScope(String appFlavor) async {
 
   getIt.registerLazySingleton<PageFromExploreCubit>(
       () => PageFromExploreCubit());
+
+  getIt.registerLazySingleton<RouteHistoryCubit>(() => RouteHistoryCubit());
 
   getIt.registerLazySingleton<ISalesHistoryService>(
       () => SalesHistoryService(getIt()));

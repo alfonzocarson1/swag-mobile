@@ -32,6 +32,7 @@ import '../cubits/alert/alert_cubit.dart';
 import '../cubits/chat/chat_cubit.dart';
 import '../cubits/paywall/paywall_cubit.dart';
 import '../cubits/public_profile_listings/public_profile_listings_cubit.dart';
+import '../cubits/route_history/route_history_cubit.dart';
 import '../cubits/sold/get_sold_cubit.dart';
 import 'buy_sale_listing_bloc/buy_sale_listing_bloc.dart';
 import 'collection_bloc/collection_bloc.dart';
@@ -102,5 +103,6 @@ abstract class AppBlocs {
         BlocProvider<PublicProfileListingsCubit>(create: (_) => getIt()),
         BlocProvider<PublicProfileFavoritesCubit>(create: (_) => getIt()),
         BlocProvider<NftWalletCubit>(create: (_) => getIt()),
+        BlocProvider<RouteHistoryCubit>(create: (_) => getIt()),
       ];
 }

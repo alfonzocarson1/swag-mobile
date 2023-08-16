@@ -19,6 +19,7 @@ import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
 import '../../common/utils/utils.dart';
 import '../../cubits/buy/buy_cubit.dart';
+import '../../cubits/route_history/route_history_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../enums/chat_type.dart';
@@ -26,6 +27,7 @@ import '../../enums/listing_status_data.dart';
 import '../../models/alerts/alert_response_model.dart';
 
 import '../../models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
+import '../../models/profile/profile_model.dart';
 import '../../notifications_providers/local_notifications_providers.dart';
 import '../add/buy/preview_buy_for_sale.dart';
 
@@ -52,11 +54,14 @@ class _AlertPageState extends State<AlertPage> {
   String? listingChatId;
   late List<GroupChannel> groupChannelList;
   bool loading = true;
+  ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
+  late RouteHistoryCubit _routeHistoryCubit;
 
   @override
   void initState() {
     getIt<AlertCubit>().getAlertList();
-
+    _routeHistoryCubit = getIt<RouteHistoryCubit>();
+    _routeHistoryCubit.toggleRoute('Alert');
     // TODO: implement initState
     super.initState();
   }
@@ -218,6 +223,10 @@ class _AlertPageState extends State<AlertPage> {
                                                   item.payload!.productItemId ??
                                                       '');
 
+                                      bool isSeller =
+                                          alertListinStatus!.profileId ==
+                                              profileData.accountId;
+
                                       if (item.typeNotification ==
                                           ListingStatusDataType
                                               .notifyChatP2P.textValue) {
@@ -240,9 +249,14 @@ class _AlertPageState extends State<AlertPage> {
                                       }
 
                                       if (alertListinStatus!.status ==
-                                          ListingStatusDataType
-                                              .pendingSellerConfirmation
-                                              .textValue) {
+                                              ListingStatusDataType
+                                                  .pendingSellerConfirmation
+                                                  .textValue ||
+                                          alertListinStatus.status ==
+                                                  ListingStatusDataType
+                                                      .pendingPayment
+                                                      .textValue &&
+                                              isSeller) {
                                         Navigator.of(context,
                                                 rootNavigator: true)
                                             .push(MaterialPageRoute(
@@ -252,6 +266,22 @@ class _AlertPageState extends State<AlertPage> {
                                                           .payload!
                                                           .productItemId,
                                                     )));
+                                      } else if (alertListinStatus.status ==
+                                              ListingStatusDataType
+                                                  .pendingPayment.textValue &&
+                                          !isSeller) {
+                                        String productItemId =
+                                            item.payload!.productItemId ?? "";
+                                        String listingImageUrl =
+                                            item.payload!.listingImageUrl ?? "";
+
+                                        String channelUrl =
+                                            SendBirdUtils.getListingChatUrl(
+                                                groupChannelList,
+                                                productItemId,
+                                                listingImageUrl);
+                                        Loading.show(context);
+                                        onTapSubmit(channelUrl);
                                       }
 
                                       if (item.typeNotification ==
@@ -273,9 +303,6 @@ class _AlertPageState extends State<AlertPage> {
                                       if (alertListinStatus.status ==
                                               ListingStatusDataType
                                                   .paid.textValue ||
-                                          alertListinStatus.status ==
-                                              ListingStatusDataType
-                                                  .pendingPayment.textValue ||
                                           alertListinStatus.status ==
                                               ListingStatusDataType.paymentReceived
                                                   .textValue ||

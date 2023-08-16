@@ -5,6 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../common/utils/context_service.dart';
 import '../../common/utils/handling_errors.dart';
+import '../../cubits/route_history/route_history_cubit.dart';
 import '../../data/buy_for_sale_listing/i_buy_for_sale_listing_service.dart';
 import '../../di/injector.dart';
 import '../../models/buy_for_sale_listing/buy_for_sale_listing_response_model.dart';
@@ -41,9 +42,15 @@ class BuySaleListingBloc
     try {
       BuyForSaleListingResponseModel responseBody =
           await buySaleListingService.buyForSaleListing(catalogItemId);
+
+      RouteHistoryCubit routeHistoryCubit = getIt<RouteHistoryCubit>();
+      bool lastRoute = routeHistoryCubit.routes[1] == 'Alert';
+
       if (responseBody.saledItemdList.isEmpty) {
         LocalNotificationProvider.showInAppAllert('Listing unavailable');
-        getIt<ContextService>().rootNavigatorKey.currentState!.pop();
+        lastRoute
+            ? null
+            : getIt<ContextService>().rootNavigatorKey.currentState!.pop();
         getIt<DetailBloc>().add(DetailEvent.getDetailItem(catalogItemId));
       } else {
         yield BuySaleListingState.loadedSaledItems(
