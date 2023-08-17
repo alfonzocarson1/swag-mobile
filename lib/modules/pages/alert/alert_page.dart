@@ -300,11 +300,13 @@ class _AlertPageState extends State<AlertPage> {
                                               ListingStatusDataType
                                                   .paid.textValue ||
                                           alertListinStatus.status ==
-                                              ListingStatusDataType.paymentReceived
-                                                  .textValue ||
-                                          alertListinStatus.status ==
                                               ListingStatusDataType
-                                                  .shipped.textValue ||
+                                                  .paymentReceived.textValue ||
+                                          (alertListinStatus.status ==
+                                                  ListingStatusDataType
+                                                      .shipped.textValue &&
+                                              item.payload!.dateItemShipped ==
+                                                  null) ||
                                           (item.typeNotification !=
                                                   ChatType.notifyMe.textValue &&
                                               (alertListinStatus.status ==
@@ -331,7 +333,7 @@ class _AlertPageState extends State<AlertPage> {
                                         onTapSubmit(channelUrl);
                                       }
 
-                                      if (alertListinStatus.status ==
+                                      if (item.payload!.listingStatus ==
                                           ListingStatusDataType
                                               .received.textValue) {
                                         Navigator.of(context,
