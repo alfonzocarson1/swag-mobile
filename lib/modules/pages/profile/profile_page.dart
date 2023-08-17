@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/assets/icons.dart';
 import 'package:swagapp/modules/cubits/chat/chat_cubit.dart';
+import 'package:swagapp/modules/cubits/paywall/paywall_cubit.dart';
 import 'package:swagapp/modules/pages/chats/chat_list_view.dart';
 import 'package:swagapp/modules/pages/profile/sold/sold_page.dart';
 
@@ -76,7 +77,7 @@ class _ProfilePageState extends State<ProfilePage>
   }
 
   removePaywall() async {
-    await getIt<ProfileCubit>().loadProfileResults();
+   // await getIt<ProfileCubit>().loadProfileResults();
     profileData = getIt<PreferenceRepositoryService>().profileData();
     blurLevel = 0;
     setState(() {});
@@ -191,44 +192,21 @@ class _ProfilePageState extends State<ProfilePage>
                               color: Palette.current.light4)),
                 ),
                 Stack(children: [
-                  BlocBuilder<ProfileCubit, ProfileCubitState>(
-                      builder: (context, state) {
-                    return state.maybeWhen(
-                      orElse: () => Container(),
-                      loadedProfileData: (ProfileModel profileBuildData) {
-                        return Padding(
-                          padding: const EdgeInsets.only(left: 10.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              if(profileBuildData.hasActiveSubscription == false){
-                                paywallAction();
-                              }else{
-                                paywallAction();
-                              }
-                              
-                            },
-                            child: ImageFiltered(
-                              imageFilter: ImageFilter.blur(
-                                  sigmaX: blurLevel, sigmaY: blurLevel),
-                              child: Text(
-                                  decimalDigitsLastSalePrice(profileBuildData
-                                      .collectionValue
-                                      .toString()),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displayMedium!
-                                      .copyWith(
-                                          fontFamily: "KnockoutCustom",
-                                          fontSize: 45,
-                                          letterSpacing: 1.0,
-                                          fontWeight: FontWeight.w300,
-                                          color: Palette.current.light4)),
-                            ),
-                          ),
-                        );
-                      },
-                    );
-                  }),
+ 
+                  BlocBuilder<PaywallCubit, PaywallCubitState>(
+                    builder: (context, state){
+                      return state.maybeWhen(
+                        initial:() => GestureDetector(
+                          onTap: () {
+                            if(profileData.hasActiveSubscription == false){
+                              paywallAction();
+                            }
+                          },
+                          child: BlurredValue(blurLevel: blurLevel, collectionValue: profileData.collectionValue,)),
+                        success:() => BlurredValue(blurLevel: 0, collectionValue: profileData.collectionValue,),                        
+                        orElse: ()=> Container());
+                    }
+                  )
                 ]),
               ],
             ),
@@ -337,6 +315,38 @@ class _ProfilePageState extends State<ProfilePage>
         _currentIndex = _tabController.index;
       });
     }
+  }
+}
+
+class BlurredValue extends StatelessWidget {
+  const BlurredValue({
+    super.key,
+    required this.blurLevel,
+    required this.collectionValue,
+  });
+
+  final double blurLevel;
+  final double collectionValue;
+
+  @override
+  Widget build(BuildContext context) {
+
+    return ImageFiltered(
+      imageFilter: ImageFilter.blur(
+          sigmaX: blurLevel, sigmaY: blurLevel),
+      child: Text(
+          decimalDigitsLastSalePrice(collectionValue
+              .toString()),
+          style: Theme.of(context)
+              .textTheme
+              .displayMedium!
+              .copyWith(
+                  fontFamily: "KnockoutCustom",
+                  fontSize: 45,
+                  letterSpacing: 1.0,
+                  fontWeight: FontWeight.w300,
+                  color: Palette.current.light4)),
+    );
   }
 }
 
