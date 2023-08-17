@@ -51,28 +51,28 @@ class _AvatarPageState extends State<AvatarPage> {
     profileData = getIt<PreferenceRepositoryService>().profileData();
     if (widget.isFirstUse && profileData!.useAvatar == 'AVATAR1') {
       final tempRandomElement = getRandomElement(avatars);
-      //  setState(() {
+      setState(() {
       defaultImage = tempRandomElement.url;
       randomAvatar = tempRandomElement.id;
-      //   });
+         });
     } else if (profileData!.useAvatar != 'CUSTOM') {
       var avatarModel = avatars
           .where((avatar) => (avatar.id.contains(profileData!.useAvatar)))
           .first;
-      //   setState(() {
+         setState(() {
       defaultImage = avatarModel.url;
-      //   });
+         });
     } else {
       final tempRandomElement = getRandomElement(avatars);
       if (profileData!.avatarUrl != null) {
-        //  setState(() {
+        setState(() {
         defaultImage = profileData!.avatarUrl!;
-        //     });
+             });
       } else {
-        //    setState(() {
+            setState(() {
         defaultImage = tempRandomElement.url;
         randomAvatar = tempRandomElement.id;
-        //     });
+             });
       }
     }
     Future.delayed(const Duration(seconds: 1)).then((value) {
@@ -88,7 +88,6 @@ class _AvatarPageState extends State<AvatarPage> {
   Widget build(BuildContext context) {
     return BlocBuilder<ProfileCubit, ProfileCubitState>(
         builder: (context, state) {
-          getProfileAvatar();
 
           double height = MediaQuery
               .of(context)
