@@ -73,13 +73,12 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
                 if (purchase.status == PurchaseStatus.purchased) {
                     _iap.completePurchase(purchase);
                     await sendSubscriptionRequest(purchase.purchaseID ??"");
-
                     emit(const PaywallCubitState.success());
                 }
                 else{
                         emit(const PaywallCubitState.success());
                 }
-               await getIt<ProfileCubit>().loadProfileResults();
+              // await getIt<ProfileCubit>().loadProfileResults();
                 emit(const PaywallCubitState.success());
                 break;
             case PurchaseStatus.restored:
