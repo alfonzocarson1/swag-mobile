@@ -26,6 +26,7 @@ import '../../../constants/constants.dart';
 import '../../../cubits/buy/buy_cubit.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
+import '../../../enums/listing_status_data.dart';
 import '../../../models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
 import '../../../models/profile/profile_model.dart';
 import '../../../notifications_providers/local_notifications_providers.dart';
@@ -145,7 +146,8 @@ class FooterListItemPage extends StatelessWidget {
                   BuyForSaleListingModel? alertListinStatus =
                       await getIt<BuyCubit>()
                           .getAlertListDetailItem(productItemId);
-                  if (alertListinStatus!.status == 'removed') {
+                  if (alertListinStatus!.status !=
+                      ListingStatusDataType.listed.textValue) {
                     handleListingStatusUnavailable(catalogId);
                   } else {
                     this.onTapChat(context);

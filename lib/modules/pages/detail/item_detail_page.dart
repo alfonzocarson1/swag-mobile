@@ -14,6 +14,7 @@ import '../../common/utils/custom_route_animations.dart';
 
 import '../../common/utils/tab_wrapper.dart';
 import '../../cubits/paginated_search/paginated_search_cubit.dart';
+import '../../cubits/route_history/route_history_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/detail/detail_item_model.dart';
@@ -52,6 +53,7 @@ class ItemDetailPage extends StatefulWidget {
 class _ItemDetailPageState extends State<ItemDetailPage> {
   late final ScrollController _scrollController =
       PrimaryScrollController.of(context);
+  late RouteHistoryCubit _routeHistoryCubit;
 
   int? _collectionLen;
   String _pathImage = '';
@@ -67,6 +69,8 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
   void initState() {
     getSalesHistory();
     super.initState();
+    _routeHistoryCubit = getIt<RouteHistoryCubit>();
+    _routeHistoryCubit.toggleRoute('ItemDetail');
     isFirstState = true;
     isLogged = getIt<PreferenceRepositoryService>().isLogged();
 
