@@ -263,6 +263,7 @@ class _BuyerCompletePurchasePopUpState
   }
 
   Future<void> onTapSubmit(String channelUrl) async {
+    Loading.show(context);
     late GroupChannel chatData;
     try {
       await Future.delayed(const Duration(milliseconds: 500));
@@ -855,7 +856,6 @@ class _BuyerCompletePurchasePopUpState
                                   onPressed: () {
                                     showErrors();
                                     if (areFieldsValid()) {
-                                      Loading.show(context);
                                       getIt<BuyCubit>().buyListItem(
                                           BuyASaleListingModel(
                                               saveAddress: checkBoxValue,

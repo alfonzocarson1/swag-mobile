@@ -19,6 +19,7 @@ import '../../models/buy_for_sale_listing/rating_buy_request_model.dart';
 import '../../models/buy_for_sale_listing/update_purchase_status_request.dart';
 import '../../models/profile/profile_model.dart';
 import '../../notifications_providers/local_notifications_providers.dart';
+import '../route_history/route_history_cubit.dart';
 
 part 'buy_state.dart';
 part 'buy_cubit.freezed.dart';
@@ -30,6 +31,10 @@ class BuyCubit extends Cubit<BuyStateCubit> {
   Future<void> getListDetailItem(String productItemId) async {
     try {
       await Future.delayed(const Duration(seconds: 0));
+      RouteHistoryCubit routeHistoryCubit = getIt<RouteHistoryCubit>();
+      if (routeHistoryCubit.routes[1] == 'Purchase') {
+        routeHistoryCubit.toggleRoute(routeHistoryCubit.routes[0]);
+      }
       emit(const loading_page(isFirstFetch: true));
       BuyForSaleListingModel responseBody =
           await buyService.buyAForSaleListing(productItemId);
@@ -48,8 +53,10 @@ class BuyCubit extends Cubit<BuyStateCubit> {
         emit(const loading_page(isFirstFetch: false));
         LocalNotificationProvider.showInAppAllert('Listing unavailable');
         getIt<ContextService>().rootNavigatorKey.currentState!.pop();
-        getIt<BuySaleListingBloc>().add(BuySaleListingEvent.getBuyListingItem(
-            responseBody.catalogItemId ?? ''));
+        if (routeHistoryCubit.routes[1] == 'ItemDetail') {
+          getIt<BuySaleListingBloc>().add(BuySaleListingEvent.getBuyListingItem(
+              responseBody.catalogItemId ?? ''));
+        }
       } else {
         emit(BuyStateCubit.loadedListDetailItem(responseBody));
         emit(const loading_page(isFirstFetch: false));
@@ -74,17 +81,23 @@ class BuyCubit extends Cubit<BuyStateCubit> {
 
   Future<void> buyListItem(BuyASaleListingModel buyAListing) async {
     try {
+      RouteHistoryCubit routeHistoryCubit = getIt<RouteHistoryCubit>();
+      if (routeHistoryCubit.routes[1] == 'Purchase') {
+        routeHistoryCubit.toggleRoute(routeHistoryCubit.routes[0]);
+      }
       BuyASaleListingResponseModel responseBody =
           await buyService.buyAListing(buyAListing);
 
       if (responseBody.errorCode == "3") {
-        BuyForSaleListingModel? listinStatus = await getIt<BuyCubit>()
-            .getAlertListDetailItem(buyAListing.productItemId ?? '');
         LocalNotificationProvider.showInAppAllert('Listing unavailable');
         getIt<ContextService>().rootNavigatorKey.currentState!.pop();
         getIt<ContextService>().rootNavigatorKey.currentState!.pop();
-        getIt<BuySaleListingBloc>().add(BuySaleListingEvent.getBuyListingItem(
-            listinStatus!.catalogItemId ?? ''));
+        if (routeHistoryCubit.routes[1] == 'ItemDetail') {
+          BuyForSaleListingModel? listinStatus = await getIt<BuyCubit>()
+              .getAlertListDetailItem(buyAListing.productItemId ?? '');
+          getIt<BuySaleListingBloc>().add(BuySaleListingEvent.getBuyListingItem(
+              listinStatus!.catalogItemId ?? ''));
+        }
       } else {
         emit(BuyStateCubit.loadedBuyLisItem(responseBody));
       }
