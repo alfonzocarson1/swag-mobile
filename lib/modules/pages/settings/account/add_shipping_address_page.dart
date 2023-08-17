@@ -151,18 +151,18 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
     });
     _getStates(_defaultCountry);
     getStatesForProvidedCountry();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+
+    });
     populateInitialData();
     // TODO: implement initState
     super.initState();
   }
 
-  void _getStates(String country) async {
+  void _getStates(String country) async{
     _states.clear();
     _defaultState = 'State';
-    var responseSatate = await getStates(country);
-    _states.addAll(responseSatate as Iterable<String>);
-   _states
-       .addAll(usStates.map((e) => '${e['short']} - ${e['name']}').toList());
+    _states.addAll(usStates.map((e) => '${e['short']} - ${e['name']}').toList());
     setState(() {});
   }
 
