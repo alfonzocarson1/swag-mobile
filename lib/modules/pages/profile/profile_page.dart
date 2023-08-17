@@ -41,16 +41,19 @@ class _ProfilePageState extends State<ProfilePage>
   late TabController _tabController;
   double rating = 3.5;
   int _currentIndex = 0;
-  late double blurLevel;
+  double blurLevel = 8.0;
   late ProfileModel profileData;
   bool hasUnreadMessages = false;
 
   @override
   void initState() {
+    profileData = getIt<PreferenceRepositoryService>().profileData();
     _tabController = TabController(length: 4, vsync: this);
     _tabController.addListener(_handleTabSelection);
-    verifySubscriptionStatus();
+  //  verifySubscriptionStatus();
+  
     super.initState();
+     
   }
 
   @override
@@ -64,39 +67,27 @@ class _ProfilePageState extends State<ProfilePage>
     setState(() {});
   }
 
-  verifySubscriptionStatus() {
-    getIt<ProfileCubit>().loadProfileResults();
-    setState(() {
-      profileData = getIt<PreferenceRepositoryService>().profileData();
-      if (profileData.hasActiveSubscription == true) {
-        blurLevel = 0;
-      } else {
-        blurLevel = 8.0;
-      }
-    });
-  }
 
-  removePaywall() async {
-   // await getIt<ProfileCubit>().loadProfileResults();
+  loadData()async{
+    await getIt<ProfileCubit>().loadProfileResults();
     profileData = getIt<PreferenceRepositoryService>().profileData();
-    blurLevel = 0;
-    setState(() {});
   }
 
   paywallAction() {
-    verifySubscriptionStatus();
+    //verifySubscriptionStatus();
     ProfileModel profileData =
         getIt<PreferenceRepositoryService>().profileData();
     if (profileData.hasActiveSubscription != true) {
       showPaywallSplashScreen(
           context: context,
           hasUsedFreeTrial: profileData.hasUsedFreeTrial ?? false,
-          removePaywall: removePaywall);
+          removePaywall: (){});
     }
   }
 
   @override
   Widget build(BuildContext context) {
+   // loadData();
     return Scaffold(
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle(
@@ -110,6 +101,7 @@ class _ProfilePageState extends State<ProfilePage>
               return state.maybeWhen(
                   orElse: () => Container(),
                   loadedProfileData: (ProfileModel profileBuildData) {
+                    profileData = profileBuildData;
                     return Padding(
                       padding: const EdgeInsets.only(right: 10),
                       child: IconButton(
@@ -202,7 +194,10 @@ class _ProfilePageState extends State<ProfilePage>
                               paywallAction();
                             }
                           },
-                          child: BlurredValue(blurLevel: blurLevel, collectionValue: profileData.collectionValue,)),
+                          child:(profileData.hasActiveSubscription == true) ? 
+                          BlurredValue(blurLevel: 0, collectionValue: profileData.collectionValue,):
+                          BlurredValue(blurLevel: 8.0, collectionValue: profileData.collectionValue,)
+                          ),
                         success:() => BlurredValue(blurLevel: 0, collectionValue: profileData.collectionValue,),                        
                         orElse: ()=> Container());
                     }
