@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/assets/icons.dart';
 import 'package:swagapp/modules/cubits/chat/chat_cubit.dart';
+import 'package:swagapp/modules/cubits/paywall/paywall_cubit.dart';
 import 'package:swagapp/modules/pages/chats/chat_list_view.dart';
 import 'package:swagapp/modules/pages/profile/sold/sold_page.dart';
 
@@ -40,16 +41,19 @@ class _ProfilePageState extends State<ProfilePage>
   late TabController _tabController;
   double rating = 3.5;
   int _currentIndex = 0;
-  late double blurLevel;
+  double blurLevel = 8.0;
   late ProfileModel profileData;
   bool hasUnreadMessages = false;
 
   @override
   void initState() {
+    profileData = getIt<PreferenceRepositoryService>().profileData();
     _tabController = TabController(length: 4, vsync: this);
     _tabController.addListener(_handleTabSelection);
-    verifySubscriptionStatus();
+  //  verifySubscriptionStatus();
+  
     super.initState();
+     
   }
 
   @override
@@ -63,39 +67,27 @@ class _ProfilePageState extends State<ProfilePage>
     setState(() {});
   }
 
-  verifySubscriptionStatus() {
-    getIt<ProfileCubit>().loadProfileResults();
-    setState(() {
-      profileData = getIt<PreferenceRepositoryService>().profileData();
-      if (profileData.hasActiveSubscription == true) {
-        blurLevel = 0;
-      } else {
-        blurLevel = 8.0;
-      }
-    });
-  }
 
-  removePaywall() async {
+  loadData()async{
     await getIt<ProfileCubit>().loadProfileResults();
     profileData = getIt<PreferenceRepositoryService>().profileData();
-    blurLevel = 0;
-    setState(() {});
   }
 
   paywallAction() {
-    verifySubscriptionStatus();
+    //verifySubscriptionStatus();
     ProfileModel profileData =
         getIt<PreferenceRepositoryService>().profileData();
     if (profileData.hasActiveSubscription != true) {
       showPaywallSplashScreen(
           context: context,
           hasUsedFreeTrial: profileData.hasUsedFreeTrial ?? false,
-          removePaywall: removePaywall);
+          removePaywall: (){});
     }
   }
 
   @override
   Widget build(BuildContext context) {
+   // loadData();
     return Scaffold(
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle(
@@ -109,6 +101,7 @@ class _ProfilePageState extends State<ProfilePage>
               return state.maybeWhen(
                   orElse: () => Container(),
                   loadedProfileData: (ProfileModel profileBuildData) {
+                    profileData = profileBuildData;
                     return Padding(
                       padding: const EdgeInsets.only(right: 10),
                       child: IconButton(
@@ -191,44 +184,24 @@ class _ProfilePageState extends State<ProfilePage>
                               color: Palette.current.light4)),
                 ),
                 Stack(children: [
-                  BlocBuilder<ProfileCubit, ProfileCubitState>(
-                      builder: (context, state) {
-                    return state.maybeWhen(
-                      orElse: () => Container(),
-                      loadedProfileData: (ProfileModel profileBuildData) {
-                        return Padding(
-                          padding: const EdgeInsets.only(left: 10.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              if(profileBuildData.hasActiveSubscription == false){
-                                paywallAction();
-                              }else{
-                                paywallAction();
-                              }
-                              
-                            },
-                            child: ImageFiltered(
-                              imageFilter: ImageFilter.blur(
-                                  sigmaX: blurLevel, sigmaY: blurLevel),
-                              child: Text(
-                                  decimalDigitsLastSalePrice(profileBuildData
-                                      .collectionValue
-                                      .toString()),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displayMedium!
-                                      .copyWith(
-                                          fontFamily: "KnockoutCustom",
-                                          fontSize: 45,
-                                          letterSpacing: 1.0,
-                                          fontWeight: FontWeight.w300,
-                                          color: Palette.current.light4)),
-                            ),
+ 
+                  BlocBuilder<PaywallCubit, PaywallCubitState>(
+                    builder: (context, state){
+                      return state.maybeWhen(
+                        initial:() => GestureDetector(
+                          onTap: () {
+                            if(profileData.hasActiveSubscription == false){
+                              paywallAction();
+                            }
+                          },
+                          child:(profileData.hasActiveSubscription == true) ? 
+                          BlurredValue(blurLevel: 0, collectionValue: profileData.collectionValue,):
+                          BlurredValue(blurLevel: 8.0, collectionValue: profileData.collectionValue,)
                           ),
-                        );
-                      },
-                    );
-                  }),
+                        success:() => BlurredValue(blurLevel: 0, collectionValue: profileData.collectionValue,),                        
+                        orElse: ()=> Container());
+                    }
+                  )
                 ]),
               ],
             ),
@@ -337,6 +310,38 @@ class _ProfilePageState extends State<ProfilePage>
         _currentIndex = _tabController.index;
       });
     }
+  }
+}
+
+class BlurredValue extends StatelessWidget {
+  const BlurredValue({
+    super.key,
+    required this.blurLevel,
+    required this.collectionValue,
+  });
+
+  final double blurLevel;
+  final double collectionValue;
+
+  @override
+  Widget build(BuildContext context) {
+
+    return ImageFiltered(
+      imageFilter: ImageFilter.blur(
+          sigmaX: blurLevel, sigmaY: blurLevel),
+      child: Text(
+          decimalDigitsLastSalePrice(collectionValue
+              .toString()),
+          style: Theme.of(context)
+              .textTheme
+              .displayMedium!
+              .copyWith(
+                  fontFamily: "KnockoutCustom",
+                  fontSize: 45,
+                  letterSpacing: 1.0,
+                  fontWeight: FontWeight.w300,
+                  color: Palette.current.light4)),
+    );
   }
 }
 

@@ -50,6 +50,7 @@ class _HomePage extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    getIt<ProfileCubit>().loadProfileResults();
     widgetsChildrenRefreshNotifiers = [
       ChangeNotifier(),
       ChangeNotifier(),
