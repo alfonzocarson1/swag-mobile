@@ -24,7 +24,7 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
  StreamSubscription<List<PurchaseDetails>>? subscription;
   late PaywallSubscriptionProducts flavorProducts;
   PaywallCubit() : super(const PaywallCubitState.initial()){
- inAppPurchaseIntitialization();
+ //inAppPurchaseIntitialization();
   }
 
   StreamSubscription<List<PurchaseDetails>>? _subscription;
