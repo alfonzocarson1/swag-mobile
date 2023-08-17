@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:swagapp/modules/common/ui/profile_username_rating.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 
+import '../../cubits/profile/get_profile_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/profile/profile_model.dart';
@@ -28,22 +30,28 @@ class _AccountInfoHeaderWidgetState extends State<AccountInfoHeaderWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          const AvatarPage(
-            isFirstUse: true,
+    return BlocBuilder<ProfileCubit, ProfileCubitState>(
+      builder: (context, state) {
+        ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
+
+        return Center(
+          child: Column(
+            children: [
+              const AvatarPage(
+                isFirstUse: true,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              ProfileUsernameRating(
+                username: profileData.username,
+                kycVerified: profileData.kycverified ?? false,
+                rating: profileData.listingsRating,
+              ),
+            ],
           ),
-          const SizedBox(
-            height: 20,
-          ),
-          ProfileUsernameRating(
-            username: profileData.username,
-            kycVerified: profileData.kycverified ?? false,
-            rating: profileData.listingsRating,
-          ),
-        ],
-      ),
-    );
+        );
+
+      });
   }
 }
