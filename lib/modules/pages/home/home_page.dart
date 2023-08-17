@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/di/injector.dart';
@@ -8,12 +7,12 @@ import 'package:swagapp/modules/pages/search/search_page.dart';
 
 import '../../common/utils/custom_route_animations.dart';
 import '../../cubits/alert/alert_cubit.dart';
+import '../../cubits/paywall/paywall_cubit.dart';
 import '../../cubits/profile/get_profile_cubit.dart';
 import '../../cubits/route_history/route_history_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../pages/alert/alert_page.dart';
 import '../../pages/profile/profile_page.dart';
-import '../../routes/app_routes.dart';
 import '../explore/account_info.dart';
 import '../explore/explore_page.dart';
 import '../login/create_account_page.dart';
@@ -70,6 +69,7 @@ class _HomePage extends State<HomePage> {
       const AlertPage(),
       const ProfilePage()
     ];
+    getIt<PaywallCubit>().inAppPurchaseIntitialization();
     cehckIfProfileDataIsMissing();
   }
 
