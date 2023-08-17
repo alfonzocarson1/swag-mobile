@@ -32,7 +32,6 @@ class _AccountInfoHeaderWidgetState extends State<AccountInfoHeaderWidget> {
   Widget build(BuildContext context) {
     return BlocBuilder<ProfileCubit, ProfileCubitState>(
       builder: (context, state) {
-        ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
 
         return Center(
           child: Column(
