@@ -30,9 +30,11 @@ import '../../../common/utils/palette.dart';
 import '../../../common/utils/send_mail_contact.dart';
 import '../../../constants/constants.dart';
 import '../../../cubits/buy/buy_cubit.dart';
+import '../../../cubits/route_history/route_history_cubit.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
 import '../../../common/utils/utils.dart';
+import '../../../enums/listing_status_data.dart';
 import '../../../models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
 import '../../../models/buy_for_sale_listing/update_purchase_status_request.dart';
 import '../../../models/detail/detail_collection_model.dart';
@@ -84,6 +86,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
   bool get isListingDataLoaded => listData.productItemId != null;
   bool get isLoggedInUserListing => profileData.accountId == listData.profileId;
   late List<GroupChannel> channels;
+  late RouteHistoryCubit _routeHistoryCubit;
 
   @override
   void initState() {
@@ -143,7 +146,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
 
   Future<void> _refreshList() async {
     setState(() {
-      loadingAvailable = false;
+      this.loadingAvailable = false;
     });
     await Future.delayed(const Duration(seconds: 2));
     getIt<BuyCubit>().getListDetailItem(widget.productItemId ?? '');
@@ -151,11 +154,6 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
       listData.profileId!,
       prefillFromCurrentUser: isLoggedInUserListing,
     );
-
-    await Future.delayed(const Duration(seconds: 2));
-    setState(() {
-      loadingAvailable = true;
-    });
   }
 
   @override
@@ -172,7 +170,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
             return null;
           },
           loading: (bool loading) {
-            return !loadingAvailable
+            return this.loadingAvailable == false
                 ? Container()
                 : loading
                     ? Loading.show(context)
@@ -182,6 +180,11 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
             setState(() {
               listData = listDataResponse;
               getSalesHistory();
+              Future.delayed(const Duration(seconds: 2)).then((value) {
+                setState(() {
+                  this.loadingAvailable = false;
+                });
+              });
 
               if (listData.submitPurchaseInfo != null) {
                 if (listData.submitPurchaseInfo!.avatarBuyer != 'CUSTOM') {
@@ -527,9 +530,12 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
               BuyForSaleListingModel? alertListinStatus =
                   await getIt<BuyCubit>()
                       .getAlertListDetailItem(listData.productItemId ?? '');
-              if (alertListinStatus!.status == 'removed') {
+              if (alertListinStatus!.status !=
+                  ListingStatusDataType.listed.textValue) {
                 handleListingStatusUnavailable(listData.catalogItemId ?? '');
               } else {
+                _routeHistoryCubit = getIt<RouteHistoryCubit>();
+                _routeHistoryCubit.toggleRoute('Purchase');
                 showDialog(
                   context: context,
                   barrierDismissible: false,
@@ -634,9 +640,18 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                   scale: 3.5,
                 ),
                 onPressed: () async {
-                  Share.share(
-                    '${listData.productItemName} - $shareListingUrl${listData.catalogItemId}',
-                  );
+                  BuyForSaleListingModel? alertListinStatus =
+                      await getIt<BuyCubit>()
+                          .getAlertListDetailItem(listData.productItemId ?? '');
+                  if (alertListinStatus!.status !=
+                      ListingStatusDataType.listed.textValue) {
+                    handleListingStatusUnavailable(
+                        listData.catalogItemId ?? '');
+                  } else {
+                    Share.share(
+                      '$shareListingUrl${listData.catalogItemId}',
+                    );
+                  }
                 },
               ),
             ),
@@ -670,7 +685,8 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
                     BuyForSaleListingModel? alertListinStatus =
                         await getIt<BuyCubit>().getAlertListDetailItem(
                             listData.productItemId ?? '');
-                    if (alertListinStatus!.status == 'removed') {
+                    if (alertListinStatus!.status !=
+                        ListingStatusDataType.listed.textValue) {
                       handleListingStatusUnavailable(
                           listData.catalogItemId ?? '');
                     } else {
@@ -698,7 +714,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
             productItemId: listData.productItemId,
             forSale: true,
             sold: false,
-            status: 'Editing',
+            status: 'editing',
           ),
         );
     Navigator.of(context, rootNavigator: true).push(

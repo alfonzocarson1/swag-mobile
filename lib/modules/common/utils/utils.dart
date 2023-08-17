@@ -16,6 +16,7 @@ import '../../blocs/buy_sale_listing_bloc/buy_sale_listing_bloc.dart';
 import '../../blocs/search_bloc.dart/search_bloc.dart';
 import '../../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
 import '../../constants/constants.dart';
+import '../../cubits/route_history/route_history_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/search/filter_model.dart';
@@ -620,8 +621,19 @@ extension StringNotEmptyOrNull on String? {
 }
 
 void handleListingStatusUnavailable(String catalogId) {
-  LocalNotificationProvider.showInAppAllert('Listing unavailable');
-  getIt<ContextService>().rootNavigatorKey.currentState!.pop();
-  getIt<BuySaleListingBloc>()
-      .add(BuySaleListingEvent.getBuyListingItem(catalogId));
+  RouteHistoryCubit routeHistoryCubit = getIt<RouteHistoryCubit>();
+
+  if (routeHistoryCubit.routes[1] == 'Purchase') {
+    routeHistoryCubit.toggleRoute(routeHistoryCubit.routes[0]);
+  }
+
+  if (routeHistoryCubit.routes[1] == 'ItemDetail') {
+    LocalNotificationProvider.showInAppAllert('Listing unavailable');
+    getIt<ContextService>().rootNavigatorKey.currentState!.pop();
+    getIt<BuySaleListingBloc>()
+        .add(BuySaleListingEvent.getBuyListingItem(catalogId));
+  } else {
+    LocalNotificationProvider.showInAppAllert('Listing unavailable');
+    getIt<ContextService>().rootNavigatorKey.currentState!.pop();
+  }
 }
