@@ -81,6 +81,9 @@ class BuyCubit extends Cubit<BuyStateCubit> {
 
   Future<void> buyListItem(BuyASaleListingModel buyAListing) async {
     try {
+      BuildContext context =
+          getIt<ContextService>().rootNavigatorKey.currentContext!;
+      Loading.show(context);
       RouteHistoryCubit routeHistoryCubit = getIt<RouteHistoryCubit>();
       if (routeHistoryCubit.routes[1] == 'Purchase') {
         routeHistoryCubit.toggleRoute(routeHistoryCubit.routes[0]);
@@ -98,6 +101,7 @@ class BuyCubit extends Cubit<BuyStateCubit> {
           getIt<BuySaleListingBloc>().add(BuySaleListingEvent.getBuyListingItem(
               listinStatus!.catalogItemId ?? ''));
         }
+        Loading.hide(context);
       } else {
         emit(BuyStateCubit.loadedBuyLisItem(responseBody));
       }

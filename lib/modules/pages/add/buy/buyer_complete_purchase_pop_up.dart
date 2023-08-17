@@ -263,7 +263,6 @@ class _BuyerCompletePurchasePopUpState
   }
 
   Future<void> onTapSubmit(String channelUrl) async {
-    Loading.show(context);
     late GroupChannel chatData;
     try {
       await Future.delayed(const Duration(milliseconds: 500));
