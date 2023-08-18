@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swagapp/modules/models/auth/create_account_response_model.dart';
@@ -62,6 +63,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       bool isLogout = response["response"];
       print("RESPONSEEE  $response");
       if(isLogout){
+        getIt<PreferenceRepositoryService>().saveIsLogged(false);
+        debugPrint('isLogged: ${getIt<PreferenceRepositoryService>().isLogged().toString()}');
         yield const AuthState.unauthenticated();
       }
     } catch(e){
