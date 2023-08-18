@@ -63,7 +63,8 @@ class _CustomDataTableState extends State<CustomDataTable> {
         histories.add(obj);
       }).toList();
 
-      histories.sort((a, b) => b.updatedDate.compareTo(a.updatedDate));
+      histories.sort((a, b) =>
+          b.updatedDate.toDateTime().compareTo(a.updatedDate.toDateTime()));
     });
   }
 
@@ -138,11 +139,11 @@ class _CustomDataTableState extends State<CustomDataTable> {
                             _ascendingCondition = false;
                             _ascendingPrice = false;
                             if (_ascendingDate) {
-                              histories.sort((a, b) => a.updatedDate
-                                  .compareTo(b.updatedDate));
+                              histories.sort((a, b) => a.updatedDate.toDateTime()
+                                  .compareTo(b.updatedDate.toDateTime()));
                             } else {
-                              histories.sort((a, b) => b.updatedDate
-                                  .compareTo(a.updatedDate));
+                              histories.sort((a, b) => b.updatedDate.toDateTime()
+                                  .compareTo(a.updatedDate.toDateTime()));
                             }
                             if (!_ascendingDate) {
                               _ascendingDate = true;
