@@ -10,10 +10,9 @@ import 'package:swagapp/modules/pages/search/search_page.dart';
 
 import '../../common/utils/custom_route_animations.dart';
 import '../../cubits/alert/alert_cubit.dart';
-import '../../cubits/collections/get_collections_cubit.dart';
-import '../../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
+import '../../cubits/paywall/paywall_cubit.dart';
 import '../../cubits/profile/get_profile_cubit.dart';
-import '../../cubits/sold/get_sold_cubit.dart';
+import '../../cubits/route_history/route_history_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../pages/alert/alert_page.dart';
 import '../../pages/profile/profile_page.dart';
@@ -49,10 +48,13 @@ class _HomePage extends State<HomePage> {
 
   List<Widget> widgetsChildren = [];
   var widgetsChildrenRefreshNotifiers = <ChangeNotifier>[];
+  late RouteHistoryCubit _routeHistoryCubit;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    getIt<ProfileCubit>().loadProfileResults();
     widgetsChildrenRefreshNotifiers = [
       ChangeNotifier(),
       ChangeNotifier(),
@@ -68,12 +70,13 @@ class _HomePage extends State<HomePage> {
       ),
       const SearchPage(),
       const AlertPage(),
-       ProfilePage(refreshNotifier: widgetsChildrenRefreshNotifiers[3])
+      const ProfilePage()
     ];
+    getIt<PaywallCubit>().inAppPurchaseIntitialization();
     cehckIfProfileDataIsMissing();
   }
 
-  void onTapTapped(int index) async {
+  void onTapTapped(int index) {
     widgetsChildrenRefreshNotifiers[index]?.notifyListeners();
     bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
     if ((index == 2 || index == 3) && !isLogged) {
@@ -81,7 +84,14 @@ class _HomePage extends State<HomePage> {
           .push(CreateAccountPage.route());
       getIt<PreferenceRepositoryService>().saveReturExploreIsNotLogged(true);
     } else if (index == 2 && isLogged) {
+      _routeHistoryCubit = getIt<RouteHistoryCubit>();
+      _routeHistoryCubit.toggleRoute('Alert');
       getIt<AlertCubit>().getAlertList();
+    }
+
+    if (index == 3 && isLogged) {
+      _routeHistoryCubit = getIt<RouteHistoryCubit>();
+      _routeHistoryCubit.toggleRoute('Profile');
     }
 
     setState(() {

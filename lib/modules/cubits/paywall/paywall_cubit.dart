@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:swagapp/modules/api/app_config.dart';
@@ -23,7 +24,7 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
  StreamSubscription<List<PurchaseDetails>>? subscription;
   late PaywallSubscriptionProducts flavorProducts;
   PaywallCubit() : super(const PaywallCubitState.initial()){
- inAppPurchaseIntitialization();
+ //inAppPurchaseIntitialization();
   }
 
   StreamSubscription<List<PurchaseDetails>>? _subscription;
@@ -34,15 +35,24 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
     _subscription = _iap.purchaseStream.listen((purchases) {
         completeTransactions(purchases);
       _handlePurchaseUpdates(purchases);
-    });
+    }, onDone: () {
+    _subscription?.cancel();
+},    onError: (error){
+  debugPrint(error);
+    }    
+    );
     subscription = _subscription;
+    emit(const PaywallCubitState.initial());
+
   }
 
   void startPurchase(String subscriptionType) {
  
     emit(const PaywallCubitState.progress());
     final ProductDetails product = _products. firstWhere((product) => product.id == subscriptionType);    
-    final PurchaseParam purchaseParam = PurchaseParam(productDetails: product);   
+    final PurchaseParam purchaseParam = PurchaseParam(productDetails: product);
+
+  
     _iap.buyNonConsumable(purchaseParam: purchaseParam);
     
   }
@@ -64,6 +74,7 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
                 _iap.completePurchase(purchase);
                 break;
             case PurchaseStatus.error:
+             _iap.completePurchase(purchase);
                 emit(PaywallCubitState.error(purchase.error!.message));
                 break;
             case PurchaseStatus.canceled:
@@ -73,13 +84,12 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
                 if (purchase.status == PurchaseStatus.purchased) {
                     _iap.completePurchase(purchase);
                     await sendSubscriptionRequest(purchase.purchaseID ??"");
-
                     emit(const PaywallCubitState.success());
                 }
                 else{
                         emit(const PaywallCubitState.success());
                 }
-               await getIt<ProfileCubit>().loadProfileResults();
+              // await getIt<ProfileCubit>().loadProfileResults();
                 emit(const PaywallCubitState.success());
                 break;
             case PurchaseStatus.restored:

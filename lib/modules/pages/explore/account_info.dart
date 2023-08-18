@@ -413,95 +413,100 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   @override
   Widget build(BuildContext context) {
     _responsiveDesign = ResponsiveDesign(context);
-    return Scaffold(
-        extendBodyBehindAppBar: true,
-        resizeToAvoidBottomInset: true,
-        backgroundColor: Colors.transparent,
-        appBar: CustomAppBar(
-          isAccountInfo: true,
-        ),
-        body: BlocListener<UpdateProfileBloc, UpdateProfileState>(
-            listener: (context, state) => state.maybeWhen(
-                  orElse: () {
-                    return null;
-                  },
-                  verifyEmailModalClosed: (modalClosed) {
-                    Future.delayed(const Duration(seconds: 1),
-                        (() => showPopUp(username: userName)));
-                    return null;
-                  },
-                  verificationEmailSent: (verificationSent) {
-                    if (verificationSent) {
-                      Navigator.of(context).pop();
-
-                      Future.delayed(const Duration(seconds: 3),
+    return WillPopScope(
+      onWillPop: () async {
+        return true;
+      },
+      child: Scaffold(
+          extendBodyBehindAppBar: true,
+          resizeToAvoidBottomInset: true,
+          backgroundColor: Colors.transparent,
+          appBar: CustomAppBar(
+            isAccountInfo: true,
+          ),
+          body: BlocListener<UpdateProfileBloc, UpdateProfileState>(
+              listener: (context, state) => state.maybeWhen(
+                    orElse: () {
+                      return null;
+                    },
+                    verifyEmailModalClosed: (modalClosed) {
+                      Future.delayed(const Duration(seconds: 1),
                           (() => showPopUp(username: userName)));
-
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          duration: const Duration(seconds: 5),
-                          behavior: SnackBarBehavior.floating,
-                          margin: EdgeInsets.only(
-                            bottom: MediaQuery.of(context).size.height / 1.3,
-                          ),
-                          backgroundColor: Colors.transparent,
-                          content: ToastMessage(
-                            message: S.of(context).toast_message_create_account,
-                          ),
-                          dismissDirection: DismissDirection.none));
-                    }
-                    return null;
-                  },
-                  dataImported: (emailVerified) {
-                    if (emailVerified) {
-                      Navigator.of(context).pop();
-                      setState(() {
-                        // getStoredInfo();
-                        _firstNameController.text = firstName;
-                        _lastNameController.text = lastName;
-                        _defaultCountry = _defaultCountry;
-                        _firstAddressController.text = address1;
-                        _secondAddressController.text = address2;
-                        _cityController.text = city;
-                        _defaultState = _defaultState;
-                        _zipController.text = zipp;
-                        updateAllFlow = false;
-                      });
-                    } else {
-                      Navigator.of(context).pop();
-                      Future.delayed(
-                          const Duration(seconds: 1), (() => showPopUp()));
-                    }
-                    return null;
-                  },
-                  updated: () {
-                    showPopUp(username: userName);
-                    if (updateAllFlow) {
-                      setState(() {
-                        _firstNameController.text = '';
-                        _lastNameController.text = '';
-                        _defaultCountry = _defaultCountry;
-                        _firstAddressController.text = '';
-                        _secondAddressController.text = '';
-                        _cityController.text = '';
-                        _defaultState = _defaultState;
-                        _zipController.text = '';
-                        updateAllFlow = false;
-                      });
-                      Navigator.of(context, rootNavigator: true).pop();
-                    }
-                    Loading.hide(context);
-                    return null;
-                  },
-                  initial: () {
-                    return Loading.show(context);
-                  },
-                  error: (message) => {
-                    updateAllFlow = false,
-                    Loading.hide(context),
-                    // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
-                  },
-                ),
-            child: _getBody()));
+                      return null;
+                    },
+                    verificationEmailSent: (verificationSent) {
+                      if (verificationSent) {
+                        Navigator.of(context).pop();
+    
+                        Future.delayed(const Duration(seconds: 3),
+                            (() => showPopUp(username: userName)));
+    
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            duration: const Duration(seconds: 5),
+                            behavior: SnackBarBehavior.floating,
+                            margin: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).size.height / 1.3,
+                            ),
+                            backgroundColor: Colors.transparent,
+                            content: ToastMessage(
+                              message: S.of(context).toast_message_create_account,
+                            ),
+                            dismissDirection: DismissDirection.none));
+                      }
+                      return null;
+                    },
+                    dataImported: (emailVerified) {
+                      if (emailVerified) {
+                        Navigator.of(context).pop();
+                        setState(() {
+                          // getStoredInfo();
+                          _firstNameController.text = firstName;
+                          _lastNameController.text = lastName;
+                          _defaultCountry = _defaultCountry;
+                          _firstAddressController.text = address1;
+                          _secondAddressController.text = address2;
+                          _cityController.text = city;
+                          _defaultState = _defaultState;
+                          _zipController.text = zipp;
+                          updateAllFlow = false;
+                        });
+                      } else {
+                        Navigator.of(context).pop();
+                        Future.delayed(
+                            const Duration(seconds: 1), (() => showPopUp()));
+                      }
+                      return null;
+                    },
+                    updated: () {
+                      showPopUp(username: userName);
+                      if (updateAllFlow) {
+                        setState(() {
+                          _firstNameController.text = '';
+                          _lastNameController.text = '';
+                          _defaultCountry = _defaultCountry;
+                          _firstAddressController.text = '';
+                          _secondAddressController.text = '';
+                          _cityController.text = '';
+                          _defaultState = _defaultState;
+                          _zipController.text = '';
+                          updateAllFlow = false;
+                        });
+                        Navigator.of(context, rootNavigator: true).pop();
+                      }
+                      Loading.hide(context);
+                      return null;
+                    },
+                    initial: () {
+                      return Loading.show(context);
+                    },
+                    error: (message) => {
+                      updateAllFlow = false,
+                      Loading.hide(context),
+                      // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
+                    },
+                  ),
+              child: _getBody())),
+    );
   }
 
   GestureDetector _getBody() {

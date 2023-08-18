@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:swagapp/modules/common/utils/stateful_wrapper.dart';
+
 import 'package:swagapp/modules/pages/login/landing_page.dart';
 import 'package:swagapp/modules/pages/onboarding/onboarding_page.dart';
 import 'package:swagapp/modules/services/deep_link_manager.dart';
