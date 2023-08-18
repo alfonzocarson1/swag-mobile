@@ -149,6 +149,7 @@
     "remove_collection_btn": "REMOVE FROM COLLECTION",
     "list_for_sale_btn": "LIST FOR SALE",
     "receive_offer": "RECEIVE OFFERS ON THIS ITEM",
+    "collection_removal_not_allowed_if_on_sale": " Unable to remove from collection.  Sale in progress.",
 
 
     "filters_title": "filters",

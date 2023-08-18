@@ -1484,6 +1484,16 @@ class S {
     );
   }
 
+  /// ` Unable to remove from collection.  Sale in progress.`
+  String get collection_removal_not_allowed_if_on_sale {
+    return Intl.message(
+      ' Unable to remove from collection.  Sale in progress.',
+      name: 'collection_removal_not_allowed_if_on_sale',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `filters`
   String get filters_title {
     return Intl.message(
