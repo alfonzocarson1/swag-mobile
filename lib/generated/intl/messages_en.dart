@@ -235,7 +235,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "This cover is not in your collection, buy it now before it’s too late"),
         "collection_removal_not_allowed_if_on_sale":
             MessageLookupByLibrary.simpleMessage(
-                " Unable to remove from collection.  Sale in progress."),
+                "Unable to remove from collection. Sale in progress."),
         "collection_value":
             MessageLookupByLibrary.simpleMessage("ESTIMATED COLLECTION VALUE:"),
         "collections": MessageLookupByLibrary.simpleMessage("collections"),
