@@ -49,11 +49,13 @@ class _HomePage extends State<HomePage> {
   List<Widget> widgetsChildren = [];
   var widgetsChildrenRefreshNotifiers = <ChangeNotifier>[];
   late RouteHistoryCubit _routeHistoryCubit;
+  late bool isLogged;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    isLogged = getIt<PreferenceRepositoryService>().isLogged();
     getIt<ProfileCubit>().loadProfileResults();
     widgetsChildrenRefreshNotifiers = [
       ChangeNotifier(),
@@ -72,7 +74,9 @@ class _HomePage extends State<HomePage> {
       const AlertPage(),
       const ProfilePage()
     ];
-    getIt<PaywallCubit>().inAppPurchaseIntitialization();
+    if (isLogged == true){
+      getIt<PaywallCubit>().inAppPurchaseIntitialization();
+    }    
     cehckIfProfileDataIsMissing();
   }
 
