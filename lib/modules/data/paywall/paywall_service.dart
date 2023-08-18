@@ -29,7 +29,6 @@ class PaywallService extends IPaywallService {
       fromJson: (json) => PaywallSubscriptionResponse.fromJson(json),
     );
 
-    debugPrint(response.toString());
 
     return response;
   }

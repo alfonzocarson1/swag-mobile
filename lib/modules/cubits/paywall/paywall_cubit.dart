@@ -89,7 +89,7 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
                 else{
                         emit(const PaywallCubitState.success());
                 }
-              // await getIt<ProfileCubit>().loadProfileResults();
+               await getIt<ProfileCubit>().loadProfileResults();
                 emit(const PaywallCubitState.success());
                 break;
             case PurchaseStatus.restored:
@@ -123,13 +123,17 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
 
 
   sendSubscriptionRequest(String purchaseId) async {
+
+    await getIt<ProfileCubit>().loadProfileResults();
+    ProfileModel profileData2 = getIt<PreferenceRepositoryService>().profileData(); 
     
      var response = await getIt<UpdateSubscriptionStatusCubit>().UpdateSubscriptionStatus(
             PaywallSubscriptionRequest(
-            accountId: profileData.accountId, 
+            accountId: profileData2.accountId, 
             transactionID: purchaseId, 
             deviceType: "iOS")
       ); 
+      debugPrint("Subscription Response: $response");
       return response;
       
 

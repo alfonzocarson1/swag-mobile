@@ -307,8 +307,8 @@ class _CatalogPageState extends State<CatalogPage> {
                                         .getItem(item.catalogItemId));
 
                                 final inFavorites = favItemState.first;
-                                debugPrint(
-                                    "${item.catalogItemId} => $inFavorites");
+                                // debugPrint(
+                                //     "${item.catalogItemId} => $inFavorites");
                                 final profileFavoriteItemId =
                                     favItemState.second?.profileFavoriteItemId;
 

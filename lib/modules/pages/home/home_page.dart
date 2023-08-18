@@ -56,7 +56,7 @@ class _HomePage extends State<HomePage> {
     // TODO: implement initState
     super.initState();
     isLogged = getIt<PreferenceRepositoryService>().isLogged();
-    getIt<ProfileCubit>().loadProfileResults();
+   
     widgetsChildrenRefreshNotifiers = [
       ChangeNotifier(),
       ChangeNotifier(),

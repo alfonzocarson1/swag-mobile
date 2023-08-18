@@ -89,7 +89,9 @@ class _PaywallSplashScreenState extends State<PaywallSplashScreen> {
               child: const Center(child:  SimpleLoader())),
             initial:() =>  SingleChildScrollView(
             child: PaywallBody(deviceWidth: deviceWidth, deviceHeight: deviceHeight, profileData: profileData, payWallConditionList: payWallConditionList, flavorProducts: flavorProducts),
-          ), orElse: () => PaywallBody(deviceWidth: deviceWidth, deviceHeight: deviceHeight, profileData: profileData, payWallConditionList: payWallConditionList, flavorProducts: flavorProducts)
+          ), orElse: () =>  SingleChildScrollView(
+            child: PaywallBody(deviceWidth: deviceWidth, deviceHeight: deviceHeight, profileData: profileData, payWallConditionList: payWallConditionList, flavorProducts: flavorProducts),
+          )
           );
           
         },
