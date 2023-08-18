@@ -42,6 +42,7 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
     }    
     );
     subscription = _subscription;
+    emit(const PaywallCubitState.initial());
 
   }
 
