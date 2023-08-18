@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
+import 'package:swagapp/modules/common/utils/utils.dart';
 
 part 'sale_history_model.freezed.dart';
 part 'sale_history_model.g.dart';

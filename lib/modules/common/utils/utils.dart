@@ -34,6 +34,11 @@ String dateFormat(String dateStr) {
   return formatted;
 }
 
+extension DateExtension on String{
+  DateTime toDateTime()=> DateFormat('dd/MM/yyyy').parse(this);
+
+}
+
 bool isValidEmail(String email) {
   return RegExp(
           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
