@@ -8,6 +8,7 @@ import 'package:swagapp/modules/common/utils/stateful_wrapper.dart';
 
 import 'package:swagapp/modules/pages/login/landing_page.dart';
 import 'package:swagapp/modules/pages/onboarding/onboarding_page.dart';
+import 'package:swagapp/modules/services/deep_link_manager.dart';
 import 'generated/l10n.dart';
 
 import 'modules/blocs/auth_bloc/auth_bloc.dart';
@@ -38,36 +39,14 @@ class _AppState extends State<App> {
   @override
   void initState() {
     super.initState();
-    initDeepLinks();
+    getIt<DeepLinkHandler>().init();
   }
 
   @override
   void dispose() {
-    _linkSubscription?.cancel();
-    super.dispose();
-  }
-
-  Future<void> initDeepLinks() async {
-    _appLinks = AppLinks();
-
-    // Check initial link if app was in cold state (terminated)
-    final appLink = await _appLinks.getInitialAppLink();
-    if (appLink != null) {
-      print('getInitialAppLink: $appLink');
-      openAppLink(appLink);
-    }
-
-    // Handle link when app is in warm state (front or background)
-    _linkSubscription = _appLinks.uriLinkStream.listen((uri) {
-      print('onAppLink: $uri');
-      openAppLink(uri);
-    });
-  }
-
-  void openAppLink(Uri uri) {
-    var uriFragment = uri;
-    print(uriFragment);
-    //_homeNavigatorKey.currentState?.pushNamed("");
+    getIt<DeepLinkHandler>().dispose();
+   // _linkSubscription?.cancel();
+  //  super.dispose();
   }
 
   @override
