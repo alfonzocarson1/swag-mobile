@@ -534,13 +534,17 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                           title: S.of(context).remove_collection_btn,
                           onPressed: () {
                             if (isLogged) {
-                              showDialog(
-                                  context: context,
-                                  barrierDismissible: false,
-                                  builder: (BuildContext context) {
-                                    return PopUpDeleteItemCollection(
-                                        dataCollection: dataCollection);
-                                  });
+                              if (widget.sale) {
+                                showToastMessage(S.of(context).collection_removal_not_allowed_if_on_sale);
+                              } else {
+                                showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (BuildContext context) {
+                                      return PopUpDeleteItemCollection(
+                                          dataCollection: dataCollection);
+                                    });
+                              }
                             } else {
                               Navigator.of(context, rootNavigator: true)
                                   .push(CreateAccountPage.route());
