@@ -22,7 +22,6 @@ class ProfileCubit extends Cubit<ProfileCubitState> {
     try {
       ProfileModel responseBody = await profileService.privateProfile();
       getIt<PreferenceRepositoryService>().saveProfileData(responseBody);
-      print(responseBody);
       emit(LoadedProfileDataState(responseBody));
     } catch (error) {
       emit(

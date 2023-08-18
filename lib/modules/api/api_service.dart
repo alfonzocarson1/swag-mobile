@@ -138,7 +138,7 @@ class APIService {
     String? token = '';
     if (needBearer) {
       token = await getIt<StorageRepositoryService>().getToken();
-      print(token);
+     
     }
 
     http.Response? response;
