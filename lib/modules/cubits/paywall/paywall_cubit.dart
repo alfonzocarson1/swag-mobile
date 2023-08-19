@@ -20,11 +20,10 @@ part 'paywall_cubit.freezed.dart';
 class PaywallCubit extends Cubit<PaywallCubitState> {
   final InAppPurchase _iap = InAppPurchase.instance;
   List<ProductDetails> _products = [];
-  ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData(); 
  StreamSubscription<List<PurchaseDetails>>? subscription;
   late PaywallSubscriptionProducts flavorProducts;
   PaywallCubit() : super(const PaywallCubitState.initial()){
- //inAppPurchaseIntitialization();
+   inAppPurchaseIntitialization();
   }
 
   StreamSubscription<List<PurchaseDetails>>? _subscription;
@@ -125,30 +124,22 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
   sendSubscriptionRequest(String purchaseId) async {
 
     await getIt<ProfileCubit>().loadProfileResults();
-    ProfileModel profileData2 = getIt<PreferenceRepositoryService>().profileData(); 
+    ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData(); 
     
      var response = await getIt<UpdateSubscriptionStatusCubit>().UpdateSubscriptionStatus(
             PaywallSubscriptionRequest(
-            accountId: profileData2.accountId, 
+            accountId: profileData.accountId, 
             transactionID: purchaseId, 
             deviceType: "iOS")
       ); 
       debugPrint("Subscription Response: $response");
       return response;
-      
-
   }
 
-  sendSubscriptionRequest2()async{
-      var response = await getIt<UpdateSubscriptionStatusCubit>().UpdateSubscriptionStatus(
-            PaywallSubscriptionRequest(
-            accountId: profileData.accountId, 
-            transactionID: "2000000363137282", 
-            deviceType: "iOS")
-      );
-      return response;
-    
+  reset(){
+    emit(const PaywallCubitState.initial());
   }
+
 
   @override
   Future<void> close() {
