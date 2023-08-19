@@ -10,8 +10,6 @@ import 'package:swagapp/modules/pages/search/search_page.dart';
 
 import '../../common/utils/custom_route_animations.dart';
 import '../../cubits/alert/alert_cubit.dart';
-import '../../cubits/paywall/paywall_cubit.dart';
-import '../../cubits/profile/get_profile_cubit.dart';
 import '../../cubits/route_history/route_history_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../pages/alert/alert_page.dart';
@@ -49,13 +47,13 @@ class _HomePage extends State<HomePage> {
   List<Widget> widgetsChildren = [];
   var widgetsChildrenRefreshNotifiers = <ChangeNotifier>[];
   late RouteHistoryCubit _routeHistoryCubit;
-  late bool isLogged;
+
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    isLogged = getIt<PreferenceRepositoryService>().isLogged();
+ 
    
     widgetsChildrenRefreshNotifiers = [
       ChangeNotifier(),
@@ -74,9 +72,7 @@ class _HomePage extends State<HomePage> {
       const AlertPage(),
       const ProfilePage()
     ];
-    if (isLogged == true){
-      getIt<PaywallCubit>().inAppPurchaseIntitialization();
-    }    
+  
     cehckIfProfileDataIsMissing();
   }
 
@@ -106,7 +102,7 @@ class _HomePage extends State<HomePage> {
 
   void cehckIfProfileDataIsMissing() async {
     profileData = getIt<PreferenceRepositoryService>().profileData();
-    await getIt<ProfileCubit>().loadProfileResults();
+    
     try {
       final pData = getIt<PreferenceRepositoryService>().profileData();
       if (pData.addresses!.isEmpty && profileDataState) {
