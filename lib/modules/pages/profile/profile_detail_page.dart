@@ -9,19 +9,14 @@ import 'package:swagapp/modules/data/secure_storage/storage_repository_service.d
 import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
 import 'package:swagapp/modules/di/injector.dart';
 import 'package:swagapp/modules/models/profile/profile_model.dart';
-import 'package:swagapp/modules/pages/home/home_page.dart';
-import 'package:swagapp/modules/pages/login/landing_page.dart';
-import 'package:swagapp/modules/pages/login/sign_in_page.dart';
 import 'package:swagapp/modules/pages/profile/delete_account/delete_account_page.dart';
-import 'package:swagapp/modules/pages/profile/profile_page.dart';
 import 'package:swagapp/modules/pages/profile/update_email_page.dart';
 import 'package:swagapp/modules/pages/profile/update_name_page.dart';
-import 'package:swagapp/modules/pages/settings/settings_page.dart';
-import 'package:swagapp/modules/pages/splash/splash_page.dart';
 import '../../../generated/l10n.dart';
 import '../../common/ui/pushed_header.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
+import '../../cubits/paywall/paywall_cubit.dart';
 import '../login/forgot_password_page.dart';
 
 class ProfileDetailPage extends StatefulWidget {
@@ -87,7 +82,6 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
     },
 
     unauthenticated: ()  {
-
         Loading.hide(context);
         Navigator.of(context, rootNavigator: true).pop(true);
        //  Navigator.of(context).pushAndRemoveUntil(LandingPage.route(), (route) => true);
@@ -95,6 +89,7 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
       Future.delayed(const Duration(milliseconds: 1000), () async {
         await getIt<StorageRepositoryService>().deleteAll();
         await getIt<PreferenceRepositoryService>().deleteAll();
+         await getIt<PaywallCubit>().reset();
         });
     print("UNAUTHENTICATED");
     return null;

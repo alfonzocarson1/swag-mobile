@@ -1,21 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/blocs/auth_bloc/auth_bloc.dart';
-import 'package:swagapp/modules/blocs/update_profile_bloc/update_profile_bloc.dart';
 import 'package:swagapp/modules/common/ui/delete_message_popup.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
-import 'package:swagapp/modules/models/profile/public_profile.dart';
-import 'package:swagapp/modules/pages/settings/profile/profile_settings_page.dart';
-import 'package:swagapp/modules/pages/settings/settings_page.dart';
+import 'package:swagapp/modules/cubits/paywall/paywall_cubit.dart';
 import '../../data/secure_storage/storage_repository_service.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/profile/profile_model.dart';
-import '../../pages/login/landing_page.dart';
-import '../../pages/profile/profile_page.dart';
-import 'dynamic_toast_messages.dart';
 import 'loading.dart';
 
 class DeleteAccountPopup extends StatefulWidget {
@@ -47,6 +40,7 @@ class _DeleteAccountPopup extends State<DeleteAccountPopup> {
              Loading.hide(context);
               await getIt<StorageRepositoryService>().deleteAll();
               await getIt<PreferenceRepositoryService>().deleteAll();
+              getIt<PaywallCubit>().reset();
            //  Navigator.of(context).popUntil((route) => route.settings.name == SettingsPage.name);
            //   Navigator.of(context).pushAndRemoveUntil(LandingPage.route(), (route) => true);
              Navigator.of(context, rootNavigator: true).pop();
