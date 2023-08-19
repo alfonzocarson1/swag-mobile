@@ -163,7 +163,7 @@ class _SearchResultFieldState extends State<SearchResultField> {
     if (tab != null) {
       categoryId = await getTabId(tab);
     }
-    getIt<PaginatedSearchCubit>().loadResults(
+    await getIt<PaginatedSearchCubit>().loadResults(
         searchModel: SearchRequestPayloadModel(
             categoryId: (tab == SearchTab.all ||
                     tab == null ||
@@ -178,5 +178,6 @@ class _SearchResultFieldState extends State<SearchResultField> {
               forSale: filters.forSale,
             )),
         searchTab: tab ?? SearchTab.all);
+    updateSelectedFiltersAndSortsNumber(context, tab: tab);
   }
 }
