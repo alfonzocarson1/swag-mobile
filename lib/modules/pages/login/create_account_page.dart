@@ -697,12 +697,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
         controller: _usernameController,
         prefix: const Text("@"),
         inputFormatters: [
-          FilteringTextInputFormatter.allow(RegExp("[a-zA-Z_0-9]")),
-          TextInputFormatter.withFunction(
-            (oldValue, newValue) => newValue.copyWith(
-              text: newValue.text.toLowerCase(),
-            ),
-          ),
+          FilteringTextInputFormatter.allow(RegExp(r"[a-zA-Z_\-0-9]")),
         ],
         onChanged: (value) {
           if (value.isNotEmpty) {
