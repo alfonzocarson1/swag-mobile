@@ -4595,20 +4595,20 @@ class S {
     );
   }
 
-  /// `Min ${length} digits required`
+  /// `Min. {length} digits required`
   String card_number_min_error(Object length) {
     return Intl.message(
-      'Min \$$length digits required',
+      'Min. $length digits required',
       name: 'card_number_min_error',
       desc: '',
       args: [length],
     );
   }
 
-  /// `Max ${length} digits required`
+  /// `Max. {length} digits required`
   String card_number_max_error(Object length) {
     return Intl.message(
-      'Max \$$length digits required',
+      'Max. $length digits required',
       name: 'card_number_max_error',
       desc: '',
       args: [length],

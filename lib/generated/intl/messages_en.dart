@@ -20,9 +20,9 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(length) => "Max \$${length} digits required";
+  static String m0(length) => "Max. ${length} digits required";
 
-  static String m1(length) => "Min \$${length} digits required";
+  static String m1(length) => "Min. ${length} digits required";
 
   static String m2(userName, listingName) =>
       "@${userName} has agreed to purchase your ${listingName}";
