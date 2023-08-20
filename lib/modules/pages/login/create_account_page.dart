@@ -164,7 +164,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
                   orElse: () {
                     return null;
                   },
-                  authenticated: () {
+                  authenticated: (informationMissing) {
                     bool loginAfterGuest =
                         getIt<PreferenceRepositoryService>().loginAfterGuest();
                     getIt<PreferenceRepositoryService>()

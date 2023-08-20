@@ -137,7 +137,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       preferenceService.saveUserSendBirdId(response.accountId);
 
       if (response.errorCode == successResponse) {
-        yield const AuthState.authenticated();
+        yield AuthState.authenticated(
+          informationMissing: await _isAccountInformationMissing(),
+        );
       } else {
         yield AuthState.error(response.errorCode);
       }
@@ -160,7 +162,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         ProfileModel profileData = preferenceService.profileData();
         preferenceService.saveUserSendBirdId(profileData.accountId);
 
-        yield const AuthState.authenticated();
+        yield AuthState.authenticated(
+          informationMissing: await _isAccountInformationMissing(),
+        );
       } else {
         yield AuthState.error(HandlingErrors().getError(response.errorCode));
       }
@@ -209,10 +213,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       storageService.saveToken(response.token);
 
       yield const AuthState.passwordChanged();
-      yield const AuthState.authenticated();
+      yield AuthState.authenticated(
+        informationMissing: await _isAccountInformationMissing(),
+      );
     } catch (e) {
       yield AuthState.error(HandlingErrors().getError(e));
     }
+  }
+
+  Future<bool> _isAccountInformationMissing() async {
+    final profileData = await authService.privateProfile();
+    return profileData.firstName == null || profileData.lastName == null || (profileData.addresses?.isEmpty ?? true);
   }
 
   @override
