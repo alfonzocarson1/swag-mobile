@@ -11,6 +11,7 @@ import 'package:swagapp/modules/api/api.dart';
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
+import 'package:swagapp/modules/pages/home/home_page.dart';
 import 'package:swagapp/modules/stripe/models/card_token_input_model.dart';
 import 'package:swagapp/modules/stripe/models/customer_input_model.dart';
 import 'package:swagapp/modules/stripe/models/payment_method_input_model.dart';
@@ -437,10 +438,10 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                     verificationEmailSent: (verificationSent) {
                       if (verificationSent) {
                         Navigator.of(context).pop();
-    
+
                         Future.delayed(const Duration(seconds: 3),
                             (() => showPopUp(username: userName)));
-    
+
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             duration: const Duration(seconds: 5),
                             behavior: SnackBarBehavior.floating,
@@ -449,7 +450,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                             ),
                             backgroundColor: Colors.transparent,
                             content: ToastMessage(
-                              message: S.of(context).toast_message_create_account,
+                              message:
+                                  S.of(context).toast_message_create_account,
                             ),
                             dismissDirection: DismissDirection.none));
                       }
@@ -492,6 +494,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                           updateAllFlow = false;
                         });
                         Navigator.of(context, rootNavigator: true).pop();
+                        Navigator.of(context, rootNavigator: true)
+                            .pushReplacement(HomePage.route());
                       }
                       Loading.hide(context);
                       return null;
@@ -1058,10 +1062,10 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
       cardNameErrorText = _cardNameController.text.isNotEmpty
           ? null
           : S.of(context).required_field;
-      cardErrorText = _cardController.text.isNotEmpty &&
-              _cardNumberLength() != 0
-          ? null
-          : S.of(context).required_field;
+      cardErrorText =
+          _cardController.text.isNotEmpty && _cardNumberLength() != 0
+              ? null
+              : S.of(context).required_field;
 
       if (_cardNumberLength() > 23) {
         cardErrorText = S.of(context).card_number_max_error(23);
