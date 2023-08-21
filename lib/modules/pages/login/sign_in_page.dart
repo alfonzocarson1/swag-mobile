@@ -84,7 +84,7 @@ class _SignInPageState extends State<SignInPage> {
                   orElse: () {
                     return null;
                   },
-                  authenticated: () {
+                  authenticated: (_informationMissing) {
                     getIt<PreferenceRepositoryService>().saveIsLogged(true);
                     getIt<StorageRepositoryService>()
                         .saveEmail(_emailController.text);

@@ -1656,7 +1656,7 @@ mixin _$AuthState {
     required TResult Function() walkthrough,
     required TResult Function() onboarding,
     required TResult Function() logging,
-    required TResult Function() authenticated,
+    required TResult Function(bool informationMissing) authenticated,
     required TResult Function() unauthenticated,
     required TResult Function(String message) error,
     required TResult Function() reset,
@@ -1676,7 +1676,7 @@ mixin _$AuthState {
     TResult? Function()? walkthrough,
     TResult? Function()? onboarding,
     TResult? Function()? logging,
-    TResult? Function()? authenticated,
+    TResult? Function(bool informationMissing)? authenticated,
     TResult? Function()? unauthenticated,
     TResult? Function(String message)? error,
     TResult? Function()? reset,
@@ -1696,7 +1696,7 @@ mixin _$AuthState {
     TResult Function()? walkthrough,
     TResult Function()? onboarding,
     TResult Function()? logging,
-    TResult Function()? authenticated,
+    TResult Function(bool informationMissing)? authenticated,
     TResult Function()? unauthenticated,
     TResult Function(String message)? error,
     TResult Function()? reset,
@@ -1828,7 +1828,7 @@ class _$Initial implements Initial {
     required TResult Function() walkthrough,
     required TResult Function() onboarding,
     required TResult Function() logging,
-    required TResult Function() authenticated,
+    required TResult Function(bool informationMissing) authenticated,
     required TResult Function() unauthenticated,
     required TResult Function(String message) error,
     required TResult Function() reset,
@@ -1851,7 +1851,7 @@ class _$Initial implements Initial {
     TResult? Function()? walkthrough,
     TResult? Function()? onboarding,
     TResult? Function()? logging,
-    TResult? Function()? authenticated,
+    TResult? Function(bool informationMissing)? authenticated,
     TResult? Function()? unauthenticated,
     TResult? Function(String message)? error,
     TResult? Function()? reset,
@@ -1874,7 +1874,7 @@ class _$Initial implements Initial {
     TResult Function()? walkthrough,
     TResult Function()? onboarding,
     TResult Function()? logging,
-    TResult Function()? authenticated,
+    TResult Function(bool informationMissing)? authenticated,
     TResult Function()? unauthenticated,
     TResult Function(String message)? error,
     TResult Function()? reset,
@@ -2011,7 +2011,7 @@ class _$Walkthrough implements Walkthrough {
     required TResult Function() walkthrough,
     required TResult Function() onboarding,
     required TResult Function() logging,
-    required TResult Function() authenticated,
+    required TResult Function(bool informationMissing) authenticated,
     required TResult Function() unauthenticated,
     required TResult Function(String message) error,
     required TResult Function() reset,
@@ -2034,7 +2034,7 @@ class _$Walkthrough implements Walkthrough {
     TResult? Function()? walkthrough,
     TResult? Function()? onboarding,
     TResult? Function()? logging,
-    TResult? Function()? authenticated,
+    TResult? Function(bool informationMissing)? authenticated,
     TResult? Function()? unauthenticated,
     TResult? Function(String message)? error,
     TResult? Function()? reset,
@@ -2057,7 +2057,7 @@ class _$Walkthrough implements Walkthrough {
     TResult Function()? walkthrough,
     TResult Function()? onboarding,
     TResult Function()? logging,
-    TResult Function()? authenticated,
+    TResult Function(bool informationMissing)? authenticated,
     TResult Function()? unauthenticated,
     TResult Function(String message)? error,
     TResult Function()? reset,
@@ -2194,7 +2194,7 @@ class _$Onboarding implements Onboarding {
     required TResult Function() walkthrough,
     required TResult Function() onboarding,
     required TResult Function() logging,
-    required TResult Function() authenticated,
+    required TResult Function(bool informationMissing) authenticated,
     required TResult Function() unauthenticated,
     required TResult Function(String message) error,
     required TResult Function() reset,
@@ -2217,7 +2217,7 @@ class _$Onboarding implements Onboarding {
     TResult? Function()? walkthrough,
     TResult? Function()? onboarding,
     TResult? Function()? logging,
-    TResult? Function()? authenticated,
+    TResult? Function(bool informationMissing)? authenticated,
     TResult? Function()? unauthenticated,
     TResult? Function(String message)? error,
     TResult? Function()? reset,
@@ -2240,7 +2240,7 @@ class _$Onboarding implements Onboarding {
     TResult Function()? walkthrough,
     TResult Function()? onboarding,
     TResult Function()? logging,
-    TResult Function()? authenticated,
+    TResult Function(bool informationMissing)? authenticated,
     TResult Function()? unauthenticated,
     TResult Function(String message)? error,
     TResult Function()? reset,
@@ -2375,7 +2375,7 @@ class _$Logging implements Logging {
     required TResult Function() walkthrough,
     required TResult Function() onboarding,
     required TResult Function() logging,
-    required TResult Function() authenticated,
+    required TResult Function(bool informationMissing) authenticated,
     required TResult Function() unauthenticated,
     required TResult Function(String message) error,
     required TResult Function() reset,
@@ -2398,7 +2398,7 @@ class _$Logging implements Logging {
     TResult? Function()? walkthrough,
     TResult? Function()? onboarding,
     TResult? Function()? logging,
-    TResult? Function()? authenticated,
+    TResult? Function(bool informationMissing)? authenticated,
     TResult? Function()? unauthenticated,
     TResult? Function(String message)? error,
     TResult? Function()? reset,
@@ -2421,7 +2421,7 @@ class _$Logging implements Logging {
     TResult Function()? walkthrough,
     TResult Function()? onboarding,
     TResult Function()? logging,
-    TResult Function()? authenticated,
+    TResult Function(bool informationMissing)? authenticated,
     TResult Function()? unauthenticated,
     TResult Function(String message)? error,
     TResult Function()? reset,
@@ -2521,6 +2521,8 @@ abstract class _$$AuthenticatedCopyWith<$Res> {
   factory _$$AuthenticatedCopyWith(
           _$Authenticated value, $Res Function(_$Authenticated) then) =
       __$$AuthenticatedCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool informationMissing});
 }
 
 /// @nodoc
@@ -2530,26 +2532,51 @@ class __$$AuthenticatedCopyWithImpl<$Res>
   __$$AuthenticatedCopyWithImpl(
       _$Authenticated _value, $Res Function(_$Authenticated) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? informationMissing = null,
+  }) {
+    return _then(_$Authenticated(
+      informationMissing: null == informationMissing
+          ? _value.informationMissing
+          : informationMissing // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$Authenticated implements Authenticated {
-  const _$Authenticated();
+  const _$Authenticated({required this.informationMissing});
+
+  @override
+  final bool informationMissing;
 
   @override
   String toString() {
-    return 'AuthState.authenticated()';
+    return 'AuthState.authenticated(informationMissing: $informationMissing)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$Authenticated);
+        (other.runtimeType == runtimeType &&
+            other is _$Authenticated &&
+            (identical(other.informationMissing, informationMissing) ||
+                other.informationMissing == informationMissing));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, informationMissing);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AuthenticatedCopyWith<_$Authenticated> get copyWith =>
+      __$$AuthenticatedCopyWithImpl<_$Authenticated>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2558,7 +2585,7 @@ class _$Authenticated implements Authenticated {
     required TResult Function() walkthrough,
     required TResult Function() onboarding,
     required TResult Function() logging,
-    required TResult Function() authenticated,
+    required TResult Function(bool informationMissing) authenticated,
     required TResult Function() unauthenticated,
     required TResult Function(String message) error,
     required TResult Function() reset,
@@ -2571,7 +2598,7 @@ class _$Authenticated implements Authenticated {
     required TResult Function() passwordChanged,
     required TResult Function(String message, bool status) deleted,
   }) {
-    return authenticated();
+    return authenticated(informationMissing);
   }
 
   @override
@@ -2581,7 +2608,7 @@ class _$Authenticated implements Authenticated {
     TResult? Function()? walkthrough,
     TResult? Function()? onboarding,
     TResult? Function()? logging,
-    TResult? Function()? authenticated,
+    TResult? Function(bool informationMissing)? authenticated,
     TResult? Function()? unauthenticated,
     TResult? Function(String message)? error,
     TResult? Function()? reset,
@@ -2594,7 +2621,7 @@ class _$Authenticated implements Authenticated {
     TResult? Function()? passwordChanged,
     TResult? Function(String message, bool status)? deleted,
   }) {
-    return authenticated?.call();
+    return authenticated?.call(informationMissing);
   }
 
   @override
@@ -2604,7 +2631,7 @@ class _$Authenticated implements Authenticated {
     TResult Function()? walkthrough,
     TResult Function()? onboarding,
     TResult Function()? logging,
-    TResult Function()? authenticated,
+    TResult Function(bool informationMissing)? authenticated,
     TResult Function()? unauthenticated,
     TResult Function(String message)? error,
     TResult Function()? reset,
@@ -2619,7 +2646,7 @@ class _$Authenticated implements Authenticated {
     required TResult orElse(),
   }) {
     if (authenticated != null) {
-      return authenticated();
+      return authenticated(informationMissing);
     }
     return orElse();
   }
@@ -2696,7 +2723,13 @@ class _$Authenticated implements Authenticated {
 }
 
 abstract class Authenticated implements AuthState {
-  const factory Authenticated() = _$Authenticated;
+  const factory Authenticated({required final bool informationMissing}) =
+      _$Authenticated;
+
+  bool get informationMissing;
+  @JsonKey(ignore: true)
+  _$$AuthenticatedCopyWith<_$Authenticated> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -2741,7 +2774,7 @@ class _$Unauthenticated implements Unauthenticated {
     required TResult Function() walkthrough,
     required TResult Function() onboarding,
     required TResult Function() logging,
-    required TResult Function() authenticated,
+    required TResult Function(bool informationMissing) authenticated,
     required TResult Function() unauthenticated,
     required TResult Function(String message) error,
     required TResult Function() reset,
@@ -2764,7 +2797,7 @@ class _$Unauthenticated implements Unauthenticated {
     TResult? Function()? walkthrough,
     TResult? Function()? onboarding,
     TResult? Function()? logging,
-    TResult? Function()? authenticated,
+    TResult? Function(bool informationMissing)? authenticated,
     TResult? Function()? unauthenticated,
     TResult? Function(String message)? error,
     TResult? Function()? reset,
@@ -2787,7 +2820,7 @@ class _$Unauthenticated implements Unauthenticated {
     TResult Function()? walkthrough,
     TResult Function()? onboarding,
     TResult Function()? logging,
-    TResult Function()? authenticated,
+    TResult Function(bool informationMissing)? authenticated,
     TResult Function()? unauthenticated,
     TResult Function(String message)? error,
     TResult Function()? reset,
@@ -2951,7 +2984,7 @@ class _$AuthenticationError implements AuthenticationError {
     required TResult Function() walkthrough,
     required TResult Function() onboarding,
     required TResult Function() logging,
-    required TResult Function() authenticated,
+    required TResult Function(bool informationMissing) authenticated,
     required TResult Function() unauthenticated,
     required TResult Function(String message) error,
     required TResult Function() reset,
@@ -2974,7 +3007,7 @@ class _$AuthenticationError implements AuthenticationError {
     TResult? Function()? walkthrough,
     TResult? Function()? onboarding,
     TResult? Function()? logging,
-    TResult? Function()? authenticated,
+    TResult? Function(bool informationMissing)? authenticated,
     TResult? Function()? unauthenticated,
     TResult? Function(String message)? error,
     TResult? Function()? reset,
@@ -2997,7 +3030,7 @@ class _$AuthenticationError implements AuthenticationError {
     TResult Function()? walkthrough,
     TResult Function()? onboarding,
     TResult Function()? logging,
-    TResult Function()? authenticated,
+    TResult Function(bool informationMissing)? authenticated,
     TResult Function()? unauthenticated,
     TResult Function(String message)? error,
     TResult Function()? reset,
@@ -3137,7 +3170,7 @@ class _$Reset implements Reset {
     required TResult Function() walkthrough,
     required TResult Function() onboarding,
     required TResult Function() logging,
-    required TResult Function() authenticated,
+    required TResult Function(bool informationMissing) authenticated,
     required TResult Function() unauthenticated,
     required TResult Function(String message) error,
     required TResult Function() reset,
@@ -3160,7 +3193,7 @@ class _$Reset implements Reset {
     TResult? Function()? walkthrough,
     TResult? Function()? onboarding,
     TResult? Function()? logging,
-    TResult? Function()? authenticated,
+    TResult? Function(bool informationMissing)? authenticated,
     TResult? Function()? unauthenticated,
     TResult? Function(String message)? error,
     TResult? Function()? reset,
@@ -3183,7 +3216,7 @@ class _$Reset implements Reset {
     TResult Function()? walkthrough,
     TResult Function()? onboarding,
     TResult Function()? logging,
-    TResult Function()? authenticated,
+    TResult Function(bool informationMissing)? authenticated,
     TResult Function()? unauthenticated,
     TResult Function(String message)? error,
     TResult Function()? reset,
@@ -3320,7 +3353,7 @@ class _$Registered implements Registered {
     required TResult Function() walkthrough,
     required TResult Function() onboarding,
     required TResult Function() logging,
-    required TResult Function() authenticated,
+    required TResult Function(bool informationMissing) authenticated,
     required TResult Function() unauthenticated,
     required TResult Function(String message) error,
     required TResult Function() reset,
@@ -3343,7 +3376,7 @@ class _$Registered implements Registered {
     TResult? Function()? walkthrough,
     TResult? Function()? onboarding,
     TResult? Function()? logging,
-    TResult? Function()? authenticated,
+    TResult? Function(bool informationMissing)? authenticated,
     TResult? Function()? unauthenticated,
     TResult? Function(String message)? error,
     TResult? Function()? reset,
@@ -3366,7 +3399,7 @@ class _$Registered implements Registered {
     TResult Function()? walkthrough,
     TResult Function()? onboarding,
     TResult Function()? logging,
-    TResult Function()? authenticated,
+    TResult Function(bool informationMissing)? authenticated,
     TResult Function()? unauthenticated,
     TResult Function(String message)? error,
     TResult Function()? reset,
@@ -3503,7 +3536,7 @@ class _$SendEmail implements SendEmail {
     required TResult Function() walkthrough,
     required TResult Function() onboarding,
     required TResult Function() logging,
-    required TResult Function() authenticated,
+    required TResult Function(bool informationMissing) authenticated,
     required TResult Function() unauthenticated,
     required TResult Function(String message) error,
     required TResult Function() reset,
@@ -3526,7 +3559,7 @@ class _$SendEmail implements SendEmail {
     TResult? Function()? walkthrough,
     TResult? Function()? onboarding,
     TResult? Function()? logging,
-    TResult? Function()? authenticated,
+    TResult? Function(bool informationMissing)? authenticated,
     TResult? Function()? unauthenticated,
     TResult? Function(String message)? error,
     TResult? Function()? reset,
@@ -3549,7 +3582,7 @@ class _$SendEmail implements SendEmail {
     TResult Function()? walkthrough,
     TResult Function()? onboarding,
     TResult Function()? logging,
-    TResult Function()? authenticated,
+    TResult Function(bool informationMissing)? authenticated,
     TResult Function()? unauthenticated,
     TResult Function(String message)? error,
     TResult Function()? reset,
@@ -3686,7 +3719,7 @@ class _$ValidEmail implements ValidEmail {
     required TResult Function() walkthrough,
     required TResult Function() onboarding,
     required TResult Function() logging,
-    required TResult Function() authenticated,
+    required TResult Function(bool informationMissing) authenticated,
     required TResult Function() unauthenticated,
     required TResult Function(String message) error,
     required TResult Function() reset,
@@ -3709,7 +3742,7 @@ class _$ValidEmail implements ValidEmail {
     TResult? Function()? walkthrough,
     TResult? Function()? onboarding,
     TResult? Function()? logging,
-    TResult? Function()? authenticated,
+    TResult? Function(bool informationMissing)? authenticated,
     TResult? Function()? unauthenticated,
     TResult? Function(String message)? error,
     TResult? Function()? reset,
@@ -3732,7 +3765,7 @@ class _$ValidEmail implements ValidEmail {
     TResult Function()? walkthrough,
     TResult Function()? onboarding,
     TResult Function()? logging,
-    TResult Function()? authenticated,
+    TResult Function(bool informationMissing)? authenticated,
     TResult Function()? unauthenticated,
     TResult Function(String message)? error,
     TResult Function()? reset,
@@ -3869,7 +3902,7 @@ class _$CodeStatus implements CodeStatus {
     required TResult Function() walkthrough,
     required TResult Function() onboarding,
     required TResult Function() logging,
-    required TResult Function() authenticated,
+    required TResult Function(bool informationMissing) authenticated,
     required TResult Function() unauthenticated,
     required TResult Function(String message) error,
     required TResult Function() reset,
@@ -3892,7 +3925,7 @@ class _$CodeStatus implements CodeStatus {
     TResult? Function()? walkthrough,
     TResult? Function()? onboarding,
     TResult? Function()? logging,
-    TResult? Function()? authenticated,
+    TResult? Function(bool informationMissing)? authenticated,
     TResult? Function()? unauthenticated,
     TResult? Function(String message)? error,
     TResult? Function()? reset,
@@ -3915,7 +3948,7 @@ class _$CodeStatus implements CodeStatus {
     TResult Function()? walkthrough,
     TResult Function()? onboarding,
     TResult Function()? logging,
-    TResult Function()? authenticated,
+    TResult Function(bool informationMissing)? authenticated,
     TResult Function()? unauthenticated,
     TResult Function(String message)? error,
     TResult Function()? reset,
@@ -4091,7 +4124,7 @@ class _$LoadedvalidCodeSuccess implements LoadedvalidCodeSuccess {
     required TResult Function() walkthrough,
     required TResult Function() onboarding,
     required TResult Function() logging,
-    required TResult Function() authenticated,
+    required TResult Function(bool informationMissing) authenticated,
     required TResult Function() unauthenticated,
     required TResult Function(String message) error,
     required TResult Function() reset,
@@ -4114,7 +4147,7 @@ class _$LoadedvalidCodeSuccess implements LoadedvalidCodeSuccess {
     TResult? Function()? walkthrough,
     TResult? Function()? onboarding,
     TResult? Function()? logging,
-    TResult? Function()? authenticated,
+    TResult? Function(bool informationMissing)? authenticated,
     TResult? Function()? unauthenticated,
     TResult? Function(String message)? error,
     TResult? Function()? reset,
@@ -4137,7 +4170,7 @@ class _$LoadedvalidCodeSuccess implements LoadedvalidCodeSuccess {
     TResult Function()? walkthrough,
     TResult Function()? onboarding,
     TResult Function()? logging,
-    TResult Function()? authenticated,
+    TResult Function(bool informationMissing)? authenticated,
     TResult Function()? unauthenticated,
     TResult Function(String message)? error,
     TResult Function()? reset,
@@ -4281,7 +4314,7 @@ class _$PasswordChanged implements PasswordChanged {
     required TResult Function() walkthrough,
     required TResult Function() onboarding,
     required TResult Function() logging,
-    required TResult Function() authenticated,
+    required TResult Function(bool informationMissing) authenticated,
     required TResult Function() unauthenticated,
     required TResult Function(String message) error,
     required TResult Function() reset,
@@ -4304,7 +4337,7 @@ class _$PasswordChanged implements PasswordChanged {
     TResult? Function()? walkthrough,
     TResult? Function()? onboarding,
     TResult? Function()? logging,
-    TResult? Function()? authenticated,
+    TResult? Function(bool informationMissing)? authenticated,
     TResult? Function()? unauthenticated,
     TResult? Function(String message)? error,
     TResult? Function()? reset,
@@ -4327,7 +4360,7 @@ class _$PasswordChanged implements PasswordChanged {
     TResult Function()? walkthrough,
     TResult Function()? onboarding,
     TResult Function()? logging,
-    TResult Function()? authenticated,
+    TResult Function(bool informationMissing)? authenticated,
     TResult Function()? unauthenticated,
     TResult Function(String message)? error,
     TResult Function()? reset,
@@ -4496,7 +4529,7 @@ class _$Deleted implements Deleted {
     required TResult Function() walkthrough,
     required TResult Function() onboarding,
     required TResult Function() logging,
-    required TResult Function() authenticated,
+    required TResult Function(bool informationMissing) authenticated,
     required TResult Function() unauthenticated,
     required TResult Function(String message) error,
     required TResult Function() reset,
@@ -4519,7 +4552,7 @@ class _$Deleted implements Deleted {
     TResult? Function()? walkthrough,
     TResult? Function()? onboarding,
     TResult? Function()? logging,
-    TResult? Function()? authenticated,
+    TResult? Function(bool informationMissing)? authenticated,
     TResult? Function()? unauthenticated,
     TResult? Function(String message)? error,
     TResult? Function()? reset,
@@ -4542,7 +4575,7 @@ class _$Deleted implements Deleted {
     TResult Function()? walkthrough,
     TResult Function()? onboarding,
     TResult Function()? logging,
-    TResult Function()? authenticated,
+    TResult Function(bool informationMissing)? authenticated,
     TResult Function()? unauthenticated,
     TResult Function(String message)? error,
     TResult Function()? reset,
