@@ -86,7 +86,7 @@ class _SearchResultPageState extends State<SearchResultPage>
               ? await SearchTabWrapper(SearchTab.values[widget.category ?? 0])
                   .toStringCustom()
               : null,
-          whatsHotFlag: widget.staffPicksFlag,
+          whatsHotFlag: null,
           staffPicksFlag: widget.staffPicksFlag,
           unicornFlag: widget.unicornFlag,
           filters: const FilterModel(productType: null),
