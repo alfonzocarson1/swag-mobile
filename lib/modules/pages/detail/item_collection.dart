@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:swagapp/modules/common/ui/paywall_splash_screen.dart';
 import 'package:swagapp/modules/data/detail/i_detail_service.dart';
 import 'package:swagapp/modules/models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
 
@@ -556,109 +555,6 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                     : Container(),
                 const SizedBox(
                   height: 20,
-                ),
-                (widget.sale && !isLogged)
-                    ? SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        child: PrimaryButton(
-                          title: widget.sale
-                              ? widget.available! > 1
-                                  ? '${S.of(context).buy_for} ${decimalDigitsLastSalePrice(widget.lastSale.minPrice!)} - ${decimalDigitsLastSalePrice(widget.lastSale.maxPrice!)}'
-                                  : '${S.of(context).buy_for} ${decimalDigitsLastSalePrice(widget.lastSale.minPrice!)}'
-                              : '${S.of(context).buy_for} ${decimalDigitsLastSalePrice(widget.lastSale.minPrice!)}',
-                          onPressed: () {
-                            if (isLogged) {
-                              Navigator.of(context, rootNavigator: true)
-                                  .push(BuyForSale.route(
-                                widget.catalogId,
-                                widget.catalogItemName,
-                                widget.lastSale,
-                                widget.urlImage,
-                                widget.favorite,
-                                widget.sale,
-                                widget.available ?? 0,
-                                widget.saleHistoryList,
-                                (val) {
-                                  widget.addFavorite(val);
-                                },
-                              ));
-                            } else {
-                              Navigator.of(context, rootNavigator: true)
-                                  .push(CreateAccountPage.route());
-                            }
-                          },
-                          type: PrimaryButtonType.green,
-                        ),
-                      )
-                    : (!widget.sale || notifyAvailabilityFlagBTN)
-                        ? SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            child: PrimaryButton(
-                              title: S.of(context).notify_available,
-                              onPressed: () {
-                                if (isLogged &&
-                                    notifyAvailabilityFlagBTN &&
-                                    buttonEnable &&
-                                    !itemInNotifyList) {
-                                  buttonEnable = false;
-                                  if (hasActiveSubscription == true) {
-                                    setState(() {});
-                                    getIt<CatalogDetailCubit>()
-                                        .notifyAvailability(widget.catalogId);
-                                    showToastMessage(
-                                        S.of(context).notify_availability);
-                                  } else {
-                                    showPaywallSplashScreen(
-                                        context: context,
-                                        hasUsedFreeTrial:
-                                            profileData?.hasUsedFreeTrial ??
-                                                false,
-                                        removePaywall: removePaywall);
-                                  }
-                                } else if (isLogged &&
-                                    buttonEnable == false &&
-                                    !itemInNotifyList) {
-                                  if (hasActiveSubscription == true) {
-                                    showToastMessage(S
-                                        .of(context)
-                                        .notification_already_requested);
-                                  } else {
-                                    showPaywallSplashScreen(
-                                        context: context,
-                                        hasUsedFreeTrial:
-                                            profileData?.hasUsedFreeTrial ??
-                                                false,
-                                        removePaywall: removePaywall);
-                                  }
-                                } else if (!notifyAvailabilityFlagBTN &&
-                                    buttonEnable &&
-                                    itemInNotifyList) {
-                                  if (hasActiveSubscription == true) {
-                                    showToastMessage(S
-                                        .of(context)
-                                        .notification_already_requested);
-                                  } else {
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                PaywallSplashScreen(
-                                                  hasUsedFreeTrial: false,
-                                                  removePaywall: () {
-                                                    removePaywall();
-                                                  },
-                                                )));
-                                  }
-                                } else if (!isLogged) {
-                                  Navigator.of(context, rootNavigator: true)
-                                      .push(CreateAccountPage.route());
-                                }
-                              },
-                              type: PrimaryButtonType.primaryEerieBlack,
-                            ),
-                          )
-                        : Container(),
-                const SizedBox(
-                  height: 50,
                 )
               ],
             ))
