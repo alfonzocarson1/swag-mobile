@@ -33,7 +33,7 @@ class ShrunkenItemWidget extends StatelessWidget {
           Stack(
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.width * 0.46,
+                height: MediaQuery.of(context).size.width * 0.44,
                 child: ClipRRect(
                   child: CachedNetworkImage(
                     fit: BoxFit.fitHeight,
