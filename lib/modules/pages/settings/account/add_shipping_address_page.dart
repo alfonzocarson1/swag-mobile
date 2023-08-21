@@ -152,10 +152,8 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
     _getStates(_defaultCountry);
     getStatesForProvidedCountry();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-
+      populateInitialData();
     });
-    populateInitialData();
-    // TODO: implement initState
     super.initState();
   }
 
