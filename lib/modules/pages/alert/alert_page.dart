@@ -310,19 +310,24 @@ class _AlertPageState extends State<AlertPage> {
                                                     )));
                                       }
 
-                                      if (alertListinStatus.status ==
-                                              ListingStatusDataType
-                                                  .paid.textValue ||
-                                          alertListinStatus.status ==
+                                      if (item.payload!.listingStatus == ListingStatusDataType.paid.textValue ||
+                                          item.payload!.listingStatus ==
                                               ListingStatusDataType
                                                   .paymentReceived.textValue ||
-                                          (alertListinStatus.status ==
+                                          (item.payload!.listingStatus ==
+                                                  ListingStatusDataType
+                                                      .pendingPayment.textValue &&
+                                              item.typeNotification ==
+                                                  ChatType.notifyMessageBuyFlow
+                                                      .textValue) ||
+                                          (item.payload!.listingStatus ==
                                                   ListingStatusDataType
                                                       .shipped.textValue &&
                                               item.payload!.dateItemShipped ==
                                                   null) ||
-                                          (item.typeNotification !=
-                                                  ChatType.notifyMe.textValue &&
+                                          (item.typeNotification ==
+                                                  ChatType.notifyMessageBuyFlow
+                                                      .textValue &&
                                               (alertListinStatus.status ==
                                                       ListingStatusDataType
                                                           .listed.textValue ||
@@ -346,6 +351,26 @@ class _AlertPageState extends State<AlertPage> {
                                         Loading.show(context);
                                         onTapSubmit(channelUrl);
                                       }
+
+                                      // if (item.payload!.listingStatus ==
+                                      //         ListingStatusDataType
+                                      //             .listed.textValue &&
+                                      //     alertListinStatus.status ==
+                                      //         ListingStatusDataType
+                                      //             .feedbackProvided.textValue) {
+                                      //   String productItemId =
+                                      //       item.payload!.productItemId ?? "";
+                                      //   String listingImageUrl =
+                                      //       item.payload!.listingImageUrl ?? "";
+
+                                      //   String channelUrl =
+                                      //       SendBirdUtils.getListingChatUrl(
+                                      //           groupChannelList,
+                                      //           productItemId,
+                                      //           listingImageUrl);
+                                      //   Loading.show(context);
+                                      //   onTapSubmit(channelUrl);
+                                      // }
 
                                       if (item.payload!.listingStatus ==
                                           ListingStatusDataType
