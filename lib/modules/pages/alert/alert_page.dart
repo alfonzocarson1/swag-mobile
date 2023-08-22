@@ -26,6 +26,7 @@ import '../../enums/chat_type.dart';
 import '../../enums/listing_status_data.dart';
 import '../../models/alerts/alert_response_model.dart';
 
+import '../../models/alerts/alert_verify_rate_model.dart';
 import '../../models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
 import '../../models/profile/profile_model.dart';
 import '../../notifications_providers/local_notifications_providers.dart';
@@ -212,6 +213,8 @@ class _AlertPageState extends State<AlertPage> {
                                       getIt<AlertCubit>().readAlert(
                                           item.notificationAlertId ?? '');
 
+                                      print(item);
+
                                       BuyForSaleListingModel?
                                           alertListinStatus =
                                           await getIt<BuyCubit>()
@@ -222,6 +225,17 @@ class _AlertPageState extends State<AlertPage> {
                                       bool isSeller =
                                           alertListinStatus!.profileId ==
                                               profileData.accountId;
+
+                                      bool showRate = await getIt<AlertCubit>()
+                                          .verifyRateAlert(VerifyRateModel(
+                                              productItemId:
+                                                  item.payload!.productItemId ??
+                                                      '',
+                                              profileIdToUpdate:
+                                                  item.payload!.accountId ??
+                                                      ''));
+
+                                      print(showRate);
 
                                       if (item.typeNotification ==
                                           ListingStatusDataType
@@ -350,23 +364,30 @@ class _AlertPageState extends State<AlertPage> {
                                         await Future.delayed(
                                             const Duration(milliseconds: 1000),
                                             () {});
-                                        showDialog(
-                                            context: context,
-                                            barrierDismissible: false,
-                                            builder: (BuildContext context) {
-                                              return RatingBuyer(
-                                                productItemId: item.payload!
-                                                        .productItemId ??
-                                                    '',
-                                                purchaseHistoryId: item.payload!
-                                                        .purchaseHistoryId ??
-                                                    '',
-                                                userName:
-                                                    item.payload!.userName ??
-                                                        '',
-                                                seller: true,
-                                              );
-                                            });
+                                        if (showRate) {
+                                          LocalNotificationProvider
+                                              .showInAppAllert(
+                                                  S.of(context).seller_rate);
+                                        } else {
+                                          showDialog(
+                                              context: context,
+                                              barrierDismissible: false,
+                                              builder: (BuildContext context) {
+                                                return RatingBuyer(
+                                                  productItemId: item.payload!
+                                                          .productItemId ??
+                                                      '',
+                                                  purchaseHistoryId: item
+                                                          .payload!
+                                                          .purchaseHistoryId ??
+                                                      '',
+                                                  userName:
+                                                      item.payload!.userName ??
+                                                          '',
+                                                  seller: true,
+                                                );
+                                              });
+                                        }
                                       }
 
                                       if (item.payload!.dateItemShipped !=
@@ -391,8 +412,9 @@ class _AlertPageState extends State<AlertPage> {
                                             () {});
 
                                         if (alertListinStatus!.status ==
-                                            ListingStatusDataType
-                                                .received.textValue) {
+                                                ListingStatusDataType
+                                                    .received.textValue &&
+                                            !showRate) {
                                           LocalNotificationProvider
                                               .showInAppAllert(
                                                   S.of(context).buyer_recived);
@@ -419,9 +441,7 @@ class _AlertPageState extends State<AlertPage> {
                                                   seller: false,
                                                 );
                                               });
-                                        } else if (alertListinStatus!.status ==
-                                            ListingStatusDataType
-                                                .feedbackProvided.textValue) {
+                                        } else if (showRate) {
                                           LocalNotificationProvider
                                               .showInAppAllert(
                                                   S.of(context).buyer_rate);

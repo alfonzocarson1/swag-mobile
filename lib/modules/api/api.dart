@@ -62,6 +62,7 @@ enum Endpoint {
   logout,
   addAlertP2P,
   removeAddress,
+  verifyRateAlert
 }
 
 enum ApiHostScheme {
@@ -165,8 +166,9 @@ class API {
     Endpoint.deleteAccount: 'api/v1/profile',
     Endpoint.addAlertP2P: 'api/v1/notification/alerts/alert',
     Endpoint.verifyWallet: 'api/public/v1/account/verifyWallet',
-    Endpoint.createOrUpdateWallet: 'api/public/v1/account/createOrUpdateWalletPair',
-    Endpoint.addAlertP2P: 'api/v1/notification/alerts/alert',
-    Endpoint.removeAddress: 'api/v1/profile/settings/account/addresses/%s'
+    Endpoint.createOrUpdateWallet:
+        'api/public/v1/account/createOrUpdateWalletPair',
+    Endpoint.removeAddress: 'api/v1/profile/settings/account/addresses/%s',
+    Endpoint.verifyRateAlert: 'api/v1/profile/checkIfListingRatingAlReady'
   };
 }

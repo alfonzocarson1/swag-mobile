@@ -4794,6 +4794,16 @@ class S {
       args: [],
     );
   }
+
+  /// `You already rated the buyer.`
+  String get seller_rate {
+    return Intl.message(
+      'You already rated the buyer.',
+      name: 'seller_rate',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
