@@ -153,7 +153,7 @@ class _SearchOnTapPageState extends State<SearchOnTapPage>
       context,
       screen: SearchResultPage(
           searchParam: widget._textEditingController.text,
-          category: widget.category),
+          category: widget.category ?? index),
       withNavBar: true,
     );
   }
