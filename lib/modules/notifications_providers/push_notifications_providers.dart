@@ -17,16 +17,15 @@ class PushNotificationsProvider {
   String? token;
 
   final _notificationStreamController = StreamController<String>.broadcast();
+
   Stream<String> get messages => _notificationStreamController.stream;
 
   Future<void> initializeProvider() async {
     await requestPermissions();
-    token = (Platform.isIOS)
-        ? await FirebaseMessaging.instance.getAPNSToken()
-        : await FirebaseMessaging.instance.getToken();
+    token = await FirebaseMessaging.instance.getToken();
 
-    print('==== FCM Token ====');
-    print(token);
+    debugPrint('==== FCM Token ====');
+    debugPrint(token);
     await getIt<PreferenceRepositoryService>()
         .saveFirebaseDeviceToken(token ?? '');
 
@@ -42,41 +41,34 @@ class PushNotificationsProvider {
     FirebaseMessaging.onBackgroundMessage(_onBackgroundHandler);
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-      print('===== On Message ======');
-      print(message.data);
+      debugPrint('===== On Message ======');
+      debugPrint(message.toMap().toString());
 
-      String? currentRoute = getIt<RouteTracker>().currentRoute;
-      var json = jsonDecode(message.data['sendbird']);
+      try {
+        String? currentRoute = getIt<RouteTracker>().currentRoute;
+        var json = jsonDecode(message.data['sendbird']);
 
-      if (currentRoute != "/ChatPage" && Platform.isAndroid) {
-        LocalNotificationProvider().showNotification(
-            title: json['push_title'], body: json['message'], payLoad: 'data');
-        getIt<AlertCubit>().getAlertList();
+        if (currentRoute != "/ChatPage" && Platform.isAndroid) {
+          LocalNotificationProvider().showNotification(
+              title: json['push_title'],
+              body: json['message'],
+              payLoad: 'data');
+          getIt<AlertCubit>().getAlertList();
+        }
+      } catch (e) {
+        // no sendbird in data
       }
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      print('===== On MessageOpenedApp ======');
-      print(message.data);
+      debugPrint('===== On MessageOpenedApp ======');
+      debugPrint(message.toMap().toString());
 
       getIt<ContextService>()
           .rootNavigatorKey
           .currentState!
           .push(AlertPage.route());
     });
-  }
-
-  static Future<void> _onBackgroundHandler(RemoteMessage message) async {
-    print('===== On BackgroundMessage ======');
-    print(message.data);
-
-    var json = jsonDecode(message.data['sendbird']);
-
-    if (Platform.isAndroid) {
-      LocalNotificationProvider().showNotification(
-          title: json['push_title'], body: json['message'], payLoad: 'data');
-    getIt<AlertCubit>().getAlertList();
-    }
   }
 
   requestPermissions() async {
@@ -93,5 +85,26 @@ class PushNotificationsProvider {
 
   dispose() {
     _notificationStreamController.close();
+  }
+}
+
+@pragma('vm:entry-point')
+Future<void> _onBackgroundHandler(RemoteMessage message) async {
+  debugPrint('===== On BackgroundMessage ======');
+  debugPrint(message.toMap().toString());
+
+  try {
+    var json = jsonDecode(message.data['sendbird']);
+
+    if (Platform.isAndroid && message.notification != null) {
+      LocalNotificationProvider().showNotification(
+        title: message.notification!.title,
+        body: message.notification!.body,
+        payLoad: 'data',
+      );
+      getIt<AlertCubit>().getAlertList();
+    }
+  } catch (e) {
+    // no sendbird in data
   }
 }
