@@ -150,23 +150,27 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
       });
     });
     _getStates(_defaultCountry);
+    populateInitialData();
     getStatesForProvidedCountry();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      populateInitialData();
-    });
     super.initState();
   }
 
-  void _getStates(String country) async{
+  void _getStates(String country) async {
+    if (country == defaultCountry) {
+      return;
+    }
+    var responseState = await getStates(country);
     _states.clear();
-    _defaultState = 'State';
-    _states.addAll(usStates.map((e) => '${e['short']} - ${e['name']}').toList());
+    _states.addAll(responseState as Iterable<String>);
     setState(() {});
+  }
+
+  resetStateSelection() {
+    _defaultState = defaultState;
   }
 
   getStatesForProvidedCountry() {
     _states.clear();
-    _defaultState = defaultState;
     setState(() {});
     if (_defaultCountry == defaultCountry) {
       _states
@@ -231,6 +235,7 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
                               });
                               _countryController.text = _defaultCountry;
                               countryErrorText = null;
+                              resetStateSelection();
                               getStatesForProvidedCountry();
 
                               Navigator.pop(context);
