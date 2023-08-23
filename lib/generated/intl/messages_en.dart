@@ -766,6 +766,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "sell_for": MessageLookupByLibrary.simpleMessage("SELL FOR"),
         "seller_buy_message":
             MessageLookupByLibrary.simpleMessage("has agreed to purchase your"),
+        "seller_rate": MessageLookupByLibrary.simpleMessage(
+            "You already rated the buyer."),
         "send_info": MessageLookupByLibrary.simpleMessage("SEND INFO"),
         "settings": MessageLookupByLibrary.simpleMessage("SETTINGS"),
         "setup_payment": MessageLookupByLibrary.simpleMessage("Setup Payment"),

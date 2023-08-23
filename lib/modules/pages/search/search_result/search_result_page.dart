@@ -82,11 +82,11 @@ class _SearchResultPageState extends State<SearchResultPage>
               (widget.staffPicksFlag == true || widget.unicornFlag == true)
                   ? null
                   : [widget.searchParam],
-          categoryId: widget.category != null
+          categoryId: widget.category != null && widget.category != SearchTab.whatsHot.index
               ? await SearchTabWrapper(SearchTab.values[widget.category ?? 0])
                   .toStringCustom()
               : null,
-          whatsHotFlag: null,
+          whatsHotFlag: widget.category == SearchTab.whatsHot.index,
           staffPicksFlag: widget.staffPicksFlag,
           unicornFlag: widget.unicornFlag,
           filters: const FilterModel(productType: null),

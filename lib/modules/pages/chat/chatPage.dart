@@ -65,6 +65,8 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
   MessageData messageData = MessageData(
       topicId: "", payload: DefaultPayload.defaultPayload(), type: "");
 
+  int backRowTwice = 0;
+
   @override
   void initState() {
     super.initState();
@@ -134,9 +136,9 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
 
     return WillPopScope(
       onWillPop: () async {
-            await markAsRead(widget.channel);
-            context.read<ChatCubit>().loadGroupChannels();
-            return true;
+        await markAsRead(widget.channel);
+        context.read<ChatCubit>().loadGroupChannels();
+        return true;
       },
       child: Scaffold(
         backgroundColor: Palette.current.black,
@@ -161,7 +163,12 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
               setState(() {
                 getIt<PreferenceRepositoryService>().saveShowNotification(true);
               });
-              Navigator.of(context).pop();
+              setState(() {
+                backRowTwice++;
+              });
+              if (backRowTwice == 1) {
+                Navigator.of(context).pop();
+              }
             },
           ),
           actions: <Widget>[
@@ -207,7 +214,7 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
                   messagesList = messages;
                   chatMessages = messagesList.map((chatMessage) {
                     FileMessage fileMessage;
-    
+
                     ChatMedia chatMedia =
                         ChatMedia(url: "", fileName: "", type: MediaType.image);
                     Map<String, dynamic> messageDataJson = {};
@@ -235,7 +242,7 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
                         messageStatus.add(messageData.type);
                       }
                     }
-    
+
                     return ChatMessage(
                       text: chatMessage.message,
                       customProperties: messageDataJson,
@@ -249,14 +256,14 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
                           chatMessage.createdAt),
                     );
                   }).toList();
-    
+
                   chatMessages.add(ChatMessage(
                       text: 'Banner',
-                      user:
-                          ChatUser(id: 'SwagBanner', firstName: swagBotNickName),
+                      user: ChatUser(
+                          id: 'SwagBanner', firstName: swagBotNickName),
                       createdAt: DateTime.fromMillisecondsSinceEpoch(
                           widget.channel.invitedAt)));
-    
+
                   return RefreshIndicator(
                     onRefresh: () {
                       return refreshChatPage();
@@ -273,8 +280,11 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
                         textColor: Palette.current.primaryWhiteSmoke,
                         messagePadding: const EdgeInsets.symmetric(
                             vertical: 5.0, horizontal: 16.0),
-                        messageRowBuilder: (message, previousMessage, nextMessage,
-                                isAfterDateSeparator, isBeforeDateSeparator) =>
+                        messageRowBuilder: (message,
+                                previousMessage,
+                                nextMessage,
+                                isAfterDateSeparator,
+                                isBeforeDateSeparator) =>
                             messageRowBuilder(
                                 message: message,
                                 user: ChatUser(
@@ -318,10 +328,11 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
                                     },
                                   )
                                 ],
-                          inputTextStyle:
-                              TextStyle(color: Palette.current.primaryWhiteSmoke),
+                          inputTextStyle: TextStyle(
+                              color: Palette.current.primaryWhiteSmoke),
                           inputDecoration: InputDecoration(
-                            constraints: BoxConstraints.tight(const Size(50, 50)),
+                            constraints:
+                                BoxConstraints.tight(const Size(50, 50)),
                             suffixIcon: Container(
                               padding:
                                   const EdgeInsetsDirectional.only(end: 12.0),
@@ -336,8 +347,9 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
                                 onPressed: _textEditingController.text.isEmpty
                                     ? null
                                     : () async {
-                                        final text = _textEditingController.text;
-    
+                                        final text =
+                                            _textEditingController.text;
+
                                         final chatMessage = ChatMessage(
                                           text: text,
                                           user: ChatUser(
@@ -346,13 +358,13 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
                                           ),
                                           createdAt: DateTime.now(),
                                         );
-    
+
                                         UserMessage sentMessage =
-                                            await getIt<ChatCubit>().sendMessage(
-                                                widget.channel, chatMessage.text);
+                                            await getIt<ChatCubit>()
+                                                .sendMessage(widget.channel,
+                                                    chatMessage.text);
                                         _textEditingController.clear();
-                                        setState(() {
-                                        });
+                                        setState(() {});
                                       },
                               ),
                             ),
@@ -599,11 +611,9 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
 
   Future<void> refreshChatPage() {
     return Future.delayed(Duration(seconds: 1), () {
-
       setState(() {
         getIt<ChatCubit>().loadMessages(widget.channel);
       });
     });
   }
-
 }

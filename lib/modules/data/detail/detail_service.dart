@@ -52,23 +52,22 @@ class DetailService extends IDetailService {
     BuyForSaleListingResponseModel response = await apiService.getEndpointData(
         endpoint: Endpoint.buyForSaleListing,
         method: RequestMethod.get,
-        needBearer: true,
+        needBearer: false,
         dynamicParam: catalogItemId,
         jsonKey: "saledItemdList",
         fromJson: (json) => BuyForSaleListingResponseModel.fromJson(json));
     return response;
   }
-  
+
   @override
   Future<ProfileNotifyList> getAvailabilityStatus() async {
     ProfileNotifyList response = await apiService.getEndpointData(
-      endpoint: Endpoint.profileNotifyStatus, 
-      method: RequestMethod.get,
-      needBearer: true,
-      jsonKey: "profileNotificationList",
-      fromJson: (json) => ProfileNotifyList.fromJson(json));
+        endpoint: Endpoint.profileNotifyStatus,
+        method: RequestMethod.get,
+        needBearer: true,
+        jsonKey: "profileNotificationList",
+        fromJson: (json) => ProfileNotifyList.fromJson(json));
 
-      return response;
-      
+    return response;
   }
 }
