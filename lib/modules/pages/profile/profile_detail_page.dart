@@ -50,11 +50,12 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
 
   void callApi() async {
     await getIt<ProfileCubit>().loadProfileResults();
-    setState(() {});
+   // setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    callApi();
     ProfileModel profileData =
     getIt<PreferenceRepositoryService>().profileData();
     return Scaffold(
