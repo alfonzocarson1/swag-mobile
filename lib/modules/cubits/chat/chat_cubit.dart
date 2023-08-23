@@ -21,7 +21,6 @@ import '../../models/alerts/alert_payload_model.dart';
 import '../../models/alerts/alerts_model.dart';
 import '../../models/chat/chat_data.dart';
 import '../../models/profile/profile_model.dart';
-import '../../services/firebase_manager.dart';
 import '../../services/route_observer.dart';
 import '../alert/alert_cubit.dart';
 
@@ -48,7 +47,6 @@ class ChatCubit extends Cubit<ChatState> {
           userId,
           accessToken: userToken,
         );
-        await FirebaseManager.registerPushToken();
       }, (error, stack) {
         print(error.toString());
       });
