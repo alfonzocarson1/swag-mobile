@@ -270,6 +270,11 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
                     Radio<int?>(
                       groupValue: checkBoxIndexes[0],
                       value: index,
+                      activeColor: Palette.current.primaryNeonGreen,
+                      fillColor: MaterialStateColor.resolveWith((states) =>
+                          states.contains(MaterialState.selected)
+                              ? Palette.current.primaryNeonGreen
+                              : Palette.current.darkGray),
                       onChanged: (int? value) =>
                           this.onChangedItem(value==index, index),
                       // side: BorderSide(color: Palette.current.darkGray),
