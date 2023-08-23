@@ -77,7 +77,7 @@ class MessageLookup extends MessageLookupByLibrary {
             'android': 'phone',
             'ios': 'iPhone',
             'other': 'device',
-          })} settings for the Swag App";
+          })} settings for the Swag App. his allows you to take pictures and videos with your camera to use as your profile photo, when listing items for sale or when chatting with other users.";
 
   static String m20(permission) => "${permission} ACCESS";
 
