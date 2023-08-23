@@ -38,7 +38,7 @@ class BuyForSaleListingService extends IBuyForSaleListingService {
     BuyForSaleListingModel response = await apiService.getEndpointData(
         endpoint: Endpoint.getListingDetail,
         method: RequestMethod.get,
-        needBearer: true,
+        needBearer: false,
         dynamicParam: productItemId,
         fromJson: (json) => BuyForSaleListingModel.fromJson(json));
     return response;

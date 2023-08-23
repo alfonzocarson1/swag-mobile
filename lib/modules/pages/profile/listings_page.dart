@@ -21,6 +21,7 @@ import '../../di/injector.dart';
 import '../../models/listing_for_sale/listing_for_sale_model.dart';
 import '../../models/listing_for_sale/profile_listing_model.dart';
 import '../../models/profile/profile_model.dart';
+import '../add/buy/preview_listing_as_guest.dart';
 
 class ListingsPage extends StatefulWidget {
   static const name = '/Listings';
@@ -80,7 +81,8 @@ class _ListingsPageState extends State<ListingsPage> {
                 orElse: () {
                   return Container();
                 },
-                initial: () => const SingleChildScrollView(child: SimpleLoader()),
+                initial: () =>
+                    const SingleChildScrollView(child: SimpleLoader()),
                 loadedProfileListings:
                     (List<ListingForSaleProfileResponseModel> listForSale) {
                   return _getBody(listForSale.first.listForSale);
@@ -92,9 +94,9 @@ class _ListingsPageState extends State<ListingsPage> {
                   initial: () => (hasActiveSubscription)
                       ? const SizedBox.shrink()
                       : PayWallWidget(
-                        hasUsedFreeTrial: hasUsedFreeTrial,
-                        removePaywall: removePaywall,
-                      ),
+                          hasUsedFreeTrial: hasUsedFreeTrial,
+                          removePaywall: removePaywall,
+                        ),
                   progress: () => const SingleChildScrollView(
                         child: Center(child: SimpleLoader()),
                       ),
@@ -109,7 +111,7 @@ class _ListingsPageState extends State<ListingsPage> {
                   orElse: () => (hasActiveSubscription)
                       ? const SizedBox.shrink()
                       : SingleChildScrollView(
-                        physics: ScrollPhysics(),
+                          physics: ScrollPhysics(),
                           child: PayWallWidget(
                             hasUsedFreeTrial: hasUsedFreeTrial,
                             removePaywall: removePaywall,
@@ -234,11 +236,21 @@ class ListingGridItemWidget extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 if (catalogItemId != null) {
-                  Navigator.of(context, rootNavigator: true)
-                      .push(MaterialPageRoute(
-                          builder: (context) => BuyPreviewPage(
-                                productItemId: productItemId,
-                              )));
+                  bool isLogged =
+                      getIt<PreferenceRepositoryService>().isLogged();
+
+                  if (isLogged) {
+                    Navigator.of(context, rootNavigator: true)
+                        .push(MaterialPageRoute(
+                            builder: (context) => BuyPreviewPage(
+                                  productItemId: productItemId,
+                                )));
+                  } else {
+                    Navigator.of(context, rootNavigator: true).push(
+                        PreviewListingAsGuest.route(
+                            productItemId: productItemId,
+                            catalogId: catalogItemId ?? ''));
+                  }
                 }
               },
               child: SizedBox(

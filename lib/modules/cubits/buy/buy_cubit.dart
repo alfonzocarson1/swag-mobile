@@ -6,6 +6,7 @@ import '../../blocs/buy_sale_listing_bloc/buy_sale_listing_bloc.dart';
 import '../../common/ui/loading.dart';
 import '../../common/utils/context_service.dart';
 import '../../common/utils/handling_errors.dart';
+import '../../common/utils/utils.dart';
 import '../../data/buy_for_sale_listing/i_buy_for_sale_listing_service.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
@@ -57,6 +58,26 @@ class BuyCubit extends Cubit<BuyStateCubit> {
           getIt<BuySaleListingBloc>().add(BuySaleListingEvent.getBuyListingItem(
               responseBody.catalogItemId ?? ''));
         }
+      } else {
+        emit(BuyStateCubit.loadedListDetailItem(responseBody));
+        emit(const loading_page(isFirstFetch: false));
+      }
+    } catch (error) {
+      emit(
+        ErrorBuyStateCubit(HandlingErrors().getError(error)),
+      );
+    }
+  }
+
+  Future<void> getListDetailItemAsGuest(String productItemId) async {
+    try {
+      await Future.delayed(const Duration(seconds: 0));
+      emit(const loading_page(isFirstFetch: true));
+      BuyForSaleListingModel responseBody =
+          await buyService.buyAForSaleListing(productItemId);
+      if (responseBody.status != ListingStatusDataType.listed.textValue) {
+        emit(const loading_page(isFirstFetch: false));
+        handleListingStatusUnavailableAsGuest(responseBody.catalogItemId ?? '');
       } else {
         emit(BuyStateCubit.loadedListDetailItem(responseBody));
         emit(const loading_page(isFirstFetch: false));

@@ -835,6 +835,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "verify_name": MessageLookupByLibrary.simpleMessage("@MRDOUG"),
         "view": MessageLookupByLibrary.simpleMessage("view"),
         "view_less": MessageLookupByLibrary.simpleMessage("View less details"),
+        "view_listing": MessageLookupByLibrary.simpleMessage("View Listings"),
         "view_more": MessageLookupByLibrary.simpleMessage("View more details"),
         "we_can_help": MessageLookupByLibrary.simpleMessage("WE CAN HELP!"),
         "we_can_help_description": MessageLookupByLibrary.simpleMessage(
