@@ -352,25 +352,25 @@ class _AlertPageState extends State<AlertPage> {
                                         onTapSubmit(channelUrl);
                                       }
 
-                                      // if (item.payload!.listingStatus ==
-                                      //         ListingStatusDataType
-                                      //             .listed.textValue &&
-                                      //     alertListinStatus.status ==
-                                      //         ListingStatusDataType
-                                      //             .feedbackProvided.textValue) {
-                                      //   String productItemId =
-                                      //       item.payload!.productItemId ?? "";
-                                      //   String listingImageUrl =
-                                      //       item.payload!.listingImageUrl ?? "";
+                                      if (item.payload!.listingStatus ==
+                                              ListingStatusDataType
+                                                  .listed.textValue &&
+                                          alertListinStatus.status ==
+                                              ListingStatusDataType
+                                                  .feedbackProvided.textValue) {
+                                        String productItemId =
+                                            item.payload!.productItemId ?? "";
+                                        String listingImageUrl =
+                                            item.payload!.listingImageUrl ?? "";
 
-                                      //   String channelUrl =
-                                      //       SendBirdUtils.getListingChatUrl(
-                                      //           groupChannelList,
-                                      //           productItemId,
-                                      //           listingImageUrl);
-                                      //   Loading.show(context);
-                                      //   onTapSubmit(channelUrl);
-                                      // }
+                                        String channelUrl =
+                                            SendBirdUtils.getListingChatUrl(
+                                                groupChannelList,
+                                                productItemId,
+                                                listingImageUrl);
+                                        Loading.show(context);
+                                        onTapSubmit(channelUrl);
+                                      }
 
                                       if (item.payload!.listingStatus ==
                                           ListingStatusDataType
