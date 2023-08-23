@@ -4,6 +4,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
+import 'package:swagapp/modules/cubits/paywall/paywall_cubit.dart';
+import 'package:swagapp/modules/cubits/profile/get_profile_cubit.dart';
 import 'package:swagapp/modules/di/injector.dart';
 import 'package:swagapp/modules/models/profile/profile_model.dart';
 import 'package:swagapp/modules/pages/search/search_page.dart';
@@ -35,7 +37,7 @@ class HomePage extends StatefulWidget {
   }
 }
 
-class _HomePage extends State<HomePage> {
+class _HomePage extends State<HomePage> with WidgetsBindingObserver  {
   final PersistentTabController _controller =
       PersistentTabController(initialIndex: 0);
   int indexTap = 0;
@@ -51,9 +53,8 @@ class _HomePage extends State<HomePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
- 
+   WidgetsBinding.instance.addObserver(this);
+    super.initState(); 
    
     widgetsChildrenRefreshNotifiers = [
       ChangeNotifier(),
@@ -75,6 +76,36 @@ class _HomePage extends State<HomePage> {
   
     cehckIfProfileDataIsMissing();
   }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state)  {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.resumed) {
+      // This is called when the app is resumed from the background.
+      onAppResumed();
+    }
+    // You can also handle other states like inactive, paused, and detached if needed.
+  }
+
+  void onAppResumed() async {
+   bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
+    if (isLogged == true){
+     await getIt<ProfileCubit>().loadProfileResults();
+      profileData = getIt<PreferenceRepositoryService>().profileData();
+      if(profileData?.hasActiveSubscription == false){
+        getIt<PaywallCubit>().reset();
+      }
+    }   
+    print('App resumed from background!');
+  }
+
 
   void onTapTapped(int index) {
     widgetsChildrenRefreshNotifiers[index]?.notifyListeners();

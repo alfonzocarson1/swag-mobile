@@ -7,6 +7,7 @@ import '../../../common/ui/pushed_header.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
 import '../../../common/utils/utils.dart';
+import '../../../cubits/profile/get_profile_cubit.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
 import '../../../models/profile/profile_model.dart';
@@ -33,11 +34,14 @@ class AccountPage extends StatefulWidget {
 
 class _AccountPageState extends State<AccountPage> {
   CardsResponseModel? cardsResponseModel;
+  late ProfileModel profileData; 
 
   @override
   void initState() {
     fetchAllCards();
     super.initState();
+     profileData =
+        getIt<PreferenceRepositoryService>().profileData();
   }
 
   fetchAllCards() async {
@@ -58,10 +62,15 @@ class _AccountPageState extends State<AccountPage> {
     }
   }
 
+  getProfileData()async{
+    await getIt<ProfileCubit>().loadProfileResults();
+    profileData =
+        getIt<PreferenceRepositoryService>().profileData();
+  }
+
   @override
   Widget build(BuildContext context) {
-    ProfileModel profileData =
-        getIt<PreferenceRepositoryService>().profileData();
+     getProfileData();    
 
     return Scaffold(
       appBar: PushedHeader(
