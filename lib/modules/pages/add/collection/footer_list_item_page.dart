@@ -31,6 +31,7 @@ import '../../../models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
 import '../../../models/profile/profile_model.dart';
 import '../../../notifications_providers/local_notifications_providers.dart';
 import '../../chat/chatPage.dart';
+import '../../login/create_account_page.dart';
 
 class FooterListItemPage extends StatelessWidget {
   final bool showChatButton;
@@ -95,7 +96,22 @@ class FooterListItemPage extends StatelessWidget {
         Expanded(
           flex: 1,
           child: GestureDetector(
-            onTap: () => _navigateToPublicProfile(context),
+            onTap: () async {
+              bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
+              if (isLogged) {
+                _navigateToPublicProfile(context);
+              } else {
+                BuyForSaleListingModel? alertListinStatus =
+                    await getIt<BuyCubit>()
+                        .getAlertListDetailItem(productItemId);
+                if (alertListinStatus!.status !=
+                    ListingStatusDataType.listed.textValue) {
+                  handleListingStatusUnavailableAsGuest(catalogId);
+                } else {
+                  _navigateToPublicProfile(context);
+                }
+              }
+            },
             child: Align(
               alignment: Alignment.centerLeft,
               child: SizedBox(
@@ -120,7 +136,23 @@ class FooterListItemPage extends StatelessWidget {
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [
               GestureDetector(
-                onTap: () => _navigateToPublicProfile(context),
+                onTap: () async {
+                  bool isLogged =
+                      getIt<PreferenceRepositoryService>().isLogged();
+                  if (isLogged) {
+                    _navigateToPublicProfile(context);
+                  } else {
+                    BuyForSaleListingModel? alertListinStatus =
+                        await getIt<BuyCubit>()
+                            .getAlertListDetailItem(productItemId);
+                    if (alertListinStatus!.status !=
+                        ListingStatusDataType.listed.textValue) {
+                      handleListingStatusUnavailableAsGuest(catalogId);
+                    } else {
+                      _navigateToPublicProfile(context);
+                    }
+                  }
+                },
                 child: Text(
                   (profile.username ?? "NULL").toUpperCase(),
                   style: Theme.of(context).textTheme.bodySmall!.copyWith(
@@ -143,14 +175,29 @@ class FooterListItemPage extends StatelessWidget {
                 iconPath: AppIcons.chat,
                 text: S.current.chatChat.toUpperCase(),
                 onTap: () async {
-                  BuyForSaleListingModel? alertListinStatus =
-                      await getIt<BuyCubit>()
-                          .getAlertListDetailItem(productItemId);
-                  if (alertListinStatus!.status !=
-                      ListingStatusDataType.listed.textValue) {
-                    handleListingStatusUnavailable(catalogId);
+                  bool isLogged =
+                      getIt<PreferenceRepositoryService>().isLogged();
+                  if (isLogged) {
+                    BuyForSaleListingModel? alertListinStatus =
+                        await getIt<BuyCubit>()
+                            .getAlertListDetailItem(productItemId);
+                    if (alertListinStatus!.status !=
+                        ListingStatusDataType.listed.textValue) {
+                      handleListingStatusUnavailable(catalogId);
+                    } else {
+                      this.onTapChat(context);
+                    }
                   } else {
-                    this.onTapChat(context);
+                    BuyForSaleListingModel? alertListinStatus =
+                        await getIt<BuyCubit>()
+                            .getAlertListDetailItem(productItemId);
+                    if (alertListinStatus!.status !=
+                        ListingStatusDataType.listed.textValue) {
+                      handleListingStatusUnavailableAsGuest(catalogId);
+                    } else {
+                      Navigator.of(context, rootNavigator: true)
+                          .push(CreateAccountPage.route());
+                    }
                   }
                 },
               )

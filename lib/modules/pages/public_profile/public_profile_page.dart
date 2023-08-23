@@ -25,6 +25,7 @@ import '../../models/listing_for_sale/listing_for_sale_model.dart';
 import 'package:swagapp/modules/common/utils/utils.dart';
 
 import '../../models/overlay_buton/overlay_button_model.dart';
+import '../login/create_account_page.dart';
 
 class PublicProfilePage extends StatelessWidget {
   static const name = "/publicProfile";
@@ -69,8 +70,14 @@ class PublicProfilePage extends StatelessWidget {
                 ),
               ],
               onItemSelected: (selectedLabel) {
-                if (selectedLabel == S.of(context).profile_report_user) {
-                  _reportUser(context, profileId);
+                bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
+                if (isLogged) {
+                  if (selectedLabel == S.of(context).profile_report_user) {
+                    _reportUser(context, profileId);
+                  }
+                } else {
+                  Navigator.of(context, rootNavigator: true)
+                      .push(CreateAccountPage.route());
                 }
               },
             ),
