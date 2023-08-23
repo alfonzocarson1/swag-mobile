@@ -7,6 +7,7 @@ import '../../data/alerts/i_alerts_service.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/alerts/alert_response_model.dart';
+import '../../models/alerts/alert_verify_rate_model.dart';
 import '../../models/alerts/alerts_model.dart';
 
 part 'alert_state.dart';
@@ -49,9 +50,9 @@ class AlertCubit extends Cubit<AlertStateCubit> {
       for (var alert in response.alertList) {
         if (alert.read == false) {
           unread++;
-        }       
+        }
       }
-       FlutterAppBadger.updateBadgeCount(unread);
+      FlutterAppBadger.updateBadgeCount(unread);
       if (unread > 0) {
         getIt<PreferenceRepositoryService>().saveIsUnreadAlert(true);
       } else {
@@ -78,11 +79,23 @@ class AlertCubit extends Cubit<AlertStateCubit> {
   Future<void> saveAlert(AlertModel alert) async {
     try {
       await alertService.saveAlert(alert);
-      await getAlertList(); 
+      await getAlertList();
     } catch (error) {
       emit(
         ErrorAlertStateCubit(HandlingErrors().getError(error)),
       );
+    }
+  }
+
+  Future<bool> verifyRateAlert(VerifyRateModel data) async {
+    try {
+      dynamic response = await alertService.verifyRateAlert(data);
+      return response['response'];
+    } catch (error) {
+      emit(
+        ErrorAlertStateCubit(HandlingErrors().getError(error)),
+      );
+      return false;
     }
   }
 }
