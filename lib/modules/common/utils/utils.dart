@@ -34,9 +34,8 @@ String dateFormat(String dateStr) {
   return formatted;
 }
 
-extension DateExtension on String{
-  DateTime toDateTime()=> DateFormat('dd/MM/yyyy').parse(this);
-
+extension DateExtension on String {
+  DateTime toDateTime() => DateFormat('dd/MM/yyyy').parse(this);
 }
 
 bool isValidEmail(String email) {
@@ -641,4 +640,11 @@ void handleListingStatusUnavailable(String catalogId) {
     LocalNotificationProvider.showInAppAllert('Listing unavailable');
     getIt<ContextService>().rootNavigatorKey.currentState!.pop();
   }
+}
+
+void handleListingStatusUnavailableAsGuest(String catalogId) {
+  LocalNotificationProvider.showInAppAllert('Listing unavailable');
+  getIt<ContextService>().rootNavigatorKey.currentState!.pop();
+  getIt<BuySaleListingBloc>()
+      .add(BuySaleListingEvent.getBuyListingItem(catalogId));
 }

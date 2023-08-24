@@ -62,6 +62,7 @@ enum Endpoint {
   logout,
   addAlertP2P,
   removeAddress,
+  verifyRateAlert
 }
 
 enum ApiHostScheme {
@@ -123,7 +124,7 @@ class API {
         'api/public/v1/account/requestPasswordResetCode/isvalid/%s',
     Endpoint.changePassword: 'api/public/v1/account/passwordChangeRequest',
     Endpoint.addCollection: "api/v1/profile/collectionItems",
-    Endpoint.buyForSaleListing: "api/v1/listing/forSale/%s",
+    Endpoint.buyForSaleListing: "api/public/v1/listing/forSale/%s",
     Endpoint.createListingForSale: "api/v1/listing/listingItem",
     Endpoint.uploadImageListingForSale: 'api/v1/image/listing/%s',
     Endpoint.updateImages: 'api/v1/image/updateImages',
@@ -165,8 +166,9 @@ class API {
     Endpoint.deleteAccount: 'api/v1/profile',
     Endpoint.addAlertP2P: 'api/v1/notification/alerts/alert',
     Endpoint.verifyWallet: 'api/public/v1/account/verifyWallet',
-    Endpoint.createOrUpdateWallet: 'api/public/v1/account/createOrUpdateWalletPair',
-    Endpoint.addAlertP2P: 'api/v1/notification/alerts/alert',
-    Endpoint.removeAddress: 'api/v1/profile/settings/account/addresses/%s'
+    Endpoint.createOrUpdateWallet:
+        'api/public/v1/account/createOrUpdateWalletPair',
+    Endpoint.removeAddress: 'api/v1/profile/settings/account/addresses/%s',
+    Endpoint.verifyRateAlert: 'api/v1/profile/checkIfListingRatingAlReady'
   };
 }
