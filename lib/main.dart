@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:logger/logger.dart';
 import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
 
 
@@ -14,6 +15,7 @@ import 'modules/di/injector.dart';
 import 'modules/notifications_providers/local_notifications_providers.dart';
 import 'modules/notifications_providers/push_notifications_providers.dart';
 
+Logger logger=Logger();
 Future<void> main() async {
   if (kReleaseMode) {
     debugPrint = (String? message, {int? wrapWidth}) {};
