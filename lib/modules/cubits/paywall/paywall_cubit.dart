@@ -69,7 +69,7 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
       for (var purchase in purchases) {
         switch (purchase.status) {
             case PurchaseStatus.pending:        
-                emit(PaywallCubitState.progress());
+                emit(const PaywallCubitState.progress());
                 _iap.completePurchase(purchase);
                 break;
             case PurchaseStatus.error:
@@ -83,7 +83,7 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
                 if (purchase.status == PurchaseStatus.purchased) {
                     _iap.completePurchase(purchase);
                     await sendSubscriptionRequest(purchase.purchaseID ??"");
-                    emit(const PaywallCubitState.success());
+                    //emit(const PaywallCubitState.success());
                 }
                 else{
                         emit(const PaywallCubitState.success());
@@ -93,10 +93,11 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
                 break;
             case PurchaseStatus.restored:
                 if (purchase.pendingCompletePurchase) {
+                  emit(const PaywallCubitState.progress());
                     _iap.completePurchase(purchase);
-                    await sendSubscriptionRequest(purchase.purchaseID ??"");
+                   await sendSubscriptionRequest(purchase.purchaseID ??"");
                    await getIt<ProfileCubit>().loadProfileResults();
-                    emit(const PaywallCubitState.success());
+                    
                 }
                 break;
             default:
@@ -133,6 +134,7 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
             deviceType: "iOS")
       ); 
       debugPrint("Subscription Response: $response");
+      emit(const PaywallCubitState.success());
       return response;
   }
 

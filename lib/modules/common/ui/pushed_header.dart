@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 
+import '../../cubits/paywall/paywall_cubit.dart';
+import '../../cubits/profile/get_profile_cubit.dart';
+import '../../data/shared_preferences/shared_preferences_service.dart';
+import '../../di/injector.dart';
+import '../../models/profile/profile_model.dart';
+
 class PushedHeader extends StatefulWidget implements PreferredSizeWidget {
   static const _defaultActions = <Widget>[];
   final List<Widget> actions;
@@ -39,6 +45,17 @@ class _PushedHeaderState extends State<PushedHeader>
     super.initState();
   }
 
+  resetPaywall()async{
+     bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
+    if (isLogged == true){
+     await getIt<ProfileCubit>().loadProfileResults();
+     ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
+      if(profileData.hasActiveSubscription == false){
+        getIt<PaywallCubit>().reset();
+      }
+  }
+  }
+
   @override
   Widget build(BuildContext context) {
     return PreferredSize(
@@ -46,7 +63,7 @@ class _PushedHeaderState extends State<PushedHeader>
       child: AppBar(
         scrolledUnderElevation: 0.0,
         backgroundColor: widget.backgroundColor ?? Palette.current.primaryNero,
-        systemOverlayStyle: SystemUiOverlayStyle(
+        systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
           statusBarIconBrightness: Brightness.light, // For Android (dark icons)
           statusBarBrightness: Brightness.dark, // For iOS (dark icons)
@@ -76,6 +93,7 @@ class _PushedHeaderState extends State<PushedHeader>
                                 size: 24,
                               ),
                               onPressed: () {
+                                resetPaywall();
                                 Navigator.maybePop(context);
                               })
                           : Container(),

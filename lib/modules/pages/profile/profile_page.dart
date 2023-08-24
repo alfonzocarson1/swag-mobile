@@ -50,10 +50,7 @@ class _ProfilePageState extends State<ProfilePage>
     profileData = getIt<PreferenceRepositoryService>().profileData();
     _tabController = TabController(length: 4, vsync: this);
     _tabController.addListener(_handleTabSelection);
-  //  verifySubscriptionStatus();
-  
     super.initState();
-     
   }
 
   @override
@@ -63,31 +60,41 @@ class _ProfilePageState extends State<ProfilePage>
   }
 
   getUnreadMessagesState() async {
-   hasUnreadMessages = await getIt<ChatCubit>().hasUnreadMessages();
+    hasUnreadMessages = await getIt<ChatCubit>().hasUnreadMessages();
     setState(() {});
   }
 
-
-  loadData()async{
+  loadData() async {
     await getIt<ProfileCubit>().loadProfileResults();
     profileData = getIt<PreferenceRepositoryService>().profileData();
   }
 
   paywallAction() {
-    //verifySubscriptionStatus();
     ProfileModel profileData =
         getIt<PreferenceRepositoryService>().profileData();
     if (profileData.hasActiveSubscription != true) {
       showPaywallSplashScreen(
           context: context,
           hasUsedFreeTrial: profileData.hasUsedFreeTrial ?? false,
-          removePaywall: (){});
+          removePaywall: () {});
+    }
+  }
+
+  resetPaywall() async {
+    bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
+    if (isLogged == true) {
+      await getIt<ProfileCubit>().loadProfileResults();
+      ProfileModel profileData =
+          getIt<PreferenceRepositoryService>().profileData();
+      if (profileData.hasActiveSubscription == false) {
+        getIt<PaywallCubit>().reset();
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-   // loadData();
+    resetPaywall();
     return Scaffold(
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle(
@@ -127,34 +134,35 @@ class _ProfilePageState extends State<ProfilePage>
           child: BlocBuilder<ChatCubit, ChatState>(
             builder: (context, state) {
               return state.maybeWhen(
-                hasUnreadMessages: (hasUnreadMessages, unreadMessageCount) {
-                  return IconButton(
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  icon: Image.asset(
-                    (hasUnreadMessages)?AppIcons.chatNewMessage : AppIcons.chat,
-                    scale: 2.5,
-                  ),
-                  onPressed: () =>
-                      Navigator.of(context, rootNavigator: true).push(
-                        MaterialPageRoute(
-                            builder: (context) => const ChatListPage()),
-                      ));
-                },
-                orElse: (){
-                  return IconButton(
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  icon: Image.asset(
-                    AppIcons.chat,
-                    scale: 2.5,
-                  ),
-                  onPressed: () =>
-                      Navigator.of(context, rootNavigator: true).push(
-                        MaterialPageRoute(
-                            builder: (context) => const ChatListPage()),
-                      ));
-                });
+                  hasUnreadMessages: (hasUnreadMessages, unreadMessageCount) {
+                return IconButton(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    icon: Image.asset(
+                      (hasUnreadMessages)
+                          ? AppIcons.chatNewMessage
+                          : AppIcons.chat,
+                      scale: 2.5,
+                    ),
+                    onPressed: () =>
+                        Navigator.of(context, rootNavigator: true).push(
+                          MaterialPageRoute(
+                              builder: (context) => const ChatListPage()),
+                        ));
+              }, orElse: () {
+                return IconButton(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    icon: Image.asset(
+                      AppIcons.chat,
+                      scale: 2.5,
+                    ),
+                    onPressed: () =>
+                        Navigator.of(context, rootNavigator: true).push(
+                          MaterialPageRoute(
+                              builder: (context) => const ChatListPage()),
+                        ));
+              });
             },
           ),
         ),
@@ -183,26 +191,53 @@ class _ProfilePageState extends State<ProfilePage>
                               fontWeight: FontWeight.w300,
                               color: Palette.current.light4)),
                 ),
-                Stack(children: [
- 
-                  BlocBuilder<PaywallCubit, PaywallCubitState>(
-                    builder: (context, state){
-                      return state.maybeWhen(
-                        initial:() => GestureDetector(
-                          onTap: () {
-                            if(profileData.hasActiveSubscription == false){
-                              paywallAction();
-                            }
-                          },
-                          child:(profileData.hasActiveSubscription == true) ? 
-                          BlurredValue(blurLevel: 0, collectionValue: profileData.collectionValue,):
-                          BlurredValue(blurLevel: 8.0, collectionValue: profileData.collectionValue,)
-                          ),
-                        success:() => BlurredValue(blurLevel: 0, collectionValue: profileData.collectionValue,),                        
-                        orElse: ()=> Container());
-                    }
-                  )
-                ]),
+                BlocBuilder<ProfileCubit, ProfileCubitState>(
+                    builder: (context, state) {
+                  return state.maybeWhen(
+                      loadedProfileData: (profileData) {
+                        if (profileData.hasActiveSubscription == false) {
+                          return BlocBuilder<PaywallCubit, PaywallCubitState>(
+                              builder: (context, state) {
+                            return state.maybeWhen(
+                                initial: () => GestureDetector(
+                                    onTap: () {
+                                      if (profileData.hasActiveSubscription ==
+                                          false) {
+                                        paywallAction();
+                                      }
+                                    },
+                                    child: BlurredValue(
+                                      blurLevel: 8.0,
+                                      collectionValue:
+                                          profileData.collectionValue,
+                                    )),
+                                success: () => BlurredValue(
+                                      blurLevel: 0,
+                                      collectionValue:
+                                          profileData.collectionValue,
+                                    ),
+                                orElse: () => Container());
+                          });
+                        } else {
+                          return BlurredValue(
+                            blurLevel: 0,
+                            collectionValue: profileData.collectionValue,
+                          );
+                        }
+                      },
+                      orElse: () => (profileData.hasActiveSubscription == false)
+                          ? BlurredValue(
+                              blurLevel: 8.0,
+                              collectionValue: profileData.collectionValue,
+                            )
+                          : BlurredValue(
+                              blurLevel: 0,
+                              collectionValue: profileData.collectionValue,
+                            ));
+                })
+                // Stack(children: [
+
+                // ]),
               ],
             ),
             const SizedBox(
@@ -325,22 +360,15 @@ class BlurredValue extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return ImageFiltered(
-      imageFilter: ImageFilter.blur(
-          sigmaX: blurLevel, sigmaY: blurLevel),
-      child: Text(
-          decimalDigitsLastSalePrice(collectionValue
-              .toString()),
-          style: Theme.of(context)
-              .textTheme
-              .displayMedium!
-              .copyWith(
-                  fontFamily: "KnockoutCustom",
-                  fontSize: 45,
-                  letterSpacing: 1.0,
-                  fontWeight: FontWeight.w300,
-                  color: Palette.current.light4)),
+      imageFilter: ImageFilter.blur(sigmaX: blurLevel, sigmaY: blurLevel),
+      child: Text(decimalDigitsLastSalePrice(collectionValue.toString()),
+          style: Theme.of(context).textTheme.displayMedium!.copyWith(
+              fontFamily: "KnockoutCustom",
+              fontSize: 45,
+              letterSpacing: 1.0,
+              fontWeight: FontWeight.w300,
+              color: Palette.current.light4)),
     );
   }
 }
