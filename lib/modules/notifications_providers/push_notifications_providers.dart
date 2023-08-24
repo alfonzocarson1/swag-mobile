@@ -44,6 +44,7 @@ class PushNotificationsProvider {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       print('===== On Message ======');
       print(message.data);
+      getIt<AlertCubit>().getAlertList();
 
       String? currentRoute = getIt<RouteTracker>().currentRoute;
       var json = jsonDecode(message.data['sendbird']);
@@ -69,13 +70,14 @@ class PushNotificationsProvider {
   static Future<void> _onBackgroundHandler(RemoteMessage message) async {
     print('===== On BackgroundMessage ======');
     print(message.data);
+    getIt<AlertCubit>().getAlertList();
 
     var json = jsonDecode(message.data['sendbird']);
 
     if (Platform.isAndroid) {
       LocalNotificationProvider().showNotification(
           title: json['push_title'], body: json['message'], payLoad: 'data');
-    getIt<AlertCubit>().getAlertList();
+      getIt<AlertCubit>().getAlertList();
     }
   }
 
