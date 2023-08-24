@@ -1,6 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:swagapp/modules/pages/settings/account/verification/kyc_splash_dialog.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../common/ui/pushed_header.dart';
@@ -11,10 +10,6 @@ import '../../../cubits/profile/get_profile_cubit.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
 import '../../../models/profile/profile_model.dart';
-import '../../../stripe/models/cards_response_model.dart';
-import '../../../stripe/models/stripe_error_model.dart';
-import '../../../stripe/stripe_service.dart';
-import 'cards_page.dart';
 import 'peer_to_peer_payments_page.dart';
 import 'shipping_address_page.dart';
 
@@ -33,44 +28,22 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
-  CardsResponseModel? cardsResponseModel;
-  late ProfileModel profileData; 
+  late ProfileModel profileData;
 
   @override
   void initState() {
-    fetchAllCards();
     super.initState();
-     profileData =
-        getIt<PreferenceRepositoryService>().profileData();
+    profileData = getIt<PreferenceRepositoryService>().profileData();
   }
 
-  fetchAllCards() async {
-    final StripeService stripeService = StripeService();
-    final respose =
-        await stripeService.getAllCards(customerId: 'cus_OHVy4VX6DiHyvI');
-    if (respose.statusCode != 200) {
-      StripeErrorModel stripeErrorModel =
-          StripeErrorModel.fromJson(jsonDecode(respose.body)['error']);
-      debugPrint(stripeErrorModel.message);
-    } else {
-      final CardsResponseModel tempModel =
-          CardsResponseModel.fromJson(jsonDecode(respose.body));
-      cardsResponseModel = tempModel;
-      setState(() {});
-      getIt<PreferenceRepositoryService>()
-          .saveCardsResponseModel(cardsResponseModel!);
-    }
-  }
-
-  getProfileData()async{
+  getProfileData() async {
     await getIt<ProfileCubit>().loadProfileResults();
-    profileData =
-        getIt<PreferenceRepositoryService>().profileData();
+    profileData = getIt<PreferenceRepositoryService>().profileData();
   }
 
   @override
   Widget build(BuildContext context) {
-     getProfileData();    
+    getProfileData();
 
     return Scaffold(
       appBar: PushedHeader(
@@ -110,13 +83,13 @@ class _AccountPageState extends State<AccountPage> {
                                 .of(context)
                                 .premium_memberatomic_drop_payments_sub_title,
                             () async {
-                          if (cardsResponseModel != null &&
-                              cardsResponseModel!.data!.isNotEmpty) {
-                            Navigator.of(context, rootNavigator: true)
-                                .push(CardsPage.route());
-                          } else {
-                            showSnackBar(context, 'No Cards Linked');
-                          }
+                          // if (cardsResponseModel != null &&
+                          //     cardsResponseModel!.data!.isNotEmpty) {
+                          //   Navigator.of(context, rootNavigator: true)
+                          //       .push(CardsPage.route());
+                          // } else {
+                          //   showSnackBar(context, 'No Cards Linked');
+                          // }
                         },
                             Icon(
                               Icons.arrow_forward_ios_sharp,
@@ -181,8 +154,12 @@ class _AccountPageState extends State<AccountPage> {
                             S.of(context).kyc_title,
                             profileData.kycverified ?? false
                                 ? '${profileData.addresses?.first.firstName ?? ''} ${profileData.addresses?.first.lastName ?? ''}'
-                                : ' ',
-                            () {},
+                                : ' ', () {
+                          if (!profileData.kycverifie) {
+                            Navigator.of(context)
+                                .push(KycSplashDialog.route(context));
+                          }
+                        },
                             Text(
                                 profileData.kycverified!
                                     ? 'Verified'
@@ -207,15 +184,15 @@ class _AccountPageState extends State<AccountPage> {
                             context,
                             'assets/icons/atomic_drop_payments_icon.png',
                             S.of(context).subscription_title,
-                            '',
-                            () {
-                              if (profileData.hasActiveSubscription == false) {
-                                showPaywallSplashScreen(
-                                    context: context,
-                                    hasUsedFreeTrial: profileData.hasUsedFreeTrial ?? false,
-                                    removePaywall: (){});
-                              }
-                            },
+                            '', () {
+                          if (profileData.hasActiveSubscription == false) {
+                            showPaywallSplashScreen(
+                                context: context,
+                                hasUsedFreeTrial:
+                                    profileData.hasUsedFreeTrial ?? false,
+                                removePaywall: () {});
+                          }
+                        },
                             const SizedBox(),
                             Text(
                                 profileData.hasActiveSubscription!

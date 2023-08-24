@@ -397,6 +397,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "ist_item_popup_btn":
             MessageLookupByLibrary.simpleMessage("CREATE LISTING"),
         "items_purchased": m16,
+        "kyc_dialog_point1":
+            MessageLookupByLibrary.simpleMessage("List items for sale"),
+        "kyc_dialog_point2": MessageLookupByLibrary.simpleMessage(
+            "Increase odds on hitting drops"),
+        "kyc_dialog_point3": MessageLookupByLibrary.simpleMessage(
+            "Verified user badge on profile"),
+        "kyc_dialog_point4": MessageLookupByLibrary.simpleMessage(
+            "Confirmation you are not a bot"),
+        "kyc_dialog_subtitle": MessageLookupByLibrary.simpleMessage(
+            "Setting up KYC only take a few minutes and allows for the following..."),
+        "kyc_dialog_title":
+            MessageLookupByLibrary.simpleMessage("Get Verified"),
+        "kyc_dialog_verify": MessageLookupByLibrary.simpleMessage("VERIFY"),
         "kyc_title": MessageLookupByLibrary.simpleMessage("KYC"),
         "last_name": MessageLookupByLibrary.simpleMessage("Last Name"),
         "last_sale": MessageLookupByLibrary.simpleMessage("LAST SALE"),

@@ -285,6 +285,14 @@
     "payPal_sub_title": "Please enter and confirm your PayPal email",
     "cash_app_sub_title": "Please enter and confirm your \nCashApp cashtag",
 
+    "kyc_dialog_title": "Get Verified",
+    "kyc_dialog_subtitle": "Setting up KYC only take a few minutes and allows for the following...",
+    "kyc_dialog_point1": "List items for sale",
+    "kyc_dialog_point2": "Increase odds on hitting drops",
+    "kyc_dialog_point3": "Verified user badge on profile",
+    "kyc_dialog_point4": "Confirmation you are not a bot",
+    "kyc_dialog_verify": "VERIFY",
+
     "nft_wallet_page_title": "NFT WALLET",
     "nft_wallet_connect": "Connect",
     "nft_wallet_pending_verification": "Pending verification",
