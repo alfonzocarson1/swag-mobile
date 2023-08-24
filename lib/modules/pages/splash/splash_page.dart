@@ -25,6 +25,10 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     super.initState();
     context.read<CategoryBloc>().add(const CategoryEvent.getCategories());
+    // Create a 5-second delay using Future.delayed
+    Future.delayed(const Duration(seconds: 25), () {
+    });
+
   }
 
   @override

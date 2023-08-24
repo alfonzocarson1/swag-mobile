@@ -15,12 +15,14 @@ import 'generated/l10n.dart';
 import 'modules/blocs/auth_bloc/auth_bloc.dart';
 import 'modules/blocs/blocs.dart';
 import 'modules/blocs/sold_bloc/sold_bloc.dart';
+import 'modules/common/ui/dynamic_toast_messages.dart';
 import 'modules/pages/home/home_page.dart';
 import 'modules/common/utils/context_service.dart';
 import 'modules/common/utils/palette.dart';
 import 'modules/common/utils/theme.dart';
 import 'modules/di/injector.dart';
 import 'modules/pages/splash/splash_page.dart';
+import 'modules/services/internet_connectivity_service.dart';
 import 'modules/services/route_observer.dart';
 
 class App extends StatefulWidget {
@@ -73,6 +75,37 @@ class _AppState extends State<App> {
           home: const AuthRouterPage(),
           builder: (context, child) => Overlay(
             initialEntries: [
+
+              ///Internet connectivity Service
+              OverlayEntry(builder: (BuildContext context) {
+                // return MediaQuery(
+                //   data: MediaQuery.of(context).copyWith(boldText: false),
+                //   child:
+                // );
+                return BlocListener<InternetConnectivityBloc,
+                    InternetConnectivityState>(
+                  listener: (context, state) {
+
+                    print("app listener  internet connectivity ");
+                    if (state == InternetConnectivityState.offline) {
+
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          duration: const Duration(seconds: 15),
+                          behavior: SnackBarBehavior.floating,
+                          margin: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).size.height / 1.3,
+                          ),
+                          backgroundColor: Colors.transparent,
+                          content: const ToastMessage(
+                            message: 'Active internet connection required.',
+                          ),
+                          dismissDirection: DismissDirection.none));
+
+                    }
+                  },
+                  child: Container(),
+                );
+              }),
               OverlayEntry(builder: (BuildContext context) {
                 return MediaQuery(
                   data: MediaQuery.of(context).copyWith(boldText: false),

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -20,6 +21,7 @@ import '../../di/injector.dart';
 import '../../models/auth/change_password_response_model.dart';
 import '../../models/auth/create_account_payload_model.dart';
 import '../../models/auth/forgot_password_code_model.dart';
+import '../../services/internet_connectivity_service.dart';
 
 part 'auth_bloc.freezed.dart';
 part 'auth_event.dart';
@@ -30,13 +32,30 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final PreferenceRepositoryService preferenceService;
   final StorageRepositoryService storageService;
   late StreamSubscription<String?> _userStreamSubscription;
-
+  bool isInternet = false;
   AuthBloc(this.authService, this.preferenceService, this.storageService)
       : super(const AuthState.initial()) {
     _userStreamSubscription = authService
         .subscribeToAuthChanges()
         .distinct()
         .listen((user) async => add(const AuthEvent.init()));
+
+    _checkConnectivity();
+  }
+
+  Future<void> _checkConnectivity() async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+
+    if (connectivityResult == ConnectivityResult.none) {
+      isInternet = false;
+
+
+      print("No internet connectivity auth bloc");
+      InternetConnectivityBloc().emit(InternetConnectivityState.offline);
+
+    } else {
+      isInternet = true;
+    }
   }
 
   void logout() => add(const AuthEvent.logout());

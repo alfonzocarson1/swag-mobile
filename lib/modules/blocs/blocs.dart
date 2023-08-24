@@ -34,6 +34,7 @@ import '../cubits/paywall/paywall_cubit.dart';
 import '../cubits/public_profile_listings/public_profile_listings_cubit.dart';
 import '../cubits/route_history/route_history_cubit.dart';
 import '../cubits/sold/get_sold_cubit.dart';
+import '../services/internet_connectivity_service.dart';
 import 'buy_sale_listing_bloc/buy_sale_listing_bloc.dart';
 import 'collection_bloc/collection_bloc.dart';
 import 'detail_bloc/detail_bloc.dart';
@@ -47,6 +48,8 @@ import 'sold_bloc/sold_bloc.dart';
 
 abstract class AppBlocs {
   static List<BlocProvider> blocs(BuildContext context) => [
+        BlocProvider<InternetConnectivityBloc>(create: (context) => getIt<InternetConnectivityBloc>()),
+
         BlocProvider<ChatCubit>(create: (context) => getIt<ChatCubit>()),
         BlocProvider<AuthBloc>(create: (_) => getIt<AuthBloc>()),
         BlocProvider<UsernameBloc>(create: (_) => getIt<UsernameBloc>()),
