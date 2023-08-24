@@ -2860,6 +2860,36 @@ class S {
     );
   }
 
+  /// `Verified with:`
+  String get kyc_verified_with {
+    return Intl.message(
+      'Verified with:',
+      name: 'kyc_verified_with',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to create KYC session.`
+  String get kyc_session_creation_failed {
+    return Intl.message(
+      'Failed to create KYC session.',
+      name: 'kyc_session_creation_failed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `KYC documents are already submitted, please wait for verification results.`
+  String get kyc_session_validating {
+    return Intl.message(
+      'KYC documents are already submitted, please wait for verification results.',
+      name: 'kyc_session_validating',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `NFT WALLET`
   String get nft_wallet_page_title {
     return Intl.message(

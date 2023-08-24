@@ -410,7 +410,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "kyc_dialog_title":
             MessageLookupByLibrary.simpleMessage("Get Verified"),
         "kyc_dialog_verify": MessageLookupByLibrary.simpleMessage("VERIFY"),
+        "kyc_session_creation_failed": MessageLookupByLibrary.simpleMessage(
+            "Failed to create KYC session."),
+        "kyc_session_validating": MessageLookupByLibrary.simpleMessage(
+            "KYC documents are already submitted, please wait for verification results."),
         "kyc_title": MessageLookupByLibrary.simpleMessage("KYC"),
+        "kyc_verified_with":
+            MessageLookupByLibrary.simpleMessage("Verified with:"),
         "last_name": MessageLookupByLibrary.simpleMessage("Last Name"),
         "last_sale": MessageLookupByLibrary.simpleMessage("LAST SALE"),
         "legal_text": MessageLookupByLibrary.simpleMessage(

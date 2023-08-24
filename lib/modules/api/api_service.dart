@@ -138,7 +138,6 @@ class APIService {
     String? token = '';
     if (needBearer) {
       token = await getIt<StorageRepositoryService>().getToken();
-     
     }
 
     http.Response? response;
@@ -222,7 +221,11 @@ class APIService {
         return res;
       }
       throw 'Hubo un error, por favor intente nuevamente';
-    } catch (e) {
+    } catch (e, stk) {
+      debugPrintStack(
+        label: e.toString(),
+        stackTrace: stk,
+      );
       throw e.toString();
     }
   }

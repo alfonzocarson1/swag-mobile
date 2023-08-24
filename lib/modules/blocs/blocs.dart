@@ -13,6 +13,7 @@ import 'package:swagapp/modules/cubits/catalog_detail/catalog_detail_cubit.dart'
 import 'package:swagapp/modules/cubits/collections/get_collections_cubit.dart';
 import 'package:swagapp/modules/cubits/explore/get_explore_cubit.dart';
 import 'package:swagapp/modules/cubits/favorites/get_favorites_cubit.dart';
+import 'package:swagapp/modules/cubits/kyc/kyc_cubit.dart';
 import 'package:swagapp/modules/cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
 import 'package:swagapp/modules/cubits/nft_wallet/nft_wallet_cubit.dart';
 import 'package:swagapp/modules/cubits/page_from_explore/page_from_explore_cubit.dart';
@@ -107,5 +108,6 @@ abstract class AppBlocs {
         BlocProvider<PublicProfileFavoritesCubit>(create: (_) => getIt()),
         BlocProvider<NftWalletCubit>(create: (_) => getIt()),
         BlocProvider<RouteHistoryCubit>(create: (_) => getIt()),
+        BlocProvider<KycCubit>(create: (_) => getIt()),
       ];
 }

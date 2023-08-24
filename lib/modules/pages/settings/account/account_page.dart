@@ -155,7 +155,7 @@ class _AccountPageState extends State<AccountPage> {
                             profileData.kycverified ?? false
                                 ? '${profileData.addresses?.first.firstName ?? ''} ${profileData.addresses?.first.lastName ?? ''}'
                                 : ' ', () {
-                          if (!profileData.kycverifie) {
+                          if (!(profileData.kycverified ?? false)) {
                             Navigator.of(context)
                                 .push(KycSplashDialog.route(context));
                           }

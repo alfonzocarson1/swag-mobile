@@ -70,9 +70,26 @@ extension AsyncOperationX<T> on AsyncOperation<T> {
       idle: () => idle != null ? idle() : orElse(),
       initiated: (state) => state.when(
         loaded: (data) => loaded != null ? loaded(data) : orElse(),
-        loading: (previousData) => loading != null ? loading(previousData) : orElse(),
-        error: (e, previousData) => error != null ? error(e, previousData) : orElse(),
+        loading: (previousData) =>
+            loading != null ? loading(previousData) : orElse(),
+        error: (e, previousData) =>
+            error != null ? error(e, previousData) : orElse(),
       ),
+    );
+  }
+
+  U? maybeWhenWithValueOrNull<U>({
+    U Function()? idle,
+    U Function(T data)? loaded,
+    U Function(T? previousDat)? loading,
+    U Function(Object e, T? previousData)? error,
+  }) {
+    return maybeWhenWithValue(
+      orElse: () => null,
+      idle: idle,
+      loaded: loaded,
+      loading: loading,
+      error: error,
     );
   }
 }
