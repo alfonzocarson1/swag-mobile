@@ -37,7 +37,7 @@ class UsernameBloc extends Bloc<UsernameEvent, UsernameState> {
     try {
       bool response = await authService.isUsernameAvailable(username);
       yield UsernameState.isUsernameAvailable(response);
-      yield const UsernameState.isInternetAvailable(true);
+      // yield const UsernameState.isInternetAvailable(true);
       logger.e("Response :$response");
     } catch (e) {
       logger.e("Exception :$e");
@@ -46,7 +46,7 @@ class UsernameBloc extends Bloc<UsernameEvent, UsernameState> {
         logger.e("Contain");
         yield const UsernameState.isInternetAvailable(false);
       }else{
-        yield const UsernameState.isInternetAvailable(true);
+        // yield const UsernameState.isInternetAvailable(true);
         yield UsernameState.error(HandlingErrors().getError(e));
       }
     }

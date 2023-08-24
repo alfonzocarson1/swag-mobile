@@ -84,7 +84,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
 
   bool tosChecked = false;
   String usernameVal = defaultString;
-  bool isVPN = false;
+  bool isVPN = true;
 
   @override
   void dispose() {
@@ -432,6 +432,8 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                     isUsernameAvailable: (value) {},
                                     error: (value) {},
                                     isInternetAvailable: (value) {
+                                      logger.e("ISVPN :$value");
+
                                       isVPN = value;
                                       if (!value) {
                                         ScaffoldMessenger.of(context)
@@ -455,6 +457,10 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                                 dismissDirection:
                                                     DismissDirection.none));
                                       }
+
+                                      setState(() {
+
+                                      });
                                     });
                               }),
                               // BlocBuilder<UsernameBloc, UsernameState>(
@@ -757,6 +763,10 @@ class _CreateAccountState extends State<CreateAccountPage> {
 
   CustomTextFormField _getUsernameField(BuildContext context,
       {bool isUsernameAvailable = false}) {
+    setUsernameErrorText(
+      isValidUsername(usernameVal),
+      isUsernameAvailable,
+    );
     return CustomTextFormField(
         borderColor: _usernameBorder,
         errorText: usernameErrorText,
@@ -839,6 +849,8 @@ class _CreateAccountState extends State<CreateAccountPage> {
               : isCorrectSize
               ? S.of(context).username_taken
               : S.of(context).invalid_username;
+        }else{
+          usernameErrorText="";
         }
 
       }
