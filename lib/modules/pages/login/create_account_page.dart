@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +17,7 @@ import 'package:swagapp/modules/pages/explore/account_info.dart';
 import 'package:swagapp/modules/pages/login/sign_in_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../main.dart';
 import '../../api/api.dart';
 import '../../blocs/auth_bloc/auth_bloc.dart';
 import '../../common/ui/custom_text_form_field.dart';
@@ -29,6 +31,7 @@ import '../../data/secure_storage/storage_repository_service.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/auth/forgot_password_code_model.dart';
+import '../../services/internet_connectivity_service.dart';
 
 class CreateAccountPage extends StatefulWidget {
   static const name = '/CreateAccount';
@@ -81,6 +84,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
 
   bool tosChecked = false;
   String usernameVal = defaultString;
+  bool isVPN = false;
 
   @override
   void dispose() {
@@ -412,7 +416,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
                               const SizedBox(
                                 height: 20,
                               ),
-                              BlocBuilder<UsernameBloc, UsernameState>(
+                              BlocConsumer<UsernameBloc, UsernameState>(
                                   builder: (context, usernameState) {
                                 return usernameState.maybeMap(
                                     orElse: () => _getUsernameField(
@@ -422,7 +426,48 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                         _getUsernameField(context,
                                             isUsernameAvailable:
                                                 state.isUsernameAvailable));
+                              }, listener: (context, state) {
+                                state.when(
+                                    initial: () {},
+                                    isUsernameAvailable: (value) {},
+                                    error: (value) {},
+                                    isInternetAvailable: (value) {
+                                      isVPN = value;
+                                      if (!value) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                                duration:
+                                                    const Duration(seconds: 5),
+                                                behavior:
+                                                    SnackBarBehavior.floating,
+                                                margin: EdgeInsets.only(
+                                                  bottom: MediaQuery.of(context)
+                                                          .size
+                                                          .height /
+                                                      1.3,
+                                                ),
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                content: const ToastMessage(
+                                                  message:
+                                                      'Active internet connection required.',
+                                                ),
+                                                dismissDirection:
+                                                    DismissDirection.none));
+                                      }
+                                    });
                               }),
+                              // BlocBuilder<UsernameBloc, UsernameState>(
+                              //     builder: (context, usernameState) {
+                              //   return usernameState.maybeMap(
+                              //       orElse: () => _getUsernameField(
+                              //             context,
+                              //           ),
+                              //       isUsernameAvailable: (state) =>
+                              //           _getUsernameField(context,
+                              //               isUsernameAvailable:
+                              //                   state.isUsernameAvailable));
+                              // }),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
@@ -530,23 +575,51 @@ class _CreateAccountState extends State<CreateAccountPage> {
                               PrimaryButton(
                                 title:
                                     S.of(context).create_account.toUpperCase(),
-                                onPressed: () {
-                                  String deviceId =
+                                onPressed: () async {
+                                  var connectivityResult =
+                                      await Connectivity().checkConnectivity();
+
+                                  if (connectivityResult ==
+                                      ConnectivityResult.none) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                            duration:
+                                                const Duration(seconds: 5),
+                                            behavior: SnackBarBehavior.floating,
+                                            margin: EdgeInsets.only(
+                                              bottom: MediaQuery.of(context)
+                                                      .size
+                                                      .height /
+                                                  1.3,
+                                            ),
+                                            backgroundColor: Colors.transparent,
+                                            content: const ToastMessage(
+                                              message:
+                                                  'Active internet connection required.',
+                                            ),
+                                            dismissDirection:
+                                                DismissDirection.none));
+                                  } else {
+                                    String deviceId =
+                                        getIt<PreferenceRepositoryService>()
+                                            .getFirebaseDeviceToken();
+                                    showErrors();
+                                    if (areFieldsValid()) {
+                                      context.read<AuthBloc>().add(AuthEvent
+                                          .createAccount(CreateAccountPayloadModel(
+                                              email: _emailController.text,
+                                              phoneNumber:
+                                                  "${currentPhoneNumber!.dialCode}${_phoneController.text}",
+                                              password:
+                                                  _passwordController.text,
+                                              userName:
+                                                  _usernameController.text,
+                                              termsOfServiceAccepted:
+                                                  tosChecked,
+                                              deviceId: deviceId)));
                                       getIt<PreferenceRepositoryService>()
-                                          .getFirebaseDeviceToken();
-                                  showErrors();
-                                  if (areFieldsValid()) {
-                                    context.read<AuthBloc>().add(AuthEvent
-                                        .createAccount(CreateAccountPayloadModel(
-                                            email: _emailController.text,
-                                            phoneNumber:
-                                                "${currentPhoneNumber!.dialCode}${_phoneController.text}",
-                                            password: _passwordController.text,
-                                            userName: _usernameController.text,
-                                            termsOfServiceAccepted: tosChecked,
-                                            deviceId: deviceId)));
-                                    getIt<PreferenceRepositoryService>()
-                                        .saveProfileDataState(true);
+                                          .saveProfileDataState(true);
+                                    }
                                   }
                                 },
                                 type: PrimaryButtonType.green,
@@ -684,10 +757,6 @@ class _CreateAccountState extends State<CreateAccountPage> {
 
   CustomTextFormField _getUsernameField(BuildContext context,
       {bool isUsernameAvailable = false}) {
-    setUsernameErrorText(
-      isValidUsername(usernameVal),
-      isUsernameAvailable,
-    );
     return CustomTextFormField(
         borderColor: _usernameBorder,
         errorText: usernameErrorText,
@@ -699,18 +768,32 @@ class _CreateAccountState extends State<CreateAccountPage> {
         inputFormatters: [
           FilteringTextInputFormatter.allow(RegExp(r"[a-zA-Z_\-0-9]")),
         ],
-        onChanged: (value) {
+        onChanged: (value) async {
+          setUsernameErrorText(
+            isValidUsername(usernameVal),
+            isUsernameAvailable,
+          );
+
           if (value.isNotEmpty) {
             setState(() {
               isEmptyUserName = false;
             });
           }
           usernameVal = value;
-          if (isValidUsername(value)) {
-            context
-                .read<UsernameBloc>()
-                .add(UsernameEvent.checkUsernameAvailavility(value));
+
+          var connectivityResult = await Connectivity().checkConnectivity();
+
+          if (connectivityResult == ConnectivityResult.none) {
+            logger.e("Offline emit");
+            InternetConnectivityBloc().emit(InternetConnectivityState.offline);
+          } else {
+            if (isValidUsername(value)) {
+              context
+                  .read<UsernameBloc>()
+                  .add(UsernameEvent.checkUsernameAvailavility(value));
+            }
           }
+
           setState(() {});
         },
         suffix: _usernameController.text.isEmpty
@@ -736,20 +819,29 @@ class _CreateAccountState extends State<CreateAccountPage> {
     }
   }
 
-  void setUsernameErrorText(
+  Future<void> setUsernameErrorText(
     bool isCorrectSize,
     bool isUsernameAvailable,
-  ) {
-    if (isEmptyUserName) {
-      usernameErrorText = S.of(context).required_field;
+  ) async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+
+    if (connectivityResult == ConnectivityResult.none) {
+      InternetConnectivityBloc().emit(InternetConnectivityState.offline);
     } else {
-      isUsernameTaken = !isUsernameAvailable;
-      bool isUsernameOk = isCorrectSize && isUsernameAvailable;
-      usernameErrorText = isUsernameOk || _usernameController.text.isEmpty
-          ? null
-          : isCorrectSize
+      if (isEmptyUserName) {
+        usernameErrorText = S.of(context).required_field;
+      } else {
+        if (isVPN){
+          isUsernameTaken = !isUsernameAvailable;
+          bool isUsernameOk = isCorrectSize && isUsernameAvailable;
+          usernameErrorText = isUsernameOk || _usernameController.text.isEmpty
+              ? null
+              : isCorrectSize
               ? S.of(context).username_taken
               : S.of(context).invalid_username;
+        }
+
+      }
     }
   }
 

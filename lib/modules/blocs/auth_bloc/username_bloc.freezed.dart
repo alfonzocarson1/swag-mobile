@@ -327,6 +327,7 @@ mixin _$UsernameState {
     required TResult Function() initial,
     required TResult Function(bool isUsernameAvailable) isUsernameAvailable,
     required TResult Function(String message) error,
+    required TResult Function(bool isInternetAvailable) isInternetAvailable,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -334,6 +335,7 @@ mixin _$UsernameState {
     TResult? Function()? initial,
     TResult? Function(bool isUsernameAvailable)? isUsernameAvailable,
     TResult? Function(String message)? error,
+    TResult? Function(bool isInternetAvailable)? isInternetAvailable,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -341,6 +343,7 @@ mixin _$UsernameState {
     TResult Function()? initial,
     TResult Function(bool isUsernameAvailable)? isUsernameAvailable,
     TResult Function(String message)? error,
+    TResult Function(bool isInternetAvailable)? isInternetAvailable,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -349,6 +352,7 @@ mixin _$UsernameState {
     required TResult Function(Initial value) initial,
     required TResult Function(IsUsernameAvailable value) isUsernameAvailable,
     required TResult Function(AuthenticationError value) error,
+    required TResult Function(IsInternetAvailable value) isInternetAvailable,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -356,6 +360,7 @@ mixin _$UsernameState {
     TResult? Function(Initial value)? initial,
     TResult? Function(IsUsernameAvailable value)? isUsernameAvailable,
     TResult? Function(AuthenticationError value)? error,
+    TResult? Function(IsInternetAvailable value)? isInternetAvailable,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -363,6 +368,7 @@ mixin _$UsernameState {
     TResult Function(Initial value)? initial,
     TResult Function(IsUsernameAvailable value)? isUsernameAvailable,
     TResult Function(AuthenticationError value)? error,
+    TResult Function(IsInternetAvailable value)? isInternetAvailable,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -425,6 +431,7 @@ class _$Initial implements Initial {
     required TResult Function() initial,
     required TResult Function(bool isUsernameAvailable) isUsernameAvailable,
     required TResult Function(String message) error,
+    required TResult Function(bool isInternetAvailable) isInternetAvailable,
   }) {
     return initial();
   }
@@ -435,6 +442,7 @@ class _$Initial implements Initial {
     TResult? Function()? initial,
     TResult? Function(bool isUsernameAvailable)? isUsernameAvailable,
     TResult? Function(String message)? error,
+    TResult? Function(bool isInternetAvailable)? isInternetAvailable,
   }) {
     return initial?.call();
   }
@@ -445,6 +453,7 @@ class _$Initial implements Initial {
     TResult Function()? initial,
     TResult Function(bool isUsernameAvailable)? isUsernameAvailable,
     TResult Function(String message)? error,
+    TResult Function(bool isInternetAvailable)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -459,6 +468,7 @@ class _$Initial implements Initial {
     required TResult Function(Initial value) initial,
     required TResult Function(IsUsernameAvailable value) isUsernameAvailable,
     required TResult Function(AuthenticationError value) error,
+    required TResult Function(IsInternetAvailable value) isInternetAvailable,
   }) {
     return initial(this);
   }
@@ -469,6 +479,7 @@ class _$Initial implements Initial {
     TResult? Function(Initial value)? initial,
     TResult? Function(IsUsernameAvailable value)? isUsernameAvailable,
     TResult? Function(AuthenticationError value)? error,
+    TResult? Function(IsInternetAvailable value)? isInternetAvailable,
   }) {
     return initial?.call(this);
   }
@@ -479,6 +490,7 @@ class _$Initial implements Initial {
     TResult Function(Initial value)? initial,
     TResult Function(IsUsernameAvailable value)? isUsernameAvailable,
     TResult Function(AuthenticationError value)? error,
+    TResult Function(IsInternetAvailable value)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -561,6 +573,7 @@ class _$IsUsernameAvailable implements IsUsernameAvailable {
     required TResult Function() initial,
     required TResult Function(bool isUsernameAvailable) isUsernameAvailable,
     required TResult Function(String message) error,
+    required TResult Function(bool isInternetAvailable) isInternetAvailable,
   }) {
     return isUsernameAvailable(this.isUsernameAvailable);
   }
@@ -571,6 +584,7 @@ class _$IsUsernameAvailable implements IsUsernameAvailable {
     TResult? Function()? initial,
     TResult? Function(bool isUsernameAvailable)? isUsernameAvailable,
     TResult? Function(String message)? error,
+    TResult? Function(bool isInternetAvailable)? isInternetAvailable,
   }) {
     return isUsernameAvailable?.call(this.isUsernameAvailable);
   }
@@ -581,6 +595,7 @@ class _$IsUsernameAvailable implements IsUsernameAvailable {
     TResult Function()? initial,
     TResult Function(bool isUsernameAvailable)? isUsernameAvailable,
     TResult Function(String message)? error,
+    TResult Function(bool isInternetAvailable)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (isUsernameAvailable != null) {
@@ -595,6 +610,7 @@ class _$IsUsernameAvailable implements IsUsernameAvailable {
     required TResult Function(Initial value) initial,
     required TResult Function(IsUsernameAvailable value) isUsernameAvailable,
     required TResult Function(AuthenticationError value) error,
+    required TResult Function(IsInternetAvailable value) isInternetAvailable,
   }) {
     return isUsernameAvailable(this);
   }
@@ -605,6 +621,7 @@ class _$IsUsernameAvailable implements IsUsernameAvailable {
     TResult? Function(Initial value)? initial,
     TResult? Function(IsUsernameAvailable value)? isUsernameAvailable,
     TResult? Function(AuthenticationError value)? error,
+    TResult? Function(IsInternetAvailable value)? isInternetAvailable,
   }) {
     return isUsernameAvailable?.call(this);
   }
@@ -615,6 +632,7 @@ class _$IsUsernameAvailable implements IsUsernameAvailable {
     TResult Function(Initial value)? initial,
     TResult Function(IsUsernameAvailable value)? isUsernameAvailable,
     TResult Function(AuthenticationError value)? error,
+    TResult Function(IsInternetAvailable value)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (isUsernameAvailable != null) {
@@ -702,6 +720,7 @@ class _$AuthenticationError implements AuthenticationError {
     required TResult Function() initial,
     required TResult Function(bool isUsernameAvailable) isUsernameAvailable,
     required TResult Function(String message) error,
+    required TResult Function(bool isInternetAvailable) isInternetAvailable,
   }) {
     return error(message);
   }
@@ -712,6 +731,7 @@ class _$AuthenticationError implements AuthenticationError {
     TResult? Function()? initial,
     TResult? Function(bool isUsernameAvailable)? isUsernameAvailable,
     TResult? Function(String message)? error,
+    TResult? Function(bool isInternetAvailable)? isInternetAvailable,
   }) {
     return error?.call(message);
   }
@@ -722,6 +742,7 @@ class _$AuthenticationError implements AuthenticationError {
     TResult Function()? initial,
     TResult Function(bool isUsernameAvailable)? isUsernameAvailable,
     TResult Function(String message)? error,
+    TResult Function(bool isInternetAvailable)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -736,6 +757,7 @@ class _$AuthenticationError implements AuthenticationError {
     required TResult Function(Initial value) initial,
     required TResult Function(IsUsernameAvailable value) isUsernameAvailable,
     required TResult Function(AuthenticationError value) error,
+    required TResult Function(IsInternetAvailable value) isInternetAvailable,
   }) {
     return error(this);
   }
@@ -746,6 +768,7 @@ class _$AuthenticationError implements AuthenticationError {
     TResult? Function(Initial value)? initial,
     TResult? Function(IsUsernameAvailable value)? isUsernameAvailable,
     TResult? Function(AuthenticationError value)? error,
+    TResult? Function(IsInternetAvailable value)? isInternetAvailable,
   }) {
     return error?.call(this);
   }
@@ -756,6 +779,7 @@ class _$AuthenticationError implements AuthenticationError {
     TResult Function(Initial value)? initial,
     TResult Function(IsUsernameAvailable value)? isUsernameAvailable,
     TResult Function(AuthenticationError value)? error,
+    TResult Function(IsInternetAvailable value)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -772,5 +796,153 @@ abstract class AuthenticationError implements UsernameState {
   String get message;
   @JsonKey(ignore: true)
   _$$AuthenticationErrorCopyWith<_$AuthenticationError> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$IsInternetAvailableCopyWith<$Res> {
+  factory _$$IsInternetAvailableCopyWith(_$IsInternetAvailable value,
+          $Res Function(_$IsInternetAvailable) then) =
+      __$$IsInternetAvailableCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool isInternetAvailable});
+}
+
+/// @nodoc
+class __$$IsInternetAvailableCopyWithImpl<$Res>
+    extends _$UsernameStateCopyWithImpl<$Res, _$IsInternetAvailable>
+    implements _$$IsInternetAvailableCopyWith<$Res> {
+  __$$IsInternetAvailableCopyWithImpl(
+      _$IsInternetAvailable _value, $Res Function(_$IsInternetAvailable) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isInternetAvailable = null,
+  }) {
+    return _then(_$IsInternetAvailable(
+      null == isInternetAvailable
+          ? _value.isInternetAvailable
+          : isInternetAvailable // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$IsInternetAvailable implements IsInternetAvailable {
+  const _$IsInternetAvailable(this.isInternetAvailable);
+
+  @override
+  final bool isInternetAvailable;
+
+  @override
+  String toString() {
+    return 'UsernameState.isInternetAvailable(isInternetAvailable: $isInternetAvailable)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$IsInternetAvailable &&
+            (identical(other.isInternetAvailable, isInternetAvailable) ||
+                other.isInternetAvailable == isInternetAvailable));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, isInternetAvailable);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$IsInternetAvailableCopyWith<_$IsInternetAvailable> get copyWith =>
+      __$$IsInternetAvailableCopyWithImpl<_$IsInternetAvailable>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(bool isUsernameAvailable) isUsernameAvailable,
+    required TResult Function(String message) error,
+    required TResult Function(bool isInternetAvailable) isInternetAvailable,
+  }) {
+    return isInternetAvailable(this.isInternetAvailable);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(bool isUsernameAvailable)? isUsernameAvailable,
+    TResult? Function(String message)? error,
+    TResult? Function(bool isInternetAvailable)? isInternetAvailable,
+  }) {
+    return isInternetAvailable?.call(this.isInternetAvailable);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(bool isUsernameAvailable)? isUsernameAvailable,
+    TResult Function(String message)? error,
+    TResult Function(bool isInternetAvailable)? isInternetAvailable,
+    required TResult orElse(),
+  }) {
+    if (isInternetAvailable != null) {
+      return isInternetAvailable(this.isInternetAvailable);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Initial value) initial,
+    required TResult Function(IsUsernameAvailable value) isUsernameAvailable,
+    required TResult Function(AuthenticationError value) error,
+    required TResult Function(IsInternetAvailable value) isInternetAvailable,
+  }) {
+    return isInternetAvailable(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Initial value)? initial,
+    TResult? Function(IsUsernameAvailable value)? isUsernameAvailable,
+    TResult? Function(AuthenticationError value)? error,
+    TResult? Function(IsInternetAvailable value)? isInternetAvailable,
+  }) {
+    return isInternetAvailable?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Initial value)? initial,
+    TResult Function(IsUsernameAvailable value)? isUsernameAvailable,
+    TResult Function(AuthenticationError value)? error,
+    TResult Function(IsInternetAvailable value)? isInternetAvailable,
+    required TResult orElse(),
+  }) {
+    if (isInternetAvailable != null) {
+      return isInternetAvailable(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class IsInternetAvailable implements UsernameState {
+  const factory IsInternetAvailable(final bool isInternetAvailable) =
+      _$IsInternetAvailable;
+
+  bool get isInternetAvailable;
+  @JsonKey(ignore: true)
+  _$$IsInternetAvailableCopyWith<_$IsInternetAvailable> get copyWith =>
       throw _privateConstructorUsedError;
 }

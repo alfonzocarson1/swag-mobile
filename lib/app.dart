@@ -90,7 +90,7 @@ class _AppState extends State<App> {
                     if (state == InternetConnectivityState.offline) {
 
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          duration: const Duration(seconds: 15),
+                          duration: const Duration(seconds: 5),
                           behavior: SnackBarBehavior.floating,
                           margin: EdgeInsets.only(
                             bottom: MediaQuery.of(context).size.height / 1.3,
