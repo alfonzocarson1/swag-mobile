@@ -281,12 +281,6 @@ class _AlertPageState extends State<AlertPage> {
                                                     .pendingPayment.textValue &&
                                             alertListinStatus!.status !=
                                                 ListingStatusDataType
-                                                    .removed.textValue &&
-                                            alertListinStatus!.status !=
-                                                ListingStatusDataType
-                                                    .editing.textValue &&
-                                            alertListinStatus!.status !=
-                                                ListingStatusDataType
                                                     .shipped.textValue &&
                                             alertListinStatus.status ==
                                                 ListingStatusDataType
