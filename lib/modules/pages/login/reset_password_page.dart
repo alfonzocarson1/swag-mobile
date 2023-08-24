@@ -180,7 +180,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                   orElse: () {
                     return null;
                   },
-                  authenticated: (_informationMissing) {
+                  authenticated: () {
                     setState(() {
                       readOnly = true;
                     });
