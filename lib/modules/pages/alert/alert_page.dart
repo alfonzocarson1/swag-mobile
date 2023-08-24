@@ -213,8 +213,6 @@ class _AlertPageState extends State<AlertPage> {
                                       getIt<AlertCubit>().readAlert(
                                           item.notificationAlertId ?? '');
 
-                                      print(item);
-
                                       BuyForSaleListingModel?
                                           alertListinStatus =
                                           await getIt<BuyCubit>()
@@ -235,14 +233,12 @@ class _AlertPageState extends State<AlertPage> {
                                                   item.payload!.accountId ??
                                                       ''));
 
-                                      print(showRate);
-
                                       if (item.typeNotification ==
                                           ListingStatusDataType
                                               .notifyChatP2P.textValue) {
                                         Loading.show(context);
                                         onTapSubmit(
-                                            alertListinStatus!.status ?? '');
+                                            item.payload!.listingStatus ?? '');
                                       }
 
                                       if ((item.typeNotification ==
