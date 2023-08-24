@@ -279,7 +279,7 @@ class ChatCubit extends Cubit<ChatState> {
 
     PushTokenRegistrationStatus notificationRegisterStatus =
         await SendbirdChat.registerPushToken(
-            type: (Platform.isIOS) ? PushTokenType.apns : PushTokenType.fcm,
+            type: PushTokenType.fcm,
             token: firebaseToken,
             unique: true);
 

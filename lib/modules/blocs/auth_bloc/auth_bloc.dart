@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -12,6 +13,7 @@ import '../../common/utils/utils.dart';
 import '../../constants/constants.dart';
 import '../../cubits/profile/get_profile_cubit.dart';
 import '../../data/auth/i_auth_service.dart';
+import '../../data/firebase/firebase_service.dart';
 import '../../data/secure_storage/storage_repository_int.dart';
 import '../../data/secure_storage/storage_repository_service.dart';
 import '../../data/shared_preferences/i_shared_preferences.dart';
@@ -41,19 +43,30 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   void logout() => add(const AuthEvent.logout());
 
+  Future<void> storeFirebaseToken() async {
+    final firebase = getIt<FirebaseService>();
+    final prefs = getIt<PreferenceRepositoryService>();
+
+    if (prefs.isLogged()) {
+      final accountId = prefs.profileData().accountId;
+      final token = await FirebaseMessaging.instance.getToken();
+      if (token == null) return;
+      await firebase.storeFirebaseToken(token, accountId);
+    }
+  }
+
   @override
   Stream<AuthState> mapEventToState(AuthEvent event) async* {
     yield* event.when(
-      logout: _logout,
-      authenticate: _authenticate,
-      createAccount: _createAccount,
-      sendEmail: _sendEmail,
-      validCode: _validCode,
-      changePassword: _changePassword,
-      init: _init,
-      finishedOnboarding: _finishedOnboarding,
-      delete: _delete
-    );
+        logout: _logout,
+        authenticate: _authenticate,
+        createAccount: _createAccount,
+        sendEmail: _sendEmail,
+        validCode: _validCode,
+        changePassword: _changePassword,
+        init: _init,
+        finishedOnboarding: _finishedOnboarding,
+        delete: _delete);
   }
 
   Stream<AuthState> _logout() async* {
@@ -62,12 +75,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       dynamic response = await authService.logOut();
       bool isLogout = response["response"];
       print("RESPONSEEE  $response");
-      if(isLogout){
+      if (isLogout) {
         getIt<PreferenceRepositoryService>().saveIsLogged(false);
-        debugPrint('isLogged: ${getIt<PreferenceRepositoryService>().isLogged().toString()}');
+        debugPrint(
+            'isLogged: ${getIt<PreferenceRepositoryService>().isLogged().toString()}');
         yield const AuthState.unauthenticated();
       }
-    } catch(e){
+    } catch (e) {
       print("ERROR");
       print(e);
       yield AuthState.error(HandlingErrors().getError(e));
@@ -82,8 +96,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       String message = response["shortMessage"];
 
       print("RESPONSEEE  $response");
-      yield  AuthState.deleted(message, isDeleted);
-    } catch(e){
+      yield AuthState.deleted(message, isDeleted);
+    } catch (e) {
       print("ERROR");
       print(e);
       yield AuthState.error(HandlingErrors().getError(e));
@@ -137,6 +151,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       preferenceService.saveUserSendBirdId(response.accountId);
 
       if (response.errorCode == successResponse) {
+        await storeFirebaseToken();
         yield AuthState.authenticated(
           informationMissing: await _isAccountInformationMissing(),
         );
@@ -162,6 +177,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         ProfileModel profileData = preferenceService.profileData();
         preferenceService.saveUserSendBirdId(profileData.accountId);
 
+        await storeFirebaseToken();
         yield AuthState.authenticated(
           informationMissing: await _isAccountInformationMissing(),
         );
@@ -213,6 +229,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       storageService.saveToken(response.token);
 
       yield const AuthState.passwordChanged();
+      await storeFirebaseToken();
       yield AuthState.authenticated(
         informationMissing: await _isAccountInformationMissing(),
       );
@@ -223,7 +240,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Future<bool> _isAccountInformationMissing() async {
     final profileData = await authService.privateProfile();
-    return profileData.firstName == null || profileData.lastName == null || (profileData.addresses?.isEmpty ?? true);
+    return profileData.firstName == null ||
+        profileData.lastName == null ||
+        (profileData.addresses?.isEmpty ?? true);
   }
 
   @override

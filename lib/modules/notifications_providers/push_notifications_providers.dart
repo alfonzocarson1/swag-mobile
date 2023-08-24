@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:swagapp/modules/cubits/alert/alert_cubit.dart';
+import 'package:swagapp/modules/data/firebase/firebase_service.dart';
 
 import '../common/utils/context_service.dart';
 import '../data/shared_preferences/shared_preferences_service.dart';
@@ -19,6 +20,18 @@ class PushNotificationsProvider {
   final _notificationStreamController = StreamController<String>.broadcast();
 
   Stream<String> get messages => _notificationStreamController.stream;
+
+  Future<void> storeFirebaseToken() async {
+    final firebase = getIt<FirebaseService>();
+    final prefs = getIt<PreferenceRepositoryService>();
+
+    if (prefs.isLogged()) {
+      final accountId = prefs.profileData().accountId;
+      final token = await FirebaseMessaging.instance.getToken();
+      if (token == null) return;
+      await firebase.storeFirebaseToken(token, accountId);
+    }
+  }
 
   Future<void> initializeProvider() async {
     await requestPermissions();

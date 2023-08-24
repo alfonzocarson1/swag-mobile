@@ -62,6 +62,7 @@ enum Endpoint {
   logout,
   addAlertP2P,
   removeAddress,
+  storeFirebaseToken,
 }
 
 enum ApiHostScheme {
@@ -166,7 +167,7 @@ class API {
     Endpoint.addAlertP2P: 'api/v1/notification/alerts/alert',
     Endpoint.verifyWallet: 'api/public/v1/account/verifyWallet',
     Endpoint.createOrUpdateWallet: 'api/public/v1/account/createOrUpdateWalletPair',
-    Endpoint.addAlertP2P: 'api/v1/notification/alerts/alert',
-    Endpoint.removeAddress: 'api/v1/profile/settings/account/addresses/%s'
+    Endpoint.removeAddress: 'api/v1/profile/settings/account/addresses/%s',
+    Endpoint.storeFirebaseToken: 'api/v1/notification/storeFireBaseToken',
   };
 }
