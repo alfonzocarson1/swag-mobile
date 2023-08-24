@@ -72,12 +72,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m18(permission) => "ALLOW ${permission} ACCESS";
 
-  static String m19(os, permission) =>
-      "Please allow ${permission} permission in your ${Intl.select(os, {
-            'android': 'phone',
-            'ios': 'iPhone',
-            'other': 'device',
-          })} settings for the Swag App";
+  static String m19(permission) =>
+      "Please allow ${permission} permission in your device settings for the Swag App. This allows you to take pictures and videos with your camera to use as your profile photo, when listing items for sale or when chatting with other users.";
 
   static String m20(permission) => "${permission} ACCESS";
 

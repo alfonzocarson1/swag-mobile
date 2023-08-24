@@ -77,7 +77,7 @@ class GrantPermissionDialog extends StatelessWidget {
                 Text(
                   S
                       .of(context)
-                      .permission_dialog_description(permission(), os()),
+                      .permission_dialog_description(permission()),
                   style: smallTextStyle(context),
                 ),
                 const SizedBox(height: 21),
