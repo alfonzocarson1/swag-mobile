@@ -7,6 +7,7 @@ import '../../cubits/profile/get_profile_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/profile/profile_model.dart';
+import '../utils/utils.dart';
 
 class PushedHeader extends StatefulWidget implements PreferredSizeWidget {
   static const _defaultActions = <Widget>[];
@@ -45,16 +46,16 @@ class _PushedHeaderState extends State<PushedHeader>
     super.initState();
   }
 
-  resetPaywall()async{
-     bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
-    if (isLogged == true){
-     await getIt<ProfileCubit>().loadProfileResults();
-     ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
-      if(profileData.hasActiveSubscription == false){
-        getIt<PaywallCubit>().reset();
-      }
-  }
-  }
+  // resetPaywall()async{
+  //    bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
+  //   if (isLogged == true){
+  //    await getIt<ProfileCubit>().loadProfileResults();
+  //    ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
+  //     if(profileData.hasActiveSubscription == false){
+  //       getIt<PaywallCubit>().reset();
+  //     }
+  // }
+  // }
 
   @override
   Widget build(BuildContext context) {
