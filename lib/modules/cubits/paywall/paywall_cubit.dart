@@ -104,10 +104,6 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
     }
   }
 
-  showProgress(){
-    emit(const PaywallCubitState.progress());
-  }
-
 
   completeTransactions(List<PurchaseDetails> purchases) async {
   for (var _purchaseDetails in purchases) {
