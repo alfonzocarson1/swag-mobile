@@ -80,24 +80,21 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
             emit(const PaywallCubitState.initial());
             break;
             case PurchaseStatus.purchased:
-                 emit(const PaywallCubitState.progress());
                 if (purchase.status == PurchaseStatus.purchased) {
                     _iap.completePurchase(purchase);
                     await sendSubscriptionRequest(purchase.purchaseID ??"");
-                    //emit(const PaywallCubitState.success());
+                    emit(const PaywallCubitState.success());
                 }
                 else{
                         emit(const PaywallCubitState.success());
                 }
-               await getIt<ProfileCubit>().loadProfileResults();
-                emit(const PaywallCubitState.success());
                 break;
             case PurchaseStatus.restored:
                 if (purchase.pendingCompletePurchase) {
-                  emit(const PaywallCubitState.progress());
                     _iap.completePurchase(purchase);
                    await sendSubscriptionRequest(purchase.purchaseID ??"");
                    await getIt<ProfileCubit>().loadProfileResults();
+                   emit(const PaywallCubitState.success());
                     
                 }
                 break;
@@ -105,6 +102,10 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
                 // handle other states if necessary
         }
     }
+  }
+
+  showProgress(){
+    emit(const PaywallCubitState.progress());
   }
 
 
@@ -118,7 +119,7 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
 
   testSubscirption()async{
     emit(const PaywallCubitStateProgress());
-    await Future.delayed(Duration(milliseconds: 2000));
+    await Future.delayed(const Duration(milliseconds: 2000));
     emit(const PaywallCubitState.success());
   }
 
@@ -134,9 +135,7 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
             transactionID: purchaseId, 
             deviceType: "iOS")
       ); 
-      debugPrint("Subscription Response: $response");
-      Future.delayed(Duration(milliseconds: 500));
-      emit(const PaywallCubitState.success());
+      debugPrint("Subscription Response: $response");      
       return response;
   }
 
