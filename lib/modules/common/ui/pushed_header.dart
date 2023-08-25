@@ -46,17 +46,6 @@ class _PushedHeaderState extends State<PushedHeader>
     super.initState();
   }
 
-  // resetPaywall()async{
-  //    bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
-  //   if (isLogged == true){
-  //    await getIt<ProfileCubit>().loadProfileResults();
-  //    ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
-  //     if(profileData.hasActiveSubscription == false){
-  //       getIt<PaywallCubit>().reset();
-  //     }
-  // }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return PreferredSize(
