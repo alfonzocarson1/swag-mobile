@@ -350,7 +350,7 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                                         widget.imgList));
                               } else {
                                 getIt<ListingProfileCubit>().updateListing(
-                                    ListingForSaleModel(
+                                  ListingForSaleModel(
                                       productItemId: widget.productItemId,
                                       productItemName: widget.itemName,
                                       productItemPrice: widget.itemPrice,
@@ -359,16 +359,37 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                                       sold: false,
                                       condition:
                                           widget.itemCondition.toUpperCase(),
-                                      listingItemsAction: "ADD",
+                                      listingItemsAction: "UPDATE",
                                       forSale: true,
                                       lastSale: widget.itemPrice,
                                       catalogItemId: widget.catalogItemId,
                                       profileCollectionItemId:
                                           widget.profileCollectionItemId,
                                       status: 'listed',
-                                    ),
-                                    widget.imgList,
-                                    widget.imgUrls ?? []);
+                                      peerToPeerPaymentOptions:
+                                          PeerToPeerPaymentsModel(
+                                        venmoUser: widget.paymentAccepted
+                                                .contains('Venmo')
+                                            ? paymentData.peerToPeerPayments!
+                                                    .venmoUser ??
+                                                ''
+                                            : null,
+                                        cashTag: widget.paymentAccepted
+                                                .contains('CashApp')
+                                            ? paymentData.peerToPeerPayments!
+                                                    .cashTag ??
+                                                ''
+                                            : null,
+                                        payPalEmail: widget.paymentAccepted
+                                                .contains('PayPal')
+                                            ? paymentData.peerToPeerPayments!
+                                                    .payPalEmail ??
+                                                ''
+                                            : null,
+                                      )),
+                                  widget.imgList,
+                                  widget.imgUrls ?? [],
+                                );
                               }
                             },
                             type: PrimaryButtonType.green,

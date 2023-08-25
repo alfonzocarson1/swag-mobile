@@ -27,9 +27,11 @@ import '../../../di/injector.dart';
 import '../../../models/detail/detail_collection_model.dart';
 import '../../../models/detail/sale_list_history_model.dart';
 import '../../../models/listing_for_sale/listing_for_sale_model.dart';
+import '../../../models/settings/peer_to_peer_payments_get_model.dart';
 import '../../detail/transaction_history_page.dart';
 import '../../login/create_account_page.dart';
 import 'list_item_preview_page.dart';
+import 'widgets/multi_pyment.dart';
 
 class EditListForSalePage extends StatefulWidget {
   static const name = '/ListForSalePage';
@@ -98,6 +100,7 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
   String? conditionErrorText;
   String? descriptionErrorText;
   String _defaultCondition = 'Condition';
+  String? paymentErrorText;
 
   final formatter = NumberFormat("###0.00");
 
@@ -107,6 +110,10 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
   late SalesHistoryListModel saleHistoryModel;
 
   var _listDescriptionInitValue = '';
+  List<String> _selectedPayments = [];
+
+  final FocusNode _paymentNode = FocusNode();
+  Color _paymentBorder = Palette.current.primaryWhiteSmoke;
 
   @override
   void dispose() {
@@ -125,6 +132,9 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
   @override
   void initState() {
     super.initState();
+
+    _selectedPayments = widget.paymentAccepted;
+
     _loadData();
     isLogged = getIt<PreferenceRepositoryService>().isLogged();
     if (widget.collectionData != null) {
@@ -158,6 +168,14 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
     _conditionNode.addListener(() {
       setState(() {
         _conditionBorder = _conditionNode.hasFocus
+            ? Palette.current.primaryNeonGreen
+            : Palette.current.primaryWhiteSmoke;
+      });
+    });
+
+    _paymentNode.addListener(() {
+      setState(() {
+        _paymentBorder = _paymentNode.hasFocus
             ? Palette.current.primaryNeonGreen
             : Palette.current.primaryWhiteSmoke;
       });
@@ -233,6 +251,7 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
               onTap: () {
                 _listPriceItemNode.unfocus();
                 _conditionNode.unfocus();
+                _paymentNode.unfocus();
               },
               child: LayoutBuilder(builder:
                   (BuildContext context, BoxConstraints viewportConstraints) {
@@ -388,6 +407,24 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
                                   const SizedBox(
                                     height: 21,
                                   ),
+                                  MultiPaymentDropdown(
+                                    helperText:
+                                        'You must select at least one form of payment. You can manage these payment types in your settings.',
+                                    borderColor: _paymentBorder,
+                                    errorText: paymentErrorText,
+                                    focusNode: _paymentNode,
+                                    onPaymentChange: (List<String> value) {
+                                      setState(() {
+                                        _selectedPayments = value;
+                                        if (_selectedPayments.isNotEmpty) {
+                                          paymentErrorText = null;
+                                        }
+                                      });
+                                    },
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
                                   Column(
                                     children: [
                                       Container(
@@ -493,33 +530,30 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
                                                 return const PopUpImageGuideline();
                                               });
                                         } else {
-                                          Navigator.of(context, rootNavigator: true)
+                                          Navigator.of(context,
+                                                  rootNavigator: true)
                                               .push(ListItemPreviewPage.route(
-                                                  isUpdate: true,
-                                                  catalogItemId: widget
-                                                      .collectionData!
-                                                      .catalogItemId,
-                                                  imgList: tempFiles,
-                                                  imgUrls: imageUrls,
-                                                  itemCondition:
-                                                      _defaultCondition,
-                                                  itemDescription:
-                                                      _listDescriptionItemController
-                                                          .text
-                                                          .toString(),
-                                                  itemName:
-                                                      widget.catalogItemName,
-                                                  itemPrice: _price,
-                                                  productItemId:
-                                                      widget.productItemId,
-                                                  profileCollectionItemId: widget
-                                                      .collectionData!
-                                                      .profileCollectionItemId,
-                                                  paymentAccepted:
-                                                      widget.paymentAccepted,
-                                                  onClose: () {
-                                                    Navigator.pop(context);
-                                                  }));
+                                            isUpdate: true,
+                                            catalogItemId: widget
+                                                .collectionData!.catalogItemId,
+                                            imgList: tempFiles,
+                                            imgUrls: imageUrls,
+                                            itemCondition: _defaultCondition,
+                                            itemDescription:
+                                                _listDescriptionItemController
+                                                    .text
+                                                    .toString(),
+                                            itemName: widget.catalogItemName,
+                                            itemPrice: _price,
+                                            productItemId: widget.productItemId,
+                                            profileCollectionItemId: widget
+                                                .collectionData!
+                                                .profileCollectionItemId,
+                                            paymentAccepted: _selectedPayments,
+                                            onClose: () {
+                                              Navigator.pop(context);
+                                            },
+                                          ));
                                         }
                                       }
                                     },
@@ -562,11 +596,15 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
   bool areFieldsValid() {
     return _listPriceItemController.text.isNotEmpty &&
         _defaultCondition != 'Condition' &&
-        _listDescriptionItemController.text.isNotEmpty;
+        _listDescriptionItemController.text.isNotEmpty &&
+        _selectedPayments.isNotEmpty;
   }
 
   void showErrors() {
     setState(() {
+      paymentErrorText =
+          (_selectedPayments.isNotEmpty) ? null : S.of(context).required_field;
+
       listPriceItemErrorText = _listPriceItemController.text.isNotEmpty
           ? null
           : S.of(context).required_field;
