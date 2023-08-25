@@ -21,11 +21,13 @@ class SearchResultField extends StatefulWidget {
   final String searchParam;
   final TextEditingController textEditingController;
   int? category;
+  final SearchRequestPayloadModel? searchWithFilters;
 
   SearchResultField(
       {super.key,
       required this.textEditingController,
       required this.searchParam,
+      this.searchWithFilters,
       this.category});
 
   @override
@@ -100,6 +102,7 @@ class _SearchResultFieldState extends State<SearchResultField> {
                         FiltersBottomSheet.route(
                           context,
                           searchParam: this.widget.searchParam,
+                          searchWithFilters: widget.searchWithFilters
                         ),
                       );
                     },

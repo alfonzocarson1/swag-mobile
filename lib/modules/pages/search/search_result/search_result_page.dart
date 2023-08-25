@@ -76,20 +76,22 @@ class _SearchResultPageState extends State<SearchResultPage>
   }
 
   callApi() async {
+    var categoryId = widget.category != null && widget.category != SearchTab.whatsHot.index
+        ? await SearchTabWrapper(SearchTab.values[widget.category ?? 0])
+        .toStringCustom()
+        : null;
+    var list = categoryId == null ? null : [categoryId];
     getIt<PaginatedSearchCubit>().loadResults(
         searchModel: SearchRequestPayloadModel(
           searchParams:
               (widget.staffPicksFlag == true || widget.unicornFlag == true)
                   ? null
                   : [widget.searchParam],
-          categoryId: widget.category != null && widget.category != SearchTab.whatsHot.index
-              ? await SearchTabWrapper(SearchTab.values[widget.category ?? 0])
-                  .toStringCustom()
-              : null,
+          categoryId: categoryId,
           whatsHotFlag: widget.category == SearchTab.whatsHot.index,
           staffPicksFlag: widget.staffPicksFlag,
           unicornFlag: widget.unicornFlag,
-          filters: const FilterModel(productType: null),
+          filters: FilterModel(productType: list),
         ),
         searchTab: tab);
   }
@@ -106,6 +108,7 @@ class _SearchResultPageState extends State<SearchResultPage>
               SearchResultField(
                 textEditingController: this.textEditingController,
                 searchParam: this.widget.searchParam,
+                searchWithFilters: this.widget.searchWithFilters,
                 category: widget.category,
               ),
               Container(
