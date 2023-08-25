@@ -80,6 +80,7 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
             emit(const PaywallCubitState.initial());
             break;
             case PurchaseStatus.purchased:
+                 emit(const PaywallCubitState.progress());
                 if (purchase.status == PurchaseStatus.purchased) {
                     _iap.completePurchase(purchase);
                     await sendSubscriptionRequest(purchase.purchaseID ??"");
@@ -134,6 +135,7 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
             deviceType: "iOS")
       ); 
       debugPrint("Subscription Response: $response");
+      Future.delayed(Duration(milliseconds: 500));
       emit(const PaywallCubitState.success());
       return response;
   }
