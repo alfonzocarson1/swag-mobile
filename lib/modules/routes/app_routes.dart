@@ -35,6 +35,7 @@ abstract class AppRoutes {
   static const String peerToPeerPaymentsSave = '/peerToPeerPaymentsSave';
   static const String shippingAddressDetail = '/shippingAddressDetail';
   static const String addShippingAddress = '/addShippingAddress';
+  static const String PaywallSplashScreen = '/paywallSplash';
 }
 
 abstract class AppRouteNames {
@@ -74,4 +75,5 @@ abstract class AppRouteNames {
   static const String peerToPeerPaymentsSave = 'peerToPeerPaymentsSave';
   static const String shippingAddressDetail = 'shippingAddressDetail';
   static const String addShippingAddress = 'addShippingAddress';
+  static const String paywallSplashScreen = 'PaywallSplashScreen';
 }
