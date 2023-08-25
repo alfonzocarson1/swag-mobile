@@ -350,30 +350,25 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                                         widget.imgList));
                               } else {
                                 getIt<ListingProfileCubit>().updateListing(
-                                  ListingForSaleModel(
-                                    productItemId: widget.productItemId,
-                                    productItemName: widget.itemName,
-                                    productItemPrice: widget.itemPrice,
-                                    productItemDescription:
-                                        widget.itemDescription,
-                                    sold: false,
-                                    condition:
-                                        widget.itemCondition.toUpperCase(),
-                                    listingItemsAction: "ADD",
-                                    forSale: true,
-                                    lastSale: widget.itemPrice,
-                                    catalogItemId: widget.catalogItemId,
-                                    profileCollectionItemId:
-                                        widget.profileCollectionItemId,
-                                    status: 'listed',
-                                  ),
-                                  widget.imgList,
-                                  widget.imgUrls ?? [],
-                                );
-
-                                Navigator.of(context).pop();
-                                Navigator.of(context).pop();
-                                Navigator.of(context).pop();
+                                    ListingForSaleModel(
+                                      productItemId: widget.productItemId,
+                                      productItemName: widget.itemName,
+                                      productItemPrice: widget.itemPrice,
+                                      productItemDescription:
+                                          widget.itemDescription,
+                                      sold: false,
+                                      condition:
+                                          widget.itemCondition.toUpperCase(),
+                                      listingItemsAction: "ADD",
+                                      forSale: true,
+                                      lastSale: widget.itemPrice,
+                                      catalogItemId: widget.catalogItemId,
+                                      profileCollectionItemId:
+                                          widget.profileCollectionItemId,
+                                      status: 'listed',
+                                    ),
+                                    widget.imgList,
+                                    widget.imgUrls ?? []);
                               }
                             },
                             type: PrimaryButtonType.green,
