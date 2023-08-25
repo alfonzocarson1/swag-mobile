@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import '../../blocs/favorite_bloc/favorite_bloc.dart';
 import '../../di/injector.dart';
 import '../utils/palette.dart';
+import '../utils/utils.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   CustomAppBar(
@@ -65,7 +66,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: !isAccountInfo
           ? InkWell(
               onTap: onRoute ??
-                  () {
+                  ()async {
+                    await resetPaywall();
                     Navigator.of(context).pop();
                   },
               child: Padding(
