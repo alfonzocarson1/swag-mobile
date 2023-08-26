@@ -2,9 +2,11 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:swagapp/modules/api/app_config.dart';
+import 'package:swagapp/modules/cubits/app_state/app_state_cubit.dart';
 import 'package:swagapp/modules/cubits/profile/get_profile_cubit.dart';
 import 'package:swagapp/modules/models/paywall_products/paywall_products.dart';
 
@@ -20,45 +22,47 @@ part 'paywall_cubit.freezed.dart';
 class PaywallCubit extends Cubit<PaywallCubitState> {
   final InAppPurchase _iap = InAppPurchase.instance;
   List<ProductDetails> _products = [];
- StreamSubscription<List<PurchaseDetails>>? subscription;
+  StreamSubscription<List<PurchaseDetails>>? subscription;
   late PaywallSubscriptionProducts flavorProducts;
-  PaywallCubit() : super(const PaywallCubitState.initial()){
-   inAppPurchaseIntitialization();
+  final appCubit = getIt<AppCubit>();
+  PaywallCubit() : super(const PaywallCubitState.initial()) {
+    inAppPurchaseIntitialization();
   }
 
   StreamSubscription<List<PurchaseDetails>>? _subscription;
 
-  void inAppPurchaseIntitialization()async{
-  flavorProducts = getIt<AppConfig>().paywallProducts;
-   await _loadProducts();
+  void inAppPurchaseIntitialization() async {
+    flavorProducts = getIt<AppConfig>().paywallProducts;
+    await _loadProducts();
     _subscription = _iap.purchaseStream.listen((purchases) {
-        completeTransactions(purchases);
+      completeTransactions(purchases);
       _handlePurchaseUpdates(purchases);
     }, onDone: () {
-    _subscription?.cancel();
-},    onError: (error){
-  debugPrint(error);
-    }    
-    );
+      _subscription?.cancel();
+    }, onError: (error) {
+      debugPrint(error);
+    });
     subscription = _subscription;
     emit(const PaywallCubitState.initial());
-
   }
 
   void startPurchase(String subscriptionType) {
- 
     emit(const PaywallCubitState.progress());
-    final ProductDetails product = _products. firstWhere((product) => product.id == subscriptionType);    
+    final ProductDetails product =
+        _products.firstWhere((product) => product.id == subscriptionType);
     final PurchaseParam purchaseParam = PurchaseParam(productDetails: product);
-
-  
     _iap.buyNonConsumable(purchaseParam: purchaseParam);
-    
+
+    appCubit.setOverlayDetected();
   }
 
   Future<void> _loadProducts() async {
-     Set<String> productIds = {flavorProducts.annualSubscription, flavorProducts.monthlySubscription};  // replace with your product IDs
-    final ProductDetailsResponse response = await _iap.queryProductDetails(productIds);
+    Set<String> productIds = {
+      flavorProducts.annualSubscription,
+      flavorProducts.monthlySubscription
+    }; // replace with your product IDs
+    final ProductDetailsResponse response =
+        await _iap.queryProductDetails(productIds);
     if (response.notFoundIDs.isNotEmpty) {
       //TODO handle errors
     }
@@ -66,84 +70,80 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
   }
 
   void _handlePurchaseUpdates(List<PurchaseDetails> purchases) async {
-      for (var purchase in purchases) {
-        switch (purchase.status) {
-            case PurchaseStatus.pending:        
-                emit(const PaywallCubitState.progress());
-                _iap.completePurchase(purchase);
-                break;
-            case PurchaseStatus.error:
-             _iap.completePurchase(purchase);
-                emit(PaywallCubitState.error(purchase.error!.message));
-                break;
-            case PurchaseStatus.canceled:
-            emit(const PaywallCubitState.initial());
-            break;
-            case PurchaseStatus.purchased:
-                if (purchase.status == PurchaseStatus.purchased) {
-                    _iap.completePurchase(purchase);
-                    await sendSubscriptionRequest(purchase.purchaseID ??"");
-                    emit(const PaywallCubitState.success());
-                }
-                else{
-                        emit(const PaywallCubitState.success());
-                }
-                break;
-            case PurchaseStatus.restored:
-                if (purchase.pendingCompletePurchase) {
-                    _iap.completePurchase(purchase);
-                   await sendSubscriptionRequest(purchase.purchaseID ??"");
-                   await getIt<ProfileCubit>().loadProfileResults();
-                   emit(const PaywallCubitState.success());
-                    
-                }
-                break;
-            default:
-                // handle other states if necessary
-        }
+    for (var purchase in purchases) {
+      switch (purchase.status) {
+        case PurchaseStatus.pending:
+          emit(const PaywallCubitState.progress());
+          _iap.completePurchase(purchase);
+          break;
+        case PurchaseStatus.error:
+          _iap.completePurchase(purchase);
+          emit(PaywallCubitState.error(purchase.error!.message));
+          break;
+        case PurchaseStatus.canceled:
+          emit(const PaywallCubitState.initial());
+          break;
+        case PurchaseStatus.purchased:
+          if (purchase.status == PurchaseStatus.purchased) {
+            _iap.completePurchase(purchase);
+            await sendSubscriptionRequest(purchase.purchaseID ?? "");
+            appCubit.clearOverlayDetected();
+            emit(const PaywallCubitState.success());
+          } else {
+            emit(const PaywallCubitState.success());
+          }
+          break;
+        case PurchaseStatus.restored:
+          if (purchase.pendingCompletePurchase) {
+            _iap.completePurchase(purchase);
+            await sendSubscriptionRequest(purchase.purchaseID ?? "");
+            await getIt<ProfileCubit>().loadProfileResults();
+
+            appCubit.clearOverlayDetected();
+            emit(const PaywallCubitState.success());
+          }
+          break;
+        default:
+        // handle other states if necessary
+      }
     }
   }
 
-
   completeTransactions(List<PurchaseDetails> purchases) async {
-  for (var _purchaseDetails in purchases) {
-    if (_purchaseDetails.pendingCompletePurchase) {
-      await _iap.completePurchase(_purchaseDetails);
-   }
-}
-  } 
+    for (var _purchaseDetails in purchases) {
+      if (_purchaseDetails.pendingCompletePurchase) {
+        await _iap.completePurchase(_purchaseDetails);
+      }
+    }
+  }
 
-  testSubscirption()async{
+  testSubscirption() async {
     emit(const PaywallCubitStateProgress());
     await Future.delayed(const Duration(milliseconds: 2000));
     emit(const PaywallCubitState.success());
   }
 
-
   sendSubscriptionRequest(String purchaseId) async {
-
     await getIt<ProfileCubit>().loadProfileResults();
-    ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData(); 
-    
-     var response = await getIt<UpdateSubscriptionStatusCubit>().UpdateSubscriptionStatus(
-            PaywallSubscriptionRequest(
-            accountId: profileData.accountId, 
-            transactionID: purchaseId, 
-            deviceType: "iOS")
-      ); 
-      debugPrint("Subscription Response: $response");      
-      return response;
+    ProfileModel profileData =
+        getIt<PreferenceRepositoryService>().profileData();
+
+    var response = await getIt<UpdateSubscriptionStatusCubit>()
+        .UpdateSubscriptionStatus(PaywallSubscriptionRequest(
+            accountId: profileData.accountId,
+            transactionID: purchaseId,
+            deviceType: "iOS"));
+    debugPrint("Subscription Response: $response");
+    return response;
   }
 
-  reset(){
+  reset() {
     emit(const PaywallCubitState.initial());
   }
-
 
   @override
   Future<void> close() {
     _subscription?.cancel();
     return super.close();
   }
- 
 }
