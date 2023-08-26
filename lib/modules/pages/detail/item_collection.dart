@@ -7,6 +7,7 @@ import 'package:swagapp/modules/data/detail/i_detail_service.dart';
 import 'package:swagapp/modules/models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
 
 import '../../../generated/l10n.dart';
+import '../../../main.dart';
 import '../../common/ui/paywall_splash_screen.dart';
 import '../../common/ui/popup_delete_item_collection.dart';
 import '../../common/ui/popup_list_item_sale.dart';
@@ -473,6 +474,8 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                         child: PrimaryButton(
                           title: S.of(context).list_for_sale_btn,
                           onPressed: () {
+                            mixpanel.track('List for Sale', properties: {"List_btn":""});
+
                             if (isLogged) {
                               if (hasActiveSubscription) {
                                 (newCollectionList.isNotEmpty &&

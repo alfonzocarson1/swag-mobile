@@ -5,6 +5,7 @@ import 'package:simple_rich_text/simple_rich_text.dart';
 import 'package:swagapp/modules/common/assets/icons.dart';
 
 import '../../../generated/l10n.dart';
+import '../../../main.dart';
 import '../../blocs/favorite_bloc/favorite_bloc.dart';
 import '../../blocs/favorite_bloc/favorite_item_bloc.dart';
 import '../../common/ui/clickable_text.dart';
@@ -297,6 +298,8 @@ class _HeadWidgetState extends State<HeadWidget> {
                         ),
                         GestureDetector(
                           onTap: () {
+                            mixpanel.track('Sales History Button');
+
                             if (isLogged &&
                                 widget.saleHistoryNavigation != null) {
                               widget.saleHistoryNavigation!();

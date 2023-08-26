@@ -4,6 +4,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:swagapp/main.dart';
 import 'package:swagapp/modules/models/auth/create_account_response_model.dart';
 import 'package:swagapp/modules/models/profile/profile_model.dart';
 import 'package:swagapp/modules/models/update_profile/addresses_payload_model.dart';
@@ -154,6 +155,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       preferenceService.savehasImportableData(response.hasImportableData);
       preferenceService.saveAccountId(response.accountId);
       preferenceService.saveUserSendBirdId(response.accountId);
+      mixpanel.track('ID', properties: {"user_id":response.accountId});
 
       if (response.errorCode == successResponse) {
         yield const AuthState.authenticated();

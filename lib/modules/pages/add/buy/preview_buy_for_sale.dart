@@ -20,6 +20,7 @@ import 'package:swagapp/modules/models/settings/peer_to_peer_payments_model.dart
 import 'package:swagapp/modules/models/ui_models/checkbox_model.dart';
 import 'package:swagapp/modules/pages/chats/chat_list_view.dart';
 import '../../../../generated/l10n.dart';
+import '../../../../main.dart';
 import '../../../blocs/buy_sale_listing_bloc/buy_sale_listing_bloc.dart';
 import '../../../blocs/sale_history/sale_history_bloc.dart';
 import '../../../common/ui/loading.dart';
@@ -527,6 +528,8 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
               listData.lastSale.toString(),
             )}',
             onPressed: () async {
+              mixpanel.track('buy button', properties: {"buy_btn":""});
+
               BuyForSaleListingModel? alertListinStatus =
                   await getIt<BuyCubit>()
                       .getAlertListDetailItem(listData.productItemId ?? '');
