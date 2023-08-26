@@ -12,6 +12,7 @@ import 'package:swagapp/modules/models/profile/profile_model.dart';
 import 'package:swagapp/modules/pages/profile/delete_account/delete_account_page.dart';
 import 'package:swagapp/modules/pages/profile/update_email_page.dart';
 import 'package:swagapp/modules/pages/profile/update_name_page.dart';
+import 'package:swagapp/modules/pages/profile/update_phone_number_page.dart';
 import '../../../generated/l10n.dart';
 import '../../common/ui/pushed_header.dart';
 import '../../common/utils/custom_route_animations.dart';
@@ -211,8 +212,16 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
                                 'assets/icons/contact_us_icon.png',
                                 S.of(context).profile_mobile_number_title,
                                 profileData.phoneNumber,
-                                    () {},
-                                true,
+                                    () {
+                                Navigator.of(context, rootNavigator: true)
+                                    .push(UpdatePhoneNumberPage.route())
+                                    .then((result) {
+                                  if (result) {
+                                    Navigator.of(context).pop();
+                                    print("BACK");
+                                  }
+                                });
+                              }, true,
                                 '',
                                 '',
                                 true),

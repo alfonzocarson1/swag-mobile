@@ -421,6 +421,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "mail_was_sent": MessageLookupByLibrary.simpleMessage("Mail was sent"),
         "make_an_offer": MessageLookupByLibrary.simpleMessage("MAKE AN OFFER"),
         "message": MessageLookupByLibrary.simpleMessage("Message"),
+        "mobile": MessageLookupByLibrary.simpleMessage("Mobile"),
         "multi_collection_subtitle": MessageLookupByLibrary.simpleMessage(
             "It looks like you already have this item in your collection. Are you sure you want to add another?"),
         "multi_collection_title":

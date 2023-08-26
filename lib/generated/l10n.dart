@@ -360,6 +360,16 @@ class S {
     );
   }
 
+  /// `Mobile`
+  String get mobile {
+    return Intl.message(
+      'Mobile',
+      name: 'mobile',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `@username`
   String get username {
     return Intl.message(
