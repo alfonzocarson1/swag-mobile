@@ -8,6 +8,7 @@ import 'package:swagapp/modules/models/auth/create_account_response_model.dart';
 import 'package:swagapp/modules/models/profile/profile_model.dart';
 import 'package:swagapp/modules/models/update_profile/addresses_payload_model.dart';
 
+import '../../../main.dart';
 import '../../common/utils/handling_errors.dart';
 import '../../common/utils/utils.dart';
 import '../../constants/constants.dart';
@@ -51,7 +52,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
 
       print("No internet connectivity auth bloc");
-      InternetConnectivityBloc().emit(InternetConnectivityState.offline);
+      InternetConnectivityBloc(true).emit(InternetConnectivityState.offline);
 
     } else {
       isInternet = true;
@@ -188,7 +189,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         yield AuthState.error(HandlingErrors().getError(response.errorCode));
       }
     } catch (e) {
-      yield AuthState.error(HandlingErrors().getError(e));
+      if(e.toString().contains("Failed host lookup")){
+        logger.e("Contain");
+        yield const AuthState.isInternetAvailable(false);
+        //InternetConnectivityBloc().emit(InternetConnectivityState.offline);
+      }else{
+        // yield const UsernameState.isInternetAvailable(true);
+        yield AuthState.error(HandlingErrors().getError(e));
+      }
     }
   }
 

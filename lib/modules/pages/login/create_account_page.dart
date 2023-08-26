@@ -439,7 +439,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(SnackBar(
                                                 duration:
-                                                    const Duration(seconds: 5),
+                                                    const Duration(seconds: 10),
                                                 behavior:
                                                     SnackBarBehavior.floating,
                                                 margin: EdgeInsets.only(
@@ -795,7 +795,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
 
           if (connectivityResult == ConnectivityResult.none) {
             logger.e("Offline emit");
-            InternetConnectivityBloc().emit(InternetConnectivityState.offline);
+            InternetConnectivityBloc(true).emit(InternetConnectivityState.offline);
           } else {
             if (isValidUsername(value)) {
               context
@@ -836,7 +836,21 @@ class _CreateAccountState extends State<CreateAccountPage> {
     var connectivityResult = await Connectivity().checkConnectivity();
 
     if (connectivityResult == ConnectivityResult.none) {
-      InternetConnectivityBloc().emit(InternetConnectivityState.offline);
+      // InternetConnectivityBloc().emit(InternetConnectivityState.offline);
+
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+
+          duration: const Duration(days: 365),
+          behavior: SnackBarBehavior.floating,
+          margin: EdgeInsets.only(
+            bottom: MediaQuery.of(context).size.height / 1.3,
+          ),
+          backgroundColor: Colors.transparent,
+          content: const ToastMessage(
+            message: 'Active internet connection required.',
+          ),
+          dismissDirection: DismissDirection.none));
+
     } else {
       if (isEmptyUserName) {
         usernameErrorText = S.of(context).required_field;

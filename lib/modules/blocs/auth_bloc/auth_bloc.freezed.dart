@@ -1668,6 +1668,7 @@ mixin _$AuthState {
         validCodeSuccess,
     required TResult Function() passwordChanged,
     required TResult Function(String message, bool status) deleted,
+    required TResult Function(bool isInternetAvailable) isInternetAvailable,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1688,6 +1689,7 @@ mixin _$AuthState {
         validCodeSuccess,
     TResult? Function()? passwordChanged,
     TResult? Function(String message, bool status)? deleted,
+    TResult? Function(bool isInternetAvailable)? isInternetAvailable,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1708,6 +1710,7 @@ mixin _$AuthState {
         validCodeSuccess,
     TResult Function()? passwordChanged,
     TResult Function(String message, bool status)? deleted,
+    TResult Function(bool isInternetAvailable)? isInternetAvailable,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -1728,6 +1731,7 @@ mixin _$AuthState {
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(Deleted value) deleted,
+    required TResult Function(IsInternetAvailable value) isInternetAvailable,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1747,6 +1751,7 @@ mixin _$AuthState {
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(Deleted value)? deleted,
+    TResult? Function(IsInternetAvailable value)? isInternetAvailable,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1766,6 +1771,7 @@ mixin _$AuthState {
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(Deleted value)? deleted,
+    TResult Function(IsInternetAvailable value)? isInternetAvailable,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -1840,6 +1846,7 @@ class _$Initial implements Initial {
         validCodeSuccess,
     required TResult Function() passwordChanged,
     required TResult Function(String message, bool status) deleted,
+    required TResult Function(bool isInternetAvailable) isInternetAvailable,
   }) {
     return initial();
   }
@@ -1863,6 +1870,7 @@ class _$Initial implements Initial {
         validCodeSuccess,
     TResult? Function()? passwordChanged,
     TResult? Function(String message, bool status)? deleted,
+    TResult? Function(bool isInternetAvailable)? isInternetAvailable,
   }) {
     return initial?.call();
   }
@@ -1886,6 +1894,7 @@ class _$Initial implements Initial {
         validCodeSuccess,
     TResult Function()? passwordChanged,
     TResult Function(String message, bool status)? deleted,
+    TResult Function(bool isInternetAvailable)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -1912,6 +1921,7 @@ class _$Initial implements Initial {
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(Deleted value) deleted,
+    required TResult Function(IsInternetAvailable value) isInternetAvailable,
   }) {
     return initial(this);
   }
@@ -1934,6 +1944,7 @@ class _$Initial implements Initial {
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(Deleted value)? deleted,
+    TResult? Function(IsInternetAvailable value)? isInternetAvailable,
   }) {
     return initial?.call(this);
   }
@@ -1956,6 +1967,7 @@ class _$Initial implements Initial {
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(Deleted value)? deleted,
+    TResult Function(IsInternetAvailable value)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -2023,6 +2035,7 @@ class _$Walkthrough implements Walkthrough {
         validCodeSuccess,
     required TResult Function() passwordChanged,
     required TResult Function(String message, bool status) deleted,
+    required TResult Function(bool isInternetAvailable) isInternetAvailable,
   }) {
     return walkthrough();
   }
@@ -2046,6 +2059,7 @@ class _$Walkthrough implements Walkthrough {
         validCodeSuccess,
     TResult? Function()? passwordChanged,
     TResult? Function(String message, bool status)? deleted,
+    TResult? Function(bool isInternetAvailable)? isInternetAvailable,
   }) {
     return walkthrough?.call();
   }
@@ -2069,6 +2083,7 @@ class _$Walkthrough implements Walkthrough {
         validCodeSuccess,
     TResult Function()? passwordChanged,
     TResult Function(String message, bool status)? deleted,
+    TResult Function(bool isInternetAvailable)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (walkthrough != null) {
@@ -2095,6 +2110,7 @@ class _$Walkthrough implements Walkthrough {
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(Deleted value) deleted,
+    required TResult Function(IsInternetAvailable value) isInternetAvailable,
   }) {
     return walkthrough(this);
   }
@@ -2117,6 +2133,7 @@ class _$Walkthrough implements Walkthrough {
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(Deleted value)? deleted,
+    TResult? Function(IsInternetAvailable value)? isInternetAvailable,
   }) {
     return walkthrough?.call(this);
   }
@@ -2139,6 +2156,7 @@ class _$Walkthrough implements Walkthrough {
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(Deleted value)? deleted,
+    TResult Function(IsInternetAvailable value)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (walkthrough != null) {
@@ -2206,6 +2224,7 @@ class _$Onboarding implements Onboarding {
         validCodeSuccess,
     required TResult Function() passwordChanged,
     required TResult Function(String message, bool status) deleted,
+    required TResult Function(bool isInternetAvailable) isInternetAvailable,
   }) {
     return onboarding();
   }
@@ -2229,6 +2248,7 @@ class _$Onboarding implements Onboarding {
         validCodeSuccess,
     TResult? Function()? passwordChanged,
     TResult? Function(String message, bool status)? deleted,
+    TResult? Function(bool isInternetAvailable)? isInternetAvailable,
   }) {
     return onboarding?.call();
   }
@@ -2252,6 +2272,7 @@ class _$Onboarding implements Onboarding {
         validCodeSuccess,
     TResult Function()? passwordChanged,
     TResult Function(String message, bool status)? deleted,
+    TResult Function(bool isInternetAvailable)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (onboarding != null) {
@@ -2278,6 +2299,7 @@ class _$Onboarding implements Onboarding {
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(Deleted value) deleted,
+    required TResult Function(IsInternetAvailable value) isInternetAvailable,
   }) {
     return onboarding(this);
   }
@@ -2300,6 +2322,7 @@ class _$Onboarding implements Onboarding {
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(Deleted value)? deleted,
+    TResult? Function(IsInternetAvailable value)? isInternetAvailable,
   }) {
     return onboarding?.call(this);
   }
@@ -2322,6 +2345,7 @@ class _$Onboarding implements Onboarding {
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(Deleted value)? deleted,
+    TResult Function(IsInternetAvailable value)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (onboarding != null) {
@@ -2387,6 +2411,7 @@ class _$Logging implements Logging {
         validCodeSuccess,
     required TResult Function() passwordChanged,
     required TResult Function(String message, bool status) deleted,
+    required TResult Function(bool isInternetAvailable) isInternetAvailable,
   }) {
     return logging();
   }
@@ -2410,6 +2435,7 @@ class _$Logging implements Logging {
         validCodeSuccess,
     TResult? Function()? passwordChanged,
     TResult? Function(String message, bool status)? deleted,
+    TResult? Function(bool isInternetAvailable)? isInternetAvailable,
   }) {
     return logging?.call();
   }
@@ -2433,6 +2459,7 @@ class _$Logging implements Logging {
         validCodeSuccess,
     TResult Function()? passwordChanged,
     TResult Function(String message, bool status)? deleted,
+    TResult Function(bool isInternetAvailable)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (logging != null) {
@@ -2459,6 +2486,7 @@ class _$Logging implements Logging {
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(Deleted value) deleted,
+    required TResult Function(IsInternetAvailable value) isInternetAvailable,
   }) {
     return logging(this);
   }
@@ -2481,6 +2509,7 @@ class _$Logging implements Logging {
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(Deleted value)? deleted,
+    TResult? Function(IsInternetAvailable value)? isInternetAvailable,
   }) {
     return logging?.call(this);
   }
@@ -2503,6 +2532,7 @@ class _$Logging implements Logging {
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(Deleted value)? deleted,
+    TResult Function(IsInternetAvailable value)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (logging != null) {
@@ -2597,6 +2627,7 @@ class _$Authenticated implements Authenticated {
         validCodeSuccess,
     required TResult Function() passwordChanged,
     required TResult Function(String message, bool status) deleted,
+    required TResult Function(bool isInternetAvailable) isInternetAvailable,
   }) {
     return authenticated(informationMissing);
   }
@@ -2620,6 +2651,7 @@ class _$Authenticated implements Authenticated {
         validCodeSuccess,
     TResult? Function()? passwordChanged,
     TResult? Function(String message, bool status)? deleted,
+    TResult? Function(bool isInternetAvailable)? isInternetAvailable,
   }) {
     return authenticated?.call(informationMissing);
   }
@@ -2643,6 +2675,7 @@ class _$Authenticated implements Authenticated {
         validCodeSuccess,
     TResult Function()? passwordChanged,
     TResult Function(String message, bool status)? deleted,
+    TResult Function(bool isInternetAvailable)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (authenticated != null) {
@@ -2669,6 +2702,7 @@ class _$Authenticated implements Authenticated {
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(Deleted value) deleted,
+    required TResult Function(IsInternetAvailable value) isInternetAvailable,
   }) {
     return authenticated(this);
   }
@@ -2691,6 +2725,7 @@ class _$Authenticated implements Authenticated {
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(Deleted value)? deleted,
+    TResult? Function(IsInternetAvailable value)? isInternetAvailable,
   }) {
     return authenticated?.call(this);
   }
@@ -2713,6 +2748,7 @@ class _$Authenticated implements Authenticated {
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(Deleted value)? deleted,
+    TResult Function(IsInternetAvailable value)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (authenticated != null) {
@@ -2786,6 +2822,7 @@ class _$Unauthenticated implements Unauthenticated {
         validCodeSuccess,
     required TResult Function() passwordChanged,
     required TResult Function(String message, bool status) deleted,
+    required TResult Function(bool isInternetAvailable) isInternetAvailable,
   }) {
     return unauthenticated();
   }
@@ -2809,6 +2846,7 @@ class _$Unauthenticated implements Unauthenticated {
         validCodeSuccess,
     TResult? Function()? passwordChanged,
     TResult? Function(String message, bool status)? deleted,
+    TResult? Function(bool isInternetAvailable)? isInternetAvailable,
   }) {
     return unauthenticated?.call();
   }
@@ -2832,6 +2870,7 @@ class _$Unauthenticated implements Unauthenticated {
         validCodeSuccess,
     TResult Function()? passwordChanged,
     TResult Function(String message, bool status)? deleted,
+    TResult Function(bool isInternetAvailable)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (unauthenticated != null) {
@@ -2858,6 +2897,7 @@ class _$Unauthenticated implements Unauthenticated {
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(Deleted value) deleted,
+    required TResult Function(IsInternetAvailable value) isInternetAvailable,
   }) {
     return unauthenticated(this);
   }
@@ -2880,6 +2920,7 @@ class _$Unauthenticated implements Unauthenticated {
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(Deleted value)? deleted,
+    TResult? Function(IsInternetAvailable value)? isInternetAvailable,
   }) {
     return unauthenticated?.call(this);
   }
@@ -2902,6 +2943,7 @@ class _$Unauthenticated implements Unauthenticated {
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(Deleted value)? deleted,
+    TResult Function(IsInternetAvailable value)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (unauthenticated != null) {
@@ -2996,6 +3038,7 @@ class _$AuthenticationError implements AuthenticationError {
         validCodeSuccess,
     required TResult Function() passwordChanged,
     required TResult Function(String message, bool status) deleted,
+    required TResult Function(bool isInternetAvailable) isInternetAvailable,
   }) {
     return error(message);
   }
@@ -3019,6 +3062,7 @@ class _$AuthenticationError implements AuthenticationError {
         validCodeSuccess,
     TResult? Function()? passwordChanged,
     TResult? Function(String message, bool status)? deleted,
+    TResult? Function(bool isInternetAvailable)? isInternetAvailable,
   }) {
     return error?.call(message);
   }
@@ -3042,6 +3086,7 @@ class _$AuthenticationError implements AuthenticationError {
         validCodeSuccess,
     TResult Function()? passwordChanged,
     TResult Function(String message, bool status)? deleted,
+    TResult Function(bool isInternetAvailable)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -3068,6 +3113,7 @@ class _$AuthenticationError implements AuthenticationError {
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(Deleted value) deleted,
+    required TResult Function(IsInternetAvailable value) isInternetAvailable,
   }) {
     return error(this);
   }
@@ -3090,6 +3136,7 @@ class _$AuthenticationError implements AuthenticationError {
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(Deleted value)? deleted,
+    TResult? Function(IsInternetAvailable value)? isInternetAvailable,
   }) {
     return error?.call(this);
   }
@@ -3112,6 +3159,7 @@ class _$AuthenticationError implements AuthenticationError {
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(Deleted value)? deleted,
+    TResult Function(IsInternetAvailable value)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -3182,6 +3230,7 @@ class _$Reset implements Reset {
         validCodeSuccess,
     required TResult Function() passwordChanged,
     required TResult Function(String message, bool status) deleted,
+    required TResult Function(bool isInternetAvailable) isInternetAvailable,
   }) {
     return reset();
   }
@@ -3205,6 +3254,7 @@ class _$Reset implements Reset {
         validCodeSuccess,
     TResult? Function()? passwordChanged,
     TResult? Function(String message, bool status)? deleted,
+    TResult? Function(bool isInternetAvailable)? isInternetAvailable,
   }) {
     return reset?.call();
   }
@@ -3228,6 +3278,7 @@ class _$Reset implements Reset {
         validCodeSuccess,
     TResult Function()? passwordChanged,
     TResult Function(String message, bool status)? deleted,
+    TResult Function(bool isInternetAvailable)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (reset != null) {
@@ -3254,6 +3305,7 @@ class _$Reset implements Reset {
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(Deleted value) deleted,
+    required TResult Function(IsInternetAvailable value) isInternetAvailable,
   }) {
     return reset(this);
   }
@@ -3276,6 +3328,7 @@ class _$Reset implements Reset {
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(Deleted value)? deleted,
+    TResult? Function(IsInternetAvailable value)? isInternetAvailable,
   }) {
     return reset?.call(this);
   }
@@ -3298,6 +3351,7 @@ class _$Reset implements Reset {
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(Deleted value)? deleted,
+    TResult Function(IsInternetAvailable value)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (reset != null) {
@@ -3365,6 +3419,7 @@ class _$Registered implements Registered {
         validCodeSuccess,
     required TResult Function() passwordChanged,
     required TResult Function(String message, bool status) deleted,
+    required TResult Function(bool isInternetAvailable) isInternetAvailable,
   }) {
     return registered();
   }
@@ -3388,6 +3443,7 @@ class _$Registered implements Registered {
         validCodeSuccess,
     TResult? Function()? passwordChanged,
     TResult? Function(String message, bool status)? deleted,
+    TResult? Function(bool isInternetAvailable)? isInternetAvailable,
   }) {
     return registered?.call();
   }
@@ -3411,6 +3467,7 @@ class _$Registered implements Registered {
         validCodeSuccess,
     TResult Function()? passwordChanged,
     TResult Function(String message, bool status)? deleted,
+    TResult Function(bool isInternetAvailable)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (registered != null) {
@@ -3437,6 +3494,7 @@ class _$Registered implements Registered {
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(Deleted value) deleted,
+    required TResult Function(IsInternetAvailable value) isInternetAvailable,
   }) {
     return registered(this);
   }
@@ -3459,6 +3517,7 @@ class _$Registered implements Registered {
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(Deleted value)? deleted,
+    TResult? Function(IsInternetAvailable value)? isInternetAvailable,
   }) {
     return registered?.call(this);
   }
@@ -3481,6 +3540,7 @@ class _$Registered implements Registered {
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(Deleted value)? deleted,
+    TResult Function(IsInternetAvailable value)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (registered != null) {
@@ -3548,6 +3608,7 @@ class _$SendEmail implements SendEmail {
         validCodeSuccess,
     required TResult Function() passwordChanged,
     required TResult Function(String message, bool status) deleted,
+    required TResult Function(bool isInternetAvailable) isInternetAvailable,
   }) {
     return sendEmailSuccess();
   }
@@ -3571,6 +3632,7 @@ class _$SendEmail implements SendEmail {
         validCodeSuccess,
     TResult? Function()? passwordChanged,
     TResult? Function(String message, bool status)? deleted,
+    TResult? Function(bool isInternetAvailable)? isInternetAvailable,
   }) {
     return sendEmailSuccess?.call();
   }
@@ -3594,6 +3656,7 @@ class _$SendEmail implements SendEmail {
         validCodeSuccess,
     TResult Function()? passwordChanged,
     TResult Function(String message, bool status)? deleted,
+    TResult Function(bool isInternetAvailable)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (sendEmailSuccess != null) {
@@ -3620,6 +3683,7 @@ class _$SendEmail implements SendEmail {
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(Deleted value) deleted,
+    required TResult Function(IsInternetAvailable value) isInternetAvailable,
   }) {
     return sendEmailSuccess(this);
   }
@@ -3642,6 +3706,7 @@ class _$SendEmail implements SendEmail {
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(Deleted value)? deleted,
+    TResult? Function(IsInternetAvailable value)? isInternetAvailable,
   }) {
     return sendEmailSuccess?.call(this);
   }
@@ -3664,6 +3729,7 @@ class _$SendEmail implements SendEmail {
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(Deleted value)? deleted,
+    TResult Function(IsInternetAvailable value)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (sendEmailSuccess != null) {
@@ -3731,6 +3797,7 @@ class _$ValidEmail implements ValidEmail {
         validCodeSuccess,
     required TResult Function() passwordChanged,
     required TResult Function(String message, bool status) deleted,
+    required TResult Function(bool isInternetAvailable) isInternetAvailable,
   }) {
     return emailIsNotValid();
   }
@@ -3754,6 +3821,7 @@ class _$ValidEmail implements ValidEmail {
         validCodeSuccess,
     TResult? Function()? passwordChanged,
     TResult? Function(String message, bool status)? deleted,
+    TResult? Function(bool isInternetAvailable)? isInternetAvailable,
   }) {
     return emailIsNotValid?.call();
   }
@@ -3777,6 +3845,7 @@ class _$ValidEmail implements ValidEmail {
         validCodeSuccess,
     TResult Function()? passwordChanged,
     TResult Function(String message, bool status)? deleted,
+    TResult Function(bool isInternetAvailable)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (emailIsNotValid != null) {
@@ -3803,6 +3872,7 @@ class _$ValidEmail implements ValidEmail {
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(Deleted value) deleted,
+    required TResult Function(IsInternetAvailable value) isInternetAvailable,
   }) {
     return emailIsNotValid(this);
   }
@@ -3825,6 +3895,7 @@ class _$ValidEmail implements ValidEmail {
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(Deleted value)? deleted,
+    TResult? Function(IsInternetAvailable value)? isInternetAvailable,
   }) {
     return emailIsNotValid?.call(this);
   }
@@ -3847,6 +3918,7 @@ class _$ValidEmail implements ValidEmail {
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(Deleted value)? deleted,
+    TResult Function(IsInternetAvailable value)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (emailIsNotValid != null) {
@@ -3914,6 +3986,7 @@ class _$CodeStatus implements CodeStatus {
         validCodeSuccess,
     required TResult Function() passwordChanged,
     required TResult Function(String message, bool status) deleted,
+    required TResult Function(bool isInternetAvailable) isInternetAvailable,
   }) {
     return codeSent();
   }
@@ -3937,6 +4010,7 @@ class _$CodeStatus implements CodeStatus {
         validCodeSuccess,
     TResult? Function()? passwordChanged,
     TResult? Function(String message, bool status)? deleted,
+    TResult? Function(bool isInternetAvailable)? isInternetAvailable,
   }) {
     return codeSent?.call();
   }
@@ -3960,6 +4034,7 @@ class _$CodeStatus implements CodeStatus {
         validCodeSuccess,
     TResult Function()? passwordChanged,
     TResult Function(String message, bool status)? deleted,
+    TResult Function(bool isInternetAvailable)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (codeSent != null) {
@@ -3986,6 +4061,7 @@ class _$CodeStatus implements CodeStatus {
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(Deleted value) deleted,
+    required TResult Function(IsInternetAvailable value) isInternetAvailable,
   }) {
     return codeSent(this);
   }
@@ -4008,6 +4084,7 @@ class _$CodeStatus implements CodeStatus {
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(Deleted value)? deleted,
+    TResult? Function(IsInternetAvailable value)? isInternetAvailable,
   }) {
     return codeSent?.call(this);
   }
@@ -4030,6 +4107,7 @@ class _$CodeStatus implements CodeStatus {
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(Deleted value)? deleted,
+    TResult Function(IsInternetAvailable value)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (codeSent != null) {
@@ -4136,6 +4214,7 @@ class _$LoadedvalidCodeSuccess implements LoadedvalidCodeSuccess {
         validCodeSuccess,
     required TResult Function() passwordChanged,
     required TResult Function(String message, bool status) deleted,
+    required TResult Function(bool isInternetAvailable) isInternetAvailable,
   }) {
     return validCodeSuccess(successValidCode);
   }
@@ -4159,6 +4238,7 @@ class _$LoadedvalidCodeSuccess implements LoadedvalidCodeSuccess {
         validCodeSuccess,
     TResult? Function()? passwordChanged,
     TResult? Function(String message, bool status)? deleted,
+    TResult? Function(bool isInternetAvailable)? isInternetAvailable,
   }) {
     return validCodeSuccess?.call(successValidCode);
   }
@@ -4182,6 +4262,7 @@ class _$LoadedvalidCodeSuccess implements LoadedvalidCodeSuccess {
         validCodeSuccess,
     TResult Function()? passwordChanged,
     TResult Function(String message, bool status)? deleted,
+    TResult Function(bool isInternetAvailable)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (validCodeSuccess != null) {
@@ -4208,6 +4289,7 @@ class _$LoadedvalidCodeSuccess implements LoadedvalidCodeSuccess {
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(Deleted value) deleted,
+    required TResult Function(IsInternetAvailable value) isInternetAvailable,
   }) {
     return validCodeSuccess(this);
   }
@@ -4230,6 +4312,7 @@ class _$LoadedvalidCodeSuccess implements LoadedvalidCodeSuccess {
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(Deleted value)? deleted,
+    TResult? Function(IsInternetAvailable value)? isInternetAvailable,
   }) {
     return validCodeSuccess?.call(this);
   }
@@ -4252,6 +4335,7 @@ class _$LoadedvalidCodeSuccess implements LoadedvalidCodeSuccess {
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(Deleted value)? deleted,
+    TResult Function(IsInternetAvailable value)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (validCodeSuccess != null) {
@@ -4326,6 +4410,7 @@ class _$PasswordChanged implements PasswordChanged {
         validCodeSuccess,
     required TResult Function() passwordChanged,
     required TResult Function(String message, bool status) deleted,
+    required TResult Function(bool isInternetAvailable) isInternetAvailable,
   }) {
     return passwordChanged();
   }
@@ -4349,6 +4434,7 @@ class _$PasswordChanged implements PasswordChanged {
         validCodeSuccess,
     TResult? Function()? passwordChanged,
     TResult? Function(String message, bool status)? deleted,
+    TResult? Function(bool isInternetAvailable)? isInternetAvailable,
   }) {
     return passwordChanged?.call();
   }
@@ -4372,6 +4458,7 @@ class _$PasswordChanged implements PasswordChanged {
         validCodeSuccess,
     TResult Function()? passwordChanged,
     TResult Function(String message, bool status)? deleted,
+    TResult Function(bool isInternetAvailable)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (passwordChanged != null) {
@@ -4398,6 +4485,7 @@ class _$PasswordChanged implements PasswordChanged {
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(Deleted value) deleted,
+    required TResult Function(IsInternetAvailable value) isInternetAvailable,
   }) {
     return passwordChanged(this);
   }
@@ -4420,6 +4508,7 @@ class _$PasswordChanged implements PasswordChanged {
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(Deleted value)? deleted,
+    TResult? Function(IsInternetAvailable value)? isInternetAvailable,
   }) {
     return passwordChanged?.call(this);
   }
@@ -4442,6 +4531,7 @@ class _$PasswordChanged implements PasswordChanged {
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(Deleted value)? deleted,
+    TResult Function(IsInternetAvailable value)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (passwordChanged != null) {
@@ -4541,6 +4631,7 @@ class _$Deleted implements Deleted {
         validCodeSuccess,
     required TResult Function() passwordChanged,
     required TResult Function(String message, bool status) deleted,
+    required TResult Function(bool isInternetAvailable) isInternetAvailable,
   }) {
     return deleted(message, status);
   }
@@ -4564,6 +4655,7 @@ class _$Deleted implements Deleted {
         validCodeSuccess,
     TResult? Function()? passwordChanged,
     TResult? Function(String message, bool status)? deleted,
+    TResult? Function(bool isInternetAvailable)? isInternetAvailable,
   }) {
     return deleted?.call(message, status);
   }
@@ -4587,6 +4679,7 @@ class _$Deleted implements Deleted {
         validCodeSuccess,
     TResult Function()? passwordChanged,
     TResult Function(String message, bool status)? deleted,
+    TResult Function(bool isInternetAvailable)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (deleted != null) {
@@ -4613,6 +4706,7 @@ class _$Deleted implements Deleted {
     required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(Deleted value) deleted,
+    required TResult Function(IsInternetAvailable value) isInternetAvailable,
   }) {
     return deleted(this);
   }
@@ -4635,6 +4729,7 @@ class _$Deleted implements Deleted {
     TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(Deleted value)? deleted,
+    TResult? Function(IsInternetAvailable value)? isInternetAvailable,
   }) {
     return deleted?.call(this);
   }
@@ -4657,6 +4752,7 @@ class _$Deleted implements Deleted {
     TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(Deleted value)? deleted,
+    TResult Function(IsInternetAvailable value)? isInternetAvailable,
     required TResult orElse(),
   }) {
     if (deleted != null) {
@@ -4673,5 +4769,228 @@ abstract class Deleted implements AuthState {
   bool get status;
   @JsonKey(ignore: true)
   _$$DeletedCopyWith<_$Deleted> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$IsInternetAvailableCopyWith<$Res> {
+  factory _$$IsInternetAvailableCopyWith(_$IsInternetAvailable value,
+          $Res Function(_$IsInternetAvailable) then) =
+      __$$IsInternetAvailableCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool isInternetAvailable});
+}
+
+/// @nodoc
+class __$$IsInternetAvailableCopyWithImpl<$Res>
+    extends _$AuthStateCopyWithImpl<$Res, _$IsInternetAvailable>
+    implements _$$IsInternetAvailableCopyWith<$Res> {
+  __$$IsInternetAvailableCopyWithImpl(
+      _$IsInternetAvailable _value, $Res Function(_$IsInternetAvailable) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isInternetAvailable = null,
+  }) {
+    return _then(_$IsInternetAvailable(
+      null == isInternetAvailable
+          ? _value.isInternetAvailable
+          : isInternetAvailable // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$IsInternetAvailable implements IsInternetAvailable {
+  const _$IsInternetAvailable(this.isInternetAvailable);
+
+  @override
+  final bool isInternetAvailable;
+
+  @override
+  String toString() {
+    return 'AuthState.isInternetAvailable(isInternetAvailable: $isInternetAvailable)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$IsInternetAvailable &&
+            (identical(other.isInternetAvailable, isInternetAvailable) ||
+                other.isInternetAvailable == isInternetAvailable));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, isInternetAvailable);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$IsInternetAvailableCopyWith<_$IsInternetAvailable> get copyWith =>
+      __$$IsInternetAvailableCopyWithImpl<_$IsInternetAvailable>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() walkthrough,
+    required TResult Function() onboarding,
+    required TResult Function() logging,
+    required TResult Function(bool informationMissing) authenticated,
+    required TResult Function() unauthenticated,
+    required TResult Function(String message) error,
+    required TResult Function() reset,
+    required TResult Function() registered,
+    required TResult Function() sendEmailSuccess,
+    required TResult Function() emailIsNotValid,
+    required TResult Function() codeSent,
+    required TResult Function(ForgotPasswordCodeModel successValidCode)
+        validCodeSuccess,
+    required TResult Function() passwordChanged,
+    required TResult Function(String message, bool status) deleted,
+    required TResult Function(bool isInternetAvailable) isInternetAvailable,
+  }) {
+    return isInternetAvailable(this.isInternetAvailable);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? walkthrough,
+    TResult? Function()? onboarding,
+    TResult? Function()? logging,
+    TResult? Function(bool informationMissing)? authenticated,
+    TResult? Function()? unauthenticated,
+    TResult? Function(String message)? error,
+    TResult? Function()? reset,
+    TResult? Function()? registered,
+    TResult? Function()? sendEmailSuccess,
+    TResult? Function()? emailIsNotValid,
+    TResult? Function()? codeSent,
+    TResult? Function(ForgotPasswordCodeModel successValidCode)?
+        validCodeSuccess,
+    TResult? Function()? passwordChanged,
+    TResult? Function(String message, bool status)? deleted,
+    TResult? Function(bool isInternetAvailable)? isInternetAvailable,
+  }) {
+    return isInternetAvailable?.call(this.isInternetAvailable);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? walkthrough,
+    TResult Function()? onboarding,
+    TResult Function()? logging,
+    TResult Function(bool informationMissing)? authenticated,
+    TResult Function()? unauthenticated,
+    TResult Function(String message)? error,
+    TResult Function()? reset,
+    TResult Function()? registered,
+    TResult Function()? sendEmailSuccess,
+    TResult Function()? emailIsNotValid,
+    TResult Function()? codeSent,
+    TResult Function(ForgotPasswordCodeModel successValidCode)?
+        validCodeSuccess,
+    TResult Function()? passwordChanged,
+    TResult Function(String message, bool status)? deleted,
+    TResult Function(bool isInternetAvailable)? isInternetAvailable,
+    required TResult orElse(),
+  }) {
+    if (isInternetAvailable != null) {
+      return isInternetAvailable(this.isInternetAvailable);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Initial value) initial,
+    required TResult Function(Walkthrough value) walkthrough,
+    required TResult Function(Onboarding value) onboarding,
+    required TResult Function(Logging value) logging,
+    required TResult Function(Authenticated value) authenticated,
+    required TResult Function(Unauthenticated value) unauthenticated,
+    required TResult Function(AuthenticationError value) error,
+    required TResult Function(Reset value) reset,
+    required TResult Function(Registered value) registered,
+    required TResult Function(SendEmail value) sendEmailSuccess,
+    required TResult Function(ValidEmail value) emailIsNotValid,
+    required TResult Function(CodeStatus value) codeSent,
+    required TResult Function(LoadedvalidCodeSuccess value) validCodeSuccess,
+    required TResult Function(PasswordChanged value) passwordChanged,
+    required TResult Function(Deleted value) deleted,
+    required TResult Function(IsInternetAvailable value) isInternetAvailable,
+  }) {
+    return isInternetAvailable(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Initial value)? initial,
+    TResult? Function(Walkthrough value)? walkthrough,
+    TResult? Function(Onboarding value)? onboarding,
+    TResult? Function(Logging value)? logging,
+    TResult? Function(Authenticated value)? authenticated,
+    TResult? Function(Unauthenticated value)? unauthenticated,
+    TResult? Function(AuthenticationError value)? error,
+    TResult? Function(Reset value)? reset,
+    TResult? Function(Registered value)? registered,
+    TResult? Function(SendEmail value)? sendEmailSuccess,
+    TResult? Function(ValidEmail value)? emailIsNotValid,
+    TResult? Function(CodeStatus value)? codeSent,
+    TResult? Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
+    TResult? Function(PasswordChanged value)? passwordChanged,
+    TResult? Function(Deleted value)? deleted,
+    TResult? Function(IsInternetAvailable value)? isInternetAvailable,
+  }) {
+    return isInternetAvailable?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Initial value)? initial,
+    TResult Function(Walkthrough value)? walkthrough,
+    TResult Function(Onboarding value)? onboarding,
+    TResult Function(Logging value)? logging,
+    TResult Function(Authenticated value)? authenticated,
+    TResult Function(Unauthenticated value)? unauthenticated,
+    TResult Function(AuthenticationError value)? error,
+    TResult Function(Reset value)? reset,
+    TResult Function(Registered value)? registered,
+    TResult Function(SendEmail value)? sendEmailSuccess,
+    TResult Function(ValidEmail value)? emailIsNotValid,
+    TResult Function(CodeStatus value)? codeSent,
+    TResult Function(LoadedvalidCodeSuccess value)? validCodeSuccess,
+    TResult Function(PasswordChanged value)? passwordChanged,
+    TResult Function(Deleted value)? deleted,
+    TResult Function(IsInternetAvailable value)? isInternetAvailable,
+    required TResult orElse(),
+  }) {
+    if (isInternetAvailable != null) {
+      return isInternetAvailable(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class IsInternetAvailable implements AuthState {
+  const factory IsInternetAvailable(final bool isInternetAvailable) =
+      _$IsInternetAvailable;
+
+  bool get isInternetAvailable;
+  @JsonKey(ignore: true)
+  _$$IsInternetAvailableCopyWith<_$IsInternetAvailable> get copyWith =>
       throw _privateConstructorUsedError;
 }

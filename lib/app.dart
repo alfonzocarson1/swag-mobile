@@ -1,3 +1,5 @@
+
+
 import 'dart:async';
 
 import 'package:app_links/app_links.dart';
@@ -90,7 +92,8 @@ class _AppState extends State<App> {
                     if (state == InternetConnectivityState.offline) {
 
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          duration: const Duration(seconds: 5),
+
+                          duration: const Duration(days: 365),
                           behavior: SnackBarBehavior.floating,
                           margin: EdgeInsets.only(
                             bottom: MediaQuery.of(context).size.height / 1.3,
@@ -101,6 +104,8 @@ class _AppState extends State<App> {
                           ),
                           dismissDirection: DismissDirection.none));
 
+                    }else{
+                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
                     }
                   },
                   child: Container(),
@@ -183,3 +188,4 @@ class AuthRouterPage extends StatelessWidget {
     );
   }
 }
+

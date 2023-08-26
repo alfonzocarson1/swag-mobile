@@ -146,7 +146,7 @@ Future<void> setupAppScope(String appFlavor) async {
   getIt.registerLazySingleton<ListingProfileCubit>(
       () => ListingProfileCubit(getIt<IListingService>()));
   getIt
-      .registerLazySingleton<InternetConnectivityBloc>(() => InternetConnectivityBloc());
+      .registerLazySingleton<InternetConnectivityBloc>(() => InternetConnectivityBloc(false));
 
   getIt
       .registerLazySingleton<AuthCubit>(() => AuthCubit(getIt<IAuthService>()));
