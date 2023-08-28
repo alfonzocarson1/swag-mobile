@@ -1,4 +1,5 @@
 import '../../models/alerts/alert_response_model.dart';
+import '../../models/alerts/alert_verify_rate_model.dart';
 import '../../models/alerts/alerts_model.dart';
 
 abstract class IAlertService {
@@ -6,4 +7,5 @@ abstract class IAlertService {
   Future<AlertResponseModel> getAlertsList();
   Future<dynamic> saveAlert(AlertModel alert);
   Future<dynamic> readAlert(String notificationAlertId);
+  Future<dynamic> verifyRateAlert(VerifyRateModel data);
 }

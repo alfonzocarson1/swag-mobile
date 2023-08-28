@@ -1,6 +1,7 @@
 import '../../api/api.dart';
 import '../../api/api_service.dart';
 import '../../models/alerts/alert_response_model.dart';
+import '../../models/alerts/alert_verify_rate_model.dart';
 import '../../models/alerts/alerts_model.dart';
 
 import 'i_alerts_service.dart';
@@ -45,6 +46,18 @@ class AlertService extends IAlertService {
       needBearer: true,
       fromJson: (json) => json,
       body: alert.toJson(),
+    );
+    return response;
+  }
+
+  @override
+  Future<dynamic> verifyRateAlert(VerifyRateModel data) async {
+    dynamic response = await apiService.getEndpointData(
+      endpoint: Endpoint.verifyRateAlert,
+      method: RequestMethod.post,
+      needBearer: true,
+      fromJson: (json) => json,
+      body: data.toJson(),
     );
     return response;
   }

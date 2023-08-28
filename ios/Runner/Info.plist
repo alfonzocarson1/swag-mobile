@@ -36,9 +36,11 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Allows access to your camera.  This can be configured in Settings.</string>
+	<string>Lets you take pictures/ videos with your camera to use as your profile picture, when adding a listing for sale or when chatting with other users.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allows access to your library.  This can be configured in Settings.</string>
+	<string>Lets you upload pictures/ videos from your library to use as your profile picture, when adding a listing for sale or when chatting with other users.</string>
+	<key>NSUserNotificationsUsageDescription</key>
+	<string>Lets us notify you when you need to take action when buying/ selling an item, and when an item you are interested in becomes available for sale</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UIBackgroundModes</key>

@@ -16,9 +16,12 @@ import '../../blocs/buy_sale_listing_bloc/buy_sale_listing_bloc.dart';
 import '../../blocs/search_bloc.dart/search_bloc.dart';
 import '../../blocs/shared_preferences_bloc/shared_preferences_bloc.dart';
 import '../../constants/constants.dart';
+import '../../cubits/paywall/paywall_cubit.dart';
+import '../../cubits/profile/get_profile_cubit.dart';
 import '../../cubits/route_history/route_history_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
+import '../../models/profile/profile_model.dart';
 import '../../models/search/filter_model.dart';
 import '../../models/search/search_request_payload_model.dart';
 import '../../notifications_providers/local_notifications_providers.dart';
@@ -34,9 +37,8 @@ String dateFormat(String dateStr) {
   return formatted;
 }
 
-extension DateExtension on String{
-  DateTime toDateTime()=> DateFormat('dd/MM/yyyy').parse(this);
-
+extension DateExtension on String {
+  DateTime toDateTime() => DateFormat('dd/MM/yyyy').parse(this);
 }
 
 bool isValidEmail(String email) {
@@ -642,3 +644,22 @@ void handleListingStatusUnavailable(String catalogId) {
     getIt<ContextService>().rootNavigatorKey.currentState!.pop();
   }
 }
+
+void handleListingStatusUnavailableAsGuest(String catalogId) {
+  LocalNotificationProvider.showInAppAllert('Listing unavailable');
+  getIt<ContextService>().rootNavigatorKey.currentState!.pop();
+  getIt<BuySaleListingBloc>()
+      .add(BuySaleListingEvent.getBuyListingItem(catalogId));
+}
+
+ resetPaywall() async {
+    bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
+    if (isLogged == true) {
+      await getIt<ProfileCubit>().loadProfileResults();
+      ProfileModel profileData =
+          getIt<PreferenceRepositoryService>().profileData();
+      if (profileData.hasActiveSubscription == false) {
+        getIt<PaywallCubit>().reset();
+      }
+    }
+  }

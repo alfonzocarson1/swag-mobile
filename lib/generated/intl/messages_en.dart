@@ -72,12 +72,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m18(permission) => "ALLOW ${permission} ACCESS";
 
-  static String m19(os, permission) =>
-      "Please allow ${permission} permission in your ${Intl.select(os, {
-            'android': 'phone',
-            'ios': 'iPhone',
-            'other': 'device',
-          })} settings for the Swag App";
+  static String m19(permission) =>
+      "Please allow ${permission} permission in your device settings for the Swag App. This allows you to take pictures and videos with your camera to use as your profile photo, when listing items for sale or when chatting with other users.";
 
   static String m20(permission) => "${permission} ACCESS";
 
@@ -766,6 +762,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "sell_for": MessageLookupByLibrary.simpleMessage("SELL FOR"),
         "seller_buy_message":
             MessageLookupByLibrary.simpleMessage("has agreed to purchase your"),
+        "seller_rate": MessageLookupByLibrary.simpleMessage(
+            "You already rated the buyer."),
         "send_info": MessageLookupByLibrary.simpleMessage("SEND INFO"),
         "settings": MessageLookupByLibrary.simpleMessage("SETTINGS"),
         "setup_payment": MessageLookupByLibrary.simpleMessage("Setup Payment"),
@@ -833,6 +831,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "verify_name": MessageLookupByLibrary.simpleMessage("@MRDOUG"),
         "view": MessageLookupByLibrary.simpleMessage("view"),
         "view_less": MessageLookupByLibrary.simpleMessage("View less details"),
+        "view_listing": MessageLookupByLibrary.simpleMessage("View Listings"),
         "view_more": MessageLookupByLibrary.simpleMessage("View more details"),
         "we_can_help": MessageLookupByLibrary.simpleMessage("WE CAN HELP!"),
         "we_can_help_description": MessageLookupByLibrary.simpleMessage(
