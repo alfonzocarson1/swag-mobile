@@ -51,7 +51,8 @@ class _SelectItemPageState extends State<SelectItemPage> {
     // context
     //     .read<SearchBloc>()
     //     .add(SearchEvent.selectTab(SearchTab.values[widget.page], true));
-
+    tab = SearchTab.values.elementAt(widget.page);
+    getIt<PaginatedSearchCubit>().resetPages(tab);
     callApi(null);
   }
 
@@ -105,6 +106,9 @@ class _SelectItemPageState extends State<SelectItemPage> {
                   refresh: () {
                     callApi(null);
                   },
+                  scrollListener: () => hasReachedMax
+                      ? getIt<PaginatedSearchCubit>().loadMoreResults(tab)
+                      : {},
                 );
               });
         }));
