@@ -10,16 +10,16 @@ class Loading {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AbsorbPointer(
+        return const AbsorbPointer(
           child: Stack(
             children: [
               Padding(
-                padding: const EdgeInsets.all(150.0),
+                padding: EdgeInsets.all(150.0),
                 child: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: const [
+                    children: [
                       LoadingIndicator(
                         indicatorType: Indicator.ballPulse,
                         colors: [Colors.white],

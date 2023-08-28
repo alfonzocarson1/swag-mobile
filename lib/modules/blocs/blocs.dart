@@ -7,6 +7,7 @@ import 'package:swagapp/modules/blocs/category_bloc/category_bloc.dart';
 // import 'package:swagapp/modules/blocs/explore_bloc/explore_bloc.dart';
 import 'package:swagapp/modules/blocs/profile_favorite_bloc/profile_favorite_bloc.dart';
 import 'package:swagapp/modules/blocs/update_profile_bloc/update_profile_bloc.dart';
+import 'package:swagapp/modules/cubits/app_state/app_state_cubit.dart';
 import 'package:swagapp/modules/cubits/auth/auth_cubit.dart';
 import 'package:swagapp/modules/cubits/buy/buy_cubit.dart';
 import 'package:swagapp/modules/cubits/catalog_detail/catalog_detail_cubit.dart';
@@ -49,7 +50,7 @@ import 'sold_bloc/sold_bloc.dart';
 abstract class AppBlocs {
   static List<BlocProvider> blocs(BuildContext context) => [
         BlocProvider<InternetConnectivityBloc>(create: (context) => getIt<InternetConnectivityBloc>()),
-
+        BlocProvider<AppCubit>(create: ((context) => getIt<AppCubit>())),
         BlocProvider<ChatCubit>(create: (context) => getIt<ChatCubit>()),
         BlocProvider<AuthBloc>(create: (_) => getIt<AuthBloc>()),
         BlocProvider<UsernameBloc>(create: (_) => getIt<UsernameBloc>()),

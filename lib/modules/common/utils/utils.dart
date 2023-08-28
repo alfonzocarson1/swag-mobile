@@ -6,10 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:swagapp/modules/common/ui/paywall_widget.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/common/utils/tab_wrapper.dart';
 import 'package:swagapp/modules/models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
 import 'package:swagapp/modules/models/shared_preferences/shared_preference_model.dart';
+import 'package:swagapp/modules/routes/app_routes.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../blocs/buy_sale_listing_bloc/buy_sale_listing_bloc.dart';
@@ -25,9 +27,13 @@ import '../../models/profile/profile_model.dart';
 import '../../models/search/filter_model.dart';
 import '../../models/search/search_request_payload_model.dart';
 import '../../notifications_providers/local_notifications_providers.dart';
+import '../../services/route_observer.dart';
 import '../ui/paywall_splash_screen.dart';
 import '../ui/dynamic_toast_messages.dart';
 import 'context_service.dart';
+
+
+
 
 String dateFormat(String dateStr) {
   final DateFormat displayFormater = DateFormat('dd/MM/yyyy');
@@ -600,13 +606,8 @@ showPaywallSplashScreen(
     {required Function removePaywall,
     required bool hasUsedFreeTrial,
     required BuildContext context}) {
-  Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => PaywallSplashScreen(
-            hasUsedFreeTrial: hasUsedFreeTrial,
-            removePaywall: () {
-              removePaywall();
-            },
-          )));
+      Navigator.of(context, rootNavigator: true).push(PaywallSplashScreen.route(hasUsedFreeTrial: hasUsedFreeTrial, removePaywall: removePaywall));
+
 }
 
 Future<void> showSnackBar(BuildContext context, String message) async {
@@ -652,14 +653,19 @@ void handleListingStatusUnavailableAsGuest(String catalogId) {
       .add(BuySaleListingEvent.getBuyListingItem(catalogId));
 }
 
+
  resetPaywall() async {
-    bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
+    bool isLogged = getIt<PreferenceRepositoryService>().isLogged(); 
+    String? currentRoute = getIt<RouteTracker>().currentRoute;
+
     if (isLogged == true) {
       await getIt<ProfileCubit>().loadProfileResults();
       ProfileModel profileData =
           getIt<PreferenceRepositoryService>().profileData();
       if (profileData.hasActiveSubscription == false) {
-        getIt<PaywallCubit>().reset();
+        if(currentRoute != AppRouteNames.paywallSplashScreen || currentRoute != AppRouteNames.transactionHistory){
+          getIt<PaywallCubit>().reset();                
+        }        
       }
     }
   }

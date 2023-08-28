@@ -22,7 +22,10 @@ import '../../di/injector.dart';
 import '../../models/listing_for_sale/listing_for_sale_model.dart';
 import '../../models/listing_for_sale/profile_listing_model.dart';
 import '../../models/profile/profile_model.dart';
+import '../../services/route_observer_utils.dart';
 import '../add/buy/preview_listing_as_guest.dart';
+
+final GlobalKey _payWallKey = GlobalKey();
 
 class ListingsPage extends StatefulWidget {
   static const name = '/Listings';
@@ -37,7 +40,7 @@ class ListingsPage extends StatefulWidget {
   State<ListingsPage> createState() => _ListingsPageState();
 }
 
-class _ListingsPageState extends State<ListingsPage> {
+class _ListingsPageState extends State<ListingsPage> with RouteAware {
   List<File> tempFiles = [];
   bool hasActiveSubscription = false;
   bool hasUsedFreeTrial = false;
@@ -53,6 +56,12 @@ class _ListingsPageState extends State<ListingsPage> {
   @override
   void dispose() {
     super.dispose();
+  }
+
+      @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    ObserverUtils.routeObserver.subscribe(this, ModalRoute.of(context)!);
   }
 
   Future loadList() async {
@@ -101,6 +110,7 @@ class _ListingsPageState extends State<ListingsPage> {
                             initial: () => (hasActiveSubscription)
                                 ? const SizedBox.shrink()
                                 : PayWallWidget(
+                                  key: _payWallKey,
                                     hasUsedFreeTrial: hasUsedFreeTrial,
                                     removePaywall: removePaywall,
                                   ),
@@ -120,6 +130,7 @@ class _ListingsPageState extends State<ListingsPage> {
                                 : SingleChildScrollView(
                                     physics: const ScrollPhysics(),
                                     child: PayWallWidget(
+                                      key: _payWallKey,
                                       hasUsedFreeTrial: hasUsedFreeTrial,
                                       removePaywall: removePaywall,
                                     ),
@@ -134,6 +145,7 @@ class _ListingsPageState extends State<ListingsPage> {
                 : SingleChildScrollView(
                     physics: const ScrollPhysics(),
                     child: PayWallWidget(
+                      key: _payWallKey,
                       hasUsedFreeTrial: hasUsedFreeTrial,
                       removePaywall: removePaywall,
                     ),
