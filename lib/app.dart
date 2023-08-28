@@ -173,9 +173,7 @@ class AuthRouterPage extends StatelessWidget {
       child: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) => state.maybeMap(
             initial: (_) => const SplashPage(),
-            authenticated: (authenticated) => authenticated.informationMissing
-                ? const AccountInfoPage()
-                : const HomePage(),
+            authenticated: (authenticated) => const HomePage(),
             walkthrough: (_) => const OnboardingPage(),
             onboarding: (_) => const OnboardingPage(),
             deleted: (_) => const LandingPage(),
