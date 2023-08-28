@@ -26,66 +26,44 @@ class SliderCustomWidget extends StatefulWidget {
 
 class _SliderCustomWidgetState extends State<SliderCustomWidget> {
   final ImagePicker imagePicker = ImagePicker();
-  List<dynamic> urls= [];
+  List<dynamic> urls = [];
   List<File> tempFiles = [];
   List<File> imgList = [];
   bool removedImages = false;
-  
+
   @override
   void initState() {
-   urls= widget.imageUrls ?? [];
+    urls = widget.imageUrls ?? [];
+    addUrlImagesToList(widget.imageUrls ?? [], imgList);
     super.initState();
   }
 
-  
   @override
   void dispose() {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
-
-    return (removedImages == true) ?  AddPhotoWidget(
-                  addPhoto: () => selectImages(),
-                ):  Container(
-      child: (urls.isNotEmpty && imgList.isEmpty )
-          ? AsyncBuilder(
-              future: addUrlImagesToList(widget.imageUrls ?? [], imgList),
-              waiting: (context) => Center(
-                child: CircularProgressIndicator(
-                  color: Palette.current.primaryNeonGreen,
-                  backgroundColor: Colors.white,
-                ),
-              ),
-              builder: (BuildContext context, value) {
-              return  (MultiImageSlide(
-                  imgList: imgList,
-                  addPhoto: () => selectImages(),
-                  onRemove: (index) {
-                    setState(() {            
-                      imgList.removeAt(index);
-                    });
-                  },
-                ));
-              },
-            )
-          : MultiImageSlide(
-              imgList: imgList,
-              addPhoto: () => selectImages(),
-              onRemove: (index) {
-                removeImage(index, imgList);
-              },
-            ),
-    );
+    return (removedImages == true)
+        ? AddPhotoWidget(
+            addPhoto: () => selectImages(),
+          )
+        : MultiImageSlide(
+            imgList: imgList,
+            addPhoto: () => selectImages(),
+            onRemove: (index) {
+              removeImage(index, imgList);
+            },
+          );
   }
 
   Future<void> selectImages() async {
     // Pick an image
     removedImages = false;
     try {
-      final List<XFile> selectedImages = await selectMultipleImagesAndHandlePermissions(context);
+      final List<XFile> selectedImages =
+          await selectMultipleImagesAndHandlePermissions(context);
 
       if ((selectedImages.length + imgList.length) <= 6) {
         scaleDownXFile(selectedImages);
@@ -104,18 +82,17 @@ class _SliderCustomWidgetState extends State<SliderCustomWidget> {
     }
   }
 
-  void removeImage(int index, List<File> imgList){
-    if(imgList.length == 1){
+  void removeImage(int index, List<File> imgList) {
+    if (imgList.length == 1) {
       setState(() {
         tempFiles = [];
         urls = [];
         removedImages = true;
       });
-      
     }
     setState(() {
-                  imgList.removeAt(index);
-                });
+      imgList.removeAt(index);
+    });
   }
 
   Future<void> scaleDownXFile(List<XFile> xFiles,
@@ -137,9 +114,9 @@ class _SliderCustomWidgetState extends State<SliderCustomWidget> {
       await file.writeAsBytes(compressedBytes);
 
       imgList.add(file);
-    }   
+    }
     setState(() {
-       widget.getImageFiles(imgList);
+      widget.getImageFiles(imgList);
     });
   }
 
@@ -176,8 +153,7 @@ class _SliderCustomWidgetState extends State<SliderCustomWidget> {
       } catch (e) {
         print('Error downloading image: $e');
       }
-    } 
-    
+    }
   }
 
   Future<void> scaleDownOneXFile(XFile xFile,
@@ -197,10 +173,8 @@ class _SliderCustomWidgetState extends State<SliderCustomWidget> {
 
     imgList.add(file);
     setState(() {
-       widget.getImageFiles(imgList);
-        print(imgList);  
-    });    
+      widget.getImageFiles(imgList);
+      print(imgList);
+    });
   }
-
-  
 }
