@@ -31,6 +31,7 @@ import '../../../models/settings/peer_to_peer_payments_get_model.dart';
 import '../../detail/transaction_history_page.dart';
 import '../../login/create_account_page.dart';
 import 'list_item_preview_page.dart';
+import 'widgets/edit_multi_pyment.dart';
 import 'widgets/multi_pyment.dart';
 
 class EditListForSalePage extends StatefulWidget {
@@ -407,7 +408,7 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
                                   const SizedBox(
                                     height: 21,
                                   ),
-                                  MultiPaymentDropdown(
+                                  EditMultiPaymentDropdown(
                                     helperText:
                                         'You must select at least one form of payment. You can manage these payment types in your settings.',
                                     borderColor: _paymentBorder,
@@ -421,6 +422,7 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
                                         }
                                       });
                                     },
+                                    paymentAccepted: widget.paymentAccepted,
                                   ),
                                   const SizedBox(
                                     height: 20,
