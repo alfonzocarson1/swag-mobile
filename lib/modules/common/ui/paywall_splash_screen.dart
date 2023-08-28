@@ -6,15 +6,16 @@ import 'package:swagapp/modules/common/assets/images.dart';
 import 'package:swagapp/modules/common/ui/avatar.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/ui/simple_loader.dart';
+import 'package:swagapp/modules/common/utils/custom_route_animations.dart';
 import 'package:swagapp/modules/models/paywall_products/paywall_products.dart';
 
 import '../../../generated/l10n.dart';
 import '../../api/app_config.dart';
-import '../../constants/constants.dart';
 import '../../cubits/paywall/paywall_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/profile/profile_model.dart';
+import '../../services/route_observer_utils.dart';
 import '../assets/icons.dart';
 import '../utils/palette.dart';
 import 'custom_paywall_tile.dart';
@@ -29,19 +30,29 @@ import 'discount_container_widget.dart';
 //
 
 class PaywallSplashScreen extends StatefulWidget {
+  static const name= "/PaywallSplash";
+
   const PaywallSplashScreen({
     super.key,
     required this.hasUsedFreeTrial,
     required this.removePaywall,
   });
+
   final bool hasUsedFreeTrial;
   final Function removePaywall;
+
+    static Route route({required bool hasUsedFreeTrial, required Function removePaywall}) =>
+      PageRoutes.material(
+        settings: const RouteSettings(name: name),
+        builder: (context) => PaywallSplashScreen(
+            hasUsedFreeTrial: hasUsedFreeTrial, removePaywall: removePaywall, key: const Key("PaywallSplash")),
+      );
 
   @override
   State<PaywallSplashScreen> createState() => _PaywallSplashScreenState();
 }
 
-class _PaywallSplashScreenState extends State<PaywallSplashScreen> {
+class _PaywallSplashScreenState extends State<PaywallSplashScreen> with RouteAware {
   ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
   late PaywallSubscriptionProducts flavorProducts;
 
@@ -54,6 +65,12 @@ class _PaywallSplashScreenState extends State<PaywallSplashScreen> {
   @override
   void dispose() {
     super.dispose();
+  }
+
+    @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    ObserverUtils.routeObserver.subscribe(this, ModalRoute.of(context)!);
   }
 
   @override

@@ -19,13 +19,14 @@ import '../../../models/search/search_request_payload_model.dart';
 import '../../../models/shared_preferences/shared_preference_model.dart';
 
 class FiltersBottomSheet extends StatefulWidget {
-  const FiltersBottomSheet({Key? key, this.searchParam, this.tab})
+  const FiltersBottomSheet({Key? key, this.searchParam, this.tab, this.searchWithFilters})
       : super(key: key);
   final String? searchParam;
   final SearchTab? tab;
+  final SearchRequestPayloadModel? searchWithFilters;
 
   static Route route(final BuildContext context,
-          {String? searchParam, SearchTab? tab}) =>
+          {String? searchParam, SearchTab? tab, SearchRequestPayloadModel? searchWithFilters}) =>
       PageRoutes.modalBottomSheet(
         isScrollControlled: true,
         enableDrag: false,
@@ -34,6 +35,7 @@ class FiltersBottomSheet extends StatefulWidget {
         builder: (context) => FiltersBottomSheet(
           searchParam: searchParam,
           tab: tab,
+            searchWithFilters :searchWithFilters
         ),
         context: context,
       );
@@ -362,6 +364,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                 context: context,
                 searchParam: widget.searchParam,
                 tab: widget.tab,
+                searchWithFilters: widget.searchWithFilters
               );
               Navigator.pop(context);
             },

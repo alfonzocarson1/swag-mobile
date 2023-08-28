@@ -1,3 +1,5 @@
+
+
 import 'dart:async';
 
 import 'package:app_links/app_links.dart';
@@ -5,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:swagapp/modules/common/utils/stateful_wrapper.dart';
+import 'package:swagapp/modules/pages/explore/account_info.dart';
 
 import 'package:swagapp/modules/pages/login/landing_page.dart';
 import 'package:swagapp/modules/pages/onboarding/onboarding_page.dart';
@@ -31,10 +34,11 @@ class App extends StatefulWidget {
   State<App> createState() => _AppState();
 }
 
+final GlobalKey<NavigatorState> _homeNavigatorKey = GlobalKey<NavigatorState>(
+  debugLabel: 'home_page_tab',
+);
+
 class _AppState extends State<App> {
-  final GlobalKey<NavigatorState> _homeNavigatorKey = GlobalKey<NavigatorState>(
-    debugLabel: 'home_page_tab',
-  );
   late AppLinks _appLinks;
   StreamSubscription<Uri>? _linkSubscription;
 
@@ -47,14 +51,12 @@ class _AppState extends State<App> {
   @override
   void dispose() {
     getIt<DeepLinkHandler>().dispose();
-   // _linkSubscription?.cancel();
-  //  super.dispose();
+    // _linkSubscription?.cancel();
+    //  super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-
-  
     return MultiBlocProvider(
         providers: AppBlocs.blocs(context),
         child: MaterialApp(
@@ -72,36 +74,7 @@ class _AppState extends State<App> {
             GlobalCupertinoLocalizations.delegate,
             S.delegate
           ],
-          home: StatefulWrapper(
-            onInit: (context) {
-              context.read<AuthBloc>().add(const AuthEvent.init());
-            },
-            child: BlocConsumer<AuthBloc, AuthState>(
-              builder: (context, state) => state.maybeMap(
-                  initial: (_) => const SplashPage(),
-                  authenticated: (_) => const HomePage(),
-                  walkthrough: (_) => const OnboardingPage(),
-                  onboarding: (_) => const OnboardingPage(),
-                  deleted: (_) => const LandingPage(),
-                  orElse: () => const SplashPage(),
-                  error: (_) => const LandingPage(),
-                  unauthenticated: (_) {
-                    return const LandingPage();
-                  }),
-              listener: (context, state) => state.maybeMap(
-                  // orElse: () => null,
-                  orElse: () async {
-                await setupUnauthorizedScope(
-                    getIt<ContextService>().rootNavigatorKey);
-                return null;
-              }, authenticated: (_) async {
-                await setupAuthorizedScope(
-                    getIt<ContextService>().rootNavigatorKey,
-                    _homeNavigatorKey);
-                return null;
-              }),
-            ),
-          ),
+          home: const AuthRouterPage(),
           builder: (context, child) => Overlay(
             initialEntries: [
 
@@ -115,11 +88,12 @@ class _AppState extends State<App> {
                     InternetConnectivityState>(
                   listener: (context, state) {
 
+                    //pull request issue resolved
                     print("app listener  internet connectivity ");
                     if (state == InternetConnectivityState.offline) {
 
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          duration: const Duration(seconds: 5),
+                          duration: const Duration(days: 365),
                           behavior: SnackBarBehavior.floating,
                           margin: EdgeInsets.only(
                             bottom: MediaQuery.of(context).size.height / 1.3,
@@ -130,6 +104,8 @@ class _AppState extends State<App> {
                           ),
                           dismissDirection: DismissDirection.none));
 
+                    }else{
+                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
                     }
                   },
                   child: Container(),
@@ -138,26 +114,44 @@ class _AppState extends State<App> {
               OverlayEntry(builder: (BuildContext context) {
                 return MediaQuery(
                   data: MediaQuery.of(context).copyWith(boldText: false),
-                  child: BlocBuilder<AuthBloc, AuthState>(
+                  child: BlocConsumer<AuthBloc, AuthState>(
+                    listener: (context, state) {
+                      state.maybeMap(
+                        orElse: () async {
+                          await setupUnauthorizedScope(
+                            getIt<ContextService>().rootNavigatorKey,
+                          );
+                          return null;
+                        },
+                        authenticated: (_) async {
+                          await setupAuthorizedScope(
+                            getIt<ContextService>().rootNavigatorKey,
+                            _homeNavigatorKey,
+                          );
+                          return null;
+                        },
+                      );
+                    },
                     builder: (context, authState) => authState.maybeMap(
-                        orElse: () => child!,
-                        unauthenticated: (_) => MultiBlocProvider(
-                              providers: [
-                                BlocProvider<SoldBloc>(
-                                    create: (context) => getIt<SoldBloc>()),
-                              ],
-                              child: child!,
-                            ),
-                        authenticated: (_) => RepositoryProvider.value(
-                              value: _homeNavigatorKey,
-                              child: MultiBlocProvider(
-                                providers: [
-                                  BlocProvider<SoldBloc>(
-                                      create: (context) => getIt<SoldBloc>()),
-                                ],
-                                child: child!,
-                              ),
-                            )),
+                      orElse: () => child!,
+                      unauthenticated: (_) => MultiBlocProvider(
+                        providers: [
+                          BlocProvider<SoldBloc>(
+                              create: (context) => getIt<SoldBloc>()),
+                        ],
+                        child: child!,
+                      ),
+                      authenticated: (_) => RepositoryProvider.value(
+                        value: _homeNavigatorKey,
+                        child: MultiBlocProvider(
+                          providers: [
+                            BlocProvider<SoldBloc>(
+                                create: (context) => getIt<SoldBloc>()),
+                          ],
+                          child: child!,
+                        ),
+                      ),
+                    ),
                   ),
                 );
               }),
@@ -166,3 +160,33 @@ class _AppState extends State<App> {
         ));
   }
 }
+
+class AuthRouterPage extends StatelessWidget {
+  const AuthRouterPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return StatefulWrapper(
+      onInit: (context) {
+        context.read<AuthBloc>().add(const AuthEvent.init());
+      },
+      child: BlocBuilder<AuthBloc, AuthState>(
+        builder: (context, state) => state.maybeMap(
+            initial: (_) => const SplashPage(),
+            authenticated: (authenticated) => authenticated.informationMissing
+                ? const AccountInfoPage()
+                : const HomePage(),
+            walkthrough: (_) => const OnboardingPage(),
+            onboarding: (_) => const OnboardingPage(),
+            deleted: (_) => const LandingPage(),
+            orElse: () => const SplashPage(),
+            error: (_) => const LandingPage(),
+            unauthenticated: (_) {
+              return const LandingPage();
+            }),
+      ),
+    );
+  }
+}
+
+
