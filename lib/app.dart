@@ -88,6 +88,7 @@ class _AppState extends State<App> {
                     InternetConnectivityState>(
                   listener: (context, state) {
 
+                    //pull request issue resolved
                     print("app listener  internet connectivity ");
                     if (state == InternetConnectivityState.offline) {
 
