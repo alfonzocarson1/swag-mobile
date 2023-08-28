@@ -38,6 +38,17 @@ class ListingProfileCubit extends Cubit<ListingCubitState> {
     }
   }
 
+  Future<ListingForSaleProfileResponseModel?> loadCollectionListed() async {
+    try {
+      ListingForSaleProfileResponseModel response =
+          await listingService.getListingForSale();
+
+      return response;
+    } catch (error) {
+      return null;
+    }
+  }
+
   Future<void> updateListing(ListingForSaleModel model, List<File> imgList,
       List<String> imageUrls) async {
     try {
