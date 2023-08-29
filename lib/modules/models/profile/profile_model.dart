@@ -24,7 +24,8 @@ class ProfileModel with _$ProfileModel {
     final bool? hasUsedFreeTrial,
     final bool? kycverified,
     final String? firstName,
-    final String? lastName
+    final String? lastName,
+    final String? countryCode
 
   }) = _ProfileModel;
 

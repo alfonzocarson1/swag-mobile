@@ -26,6 +26,8 @@ mixin _$UpdateProfileEvent {
     required TResult Function() askEmailVerification,
     required TResult Function() closeVerifyEmailModal,
     required TResult Function(UpdateProfilePayloadModel model) updateName,
+    required TResult Function(UpdateProfilePayloadModel model)
+        updatePhoneNumber,
     required TResult Function(UpdateProfilePayloadModel model) updateEmail,
     required TResult Function(String addressId) removeAddress,
     required TResult Function() delete,
@@ -40,6 +42,7 @@ mixin _$UpdateProfileEvent {
     TResult? Function()? askEmailVerification,
     TResult? Function()? closeVerifyEmailModal,
     TResult? Function(UpdateProfilePayloadModel model)? updateName,
+    TResult? Function(UpdateProfilePayloadModel model)? updatePhoneNumber,
     TResult? Function(UpdateProfilePayloadModel model)? updateEmail,
     TResult? Function(String addressId)? removeAddress,
     TResult? Function()? delete,
@@ -54,6 +57,7 @@ mixin _$UpdateProfileEvent {
     TResult Function()? askEmailVerification,
     TResult Function()? closeVerifyEmailModal,
     TResult Function(UpdateProfilePayloadModel model)? updateName,
+    TResult Function(UpdateProfilePayloadModel model)? updatePhoneNumber,
     TResult Function(UpdateProfilePayloadModel model)? updateEmail,
     TResult Function(String addressId)? removeAddress,
     TResult Function()? delete,
@@ -69,6 +73,8 @@ mixin _$UpdateProfileEvent {
     required TResult Function(_CloseVerifyEmailModal value)
         closeVerifyEmailModal,
     required TResult Function(_UpdateProfileNameEvent value) updateName,
+    required TResult Function(_UpdateProfilePhoneNumber value)
+        updatePhoneNumber,
     required TResult Function(_UpdateEmailEvent value) updateEmail,
     required TResult Function(_RemoveAddressEvent value) removeAddress,
     required TResult Function(DeleteAccount value) delete,
@@ -82,6 +88,7 @@ mixin _$UpdateProfileEvent {
     TResult? Function(_AskEmailVerification value)? askEmailVerification,
     TResult? Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
     TResult? Function(_UpdateProfileNameEvent value)? updateName,
+    TResult? Function(_UpdateProfilePhoneNumber value)? updatePhoneNumber,
     TResult? Function(_UpdateEmailEvent value)? updateEmail,
     TResult? Function(_RemoveAddressEvent value)? removeAddress,
     TResult? Function(DeleteAccount value)? delete,
@@ -95,6 +102,7 @@ mixin _$UpdateProfileEvent {
     TResult Function(_AskEmailVerification value)? askEmailVerification,
     TResult Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
     TResult Function(_UpdateProfileNameEvent value)? updateName,
+    TResult Function(_UpdateProfilePhoneNumber value)? updatePhoneNumber,
     TResult Function(_UpdateEmailEvent value)? updateEmail,
     TResult Function(_RemoveAddressEvent value)? removeAddress,
     TResult Function(DeleteAccount value)? delete,
@@ -204,6 +212,8 @@ class _$_UpdateProfileEvent implements _UpdateProfileEvent {
     required TResult Function() askEmailVerification,
     required TResult Function() closeVerifyEmailModal,
     required TResult Function(UpdateProfilePayloadModel model) updateName,
+    required TResult Function(UpdateProfilePayloadModel model)
+        updatePhoneNumber,
     required TResult Function(UpdateProfilePayloadModel model) updateEmail,
     required TResult Function(String addressId) removeAddress,
     required TResult Function() delete,
@@ -221,6 +231,7 @@ class _$_UpdateProfileEvent implements _UpdateProfileEvent {
     TResult? Function()? askEmailVerification,
     TResult? Function()? closeVerifyEmailModal,
     TResult? Function(UpdateProfilePayloadModel model)? updateName,
+    TResult? Function(UpdateProfilePayloadModel model)? updatePhoneNumber,
     TResult? Function(UpdateProfilePayloadModel model)? updateEmail,
     TResult? Function(String addressId)? removeAddress,
     TResult? Function()? delete,
@@ -238,6 +249,7 @@ class _$_UpdateProfileEvent implements _UpdateProfileEvent {
     TResult Function()? askEmailVerification,
     TResult Function()? closeVerifyEmailModal,
     TResult Function(UpdateProfilePayloadModel model)? updateName,
+    TResult Function(UpdateProfilePayloadModel model)? updatePhoneNumber,
     TResult Function(UpdateProfilePayloadModel model)? updateEmail,
     TResult Function(String addressId)? removeAddress,
     TResult Function()? delete,
@@ -259,6 +271,8 @@ class _$_UpdateProfileEvent implements _UpdateProfileEvent {
     required TResult Function(_CloseVerifyEmailModal value)
         closeVerifyEmailModal,
     required TResult Function(_UpdateProfileNameEvent value) updateName,
+    required TResult Function(_UpdateProfilePhoneNumber value)
+        updatePhoneNumber,
     required TResult Function(_UpdateEmailEvent value) updateEmail,
     required TResult Function(_RemoveAddressEvent value) removeAddress,
     required TResult Function(DeleteAccount value) delete,
@@ -275,6 +289,7 @@ class _$_UpdateProfileEvent implements _UpdateProfileEvent {
     TResult? Function(_AskEmailVerification value)? askEmailVerification,
     TResult? Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
     TResult? Function(_UpdateProfileNameEvent value)? updateName,
+    TResult? Function(_UpdateProfilePhoneNumber value)? updatePhoneNumber,
     TResult? Function(_UpdateEmailEvent value)? updateEmail,
     TResult? Function(_RemoveAddressEvent value)? removeAddress,
     TResult? Function(DeleteAccount value)? delete,
@@ -291,6 +306,7 @@ class _$_UpdateProfileEvent implements _UpdateProfileEvent {
     TResult Function(_AskEmailVerification value)? askEmailVerification,
     TResult Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
     TResult Function(_UpdateProfileNameEvent value)? updateName,
+    TResult Function(_UpdateProfilePhoneNumber value)? updatePhoneNumber,
     TResult Function(_UpdateEmailEvent value)? updateEmail,
     TResult Function(_RemoveAddressEvent value)? removeAddress,
     TResult Function(DeleteAccount value)? delete,
@@ -404,6 +420,8 @@ class _$_UpdateAvatarEvent implements _UpdateAvatarEvent {
     required TResult Function() askEmailVerification,
     required TResult Function() closeVerifyEmailModal,
     required TResult Function(UpdateProfilePayloadModel model) updateName,
+    required TResult Function(UpdateProfilePayloadModel model)
+        updatePhoneNumber,
     required TResult Function(UpdateProfilePayloadModel model) updateEmail,
     required TResult Function(String addressId) removeAddress,
     required TResult Function() delete,
@@ -421,6 +439,7 @@ class _$_UpdateAvatarEvent implements _UpdateAvatarEvent {
     TResult? Function()? askEmailVerification,
     TResult? Function()? closeVerifyEmailModal,
     TResult? Function(UpdateProfilePayloadModel model)? updateName,
+    TResult? Function(UpdateProfilePayloadModel model)? updatePhoneNumber,
     TResult? Function(UpdateProfilePayloadModel model)? updateEmail,
     TResult? Function(String addressId)? removeAddress,
     TResult? Function()? delete,
@@ -438,6 +457,7 @@ class _$_UpdateAvatarEvent implements _UpdateAvatarEvent {
     TResult Function()? askEmailVerification,
     TResult Function()? closeVerifyEmailModal,
     TResult Function(UpdateProfilePayloadModel model)? updateName,
+    TResult Function(UpdateProfilePayloadModel model)? updatePhoneNumber,
     TResult Function(UpdateProfilePayloadModel model)? updateEmail,
     TResult Function(String addressId)? removeAddress,
     TResult Function()? delete,
@@ -459,6 +479,8 @@ class _$_UpdateAvatarEvent implements _UpdateAvatarEvent {
     required TResult Function(_CloseVerifyEmailModal value)
         closeVerifyEmailModal,
     required TResult Function(_UpdateProfileNameEvent value) updateName,
+    required TResult Function(_UpdateProfilePhoneNumber value)
+        updatePhoneNumber,
     required TResult Function(_UpdateEmailEvent value) updateEmail,
     required TResult Function(_RemoveAddressEvent value) removeAddress,
     required TResult Function(DeleteAccount value) delete,
@@ -475,6 +497,7 @@ class _$_UpdateAvatarEvent implements _UpdateAvatarEvent {
     TResult? Function(_AskEmailVerification value)? askEmailVerification,
     TResult? Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
     TResult? Function(_UpdateProfileNameEvent value)? updateName,
+    TResult? Function(_UpdateProfilePhoneNumber value)? updatePhoneNumber,
     TResult? Function(_UpdateEmailEvent value)? updateEmail,
     TResult? Function(_RemoveAddressEvent value)? removeAddress,
     TResult? Function(DeleteAccount value)? delete,
@@ -491,6 +514,7 @@ class _$_UpdateAvatarEvent implements _UpdateAvatarEvent {
     TResult Function(_AskEmailVerification value)? askEmailVerification,
     TResult Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
     TResult Function(_UpdateProfileNameEvent value)? updateName,
+    TResult Function(_UpdateProfilePhoneNumber value)? updatePhoneNumber,
     TResult Function(_UpdateEmailEvent value)? updateEmail,
     TResult Function(_RemoveAddressEvent value)? removeAddress,
     TResult Function(DeleteAccount value)? delete,
@@ -561,6 +585,8 @@ class _$_importDataEvent implements _importDataEvent {
     required TResult Function() askEmailVerification,
     required TResult Function() closeVerifyEmailModal,
     required TResult Function(UpdateProfilePayloadModel model) updateName,
+    required TResult Function(UpdateProfilePayloadModel model)
+        updatePhoneNumber,
     required TResult Function(UpdateProfilePayloadModel model) updateEmail,
     required TResult Function(String addressId) removeAddress,
     required TResult Function() delete,
@@ -578,6 +604,7 @@ class _$_importDataEvent implements _importDataEvent {
     TResult? Function()? askEmailVerification,
     TResult? Function()? closeVerifyEmailModal,
     TResult? Function(UpdateProfilePayloadModel model)? updateName,
+    TResult? Function(UpdateProfilePayloadModel model)? updatePhoneNumber,
     TResult? Function(UpdateProfilePayloadModel model)? updateEmail,
     TResult? Function(String addressId)? removeAddress,
     TResult? Function()? delete,
@@ -595,6 +622,7 @@ class _$_importDataEvent implements _importDataEvent {
     TResult Function()? askEmailVerification,
     TResult Function()? closeVerifyEmailModal,
     TResult Function(UpdateProfilePayloadModel model)? updateName,
+    TResult Function(UpdateProfilePayloadModel model)? updatePhoneNumber,
     TResult Function(UpdateProfilePayloadModel model)? updateEmail,
     TResult Function(String addressId)? removeAddress,
     TResult Function()? delete,
@@ -616,6 +644,8 @@ class _$_importDataEvent implements _importDataEvent {
     required TResult Function(_CloseVerifyEmailModal value)
         closeVerifyEmailModal,
     required TResult Function(_UpdateProfileNameEvent value) updateName,
+    required TResult Function(_UpdateProfilePhoneNumber value)
+        updatePhoneNumber,
     required TResult Function(_UpdateEmailEvent value) updateEmail,
     required TResult Function(_RemoveAddressEvent value) removeAddress,
     required TResult Function(DeleteAccount value) delete,
@@ -632,6 +662,7 @@ class _$_importDataEvent implements _importDataEvent {
     TResult? Function(_AskEmailVerification value)? askEmailVerification,
     TResult? Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
     TResult? Function(_UpdateProfileNameEvent value)? updateName,
+    TResult? Function(_UpdateProfilePhoneNumber value)? updatePhoneNumber,
     TResult? Function(_UpdateEmailEvent value)? updateEmail,
     TResult? Function(_RemoveAddressEvent value)? removeAddress,
     TResult? Function(DeleteAccount value)? delete,
@@ -648,6 +679,7 @@ class _$_importDataEvent implements _importDataEvent {
     TResult Function(_AskEmailVerification value)? askEmailVerification,
     TResult Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
     TResult Function(_UpdateProfileNameEvent value)? updateName,
+    TResult Function(_UpdateProfilePhoneNumber value)? updatePhoneNumber,
     TResult Function(_UpdateEmailEvent value)? updateEmail,
     TResult Function(_RemoveAddressEvent value)? removeAddress,
     TResult Function(DeleteAccount value)? delete,
@@ -710,6 +742,8 @@ class _$_AskEmailVerification implements _AskEmailVerification {
     required TResult Function() askEmailVerification,
     required TResult Function() closeVerifyEmailModal,
     required TResult Function(UpdateProfilePayloadModel model) updateName,
+    required TResult Function(UpdateProfilePayloadModel model)
+        updatePhoneNumber,
     required TResult Function(UpdateProfilePayloadModel model) updateEmail,
     required TResult Function(String addressId) removeAddress,
     required TResult Function() delete,
@@ -727,6 +761,7 @@ class _$_AskEmailVerification implements _AskEmailVerification {
     TResult? Function()? askEmailVerification,
     TResult? Function()? closeVerifyEmailModal,
     TResult? Function(UpdateProfilePayloadModel model)? updateName,
+    TResult? Function(UpdateProfilePayloadModel model)? updatePhoneNumber,
     TResult? Function(UpdateProfilePayloadModel model)? updateEmail,
     TResult? Function(String addressId)? removeAddress,
     TResult? Function()? delete,
@@ -744,6 +779,7 @@ class _$_AskEmailVerification implements _AskEmailVerification {
     TResult Function()? askEmailVerification,
     TResult Function()? closeVerifyEmailModal,
     TResult Function(UpdateProfilePayloadModel model)? updateName,
+    TResult Function(UpdateProfilePayloadModel model)? updatePhoneNumber,
     TResult Function(UpdateProfilePayloadModel model)? updateEmail,
     TResult Function(String addressId)? removeAddress,
     TResult Function()? delete,
@@ -765,6 +801,8 @@ class _$_AskEmailVerification implements _AskEmailVerification {
     required TResult Function(_CloseVerifyEmailModal value)
         closeVerifyEmailModal,
     required TResult Function(_UpdateProfileNameEvent value) updateName,
+    required TResult Function(_UpdateProfilePhoneNumber value)
+        updatePhoneNumber,
     required TResult Function(_UpdateEmailEvent value) updateEmail,
     required TResult Function(_RemoveAddressEvent value) removeAddress,
     required TResult Function(DeleteAccount value) delete,
@@ -781,6 +819,7 @@ class _$_AskEmailVerification implements _AskEmailVerification {
     TResult? Function(_AskEmailVerification value)? askEmailVerification,
     TResult? Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
     TResult? Function(_UpdateProfileNameEvent value)? updateName,
+    TResult? Function(_UpdateProfilePhoneNumber value)? updatePhoneNumber,
     TResult? Function(_UpdateEmailEvent value)? updateEmail,
     TResult? Function(_RemoveAddressEvent value)? removeAddress,
     TResult? Function(DeleteAccount value)? delete,
@@ -797,6 +836,7 @@ class _$_AskEmailVerification implements _AskEmailVerification {
     TResult Function(_AskEmailVerification value)? askEmailVerification,
     TResult Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
     TResult Function(_UpdateProfileNameEvent value)? updateName,
+    TResult Function(_UpdateProfilePhoneNumber value)? updatePhoneNumber,
     TResult Function(_UpdateEmailEvent value)? updateEmail,
     TResult Function(_RemoveAddressEvent value)? removeAddress,
     TResult Function(DeleteAccount value)? delete,
@@ -859,6 +899,8 @@ class _$_CloseVerifyEmailModal implements _CloseVerifyEmailModal {
     required TResult Function() askEmailVerification,
     required TResult Function() closeVerifyEmailModal,
     required TResult Function(UpdateProfilePayloadModel model) updateName,
+    required TResult Function(UpdateProfilePayloadModel model)
+        updatePhoneNumber,
     required TResult Function(UpdateProfilePayloadModel model) updateEmail,
     required TResult Function(String addressId) removeAddress,
     required TResult Function() delete,
@@ -876,6 +918,7 @@ class _$_CloseVerifyEmailModal implements _CloseVerifyEmailModal {
     TResult? Function()? askEmailVerification,
     TResult? Function()? closeVerifyEmailModal,
     TResult? Function(UpdateProfilePayloadModel model)? updateName,
+    TResult? Function(UpdateProfilePayloadModel model)? updatePhoneNumber,
     TResult? Function(UpdateProfilePayloadModel model)? updateEmail,
     TResult? Function(String addressId)? removeAddress,
     TResult? Function()? delete,
@@ -893,6 +936,7 @@ class _$_CloseVerifyEmailModal implements _CloseVerifyEmailModal {
     TResult Function()? askEmailVerification,
     TResult Function()? closeVerifyEmailModal,
     TResult Function(UpdateProfilePayloadModel model)? updateName,
+    TResult Function(UpdateProfilePayloadModel model)? updatePhoneNumber,
     TResult Function(UpdateProfilePayloadModel model)? updateEmail,
     TResult Function(String addressId)? removeAddress,
     TResult Function()? delete,
@@ -914,6 +958,8 @@ class _$_CloseVerifyEmailModal implements _CloseVerifyEmailModal {
     required TResult Function(_CloseVerifyEmailModal value)
         closeVerifyEmailModal,
     required TResult Function(_UpdateProfileNameEvent value) updateName,
+    required TResult Function(_UpdateProfilePhoneNumber value)
+        updatePhoneNumber,
     required TResult Function(_UpdateEmailEvent value) updateEmail,
     required TResult Function(_RemoveAddressEvent value) removeAddress,
     required TResult Function(DeleteAccount value) delete,
@@ -930,6 +976,7 @@ class _$_CloseVerifyEmailModal implements _CloseVerifyEmailModal {
     TResult? Function(_AskEmailVerification value)? askEmailVerification,
     TResult? Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
     TResult? Function(_UpdateProfileNameEvent value)? updateName,
+    TResult? Function(_UpdateProfilePhoneNumber value)? updatePhoneNumber,
     TResult? Function(_UpdateEmailEvent value)? updateEmail,
     TResult? Function(_RemoveAddressEvent value)? removeAddress,
     TResult? Function(DeleteAccount value)? delete,
@@ -946,6 +993,7 @@ class _$_CloseVerifyEmailModal implements _CloseVerifyEmailModal {
     TResult Function(_AskEmailVerification value)? askEmailVerification,
     TResult Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
     TResult Function(_UpdateProfileNameEvent value)? updateName,
+    TResult Function(_UpdateProfilePhoneNumber value)? updatePhoneNumber,
     TResult Function(_UpdateEmailEvent value)? updateEmail,
     TResult Function(_RemoveAddressEvent value)? removeAddress,
     TResult Function(DeleteAccount value)? delete,
@@ -1045,6 +1093,8 @@ class _$_UpdateProfileNameEvent implements _UpdateProfileNameEvent {
     required TResult Function() askEmailVerification,
     required TResult Function() closeVerifyEmailModal,
     required TResult Function(UpdateProfilePayloadModel model) updateName,
+    required TResult Function(UpdateProfilePayloadModel model)
+        updatePhoneNumber,
     required TResult Function(UpdateProfilePayloadModel model) updateEmail,
     required TResult Function(String addressId) removeAddress,
     required TResult Function() delete,
@@ -1062,6 +1112,7 @@ class _$_UpdateProfileNameEvent implements _UpdateProfileNameEvent {
     TResult? Function()? askEmailVerification,
     TResult? Function()? closeVerifyEmailModal,
     TResult? Function(UpdateProfilePayloadModel model)? updateName,
+    TResult? Function(UpdateProfilePayloadModel model)? updatePhoneNumber,
     TResult? Function(UpdateProfilePayloadModel model)? updateEmail,
     TResult? Function(String addressId)? removeAddress,
     TResult? Function()? delete,
@@ -1079,6 +1130,7 @@ class _$_UpdateProfileNameEvent implements _UpdateProfileNameEvent {
     TResult Function()? askEmailVerification,
     TResult Function()? closeVerifyEmailModal,
     TResult Function(UpdateProfilePayloadModel model)? updateName,
+    TResult Function(UpdateProfilePayloadModel model)? updatePhoneNumber,
     TResult Function(UpdateProfilePayloadModel model)? updateEmail,
     TResult Function(String addressId)? removeAddress,
     TResult Function()? delete,
@@ -1100,6 +1152,8 @@ class _$_UpdateProfileNameEvent implements _UpdateProfileNameEvent {
     required TResult Function(_CloseVerifyEmailModal value)
         closeVerifyEmailModal,
     required TResult Function(_UpdateProfileNameEvent value) updateName,
+    required TResult Function(_UpdateProfilePhoneNumber value)
+        updatePhoneNumber,
     required TResult Function(_UpdateEmailEvent value) updateEmail,
     required TResult Function(_RemoveAddressEvent value) removeAddress,
     required TResult Function(DeleteAccount value) delete,
@@ -1116,6 +1170,7 @@ class _$_UpdateProfileNameEvent implements _UpdateProfileNameEvent {
     TResult? Function(_AskEmailVerification value)? askEmailVerification,
     TResult? Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
     TResult? Function(_UpdateProfileNameEvent value)? updateName,
+    TResult? Function(_UpdateProfilePhoneNumber value)? updatePhoneNumber,
     TResult? Function(_UpdateEmailEvent value)? updateEmail,
     TResult? Function(_RemoveAddressEvent value)? removeAddress,
     TResult? Function(DeleteAccount value)? delete,
@@ -1132,6 +1187,7 @@ class _$_UpdateProfileNameEvent implements _UpdateProfileNameEvent {
     TResult Function(_AskEmailVerification value)? askEmailVerification,
     TResult Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
     TResult Function(_UpdateProfileNameEvent value)? updateName,
+    TResult Function(_UpdateProfilePhoneNumber value)? updatePhoneNumber,
     TResult Function(_UpdateEmailEvent value)? updateEmail,
     TResult Function(_RemoveAddressEvent value)? removeAddress,
     TResult Function(DeleteAccount value)? delete,
@@ -1152,6 +1208,207 @@ abstract class _UpdateProfileNameEvent implements UpdateProfileEvent {
   @JsonKey(ignore: true)
   _$$_UpdateProfileNameEventCopyWith<_$_UpdateProfileNameEvent> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_UpdateProfilePhoneNumberCopyWith<$Res> {
+  factory _$$_UpdateProfilePhoneNumberCopyWith(
+          _$_UpdateProfilePhoneNumber value,
+          $Res Function(_$_UpdateProfilePhoneNumber) then) =
+      __$$_UpdateProfilePhoneNumberCopyWithImpl<$Res>;
+  @useResult
+  $Res call({UpdateProfilePayloadModel model});
+
+  $UpdateProfilePayloadModelCopyWith<$Res> get model;
+}
+
+/// @nodoc
+class __$$_UpdateProfilePhoneNumberCopyWithImpl<$Res>
+    extends _$UpdateProfileEventCopyWithImpl<$Res, _$_UpdateProfilePhoneNumber>
+    implements _$$_UpdateProfilePhoneNumberCopyWith<$Res> {
+  __$$_UpdateProfilePhoneNumberCopyWithImpl(_$_UpdateProfilePhoneNumber _value,
+      $Res Function(_$_UpdateProfilePhoneNumber) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? model = null,
+  }) {
+    return _then(_$_UpdateProfilePhoneNumber(
+      null == model
+          ? _value.model
+          : model // ignore: cast_nullable_to_non_nullable
+              as UpdateProfilePayloadModel,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UpdateProfilePayloadModelCopyWith<$Res> get model {
+    return $UpdateProfilePayloadModelCopyWith<$Res>(_value.model, (value) {
+      return _then(_value.copyWith(model: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$_UpdateProfilePhoneNumber implements _UpdateProfilePhoneNumber {
+  const _$_UpdateProfilePhoneNumber(this.model);
+
+  @override
+  final UpdateProfilePayloadModel model;
+
+  @override
+  String toString() {
+    return 'UpdateProfileEvent.updatePhoneNumber(model: $model)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_UpdateProfilePhoneNumber &&
+            (identical(other.model, model) || other.model == model));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, model);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_UpdateProfilePhoneNumberCopyWith<_$_UpdateProfilePhoneNumber>
+      get copyWith => __$$_UpdateProfilePhoneNumberCopyWithImpl<
+          _$_UpdateProfilePhoneNumber>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(UpdateProfilePayloadModel model) update,
+    required TResult Function(
+            Uint8List bytes, String imageTopic, String topicId)
+        updateAvatar,
+    required TResult Function() importData,
+    required TResult Function() askEmailVerification,
+    required TResult Function() closeVerifyEmailModal,
+    required TResult Function(UpdateProfilePayloadModel model) updateName,
+    required TResult Function(UpdateProfilePayloadModel model)
+        updatePhoneNumber,
+    required TResult Function(UpdateProfilePayloadModel model) updateEmail,
+    required TResult Function(String addressId) removeAddress,
+    required TResult Function() delete,
+  }) {
+    return updatePhoneNumber(model);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(UpdateProfilePayloadModel model)? update,
+    TResult? Function(Uint8List bytes, String imageTopic, String topicId)?
+        updateAvatar,
+    TResult? Function()? importData,
+    TResult? Function()? askEmailVerification,
+    TResult? Function()? closeVerifyEmailModal,
+    TResult? Function(UpdateProfilePayloadModel model)? updateName,
+    TResult? Function(UpdateProfilePayloadModel model)? updatePhoneNumber,
+    TResult? Function(UpdateProfilePayloadModel model)? updateEmail,
+    TResult? Function(String addressId)? removeAddress,
+    TResult? Function()? delete,
+  }) {
+    return updatePhoneNumber?.call(model);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(UpdateProfilePayloadModel model)? update,
+    TResult Function(Uint8List bytes, String imageTopic, String topicId)?
+        updateAvatar,
+    TResult Function()? importData,
+    TResult Function()? askEmailVerification,
+    TResult Function()? closeVerifyEmailModal,
+    TResult Function(UpdateProfilePayloadModel model)? updateName,
+    TResult Function(UpdateProfilePayloadModel model)? updatePhoneNumber,
+    TResult Function(UpdateProfilePayloadModel model)? updateEmail,
+    TResult Function(String addressId)? removeAddress,
+    TResult Function()? delete,
+    required TResult orElse(),
+  }) {
+    if (updatePhoneNumber != null) {
+      return updatePhoneNumber(model);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_UpdateProfileEvent value) update,
+    required TResult Function(_UpdateAvatarEvent value) updateAvatar,
+    required TResult Function(_importDataEvent value) importData,
+    required TResult Function(_AskEmailVerification value) askEmailVerification,
+    required TResult Function(_CloseVerifyEmailModal value)
+        closeVerifyEmailModal,
+    required TResult Function(_UpdateProfileNameEvent value) updateName,
+    required TResult Function(_UpdateProfilePhoneNumber value)
+        updatePhoneNumber,
+    required TResult Function(_UpdateEmailEvent value) updateEmail,
+    required TResult Function(_RemoveAddressEvent value) removeAddress,
+    required TResult Function(DeleteAccount value) delete,
+  }) {
+    return updatePhoneNumber(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_UpdateProfileEvent value)? update,
+    TResult? Function(_UpdateAvatarEvent value)? updateAvatar,
+    TResult? Function(_importDataEvent value)? importData,
+    TResult? Function(_AskEmailVerification value)? askEmailVerification,
+    TResult? Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
+    TResult? Function(_UpdateProfileNameEvent value)? updateName,
+    TResult? Function(_UpdateProfilePhoneNumber value)? updatePhoneNumber,
+    TResult? Function(_UpdateEmailEvent value)? updateEmail,
+    TResult? Function(_RemoveAddressEvent value)? removeAddress,
+    TResult? Function(DeleteAccount value)? delete,
+  }) {
+    return updatePhoneNumber?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_UpdateProfileEvent value)? update,
+    TResult Function(_UpdateAvatarEvent value)? updateAvatar,
+    TResult Function(_importDataEvent value)? importData,
+    TResult Function(_AskEmailVerification value)? askEmailVerification,
+    TResult Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
+    TResult Function(_UpdateProfileNameEvent value)? updateName,
+    TResult Function(_UpdateProfilePhoneNumber value)? updatePhoneNumber,
+    TResult Function(_UpdateEmailEvent value)? updateEmail,
+    TResult Function(_RemoveAddressEvent value)? removeAddress,
+    TResult Function(DeleteAccount value)? delete,
+    required TResult orElse(),
+  }) {
+    if (updatePhoneNumber != null) {
+      return updatePhoneNumber(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UpdateProfilePhoneNumber implements UpdateProfileEvent {
+  const factory _UpdateProfilePhoneNumber(
+      final UpdateProfilePayloadModel model) = _$_UpdateProfilePhoneNumber;
+
+  UpdateProfilePayloadModel get model;
+  @JsonKey(ignore: true)
+  _$$_UpdateProfilePhoneNumberCopyWith<_$_UpdateProfilePhoneNumber>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1236,6 +1493,8 @@ class _$_UpdateEmailEvent implements _UpdateEmailEvent {
     required TResult Function() askEmailVerification,
     required TResult Function() closeVerifyEmailModal,
     required TResult Function(UpdateProfilePayloadModel model) updateName,
+    required TResult Function(UpdateProfilePayloadModel model)
+        updatePhoneNumber,
     required TResult Function(UpdateProfilePayloadModel model) updateEmail,
     required TResult Function(String addressId) removeAddress,
     required TResult Function() delete,
@@ -1253,6 +1512,7 @@ class _$_UpdateEmailEvent implements _UpdateEmailEvent {
     TResult? Function()? askEmailVerification,
     TResult? Function()? closeVerifyEmailModal,
     TResult? Function(UpdateProfilePayloadModel model)? updateName,
+    TResult? Function(UpdateProfilePayloadModel model)? updatePhoneNumber,
     TResult? Function(UpdateProfilePayloadModel model)? updateEmail,
     TResult? Function(String addressId)? removeAddress,
     TResult? Function()? delete,
@@ -1270,6 +1530,7 @@ class _$_UpdateEmailEvent implements _UpdateEmailEvent {
     TResult Function()? askEmailVerification,
     TResult Function()? closeVerifyEmailModal,
     TResult Function(UpdateProfilePayloadModel model)? updateName,
+    TResult Function(UpdateProfilePayloadModel model)? updatePhoneNumber,
     TResult Function(UpdateProfilePayloadModel model)? updateEmail,
     TResult Function(String addressId)? removeAddress,
     TResult Function()? delete,
@@ -1291,6 +1552,8 @@ class _$_UpdateEmailEvent implements _UpdateEmailEvent {
     required TResult Function(_CloseVerifyEmailModal value)
         closeVerifyEmailModal,
     required TResult Function(_UpdateProfileNameEvent value) updateName,
+    required TResult Function(_UpdateProfilePhoneNumber value)
+        updatePhoneNumber,
     required TResult Function(_UpdateEmailEvent value) updateEmail,
     required TResult Function(_RemoveAddressEvent value) removeAddress,
     required TResult Function(DeleteAccount value) delete,
@@ -1307,6 +1570,7 @@ class _$_UpdateEmailEvent implements _UpdateEmailEvent {
     TResult? Function(_AskEmailVerification value)? askEmailVerification,
     TResult? Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
     TResult? Function(_UpdateProfileNameEvent value)? updateName,
+    TResult? Function(_UpdateProfilePhoneNumber value)? updatePhoneNumber,
     TResult? Function(_UpdateEmailEvent value)? updateEmail,
     TResult? Function(_RemoveAddressEvent value)? removeAddress,
     TResult? Function(DeleteAccount value)? delete,
@@ -1323,6 +1587,7 @@ class _$_UpdateEmailEvent implements _UpdateEmailEvent {
     TResult Function(_AskEmailVerification value)? askEmailVerification,
     TResult Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
     TResult Function(_UpdateProfileNameEvent value)? updateName,
+    TResult Function(_UpdateProfilePhoneNumber value)? updatePhoneNumber,
     TResult Function(_UpdateEmailEvent value)? updateEmail,
     TResult Function(_RemoveAddressEvent value)? removeAddress,
     TResult Function(DeleteAccount value)? delete,
@@ -1419,6 +1684,8 @@ class _$_RemoveAddressEvent implements _RemoveAddressEvent {
     required TResult Function() askEmailVerification,
     required TResult Function() closeVerifyEmailModal,
     required TResult Function(UpdateProfilePayloadModel model) updateName,
+    required TResult Function(UpdateProfilePayloadModel model)
+        updatePhoneNumber,
     required TResult Function(UpdateProfilePayloadModel model) updateEmail,
     required TResult Function(String addressId) removeAddress,
     required TResult Function() delete,
@@ -1436,6 +1703,7 @@ class _$_RemoveAddressEvent implements _RemoveAddressEvent {
     TResult? Function()? askEmailVerification,
     TResult? Function()? closeVerifyEmailModal,
     TResult? Function(UpdateProfilePayloadModel model)? updateName,
+    TResult? Function(UpdateProfilePayloadModel model)? updatePhoneNumber,
     TResult? Function(UpdateProfilePayloadModel model)? updateEmail,
     TResult? Function(String addressId)? removeAddress,
     TResult? Function()? delete,
@@ -1453,6 +1721,7 @@ class _$_RemoveAddressEvent implements _RemoveAddressEvent {
     TResult Function()? askEmailVerification,
     TResult Function()? closeVerifyEmailModal,
     TResult Function(UpdateProfilePayloadModel model)? updateName,
+    TResult Function(UpdateProfilePayloadModel model)? updatePhoneNumber,
     TResult Function(UpdateProfilePayloadModel model)? updateEmail,
     TResult Function(String addressId)? removeAddress,
     TResult Function()? delete,
@@ -1474,6 +1743,8 @@ class _$_RemoveAddressEvent implements _RemoveAddressEvent {
     required TResult Function(_CloseVerifyEmailModal value)
         closeVerifyEmailModal,
     required TResult Function(_UpdateProfileNameEvent value) updateName,
+    required TResult Function(_UpdateProfilePhoneNumber value)
+        updatePhoneNumber,
     required TResult Function(_UpdateEmailEvent value) updateEmail,
     required TResult Function(_RemoveAddressEvent value) removeAddress,
     required TResult Function(DeleteAccount value) delete,
@@ -1490,6 +1761,7 @@ class _$_RemoveAddressEvent implements _RemoveAddressEvent {
     TResult? Function(_AskEmailVerification value)? askEmailVerification,
     TResult? Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
     TResult? Function(_UpdateProfileNameEvent value)? updateName,
+    TResult? Function(_UpdateProfilePhoneNumber value)? updatePhoneNumber,
     TResult? Function(_UpdateEmailEvent value)? updateEmail,
     TResult? Function(_RemoveAddressEvent value)? removeAddress,
     TResult? Function(DeleteAccount value)? delete,
@@ -1506,6 +1778,7 @@ class _$_RemoveAddressEvent implements _RemoveAddressEvent {
     TResult Function(_AskEmailVerification value)? askEmailVerification,
     TResult Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
     TResult Function(_UpdateProfileNameEvent value)? updateName,
+    TResult Function(_UpdateProfilePhoneNumber value)? updatePhoneNumber,
     TResult Function(_UpdateEmailEvent value)? updateEmail,
     TResult Function(_RemoveAddressEvent value)? removeAddress,
     TResult Function(DeleteAccount value)? delete,
@@ -1574,6 +1847,8 @@ class _$DeleteAccount implements DeleteAccount {
     required TResult Function() askEmailVerification,
     required TResult Function() closeVerifyEmailModal,
     required TResult Function(UpdateProfilePayloadModel model) updateName,
+    required TResult Function(UpdateProfilePayloadModel model)
+        updatePhoneNumber,
     required TResult Function(UpdateProfilePayloadModel model) updateEmail,
     required TResult Function(String addressId) removeAddress,
     required TResult Function() delete,
@@ -1591,6 +1866,7 @@ class _$DeleteAccount implements DeleteAccount {
     TResult? Function()? askEmailVerification,
     TResult? Function()? closeVerifyEmailModal,
     TResult? Function(UpdateProfilePayloadModel model)? updateName,
+    TResult? Function(UpdateProfilePayloadModel model)? updatePhoneNumber,
     TResult? Function(UpdateProfilePayloadModel model)? updateEmail,
     TResult? Function(String addressId)? removeAddress,
     TResult? Function()? delete,
@@ -1608,6 +1884,7 @@ class _$DeleteAccount implements DeleteAccount {
     TResult Function()? askEmailVerification,
     TResult Function()? closeVerifyEmailModal,
     TResult Function(UpdateProfilePayloadModel model)? updateName,
+    TResult Function(UpdateProfilePayloadModel model)? updatePhoneNumber,
     TResult Function(UpdateProfilePayloadModel model)? updateEmail,
     TResult Function(String addressId)? removeAddress,
     TResult Function()? delete,
@@ -1629,6 +1906,8 @@ class _$DeleteAccount implements DeleteAccount {
     required TResult Function(_CloseVerifyEmailModal value)
         closeVerifyEmailModal,
     required TResult Function(_UpdateProfileNameEvent value) updateName,
+    required TResult Function(_UpdateProfilePhoneNumber value)
+        updatePhoneNumber,
     required TResult Function(_UpdateEmailEvent value) updateEmail,
     required TResult Function(_RemoveAddressEvent value) removeAddress,
     required TResult Function(DeleteAccount value) delete,
@@ -1645,6 +1924,7 @@ class _$DeleteAccount implements DeleteAccount {
     TResult? Function(_AskEmailVerification value)? askEmailVerification,
     TResult? Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
     TResult? Function(_UpdateProfileNameEvent value)? updateName,
+    TResult? Function(_UpdateProfilePhoneNumber value)? updatePhoneNumber,
     TResult? Function(_UpdateEmailEvent value)? updateEmail,
     TResult? Function(_RemoveAddressEvent value)? removeAddress,
     TResult? Function(DeleteAccount value)? delete,
@@ -1661,6 +1941,7 @@ class _$DeleteAccount implements DeleteAccount {
     TResult Function(_AskEmailVerification value)? askEmailVerification,
     TResult Function(_CloseVerifyEmailModal value)? closeVerifyEmailModal,
     TResult Function(_UpdateProfileNameEvent value)? updateName,
+    TResult Function(_UpdateProfilePhoneNumber value)? updatePhoneNumber,
     TResult Function(_UpdateEmailEvent value)? updateEmail,
     TResult Function(_RemoveAddressEvent value)? removeAddress,
     TResult Function(DeleteAccount value)? delete,

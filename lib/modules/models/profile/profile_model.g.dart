@@ -27,6 +27,7 @@ _$_ProfileModel _$$_ProfileModelFromJson(Map<String, dynamic> json) =>
       kycverified: json['kycverified'] as bool?,
       firstName: json['firstName'] as String?,
       lastName: json['lastName'] as String?,
+      countryCode: json['countryCode'] as String?,
     );
 
 Map<String, dynamic> _$$_ProfileModelToJson(_$_ProfileModel instance) =>
@@ -47,4 +48,5 @@ Map<String, dynamic> _$$_ProfileModelToJson(_$_ProfileModel instance) =>
       'kycverified': instance.kycverified,
       'firstName': instance.firstName,
       'lastName': instance.lastName,
+      'countryCode': instance.countryCode,
     };
