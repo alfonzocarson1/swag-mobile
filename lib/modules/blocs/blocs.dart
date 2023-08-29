@@ -48,6 +48,7 @@ import 'sold_bloc/sold_bloc.dart';
 
 abstract class AppBlocs {
   static List<BlocProvider> blocs(BuildContext context) => [
+        BlocProvider<VPNConnectivityBloc>(create: (context) => getIt<VPNConnectivityBloc>()),
         BlocProvider<InternetConnectivityBloc>(create: (context) => getIt<InternetConnectivityBloc>()),
 
         BlocProvider<ChatCubit>(create: (context) => getIt<ChatCubit>()),
