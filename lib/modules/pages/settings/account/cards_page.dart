@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/di/injector.dart';
+
 import '../../../../generated/l10n.dart';
+import '../../../api/stripe_api.dart';
+import '../../../common/ui/loading.dart';
 import '../../../common/ui/pushed_header.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
-import '../../../common/utils/utils.dart';
-import '../../../data/shared_preferences/shared_preferences_service.dart';
-import '../../../stripe/models/cards_response_model.dart';
+import '../../../cubits/nft_wallet/nft_wallet_cubit.dart';
+import '../../../models/nft_wallet/nft_wallet.dart';
 
 class CardsPage extends StatefulWidget {
-  const CardsPage({super.key});
-
   static const name = '/CardsPage';
+
+  const CardsPage({super.key});
 
   static Route route() => PageRoutes.material(
         settings: const RouteSettings(name: name),
@@ -23,65 +26,164 @@ class CardsPage extends StatefulWidget {
 }
 
 class _CardsPageState extends State<CardsPage> {
+  List<CardObject> cards = [];
+  @override
+  void initState() {
+    super.initState();
+    _loadCards();
+  }
+
+  Future<void> _loadCards() async {
+    final cards = await getIt<StripeApi>().getCards();
+    setState(() {
+      this.cards = cards;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    CardsResponseModel? cardsResponseModel =
-        getIt<PreferenceRepositoryService>().cardsResponseModel();
     return Scaffold(
       appBar: PushedHeader(
         showBackButton: true,
         title: Align(
           alignment: Alignment.centerRight,
           child: Text(
-              S
-                  .of(context)
-                  .premium_memberatomic_drop_payments_title
-                  .toUpperCase(),
-              style: Theme.of(context).textTheme.displayLarge!.copyWith(
+            S
+                .of(context)
+                .premium_memberatomic_drop_payments_title
+                .toUpperCase(),
+            style: Theme.of(context).textTheme.displayLarge!.copyWith(
                   letterSpacing: 1,
                   fontWeight: FontWeight.w300,
                   fontFamily: "KnockoutCustom",
                   fontSize: 30,
-                  color: Palette.current.primaryNeonGreen)),
+                  color: Palette.current.primaryNeonGreen,
+                ),
+          ),
         ),
         height: 70,
       ),
-      backgroundColor: Palette.current.primaryEerieBlack,
-      body: SizedBox(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: Expanded(
-          child: LayoutBuilder(builder: (context, viewportConstraints) {
-            return ConstrainedBox(
-                constraints: BoxConstraints(
-                  minHeight: viewportConstraints.maxHeight,
-                ),
-                child: ListView.separated(
-                    itemBuilder: (context, index) {
-                      return selectSettings(
-                          context,
-                          'assets/icons/atomic_drop_payments_icon.png',
-                          '${cardsResponseModel.data?[index].card?.brand?.capitalize()} - *****${cardsResponseModel.data?[index].card?.last4}',
-                          '',
-                          () async {},
-                          Icon(
-                            Icons.arrow_forward_ios_sharp,
-                            size: 10,
-                            color: Palette.current.darkGray,
+      backgroundColor: Palette.current.primaryNero,
+      body: Builder(
+        builder: (context) {
+          return buildBody(context, cards);
+        },
+      ),
+    );
+  }
+
+  Widget buildBody(BuildContext context, List<CardObject> cards) {
+    return ListView.builder(
+      itemCount: cards.length + 1,
+      itemBuilder: (context, index) {
+        if (index == cards.length) {
+          return const _AddCard();
+        }
+        final wallet = cards[index];
+        return _CardItem(card: wallet);
+      },
+    );
+  }
+}
+
+class _CardItem extends StatelessWidget {
+  final CardObject card;
+
+  const _CardItem({super.key, required this.card});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        InkWell(
+          onTap: () {},
+          splashColor: Palette.current.primaryNero,
+          child: Column(
+            children: [
+              const SizedBox(height: 14),
+              Row(
+                children: [
+                  const SizedBox(width: 16),
+                  ImageIcon(
+                    const AssetImage(
+                        "assets/icons/atomic_drop_payments_icon.png"),
+                    size: 20,
+                    color: Palette.current.primaryWhiteSmoke,
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Text(
+                      "${card.brand} - ******${card.last4}",
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            letterSpacing: 1,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: "RingsideRegular",
+                            fontSize: 16,
+                            color: Palette.current.primaryWhiteSmoke,
                           ),
-                          null);
-                    },
-                    separatorBuilder: (context, index) {
-                      return SizedBox(
-                        height: 0.2,
-                        child: Container(
-                          color: Palette.current.grey,
-                        ),
-                      );
-                    },
-                    itemCount: cardsResponseModel.data?.length ?? 0));
-          }),
+                    ),
+                  ),
+                  const SizedBox(width: 24),
+                  Icon(
+                    Icons.arrow_forward_ios_sharp,
+                    size: 10,
+                    color: Palette.current.darkGray,
+                  ),
+                  const SizedBox(width: 16),
+                ],
+              ),
+              const SizedBox(height: 14),
+            ],
+          ),
         ),
+        SizedBox(
+          height: 0.2,
+          child: Container(
+            color: Palette.current.grey,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _AddCard extends StatelessWidget {
+  const _AddCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {},
+      splashColor: Palette.current.primaryNero,
+      child: Column(
+        children: [
+          const SizedBox(height: 14),
+          Row(
+            children: [
+              const SizedBox(width: 16),
+              Icon(
+                Icons.add,
+                size: 20,
+                color: Palette.current.primaryNeonGreen,
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Text(
+                  S.of(context).cards_add_card,
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        letterSpacing: 1,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: "RingsideRegular",
+                        fontSize: 16,
+                        color: Palette.current.primaryNeonGreen,
+                      ),
+                ),
+              ),
+              const SizedBox(width: 16),
+            ],
+          ),
+          const SizedBox(height: 14),
+        ],
       ),
     );
   }

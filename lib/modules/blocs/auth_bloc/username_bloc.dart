@@ -33,7 +33,6 @@ class UsernameBloc extends Bloc<UsernameEvent, UsernameState> {
 
   Stream<UsernameState> _checkUsernameAvailavility(String username) async* {
 
-
     try {
       bool response = await authService.isUsernameAvailable(username);
       yield UsernameState.isUsernameAvailable(response);

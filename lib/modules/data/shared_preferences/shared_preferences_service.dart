@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swagapp/modules/models/filters/dynamic_filters.dart';
-import 'package:swagapp/modules/stripe/models/cards_response_model.dart';
 
 import '../../constants/constants.dart';
 import '../../models/profile/profile_model.dart';
@@ -428,20 +427,6 @@ class PreferenceRepositoryService implements PreferenceRepositoryInt {
   @override
   Future<void> saveFirebaseDeviceToken(String token) async {
     await this._prefs.setString(_firebaseDeviceToken, token);
-  }
-
-  @override
-  CardsResponseModel cardsResponseModel() {
-    final cardsResponseModelString = _prefs.getString(_cardsResponseModelKey);
-    return CardsResponseModel.fromJson(
-        json.decode(cardsResponseModelString ?? ''));
-  }
-
-  @override
-  Future<void> saveCardsResponseModel(
-      CardsResponseModel cardsResponseModel) async {
-    await _prefs.setString(
-        _cardsResponseModelKey, jsonEncode(cardsResponseModel));
   }
 
   @override

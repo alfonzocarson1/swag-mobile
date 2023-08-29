@@ -62,6 +62,8 @@ enum Endpoint {
   logout,
   addAlertP2P,
   removeAddress,
+  addPaymentMethod,
+  paymentCustomerAccess,
   verifyRateAlert
 }
 
@@ -169,6 +171,8 @@ class API {
     Endpoint.createOrUpdateWallet:
         'api/public/v1/account/createOrUpdateWalletPair',
     Endpoint.removeAddress: 'api/v1/profile/settings/account/addresses/%s',
+    Endpoint.addPaymentMethod: 'api/v1/profile/settings/addPaymentMethod/%s',
+    Endpoint.paymentCustomerAccess: 'api/v1/profile/settings/paymentCustomerAccess',
     Endpoint.verifyRateAlert: 'api/v1/profile/checkIfListingRatingAlReady'
   };
 }

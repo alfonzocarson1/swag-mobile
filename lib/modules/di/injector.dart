@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:swagapp/modules/api/api.dart';
 import 'package:swagapp/modules/api/api_service.dart';
 import 'package:swagapp/modules/api/app_config.dart';
+import 'package:swagapp/modules/api/stripe_api.dart';
 import 'package:swagapp/modules/blocs/search_bloc.dart/search_bloc.dart';
 import 'package:swagapp/modules/common/utils/context_service.dart';
 import 'package:swagapp/modules/cubits/nft_wallet/nft_wallet_cubit.dart';
@@ -111,6 +112,8 @@ Future<void> setupAppScope(String appFlavor) async {
   getIt.registerLazySingleton(() => RouteTracker());
   getIt.registerLazySingleton(()=>DeepLinkHandler());
   getIt.registerLazySingleton(() => AppCubit());
+
+  getIt.registerLazySingleton(() => StripeApi(getIt(), getIt()));
 
   getIt.registerLazySingleton(() => PreferenceRepositoryService());
   getIt.registerLazySingleton(() => FiltersService(getIt()));
