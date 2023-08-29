@@ -54,30 +54,30 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
       // // Usage in a different part of the project
       // _vpnConnectivityBloc.setVPNState(VPNConnectivityState.offline);
 
-      InternetConnectivityBloc().emit(InternetConnectivityState.offline);
-
-
-      if (e.toString().contains("Failed host lookup")) {
-        logger.e(" Exception :Host failed");
-        //yield CategoryState.hostTimeOut(HandlingErrors().getError(e));
-
-
-        // Create the VPNConnectivityBloc instance
-        final VPNConnectivityBloc _vpnConnectivityBloc = VPNConnectivityBloc();
-        // Usage in a different part of the project
-        _vpnConnectivityBloc.setVPNState(VPNConnectivityState.offline);
-        // // Usage in a different part of the project
-        // VPNConnectivityBloc.vpnConnectivityBloc.emit(
-        //     VPNConnectivityState.offline);
-      } else if (e is TimeoutException) {
-        logger.e("Timeout Exception");
-
-
-      } else if (e is ApiHostScheme) {
-        logger.e("Api Host scheme :$e");
-      } else {
-        yield CategoryState.error(HandlingErrors().getError(e));
-      }
+      InternetConnectivityBloc(true).emit(InternetConnectivityState.offline);
+      //
+      //
+      // if (e.toString().contains("Failed host lookup")) {
+      //   logger.e(" Exception :Host failed");
+      //   //yield CategoryState.hostTimeOut(HandlingErrors().getError(e));
+      //
+      //
+      //   // Create the VPNConnectivityBloc instance
+      //   final VPNConnectivityBloc _vpnConnectivityBloc = VPNConnectivityBloc();
+      //   // Usage in a different part of the project
+      //   _vpnConnectivityBloc.setVPNState(VPNConnectivityState.offline);
+      //   // // Usage in a different part of the project
+      //   // VPNConnectivityBloc.vpnConnectivityBloc.emit(
+      //   //     VPNConnectivityState.offline);
+      // } else if (e is TimeoutException) {
+      //   logger.e("Timeout Exception");
+      //
+      //
+      // } else if (e is ApiHostScheme) {
+      //   logger.e("Api Host scheme :$e");
+      // } else {
+      //   yield CategoryState.error(HandlingErrors().getError(e));
+      // }
     }
   }
 }
