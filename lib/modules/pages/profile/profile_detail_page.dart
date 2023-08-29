@@ -56,7 +56,6 @@ class _ProfileDetailPage extends State<ProfileDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    callApi();
     ProfileModel profileData =
     getIt<PreferenceRepositoryService>().profileData();
     return Scaffold(

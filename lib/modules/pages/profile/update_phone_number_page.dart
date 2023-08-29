@@ -1,6 +1,8 @@
+import 'package:country_codes/country_codes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:swagapp/modules/blocs/update_profile_bloc/update_profile_bloc.dart';
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 import 'package:swagapp/modules/common/ui/custom_text_form_field.dart';
@@ -9,6 +11,8 @@ import 'package:swagapp/modules/common/ui/pushed_header.dart';
 import 'package:swagapp/modules/common/utils/custom_route_animations.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/common/utils/size_helper.dart';
+import 'package:swagapp/modules/constants/constants.dart';
+import 'package:swagapp/modules/cubits/profile/get_profile_cubit.dart';
 import 'package:swagapp/modules/data/shared_preferences/shared_preferences_service.dart';
 import 'package:swagapp/modules/di/injector.dart';
 import 'package:swagapp/modules/models/profile/profile_model.dart';
@@ -18,6 +22,7 @@ import '../../../generated/l10n.dart';
 import '../../common/ui/dynamic_toast_messages.dart';
 import '../../common/ui/loading.dart';
 import '../../common/utils/utils.dart';
+import '../../cubits/auth/auth_cubit.dart';
 
 class UpdatePhoneNumberPage extends StatefulWidget {
   static const name = '/UpdatePhoneNumberPage';
@@ -35,53 +40,33 @@ class UpdatePhoneNumberPage extends StatefulWidget {
 
 class _UpdatePhoneNumberPage extends State<UpdatePhoneNumberPage> {
   late ResponsiveDesign _responsiveDesign;
-  final FocusNode _firstNameNode = FocusNode();
-  final _firstNameController = TextEditingController();
   String? errorFirstText;
   bool readOnly = false;
 
-  final FocusNode _lastNameNode = FocusNode();
-  final _lastNameController = TextEditingController();
-  String? errorSecondText;
-
-  Color _firstNameBorder = Palette.current.primaryWhiteSmoke;
-  Color _lastNameBorder = Palette.current.primaryWhiteSmoke;
   late ProfileModel profileData;
   bool enableSaveButton = false;
+  String initialCountry = 'US';
+  late PhoneNumber initialNumber = PhoneNumber(isoCode: 'US');
+  PhoneNumber choseNumber = PhoneNumber(isoCode: 'US');
+  var phoneController = TextEditingController();
+  bool isEmptyPhone = false;
+
   @override
   void initState() {
     super.initState();
     profileData = getIt<PreferenceRepositoryService>().profileData();
-    _firstNameController.text = profileData.firstName ?? '';
-    _lastNameController.text = profileData.lastName ?? '';
-
-    _firstNameNode.addListener(() {
-      if (_firstNameNode.hasFocus) {
-        setState(() {
-          errorFirstText = null;
-          errorSecondText = null;
-        });
-      }
-      setState(() {
-        _firstNameBorder = _firstNameNode.hasFocus
-            ? Palette.current.primaryNeonGreen
-            : Palette.current.primaryWhiteSmoke;
-      });
-    });
-    _lastNameNode.addListener(() {
-      if (_lastNameNode.hasFocus) {
-        setState(() {
-          errorFirstText = null;
-          errorSecondText = null;
-        });
-      }
-      setState(() {
-        _lastNameBorder = _lastNameNode.hasFocus
-            ? Palette.current.primaryNeonGreen
-            : Palette.current.primaryWhiteSmoke;
-      });
-    });
+    phoneController.text = profileData.phoneNumber;
+    if (profileData.countryCode != null) {
+      var code = CountryCodes.countryCodes()
+          .firstWhere((element) =>
+              element?.dialCode?.contains(profileData.countryCode!) == true)!
+          .alpha2Code;
+      initialNumber = PhoneNumber(isoCode: code);
+    }
   }
+
+  final Color borderColor = Palette.current.primaryWhiteSmoke;
+  String? errorText;
 
   @override
   Widget build(BuildContext context) {
@@ -117,8 +102,9 @@ class _UpdatePhoneNumberPage extends State<UpdatePhoneNumberPage> {
                   initial: () {
                     return Loading.show(context);
                   },
-                  error: (message) => {
-                    Loading.hide(context),
+                  error: (message) {
+                    Loading.hide(context);
+                    showSnackBar(context, message);
                     // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
                   },
                 ),
@@ -128,10 +114,7 @@ class _UpdatePhoneNumberPage extends State<UpdatePhoneNumberPage> {
   GestureDetector _getBody() {
     return GestureDetector(
         behavior: HitTestBehavior.translucent,
-        onTap: () {
-          _firstNameNode.unfocus();
-          _lastNameNode.unfocus();
-        },
+        onTap: () {},
         child: Stack(children: [
           LayoutBuilder(builder: (context, viewportConstraints) {
             return SingleChildScrollView(
@@ -148,39 +131,102 @@ class _UpdatePhoneNumberPage extends State<UpdatePhoneNumberPage> {
                         const SizedBox(
                           height: 30,
                         ),
-                        CustomTextFormField(
-                            textCapitalization: TextCapitalization.sentences,
-                            onChanged: (text) {
-                              setState(() {
-                                errorFirstText = null;
-                              });
-                            },
-                            errorText: errorFirstText,
-                            borderColor: _firstNameBorder,
-                            autofocus: false,
-                            labelText: S.of(context).profile_first_name,
-                            focusNode: _firstNameNode,
-                            controller: _firstNameController,
-                            secure: false,
-                            inputType: TextInputType.text),
-                        const SizedBox(
-                          height: 20,
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            border: Border.all(
+                              color: errorText != null
+                                  ? Palette.current.primaryNeonPink
+                                  : borderColor,
+                            ),
+                          ),
+                          child: Padding(
+                              padding: const EdgeInsets.only(bottom: 6),
+                              child: Container(
+                                  height: 55,
+                                  decoration: BoxDecoration(
+                                    color: Palette.current.primaryWhiteSmoke,
+                                  ),
+                                  child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 16, right: 16),
+                                      child: InternationalPhoneNumberInput(
+                                        autoFocus: false,
+                                        countries: countriesCode,
+                                        cursorColor: Palette.current.blackSmoke,
+                                        inputDecoration: InputDecoration(
+                                            hintText: S.of(context).phone,
+                                            focusedBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Palette.current
+                                                      .primaryWhiteSmoke),
+                                            ),
+                                            enabledBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Palette.current
+                                                        .primaryWhiteSmoke))),
+                                        onInputChanged: (PhoneNumber nbr) {
+                                          choseNumber = nbr;
+                                          // widget.notifyIsPhoneValid(nbr);
+                                        },
+                                        onInputValidated: (bool value) {
+                                          setState(() {
+                                            if (value) {
+                                              getIt<AuthCubit>()
+                                                  .loadResultsPhoneAvailable(
+                                                      choseNumber.phoneNumber ??
+                                                          '');
+                                              // notifyIsPhoneValid(choseNumber);
+                                            } else {
+                                              getIt<AuthCubit>()
+                                                  .resetPhoneAvailable();
+                                            }
+                                          });
+                                        },
+                                        selectorConfig: const SelectorConfig(
+                                          selectorType: PhoneInputSelectorType
+                                              .BOTTOM_SHEET,
+                                          setSelectorButtonAsPrefixIcon: false,
+                                          showFlags: true,
+                                          trailingSpace: false,
+                                        ),
+                                        searchBoxDecoration:
+                                            const InputDecoration(
+                                          hintText: "Search",
+                                        ),
+                                        ignoreBlank: false,
+                                        autoValidateMode:
+                                            AutovalidateMode.disabled,
+                                        selectorTextStyle: const TextStyle(
+                                            color: Colors.black),
+                                        initialValue: initialNumber,
+                                        textFieldController: phoneController,
+                                        formatInput: true,
+                                        keyboardType: TextInputType.phone,
+                                        onSubmit: () {
+                                          // getIt<AuthCubit>().loadResultsPhoneAvailable(
+                                          //     choseNumber.phoneNumber ?? '');
+                                          // widget.notifyIsPhoneValid(choseNumber);
+                                        },
+                                        onSaved: (PhoneNumber number) {
+                                          // getIt<AuthCubit>().loadResultsPhoneAvailable(
+                                          //     choseNumber.phoneNumber ?? '');
+                                          // widget.notifyIsPhoneValid(choseNumber);
+                                        },
+                                      )))),
                         ),
-                        CustomTextFormField(
-                            textCapitalization: TextCapitalization.sentences,
-                            onChanged: (text) {
-                              setState(() {
-                                errorSecondText = null;
-                              });
-                            },
-                            errorText: errorSecondText,
-                            borderColor: _lastNameBorder,
-                            autofocus: false,
-                            labelText: S.of(context).last_name,
-                            focusNode: _lastNameNode,
-                            controller: _lastNameController,
-                            secure: false,
-                            inputType: TextInputType.text),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        errorText != null
+                            ? Text(
+                          errorText!,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(color: Palette.current.primaryNeonPink),
+                        )
+                            : Container(),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.49,
                         ),
@@ -188,13 +234,14 @@ class _UpdatePhoneNumberPage extends State<UpdatePhoneNumberPage> {
                           title: 'SAVE',
                           onPressed: () {
                             showErrors();
-                            if (enableSaveButton) {
+                            if (areFieldsValid()) {
                               context.read<UpdateProfileBloc>().add(
-                                  UpdateProfileEvent.updateName(
+                                  UpdateProfileEvent.updatePhoneNumber(
                                       UpdateProfilePayloadModel(
-                                          firstName: _firstNameController.text,
-                                          lastName: _lastNameController.text)));
+                                          phoneNumber:
+                                              choseNumber.phoneNumber)));
                             }
+                            // }
                           },
                           type: PrimaryButtonType.green,
                         ),
@@ -212,25 +259,16 @@ class _UpdatePhoneNumberPage extends State<UpdatePhoneNumberPage> {
   }
 
   void showErrors() {
-    setState(() {
-      errorFirstText = _firstNameController.text.isEmpty
-          ? S.of(context).required_field
-          : isValidName(_firstNameController.text)
-              ? null
-              : "Only allow letters";
+    if (phoneController.text.isEmpty) {
+      isEmptyPhone = true;
+      errorText = S.of(context).required_field;
+    } else {
+      errorText = null;
+    }
+    setState(() {});
+  }
 
-      errorSecondText = _lastNameController.text.isEmpty
-          ? S.of(context).required_field
-          : isValidName(_lastNameController.text)
-              ? null
-              : "Only allow letters";
-
-      enableSaveButton = (_firstNameController.text.isNotEmpty &&
-              _lastNameController.text.isNotEmpty &&
-              isValidName(_firstNameController.text) &&
-              isValidName(_lastNameController.text))
-          ? true
-          : false;
-    });
+  bool areFieldsValid() {
+    return errorText == null;
   }
 }
