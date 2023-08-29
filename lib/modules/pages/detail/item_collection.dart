@@ -14,6 +14,7 @@ import '../../common/ui/primary_button.dart';
 import '../../common/utils/palette.dart';
 import '../../common/utils/utils.dart';
 import '../../cubits/catalog_detail/catalog_detail_cubit.dart';
+import '../../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
 import '../../cubits/profile/get_profile_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
@@ -21,6 +22,8 @@ import '../../models/buy_for_sale_listing/buy_for_sale_listing_response_model.da
 import '../../models/detail/detail_collection_model.dart';
 import '../../models/detail/detail_sale_info_model.dart';
 import '../../models/detail/sale_history_model.dart';
+import '../../models/listing_for_sale/listing_for_sale_model.dart';
+import '../../models/listing_for_sale/profile_listing_model.dart';
 import '../../models/notify_when_available/profile_notify_list.dart';
 import '../../models/profile/profile_model.dart';
 import '../add/buy/buy_for_sale.dart';
@@ -74,20 +77,21 @@ class _CollectionWidgetState extends State<CollectionWidget> {
   List<DetailCollectionModel> newCollectionList = [];
   List<BuyForSaleListingResponseModel> buyForSaleList = [];
   List<DetailCollectionModel> dataCollection = [];
-
+  List<ListingForSaleModel> myListings = [];
   List<String> ids = [];
   ProfileNotifyList notificationList =
       const ProfileNotifyList(profileNotificationList: []);
 
   @override
   void initState() {
+    loadCollectionsListed();
     getNotificationStatus();
     dataCollection = widget.dataCollection ?? [];
     super.initState();
 
     timer = Timer(const Duration(seconds: 1), () {
       setState(() {
-        if (buyForSaleList.first.saledItemdList.isEmpty) {
+        if (buyForSaleList.first.saledItemdList.isEmpty && myListings.isEmpty) {
           newCollectionList = widget.dataCollection ?? [];
         } else {
           for (final item in buyForSaleList.first.saledItemdList) {
@@ -95,9 +99,18 @@ class _CollectionWidgetState extends State<CollectionWidget> {
             ids.add(buyForSaleList
                 .first.saledItemdList[index].profileCollectionItemId!);
           }
+
+          Set<String> myListingsIds = myListings
+              .map((ListingForSaleModel model) =>
+                  model.profileCollectionItemId ?? '')
+              .toSet();
+
           newCollectionList = dataCollection
               .where((item) => !ids.contains(item.profileCollectionItemId))
               .toList();
+
+          newCollectionList.removeWhere((DetailCollectionModel detail) =>
+              myListingsIds.contains(detail.profileCollectionItemId));
         }
       });
     });
@@ -108,6 +121,15 @@ class _CollectionWidgetState extends State<CollectionWidget> {
       getProfileAvatar();
     }
     hasActiveSubscription = profileData?.hasActiveSubscription ?? false;
+  }
+
+  loadCollectionsListed() async {
+    ListingForSaleProfileResponseModel? response =
+        await getIt<ListingProfileCubit>().loadCollectionListed();
+
+    setState(() {
+      myListings = response!.listForSale;
+    });
   }
 
   @override

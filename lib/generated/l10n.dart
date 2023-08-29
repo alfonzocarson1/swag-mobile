@@ -661,10 +661,20 @@ class S {
   }
 
   /// `Please allow {permission} permission in your device settings for the Swag App. This allows you to take pictures and videos with your camera to use as your profile photo, when listing items for sale or when chatting with other users.`
-  String permission_dialog_description(Object permission) {
+  String permission_camera_dialog_description(Object permission) {
     return Intl.message(
       'Please allow $permission permission in your device settings for the Swag App. This allows you to take pictures and videos with your camera to use as your profile photo, when listing items for sale or when chatting with other users.',
-      name: 'permission_dialog_description',
+      name: 'permission_camera_dialog_description',
+      desc: '',
+      args: [permission],
+    );
+  }
+
+  /// `Please allow {permission} permission in your device settings for the Swag App. This allows you to upload pictures/videos from your library to use as your profile photo, when listing items for sale or when chatting with other users.`
+  String permission_gallery_dialog_description(Object permission) {
+    return Intl.message(
+      'Please allow $permission permission in your device settings for the Swag App. This allows you to upload pictures/videos from your library to use as your profile photo, when listing items for sale or when chatting with other users.',
+      name: 'permission_gallery_dialog_description',
       desc: '',
       args: [permission],
     );

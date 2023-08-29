@@ -213,8 +213,6 @@ class _AlertPageState extends State<AlertPage> {
                                       getIt<AlertCubit>().readAlert(
                                           item.notificationAlertId ?? '');
 
-                                      print(item);
-
                                       BuyForSaleListingModel?
                                           alertListinStatus =
                                           await getIt<BuyCubit>()
@@ -235,18 +233,19 @@ class _AlertPageState extends State<AlertPage> {
                                                   item.payload!.accountId ??
                                                       ''));
 
-                                      print(showRate);
-
                                       if (item.typeNotification ==
                                           ListingStatusDataType
                                               .notifyChatP2P.textValue) {
                                         Loading.show(context);
                                         onTapSubmit(
-                                            alertListinStatus!.status ?? '');
+                                            item.payload!.listingStatus ?? '');
                                       }
 
                                       if ((item.typeNotification ==
-                                              ChatType.notifyMe.textValue) &&
+                                                  ChatType.notifyMe.textValue ||
+                                              item.typeNotification ==
+                                                  ChatType
+                                                      .notifySale.textValue) &&
                                           (alertListinStatus!.status ==
                                                   ListingStatusDataType
                                                       .removed.textValue ||
@@ -258,40 +257,97 @@ class _AlertPageState extends State<AlertPage> {
                                                 'Listing unavailable');
                                       }
 
-                                      if (alertListinStatus!.status ==
-                                              ListingStatusDataType
-                                                  .pendingSellerConfirmation
-                                                  .textValue ||
-                                          alertListinStatus.status ==
+                                      if ((item.typeNotification ==
+                                                  ChatType.notifyMe.textValue &&
+                                              item.payload!.listingStatus ==
                                                   ListingStatusDataType
-                                                      .pendingPayment
-                                                      .textValue &&
-                                              isSeller) {
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .push(MaterialPageRoute(
-                                                builder: (context) =>
-                                                    BuyPreviewPage(
-                                                      productItemId: item
-                                                          .payload!
-                                                          .productItemId,
-                                                    )));
-                                      } else if (alertListinStatus.status ==
-                                              ListingStatusDataType
-                                                  .pendingPayment.textValue &&
-                                          !isSeller) {
-                                        String productItemId =
-                                            item.payload!.productItemId ?? "";
-                                        String listingImageUrl =
-                                            item.payload!.listingImageUrl ?? "";
+                                                      .listed.textValue) ||
+                                          (item.typeNotification ==
+                                                  ChatType
+                                                      .notifySale.textValue &&
+                                              item.payload!.listingStatus ==
+                                                  ListingStatusDataType
+                                                      .pendingSellerConfirmation
+                                                      .textValue)) {
+                                        if (alertListinStatus!.status !=
+                                                ListingStatusDataType
+                                                    .listed.textValue &&
+                                            alertListinStatus!.status !=
+                                                ListingStatusDataType
+                                                    .pendingSellerConfirmation
+                                                    .textValue &&
+                                            alertListinStatus.status !=
+                                                ListingStatusDataType
+                                                    .pendingPayment.textValue &&
+                                            alertListinStatus!.status !=
+                                                ListingStatusDataType
+                                                    .shipped.textValue &&
+                                            alertListinStatus.status ==
+                                                ListingStatusDataType
+                                                    .feedbackProvided
+                                                    .textValue &&
+                                            alertListinStatus.status ==
+                                                ListingStatusDataType
+                                                    .received.textValue) {
+                                          String productItemId =
+                                              item.payload!.productItemId ?? "";
+                                          String listingImageUrl =
+                                              item.payload!.listingImageUrl ??
+                                                  "";
 
-                                        String channelUrl =
-                                            SendBirdUtils.getListingChatUrl(
-                                                groupChannelList,
-                                                productItemId,
-                                                listingImageUrl);
-                                        Loading.show(context);
-                                        onTapSubmit(channelUrl);
+                                          String channelUrl =
+                                              SendBirdUtils.getListingChatUrl(
+                                                  groupChannelList,
+                                                  productItemId,
+                                                  listingImageUrl);
+
+                                          Loading.show(context);
+                                          onTapSubmit(channelUrl);
+                                        }
+
+                                        if ((alertListinStatus!.status ==
+                                                    ListingStatusDataType
+                                                        .pendingSellerConfirmation
+                                                        .textValue &&
+                                                isSeller) ||
+                                            (alertListinStatus.status ==
+                                                    ListingStatusDataType
+                                                        .pendingPayment
+                                                        .textValue &&
+                                                isSeller)) {
+                                          Navigator.of(context,
+                                                  rootNavigator: true)
+                                              .push(MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      BuyPreviewPage(
+                                                        productItemId: item
+                                                            .payload!
+                                                            .productItemId,
+                                                      )));
+                                        } else if ((alertListinStatus!.status ==
+                                                    ListingStatusDataType
+                                                        .pendingSellerConfirmation
+                                                        .textValue &&
+                                                !isSeller) ||
+                                            (alertListinStatus.status ==
+                                                    ListingStatusDataType
+                                                        .pendingPayment
+                                                        .textValue &&
+                                                !isSeller)) {
+                                          String productItemId =
+                                              item.payload!.productItemId ?? "";
+                                          String listingImageUrl =
+                                              item.payload!.listingImageUrl ??
+                                                  "";
+
+                                          String channelUrl =
+                                              SendBirdUtils.getListingChatUrl(
+                                                  groupChannelList,
+                                                  productItemId,
+                                                  listingImageUrl);
+                                          Loading.show(context);
+                                          onTapSubmit(channelUrl);
+                                        }
                                       }
 
                                       if (item.typeNotification ==
@@ -314,23 +370,23 @@ class _AlertPageState extends State<AlertPage> {
                                           item.payload!.listingStatus ==
                                               ListingStatusDataType
                                                   .paymentReceived.textValue ||
-                                          (item.payload!.listingStatus ==
-                                                  ListingStatusDataType
-                                                      .pendingPayment.textValue &&
+                                          alertListinStatus!.status ==
+                                              ListingStatusDataType
+                                                  .paid.textValue ||
+                                          alertListinStatus!.status ==
+                                              ListingStatusDataType
+                                                  .paymentReceived.textValue ||
+                                          (item.payload!.listingStatus == ListingStatusDataType.pendingPayment.textValue &&
                                               item.typeNotification ==
                                                   ChatType.notifyMessageBuyFlow
                                                       .textValue) ||
-                                          (item.payload!.listingStatus ==
-                                                  ListingStatusDataType
-                                                      .shipped.textValue &&
-                                              item.payload!.dateItemShipped ==
-                                                  null) ||
-                                          (item.typeNotification ==
-                                                  ChatType.notifyMessageBuyFlow
-                                                      .textValue &&
-                                              (alertListinStatus.status ==
-                                                      ListingStatusDataType
-                                                          .listed.textValue ||
+                                          ((alertListinStatus!.status == ListingStatusDataType.shipped.textValue || item.payload!.listingStatus == ListingStatusDataType.shipped.textValue) && item.payload!.dateItemShipped == null ||
+                                              (alertListinStatus!.status == ListingStatusDataType.shipped.textValue &&
+                                                  item.typeNotification ==
+                                                      ChatType.notifySale
+                                                          .textValue)) ||
+                                          (item.typeNotification == ChatType.notifyMessageBuyFlow.textValue &&
+                                              (alertListinStatus.status == ListingStatusDataType.listed.textValue ||
                                                   alertListinStatus!.status ==
                                                       ListingStatusDataType
                                                           .editing.textValue ||
@@ -348,29 +404,38 @@ class _AlertPageState extends State<AlertPage> {
                                                 groupChannelList,
                                                 productItemId,
                                                 listingImageUrl);
+
                                         Loading.show(context);
                                         onTapSubmit(channelUrl);
                                       }
 
-                                      // if (item.payload!.listingStatus ==
-                                      //         ListingStatusDataType
-                                      //             .listed.textValue &&
-                                      //     alertListinStatus.status ==
-                                      //         ListingStatusDataType
-                                      //             .feedbackProvided.textValue) {
-                                      //   String productItemId =
-                                      //       item.payload!.productItemId ?? "";
-                                      //   String listingImageUrl =
-                                      //       item.payload!.listingImageUrl ?? "";
+                                      if ((item.payload!.listingStatus ==
+                                                  ListingStatusDataType
+                                                      .listed.textValue ||
+                                              item.payload!.listingStatus ==
+                                                  ListingStatusDataType
+                                                      .pendingSellerConfirmation
+                                                      .textValue) &&
+                                          (alertListinStatus.status ==
+                                                  ListingStatusDataType
+                                                      .feedbackProvided
+                                                      .textValue ||
+                                              alertListinStatus.status ==
+                                                  ListingStatusDataType
+                                                      .received.textValue)) {
+                                        String productItemId =
+                                            item.payload!.productItemId ?? "";
+                                        String listingImageUrl =
+                                            item.payload!.listingImageUrl ?? "";
 
-                                      //   String channelUrl =
-                                      //       SendBirdUtils.getListingChatUrl(
-                                      //           groupChannelList,
-                                      //           productItemId,
-                                      //           listingImageUrl);
-                                      //   Loading.show(context);
-                                      //   onTapSubmit(channelUrl);
-                                      // }
+                                        String channelUrl =
+                                            SendBirdUtils.getListingChatUrl(
+                                                groupChannelList,
+                                                productItemId,
+                                                listingImageUrl);
+                                        Loading.show(context);
+                                        onTapSubmit(channelUrl);
+                                      }
 
                                       if (item.payload!.listingStatus ==
                                           ListingStatusDataType

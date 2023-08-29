@@ -252,6 +252,57 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
     );
   }
 
+  Widget _filterItemRadioButton(BuildContext context, String title, int index) {
+    return Material(
+      color: Palette.current.primaryEerieBlack,
+      child: InkWell(
+        onTap: () {},
+        splashColor: Colors.transparent,
+        child: Column(
+          children: [
+            Container(
+              height: 62,
+              decoration: const BoxDecoration(),
+              child: Padding(
+                padding: const EdgeInsets.only(right: 20.0, left: 0),
+                child: Row(
+                  children: [
+                    Radio<int?>(
+                      groupValue: checkBoxIndexes[0],
+                      value: index,
+                      activeColor: Palette.current.primaryNeonGreen,
+                      fillColor: MaterialStateColor.resolveWith((states) =>
+                          states.contains(MaterialState.selected)
+                              ? Palette.current.primaryNeonGreen
+                              : Palette.current.darkGray),
+                      onChanged: (int? value) =>
+                          this.onChangedItem(value==index, index),
+                      // side: BorderSide(color: Palette.current.darkGray),
+                    ),
+                    Expanded(
+                      child: Text(
+                        title,
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                              color: checkBoxIndexes.contains(index)
+                                  ? Palette.current.primaryNeonGreen
+                                  : Palette.current.darkGray,
+                            ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              color: Palette.current.darkGray,
+              height: 0.35,
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
   void onChangedItem(bool? value, int index) {
     setState(() {
       if (value ?? false) {
@@ -469,16 +520,16 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
       case FilterType.sortBy:
         return Column(
           children: [
-            _filterItem(context, S.of(context).release_date_newest,
+            _filterItemRadioButton(context, S.of(context).release_date_newest,
                 SortBy.releaseDateNewest.index),
-            _filterItem(context, S.of(context).release_date_oldest,
+            _filterItemRadioButton(context, S.of(context).release_date_oldest,
                 SortBy.releaseDateOldest.index),
-            _filterItem(context, S.of(context).price_high_to_low,
+            _filterItemRadioButton(context, S.of(context).price_high_to_low,
                 SortBy.priceHighToLow.index),
-            _filterItem(context, S.of(context).price_low_to_high,
+            _filterItemRadioButton(context, S.of(context).price_low_to_high,
                 SortBy.priceLowToHigh.index),
-            _filterItem(context, S.of(context).a_to_z, SortBy.atoZ.index),
-            _filterItem(context, S.of(context).z_to_a, SortBy.ztoA.index),
+            _filterItemRadioButton(context, S.of(context).a_to_z, SortBy.atoZ.index),
+            _filterItemRadioButton(context, S.of(context).z_to_a, SortBy.ztoA.index),
           ],
         );
       case FilterType.releaseDate:
