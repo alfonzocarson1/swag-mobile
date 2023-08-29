@@ -21,21 +21,12 @@ class PushNotificationsProvider {
 
   Future<void> initializeProvider() async {
     await requestPermissions();
-    token = (Platform.isIOS)
-        ? await FirebaseMessaging.instance.getAPNSToken()
-        : await FirebaseMessaging.instance.getToken();
+    token = await FirebaseMessaging.instance.getToken();
 
     print('==== FCM Token ====');
     print(token);
     await getIt<PreferenceRepositoryService>()
         .saveFirebaseDeviceToken(token ?? '');
-
-    await FirebaseMessaging.instance
-        .setForegroundNotificationPresentationOptions(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
 
     await getIt<PreferenceRepositoryService>().saveShowNotification(true);
 
@@ -47,12 +38,18 @@ class PushNotificationsProvider {
       getIt<AlertCubit>().getAlertList();
 
       String? currentRoute = getIt<RouteTracker>().currentRoute;
-      var json = jsonDecode(message.data['sendbird']);
 
-      if (currentRoute != "/ChatPage" && Platform.isAndroid) {
-        LocalNotificationProvider().showNotification(
-            title: json['push_title'], body: json['message'], payLoad: 'data');
-        getIt<AlertCubit>().getAlertList();
+      bool stringToBool(String value) {
+        return value.toLowerCase() == 'true';
+      }
+
+      if (stringToBool(message.data['showPushNotification'])) {
+        if (currentRoute != "/ChatPage") {
+          LocalNotificationProvider().showNotification(
+              title: message.data['title'],
+              body: message.data['message'],
+              payLoad: 'data');
+        }
       }
     });
 
@@ -72,12 +69,15 @@ class PushNotificationsProvider {
     print(message.data);
     getIt<AlertCubit>().getAlertList();
 
-    var json = jsonDecode(message.data['sendbird']);
+    bool stringToBool(String value) {
+      return value.toLowerCase() == 'true';
+    }
 
-    if (Platform.isAndroid) {
+    if (stringToBool(message.data['showPushNotification'])) {
       LocalNotificationProvider().showNotification(
-          title: json['push_title'], body: json['message'], payLoad: 'data');
-      getIt<AlertCubit>().getAlertList();
+          title: message.data['title'],
+          body: message.data['message'],
+          payLoad: 'data');
     }
   }
 
