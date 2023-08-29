@@ -9,6 +9,7 @@ import '../../common/ui/loading.dart';
 import '../../common/ui/popup_add_exisiting_item_collection.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/palette.dart';
+import '../../common/utils/utils.dart';
 import '../../models/detail/detail_sale_info_model.dart';
 import '../../models/detail/sale_history_model.dart';
 import '../add/collection/add_collection_page.dart';
@@ -98,6 +99,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
     favorite = widget.favorite;
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -120,7 +122,8 @@ class _TransactionHistoryState extends State<TransactionHistory> {
         ),
         appBar: CustomAppBar(color: Palette.current.black,
             actions: true,
-        onAction: (){
+        onAction: ()async{
+            await resetPaywall();
             Navigator.of(context, rootNavigator: true).push(
                 AddCollection.route(
                     context, widget.itemId, widget.urlImage, widget.catalogItemName ?? ""));

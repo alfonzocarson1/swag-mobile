@@ -13,16 +13,31 @@ import '../../../../models/search/search_request_payload_model.dart';
 import '../add_collection_page.dart';
 
 class ItemPageGridBody extends StatefulWidget {
-  ItemPageGridBody({super.key, required this.catalogList, this.refresh});
+  ItemPageGridBody({
+    super.key,
+    required this.catalogList,
+    this.refresh,
+    this.scrollListener,
+  });
 
   final List<CatalogItemModel> catalogList;
   Function()? refresh;
+  final Function()? scrollListener;
 
   @override
   State<ItemPageGridBody> createState() => _ItemPageGridBodyState();
 }
 
 class _ItemPageGridBodyState extends State<ItemPageGridBody> {
+  late final ScrollController _scrollController;
+
+  @override
+  void initState() {
+    this._scrollController = ScrollController();
+    this._scrollController.addListener(this.scrollListener);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
@@ -34,6 +49,7 @@ class _ItemPageGridBodyState extends State<ItemPageGridBody> {
             ? Stack(
                 children: [
                   GridView.builder(
+                    controller: this._scrollController,
                     padding: const EdgeInsets.only(
                       top: 20,
                       left: 20,
@@ -95,7 +111,7 @@ class _ItemPageGridBodyState extends State<ItemPageGridBody> {
                               ),
                             ),
                             const SizedBox(
-                              height: 8,
+                              height: 4,
                             ),
                             Text(
                                 widget.catalogList[index].catalogItemName
@@ -112,7 +128,7 @@ class _ItemPageGridBodyState extends State<ItemPageGridBody> {
                                         fontSize: 21,
                                         color: Palette.current.white)),
                             const SizedBox(
-                              height: 4,
+                              height: 1,
                             ),
                             Text(
                                 widget.catalogList[index].forSale
@@ -161,5 +177,18 @@ class _ItemPageGridBodyState extends State<ItemPageGridBody> {
                 ),
                 itemCount: 1,
               ));
+  }
+
+  Future<void> scrollListener() async {
+    var scrollListenerFunction = this.widget.scrollListener;
+    final maxScroll = _scrollController.position.maxScrollExtent;
+    final currentScroll = _scrollController.position.pixels;
+
+    if (maxScroll - currentScroll <= 70) {
+      // 50 is the threshold
+      if (scrollListenerFunction != null) {
+        await scrollListenerFunction();
+      }
+    }
   }
 }

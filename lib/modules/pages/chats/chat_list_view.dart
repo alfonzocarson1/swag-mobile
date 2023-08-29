@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/ui/simple_loader.dart';
+import 'package:swagapp/modules/common/utils/utils.dart';
 import 'package:swagapp/modules/enums/chat_type.dart';
 import 'package:swagapp/modules/models/chat/chat_data.dart';
 import 'package:swagapp/modules/pages/chats/widgets/chat_list_appbar.dart';
@@ -56,8 +57,8 @@ class _ChatListPageState extends State<ChatListPage> {
               color: Palette.current.primaryNeonGreen,
               size: 24,
             ),
-            onPressed: () {
-            //  getIt<ListingProfileCubit>().loadResults();
+            onPressed: () async {
+              await resetPaywall();
               Navigator.pop(context);
             }) ,
           title:const  AppBarTitle(),

@@ -2,8 +2,11 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../common/ui/loading.dart';
+import '../../common/utils/context_service.dart';
 import '../../common/utils/handling_errors.dart';
 import '../../data/listing/i_listing_service.dart';
 import '../../di/injector.dart';
@@ -35,9 +38,23 @@ class ListingProfileCubit extends Cubit<ListingCubitState> {
     }
   }
 
+  Future<ListingForSaleProfileResponseModel?> loadCollectionListed() async {
+    try {
+      ListingForSaleProfileResponseModel response =
+          await listingService.getListingForSale();
+
+      return response;
+    } catch (error) {
+      return null;
+    }
+  }
+
   Future<void> updateListing(ListingForSaleModel model, List<File> imgList,
       List<String> imageUrls) async {
     try {
+      BuildContext context =
+          getIt<ContextService>().rootNavigatorKey.currentContext!;
+      Loading.show(context);
       ListingForSaleModel response = await listingService.updateListing(model);
 
       for (var i = 0; i < imgList.length; i++) {
@@ -48,6 +65,10 @@ class ListingProfileCubit extends Cubit<ListingCubitState> {
       await listingService.updateImages(imageUrls);
       _cleanupTemporaryFiles(imgList);
       getIt<ListingProfileCubit>().loadResults();
+      getIt<ContextService>().rootNavigatorKey.currentState!.pop();
+      getIt<ContextService>().rootNavigatorKey.currentState!.pop();
+      getIt<ContextService>().rootNavigatorKey.currentState!.pop();
+      Loading.hide(context);
     } on Exception catch (e) {
       print(e);
     }

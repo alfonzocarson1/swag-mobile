@@ -32,6 +32,8 @@ class PaginatedSearchCubit extends Cubit<PaginatedSearchState> {
   SearchRequestPayloadModel? _model;
   bool isLoadingMore = false;
 
+  resetPages(SearchTab tab) => pageCountMap.update(tab, (value) => 0);
+
   Future<void> loadResults({
     required SearchTab searchTab,
     required SearchRequestPayloadModel searchModel,

@@ -760,174 +760,174 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                 )
                               ],
                             ),
-                            const SizedBox(
-                              height: 20,
-                            ),
+                            // const SizedBox(
+                            //   height: 20,
+                            // ),
 
-                            // TO DO change Properties
-                            txxt(),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            // Name On Card Field
-                            CustomTextFormField(
-                              inputType: TextInputType.text,
-                              inputFormatters: [
-                                FilteringTextInputFormatter.allow(
-                                    RegExp(r'[a-zA-Z. ]')),
-                              ],
-                              textCapitalization: TextCapitalization.words,
-                              borderColor: _cardNameBorder,
-                              autofocus: false,
-                              errorText: cardNameErrorText,
-                              labelText: S.of(context).name,
-                              focusNode: _cardNameNode,
-                              controller: _cardNameController,
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            // Card Number
-                            CustomTextFormField(
-                              inputFormatters: [
-                                FilteringTextInputFormatter.allow(
-                                    RegExp("^.{0,50}\$")),
-                              ],
-                              maxLength: 23,
-                              borderColor: _cardBorder,
-                              autofocus: false,
-                              errorText: cardErrorText,
-                              labelText: S.of(context).card,
-                              focusNode: _cardNode,
-                              controller: _cardController,
-                              inputType: TextInputType.number,
-                              onChanged: (v) {
-                                setState(() {
-                                  _cardController.text = _formatCardNumber(v);
-                                  _cardController.selection =
-                                      TextSelection.fromPosition(TextPosition(
-                                          offset: _cardController.text.length));
-                                });
-                              },
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            // Expiration and CVC
+                            // // TO DO change Properties
+                            // txxt(),
+                            // const SizedBox(
+                            //   height: 20,
+                            // ),
+                            // // Name On Card Field
+                            // CustomTextFormField(
+                            //   inputType: TextInputType.text,
+                            //   inputFormatters: [
+                            //     FilteringTextInputFormatter.allow(
+                            //         RegExp(r'[a-zA-Z. ]')),
+                            //   ],
+                            //   textCapitalization: TextCapitalization.words,
+                            //   borderColor: _cardNameBorder,
+                            //   autofocus: false,
+                            //   errorText: cardNameErrorText,
+                            //   labelText: S.of(context).name,
+                            //   focusNode: _cardNameNode,
+                            //   controller: _cardNameController,
+                            // ),
+                            // const SizedBox(
+                            //   height: 20,
+                            // ),
+                            // // Card Number
+                            // CustomTextFormField(
+                            //   inputFormatters: [
+                            //     FilteringTextInputFormatter.allow(
+                            //         RegExp("^.{0,50}\$")),
+                            //   ],
+                            //   maxLength: 23,
+                            //   borderColor: _cardBorder,
+                            //   autofocus: false,
+                            //   errorText: cardErrorText,
+                            //   labelText: S.of(context).card,
+                            //   focusNode: _cardNode,
+                            //   controller: _cardController,
+                            //   inputType: TextInputType.number,
+                            //   onChanged: (v) {
+                            //     setState(() {
+                            //       _cardController.text = _formatCardNumber(v);
+                            //       _cardController.selection =
+                            //           TextSelection.fromPosition(TextPosition(
+                            //               offset: _cardController.text.length));
+                            //     });
+                            //   },
+                            // ),
+                            // const SizedBox(
+                            //   height: 20,
+                            // ),
+                            // // Expiration and CVC
 
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  flex: 2,
-                                  child: Column(
-                                    children: [
-                                      CustomTextFormField(
-                                        inputType: TextInputType.number,
-                                        borderColor: _expirationBorder,
-                                        inputFormatters: [
-                                          _CardExpirationInputFormatter(),
-                                        ],
-                                        maxLength: 5,
-                                        autofocus: false,
-                                        errorText: expirationErrorText,
-                                        labelText: S.of(context).expiration,
-                                        focusNode: _expirationNode,
-                                        controller: _expirationController,
-                                        onChanged: (p0) {
-                                          debugPrint("length: ${p0.length}");
-                                          if (p0.length == 5) {
-                                            final month =
-                                                int.parse(p0.split('/').first);
-                                            final year = int.parse(
-                                                '20${p0.split('/').last}');
-                                            final monthYear =
-                                                DateTime(year, month);
-                                            setState(() {
-                                              _defaultDateTime = monthYear;
-                                              expirationErrorText = null;
-                                            });
-                                          }
-                                        },
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 20,
-                                ),
-                                Expanded(
-                                  flex: 2,
-                                  child: Column(
-                                    children: [
-                                      CustomTextFormField(
-                                        inputType: TextInputType.number,
-                                        borderColor: _cvcBorder,
-                                        maxLength: 4,
-                                        autofocus: false,
-                                        errorText: cvcErrorText,
-                                        labelText: S.of(context).cvc,
-                                        focusNode: _cvcNode,
-                                        controller: _cvcController,
-                                        onChanged: (p0) {},
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
+                            // Row(
+                            //   crossAxisAlignment: CrossAxisAlignment.start,
+                            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            //   children: [
+                            //     Expanded(
+                            //       flex: 2,
+                            //       child: Column(
+                            //         children: [
+                            //           CustomTextFormField(
+                            //             inputType: TextInputType.number,
+                            //             borderColor: _expirationBorder,
+                            //             inputFormatters: [
+                            //               _CardExpirationInputFormatter(),
+                            //             ],
+                            //             maxLength: 5,
+                            //             autofocus: false,
+                            //             errorText: expirationErrorText,
+                            //             labelText: S.of(context).expiration,
+                            //             focusNode: _expirationNode,
+                            //             controller: _expirationController,
+                            //             onChanged: (p0) {
+                            //               debugPrint("length: ${p0.length}");
+                            //               if (p0.length == 5) {
+                            //                 final month =
+                            //                     int.parse(p0.split('/').first);
+                            //                 final year = int.parse(
+                            //                     '20${p0.split('/').last}');
+                            //                 final monthYear =
+                            //                     DateTime(year, month);
+                            //                 setState(() {
+                            //                   _defaultDateTime = monthYear;
+                            //                   expirationErrorText = null;
+                            //                 });
+                            //               }
+                            //             },
+                            //           )
+                            //         ],
+                            //       ),
+                            //     ),
+                            //     const SizedBox(
+                            //       width: 20,
+                            //     ),
+                            //     Expanded(
+                            //       flex: 2,
+                            //       child: Column(
+                            //         children: [
+                            //           CustomTextFormField(
+                            //             inputType: TextInputType.number,
+                            //             borderColor: _cvcBorder,
+                            //             maxLength: 4,
+                            //             autofocus: false,
+                            //             errorText: cvcErrorText,
+                            //             labelText: S.of(context).cvc,
+                            //             focusNode: _cvcNode,
+                            //             controller: _cvcController,
+                            //             onChanged: (p0) {},
+                            //           ),
+                            //         ],
+                            //       ),
+                            //     )
+                            //   ],
+                            // ),
+                            // const SizedBox(
+                            //   height: 20,
+                            // ),
                             // Check Box And Description
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height: 24.0,
-                                  width: 24.0,
-                                  child: Checkbox(
-                                    checkColor: Palette.current.black,
-                                    value: billingAndShippingAddressesAreSame,
-                                    activeColor:
-                                        Palette.current.primaryNeonGreen,
-                                    onChanged: (value) {
-                                      setState(() =>
-                                          billingAndShippingAddressesAreSame =
-                                              value ?? false);
-                                    },
-                                    side: BorderSide(
-                                        color:
-                                            Palette.current.primaryNeonGreen),
-                                  ),
-                                ),
-                                const SizedBox(width: 10),
-                                Flexible(
-                                  child: RichText(
-                                      maxLines: 2,
-                                      softWrap: false,
-                                      overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.left,
-                                      text: TextSpan(children: [
-                                        TextSpan(
-                                          text:
-                                              'Billing address same as shipping address',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall!
-                                              .copyWith(
-                                                  color: Palette
-                                                      .current.primaryNeonGreen,
-                                                  fontSize: 14),
-                                        ),
-                                      ])),
-                                ),
-                              ],
-                            ),
-                            billingAndShippingAddressesAreSame
-                                ? Container()
-                                : billingAddressPortion(),
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.start,
+                            //   children: [
+                            //     SizedBox(
+                            //       height: 24.0,
+                            //       width: 24.0,
+                            //       child: Checkbox(
+                            //         checkColor: Palette.current.black,
+                            //         value: billingAndShippingAddressesAreSame,
+                            //         activeColor:
+                            //             Palette.current.primaryNeonGreen,
+                            //         onChanged: (value) {
+                            //           setState(() =>
+                            //               billingAndShippingAddressesAreSame =
+                            //                   value ?? false);
+                            //         },
+                            //         side: BorderSide(
+                            //             color:
+                            //                 Palette.current.primaryNeonGreen),
+                            //       ),
+                            //     ),
+                            //     const SizedBox(width: 10),
+                            //     Flexible(
+                            //       child: RichText(
+                            //           maxLines: 2,
+                            //           softWrap: false,
+                            //           overflow: TextOverflow.ellipsis,
+                            //           textAlign: TextAlign.left,
+                            //           text: TextSpan(children: [
+                            //             TextSpan(
+                            //               text:
+                            //                   'Billing address same as shipping address',
+                            //               style: Theme.of(context)
+                            //                   .textTheme
+                            //                   .bodySmall!
+                            //                   .copyWith(
+                            //                       color: Palette
+                            //                           .current.primaryNeonGreen,
+                            //                       fontSize: 14),
+                            //             ),
+                            //           ])),
+                            //     ),
+                            //   ],
+                            // ),
+                            // billingAndShippingAddressesAreSame
+                            //     ? Container()
+                            //     : billingAddressPortion(),
 
                             const SizedBox(
                               height: 20,
@@ -938,10 +938,10 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                 showErrors();
                                 if (areFieldsValid()) {
                                   debugPrint('All Fields Are Valid');
-                                  final response = await createCardToken();
+                                  // final response = await createCardToken();
 
-                                  if (response != null &&
-                                      response.statusCode == 200) {
+                                  // if (response != null &&
+                                  //     response.statusCode == 200) {
                                     setState(() {
                                       updateAllFlow = true;
                                     });
@@ -970,7 +970,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                             ])));
                                     getIt<PreferenceRepositoryService>()
                                         .saveProfileDataState(false);
-                                  }
+                                  // }
                                 } else {
                                   debugPrint('All Fields Are Not Valid');
                                 }
@@ -1147,17 +1147,28 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   }
 
   bool areFieldsValid() {
-    var billingOverAllCheck = false;
+    var billingOverAllCheck = true;
+    // var billingOverAllCheck = false;
 
-    if (!billingAndShippingAddressesAreSame) {
-      billingOverAllCheck = _billingCityController.text.isNotEmpty &&
-          _billingFirstAddressController.text.isNotEmpty &&
-          _billingDefaultCountry != 'Country' &&
-          _billingZippController.text.isNotEmpty &&
-          _billingdefaultState != defaultState;
-    } else {
-      billingOverAllCheck = true;
-    }
+    // if (!billingAndShippingAddressesAreSame) {
+    //   billingOverAllCheck = _billingCityController.text.isNotEmpty &&
+    //       _billingFirstAddressController.text.isNotEmpty &&
+    //       _billingDefaultCountry != 'Country' &&
+    //       _billingZippController.text.isNotEmpty &&
+    //       _billingdefaultState != defaultState;
+    // } else {
+    //   billingOverAllCheck = true;
+    // }
+
+  var cardCheck = true;
+  // var cardCheck = false;
+  // if (_cardController.text.isNotEmpty &&
+  //       _cardNumberLength() >= 8 &&
+  //       _cardNumberLength() <= 19 &&
+  //       _cvcController.text.isNotEmpty &&
+  //       _defaultDateTime.isAfter(DateTime.now())) {
+  //   cardCheck = true;
+  // }
 
     return _firstNameController.text.isNotEmpty &&
         _lastNameController.text.isNotEmpty &&
@@ -1166,11 +1177,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
         _cityController.text.isNotEmpty &&
         _defaultState != defaultState &&
         _zipController.text.isNotEmpty &&
-        _cardController.text.isNotEmpty &&
-        _cardNumberLength() >= 8 &&
-        _cardNumberLength() <= 19 &&
-        _cvcController.text.isNotEmpty &&
-        _defaultDateTime.isAfter(DateTime.now()) &&
+        cardCheck &&
         billingOverAllCheck;
   }
 
