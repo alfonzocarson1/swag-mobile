@@ -233,6 +233,40 @@ class _CreateAccountState extends State<CreateAccountPage> {
                     Loading.hide(context),
                     // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
                   },
+                isInternetAvailable: (value) {
+                  logger.e("ISVPN :$value");
+                  Loading.hide(context);
+                  // _emailNode.unfocus();
+                  // _passwordNode.unfocus();
+
+                  isVPN = value;
+                  if (!value) {
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(SnackBar(
+                        duration:
+                        const Duration(seconds: 3),
+                        behavior:
+                        SnackBarBehavior.floating,
+                        margin: EdgeInsets.only(
+                          bottom: MediaQuery.of(context)
+                              .size
+                              .height /
+                              1.3,
+                        ),
+                        backgroundColor:
+                        Colors.transparent,
+                        content: const ToastMessage(
+                          message:
+                          'Active internet connection required.',
+                        ),
+                        dismissDirection:
+                        DismissDirection.none));
+                  }
+
+                  setState(() {
+
+                  });
+                }
                 ),
             child: _getBody()));
   }
@@ -439,7 +473,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(SnackBar(
                                                 duration:
-                                                    const Duration(seconds: 5),
+                                                    const Duration(seconds: 10),
                                                 behavior:
                                                     SnackBarBehavior.floating,
                                                 margin: EdgeInsets.only(
@@ -610,7 +644,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                         getIt<PreferenceRepositoryService>()
                                             .getFirebaseDeviceToken();
                                     showErrors();
-                                    if (areFieldsValid()) {
+                                    if (areFieldsValid())  {
                                       context.read<AuthBloc>().add(AuthEvent
                                           .createAccount(CreateAccountPayloadModel(
                                               email: _emailController.text,
@@ -795,7 +829,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
 
           if (connectivityResult == ConnectivityResult.none) {
             logger.e("Offline emit");
-            InternetConnectivityBloc().emit(InternetConnectivityState.offline);
+            InternetConnectivityBloc(true).emit(InternetConnectivityState.offline);
           } else {
             if (isValidUsername(value)) {
               context
@@ -836,7 +870,21 @@ class _CreateAccountState extends State<CreateAccountPage> {
     var connectivityResult = await Connectivity().checkConnectivity();
 
     if (connectivityResult == ConnectivityResult.none) {
-      InternetConnectivityBloc().emit(InternetConnectivityState.offline);
+      // InternetConnectivityBloc().emit(InternetConnectivityState.offline);
+
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+
+          duration: const Duration(days: 365),
+          behavior: SnackBarBehavior.floating,
+          margin: EdgeInsets.only(
+            bottom: MediaQuery.of(context).size.height / 1.3,
+          ),
+          backgroundColor: Colors.transparent,
+          content: const ToastMessage(
+            message: 'Active internet connection required.',
+          ),
+          dismissDirection: DismissDirection.none));
+
     } else {
       if (isEmptyUserName) {
         usernameErrorText = S.of(context).required_field;
@@ -934,14 +982,26 @@ class _CreateAccountState extends State<CreateAccountPage> {
               : null;
     });
 
-    usernameErrorText = _usernameController.text.isEmpty
-        ? S.of(context).required_field
-        : (_usernameController.text.isNotEmpty &&
-                _usernameController.text.length >= 4)
+
+
+
+    if (isEmptyUserName) {
+      usernameErrorText = S.of(context).required_field;
+    } else {
+      if (isVPN){
+        usernameErrorText = _usernameController.text.isEmpty
+            ? S.of(context).required_field
+            : (_usernameController.text.isNotEmpty &&
+            _usernameController.text.length >= 4)
             ? isUsernameTaken
-                ? S.of(context).username_taken
-                : null
+            ? S.of(context).username_taken
+            : null
             : S.of(context).invalid_username;
+      }else{
+        usernameErrorText=null;
+      }
+
+    }
 
     if (!tosChecked) {
       tosError = S.of(context).required_field;

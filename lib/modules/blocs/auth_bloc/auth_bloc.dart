@@ -54,7 +54,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       isInternet = false;
 
       print("No internet connectivity auth bloc");
-      InternetConnectivityBloc().emit(InternetConnectivityState.offline);
+      InternetConnectivityBloc(true).emit(InternetConnectivityState.offline);
     } else {
       isInternet = true;
     }
@@ -167,7 +167,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         yield AuthState.error(response.errorCode);
       }
     } catch (e) {
-      yield AuthState.error(HandlingErrors().getError(e));
+      if(e.toString().contains("Failed host lookup")){
+        logger.e("Contain");
+        yield const AuthState.isInternetAvailable(false);
+        //InternetConnectivityBloc().emit(InternetConnectivityState.offline);
+      }else{
+        // yield const UsernameState.isInternetAvailable(true);
+        yield AuthState.error(HandlingErrors().getError(e));
+      }
     }
   }
 
@@ -190,7 +197,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         yield AuthState.error(HandlingErrors().getError(response.errorCode));
       }
     } catch (e) {
-      yield AuthState.error(HandlingErrors().getError(e));
+      if(e.toString().contains("Failed host lookup")){
+        logger.e("Contain");
+        yield const AuthState.isInternetAvailable(false);
+        //InternetConnectivityBloc().emit(InternetConnectivityState.offline);
+      }else{
+        // yield const UsernameState.isInternetAvailable(true);
+        yield AuthState.error(HandlingErrors().getError(e));
+      }
     }
   }
 

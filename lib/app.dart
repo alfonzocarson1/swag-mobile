@@ -127,7 +127,6 @@ class _AppState extends State<App> {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
 
                           duration: const Duration(days: 365),
-
                           behavior: SnackBarBehavior.floating,
                           margin: EdgeInsets.only(
                             bottom: MediaQuery.of(context).size.height / 1.3,
