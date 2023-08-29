@@ -8,6 +8,7 @@ import 'package:swagapp/modules/models/auth/create_account_response_model.dart';
 import 'package:swagapp/modules/models/profile/profile_model.dart';
 import 'package:swagapp/modules/models/update_profile/addresses_payload_model.dart';
 
+import '../../../main.dart';
 import '../../common/utils/handling_errors.dart';
 import '../../common/utils/utils.dart';
 import '../../constants/constants.dart';
@@ -24,7 +25,9 @@ import '../../models/auth/forgot_password_code_model.dart';
 import '../../services/internet_connectivity_service.dart';
 
 part 'auth_bloc.freezed.dart';
+
 part 'auth_event.dart';
+
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
@@ -33,6 +36,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final StorageRepositoryService storageService;
   late StreamSubscription<String?> _userStreamSubscription;
   bool isInternet = false;
+
   AuthBloc(this.authService, this.preferenceService, this.storageService)
       : super(const AuthState.initial()) {
     _userStreamSubscription = authService
@@ -49,10 +53,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     if (connectivityResult == ConnectivityResult.none) {
       isInternet = false;
 
-
       print("No internet connectivity auth bloc");
       InternetConnectivityBloc().emit(InternetConnectivityState.offline);
-
     } else {
       isInternet = true;
     }
@@ -63,16 +65,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   @override
   Stream<AuthState> mapEventToState(AuthEvent event) async* {
     yield* event.when(
-      logout: _logout,
-      authenticate: _authenticate,
-      createAccount: _createAccount,
-      sendEmail: _sendEmail,
-      validCode: _validCode,
-      changePassword: _changePassword,
-      init: _init,
-      finishedOnboarding: _finishedOnboarding,
-      delete: _delete
-    );
+        logout: _logout,
+        authenticate: _authenticate,
+        createAccount: _createAccount,
+        sendEmail: _sendEmail,
+        validCode: _validCode,
+        changePassword: _changePassword,
+        init: _init,
+        finishedOnboarding: _finishedOnboarding,
+        delete: _delete);
   }
 
   Stream<AuthState> _logout() async* {
@@ -81,12 +82,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       dynamic response = await authService.logOut();
       bool isLogout = response["response"];
       print("RESPONSEEE  $response");
-      if(isLogout){
+      if (isLogout) {
         getIt<PreferenceRepositoryService>().saveIsLogged(false);
-        debugPrint('isLogged: ${getIt<PreferenceRepositoryService>().isLogged().toString()}');
+        debugPrint(
+            'isLogged: ${getIt<PreferenceRepositoryService>().isLogged().toString()}');
         yield const AuthState.unauthenticated();
       }
-    } catch(e){
+    } catch (e) {
       print("ERROR");
       print(e);
       yield AuthState.error(HandlingErrors().getError(e));
@@ -101,8 +103,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       String message = response["shortMessage"];
 
       print("RESPONSEEE  $response");
-      yield  AuthState.deleted(message, isDeleted);
-    } catch(e){
+      yield AuthState.deleted(message, isDeleted);
+    } catch (e) {
       print("ERROR");
       print(e);
       yield AuthState.error(HandlingErrors().getError(e));
@@ -111,7 +113,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Stream<AuthState> _init() async* {
     if (preferenceService.isLogged()) {
-      yield const AuthState.initial();
+      // Create a 5-second delay using Future.delayed
+      Future.delayed(const Duration(seconds: 25), () async* {
+        logger.e("TimeOutIssue : AuthBloc 25 Sec delay");
+        yield const AuthState.initial();
+      });
       if (isTokenValid(await storageService.getToken())) {
         add(
           AuthEvent.authenticate(
@@ -232,6 +238,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } catch (e) {
       yield AuthState.error(HandlingErrors().getError(e));
     }
+  }
+
+
+  Future<bool> _isAccountInformationMissing() async {
+    final profileData = await authService.privateProfile();
+    return profileData.firstName == null ||
+        profileData.lastName == null ||
+        (profileData.addresses?.isEmpty ?? true);
   }
 
   @override

@@ -9,6 +9,13 @@ enum InternetConnectivityState { online, offline }
 
 
 class InternetConnectivityBloc extends Cubit<InternetConnectivityState> {
+
+  static final InternetConnectivityBloc _internetConnectivityBloc =
+  InternetConnectivityBloc();
+
+  static InternetConnectivityBloc get internetConnectivityBloc =>
+      _internetConnectivityBloc;
+
   final Connectivity _connectivity = Connectivity();
 
   InternetConnectivityBloc() : super(InternetConnectivityState.online) {
@@ -49,3 +56,40 @@ class InternetConnectivityBloc extends Cubit<InternetConnectivityState> {
 }
 
 
+
+
+enum VPNConnectivityState { online, offline }
+
+
+
+// class VPNConnectivityBloc extends Cubit<VPNConnectivityState> {
+//
+//   static final VPNConnectivityBloc _vpnConnectivityBloc =
+//   VPNConnectivityBloc();
+//
+//   static VPNConnectivityBloc get  vpnConnectivityBloc  =>
+//       _vpnConnectivityBloc ;
+//
+//
+//
+//   VPNConnectivityBloc() : super(VPNConnectivityState.online) {
+//     print("VPN connectivity init");
+//   }
+//
+//
+//
+// }
+
+
+class VPNConnectivityBloc extends Cubit<VPNConnectivityState> {
+  VPNConnectivityBloc() : super(VPNConnectivityState.online) {
+    print("VPN connectivity init");
+  }
+
+  // Add a method to change the VPN state
+  void setVPNState(VPNConnectivityState state) {
+
+    print("State :$state");
+    emit(state);
+  }
+}

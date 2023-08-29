@@ -148,6 +148,8 @@ Future<void> setupAppScope(String appFlavor) async {
   getIt.registerLazySingleton<ListingProfileCubit>(
       () => ListingProfileCubit(getIt<IListingService>()));
   getIt
+      .registerLazySingleton<VPNConnectivityBloc>(() => VPNConnectivityBloc());
+  getIt
       .registerLazySingleton<InternetConnectivityBloc>(() => InternetConnectivityBloc());
 
   getIt

@@ -12,7 +12,10 @@ class HandlingErrors {
         error.isNotEmpty &&
         error.contains('Error - ')) {
       return error.split('Error - ')[1];
-    } else {
+    } else if (error.toString().contains("Failed host lookup")) {
+      //logger.e(" Exception :Host failed");
+      return 'Host Failed';
+    }else {
       return 'error in the request, please try again.';
     }
   }
