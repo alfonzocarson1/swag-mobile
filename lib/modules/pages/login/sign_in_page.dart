@@ -126,7 +126,7 @@ class _SignInPageState extends State<SignInPage> {
                     ScaffoldMessenger.of(context)
                         .showSnackBar(SnackBar(
                         duration:
-                        const Duration(seconds: 15),
+                        const Duration(seconds: 3),
                         behavior:
                         SnackBarBehavior.floating,
                         margin: EdgeInsets.only(
@@ -145,9 +145,9 @@ class _SignInPageState extends State<SignInPage> {
                         DismissDirection.none));
                   }
 
-                  setState(() {
-
-                  });
+                  // setState(() {
+                  //
+                  // });
                 }
                 ),
             child: GestureDetector(

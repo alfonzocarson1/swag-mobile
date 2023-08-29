@@ -164,7 +164,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         yield AuthState.error(response.errorCode);
       }
     } catch (e) {
-      yield AuthState.error(HandlingErrors().getError(e));
+      if(e.toString().contains("Failed host lookup")){
+        logger.e("Contain");
+        yield const AuthState.isInternetAvailable(false);
+        //InternetConnectivityBloc().emit(InternetConnectivityState.offline);
+      }else{
+        // yield const UsernameState.isInternetAvailable(true);
+        yield AuthState.error(HandlingErrors().getError(e));
+      }
     }
   }
 
