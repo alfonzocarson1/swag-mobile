@@ -194,6 +194,7 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
         .listingService
         .updateListing(ListingForSaleModel(
           productItemId: widget.productItemId,
+          catalogItemId: widget.collectionData!.catalogItemId ?? '',
           forSale: true,
           sold: false,
           status: 'listed',

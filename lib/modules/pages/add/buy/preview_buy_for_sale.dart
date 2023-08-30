@@ -712,6 +712,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
     getIt<ListingProfileCubit>().listingService.updateListing(
           ListingForSaleModel(
             productItemId: listData.productItemId,
+            catalogItemId: listData.catalogItemId ?? '',
             forSale: true,
             sold: false,
             status: 'editing',
