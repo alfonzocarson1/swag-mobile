@@ -48,11 +48,10 @@ class StripeApi {
     final customerId = customerAccess.customerIdForKey;
     final response = await http
         .get(
-      Uri.parse('https://api.stripe.com/v1/customers/$customerId/sources')
-          .replace(
+      Uri.parse('https://api.stripe.com/v1/customers/$customerId').replace(
         queryParameters: {
-          "object": "card",
-          "limit": "100",
+          "expand[]": "sources",
+          // "limit": "100",
         },
       ),
       headers: headers(
@@ -60,12 +59,15 @@ class StripeApi {
       ),
     )
         .then((httpRes) {
+      debugPrint(httpRes.body);
       if (httpRes.statusCode != 200) {
-        debugPrint(httpRes.body);
         throw StripeError.fromJson(json.decode(httpRes.body));
       }
       return httpRes;
-    }).then((httpRes) => CardObject.fromJsonList(json.decode(httpRes.body)));
+    }).then((httpRes) {
+      final data = json.decode(httpRes.body)['sources']['data'];
+      return CardObject.fromJsonList(data);
+    });
 
     return response;
   }
