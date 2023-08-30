@@ -69,8 +69,8 @@ class _AccountPageState extends State<AccountPage> {
         builder: (context, state) {
           return state.maybeWhen(
               loading: (isFirstFetch) => const SimpleLoader(),
-              loadedProfileData: (profileData) => AccountBody(
-                  profileData: profileData),
+              loadedProfileData: (profileData) =>
+                  AccountBody(profileData: profileData),
               orElse: () => Container());
         },
       ),
@@ -177,19 +177,15 @@ class AccountBody extends StatelessWidget {
                               ? '${profileData.addresses?.first.firstName ?? ''} ${profileData.addresses?.first.lastName ?? ''}'
                               : ' ',
                           () {},
-                          Text(
-                              profileData.kycverified!
-                                  ? 'Verified'
-                                  : 'Unverified',
+                          Text(getKycSting(profileData.kycStatus),
                               style: Theme.of(context)
                                   .textTheme
                                   .displayLarge!
                                   .copyWith(
                                       fontWeight: FontWeight.w300,
                                       fontSize: 16,
-                                      color: profileData.kycverified!
-                                          ? Palette.current.primaryNeonGreen
-                                          : Palette.current.primaryNeonPink)),
+                                      color:
+                                          getKycColor(profileData.kycStatus))),
                           null),
                       SizedBox(
                         height: 0.2,
@@ -237,4 +233,37 @@ class AccountBody extends StatelessWidget {
       ],
     );
   }
+}
+
+String getKycSting(String? status) {
+  return (status ?? "Unverified").toTitleCase();
+}
+
+Color getKycColor(String? status) {
+  if (status == null) {
+    return Palette.current.darkGray;
+  }
+  status = status.toLowerCase();
+  if (['failed', 'unsupported'].any((x) => status.contains(x))) {
+    return Palette.current.primaryNeonPink;
+  }
+  if (['failed', 'unsupported'].any((x) => status.contains(x))) {
+    return Palette.current.primaryNeonPink;
+  }
+  if (['unverified', 'started', 'processing'].any((x) => status.contains(x))) {
+    return Palette.current.darkGray;
+  }
+  if (status == "verified") {
+    return Palette.current.primaryNeonGreen;
+  }
+  return Palette.current.darkGray;
+}
+
+extension StringCasingExtension on String {
+  String toCapitalized() =>
+      length > 0 ? '${this[0].toUpperCase()}${substring(1).toLowerCase()}' : '';
+  String toTitleCase() => replaceAll(RegExp(' +'), ' ')
+      .split(' ')
+      .map((str) => str.toCapitalized())
+      .join(' ');
 }

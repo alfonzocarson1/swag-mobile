@@ -68,7 +68,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final accountId = prefs.profileData().accountId;
       final token = await FirebaseMessaging.instance.getToken();
       if (token == null) return;
-      await firebase.storeFirebaseToken(token, accountId);
+      firebase.storeFirebaseToken(token, accountId);
     }
   }
 
@@ -172,7 +172,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       preferenceService.saveUserSendBirdId(response.accountId);
 
       if (response.errorCode == successResponse) {
-        await storeFirebaseToken();
+        storeFirebaseToken();
         yield const AuthState.authenticated();
       } else {
         yield AuthState.error(response.errorCode);
@@ -203,12 +203,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         ProfileModel profileData = preferenceService.profileData();
         preferenceService.saveUserSendBirdId(profileData.accountId);
 
-        await storeFirebaseToken();
+        storeFirebaseToken();
         yield const AuthState.authenticated();
       } else {
         yield AuthState.error(HandlingErrors().getError(response.errorCode));
       }
-    } catch (e) {
+    } catch (e, stk) {
+      debugPrintStack(
+        label: e.toString(),
+        stackTrace: stk,
+      );
       if (e.toString().contains("Failed host lookup")) {
         logger.e("Contain");
         yield const AuthState.isInternetAvailable(false);
@@ -260,7 +264,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       storageService.saveToken(response.token);
 
       yield const AuthState.passwordChanged();
-      await storeFirebaseToken();
+      storeFirebaseToken();
       yield const AuthState.authenticated();
     } catch (e) {
       yield AuthState.error(HandlingErrors().getError(e));

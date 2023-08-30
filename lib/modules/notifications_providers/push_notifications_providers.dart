@@ -29,7 +29,7 @@ class PushNotificationsProvider {
       final accountId = prefs.profileData().accountId;
       final token = await FirebaseMessaging.instance.getToken();
       if (token == null) return;
-      await firebase.storeFirebaseToken(token, accountId);
+      firebase.storeFirebaseToken(token, accountId);
     }
   }
 
