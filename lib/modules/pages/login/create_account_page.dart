@@ -777,7 +777,14 @@ class _CreateAccountState extends State<CreateAccountPage> {
       var response1 = response as ForgotPasswordCodeModel;
       result = response1.response!;
     } catch (e) {
-      debugPrint("email checking failed$e");
+      if (e.toString().contains("Failed host lookup")) {
+        //just to hide the email validation
+        result = true;
+        isVPN=false;
+      } else {
+        result = false;
+        isVPN=true;
+      }
     }
     return result;
   }
@@ -902,7 +909,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
                   ? S.of(context).username_taken
                   : S.of(context).invalid_username;
         } else {
-          usernameErrorText = "";
+          usernameErrorText = null;
         }
       }
     }
@@ -911,16 +918,42 @@ class _CreateAccountState extends State<CreateAccountPage> {
   void setEmailErrorText(
     bool isValid,
     bool isEmailAvailable,
-  ) {
-    if (isEmptyEmail) {
-      emailErrorText = S.of(context).required_field;
+  ) async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+
+    if (connectivityResult == ConnectivityResult.none) {
+      // InternetConnectivityBloc().emit(InternetConnectivityState.offline);
+
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          duration: const Duration(days: 365),
+          behavior: SnackBarBehavior.floating,
+          margin: EdgeInsets.only(
+            bottom: MediaQuery.of(context).size.height / 1.3,
+          ),
+          backgroundColor: Colors.transparent,
+          content: const ToastMessage(
+            message: 'Active internet connection required.',
+          ),
+          dismissDirection: DismissDirection.none));
     } else {
-      bool isEmailOk = isValid && isEmailAvailable;
-      emailErrorText = isEmailOk || _emailController.text.isEmpty
-          ? null
-          : isValid
-              ? S.of(context).email_taken
-              : S.of(context).invalid_email;
+      if (isEmptyEmail) {
+        emailErrorText = S.of(context).required_field;
+      } else {
+        if (isEmptyEmail) {
+          emailErrorText = S.of(context).required_field;
+        } else {
+          if (isVPN) {
+            bool isEmailOk = isValid && isEmailAvailable;
+            emailErrorText = isEmailOk || _emailController.text.isEmpty
+                ? null
+                : isValid
+                    ? S.of(context).email_taken
+                    : S.of(context).invalid_email;
+          } else {
+            emailErrorText = null;
+          }
+        }
+      }
     }
   }
 
@@ -957,12 +990,6 @@ class _CreateAccountState extends State<CreateAccountPage> {
         isEmptyEmail = true;
       }
 
-      emailErrorText = _emailController.text.isEmpty
-          ? S.of(context).required_field
-          : isValidEmail(_emailController.text)
-              ? null
-              : S.of(context).invalid_email;
-
       phoneErrorText = _phoneController.text.isEmpty
           ? S.of(context).required_field
           : isPhoneValid
@@ -985,6 +1012,20 @@ class _CreateAccountState extends State<CreateAccountPage> {
               : null;
     });
 
+    if (isEmptyEmail) {
+      emailErrorText = S.of(context).required_field;
+    } else {
+      if (isVPN) {
+        emailErrorText = _emailController.text.isEmpty
+            ? S.of(context).required_field
+            : isValidEmail(_emailController.text)
+                ? null
+                : S.of(context).invalid_email;
+      } else {
+        emailErrorText = null;
+      }
+    }
+    
     if (isEmptyUserName) {
       usernameErrorText = S.of(context).required_field;
     } else {
@@ -1004,6 +1045,8 @@ class _CreateAccountState extends State<CreateAccountPage> {
 
     if (!tosChecked) {
       tosError = S.of(context).required_field;
+    } else {
+      tosError = null;
     }
   }
 
