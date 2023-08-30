@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -16,9 +16,7 @@ import '../../constants/constants.dart';
 import '../../cubits/profile/get_profile_cubit.dart';
 import '../../data/auth/i_auth_service.dart';
 import '../../data/firebase/firebase_service.dart';
-import '../../data/secure_storage/storage_repository_int.dart';
 import '../../data/secure_storage/storage_repository_service.dart';
-import '../../data/shared_preferences/i_shared_preferences.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/auth/change_password_response_model.dart';
@@ -27,9 +25,7 @@ import '../../models/auth/forgot_password_code_model.dart';
 import '../../services/internet_connectivity_service.dart';
 
 part 'auth_bloc.freezed.dart';
-
 part 'auth_event.dart';
-
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
@@ -182,11 +178,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         yield AuthState.error(response.errorCode);
       }
     } catch (e) {
-      if(e.toString().contains("Failed host lookup")){
+      if (e.toString().contains("Failed host lookup")) {
         logger.e("Contain");
         yield const AuthState.isInternetAvailable(false);
         //InternetConnectivityBloc().emit(InternetConnectivityState.offline);
-      }else{
+      } else {
         // yield const UsernameState.isInternetAvailable(true);
         yield AuthState.error(HandlingErrors().getError(e));
       }
@@ -213,11 +209,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         yield AuthState.error(HandlingErrors().getError(response.errorCode));
       }
     } catch (e) {
-      if(e.toString().contains("Failed host lookup")){
+      if (e.toString().contains("Failed host lookup")) {
         logger.e("Contain");
         yield const AuthState.isInternetAvailable(false);
         //InternetConnectivityBloc().emit(InternetConnectivityState.offline);
-      }else{
+      } else {
         // yield const UsernameState.isInternetAvailable(true);
         yield AuthState.error(HandlingErrors().getError(e));
       }
@@ -270,7 +266,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       yield AuthState.error(HandlingErrors().getError(e));
     }
   }
-
 
   Future<bool> _isAccountInformationMissing() async {
     final profileData = await authService.privateProfile();
