@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swagapp/modules/cubits/cards/cards_cubits.dart';
 import 'package:swagapp/modules/di/injector.dart';
 
 import '../../../../generated/l10n.dart';
@@ -30,45 +31,53 @@ class _CardsPageState extends State<CardsPage> {
   @override
   void initState() {
     super.initState();
-    _loadCards();
-  }
-
-  Future<void> _loadCards() async {
-    final cards = await getIt<StripeApi>().getCards();
-    setState(() {
-      this.cards = cards;
-    });
+    context.read<CardsCubit>().getCards();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PushedHeader(
-        showBackButton: true,
-        title: Align(
-          alignment: Alignment.centerRight,
-          child: Text(
-            S
-                .of(context)
-                .premium_memberatomic_drop_payments_title
-                .toUpperCase(),
-            style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                  letterSpacing: 1,
-                  fontWeight: FontWeight.w300,
-                  fontFamily: "KnockoutCustom",
-                  fontSize: 30,
-                  color: Palette.current.primaryNeonGreen,
-                ),
+    return BlocConsumer<CardsCubit, CardsCubitState>(
+      listener: (context, state) {
+        if (state.isLoadingWithoutPreviousData && !Loading.isVisible()) {
+          Loading.show(context);
+        } else if (!state.isLoading && Loading.isVisible()) {
+          Loading.hide(context);
+        }
+      },
+      builder: (context, state) {
+        return Scaffold(
+          appBar: PushedHeader(
+            showBackButton: true,
+            title: Align(
+              alignment: Alignment.centerRight,
+              child: Text(
+                S
+                    .of(context)
+                    .premium_memberatomic_drop_payments_title
+                    .toUpperCase(),
+                style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                      letterSpacing: 1,
+                      fontWeight: FontWeight.w300,
+                      fontFamily: "KnockoutCustom",
+                      fontSize: 30,
+                      color: Palette.current.primaryNeonGreen,
+                    ),
+              ),
+            ),
+            height: 70,
           ),
-        ),
-        height: 70,
-      ),
-      backgroundColor: Palette.current.primaryNero,
-      body: Builder(
-        builder: (context) {
-          return buildBody(context, cards);
-        },
-      ),
+          backgroundColor: Palette.current.primaryNero,
+          body: Builder(
+            builder: (context) {
+              final data = state.dataOrPreviousData;
+              if (data == null) {
+                return Container();
+              }
+              return buildBody(context, data);
+            },
+          ),
+        );
+      },
     );
   }
 

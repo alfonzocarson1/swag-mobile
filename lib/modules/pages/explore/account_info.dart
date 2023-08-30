@@ -12,6 +12,7 @@ import 'package:swagapp/modules/api/stripe_api.dart';
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
+import 'package:swagapp/modules/cubits/cards/cards_cubits.dart';
 import 'package:swagapp/modules/pages/home/home_page.dart';
 
 import '../../blocs/update_profile_bloc/update_profile_bloc.dart';
@@ -1215,29 +1216,16 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
 
     bool done = false;
     try {
-      final token = await getIt<StripeApi>().createToken(request);
-      debugPrint('Card Token Created: $token');
-      done = await addPaymentMethod(token);
+      await getIt<CardsCubit>().addCard(request);
     } catch (e) {
       done = false;
-      final stripeError = e as StripeError;
-      handleStripeError(stripeError);
-      debugPrint('Card Token Creation Failed: ${stripeError.toString()}');
+      if (e is StripeError) {
+        handleStripeError(e);
+      }
     }
     await Future.delayed(const Duration(milliseconds: 800));
     Loading.hide(context);
     return done;
-  }
-
-  Future<bool> addPaymentMethod(String cardToken) async {
-    try {
-      final response = getIt<StripeApi>().addPaymentMethod(cardToken);
-      debugPrint('Card Token Saved On B.E: $response');
-      return true;
-    } catch (e) {
-      debugPrint('Failed To Save Card Token On B.E: $e');
-      return false;
-    }
   }
 
   void handleStripeError(StripeError stripeErrorModel) {
