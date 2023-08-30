@@ -91,7 +91,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
 
     timer = Timer(const Duration(seconds: 1), () {
       setState(() {
-        if (buyForSaleList.first.saledItemdList.isEmpty) {
+        if (buyForSaleList.first.saledItemdList.isEmpty && myListings.isEmpty) {
           newCollectionList = widget.dataCollection ?? [];
         } else {
           for (final item in buyForSaleList.first.saledItemdList) {

@@ -6,6 +6,7 @@ import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:swagapp/modules/blocs/category_bloc/category_bloc.dart';
 import 'package:swagapp/modules/common/utils/stateful_wrapper.dart';
 import 'package:swagapp/modules/pages/explore/account_info.dart';
 
@@ -46,6 +47,7 @@ class _AppState extends State<App> {
   void initState() {
     super.initState();
     getIt<DeepLinkHandler>().init();
+    print("app init called");
   }
 
   @override
@@ -78,6 +80,36 @@ class _AppState extends State<App> {
           builder: (context, child) => Overlay(
             initialEntries: [
 
+              ///Timeout Exception
+              // OverlayEntry(builder: (BuildContext context) {
+              //
+              //   return BlocListener<VPNConnectivityBloc,
+              //       VPNConnectivityState>(
+              //     listener: (context, state) {
+              //
+              //       print("app listener  VPN connectivity ");
+              //
+              //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              //           duration: const Duration(days: 365),
+              //           behavior: SnackBarBehavior.floating,
+              //           margin: EdgeInsets.only(
+              //             bottom: MediaQuery.of(context).size.height / 1.3,
+              //           ),
+              //           backgroundColor: Colors.transparent,
+              //           content: const ToastMessage(
+              //             message: 'Active internet connection required.',
+              //           ),
+              //           dismissDirection: DismissDirection.none));
+              //
+              //       if (state is CategoryState && state.runtimeType.toString() == "_HostTimeOutState") {
+              //
+              //
+              //       }
+              //     },
+              //     child: Container(),
+              //   );
+              // }),
+
               ///Internet connectivity Service
               OverlayEntry(builder: (BuildContext context) {
                 // return MediaQuery(
@@ -90,9 +122,10 @@ class _AppState extends State<App> {
 
                     //pull request issue resolved
                     print("app listener  internet connectivity ");
-                    if (state == InternetConnectivityState.offline) {
-
+                    if (state == InternetConnectivityState.offline)  {
+                      print("offline internet snack bar");
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+
                           duration: const Duration(days: 365),
                           behavior: SnackBarBehavior.floating,
                           margin: EdgeInsets.only(

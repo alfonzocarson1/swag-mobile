@@ -13,8 +13,10 @@ import 'package:swagapp/modules/common/utils/utils.dart';
 import 'package:swagapp/modules/pages/login/create_account_page.dart';
 import 'package:swagapp/modules/pages/login/forgot_password_page.dart';
 
+import '../../../main.dart';
 import '../../blocs/auth_bloc/auth_bloc.dart';
 import '../../common/ui/custom_text_form_field.dart';
+import '../../common/ui/dynamic_toast_messages.dart';
 import '../../common/ui/loading.dart';
 import '../../common/utils/custom_route_animations.dart';
 import '../../data/secure_storage/storage_repository_service.dart';
@@ -44,7 +46,7 @@ class _SignInPageState extends State<SignInPage> {
   Color _passwordBorder = Palette.current.primaryWhiteSmoke;
   String? emailErrorText;
   String? passwordlErrorText;
-
+  bool isVPN = true;
   @override
   void dispose() {
     _emailNode.dispose();
@@ -113,6 +115,40 @@ class _SignInPageState extends State<SignInPage> {
                     Loading.hide(context),
                     // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
                   },
+                isInternetAvailable: (value) {
+                  logger.e("ISVPN :$value");
+                  Loading.hide(context);
+                  // _emailNode.unfocus();
+                  // _passwordNode.unfocus();
+
+                  isVPN = value;
+                  if (!value) {
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(SnackBar(
+                        duration:
+                        const Duration(seconds: 3),
+                        behavior:
+                        SnackBarBehavior.floating,
+                        margin: EdgeInsets.only(
+                          bottom: MediaQuery.of(context)
+                              .size
+                              .height /
+                              1.3,
+                        ),
+                        backgroundColor:
+                        Colors.transparent,
+                        content: const ToastMessage(
+                          message:
+                          'Active internet connection required.',
+                        ),
+                        dismissDirection:
+                        DismissDirection.none));
+                  }
+
+                  // setState(() {
+                  //
+                  // });
+                }
                 ),
             child: GestureDetector(
                 behavior: HitTestBehavior.translucent,
@@ -164,8 +200,7 @@ class _SignInPageState extends State<SignInPage> {
                                             CrossAxisAlignment.center,
                                         children: [
                                           Text(
-                                            S
-                                                .of(context)
+                                            S.of(context)
                                                 .incorrect_email_or_password,
                                             style: Theme.of(context)
                                                 .textTheme
@@ -229,6 +264,7 @@ class _SignInPageState extends State<SignInPage> {
                                   PrimaryButton(
                                     title: S.of(context).sign_in.toUpperCase(),
                                     onPressed: () {
+                                      FocusScope.of(context).requestFocus(FocusNode());
                                       showErrors();
                                       if (areFieldsValid()) {
                                         getIt<AuthBloc>().add(
@@ -333,17 +369,24 @@ class _SignInPageState extends State<SignInPage> {
 
   void showErrors() {
     setState(() {
-      emailErrorText = _emailController.text.isEmpty
-          ? S.of(context).required_field
-          : isValidEmail(_emailController.text)
-              ? null
-              : S.of(context).invalid_email;
 
-      passwordlErrorText = _passwordController.text.isEmpty
-          ? S.of(context).required_field
-          : _passwordController.text.isNotEmpty
-              ? null
-              : S.of(context).empty_password;
+      if (isVPN){
+        emailErrorText = _emailController.text.isEmpty
+            ? S.of(context).required_field
+            : isValidEmail(_emailController.text)
+            ? null
+            : S.of(context).invalid_email;
+
+        passwordlErrorText = _passwordController.text.isEmpty
+            ? S.of(context).required_field
+            : _passwordController.text.isNotEmpty
+            ? null
+            : S.of(context).empty_password;
+      }else{
+        // emailErrorText="";
+        // passwordlErrorText="";
+      }
+
     });
   }
 

@@ -18,4 +18,5 @@ class AuthState with _$AuthState {
       LoadedvalidCodeSuccess;
   const factory AuthState.passwordChanged() = PasswordChanged;
   const factory AuthState.deleted( String message,  bool status) = Deleted;
+  const factory AuthState.isInternetAvailable(bool isInternetAvailable) = IsInternetAvailable;
 }

@@ -7,6 +7,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../../main.dart';
 import '../../common/utils/handling_errors.dart';
 import '../../data/auth/i_auth_service.dart';
+import '../../services/internet_connectivity_service.dart';
 
 part 'username_bloc.freezed.dart';
 part 'username_event.dart';
@@ -43,7 +44,8 @@ class UsernameBloc extends Bloc<UsernameEvent, UsernameState> {
 
       if(e.toString().contains("Failed host lookup")){
         logger.e("Contain");
-        yield const UsernameState.isInternetAvailable(false);
+         yield const UsernameState.isInternetAvailable(false);
+        //InternetConnectivityBloc().emit(InternetConnectivityState.offline);
       }else{
         // yield const UsernameState.isInternetAvailable(true);
         yield UsernameState.error(HandlingErrors().getError(e));
