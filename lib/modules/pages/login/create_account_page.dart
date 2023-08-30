@@ -165,74 +165,74 @@ class _CreateAccountState extends State<CreateAccountPage> {
         appBar: CustomAppBar(),
         body: BlocListener<AuthBloc, AuthState>(
             listener: (context, state) => state.maybeWhen(
-                  orElse: () {
-                    return null;
-                  },
-                  authenticated: () {
-                    bool loginAfterGuest =
-                        getIt<PreferenceRepositoryService>().loginAfterGuest();
-                    getIt<PreferenceRepositoryService>()
-                        .saveHasJustSignedUp(true);
-                    getIt<PreferenceRepositoryService>().saveIsLogged(true);
-                    getIt<StorageRepositoryService>()
-                        .saveEmail(_emailController.text);
-                    getIt<StorageRepositoryService>()
-                        .savePassword(_passwordController.text);
-                    Loading.hide(context);
-                    getIt<ProfileCubit>().loadProfileResults();
+                orElse: () {
+                  return null;
+                },
+                authenticated: () {
+                  bool loginAfterGuest =
+                      getIt<PreferenceRepositoryService>().loginAfterGuest();
+                  getIt<PreferenceRepositoryService>()
+                      .saveHasJustSignedUp(true);
+                  getIt<PreferenceRepositoryService>().saveIsLogged(true);
+                  getIt<StorageRepositoryService>()
+                      .saveEmail(_emailController.text);
+                  getIt<StorageRepositoryService>()
+                      .savePassword(_passwordController.text);
+                  Loading.hide(context);
+                  getIt<ProfileCubit>().loadProfileResults();
 
-                    Future.delayed(
-                        Duration(milliseconds: loginAfterGuest ? 0 : 2000), () {
-                      _emailController.text = '';
-                      _phoneController.text = '';
-                      _passwordController.text = '';
-                      _confirmPasswordController.text = '';
-                      _usernameController.text = '';
+                  Future.delayed(
+                      Duration(milliseconds: loginAfterGuest ? 0 : 2000), () {
+                    _emailController.text = '';
+                    _phoneController.text = '';
+                    _passwordController.text = '';
+                    _confirmPasswordController.text = '';
+                    _usernameController.text = '';
 
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          duration: const Duration(seconds: 3),
-                          behavior: SnackBarBehavior.floating,
-                          margin: EdgeInsets.only(
-                            bottom: MediaQuery.of(context).size.height / 1.3,
-                          ),
-                          backgroundColor: Colors.transparent,
-                          content: ToastMessage(
-                            message: S.of(context).toast_message_create_account,
-                          ),
-                          dismissDirection: DismissDirection.none));
-                    });
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        duration: const Duration(seconds: 3),
+                        behavior: SnackBarBehavior.floating,
+                        margin: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).size.height / 1.3,
+                        ),
+                        backgroundColor: Colors.transparent,
+                        content: ToastMessage(
+                          message: S.of(context).toast_message_create_account,
+                        ),
+                        dismissDirection: DismissDirection.none));
+                  });
 
-                    Future.delayed(
-                        Duration(milliseconds: loginAfterGuest ? 4000 : 6000),
-                        () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const AccountInfoPage()));
-                    });
+                  Future.delayed(
+                      Duration(milliseconds: loginAfterGuest ? 4000 : 6000),
+                      () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const AccountInfoPage()));
+                  });
 
-                    return null;
-                  },
-                  logging: () {
-                    return Loading.show(context);
-                  },
-                  error: (message) => {
-                    if (message == '202')
-                      {
-                        setState(() {
-                          phoneErrorText = S.of(context).invalid_phone_format;
-                        })
-                      }
-                    else if (message == '204')
-                      {
-                        setState(() {
-                          phoneErrorText = S.of(context).phone_taken;
-                        })
-                      },
+                  return null;
+                },
+                logging: () {
+                  return Loading.show(context);
+                },
+                error: (message) => {
+                      if (message == '202')
+                        {
+                          setState(() {
+                            phoneErrorText = S.of(context).invalid_phone_format;
+                          })
+                        }
+                      else if (message == '204')
+                        {
+                          setState(() {
+                            phoneErrorText = S.of(context).phone_taken;
+                          })
+                        },
 
-                    Loading.hide(context),
-                    // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
-                  },
+                      Loading.hide(context),
+                      // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
+                    },
                 isInternetAvailable: (value) {
                   logger.e("ISVPN :$value");
                   Loading.hide(context);
@@ -241,33 +241,21 @@ class _CreateAccountState extends State<CreateAccountPage> {
 
                   isVPN = value;
                   if (!value) {
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(SnackBar(
-                        duration:
-                        const Duration(seconds: 3),
-                        behavior:
-                        SnackBarBehavior.floating,
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        duration: const Duration(seconds: 3),
+                        behavior: SnackBarBehavior.floating,
                         margin: EdgeInsets.only(
-                          bottom: MediaQuery.of(context)
-                              .size
-                              .height /
-                              1.3,
+                          bottom: MediaQuery.of(context).size.height / 1.3,
                         ),
-                        backgroundColor:
-                        Colors.transparent,
+                        backgroundColor: Colors.transparent,
                         content: const ToastMessage(
-                          message:
-                          'Active internet connection required.',
+                          message: 'Active internet connection required.',
                         ),
-                        dismissDirection:
-                        DismissDirection.none));
+                        dismissDirection: DismissDirection.none));
                   }
 
-                  setState(() {
-
-                  });
-                }
-                ),
+                  setState(() {});
+                }),
             child: _getBody()));
   }
 
@@ -318,6 +306,53 @@ class _CreateAccountState extends State<CreateAccountPage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
+                            /*  BlocListener<AuthBloc, AuthState>(
+                                  listener: (context, state) => state.maybeWhen(
+                                      orElse: () {
+                                        return null;
+                                      },
+                                      authenticated: () {
+                                        return null;
+                                      },
+                                      logging: () {},
+                                      error: (message) => {},
+                                      isInternetAvailable: (value) {
+                                        logger.e("ISVPN :$value");
+                                        Loading.hide(context);
+                                        // _emailNode.unfocus();
+                                        // _passwordNode.unfocus();
+
+                                        isVPN = value;
+                                        if (!value) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                                  duration: const Duration(
+                                                      seconds: 3),
+                                                  behavior:
+                                                      SnackBarBehavior.floating,
+                                                  margin: EdgeInsets.only(
+                                                    bottom:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height /
+                                                            1.3,
+                                                  ),
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  content: const ToastMessage(
+                                                    message:
+                                                        'Active internet connection required.',
+                                                  ),
+                                                  dismissDirection:
+                                                      DismissDirection.none));
+                                        }
+
+                                        // setState(() {
+                                        //
+                                        // });
+                                      }),
+                                  child: null),*/
+
                               BlocBuilder<AuthBloc, AuthState>(
                                   builder: (context, authState) {
                                 return authState.maybeMap(orElse: () {
@@ -492,9 +527,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                                     DismissDirection.none));
                                       }
 
-                                      setState(() {
-
-                                      });
+                                      setState(() {});
                                     });
                               }),
                               // BlocBuilder<UsernameBloc, UsernameState>(
@@ -644,7 +677,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                         getIt<PreferenceRepositoryService>()
                                             .getFirebaseDeviceToken();
                                     showErrors();
-                                    if (areFieldsValid())  {
+                                    if (areFieldsValid()) {
                                       context.read<AuthBloc>().add(AuthEvent
                                           .createAccount(CreateAccountPayloadModel(
                                               email: _emailController.text,
@@ -772,7 +805,14 @@ class _CreateAccountState extends State<CreateAccountPage> {
       var response1 = response as ForgotPasswordCodeModel;
       result = response1.response!;
     } catch (e) {
-      debugPrint("email checking failed$e");
+      if (e.toString().contains("Failed host lookup")) {
+        //just to hide the email validation
+        result = true;
+        isVPN=false;
+      } else {
+        result = false;
+        isVPN=true;
+      }
     }
     return result;
   }
@@ -829,7 +869,8 @@ class _CreateAccountState extends State<CreateAccountPage> {
 
           if (connectivityResult == ConnectivityResult.none) {
             logger.e("Offline emit");
-            InternetConnectivityBloc(true).emit(InternetConnectivityState.offline);
+            InternetConnectivityBloc(true)
+                .emit(InternetConnectivityState.offline);
           } else {
             if (isValidUsername(value)) {
               context
@@ -873,7 +914,6 @@ class _CreateAccountState extends State<CreateAccountPage> {
       // InternetConnectivityBloc().emit(InternetConnectivityState.offline);
 
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-
           duration: const Duration(days: 365),
           behavior: SnackBarBehavior.floating,
           margin: EdgeInsets.only(
@@ -884,23 +924,21 @@ class _CreateAccountState extends State<CreateAccountPage> {
             message: 'Active internet connection required.',
           ),
           dismissDirection: DismissDirection.none));
-
     } else {
       if (isEmptyUserName) {
         usernameErrorText = S.of(context).required_field;
       } else {
-        if (isVPN){
+        if (isVPN) {
           isUsernameTaken = !isUsernameAvailable;
           bool isUsernameOk = isCorrectSize && isUsernameAvailable;
           usernameErrorText = isUsernameOk || _usernameController.text.isEmpty
               ? null
               : isCorrectSize
-              ? S.of(context).username_taken
-              : S.of(context).invalid_username;
-        }else{
-          usernameErrorText="";
+                  ? S.of(context).username_taken
+                  : S.of(context).invalid_username;
+        } else {
+          usernameErrorText = null;
         }
-
       }
     }
   }
@@ -908,16 +946,42 @@ class _CreateAccountState extends State<CreateAccountPage> {
   void setEmailErrorText(
     bool isValid,
     bool isEmailAvailable,
-  ) {
-    if (isEmptyEmail) {
-      emailErrorText = S.of(context).required_field;
+  ) async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+
+    if (connectivityResult == ConnectivityResult.none) {
+      // InternetConnectivityBloc().emit(InternetConnectivityState.offline);
+
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          duration: const Duration(days: 365),
+          behavior: SnackBarBehavior.floating,
+          margin: EdgeInsets.only(
+            bottom: MediaQuery.of(context).size.height / 1.3,
+          ),
+          backgroundColor: Colors.transparent,
+          content: const ToastMessage(
+            message: 'Active internet connection required.',
+          ),
+          dismissDirection: DismissDirection.none));
     } else {
-      bool isEmailOk = isValid && isEmailAvailable;
-      emailErrorText = isEmailOk || _emailController.text.isEmpty
-          ? null
-          : isValid
-              ? S.of(context).email_taken
-              : S.of(context).invalid_email;
+      if (isEmptyEmail) {
+        emailErrorText = S.of(context).required_field;
+      } else {
+        if (isEmptyEmail) {
+          emailErrorText = S.of(context).required_field;
+        } else {
+          if (isVPN) {
+            bool isEmailOk = isValid && isEmailAvailable;
+            emailErrorText = isEmailOk || _emailController.text.isEmpty
+                ? null
+                : isValid
+                    ? S.of(context).email_taken
+                    : S.of(context).invalid_email;
+          } else {
+            emailErrorText = null;
+          }
+        }
+      }
     }
   }
 
@@ -954,12 +1018,6 @@ class _CreateAccountState extends State<CreateAccountPage> {
         isEmptyEmail = true;
       }
 
-      emailErrorText = _emailController.text.isEmpty
-          ? S.of(context).required_field
-          : isValidEmail(_emailController.text)
-              ? null
-              : S.of(context).invalid_email;
-
       phoneErrorText = _phoneController.text.isEmpty
           ? S.of(context).required_field
           : isPhoneValid
@@ -982,29 +1040,41 @@ class _CreateAccountState extends State<CreateAccountPage> {
               : null;
     });
 
-
-
+    if (isEmptyEmail) {
+      emailErrorText = S.of(context).required_field;
+    } else {
+      if (isVPN) {
+        emailErrorText = _emailController.text.isEmpty
+            ? S.of(context).required_field
+            : isValidEmail(_emailController.text)
+                ? null
+                : S.of(context).invalid_email;
+      } else {
+        emailErrorText = null;
+      }
+    }
 
     if (isEmptyUserName) {
       usernameErrorText = S.of(context).required_field;
     } else {
-      if (isVPN){
+      if (isVPN) {
         usernameErrorText = _usernameController.text.isEmpty
             ? S.of(context).required_field
             : (_usernameController.text.isNotEmpty &&
-            _usernameController.text.length >= 4)
-            ? isUsernameTaken
-            ? S.of(context).username_taken
-            : null
-            : S.of(context).invalid_username;
-      }else{
-        usernameErrorText=null;
+                    _usernameController.text.length >= 4)
+                ? isUsernameTaken
+                    ? S.of(context).username_taken
+                    : null
+                : S.of(context).invalid_username;
+      } else {
+        usernameErrorText = null;
       }
-
     }
 
     if (!tosChecked) {
       tosError = S.of(context).required_field;
+    } else {
+      tosError = null;
     }
   }
 

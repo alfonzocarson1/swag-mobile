@@ -23,7 +23,12 @@ class ToastMessage extends StatelessWidget {
             const SizedBox(
               width: 20,
             ),
-            Text(message)
+            Expanded(
+              child: Text(
+                message,
+                maxLines: 3,
+              ),
+            ),
           ],
         ));
   }
