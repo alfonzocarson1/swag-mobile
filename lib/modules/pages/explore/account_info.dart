@@ -822,7 +822,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                         inputType: TextInputType.number,
                                         borderColor: _expirationBorder,
                                         inputFormatters: [
-                                          _CardExpirationInputFormatter(),
+                                          CardExpirationInputFormatter(),
                                         ],
                                         maxLength: 5,
                                         autofocus: false,
@@ -1469,7 +1469,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   }
 }
 
-class _CardExpirationInputFormatter extends TextInputFormatter {
+class CardExpirationInputFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
       TextEditingValue oldValue, TextEditingValue newValue) {

@@ -29,7 +29,7 @@ class CardsCubit extends Cubit<CardsCubitState> {
       debugPrint('Card Token Created: $token');
       final response = stripeApi.addPaymentMethod(token);
       debugPrint('Card Token Saved On B.E: $response');
-      getCards();
+      await getCards();
     } catch (e, stk) {
       debugPrintStack(
         label: e.toString(),

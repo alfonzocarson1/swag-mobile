@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/cubits/cards/cards_cubits.dart';
 import 'package:swagapp/modules/di/injector.dart';
+import 'package:swagapp/modules/pages/settings/account/add_card_page.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../api/stripe_api.dart';
@@ -162,7 +163,9 @@ class _AddCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(context, AddCardPage.route());
+      },
       splashColor: Palette.current.primaryNero,
       child: Column(
         children: [
