@@ -174,13 +174,12 @@ class AccountBody extends StatelessWidget {
                           S.of(context).kyc_title,
                           profileData.kycverified ?? false
                               ? '${profileData.addresses?.first.firstName ?? ''} ${profileData.addresses?.first.lastName ?? ''}'
-                              : ' ',
-                          () {
-                            if (!(profileData.kycverified ?? false)) {
-                              Navigator.of(context)
-                                  .push(KycSplashDialog.route(context));
-                            }
-                          },
+                              : ' ', () {
+                        if (!(profileData.kycverified ?? false)) {
+                          Navigator.of(context)
+                              .push(KycSplashDialog.route(context));
+                        }
+                      },
                           Text(getKycSting(profileData.kycStatus),
                               style: Theme.of(context)
                                   .textTheme
@@ -248,13 +247,13 @@ Color getKycColor(String? status) {
     return Palette.current.darkGray;
   }
   status = status.toLowerCase();
-  if (['failed', 'unsupported'].any((x) => status.contains(x))) {
+  if (['failed', 'unsupported'].any((x) => status!.contains(x))) {
     return Palette.current.primaryNeonPink;
   }
-  if (['failed', 'unsupported'].any((x) => status.contains(x))) {
+  if (['failed', 'unsupported'].any((x) => status!.contains(x))) {
     return Palette.current.primaryNeonPink;
   }
-  if (['unverified', 'started', 'processing'].any((x) => status.contains(x))) {
+  if (['unverified', 'started', 'processing'].any((x) => status!.contains(x))) {
     return Palette.current.darkGray;
   }
   if (status == "verified") {

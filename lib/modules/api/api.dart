@@ -176,9 +176,10 @@ class API {
     Endpoint.removeAddress: 'api/v1/profile/settings/account/addresses/%s',
     Endpoint.verifyRateAlert: 'api/v1/profile/checkIfListingRatingAlReady',
     Endpoint.startContinueKycVerificationSession:
-    'api/v1/profile/settings/startContinueKycVerificationSession',
+        'api/v1/profile/settings/startContinueKycVerificationSession',
     Endpoint.storeFirebaseToken: 'api/v1/notification/storeFireBaseToken',
     Endpoint.addPaymentMethod: 'api/v1/profile/settings/addPaymentMethod/%s',
-    Endpoint.paymentCustomerAccess: 'api/v1/profile/settings/paymentCustomerAccess',
+    Endpoint.paymentCustomerAccess:
+        'api/v1/profile/settings/paymentCustomerAccess',
   };
 }
