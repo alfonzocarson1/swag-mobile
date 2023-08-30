@@ -181,6 +181,7 @@ Map<String, dynamic> extractProductDetailsWrapperData(ProductDetails product) {
         case PurchaseStatus.error:
           _iap.completePurchase(purchase);
           emit(PaywallCubitState.error(purchase.error!.message));
+          emit(const PaywallCubitState.initial());
           break;
         case PurchaseStatus.canceled:
           emit(const PaywallCubitState.initial());
