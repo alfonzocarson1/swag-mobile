@@ -604,7 +604,7 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
   }
 
   void galleryMethod() {
-    handlePermissionsForImagePicker(context, ImageSource.gallery);
+    selectImageAndHandlePermissions(context, ImageSource.gallery);
     getIt<ChatCubit>().sendGalleryFileMessage(widget.channel);
     //setState(() {});
   }
