@@ -360,6 +360,16 @@ class S {
     );
   }
 
+  /// `Mobile`
+  String get mobile {
+    return Intl.message(
+      'Mobile',
+      name: 'mobile',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `@username`
   String get username {
     return Intl.message(
@@ -660,17 +670,23 @@ class S {
     );
   }
 
-  /// `Please allow {permission} permission in your {os, select, android{phone} ios{iPhone} other{device}} settings for the Swag App`
-  String permission_dialog_description(Object os, Object permission) {
+  /// `Please allow {permission} permission in your device settings for the Swag App. This allows you to take pictures and videos with your camera to use as your profile photo, when listing items for sale or when chatting with other users.`
+  String permission_camera_dialog_description(Object permission) {
     return Intl.message(
-      'Please allow $permission permission in your ${Intl.select(os, {
-            'android': 'phone',
-            'ios': 'iPhone',
-            'other': 'device'
-          })} settings for the Swag App',
-      name: 'permission_dialog_description',
+      'Please allow $permission permission in your device settings for the Swag App. This allows you to take pictures and videos with your camera to use as your profile photo, when listing items for sale or when chatting with other users.',
+      name: 'permission_camera_dialog_description',
       desc: '',
-      args: [os, permission],
+      args: [permission],
+    );
+  }
+
+  /// `Please allow {permission} permission in your device settings for the Swag App. This allows you to upload pictures/videos from your library to use as your profile photo, when listing items for sale or when chatting with other users.`
+  String permission_gallery_dialog_description(Object permission) {
+    return Intl.message(
+      'Please allow $permission permission in your device settings for the Swag App. This allows you to upload pictures/videos from your library to use as your profile photo, when listing items for sale or when chatting with other users.',
+      name: 'permission_gallery_dialog_description',
+      desc: '',
+      args: [permission],
     );
   }
 
@@ -4790,6 +4806,26 @@ class S {
     return Intl.message(
       'You already confirmed receipt of the item and rated the seller.',
       name: 'buyer_rate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You already rated the buyer.`
+  String get seller_rate {
+    return Intl.message(
+      'You already rated the buyer.',
+      name: 'seller_rate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View Listings`
+  String get view_listing {
+    return Intl.message(
+      'View Listings',
+      name: 'view_listing',
       desc: '',
       args: [],
     );

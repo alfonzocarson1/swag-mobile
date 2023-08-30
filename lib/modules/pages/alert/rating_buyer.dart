@@ -289,21 +289,6 @@ class _RatingBuyerState extends State<RatingBuyer> {
                 ),
               ),
             ),
-            Positioned(
-              right: 0,
-              top: 3,
-              child: IconButton(
-                iconSize: 30,
-                color: Palette.current.primaryNeonGreen,
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                icon: const Icon(
-                  Icons.clear_outlined,
-                  size: 20,
-                ),
-              ),
-            )
           ],
         ),
       ),

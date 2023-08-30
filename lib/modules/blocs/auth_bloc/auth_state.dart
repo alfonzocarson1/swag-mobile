@@ -6,9 +6,7 @@ class AuthState with _$AuthState {
   const factory AuthState.walkthrough() = Walkthrough;
   const factory AuthState.onboarding() = Onboarding;
   const factory AuthState.logging() = Logging;
-  const factory AuthState.authenticated({
-    required bool informationMissing,
-  }) = Authenticated;
+  const factory AuthState.authenticated() = Authenticated;
   const factory AuthState.unauthenticated() = Unauthenticated;
   const factory AuthState.error(final String message) = AuthenticationError;
   const factory AuthState.reset() = Reset;
@@ -20,4 +18,5 @@ class AuthState with _$AuthState {
       LoadedvalidCodeSuccess;
   const factory AuthState.passwordChanged() = PasswordChanged;
   const factory AuthState.deleted( String message,  bool status) = Deleted;
+  const factory AuthState.isInternetAvailable(bool isInternetAvailable) = IsInternetAvailable;
 }

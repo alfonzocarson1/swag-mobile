@@ -12,11 +12,15 @@ import '../../../common/ui/loading.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
 import '../../../common/utils/utils.dart';
+import '../../../data/shared_preferences/shared_preferences_service.dart';
+import '../../../di/injector.dart';
 import '../../../models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
 import '../../../models/detail/detail_sale_info_model.dart';
 import '../../../models/detail/sale_history_model.dart';
 import '../../detail/transaction_history_page.dart';
+import '../../login/create_account_page.dart';
 import 'preview_buy_for_sale.dart';
+import 'preview_listing_as_guest.dart';
 
 // ignore: must_be_immutable
 class BuyForSale extends StatefulWidget {
@@ -78,6 +82,8 @@ class _BuyForSaleState extends State<BuyForSale> {
   late final ScrollController? _scrollController =
       PrimaryScrollController.of(context);
   FilterModel filters = FilterModel();
+  bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
+
   @override
   void initState() {
     // TODO: implement initState
@@ -235,18 +241,25 @@ class _BuyForSaleState extends State<BuyForSale> {
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                      Navigator.of(context, rootNavigator: true)
-                                          .push(TransactionHistory.route(
-                                              widget.urlImage,
-                                              widget.catalogItemName,
-                                              widget.catalogItemPrice,
-                                              widget.sale,
-                                              widget.available ?? 0,
-                                              widget.favorite,
-                                              widget.catalogItemId,
-                                              widget.saleHistoryList, (val) {
-                                        widget.addFavorite(val);
-                                      }));
+                                      if (isLogged) {
+                                        Navigator.of(context,
+                                                rootNavigator: true)
+                                            .push(TransactionHistory.route(
+                                                widget.urlImage,
+                                                widget.catalogItemName,
+                                                widget.catalogItemPrice,
+                                                widget.sale,
+                                                widget.available ?? 0,
+                                                widget.favorite,
+                                                widget.catalogItemId,
+                                                widget.saleHistoryList, (val) {
+                                          widget.addFavorite(val);
+                                        }));
+                                      } else {
+                                        Navigator.of(context,
+                                                rootNavigator: true)
+                                            .push(CreateAccountPage.route());
+                                      }
                                     },
                                     child: Center(
                                       child: Container(
@@ -352,11 +365,19 @@ class _BuyForSaleState extends State<BuyForSale> {
                         dataListingSale.length,
                         (index) => GestureDetector(
                           onTap: () {
-                            Navigator.of(context, rootNavigator: true).push(
-                                BuyPreviewPage.route(
-                                    productItemId:
-                                        dataListingSale[index].productItemId,
-                                    catalogId: widget.catalogItemId ?? ''));
+                            if (isLogged) {
+                              Navigator.of(context, rootNavigator: true).push(
+                                  BuyPreviewPage.route(
+                                      productItemId:
+                                          dataListingSale[index].productItemId,
+                                      catalogId: widget.catalogItemId ?? ''));
+                            } else {
+                              Navigator.of(context, rootNavigator: true).push(
+                                  PreviewListingAsGuest.route(
+                                      productItemId:
+                                          dataListingSale[index].productItemId,
+                                      catalogId: widget.catalogItemId ?? ''));
+                            }
                           },
                           child: Container(
                             margin: const EdgeInsets.only(bottom: 28),

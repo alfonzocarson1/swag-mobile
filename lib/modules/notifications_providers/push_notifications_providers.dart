@@ -42,13 +42,6 @@ class PushNotificationsProvider {
     await getIt<PreferenceRepositoryService>()
         .saveFirebaseDeviceToken(token ?? '');
 
-    await FirebaseMessaging.instance
-        .setForegroundNotificationPresentationOptions(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
-
     await getIt<PreferenceRepositoryService>().saveShowNotification(true);
 
     FirebaseMessaging.onBackgroundMessage(_onBackgroundHandler);
@@ -56,20 +49,23 @@ class PushNotificationsProvider {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       debugPrint('===== On Message ======');
       debugPrint(message.toMap().toString());
+      getIt<AlertCubit>().getAlertList();
 
       try {
         String? currentRoute = getIt<RouteTracker>().currentRoute;
-        var json = jsonDecode(message.data['sendbird']);
 
-        if (currentRoute != "/ChatPage" && Platform.isAndroid) {
+
+      bool stringToBool(String value) {
+        return value.toLowerCase() == 'true';
+      }
+
+      if (stringToBool(message.data['showPushNotification'])) {
+        if (currentRoute != "/ChatPage") {
           LocalNotificationProvider().showNotification(
-              title: json['push_title'],
-              body: json['message'],
+              title: message.data['title'],
+              body: message.data['message'],
               payLoad: 'data');
-          getIt<AlertCubit>().getAlertList();
         }
-      } catch (e) {
-        // no sendbird in data
       }
     });
 
@@ -82,6 +78,23 @@ class PushNotificationsProvider {
           .currentState!
           .push(AlertPage.route());
     });
+  }
+
+  static Future<void> _onBackgroundHandler(RemoteMessage message) async {
+    print('===== On BackgroundMessage ======');
+    print(message.data);
+    getIt<AlertCubit>().getAlertList();
+
+    bool stringToBool(String value) {
+      return value.toLowerCase() == 'true';
+    }
+
+    if (stringToBool(message.data['showPushNotification'])) {
+      LocalNotificationProvider().showNotification(
+          title: message.data['title'],
+          body: message.data['message'],
+          payLoad: 'data');
+    }
   }
 
   requestPermissions() async {

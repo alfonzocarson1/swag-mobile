@@ -37,6 +37,7 @@ mixin _$ProfileModel {
   bool? get kycverified => throw _privateConstructorUsedError;
   String? get firstName => throw _privateConstructorUsedError;
   String? get lastName => throw _privateConstructorUsedError;
+  String? get countryCode => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -66,7 +67,8 @@ abstract class $ProfileModelCopyWith<$Res> {
       bool? hasUsedFreeTrial,
       bool? kycverified,
       String? firstName,
-      String? lastName});
+      String? lastName,
+      String? countryCode});
 }
 
 /// @nodoc
@@ -98,6 +100,7 @@ class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
     Object? kycverified = freezed,
     Object? firstName = freezed,
     Object? lastName = freezed,
+    Object? countryCode = freezed,
   }) {
     return _then(_value.copyWith(
       accountId: null == accountId
@@ -164,6 +167,10 @@ class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
               as String?,
+      countryCode: freezed == countryCode
+          ? _value.countryCode
+          : countryCode // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -192,7 +199,8 @@ abstract class _$$_ProfileModelCopyWith<$Res>
       bool? hasUsedFreeTrial,
       bool? kycverified,
       String? firstName,
-      String? lastName});
+      String? lastName,
+      String? countryCode});
 }
 
 /// @nodoc
@@ -222,6 +230,7 @@ class __$$_ProfileModelCopyWithImpl<$Res>
     Object? kycverified = freezed,
     Object? firstName = freezed,
     Object? lastName = freezed,
+    Object? countryCode = freezed,
   }) {
     return _then(_$_ProfileModel(
       accountId: null == accountId
@@ -288,6 +297,10 @@ class __$$_ProfileModelCopyWithImpl<$Res>
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
               as String?,
+      countryCode: freezed == countryCode
+          ? _value.countryCode
+          : countryCode // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -312,7 +325,8 @@ class _$_ProfileModel implements _ProfileModel {
       this.hasUsedFreeTrial,
       this.kycverified,
       this.firstName,
-      this.lastName})
+      this.lastName,
+      this.countryCode})
       : _addresses = addresses;
 
   factory _$_ProfileModel.fromJson(Map<String, dynamic> json) =>
@@ -358,10 +372,12 @@ class _$_ProfileModel implements _ProfileModel {
   final String? firstName;
   @override
   final String? lastName;
+  @override
+  final String? countryCode;
 
   @override
   String toString() {
-    return 'ProfileModel(accountId: $accountId, username: $username, useAvatar: $useAvatar, avatarUrl: $avatarUrl, listingsRating: $listingsRating, phoneNumber: $phoneNumber, email: $email, addresses: $addresses, collectionValue: $collectionValue, accountVerified: $accountVerified, emailVerified: $emailVerified, hasActiveSubscription: $hasActiveSubscription, hasUsedFreeTrial: $hasUsedFreeTrial, kycverified: $kycverified, firstName: $firstName, lastName: $lastName)';
+    return 'ProfileModel(accountId: $accountId, username: $username, useAvatar: $useAvatar, avatarUrl: $avatarUrl, listingsRating: $listingsRating, phoneNumber: $phoneNumber, email: $email, addresses: $addresses, collectionValue: $collectionValue, accountVerified: $accountVerified, emailVerified: $emailVerified, hasActiveSubscription: $hasActiveSubscription, hasUsedFreeTrial: $hasUsedFreeTrial, kycverified: $kycverified, firstName: $firstName, lastName: $lastName, countryCode: $countryCode)';
   }
 
   @override
@@ -399,7 +415,9 @@ class _$_ProfileModel implements _ProfileModel {
             (identical(other.firstName, firstName) ||
                 other.firstName == firstName) &&
             (identical(other.lastName, lastName) ||
-                other.lastName == lastName));
+                other.lastName == lastName) &&
+            (identical(other.countryCode, countryCode) ||
+                other.countryCode == countryCode));
   }
 
   @JsonKey(ignore: true)
@@ -421,7 +439,8 @@ class _$_ProfileModel implements _ProfileModel {
       hasUsedFreeTrial,
       kycverified,
       firstName,
-      lastName);
+      lastName,
+      countryCode);
 
   @JsonKey(ignore: true)
   @override
@@ -454,7 +473,8 @@ abstract class _ProfileModel implements ProfileModel {
       final bool? hasUsedFreeTrial,
       final bool? kycverified,
       final String? firstName,
-      final String? lastName}) = _$_ProfileModel;
+      final String? lastName,
+      final String? countryCode}) = _$_ProfileModel;
 
   factory _ProfileModel.fromJson(Map<String, dynamic> json) =
       _$_ProfileModel.fromJson;
@@ -491,6 +511,8 @@ abstract class _ProfileModel implements ProfileModel {
   String? get firstName;
   @override
   String? get lastName;
+  @override
+  String? get countryCode;
   @override
   @JsonKey(ignore: true)
   _$$_ProfileModelCopyWith<_$_ProfileModel> get copyWith =>

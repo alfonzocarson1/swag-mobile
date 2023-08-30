@@ -30,6 +30,7 @@
     "popup_btn_no": "NO, I'LL DO THIS LATER",
     "incorrect_email_or_password": "Incorrect email or password. Please try again",
     "phone": "Phone",
+    "mobile": "Mobile",
     "username": "@username",
     "agree_to": "I agree to Swag’s ",
     "privacy_policy_text": "Privacy Policy",
@@ -60,7 +61,8 @@
     "permission_microphone":"microphone",
     "permission_camera_microphone":"camera and microphone",
     "permission_dialog_title": "{permission} ACCESS",
-    "permission_dialog_description": "Please allow {permission} permission in your {os, select, android{phone} ios{iPhone} other{device}} settings for the Swag App",
+    "permission_camera_dialog_description": "Please allow {permission} permission in your device settings for the Swag App. This allows you to take pictures and videos with your camera to use as your profile photo, when listing items for sale or when chatting with other users.",
+    "permission_gallery_dialog_description": "Please allow {permission} permission in your device settings for the Swag App. This allows you to upload pictures/videos from your library to use as your profile photo, when listing items for sale or when chatting with other users.",
     "permission_dialog_button": "ALLOW {permission} ACCESS",
     "permission_photos_title": "",
     "required_field": "Required field",
@@ -498,5 +500,7 @@
     "legal_text": "In some cases, we will be unable to delete your account, such as if there is an issue with your account related to outstanding sales transactions or subscriptions. When we delete your account, we may retain certain information for legitimate business purposes or to comply with legal or regulatory obligations.  Please consult our Privacy Policy at Swag.golf for more info.",
     "remove_address_pop_up": "This shipping address will be removed from your account.",
     "buyer_recived": "You already confirmed receipt of the item.  Please rate the seller.",
-    "buyer_rate": "You already confirmed receipt of the item and rated the seller."
+    "buyer_rate": "You already confirmed receipt of the item and rated the seller.",
+    "seller_rate": "You already rated the buyer.",
+    "view_listing": "View Listings"
 }

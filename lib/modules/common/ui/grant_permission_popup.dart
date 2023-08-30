@@ -15,6 +15,7 @@ enum GrantPermissionDialogType {
   cameraMicrophone,
 }
 
+
 extension on GrantPermissionDialogType {
   String name(BuildContext context) {
     switch (this) {
@@ -74,10 +75,13 @@ class GrantPermissionDialog extends StatelessWidget {
                   style: largeTextStyle(context),
                 ),
                 const SizedBox(height: 24),
-                Text(
+                Text((permission() == 'camera') ?
                   S
                       .of(context)
-                      .permission_dialog_description(permission(), os()),
+                      .permission_camera_dialog_description(permission()):
+                       S
+                      .of(context)
+                      .permission_gallery_dialog_description(permission()),
                   style: smallTextStyle(context),
                 ),
                 const SizedBox(height: 21),

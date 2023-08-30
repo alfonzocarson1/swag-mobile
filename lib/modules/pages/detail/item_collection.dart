@@ -7,12 +7,14 @@ import 'package:swagapp/modules/data/detail/i_detail_service.dart';
 import 'package:swagapp/modules/models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
 
 import '../../../generated/l10n.dart';
+import '../../common/ui/paywall_splash_screen.dart';
 import '../../common/ui/popup_delete_item_collection.dart';
 import '../../common/ui/popup_list_item_sale.dart';
 import '../../common/ui/primary_button.dart';
 import '../../common/utils/palette.dart';
 import '../../common/utils/utils.dart';
 import '../../cubits/catalog_detail/catalog_detail_cubit.dart';
+import '../../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
 import '../../cubits/profile/get_profile_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
@@ -20,6 +22,8 @@ import '../../models/buy_for_sale_listing/buy_for_sale_listing_response_model.da
 import '../../models/detail/detail_collection_model.dart';
 import '../../models/detail/detail_sale_info_model.dart';
 import '../../models/detail/sale_history_model.dart';
+import '../../models/listing_for_sale/listing_for_sale_model.dart';
+import '../../models/listing_for_sale/profile_listing_model.dart';
 import '../../models/notify_when_available/profile_notify_list.dart';
 import '../../models/profile/profile_model.dart';
 import '../add/buy/buy_for_sale.dart';
@@ -73,20 +77,21 @@ class _CollectionWidgetState extends State<CollectionWidget> {
   List<DetailCollectionModel> newCollectionList = [];
   List<BuyForSaleListingResponseModel> buyForSaleList = [];
   List<DetailCollectionModel> dataCollection = [];
-
+  List<ListingForSaleModel> myListings = [];
   List<String> ids = [];
   ProfileNotifyList notificationList =
       const ProfileNotifyList(profileNotificationList: []);
 
   @override
   void initState() {
+    loadCollectionsListed();
     getNotificationStatus();
     dataCollection = widget.dataCollection ?? [];
     super.initState();
 
     timer = Timer(const Duration(seconds: 1), () {
       setState(() {
-        if (buyForSaleList.first.saledItemdList.isEmpty) {
+        if (buyForSaleList.first.saledItemdList.isEmpty && myListings.isEmpty) {
           newCollectionList = widget.dataCollection ?? [];
         } else {
           for (final item in buyForSaleList.first.saledItemdList) {
@@ -94,9 +99,18 @@ class _CollectionWidgetState extends State<CollectionWidget> {
             ids.add(buyForSaleList
                 .first.saledItemdList[index].profileCollectionItemId!);
           }
+
+          Set<String> myListingsIds = myListings
+              .map((ListingForSaleModel model) =>
+                  model.profileCollectionItemId ?? '')
+              .toSet();
+
           newCollectionList = dataCollection
               .where((item) => !ids.contains(item.profileCollectionItemId))
               .toList();
+
+          newCollectionList.removeWhere((DetailCollectionModel detail) =>
+              myListingsIds.contains(detail.profileCollectionItemId));
         }
       });
     });
@@ -107,6 +121,15 @@ class _CollectionWidgetState extends State<CollectionWidget> {
       getProfileAvatar();
     }
     hasActiveSubscription = profileData?.hasActiveSubscription ?? false;
+  }
+
+  loadCollectionsListed() async {
+    ListingForSaleProfileResponseModel? response =
+        await getIt<ListingProfileCubit>().loadCollectionListed();
+
+    setState(() {
+      myListings = response!.listForSale;
+    });
   }
 
   @override
@@ -438,35 +461,26 @@ class _CollectionWidgetState extends State<CollectionWidget> {
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Column(
               children: [
-                (widget.sale && !notifyAvailabilityFlagBTN)
+                (widget.sale && !notifyAvailabilityFlagBTN && isLogged)
                     ? SizedBox(
                         width: MediaQuery.of(context).size.width,
                         child: PrimaryButton(
-                          title: widget.sale
-                              ? widget.available! > 1
-                                  ? '${S.of(context).buy_for} ${decimalDigitsLastSalePrice(widget.lastSale.minPrice!)} - ${decimalDigitsLastSalePrice(widget.lastSale.maxPrice!)}'
-                                  : '${S.of(context).buy_for} ${decimalDigitsLastSalePrice(widget.lastSale.minPrice!)}'
-                              : '${S.of(context).buy_for} ${decimalDigitsLastSalePrice(widget.lastSale.minPrice!)}',
+                          title: S.of(context).view_listing.toUpperCase(),
                           onPressed: () {
-                            if (isLogged) {
-                              Navigator.of(context, rootNavigator: true)
-                                  .push(BuyForSale.route(
-                                widget.catalogId,
-                                widget.catalogItemName,
-                                widget.lastSale,
-                                widget.urlImage,
-                                widget.favorite,
-                                widget.sale,
-                                widget.available ?? 0,
-                                widget.saleHistoryList,
-                                (val) {
-                                  widget.addFavorite(val);
-                                },
-                              ));
-                            } else {
-                              Navigator.of(context, rootNavigator: true)
-                                  .push(CreateAccountPage.route());
-                            }
+                            Navigator.of(context, rootNavigator: true)
+                                .push(BuyForSale.route(
+                              widget.catalogId,
+                              widget.catalogItemName,
+                              widget.lastSale,
+                              widget.urlImage,
+                              widget.favorite,
+                              widget.sale,
+                              widget.available ?? 0,
+                              widget.saleHistoryList,
+                              (val) {
+                                widget.addFavorite(val);
+                              },
+                            ));
                           },
                           type: PrimaryButtonType.green,
                         ),
@@ -534,7 +548,9 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                           onPressed: () {
                             if (isLogged) {
                               if (widget.sale) {
-                                showToastMessage(S.of(context).collection_removal_not_allowed_if_on_sale);
+                                showToastMessage(S
+                                    .of(context)
+                                    .collection_removal_not_allowed_if_on_sale);
                               } else {
                                 showDialog(
                                     context: context,
@@ -555,6 +571,100 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                     : Container(),
                 const SizedBox(
                   height: 20,
+                ),
+                (widget.sale && !isLogged)
+                    ? SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: PrimaryButton(
+                          title: S.of(context).view_listing.toUpperCase(),
+                          onPressed: () {
+                            Navigator.of(context, rootNavigator: true)
+                                .push(BuyForSale.route(
+                              widget.catalogId,
+                              widget.catalogItemName,
+                              widget.lastSale,
+                              widget.urlImage,
+                              widget.favorite,
+                              widget.sale,
+                              widget.available ?? 0,
+                              widget.saleHistoryList,
+                              (val) {
+                                widget.addFavorite(val);
+                              },
+                            ));
+                          },
+                          type: PrimaryButtonType.green,
+                        ),
+                      )
+                    : (!widget.sale || notifyAvailabilityFlagBTN)
+                        ? SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            child: PrimaryButton(
+                              title: S.of(context).notify_available,
+                              onPressed: () {
+                                if (isLogged &&
+                                    notifyAvailabilityFlagBTN &&
+                                    buttonEnable &&
+                                    !itemInNotifyList) {
+                                  buttonEnable = false;
+                                  if (hasActiveSubscription == true) {
+                                    setState(() {});
+                                    getIt<CatalogDetailCubit>()
+                                        .notifyAvailability(widget.catalogId);
+                                    showToastMessage(
+                                        S.of(context).notify_availability);
+                                  } else {
+                                    showPaywallSplashScreen(
+                                        context: context,
+                                        hasUsedFreeTrial:
+                                            profileData?.hasUsedFreeTrial ??
+                                                false,
+                                        removePaywall: removePaywall);
+                                  }
+                                } else if (isLogged &&
+                                    buttonEnable == false &&
+                                    !itemInNotifyList) {
+                                  if (hasActiveSubscription == true) {
+                                    showToastMessage(S
+                                        .of(context)
+                                        .notification_already_requested);
+                                  } else {
+                                    showPaywallSplashScreen(
+                                        context: context,
+                                        hasUsedFreeTrial:
+                                            profileData?.hasUsedFreeTrial ??
+                                                false,
+                                        removePaywall: removePaywall);
+                                  }
+                                } else if (!notifyAvailabilityFlagBTN &&
+                                    buttonEnable &&
+                                    itemInNotifyList) {
+                                  if (hasActiveSubscription == true) {
+                                    showToastMessage(S
+                                        .of(context)
+                                        .notification_already_requested);
+                                  } else {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                PaywallSplashScreen(
+                                                  hasUsedFreeTrial: false,
+                                                  removePaywall: () {
+                                                    removePaywall();
+                                                  },
+                                                )));
+                                  }
+                                } else if (!isLogged) {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(CreateAccountPage.route());
+                                }
+                              },
+                              type: PrimaryButtonType.primaryEerieBlack,
+                            ),
+                          )
+                        : Container(),
+                const SizedBox(
+                  height: 50,
                 )
               ],
             ))

@@ -52,7 +52,6 @@ class ChatCubit extends Cubit<ChatState> {
       });
 
       setupOnMessageReceivedHandler();
-
     } catch (e) {
       throw Exception('Error loading my user');
     }
@@ -177,7 +176,6 @@ class ChatCubit extends Cubit<ChatState> {
         currentMessages.insert(0, message);
         emit(ChatState.loadedChats(currentMessages));
         debugPrint('File message sent successfully');
-
       },
       progressHandler: (sentBytes, totalBytes) {
         debugPrint('Uploading File: $sentBytes / $totalBytes');
@@ -198,12 +196,12 @@ class ChatCubit extends Cubit<ChatState> {
     List<BaseMessage> currentMessages = messages;
 
     final picker = ImagePicker();
-    XFile? pickedFile = await picker.pickImage(imageQuality: 70, source: ImageSource.gallery);
-
+    XFile? pickedFile =
+        await picker.pickImage(imageQuality: 70, source: ImageSource.gallery);
 
     if (pickedFile != null) {
       List<Size>? chatThumbnailSizes = const [Size(100, 100), Size(40, 40)];
-        File rotatedImage = await FlutterExifRotation.rotateImage(
+      File rotatedImage = await FlutterExifRotation.rotateImage(
         path: pickedFile.path,
       );
       final params = FileMessageCreateParams.withFile(File(rotatedImage.path),
@@ -222,7 +220,6 @@ class ChatCubit extends Cubit<ChatState> {
           currentMessages.insert(0, message);
           emit(ChatState.loadedChats(currentMessages));
           debugPrint('File message sent successfully');
-
         },
         progressHandler: (sentBytes, totalBytes) {
           debugPrint('Uploading File: $sentBytes / $totalBytes');
@@ -253,8 +250,6 @@ class ChatCubit extends Cubit<ChatState> {
     }
   }
 
-
-
   Future<String> getChannelUrl(String productId) async {
     String channelUrl = "";
     try {
@@ -282,7 +277,6 @@ class ChatCubit extends Cubit<ChatState> {
             type: PushTokenType.fcm,
             token: firebaseToken,
             unique: true);
-
   }
 
   bringAdminToChat(String channelUrl) async =>
@@ -330,6 +324,8 @@ class MyGroupChannelHandler extends GroupChannelHandler {
       String jsonString = channel.data.toString();
       jsonString = jsonString.replaceAll("'", "\"");
       Map<String, dynamic> jsonData = jsonDecode(jsonString);
+
+      getIt<AlertCubit>().getAlertList();
 
       if (currentRoute != "/ChatPage" &&
           (channel.customType == ChatType.listing.textValue ||

@@ -1,9 +1,12 @@
+
+
 import 'dart:async';
 
 import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:swagapp/modules/blocs/category_bloc/category_bloc.dart';
 import 'package:swagapp/modules/common/utils/stateful_wrapper.dart';
 import 'package:swagapp/modules/pages/explore/account_info.dart';
 
@@ -15,12 +18,14 @@ import 'generated/l10n.dart';
 import 'modules/blocs/auth_bloc/auth_bloc.dart';
 import 'modules/blocs/blocs.dart';
 import 'modules/blocs/sold_bloc/sold_bloc.dart';
+import 'modules/common/ui/dynamic_toast_messages.dart';
 import 'modules/pages/home/home_page.dart';
 import 'modules/common/utils/context_service.dart';
 import 'modules/common/utils/palette.dart';
 import 'modules/common/utils/theme.dart';
 import 'modules/di/injector.dart';
 import 'modules/pages/splash/splash_page.dart';
+import 'modules/services/internet_connectivity_service.dart';
 import 'modules/services/route_observer.dart';
 
 class App extends StatefulWidget {
@@ -42,6 +47,7 @@ class _AppState extends State<App> {
   void initState() {
     super.initState();
     getIt<DeepLinkHandler>().init();
+    print("app init called");
   }
 
   @override
@@ -73,6 +79,71 @@ class _AppState extends State<App> {
           home: const AuthRouterPage(),
           builder: (context, child) => Overlay(
             initialEntries: [
+
+              ///Timeout Exception
+              // OverlayEntry(builder: (BuildContext context) {
+              //
+              //   return BlocListener<VPNConnectivityBloc,
+              //       VPNConnectivityState>(
+              //     listener: (context, state) {
+              //
+              //       print("app listener  VPN connectivity ");
+              //
+              //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              //           duration: const Duration(days: 365),
+              //           behavior: SnackBarBehavior.floating,
+              //           margin: EdgeInsets.only(
+              //             bottom: MediaQuery.of(context).size.height / 1.3,
+              //           ),
+              //           backgroundColor: Colors.transparent,
+              //           content: const ToastMessage(
+              //             message: 'Active internet connection required.',
+              //           ),
+              //           dismissDirection: DismissDirection.none));
+              //
+              //       if (state is CategoryState && state.runtimeType.toString() == "_HostTimeOutState") {
+              //
+              //
+              //       }
+              //     },
+              //     child: Container(),
+              //   );
+              // }),
+
+              ///Internet connectivity Service
+              OverlayEntry(builder: (BuildContext context) {
+                // return MediaQuery(
+                //   data: MediaQuery.of(context).copyWith(boldText: false),
+                //   child:
+                // );
+                return BlocListener<InternetConnectivityBloc,
+                    InternetConnectivityState>(
+                  listener: (context, state) {
+
+                    //pull request issue resolved
+                    print("app listener  internet connectivity ");
+                    if (state == InternetConnectivityState.offline)  {
+                      print("offline internet snack bar");
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+
+                          duration: const Duration(days: 365),
+                          behavior: SnackBarBehavior.floating,
+                          margin: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).size.height / 1.3,
+                          ),
+                          backgroundColor: Colors.transparent,
+                          content: const ToastMessage(
+                            message: 'Active internet connection required.',
+                          ),
+                          dismissDirection: DismissDirection.none));
+
+                    }else{
+                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                    }
+                  },
+                  child: Container(),
+                );
+              }),
               OverlayEntry(builder: (BuildContext context) {
                 return MediaQuery(
                   data: MediaQuery.of(context).copyWith(boldText: false),
@@ -135,9 +206,7 @@ class AuthRouterPage extends StatelessWidget {
       child: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) => state.maybeMap(
             initial: (_) => const SplashPage(),
-            authenticated: (authenticated) => authenticated.informationMissing
-                ? const AccountInfoPage()
-                : const HomePage(),
+            authenticated: (authenticated) => const HomePage(),
             walkthrough: (_) => const OnboardingPage(),
             onboarding: (_) => const OnboardingPage(),
             deleted: (_) => const LandingPage(),
@@ -150,3 +219,5 @@ class AuthRouterPage extends StatelessWidget {
     );
   }
 }
+
+

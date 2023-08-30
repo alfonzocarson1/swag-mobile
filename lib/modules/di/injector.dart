@@ -93,6 +93,7 @@ import '../data/sold/sold_service.dart';
 import '../data/update_profile/i_update_profile_service.dart';
 import '../data/update_profile/update_profile_service.dart';
 import '../services/deep_link_manager.dart';
+import '../services/internet_connectivity_service.dart';
 import '../services/route_observer.dart';
 
 final getIt = GetIt.instance;
@@ -147,6 +148,8 @@ Future<void> setupAppScope(String appFlavor) async {
 
   getIt.registerLazySingleton<ListingProfileCubit>(
       () => ListingProfileCubit(getIt<IListingService>()));
+  getIt
+      .registerLazySingleton<InternetConnectivityBloc>(() => InternetConnectivityBloc(false));
 
   getIt
       .registerLazySingleton<AuthCubit>(() => AuthCubit(getIt<IAuthService>()));

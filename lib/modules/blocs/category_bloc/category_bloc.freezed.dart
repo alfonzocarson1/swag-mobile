@@ -172,6 +172,7 @@ mixin _$CategoryState {
     required TResult Function(String message) error,
     required TResult Function(List<CategoryListModel> categoryList)
         loadedCategories,
+    required TResult Function(String message) hostTimeOut,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -179,6 +180,7 @@ mixin _$CategoryState {
     TResult? Function()? initial,
     TResult? Function(String message)? error,
     TResult? Function(List<CategoryListModel> categoryList)? loadedCategories,
+    TResult? Function(String message)? hostTimeOut,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -186,6 +188,7 @@ mixin _$CategoryState {
     TResult Function()? initial,
     TResult Function(String message)? error,
     TResult Function(List<CategoryListModel> categoryList)? loadedCategories,
+    TResult Function(String message)? hostTimeOut,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -194,6 +197,7 @@ mixin _$CategoryState {
     required TResult Function(_InitialCategoryState value) initial,
     required TResult Function(_ErrorCategorytate value) error,
     required TResult Function(LoadedCategoriesState value) loadedCategories,
+    required TResult Function(_HostTimeOutState value) hostTimeOut,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -201,6 +205,7 @@ mixin _$CategoryState {
     TResult? Function(_InitialCategoryState value)? initial,
     TResult? Function(_ErrorCategorytate value)? error,
     TResult? Function(LoadedCategoriesState value)? loadedCategories,
+    TResult? Function(_HostTimeOutState value)? hostTimeOut,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -208,6 +213,7 @@ mixin _$CategoryState {
     TResult Function(_InitialCategoryState value)? initial,
     TResult Function(_ErrorCategorytate value)? error,
     TResult Function(LoadedCategoriesState value)? loadedCategories,
+    TResult Function(_HostTimeOutState value)? hostTimeOut,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -273,6 +279,7 @@ class _$_InitialCategoryState extends _InitialCategoryState {
     required TResult Function(String message) error,
     required TResult Function(List<CategoryListModel> categoryList)
         loadedCategories,
+    required TResult Function(String message) hostTimeOut,
   }) {
     return initial();
   }
@@ -283,6 +290,7 @@ class _$_InitialCategoryState extends _InitialCategoryState {
     TResult? Function()? initial,
     TResult? Function(String message)? error,
     TResult? Function(List<CategoryListModel> categoryList)? loadedCategories,
+    TResult? Function(String message)? hostTimeOut,
   }) {
     return initial?.call();
   }
@@ -293,6 +301,7 @@ class _$_InitialCategoryState extends _InitialCategoryState {
     TResult Function()? initial,
     TResult Function(String message)? error,
     TResult Function(List<CategoryListModel> categoryList)? loadedCategories,
+    TResult Function(String message)? hostTimeOut,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -307,6 +316,7 @@ class _$_InitialCategoryState extends _InitialCategoryState {
     required TResult Function(_InitialCategoryState value) initial,
     required TResult Function(_ErrorCategorytate value) error,
     required TResult Function(LoadedCategoriesState value) loadedCategories,
+    required TResult Function(_HostTimeOutState value) hostTimeOut,
   }) {
     return initial(this);
   }
@@ -317,6 +327,7 @@ class _$_InitialCategoryState extends _InitialCategoryState {
     TResult? Function(_InitialCategoryState value)? initial,
     TResult? Function(_ErrorCategorytate value)? error,
     TResult? Function(LoadedCategoriesState value)? loadedCategories,
+    TResult? Function(_HostTimeOutState value)? hostTimeOut,
   }) {
     return initial?.call(this);
   }
@@ -327,6 +338,7 @@ class _$_InitialCategoryState extends _InitialCategoryState {
     TResult Function(_InitialCategoryState value)? initial,
     TResult Function(_ErrorCategorytate value)? error,
     TResult Function(LoadedCategoriesState value)? loadedCategories,
+    TResult Function(_HostTimeOutState value)? hostTimeOut,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -410,6 +422,7 @@ class _$_ErrorCategorytate extends _ErrorCategorytate {
     required TResult Function(String message) error,
     required TResult Function(List<CategoryListModel> categoryList)
         loadedCategories,
+    required TResult Function(String message) hostTimeOut,
   }) {
     return error(message);
   }
@@ -420,6 +433,7 @@ class _$_ErrorCategorytate extends _ErrorCategorytate {
     TResult? Function()? initial,
     TResult? Function(String message)? error,
     TResult? Function(List<CategoryListModel> categoryList)? loadedCategories,
+    TResult? Function(String message)? hostTimeOut,
   }) {
     return error?.call(message);
   }
@@ -430,6 +444,7 @@ class _$_ErrorCategorytate extends _ErrorCategorytate {
     TResult Function()? initial,
     TResult Function(String message)? error,
     TResult Function(List<CategoryListModel> categoryList)? loadedCategories,
+    TResult Function(String message)? hostTimeOut,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -444,6 +459,7 @@ class _$_ErrorCategorytate extends _ErrorCategorytate {
     required TResult Function(_InitialCategoryState value) initial,
     required TResult Function(_ErrorCategorytate value) error,
     required TResult Function(LoadedCategoriesState value) loadedCategories,
+    required TResult Function(_HostTimeOutState value) hostTimeOut,
   }) {
     return error(this);
   }
@@ -454,6 +470,7 @@ class _$_ErrorCategorytate extends _ErrorCategorytate {
     TResult? Function(_InitialCategoryState value)? initial,
     TResult? Function(_ErrorCategorytate value)? error,
     TResult? Function(LoadedCategoriesState value)? loadedCategories,
+    TResult? Function(_HostTimeOutState value)? hostTimeOut,
   }) {
     return error?.call(this);
   }
@@ -464,6 +481,7 @@ class _$_ErrorCategorytate extends _ErrorCategorytate {
     TResult Function(_InitialCategoryState value)? initial,
     TResult Function(_ErrorCategorytate value)? error,
     TResult Function(LoadedCategoriesState value)? loadedCategories,
+    TResult Function(_HostTimeOutState value)? hostTimeOut,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -561,6 +579,7 @@ class _$LoadedCategoriesState extends LoadedCategoriesState {
     required TResult Function(String message) error,
     required TResult Function(List<CategoryListModel> categoryList)
         loadedCategories,
+    required TResult Function(String message) hostTimeOut,
   }) {
     return loadedCategories(categoryList);
   }
@@ -571,6 +590,7 @@ class _$LoadedCategoriesState extends LoadedCategoriesState {
     TResult? Function()? initial,
     TResult? Function(String message)? error,
     TResult? Function(List<CategoryListModel> categoryList)? loadedCategories,
+    TResult? Function(String message)? hostTimeOut,
   }) {
     return loadedCategories?.call(categoryList);
   }
@@ -581,6 +601,7 @@ class _$LoadedCategoriesState extends LoadedCategoriesState {
     TResult Function()? initial,
     TResult Function(String message)? error,
     TResult Function(List<CategoryListModel> categoryList)? loadedCategories,
+    TResult Function(String message)? hostTimeOut,
     required TResult orElse(),
   }) {
     if (loadedCategories != null) {
@@ -595,6 +616,7 @@ class _$LoadedCategoriesState extends LoadedCategoriesState {
     required TResult Function(_InitialCategoryState value) initial,
     required TResult Function(_ErrorCategorytate value) error,
     required TResult Function(LoadedCategoriesState value) loadedCategories,
+    required TResult Function(_HostTimeOutState value) hostTimeOut,
   }) {
     return loadedCategories(this);
   }
@@ -605,6 +627,7 @@ class _$LoadedCategoriesState extends LoadedCategoriesState {
     TResult? Function(_InitialCategoryState value)? initial,
     TResult? Function(_ErrorCategorytate value)? error,
     TResult? Function(LoadedCategoriesState value)? loadedCategories,
+    TResult? Function(_HostTimeOutState value)? hostTimeOut,
   }) {
     return loadedCategories?.call(this);
   }
@@ -615,6 +638,7 @@ class _$LoadedCategoriesState extends LoadedCategoriesState {
     TResult Function(_InitialCategoryState value)? initial,
     TResult Function(_ErrorCategorytate value)? error,
     TResult Function(LoadedCategoriesState value)? loadedCategories,
+    TResult Function(_HostTimeOutState value)? hostTimeOut,
     required TResult orElse(),
   }) {
     if (loadedCategories != null) {
@@ -633,5 +657,152 @@ abstract class LoadedCategoriesState extends CategoryState {
   List<CategoryListModel> get categoryList;
   @JsonKey(ignore: true)
   _$$LoadedCategoriesStateCopyWith<_$LoadedCategoriesState> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_HostTimeOutStateCopyWith<$Res> {
+  factory _$$_HostTimeOutStateCopyWith(
+          _$_HostTimeOutState value, $Res Function(_$_HostTimeOutState) then) =
+      __$$_HostTimeOutStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String message});
+}
+
+/// @nodoc
+class __$$_HostTimeOutStateCopyWithImpl<$Res>
+    extends _$CategoryStateCopyWithImpl<$Res, _$_HostTimeOutState>
+    implements _$$_HostTimeOutStateCopyWith<$Res> {
+  __$$_HostTimeOutStateCopyWithImpl(
+      _$_HostTimeOutState _value, $Res Function(_$_HostTimeOutState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_$_HostTimeOutState(
+      null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_HostTimeOutState extends _HostTimeOutState {
+  _$_HostTimeOutState(this.message) : super._();
+
+  @override
+  final String message;
+
+  @override
+  String toString() {
+    return 'CategoryState.hostTimeOut(message: $message)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_HostTimeOutState &&
+            (identical(other.message, message) || other.message == message));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, message);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_HostTimeOutStateCopyWith<_$_HostTimeOutState> get copyWith =>
+      __$$_HostTimeOutStateCopyWithImpl<_$_HostTimeOutState>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(String message) error,
+    required TResult Function(List<CategoryListModel> categoryList)
+        loadedCategories,
+    required TResult Function(String message) hostTimeOut,
+  }) {
+    return hostTimeOut(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(String message)? error,
+    TResult? Function(List<CategoryListModel> categoryList)? loadedCategories,
+    TResult? Function(String message)? hostTimeOut,
+  }) {
+    return hostTimeOut?.call(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(String message)? error,
+    TResult Function(List<CategoryListModel> categoryList)? loadedCategories,
+    TResult Function(String message)? hostTimeOut,
+    required TResult orElse(),
+  }) {
+    if (hostTimeOut != null) {
+      return hostTimeOut(message);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_InitialCategoryState value) initial,
+    required TResult Function(_ErrorCategorytate value) error,
+    required TResult Function(LoadedCategoriesState value) loadedCategories,
+    required TResult Function(_HostTimeOutState value) hostTimeOut,
+  }) {
+    return hostTimeOut(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_InitialCategoryState value)? initial,
+    TResult? Function(_ErrorCategorytate value)? error,
+    TResult? Function(LoadedCategoriesState value)? loadedCategories,
+    TResult? Function(_HostTimeOutState value)? hostTimeOut,
+  }) {
+    return hostTimeOut?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_InitialCategoryState value)? initial,
+    TResult Function(_ErrorCategorytate value)? error,
+    TResult Function(LoadedCategoriesState value)? loadedCategories,
+    TResult Function(_HostTimeOutState value)? hostTimeOut,
+    required TResult orElse(),
+  }) {
+    if (hostTimeOut != null) {
+      return hostTimeOut(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _HostTimeOutState extends CategoryState {
+  factory _HostTimeOutState(final String message) = _$_HostTimeOutState;
+  _HostTimeOutState._() : super._();
+
+  String get message;
+  @JsonKey(ignore: true)
+  _$$_HostTimeOutStateCopyWith<_$_HostTimeOutState> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -16,11 +16,16 @@ import '../../common/utils/palette.dart';
 import '../../common/utils/utils.dart';
 import '../../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
 import '../../cubits/paywall/paywall_cubit.dart';
+import '../../cubits/profile/get_profile_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/listing_for_sale/listing_for_sale_model.dart';
 import '../../models/listing_for_sale/profile_listing_model.dart';
 import '../../models/profile/profile_model.dart';
+import '../../services/route_observer_utils.dart';
+import '../add/buy/preview_listing_as_guest.dart';
+
+final GlobalKey _payWallKey = GlobalKey();
 
 class ListingsPage extends StatefulWidget {
   static const name = '/Listings';
@@ -35,7 +40,7 @@ class ListingsPage extends StatefulWidget {
   State<ListingsPage> createState() => _ListingsPageState();
 }
 
-class _ListingsPageState extends State<ListingsPage> {
+class _ListingsPageState extends State<ListingsPage> with RouteAware {
   List<File> tempFiles = [];
   bool hasActiveSubscription = false;
   bool hasUsedFreeTrial = false;
@@ -51,6 +56,12 @@ class _ListingsPageState extends State<ListingsPage> {
   @override
   void dispose() {
     super.dispose();
+  }
+
+      @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    ObserverUtils.routeObserver.subscribe(this, ModalRoute.of(context)!);
   }
 
   Future loadList() async {
@@ -73,50 +84,74 @@ class _ListingsPageState extends State<ListingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return (hasActiveSubscription == true)
-        ? BlocBuilder<ListingProfileCubit, ListingCubitState>(
-            builder: (context, state) {
-            return state.maybeWhen(
-                orElse: () {
-                  return Container();
-                },
-                initial: () => const SingleChildScrollView(child: SimpleLoader()),
-                loadedProfileListings:
-                    (List<ListingForSaleProfileResponseModel> listForSale) {
-                  return _getBody(listForSale.first.listForSale);
-                });
-          })
-        : BlocBuilder<PaywallCubit, PaywallCubitState>(
-            builder: (context, state) {
-              return state.maybeWhen(
-                  initial: () => (hasActiveSubscription)
-                      ? const SizedBox.shrink()
-                      : PayWallWidget(
-                        hasUsedFreeTrial: hasUsedFreeTrial,
-                        removePaywall: removePaywall,
-                      ),
-                  progress: () => const SingleChildScrollView(
-                        child: Center(child: SimpleLoader()),
-                      ),
-                  success: () {
-                    removePaywall();
-                    return const SizedBox.shrink();
-                  },
-                  error: (error) {
-                    debugPrint(error);
-                    return Container();
-                  },
-                  orElse: () => (hasActiveSubscription)
-                      ? const SizedBox.shrink()
-                      : SingleChildScrollView(
-                        physics: ScrollPhysics(),
-                          child: PayWallWidget(
-                            hasUsedFreeTrial: hasUsedFreeTrial,
-                            removePaywall: removePaywall,
-                          ),
-                        ));
+    return BlocBuilder<ProfileCubit, ProfileCubitState>(
+      builder: (context, state) {
+        return state.maybeWhen(
+            loading: (isFirstFetch) => const SimpleLoader(),
+            loadedProfileData: (profileData) {
+              return (profileData.hasActiveSubscription == true)
+                  ? BlocBuilder<ListingProfileCubit, ListingCubitState>(
+                      builder: (context, state) {
+                      return state.maybeWhen(
+                          orElse: () {
+                            return Container();
+                          },
+                          initial: () => const SingleChildScrollView(
+                              child: SimpleLoader()),
+                          loadedProfileListings:
+                              (List<ListingForSaleProfileResponseModel>
+                                  listForSale) {
+                            return _getBody(listForSale.first.listForSale);
+                          });
+                    })
+                  : BlocBuilder<PaywallCubit, PaywallCubitState>(
+                      builder: (context, state) {
+                        return state.maybeWhen(
+                            initial: () => (hasActiveSubscription)
+                                ? const SizedBox.shrink()
+                                : PayWallWidget(
+                                  key: _payWallKey,
+                                    hasUsedFreeTrial: hasUsedFreeTrial,
+                                    removePaywall: removePaywall,
+                                  ),
+                            progress: () => const SingleChildScrollView(
+                                  child: Center(child: SimpleLoader()),
+                                ),
+                            success: () {
+                              removePaywall();
+                              return const SizedBox.shrink();
+                            },
+                            error: (error) {
+                              debugPrint(error);
+                              return Container();
+                            },
+                            orElse: () => (hasActiveSubscription)
+                                ? const SizedBox.shrink()
+                                : SingleChildScrollView(
+                                    physics: const ScrollPhysics(),
+                                    child: PayWallWidget(
+                                      key: _payWallKey,
+                                      hasUsedFreeTrial: hasUsedFreeTrial,
+                                      removePaywall: removePaywall,
+                                    ),
+                                  ));
+                      },
+                    );
             },
-          );
+            orElse: () => (hasActiveSubscription)
+                ? const SingleChildScrollView(
+                                  child: Center(child: SimpleLoader()),
+                                )
+                : SingleChildScrollView(
+                    physics: const ScrollPhysics(),
+                    child: PayWallWidget(
+                      key: _payWallKey,
+                      hasUsedFreeTrial: hasUsedFreeTrial,
+                      removePaywall: removePaywall,
+                    ),
+                  ));
+      },
+    );
   }
 
   Widget _getBody(List<ListingForSaleModel> listingList) {
@@ -234,11 +269,21 @@ class ListingGridItemWidget extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 if (catalogItemId != null) {
-                  Navigator.of(context, rootNavigator: true)
-                      .push(MaterialPageRoute(
-                          builder: (context) => BuyPreviewPage(
-                                productItemId: productItemId,
-                              )));
+                  bool isLogged =
+                      getIt<PreferenceRepositoryService>().isLogged();
+
+                  if (isLogged) {
+                    Navigator.of(context, rootNavigator: true)
+                        .push(MaterialPageRoute(
+                            builder: (context) => BuyPreviewPage(
+                                  productItemId: productItemId,
+                                )));
+                  } else {
+                    Navigator.of(context, rootNavigator: true).push(
+                        PreviewListingAsGuest.route(
+                            productItemId: productItemId,
+                            catalogId: catalogItemId ?? ''));
+                  }
                 }
               },
               child: SizedBox(
