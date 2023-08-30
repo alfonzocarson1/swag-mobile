@@ -2810,6 +2810,106 @@ class S {
     );
   }
 
+  /// `Get Verified`
+  String get kyc_dialog_title {
+    return Intl.message(
+      'Get Verified',
+      name: 'kyc_dialog_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Setting up KYC only take a few minutes and allows for the following...`
+  String get kyc_dialog_subtitle {
+    return Intl.message(
+      'Setting up KYC only take a few minutes and allows for the following...',
+      name: 'kyc_dialog_subtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `List items for sale`
+  String get kyc_dialog_point1 {
+    return Intl.message(
+      'List items for sale',
+      name: 'kyc_dialog_point1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Increase odds on hitting drops`
+  String get kyc_dialog_point2 {
+    return Intl.message(
+      'Increase odds on hitting drops',
+      name: 'kyc_dialog_point2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Verified user badge on profile`
+  String get kyc_dialog_point3 {
+    return Intl.message(
+      'Verified user badge on profile',
+      name: 'kyc_dialog_point3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirmation you are not a bot`
+  String get kyc_dialog_point4 {
+    return Intl.message(
+      'Confirmation you are not a bot',
+      name: 'kyc_dialog_point4',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `VERIFY`
+  String get kyc_dialog_verify {
+    return Intl.message(
+      'VERIFY',
+      name: 'kyc_dialog_verify',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Verified with:`
+  String get kyc_verified_with {
+    return Intl.message(
+      'Verified with:',
+      name: 'kyc_verified_with',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to create KYC session.`
+  String get kyc_session_creation_failed {
+    return Intl.message(
+      'Failed to create KYC session.',
+      name: 'kyc_session_creation_failed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `KYC documents are already submitted, please wait for verification results.`
+  String get kyc_session_validating {
+    return Intl.message(
+      'KYC documents are already submitted, please wait for verification results.',
+      name: 'kyc_session_validating',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `NFT WALLET`
   String get nft_wallet_page_title {
     return Intl.message(

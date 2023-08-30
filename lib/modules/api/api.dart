@@ -65,7 +65,8 @@ enum Endpoint {
   storeFirebaseToken,
   addPaymentMethod,
   paymentCustomerAccess,
-  verifyRateAlert
+  verifyRateAlert,
+  startContinueKycVerificationSession,
 }
 
 enum ApiHostScheme {
@@ -171,8 +172,11 @@ class API {
     Endpoint.verifyWallet: 'api/public/v1/account/verifyWallet',
     Endpoint.createOrUpdateWallet:
         'api/public/v1/account/createOrUpdateWalletPair',
+    Endpoint.addAlertP2P: 'api/v1/notification/alerts/alert',
     Endpoint.removeAddress: 'api/v1/profile/settings/account/addresses/%s',
     Endpoint.verifyRateAlert: 'api/v1/profile/checkIfListingRatingAlReady',
+    Endpoint.startContinueKycVerificationSession:
+        'api/v1/profile/settings/startContinueKycVerificationSession',
     Endpoint.storeFirebaseToken: 'api/v1/notification/storeFireBaseToken',
     Endpoint.addPaymentMethod: 'api/v1/profile/settings/addPaymentMethod/%s',
     Endpoint.paymentCustomerAccess:

@@ -401,7 +401,26 @@ class MessageLookup extends MessageLookupByLibrary {
         "ist_item_popup_btn":
             MessageLookupByLibrary.simpleMessage("CREATE LISTING"),
         "items_purchased": m16,
+        "kyc_dialog_point1":
+            MessageLookupByLibrary.simpleMessage("List items for sale"),
+        "kyc_dialog_point2": MessageLookupByLibrary.simpleMessage(
+            "Increase odds on hitting drops"),
+        "kyc_dialog_point3": MessageLookupByLibrary.simpleMessage(
+            "Verified user badge on profile"),
+        "kyc_dialog_point4": MessageLookupByLibrary.simpleMessage(
+            "Confirmation you are not a bot"),
+        "kyc_dialog_subtitle": MessageLookupByLibrary.simpleMessage(
+            "Setting up KYC only take a few minutes and allows for the following..."),
+        "kyc_dialog_title":
+            MessageLookupByLibrary.simpleMessage("Get Verified"),
+        "kyc_dialog_verify": MessageLookupByLibrary.simpleMessage("VERIFY"),
+        "kyc_session_creation_failed": MessageLookupByLibrary.simpleMessage(
+            "Failed to create KYC session."),
+        "kyc_session_validating": MessageLookupByLibrary.simpleMessage(
+            "KYC documents are already submitted, please wait for verification results."),
         "kyc_title": MessageLookupByLibrary.simpleMessage("KYC"),
+        "kyc_verified_with":
+            MessageLookupByLibrary.simpleMessage("Verified with:"),
         "last_name": MessageLookupByLibrary.simpleMessage("Last Name"),
         "last_sale": MessageLookupByLibrary.simpleMessage("LAST SALE"),
         "legal_text": MessageLookupByLibrary.simpleMessage(

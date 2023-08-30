@@ -1,8 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/ui/simple_loader.dart';
+import 'package:swagapp/modules/pages/settings/account/verification/kyc_splash_dialog.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../common/ui/pushed_header.dart';
@@ -175,8 +174,12 @@ class AccountBody extends StatelessWidget {
                           S.of(context).kyc_title,
                           profileData.kycverified ?? false
                               ? '${profileData.addresses?.first.firstName ?? ''} ${profileData.addresses?.first.lastName ?? ''}'
-                              : ' ',
-                          () {},
+                              : ' ', () {
+                        if (!(profileData.kycverified ?? false)) {
+                          Navigator.of(context)
+                              .push(KycSplashDialog.route(context));
+                        }
+                      },
                           Text(getKycSting(profileData.kycStatus),
                               style: Theme.of(context)
                                   .textTheme
@@ -244,13 +247,13 @@ Color getKycColor(String? status) {
     return Palette.current.darkGray;
   }
   status = status.toLowerCase();
-  if (['failed', 'unsupported'].any((x) => status.contains(x))) {
+  if (['failed', 'unsupported'].any((x) => status!.contains(x))) {
     return Palette.current.primaryNeonPink;
   }
-  if (['failed', 'unsupported'].any((x) => status.contains(x))) {
+  if (['failed', 'unsupported'].any((x) => status!.contains(x))) {
     return Palette.current.primaryNeonPink;
   }
-  if (['unverified', 'started', 'processing'].any((x) => status.contains(x))) {
+  if (['unverified', 'started', 'processing'].any((x) => status!.contains(x))) {
     return Palette.current.darkGray;
   }
   if (status == "verified") {
