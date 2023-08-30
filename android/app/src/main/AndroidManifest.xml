@@ -36,6 +36,7 @@
       android:windowSoftInputMode="adjustResize"
     >
      <meta-data android:name="flutter_deeplinking_enabled" android:value="true" />
+     
 
             <!-- App Link sample
             <intent-filter android:autoVerify="true">
