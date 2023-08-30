@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -36,7 +37,11 @@ class _PayWallWidgetState extends State<PayWallWidget> {
   @override
   void initState() {
     profileData = getIt<PreferenceRepositoryService>().profileData();
-    flavorProducts = getIt<AppConfig>().paywallProducts;
+        if(Platform.isAndroid){
+      flavorProducts = getIt<AppConfig>().paywallAndroidProducts;
+    }else{
+      flavorProducts = getIt<AppConfig>().paywallProducts;
+    }
     super.initState();
   }
 
