@@ -3,17 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/blocs/auth_bloc/auth_bloc.dart';
 import 'package:swagapp/modules/blocs/auth_bloc/username_bloc.dart';
 import 'package:swagapp/modules/blocs/category_bloc/category_bloc.dart';
-
 // import 'package:swagapp/modules/blocs/explore_bloc/explore_bloc.dart';
 import 'package:swagapp/modules/blocs/profile_favorite_bloc/profile_favorite_bloc.dart';
 import 'package:swagapp/modules/blocs/update_profile_bloc/update_profile_bloc.dart';
 import 'package:swagapp/modules/cubits/app_state/app_state_cubit.dart';
 import 'package:swagapp/modules/cubits/auth/auth_cubit.dart';
 import 'package:swagapp/modules/cubits/buy/buy_cubit.dart';
+import 'package:swagapp/modules/cubits/cards/cards_cubits.dart';
 import 'package:swagapp/modules/cubits/catalog_detail/catalog_detail_cubit.dart';
 import 'package:swagapp/modules/cubits/collections/get_collections_cubit.dart';
 import 'package:swagapp/modules/cubits/explore/get_explore_cubit.dart';
 import 'package:swagapp/modules/cubits/favorites/get_favorites_cubit.dart';
+import 'package:swagapp/modules/cubits/kyc/kyc_cubit.dart';
 import 'package:swagapp/modules/cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
 import 'package:swagapp/modules/cubits/nft_wallet/nft_wallet_cubit.dart';
 import 'package:swagapp/modules/cubits/page_from_explore/page_from_explore_cubit.dart';
@@ -26,7 +27,6 @@ import 'package:swagapp/modules/cubits/purchase_history/purchase_history_cubit.d
 import 'package:swagapp/modules/cubits/purchase_history_detail/purchase_history_detail_cubit.dart';
 import 'package:swagapp/modules/cubits/saved_search/saved_searches_cubit.dart';
 import 'package:swagapp/modules/cubits/subscription_status/update_subscription_status_cubit.dart';
-import 'package:swagapp/modules/data/chat/chat_service.dart';
 import 'package:swagapp/modules/di/injector.dart';
 
 import '../cubits/alert/alert_cubit.dart';
@@ -45,11 +45,11 @@ import 'listing_bloc/listing_bloc.dart';
 import 'sale_history/sale_history_bloc.dart';
 import 'search_bloc.dart/search_bloc.dart';
 import 'shared_preferences_bloc/shared_preferences_bloc.dart';
-import 'sold_bloc/sold_bloc.dart';
 
 abstract class AppBlocs {
   static List<BlocProvider> blocs(BuildContext context) => [
-        BlocProvider<InternetConnectivityBloc>(create: (context) => getIt<InternetConnectivityBloc>()),
+        BlocProvider<InternetConnectivityBloc>(
+            create: (context) => getIt<InternetConnectivityBloc>()),
         BlocProvider<AppCubit>(create: ((context) => getIt<AppCubit>())),
         BlocProvider<ChatCubit>(create: (context) => getIt<ChatCubit>()),
         BlocProvider<AuthBloc>(create: (_) => getIt<AuthBloc>()),
@@ -108,5 +108,7 @@ abstract class AppBlocs {
         BlocProvider<PublicProfileFavoritesCubit>(create: (_) => getIt()),
         BlocProvider<NftWalletCubit>(create: (_) => getIt()),
         BlocProvider<RouteHistoryCubit>(create: (_) => getIt()),
+        BlocProvider<CardsCubit>(create: (_) => getIt()),
+        BlocProvider<KycCubit>(create: (_) => getIt()),
       ];
 }

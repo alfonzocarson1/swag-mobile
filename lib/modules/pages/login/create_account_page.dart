@@ -178,33 +178,29 @@ class _CreateAccountState extends State<CreateAccountPage> {
                       .saveEmail(_emailController.text);
                   getIt<StorageRepositoryService>()
                       .savePassword(_passwordController.text);
-                  Loading.hide(context);
+                  setState(() {
+                    Loading.hide(context);
+                  });
                   getIt<ProfileCubit>().loadProfileResults();
 
-                  Future.delayed(
-                      Duration(milliseconds: loginAfterGuest ? 0 : 2000), () {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      duration: const Duration(seconds: 3),
+                      behavior: SnackBarBehavior.floating,
+                      margin: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).size.height / 1.3,
+                      ),
+                      backgroundColor: Colors.transparent,
+                      content: ToastMessage(
+                        message: S.of(context).toast_message_create_account,
+                      ),
+                      dismissDirection: DismissDirection.none));
+
+                  Future.delayed(const Duration(seconds: 3), () {
                     _emailController.text = '';
                     _phoneController.text = '';
                     _passwordController.text = '';
                     _confirmPasswordController.text = '';
                     _usernameController.text = '';
-
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        duration: const Duration(seconds: 3),
-                        behavior: SnackBarBehavior.floating,
-                        margin: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).size.height / 1.3,
-                        ),
-                        backgroundColor: Colors.transparent,
-                        content: ToastMessage(
-                          message: S.of(context).toast_message_create_account,
-                        ),
-                        dismissDirection: DismissDirection.none));
-                  });
-
-                  Future.delayed(
-                      Duration(milliseconds: loginAfterGuest ? 4000 : 6000),
-                      () {
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -214,7 +210,10 @@ class _CreateAccountState extends State<CreateAccountPage> {
                   return null;
                 },
                 logging: () {
-                  return Loading.show(context);
+                  setState(() {
+                    Loading.show(context);
+                  });
+                  return null;
                 },
                 error: (message) => {
                       if (message == '202')
@@ -229,13 +228,16 @@ class _CreateAccountState extends State<CreateAccountPage> {
                             phoneErrorText = S.of(context).phone_taken;
                           })
                         },
-
-                      Loading.hide(context),
+                      setState(() {
+                        Loading.hide(context);
+                      }),
                       // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
                     },
                 isInternetAvailable: (value) {
                   logger.e("ISVPN :$value");
-                  Loading.hide(context);
+                  setState(() {
+                    Loading.hide(context);
+                  });
                   // _emailNode.unfocus();
                   // _passwordNode.unfocus();
 
@@ -259,75 +261,212 @@ class _CreateAccountState extends State<CreateAccountPage> {
             child: _getBody()));
   }
 
-  GestureDetector _getBody() {
-    return GestureDetector(
-        behavior: HitTestBehavior.translucent,
-        onTap: () {
-          _emailNode.unfocus();
-          _passwordNode.unfocus();
-          _confirmPasswordNode.unfocus();
-          _phoneNode.unfocus();
-          _usernameNode.unfocus();
-        },
-        child: Stack(children: [
-          ColorFiltered(
-            colorFilter:
-                const ColorFilter.mode(Colors.black38, BlendMode.darken),
-            child: Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("assets/images/background.png"),
-                    fit: BoxFit.cover,
+  Widget _getBody() {
+    return IgnorePointer(
+      ignoring: Loading.isVisible(),
+      child: GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () {
+            _emailNode.unfocus();
+            _passwordNode.unfocus();
+            _confirmPasswordNode.unfocus();
+            _phoneNode.unfocus();
+            _usernameNode.unfocus();
+          },
+          child: Stack(children: [
+            ColorFiltered(
+              colorFilter:
+                  const ColorFilter.mode(Colors.black38, BlendMode.darken),
+              child: Container(
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("assets/images/background.png"),
+                      fit: BoxFit.cover,
+                    ),
                   ),
+                  child: null),
+            ),
+            Column(
+              children: [
+                const SizedBox(
+                  height: 100,
                 ),
-                child: null),
-          ),
-          Column(
-            children: [
-              const SizedBox(
-                height: 100,
-              ),
-              Image.asset(
-                'assets/images/logo.png',
-                width: 125,
-                height: 51,
-              ),
-              Expanded(
-                child: LayoutBuilder(builder: (context, viewportConstraints) {
-                  return SingleChildScrollView(
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(
-                        minHeight: viewportConstraints.maxHeight,
-                      ),
-                      child: IntrinsicHeight(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                            /*  BlocListener<AuthBloc, AuthState>(
-                                  listener: (context, state) => state.maybeWhen(
-                                      orElse: () {
-                                        return null;
+                Image.asset(
+                  'assets/images/logo.png',
+                  width: 125,
+                  height: 51,
+                ),
+                Expanded(
+                  child: LayoutBuilder(builder: (context, viewportConstraints) {
+                    return SingleChildScrollView(
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(
+                          minHeight: viewportConstraints.maxHeight,
+                        ),
+                        child: IntrinsicHeight(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                BlocBuilder<AuthBloc, AuthState>(
+                                    builder: (context, authState) {
+                                  return authState.maybeMap(orElse: () {
+                                    return _getEmailField(
+                                      context,
+                                      isEmailAvailable: ismailavailable,
+                                      onSubmitted: (e) async {
+                                        final isEmailTaken =
+                                            await checkIfEmailIsInUse(e);
+                                        setState(() {
+                                          ismailavailable = !isEmailTaken;
+                                        });
                                       },
-                                      authenticated: () {
-                                        return null;
+                                    );
+                                  }, error: (state) {
+                                    if (state.message == '203') {
+                                      return _getEmailField(
+                                        context,
+                                        isEmailAvailable: ismailavailable,
+                                        onSubmitted: (e) async {
+                                          final isEmailTaken =
+                                              await checkIfEmailIsInUse(e);
+                                          setState(() {
+                                            ismailavailable = !isEmailTaken;
+                                          });
+                                        },
+                                      );
+                                    }
+                                    return _getEmailField(
+                                      context,
+                                      isEmailAvailable: ismailavailable,
+                                      onSubmitted: (e) async {
+                                        final isEmailTaken =
+                                            await checkIfEmailIsInUse(e);
+                                        setState(() {
+                                          ismailavailable = !isEmailTaken;
+                                        });
                                       },
-                                      logging: () {},
-                                      error: (message) => {},
+                                    );
+                                  });
+                                }),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                BlocBuilder<AuthCubit, AuthStateCubit>(
+                                    builder: (context, usernameState) {
+                                  return usernameState.maybeMap(
+                                      orElse: () => _PhoneSection(
+                                              _phoneController,
+                                              _phoneNode,
+                                              phoneErrorText,
+                                              _phoneBorder, (phoneNumber) {
+                                            isPhoneValid = true;
+                                            currentPhoneNumber = phoneNumber;
+                                            setPhoneErrorText(
+                                                isPhoneValid, false);
+                                          }),
+                                      isPhoneAvailable: (state) {
+                                        Future.delayed(Duration.zero, () {
+                                          setState(() {
+                                            isPhoneValid =
+                                                (state.isPhoneAvailable !=
+                                                        '202' ||
+                                                    state.isPhoneAvailable ==
+                                                        '204');
+                                            isPhoneInUse =
+                                                state.isPhoneAvailable == '204';
+
+                                            setPhoneErrorText(
+                                                isPhoneValid, isPhoneInUse);
+                                          });
+                                        });
+
+                                        var phoneSection = _PhoneSection(
+                                            _phoneController,
+                                            _phoneNode,
+                                            phoneErrorText,
+                                            _phoneBorder, (phoneNumber) {
+                                          isPhoneValid = isPhoneValid = (state
+                                                      .isPhoneAvailable !=
+                                                  '202' ||
+                                              state.isPhoneAvailable == '204');
+                                          currentPhoneNumber = phoneNumber;
+                                          isPhoneInUse =
+                                              state.isPhoneAvailable == '204';
+                                          setPhoneErrorText(
+                                              isPhoneValid, isPhoneInUse);
+                                        });
+                                        return phoneSection;
+                                      });
+                                }),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                CustomTextFormField(
+                                    errorText: passwordErrorText,
+                                    helperText: S.of(context).password_helper,
+                                    borderColor: _passwordBorder,
+                                    autofocus: false,
+                                    labelText: S.of(context).password,
+                                    focusNode: _passwordNode,
+                                    controller: _passwordController,
+                                    onChanged: (value) {
+                                      if (_passwordController.text.isNotEmpty) {
+                                        setState(() {
+                                          passwordErrorText = null;
+                                        });
+                                      }
+                                    },
+                                    secure: true,
+                                    inputType: TextInputType.text),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                CustomTextFormField(
+                                    errorText: confirmPasswordErrorText,
+                                    borderColor: _confirmPasswordBorder,
+                                    autofocus: false,
+                                    labelText: S.of(context).confirm_password,
+                                    focusNode: _confirmPasswordNode,
+                                    controller: _confirmPasswordController,
+                                    onChanged: (value) {
+                                      if (_passwordController.text.isNotEmpty) {
+                                        setState(() {
+                                          confirmPasswordErrorText = null;
+                                        });
+                                      }
+                                    },
+                                    secure: true,
+                                    inputType: TextInputType.text),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                BlocConsumer<UsernameBloc, UsernameState>(
+                                    builder: (context, usernameState) {
+                                  return usernameState.maybeMap(
+                                      orElse: () => _getUsernameField(
+                                            context,
+                                          ),
+                                      isUsernameAvailable: (state) =>
+                                          _getUsernameField(context,
+                                              isUsernameAvailable:
+                                                  state.isUsernameAvailable));
+                                }, listener: (context, state) {
+                                  state.when(
+                                      initial: () {},
+                                      isUsernameAvailable: (value) {},
+                                      error: (value) {},
                                       isInternetAvailable: (value) {
                                         logger.e("ISVPN :$value");
-                                        Loading.hide(context);
-                                        // _emailNode.unfocus();
-                                        // _passwordNode.unfocus();
 
                                         isVPN = value;
                                         if (!value) {
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(SnackBar(
                                                   duration: const Duration(
-                                                      seconds: 3),
+                                                      seconds: 10),
                                                   behavior:
                                                       SnackBarBehavior.floating,
                                                   margin: EdgeInsets.only(
@@ -347,399 +486,192 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                                       DismissDirection.none));
                                         }
 
-                                        // setState(() {
-                                        //
-                                        // });
-                                      }),
-                                  child: null),*/
-
-                              BlocBuilder<AuthBloc, AuthState>(
-                                  builder: (context, authState) {
-                                return authState.maybeMap(orElse: () {
-                                  return _getEmailField(
-                                    context,
-                                    isEmailAvailable: ismailavailable,
-                                    onSubmitted: (e) async {
-                                      final isEmailTaken =
-                                          await checkIfEmailIsInUse(e);
-                                      setState(() {
-                                        ismailavailable = !isEmailTaken;
+                                        setState(() {});
                                       });
-                                    },
-                                  );
-                                }, error: (state) {
-                                  if (state.message == '203') {
-                                    return _getEmailField(
-                                      context,
-                                      isEmailAvailable: ismailavailable,
-                                      onSubmitted: (e) async {
-                                        final isEmailTaken =
-                                            await checkIfEmailIsInUse(e);
-                                        setState(() {
-                                          ismailavailable = !isEmailTaken;
-                                        });
-                                      },
-                                    );
-                                  }
-                                  return _getEmailField(
-                                    context,
-                                    isEmailAvailable: ismailavailable,
-                                    onSubmitted: (e) async {
-                                      final isEmailTaken =
-                                          await checkIfEmailIsInUse(e);
-                                      setState(() {
-                                        ismailavailable = !isEmailTaken;
-                                      });
-                                    },
-                                  );
-                                });
-                              }),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              BlocBuilder<AuthCubit, AuthStateCubit>(
-                                  builder: (context, usernameState) {
-                                return usernameState.maybeMap(
-                                    orElse: () => _PhoneSection(
-                                            _phoneController,
-                                            _phoneNode,
-                                            phoneErrorText,
-                                            _phoneBorder, (phoneNumber) {
-                                          isPhoneValid = true;
-                                          currentPhoneNumber = phoneNumber;
-                                          setPhoneErrorText(
-                                              isPhoneValid, false);
-                                        }),
-                                    isPhoneAvailable: (state) {
-                                      Future.delayed(Duration.zero, () {
-                                        setState(() {
-                                          isPhoneValid = (state
-                                                      .isPhoneAvailable !=
-                                                  '202' ||
-                                              state.isPhoneAvailable == '204');
-                                          isPhoneInUse =
-                                              state.isPhoneAvailable == '204';
-
-                                          setPhoneErrorText(
-                                              isPhoneValid, isPhoneInUse);
-                                        });
-                                      });
-
-                                      var phoneSection = _PhoneSection(
-                                          _phoneController,
-                                          _phoneNode,
-                                          phoneErrorText,
-                                          _phoneBorder, (phoneNumber) {
-                                        isPhoneValid = isPhoneValid =
-                                            (state.isPhoneAvailable != '202' ||
-                                                state.isPhoneAvailable ==
-                                                    '204');
-                                        currentPhoneNumber = phoneNumber;
-                                        isPhoneInUse =
-                                            state.isPhoneAvailable == '204';
-                                        setPhoneErrorText(
-                                            isPhoneValid, isPhoneInUse);
-                                      });
-                                      return phoneSection;
-                                    });
-                              }),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              CustomTextFormField(
-                                  errorText: passwordErrorText,
-                                  helperText: S.of(context).password_helper,
-                                  borderColor: _passwordBorder,
-                                  autofocus: false,
-                                  labelText: S.of(context).password,
-                                  focusNode: _passwordNode,
-                                  controller: _passwordController,
-                                  onChanged: (value) {
-                                    if (_passwordController.text.isNotEmpty) {
-                                      setState(() {
-                                        passwordErrorText = null;
-                                      });
-                                    }
-                                  },
-                                  secure: true,
-                                  inputType: TextInputType.text),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              CustomTextFormField(
-                                  errorText: confirmPasswordErrorText,
-                                  borderColor: _confirmPasswordBorder,
-                                  autofocus: false,
-                                  labelText: S.of(context).confirm_password,
-                                  focusNode: _confirmPasswordNode,
-                                  controller: _confirmPasswordController,
-                                  onChanged: (value) {
-                                    if (_passwordController.text.isNotEmpty) {
-                                      setState(() {
-                                        confirmPasswordErrorText = null;
-                                      });
-                                    }
-                                  },
-                                  secure: true,
-                                  inputType: TextInputType.text),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              BlocConsumer<UsernameBloc, UsernameState>(
-                                  builder: (context, usernameState) {
-                                return usernameState.maybeMap(
-                                    orElse: () => _getUsernameField(
-                                          context,
-                                        ),
-                                    isUsernameAvailable: (state) =>
-                                        _getUsernameField(context,
-                                            isUsernameAvailable:
-                                                state.isUsernameAvailable));
-                              }, listener: (context, state) {
-                                state.when(
-                                    initial: () {},
-                                    isUsernameAvailable: (value) {},
-                                    error: (value) {},
-                                    isInternetAvailable: (value) {
-                                      logger.e("ISVPN :$value");
-
-                                      isVPN = value;
-                                      if (!value) {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(SnackBar(
-                                                duration:
-                                                    const Duration(seconds: 10),
-                                                behavior:
-                                                    SnackBarBehavior.floating,
-                                                margin: EdgeInsets.only(
-                                                  bottom: MediaQuery.of(context)
-                                                          .size
-                                                          .height /
-                                                      1.3,
-                                                ),
-                                                backgroundColor:
-                                                    Colors.transparent,
-                                                content: const ToastMessage(
-                                                  message:
-                                                      'Active internet connection required.',
-                                                ),
-                                                dismissDirection:
-                                                    DismissDirection.none));
-                                      }
-
-                                      setState(() {});
-                                    });
-                              }),
-                              // BlocBuilder<UsernameBloc, UsernameState>(
-                              //     builder: (context, usernameState) {
-                              //   return usernameState.maybeMap(
-                              //       orElse: () => _getUsernameField(
-                              //             context,
-                              //           ),
-                              //       isUsernameAvailable: (state) =>
-                              //           _getUsernameField(context,
-                              //               isUsernameAvailable:
-                              //                   state.isUsernameAvailable));
-                              // }),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    height: 24.0,
-                                    width: 24.0,
-                                    child: Checkbox(
-                                      checkColor: Palette.current.black,
-                                      value: tosChecked,
-                                      activeColor:
-                                          Palette.current.primaryNeonGreen,
-                                      onChanged: (value) {
-                                        setState(
-                                            () => tosChecked = value ?? false);
-                                      },
-                                      side: BorderSide(
-                                          color:
-                                              Palette.current.primaryNeonGreen),
+                                }),
+                                // BlocBuilder<UsernameBloc, UsernameState>(
+                                //     builder: (context, usernameState) {
+                                //   return usernameState.maybeMap(
+                                //       orElse: () => _getUsernameField(
+                                //             context,
+                                //           ),
+                                //       isUsernameAvailable: (state) =>
+                                //           _getUsernameField(context,
+                                //               isUsernameAvailable:
+                                //                   state.isUsernameAvailable));
+                                // }),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      height: 24.0,
+                                      width: 24.0,
+                                      child: Checkbox(
+                                        checkColor: Palette.current.black,
+                                        value: tosChecked,
+                                        activeColor:
+                                            Palette.current.primaryNeonGreen,
+                                        onChanged: (value) {
+                                          setState(() =>
+                                              tosChecked = value ?? false);
+                                        },
+                                        side: BorderSide(
+                                            color: Palette
+                                                .current.primaryNeonGreen),
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Flexible(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top: 16.0),
-                                      child: ClickableText(
-                                          title: RichText(
-                                            maxLines: 2,
-                                            softWrap: false,
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.left,
-                                            text: TextSpan(children: [
-                                              TextSpan(
-                                                text: S.of(context).agree_to,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodySmall!
-                                                    .copyWith(
-                                                      color: Palette.current
-                                                          .primaryNeonGreen,
-                                                    ),
-                                              ),
-                                              TextSpan(
-                                                text: S
-                                                    .of(context)
-                                                    .privacy_policy_text,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodySmall!
-                                                    .copyWith(
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      color: Palette.current
-                                                          .primaryNeonGreen,
-                                                    ),
-                                              ),
-                                              TextSpan(
-                                                text: S.of(context).and,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodySmall!
-                                                    .copyWith(
-                                                      color: Palette.current
-                                                          .primaryNeonGreen,
-                                                    ),
-                                              ),
-                                              TextSpan(
-                                                text:
-                                                    S.of(context).terms_of_use,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodySmall!
-                                                    .copyWith(
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      color: Palette.current
-                                                          .primaryNeonGreen,
-                                                    ),
-                                              ),
-                                            ]),
-                                          ),
-                                          onPressed: () {
-                                            _launchUrl(
-                                              Uri.parse(termsAndConditionsUrl),
-                                            );
-                                          }),
+                                    const SizedBox(width: 10),
+                                    Flexible(
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 16.0),
+                                        child: ClickableText(
+                                            title: RichText(
+                                              maxLines: 2,
+                                              softWrap: false,
+                                              overflow: TextOverflow.ellipsis,
+                                              textAlign: TextAlign.left,
+                                              text: TextSpan(children: [
+                                                TextSpan(
+                                                  text: S.of(context).agree_to,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall!
+                                                      .copyWith(
+                                                        color: Palette.current
+                                                            .primaryNeonGreen,
+                                                      ),
+                                                ),
+                                                TextSpan(
+                                                  text: S
+                                                      .of(context)
+                                                      .privacy_policy_text,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall!
+                                                      .copyWith(
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: Palette.current
+                                                            .primaryNeonGreen,
+                                                      ),
+                                                ),
+                                                TextSpan(
+                                                  text: S.of(context).and,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall!
+                                                      .copyWith(
+                                                        color: Palette.current
+                                                            .primaryNeonGreen,
+                                                      ),
+                                                ),
+                                                TextSpan(
+                                                  text: S
+                                                      .of(context)
+                                                      .terms_of_use,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall!
+                                                      .copyWith(
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: Palette.current
+                                                            .primaryNeonGreen,
+                                                      ),
+                                                ),
+                                              ]),
+                                            ),
+                                            onPressed: () {
+                                              _launchUrl(
+                                                Uri.parse(
+                                                    termsAndConditionsUrl),
+                                              );
+                                            }),
+                                      ),
                                     ),
+                                  ],
+                                ),
+                                if (tosError.isNotEmptyOrNull) ...[
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    tosError!,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(
+                                            color: Palette
+                                                .current.primaryNeonPink),
                                   ),
                                 ],
-                              ),
-                              if (tosError.isNotEmptyOrNull) ...[
-                                const SizedBox(height: 4),
-                                Text(
-                                  tosError!,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall!
-                                      .copyWith(
-                                          color:
-                                              Palette.current.primaryNeonPink),
+                                const SizedBox(
+                                  height: 20,
                                 ),
-                              ],
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              PrimaryButton(
-                                title:
-                                    S.of(context).create_account.toUpperCase(),
-                                onPressed: () async {
-                                  var connectivityResult =
-                                      await Connectivity().checkConnectivity();
+                                PrimaryButton(
+                                  title: S
+                                      .of(context)
+                                      .create_account
+                                      .toUpperCase(),
+                                  onPressed: () async {
+                                    var connectivityResult =
+                                        await Connectivity()
+                                            .checkConnectivity();
 
-                                  if (connectivityResult ==
-                                      ConnectivityResult.none) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                            duration:
-                                                const Duration(seconds: 5),
-                                            behavior: SnackBarBehavior.floating,
-                                            margin: EdgeInsets.only(
-                                              bottom: MediaQuery.of(context)
-                                                      .size
-                                                      .height /
-                                                  1.3,
-                                            ),
-                                            backgroundColor: Colors.transparent,
-                                            content: const ToastMessage(
-                                              message:
-                                                  'Active internet connection required.',
-                                            ),
-                                            dismissDirection:
-                                                DismissDirection.none));
-                                  } else {
-                                    String deviceId =
+                                    if (connectivityResult ==
+                                        ConnectivityResult.none) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                              duration:
+                                                  const Duration(seconds: 5),
+                                              behavior:
+                                                  SnackBarBehavior.floating,
+                                              margin: EdgeInsets.only(
+                                                bottom: MediaQuery.of(context)
+                                                        .size
+                                                        .height /
+                                                    1.3,
+                                              ),
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              content: const ToastMessage(
+                                                message:
+                                                    'Active internet connection required.',
+                                              ),
+                                              dismissDirection:
+                                                  DismissDirection.none));
+                                    } else {
+                                      String deviceId =
+                                          getIt<PreferenceRepositoryService>()
+                                              .getFirebaseDeviceToken();
+                                      showErrors();
+                                      if (areFieldsValid()) {
+                                        context.read<AuthBloc>().add(AuthEvent
+                                            .createAccount(
+                                                CreateAccountPayloadModel(
+                                                    email:
+                                                        _emailController.text,
+                                                    phoneNumber:
+                                                        "${currentPhoneNumber!.dialCode}${_phoneController.text}",
+                                                    password:
+                                                        _passwordController
+                                                            .text,
+                                                    userName:
+                                                        _usernameController
+                                                            .text,
+                                                    termsOfServiceAccepted:
+                                                        tosChecked,
+                                                    deviceId: deviceId)));
                                         getIt<PreferenceRepositoryService>()
-                                            .getFirebaseDeviceToken();
-                                    showErrors();
-                                    if (areFieldsValid()) {
-                                      context.read<AuthBloc>().add(AuthEvent
-                                          .createAccount(CreateAccountPayloadModel(
-                                              email: _emailController.text,
-                                              phoneNumber:
-                                                  "${currentPhoneNumber!.dialCode}${_phoneController.text}",
-                                              password:
-                                                  _passwordController.text,
-                                              userName:
-                                                  _usernameController.text,
-                                              termsOfServiceAccepted:
-                                                  tosChecked,
-                                              deviceId: deviceId)));
-                                      getIt<PreferenceRepositoryService>()
-                                          .saveProfileDataState(true);
+                                            .saveProfileDataState(true);
+                                      }
                                     }
-                                  }
-                                },
-                                type: PrimaryButtonType.green,
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              ClickableText(
-                                  title: RichText(
-                                    maxLines: 1,
-                                    softWrap: false,
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.center,
-                                    text: TextSpan(children: [
-                                      TextSpan(
-                                        text: S
-                                            .of(context)
-                                            .already_have_an_account,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall!
-                                            .copyWith(
-                                              color: Palette
-                                                  .current.primaryNeonGreen,
-                                            ),
-                                      ),
-                                      TextSpan(
-                                        text: S.of(context).sign_in,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall!
-                                            .copyWith(
-                                              fontWeight: FontWeight.w400,
-                                              color: Palette
-                                                  .current.primaryNeonGreen,
-                                            ),
-                                      ),
-                                    ]),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    Navigator.of(context, rootNavigator: true)
-                                        .push(SignInPage.route());
-                                  }),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 30),
-                                child: ClickableText(
+                                  },
+                                  type: PrimaryButtonType.green,
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                ClickableText(
                                     title: RichText(
                                       maxLines: 1,
                                       softWrap: false,
@@ -749,47 +681,87 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                         TextSpan(
                                           text: S
                                               .of(context)
-                                              .problems_creating_an_account,
+                                              .already_have_an_account,
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodySmall!
                                               .copyWith(
-                                                color: Palette.current.white,
+                                                color: Palette
+                                                    .current.primaryNeonGreen,
                                               ),
                                         ),
                                         TextSpan(
-                                          text: S.of(context).contact_us,
+                                          text: S.of(context).sign_in,
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodySmall!
                                               .copyWith(
                                                 fontWeight: FontWeight.w400,
                                                 color: Palette
-                                                    .current.primaryWhiteSmoke,
+                                                    .current.primaryNeonGreen,
                                               ),
                                         ),
                                       ]),
                                     ),
                                     onPressed: () {
-                                      SendMailContact.send(
-                                        context: context,
-                                        subject: S
-                                            .of(context)
-                                            .user_problem_creating_account_in_the_swag_app,
-                                      );
+                                      Navigator.pop(context);
+                                      Navigator.of(context, rootNavigator: true)
+                                          .push(SignInPage.route());
                                     }),
-                              )
-                            ],
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 30),
+                                  child: ClickableText(
+                                      title: RichText(
+                                        maxLines: 1,
+                                        softWrap: false,
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.center,
+                                        text: TextSpan(children: [
+                                          TextSpan(
+                                            text: S
+                                                .of(context)
+                                                .problems_creating_an_account,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall!
+                                                .copyWith(
+                                                  color: Palette.current.white,
+                                                ),
+                                          ),
+                                          TextSpan(
+                                            text: S.of(context).contact_us,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall!
+                                                .copyWith(
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Palette.current
+                                                      .primaryWhiteSmoke,
+                                                ),
+                                          ),
+                                        ]),
+                                      ),
+                                      onPressed: () {
+                                        SendMailContact.send(
+                                          context: context,
+                                          subject: S
+                                              .of(context)
+                                              .user_problem_creating_account_in_the_swag_app,
+                                        );
+                                      }),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  );
-                }),
-              ),
-            ],
-          ),
-        ]));
+                    );
+                  }),
+                ),
+              ],
+            ),
+          ])),
+    );
   }
 
   Future<bool> checkIfEmailIsInUse(String email) async {
@@ -1053,7 +1025,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
         emailErrorText = null;
       }
     }
-
+    
     if (isEmptyUserName) {
       usernameErrorText = S.of(context).required_field;
     } else {

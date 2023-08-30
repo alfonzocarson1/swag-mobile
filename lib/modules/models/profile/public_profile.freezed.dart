@@ -29,7 +29,7 @@ mixin _$PublicProfile {
       throw _privateConstructorUsedError;
   bool? get accountVerified => throw _privateConstructorUsedError;
   bool? get emailVerified => throw _privateConstructorUsedError;
-  bool? get kycverified => throw _privateConstructorUsedError;
+  String? get kycStatus => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -52,7 +52,7 @@ abstract class $PublicProfileCopyWith<$Res> {
       PeerToPeerPaymentsModel? peerToPeerPayment,
       bool? accountVerified,
       bool? emailVerified,
-      bool? kycverified});
+      String? kycStatus});
 
   $PeerToPeerPaymentsModelCopyWith<$Res>? get peerToPeerPayment;
 }
@@ -78,7 +78,7 @@ class _$PublicProfileCopyWithImpl<$Res, $Val extends PublicProfile>
     Object? peerToPeerPayment = freezed,
     Object? accountVerified = freezed,
     Object? emailVerified = freezed,
-    Object? kycverified = freezed,
+    Object? kycStatus = freezed,
   }) {
     return _then(_value.copyWith(
       accountId: freezed == accountId
@@ -113,10 +113,10 @@ class _$PublicProfileCopyWithImpl<$Res, $Val extends PublicProfile>
           ? _value.emailVerified
           : emailVerified // ignore: cast_nullable_to_non_nullable
               as bool?,
-      kycverified: freezed == kycverified
-          ? _value.kycverified
-          : kycverified // ignore: cast_nullable_to_non_nullable
-              as bool?,
+      kycStatus: freezed == kycStatus
+          ? _value.kycStatus
+          : kycStatus // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 
@@ -151,7 +151,7 @@ abstract class _$$_PublicProfileCopyWith<$Res>
       PeerToPeerPaymentsModel? peerToPeerPayment,
       bool? accountVerified,
       bool? emailVerified,
-      bool? kycverified});
+      String? kycStatus});
 
   @override
   $PeerToPeerPaymentsModelCopyWith<$Res>? get peerToPeerPayment;
@@ -176,7 +176,7 @@ class __$$_PublicProfileCopyWithImpl<$Res>
     Object? peerToPeerPayment = freezed,
     Object? accountVerified = freezed,
     Object? emailVerified = freezed,
-    Object? kycverified = freezed,
+    Object? kycStatus = freezed,
   }) {
     return _then(_$_PublicProfile(
       accountId: freezed == accountId
@@ -211,17 +211,17 @@ class __$$_PublicProfileCopyWithImpl<$Res>
           ? _value.emailVerified
           : emailVerified // ignore: cast_nullable_to_non_nullable
               as bool?,
-      kycverified: freezed == kycverified
-          ? _value.kycverified
-          : kycverified // ignore: cast_nullable_to_non_nullable
-              as bool?,
+      kycStatus: freezed == kycStatus
+          ? _value.kycStatus
+          : kycStatus // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$_PublicProfile implements _PublicProfile {
+class _$_PublicProfile extends _PublicProfile {
   const _$_PublicProfile(
       {this.accountId,
       this.username,
@@ -231,7 +231,8 @@ class _$_PublicProfile implements _PublicProfile {
       this.peerToPeerPayment,
       this.accountVerified,
       this.emailVerified,
-      this.kycverified});
+      this.kycStatus})
+      : super._();
 
   factory _$_PublicProfile.fromJson(Map<String, dynamic> json) =>
       _$$_PublicProfileFromJson(json);
@@ -253,11 +254,11 @@ class _$_PublicProfile implements _PublicProfile {
   @override
   final bool? emailVerified;
   @override
-  final bool? kycverified;
+  final String? kycStatus;
 
   @override
   String toString() {
-    return 'PublicProfile(accountId: $accountId, username: $username, useAvatar: $useAvatar, avatarUrl: $avatarUrl, listingsRating: $listingsRating, peerToPeerPayment: $peerToPeerPayment, accountVerified: $accountVerified, emailVerified: $emailVerified, kycverified: $kycverified)';
+    return 'PublicProfile(accountId: $accountId, username: $username, useAvatar: $useAvatar, avatarUrl: $avatarUrl, listingsRating: $listingsRating, peerToPeerPayment: $peerToPeerPayment, accountVerified: $accountVerified, emailVerified: $emailVerified, kycStatus: $kycStatus)';
   }
 
   @override
@@ -281,8 +282,8 @@ class _$_PublicProfile implements _PublicProfile {
                 other.accountVerified == accountVerified) &&
             (identical(other.emailVerified, emailVerified) ||
                 other.emailVerified == emailVerified) &&
-            (identical(other.kycverified, kycverified) ||
-                other.kycverified == kycverified));
+            (identical(other.kycStatus, kycStatus) ||
+                other.kycStatus == kycStatus));
   }
 
   @JsonKey(ignore: true)
@@ -297,7 +298,7 @@ class _$_PublicProfile implements _PublicProfile {
       peerToPeerPayment,
       accountVerified,
       emailVerified,
-      kycverified);
+      kycStatus);
 
   @JsonKey(ignore: true)
   @override
@@ -313,7 +314,7 @@ class _$_PublicProfile implements _PublicProfile {
   }
 }
 
-abstract class _PublicProfile implements PublicProfile {
+abstract class _PublicProfile extends PublicProfile {
   const factory _PublicProfile(
       {final String? accountId,
       final String? username,
@@ -323,7 +324,8 @@ abstract class _PublicProfile implements PublicProfile {
       final PeerToPeerPaymentsModel? peerToPeerPayment,
       final bool? accountVerified,
       final bool? emailVerified,
-      final bool? kycverified}) = _$_PublicProfile;
+      final String? kycStatus}) = _$_PublicProfile;
+  const _PublicProfile._() : super._();
 
   factory _PublicProfile.fromJson(Map<String, dynamic> json) =
       _$_PublicProfile.fromJson;
@@ -345,7 +347,7 @@ abstract class _PublicProfile implements PublicProfile {
   @override
   bool? get emailVerified;
   @override
-  bool? get kycverified;
+  String? get kycStatus;
   @override
   @JsonKey(ignore: true)
   _$$_PublicProfileCopyWith<_$_PublicProfile> get copyWith =>

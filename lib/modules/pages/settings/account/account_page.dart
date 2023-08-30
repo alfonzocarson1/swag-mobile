@@ -1,8 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/modules/common/ui/simple_loader.dart';
+import 'package:swagapp/modules/pages/settings/account/verification/kyc_splash_dialog.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../common/ui/pushed_header.dart';
@@ -13,9 +12,6 @@ import '../../../cubits/profile/get_profile_cubit.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
 import '../../../models/profile/profile_model.dart';
-import '../../../stripe/models/cards_response_model.dart';
-import '../../../stripe/models/stripe_error_model.dart';
-import '../../../stripe/stripe_service.dart';
 import 'cards_page.dart';
 import 'peer_to_peer_payments_page.dart';
 import 'shipping_address_page.dart';
@@ -35,32 +31,12 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
-  CardsResponseModel? cardsResponseModel;
   late ProfileModel profileData;
 
   @override
   void initState() {
-    fetchAllCards();
     super.initState();
     profileData = getIt<PreferenceRepositoryService>().profileData();
-  }
-
-  fetchAllCards() async {
-    final StripeService stripeService = StripeService();
-    final respose =
-        await stripeService.getAllCards(customerId: 'cus_OHVy4VX6DiHyvI');
-    if (respose.statusCode != 200) {
-      StripeErrorModel stripeErrorModel =
-          StripeErrorModel.fromJson(jsonDecode(respose.body)['error']);
-      debugPrint(stripeErrorModel.message);
-    } else {
-      final CardsResponseModel tempModel =
-          CardsResponseModel.fromJson(jsonDecode(respose.body));
-      cardsResponseModel = tempModel;
-      setState(() {});
-      getIt<PreferenceRepositoryService>()
-          .saveCardsResponseModel(cardsResponseModel!);
-    }
   }
 
   getProfileData() async {
@@ -89,13 +65,12 @@ class _AccountPageState extends State<AccountPage> {
       ),
       backgroundColor: Palette.current.primaryEerieBlack,
       body: BlocBuilder<ProfileCubit, ProfileCubitState>(
-        builder: (context, state) {          
+        builder: (context, state) {
           return state.maybeWhen(
-            loading:(isFirstFetch) => const SimpleLoader() ,
-            loadedProfileData: (profileData) => AccountBody(
-              cardsResponseModel: cardsResponseModel, profileData: profileData),
-            orElse: () => Container()
-            );
+              loading: (isFirstFetch) => const SimpleLoader(),
+              loadedProfileData: (profileData) =>
+                  AccountBody(profileData: profileData),
+              orElse: () => Container());
         },
       ),
     );
@@ -105,11 +80,9 @@ class _AccountPageState extends State<AccountPage> {
 class AccountBody extends StatelessWidget {
   const AccountBody({
     super.key,
-    required this.cardsResponseModel,
     required this.profileData,
   });
 
-  final CardsResponseModel? cardsResponseModel;
   final ProfileModel profileData;
 
   @override
@@ -126,36 +99,31 @@ class AccountBody extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      // selectSettings(
-                      //     context,
-                      //     'assets/icons/atomic_drop_payments_icon.png',
-                      //     S
-                      //         .of(context)
-                      //         .premium_memberatomic_drop_payments_title,
-                      //     S
-                      //         .of(context)
-                      //         .premium_memberatomic_drop_payments_sub_title,
-                      //     () async {
-                      //   if (cardsResponseModel != null &&
-                      //       cardsResponseModel!.data!.isNotEmpty) {
-                      //     Navigator.of(context, rootNavigator: true)
-                      //         .push(CardsPage.route());
-                      //   } else {
-                      //     showSnackBar(context, 'No Cards Linked');
-                      //   }
-                      // },
-                      //     Icon(
-                      //       Icons.arrow_forward_ios_sharp,
-                      //       size: 10,
-                      //       color: Palette.current.darkGray,
-                      //     ),
-                      //     null),
-                      // SizedBox(
-                      //   height: 0.2,
-                      //   child: Container(
-                      //     color: Palette.current.grey,
-                      //   ),
-                      // ),
+                      selectSettings(
+                          context,
+                          'assets/icons/atomic_drop_payments_icon.png',
+                          S
+                              .of(context)
+                              .premium_memberatomic_drop_payments_title,
+                          S
+                              .of(context)
+                              .premium_memberatomic_drop_payments_sub_title,
+                          () async {
+                        Navigator.of(context, rootNavigator: true)
+                            .push(CardsPage.route());
+                      },
+                          Icon(
+                            Icons.arrow_forward_ios_sharp,
+                            size: 10,
+                            color: Palette.current.darkGray,
+                          ),
+                          null),
+                      SizedBox(
+                        height: 0.2,
+                        child: Container(
+                          color: Palette.current.grey,
+                        ),
+                      ),
                       selectSettings(
                           context,
                           'assets/icons/shipping_address_icon.png',
@@ -206,21 +174,21 @@ class AccountBody extends StatelessWidget {
                           S.of(context).kyc_title,
                           profileData.kycverified ?? false
                               ? '${profileData.addresses?.first.firstName ?? ''} ${profileData.addresses?.first.lastName ?? ''}'
-                              : ' ',
-                          () {},
-                          Text(
-                              profileData.kycverified!
-                                  ? 'Verified'
-                                  : 'Unverified',
+                              : ' ', () {
+                        if (!(profileData.kycverified ?? false)) {
+                          Navigator.of(context)
+                              .push(KycSplashDialog.route(context));
+                        }
+                      },
+                          Text(getKycSting(profileData.kycStatus),
                               style: Theme.of(context)
                                   .textTheme
                                   .displayLarge!
                                   .copyWith(
                                       fontWeight: FontWeight.w300,
                                       fontSize: 16,
-                                      color: profileData.kycverified!
-                                          ? Palette.current.primaryNeonGreen
-                                          : Palette.current.primaryNeonPink)),
+                                      color:
+                                          getKycColor(profileData.kycStatus))),
                           null),
                       SizedBox(
                         height: 0.2,
@@ -268,4 +236,37 @@ class AccountBody extends StatelessWidget {
       ],
     );
   }
+}
+
+String getKycSting(String? status) {
+  return (status ?? "Unverified").toTitleCase();
+}
+
+Color getKycColor(String? status) {
+  if (status == null) {
+    return Palette.current.darkGray;
+  }
+  status = status.toLowerCase();
+  if (['failed', 'unsupported'].any((x) => status!.contains(x))) {
+    return Palette.current.primaryNeonPink;
+  }
+  if (['failed', 'unsupported'].any((x) => status!.contains(x))) {
+    return Palette.current.primaryNeonPink;
+  }
+  if (['unverified', 'started', 'processing'].any((x) => status!.contains(x))) {
+    return Palette.current.darkGray;
+  }
+  if (status == "verified") {
+    return Palette.current.primaryNeonGreen;
+  }
+  return Palette.current.darkGray;
+}
+
+extension StringCasingExtension on String {
+  String toCapitalized() =>
+      length > 0 ? '${this[0].toUpperCase()}${substring(1).toLowerCase()}' : '';
+  String toTitleCase() => replaceAll(RegExp(' +'), ' ')
+      .split(' ')
+      .map((str) => str.toCapitalized())
+      .join(' ');
 }

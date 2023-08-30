@@ -34,7 +34,7 @@ mixin _$ProfileModel {
   bool get emailVerified => throw _privateConstructorUsedError;
   bool? get hasActiveSubscription => throw _privateConstructorUsedError;
   bool? get hasUsedFreeTrial => throw _privateConstructorUsedError;
-  bool? get kycverified => throw _privateConstructorUsedError;
+  String? get kycStatus => throw _privateConstructorUsedError;
   String? get firstName => throw _privateConstructorUsedError;
   String? get lastName => throw _privateConstructorUsedError;
   String? get countryCode => throw _privateConstructorUsedError;
@@ -65,7 +65,7 @@ abstract class $ProfileModelCopyWith<$Res> {
       bool emailVerified,
       bool? hasActiveSubscription,
       bool? hasUsedFreeTrial,
-      bool? kycverified,
+      String? kycStatus,
       String? firstName,
       String? lastName,
       String? countryCode});
@@ -97,7 +97,7 @@ class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
     Object? emailVerified = null,
     Object? hasActiveSubscription = freezed,
     Object? hasUsedFreeTrial = freezed,
-    Object? kycverified = freezed,
+    Object? kycStatus = freezed,
     Object? firstName = freezed,
     Object? lastName = freezed,
     Object? countryCode = freezed,
@@ -155,10 +155,10 @@ class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
           ? _value.hasUsedFreeTrial
           : hasUsedFreeTrial // ignore: cast_nullable_to_non_nullable
               as bool?,
-      kycverified: freezed == kycverified
-          ? _value.kycverified
-          : kycverified // ignore: cast_nullable_to_non_nullable
-              as bool?,
+      kycStatus: freezed == kycStatus
+          ? _value.kycStatus
+          : kycStatus // ignore: cast_nullable_to_non_nullable
+              as String?,
       firstName: freezed == firstName
           ? _value.firstName
           : firstName // ignore: cast_nullable_to_non_nullable
@@ -197,7 +197,7 @@ abstract class _$$_ProfileModelCopyWith<$Res>
       bool emailVerified,
       bool? hasActiveSubscription,
       bool? hasUsedFreeTrial,
-      bool? kycverified,
+      String? kycStatus,
       String? firstName,
       String? lastName,
       String? countryCode});
@@ -227,7 +227,7 @@ class __$$_ProfileModelCopyWithImpl<$Res>
     Object? emailVerified = null,
     Object? hasActiveSubscription = freezed,
     Object? hasUsedFreeTrial = freezed,
-    Object? kycverified = freezed,
+    Object? kycStatus = freezed,
     Object? firstName = freezed,
     Object? lastName = freezed,
     Object? countryCode = freezed,
@@ -285,10 +285,10 @@ class __$$_ProfileModelCopyWithImpl<$Res>
           ? _value.hasUsedFreeTrial
           : hasUsedFreeTrial // ignore: cast_nullable_to_non_nullable
               as bool?,
-      kycverified: freezed == kycverified
-          ? _value.kycverified
-          : kycverified // ignore: cast_nullable_to_non_nullable
-              as bool?,
+      kycStatus: freezed == kycStatus
+          ? _value.kycStatus
+          : kycStatus // ignore: cast_nullable_to_non_nullable
+              as String?,
       firstName: freezed == firstName
           ? _value.firstName
           : firstName // ignore: cast_nullable_to_non_nullable
@@ -308,7 +308,7 @@ class __$$_ProfileModelCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable()
-class _$_ProfileModel implements _ProfileModel {
+class _$_ProfileModel extends _ProfileModel {
   const _$_ProfileModel(
       {required this.accountId,
       required this.username,
@@ -323,11 +323,12 @@ class _$_ProfileModel implements _ProfileModel {
       required this.emailVerified,
       this.hasActiveSubscription,
       this.hasUsedFreeTrial,
-      this.kycverified,
+      this.kycStatus,
       this.firstName,
       this.lastName,
       this.countryCode})
-      : _addresses = addresses;
+      : _addresses = addresses,
+        super._();
 
   factory _$_ProfileModel.fromJson(Map<String, dynamic> json) =>
       _$$_ProfileModelFromJson(json);
@@ -367,7 +368,7 @@ class _$_ProfileModel implements _ProfileModel {
   @override
   final bool? hasUsedFreeTrial;
   @override
-  final bool? kycverified;
+  final String? kycStatus;
   @override
   final String? firstName;
   @override
@@ -377,7 +378,7 @@ class _$_ProfileModel implements _ProfileModel {
 
   @override
   String toString() {
-    return 'ProfileModel(accountId: $accountId, username: $username, useAvatar: $useAvatar, avatarUrl: $avatarUrl, listingsRating: $listingsRating, phoneNumber: $phoneNumber, email: $email, addresses: $addresses, collectionValue: $collectionValue, accountVerified: $accountVerified, emailVerified: $emailVerified, hasActiveSubscription: $hasActiveSubscription, hasUsedFreeTrial: $hasUsedFreeTrial, kycverified: $kycverified, firstName: $firstName, lastName: $lastName, countryCode: $countryCode)';
+    return 'ProfileModel(accountId: $accountId, username: $username, useAvatar: $useAvatar, avatarUrl: $avatarUrl, listingsRating: $listingsRating, phoneNumber: $phoneNumber, email: $email, addresses: $addresses, collectionValue: $collectionValue, accountVerified: $accountVerified, emailVerified: $emailVerified, hasActiveSubscription: $hasActiveSubscription, hasUsedFreeTrial: $hasUsedFreeTrial, kycStatus: $kycStatus, firstName: $firstName, lastName: $lastName, countryCode: $countryCode)';
   }
 
   @override
@@ -410,8 +411,8 @@ class _$_ProfileModel implements _ProfileModel {
                 other.hasActiveSubscription == hasActiveSubscription) &&
             (identical(other.hasUsedFreeTrial, hasUsedFreeTrial) ||
                 other.hasUsedFreeTrial == hasUsedFreeTrial) &&
-            (identical(other.kycverified, kycverified) ||
-                other.kycverified == kycverified) &&
+            (identical(other.kycStatus, kycStatus) ||
+                other.kycStatus == kycStatus) &&
             (identical(other.firstName, firstName) ||
                 other.firstName == firstName) &&
             (identical(other.lastName, lastName) ||
@@ -437,7 +438,7 @@ class _$_ProfileModel implements _ProfileModel {
       emailVerified,
       hasActiveSubscription,
       hasUsedFreeTrial,
-      kycverified,
+      kycStatus,
       firstName,
       lastName,
       countryCode);
@@ -456,7 +457,7 @@ class _$_ProfileModel implements _ProfileModel {
   }
 }
 
-abstract class _ProfileModel implements ProfileModel {
+abstract class _ProfileModel extends ProfileModel {
   const factory _ProfileModel(
       {required final String accountId,
       required final String username,
@@ -471,10 +472,11 @@ abstract class _ProfileModel implements ProfileModel {
       required final bool emailVerified,
       final bool? hasActiveSubscription,
       final bool? hasUsedFreeTrial,
-      final bool? kycverified,
+      final String? kycStatus,
       final String? firstName,
       final String? lastName,
       final String? countryCode}) = _$_ProfileModel;
+  const _ProfileModel._() : super._();
 
   factory _ProfileModel.fromJson(Map<String, dynamic> json) =
       _$_ProfileModel.fromJson;
@@ -506,7 +508,7 @@ abstract class _ProfileModel implements ProfileModel {
   @override
   bool? get hasUsedFreeTrial;
   @override
-  bool? get kycverified;
+  String? get kycStatus;
   @override
   String? get firstName;
   @override
