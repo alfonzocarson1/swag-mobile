@@ -175,6 +175,7 @@ class API {
     Endpoint.verifyRateAlert: 'api/v1/profile/checkIfListingRatingAlReady',
     Endpoint.storeFirebaseToken: 'api/v1/notification/storeFireBaseToken',
     Endpoint.addPaymentMethod: 'api/v1/profile/settings/addPaymentMethod/%s',
-    Endpoint.paymentCustomerAccess: 'api/v1/profile/settings/paymentCustomerAccess',
+    Endpoint.paymentCustomerAccess:
+        'api/v1/profile/settings/paymentCustomerAccess',
   };
 }
