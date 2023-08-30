@@ -8,6 +8,8 @@ part 'public_profile.g.dart';
 
 @freezed
 class PublicProfile with _$PublicProfile {
+  const PublicProfile._();
+
   const factory PublicProfile({
     String? accountId,
     String? username,
@@ -17,13 +19,20 @@ class PublicProfile with _$PublicProfile {
     PeerToPeerPaymentsModel? peerToPeerPayment,
     bool? accountVerified,
     bool? emailVerified,
-    bool? kycverified,
+    String? kycStatus,
   }) = _PublicProfile;
 
-  factory PublicProfile.fromJson(Map<String, dynamic> json) =>
-      _$PublicProfileFromJson(json);
+  factory PublicProfile.fromJson(Map<String, dynamic> json) {
+    if (!json.containsKey("kycStatus")) {
+      json["kycStatus"] =
+          (json["kycverified"] as bool?) == true ? "VERIFIED" : "UNVERIFIED";
+    }
+    return _$PublicProfileFromJson(json);
+  }
 
   factory PublicProfile.fromProfileModel(ProfileModel privateProfile) {
     return PublicProfile.fromJson(privateProfile.toJson());
   }
+
+  bool get kycverified => kycStatus == "VERIFIED";
 }
