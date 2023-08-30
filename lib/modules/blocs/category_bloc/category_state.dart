@@ -8,4 +8,5 @@ class CategoryState with _$CategoryState {
   factory CategoryState.loadedCategories({
     required final List<CategoryListModel> categoryList,
   }) = LoadedCategoriesState;
+  factory CategoryState.hostTimeOut(final String message) = _HostTimeOutState;
 }

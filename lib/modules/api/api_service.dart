@@ -32,6 +32,7 @@ class APIService {
     InterceptedClient client = InterceptedClient.build(
       retryPolicy: TokenRetryPolicy(),
       interceptors: [ApiInterceptor()],
+        requestTimeout: Duration(seconds: 30)
     );
     String? token = '';
     if (needBearer) {
@@ -134,6 +135,7 @@ class APIService {
     InterceptedClient client = InterceptedClient.build(
       retryPolicy: TokenRetryPolicy(),
       interceptors: [ApiInterceptor(), LoggingInterceptor(enabled: true)],
+      requestTimeout: const Duration(seconds: 30)
     );
     String? token = '';
     if (needBearer) {

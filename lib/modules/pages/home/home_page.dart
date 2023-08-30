@@ -2,16 +2,18 @@ import 'dart:async';
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
-import 'package:swagapp/modules/cubits/paywall/paywall_cubit.dart';
-import 'package:swagapp/modules/cubits/profile/get_profile_cubit.dart';
+import 'package:swagapp/modules/common/utils/utils.dart';
+
 import 'package:swagapp/modules/di/injector.dart';
 import 'package:swagapp/modules/models/profile/profile_model.dart';
 import 'package:swagapp/modules/pages/search/search_page.dart';
 
 import '../../common/utils/custom_route_animations.dart';
 import '../../cubits/alert/alert_cubit.dart';
+import '../../cubits/app_state/app_state_cubit.dart';
 import '../../cubits/route_history/route_history_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../pages/alert/alert_page.dart';
@@ -51,10 +53,13 @@ class _HomePage extends State<HomePage> with WidgetsBindingObserver  {
   late RouteHistoryCubit _routeHistoryCubit;
 
 
+
   @override
   void initState() {
    WidgetsBinding.instance.addObserver(this);
     super.initState(); 
+
+    
    
     widgetsChildrenRefreshNotifiers = [
       ChangeNotifier(),
@@ -83,31 +88,31 @@ class _HomePage extends State<HomePage> with WidgetsBindingObserver  {
     super.dispose();
   }
 
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state)  {
-    super.didChangeAppLifecycleState(state);
-    if (state == AppLifecycleState.resumed) {
-      // This is called when the app is resumed from the background.
-      onAppResumed();
-    }
-    // You can also handle other states like inactive, paused, and detached if needed.
+@override
+void didChangeAppLifecycleState(AppLifecycleState state) {
+  super.didChangeAppLifecycleState(state);
+  
+  final appCubit = BlocProvider.of<AppCubit>(context);
+  
+  switch (state) {
+    case AppLifecycleState.inactive:
+   
+      break;
+    case AppLifecycleState.resumed:
+      if (!appCubit.state.overlayDetected) {
+    resetPaywall();
   }
 
-  void onAppResumed() async {
-   bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
-    if (isLogged == true){
-     await getIt<ProfileCubit>().loadProfileResults();
-      profileData = getIt<PreferenceRepositoryService>().profileData();
-      if(profileData?.hasActiveSubscription == false){
-        getIt<PaywallCubit>().reset();
-      }
-    }   
-    print('App resumed from background!');
+      break;
+    default:
+      break;
   }
+}
 
 
-  void onTapTapped(int index) {
+
+  void onTapTapped(int index) async {
+    await resetPaywall();
     widgetsChildrenRefreshNotifiers[index]?.notifyListeners();
     bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
     if ((index == 2 || index == 3) && !isLogged) {

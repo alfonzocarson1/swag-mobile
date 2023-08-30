@@ -99,7 +99,15 @@ class FooterListItemPage extends StatelessWidget {
             onTap: () async {
               bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
               if (isLogged) {
-                _navigateToPublicProfile(context);
+                BuyForSaleListingModel? alertListinStatus =
+                    await getIt<BuyCubit>()
+                        .getAlertListDetailItem(productItemId);
+                if (alertListinStatus!.status !=
+                    ListingStatusDataType.listed.textValue) {
+                  handleListingStatusUnavailable(catalogId);
+                } else {
+                  _navigateToPublicProfile(context);
+                }
               } else {
                 BuyForSaleListingModel? alertListinStatus =
                     await getIt<BuyCubit>()
@@ -140,7 +148,15 @@ class FooterListItemPage extends StatelessWidget {
                   bool isLogged =
                       getIt<PreferenceRepositoryService>().isLogged();
                   if (isLogged) {
-                    _navigateToPublicProfile(context);
+                    BuyForSaleListingModel? alertListinStatus =
+                        await getIt<BuyCubit>()
+                            .getAlertListDetailItem(productItemId);
+                    if (alertListinStatus!.status !=
+                        ListingStatusDataType.listed.textValue) {
+                      handleListingStatusUnavailable(catalogId);
+                    } else {
+                      _navigateToPublicProfile(context);
+                    }
                   } else {
                     BuyForSaleListingModel? alertListinStatus =
                         await getIt<BuyCubit>()

@@ -19,7 +19,7 @@ _$_PublicProfile _$$_PublicProfileFromJson(Map<String, dynamic> json) =>
               json['peerToPeerPayment'] as Map<String, dynamic>),
       accountVerified: json['accountVerified'] as bool?,
       emailVerified: json['emailVerified'] as bool?,
-      kycverified: json['kycverified'] as bool?,
+      kycStatus: json['kycStatus'] as String?,
     );
 
 Map<String, dynamic> _$$_PublicProfileToJson(_$_PublicProfile instance) =>
@@ -32,5 +32,5 @@ Map<String, dynamic> _$$_PublicProfileToJson(_$_PublicProfile instance) =>
       'peerToPeerPayment': instance.peerToPeerPayment,
       'accountVerified': instance.accountVerified,
       'emailVerified': instance.emailVerified,
-      'kycverified': instance.kycverified,
+      'kycStatus': instance.kycStatus,
     };

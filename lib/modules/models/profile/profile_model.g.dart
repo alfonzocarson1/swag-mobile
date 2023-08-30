@@ -24,9 +24,10 @@ _$_ProfileModel _$$_ProfileModelFromJson(Map<String, dynamic> json) =>
       emailVerified: json['emailVerified'] as bool,
       hasActiveSubscription: json['hasActiveSubscription'] as bool?,
       hasUsedFreeTrial: json['hasUsedFreeTrial'] as bool?,
-      kycverified: json['kycverified'] as bool?,
+      kycStatus: json['kycStatus'] as String?,
       firstName: json['firstName'] as String?,
       lastName: json['lastName'] as String?,
+      countryCode: json['countryCode'] as String?,
     );
 
 Map<String, dynamic> _$$_ProfileModelToJson(_$_ProfileModel instance) =>
@@ -44,7 +45,8 @@ Map<String, dynamic> _$$_ProfileModelToJson(_$_ProfileModel instance) =>
       'emailVerified': instance.emailVerified,
       'hasActiveSubscription': instance.hasActiveSubscription,
       'hasUsedFreeTrial': instance.hasUsedFreeTrial,
-      'kycverified': instance.kycverified,
+      'kycStatus': instance.kycStatus,
       'firstName': instance.firstName,
       'lastName': instance.lastName,
+      'countryCode': instance.countryCode,
     };

@@ -67,8 +67,13 @@ class _SearchResultPageState extends State<SearchResultPage>
   List<CatalogItemModel> resultList = [];
   bool hasReachedMax = false;
 
+  String? incomingCategoryId;
+  SearchRequestPayloadModel incomingSearchModel = const SearchRequestPayloadModel(filters: FilterModel());
+  List<String>? productTypes;
+
   @override
   void initState() {
+    callApi();
     super.initState();
     clearFilters(context);
     this.previousState = null;
@@ -76,29 +81,32 @@ class _SearchResultPageState extends State<SearchResultPage>
   }
 
   callApi() async {
-    getIt<PaginatedSearchCubit>().loadResults(
-        searchModel: SearchRequestPayloadModel(
-          searchParams:
-              (widget.staffPicksFlag == true || widget.unicornFlag == true)
-                  ? null
-                  : [widget.searchParam],
-          categoryId: widget.category != null && widget.category != SearchTab.whatsHot.index
-              ? await SearchTabWrapper(SearchTab.values[widget.category ?? 0])
-                  .toStringCustom()
-              : null,
-          whatsHotFlag: widget.category == SearchTab.whatsHot.index,
-          staffPicksFlag: widget.staffPicksFlag,
-          unicornFlag: widget.unicornFlag,
-          filters: const FilterModel(productType: null),
-        ),
-        searchTab: tab);
+    incomingCategoryId =
+        widget.category != null && widget.category != SearchTab.whatsHot.index
+            ? await SearchTabWrapper(SearchTab.values[widget.category ?? 0])
+                .toStringCustom()
+            : null;
+    productTypes =
+        incomingCategoryId == null ? null : [incomingCategoryId ?? ""];
+    incomingSearchModel = SearchRequestPayloadModel(
+      searchParams:
+          (widget.staffPicksFlag == true || widget.unicornFlag == true)
+              ? null
+              : [widget.searchParam],
+      categoryId: incomingCategoryId,
+      whatsHotFlag: widget.category == SearchTab.whatsHot.index,
+      staffPicksFlag: widget.staffPicksFlag,
+      unicornFlag: widget.unicornFlag,
+      filters: FilterModel(productType: productTypes),
+    );
+    getIt<PaginatedSearchCubit>()
+        .loadResults(searchModel: incomingSearchModel, searchTab: tab);
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
 
-    callApi();
     return Scaffold(
         appBar: PushedHeader(
           customWidget: Column(
@@ -106,6 +114,8 @@ class _SearchResultPageState extends State<SearchResultPage>
               SearchResultField(
                 textEditingController: this.textEditingController,
                 searchParam: this.widget.searchParam,
+                searchWithFilters: this.widget.searchWithFilters ??
+                    incomingSearchModel,
                 category: widget.category,
               ),
               Container(

@@ -351,29 +351,45 @@ class _ListItemPreviewPageState extends State<ListItemPreviewPage> {
                               } else {
                                 getIt<ListingProfileCubit>().updateListing(
                                   ListingForSaleModel(
-                                    productItemId: widget.productItemId,
-                                    productItemName: widget.itemName,
-                                    productItemPrice: widget.itemPrice,
-                                    productItemDescription:
-                                        widget.itemDescription,
-                                    sold: false,
-                                    condition:
-                                        widget.itemCondition.toUpperCase(),
-                                    listingItemsAction: "ADD",
-                                    forSale: true,
-                                    lastSale: widget.itemPrice,
-                                    catalogItemId: widget.catalogItemId,
-                                    profileCollectionItemId:
-                                        widget.profileCollectionItemId,
-                                    status: 'listed',
-                                  ),
+                                      productItemId: widget.productItemId,
+                                      productItemName: widget.itemName,
+                                      productItemPrice: widget.itemPrice,
+                                      productItemDescription:
+                                          widget.itemDescription,
+                                      sold: false,
+                                      condition:
+                                          widget.itemCondition.toUpperCase(),
+                                      listingItemsAction: "UPDATE",
+                                      forSale: true,
+                                      lastSale: widget.itemPrice,
+                                      catalogItemId: widget.catalogItemId,
+                                      profileCollectionItemId:
+                                          widget.profileCollectionItemId,
+                                      status: 'listed',
+                                      peerToPeerPaymentOptions:
+                                          PeerToPeerPaymentsModel(
+                                        venmoUser: widget.paymentAccepted
+                                                .contains('Venmo')
+                                            ? paymentData.peerToPeerPayments!
+                                                    .venmoUser ??
+                                                ''
+                                            : null,
+                                        cashTag: widget.paymentAccepted
+                                                .contains('CashApp')
+                                            ? paymentData.peerToPeerPayments!
+                                                    .cashTag ??
+                                                ''
+                                            : null,
+                                        payPalEmail: widget.paymentAccepted
+                                                .contains('PayPal')
+                                            ? paymentData.peerToPeerPayments!
+                                                    .payPalEmail ??
+                                                ''
+                                            : null,
+                                      )),
                                   widget.imgList,
                                   widget.imgUrls ?? [],
                                 );
-
-                                Navigator.of(context).pop();
-                                Navigator.of(context).pop();
-                                Navigator.of(context).pop();
                               }
                             },
                             type: PrimaryButtonType.green,

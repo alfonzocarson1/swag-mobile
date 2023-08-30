@@ -30,6 +30,7 @@
     "popup_btn_no": "NO, I'LL DO THIS LATER",
     "incorrect_email_or_password": "Incorrect email or password. Please try again",
     "phone": "Phone",
+    "mobile": "Mobile",
     "username": "@username",
     "agree_to": "I agree to Swag’s ",
     "privacy_policy_text": "Privacy Policy",
@@ -60,7 +61,8 @@
     "permission_microphone":"microphone",
     "permission_camera_microphone":"camera and microphone",
     "permission_dialog_title": "{permission} ACCESS",
-    "permission_dialog_description": "Please allow {permission} permission in your device settings for the Swag App. This allows you to take pictures and videos with your camera to use as your profile photo, when listing items for sale or when chatting with other users.",
+    "permission_camera_dialog_description": "Please allow {permission} permission in your device settings for the Swag App. This allows you to take pictures and videos with your camera to use as your profile photo, when listing items for sale or when chatting with other users.",
+    "permission_gallery_dialog_description": "Please allow {permission} permission in your device settings for the Swag App. This allows you to upload pictures/videos from your library to use as your profile photo, when listing items for sale or when chatting with other users.",
     "permission_dialog_button": "ALLOW {permission} ACCESS",
     "permission_photos_title": "",
     "required_field": "Required field",
@@ -318,7 +320,7 @@
     "nft_verify_sheet_button": "VERIFY",
     "nft_verify_sheet_verification_failed": "Verification failed. Please check your Opensea bio and try again in 1 hour.",
 
-    
+    "cards_add_card": "Add New Card",
 
     "input_venmo": "@Venmo username",
     "input_cash_app": "$cashtag",

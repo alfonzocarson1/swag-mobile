@@ -70,25 +70,28 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m17(buyerUserName, sellerUserName) =>
       "${buyerUserName} has still not received this item. ${sellerUserName} can you please provide an update on shipping? Thank you.";
 
-  static String m18(permission) => "ALLOW ${permission} ACCESS";
-
-  static String m19(permission) =>
+  static String m18(permission) =>
       "Please allow ${permission} permission in your device settings for the Swag App. This allows you to take pictures and videos with your camera to use as your profile photo, when listing items for sale or when chatting with other users.";
+
+  static String m19(permission) => "ALLOW ${permission} ACCESS";
 
   static String m20(permission) => "${permission} ACCESS";
 
-  static String m21(orderNumber) => "Order number: ${orderNumber}";
+  static String m21(permission) =>
+      "Please allow ${permission} permission in your device settings for the Swag App. This allows you to upload pictures/videos from your library to use as your profile photo, when listing items for sale or when chatting with other users.";
 
-  static String m22(totalPrice) => "TOTAL=\$${totalPrice}";
+  static String m22(orderNumber) => "Order number: ${orderNumber}";
 
-  static String m23(paymentMethod) => "Paid via ${paymentMethod}";
+  static String m23(totalPrice) => "TOTAL=\$${totalPrice}";
 
-  static String m24(trackingNumber) => "Tracking number:\n${trackingNumber}";
+  static String m24(paymentMethod) => "Paid via ${paymentMethod}";
 
-  static String m25(sellerUserName) =>
+  static String m25(trackingNumber) => "Tracking number:\n${trackingNumber}";
+
+  static String m26(sellerUserName) =>
       "How was your experience \nwith ${sellerUserName}?";
 
-  static String m26(buyerUserName, dateSold) =>
+  static String m27(buyerUserName, dateSold) =>
       "Sold to @${buyerUserName} on ${dateSold} ";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -156,6 +159,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "This card will only be used for Atomic Drop purchases. All secondary market purchases will use P2P payment options."),
         "card_number_max_error": m0,
         "card_number_min_error": m1,
+        "cards_add_card": MessageLookupByLibrary.simpleMessage("Add New Card"),
         "cash_app": MessageLookupByLibrary.simpleMessage("CashApp"),
         "cash_app_sub_title": MessageLookupByLibrary.simpleMessage(
             "Please enter and confirm your \nCashApp cashtag"),
@@ -440,6 +444,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "mail_was_sent": MessageLookupByLibrary.simpleMessage("Mail was sent"),
         "make_an_offer": MessageLookupByLibrary.simpleMessage("MAKE AN OFFER"),
         "message": MessageLookupByLibrary.simpleMessage("Message"),
+        "mobile": MessageLookupByLibrary.simpleMessage("Mobile"),
         "multi_collection_subtitle": MessageLookupByLibrary.simpleMessage(
             "It looks like you already have this item in your collection. Are you sure you want to add another?"),
         "multi_collection_title":
@@ -603,11 +608,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "pending_sale_btn":
             MessageLookupByLibrary.simpleMessage("Pending Sale"),
         "permission_camera": MessageLookupByLibrary.simpleMessage("camera"),
+        "permission_camera_dialog_description": m18,
         "permission_camera_microphone":
             MessageLookupByLibrary.simpleMessage("camera and microphone"),
-        "permission_dialog_button": m18,
-        "permission_dialog_description": m19,
+        "permission_dialog_button": m19,
         "permission_dialog_title": m20,
+        "permission_gallery_dialog_description": m21,
         "permission_microphone":
             MessageLookupByLibrary.simpleMessage("microphone"),
         "permission_photos": MessageLookupByLibrary.simpleMessage("photo"),
@@ -682,10 +688,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Item purchased from"),
         "purchase_item_shipped":
             MessageLookupByLibrary.simpleMessage("Item shipped"),
-        "purchase_order_number": m21,
+        "purchase_order_number": m22,
         "purchase_paid_status": MessageLookupByLibrary.simpleMessage("PAID"),
-        "purchase_payment_card_total": m22,
-        "purchase_payment_card_via": m23,
+        "purchase_payment_card_total": m23,
+        "purchase_payment_card_via": m24,
         "purchase_pending_shipping":
             MessageLookupByLibrary.simpleMessage("Pending shipping"),
         "purchase_price":
@@ -696,13 +702,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "purchase_title":
             MessageLookupByLibrary.simpleMessage("Purchase History"),
         "purchase_total_item": MessageLookupByLibrary.simpleMessage("TOTAL"),
-        "purchase_tracking_number": m24,
+        "purchase_tracking_number": m25,
         "putters": MessageLookupByLibrary.simpleMessage("Putters"),
         "rarity_score": MessageLookupByLibrary.simpleMessage("RARITY SCORE"),
         "rating_btn": MessageLookupByLibrary.simpleMessage("Submit rating"),
         "rating_feedback": MessageLookupByLibrary.simpleMessage(
             "Additional details here \n(not seen by users)..."),
-        "rating_sub_title": m25,
+        "rating_sub_title": m26,
         "rating_title": MessageLookupByLibrary.simpleMessage("How’d it go?"),
         "razon_remove_btn": MessageLookupByLibrary.simpleMessage("SUBMIT"),
         "razon_remove_subtitle": MessageLookupByLibrary.simpleMessage(
@@ -797,7 +803,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sign_in": MessageLookupByLibrary.simpleMessage("Sign In"),
         "sign_out": MessageLookupByLibrary.simpleMessage("Sign Out"),
         "similar_items": MessageLookupByLibrary.simpleMessage("SIMILAR ITEMS"),
-        "sold_footer_title": m26,
+        "sold_footer_title": m27,
         "sold_for": MessageLookupByLibrary.simpleMessage("SOLD FOR"),
         "sort": MessageLookupByLibrary.simpleMessage("Sort:"),
         "sort_by": MessageLookupByLibrary.simpleMessage("sort by"),

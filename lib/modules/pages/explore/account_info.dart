@@ -8,14 +8,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/api/api.dart';
+import 'package:swagapp/modules/api/stripe_api.dart';
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
+import 'package:swagapp/modules/cubits/cards/cards_cubits.dart';
 import 'package:swagapp/modules/pages/home/home_page.dart';
-import 'package:swagapp/modules/stripe/models/card_token_input_model.dart';
-import 'package:swagapp/modules/stripe/models/customer_input_model.dart';
-import 'package:swagapp/modules/stripe/models/payment_method_input_model.dart';
-import 'package:swagapp/modules/stripe/models/stripe_error_model.dart';
 
 import '../../blocs/update_profile_bloc/update_profile_bloc.dart';
 import '../../common/ui/cupertino_custom_date_picker.dart';
@@ -36,8 +34,6 @@ import '../../di/injector.dart';
 import '../../models/profile/profile_model.dart';
 import '../../models/update_profile/addresses_payload_model.dart';
 import '../../models/update_profile/update_profile_payload_model.dart';
-import '../../stripe/constants.dart';
-import '../../stripe/stripe_service.dart';
 
 class AccountInfoPage extends StatefulWidget {
   static const name = '/AccountInfo';
@@ -164,7 +160,6 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   List<String> _states = ['State'];
   List<String> _billingStates = ['State'];
   int value = 0;
-  StripeService stripeService = StripeService();
   bool updateAllFlow = false;
   bool billingCountryFirstUse = true;
   late String userName;
@@ -827,7 +822,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                         inputType: TextInputType.number,
                                         borderColor: _expirationBorder,
                                         inputFormatters: [
-                                          _CardExpirationInputFormatter(),
+                                          CardExpirationInputFormatter(),
                                         ],
                                         maxLength: 5,
                                         autofocus: false,
@@ -938,10 +933,9 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                 showErrors();
                                 if (areFieldsValid()) {
                                   debugPrint('All Fields Are Valid');
-                                  final response = await createCardToken();
+                                  final created = await createCardToken();
 
-                                  if (response != null &&
-                                      response.statusCode == 200) {
+                                  if (created) {
                                     setState(() {
                                       updateAllFlow = true;
                                     });
@@ -1159,6 +1153,15 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
       billingOverAllCheck = true;
     }
 
+    var cardCheck = false;
+    if (_cardController.text.isNotEmpty &&
+        _cardNumberLength() >= 8 &&
+        _cardNumberLength() <= 19 &&
+        _cvcController.text.isNotEmpty &&
+        _defaultDateTime.isAfter(DateTime.now())) {
+      cardCheck = true;
+    }
+
     return _firstNameController.text.isNotEmpty &&
         _lastNameController.text.isNotEmpty &&
         _defaultCountry != 'Country' &&
@@ -1166,220 +1169,82 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
         _cityController.text.isNotEmpty &&
         _defaultState != defaultState &&
         _zipController.text.isNotEmpty &&
-        _cardController.text.isNotEmpty &&
-        _cardNumberLength() >= 8 &&
-        _cardNumberLength() <= 19 &&
-        _cvcController.text.isNotEmpty &&
-        _defaultDateTime.isAfter(DateTime.now()) &&
+        cardCheck &&
         billingOverAllCheck;
   }
 
-  Future<http.Response?> createCardToken() async {
-    http.Response? response;
+  Future<bool> createCardToken() async {
     Loading.show(context);
 
-    CardTokenInputModel cardTokenInputModel = billingAndShippingAddressesAreSame
-        ? CardTokenInputModel(
-            expMonth: '${_defaultDateTime.month}',
-            expYear: '${_defaultDateTime.year}',
-            cvc: _cvcController.text,
-            cardNumber: _cardController.text,
-            name: _cardNameController.text.trim(),
-            city: _cityController.text,
-            address1: _firstAddressController.text,
-            address2: _secondAddressController.text ?? ' ',
-            zip: _zipController.text,
-            state: _defaultState,
-            country: getCountryCodeFromCountryName(_defaultCountry) ?? ' ',
-          )
-        : CardTokenInputModel(
-            expMonth: '${_defaultDateTime.month}',
-            expYear: '${_defaultDateTime.year}',
-            cvc: _cvcController.text,
-            cardNumber: _cardController.text,
-            name: _cardNameController.text.trim(),
-            city: _billingCityController.text,
-            address1: _billingFirstAddressController.text,
-            address2: _billingSecondAddressController.text ?? ' ',
-            zip: _billingZippController.text,
-            state: _billingdefaultState,
-            country:
-                getCountryCodeFromCountryName(_billingDefaultCountry) ?? ' ',
-          );
-    response = await stripeService.createCardToken(cardTokenInputModel);
-    if (response.statusCode != 200) {
-      StripeErrorModel stripeErrorModel =
-          StripeErrorModel.fromJson(jsonDecode(response.body)['error']);
-      // Card Related Error handlings
-      handleCardErrors(stripeErrorModel);
-      showSnackBar(
-          context, stripeErrorModel.message ?? S.of(context).stripe_error);
-      debugPrint('Card Token Creation Failed: ${response.body}');
+    final String addressCity;
+    final String addressLine1;
+    final String addressLine2;
+    final String addressZip;
+    final String addressState;
+    final String addressCountry;
+
+    if (billingAndShippingAddressesAreSame) {
+      addressCity = _cityController.text;
+      addressLine1 = _firstAddressController.text;
+      addressLine2 = _secondAddressController.text;
+      addressZip = _zipController.text;
+      addressState = _defaultState;
+      addressCountry = getCountryCodeFromCountryName(_defaultCountry) ?? ' ';
     } else {
-      debugPrint('Card Token Created: ${response.body}');
-      final tokenId = jsonDecode(response.body)['id'];
-      saveCardToken(tokenId);
+      addressCity = _billingCityController.text;
+      addressLine1 = _billingFirstAddressController.text;
+      addressLine2 = _billingSecondAddressController.text;
+      addressZip = _billingZippController.text;
+      addressState = _billingdefaultState;
+      addressCountry =
+          getCountryCodeFromCountryName(_billingDefaultCountry) ?? ' ';
+    }
+
+    final request = CardTokenRequest(
+      expMonth: '${_defaultDateTime.month}',
+      expYear: '${_defaultDateTime.year}',
+      cvc: _cvcController.text,
+      number: _cardController.text,
+      name: _cardNameController.text.trim(),
+      addressCity: addressCity,
+      addressLine1: addressLine1,
+      addressLine2: addressLine2,
+      addressZip: addressZip,
+      addressState: addressState,
+      addressCountry: addressCountry,
+    );
+
+    bool done = false;
+    try {
+      await getIt<CardsCubit>().addCard(request);
+    } catch (e) {
+      done = false;
+      if (e is StripeError) {
+        handleStripeError(e);
+      }
     }
     await Future.delayed(const Duration(milliseconds: 800));
     Loading.hide(context);
-    return response;
+    return done;
   }
 
-  Future<http.Response?> saveCardToken(String cardToken) async {
-    http.Response? response;
-    final uri = getIt.get<API>().scheme.encodeUri(
-          getIt.get<API>().host,
-          "api/v1/profile/settings/addPaymentMethod/$cardToken",
-        );
-    final token = await getIt<StorageRepositoryService>().getToken();
-    final headers = {
-      "Content-Type": "application/json",
-      HttpHeaders.authorizationHeader: 'Bearer $token',
-    };
-    response = await http.post(uri, headers: headers);
-    if (response != null && response.statusCode == 200) {
-      debugPrint('Card Token Saved On B.E: ${response.body}');
-    } else {
-      debugPrint('Failed To Save Card Token On B.E: ${response.body}');
-    }
-    return response;
-  }
-
-  Future<http.Response?> createAndAttachPaymentMethod() async {
-    http.Response? response;
-    Loading.show(context);
-    CustomerInputModel customerInputModel = billingAndShippingAddressesAreSame
-        ? CustomerInputModel(
-            name: _firstNameController.text + _lastNameController.text,
-            email: profileData.email,
-            phone: profileData.phoneNumber,
-            city: _cityController.text,
-            country: getCountryCodeFromCountryName(_defaultCountry) ?? ' ',
-            line1: _firstAddressController.text,
-            line2: _secondAddressController.text ?? ' ',
-            postalCode: _zipController.text,
-            state: _defaultState)
-        : CustomerInputModel(
-            name: _cardNameController.text,
-            email: profileData.email,
-            phone: profileData.phoneNumber,
-            city: _billingCityController.text,
-            country:
-                getCountryCodeFromCountryName(_billingDefaultCountry) ?? ' ',
-            line1: _billingFirstAddressController.text,
-            line2: _billingSecondAddressController.text ?? ' ',
-            postalCode: _billingZippController.text,
-            state: _billingdefaultState);
-
-    PaymentMethodInputModel paymentMethodInputModel =
-        billingAndShippingAddressesAreSame
-            ? PaymentMethodInputModel(
-                city: _cityController.text,
-                country: getCountryCodeFromCountryName(_defaultCountry) ?? ' ',
-                line1: _firstAddressController.text,
-                line2: _secondAddressController.text,
-                postalCode: _zipController.text,
-                state: _defaultState,
-                email: profileData.email,
-                name:
-                    '${_firstNameController.text} ${_lastNameController.text}',
-                phone: profileData.phoneNumber,
-                expMonth: '${_defaultDateTime.month}',
-                expYear: '${_defaultDateTime.year}',
-                cvc: _cvcController.text,
-                cardNumber: _cardController.text)
-            : PaymentMethodInputModel(
-                city: _billingCityController.text,
-                country:
-                    getCountryCodeFromCountryName(_billingDefaultCountry) ??
-                        ' ',
-                line1: _billingFirstAddressController.text,
-                line2: _billingSecondAddressController.text,
-                postalCode: _billingZippController.text,
-                state: _billingdefaultState,
-                email: profileData.email,
-                name:
-                    '${_firstNameController.text} ${_lastNameController.text}',
-                phone: profileData.phoneNumber,
-                expMonth: '${_defaultDateTime.month}',
-                expYear: '${_defaultDateTime.year}',
-                cvc: _cvcController.text,
-                cardNumber: _cardController.text);
-
-    final customerCreationResponse =
-        await stripeService.createCustomer(customerInputModel);
-    if (customerCreationResponse.statusCode == 200) {
-      debugPrint('New Stripe User Created: ${customerCreationResponse.body}');
-      final customerId = jsonDecode(customerCreationResponse.body)['id'];
-      final paymentMethodCreationResponse =
-          await stripeService.createPaymentMethod(paymentMethodInputModel);
-      if (paymentMethodCreationResponse.statusCode != 200) {
-        StripeErrorModel stripeErrorModel = StripeErrorModel.fromJson(
-            jsonDecode(paymentMethodCreationResponse.body)['error']);
-        // Card Related Error handlings
-        handleCardErrors(stripeErrorModel);
-      } else if (paymentMethodCreationResponse.statusCode == 200) {
-        debugPrint(
-            'New Payment Method Created: ${paymentMethodCreationResponse.body}');
-        final paymentMethodId =
-            jsonDecode(paymentMethodCreationResponse.body)["id"];
-        final paymentMethodAttachmentResponse =
-            await stripeService.attachPaymentMethod(
-                customerId: customerId, paymentMethodId: paymentMethodId);
-        response = paymentMethodAttachmentResponse;
-        if (paymentMethodAttachmentResponse.statusCode == 200) {
-          debugPrint(
-              'Newly Created payment method attached to the newly created stripe customer: ${paymentMethodAttachmentResponse.body}');
-          // SAVING THE NEWLY CREATED PAYMENT METHOD ID FOR FUTURE USE
-          final paymentMethodId =
-              jsonDecode(paymentMethodAttachmentResponse.body)['id'];
-          getIt<StorageRepositoryService>().saveStripeToken(paymentMethodId);
-        } else {
-          //HANDLING STRIPE PAYMENT METHOD ATTACHMENT FAILURE SCENARIO
-          StripeErrorModel stripeErrorModel = StripeErrorModel.fromJson(
-              jsonDecode(paymentMethodAttachmentResponse.body)['error']);
-          final errorMessage = stripeErrorModel.message;
-          showSnackBar(context, errorMessage ?? S.of(context).stripe_error);
-          debugPrint(
-              'Failed  to Attache newly created paymnet methode to the newly created stripe customer: ${paymentMethodAttachmentResponse.body}');
-        }
-      } else {
-        //HANDLING STRIPE PAYMENT METHOD CREATION FAILED SCENARIO
-        StripeErrorModel stripeErrorModel = StripeErrorModel.fromJson(
-            jsonDecode(paymentMethodCreationResponse.body)['error']);
-        final errorMessage = stripeErrorModel.message;
-        showSnackBar(context, errorMessage ?? S.of(context).stripe_error);
-        debugPrint(
-            'New Payment Method Creation Failed: ${paymentMethodCreationResponse.body}');
-      }
-    } else {
-      //HANDLING STRIPE USER CREATION FAILED SCENARIO
-      StripeErrorModel stripeErrorModel = StripeErrorModel.fromJson(
-          jsonDecode(customerCreationResponse.body)['error']);
-      final errorMessage = stripeErrorModel.message;
-      showSnackBar(context, errorMessage ?? S.of(context).stripe_error);
-      debugPrint(
-          'New Stripe Customer Creation Failed: ${customerCreationResponse.body}');
-    }
-    Loading.hide(context);
-    return response;
-  }
-
-  void handleCardErrors(StripeErrorModel stripeErrorModel) {
+  void handleStripeError(StripeError stripeErrorModel) {
     debugPrint(stripeErrorModel.code);
-    if (stripeErrorModel.code == INVALID_CARD) {
+    showSnackBar(
+        context, stripeErrorModel.message ?? S.of(context).stripe_error);
+    if (stripeErrorModel.code == StripeErrors.INVALID_CARD) {
       setState(() {
         cardErrorText = 'Invalid Card Number';
       });
-    } else if (stripeErrorModel.code == INVALID_EXPIRY_MONTH) {
+    } else if (stripeErrorModel.code == StripeErrors.INVALID_EXPIRY_MONTH) {
       setState(() {
         expirationErrorText = 'Invalid Month';
       });
-    } else if (stripeErrorModel.code == INVALID_EXPIRY_YEAR) {
+    } else if (stripeErrorModel.code == StripeErrors.INVALID_EXPIRY_YEAR) {
       setState(() {
         expirationErrorText = 'Invalid Year';
       });
-    } else if (stripeErrorModel.code == INVALID_CVC) {
+    } else if (stripeErrorModel.code == StripeErrors.INVALID_CVC) {
       setState(() {
         cvcErrorText = 'Invalid CVC';
       });
@@ -1604,7 +1469,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   }
 }
 
-class _CardExpirationInputFormatter extends TextInputFormatter {
+class CardExpirationInputFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
       TextEditingValue oldValue, TextEditingValue newValue) {

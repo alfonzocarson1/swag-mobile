@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
 import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
+import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 
 
 import 'app.dart';
@@ -16,6 +17,8 @@ import 'modules/notifications_providers/local_notifications_providers.dart';
 import 'modules/notifications_providers/push_notifications_providers.dart';
 
 Logger logger=Logger();
+late Mixpanel mixpanel;
+
 Future<void> main() async {
   if (kReleaseMode) {
     debugPrint = (String? message, {int? wrapWidth}) {};
@@ -40,6 +43,7 @@ Future<void> main() async {
  
   initFiltersAndSorts();
   initUtilsPreference();
+  initMixpanel();
   try {
     // await PushNotificationProvider.instance.initNotifications();
   } catch (e) {
@@ -49,6 +53,10 @@ Future<void> main() async {
   }
    
   return _runApp();
+}
+
+Future<void> initMixpanel() async {
+  mixpanel = await Mixpanel.init("03fa951043e16cd0277cacb261a16dbe", trackAutomaticEvents: true);
 }
 
 Future<String> getAppFlavor() async {
