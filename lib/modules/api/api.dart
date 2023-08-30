@@ -63,6 +63,8 @@ enum Endpoint {
   addAlertP2P,
   removeAddress,
   storeFirebaseToken,
+  addPaymentMethod,
+  paymentCustomerAccess,
   verifyRateAlert
 }
 
@@ -172,5 +174,8 @@ class API {
     Endpoint.removeAddress: 'api/v1/profile/settings/account/addresses/%s',
     Endpoint.verifyRateAlert: 'api/v1/profile/checkIfListingRatingAlReady',
     Endpoint.storeFirebaseToken: 'api/v1/notification/storeFireBaseToken',
+    Endpoint.addPaymentMethod: 'api/v1/profile/settings/addPaymentMethod/%s',
+    Endpoint.paymentCustomerAccess:
+        'api/v1/profile/settings/paymentCustomerAccess',
   };
 }

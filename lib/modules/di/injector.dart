@@ -3,8 +3,10 @@ import 'package:get_it/get_it.dart';
 import 'package:swagapp/modules/api/api.dart';
 import 'package:swagapp/modules/api/api_service.dart';
 import 'package:swagapp/modules/api/app_config.dart';
+import 'package:swagapp/modules/api/stripe_api.dart';
 import 'package:swagapp/modules/blocs/search_bloc.dart/search_bloc.dart';
 import 'package:swagapp/modules/common/utils/context_service.dart';
+import 'package:swagapp/modules/cubits/cards/cards_cubits.dart';
 import 'package:swagapp/modules/cubits/nft_wallet/nft_wallet_cubit.dart';
 import 'package:swagapp/modules/cubits/paginated_search/paginated_search_cubit.dart';
 import 'package:swagapp/modules/cubits/public_profile/public_profile_cubit.dart';
@@ -112,6 +114,8 @@ Future<void> setupAppScope(String appFlavor) async {
   getIt.registerLazySingleton(() => DeepLinkHandler());
 
   getIt.registerLazySingleton(() => FirebaseService(getIt()));
+
+  getIt.registerLazySingleton(() => StripeApi(getIt(), getIt()));
 
   getIt.registerLazySingleton(() => PreferenceRepositoryService());
   getIt.registerLazySingleton(() => FiltersService(getIt()));
@@ -256,6 +260,8 @@ Future<void> setupAppScope(String appFlavor) async {
       () => NftWalletService(getIt()));
 
   getIt.registerLazySingleton(() => NftWalletCubit(getIt(), getIt()));
+
+  getIt.registerLazySingleton(() => CardsCubit(getIt()));
 
   return getIt.allReady();
 }

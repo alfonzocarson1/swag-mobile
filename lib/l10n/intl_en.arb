@@ -309,7 +309,7 @@
     "nft_verify_sheet_button": "VERIFY",
     "nft_verify_sheet_verification_failed": "Verification failed. Please check your Opensea bio and try again in 1 hour.",
 
-    
+    "cards_add_card": "Add New Card",
 
     "input_venmo": "@Venmo username",
     "input_cash_app": "$cashtag",

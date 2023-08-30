@@ -3020,6 +3020,16 @@ class S {
     );
   }
 
+  /// `Add New Card`
+  String get cards_add_card {
+    return Intl.message(
+      'Add New Card',
+      name: 'cards_add_card',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `@Venmo username`
   String get input_venmo {
     return Intl.message(

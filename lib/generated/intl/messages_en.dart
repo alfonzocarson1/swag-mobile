@@ -159,6 +159,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "This card will only be used for Atomic Drop purchases. All secondary market purchases will use P2P payment options."),
         "card_number_max_error": m0,
         "card_number_min_error": m1,
+        "cards_add_card": MessageLookupByLibrary.simpleMessage("Add New Card"),
         "cash_app": MessageLookupByLibrary.simpleMessage("CashApp"),
         "cash_app_sub_title": MessageLookupByLibrary.simpleMessage(
             "Please enter and confirm your \nCashApp cashtag"),
