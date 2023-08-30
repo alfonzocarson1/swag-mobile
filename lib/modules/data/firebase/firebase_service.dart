@@ -17,6 +17,5 @@ class FirebaseService {
       fromJson: (json) => json,
       needBearer: true,
     ) as Map<String, dynamic>;
-    res
   }
 }

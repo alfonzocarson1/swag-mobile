@@ -51,9 +51,7 @@ class PushNotificationsProvider {
       debugPrint(message.toMap().toString());
       getIt<AlertCubit>().getAlertList();
 
-      try {
-        String? currentRoute = getIt<RouteTracker>().currentRoute;
-
+      String? currentRoute = getIt<RouteTracker>().currentRoute;
 
       bool stringToBool(String value) {
         return value.toLowerCase() == 'true';

@@ -170,7 +170,7 @@ class API {
     Endpoint.createOrUpdateWallet:
         'api/public/v1/account/createOrUpdateWalletPair',
     Endpoint.removeAddress: 'api/v1/profile/settings/account/addresses/%s',
-    Endpoint.verifyRateAlert: 'api/v1/profile/checkIfListingRatingAlReady'
+    Endpoint.verifyRateAlert: 'api/v1/profile/checkIfListingRatingAlReady',
     Endpoint.storeFirebaseToken: 'api/v1/notification/storeFireBaseToken',
   };
 }
