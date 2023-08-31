@@ -3,9 +3,7 @@
   package="golf.swag.dev.swaggolf"
 >
 
- <uses-permission android:name="com.android.vending.BILLING" />
- 
-    <queries>
+     <queries>
         <intent>
             <action android:name="android.intent.action.SENDTO" />
             <data android:scheme="mailto" />
@@ -13,6 +11,14 @@
     </queries>
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.GALLERY"/>
+    <uses-permission android:name="com.android.vending.BILLING" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+
+
    <application
     android:label="@string/app_name"
     android:name="${applicationName}"
@@ -30,6 +36,7 @@
       android:windowSoftInputMode="adjustResize"
     >
      <meta-data android:name="flutter_deeplinking_enabled" android:value="true" />
+     
      
 
             <!-- App Link sample
