@@ -29,8 +29,10 @@ import '../../models/profile/profile_model.dart';
 import '../add/buy/buy_for_sale.dart';
 import '../add/collection/list_for_sale_page.dart';
 import '../login/create_account_page.dart';
+import '../settings/account/verification/kyc_splash_dialog.dart';
 
 late bool hasActiveSubscription;
+late bool hasKYCverified;
 
 class CollectionWidget extends StatefulWidget {
   CollectionWidget({
@@ -121,6 +123,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
       getProfileAvatar();
     }
     hasActiveSubscription = profileData?.hasActiveSubscription ?? false;
+    hasKYCverified = profileData?.kycverified ?? false;
   }
 
   loadCollectionsListed() async {
@@ -494,9 +497,19 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                         width: MediaQuery.of(context).size.width,
                         child: PrimaryButton(
                           title: S.of(context).list_for_sale_btn,
-                          onPressed: () {
+                          onPressed: () async {
                             if (isLogged) {
-                              if (hasActiveSubscription) {
+                              await getIt<ProfileCubit>().loadProfileResults();
+                              setState(() {
+                                profileData =
+                                    getIt<PreferenceRepositoryService>()
+                                        .profileData();
+                                hasActiveSubscription =
+                                    profileData?.hasActiveSubscription ?? false;
+                                hasKYCverified =
+                                    profileData?.kycverified ?? false;
+                              });
+                              if (hasActiveSubscription && hasKYCverified) {
                                 (newCollectionList.isNotEmpty &&
                                         (newCollectionList.length > 1))
                                     ? showDialog(
@@ -521,6 +534,17 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                                 widget.urlImage))
                                         : showToastMessage(
                                             S.of(context).collection_listed);
+                              } else if (!hasActiveSubscription &&
+                                  hasKYCverified) {
+                                showPaywallSplashScreen(
+                                    context: context,
+                                    hasUsedFreeTrial:
+                                        profileData?.hasUsedFreeTrial ?? false,
+                                    removePaywall: removePaywall);
+                              } else if (hasActiveSubscription &&
+                                  !hasKYCverified) {
+                                Navigator.of(context)
+                                    .push(KycSplashDialog.route(context));
                               } else {
                                 showPaywallSplashScreen(
                                     context: context,
@@ -547,18 +571,18 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                           title: S.of(context).remove_collection_btn,
                           onPressed: () {
                             if (isLogged) {
-  //                            if (widget.sale) {
-  //                              showToastMessage(S
-  //                                  .of(context)
-  //                                  .collection_removal_not_allowed_if_on_sale);
-  //                            } else {
-                                showDialog(
-                                    context: context,
-                                    barrierDismissible: false,
-                                    builder: (BuildContext context) {
-                                      return PopUpDeleteItemCollection(
-                                          dataCollection: dataCollection);
-                                    });
+                              //                            if (widget.sale) {
+                              //                              showToastMessage(S
+                              //                                  .of(context)
+                              //                                  .collection_removal_not_allowed_if_on_sale);
+                              //                            } else {
+                              showDialog(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (BuildContext context) {
+                                    return PopUpDeleteItemCollection(
+                                        dataCollection: dataCollection);
+                                  });
 //                              }
                             } else {
                               Navigator.of(context, rootNavigator: true)
