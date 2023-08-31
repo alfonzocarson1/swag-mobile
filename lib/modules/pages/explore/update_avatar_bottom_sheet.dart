@@ -12,6 +12,7 @@ import 'package:swagapp/modules/common/ui/primary_button.dart';
 
 import '../../../generated/l10n.dart';
 import '../../blocs/update_profile_bloc/update_profile_bloc.dart';
+import '../../common/ui/image_permission_handler.dart';
 import '../../common/ui/handler.dart';
 import '../../common/ui/image_picker_with_permissions.dart';
 import '../../common/utils/custom_route_animations.dart';
@@ -196,7 +197,7 @@ class _UpdateAvatarBottomSheetState extends State<UpdateAvatarBottomSheet> {
   Future<void> photoLibraryCall(ImageSource source) async {
     // Pick an image
     try {
-      final file = (await selectImageAndHandlePermissions(context, source))!;
+      final file = (await imagePermissionHandler(false, context, source))!;
 
       Uint8List bytes = await file.readAsBytes();
 

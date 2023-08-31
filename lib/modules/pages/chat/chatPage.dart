@@ -12,6 +12,7 @@ import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
 import 'package:swagapp/modules/common/assets/icons.dart';
+import 'package:swagapp/modules/common/ui/image_permission_handler.dart';
 import 'package:swagapp/modules/common/ui/simple_loader.dart';
 import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/enums/chat_type.dart';
@@ -604,9 +605,8 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
   }
 
   void galleryMethod() {
-    handlePermissionsForImagePicker(context, ImageSource.gallery);
+    imagePermissionHandler(false,context, ImageSource.gallery);
     getIt<ChatCubit>().sendGalleryFileMessage(widget.channel);
-    //setState(() {});
   }
 
   Future<void> refreshChatPage() {
