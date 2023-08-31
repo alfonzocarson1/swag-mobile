@@ -99,31 +99,31 @@ class AccountBody extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      selectSettings(
-                          context,
-                          'assets/icons/atomic_drop_payments_icon.png',
-                          S
-                              .of(context)
-                              .premium_memberatomic_drop_payments_title,
-                          S
-                              .of(context)
-                              .premium_memberatomic_drop_payments_sub_title,
-                          () async {
-                        Navigator.of(context, rootNavigator: true)
-                            .push(CardsPage.route());
-                      },
-                          Icon(
-                            Icons.arrow_forward_ios_sharp,
-                            size: 10,
-                            color: Palette.current.darkGray,
-                          ),
-                          null),
-                      SizedBox(
-                        height: 0.2,
-                        child: Container(
-                          color: Palette.current.grey,
-                        ),
-                      ),
+                      // selectSettings(
+                      //     context,
+                      //     'assets/icons/atomic_drop_payments_icon.png',
+                      //     S
+                      //         .of(context)
+                      //         .premium_memberatomic_drop_payments_title,
+                      //     S
+                      //         .of(context)
+                      //         .premium_memberatomic_drop_payments_sub_title,
+                      //     () async {
+                      //   Navigator.of(context, rootNavigator: true)
+                      //       .push(CardsPage.route());
+                      // },
+                      //     Icon(
+                      //       Icons.arrow_forward_ios_sharp,
+                      //       size: 10,
+                      //       color: Palette.current.darkGray,
+                      //     ),
+                      //     null),
+                      // SizedBox(
+                      //   height: 0.2,
+                      //   child: Container(
+                      //     color: Palette.current.grey,
+                      //   ),
+                      // ),
                       selectSettings(
                           context,
                           'assets/icons/shipping_address_icon.png',
