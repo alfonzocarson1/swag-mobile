@@ -89,130 +89,133 @@ class KycSplashDialog extends StatelessWidget {
               const EdgeInsets.symmetric(horizontal: 30, vertical: 40),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           backgroundColor: Palette.current.primaryEerieBlack,
-          child: Stack(
-            fit: StackFit.loose,
-            alignment: Alignment.center,
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 40, vertical: 40),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      S.of(context).kyc_dialog_title,
-                      style: largeTextStyle(context),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 30),
-                    const AvatarPage(
-                      disableChangeAvatar: true,
-                    ),
-                    const SizedBox(height: 15),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('@${profileData.username}',
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayMedium!
-                                .copyWith(
-                                    fontFamily: "KnockoutCustom",
-                                    fontSize: 33,
-                                    letterSpacing: 1.0,
-                                    fontWeight: FontWeight.w300,
-                                    color: Palette.current.light4)),
-                        const SizedBox(width: 5),
-                        SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: Image.asset(AppIcons.checkMarkIcon))
-                      ],
-                    ),
-                    const SizedBox(height: 28),
-                    Text(
-                      S.of(context).kyc_dialog_subtitle,
-                      style:
-                          smallTextStyle(context).copyWith(color: Colors.white),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 40),
-                    bulletPointWidget(
+          child: SingleChildScrollView(
+            physics: const ClampingScrollPhysics(),
+            child: Stack(
+              fit: StackFit.loose,
+              alignment: Alignment.center,
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 40),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
                       Text(
-                        S.of(context).kyc_dialog_point1,
-                        style: smallTextStyle(context),
+                        S.of(context).kyc_dialog_title,
+                        style: largeTextStyle(context),
+                        textAlign: TextAlign.center,
                       ),
-                    ),
-                    const SizedBox(height: 10),
-                    bulletPointWidget(
+                      const SizedBox(height: 30),
+                      const AvatarPage(
+                        disableChangeAvatar: true,
+                      ),
+                      const SizedBox(height: 15),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('@${profileData.username}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium!
+                                  .copyWith(
+                                      fontFamily: "KnockoutCustom",
+                                      fontSize: 33,
+                                      letterSpacing: 1.0,
+                                      fontWeight: FontWeight.w300,
+                                      color: Palette.current.light4)),
+                          const SizedBox(width: 5),
+                          SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: Image.asset(AppIcons.checkMarkIcon))
+                        ],
+                      ),
+                      const SizedBox(height: 28),
                       Text(
-                        S.of(context).kyc_dialog_point2,
-                        style: smallTextStyle(context),
+                        S.of(context).kyc_dialog_subtitle,
+                        style: smallTextStyle(context)
+                            .copyWith(color: Colors.white),
+                        textAlign: TextAlign.center,
                       ),
-                    ),
-                    const SizedBox(height: 10),
-                    bulletPointWidget(
-                      Text(
-                        S.of(context).kyc_dialog_point3,
-                        style: smallTextStyle(context),
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    bulletPointWidget(
-                      Text(
-                        S.of(context).kyc_dialog_point4,
-                        style: smallTextStyle(context),
-                      ),
-                    ),
-                    const SizedBox(height: 15),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
+                      const SizedBox(height: 40),
+                      bulletPointWidget(
                         Text(
-                          S.of(context).kyc_verified_with,
-                          style: smallTextStyle(context).copyWith(
-                            color: const Color(0xFF635BFF),
-                            fontWeight: FontWeight.w400,
+                          S.of(context).kyc_dialog_point1,
+                          style: smallTextStyle(context),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      bulletPointWidget(
+                        Text(
+                          S.of(context).kyc_dialog_point2,
+                          style: smallTextStyle(context),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      bulletPointWidget(
+                        Text(
+                          S.of(context).kyc_dialog_point3,
+                          style: smallTextStyle(context),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      bulletPointWidget(
+                        Text(
+                          S.of(context).kyc_dialog_point4,
+                          style: smallTextStyle(context),
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            S.of(context).kyc_verified_with,
+                            style: smallTextStyle(context).copyWith(
+                              color: const Color(0xFF635BFF),
+                              fontWeight: FontWeight.w400,
+                            ),
                           ),
-                        ),
-                        const SizedBox(width: 5),
-                        Image.asset(
-                          "assets/images/stripe_image.png",
-                          width: 55,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    PrimaryButton(
-                      title: S.of(context).kyc_dialog_verify,
-                      type: PrimaryButtonType.green,
-                      maxHeight: 56,
-                      onPressed: () {
-                        getIt<KycCubit>().createKycSession();
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              PositionedDirectional(
-                end: 12,
-                top: 12,
-                child: IconButton(
-                  iconSize: 30,
-                  color: Palette.current.primaryNeonGreen,
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  icon: const Icon(
-                    Icons.clear_outlined,
-                    size: 20,
+                          const SizedBox(width: 5),
+                          Image.asset(
+                            "assets/images/stripe_image.png",
+                            width: 55,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      PrimaryButton(
+                        title: S.of(context).kyc_dialog_verify,
+                        type: PrimaryButtonType.green,
+                        maxHeight: 56,
+                        onPressed: () {
+                          getIt<KycCubit>().createKycSession();
+                        },
+                      ),
+                    ],
                   ),
                 ),
-              ),
-            ],
+                PositionedDirectional(
+                  end: 12,
+                  top: 12,
+                  child: IconButton(
+                    iconSize: 30,
+                    color: Palette.current.primaryNeonGreen,
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    icon: const Icon(
+                      Icons.clear_outlined,
+                      size: 20,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },

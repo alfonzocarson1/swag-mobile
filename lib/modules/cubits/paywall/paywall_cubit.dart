@@ -14,22 +14,24 @@ import 'package:swagapp/modules/cubits/app_state/app_state_cubit.dart';
 import 'package:swagapp/modules/cubits/profile/get_profile_cubit.dart';
 import 'package:swagapp/modules/models/paywall_products/paywall_products.dart';
 
+import '../../common/utils/context_service.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/paywall/subscription_change_status.dart';
 import '../../models/profile/profile_model.dart';
+import '../../pages/settings/account/verification/kyc_splash_dialog.dart';
+import '../route_history/route_history_cubit.dart';
 import '../subscription_status/update_subscription_status_cubit.dart';
 import 'package:in_app_purchase_android/billing_client_wrappers.dart';
 import 'package:in_app_purchase_android/in_app_purchase_android.dart';
-
 
 part 'paywall_cubit_state.dart';
 part 'paywall_cubit.freezed.dart';
 
 class PaywallCubit extends Cubit<PaywallCubitState> {
   final InAppPurchase _iap = InAppPurchase.instance;
-  Logger logger=Logger();
-  
+  Logger logger = Logger();
+
   List<ProductDetails> _products = [];
   StreamSubscription<List<PurchaseDetails>>? subscription;
   late PaywallSubscriptionProducts flavorProducts;
@@ -43,13 +45,13 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
   StreamSubscription<List<PurchaseDetails>>? _subscription;
 
   void inAppPurchaseIntitialization() async {
-    if(Platform.isIOS){
+    if (Platform.isIOS) {
       flavorProducts = getIt<AppConfig>().paywallProducts;
-    }else{
-     flavorProducts = getIt<AppConfig>().paywallAndroidProducts;
+    } else {
+      flavorProducts = getIt<AppConfig>().paywallAndroidProducts;
     }
-    
-    final bool available = await InAppPurchase.instance.isAvailable();    
+
+    final bool available = await InAppPurchase.instance.isAvailable();
     await _loadProducts();
     _subscription = _iap.purchaseStream.listen((purchases) {
       completeTransactions(purchases);
@@ -66,111 +68,116 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
   void startPurchase(String subscriptionType) {
     emit(const PaywallCubitState.progress());
     late ProductDetails _product;
-    if(Platform.isIOS){
-         _product =
-        _products.firstWhere((product) => product.id == subscriptionType);
-    }else{
+    if (Platform.isIOS) {
+      _product =
+          _products.firstWhere((product) => product.id == subscriptionType);
+    } else {
       for (final product in _products) {
-    if (product is GooglePlayProductDetails) {
-         _product =
-        _products.firstWhere((product) => product.id == subscriptionType);
+        if (product is GooglePlayProductDetails) {
+          _product =
+              _products.firstWhere((product) => product.id == subscriptionType);
+        }
+      }
     }
-  }
-}  
     final PurchaseParam purchaseParam = PurchaseParam(productDetails: _product);
     _iap.buyNonConsumable(purchaseParam: purchaseParam);
 
     appCubit.setOverlayDetected();
   }
-  
 
   Future<void> _loadProducts() async {
     Set<String> productIds;
-    productIds  = {
+    productIds = {
       flavorProducts.annualSubscription,
       flavorProducts.monthlySubscription
     };
-    ProductDetailsResponse productDetailResponse = await _iap.queryProductDetails(productIds);
-      if (productDetailResponse.error == null) {
+    ProductDetailsResponse productDetailResponse =
+        await _iap.queryProductDetails(productIds);
+    if (productDetailResponse.error == null) {
       _products.addAll(productDetailResponse.productDetails);
-       final prettyJson = _prettyPrintJson(productDetailsResponseToJson(productDetailResponse));
-       log(prettyJson);
+      final prettyJson =
+          _prettyPrintJson(productDetailsResponseToJson(productDetailResponse));
+      log(prettyJson);
     }
 
     if (productDetailResponse.notFoundIDs.isNotEmpty) {
       //TODO handle errors
     }
-    
   }
 
   String _prettyPrintJson(String jsonInput) {
-  final dynamic jsonObject = json.decode(jsonInput);
-  const JsonEncoder encoder = JsonEncoder.withIndent('  '); // Use '  ' for two-space indentation
-  return encoder.convert(jsonObject);
-}
+    final dynamic jsonObject = json.decode(jsonInput);
+    const JsonEncoder encoder =
+        JsonEncoder.withIndent('  '); // Use '  ' for two-space indentation
+    return encoder.convert(jsonObject);
+  }
 
-Map<String, dynamic> extractProductDetailsWrapperData(ProductDetails product) {
-  if (product is GooglePlayProductDetails) {
-    List<Map<String, dynamic>> subscriptionOfferDetailsList = [];
-    
-    if (product.productDetails.subscriptionOfferDetails != null) {
-      for (var offer in product.productDetails.subscriptionOfferDetails!) {
-        List<Map<String, dynamic>> pricingPhasesList = offer.pricingPhases
-            .map((phase) => {
-                  'billingCycleCount': phase.billingCycleCount,
-                  'billingPeriod': phase.billingPeriod,
-                  'formattedPrice': phase.formattedPrice,
-                  'priceAmountMicros': phase.priceAmountMicros,
-                  'priceCurrencyCode': phase.priceCurrencyCode,
-                  'recurrenceMode': phase.recurrenceMode.toString(),
-                })
-            .toList();
+  Map<String, dynamic> extractProductDetailsWrapperData(
+      ProductDetails product) {
+    if (product is GooglePlayProductDetails) {
+      List<Map<String, dynamic>> subscriptionOfferDetailsList = [];
 
-        subscriptionOfferDetailsList.add({
-          'basePlanId': offer.basePlanId,
-          'offerId': offer.offerId,
-          'offerTags': offer.offerTags,
-          'offerIdToken': offer.offerIdToken,
-          'pricingPhases': pricingPhasesList,
-        });
+      if (product.productDetails.subscriptionOfferDetails != null) {
+        for (var offer in product.productDetails.subscriptionOfferDetails!) {
+          List<Map<String, dynamic>> pricingPhasesList = offer.pricingPhases
+              .map((phase) => {
+                    'billingCycleCount': phase.billingCycleCount,
+                    'billingPeriod': phase.billingPeriod,
+                    'formattedPrice': phase.formattedPrice,
+                    'priceAmountMicros': phase.priceAmountMicros,
+                    'priceCurrencyCode': phase.priceCurrencyCode,
+                    'recurrenceMode': phase.recurrenceMode.toString(),
+                  })
+              .toList();
+
+          subscriptionOfferDetailsList.add({
+            'basePlanId': offer.basePlanId,
+            'offerId': offer.offerId,
+            'offerTags': offer.offerTags,
+            'offerIdToken': offer.offerIdToken,
+            'pricingPhases': pricingPhasesList,
+          });
+        }
       }
+
+      return {
+        'description': product.productDetails.description,
+        'name': product.productDetails.name,
+        'productId': product.productDetails.productId,
+        'productType': product.productDetails.productType
+            .toString(), // Convert enum to string
+        'title': product.productDetails.title,
+        'subscriptionOfferDetails': subscriptionOfferDetailsList,
+      };
     }
 
-    return {
-      'description': product.productDetails.description,
-      'name': product.productDetails.name,
-      'productId': product.productDetails.productId,
-      'productType': product.productDetails.productType.toString(), // Convert enum to string
-      'title': product.productDetails.title,
-      'subscriptionOfferDetails': subscriptionOfferDetailsList,
-    };
+    return {};
   }
-  
-  return {};
-}
-  
+
   String productDetailsResponseToJson(ProductDetailsResponse response) {
-  return jsonEncode({
-    'productDetails': response.productDetails.map((product) {
-      return {
-        'id': product.id,
-        'title': product.title,
-        'description': product.description,
-        'price': product.price,
-        'currencyCode': product.currencyCode,
-        'rawPrice': product.rawPrice,
-        'detailsWrapper': extractProductDetailsWrapperData(product)// Add any other fields from ProductDetails you wish to include
-      };
-    }).toList(),
-    'notFoundIDs': response.notFoundIDs,
-    'error': {
-      'code': response.error?.code,
-      'message': response.error?.message,
-      'details': response.error?.details,
-      // Add any other fields from IAPError you wish to include
-    },
-  });
-}
+    return jsonEncode({
+      'productDetails': response.productDetails.map((product) {
+        return {
+          'id': product.id,
+          'title': product.title,
+          'description': product.description,
+          'price': product.price,
+          'currencyCode': product.currencyCode,
+          'rawPrice': product.rawPrice,
+          'detailsWrapper': extractProductDetailsWrapperData(
+              product) // Add any other fields from ProductDetails you wish to include
+        };
+      }).toList(),
+      'notFoundIDs': response.notFoundIDs,
+      'error': {
+        'code': response.error?.code,
+        'message': response.error?.message,
+        'details': response.error?.details,
+        // Add any other fields from IAPError you wish to include
+      },
+    });
+  }
+
   void _handlePurchaseUpdates(List<PurchaseDetails> purchases) async {
     for (var purchase in purchases) {
       switch (purchase.status) {
@@ -194,6 +201,7 @@ Map<String, dynamic> extractProductDetailsWrapperData(ProductDetails product) {
             log(purchase.verificationData.toString());
             await sendSubscriptionRequest(purchase.purchaseID ?? "");
             appCubit.clearOverlayDetected();
+            navigateKYCverified();
             emit(const PaywallCubitState.success());
           } else {
             emit(const PaywallCubitState.success());
@@ -213,6 +221,20 @@ Map<String, dynamic> extractProductDetailsWrapperData(ProductDetails product) {
         // handle other states if necessary
       }
     }
+  }
+
+  navigateKYCverified() {
+    RouteHistoryCubit routeHistoryCubit = getIt<RouteHistoryCubit>();
+    BuildContext context =
+        getIt<ContextService>().rootNavigatorKey.currentContext!;
+    ProfileModel profileData =
+        getIt<PreferenceRepositoryService>().profileData();
+    Future.delayed(const Duration(milliseconds: 1500), () {
+      if (routeHistoryCubit.routes[1] == 'ItemDetail' &&
+          !profileData.kycverified) {
+        Navigator.of(context).push(KycSplashDialog.route(context));
+      }
+    });
   }
 
   completeTransactions(List<PurchaseDetails> purchases) async {
