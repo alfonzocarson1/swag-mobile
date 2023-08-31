@@ -1217,6 +1217,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
     bool done = false;
     try {
       await getIt<CardsCubit>().addCard(request);
+      done = true;
     } catch (e) {
       done = false;
       if (e is StripeError) {

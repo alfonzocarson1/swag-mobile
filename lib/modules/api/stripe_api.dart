@@ -45,6 +45,7 @@ class StripeApi {
 
   Future<List<CardObject>> getCards() async {
     final customerAccess = await paymentCustomerAccess();
+    if (customerAccess.ephemeralKey == null) return [];
     final customerId = customerAccess.customerIdForKey;
     final response = await http
         .get(
