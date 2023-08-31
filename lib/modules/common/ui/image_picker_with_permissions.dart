@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -23,13 +22,7 @@ Future<void> handlePermissionsForImagePicker(
       type = GrantPermissionDialogType.photos;
       break;
   }
-  final PermissionStatus status;
-  if(Platform.isAndroid){
-    status = await permission.request();
-  }else{
-     status = await permission.status;
-  }
-  
+  final status = await permission.status;
   if (status.isPermanentlyDenied) {
     await showDialog(
       context: context,
@@ -46,11 +39,7 @@ Future<File?> selectImageAndHandlePermissions(
   BuildContext context,
   ImageSource source,
 ) async {
-   final androidInfo = await DeviceInfoPlugin().androidInfo;
-    if (androidInfo.version.sdkInt <= 32 || Platform.isIOS) {
-      await handlePermissionsForImagePicker(context, source);
-  }
-
+  await handlePermissionsForImagePicker(context, source);
   final picker = ImagePicker();
   final XFile? xFileImage = await picker.pickImage(
     source: source,
@@ -65,11 +54,7 @@ Future<List<XFile>> selectMultipleImagesAndHandlePermissions(
   BuildContext context, {
   int? imageQuality,
 }) async {
-   final androidInfo = await DeviceInfoPlugin().androidInfo;
-   if (androidInfo.version.sdkInt <= 32 || Platform.isIOS){
-     await handlePermissionsForImagePicker(context, ImageSource.gallery);
-  }
-  
+  await handlePermissionsForImagePicker(context, ImageSource.gallery);
   final picker = ImagePicker();
   final files = await picker.pickMultiImage(
     imageQuality: imageQuality,
