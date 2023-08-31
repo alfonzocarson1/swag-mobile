@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -59,7 +60,12 @@ class _PaywallSplashScreenState extends State<PaywallSplashScreen> with RouteAwa
   @override
   void initState() {
     super.initState();
-    flavorProducts = getIt<AppConfig>().paywallProducts;
+    if(Platform.isAndroid){
+      flavorProducts = getIt<AppConfig>().paywallAndroidProducts;
+    }else{
+      flavorProducts = getIt<AppConfig>().paywallProducts;
+    }
+    
   }
 
   @override
