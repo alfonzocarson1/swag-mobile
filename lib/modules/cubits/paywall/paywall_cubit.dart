@@ -238,7 +238,7 @@ Map<String, dynamic> extractProductDetailsWrapperData(ProductDetails product) {
         .UpdateSubscriptionStatus(PaywallSubscriptionRequest(
             accountId: profileData.accountId,
             transactionID: purchaseId,
-            deviceType: "iOS"));
+            deviceType: (Platform.isIOS) ? "iOS" : "android"));
     debugPrint("Subscription Response: $response");
     return response;
   }
