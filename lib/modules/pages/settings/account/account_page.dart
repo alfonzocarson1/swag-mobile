@@ -175,7 +175,7 @@ class AccountBody extends StatelessWidget {
                           profileData.kycverified ?? false
                               ? '${profileData.addresses?.first.firstName ?? ''} ${profileData.addresses?.first.lastName ?? ''}'
                               : ' ', () {
-                        if (!(profileData.kycverified ?? false)) {
+                        if (shouldVerifyAgain(profileData.kycStatus)) {
                           Navigator.of(context)
                               .push(KycSplashDialog.route(context));
                         }
@@ -240,6 +240,11 @@ class AccountBody extends StatelessWidget {
 
 String getKycSting(String? status) {
   return (status ?? "Unverified").toTitleCase();
+}
+
+bool shouldVerifyAgain(String? status) {
+  return ['failed', 'unsupported', 'unverified']
+      .any((x) => (status ?? "").toLowerCase().contains(x));
 }
 
 Color getKycColor(String? status) {
