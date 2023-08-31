@@ -61,7 +61,7 @@ class _UpdatePhoneNumberPage extends State<UpdatePhoneNumberPage> {
           .firstWhere((element) =>
               element?.dialCode?.replaceAll("+", "")== profileData.countryCode)!
           .alpha2Code;
-      initialNumber = PhoneNumber(isoCode: code);
+      initialNumber = PhoneNumber(isoCode: code == 'CA' ? 'US' : code);
     }
   }
 
