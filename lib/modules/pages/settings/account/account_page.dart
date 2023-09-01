@@ -4,6 +4,7 @@ import 'package:swagapp/modules/common/ui/simple_loader.dart';
 import 'package:swagapp/modules/pages/settings/account/verification/kyc_splash_dialog.dart';
 
 import '../../../../generated/l10n.dart';
+import '../../../common/ui/dynamic_toast_messages.dart';
 import '../../../common/ui/pushed_header.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
@@ -37,17 +38,16 @@ class _AccountPageState extends State<AccountPage> {
   void initState() {
     super.initState();
     profileData = getIt<PreferenceRepositoryService>().profileData();
+    getProfileData();
   }
 
-  getProfileData() async {
+  Future<void> getProfileData() async {
     await getIt<ProfileCubit>().loadProfileResults();
     profileData = getIt<PreferenceRepositoryService>().profileData();
   }
 
   @override
   Widget build(BuildContext context) {
-    getProfileData();
-
     return Scaffold(
       appBar: PushedHeader(
         showBackButton: true,
@@ -68,8 +68,12 @@ class _AccountPageState extends State<AccountPage> {
         builder: (context, state) {
           return state.maybeWhen(
               loading: (isFirstFetch) => const SimpleLoader(),
-              loadedProfileData: (profileData) =>
-                  AccountBody(profileData: profileData),
+              loadedProfileData: (profileData) => AccountBody(
+                  profileData: profileData,
+                  refreshProfileData: () async {
+                    await getProfileData();
+                    setState(() {});
+                  }),
               orElse: () => Container());
         },
       ),
@@ -81,9 +85,11 @@ class AccountBody extends StatelessWidget {
   const AccountBody({
     super.key,
     required this.profileData,
+    required this.refreshProfileData,
   });
 
   final ProfileModel profileData;
+  final Function refreshProfileData;
 
   @override
   Widget build(BuildContext context) {
@@ -174,10 +180,28 @@ class AccountBody extends StatelessWidget {
                           S.of(context).kyc_title,
                           profileData.kycverified ?? false
                               ? '${profileData.addresses?.first.firstName ?? ''} ${profileData.addresses?.first.lastName ?? ''}'
-                              : ' ', () {
+                              : ' ', () async {
                         if (shouldVerifyAgain(profileData.kycStatus)) {
-                          Navigator.of(context)
+                          final res = await Navigator.of(context)
                               .push(KycSplashDialog.route(context));
+                          if (res == true) {
+                            refreshProfileData();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                duration: const Duration(seconds: 3),
+                                behavior: SnackBarBehavior.floating,
+                                margin: EdgeInsets.only(
+                                  bottom:
+                                      MediaQuery.of(context).size.height / 1.3,
+                                ),
+                                backgroundColor: Colors.transparent,
+                                content: ToastMessage(
+                                  message: S.of(context).kyc_done,
+                                ),
+                                dismissDirection: DismissDirection.none,
+                              ),
+                            );
+                          }
                         }
                       },
                           Text(getKycSting(profileData.kycStatus),

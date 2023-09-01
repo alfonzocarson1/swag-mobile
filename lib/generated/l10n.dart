@@ -2920,6 +2920,16 @@ class S {
     );
   }
 
+  /// `Identity checks can take some time. We will confirm once complete.`
+  String get kyc_done {
+    return Intl.message(
+      'Identity checks can take some time. We will confirm once complete.',
+      name: 'kyc_done',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `NFT WALLET`
   String get nft_wallet_page_title {
     return Intl.message(

@@ -55,7 +55,7 @@ class KycSplashDialog extends StatelessWidget {
           }
           if (data.sessionUrl != null) {
             launchBrowserAppFromLink(data.sessionUrl!).then((value) {
-              Navigator.of(context).pop();
+              Navigator.of(context).pop(true);
             }).onError((error, stackTrace) {
               debugPrintStack(
                 label: error.toString(),
