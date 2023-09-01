@@ -297,6 +297,8 @@
     "kyc_verified_with": "Verified with:",
     "kyc_session_creation_failed": "Failed to create KYC session.",
     "kyc_session_validating": "KYC documents are already submitted, please wait for verification results.",
+    "kyc_cannot_lunch_url": "Cannot open KYC url.",
+    "kyc_done": "Identity checks can take some time. We will confirm once complete.",
 
     "nft_wallet_page_title": "NFT WALLET",
     "nft_wallet_connect": "Connect",

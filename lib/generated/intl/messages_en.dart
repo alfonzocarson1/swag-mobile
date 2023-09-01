@@ -401,6 +401,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "ist_item_popup_btn":
             MessageLookupByLibrary.simpleMessage("CREATE LISTING"),
         "items_purchased": m16,
+        "kyc_cannot_lunch_url":
+            MessageLookupByLibrary.simpleMessage("Cannot open KYC url."),
         "kyc_dialog_point1":
             MessageLookupByLibrary.simpleMessage("List items for sale"),
         "kyc_dialog_point2": MessageLookupByLibrary.simpleMessage(
@@ -414,6 +416,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "kyc_dialog_title":
             MessageLookupByLibrary.simpleMessage("Get Verified"),
         "kyc_dialog_verify": MessageLookupByLibrary.simpleMessage("VERIFY"),
+        "kyc_done": MessageLookupByLibrary.simpleMessage(
+            "Identity checks can take some time. We will confirm once complete."),
         "kyc_session_creation_failed": MessageLookupByLibrary.simpleMessage(
             "Failed to create KYC session."),
         "kyc_session_validating": MessageLookupByLibrary.simpleMessage(
