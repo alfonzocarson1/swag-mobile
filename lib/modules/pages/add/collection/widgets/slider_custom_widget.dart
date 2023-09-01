@@ -2,17 +2,16 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:async_builder/async_builder.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:swagapp/modules/common/ui/add_photo_list_item.dart';
 
-import '../../../../common/ui/image_picker_with_permissions.dart';
+import '../../../../common/ui/image_permission_handler.dart';
+
 import '../../../../common/ui/multi_image_slide.dart';
 import '../../../../common/ui/popup_image_guidelines.dart';
-import '../../../../common/utils/palette.dart';
 
 class SliderCustomWidget extends StatefulWidget {
   const SliderCustomWidget(
@@ -63,7 +62,7 @@ class _SliderCustomWidgetState extends State<SliderCustomWidget> {
     removedImages = false;
     try {
       final List<XFile> selectedImages =
-          await selectMultipleImagesAndHandlePermissions(context);
+          await imagePermissionHandler(true, null,context, ImageSource.gallery);
 
       if ((selectedImages.length + imgList.length) <= 6) {
         scaleDownXFile(selectedImages);
