@@ -8,6 +8,8 @@ class CollectionState with _$CollectionState {
   factory CollectionState.error(final String message) = _ErrorCollectionState;
   factory CollectionState.loadedCollectionSuccess(
       AddCollectionModel successCollection) = LoadedSuccessCollection;
+  factory CollectionState.loadedCollectionDetail(
+      ListingForSaleProfileResponseModel listingForSaleProfileResponseModel) = loadCollectionDetail;
   factory CollectionState.loadedCollectionItems({
     required final List<CatalogItemModel> dataCollectionlList,
   }) = LoadedCollectionItemState;

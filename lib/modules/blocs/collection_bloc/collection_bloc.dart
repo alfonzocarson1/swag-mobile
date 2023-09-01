@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:swagapp/modules/models/listing_for_sale/listing_for_sale_model.dart';
 import 'package:swagapp/modules/models/search/catalog_item_model.dart';
 
 import '../../common/utils/handling_errors.dart';
@@ -10,6 +11,7 @@ import '../../cubits/profile/get_profile_cubit.dart';
 import '../../data/collection/i_collection_service.dart';
 import '../../di/injector.dart';
 import '../../models/collection/add_collection_model.dart';
+import '../../models/listing_for_sale/profile_listing_model.dart';
 
 part 'collection_bloc.freezed.dart';
 part 'collection_event.dart';
@@ -30,7 +32,8 @@ class CollectionBloc extends Bloc<CollectionEvent, CollectionState> {
     yield* event.when(
         getCollectionItem: _getCollectionItem,
         addCollection: _addCollection,
-        removeCollection: _removeCollection);
+        removeCollection: _removeCollection,
+        getCollectionDetails: _getCollectionDetails);
   }
 
   Stream<CollectionState> _addCollection(AddCollectionModel param) async* {
@@ -56,6 +59,18 @@ class CollectionBloc extends Bloc<CollectionEvent, CollectionState> {
       getIt<CollectionProfileCubit>().loadResults();
       getIt<ProfileCubit>().loadProfileResults();
       yield CollectionState.loadedCollectionSuccess(responseBody);
+    } catch (e) {
+      yield CollectionState.error(HandlingErrors().getError(e));
+    }
+  }
+
+  Stream<CollectionState> _getCollectionDetails(String id) async* {
+    yield CollectionState.initial();
+    try {
+      ListingForSaleProfileResponseModel responseBody =
+          await collectionService.getCollectionDetail(id);
+
+      yield CollectionState.loadedCollectionDetail(responseBody);
     } catch (e) {
       yield CollectionState.error(HandlingErrors().getError(e));
     }
