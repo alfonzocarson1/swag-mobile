@@ -636,6 +636,9 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                             child: PrimaryButton(
                               title: S.of(context).notify_available,
                               onPressed: () {
+                                RouteHistoryCubit routeHistoryCubit =
+                                    getIt<RouteHistoryCubit>();
+                                routeHistoryCubit.toggleRoute('ItemDetail');
                                 if (isLogged &&
                                     notifyAvailabilityFlagBTN &&
                                     buttonEnable &&
