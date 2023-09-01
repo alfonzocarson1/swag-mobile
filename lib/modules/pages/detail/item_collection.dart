@@ -29,6 +29,7 @@ import '../../models/profile/profile_model.dart';
 import '../add/buy/buy_for_sale.dart';
 import '../add/collection/list_for_sale_page.dart';
 import '../login/create_account_page.dart';
+import '../settings/account/account_page.dart';
 import '../settings/account/verification/kyc_splash_dialog.dart';
 
 late bool hasActiveSubscription;
@@ -543,6 +544,10 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                     removePaywall: removePaywall);
                               } else if (hasActiveSubscription &&
                                   !hasKYCverified) {
+                                Navigator.of(context, rootNavigator: true)
+                                    .push(AccountPage.route());
+                                await Future.delayed(
+                                    const Duration(milliseconds: 1000), () {});
                                 Navigator.of(context)
                                     .push(KycSplashDialog.route(context));
                               } else {

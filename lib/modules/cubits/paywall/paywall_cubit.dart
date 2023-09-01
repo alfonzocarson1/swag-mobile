@@ -19,6 +19,7 @@ import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/paywall/subscription_change_status.dart';
 import '../../models/profile/profile_model.dart';
+import '../../pages/settings/account/account_page.dart';
 import '../../pages/settings/account/verification/kyc_splash_dialog.dart';
 import '../route_history/route_history_cubit.dart';
 import '../subscription_status/update_subscription_status_cubit.dart';
@@ -229,9 +230,11 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
         getIt<ContextService>().rootNavigatorKey.currentContext!;
     ProfileModel profileData =
         getIt<PreferenceRepositoryService>().profileData();
-    Future.delayed(const Duration(milliseconds: 1500), () {
+    Future.delayed(const Duration(milliseconds: 1000), () async {
       if (routeHistoryCubit.routes[1] == 'ItemDetail' &&
           !profileData.kycverified) {
+        Navigator.of(context, rootNavigator: true).push(AccountPage.route());
+        await Future.delayed(const Duration(milliseconds: 1000), () {});
         Navigator.of(context).push(KycSplashDialog.route(context));
       }
     });
