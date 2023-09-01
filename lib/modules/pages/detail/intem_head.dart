@@ -12,6 +12,7 @@ import '../../common/utils/palette.dart';
 import '../../common/utils/tab_wrapper.dart';
 import '../../common/utils/utils.dart';
 import '../../cubits/paginated_search/paginated_search_cubit.dart';
+import '../../cubits/route_history/route_history_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/detail/detail_sale_info_model.dart';
@@ -35,7 +36,7 @@ class HeadWidget extends StatefulWidget {
       required this.itemId,
       this.profileFavoriteItemId,
       this.saleHistoryNavigation,
-       required this.isFromSaleHistory,
+      required this.isFromSaleHistory,
       required this.addFavorite});
 
   final String urlImage;
@@ -138,7 +139,7 @@ class _HeadWidgetState extends State<HeadWidget> {
           }),
           SizedBox(
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height *0.35,
+            height: MediaQuery.of(context).size.height * 0.35,
             child: CachedNetworkImage(
               fit: BoxFit.cover,
               imageUrl: widget.urlImage,
@@ -220,56 +221,59 @@ class _HeadWidgetState extends State<HeadWidget> {
                                     fontSize: 30,
                                     color: Palette.current.white)),
                       )),
-                  widget.isFromSaleHistory ?
-                  Expanded(
-                      flex: 2,
-                      child: Align(
-                        alignment: Alignment.topRight,
-                        child: IconButton(
-                          icon: Image.asset(
-                            favorite
-                                ? "assets/images/Favorite.png"
-                                : "assets/images/UnFavorite.png",
-                            scale: 3.5,
-                          ),
-                          onPressed: () async {
-                            if (isLogged) {
-                              setState(() {
-                                if (!favorite) {
-                                  BlocProvider.of<FavoriteItemBloc>(context)
-                                      .add(FavoriteItemEvent.addFavoriteItem(
-                                          FavoriteModel(
-                                              favoritesItemAction: "ADD",
-                                              profileFavoriteItems: [
-                                        FavoriteItemModel(
-                                            catalogItemId: widget.itemId)
-                                      ])));
-                                  favorite = true;
-                                  widget.addFavorite(true);
-                                  onChangeFavoriteAnimation(0);
+                  widget.isFromSaleHistory
+                      ? Expanded(
+                          flex: 2,
+                          child: Align(
+                            alignment: Alignment.topRight,
+                            child: IconButton(
+                              icon: Image.asset(
+                                favorite
+                                    ? "assets/images/Favorite.png"
+                                    : "assets/images/UnFavorite.png",
+                                scale: 3.5,
+                              ),
+                              onPressed: () async {
+                                if (isLogged) {
+                                  setState(() {
+                                    if (!favorite) {
+                                      BlocProvider.of<FavoriteItemBloc>(context)
+                                          .add(
+                                              FavoriteItemEvent.addFavoriteItem(
+                                                  FavoriteModel(
+                                                      favoritesItemAction:
+                                                          "ADD",
+                                                      profileFavoriteItems: [
+                                            FavoriteItemModel(
+                                                catalogItemId: widget.itemId)
+                                          ])));
+                                      favorite = true;
+                                      widget.addFavorite(true);
+                                      onChangeFavoriteAnimation(0);
+                                    } else {
+                                      BlocProvider.of<FavoriteItemBloc>(context)
+                                          .add(FavoriteItemEvent
+                                              .removeFavoriteItem(FavoriteModel(
+                                                  favoritesItemAction: "DELETE",
+                                                  profileFavoriteItems: [
+                                            FavoriteItemModel(
+                                                profileFavoriteItemId:
+                                                    profileFavoriteItemId,
+                                                catalogItemId: widget.itemId)
+                                          ])));
+                                      favorite = false;
+                                      widget.addFavorite(false);
+                                      refreshResults();
+                                    }
+                                  });
                                 } else {
-                                  BlocProvider.of<FavoriteItemBloc>(context)
-                                      .add(FavoriteItemEvent.removeFavoriteItem(
-                                          FavoriteModel(
-                                              favoritesItemAction: "DELETE",
-                                              profileFavoriteItems: [
-                                        FavoriteItemModel(
-                                            profileFavoriteItemId:
-                                                profileFavoriteItemId,
-                                            catalogItemId: widget.itemId)
-                                      ])));
-                                  favorite = false;
-                                  widget.addFavorite(false);
-                                  refreshResults();
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(CreateAccountPage.route());
                                 }
-                              });
-                            } else {
-                              Navigator.of(context, rootNavigator: true)
-                                  .push(CreateAccountPage.route());
-                            }
-                          },
-                        ),
-                      )) : Container()
+                              },
+                            ),
+                          ))
+                      : Container()
                 ],
               ),
               const SizedBox(
@@ -299,6 +303,9 @@ class _HeadWidgetState extends State<HeadWidget> {
                           onTap: () {
                             if (isLogged &&
                                 widget.saleHistoryNavigation != null) {
+                              RouteHistoryCubit routeHistoryCubit =
+                                  getIt<RouteHistoryCubit>();
+                              routeHistoryCubit.toggleRoute('ItemDetail');
                               widget.saleHistoryNavigation!();
                             } else {
                               Navigator.of(context, rootNavigator: true)
