@@ -56,6 +56,25 @@ class KycSplashDialog extends StatelessWidget {
           if (data.sessionUrl != null) {
             launchBrowserAppFromLink(data.sessionUrl!).then((value) {
               Navigator.of(context).pop();
+            }).onError((error, stackTrace) {
+              debugPrintStack(
+                label: error.toString(),
+                stackTrace: stackTrace,
+              );
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  duration: const Duration(seconds: 3),
+                  behavior: SnackBarBehavior.floating,
+                  margin: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).size.height / 1.3,
+                  ),
+                  backgroundColor: Colors.transparent,
+                  content: ToastMessage(
+                    message: "${S.of(context).kyc_cannot_lunch_url} ${data.sessionUrl}",
+                  ),
+                  dismissDirection: DismissDirection.none,
+                ),
+              );
             });
           } else {
             ScaffoldMessenger.of(context).showSnackBar(

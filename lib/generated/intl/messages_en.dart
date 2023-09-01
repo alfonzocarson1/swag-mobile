@@ -401,6 +401,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "ist_item_popup_btn":
             MessageLookupByLibrary.simpleMessage("CREATE LISTING"),
         "items_purchased": m16,
+        "kyc_cannot_lunch_url":
+            MessageLookupByLibrary.simpleMessage("Cannot open KYC url."),
         "kyc_dialog_point1":
             MessageLookupByLibrary.simpleMessage("List items for sale"),
         "kyc_dialog_point2": MessageLookupByLibrary.simpleMessage(

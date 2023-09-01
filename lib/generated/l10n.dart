@@ -2910,6 +2910,16 @@ class S {
     );
   }
 
+  /// `Cannot open KYC url.`
+  String get kyc_cannot_lunch_url {
+    return Intl.message(
+      'Cannot open KYC url.',
+      name: 'kyc_cannot_lunch_url',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `NFT WALLET`
   String get nft_wallet_page_title {
     return Intl.message(
