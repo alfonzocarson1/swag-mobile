@@ -13,12 +13,14 @@ import 'package:swagapp/modules/models/paywall_products/paywall_products.dart';
 import '../../../generated/l10n.dart';
 import '../../api/app_config.dart';
 import '../../cubits/paywall/paywall_cubit.dart';
+import '../../cubits/route_history/route_history_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/profile/profile_model.dart';
 import '../../services/route_observer_utils.dart';
 import '../assets/icons.dart';
 import '../utils/palette.dart';
+import '../utils/utils.dart';
 import 'custom_paywall_tile.dart';
 import 'discount_container_widget.dart';
 
@@ -31,7 +33,7 @@ import 'discount_container_widget.dart';
 //
 
 class PaywallSplashScreen extends StatefulWidget {
-  static const name= "/PaywallSplash";
+  static const name = "/PaywallSplash";
 
   const PaywallSplashScreen({
     super.key,
@@ -42,30 +44,33 @@ class PaywallSplashScreen extends StatefulWidget {
   final bool hasUsedFreeTrial;
   final Function removePaywall;
 
-    static Route route({required bool hasUsedFreeTrial, required Function removePaywall}) =>
+  static Route route(
+          {required bool hasUsedFreeTrial, required Function removePaywall}) =>
       PageRoutes.material(
         settings: const RouteSettings(name: name),
         builder: (context) => PaywallSplashScreen(
-            hasUsedFreeTrial: hasUsedFreeTrial, removePaywall: removePaywall, key: const Key("PaywallSplash")),
+            hasUsedFreeTrial: hasUsedFreeTrial,
+            removePaywall: removePaywall,
+            key: const Key("PaywallSplash")),
       );
 
   @override
   State<PaywallSplashScreen> createState() => _PaywallSplashScreenState();
 }
 
-class _PaywallSplashScreenState extends State<PaywallSplashScreen> with RouteAware {
+class _PaywallSplashScreenState extends State<PaywallSplashScreen>
+    with RouteAware {
   ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
   late PaywallSubscriptionProducts flavorProducts;
 
   @override
   void initState() {
     super.initState();
-    if(Platform.isAndroid){
+    if (Platform.isAndroid) {
       flavorProducts = getIt<AppConfig>().paywallAndroidProducts;
-    }else{
+    } else {
       flavorProducts = getIt<AppConfig>().paywallProducts;
     }
-    
   }
 
   @override
@@ -73,7 +78,7 @@ class _PaywallSplashScreenState extends State<PaywallSplashScreen> with RouteAwa
     super.dispose();
   }
 
-    @override
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     ObserverUtils.routeObserver.subscribe(this, ModalRoute.of(context)!);
@@ -96,27 +101,36 @@ class _PaywallSplashScreenState extends State<PaywallSplashScreen> with RouteAwa
       body: BlocConsumer<PaywallCubit, PaywallCubitState>(
         listener: (context, state) {
           state.maybeWhen(
-                          success: () {
-                            widget.removePaywall();
-                            Navigator.of(context).pop();
-                          },
-                          orElse: () {},
-                        );
+            success: () {
+              widget.removePaywall();
+              navigateKYCverified();
+            },
+            orElse: () {},
+          );
         },
         builder: (context, state) {
           return state.maybeWhen(
-            progress: () =>  Container(
-              height: double.infinity,
-               width: double.infinity,
-              alignment: Alignment.center,
-              child: const Center(child:  SimpleLoader())),
-            initial:() =>  SingleChildScrollView(
-            child: PaywallBody(deviceWidth: deviceWidth, deviceHeight: deviceHeight, profileData: profileData, payWallConditionList: payWallConditionList, flavorProducts: flavorProducts),
-          ), orElse: () =>  SingleChildScrollView(
-            child: PaywallBody(deviceWidth: deviceWidth, deviceHeight: deviceHeight, profileData: profileData, payWallConditionList: payWallConditionList, flavorProducts: flavorProducts),
-          )
-          );
-          
+              progress: () => Container(
+                  height: double.infinity,
+                  width: double.infinity,
+                  alignment: Alignment.center,
+                  child: const Center(child: SimpleLoader())),
+              initial: () => SingleChildScrollView(
+                    child: PaywallBody(
+                        deviceWidth: deviceWidth,
+                        deviceHeight: deviceHeight,
+                        profileData: profileData,
+                        payWallConditionList: payWallConditionList,
+                        flavorProducts: flavorProducts),
+                  ),
+              orElse: () => SingleChildScrollView(
+                    child: PaywallBody(
+                        deviceWidth: deviceWidth,
+                        deviceHeight: deviceHeight,
+                        profileData: profileData,
+                        payWallConditionList: payWallConditionList,
+                        flavorProducts: flavorProducts),
+                  ));
         },
       ),
     );
@@ -158,23 +172,21 @@ class PaywallBody extends StatelessWidget {
               height: deviceHeight * 0.07,
             ),
             Text(S.of(context).paywall_free_trial.toUpperCase(),
-                style:
-                    Theme.of(context).textTheme.displayMedium!.copyWith(
-                          fontFamily: "KnockoutCustom",
-                          fontSize: 50,
-                          wordSpacing: 1,
-                          fontWeight: FontWeight.w300,
-                          color: Palette.current.primaryWhiteSmoke,
-                        )),
+                style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                      fontFamily: "KnockoutCustom",
+                      fontSize: 50,
+                      wordSpacing: 1,
+                      fontWeight: FontWeight.w300,
+                      color: Palette.current.primaryWhiteSmoke,
+                    )),
             Text(S.of(context).paywall_splash_premium_subtitle,
-                style:
-                    Theme.of(context).textTheme.displayMedium!.copyWith(
-                          fontFamily: "KnockoutCustom",
-                          fontSize: 27,
-                          wordSpacing: 1,
-                          fontWeight: FontWeight.w300,
-                          color: Palette.current.primaryNeonGreen,
-                        )),
+                style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                      fontFamily: "KnockoutCustom",
+                      fontSize: 27,
+                      wordSpacing: 1,
+                      fontWeight: FontWeight.w300,
+                      color: Palette.current.primaryNeonGreen,
+                    )),
             SizedBox(
               height: deviceHeight * 0.03,
             ),
@@ -185,15 +197,12 @@ class PaywallBody extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text('@${profileData.username}',
-                    style: Theme.of(context)
-                        .textTheme
-                        .displayMedium!
-                        .copyWith(
-                            fontFamily: "KnockoutCustom",
-                            fontSize: 33,
-                            letterSpacing: 1.0,
-                            fontWeight: FontWeight.w300,
-                            color: Palette.current.light4)),
+                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                        fontFamily: "KnockoutCustom",
+                        fontSize: 33,
+                        letterSpacing: 1.0,
+                        fontWeight: FontWeight.w300,
+                        color: Palette.current.light4)),
                 (profileData.kycverified == true)
                     ? SizedBox(
                         height: deviceHeight * 0.03,
@@ -230,8 +239,7 @@ class PaywallBody extends StatelessWidget {
                                   fontSize: (deviceHeight <= 840) ? 14 : 16,
                                   fontFamily: "Ringside Regular",
                                   fontWeight: FontWeight.w300,
-                                  color: Palette
-                                      .current.primaryWhiteSmoke)),
+                                  color: Palette.current.primaryWhiteSmoke)),
                       trailing: (payWallConditionList[index]
                               .contains("for sale"))
                           ? Text(
@@ -240,7 +248,7 @@ class PaywallBody extends StatelessWidget {
                                   .textTheme
                                   .bodySmall!
                                   .copyWith(
-                                      fontSize:(deviceHeight <= 840) ? 14:  16,
+                                      fontSize: (deviceHeight <= 840) ? 14 : 16,
                                       fontStyle: FontStyle.italic,
                                       fontFamily: "Ringside Regular",
                                       fontWeight: FontWeight.w300,
@@ -266,8 +274,7 @@ class PaywallBody extends StatelessWidget {
             ),
             const SizedBox(height: 35),
             PrimaryButton(
-                title:
-                    S.of(context).paywall_yearly_button.toUpperCase(),
+                title: S.of(context).paywall_yearly_button.toUpperCase(),
                 onPressed: () {
                   getIt<PaywallCubit>()
                       .startPurchase(flavorProducts.annualSubscription);
@@ -275,10 +282,10 @@ class PaywallBody extends StatelessWidget {
                 type: PrimaryButtonType.green),
             const SizedBox(height: 20),
             PrimaryButton(
-                title:
-                    S.of(context).paywall_monthly_button.toUpperCase(),
+                title: S.of(context).paywall_monthly_button.toUpperCase(),
                 onPressed: () {
-                    getIt<PaywallCubit>().startPurchase(flavorProducts.monthlySubscription);
+                  getIt<PaywallCubit>()
+                      .startPurchase(flavorProducts.monthlySubscription);
                   //getIt<PaywallCubit>().testSubscirption();
                 },
                 type: PrimaryButtonType.blueNeon),
@@ -292,6 +299,8 @@ class PaywallBody extends StatelessWidget {
           iconSize: 30,
           color: Palette.current.primaryNeonGreen,
           onPressed: () {
+            RouteHistoryCubit routeHistoryCubit = getIt<RouteHistoryCubit>();
+            routeHistoryCubit.toggleRoute(routeHistoryCubit.routes[0]);
             Navigator.of(context).pop();
           },
           icon: const Icon(
