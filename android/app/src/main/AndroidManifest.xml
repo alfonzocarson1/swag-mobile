@@ -3,7 +3,6 @@
   package="golf.swag.dev.swaggolf"
 >
 
- <uses-permission android:name="com.android.vending.BILLING" />
  
     <queries>
         <intent>
@@ -40,6 +39,7 @@
     android:label="@string/app_name"
     android:name="${applicationName}"
     android:icon="@mipmap/ic_launcher"
+    android:roundIcon="@mipmap/ic_launcher_round"
     android:usesCleartextTraffic="true"
     android:requestLegacyExternalStorage="true"
   >
