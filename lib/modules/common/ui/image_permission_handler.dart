@@ -6,8 +6,11 @@ import 'package:permission_handler/permission_handler.dart';
 
 import 'grant_permission_popup.dart';
 
+int androidCounter = 0;
+
 Future<dynamic> imagePermissionHandler(
   bool multipleImages,
+  Type? returnType,
   BuildContext context,
   ImageSource source,
 ) async {
@@ -25,16 +28,28 @@ Future<dynamic> imagePermissionHandler(
   }
   final PermissionStatus status;
   status =  await permission.status;  
-  if (status.isPermanentlyDenied) {
+   if (status.isDenied) {
+    await permission.request();
+    if(Platform.isAndroid &&  status.isDenied && androidCounter <2){
+         androidCounter += 1;       
+     }
+       else if(status.isDenied && androidCounter >1){
+             await showDialog(
+         context: context,
+         builder: (context) => const GrantPermissionDialog(
+           type: GrantPermissionDialogType.photos,
+         ),
+       );
+     }
+  }
+  else if (status.isPermanentlyDenied) {
     await showDialog(
       context: context,
       builder: (context) => GrantPermissionDialog(
         type: type,
       ),
     );
-  } else if (status.isDenied) {
-    await permission.request();
-  }
+  } 
   else{
     if(multipleImages == false){
      final picker = ImagePicker();
@@ -44,7 +59,12 @@ Future<dynamic> imagePermissionHandler(
     maxWidth: 600,
   );
   if (xFileImage == null) return null;
-  return File(xFileImage.path);
+  if(returnType == XFile){
+    return xFileImage;
+  }else{
+    debugPrint(returnType.toString());
+    return File(xFileImage.path);
+  }  
     }
     else{
         final picker = ImagePicker();
