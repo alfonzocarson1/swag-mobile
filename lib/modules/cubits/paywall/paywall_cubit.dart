@@ -202,7 +202,6 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
             log(purchase.verificationData.toString());
             await sendSubscriptionRequest(purchase.purchaseID ?? "");
             appCubit.clearOverlayDetected();
-            navigateKYCverified();
             emit(const PaywallCubitState.success());
           } else {
             emit(const PaywallCubitState.success());
@@ -222,22 +221,6 @@ class PaywallCubit extends Cubit<PaywallCubitState> {
         // handle other states if necessary
       }
     }
-  }
-
-  navigateKYCverified() {
-    RouteHistoryCubit routeHistoryCubit = getIt<RouteHistoryCubit>();
-    BuildContext context =
-        getIt<ContextService>().rootNavigatorKey.currentContext!;
-    ProfileModel profileData =
-        getIt<PreferenceRepositoryService>().profileData();
-    Future.delayed(const Duration(milliseconds: 1000), () async {
-      if (routeHistoryCubit.routes[1] == 'ItemDetail' &&
-          !profileData.kycverified) {
-        Navigator.of(context, rootNavigator: true).push(AccountPage.route());
-        await Future.delayed(const Duration(milliseconds: 1000), () {});
-        Navigator.of(context).push(KycSplashDialog.route(context));
-      }
-    });
   }
 
   completeTransactions(List<PurchaseDetails> purchases) async {

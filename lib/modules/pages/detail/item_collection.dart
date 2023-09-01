@@ -16,6 +16,7 @@ import '../../common/utils/utils.dart';
 import '../../cubits/catalog_detail/catalog_detail_cubit.dart';
 import '../../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
 import '../../cubits/profile/get_profile_cubit.dart';
+import '../../cubits/route_history/route_history_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/buy_for_sale_listing/buy_for_sale_listing_response_model.dart';
@@ -551,6 +552,10 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                 Navigator.of(context)
                                     .push(KycSplashDialog.route(context));
                               } else {
+                                RouteHistoryCubit routeHistoryCubit =
+                                    getIt<RouteHistoryCubit>();
+                                routeHistoryCubit
+                                    .toggleRoute('showPaywallSplashScreen');
                                 showPaywallSplashScreen(
                                     context: context,
                                     hasUsedFreeTrial:
