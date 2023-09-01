@@ -1,14 +1,10 @@
 
 
-import 'dart:async';
 
-import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:swagapp/modules/blocs/category_bloc/category_bloc.dart';
 import 'package:swagapp/modules/common/utils/stateful_wrapper.dart';
-import 'package:swagapp/modules/pages/explore/account_info.dart';
 
 import 'package:swagapp/modules/pages/login/landing_page.dart';
 import 'package:swagapp/modules/pages/onboarding/onboarding_page.dart';
@@ -40,8 +36,7 @@ final GlobalKey<NavigatorState> _homeNavigatorKey = GlobalKey<NavigatorState>(
 );
 
 class _AppState extends State<App> {
-  late AppLinks _appLinks;
-  StreamSubscription<Uri>? _linkSubscription;
+
 
   @override
   void initState() {
@@ -53,7 +48,7 @@ class _AppState extends State<App> {
   @override
   void dispose() {
     getIt<DeepLinkHandler>().dispose();
-    // _linkSubscription?.cancel();
+
     //  super.dispose();
   }
 
