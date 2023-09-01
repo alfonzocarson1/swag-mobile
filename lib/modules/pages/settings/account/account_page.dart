@@ -185,22 +185,14 @@ class AccountBody extends StatelessWidget {
                           final res = await Navigator.of(context)
                               .push(KycSplashDialog.route(context));
                           if (res == true) {
-                            refreshProfileData();
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                duration: const Duration(seconds: 3),
-                                behavior: SnackBarBehavior.floating,
-                                margin: EdgeInsets.only(
-                                  bottom:
-                                      MediaQuery.of(context).size.height / 1.3,
-                                ),
-                                backgroundColor: Colors.transparent,
-                                content: ToastMessage(
-                                  message: S.of(context).kyc_done,
-                                ),
-                                dismissDirection: DismissDirection.none,
-                              ),
-                            );
+                            await Future.delayed(
+                                const Duration(milliseconds: 300));
+                            WidgetsBinding.instance
+                                .addPostFrameCallback((_) async {
+                              await Future.delayed(
+                                  const Duration(milliseconds: 300));
+                              refreshProfileData();
+                            });
                           }
                         }
                       },
