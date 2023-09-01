@@ -239,7 +239,10 @@ class AccountBody extends StatelessWidget {
 }
 
 String getKycSting(String? status) {
-  return (status ?? "Unverified").toTitleCase();
+  return (status ?? "Unverified")
+      .replaceAll("_", " ")
+      .toTitleCase()
+      .replaceAll("Kyc", "KYC");
 }
 
 bool shouldVerifyAgain(String? status) {
