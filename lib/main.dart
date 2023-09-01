@@ -24,12 +24,12 @@ Future<void> main() async {
     debugPrint = (String? message, {int? wrapWidth}) {};
   }
   WidgetsFlutterBinding.ensureInitialized();
-  // FlutterError.onError = (details) {
-  //   debugPrintStack(
-  //     stackTrace: details.stack,
-  //     label: details.exception.toString(),
-  //   );
-  // };
+  FlutterError.onError = (details) {
+    debugPrintStack(
+      stackTrace: details.stack,
+      label: details.exception.toString(),
+    );
+  };
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
