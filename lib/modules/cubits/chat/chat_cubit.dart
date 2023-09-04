@@ -26,6 +26,7 @@ part 'chat_cubit_state.dart';
 part 'chat_cubit.freezed.dart';
 
 List<BaseMessage> messages = [];
+String currentChannelUrl = "";
 
 class ChatCubit extends Cubit<ChatState> {
   final IChatService service;
@@ -70,7 +71,9 @@ class ChatCubit extends Cubit<ChatState> {
     try {
       messages = await channel.getMessagesByTimestamp(
           DateTime.now().millisecondsSinceEpoch, params);
-      emit(ChatsLoaded(messages));
+      if(channel.channelUrl == currentChannelUrl){
+        emit(ChatsLoaded(messages));
+      }
       return messages;
     } catch (e) {
       emit(ChatsError(e.toString()));
@@ -91,6 +94,10 @@ class ChatCubit extends Cubit<ChatState> {
       emit(ChatsError(e.toString()));
       throw e;
     }
+  }
+
+  setCurrentChannel(String channelUrl){
+   currentChannelUrl = channelUrl;
   }
 
   Future<bool> hasUnreadMessages() async {

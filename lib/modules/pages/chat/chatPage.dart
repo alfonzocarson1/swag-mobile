@@ -118,6 +118,7 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
 
   @override
   Widget build(BuildContext context) {
+    getIt<ChatCubit>().setCurrentChannel(widget.channel.channelUrl);
     ProfileModel userProfile =
         getIt<PreferenceRepositoryService>().profileData();
     String userName = userProfile.username;
