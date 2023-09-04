@@ -10,6 +10,7 @@ import 'package:swagapp/modules/data/detail/i_detail_service.dart';
 import 'package:swagapp/modules/models/buy_for_sale_listing/buy_for_sale_listing_model.dart';
 
 import '../../../generated/l10n.dart';
+import '../../../main.dart';
 import '../../common/ui/paywall_splash_screen.dart';
 import '../../common/ui/popup_delete_item_collection.dart';
 import '../../common/ui/popup_list_item_sale.dart';
@@ -553,16 +554,21 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                               return null;
                             },
                             loadedCollectionDetail: (data) {
+                              logger.e(
+                                  "DeleteIssue : Collection Detail in item_collection");
                               Loading.hide(context);
 
                               //   If Status is in sales progress, then show toast error.
                               if (data.listForSale.isNotEmpty == true &&
-                                  inProgressStatuses.any(
-                                      (element) => element == data.listForSale.first.status)) {
+                                  inProgressStatuses.any((element) =>
+                                      element ==
+                                      data.listForSale.first.status)) {
+                                logger.e("DeleteIssue : Not Allowed to remove");
                                 showToastMessage(S
                                     .of(context)
                                     .collection_removal_not_allowed_if_on_sale);
                               } else {
+                                logger.e("DeleteIssue : Delete Item");
                                 //else below dialog
                                 showDialog(
                                     context: context,
@@ -580,11 +586,27 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                               Loading.hide(context),
                               // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
                             },
-                          ),
+                              loadedCollectionsDetail: (list) {
+                                Loading.hide(context);
+                                showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (BuildContext context) {
+                                      return PopUpDeleteItemCollection(
+                                        dataCollection: dataCollection,
+                                        detailList: list,
+                                      );
+                                    });
+                                return null;
+                              }),
                           child: PrimaryButton(
                             title: S.of(context).remove_collection_btn,
                             onPressed: () {
-                              onRemoveCollectionBtnClick();
+                              if (dataCollection.length > 1) {
+                                fetchDetailsForAllCollection();
+                              } else {
+                                onRemoveCollectionBtnClick();
+                              }
                             },
                             type: PrimaryButtonType.pink,
                           ),
@@ -696,21 +718,33 @@ class _CollectionWidgetState extends State<CollectionWidget> {
   void onRemoveCollectionBtnClick() async {
     if (isLogged) {
       //    Call new API here with ProductID, and check the Status.
-      context
-          .read<CollectionBloc>()
-          .add(CollectionEvent.getCollectionDetails(dataCollection.first.profileCollectionItemId));
+      context.read<CollectionBloc>().add(CollectionEvent.getCollectionDetails(
+          dataCollection.first.profileCollectionItemId));
     } else {
       Navigator.of(context, rootNavigator: true)
           .push(CreateAccountPage.route());
     }
   }
 
-  var inProgressStatuses = [
-    'pendingSellerConfirmation',
-    'pendingPayment',
-    'paid',
-    'paymentReceived',
-    'shipped',
-    'received'
-  ];
+
+
+  void fetchDetailsForAllCollection() {
+    if (isLogged) {
+      //    Call new API here with ProductID, and check the Status.
+      context.read<CollectionBloc>().add(CollectionEvent.getCollectionsDetails(
+          dataCollection.map((e) => e.profileCollectionItemId).toList()));
+    } else {
+      Navigator.of(context, rootNavigator: true)
+          .push(CreateAccountPage.route());
+    }
+  }
 }
+
+var inProgressStatuses = [
+  'pendingSellerConfirmation',
+  'pendingPayment',
+  'paid',
+  'paymentReceived',
+  'shipped',
+  'received'
+];

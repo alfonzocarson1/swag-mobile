@@ -33,7 +33,8 @@ class CollectionBloc extends Bloc<CollectionEvent, CollectionState> {
         getCollectionItem: _getCollectionItem,
         addCollection: _addCollection,
         removeCollection: _removeCollection,
-        getCollectionDetails: _getCollectionDetails);
+        getCollectionDetails: _getCollectionDetails,
+        getCollectionsDetails: _getCollectionsDetails);
   }
 
   Stream<CollectionState> _addCollection(AddCollectionModel param) async* {
@@ -58,7 +59,7 @@ class CollectionBloc extends Bloc<CollectionEvent, CollectionState> {
 
       getIt<CollectionProfileCubit>().loadResults();
       getIt<ProfileCubit>().loadProfileResults();
-      yield CollectionState.loadedCollectionSuccess(responseBody);
+      yield CollectionState.removeCollectionSuccess(responseBody);
     } catch (e) {
       yield CollectionState.error(HandlingErrors().getError(e));
     }
@@ -71,6 +72,23 @@ class CollectionBloc extends Bloc<CollectionEvent, CollectionState> {
           await collectionService.getCollectionDetail(id);
 
       yield CollectionState.loadedCollectionDetail(responseBody);
+    } catch (e) {
+      yield CollectionState.error(HandlingErrors().getError(e));
+    }
+  }
+
+  Stream<CollectionState> _getCollectionsDetails(List<String> ids) async* {
+    yield CollectionState.initial();
+    try {
+      List<ListingForSaleModel> list = [];
+      for (var id in ids) {
+        var data = await collectionService.getCollectionDetail(id);
+        if (data.listForSale.isNotEmpty) {
+          list.add(data.listForSale.first);
+        }
+      }
+
+      yield CollectionState.loadedCollectionsDetail(list);
     } catch (e) {
       yield CollectionState.error(HandlingErrors().getError(e));
     }
