@@ -182,18 +182,18 @@ class AccountBody extends StatelessWidget {
                               ? '${profileData.addresses?.first.firstName ?? ''} ${profileData.addresses?.first.lastName ?? ''}'
                               : ' ', () async {
                         if (shouldVerifyAgain(profileData.kycStatus)) {
-                          final res = await Navigator.of(context)
+                          await Navigator.of(context)
                               .push(KycSplashDialog.route(context));
-                          if (res == true) {
+                          await Future.delayed(
+                            const Duration(milliseconds: 300),
+                          );
+                          WidgetsBinding.instance
+                              .addPostFrameCallback((_) async {
                             await Future.delayed(
-                                const Duration(milliseconds: 300));
-                            WidgetsBinding.instance
-                                .addPostFrameCallback((_) async {
-                              await Future.delayed(
-                                  const Duration(milliseconds: 300));
-                              refreshProfileData();
-                            });
-                          }
+                              const Duration(milliseconds: 300),
+                            );
+                            refreshProfileData();
+                          });
                         }
                       },
                           Text(getKycSting(profileData.kycStatus),
@@ -289,6 +289,7 @@ Color getKycColor(String? status) {
 extension StringCasingExtension on String {
   String toCapitalized() =>
       length > 0 ? '${this[0].toUpperCase()}${substring(1).toLowerCase()}' : '';
+
   String toTitleCase() => replaceAll(RegExp(' +'), ' ')
       .split(' ')
       .map((str) => str.toCapitalized())

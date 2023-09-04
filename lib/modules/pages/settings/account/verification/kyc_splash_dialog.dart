@@ -8,6 +8,7 @@ import 'package:swagapp/modules/common/utils/utils.dart';
 import 'package:swagapp/modules/cubits/kyc/kyc_cubit.dart';
 import 'package:swagapp/modules/di/injector.dart';
 import 'package:swagapp/modules/models/ui_models/async_operation.dart';
+import 'package:swagapp/modules/pages/settings/account/verification/stripe_kyc_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../common/assets/icons.dart';
@@ -18,6 +19,7 @@ import '../../../../data/shared_preferences/shared_preferences_service.dart';
 
 class KycSplashDialog extends StatelessWidget {
   static const name = "/kyc-splash-dialog";
+
   const KycSplashDialog({super.key});
 
   static Route route(final BuildContext context) => PageRoutes.dialog(
@@ -33,74 +35,11 @@ class KycSplashDialog extends StatelessWidget {
       backgroundColor: Colors.transparent,
       body: BlocConsumer<KycCubit, KycCubitState>(
         listener: (context, state) {
-          state.whenWithValue(error: (e, previousData) {
-            if (Loading.isVisible()) {
-              Loading.hide(context);
-            }
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                duration: const Duration(seconds: 3),
-                behavior: SnackBarBehavior.floating,
-                margin: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).size.height / 1.3,
-                ),
-                backgroundColor: Colors.transparent,
-                content: ToastMessage(
-                  message: S.of(context).kyc_session_creation_failed,
-                ),
-                dismissDirection: DismissDirection.none,
-              ),
-            );
-          }, loaded: (data) {
-            if (Loading.isVisible()) {
-              Loading.hide(context);
-            }
-            if (data.sessionUrl != null) {
-              launchBrowserAppFromLink(data.sessionUrl!).then((value) async {
-                /// Wait until the browser closes
-                await Future.delayed(const Duration(milliseconds: 300));
-                while (WidgetsBinding.instance.lifecycleState !=
-                    AppLifecycleState.resumed) {
-                  await Future.delayed(const Duration(milliseconds: 300));
-                }
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    duration: const Duration(seconds: 3),
-                    behavior: SnackBarBehavior.floating,
-                    margin: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).size.height / 1.3,
-                    ),
-                    backgroundColor: Colors.transparent,
-                    content: ToastMessage(
-                      message: S.of(context).kyc_done,
-                    ),
-                    dismissDirection: DismissDirection.none,
-                  ),
-                );
-                await Future.delayed(const Duration(seconds: 3));
-                Navigator.of(context).pop(true);
-              }).onError((error, stackTrace) {
-                debugPrintStack(
-                  label: error.toString(),
-                  stackTrace: stackTrace,
-                );
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    duration: const Duration(seconds: 3),
-                    behavior: SnackBarBehavior.floating,
-                    margin: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).size.height / 1.3,
-                    ),
-                    backgroundColor: Colors.transparent,
-                    content: ToastMessage(
-                      message:
-                          "${S.of(context).kyc_cannot_lunch_url} ${data.sessionUrl}",
-                    ),
-                    dismissDirection: DismissDirection.none,
-                  ),
-                );
-              });
-            } else {
+          state.whenWithValue(
+            error: (e, previousData) {
+              if (Loading.isVisible()) {
+                Loading.hide(context);
+              }
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   duration: const Duration(seconds: 3),
@@ -110,21 +49,50 @@ class KycSplashDialog extends StatelessWidget {
                   ),
                   backgroundColor: Colors.transparent,
                   content: ToastMessage(
-                    message: S.of(context).kyc_session_validating,
+                    message: S.of(context).kyc_session_creation_failed,
                   ),
                   dismissDirection: DismissDirection.none,
                 ),
               );
-            }
-          }, loading: (previousDat) {
-            if (!Loading.isVisible()) {
-              Loading.show(context);
-            }
-          }, idle: () {
-            if (Loading.isVisible()) {
-              Loading.hide(context);
-            }
-          });
+            },
+            loaded: (data) async {
+              if (Loading.isVisible()) {
+                Loading.hide(context);
+              }
+              if (data.sessionUrl != null) {
+                await Navigator.of(context).push(StripeKycPage.route(
+                  context,
+                  data.sessionUrl!,
+                ));
+                Navigator.pop(context);
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    duration: const Duration(seconds: 3),
+                    behavior: SnackBarBehavior.floating,
+                    margin: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).size.height / 1.3,
+                    ),
+                    backgroundColor: Colors.transparent,
+                    content: ToastMessage(
+                      message: S.of(context).kyc_session_validating,
+                    ),
+                    dismissDirection: DismissDirection.none,
+                  ),
+                );
+              }
+            },
+            loading: (previousDat) {
+              if (!Loading.isVisible()) {
+                Loading.show(context);
+              }
+            },
+            idle: () {
+              if (Loading.isVisible()) {
+                Loading.hide(context);
+              }
+            },
+          );
         },
         builder: (context, state) {
           return Dialog(

@@ -422,6 +422,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Failed to create KYC session."),
         "kyc_session_validating": MessageLookupByLibrary.simpleMessage(
             "KYC documents are already submitted, please wait for verification results."),
+        "kyc_stripe_model":
+            MessageLookupByLibrary.simpleMessage("Stripe Verification"),
         "kyc_title": MessageLookupByLibrary.simpleMessage("KYC"),
         "kyc_verified_with":
             MessageLookupByLibrary.simpleMessage("Verified with:"),
