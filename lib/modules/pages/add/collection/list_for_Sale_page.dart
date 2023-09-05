@@ -7,14 +7,14 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:swagapp/modules/common/assets/icons.dart';
-import 'package:swagapp/modules/common/ui/grant_permission_popup.dart';
 import 'package:swagapp/modules/common/utils/currency_input_formatter.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../common/ui/add_photo_list_item.dart';
+import '../../../common/ui/image_permission_handler.dart';
 import '../../../common/ui/custom_text_form_field.dart';
 
-import '../../../common/ui/image_picker_with_permissions.dart';
+
 import '../../../common/ui/multi_image_slide.dart';
 import '../../../common/ui/popup_image_guidelines.dart';
 
@@ -566,9 +566,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
   Future<void> selectImages() async {
     // Pick an image
     try {
-      final List<XFile> selectedImages =
-          await selectMultipleImagesAndHandlePermissions(context,
-              imageQuality: 80);
+      final List<XFile> selectedImages = await imagePermissionHandler(true, null,context, ImageSource.gallery);
       if ((selectedImages.length + imageFileList.length) <= 6) {
         scaleDownXFile(selectedImages);
       } else {

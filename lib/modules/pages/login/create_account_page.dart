@@ -85,6 +85,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
   bool tosChecked = false;
   String usernameVal = defaultString;
   bool isVPN = true;
+  bool ignoreEdits = false;
 
   @override
   void dispose() {
@@ -180,6 +181,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
                       .savePassword(_passwordController.text);
                   setState(() {
                     Loading.hide(context);
+                    ignoreEdits = true;
                   });
                   getIt<ProfileCubit>().loadProfileResults();
 
@@ -263,7 +265,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
 
   Widget _getBody() {
     return IgnorePointer(
-      ignoring: Loading.isVisible(),
+      ignoring: Loading.isVisible() || ignoreEdits,
       child: GestureDetector(
           behavior: HitTestBehavior.translucent,
           onTap: () {
@@ -780,10 +782,10 @@ class _CreateAccountState extends State<CreateAccountPage> {
       if (e.toString().contains("Failed host lookup")) {
         //just to hide the email validation
         result = true;
-        isVPN=false;
+        isVPN = false;
       } else {
         result = false;
-        isVPN=true;
+        isVPN = true;
       }
     }
     return result;
@@ -1025,7 +1027,7 @@ class _CreateAccountState extends State<CreateAccountPage> {
         emailErrorText = null;
       }
     }
-    
+
     if (isEmptyUserName) {
       usernameErrorText = S.of(context).required_field;
     } else {

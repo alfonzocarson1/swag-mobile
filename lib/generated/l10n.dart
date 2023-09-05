@@ -2910,6 +2910,36 @@ class S {
     );
   }
 
+  /// `Cannot open KYC url.`
+  String get kyc_cannot_lunch_url {
+    return Intl.message(
+      'Cannot open KYC url.',
+      name: 'kyc_cannot_lunch_url',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Identity checks can take some time. We will confirm once complete.`
+  String get kyc_done {
+    return Intl.message(
+      'Identity checks can take some time. We will confirm once complete.',
+      name: 'kyc_done',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stripe Verification`
+  String get kyc_stripe_model {
+    return Intl.message(
+      'Stripe Verification',
+      name: 'kyc_stripe_model',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `NFT WALLET`
   String get nft_wallet_page_title {
     return Intl.message(

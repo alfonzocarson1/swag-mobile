@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:swagapp/modules/api/api.dart';
 import 'package:swagapp/modules/models/paywall_products/paywall_products.dart';
 
@@ -59,13 +58,15 @@ class AppConfig {
   final ApiHostScheme apiHostScheme;
   final String stripeKey;
   final PaywallSubscriptionProducts paywallProducts;
+  final PaywallSubscriptionProducts paywallAndroidProducts;
 
   AppConfig._({
     required this.apiBaseUrl,
     required this.apiHostScheme,
     required this.sendBirdAppId,
     required this.stripeKey,
-    required this.paywallProducts
+    required this.paywallProducts,
+    required this.paywallAndroidProducts
   });
 
   static Future<AppConfig> init(String appFlavor) async {
@@ -101,7 +102,13 @@ class AppConfig {
         uat:()=>const PaywallSubscriptionProducts(annualSubscription: 'UAT_Swag_App_Premium_Annual', monthlySubscription: 'UAT_Swag_App_Premium_Monthly'),
         prod:()=>const PaywallSubscriptionProducts(annualSubscription: "Swag_App_Premium_Annual", monthlySubscription: "Swag_App_Premium_Monthly") ,
         orElse: ()=>const PaywallSubscriptionProducts(annualSubscription: "annualSubscription", monthlySubscription: "monthlySubscription")
-        )
+        ), 
+      paywallAndroidProducts: appFlavor.whenFlavorOrElse(
+        dev: ()=> const PaywallSubscriptionProducts(annualSubscription: 'swag_app_premium_annual', monthlySubscription: 'swag_app_premium_monthly'),
+        uat:()=>const PaywallSubscriptionProducts(annualSubscription: 'swag_app_premium_annual', monthlySubscription: 'swag_app_premium_monthly'),
+        prod:()=>const PaywallSubscriptionProducts(annualSubscription: "swag_app_premium_annual", monthlySubscription: 'swag_app_premium_monthly') ,
+        orElse: ()=>const PaywallSubscriptionProducts(annualSubscription: "swag_app_premium_annual", monthlySubscription: "swag_app_premium_monthly")
+        ), 
     );
   }
 }

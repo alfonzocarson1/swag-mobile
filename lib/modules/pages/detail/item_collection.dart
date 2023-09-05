@@ -20,6 +20,7 @@ import '../../common/utils/utils.dart';
 import '../../cubits/catalog_detail/catalog_detail_cubit.dart';
 import '../../cubits/listing_for_sale/get_listing_for_sale_cubit.dart';
 import '../../cubits/profile/get_profile_cubit.dart';
+import '../../cubits/route_history/route_history_cubit.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../models/buy_for_sale_listing/buy_for_sale_listing_response_model.dart';
@@ -33,8 +34,11 @@ import '../../models/profile/profile_model.dart';
 import '../add/buy/buy_for_sale.dart';
 import '../add/collection/list_for_sale_page.dart';
 import '../login/create_account_page.dart';
+import '../settings/account/account_page.dart';
+import '../settings/account/verification/kyc_splash_dialog.dart';
 
 late bool hasActiveSubscription;
+late bool hasKYCverified;
 
 class CollectionWidget extends StatefulWidget {
   CollectionWidget({
@@ -126,6 +130,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
       getProfileAvatar();
     }
     hasActiveSubscription = profileData?.hasActiveSubscription ?? false;
+    hasKYCverified = profileData?.kycverified ?? false;
   }
 
   loadCollectionsListed() async {
@@ -499,9 +504,19 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                         width: MediaQuery.of(context).size.width,
                         child: PrimaryButton(
                           title: S.of(context).list_for_sale_btn,
-                          onPressed: () {
+                          onPressed: () async {
                             if (isLogged) {
-                              if (hasActiveSubscription) {
+                              await getIt<ProfileCubit>().loadProfileResults();
+                              setState(() {
+                                profileData =
+                                    getIt<PreferenceRepositoryService>()
+                                        .profileData();
+                                hasActiveSubscription =
+                                    profileData?.hasActiveSubscription ?? false;
+                                hasKYCverified =
+                                    profileData?.kycverified ?? false;
+                              });
+                              if (hasActiveSubscription && hasKYCverified) {
                                 (newCollectionList.isNotEmpty &&
                                         (newCollectionList.length > 1))
                                     ? showDialog(
@@ -526,7 +541,26 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                                 widget.urlImage))
                                         : showToastMessage(
                                             S.of(context).collection_listed);
+                              } else if (!hasActiveSubscription &&
+                                  hasKYCverified) {
+                                showPaywallSplashScreen(
+                                    context: context,
+                                    hasUsedFreeTrial:
+                                        profileData?.hasUsedFreeTrial ?? false,
+                                    removePaywall: removePaywall);
+                              } else if (hasActiveSubscription &&
+                                  !hasKYCverified) {
+                                Navigator.of(context, rootNavigator: true)
+                                    .push(AccountPage.route());
+                                await Future.delayed(
+                                    const Duration(milliseconds: 1000), () {});
+                                Navigator.of(context)
+                                    .push(KycSplashDialog.route(context));
                               } else {
+                                RouteHistoryCubit routeHistoryCubit =
+                                    getIt<RouteHistoryCubit>();
+                                routeHistoryCubit
+                                    .toggleRoute('showPaywallSplashScreen');
                                 showPaywallSplashScreen(
                                     context: context,
                                     hasUsedFreeTrial:
@@ -657,6 +691,9 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                             child: PrimaryButton(
                               title: S.of(context).notify_available,
                               onPressed: () {
+                                RouteHistoryCubit routeHistoryCubit =
+                                    getIt<RouteHistoryCubit>();
+                                routeHistoryCubit.toggleRoute('ItemDetail');
                                 if (isLogged &&
                                     notifyAvailabilityFlagBTN &&
                                     buttonEnable &&

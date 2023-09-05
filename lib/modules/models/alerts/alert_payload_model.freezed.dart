@@ -29,6 +29,8 @@ mixin _$AlertPayloadModel {
   int? get dateItemShipped => throw _privateConstructorUsedError;
   String? get purchaseHistoryId => throw _privateConstructorUsedError;
   String? get listingStatus => throw _privateConstructorUsedError;
+  String? get kycSession => throw _privateConstructorUsedError;
+  String? get kycSessionStatus => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -51,7 +53,9 @@ abstract class $AlertPayloadModelCopyWith<$Res> {
       String? listingImageUrl,
       int? dateItemShipped,
       String? purchaseHistoryId,
-      String? listingStatus});
+      String? listingStatus,
+      String? kycSession,
+      String? kycSessionStatus});
 }
 
 /// @nodoc
@@ -76,6 +80,8 @@ class _$AlertPayloadModelCopyWithImpl<$Res, $Val extends AlertPayloadModel>
     Object? dateItemShipped = freezed,
     Object? purchaseHistoryId = freezed,
     Object? listingStatus = freezed,
+    Object? kycSession = freezed,
+    Object? kycSessionStatus = freezed,
   }) {
     return _then(_value.copyWith(
       accountId: freezed == accountId
@@ -114,6 +120,14 @@ class _$AlertPayloadModelCopyWithImpl<$Res, $Val extends AlertPayloadModel>
           ? _value.listingStatus
           : listingStatus // ignore: cast_nullable_to_non_nullable
               as String?,
+      kycSession: freezed == kycSession
+          ? _value.kycSession
+          : kycSession // ignore: cast_nullable_to_non_nullable
+              as String?,
+      kycSessionStatus: freezed == kycSessionStatus
+          ? _value.kycSessionStatus
+          : kycSessionStatus // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -135,7 +149,9 @@ abstract class _$$_AlertPayloadModelCopyWith<$Res>
       String? listingImageUrl,
       int? dateItemShipped,
       String? purchaseHistoryId,
-      String? listingStatus});
+      String? listingStatus,
+      String? kycSession,
+      String? kycSessionStatus});
 }
 
 /// @nodoc
@@ -158,6 +174,8 @@ class __$$_AlertPayloadModelCopyWithImpl<$Res>
     Object? dateItemShipped = freezed,
     Object? purchaseHistoryId = freezed,
     Object? listingStatus = freezed,
+    Object? kycSession = freezed,
+    Object? kycSessionStatus = freezed,
   }) {
     return _then(_$_AlertPayloadModel(
       accountId: freezed == accountId
@@ -196,6 +214,14 @@ class __$$_AlertPayloadModelCopyWithImpl<$Res>
           ? _value.listingStatus
           : listingStatus // ignore: cast_nullable_to_non_nullable
               as String?,
+      kycSession: freezed == kycSession
+          ? _value.kycSession
+          : kycSession // ignore: cast_nullable_to_non_nullable
+              as String?,
+      kycSessionStatus: freezed == kycSessionStatus
+          ? _value.kycSessionStatus
+          : kycSessionStatus // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -213,7 +239,9 @@ class _$_AlertPayloadModel extends _AlertPayloadModel {
       this.listingImageUrl,
       this.dateItemShipped,
       this.purchaseHistoryId,
-      this.listingStatus})
+      this.listingStatus,
+      this.kycSession,
+      this.kycSessionStatus})
       : super._();
 
   factory _$_AlertPayloadModel.fromJson(Map<String, dynamic> json) =>
@@ -237,10 +265,14 @@ class _$_AlertPayloadModel extends _AlertPayloadModel {
   final String? purchaseHistoryId;
   @override
   final String? listingStatus;
+  @override
+  final String? kycSession;
+  @override
+  final String? kycSessionStatus;
 
   @override
   String toString() {
-    return 'AlertPayloadModel(accountId: $accountId, userName: $userName, itemName: $itemName, productItemId: $productItemId, avatar: $avatar, listingImageUrl: $listingImageUrl, dateItemShipped: $dateItemShipped, purchaseHistoryId: $purchaseHistoryId, listingStatus: $listingStatus)';
+    return 'AlertPayloadModel(accountId: $accountId, userName: $userName, itemName: $itemName, productItemId: $productItemId, avatar: $avatar, listingImageUrl: $listingImageUrl, dateItemShipped: $dateItemShipped, purchaseHistoryId: $purchaseHistoryId, listingStatus: $listingStatus, kycSession: $kycSession, kycSessionStatus: $kycSessionStatus)';
   }
 
   @override
@@ -264,7 +296,11 @@ class _$_AlertPayloadModel extends _AlertPayloadModel {
             (identical(other.purchaseHistoryId, purchaseHistoryId) ||
                 other.purchaseHistoryId == purchaseHistoryId) &&
             (identical(other.listingStatus, listingStatus) ||
-                other.listingStatus == listingStatus));
+                other.listingStatus == listingStatus) &&
+            (identical(other.kycSession, kycSession) ||
+                other.kycSession == kycSession) &&
+            (identical(other.kycSessionStatus, kycSessionStatus) ||
+                other.kycSessionStatus == kycSessionStatus));
   }
 
   @JsonKey(ignore: true)
@@ -279,7 +315,9 @@ class _$_AlertPayloadModel extends _AlertPayloadModel {
       listingImageUrl,
       dateItemShipped,
       purchaseHistoryId,
-      listingStatus);
+      listingStatus,
+      kycSession,
+      kycSessionStatus);
 
   @JsonKey(ignore: true)
   @override
@@ -306,7 +344,9 @@ abstract class _AlertPayloadModel extends AlertPayloadModel {
       final String? listingImageUrl,
       final int? dateItemShipped,
       final String? purchaseHistoryId,
-      final String? listingStatus}) = _$_AlertPayloadModel;
+      final String? listingStatus,
+      final String? kycSession,
+      final String? kycSessionStatus}) = _$_AlertPayloadModel;
   const _AlertPayloadModel._() : super._();
 
   factory _AlertPayloadModel.fromJson(Map<String, dynamic> json) =
@@ -330,6 +370,10 @@ abstract class _AlertPayloadModel extends AlertPayloadModel {
   String? get purchaseHistoryId;
   @override
   String? get listingStatus;
+  @override
+  String? get kycSession;
+  @override
+  String? get kycSessionStatus;
   @override
   @JsonKey(ignore: true)
   _$$_AlertPayloadModelCopyWith<_$_AlertPayloadModel> get copyWith =>

@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
-import 'package:swagapp/modules/pages/login/create_account_page.dart';
 
 import '../common/utils/context_service.dart';
 import '../data/shared_preferences/shared_preferences_service.dart';
@@ -15,25 +14,17 @@ class DeepLinkHandler {
   
 
 
-  void init() async {
+void init() async {
     final appLink = await _appLinks.getInitialAppLink();
     if (appLink != null) {
-       print('getInitialAppLink: $appLink');
-      _handleLink(appLink);
+        print('getInitialAppLink: $appLink');
+        openAppLink(appLink);
     }
-
     _linkSubscription = _appLinks.uriLinkStream.listen((uri) {
-      _handleLink(uri);
+        print('onAppLink: $uri');
+        openAppLink(uri);
     });
-  }
-
-  void _handleLink(Uri uri) {
-    // Handle link when app is in warm state (front or background)
-    _linkSubscription = _appLinks.uriLinkStream.listen((uri) {
-      print('onAppLink: $uri');
-      openAppLink(uri);
-    });
-  }
+}
 
   void dispose() {
     _linkSubscription?.cancel();
@@ -45,21 +36,11 @@ class DeepLinkHandler {
     var uriFragment = uri;
     String productId = getProductNumber(uriFragment.toString());
    
-   if(isLogged == true){
     getIt<ContextService>().rootNavigatorKey.currentState?.push(
     MaterialPageRoute(
       builder: (context) => BuyPreviewPage(productItemId: productId,)
       )
-    );
-   }
-   else{
-   getIt<ContextService>().rootNavigatorKey.currentState?.push(
-    MaterialPageRoute(
-      builder: (context) => const CreateAccountPage()
-      )  
-   );  
-   }
-   
+    );   
   }
 
   getProductNumber(String url){

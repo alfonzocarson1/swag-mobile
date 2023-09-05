@@ -24,6 +24,7 @@ import '../../data/shared_preferences/shared_preferences_service.dart';
 import '../../di/injector.dart';
 import '../../enums/chat_type.dart';
 import '../../enums/listing_status_data.dart';
+import '../../enums/stripe_status_type.dart';
 import '../../models/alerts/alert_response_model.dart';
 
 import '../../models/alerts/alert_verify_rate_model.dart';
@@ -34,6 +35,7 @@ import '../add/buy/preview_buy_for_sale.dart';
 
 import '../chat/chatPage.dart';
 import '../profile/sold/sold_detail_page.dart';
+import '../settings/account/account_page.dart';
 import '../settings/purchase_history/purchase_history_details/purchase_history_details_page.dart';
 import 'delivered_popup.dart';
 
@@ -212,6 +214,26 @@ class _AlertPageState extends State<AlertPage> {
                                     onTap: () async {
                                       getIt<AlertCubit>().readAlert(
                                           item.notificationAlertId ?? '');
+
+                                      if (item.payload!.kycSessionStatus ==
+                                              StripeStatusType
+                                                  .verified.textValue ||
+                                          item.payload!.kycSessionStatus ==
+                                              StripeStatusType
+                                                  .failed.textValue ||
+                                          item.payload!.kycSessionStatus ==
+                                              StripeStatusType
+                                                  .consentDeclined.textValue ||
+                                          item.payload!.kycSessionStatus ==
+                                              StripeStatusType
+                                                  .unverified.textValue ||
+                                          item.payload!.kycSessionStatus ==
+                                              StripeStatusType
+                                                  .unsupported.textValue) {
+                                        Navigator.of(context,
+                                                rootNavigator: true)
+                                            .push(AccountPage.route());
+                                      }
 
                                       BuyForSaleListingModel?
                                           alertListinStatus =

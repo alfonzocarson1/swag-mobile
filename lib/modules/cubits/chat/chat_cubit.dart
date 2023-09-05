@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_exif_rotation/flutter_exif_rotation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -11,15 +10,14 @@ import 'package:image_picker/image_picker.dart';
 import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
 
 import '../../../generated/l10n.dart';
+import '../../common/ui/image_permission_handler.dart';
 import '../../data/chat/ichat_service.dart';
 import '../../data/shared_preferences/shared_preferences_service.dart';
 
 import '../../di/injector.dart';
-import '../../enums/chat_message_data_type.dart';
 import '../../enums/chat_type.dart';
 import '../../models/alerts/alert_payload_model.dart';
 import '../../models/alerts/alerts_model.dart';
-import '../../models/chat/chat_data.dart';
 import '../../models/profile/profile_model.dart';
 import '../../services/route_observer.dart';
 import '../alert/alert_cubit.dart';
@@ -28,6 +26,7 @@ part 'chat_cubit_state.dart';
 part 'chat_cubit.freezed.dart';
 
 List<BaseMessage> messages = [];
+String currentChannelUrl = "";
 
 class ChatCubit extends Cubit<ChatState> {
   final IChatService service;
@@ -72,7 +71,9 @@ class ChatCubit extends Cubit<ChatState> {
     try {
       messages = await channel.getMessagesByTimestamp(
           DateTime.now().millisecondsSinceEpoch, params);
-      emit(ChatsLoaded(messages));
+      if(channel.channelUrl == currentChannelUrl){
+        emit(ChatsLoaded(messages));
+      }
       return messages;
     } catch (e) {
       emit(ChatsError(e.toString()));
@@ -93,6 +94,10 @@ class ChatCubit extends Cubit<ChatState> {
       emit(ChatsError(e.toString()));
       throw e;
     }
+  }
+
+  setCurrentChannel(String channelUrl){
+   currentChannelUrl = channelUrl;
   }
 
   Future<bool> hasUnreadMessages() async {
@@ -190,14 +195,14 @@ class ChatCubit extends Cubit<ChatState> {
     debugPrint('File message sent successfully');
   }
 
-  sendGalleryFileMessage(GroupChannel channel) async {
+  sendGalleryFileMessage(GroupChannel channel, BuildContext context) async {
     FileMessage fileMessage;
     int tempMessageId = DateTime.now().millisecondsSinceEpoch.toInt();
     List<BaseMessage> currentMessages = messages;
 
     final picker = ImagePicker();
     XFile? pickedFile =
-        await picker.pickImage(imageQuality: 70, source: ImageSource.gallery);
+        await imagePermissionHandler(false, XFile, context ,ImageSource.gallery);
 
     if (pickedFile != null) {
       List<Size>? chatThumbnailSizes = const [Size(100, 100), Size(40, 40)];

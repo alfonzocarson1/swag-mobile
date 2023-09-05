@@ -80,7 +80,6 @@ class _ProfilePageState extends State<ProfilePage>
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     resetPaywall();
@@ -165,70 +164,7 @@ class _ProfilePageState extends State<ProfilePage>
             const SizedBox(
               height: 20,
             ),
-            Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 10.0),
-                  child: Text(S.of(context).collection_value,
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayMedium!
-                          .copyWith(
-                              fontFamily: "KnockoutCustom",
-                              fontSize: 20,
-                              letterSpacing: 1.5,
-                              fontWeight: FontWeight.w300,
-                              color: Palette.current.light4)),
-                ),
-                BlocBuilder<ProfileCubit, ProfileCubitState>(
-                    builder: (context, state) {
-                  return state.maybeWhen(
-                      loadedProfileData: (profileData) {
-                        if (profileData.hasActiveSubscription == false) {
-                          return BlocBuilder<PaywallCubit, PaywallCubitState>(
-                              builder: (context, state) {
-                            return state.maybeWhen(
-                                initial: () => GestureDetector(
-                                    onTap: () {
-                                      if (profileData.hasActiveSubscription ==
-                                          false) {
-                                        paywallAction();
-                                      }
-                                    },
-                                    child: BlurredValue(
-                                      blurLevel: 8.0,
-                                      collectionValue:
-                                          profileData.collectionValue,
-                                    )),
-                                success: () => BlurredValue(
-                                      blurLevel: 0,
-                                      collectionValue:
-                                          profileData.collectionValue,
-                                    ),
-                                orElse: () => Container());
-                          });
-                        } else {
-                          return BlurredValue(
-                            blurLevel: 0,
-                            collectionValue: profileData.collectionValue,
-                          );
-                        }
-                      },
-                      orElse: () => (profileData.hasActiveSubscription == false)
-                          ? BlurredValue(
-                              blurLevel: 8.0,
-                              collectionValue: profileData.collectionValue,
-                            )
-                          : BlurredValue(
-                              blurLevel: 0,
-                              collectionValue: profileData.collectionValue,
-                            ));
-                })
-                // Stack(children: [
-
-                // ]),
-              ],
-            ),
+            collectiveValueWidget(),
             const SizedBox(
               height: 10,
             ),
@@ -328,6 +264,66 @@ class _ProfilePageState extends State<ProfilePage>
     );
   }
 
+  Widget collectiveValueWidget() {
+    blurredValue() => BlurredValue(
+          blurLevel: 8,
+          collectionValue: profileData.collectionValue,
+        );
+    clearValue() => BlurredValue(
+          blurLevel: 0,
+          collectionValue: profileData.collectionValue,
+        );
+
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 10.0),
+          child: Text(S.of(context).collection_value,
+              style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                  fontFamily: "KnockoutCustom",
+                  fontSize: 20,
+                  letterSpacing: 1.5,
+                  fontWeight: FontWeight.w300,
+                  color: Palette.current.light4)),
+        ),
+        BlocBuilder<ProfileCubit, ProfileCubitState>(
+          builder: (context, state) {
+            return state.maybeWhen(
+              loadedProfileData: (profileData) {
+                if (profileData.hasActiveSubscription == false) {
+                  return BlocBuilder<PaywallCubit, PaywallCubitState>(
+                    builder: (context, state) {
+                      return state.maybeWhen(
+                        initial: () => GestureDetector(
+                          onTap: () {
+                            if (profileData.hasActiveSubscription == false) {
+                              paywallAction();
+                            }
+                          },
+                          child: blurredValue(),
+                        ),
+                        success: () => clearValue(),
+                        orElse: () => Container(),
+                      );
+                    },
+                  );
+                } else {
+                  return BlurredValue(
+                    blurLevel: 0,
+                    collectionValue: profileData.collectionValue,
+                  );
+                }
+              },
+              orElse: () => (profileData.hasActiveSubscription == false)
+                  ? blurredValue()
+                  : clearValue(),
+            );
+          },
+        ),
+      ],
+    );
+  }
+
   _handleTabSelection() {
     if (_tabController.indexIsChanging) {
       setState(() {
@@ -349,15 +345,19 @@ class BlurredValue extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final text = Text(decimalDigitsLastSalePrice(collectionValue.toString()),
+        style: Theme.of(context).textTheme.displayMedium!.copyWith(
+            fontFamily: "KnockoutCustom",
+            fontSize: 45,
+            letterSpacing: 1.0,
+            fontWeight: FontWeight.w300,
+            color: Palette.current.light4));
+    if (blurLevel == 0) {
+      return text;
+    }
     return ImageFiltered(
       imageFilter: ImageFilter.blur(sigmaX: blurLevel, sigmaY: blurLevel),
-      child: Text(decimalDigitsLastSalePrice(collectionValue.toString()),
-          style: Theme.of(context).textTheme.displayMedium!.copyWith(
-              fontFamily: "KnockoutCustom",
-              fontSize: 45,
-              letterSpacing: 1.0,
-              fontWeight: FontWeight.w300,
-              color: Palette.current.light4)),
+      child: text,
     );
   }
 }

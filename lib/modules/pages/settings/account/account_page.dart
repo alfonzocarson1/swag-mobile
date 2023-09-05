@@ -4,6 +4,7 @@ import 'package:swagapp/modules/common/ui/simple_loader.dart';
 import 'package:swagapp/modules/pages/settings/account/verification/kyc_splash_dialog.dart';
 
 import '../../../../generated/l10n.dart';
+import '../../../common/ui/dynamic_toast_messages.dart';
 import '../../../common/ui/pushed_header.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
@@ -37,17 +38,16 @@ class _AccountPageState extends State<AccountPage> {
   void initState() {
     super.initState();
     profileData = getIt<PreferenceRepositoryService>().profileData();
+    getProfileData();
   }
 
-  getProfileData() async {
+  Future<void> getProfileData() async {
     await getIt<ProfileCubit>().loadProfileResults();
     profileData = getIt<PreferenceRepositoryService>().profileData();
   }
 
   @override
   Widget build(BuildContext context) {
-    getProfileData();
-
     return Scaffold(
       appBar: PushedHeader(
         showBackButton: true,
@@ -68,8 +68,12 @@ class _AccountPageState extends State<AccountPage> {
         builder: (context, state) {
           return state.maybeWhen(
               loading: (isFirstFetch) => const SimpleLoader(),
-              loadedProfileData: (profileData) =>
-                  AccountBody(profileData: profileData),
+              loadedProfileData: (profileData) => AccountBody(
+                  profileData: profileData,
+                  refreshProfileData: () async {
+                    await getProfileData();
+                    setState(() {});
+                  }),
               orElse: () => Container());
         },
       ),
@@ -81,9 +85,11 @@ class AccountBody extends StatelessWidget {
   const AccountBody({
     super.key,
     required this.profileData,
+    required this.refreshProfileData,
   });
 
   final ProfileModel profileData;
+  final Function refreshProfileData;
 
   @override
   Widget build(BuildContext context) {
@@ -99,31 +105,31 @@ class AccountBody extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      selectSettings(
-                          context,
-                          'assets/icons/atomic_drop_payments_icon.png',
-                          S
-                              .of(context)
-                              .premium_memberatomic_drop_payments_title,
-                          S
-                              .of(context)
-                              .premium_memberatomic_drop_payments_sub_title,
-                          () async {
-                        Navigator.of(context, rootNavigator: true)
-                            .push(CardsPage.route());
-                      },
-                          Icon(
-                            Icons.arrow_forward_ios_sharp,
-                            size: 10,
-                            color: Palette.current.darkGray,
-                          ),
-                          null),
-                      SizedBox(
-                        height: 0.2,
-                        child: Container(
-                          color: Palette.current.grey,
-                        ),
-                      ),
+                      // selectSettings(
+                      //     context,
+                      //     'assets/icons/atomic_drop_payments_icon.png',
+                      //     S
+                      //         .of(context)
+                      //         .premium_memberatomic_drop_payments_title,
+                      //     S
+                      //         .of(context)
+                      //         .premium_memberatomic_drop_payments_sub_title,
+                      //     () async {
+                      //   Navigator.of(context, rootNavigator: true)
+                      //       .push(CardsPage.route());
+                      // },
+                      //     Icon(
+                      //       Icons.arrow_forward_ios_sharp,
+                      //       size: 10,
+                      //       color: Palette.current.darkGray,
+                      //     ),
+                      //     null),
+                      // SizedBox(
+                      //   height: 0.2,
+                      //   child: Container(
+                      //     color: Palette.current.grey,
+                      //   ),
+                      // ),
                       selectSettings(
                           context,
                           'assets/icons/shipping_address_icon.png',
@@ -174,10 +180,20 @@ class AccountBody extends StatelessWidget {
                           S.of(context).kyc_title,
                           profileData.kycverified ?? false
                               ? '${profileData.addresses?.first.firstName ?? ''} ${profileData.addresses?.first.lastName ?? ''}'
-                              : ' ', () {
-                        if (!(profileData.kycverified ?? false)) {
-                          Navigator.of(context)
+                              : ' ', () async {
+                        if (shouldVerifyAgain(profileData.kycStatus)) {
+                          await Navigator.of(context)
                               .push(KycSplashDialog.route(context));
+                          await Future.delayed(
+                            const Duration(milliseconds: 300),
+                          );
+                          WidgetsBinding.instance
+                              .addPostFrameCallback((_) async {
+                            await Future.delayed(
+                              const Duration(milliseconds: 300),
+                            );
+                            refreshProfileData();
+                          });
                         }
                       },
                           Text(getKycSting(profileData.kycStatus),
@@ -239,7 +255,15 @@ class AccountBody extends StatelessWidget {
 }
 
 String getKycSting(String? status) {
-  return (status ?? "Unverified").toTitleCase();
+  return (status ?? "Unverified")
+      .replaceAll("_", " ")
+      .toTitleCase()
+      .replaceAll("Kyc", "KYC");
+}
+
+bool shouldVerifyAgain(String? status) {
+  return ['failed', 'unsupported', 'unverified']
+      .any((x) => (status ?? "").toLowerCase().contains(x));
 }
 
 Color getKycColor(String? status) {
@@ -265,6 +289,7 @@ Color getKycColor(String? status) {
 extension StringCasingExtension on String {
   String toCapitalized() =>
       length > 0 ? '${this[0].toUpperCase()}${substring(1).toLowerCase()}' : '';
+
   String toTitleCase() => replaceAll(RegExp(' +'), ' ')
       .split(' ')
       .map((str) => str.toCapitalized())

@@ -27,13 +27,12 @@ import '../../models/profile/profile_model.dart';
 import '../../models/search/filter_model.dart';
 import '../../models/search/search_request_payload_model.dart';
 import '../../notifications_providers/local_notifications_providers.dart';
+import '../../pages/settings/account/account_page.dart';
+import '../../pages/settings/account/verification/kyc_splash_dialog.dart';
 import '../../services/route_observer.dart';
 import '../ui/paywall_splash_screen.dart';
 import '../ui/dynamic_toast_messages.dart';
 import 'context_service.dart';
-
-
-
 
 String dateFormat(String dateStr) {
   final DateFormat displayFormater = DateFormat('dd/MM/yyyy');
@@ -606,8 +605,8 @@ showPaywallSplashScreen(
     {required Function removePaywall,
     required bool hasUsedFreeTrial,
     required BuildContext context}) {
-      Navigator.of(context, rootNavigator: true).push(PaywallSplashScreen.route(hasUsedFreeTrial: hasUsedFreeTrial, removePaywall: removePaywall));
-
+  Navigator.of(context, rootNavigator: true).push(PaywallSplashScreen.route(
+      hasUsedFreeTrial: hasUsedFreeTrial, removePaywall: removePaywall));
 }
 
 Future<void> showSnackBar(BuildContext context, String message) async {
@@ -622,6 +621,24 @@ Future<void> showSnackBar(BuildContext context, String message) async {
         content: ToastMessage(message: message),
         dismissDirection: DismissDirection.none));
   });
+}
+
+navigateKYCverified() async {
+  RouteHistoryCubit routeHistoryCubit = getIt<RouteHistoryCubit>();
+  BuildContext context =
+      getIt<ContextService>().rootNavigatorKey.currentContext!;
+  ProfileModel profileData = getIt<PreferenceRepositoryService>().profileData();
+
+  if (routeHistoryCubit.routes[1] == 'showPaywallSplashScreen' &&
+      !profileData.kycverified) {
+    routeHistoryCubit.toggleRoute('ItemDetail');
+    Navigator.of(context, rootNavigator: true)
+        .pushReplacement(AccountPage.route());
+    await Future.delayed(const Duration(milliseconds: 1000), () {});
+    Navigator.of(context).push(KycSplashDialog.route(context));
+  } else {
+    Navigator.of(context).pop();
+  }
 }
 
 extension StringNotEmptyOrNull on String? {
@@ -653,19 +670,19 @@ void handleListingStatusUnavailableAsGuest(String catalogId) {
       .add(BuySaleListingEvent.getBuyListingItem(catalogId));
 }
 
+resetPaywall() async {
+  bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
+  String? currentRoute = getIt<RouteTracker>().currentRoute;
 
- resetPaywall() async {
-    bool isLogged = getIt<PreferenceRepositoryService>().isLogged(); 
-    String? currentRoute = getIt<RouteTracker>().currentRoute;
-
-    if (isLogged == true) {
-      await getIt<ProfileCubit>().loadProfileResults();
-      ProfileModel profileData =
-          getIt<PreferenceRepositoryService>().profileData();
-      if (profileData.hasActiveSubscription == false) {
-        if(currentRoute != AppRouteNames.paywallSplashScreen || currentRoute != AppRouteNames.transactionHistory){
-          getIt<PaywallCubit>().reset();                
-        }        
+  if (isLogged == true) {
+    await getIt<ProfileCubit>().loadProfileResults();
+    ProfileModel profileData =
+        getIt<PreferenceRepositoryService>().profileData();
+    if (profileData.hasActiveSubscription == false) {
+      if (currentRoute != AppRouteNames.paywallSplashScreen ||
+          currentRoute != AppRouteNames.transactionHistory) {
+        getIt<PaywallCubit>().reset();
       }
     }
   }
+}

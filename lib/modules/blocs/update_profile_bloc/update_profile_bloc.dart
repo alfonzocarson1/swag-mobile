@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swagapp/modules/cubits/profile/get_profile_cubit.dart';
@@ -32,6 +33,18 @@ class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
   }
 
   @override
+  void onTransition(
+      Transition<UpdateProfileEvent, UpdateProfileState> transition) {
+    super.onTransition(transition);
+    debugPrint(
+"""UpdateProfileBloc (
+  currentState: ${transition.currentState},
+  event: ${transition.event},
+  nextState: ${transition.nextState},
+)""");
+  }
+
+  @override
   Stream<UpdateProfileState> mapEventToState(UpdateProfileEvent event) async* {
     yield* event.when(
         update: _update,
@@ -43,8 +56,7 @@ class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
         updatePhoneNumber: _updatePhoneNumber,
         updateEmail: _updateEmail,
         removeAddress: _removeAddress,
-      delete: _delete
-    );
+        delete: _delete);
   }
 
   Stream<UpdateProfileState> _update(UpdateProfilePayloadModel param) async* {
@@ -90,8 +102,8 @@ class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
     yield UpdateProfileState.initial();
     try {
       UpdateProfileModel responseBody =
-      await updateProfileService.updateProfile(param);
-      if (responseBody.status?.errorCode!="0") {
+          await updateProfileService.updateProfile(param);
+      if (responseBody.status?.errorCode != "0") {
         yield UpdateProfileState.error(responseBody.status?.errorMessage ?? '');
       } else {
         await getIt<ProfileCubit>().loadProfileResults();
@@ -104,15 +116,15 @@ class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
   }
 
   Stream<UpdateProfileState> _delete() async* {
-    yield  UpdateProfileState.initial();
+    yield UpdateProfileState.initial();
     try {
       dynamic response = await updateProfileService.deleteAccount();
       bool isDeleted = response["response"];
       String message = response["shortMessage"];
 
       print("RESPONSEEE  $response");
-      yield  UpdateProfileState.deleted(message, isDeleted);
-    } catch(e){
+      yield UpdateProfileState.deleted(message, isDeleted);
+    } catch (e) {
       print("ERROR");
       print(e);
       yield UpdateProfileState.error(HandlingErrors().getError(e));
