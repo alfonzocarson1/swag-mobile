@@ -12,10 +12,9 @@ class StripeKycPage extends StatefulWidget {
   static const name = "/kyc-splash-dialog";
 
   static Route route(final BuildContext context, String sessionUrl) =>
-      PageRoutes.dialog(
+      PageRoutes.material(
         settings: const RouteSettings(name: name),
         builder: (context) => StripeKycPage(sessionUrl: sessionUrl),
-        context: context,
       );
 
   final String sessionUrl;
@@ -46,32 +45,31 @@ class _StripeKycPageState extends State<StripeKycPage> {
       },
     );
     controller.setJavaScriptMode(JavaScriptMode.unrestricted);
-    controller.setBackgroundColor(const Color(0x00000000));
-    controller.setNavigationDelegate(NavigationDelegate(
-      onNavigationRequest: (request) {
-        if (request.url.contains("verify.stripe.com")) {
-          return NavigationDecision.navigate;
-        }
-        launchBrowserAppFromLink(request.url);
-        return NavigationDecision.prevent;
-      },
-      onPageFinished: (url) {
-        if (url.contains("success")) {
-          SnackBar(
-            duration: const Duration(seconds: 3),
-            behavior: SnackBarBehavior.floating,
-            margin: EdgeInsets.only(
-              bottom: MediaQuery.of(context).size.height / 1.3,
-            ),
-            backgroundColor: Colors.transparent,
-            content: ToastMessage(
-              message: S.of(context).kyc_done,
-            ),
-            dismissDirection: DismissDirection.none,
-          );
-        }
-      },
-    ));
+    // controller.setBackgroundColor(const Color(0x00000000));
+    controller.setNavigationDelegate(
+        NavigationDelegate(onNavigationRequest: (request) {
+      if (request.url.contains("verify.stripe.com")) {
+        return NavigationDecision.navigate;
+      }
+      launchBrowserAppFromLink(request.url);
+      return NavigationDecision.prevent;
+    }, onUrlChange: (url) {
+      debugPrint("onUrlChange: ${url.url}");
+      if ((url.url ?? "").contains("success")) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          duration: const Duration(seconds: 3),
+          behavior: SnackBarBehavior.floating,
+          margin: EdgeInsets.only(
+            bottom: MediaQuery.of(context).size.height / 1.3,
+          ),
+          backgroundColor: Colors.transparent,
+          content: ToastMessage(
+            message: S.of(context).kyc_done,
+          ),
+          dismissDirection: DismissDirection.none,
+        ));
+      }
+    }));
     controller.loadRequest(Uri.parse(widget.sessionUrl));
   }
 
@@ -82,7 +80,7 @@ class _StripeKycPageState extends State<StripeKycPage> {
         showBackButton: true,
         title: Align(
           alignment: Alignment.centerRight,
-          child: Text(S.of(context).account_title.toUpperCase(),
+          child: Text(S.of(context).kyc_stripe_model.toUpperCase(),
               style: Theme.of(context).textTheme.displayLarge!.copyWith(
                   letterSpacing: 1,
                   fontWeight: FontWeight.w300,
@@ -92,7 +90,7 @@ class _StripeKycPageState extends State<StripeKycPage> {
         ),
         height: 70,
       ),
-      backgroundColor: Palette.current.primaryEerieBlack,
+      backgroundColor: Palette.current.primaryNero,
       body: WebViewWidget(
         controller: controller,
       ),
