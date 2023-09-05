@@ -588,15 +588,27 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                             },
                               loadedCollectionsDetail: (list) {
                                 Loading.hide(context);
-                                showDialog(
-                                    context: context,
-                                    barrierDismissible: false,
-                                    builder: (BuildContext context) {
-                                      return PopUpDeleteItemCollection(
-                                        dataCollection: dataCollection,
-                                        detailList: list,
-                                      );
-                                    });
+                                if (list.length == dataCollection.length &&
+                                    list
+                                            .where((element) =>
+                                                inProgressStatuses
+                                                    .contains(element.status))
+                                            .length ==
+                                        list.length) {
+                                  showToastMessage(S
+                                      .of(context)
+                                      .collection_removal_not_allowed_if_on_sale);
+                                } else {
+                                  showDialog(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (BuildContext context) {
+                                        return PopUpDeleteItemCollection(
+                                          dataCollection: dataCollection,
+                                          detailList: list,
+                                        );
+                                      });
+                                }
                                 return null;
                               }),
                           child: PrimaryButton(

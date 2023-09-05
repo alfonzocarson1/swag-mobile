@@ -28,7 +28,7 @@ class PopUpDeleteItemCollection extends StatefulWidget {
 
 class _PopUpDeleteItemCollectionState extends State<PopUpDeleteItemCollection> {
   String? _razon;
-  bool razonUi = true;
+  bool razonUi = false;
   bool removeAlert = false;
 
   List<CheckboxModel> options = [];
@@ -64,6 +64,21 @@ class _PopUpDeleteItemCollectionState extends State<PopUpDeleteItemCollection> {
   void _onCollectionSelected(bool selected, collectionId, itemCondition,
       DetailCollectionModel dataCollection) {
     if (selected == true) {
+      var result = widget.detailList?.any((element) =>
+              element.profileCollectionItemId ==
+              dataCollection.profileCollectionItemId) ??
+          false;
+      if (result &&
+          inProgressStatuses.contains(widget.detailList
+              ?.firstWhere((element) =>
+                  element.profileCollectionItemId ==
+                  dataCollection.profileCollectionItemId)
+              .status)) {
+        Navigator.of(context).pop();
+        showToastMessage(
+            S.of(context).collection_removal_not_allowed_if_on_sale);
+        return;
+      }
       setState(() {
         removeDataCollection = dataCollection;
 
