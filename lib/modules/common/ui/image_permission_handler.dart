@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -16,13 +17,16 @@ Future<dynamic> imagePermissionHandler(
 ) async {
   final Permission permission;
   final GrantPermissionDialogType type;
+  final deviceInfo = DeviceInfoPlugin();
   switch (source) {
     case ImageSource.camera:
       permission = Permission.camera;
       type = GrantPermissionDialogType.camera;
       break;
     case ImageSource.gallery:
-      permission = Permission.photos;
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      int version = androidInfo.version.sdkInt;
+      permission = (version <=32) ? Permission.storage : Permission.photos;
       type = GrantPermissionDialogType.photos;
       break;
   }
