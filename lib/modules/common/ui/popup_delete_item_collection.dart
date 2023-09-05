@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:swagapp/modules/common/ui/primary_button.dart';
 
 import 'package:swagapp/modules/common/utils/palette.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 import '../../../generated/l10n.dart';
 import '../../blocs/collection_bloc/collection_bloc.dart';
@@ -11,12 +12,15 @@ import '../../blocs/detail_bloc/detail_bloc.dart';
 import '../../models/collection/add_collection_items_payload_model.dart';
 import '../../models/collection/add_collection_model.dart';
 import '../../models/detail/detail_collection_model.dart';
+import '../../models/listing_for_sale/listing_for_sale_model.dart';
 import '../../models/ui_models/checkbox_model.dart';
+import '../../pages/detail/item_collection.dart';
 import 'loading.dart';
 
 class PopUpDeleteItemCollection extends StatefulWidget {
-  const PopUpDeleteItemCollection({super.key, required this.dataCollection});
+  const PopUpDeleteItemCollection({super.key, required this.dataCollection, this.detailList});
   final List<DetailCollectionModel>? dataCollection;
+  final List<ListingForSaleModel>? detailList;
   @override
   State<PopUpDeleteItemCollection> createState() =>
       _PopUpDeleteItemCollectionState();
@@ -24,7 +28,7 @@ class PopUpDeleteItemCollection extends StatefulWidget {
 
 class _PopUpDeleteItemCollectionState extends State<PopUpDeleteItemCollection> {
   String? _razon;
-  bool razonUi = true;
+  bool razonUi = false;
   bool removeAlert = false;
 
   List<CheckboxModel> options = [];
@@ -35,6 +39,9 @@ class _PopUpDeleteItemCollectionState extends State<PopUpDeleteItemCollection> {
 
   @override
   void initState() {
+    if (widget.dataCollection?.length == 1) {
+      razonUi = true;
+    }
     super.initState();
     removeDataCollection = widget.dataCollection![0];
   }
@@ -60,6 +67,21 @@ class _PopUpDeleteItemCollectionState extends State<PopUpDeleteItemCollection> {
   void _onCollectionSelected(bool selected, collectionId, itemCondition,
       DetailCollectionModel dataCollection) {
     if (selected == true) {
+      var result = widget.detailList?.any((element) =>
+              element.profileCollectionItemId ==
+              dataCollection.profileCollectionItemId) ??
+          false;
+      if (result &&
+          inProgressStatuses.contains(widget.detailList
+              ?.firstWhere((element) =>
+                  element.profileCollectionItemId ==
+                  dataCollection.profileCollectionItemId)
+              .status)) {
+        Navigator.of(context).pop();
+        showToastMessage(
+            S.of(context).collection_removal_not_allowed_if_on_sale);
+        return;
+      }
       setState(() {
         removeDataCollection = dataCollection;
 
@@ -384,9 +406,9 @@ class _PopUpDeleteItemCollectionState extends State<PopUpDeleteItemCollection> {
                       onPressed: () {
                         setState(() {
                           razonUi = false;
-                          if (widget.dataCollection!.length == 1) {
+                          // if (widget.dataCollection!.length == 1) {
                             removeAlert = true;
-                          }
+                          // }
                         });
                       },
                       type: PrimaryButtonType.green,
@@ -401,7 +423,20 @@ class _PopUpDeleteItemCollectionState extends State<PopUpDeleteItemCollection> {
                       onPressed: () {
                         setState(() {
                           if (_selecteCategorys.isNotEmpty) {
-                            removeAlert = true;
+                            if (widget.detailList != null &&
+                                widget.detailList!.any((element) =>
+                                    element.profileCollectionItemId ==
+                                        removeDataCollection
+                                            .profileCollectionItemId &&
+                                    inProgressStatuses
+                                        .contains(element.status))) {
+                             Navigator.of(context).pop();
+                              showToastMessage(S
+                                  .of(context)
+                                  .collection_removal_not_allowed_if_on_sale);
+                            } else {
+                              razonUi = true;
+                            }
                           }
                         });
                       },
@@ -495,6 +530,12 @@ class _PopUpDeleteItemCollectionState extends State<PopUpDeleteItemCollection> {
                 Loading.hide(context);
                 return null;
               },
+            removeCollectionSuccess:(addCollectionModel){
+              Loading.hide(context);
+              Navigator.of(context, rootNavigator: true).pop();
+              Navigator.of(context, rootNavigator: true).pop();
+              Navigator.of(context, rootNavigator: true).pop();
+            },
               initial: () {
                 return Loading.show(context);
               },
@@ -505,4 +546,49 @@ class _PopUpDeleteItemCollectionState extends State<PopUpDeleteItemCollection> {
             ),
         child: Center(child: _getBody()));
   }
+
+  showToastMessage(String text) {
+    return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        duration: const Duration(seconds: 3),
+        behavior: SnackBarBehavior.floating,
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).size.height / 1.3,
+        ),
+        backgroundColor: Colors.transparent,
+        content: Row(
+          children: <Widget>[
+            Flexible(
+              child: Container(
+                padding: const EdgeInsets.all(18),
+                decoration: BoxDecoration(
+                    color: Palette.current.blackSmoke,
+                    borderRadius: const BorderRadius.all(Radius.circular(5))),
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Flexible(
+                          flex: 1,
+                          child: Image.asset(
+                            scale: 3,
+                            "assets/images/Favorite.png",
+                          ),
+                        ),
+                        Flexible(
+                            flex: 10,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 20),
+                              child: Text(text),
+                            )),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+        dismissDirection: DismissDirection.none));
+  }
+
 }

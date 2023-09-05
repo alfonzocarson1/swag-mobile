@@ -1,7 +1,10 @@
+import 'package:swagapp/modules/models/listing_for_sale/listing_for_sale_model.dart';
+
 import '../../api/api.dart';
 import '../../api/api_service.dart';
 import '../../models/collection/add_collection_model.dart';
 import '../../models/collection/get_list_collection_model.dart';
+import '../../models/listing_for_sale/profile_listing_model.dart';
 import 'i_collection_service.dart';
 
 class CollectionService extends ICollectionService {
@@ -45,6 +48,20 @@ class CollectionService extends ICollectionService {
       jsonKey: "collectionList",
       needBearer: true,
       fromJson: (json) => ListCollectionProfileResponseModel.fromJson(json),
+    );
+    return response;
+  }
+
+  @override
+  Future<ListingForSaleProfileResponseModel> getCollectionDetail(String collectionId) async {
+    ListingForSaleProfileResponseModel response =
+        await apiService.getEndpointData(
+      endpoint: Endpoint.getProfileCollectionDetail,
+      method: RequestMethod.get,
+      dynamicParam: collectionId,
+      jsonKey: "listForSale",
+      needBearer: true,
+      fromJson: (json) => ListingForSaleProfileResponseModel.fromJson(json),
     );
     return response;
   }

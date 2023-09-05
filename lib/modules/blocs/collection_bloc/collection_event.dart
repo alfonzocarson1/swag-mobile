@@ -9,4 +9,10 @@ class CollectionEvent with _$CollectionEvent {
 
   const factory CollectionEvent.removeCollection(AddCollectionModel model) =
       _RemoveCollectionEvent;
+
+  const factory CollectionEvent.getCollectionDetails(String id) =
+  _GetCollectionDetails;
+
+  const factory CollectionEvent.getCollectionsDetails(List<String> ids) =
+  _getCollectionsDetails;
 }
