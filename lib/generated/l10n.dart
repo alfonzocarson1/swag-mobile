@@ -2930,6 +2930,16 @@ class S {
     );
   }
 
+  /// `Stripe Verification`
+  String get kyc_stripe_model {
+    return Intl.message(
+      'Stripe Verification',
+      name: 'kyc_stripe_model',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `NFT WALLET`
   String get nft_wallet_page_title {
     return Intl.message(
