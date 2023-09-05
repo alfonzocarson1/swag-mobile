@@ -11,7 +11,7 @@ class FirebaseService {
   Future<void> storeFirebaseToken(String token, String accountId) async {
     try {
       final response = await _apiService.getEndpointData(
-        endpoint: Endpoint.userWallets,
+        endpoint: Endpoint.storeFirebaseToken,
         method: RequestMethod.post,
         body: {
           "fireBaseToken": token,
@@ -20,6 +20,7 @@ class FirebaseService {
         fromJson: (json) => json,
         needBearer: true,
       ) as Map<String, dynamic>;
+      print(response);
     } catch (e, stk) {
       debugPrintStack(
         label: e.toString(),
