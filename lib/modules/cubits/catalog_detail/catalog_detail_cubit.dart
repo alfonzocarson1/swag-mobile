@@ -27,6 +27,16 @@ class CatalogDetailCubit extends Cubit<CatalogDetailState> {
     }
   }
 
+  notifyAvailabilityAfterSuscription(String catalogId) async {
+    try {
+      var response = await catalogDetailService.notifyAvailability(catalogId);
+
+      return response['errorCode'] ?? response['notifyAvailabilityId'];
+    } catch (error) {
+      return null;
+    }
+  }
+
   Future<void> getBuyListingItem(String catalogId) async {
     try {
       BuyForSaleListingResponseModel response =

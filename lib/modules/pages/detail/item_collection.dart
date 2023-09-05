@@ -635,10 +635,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                             width: MediaQuery.of(context).size.width,
                             child: PrimaryButton(
                               title: S.of(context).notify_available,
-                              onPressed: () {
-                                RouteHistoryCubit routeHistoryCubit =
-                                    getIt<RouteHistoryCubit>();
-                                routeHistoryCubit.toggleRoute('ItemDetail');
+                              onPressed: () async {
                                 if (isLogged &&
                                     notifyAvailabilityFlagBTN &&
                                     buttonEnable &&
@@ -662,9 +659,18 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                     buttonEnable == false &&
                                     !itemInNotifyList) {
                                   if (hasActiveSubscription == true) {
-                                    showToastMessage(S
-                                        .of(context)
-                                        .notification_already_requested);
+                                    String erroCode =
+                                        await getIt<CatalogDetailCubit>()
+                                            .notifyAvailabilityAfterSuscription(
+                                                widget.catalogId);
+                                    if (erroCode == '203') {
+                                      showToastMessage(S
+                                          .of(context)
+                                          .notification_already_requested);
+                                    } else {
+                                      showToastMessage(
+                                          S.of(context).notify_availability);
+                                    }
                                   } else {
                                     showPaywallSplashScreen(
                                         context: context,
