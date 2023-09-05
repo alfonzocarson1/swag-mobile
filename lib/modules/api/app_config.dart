@@ -59,6 +59,7 @@ class AppConfig {
   final String stripeKey;
   final PaywallSubscriptionProducts paywallProducts;
   final PaywallSubscriptionProducts paywallAndroidProducts;
+  final String deepLinkHost;
 
   AppConfig._({
     required this.apiBaseUrl,
@@ -66,7 +67,8 @@ class AppConfig {
     required this.sendBirdAppId,
     required this.stripeKey,
     required this.paywallProducts,
-    required this.paywallAndroidProducts
+    required this.paywallAndroidProducts,
+    required this.deepLinkHost,
   });
 
   static Future<AppConfig> init(String appFlavor) async {
@@ -109,6 +111,10 @@ class AppConfig {
         prod:()=>const PaywallSubscriptionProducts(annualSubscription: "swag_app_premium_annual", monthlySubscription: 'swag_app_premium_monthly') ,
         orElse: ()=>const PaywallSubscriptionProducts(annualSubscription: "swag_app_premium_annual", monthlySubscription: "swag_app_premium_monthly")
         ), 
+        deepLinkHost: appFlavor.whenFlavorOrElse(
+          dev: () => "https://images.dev.swag.kuldisak.net/",
+          uat: () => "https://cdn-uat.kuldisak.net/",
+          orElse: ()=> ""), 
     );
   }
 }
