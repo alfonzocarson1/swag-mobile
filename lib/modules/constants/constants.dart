@@ -1,3 +1,5 @@
+import 'package:swagapp/modules/api/app_config.dart';
+
 import '../data/shared_preferences/shared_preferences_service.dart';
 import '../di/injector.dart';
 import '../models/overlay_buton/overlay_button_model.dart';
@@ -6,7 +8,7 @@ import '../models/search/category_model.dart';
 const tokenPath = 'auth/realms/app/protocol/openid-connect/token';
 const termsAndConditionsUrl = "https://swag.golf/pages/termsandconditions";
 const termsAndConditionsBasePath = "https://swag.golf";
-const String shareListingUrl = "https://cdn-uat.kuldisak.net/product/";
+String shareListingUrl = "${getIt<AppConfig>().deepLinkHost}product/";
 const String facebookUrl = "https://www.facebook.com/swaggolfco";
 const String twitterUrl = "https://twitter.com/swaggolfco";
 const String discordUrl = "https://discord.com/invite/OfficialSwag";
