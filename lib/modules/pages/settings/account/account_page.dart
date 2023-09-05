@@ -194,7 +194,9 @@ class AccountBody extends StatelessWidget {
                             );
                             refreshProfileData();
                           });
-                        } else {
+                        } else if ((profileData.kycStatus ?? "")
+                            .toLowerCase()
+                            .contains("processing")) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               duration: const Duration(seconds: 3),
