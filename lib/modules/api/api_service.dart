@@ -134,7 +134,7 @@ class APIService {
       String? dynamicParam}) async {
     InterceptedClient client = InterceptedClient.build(
       retryPolicy: TokenRetryPolicy(),
-      interceptors: [ApiInterceptor(), LoggingInterceptor(enabled: true)],
+      interceptors: [ApiInterceptor(), LoggingInterceptor(enabled: true, blacklist: ["notification/alerts"])],
       requestTimeout: const Duration(seconds: 30)
     );
     String? token = '';

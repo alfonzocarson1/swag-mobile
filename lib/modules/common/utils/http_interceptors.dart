@@ -69,13 +69,17 @@ class ApiInterceptor extends InterceptorContract {
 
 class LoggingInterceptor implements InterceptorContract {
   final bool enabled;
+  final List<String> blacklist;
 
-  LoggingInterceptor({required this.enabled});
+  LoggingInterceptor({required this.enabled, this.blacklist = const []});
 
   @override
   Future<BaseRequest> interceptRequest({
     required BaseRequest request,
   }) async {
+    if (blacklist.any((x) => request.url.toString().contains(x))) {
+      return request;
+    }
     debugPrint(">>> ${request.method} ${request.url}");
     debugPrint(">>> Headers:");
     for (final headerEntry in request.headers.entries) {
@@ -94,6 +98,9 @@ class LoggingInterceptor implements InterceptorContract {
   Future<BaseResponse> interceptResponse({
     required BaseResponse response,
   }) async {
+    if (blacklist.any((x) => (response.request?.url.toString() ?? "").contains(x))) {
+      return response;
+    }
     debugPrint(
         "<<< [${response.statusCode}] ${response.request?.method} ${response.request?.url}");
     // debugPrint("<<< Headers:");

@@ -1,15 +1,11 @@
-import 'dart:convert';
 import 'dart:io';
 
-import 'package:dash_chat_2/dash_chat_2.dart';
+ import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
 import 'package:swagapp/modules/common/assets/icons.dart';
 import 'package:swagapp/modules/common/ui/simple_loader.dart';
@@ -17,10 +13,8 @@ import 'package:swagapp/modules/common/utils/palette.dart';
 import 'package:swagapp/modules/enums/chat_type.dart';
 import 'package:swagapp/modules/pages/chat/widgets/camera_permissions_handler.dart';
 import 'package:swagapp/modules/pages/chat/widgets/chat_popup_menu.dart';
-import 'package:swagapp/modules/services/route_observer.dart';
 
-import '../../common/ui/grant_permission_popup.dart';
-import '../../common/ui/image_picker_with_permissions.dart';
+
 import '../../common/utils/sendbird_utils.dart';
 import '../../constants/constants.dart';
 import '../../cubits/chat/chat_cubit.dart';
@@ -124,6 +118,7 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
 
   @override
   Widget build(BuildContext context) {
+    getIt<ChatCubit>().setCurrentChannel(widget.channel.channelUrl);
     ProfileModel userProfile =
         getIt<PreferenceRepositoryService>().profileData();
     String userName = userProfile.username;
@@ -324,7 +319,7 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
                                   IconButton(
                                     icon: Image.asset(AppIcons.chatGallery),
                                     onPressed: () {
-                                      galleryMethod();
+                                      galleryMethod(context);
                                     },
                                   )
                                 ],
@@ -603,10 +598,8 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
     return channelData;
   }
 
-  void galleryMethod() {
-    handlePermissionsForImagePicker(context, ImageSource.gallery);
-    getIt<ChatCubit>().sendGalleryFileMessage(widget.channel);
-    //setState(() {});
+  void galleryMethod(BuildContext context) async {
+    getIt<ChatCubit>().sendGalleryFileMessage(widget.channel, context);
   }
 
   Future<void> refreshChatPage() {

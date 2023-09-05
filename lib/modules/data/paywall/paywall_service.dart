@@ -1,7 +1,10 @@
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:swagapp/modules/api/api.dart';
 import 'package:swagapp/modules/api/api_service.dart';
+import 'package:swagapp/modules/blocs/sold_bloc/sold_bloc.dart';
 import 'package:swagapp/modules/data/paywall/i_paywall_service.dart';
 import 'package:swagapp/modules/models/paywall/subscription_change_status.dart';
 import 'package:swagapp/modules/models/paywall/subscription_status_response.dart';
@@ -21,14 +24,18 @@ class PaywallService extends IPaywallService {
       method: RequestMethod.post,
       endpoint: Endpoint.paywallSubscription,
       needBearer: true,
-      body: {
+      body: (Platform.isIOS) ? {
         "accountId": request.accountId,
         "transactionId": request.transactionID,
+        "deviceId": request.deviceType
+      }:
+      {
+        "accountId": request.accountId,
+        "orderId": request.transactionID,
         "deviceId": request.deviceType
       },
       fromJson: (json) => PaywallSubscriptionResponse.fromJson(json),
     );
-
 
     return response;
   }
