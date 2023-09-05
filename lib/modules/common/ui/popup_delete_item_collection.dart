@@ -39,6 +39,9 @@ class _PopUpDeleteItemCollectionState extends State<PopUpDeleteItemCollection> {
 
   @override
   void initState() {
+    if (widget.dataCollection?.length == 1) {
+      razonUi = true;
+    }
     super.initState();
     removeDataCollection = widget.dataCollection![0];
   }
@@ -403,9 +406,9 @@ class _PopUpDeleteItemCollectionState extends State<PopUpDeleteItemCollection> {
                       onPressed: () {
                         setState(() {
                           razonUi = false;
-                          if (widget.dataCollection!.length == 1) {
+                          // if (widget.dataCollection!.length == 1) {
                             removeAlert = true;
-                          }
+                          // }
                         });
                       },
                       type: PrimaryButtonType.green,
@@ -432,7 +435,7 @@ class _PopUpDeleteItemCollectionState extends State<PopUpDeleteItemCollection> {
                                   .of(context)
                                   .collection_removal_not_allowed_if_on_sale);
                             } else {
-                              removeAlert = true;
+                              razonUi = true;
                             }
                           }
                         });
