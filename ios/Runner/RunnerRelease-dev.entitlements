@@ -3,10 +3,10 @@
 <plist version="1.0">
 <dict>
 	<key>aps-environment</key>
-	<string>production</string>
+	<string>development</string>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:cdn-uat.kuldisak.net</string>
+		<string>applinks:images.dev.swag.kuldisak.net</string>
 	</array>
 </dict>
 </plist>
