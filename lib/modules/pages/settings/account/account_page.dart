@@ -280,7 +280,7 @@ String getKycSting(String? status) {
 }
 
 bool shouldVerifyAgain(String? status) {
-  return ['failed', 'unsupported', 'unverified']
+  return ['failed', 'unsupported', 'unverified', 'started']
       .any((x) => (status ?? "").toLowerCase().contains(x));
 }
 
