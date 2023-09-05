@@ -336,7 +336,7 @@ class _PreviewListingAsGuestState extends State<PreviewListingAsGuest> {
                         listData.catalogItemId ?? '');
                   } else {
                     Share.share(
-                      '${listData.productItemName} - $shareListingUrl${listData.catalogItemId}',
+                      '${listData.productItemName} - $shareListingUrl${listData.productItemId}',
                     );
                   }
                 },
