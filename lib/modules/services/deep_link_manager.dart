@@ -7,6 +7,7 @@ import '../common/utils/context_service.dart';
 import '../data/shared_preferences/shared_preferences_service.dart';
 import '../di/injector.dart';
 import '../pages/add/buy/preview_buy_for_sale.dart';
+import '../pages/add/buy/preview_listing_as_guest.dart';
 
 class DeepLinkHandler {
   final AppLinks _appLinks = AppLinks();
@@ -35,12 +36,20 @@ void init() async {
     bool isLogged = getIt<PreferenceRepositoryService>().isLogged();
     var uriFragment = uri;
     String productId = getProductNumber(uriFragment.toString());
-   
-    getIt<ContextService>().rootNavigatorKey.currentState?.push(
-    MaterialPageRoute(
-      builder: (context) => BuyPreviewPage(productItemId: productId,)
-      )
-    );   
+
+    if (isLogged) {
+                              getIt<ContextService>().rootNavigatorKey.currentState?.push(
+                                  BuyPreviewPage.route(
+                                      productItemId:
+                                          productId,
+                                      ));
+                            } else {
+                             getIt<ContextService>().rootNavigatorKey.currentState?.push(
+                                  PreviewListingAsGuest.route(
+                                      productItemId:
+                                          productId,
+                                      ));
+                            }
   }
 
   getProductNumber(String url){

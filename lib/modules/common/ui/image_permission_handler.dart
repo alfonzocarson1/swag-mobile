@@ -24,10 +24,16 @@ Future<dynamic> imagePermissionHandler(
       type = GrantPermissionDialogType.camera;
       break;
     case ImageSource.gallery:
-      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    if(Platform.isAndroid){
+       AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
       int version = androidInfo.version.sdkInt;
       permission = (version <=32) ? Permission.storage : Permission.photos;
       type = GrantPermissionDialogType.photos;
+    }else{
+      permission = Permission.photos;
+      type = GrantPermissionDialogType.photos;
+    }
+      
       break;
   }
   final PermissionStatus status;
