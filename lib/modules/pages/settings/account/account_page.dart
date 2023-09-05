@@ -194,6 +194,22 @@ class AccountBody extends StatelessWidget {
                             );
                             refreshProfileData();
                           });
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              duration: const Duration(seconds: 3),
+                              behavior: SnackBarBehavior.floating,
+                              margin: EdgeInsets.only(
+                                bottom:
+                                    MediaQuery.of(context).size.height / 1.3,
+                              ),
+                              backgroundColor: Colors.transparent,
+                              content: ToastMessage(
+                                message: S.of(context).kyc_session_validating,
+                              ),
+                              dismissDirection: DismissDirection.none,
+                            ),
+                          );
                         }
                       },
                           Text(getKycSting(profileData.kycStatus),
