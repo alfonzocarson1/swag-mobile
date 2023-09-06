@@ -60,6 +60,7 @@ class AppConfig {
   final PaywallSubscriptionProducts paywallProducts;
   final PaywallSubscriptionProducts paywallAndroidProducts;
   final String deepLinkHost;
+  final String mixpanelToken;
 
   AppConfig._({
     required this.apiBaseUrl,
@@ -69,6 +70,7 @@ class AppConfig {
     required this.paywallProducts,
     required this.paywallAndroidProducts,
     required this.deepLinkHost,
+    required this.mixpanelToken,
   });
 
   static Future<AppConfig> init(String appFlavor) async {
@@ -104,18 +106,22 @@ class AppConfig {
         uat:()=>const PaywallSubscriptionProducts(annualSubscription: 'UAT_Swag_App_Premium_Annual', monthlySubscription: 'UAT_Swag_App_Premium_Monthly'),
         prod:()=>const PaywallSubscriptionProducts(annualSubscription: "Swag_App_Premium_Annual", monthlySubscription: "Swag_App_Premium_Monthly") ,
         orElse: ()=>const PaywallSubscriptionProducts(annualSubscription: "annualSubscription", monthlySubscription: "monthlySubscription")
-        ), 
+        ),
       paywallAndroidProducts: appFlavor.whenFlavorOrElse(
         dev: ()=> const PaywallSubscriptionProducts(annualSubscription: 'swag_app_premium_annual', monthlySubscription: 'swag_app_premium_monthly'),
         uat:()=>const PaywallSubscriptionProducts(annualSubscription: 'swag_app_premium_annual', monthlySubscription: 'swag_app_premium_monthly'),
         prod:()=>const PaywallSubscriptionProducts(annualSubscription: "swag_app_premium_annual", monthlySubscription: 'swag_app_premium_monthly') ,
         orElse: ()=>const PaywallSubscriptionProducts(annualSubscription: "swag_app_premium_annual", monthlySubscription: "swag_app_premium_monthly")
-        ), 
+        ),
         deepLinkHost: appFlavor.whenFlavorOrElse(
           dev: () => "https://images.dev.swag.kuldisak.net/",
           uat: () => "https://cdn-uat.kuldisak.net/",
           prod: () => "https://cdn.kuldisak.net/",
-          orElse: ()=> ""), 
-    );
+            orElse: () => ""),
+        mixpanelToken: appFlavor.whenFlavor(
+            dev: () => '03fa951043e16cd0277cacb261a16dbe',
+            uat: () => '223ac9de06f1e5fb6ad97c339bc0ff90',
+            stg: () => '223ac9de06f1e5fb6ad97c339bc0ff90',
+            prod: () => '48a5151af897caeac0ca923d1892c8de'));
   }
 }
