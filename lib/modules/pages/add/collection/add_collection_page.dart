@@ -163,6 +163,7 @@ class _AddCollectionState extends State<AddCollection> {
                   Loading.hide(context);
                 } else {
                   Navigator.of(context, rootNavigator: true).pop();
+                  Navigator.of(context, rootNavigator: true).pop();
                   Loading.hide(context);
                 }
 
