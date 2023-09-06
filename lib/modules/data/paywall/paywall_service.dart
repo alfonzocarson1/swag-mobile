@@ -24,6 +24,7 @@ class PaywallService extends IPaywallService {
       method: RequestMethod.post,
       endpoint: Endpoint.paywallSubscription,
       needBearer: true,
+      jsonKey: "PaywallSubscriptionResponse",
       body: (Platform.isIOS) ? {
         "accountId": request.accountId,
         "transactionId": request.transactionID,
