@@ -114,6 +114,7 @@ class AppConfig {
         deepLinkHost: appFlavor.whenFlavorOrElse(
           dev: () => "https://images.dev.swag.kuldisak.net/",
           uat: () => "https://cdn-uat.kuldisak.net/",
+          prod: () => "https://cdn.kuldisak.net/",
           orElse: ()=> ""), 
     );
   }

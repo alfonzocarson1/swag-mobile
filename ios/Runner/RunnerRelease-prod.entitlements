@@ -6,7 +6,7 @@
 	<string>production</string>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:cdn-uat.kuldisak.net</string>
+		<string>applinks:cdn.kuldisak.net</string>
 	</array>
 </dict>
 </plist>
