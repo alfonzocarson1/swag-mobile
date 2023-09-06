@@ -35,6 +35,7 @@ mixin _$BuyForSaleListingModel {
   bool? get sold => throw _privateConstructorUsedError;
   bool? get isDeleted => throw _privateConstructorUsedError;
   String? get status => throw _privateConstructorUsedError;
+  String? get catalogImageUrl => throw _privateConstructorUsedError;
   PeerToPeerPaymentsModel? get peerToPeerPaymentOptions =>
       throw _privateConstructorUsedError;
   BuyUserForSaleListingModel? get submitPurchaseInfo =>
@@ -67,6 +68,7 @@ abstract class $BuyForSaleListingModelCopyWith<$Res> {
       bool? sold,
       bool? isDeleted,
       String? status,
+      String? catalogImageUrl,
       PeerToPeerPaymentsModel? peerToPeerPaymentOptions,
       BuyUserForSaleListingModel? submitPurchaseInfo});
 
@@ -102,6 +104,7 @@ class _$BuyForSaleListingModelCopyWithImpl<$Res,
     Object? sold = freezed,
     Object? isDeleted = freezed,
     Object? status = freezed,
+    Object? catalogImageUrl = freezed,
     Object? peerToPeerPaymentOptions = freezed,
     Object? submitPurchaseInfo = freezed,
   }) {
@@ -161,6 +164,10 @@ class _$BuyForSaleListingModelCopyWithImpl<$Res,
       status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
+              as String?,
+      catalogImageUrl: freezed == catalogImageUrl
+          ? _value.catalogImageUrl
+          : catalogImageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
       peerToPeerPaymentOptions: freezed == peerToPeerPaymentOptions
           ? _value.peerToPeerPaymentOptions
@@ -223,6 +230,7 @@ abstract class _$$_BuyForSaleListingModelCopyWith<$Res>
       bool? sold,
       bool? isDeleted,
       String? status,
+      String? catalogImageUrl,
       PeerToPeerPaymentsModel? peerToPeerPaymentOptions,
       BuyUserForSaleListingModel? submitPurchaseInfo});
 
@@ -258,6 +266,7 @@ class __$$_BuyForSaleListingModelCopyWithImpl<$Res>
     Object? sold = freezed,
     Object? isDeleted = freezed,
     Object? status = freezed,
+    Object? catalogImageUrl = freezed,
     Object? peerToPeerPaymentOptions = freezed,
     Object? submitPurchaseInfo = freezed,
   }) {
@@ -318,6 +327,10 @@ class __$$_BuyForSaleListingModelCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String?,
+      catalogImageUrl: freezed == catalogImageUrl
+          ? _value.catalogImageUrl
+          : catalogImageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
       peerToPeerPaymentOptions: freezed == peerToPeerPaymentOptions
           ? _value.peerToPeerPaymentOptions
           : peerToPeerPaymentOptions // ignore: cast_nullable_to_non_nullable
@@ -349,6 +362,7 @@ class _$_BuyForSaleListingModel implements _BuyForSaleListingModel {
       this.sold,
       this.isDeleted,
       this.status,
+      this.catalogImageUrl,
       this.peerToPeerPaymentOptions,
       this.submitPurchaseInfo})
       : _productItemImageUrls = productItemImageUrls;
@@ -393,13 +407,15 @@ class _$_BuyForSaleListingModel implements _BuyForSaleListingModel {
   @override
   final String? status;
   @override
+  final String? catalogImageUrl;
+  @override
   final PeerToPeerPaymentsModel? peerToPeerPaymentOptions;
   @override
   final BuyUserForSaleListingModel? submitPurchaseInfo;
 
   @override
   String toString() {
-    return 'BuyForSaleListingModel(productItemId: $productItemId, productItemName: $productItemName, productItemPrice: $productItemPrice, productItemImageUrls: $productItemImageUrls, productItemDescription: $productItemDescription, condition: $condition, profileId: $profileId, catalogItemId: $catalogItemId, profileCollectionItemId: $profileCollectionItemId, lastSale: $lastSale, forSale: $forSale, sold: $sold, isDeleted: $isDeleted, status: $status, peerToPeerPaymentOptions: $peerToPeerPaymentOptions, submitPurchaseInfo: $submitPurchaseInfo)';
+    return 'BuyForSaleListingModel(productItemId: $productItemId, productItemName: $productItemName, productItemPrice: $productItemPrice, productItemImageUrls: $productItemImageUrls, productItemDescription: $productItemDescription, condition: $condition, profileId: $profileId, catalogItemId: $catalogItemId, profileCollectionItemId: $profileCollectionItemId, lastSale: $lastSale, forSale: $forSale, sold: $sold, isDeleted: $isDeleted, status: $status, catalogImageUrl: $catalogImageUrl, peerToPeerPaymentOptions: $peerToPeerPaymentOptions, submitPurchaseInfo: $submitPurchaseInfo)';
   }
 
   @override
@@ -433,6 +449,8 @@ class _$_BuyForSaleListingModel implements _BuyForSaleListingModel {
             (identical(other.isDeleted, isDeleted) ||
                 other.isDeleted == isDeleted) &&
             (identical(other.status, status) || other.status == status) &&
+            (identical(other.catalogImageUrl, catalogImageUrl) ||
+                other.catalogImageUrl == catalogImageUrl) &&
             (identical(
                     other.peerToPeerPaymentOptions, peerToPeerPaymentOptions) ||
                 other.peerToPeerPaymentOptions == peerToPeerPaymentOptions) &&
@@ -458,6 +476,7 @@ class _$_BuyForSaleListingModel implements _BuyForSaleListingModel {
       sold,
       isDeleted,
       status,
+      catalogImageUrl,
       peerToPeerPaymentOptions,
       submitPurchaseInfo);
 
@@ -492,6 +511,7 @@ abstract class _BuyForSaleListingModel implements BuyForSaleListingModel {
           final bool? sold,
           final bool? isDeleted,
           final String? status,
+          final String? catalogImageUrl,
           final PeerToPeerPaymentsModel? peerToPeerPaymentOptions,
           final BuyUserForSaleListingModel? submitPurchaseInfo}) =
       _$_BuyForSaleListingModel;
@@ -527,6 +547,8 @@ abstract class _BuyForSaleListingModel implements BuyForSaleListingModel {
   bool? get isDeleted;
   @override
   String? get status;
+  @override
+  String? get catalogImageUrl;
   @override
   PeerToPeerPaymentsModel? get peerToPeerPaymentOptions;
   @override

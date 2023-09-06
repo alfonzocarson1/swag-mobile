@@ -15,9 +15,13 @@ import '../../../../common/ui/popup_image_guidelines.dart';
 
 class SliderCustomWidget extends StatefulWidget {
   const SliderCustomWidget(
-      {this.imageUrls, required this.getImageFiles, super.key});
+      {this.imageUrls,
+      required this.getImageFiles,
+      this.catalogImageUrl,
+      super.key});
   final List<dynamic>? imageUrls;
   final ValueChanged<List<File>> getImageFiles;
+  final String? catalogImageUrl;
 
   @override
   State<SliderCustomWidget> createState() => _SliderCustomWidgetState();
@@ -51,6 +55,7 @@ class _SliderCustomWidgetState extends State<SliderCustomWidget> {
         : MultiImageSlide(
             imgList: imgList,
             addPhoto: () => selectImages(),
+            catalogImage: widget.catalogImageUrl,
             onRemove: (index) {
               removeImage(index, imgList);
             },
@@ -61,8 +66,8 @@ class _SliderCustomWidgetState extends State<SliderCustomWidget> {
     // Pick an image
     removedImages = false;
     try {
-      final List<XFile> selectedImages =
-          await imagePermissionHandler(true, null,context, ImageSource.gallery);
+      final List<XFile> selectedImages = await imagePermissionHandler(
+          true, null, context, ImageSource.gallery);
 
       if ((selectedImages.length + imgList.length) <= 6) {
         scaleDownXFile(selectedImages);

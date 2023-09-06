@@ -720,21 +720,21 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
         );
     Navigator.of(context, rootNavigator: true).push(
       EditListForSalePage.route(
-        DetailCollectionModel(
-          profileCollectionItemId: listData.productItemId ?? '',
-          catalogItemId: listData.catalogItemId ?? '',
-          description: listData.productItemDescription,
-          purchaseDate: '',
-          purchasePrice: listData.lastSale ?? 0.0,
-          itemCondition: listData.condition ?? 'condition',
-          itemSource: '',
-        ),
-        listData.productItemId,
-        listData.productItemName ?? '',
-        listData.productItemImageUrls,
-        salesHistoryList,
-        listData.peerToPeerPaymentOptions?.listOfAvailableMethods() ?? [],
-      ),
+          DetailCollectionModel(
+            profileCollectionItemId: listData.productItemId ?? '',
+            catalogItemId: listData.catalogItemId ?? '',
+            description: listData.productItemDescription,
+            purchaseDate: '',
+            purchasePrice: listData.lastSale ?? 0.0,
+            itemCondition: listData.condition ?? 'condition',
+            itemSource: '',
+          ),
+          listData.productItemId,
+          listData.productItemName ?? '',
+          listData.productItemImageUrls,
+          salesHistoryList,
+          listData.peerToPeerPaymentOptions?.listOfAvailableMethods() ?? [],
+          listData.catalogImageUrl),
     );
   }
 
