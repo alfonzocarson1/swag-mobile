@@ -28,6 +28,8 @@ mixin _$PaywallSubscriptionResponse {
   bool get hasUsedFreeTrial => throw _privateConstructorUsedError;
   String get subscriptionDate => throw _privateConstructorUsedError;
   bool get isDeleted => throw _privateConstructorUsedError;
+  String get latestOrderId => throw _privateConstructorUsedError;
+  String get subscriptionDateByGoogle => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -50,7 +52,9 @@ abstract class $PaywallSubscriptionResponseCopyWith<$Res> {
       bool hasActiveSubscription,
       bool hasUsedFreeTrial,
       String subscriptionDate,
-      bool isDeleted});
+      bool isDeleted,
+      String latestOrderId,
+      String subscriptionDateByGoogle});
 }
 
 /// @nodoc
@@ -74,6 +78,8 @@ class _$PaywallSubscriptionResponseCopyWithImpl<$Res,
     Object? hasUsedFreeTrial = null,
     Object? subscriptionDate = null,
     Object? isDeleted = null,
+    Object? latestOrderId = null,
+    Object? subscriptionDateByGoogle = null,
   }) {
     return _then(_value.copyWith(
       accountId: null == accountId
@@ -104,6 +110,14 @@ class _$PaywallSubscriptionResponseCopyWithImpl<$Res,
           ? _value.isDeleted
           : isDeleted // ignore: cast_nullable_to_non_nullable
               as bool,
+      latestOrderId: null == latestOrderId
+          ? _value.latestOrderId
+          : latestOrderId // ignore: cast_nullable_to_non_nullable
+              as String,
+      subscriptionDateByGoogle: null == subscriptionDateByGoogle
+          ? _value.subscriptionDateByGoogle
+          : subscriptionDateByGoogle // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -124,7 +138,9 @@ abstract class _$$_PaywallSubscriptionResponseCopyWith<$Res>
       bool hasActiveSubscription,
       bool hasUsedFreeTrial,
       String subscriptionDate,
-      bool isDeleted});
+      bool isDeleted,
+      String latestOrderId,
+      String subscriptionDateByGoogle});
 }
 
 /// @nodoc
@@ -147,6 +163,8 @@ class __$$_PaywallSubscriptionResponseCopyWithImpl<$Res>
     Object? hasUsedFreeTrial = null,
     Object? subscriptionDate = null,
     Object? isDeleted = null,
+    Object? latestOrderId = null,
+    Object? subscriptionDateByGoogle = null,
   }) {
     return _then(_$_PaywallSubscriptionResponse(
       accountId: null == accountId
@@ -177,6 +195,14 @@ class __$$_PaywallSubscriptionResponseCopyWithImpl<$Res>
           ? _value.isDeleted
           : isDeleted // ignore: cast_nullable_to_non_nullable
               as bool,
+      latestOrderId: null == latestOrderId
+          ? _value.latestOrderId
+          : latestOrderId // ignore: cast_nullable_to_non_nullable
+              as String,
+      subscriptionDateByGoogle: null == subscriptionDateByGoogle
+          ? _value.subscriptionDateByGoogle
+          : subscriptionDateByGoogle // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -186,35 +212,50 @@ class __$$_PaywallSubscriptionResponseCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_PaywallSubscriptionResponse implements _PaywallSubscriptionResponse {
   const _$_PaywallSubscriptionResponse(
-      {required this.accountId,
-      required this.profileSubscriptionId,
-      required this.transactionId,
-      required this.hasActiveSubscription,
-      required this.hasUsedFreeTrial,
-      required this.subscriptionDate,
-      required this.isDeleted});
+      {this.accountId = "",
+      this.profileSubscriptionId = "",
+      this.transactionId = "",
+      this.hasActiveSubscription = false,
+      this.hasUsedFreeTrial = false,
+      this.subscriptionDate = "",
+      this.isDeleted = false,
+      this.latestOrderId = "",
+      this.subscriptionDateByGoogle = ""});
 
   factory _$_PaywallSubscriptionResponse.fromJson(Map<String, dynamic> json) =>
       _$$_PaywallSubscriptionResponseFromJson(json);
 
   @override
+  @JsonKey()
   final String accountId;
   @override
+  @JsonKey()
   final String profileSubscriptionId;
   @override
+  @JsonKey()
   final String transactionId;
   @override
+  @JsonKey()
   final bool hasActiveSubscription;
   @override
+  @JsonKey()
   final bool hasUsedFreeTrial;
   @override
+  @JsonKey()
   final String subscriptionDate;
   @override
+  @JsonKey()
   final bool isDeleted;
+  @override
+  @JsonKey()
+  final String latestOrderId;
+  @override
+  @JsonKey()
+  final String subscriptionDateByGoogle;
 
   @override
   String toString() {
-    return 'PaywallSubscriptionResponse(accountId: $accountId, profileSubscriptionId: $profileSubscriptionId, transactionId: $transactionId, hasActiveSubscription: $hasActiveSubscription, hasUsedFreeTrial: $hasUsedFreeTrial, subscriptionDate: $subscriptionDate, isDeleted: $isDeleted)';
+    return 'PaywallSubscriptionResponse(accountId: $accountId, profileSubscriptionId: $profileSubscriptionId, transactionId: $transactionId, hasActiveSubscription: $hasActiveSubscription, hasUsedFreeTrial: $hasUsedFreeTrial, subscriptionDate: $subscriptionDate, isDeleted: $isDeleted, latestOrderId: $latestOrderId, subscriptionDateByGoogle: $subscriptionDateByGoogle)';
   }
 
   @override
@@ -235,7 +276,12 @@ class _$_PaywallSubscriptionResponse implements _PaywallSubscriptionResponse {
             (identical(other.subscriptionDate, subscriptionDate) ||
                 other.subscriptionDate == subscriptionDate) &&
             (identical(other.isDeleted, isDeleted) ||
-                other.isDeleted == isDeleted));
+                other.isDeleted == isDeleted) &&
+            (identical(other.latestOrderId, latestOrderId) ||
+                other.latestOrderId == latestOrderId) &&
+            (identical(
+                    other.subscriptionDateByGoogle, subscriptionDateByGoogle) ||
+                other.subscriptionDateByGoogle == subscriptionDateByGoogle));
   }
 
   @JsonKey(ignore: true)
@@ -248,7 +294,9 @@ class _$_PaywallSubscriptionResponse implements _PaywallSubscriptionResponse {
       hasActiveSubscription,
       hasUsedFreeTrial,
       subscriptionDate,
-      isDeleted);
+      isDeleted,
+      latestOrderId,
+      subscriptionDateByGoogle);
 
   @JsonKey(ignore: true)
   @override
@@ -268,13 +316,15 @@ class _$_PaywallSubscriptionResponse implements _PaywallSubscriptionResponse {
 abstract class _PaywallSubscriptionResponse
     implements PaywallSubscriptionResponse {
   const factory _PaywallSubscriptionResponse(
-      {required final String accountId,
-      required final String profileSubscriptionId,
-      required final String transactionId,
-      required final bool hasActiveSubscription,
-      required final bool hasUsedFreeTrial,
-      required final String subscriptionDate,
-      required final bool isDeleted}) = _$_PaywallSubscriptionResponse;
+      {final String accountId,
+      final String profileSubscriptionId,
+      final String transactionId,
+      final bool hasActiveSubscription,
+      final bool hasUsedFreeTrial,
+      final String subscriptionDate,
+      final bool isDeleted,
+      final String latestOrderId,
+      final String subscriptionDateByGoogle}) = _$_PaywallSubscriptionResponse;
 
   factory _PaywallSubscriptionResponse.fromJson(Map<String, dynamic> json) =
       _$_PaywallSubscriptionResponse.fromJson;
@@ -293,6 +343,10 @@ abstract class _PaywallSubscriptionResponse
   String get subscriptionDate;
   @override
   bool get isDeleted;
+  @override
+  String get latestOrderId;
+  @override
+  String get subscriptionDateByGoogle;
   @override
   @JsonKey(ignore: true)
   _$$_PaywallSubscriptionResponseCopyWith<_$_PaywallSubscriptionResponse>

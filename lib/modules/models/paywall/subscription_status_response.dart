@@ -7,13 +7,15 @@ part 'subscription_status_response.g.dart';
 class PaywallSubscriptionResponse with _$PaywallSubscriptionResponse {
   @JsonSerializable()
   const factory PaywallSubscriptionResponse({
-    required final String accountId,
-    required final String profileSubscriptionId,
-    required final String transactionId,
-    required final bool hasActiveSubscription,
-    required final bool hasUsedFreeTrial,
-    required final String subscriptionDate,
-    required final bool isDeleted,
+    @Default("") String accountId,
+    @Default("") String profileSubscriptionId,
+    @Default("")  String transactionId,
+    @Default(false)final bool hasActiveSubscription,
+    @Default(false)final bool hasUsedFreeTrial,
+    @Default("")final String subscriptionDate,
+    @Default(false)final bool isDeleted,
+    @Default("") String latestOrderId,
+    @Default("") String subscriptionDateByGoogle,
 
   }) = _PaywallSubscriptionResponse;
 
