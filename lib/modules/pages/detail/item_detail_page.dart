@@ -71,6 +71,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
     super.initState();
     _routeHistoryCubit = getIt<RouteHistoryCubit>();
     _routeHistoryCubit.toggleRoute('ItemDetail');
+    getIt<PreferenceRepositoryService>().saveBackProfileCollection(false);
     isFirstState = true;
     isLogged = getIt<PreferenceRepositoryService>().isLogged();
 

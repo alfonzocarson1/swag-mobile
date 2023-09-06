@@ -1,10 +1,13 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:swagapp/modules/models/listing_for_sale/listing_for_sale_model.dart';
 import 'package:swagapp/modules/models/search/catalog_item_model.dart';
 
+import '../../common/ui/loading.dart';
+import '../../common/utils/context_service.dart';
 import '../../common/utils/handling_errors.dart';
 import '../../cubits/collections/get_collections_cubit.dart';
 import '../../cubits/profile/get_profile_cubit.dart';
@@ -38,8 +41,10 @@ class CollectionBloc extends Bloc<CollectionEvent, CollectionState> {
   }
 
   Stream<CollectionState> _addCollection(AddCollectionModel param) async* {
-    yield CollectionState.initial();
+    BuildContext context =
+        getIt<ContextService>().rootNavigatorKey.currentContext!;
     try {
+      Loading.show(context);
       AddCollectionModel responseBody =
           await collectionService.addCollection(param);
 
