@@ -14,7 +14,6 @@ import '../../../common/ui/add_photo_list_item.dart';
 import '../../../common/ui/image_permission_handler.dart';
 import '../../../common/ui/custom_text_form_field.dart';
 
-
 import '../../../common/ui/multi_image_slide.dart';
 import '../../../common/ui/popup_image_guidelines.dart';
 
@@ -23,6 +22,7 @@ import '../../../common/ui/pushed_header.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
 
+import '../../../common/utils/tab_wrapper.dart';
 import '../../../common/utils/utils.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
@@ -42,25 +42,29 @@ class ListForSalePage extends StatefulWidget {
       this.collectionData,
       required this.catalogItemName,
       this.salesHistoryNavigation,
-      this.catalogImage});
+      this.catalogImage,
+      required this.categoryName});
 
   DetailCollectionModel? collectionData;
   String catalogItemName;
   VoidCallback? salesHistoryNavigation;
   String? catalogImage;
+  final String categoryName;
 
   static Route route(
           VoidCallback? salesHistoryNavigation,
           DetailCollectionModel? collectionData,
           String catalogItemName,
-          String? catalogImage) =>
+          String? catalogImage,
+          String categoryName) =>
       PageRoutes.slideUp(
         settings: const RouteSettings(name: name),
         builder: (context) => ListForSalePage(
             salesHistoryNavigation: salesHistoryNavigation,
             collectionData: collectionData,
             catalogItemName: catalogItemName,
-            catalogImage: catalogImage),
+            catalogImage: catalogImage,
+            categoryName: categoryName),
       );
 
   @override
@@ -72,7 +76,7 @@ class _ListForSalePageState extends State<ListForSalePage> {
   PeerToPeerPaymentsGetModel paymentData =
       getIt<PreferenceRepositoryService>().paymanetData();
   List<File> imageFileList = [];
-
+  bool allowedListPrice = true;
   bool isPostListing = false;
   final FocusNode _listPriceItemNode = FocusNode();
   final _listPriceItemController = TextEditingController();
@@ -541,9 +545,23 @@ class _ListForSalePageState extends State<ListForSalePage> {
     setState(() {
       paymentErrorText =
           (_selectedPayments.isNotEmpty) ? null : S.of(context).required_field;
-
+      double listPrice = 0.0;
+      if (_listPriceItemController.text.isNotEmpty) {
+        listPrice = double.parse(_listPriceItemController.value.text);
+      }
+      allowedListPrice = true;
+      String errorMinimumListingPrice = '';
+      if (widget.categoryName == SearchTab.headcovers.name.toUpperCase()) {
+        allowedListPrice = (listPrice >= 50);
+        errorMinimumListingPrice = S.of(context).minimum_price_headcover;
+      } else if (widget.categoryName == SearchTab.putters.name.toUpperCase()) {
+        allowedListPrice = (listPrice >= 250);
+        errorMinimumListingPrice = S.of(context).minimum_price_putter;
+      }
       listPriceItemErrorText = _listPriceItemController.text.isNotEmpty
-          ? null
+          ? allowedListPrice
+              ? null
+              : errorMinimumListingPrice
           : S.of(context).required_field;
 
       conditionErrorText = _defaultCondition != 'Condition'
@@ -560,13 +578,15 @@ class _ListForSalePageState extends State<ListForSalePage> {
     return _listPriceItemController.text.isNotEmpty &&
         _defaultCondition != 'Condition' &&
         _listDescriptionItemController.text.isNotEmpty &&
-        _selectedPayments.isNotEmpty;
+        _selectedPayments.isNotEmpty &&
+        allowedListPrice;
   }
 
   Future<void> selectImages() async {
     // Pick an image
     try {
-      final List<XFile> selectedImages = await imagePermissionHandler(true, null,context, ImageSource.gallery);
+      final List<XFile> selectedImages = await imagePermissionHandler(
+          true, null, context, ImageSource.gallery);
       if ((selectedImages.length + imageFileList.length) <= 6) {
         scaleDownXFile(selectedImages);
       } else {

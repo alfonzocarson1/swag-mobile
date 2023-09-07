@@ -4970,6 +4970,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Minimum listing price is $50`
+  String get minimum_price_headcover {
+    return Intl.message(
+      'Minimum listing price is \$50',
+      name: 'minimum_price_headcover',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Minimum listing price is $250`
+  String get minimum_price_putter {
+    return Intl.message(
+      'Minimum listing price is \$250',
+      name: 'minimum_price_putter',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

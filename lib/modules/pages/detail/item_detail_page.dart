@@ -20,6 +20,7 @@ import '../../di/injector.dart';
 import '../../models/detail/detail_item_model.dart';
 
 import '../../models/detail/sale_list_history_model.dart';
+import '../../models/search/category_model.dart';
 import '../add/collection/add_collection_page.dart';
 import '../login/create_account_page.dart';
 import 'intem_head.dart';
@@ -54,12 +55,13 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
   late final ScrollController _scrollController =
       PrimaryScrollController.of(context);
   late RouteHistoryCubit _routeHistoryCubit;
-
+  List<CategoryModel> categories = [];
   int? _collectionLen;
   String _pathImage = '';
   String _itemName = '';
   bool isFirstState = true;
   bool isLogged = false;
+  String categoryName = '';
   List<DetailItemModel>? dataDetailClone;
   SalesHistoryListModel saleHistoryModel =
       const SalesHistoryListModel(saleHistoryList: []);
@@ -74,7 +76,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
     getIt<PreferenceRepositoryService>().saveBackProfileCollection(false);
     isFirstState = true;
     isLogged = getIt<PreferenceRepositoryService>().isLogged();
-
+    getLastCategories();
     context
         .read<DetailBloc>()
         .add(DetailEvent.getDetailItem(widget.catalogItemId));
@@ -162,16 +164,29 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                     ));
               },
               loadedDetailItems: (state) {
+                Future.delayed(const Duration(milliseconds: 100), () {
+                  setState(() {
+                    CategoryModel foundCategory = categories.firstWhere(
+                        (category) =>
+                            category.catalogCategoryId ==
+                            state.detaItemlList[0].catalogItemCategoryId);
+
+                    this.categoryName = foundCategory.categoryName;
+                  });
+                });
                 if (isFirstState) {
                   dataDetailClone = [...state.detaItemlList];
                   isFirstState = false;
                 }
-
                 return _getBody(dataDetailClone!);
               },
             );
           },
         ));
+  }
+
+  Future<void> getLastCategories() async {
+    categories = await getIt<PreferenceRepositoryService>().getLastCategories();
   }
 
   Widget _getBody(List<DetailItemModel> dataDetail) {
@@ -267,26 +282,26 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                         retail: dataDetail[index].retail,
                         available: dataDetail[index].numberAvailable),
                     CollectionWidget(
-                      addFavorite: (val) {
-                        setState(() {
-                          widget.addFavorite(val);
-                          dataDetail[index] =
-                              dataDetail[index].copyWith(inFavorites: val);
-                        });
-                      },
-                      saleHistoryList: saleHistoryList,
-                      salesHistoryNavigation: (saleHistoryList.isNotEmpty)
-                          ? () => navigationCallback(dataDetail[index])
-                          : null,
-                      sale: dataDetail[index].forSale,
-                      dataCollection: dataDetail[index].collectionItems,
-                      lastSale: dataDetail[index].saleInfo,
-                      available: dataDetail[index].numberAvailable,
-                      catalogId: dataDetail[index].catalogItemId,
-                      catalogItemName: dataDetail[index].catalogItemName,
-                      favorite: dataDetail[index].inFavorites,
-                      urlImage: dataDetail[index].catalogItemImage,
-                    ),
+                        addFavorite: (val) {
+                          setState(() {
+                            widget.addFavorite(val);
+                            dataDetail[index] =
+                                dataDetail[index].copyWith(inFavorites: val);
+                          });
+                        },
+                        saleHistoryList: saleHistoryList,
+                        salesHistoryNavigation: (saleHistoryList.isNotEmpty)
+                            ? () => navigationCallback(dataDetail[index])
+                            : null,
+                        sale: dataDetail[index].forSale,
+                        dataCollection: dataDetail[index].collectionItems,
+                        lastSale: dataDetail[index].saleInfo,
+                        available: dataDetail[index].numberAvailable,
+                        catalogId: dataDetail[index].catalogItemId,
+                        catalogItemName: dataDetail[index].catalogItemName,
+                        favorite: dataDetail[index].inFavorites,
+                        urlImage: dataDetail[index].catalogItemImage,
+                        categoryName: this.categoryName),
                   ],
                 ),
               ),

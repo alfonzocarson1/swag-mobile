@@ -14,8 +14,7 @@ class BuyForSaleListingModel with _$BuyForSaleListingModel {
     final String? productItemId,
     final String? productItemName,
     final double? productItemPrice,
-    @Default([])
-    final List<dynamic> productItemImageUrls,
+    @Default([]) final List<dynamic> productItemImageUrls,
     final String? productItemDescription,
     final String? condition,
     final String? profileId,
@@ -26,6 +25,7 @@ class BuyForSaleListingModel with _$BuyForSaleListingModel {
     final bool? sold,
     final bool? isDeleted,
     final String? status,
+    final String? catalogImageUrl,
     final PeerToPeerPaymentsModel? peerToPeerPaymentOptions,
     final BuyUserForSaleListingModel? submitPurchaseInfo,
   }) = _BuyForSaleListingModel;

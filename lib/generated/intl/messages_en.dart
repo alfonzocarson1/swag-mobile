@@ -450,6 +450,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "mail_was_sent": MessageLookupByLibrary.simpleMessage("Mail was sent"),
         "make_an_offer": MessageLookupByLibrary.simpleMessage("MAKE AN OFFER"),
         "message": MessageLookupByLibrary.simpleMessage("Message"),
+        "minimum_price_headcover": MessageLookupByLibrary.simpleMessage(
+            "Minimum listing price is \$50"),
+        "minimum_price_putter": MessageLookupByLibrary.simpleMessage(
+            "Minimum listing price is \$250"),
         "mobile": MessageLookupByLibrary.simpleMessage("Mobile"),
         "multi_collection_subtitle": MessageLookupByLibrary.simpleMessage(
             "It looks like you already have this item in your collection. Are you sure you want to add another?"),

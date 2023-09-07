@@ -24,6 +24,7 @@ _$_BuyForSaleListingModel _$$_BuyForSaleListingModelFromJson(
       sold: json['sold'] as bool?,
       isDeleted: json['isDeleted'] as bool?,
       status: json['status'] as String?,
+      catalogImageUrl: json['catalogImageUrl'] as String?,
       peerToPeerPaymentOptions: json['peerToPeerPaymentOptions'] == null
           ? null
           : PeerToPeerPaymentsModel.fromJson(
@@ -58,6 +59,7 @@ Map<String, dynamic> _$$_BuyForSaleListingModelToJson(
   writeNotNull('sold', instance.sold);
   writeNotNull('isDeleted', instance.isDeleted);
   writeNotNull('status', instance.status);
+  writeNotNull('catalogImageUrl', instance.catalogImageUrl);
   writeNotNull('peerToPeerPaymentOptions', instance.peerToPeerPaymentOptions);
   writeNotNull('submitPurchaseInfo', instance.submitPurchaseInfo);
   return val;

@@ -37,15 +37,15 @@ import 'widgets/multi_pyment.dart';
 class EditListForSalePage extends StatefulWidget {
   static const name = '/ListForSalePage';
 
-  const EditListForSalePage({
-    super.key,
-    this.collectionData,
-    this.productItemId,
-    required this.catalogItemName,
-    this.imageUrls,
-    required this.salesHistoryListModel,
-    required this.paymentAccepted,
-  });
+  const EditListForSalePage(
+      {super.key,
+      this.collectionData,
+      this.productItemId,
+      required this.catalogItemName,
+      this.imageUrls,
+      required this.salesHistoryListModel,
+      required this.paymentAccepted,
+      this.catalogImageUrl});
 
   final DetailCollectionModel? collectionData;
   final String? productItemId;
@@ -53,25 +53,26 @@ class EditListForSalePage extends StatefulWidget {
   final List<dynamic>? imageUrls;
   final SalesHistoryListModel salesHistoryListModel;
   final List<String> paymentAccepted;
+  final String? catalogImageUrl;
 
   static Route route(
-    DetailCollectionModel? collectionData,
-    String? productItemId,
-    String catalogItemName,
-    List<dynamic>? imageUrls,
-    SalesHistoryListModel salesHistoryListModel,
-    List<String> paymentAccepted,
-  ) =>
+          DetailCollectionModel? collectionData,
+          String? productItemId,
+          String catalogItemName,
+          List<dynamic>? imageUrls,
+          SalesHistoryListModel salesHistoryListModel,
+          List<String> paymentAccepted,
+          String? catalogImageUrl) =>
       PageRoutes.slideUp(
         settings: const RouteSettings(name: name),
         builder: (context) => EditListForSalePage(
-          productItemId: productItemId,
-          collectionData: collectionData,
-          catalogItemName: catalogItemName,
-          imageUrls: imageUrls,
-          salesHistoryListModel: salesHistoryListModel,
-          paymentAccepted: paymentAccepted,
-        ),
+            productItemId: productItemId,
+            collectionData: collectionData,
+            catalogItemName: catalogItemName,
+            imageUrls: imageUrls,
+            salesHistoryListModel: salesHistoryListModel,
+            paymentAccepted: paymentAccepted,
+            catalogImageUrl: catalogImageUrl),
       );
 
   @override
@@ -271,11 +272,8 @@ class _EditListForSalePageState extends State<EditListForSalePage> {
                         child: Column(
                           children: [
                             SizedBox(
-                              height: (MediaQuery.of(context).size.height -
-                                      MediaQuery.of(context).padding.top -
-                                      150) *
-                                  0.5,
                               child: SliderCustomWidget(
+                                catalogImageUrl: widget.catalogImageUrl,
                                 imageUrls: widget.imageUrls,
                                 getImageFiles: getImageFiles,
                               ),

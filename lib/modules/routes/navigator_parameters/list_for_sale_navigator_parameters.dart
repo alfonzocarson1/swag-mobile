@@ -6,10 +6,12 @@ class ListForSaleNavigatorParameters {
   final DetailCollectionModel? collectionData;
   final VoidCallback? salesHistoryNavigation;
   final String? catalogImage;
+  final String categoryName;
 
   ListForSaleNavigatorParameters(
       {this.collectionData,
       this.salesHistoryNavigation,
       required this.catalogItemName,
-      this.catalogImage});
+      this.catalogImage,
+      required this.categoryName});
 }

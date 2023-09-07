@@ -14,10 +14,12 @@ class PopUpListItemSale extends StatefulWidget {
       {super.key,
       required this.dataCollection,
       required this.catalogItemName,
-      this.catalogImage});
+      this.catalogImage,
+      required this.categoryName});
   final String catalogItemName;
   final List<DetailCollectionModel>? dataCollection;
   String? catalogImage;
+  final String categoryName;
   @override
   State<PopUpListItemSale> createState() => _PopUpListItemSaleState();
 }
@@ -240,8 +242,12 @@ class _PopUpListItemSaleState extends State<PopUpListItemSale> {
                         if (collectionSelected != null) {
                           Navigator.pop(context);
                           Navigator.of(context, rootNavigator: true).push(
-                              ListForSalePage.route(() {}, collectionSelected,
-                                  widget.catalogItemName, widget.catalogImage));
+                              ListForSalePage.route(
+                                  () {},
+                                  collectionSelected,
+                                  widget.catalogItemName,
+                                  widget.catalogImage,
+                                  widget.categoryName));
                         } else {
                           setState(() {
                             _showErrorPleaseSelectOne = true;
