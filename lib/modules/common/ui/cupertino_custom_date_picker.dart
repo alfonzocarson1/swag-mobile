@@ -11,11 +11,13 @@ class CupertinoDatePickerView extends StatefulWidget {
       {Key? key,
       required this.cupertinoDatePickervalue,
       required this.onDone,
+      this.enabled = true,
       this.errorText})
       : super(key: key);
 
   final DateTime cupertinoDatePickervalue;
   Function(DateTime) onDone;
+  final bool enabled;
   String? errorText;
 
   @override
@@ -52,7 +54,7 @@ class _CupertinoDatePickerViewState extends State<CupertinoDatePickerView> {
         children: [
           InkWell(
             onTap: () {
-              _showDatePicker(context);
+              if (widget.enabled) _showDatePicker(context);
             },
             child: Column(
               children: [
@@ -79,8 +81,12 @@ class _CupertinoDatePickerViewState extends State<CupertinoDatePickerView> {
                           Expanded(
                               flex: 1,
                               child: Text(
-                                initMessage
-                                    ? S.of(context).date_purchased
+                                widget.enabled
+                                    ? initMessage
+                                        ? S.of(context).date_purchased
+                                        : formatDate(widget
+                                            .cupertinoDatePickervalue
+                                            .toString())
                                     : formatDate(widget.cupertinoDatePickervalue
                                         .toString()),
                                 style: Theme.of(context)
