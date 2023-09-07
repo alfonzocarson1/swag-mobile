@@ -11,7 +11,8 @@ import '../../models/profile/profile_model.dart';
 import 'avatar.dart';
 
 class AccountInfoHeaderWidget extends StatefulWidget {
-  const AccountInfoHeaderWidget({super.key});
+   AccountInfoHeaderWidget({super.key, required this.avatarFirstUse});
+  final bool avatarFirstUse;
 
   @override
   State<AccountInfoHeaderWidget> createState() =>
@@ -36,8 +37,8 @@ class _AccountInfoHeaderWidgetState extends State<AccountInfoHeaderWidget> {
         return Center(
           child: Column(
             children: [
-              const AvatarPage(
-                isFirstUse: true,
+               AvatarPage(
+                isFirstUse: widget.avatarFirstUse,
               ),
               const SizedBox(
                 height: 20,

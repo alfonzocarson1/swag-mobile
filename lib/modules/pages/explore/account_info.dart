@@ -570,7 +570,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            const AccountInfoHeaderWidget(),
+                             AccountInfoHeaderWidget(avatarFirstUse: true),
                             const SizedBox(
                               height: 20,
                             ),

@@ -160,7 +160,7 @@ class _ProfilePageState extends State<ProfilePage>
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            const AccountInfoHeaderWidget(),
+             AccountInfoHeaderWidget(avatarFirstUse: false),
             const SizedBox(
               height: 20,
             ),
