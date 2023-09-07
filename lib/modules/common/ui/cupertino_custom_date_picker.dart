@@ -31,7 +31,7 @@ class _CupertinoDatePickerViewState extends State<CupertinoDatePickerView> {
   DateTime maximumDate = DateTime.now().subtract(const Duration(hours: 1));
   DateTime mindate = DateTime(2018, 4, 1);
 
-  bool initMessage = true;
+  bool initMessage = false;
 
   var myFormat = DateFormat('d-MM-yyyy');
 
@@ -90,9 +90,12 @@ class _CupertinoDatePickerViewState extends State<CupertinoDatePickerView> {
                                     : formatDate(widget.cupertinoDatePickervalue
                                         .toString()),
                                 style: Theme.of(context)
-                        .textTheme
-                        .bodySmall!
-                        .copyWith(color: Palette.current.primaryNero, letterSpacing: 0.05, fontWeight: FontWeight.w300),
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(
+                                        color: Palette.current.primaryNero,
+                                        letterSpacing: 0.05,
+                                        fontWeight: FontWeight.w300),
                               )),
                           Expanded(
                             flex: 1,
@@ -132,6 +135,7 @@ class _CupertinoDatePickerViewState extends State<CupertinoDatePickerView> {
   }
 
   void _showDatePicker(ctx) {
+    maximumDate = DateTime.now().subtract(const Duration(hours: 1));
     showCupertinoModalPopup(
         context: ctx,
         builder: (_) => Container(
@@ -157,6 +161,20 @@ class _CupertinoDatePickerViewState extends State<CupertinoDatePickerView> {
                         CupertinoButton(
                           onPressed: () {
                             initMessage = false;
+                            selectDate = DateTime.now()
+                                .subtract(const Duration(hours: 1));
+                            maximumDate = DateTime.now().subtract(const Duration(hours: 1));
+                            widget.onDone(selectDate);
+                          },
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16.0,
+                            vertical: 5.0,
+                          ),
+                          child: const Text('Today'),
+                        ),
+                        CupertinoButton(
+                          onPressed: () {
+                            initMessage = false;
                             widget.onDone(selectDate);
                           },
                           padding: const EdgeInsets.symmetric(
@@ -174,7 +192,7 @@ class _CupertinoDatePickerViewState extends State<CupertinoDatePickerView> {
                         minimumDate: mindate,
                         maximumDate: maximumDate,
                         mode: CupertinoDatePickerMode.date,
-                        initialDateTime: selectDate,
+                        initialDateTime: widget.cupertinoDatePickervalue,
                         onDateTimeChanged: (val) {
                           setState(() {
                             selectDate = val;
