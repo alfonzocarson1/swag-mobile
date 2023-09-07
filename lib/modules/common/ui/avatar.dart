@@ -49,7 +49,7 @@ class _AvatarPageState extends State<AvatarPage> {
       avatars.add(AvatorModel.fromJson(map));
     }
     profileData = getIt<PreferenceRepositoryService>().profileData();
-    if (widget.isFirstUse && profileData!.useAvatar == 'AVATAR1') {
+    if (widget.isFirstUse) {
       final tempRandomElement = getRandomElement(avatars);
       setState(() {
       defaultImage = tempRandomElement.url;
