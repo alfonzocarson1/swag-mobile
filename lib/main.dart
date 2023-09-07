@@ -56,7 +56,8 @@ Future<void> main() async {
 }
 
 Future<void> initMixpanel() async {
-  mixpanel = await Mixpanel.init("03fa951043e16cd0277cacb261a16dbe", trackAutomaticEvents: true);
+  mixpanel = await Mixpanel.init(getIt<AppConfig>().mixpanelToken,
+      trackAutomaticEvents: true);
 }
 
 Future<String> getAppFlavor() async {
