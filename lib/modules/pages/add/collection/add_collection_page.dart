@@ -21,14 +21,17 @@ import '../../../data/shared_preferences/shared_preferences_service.dart';
 import '../../../di/injector.dart';
 import '../../../models/collection/add_collection_items_payload_model.dart';
 import '../../../models/collection/add_collection_model.dart';
+import '../../../models/detail/detail_item_model.dart';
 
 class AddCollection extends StatefulWidget {
   static const name = '/AddCollection';
+
   AddCollection(
       {super.key,
       required this.catalogItemId,
       required this.pathImage,
       required this.itemName});
+
   String catalogItemId;
   String pathImage;
   String itemName;
@@ -106,9 +109,17 @@ class _AddCollectionState extends State<AddCollection> {
     super.dispose();
   }
 
+  DetailItemModel? detailItemModel;
+
+  bool get isSourceSwag => _defaultSource == "Swag";
+
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      BlocProvider.of<DetailBloc>(context)
+          .add(DetailEvent.getDetailItem(widget.catalogItemId));
+    });
 
     _purchaseNode.addListener(() {
       if (!_purchaseNode.hasFocus && _purchaseController.text.isNotEmpty) {
@@ -145,38 +156,55 @@ class _AddCollectionState extends State<AddCollection> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<CollectionBloc, CollectionState>(
-        listener: (context, state) => state.maybeWhen(
-              orElse: () {
-                return null;
-              },
-              loadedCollectionSuccess: (state) {
-                BlocProvider.of<DetailBloc>(context)
-                    .add(DetailEvent.getDetailItem(widget.catalogItemId));
-                if (getIt<PreferenceRepositoryService>()
-                    .backProfileCollection()) {
-                  getIt<PreferenceRepositoryService>()
-                      .saveBackProfileCollection(false);
-                  Navigator.of(context, rootNavigator: true).pop();
-                  Navigator.of(context, rootNavigator: true).pop();
-                  Navigator.of(context, rootNavigator: true).pop();
-                  Loading.hide(context);
-                } else {
-                  Navigator.of(context, rootNavigator: true).pop();
-                  Loading.hide(context);
-                }
+    return BlocListener<DetailBloc, DetailState>(
+        listener: (a, b) => b.when(
+            initial: () {
+              Loading.show(context);
+              return null;
+            },
+            error: (error) {
+              Loading.hide(context);
+              return null;
+            },
+            loadedDetailItems: (loadedDetailItems) {
+              Loading.hide(context);
+              setState(() {
+                detailItemModel = loadedDetailItems.first;
+              });
+              return null;
+            }),
+        child: BlocListener<CollectionBloc, CollectionState>(
+            listener: (context, state) => state.maybeWhen(
+                  orElse: () {
+                    return null;
+                  },
+                  loadedCollectionSuccess: (state) {
+                    BlocProvider.of<DetailBloc>(context)
+                        .add(DetailEvent.getDetailItem(widget.catalogItemId));
+                    if (getIt<PreferenceRepositoryService>()
+                        .backProfileCollection()) {
+                      getIt<PreferenceRepositoryService>()
+                          .saveBackProfileCollection(false);
+                      Navigator.of(context, rootNavigator: true).pop();
+                      Navigator.of(context, rootNavigator: true).pop();
+                      Navigator.of(context, rootNavigator: true).pop();
+                      Loading.hide(context);
+                    } else {
+                      Navigator.of(context, rootNavigator: true).pop();
+                      Loading.hide(context);
+                    }
 
-                return null;
-              },
-              initial: () {
-                return Loading.show(context);
-              },
-              error: (message) => {
-                Loading.hide(context),
-                // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
-              },
-            ),
-        child: _getBody());
+                    return null;
+                  },
+                  initial: () {
+                    return Loading.show(context);
+                  },
+                  error: (message) => {
+                    Loading.hide(context),
+                    // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
+                  },
+                ),
+            child: _getBody()));
   }
 
   GestureDetector _getBody() {
@@ -299,17 +327,17 @@ class _AddCollectionState extends State<AddCollection> {
                               const SizedBox(
                                 height: 30,
                               ),
+
                               CupertinoDatePickerView(
                                 errorText: datePickerErrorText,
                                 cupertinoDatePickervalue: _defaultDateTime,
+                                enabled:!isSourceSwag,
                                 onDone: (DateTime newValue) {
                                   setState(() {
                                     setState(() {
                                       datePickerErrorFlag = true;
                                       _defaultDateTime = newValue;
-                                      String str = _defaultDateTime.toString();
-                                      String result = str.replaceAll(' ', 'T');
-                                      formattedDate = result;
+                                      updateSelectedDate();
                                       Navigator.pop(context);
                                     });
                                   });
@@ -332,6 +360,7 @@ class _AddCollectionState extends State<AddCollection> {
                                         color: Palette.current.primaryNero),
                                 focusNode: _purchaseNode,
                                 controller: _purchaseController,
+                                isEnabled: !isSourceSwag,
                                 inputType:
                                     const TextInputType.numberWithOptions(
                                   decimal: true,
@@ -386,6 +415,19 @@ class _AddCollectionState extends State<AddCollection> {
                                     setState(() {
                                       setState(() {
                                         _defaultSource = newValue!;
+                                        if (isSourceSwag &&
+                                            detailItemModel != null) {
+                                          _purchaseController.text =
+                                              detailItemModel?.retail ?? '';
+                                          _defaultDateTime =
+                                              DateFormat('dd/MM/yyyy').parse(
+                                                  detailItemModel!.released!);
+                                          datePickerErrorFlag = true;
+
+                                          String str = _defaultDateTime.toString();
+                                          String result = str.replaceAll(' ', 'T');
+                                          formattedDate = result;
+                                        }
                                       });
                                     });
                                   },
@@ -454,5 +496,11 @@ class _AddCollectionState extends State<AddCollection> {
         _defaultCondition != 'Condition' &&
         _defaultSource != 'Source' &&
         datePickerErrorFlag == true;
+  }
+
+  void updateSelectedDate() {
+    String str = _defaultDateTime.toString();
+    String result = str.replaceAll(' ', 'T');
+    formattedDate = result;
   }
 }
