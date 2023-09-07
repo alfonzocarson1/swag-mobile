@@ -186,11 +186,11 @@ abstract class AppRouter {
               state.extra as ListForSaleNavigatorParameters;
 
           return ListForSalePage(
-            collectionData: parameters.collectionData,
-            catalogItemName: parameters.catalogItemName,
-            salesHistoryNavigation: parameters.salesHistoryNavigation,
-            catalogImage: parameters.catalogImage,
-          );
+              collectionData: parameters.collectionData,
+              catalogItemName: parameters.catalogItemName,
+              salesHistoryNavigation: parameters.salesHistoryNavigation,
+              catalogImage: parameters.catalogImage,
+              categoryName: parameters.categoryName);
         },
       ),
 

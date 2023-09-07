@@ -516,5 +516,7 @@
     "buyer_recived": "You already confirmed receipt of the item.  Please rate the seller.",
     "buyer_rate": "You already confirmed receipt of the item and rated the seller.",
     "seller_rate": "You already rated the buyer.",
-    "view_listing": "View Listings"
+    "view_listing": "View Listings",
+    "minimum_price_headcover":"Minimum listing price is $50",
+    "minimum_price_putter": "Minimum listing price is $250"
 }

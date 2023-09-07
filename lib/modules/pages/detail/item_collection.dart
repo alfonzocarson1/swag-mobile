@@ -41,20 +41,20 @@ late bool hasActiveSubscription;
 late bool hasKYCverified;
 
 class CollectionWidget extends StatefulWidget {
-  CollectionWidget({
-    super.key,
-    required this.dataCollection,
-    required this.lastSale,
-    required this.sale,
-    this.available,
-    required this.catalogId,
-    required this.catalogItemName,
-    required this.favorite,
-    required this.urlImage,
-    required this.addFavorite,
-    this.salesHistoryNavigation,
-    required this.saleHistoryList,
-  });
+  CollectionWidget(
+      {super.key,
+      required this.dataCollection,
+      required this.lastSale,
+      required this.sale,
+      this.available,
+      required this.catalogId,
+      required this.catalogItemName,
+      required this.favorite,
+      required this.urlImage,
+      required this.addFavorite,
+      this.salesHistoryNavigation,
+      required this.saleHistoryList,
+      required this.categoryName});
 
   final List<DetailCollectionModel>? dataCollection;
   final DetailSaleInfoModel lastSale;
@@ -67,6 +67,7 @@ class CollectionWidget extends StatefulWidget {
   Function(bool) addFavorite;
   VoidCallback? salesHistoryNavigation;
   List<SalesHistoryModel> saleHistoryList;
+  String categoryName;
 
   @override
   State<CollectionWidget> createState() => _CollectionWidgetState();
@@ -527,8 +528,9 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                               catalogItemName:
                                                   widget.catalogItemName,
                                               catalogImage: widget.urlImage,
-                                              dataCollection:
-                                                  newCollectionList);
+                                              dataCollection: newCollectionList,
+                                              categoryName:
+                                                  widget.categoryName);
                                         })
                                     : (newCollectionList.isNotEmpty &&
                                             (newCollectionList.length == 1))
@@ -538,7 +540,8 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                                 widget.salesHistoryNavigation,
                                                 newCollectionList[0],
                                                 widget.catalogItemName,
-                                                widget.urlImage))
+                                                widget.urlImage,
+                                                widget.categoryName))
                                         : showToastMessage(
                                             S.of(context).collection_listed);
                               } else if (!hasActiveSubscription &&
@@ -584,42 +587,43 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                         width: MediaQuery.of(context).size.width,
                         child: BlocListener<CollectionBloc, CollectionState>(
                           listener: (context, state) => state.maybeWhen(
-                            orElse: () {
-                              return null;
-                            },
-                            loadedCollectionDetail: (data) {
-                              logger.e(
-                                  "DeleteIssue : Collection Detail in item_collection");
-                              Loading.hide(context);
+                              orElse: () {
+                                return null;
+                              },
+                              loadedCollectionDetail: (data) {
+                                logger.e(
+                                    "DeleteIssue : Collection Detail in item_collection");
+                                Loading.hide(context);
 
-                              //   If Status is in sales progress, then show toast error.
-                              if (data.listForSale.isNotEmpty == true &&
-                                  inProgressStatuses.any((element) =>
-                                      element ==
-                                      data.listForSale.first.status)) {
-                                logger.e("DeleteIssue : Not Allowed to remove");
-                                showToastMessage(S
-                                    .of(context)
-                                    .collection_removal_not_allowed_if_on_sale);
-                              } else {
-                                logger.e("DeleteIssue : Delete Item");
-                                //else below dialog
-                                showDialog(
-                                    context: context,
-                                    barrierDismissible: false,
-                                    builder: (BuildContext context) {
-                                      return PopUpDeleteItemCollection(
-                                          dataCollection: dataCollection);
-                                    });
-                              }
-                            },
-                            initial: () {
-                              return Loading.show(context);
-                            },
-                            error: (message) => {
-                              Loading.hide(context),
-                              // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
-                            },
+                                //   If Status is in sales progress, then show toast error.
+                                if (data.listForSale.isNotEmpty == true &&
+                                    inProgressStatuses.any((element) =>
+                                        element ==
+                                        data.listForSale.first.status)) {
+                                  logger
+                                      .e("DeleteIssue : Not Allowed to remove");
+                                  showToastMessage(S
+                                      .of(context)
+                                      .collection_removal_not_allowed_if_on_sale);
+                                } else {
+                                  logger.e("DeleteIssue : Delete Item");
+                                  //else below dialog
+                                  showDialog(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (BuildContext context) {
+                                        return PopUpDeleteItemCollection(
+                                            dataCollection: dataCollection);
+                                      });
+                                }
+                              },
+                              initial: () {
+                                return Loading.show(context);
+                              },
+                              error: (message) => {
+                                    Loading.hide(context),
+                                    // Dialogs.showOSDialog(context, 'Error', message, 'OK', () {})
+                                  },
                               loadedCollectionsDetail: (list) {
                                 Loading.hide(context);
                                 if (list.length == dataCollection.length &&
@@ -780,8 +784,6 @@ class _CollectionWidgetState extends State<CollectionWidget> {
           .push(CreateAccountPage.route());
     }
   }
-
-
 
   void fetchDetailsForAllCollection() {
     if (isLogged) {
