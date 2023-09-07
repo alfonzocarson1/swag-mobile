@@ -43,7 +43,7 @@ class AlertCubit extends Cubit<AlertStateCubit> {
     }
   }
 
-  Future<void> updateAletBadget() async {
+  Future<void> updateAlertBadget() async {
     try {
       AlertResponseModel response = await alertService.getAlertsList();
       int unread = 0;

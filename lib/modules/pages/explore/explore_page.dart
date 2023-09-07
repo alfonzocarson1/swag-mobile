@@ -73,7 +73,7 @@ class _ExplorePageState extends State<ExplorePage>  {
   void initState() {
    getIt<ChatCubit>().connectSendBirdApp();
     this.loadDynamicFilters();
-    getIt<AlertCubit>().updateAletBadget();
+    getIt<AlertCubit>().updateAlertBadget();
     getIt<PeerToPeerPaymentsCubit>().getPyments();
     widget.refreshNotifier?.addListener(refresh);
     refresh();
