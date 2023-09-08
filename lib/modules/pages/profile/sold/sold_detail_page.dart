@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
+import 'package:simple_rich_text/simple_rich_text.dart';
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 
 import 'package:swagapp/modules/models/profile/profile_model.dart';
 
 import '../../../../generated/l10n.dart';
+import '../../../common/ui/clickable_text.dart';
 import '../../../common/ui/loading.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
 
+import '../../../common/utils/sendbird_utils.dart';
 import '../../../common/utils/utils.dart';
+import '../../../cubits/chat/chat_cubit.dart';
 import '../../../cubits/public_profile/public_profile_cubit.dart';
 import '../../../cubits/sold/get_sold_cubit.dart';
 import '../../../data/shared_preferences/shared_preferences_service.dart';
@@ -17,6 +22,7 @@ import '../../../di/injector.dart';
 
 import '../../../models/sold/product_item_sold.dart';
 import '../../add/buy/multi_image_slide_buy_preview.dart';
+import '../../chat/chatPage.dart';
 
 class SoldDetailPage extends StatefulWidget {
   static const name = '/SoldDetailPage';
@@ -39,6 +45,7 @@ class _SoldDetailPageState extends State<SoldDetailPage> {
 
   ProductItemSold soldItemData = const ProductItemSold(
       productItemId: '', productItemImageUrls: [], productItemName: '');
+  late List<GroupChannel> channels;
 
   String? profileURL;
   String? defaultImage;
@@ -57,8 +64,34 @@ class _SoldDetailPageState extends State<SoldDetailPage> {
     super.dispose();
   }
 
+  Future<void> onTapSubmit(String channelUrl) async {
+    late GroupChannel chatData;
+    try {
+      await Future.delayed(const Duration(milliseconds: 500));
+      chatData = await getIt<ChatCubit>().startChat(channelUrl);
+
+      Loading.hide(context);
+
+      getIt<PreferenceRepositoryService>().saveShowNotification(false);
+      await Future.delayed(const Duration(milliseconds: 500));
+      await Navigator.of(context, rootNavigator: true).push(
+        MaterialPageRoute(
+            builder: (BuildContext context) => ChatPage(channel: chatData)),
+      );
+
+      Navigator.of(context).pop();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  getChatChannels() async {
+    channels = await getIt<ChatCubit>().loadGroupChannels();
+  }
+
   @override
   Widget build(BuildContext context) {
+    getChatChannels();
     return Scaffold(
         extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: true,
@@ -390,10 +423,45 @@ class _SoldDetailPageState extends State<SoldDetailPage> {
                                                                               .primaryWhiteSmoke)),
                                                             ),
                                                           ],
-                                                        ))
+                                                        )),
                                                   ],
                                                 ),
                                               ),
+                                              const SizedBox(
+                                                height: 4,
+                                              ),
+                                              ClickableText(
+                                                  title: SimpleRichText(
+                                                    S
+                                                        .of(context)
+                                                        .see_listing_chat,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .bodySmall!
+                                                        .copyWith(
+                                                            fontSize: 14,
+                                                            letterSpacing:
+                                                                0.015,
+                                                            color: Palette
+                                                                .current
+                                                                .blueNeon,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w300),
+                                                  ),
+                                                  onPressed: () async {
+                                                    String productItemId =
+                                                        soldItemData
+                                                            .productItemId;
+
+                                                    String channelUrl =
+                                                        SendBirdUtils
+                                                            .getListingChatUrlInProfile(
+                                                                channels,
+                                                                productItemId);
+                                                    Loading.show(context);
+                                                    onTapSubmit(channelUrl);
+                                                  }),
                                             ],
                                           ),
                                           const SizedBox(height: 50),

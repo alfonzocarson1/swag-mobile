@@ -5,6 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
+import 'package:simple_rich_text/simple_rich_text.dart';
 
 import 'package:swagapp/modules/common/ui/custom_app_bar.dart';
 import 'package:swagapp/modules/common/ui/general_delete_popup.dart';
@@ -22,12 +23,14 @@ import 'package:swagapp/modules/pages/chats/chat_list_view.dart';
 import '../../../../generated/l10n.dart';
 import '../../../blocs/buy_sale_listing_bloc/buy_sale_listing_bloc.dart';
 import '../../../blocs/sale_history/sale_history_bloc.dart';
+import '../../../common/ui/clickable_text.dart';
 import '../../../common/ui/loading.dart';
 import '../../../common/ui/primary_button.dart';
 import '../../../common/utils/context_service.dart';
 import '../../../common/utils/custom_route_animations.dart';
 import '../../../common/utils/palette.dart';
 import '../../../common/utils/send_mail_contact.dart';
+import '../../../common/utils/sendbird_utils.dart';
 import '../../../constants/constants.dart';
 import '../../../cubits/buy/buy_cubit.dart';
 import '../../../cubits/route_history/route_history_cubit.dart';
@@ -382,39 +385,25 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
           ),
         ),
         const SizedBox(
-          height: 3,
+          height: 4,
         ),
-        RichText(
-          text: TextSpan(children: [
-            TextSpan(
-              text:
-                  '@${listData.submitPurchaseInfo!.userNameBuyer} will paying using ',
-              style: TextStyle(
-                fontSize: 12,
-                color: Palette.current.darkGray,
-              ),
+        ClickableText(
+            title: SimpleRichText(
+              S.of(context).see_listing_chat,
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  fontSize: 14,
+                  letterSpacing: 0.015,
+                  color: Palette.current.blueNeon,
+                  fontWeight: FontWeight.w300),
             ),
-            TextSpan(
-              text: listData.submitPurchaseInfo!.profilePeerToPeerPayment!
-                          .cashTag !=
-                      null
-                  ? 'CashApp'
-                  : listData.submitPurchaseInfo!.profilePeerToPeerPayment!
-                              .venmoUser !=
-                          null
-                      ? 'Venmo'
-                      : listData.submitPurchaseInfo!.profilePeerToPeerPayment!
-                                  .payPalEmail !=
-                              null
-                          ? 'PayPal'
-                          : '',
-              style: TextStyle(
-                fontSize: 12,
-                color: Palette.current.blueNeon,
-              ),
-            ),
-          ]),
-        ),
+            onPressed: () async {
+              String productItemId = listData.productItemId ?? "";
+
+              String channelUrl = SendBirdUtils.getListingChatUrlInProfile(
+                  channels, productItemId);
+              Loading.show(context);
+              onTapSubmit(channelUrl);
+            }),
         const SizedBox(height: 30),
       ],
     );

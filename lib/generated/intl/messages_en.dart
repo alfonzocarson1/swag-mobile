@@ -787,6 +787,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "security_title": MessageLookupByLibrary.simpleMessage("Security"),
         "see_info":
             MessageLookupByLibrary.simpleMessage("ⓘ  See info guidelines"),
+        "see_listing_chat": MessageLookupByLibrary.simpleMessage(
+            "See chat conversation with purchase details"),
         "see_photo_guidelines":
             MessageLookupByLibrary.simpleMessage("ⓘ  See photo guidelines"),
         "see_results": MessageLookupByLibrary.simpleMessage("SEE RESULTS"),

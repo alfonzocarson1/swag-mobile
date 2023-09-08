@@ -392,6 +392,7 @@ PurchaseItemModel _$PurchaseItemModelFromJson(Map<String, dynamic> json) {
 mixin _$PurchaseItemModel {
   String? get purchaseItemTitle => throw _privateConstructorUsedError;
   String? get purchaseItemImage => throw _privateConstructorUsedError;
+  String? get purchaseProductItemId => throw _privateConstructorUsedError;
   double get purchaseItemPrice => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -409,6 +410,7 @@ abstract class $PurchaseItemModelCopyWith<$Res> {
   $Res call(
       {String? purchaseItemTitle,
       String? purchaseItemImage,
+      String? purchaseProductItemId,
       double purchaseItemPrice});
 }
 
@@ -427,6 +429,7 @@ class _$PurchaseItemModelCopyWithImpl<$Res, $Val extends PurchaseItemModel>
   $Res call({
     Object? purchaseItemTitle = freezed,
     Object? purchaseItemImage = freezed,
+    Object? purchaseProductItemId = freezed,
     Object? purchaseItemPrice = null,
   }) {
     return _then(_value.copyWith(
@@ -437,6 +440,10 @@ class _$PurchaseItemModelCopyWithImpl<$Res, $Val extends PurchaseItemModel>
       purchaseItemImage: freezed == purchaseItemImage
           ? _value.purchaseItemImage
           : purchaseItemImage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      purchaseProductItemId: freezed == purchaseProductItemId
+          ? _value.purchaseProductItemId
+          : purchaseProductItemId // ignore: cast_nullable_to_non_nullable
               as String?,
       purchaseItemPrice: null == purchaseItemPrice
           ? _value.purchaseItemPrice
@@ -457,6 +464,7 @@ abstract class _$$_PurchaseItemModelCopyWith<$Res>
   $Res call(
       {String? purchaseItemTitle,
       String? purchaseItemImage,
+      String? purchaseProductItemId,
       double purchaseItemPrice});
 }
 
@@ -473,6 +481,7 @@ class __$$_PurchaseItemModelCopyWithImpl<$Res>
   $Res call({
     Object? purchaseItemTitle = freezed,
     Object? purchaseItemImage = freezed,
+    Object? purchaseProductItemId = freezed,
     Object? purchaseItemPrice = null,
   }) {
     return _then(_$_PurchaseItemModel(
@@ -483,6 +492,10 @@ class __$$_PurchaseItemModelCopyWithImpl<$Res>
       purchaseItemImage: freezed == purchaseItemImage
           ? _value.purchaseItemImage
           : purchaseItemImage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      purchaseProductItemId: freezed == purchaseProductItemId
+          ? _value.purchaseProductItemId
+          : purchaseProductItemId // ignore: cast_nullable_to_non_nullable
               as String?,
       purchaseItemPrice: null == purchaseItemPrice
           ? _value.purchaseItemPrice
@@ -499,6 +512,7 @@ class _$_PurchaseItemModel implements _PurchaseItemModel {
   const _$_PurchaseItemModel(
       {this.purchaseItemTitle,
       this.purchaseItemImage,
+      this.purchaseProductItemId,
       this.purchaseItemPrice = 0.0});
 
   factory _$_PurchaseItemModel.fromJson(Map<String, dynamic> json) =>
@@ -509,12 +523,14 @@ class _$_PurchaseItemModel implements _PurchaseItemModel {
   @override
   final String? purchaseItemImage;
   @override
+  final String? purchaseProductItemId;
+  @override
   @JsonKey()
   final double purchaseItemPrice;
 
   @override
   String toString() {
-    return 'PurchaseItemModel(purchaseItemTitle: $purchaseItemTitle, purchaseItemImage: $purchaseItemImage, purchaseItemPrice: $purchaseItemPrice)';
+    return 'PurchaseItemModel(purchaseItemTitle: $purchaseItemTitle, purchaseItemImage: $purchaseItemImage, purchaseProductItemId: $purchaseProductItemId, purchaseItemPrice: $purchaseItemPrice)';
   }
 
   @override
@@ -526,14 +542,16 @@ class _$_PurchaseItemModel implements _PurchaseItemModel {
                 other.purchaseItemTitle == purchaseItemTitle) &&
             (identical(other.purchaseItemImage, purchaseItemImage) ||
                 other.purchaseItemImage == purchaseItemImage) &&
+            (identical(other.purchaseProductItemId, purchaseProductItemId) ||
+                other.purchaseProductItemId == purchaseProductItemId) &&
             (identical(other.purchaseItemPrice, purchaseItemPrice) ||
                 other.purchaseItemPrice == purchaseItemPrice));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, purchaseItemTitle, purchaseItemImage, purchaseItemPrice);
+  int get hashCode => Object.hash(runtimeType, purchaseItemTitle,
+      purchaseItemImage, purchaseProductItemId, purchaseItemPrice);
 
   @JsonKey(ignore: true)
   @override
@@ -554,6 +572,7 @@ abstract class _PurchaseItemModel implements PurchaseItemModel {
   const factory _PurchaseItemModel(
       {final String? purchaseItemTitle,
       final String? purchaseItemImage,
+      final String? purchaseProductItemId,
       final double purchaseItemPrice}) = _$_PurchaseItemModel;
 
   factory _PurchaseItemModel.fromJson(Map<String, dynamic> json) =
@@ -563,6 +582,8 @@ abstract class _PurchaseItemModel implements PurchaseItemModel {
   String? get purchaseItemTitle;
   @override
   String? get purchaseItemImage;
+  @override
+  String? get purchaseProductItemId;
   @override
   double get purchaseItemPrice;
   @override

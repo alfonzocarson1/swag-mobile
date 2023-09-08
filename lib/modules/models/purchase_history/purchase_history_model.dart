@@ -34,11 +34,10 @@ class PurchaseItemModel with _$PurchaseItemModel {
   const factory PurchaseItemModel({
     final String? purchaseItemTitle,
     final String? purchaseItemImage,
-    @Default(0.0)
-    final double purchaseItemPrice,
+    final String? purchaseProductItemId,
+    @Default(0.0) final double purchaseItemPrice,
   }) = _PurchaseItemModel;
 
   factory PurchaseItemModel.fromJson(Map<String, dynamic> json) =>
       _$PurchaseItemModelFromJson(json);
 }
-

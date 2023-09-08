@@ -50,11 +50,9 @@ abstract class SendBirdUtils {
     ProfileModel profileData =
         getIt<PreferenceRepositoryService>().profileData();
 
-    if (messageData.type ==
-        ChatMessageDataType.adminRequested.textValue) {
-           return S.current.chatSwagAdminRequested;
-        }
-    else if (messageData.type != ChatMessageDataType.message.textValue &&
+    if (messageData.type == ChatMessageDataType.adminRequested.textValue) {
+      return S.current.chatSwagAdminRequested;
+    } else if (messageData.type != ChatMessageDataType.message.textValue &&
         messageData.type != ChatMessageDataType.paymentReceived.textValue &&
         messageData.type != ChatMessageDataType.shipped.textValue &&
         messageData.type != ChatMessageDataType.confirmShip.textValue &&
@@ -110,8 +108,7 @@ abstract class SendBirdUtils {
       return S.current.notDeliveredItemChatMessage(
           messageData.payload.userNameBuyer,
           messageData.payload.userNameSeller);
-    }
-    else {
+    } else {
       return S.current.chatCommenceMessage;
     }
   }
@@ -140,16 +137,33 @@ abstract class SendBirdUtils {
         Map<String, dynamic> json = jsonDecode(jsonString);
         String jsonProductItemId = json['productItemId'];
         String jsonListingImageUrl = json['listingImageUrl'];
-        bool isFrozen = channels[i].isFrozen;
 
         if (proudctItemId == jsonProductItemId &&
-            isFrozen == false &&
             listingImageUrl == jsonListingImageUrl) {
           listingUrl = channels[i].channelUrl;
           break;
         } else if (proudctItemId == jsonProductItemId &&
-            isFrozen == true &&
             listingImageUrl == jsonListingImageUrl) {
+          listingUrl = channels[i].channelUrl;
+          break;
+        }
+      }
+    }
+    return listingUrl;
+  }
+
+  static String getListingChatUrlInProfile(
+      List<GroupChannel> channels, String proudctItemId) {
+    String listingUrl = "";
+
+    for (int i = 0; i < channels.length; i++) {
+      if (channels[i].data.isNotEmpty) {
+        String jsonString = channels[i].data;
+        jsonString = jsonString.replaceAll("'", '"');
+        Map<String, dynamic> json = jsonDecode(jsonString);
+        String jsonProductItemId = json['productItemId'];
+
+        if (proudctItemId == jsonProductItemId) {
           listingUrl = channels[i].channelUrl;
           break;
         }
@@ -166,10 +180,10 @@ abstract class SendBirdUtils {
       return S.current.chatCardPaymetConfirmation;
     } else if (messageData.type == ChatMessageDataType.confirmShip.textValue) {
       return S.current.chatCardShippingInformation;
-    }else if (messageData.type == ChatMessageDataType.adminRequested.textValue){
+    } else if (messageData.type ==
+        ChatMessageDataType.adminRequested.textValue) {
       return S.current.chatCardSwagAdminAdded;
-    } 
-    else {
+    } else {
       return '';
     }
   }
