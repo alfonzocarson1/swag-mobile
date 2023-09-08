@@ -366,6 +366,8 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                               _phoneNode,
                                               phoneErrorText,
                                               _phoneBorder, (phoneNumber) {
+                                            debugPrint(
+                                                "orElse::notifyIsPhoneValid($phoneNumber)");
                                             isPhoneValid = true;
                                             currentPhoneNumber = phoneNumber;
                                             setPhoneErrorText(
@@ -392,6 +394,8 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                             _phoneNode,
                                             phoneErrorText,
                                             _phoneBorder, (phoneNumber) {
+                                          debugPrint(
+                                              "isPhoneAvailable($state)::notifyIsPhoneValid($phoneNumber)");
                                           isPhoneValid = isPhoneValid = (state
                                                       .isPhoneAvailable !=
                                                   '202' ||
