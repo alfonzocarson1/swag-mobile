@@ -335,12 +335,37 @@ getMessageJson({BaseChannel? channel, BaseMessage? message}) {
 
 class MyGroupChannelHandler extends GroupChannelHandler {
   String? currentRoute = "";
+  ProfileModel profileData =
+        getIt<PreferenceRepositoryService>().profileData();
+ 
+   sendAlert({required String jsonString, required String channelUrl}) async {
+    jsonString = jsonString.replaceAll("'", "\"");
+      Map<String, dynamic> jsonData = jsonDecode(jsonString);
+
+              await getIt<AlertCubit>().saveAlert(
+          AlertModel(
+              notificationAlertTitle: jsonData['listingProductName'],
+              notificationAlertBody:
+                  S.current.chatMessageFrom(jsonData['creatorUserName']),
+              typeNotification: 'MESSAGE_CHAT_P2P_ALERT',
+              payload: AlertPayloadModel(
+                  accountId: jsonData['creatorUserId'],
+                  userName: jsonData['creatorUserName'],
+                  itemName: jsonData['listingProductName'],
+                  productItemId: jsonData['productItemId'],
+                  avatar: profileData.useAvatar,
+                  listingStatus: channelUrl,
+                  listingImageUrl: jsonData['listingImageUrl']),
+              read: false),
+        );
+  }
+ 
+ 
   @override
   void onMessageReceived(BaseChannel channel, BaseMessage message) async {
     GroupChannel groupChannel = GroupChannel(channelUrl: channel.channelUrl);
     //print(message);
-    ProfileModel profileData =
-        getIt<PreferenceRepositoryService>().profileData();
+    
 
     try {
       currentRoute = getIt<RouteTracker>().currentRoute;
@@ -363,22 +388,18 @@ class MyGroupChannelHandler extends GroupChannelHandler {
           (channel.customType == ChatType.listing.textValue ||
               message.customType != 'chat_question')) {
         await getIt<AlertCubit>().saveAlert(
-          AlertModel(
-              notificationAlertTitle: jsonData['listingProductName'],
-              notificationAlertBody:
-                  S.current.chatMessageFrom(jsonData['creatorUserName']),
-              typeNotification: 'MESSAGE_CHAT_P2P_ALERT',
-              payload: AlertPayloadModel(
-                  accountId: jsonData['creatorUserId'],
-                  userName: jsonData['creatorUserName'],
-                  itemName: jsonData['listingProductName'],
-                  productItemId: jsonData['productItemId'],
-                  avatar: profileData.useAvatar,
-                  listingStatus: channel.channelUrl,
-                  listingImageUrl: jsonData['listingImageUrl']),
-              read: false),
+        sendAlert(jsonString: jsonString, channelUrl: channel.channelUrl)
         );
       }
+      else if(currentRoute == "/ChatPage" && currentChannelUrl != channel.channelUrl &&
+          (channel.customType == ChatType.listing.textValue ||
+              message.customType != 'chat_question')){
+                await getIt<AlertCubit>().saveAlert(
+        sendAlert(jsonString: jsonString, channelUrl: channel.channelUrl)
+        );
+
+      }
+
 
       // Then load the messages for this channel and update the state
       await getIt<ChatCubit>().loadMessages(groupChannel);
