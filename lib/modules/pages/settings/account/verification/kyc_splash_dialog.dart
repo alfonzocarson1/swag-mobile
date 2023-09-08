@@ -60,10 +60,7 @@ class KycSplashDialog extends StatelessWidget {
                 Loading.hide(context);
               }
               if (data.sessionUrl != null) {
-                await Navigator.of(context).push(StripeKycPage.route(
-                  context,
-                  data.sessionUrl!,
-                ));
+                await launchBrowserAppFromLink(data.sessionUrl!);
                 Navigator.pop(context);
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
