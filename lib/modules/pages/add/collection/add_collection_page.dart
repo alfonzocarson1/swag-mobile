@@ -171,6 +171,8 @@ class _AddCollectionState extends State<AddCollection> {
                 if (detailItemModel?.released != null) {
                   datePickerErrorFlag = true;
                   _defaultDateTime = detailItemModel!.released!.toDateTime();
+                  _purchaseController.text = detailItemModel!.retail??'';
+                  setPrice();
                   updateSelectedDate();
                 }
               });
