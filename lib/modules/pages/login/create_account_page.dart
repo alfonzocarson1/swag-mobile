@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -364,6 +366,8 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                               _phoneNode,
                                               phoneErrorText,
                                               _phoneBorder, (phoneNumber) {
+                                            debugPrint(
+                                                "orElse::notifyIsPhoneValid($phoneNumber)");
                                             isPhoneValid = true;
                                             currentPhoneNumber = phoneNumber;
                                             setPhoneErrorText(
@@ -390,6 +394,8 @@ class _CreateAccountState extends State<CreateAccountPage> {
                                             _phoneNode,
                                             phoneErrorText,
                                             _phoneBorder, (phoneNumber) {
+                                          debugPrint(
+                                              "isPhoneAvailable($state)::notifyIsPhoneValid($phoneNumber)");
                                           isPhoneValid = isPhoneValid = (state
                                                       .isPhoneAvailable !=
                                                   '202' ||
@@ -1067,6 +1073,18 @@ class _CreateAccountState extends State<CreateAccountPage> {
   }
 }
 
+class Debouncer {
+  final int milliseconds;
+  Timer? _timer;
+
+  Debouncer({required this.milliseconds});
+
+  run(VoidCallback action) {
+    _timer?.cancel();
+    _timer = Timer(Duration(milliseconds: milliseconds), action);
+  }
+}
+
 class _PhoneSection extends StatefulWidget {
   final TextEditingController phoneController;
   final FocusNode? focusPhone;
@@ -1086,6 +1104,7 @@ class __PhoneSectionState extends State<_PhoneSection> {
   PhoneNumber initialNumber = PhoneNumber(isoCode: 'US');
   PhoneNumber choseNumber = PhoneNumber(isoCode: 'US');
   bool isLoginEnabled = false;
+  final _debouncer = Debouncer(milliseconds: 500);
 
   @override
   void initState() {
@@ -1131,14 +1150,14 @@ class __PhoneSectionState extends State<_PhoneSection> {
                               color: Palette.current.primaryWhiteSmoke))),
                   onInputChanged: (PhoneNumber nbr) {
                     choseNumber = nbr;
-                    widget.notifyIsPhoneValid(nbr);
+                    onPhoneNumberChange(nbr);
                   },
                   onInputValidated: (bool value) {
                     setState(() {
                       if (value) {
                         getIt<AuthCubit>().loadResultsPhoneAvailable(
                             choseNumber.phoneNumber ?? '');
-                        widget.notifyIsPhoneValid(choseNumber);
+                        onPhoneNumberChange(choseNumber);
                       } else {
                         getIt<AuthCubit>().resetPhoneAvailable();
                       }
@@ -1163,12 +1182,12 @@ class __PhoneSectionState extends State<_PhoneSection> {
                   onSubmit: () {
                     getIt<AuthCubit>().loadResultsPhoneAvailable(
                         choseNumber.phoneNumber ?? '');
-                    widget.notifyIsPhoneValid(choseNumber);
+                    onPhoneNumberChange(choseNumber);
                   },
                   onSaved: (PhoneNumber number) {
                     getIt<AuthCubit>().loadResultsPhoneAvailable(
                         choseNumber.phoneNumber ?? '');
-                    widget.notifyIsPhoneValid(choseNumber);
+                    ;
                   },
                 ),
               ),
@@ -1189,6 +1208,10 @@ class __PhoneSectionState extends State<_PhoneSection> {
             : Container(),
       ],
     );
+  }
+
+  void onPhoneNumberChange(PhoneNumber pn) {
+    _debouncer.run(() => widget.notifyIsPhoneValid(choseNumber));
   }
 }
 
