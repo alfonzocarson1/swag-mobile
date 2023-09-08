@@ -44,6 +44,8 @@ class _SearchResultFieldState extends State<SearchResultField> {
           child: InkWell(
             onTap: () async {
               this.widget.textEditingController.text = '';
+              initFilterAndSortsWithBloc(context,
+                  selectedProductNumber: 0);
               Navigator.pop(context);
             },
             child: Icon(
