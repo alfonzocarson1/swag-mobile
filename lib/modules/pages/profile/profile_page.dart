@@ -120,6 +120,9 @@ class _ProfilePageState extends State<ProfilePage>
         leading: Padding(
           padding: const EdgeInsets.only(left: 10),
           child: BlocBuilder<ChatCubit, ChatState>(
+             buildWhen: (previous, current) {
+            return current is HasUnreadMessages;
+          },
             builder: (context, state) {
               return state.maybeWhen(
                   hasUnreadMessages: (hasUnreadMessages, unreadMessageCount) {

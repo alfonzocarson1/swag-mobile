@@ -96,6 +96,7 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
   Future<void> markAsRead(GroupChannel channel) async {
     try {
       await channel.markAsRead();
+      getIt<ChatCubit>().hasUnreadMessages();
     } on MarkAsReadRateLimitExceededException catch (_) {
       Future.delayed(Duration(seconds: 1), () => markAsRead(channel));
     } catch (e) {
