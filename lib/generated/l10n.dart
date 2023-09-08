@@ -4990,6 +4990,16 @@ class S {
       args: [],
     );
   }
+
+  /// `See chat conversation with purchase details`
+  String get see_listing_chat {
+    return Intl.message(
+      'See chat conversation with purchase details',
+      name: 'see_listing_chat',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

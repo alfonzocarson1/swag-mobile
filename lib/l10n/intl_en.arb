@@ -518,5 +518,6 @@
     "seller_rate": "You already rated the buyer.",
     "view_listing": "View Listings",
     "minimum_price_headcover":"Minimum listing price is $50",
-    "minimum_price_putter": "Minimum listing price is $250"
+    "minimum_price_putter": "Minimum listing price is $250",
+    "see_listing_chat": "See chat conversation with purchase details"
 }

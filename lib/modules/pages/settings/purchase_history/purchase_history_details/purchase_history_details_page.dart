@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
+import 'package:simple_rich_text/simple_rich_text.dart';
 import 'package:swagapp/generated/l10n.dart';
 import 'package:swagapp/modules/common/ui/pushed_header.dart';
 import 'package:swagapp/modules/common/utils/stateful_wrapper.dart';
@@ -9,10 +11,16 @@ import 'package:swagapp/modules/common/utils/utils.dart';
 import 'package:swagapp/modules/cubits/purchase_history_detail/purchase_history_detail_cubit.dart';
 import 'package:swagapp/modules/models/purchase_history/purchase_history_detail_model.dart';
 
+import '../../../../common/ui/clickable_text.dart';
 import '../../../../common/ui/loading.dart';
 import '../../../../common/utils/custom_route_animations.dart';
 import '../../../../common/utils/palette.dart';
+import '../../../../common/utils/sendbird_utils.dart';
+import '../../../../cubits/chat/chat_cubit.dart';
+import '../../../../data/shared_preferences/shared_preferences_service.dart';
+import '../../../../di/injector.dart';
 import '../../../../models/purchase_history/purchase_history_model.dart';
+import '../../../chat/chatPage.dart';
 
 class PurchaseHistoryDetailsPage extends StatelessWidget {
   static const name = '/PurchaseHistoryDetails';
@@ -100,12 +108,44 @@ class _PageAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(height);
 }
 
-class _PageBody extends StatelessWidget {
+class _PageBody extends StatefulWidget {
   final PurchaseHistoryDetailModel model;
   const _PageBody(this.model, {super.key});
 
   @override
+  State<_PageBody> createState() => _PageBodyState();
+}
+
+class _PageBodyState extends State<_PageBody> {
+  late List<GroupChannel> channels;
+  Future<void> onTapSubmit(String channelUrl) async {
+    late GroupChannel chatData;
+    try {
+      await Future.delayed(const Duration(milliseconds: 500));
+      chatData = await getIt<ChatCubit>().startChat(channelUrl);
+
+      Loading.hide(context);
+
+      getIt<PreferenceRepositoryService>().saveShowNotification(false);
+      await Future.delayed(const Duration(milliseconds: 500));
+      await Navigator.of(context, rootNavigator: true).push(
+        MaterialPageRoute(
+            builder: (BuildContext context) => ChatPage(channel: chatData)),
+      );
+
+      Navigator.of(context).pop();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  getChatChannels() async {
+    channels = await getIt<ChatCubit>().loadGroupChannels();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    getChatChannels();
     return SingleChildScrollView(
       padding: MediaQuery.of(context).padding,
       child: Column(
@@ -131,20 +171,20 @@ class _PageBody extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 16),
-          _ItemImages(model.purchaseItems),
+          _ItemImages(widget.model.purchaseItems),
           const SizedBox(height: 32),
-          _PriceList(model.purchaseItems, model.purchaseTotal),
+          _PriceList(widget.model.purchaseItems, widget.model.purchaseTotal),
           const SizedBox(height: 48),
-          _PaymentCard(model),
+          _PaymentCard(widget.model),
           const SizedBox(height: 16),
-          _ShippingCard(shipping: model.purchaseShippingInfo),
+          _ShippingCard(shipping: widget.model.purchaseShippingInfo),
           const SizedBox(height: 23),
           Text.rich(
             TextSpan(
                 text: S.of(context).purchase_item_purchased_from,
                 children: [
                   TextSpan(
-                    text: " ${model.sourcePurchase}",
+                    text: " ${widget.model.sourcePurchase}",
                     style: TextStyle(
                       color: Palette.current.neonTeal,
                     ),
@@ -155,6 +195,35 @@ class _PageBody extends StatelessWidget {
                   fontWeight: FontWeight.w300,
                   color: Palette.current.darkGray,
                 ),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Visibility(
+            visible:
+                widget.model.purchaseItems.first.purchaseProductItemId != null,
+            child: ClickableText(
+                title: SimpleRichText(
+                  S.of(context).see_listing_chat,
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      fontSize: 14,
+                      letterSpacing: 0.015,
+                      color: Palette.current.blueNeon,
+                      fontWeight: FontWeight.w300),
+                ),
+                onPressed: () async {
+                  String productItemId =
+                      widget.model.purchaseItems.first.purchaseProductItemId ??
+                          '';
+
+                  String channelUrl = SendBirdUtils.getListingChatUrlInProfile(
+                      channels, productItemId);
+                  Loading.show(context);
+                  onTapSubmit(channelUrl);
+                }),
+          ),
+          const SizedBox(
+            height: 20,
           ),
         ],
       ),
