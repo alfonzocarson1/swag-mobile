@@ -102,7 +102,7 @@ class _SearchResultFieldState extends State<SearchResultField> {
                         FiltersBottomSheet.route(
                           context,
                           searchParam: this.widget.searchParam,
-                          searchWithFilters: widget.searchWithFilters
+                          searchWithFilters: widget.searchWithFilters, tab: SearchTab.values[widget.category??0]
                         ),
                       );
                     },
