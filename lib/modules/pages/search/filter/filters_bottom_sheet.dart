@@ -252,13 +252,13 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                           selection: S.of(context).release_date_newest,
                         ),
                         (filters.productType != null &&
-                                filters.productType!.isNotEmpty)
+                                filters.productType!.isNotEmpty &&
+                                widget.tab != SearchTab.accessories)
                             ? _filterItem(
                                 context,
                                 S.of(context).type.toUpperCase(),
-                                 () => this.navigateToCategoryPage(
-                                        FilterType.type, categoryId)
-                                    ,
+                                () => this.navigateToCategoryPage(
+                                    FilterType.type, categoryId),
                               )
                             : const SizedBox.shrink(),
                         _filterItem(
