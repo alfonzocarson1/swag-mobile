@@ -51,6 +51,7 @@ class _SliderCustomWidgetState extends State<SliderCustomWidget> {
     return (removedImages == true)
         ? AddPhotoWidget(
             addPhoto: () => selectImages(),
+            catalogImage: widget.catalogImageUrl,
           )
         : MultiImageSlide(
             imgList: imgList,
