@@ -294,12 +294,7 @@ class FooterListItemPage extends StatelessWidget {
 
       Loading.hide(context);
 
-      await Navigator.of(context, rootNavigator: true).push(
-        MaterialPageRoute(
-            builder: (BuildContext context) => ChatPage(
-                  channel: channel,
-                )),
-      );
+      await Navigator.push(context, ChatPage.route(channel));
     } catch (e) {
       Loading.hide(context);
     }
