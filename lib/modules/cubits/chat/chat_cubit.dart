@@ -31,6 +31,8 @@ String currentChannelUrl = "";
 class ChatCubit extends Cubit<ChatState> {
   final IChatService service;
   late User user;
+   ProfileModel profileData =
+        getIt<PreferenceRepositoryService>().profileData();
 
   ChatCubit(this.service) : super(const ChatState.initial());
 
@@ -151,7 +153,8 @@ class ChatCubit extends Cubit<ChatState> {
           }
         },
       );
-
+      sendAlert(jsonString: channel.data.toString(), channelUrl: channel.channelUrl);
+      
       await loadMessages(channel);
       return sentMessage;
     } catch (e) {
@@ -191,6 +194,7 @@ class ChatCubit extends Cubit<ChatState> {
 
     currentMessages.add(fileMessage);
     emit(ChatState.loadedChats(currentMessages));
+    sendAlert(jsonString: channel.data.toString(), channelUrl: channel.channelUrl);
 
     debugPrint('File message sent successfully');
   }
@@ -235,11 +239,34 @@ class ChatCubit extends Cubit<ChatState> {
 
       currentMessages.add(fileMessage);
       emit(ChatState.loadedChats(currentMessages));
+      sendAlert(jsonString: channel.data.toString(), channelUrl: channel.channelUrl);
 
       debugPrint('File message sent successfully');
     } else {
       debugPrint('No image selected');
     }
+  }
+
+  sendAlert({required String jsonString, required String channelUrl}) async {
+    jsonString = jsonString.replaceAll("'", "\"");
+      Map<String, dynamic> jsonData = jsonDecode(jsonString);
+
+              await getIt<AlertCubit>().saveAlert(
+          AlertModel(
+              notificationAlertTitle: jsonData['listingProductName'],
+              notificationAlertBody:
+                  S.current.chatMessageFrom(jsonData['creatorUserName']),
+              typeNotification: 'MESSAGE_CHAT_P2P_ALERT',
+              payload: AlertPayloadModel(
+                  accountId: jsonData['creatorUserId'],
+                  userName: jsonData['creatorUserName'],
+                  itemName: jsonData['listingProductName'],
+                  productItemId: jsonData['productItemId'],
+                  avatar: profileData.useAvatar,
+                  listingStatus: channelUrl,
+                  listingImageUrl: jsonData['listingImageUrl']),
+              read: false),
+        );
   }
 
   Future<GroupChannel> startChat(String productId) async {
