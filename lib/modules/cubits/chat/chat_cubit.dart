@@ -116,52 +116,49 @@ class ChatCubit extends Cubit<ChatState> {
     return false;
   }
 
-  Future<UserMessage> sendMessage(
-      GroupChannel channel, String messageText) async {
-    UserMessage sentMessage;
+  Future<UserMessage?> sendMessage(GroupChannel channel, String messageText) async {
+    int tempMessageId = DateTime.now().millisecondsSinceEpoch.toInt();
+    List<BaseMessage> currentMessages = messages;
+    
+    // Send a message
+    UserMessage tempMessage = UserMessage(
+        channelType: ChannelType.group,
+        channelUrl: channel.channelUrl,
+        message: messageText,
+        messageId: tempMessageId,
+        translations: {});
+   
+    currentMessages.add(tempMessage);
+   // emit(ChatState.loadedChats(currentMessages));  // Display in the UI
+    
+    UserMessageCreateParams params = UserMessageCreateParams(
+      message: messageText,
+      pushNotificationDeliveryOption: PushNotificationDeliveryOption.normal
+    );
+
+    UserMessage? sentMessage;
+
     try {
-      int tempMessageId = DateTime.now().millisecondsSinceEpoch.toInt();
+      sentMessage = await channel.sendUserMessage(params);
 
-      // Send a message
-      UserMessage newMessage = UserMessage(
-          channelType: ChannelType.group,
-          channelUrl: channel.channelUrl,
-          message: messageText,
-          messageId: tempMessageId,
-          translations: {});
-      List<BaseMessage> currentMessages = messages;
-      currentMessages.add(newMessage);
+      // Update the UI after successfully sending the message
+      currentMessages.remove(tempMessage);  // Remove the optimistic message
+      currentMessages.add(sentMessage);   
+      currentMessages.reversed;  // Add the confirmed message from the server
+      emit(ChatState.loadedChats(currentMessages));
+      debugPrint('Text message sent successfully');
 
-      UserMessageCreateParams params = UserMessageCreateParams(
-          message: messageText,
-          pushNotificationDeliveryOption:
-              PushNotificationDeliveryOption.normal);
-
-      sentMessage = channel.sendUserMessage(
-        params,
-        handler: (message, e) {
-          if (e != null) {
-          } else {
-            final index = currentMessages
-                .indexWhere((msg) => msg.messageId == tempMessageId);
-            if (index != -1) {
-              currentMessages[index] = message;
-              sentMessage = message;
-
-              emit(ChatState.loadedChats(currentMessages));
-            }
-          }
-        },
-      );
       sendAlert(jsonString: channel.data.toString(), channelUrl: channel.channelUrl);
-      
       await loadMessages(channel);
-      return sentMessage;
     } catch (e) {
+      print('Error sending text message: $e');
       emit(ChatState.error(e.toString()));
-      throw e;
+      currentMessages.remove(tempMessage);  // Remove the optimistic message due to failure
+      emit(ChatState.loadedChats(currentMessages));
     }
-  }
+
+    return sentMessage;
+}
 
   sendCameraFile(GroupChannel channel, File file, String type) async {
     FileMessage fileMessage;
@@ -365,7 +362,6 @@ class MyGroupChannelHandler extends GroupChannelHandler {
   void onMessageReceived(BaseChannel channel, BaseMessage message) async {
     GroupChannel groupChannel = GroupChannel(channelUrl: channel.channelUrl);
     //print(message);
-    
 
     try {
       currentRoute = getIt<RouteTracker>().currentRoute;
