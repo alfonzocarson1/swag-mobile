@@ -15,6 +15,7 @@ import 'package:swagapp/modules/pages/chat/widgets/camera_permissions_handler.da
 import 'package:swagapp/modules/pages/chat/widgets/chat_popup_menu.dart';
 
 
+import '../../common/utils/custom_route_animations.dart';
 import '../../common/utils/sendbird_utils.dart';
 import '../../constants/constants.dart';
 import '../../cubits/chat/chat_cubit.dart';
@@ -39,6 +40,11 @@ class ChatPage extends StatefulWidget {
   final GroupChannel channel;
 
   ChatPage({required this.channel});
+
+  static Route route(GroupChannel channel) => PageRoutes.material(
+    settings: const RouteSettings(name: name) ,
+    builder: (context) =>  ChatPage(channel: channel)
+  );
 
   @override
   State<ChatPage> createState() => _ChatPageState();
@@ -208,6 +214,7 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
                     const SimpleLoader(),
                 loadedChats: (List<BaseMessage> messages) {
                   messagesList = messages;
+   
                   chatMessages = messagesList.map((chatMessage) {
                     FileMessage fileMessage;
 
@@ -259,6 +266,7 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
                           id: 'SwagBanner', firstName: swagBotNickName),
                       createdAt: DateTime.fromMillisecondsSinceEpoch(
                           widget.channel.invitedAt)));
+                   chatMessages.reversed;
 
                   return RefreshIndicator(
                     onRefresh: () {
@@ -355,7 +363,7 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
                                           createdAt: DateTime.now(),
                                         );
 
-                                        UserMessage sentMessage =
+                                        UserMessage? sentMessage =
                                             await getIt<ChatCubit>()
                                                 .sendMessage(widget.channel,
                                                     chatMessage.text);
@@ -382,7 +390,7 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
                         id: userProfile.accountId,
                       ),
                       onSend: (ChatMessage message) async {
-                        UserMessage sentMessage = await getIt<ChatCubit>()
+                        UserMessage? sentMessage = await getIt<ChatCubit>()
                             .sendMessage(widget.channel, message.text);
                         setState(() {
                           // _messages.add(sentMessage);
