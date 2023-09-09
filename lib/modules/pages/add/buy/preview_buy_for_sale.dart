@@ -128,10 +128,7 @@ class _BuyPreviewPageState extends State<BuyPreviewPage> {
       }
       getIt<PreferenceRepositoryService>().saveShowNotification(false);
       await Future.delayed(const Duration(milliseconds: 500));
-      await Navigator.of(context, rootNavigator: true).push(
-        MaterialPageRoute(
-            builder: (BuildContext context) => ChatPage(channel: chatData)),
-      );
+      await Navigator.push(context, ChatPage.route(chatData));
       loadList();
       Navigator.of(context).pop();
     } catch (e) {
