@@ -186,6 +186,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   Future<void> saveSearchlocally(String searchParam) async{
+    if(searchParam.isEmpty) return;
     
     SearchRequestPayloadModel payload = SearchRequestPayloadModel(
       searchParams: searchParam.isNotEmpty ? [searchParam] : null,
