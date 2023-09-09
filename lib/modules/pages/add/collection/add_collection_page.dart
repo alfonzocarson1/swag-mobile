@@ -330,42 +330,6 @@ class _AddCollectionState extends State<AddCollection> {
                               const SizedBox(
                                 height: 30,
                               ),
-                              CustomTextFormField(
-                                  borderColor: _sourceBorder,
-                                  autofocus: false,
-                                  labelText: S.of(context).country,
-                                  errorText: sourceErrorText,
-                                  dropdownForm: true,
-                                  dropdownFormItems: Sources,
-                                  dropdownvalue: _defaultSource,
-                                  dropdownOnChanged: (String? newValue) {
-                                    setState(() {
-                                      setState(() {
-                                        _defaultSource = newValue!;
-                                        if (isSourceSwag &&
-                                            detailItemModel != null) {
-                                          _purchaseController.text =
-                                              detailItemModel?.retail ?? '';
-                                          _defaultDateTime = detailItemModel!
-                                              .released!
-                                              .toDateTime();
-                                          datePickerErrorFlag = true;
-
-                                          String str =
-                                          _defaultDateTime.toString();
-                                          String result =
-                                          str.replaceAll(' ', 'T');
-                                          formattedDate = result;
-                                        }
-                                      });
-                                    });
-                                  },
-                                  focusNode: _sourceNode,
-                                  controller: _sourceController,
-                                  inputType: TextInputType.text),
-                              const SizedBox(
-                                height: 20,
-                              ),
                               CupertinoDatePickerView(
                                 errorText: datePickerErrorText,
                                 cupertinoDatePickervalue: _defaultDateTime,
@@ -380,6 +344,9 @@ class _AddCollectionState extends State<AddCollection> {
                                     });
                                   });
                                 },
+                              ),
+                              const SizedBox(
+                                height: 10,
                               ),
                               CustomTextFormField(
                                 borderColor: _purchaseBorder,
@@ -434,6 +401,42 @@ class _AddCollectionState extends State<AddCollection> {
                                   },
                                   focusNode: _conditionNode,
                                   controller: _conditionController,
+                                  inputType: TextInputType.text),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              CustomTextFormField(
+                                  borderColor: _sourceBorder,
+                                  autofocus: false,
+                                  labelText: S.of(context).country,
+                                  errorText: sourceErrorText,
+                                  dropdownForm: true,
+                                  dropdownFormItems: Sources,
+                                  dropdownvalue: _defaultSource,
+                                  dropdownOnChanged: (String? newValue) {
+                                    setState(() {
+                                      setState(() {
+                                        _defaultSource = newValue!;
+                                        if (isSourceSwag &&
+                                            detailItemModel != null) {
+                                          _purchaseController.text =
+                                              detailItemModel?.retail ?? '';
+                                          _defaultDateTime = detailItemModel!
+                                              .released!
+                                              .toDateTime();
+                                          datePickerErrorFlag = true;
+
+                                          String str =
+                                              _defaultDateTime.toString();
+                                          String result =
+                                              str.replaceAll(' ', 'T');
+                                          formattedDate = result;
+                                        }
+                                      });
+                                    });
+                                  },
+                                  focusNode: _sourceNode,
+                                  controller: _sourceController,
                                   inputType: TextInputType.text),
                               const SizedBox(
                                 height: 20,
