@@ -997,9 +997,9 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
       _states
           .addAll(caStates.map((e) => '${e['short']} - ${e['name']}').toList());
     } else if (_defaultCountry == "Hong Kong") {
-      _states.addAll(hongKongStates);
+      _states.addAll(hongKongStates..sort());
     } else if (_defaultCountry == "South Korea") {
-      _states.addAll(southKoreaStates);
+      _states.addAll(southKoreaStates..sort());
     } else if (_defaultCountry == "Singapore") {
       _states.addAll(singaporeRegions);
     } else {
@@ -1018,9 +1018,9 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
       _billingStates
           .addAll(caStates.map((e) => '${e['short']} - ${e['name']}').toList());
     } else if (_billingDefaultCountry == "Hong Kong") {
-      _billingStates.addAll(hongKongStates);
+      _billingStates.addAll(hongKongStates..sort());
     } else if (_billingDefaultCountry == "South Korea") {
-      _billingStates.addAll(southKoreaStates);
+      _billingStates.addAll(southKoreaStates..sort());
     } else if (_billingDefaultCountry == "Singapore") {
       _billingStates.addAll(singaporeRegions);
     } else {

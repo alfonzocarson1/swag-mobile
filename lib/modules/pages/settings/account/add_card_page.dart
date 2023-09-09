@@ -670,9 +670,9 @@ class _AddCardPageState extends State<AddCardPage> {
       _billingStates
           .addAll(caStates.map((e) => '${e['short']} - ${e['name']}').toList());
     } else if (_billingDefaultCountry == "Hong Kong") {
-      _billingStates.addAll(hongKongStates);
+      _billingStates.addAll(hongKongStates..sort());
     } else if (_billingDefaultCountry == "South Korea") {
-      _billingStates.addAll(southKoreaStates);
+      _billingStates.addAll(southKoreaStates..sort());
     } else if (_billingDefaultCountry == "Singapore") {
       _billingStates.addAll(singaporeRegions);
     } else {

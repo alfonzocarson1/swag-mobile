@@ -177,11 +177,11 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
           .addAll(usStates.map((e) => '${e['short']} - ${e['name']}').toList());
     } else if (_defaultCountry == "Canada") {
       _states
-          .addAll(caStates.map((e) => '${e['short']} - ${e['name']}').toList());
+          .addAll(caStates.map((e) => '${e['short']} - 33${e['name']}').toList());
     } else if (_defaultCountry == "Hong Kong") {
-      _states.addAll(hongKongStates);
+      _states.addAll(hongKongStates..sort((a, b) => a.compareTo(b)));
     } else if (_defaultCountry == "South Korea") {
-      _states.addAll(southKoreaStates);
+      _states.addAll(southKoreaStates..sort());
     } else {
       _getStates(_defaultCountry);
     }
