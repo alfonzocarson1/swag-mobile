@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:swagapp/modules/common/utils/utils.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../blocs/collection_bloc/collection_bloc.dart';
@@ -158,21 +157,19 @@ class _AddCollectionState extends State<AddCollection> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<DetailBloc, DetailState>(
-        listener: (a, b) => b.when(initial: () {
+        listener: (a, b) => b.when(
+            initial: () {
               Loading.show(context);
               return null;
-            }, error: (error) {
+            },
+            error: (error) {
               Loading.hide(context);
               return null;
-            }, loadedDetailItems: (loadedDetailItems) {
+            },
+            loadedDetailItems: (loadedDetailItems) {
               Loading.hide(context);
               setState(() {
                 detailItemModel = loadedDetailItems.first;
-                if (detailItemModel?.released != null) {
-                  datePickerErrorFlag = true;
-                  _defaultDateTime = detailItemModel!.released!.toDateTime();
-                  updateSelectedDate();
-                }
               });
               return null;
             }),
@@ -330,10 +327,11 @@ class _AddCollectionState extends State<AddCollection> {
                               const SizedBox(
                                 height: 30,
                               ),
+
                               CupertinoDatePickerView(
                                 errorText: datePickerErrorText,
                                 cupertinoDatePickervalue: _defaultDateTime,
-                                enabled: !isSourceSwag,
+                                enabled:!isSourceSwag,
                                 onDone: (DateTime newValue) {
                                   setState(() {
                                     setState(() {
@@ -421,15 +419,13 @@ class _AddCollectionState extends State<AddCollection> {
                                             detailItemModel != null) {
                                           _purchaseController.text =
                                               detailItemModel?.retail ?? '';
-                                          _defaultDateTime = detailItemModel!
-                                              .released!
-                                              .toDateTime();
+                                          _defaultDateTime =
+                                              DateFormat('dd/MM/yyyy').parse(
+                                                  detailItemModel!.released!);
                                           datePickerErrorFlag = true;
 
-                                          String str =
-                                              _defaultDateTime.toString();
-                                          String result =
-                                              str.replaceAll(' ', 'T');
+                                          String str = _defaultDateTime.toString();
+                                          String result = str.replaceAll(' ', 'T');
                                           formattedDate = result;
                                         }
                                       });
@@ -490,12 +486,8 @@ class _AddCollectionState extends State<AddCollection> {
       sourceErrorText =
           _defaultSource != 'Source' ? null : S.of(context).required_field;
 
-      datePickerErrorText = datePickerErrorFlag == true
-          ? detailItemModel?.released?.toDateTime().isAfter(_defaultDateTime) ==
-                  true
-              ? "Date cannot be before Swag release date ${detailItemModel?.released?.toDateTime()}"
-              : null
-          : S.of(context).required_field;
+      datePickerErrorText =
+          datePickerErrorFlag == true ? null : S.of(context).required_field;
     });
   }
 
@@ -503,8 +495,6 @@ class _AddCollectionState extends State<AddCollection> {
     return _purchaseController.text.isNotEmpty &&
         _defaultCondition != 'Condition' &&
         _defaultSource != 'Source' &&
-        (detailItemModel?.released?.toDateTime().isBefore(_defaultDateTime) ==
-            true || _defaultDateTime == detailItemModel?.released?.toDateTime()) &&
         datePickerErrorFlag == true;
   }
 
