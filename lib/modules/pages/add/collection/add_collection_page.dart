@@ -171,8 +171,6 @@ class _AddCollectionState extends State<AddCollection> {
                 if (detailItemModel?.released != null) {
                   datePickerErrorFlag = true;
                   _defaultDateTime = detailItemModel!.released!.toDateTime();
-                  _purchaseController.text = detailItemModel!.retail??'';
-                  setPrice();
                   updateSelectedDate();
                 }
               });
@@ -352,7 +350,7 @@ class _AddCollectionState extends State<AddCollection> {
                                               .released!
                                               .toDateTime();
                                           datePickerErrorFlag = true;
-                                          setPrice();
+
                                           String str =
                                           _defaultDateTime.toString();
                                           String result =
@@ -409,7 +407,10 @@ class _AddCollectionState extends State<AddCollection> {
                                 maxLength: 9,
                                 onChanged: (value) {
                                   setState(() {
-                                    setPrice();
+                                    final parsed =
+                                        CurrencyTextInputFormatter.tryParseText(
+                                            _purchaseController.text);
+                                    _price = parsed ?? 0;
                                   });
                                 },
                               ),
@@ -489,7 +490,7 @@ class _AddCollectionState extends State<AddCollection> {
       datePickerErrorText = datePickerErrorFlag == true
           ? detailItemModel?.released?.toDateTime().isAfter(_defaultDateTime) ==
                   true
-              ? "Date cannot be before Swag release date ${dateFormat(detailItemModel?.released??'')}"
+              ? "Date cannot be before Swag release date ${detailItemModel?.released?.toDateTime()}"
               : null
           : S.of(context).required_field;
     });
@@ -508,12 +509,5 @@ class _AddCollectionState extends State<AddCollection> {
     String str = _defaultDateTime.toString();
     String result = str.replaceAll(' ', 'T');
     formattedDate = result;
-  }
-
-  void setPrice() {
-    final parsed =
-    CurrencyTextInputFormatter.tryParseText(
-        _purchaseController.text);
-    _price = parsed ?? 0;
   }
 }
